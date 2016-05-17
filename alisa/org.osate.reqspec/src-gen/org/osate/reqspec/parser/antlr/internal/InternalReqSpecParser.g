@@ -6389,9 +6389,9 @@ ruleTypeRef returns [EObject current=null]
     	newLeafNode(otherlv_3, grammarAccess.getTypeRefAccess().getIntegerKeyword_1_1());
     }
 (
-	otherlv_4=Unit
+	otherlv_4=Units
     {
-    	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0());
+    	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0());
     }
 (
 (
@@ -6421,9 +6421,9 @@ ruleTypeRef returns [EObject current=null]
     	newLeafNode(otherlv_7, grammarAccess.getTypeRefAccess().getRealKeyword_2_1());
     }
 (
-	otherlv_8=Unit
+	otherlv_8=Units
     {
-    	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0());
     }
 (
 (

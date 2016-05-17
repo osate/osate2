@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DiagnosticId", "Requirements", "Connections", "Description", "Development", "Requirement", "Stakeholder", "Uncertainty", "Decomposes", "Subprogram", "Volatility", "Conflicts", "Constants", "Exception", "Mitigates", "Predicate", "Processor", "Rationale", "Abstract", "Category", "Document", "Informal", "Inherits", "Boolean", "Compute", "Dropped", "Element", "Evolves", "Include", "Integer", "Process", "Refines", "Section", "Success", "Virtual", "Warning", "Device", "Downto", "Global", "Impact", "Issues", "Memory", "String", "KW_System", "Target", "Thread", "Typeof", "Delta", "Endif", "Error", "False", "Goals", "Group", "Model", "State", "Value", "Data", "Else", "Fail", "Goal", "Info", "Mode", "Real", "Self", "Then", "This", "True", "Unit", "Upto", "When", "With", "And", "Bus", "Div", "For", "Img", "Mod", "Not", "See", "Tbd", "Use", "Val", "ExclamationMarkEqualsSign", "AmpersandAmpersand", "FullStopFullStop", "ColonColon", "LessThanSignEqualsSign", "EqualsSignEqualsSign", "GreaterThanSignLessThanSign", "GreaterThanSignEqualsSign", "If", "In", "Or", "VerticalLineVerticalLine", "NumberSign", "PercentSign", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "LessThanSign", "EqualsSign", "GreaterThanSign", "LeftSquareBracket", "RightSquareBracket", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_REAL_LIT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "DiagnosticId", "Requirements", "Connections", "Description", "Development", "Requirement", "Stakeholder", "Uncertainty", "Decomposes", "Subprogram", "Volatility", "Conflicts", "Constants", "Exception", "Mitigates", "Predicate", "Processor", "Rationale", "Abstract", "Category", "Document", "Informal", "Inherits", "Boolean", "Compute", "Dropped", "Element", "Evolves", "Include", "Integer", "Process", "Refines", "Section", "Success", "Virtual", "Warning", "Device", "Downto", "Global", "Impact", "Issues", "Memory", "String", "KW_System", "Target", "Thread", "Typeof", "Delta", "Endif", "Error", "False", "Goals", "Group", "Model", "State", "Units", "Value", "Data", "Else", "Fail", "Goal", "Info", "Mode", "Real", "Self", "Then", "This", "True", "Upto", "When", "With", "And", "Bus", "Div", "For", "Img", "Mod", "Not", "See", "Tbd", "Use", "Val", "ExclamationMarkEqualsSign", "AmpersandAmpersand", "FullStopFullStop", "ColonColon", "LessThanSignEqualsSign", "EqualsSignEqualsSign", "GreaterThanSignLessThanSign", "GreaterThanSignEqualsSign", "If", "In", "Or", "VerticalLineVerticalLine", "NumberSign", "PercentSign", "LeftParenthesis", "RightParenthesis", "Asterisk", "PlusSign", "Comma", "HyphenMinus", "FullStop", "Solidus", "Colon", "LessThanSign", "EqualsSign", "GreaterThanSign", "LeftSquareBracket", "RightSquareBracket", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_REAL_LIT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ID", "RULE_INT", "RULE_STRING", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER"
     };
     public static final int Connections=6;
     public static final int Val=85;
@@ -51,12 +51,12 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int Document=24;
     public static final int Success=37;
     public static final int LessThanSign=109;
-    public static final int Goal=63;
+    public static final int Goal=64;
     public static final int LeftParenthesis=100;
     public static final int Development=8;
-    public static final int Then=68;
+    public static final int Then=69;
     public static final int Boolean=27;
-    public static final int Fail=62;
+    public static final int Fail=63;
     public static final int GreaterThanSign=111;
     public static final int RULE_ID=120;
     public static final int RULE_DIGIT=114;
@@ -78,7 +78,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int In=95;
     public static final int VerticalLineVerticalLine=97;
     public static final int RULE_REAL_LIT=117;
-    public static final int Self=67;
+    public static final int Self=68;
     public static final int GreaterThanSignLessThanSign=92;
     public static final int Comma=104;
     public static final int Target=48;
@@ -100,14 +100,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int When=73;
     public static final int Delta=51;
     public static final int Model=57;
-    public static final int Else=61;
+    public static final int Else=62;
     public static final int RULE_EXTENDED_DIGIT=118;
     public static final int ExclamationMarkEqualsSign=86;
     public static final int Typeof=50;
     public static final int Include=32;
-    public static final int True=70;
+    public static final int True=71;
     public static final int Process=34;
-    public static final int Unit=71;
     public static final int Requirements=5;
     public static final int Global=42;
     public static final int Predicate=19;
@@ -116,8 +115,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int Stakeholder=10;
     public static final int FullStopFullStop=88;
     public static final int Tbd=83;
-    public static final int Real=66;
-    public static final int This=69;
+    public static final int Real=67;
+    public static final int This=70;
     public static final int RULE_BASED_INTEGER=119;
     public static final int RightSquareBracket=113;
     public static final int Dropped=29;
@@ -127,11 +126,12 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int Inherits=26;
     public static final int For=78;
     public static final int RightParenthesis=101;
+    public static final int Units=59;
     public static final int Not=81;
     public static final int State=58;
     public static final int And=75;
     public static final int NumberSign=98;
-    public static final int Value=59;
+    public static final int Value=60;
     public static final int Subprogram=13;
     public static final int Goals=55;
     public static final int Uncertainty=11;
@@ -153,12 +153,12 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     public static final int Mod=80;
     public static final int RULE_WS=125;
     public static final int Endif=52;
-    public static final int Mode=65;
+    public static final int Mode=66;
     public static final int Error=53;
     public static final int Virtual=38;
-    public static final int Data=60;
+    public static final int Data=61;
     public static final int RULE_ANY_OTHER=126;
-    public static final int Info=64;
+    public static final int Info=65;
     public static final int Exception=17;
     public static final int Integer=33;
     public static final int Informal=25;
@@ -18013,7 +18013,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTypeRef"
-    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6364:1: ruleTypeRef returns [EObject current=null] : ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) ) ;
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6364:1: ruleTypeRef returns [EObject current=null] : ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) ) ;
     public final EObject ruleTypeRef() throws RecognitionException {
         EObject current = null;
 
@@ -18029,10 +18029,10 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6367:28: ( ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6368:1: ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6367:28: ( ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6368:1: ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6368:1: ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6368:1: ( ( () otherlv_1= Boolean ) | ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? ) | ( () otherlv_11= String ) | ( () otherlv_13= Model otherlv_14= Element ) | ( () ( ( ruleAADLPROPERTYREFERENCE ) ) ) )
             int alt145=6;
             switch ( input.LA(1) ) {
             case Boolean:
@@ -18106,10 +18106,10 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:6: ( () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:6: ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
                     {
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:6: ( () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:7: () otherlv_3= Integer (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:6: ( () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:7: () otherlv_3= Integer (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6380:7: ()
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6381:5: 
@@ -18130,21 +18130,21 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                           	newLeafNode(otherlv_3, grammarAccess.getTypeRefAccess().getIntegerKeyword_1_1());
                           
                     }
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6391:1: (otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6391:1: (otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     int alt143=2;
                     int LA143_0 = input.LA(1);
 
-                    if ( (LA143_0==Unit) ) {
+                    if ( (LA143_0==Units) ) {
                         alt143=1;
                     }
                     switch (alt143) {
                         case 1 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6392:2: otherlv_4= Unit ( ( ruleAADLPROPERTYREFERENCE ) )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6392:2: otherlv_4= Units ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
-                            otherlv_4=(Token)match(input,Unit,FollowSets000.FOLLOW_Unit_in_ruleTypeRef15287); if (state.failed) return current;
+                            otherlv_4=(Token)match(input,Units,FollowSets000.FOLLOW_Units_in_ruleTypeRef15287); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0());
+                                  	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0());
                                   
                             }
                             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6396:1: ( ( ruleAADLPROPERTYREFERENCE ) )
@@ -18194,10 +18194,10 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 3 :
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:6: ( () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:6: ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
                     {
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:6: ( () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:7: () otherlv_7= Real (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:6: ( () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )? )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:7: () otherlv_7= Real (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6412:7: ()
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6413:5: 
@@ -18218,21 +18218,21 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                           	newLeafNode(otherlv_7, grammarAccess.getTypeRefAccess().getRealKeyword_2_1());
                           
                     }
-                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6423:1: (otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) ) )?
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6423:1: (otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) ) )?
                     int alt144=2;
                     int LA144_0 = input.LA(1);
 
-                    if ( (LA144_0==Unit) ) {
+                    if ( (LA144_0==Units) ) {
                         alt144=1;
                     }
                     switch (alt144) {
                         case 1 :
-                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6424:2: otherlv_8= Unit ( ( ruleAADLPROPERTYREFERENCE ) )
+                            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6424:2: otherlv_8= Units ( ( ruleAADLPROPERTYREFERENCE ) )
                             {
-                            otherlv_8=(Token)match(input,Unit,FollowSets000.FOLLOW_Unit_in_ruleTypeRef15354); if (state.failed) return current;
+                            otherlv_8=(Token)match(input,Units,FollowSets000.FOLLOW_Units_in_ruleTypeRef15354); if (state.failed) return current;
                             if ( state.backtracking==0 ) {
 
-                                  	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0());
+                                  	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0());
                                   
                             }
                             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:6428:1: ( ( ruleAADLPROPERTYREFERENCE ) )
@@ -27031,8 +27031,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA33_specialS =
         "\1\0\5\uffff\1\1\3\uffff}>";
     static final String[] DFA33_transitionS = {
-            "\1\2\1\uffff\1\4\26\uffff\1\5\13\uffff\1\7\45\uffff\1\6\2\uffff"+
-            "\1\3\33\uffff\1\1",
+            "\1\2\1\uffff\1\4\26\uffff\1\5\13\uffff\1\7\45\uffff\1\6\2\uffff\1\3\33\uffff\1\1",
             "",
             "",
             "",
@@ -27137,14 +27136,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA56_maxS =
         "\1\161\16\uffff";
     static final String DFA56_acceptS =
-        "\1\uffff\1\16\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\14\1\15";
+        "\1\uffff\1\16\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15";
     static final String DFA56_specialS =
         "\1\0\16\uffff}>";
     static final String[] DFA56_transitionS = {
-            "\1\3\2\uffff\1\14\1\7\3\uffff\1\11\5\uffff\1\6\1\uffff\1\2"+
-            "\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff"+
-            "\1\5\10\uffff\1\15\2\uffff\1\4\33\uffff\1\1",
+            "\1\3\2\uffff\1\14\1\7\3\uffff\1\11\5\uffff\1\6\1\uffff\1\2\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff\1\5\10\uffff\1\15\2\uffff\1\4\33\uffff\1\1",
             "",
             "",
             "",
@@ -27251,16 +27247,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA69_minS =
         "\1\7\14\uffff\1\30\3\uffff";
     static final String DFA69_maxS =
-        "\1\161\14\uffff\1\77\3\uffff";
+        "\1\161\14\uffff\1\100\3\uffff";
     static final String DFA69_acceptS =
-        "\1\uffff\1\17\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\uffff\1\16\1\14\1\15";
+        "\1\uffff\1\17\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\uffff\1\16\1\14\1\15";
     static final String DFA69_specialS =
         "\1\0\14\uffff\1\1\3\uffff}>";
     static final String[] DFA69_transitionS = {
-            "\1\3\2\uffff\1\14\1\7\3\uffff\1\11\5\uffff\1\6\1\uffff\1\2"+
-            "\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff"+
-            "\1\5\10\uffff\1\15\2\uffff\1\4\33\uffff\1\1",
+            "\1\3\2\uffff\1\14\1\7\3\uffff\1\11\5\uffff\1\6\1\uffff\1\2\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff\1\5\10\uffff\1\15\2\uffff\1\4\33\uffff\1\1",
             "",
             "",
             "",
@@ -27273,7 +27266,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\20\46\uffff\1\17",
+            "\1\20\47\uffff\1\17",
             "",
             "",
             ""
@@ -27384,17 +27377,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA85_minS =
         "\1\7\20\uffff\1\11\4\uffff";
     static final String DFA85_maxS =
-        "\1\161\20\uffff\1\77\4\uffff";
+        "\1\161\20\uffff\1\100\4\uffff";
     static final String DFA85_acceptS =
-        "\1\uffff\1\24\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\14\1\15\1\16\1\17\1\uffff\1\23\1\21\1\22\1\20";
+        "\1\uffff\1\24\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\uffff\1\23\1\21\1\22\1\20";
     static final String DFA85_specialS =
         "\1\1\20\uffff\1\0\4\uffff}>";
     static final String[] DFA85_transitionS = {
-            "\1\3\1\20\2\uffff\1\11\1\14\5\uffff\1\12\1\7\1\uffff\1\10\1"+
-            "\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3"+
-            "\uffff\1\13\10\uffff\1\22\16\uffff\1\7\15\uffff\1\6\10\uffff"+
-            "\1\21\2\uffff\1\4\33\uffff\1\1",
+            "\1\3\1\20\2\uffff\1\11\1\14\5\uffff\1\12\1\7\1\uffff\1\10\1\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3\uffff\1\13\10\uffff\1\22\17\uffff\1\7\14\uffff\1\6\10\uffff\1\21\2\uffff\1\4\33\uffff\1\1",
             "",
             "",
             "",
@@ -27411,7 +27400,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\23\16\uffff\1\24\46\uffff\1\25",
+            "\1\23\16\uffff\1\24\47\uffff\1\25",
             "",
             "",
             "",
@@ -27533,17 +27522,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA103_minS =
         "\1\7\17\uffff\1\11\4\uffff";
     static final String DFA103_maxS =
-        "\1\161\17\uffff\1\77\4\uffff";
+        "\1\161\17\uffff\1\100\4\uffff";
     static final String DFA103_acceptS =
-        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\14\1\15\1\16\1\uffff\1\22\1\17\1\20\1\21";
+        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\uffff\1\22\1\17\1\20\1\21";
     static final String DFA103_specialS =
         "\1\1\17\uffff\1\0\4\uffff}>";
     static final String[] DFA103_transitionS = {
-            "\1\3\1\17\2\uffff\1\11\1\14\5\uffff\1\12\1\7\1\uffff\1\10\1"+
-            "\uffff\1\2\1\uffff\1\7\2\uffff\1\5\1\16\1\uffff\1\15\3\uffff"+
-            "\1\13\10\uffff\1\21\16\uffff\1\7\15\uffff\1\6\10\uffff\1\20"+
-            "\2\uffff\1\4\33\uffff\1\1",
+            "\1\3\1\17\2\uffff\1\11\1\14\5\uffff\1\12\1\7\1\uffff\1\10\1\uffff\1\2\1\uffff\1\7\2\uffff\1\5\1\16\1\uffff\1\15\3\uffff\1\13\10\uffff\1\21\17\uffff\1\7\14\uffff\1\6\10\uffff\1\20\2\uffff\1\4\33\uffff\1\1",
             "",
             "",
             "",
@@ -27559,7 +27544,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\23\16\uffff\1\24\46\uffff\1\22",
+            "\1\23\16\uffff\1\24\47\uffff\1\22",
             "",
             "",
             "",
@@ -27679,17 +27664,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA121_minS =
         "\1\7\20\uffff\1\30\3\uffff";
     static final String DFA121_maxS =
-        "\1\161\20\uffff\1\77\3\uffff";
+        "\1\161\20\uffff\1\100\3\uffff";
     static final String DFA121_acceptS =
-        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
-        "\14\1\15\1\16\1\17\1\uffff\1\22\1\20\1\21";
+        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\uffff\1\22\1\20\1\21";
     static final String DFA121_specialS =
         "\1\0\20\uffff\1\1\3\uffff}>";
     static final String[] DFA121_transitionS = {
-            "\1\3\1\20\2\uffff\1\11\1\14\5\uffff\1\12\1\7\1\uffff\1\10\1"+
-            "\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3"+
-            "\uffff\1\13\10\uffff\1\22\16\uffff\1\7\15\uffff\1\6\10\uffff"+
-            "\1\21\2\uffff\1\4\33\uffff\1\1",
+            "\1\3\1\20\2\uffff\1\11\1\14\5\uffff\1\12\1\7\1\uffff\1\10\1\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3\uffff\1\13\10\uffff\1\22\17\uffff\1\7\14\uffff\1\6\10\uffff\1\21\2\uffff\1\4\33\uffff\1\1",
             "",
             "",
             "",
@@ -27706,7 +27687,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\24\46\uffff\1\23",
+            "\1\24\47\uffff\1\23",
             "",
             "",
             ""
@@ -27827,14 +27808,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA178_maxS =
         "\1\114\7\uffff\1\161\1\uffff\1\161\1\114\6\uffff";
     static final String DFA178_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10"+
-        "\1\11\1\14\1\13\1\16\1\15";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10\1\11\1\14\1\13\1\16\1\15";
     static final String DFA178_specialS =
         "\22\uffff}>";
     static final String[] DFA178_transitionS = {
-            "\1\10\6\uffff\1\7\1\uffff\1\1\13\uffff\1\6\3\uffff\1\13\1\uffff"+
-            "\1\4\4\uffff\1\5\1\uffff\1\11\1\uffff\1\12\12\uffff\1\3\17\uffff"+
-            "\1\2",
+            "\1\10\6\uffff\1\7\1\uffff\1\1\13\uffff\1\6\3\uffff\1\13\1\uffff\1\4\4\uffff\1\5\1\uffff\1\11\1\uffff\1\12\13\uffff\1\3\16\uffff\1\2",
             "",
             "",
             "",
@@ -27842,15 +27820,9 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\14\1\uffff\1\14\3\uffff\1\14\6\uffff\1\14\1\uffff\1\14"+
-            "\11\uffff\1\14\1\uffff\1\14\3\uffff\1\14\1\uffff\1\14\3\uffff"+
-            "\2\14\1\uffff\1\14\1\uffff\1\14\6\uffff\1\15\3\uffff\1\14\17"+
-            "\uffff\1\14\5\uffff\1\14\1\uffff\2\14\32\uffff\2\14",
+            "\1\14\1\uffff\1\14\3\uffff\1\14\6\uffff\1\14\1\uffff\1\14\11\uffff\1\14\1\uffff\1\14\3\uffff\1\14\1\uffff\1\14\3\uffff\2\14\1\uffff\1\14\1\uffff\1\14\6\uffff\1\15\4\uffff\1\14\16\uffff\1\14\5\uffff\1\14\1\uffff\2\14\32\uffff\2\14",
             "",
-            "\1\16\1\uffff\1\16\3\uffff\1\16\6\uffff\1\16\1\uffff\1\16"+
-            "\11\uffff\1\16\1\uffff\1\16\3\uffff\1\16\1\uffff\1\16\3\uffff"+
-            "\2\16\1\uffff\1\16\1\uffff\1\16\6\uffff\1\17\3\uffff\1\16\17"+
-            "\uffff\1\16\5\uffff\1\16\1\uffff\2\16\32\uffff\2\16",
+            "\1\16\1\uffff\1\16\3\uffff\1\16\6\uffff\1\16\1\uffff\1\16\11\uffff\1\16\1\uffff\1\16\3\uffff\1\16\1\uffff\1\16\3\uffff\2\16\1\uffff\1\16\1\uffff\1\16\6\uffff\1\17\4\uffff\1\16\16\uffff\1\16\5\uffff\1\16\1\uffff\2\16\32\uffff\2\16",
             "\1\20\67\uffff\1\21",
             "",
             "",
@@ -27918,21 +27890,21 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleStakeholderGoals471 = new BitSet(new long[]{0x0000000000000000L,0x0000100000004000L});
         public static final BitSet FOLLOW_Colon_in_ruleStakeholderGoals485 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholderGoals501 = new BitSet(new long[]{0x0000000000000000L,0x0000000000004000L});
-        public static final BitSet FOLLOW_For_in_ruleStakeholderGoals522 = new BitSet(new long[]{0x1002A14400502000L,0x0100000000001000L});
+        public static final BitSet FOLLOW_For_in_ruleStakeholderGoals522 = new BitSet(new long[]{0x2002A14400502000L,0x0100000000001000L});
         public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleStakeholderGoals545 = new BitSet(new long[]{0x0000000000000000L,0x0001000000100000L});
-        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleStakeholderGoals572 = new BitSet(new long[]{0x1002A14400502000L,0x0101000000101000L});
+        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleStakeholderGoals572 = new BitSet(new long[]{0x2002A14400502000L,0x0101000000101000L});
         public static final BitSet FOLLOW_Use_in_ruleStakeholderGoals589 = new BitSet(new long[]{0x0000000000010000L});
         public static final BitSet FOLLOW_Constants_in_ruleStakeholderGoals601 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleStakeholderGoals623 = new BitSet(new long[]{0x0000000000000000L,0x0101000000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleStakeholderGoals639 = new BitSet(new long[]{0x8000100000000080L,0x0002000000240000L});
-        public static final BitSet FOLLOW_ruleDescription_in_ruleStakeholderGoals704 = new BitSet(new long[]{0x8000100000000080L,0x0002000000240000L});
-        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleStakeholderGoals779 = new BitSet(new long[]{0x8000100000000080L,0x0002000000240000L});
-        public static final BitSet FOLLOW_ruleGoal_in_ruleStakeholderGoals855 = new BitSet(new long[]{0x8000100000000080L,0x0002000000240000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleStakeholderGoals639 = new BitSet(new long[]{0x0000100000000080L,0x0002000000240001L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleStakeholderGoals704 = new BitSet(new long[]{0x0000100000000080L,0x0002000000240001L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleStakeholderGoals779 = new BitSet(new long[]{0x0000100000000080L,0x0002000000240001L});
+        public static final BitSet FOLLOW_ruleGoal_in_ruleStakeholderGoals855 = new BitSet(new long[]{0x0000100000000080L,0x0002000000240001L});
         public static final BitSet FOLLOW_See_in_ruleStakeholderGoals924 = new BitSet(new long[]{0x0000000001000000L});
         public static final BitSet FOLLOW_Document_in_ruleStakeholderGoals936 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleStakeholderGoals956 = new BitSet(new long[]{0x8000100000000080L,0x0102000000240000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleStakeholderGoals956 = new BitSet(new long[]{0x0000100000000080L,0x0102000000240001L});
         public static final BitSet FOLLOW_Issues_in_ruleStakeholderGoals1026 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholderGoals1042 = new BitSet(new long[]{0x8000100000000080L,0x0402000000240000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholderGoals1042 = new BitSet(new long[]{0x0000100000000080L,0x0402000000240001L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleStakeholderGoals1102 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleReqDocument_in_entryRuleReqDocument1136 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleReqDocument1146 = new BitSet(new long[]{0x0000000000000002L});
@@ -27940,16 +27912,16 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleReqDocument1204 = new BitSet(new long[]{0x0000000000000000L,0x0001100000000000L});
         public static final BitSet FOLLOW_Colon_in_ruleReqDocument1218 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleReqDocument1234 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleReqDocument1254 = new BitSet(new long[]{0x8000101000000280L,0x0002000000040000L});
-        public static final BitSet FOLLOW_ruleDescription_in_ruleReqDocument1319 = new BitSet(new long[]{0x8000101000000280L,0x0002000000040000L});
-        public static final BitSet FOLLOW_ruleDocGoal_in_ruleReqDocument1396 = new BitSet(new long[]{0x8000101000000280L,0x0002000000040000L});
-        public static final BitSet FOLLOW_ruleDocRequirement_in_ruleReqDocument1415 = new BitSet(new long[]{0x8000101000000280L,0x0002000000040000L});
-        public static final BitSet FOLLOW_ruleDocumentSection_in_ruleReqDocument1434 = new BitSet(new long[]{0x8000101000000280L,0x0002000000040000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleReqDocument1254 = new BitSet(new long[]{0x0000101000000280L,0x0002000000040001L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleReqDocument1319 = new BitSet(new long[]{0x0000101000000280L,0x0002000000040001L});
+        public static final BitSet FOLLOW_ruleDocGoal_in_ruleReqDocument1396 = new BitSet(new long[]{0x0000101000000280L,0x0002000000040001L});
+        public static final BitSet FOLLOW_ruleDocRequirement_in_ruleReqDocument1415 = new BitSet(new long[]{0x0000101000000280L,0x0002000000040001L});
+        public static final BitSet FOLLOW_ruleDocumentSection_in_ruleReqDocument1434 = new BitSet(new long[]{0x0000101000000280L,0x0002000000040001L});
         public static final BitSet FOLLOW_See_in_ruleReqDocument1506 = new BitSet(new long[]{0x0000000001000000L});
         public static final BitSet FOLLOW_Document_in_ruleReqDocument1518 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleReqDocument1538 = new BitSet(new long[]{0x8000101000000280L,0x0102000000040000L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleReqDocument1538 = new BitSet(new long[]{0x0000101000000280L,0x0102000000040001L});
         public static final BitSet FOLLOW_Issues_in_ruleReqDocument1608 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleReqDocument1624 = new BitSet(new long[]{0x8000101000000280L,0x0402000000040000L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleReqDocument1624 = new BitSet(new long[]{0x0000101000000280L,0x0402000000040001L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleReqDocument1684 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDocumentSection_in_entryRuleDocumentSection1718 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDocumentSection1728 = new BitSet(new long[]{0x0000000000000002L});
@@ -27957,11 +27929,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_ID_in_ruleDocumentSection1782 = new BitSet(new long[]{0x0000000000000000L,0x0001100000000000L});
         public static final BitSet FOLLOW_Colon_in_ruleDocumentSection1801 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDocumentSection1817 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocumentSection1837 = new BitSet(new long[]{0x8000001000000280L,0x0002000000000000L});
-        public static final BitSet FOLLOW_ruleDescription_in_ruleDocumentSection1902 = new BitSet(new long[]{0x8000001000000280L,0x0002000000000000L});
-        public static final BitSet FOLLOW_ruleDocGoal_in_ruleDocumentSection1979 = new BitSet(new long[]{0x8000001000000280L,0x0002000000000000L});
-        public static final BitSet FOLLOW_ruleDocRequirement_in_ruleDocumentSection1998 = new BitSet(new long[]{0x8000001000000280L,0x0002000000000000L});
-        public static final BitSet FOLLOW_ruleDocumentSection_in_ruleDocumentSection2017 = new BitSet(new long[]{0x8000001000000280L,0x0002000000000000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocumentSection1837 = new BitSet(new long[]{0x0000001000000280L,0x0002000000000001L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleDocumentSection1902 = new BitSet(new long[]{0x0000001000000280L,0x0002000000000001L});
+        public static final BitSet FOLLOW_ruleDocGoal_in_ruleDocumentSection1979 = new BitSet(new long[]{0x0000001000000280L,0x0002000000000001L});
+        public static final BitSet FOLLOW_ruleDocRequirement_in_ruleDocumentSection1998 = new BitSet(new long[]{0x0000001000000280L,0x0002000000000001L});
+        public static final BitSet FOLLOW_ruleDocumentSection_in_ruleDocumentSection2017 = new BitSet(new long[]{0x0000001000000280L,0x0002000000000001L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleDocumentSection2074 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleSystemRequirementSet_in_entryRuleSystemRequirementSet2108 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleSystemRequirementSet2118 = new BitSet(new long[]{0x0000000000000002L});
@@ -28074,7 +28046,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_STRING_in_ruleGoal6240 = new BitSet(new long[]{0x00001008A0A08C80L,0x0002000000240200L});
         public static final BitSet FOLLOW_Stakeholder_in_ruleGoal6315 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal6337 = new BitSet(new long[]{0x00001008A0A08C80L,0x0102000000240200L});
-        public static final BitSet FOLLOW_See_in_ruleGoal6407 = new BitSet(new long[]{0x8000000000000000L});
+        public static final BitSet FOLLOW_See_in_ruleGoal6407 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
         public static final BitSet FOLLOW_Goal_in_ruleGoal6419 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGoal6441 = new BitSet(new long[]{0x00001008A0A08C80L,0x0102000000240200L});
         public static final BitSet FOLLOW_See_in_ruleGoal6511 = new BitSet(new long[]{0x0000000001000000L});
@@ -28091,43 +28063,43 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement6822 = new BitSet(new long[]{0x0000000000000000L,0x0001000000004000L});
         public static final BitSet FOLLOW_For_in_ruleSystemRequirement6843 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleSystemRequirement6862 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleSystemRequirement6877 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleSystemRequirement6877 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Category_in_ruleSystemRequirement6935 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleCatRef_in_ruleSystemRequirement6957 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_ruleDescription_in_ruleSystemRequirement7034 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleSystemRequirement7109 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleSystemRequirement7185 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleWhenCondition_in_ruleSystemRequirement7261 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleSystemRequirement7336 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleRationale_in_ruleSystemRequirement7411 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleUncertainty_in_ruleSystemRequirement7486 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleCatRef_in_ruleSystemRequirement6957 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleSystemRequirement7034 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleSystemRequirement7109 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleSystemRequirement7185 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleWhenCondition_in_ruleSystemRequirement7261 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleSystemRequirement7336 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleSystemRequirement7411 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleSystemRequirement7486 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Mitigates_in_ruleSystemRequirement7554 = new BitSet(new long[]{0x0000000000000000L,0x0500000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleSystemRequirement7574 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement7597 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleSystemRequirement7574 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement7597 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Refines_in_ruleSystemRequirement7672 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7694 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7694 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Decomposes_in_ruleSystemRequirement7764 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7786 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7786 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Inherits_in_ruleSystemRequirement7856 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7878 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7878 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Evolves_in_ruleSystemRequirement7947 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7969 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_Dropped_in_ruleSystemRequirement8045 = new BitSet(new long[]{0x08001008B6AC1980L,0x0402000000240200L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement8073 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement7969 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_Dropped_in_ruleSystemRequirement8045 = new BitSet(new long[]{0x10001008B6AC1980L,0x0402000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement8073 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Development_in_ruleSystemRequirement8148 = new BitSet(new long[]{0x0000000000000400L});
         public static final BitSet FOLLOW_Stakeholder_in_ruleSystemRequirement8160 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement8182 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_See_in_ruleSystemRequirement8252 = new BitSet(new long[]{0x8000000000000000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement8182 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_See_in_ruleSystemRequirement8252 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
         public static final BitSet FOLLOW_Goal_in_ruleSystemRequirement8264 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement8286 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement8286 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_See_in_ruleSystemRequirement8356 = new BitSet(new long[]{0x0000000000000200L});
         public static final BitSet FOLLOW_Requirement_in_ruleSystemRequirement8368 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement8390 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleSystemRequirement8390 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_See_in_ruleSystemRequirement8460 = new BitSet(new long[]{0x0000000001000000L});
         public static final BitSet FOLLOW_Document_in_ruleSystemRequirement8472 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleSystemRequirement8492 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleSystemRequirement8492 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Issues_in_ruleSystemRequirement8562 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement8578 = new BitSet(new long[]{0x08001008B6AC1980L,0x0402000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleSystemRequirement8578 = new BitSet(new long[]{0x10001008B6AC1980L,0x0402000000240200L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleSystemRequirement8638 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleGlobalRequirement_in_entryRuleGlobalRequirement8672 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleGlobalRequirement8682 = new BitSet(new long[]{0x0000000000000002L});
@@ -28135,44 +28107,44 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_ID_in_ruleGlobalRequirement8736 = new BitSet(new long[]{0x0000000000000000L,0x0001100000004000L});
         public static final BitSet FOLLOW_Colon_in_ruleGlobalRequirement8755 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement8771 = new BitSet(new long[]{0x0000000000000000L,0x0001000000004000L});
-        public static final BitSet FOLLOW_For_in_ruleGlobalRequirement8792 = new BitSet(new long[]{0x1002A14400502040L,0x0100000000001000L});
-        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleGlobalRequirement8813 = new BitSet(new long[]{0x1002A14400502000L,0x0101000000001000L});
+        public static final BitSet FOLLOW_For_in_ruleGlobalRequirement8792 = new BitSet(new long[]{0x2002A14400502040L,0x0100000000001000L});
+        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleGlobalRequirement8813 = new BitSet(new long[]{0x2002A14400502000L,0x0101000000001000L});
         public static final BitSet FOLLOW_Connections_in_ruleGlobalRequirement8839 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleGlobalRequirement8866 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleGlobalRequirement8866 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Category_in_ruleGlobalRequirement8924 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleCatRef_in_ruleGlobalRequirement8946 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_ruleDescription_in_ruleGlobalRequirement9023 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleGlobalRequirement9098 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleGlobalRequirement9174 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleWhenCondition_in_ruleGlobalRequirement9250 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleGlobalRequirement9325 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleRationale_in_ruleGlobalRequirement9400 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleUncertainty_in_ruleGlobalRequirement9475 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleCatRef_in_ruleGlobalRequirement8946 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleGlobalRequirement9023 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleGlobalRequirement9098 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleGlobalRequirement9174 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleWhenCondition_in_ruleGlobalRequirement9250 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleGlobalRequirement9325 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleGlobalRequirement9400 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleGlobalRequirement9475 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Mitigates_in_ruleGlobalRequirement9543 = new BitSet(new long[]{0x0000000000000000L,0x0500000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleGlobalRequirement9563 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement9586 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleGlobalRequirement9563 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement9586 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Refines_in_ruleGlobalRequirement9661 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement9683 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement9683 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Decomposes_in_ruleGlobalRequirement9753 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement9775 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement9775 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Evolves_in_ruleGlobalRequirement9845 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement9867 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_Dropped_in_ruleGlobalRequirement9943 = new BitSet(new long[]{0x08001008B2AC1980L,0x0402000000240200L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement9971 = new BitSet(new long[]{0x08001008B2AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement9867 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_Dropped_in_ruleGlobalRequirement9943 = new BitSet(new long[]{0x10001008B2AC1980L,0x0402000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement9971 = new BitSet(new long[]{0x10001008B2AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Development_in_ruleGlobalRequirement10046 = new BitSet(new long[]{0x0000000000000400L});
         public static final BitSet FOLLOW_Stakeholder_in_ruleGlobalRequirement10058 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement10080 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_See_in_ruleGlobalRequirement10150 = new BitSet(new long[]{0x8000000000000000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement10080 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_See_in_ruleGlobalRequirement10150 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
         public static final BitSet FOLLOW_Goal_in_ruleGlobalRequirement10162 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement10184 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement10184 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_See_in_ruleGlobalRequirement10254 = new BitSet(new long[]{0x0000000000000200L});
         public static final BitSet FOLLOW_Requirement_in_ruleGlobalRequirement10266 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement10288 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleGlobalRequirement10288 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_See_in_ruleGlobalRequirement10358 = new BitSet(new long[]{0x0000000001000000L});
         public static final BitSet FOLLOW_Document_in_ruleGlobalRequirement10370 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleGlobalRequirement10390 = new BitSet(new long[]{0x08001008B2AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleGlobalRequirement10390 = new BitSet(new long[]{0x10001008B2AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Issues_in_ruleGlobalRequirement10460 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement10476 = new BitSet(new long[]{0x08001008B2AC1980L,0x0402000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleGlobalRequirement10476 = new BitSet(new long[]{0x10001008B2AC1980L,0x0402000000240200L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleGlobalRequirement10536 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDocRequirement_in_entryRuleDocRequirement10570 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDocRequirement10580 = new BitSet(new long[]{0x0000000000000002L});
@@ -28180,57 +28152,57 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement10634 = new BitSet(new long[]{0x0000000000000000L,0x0001100000004000L});
         public static final BitSet FOLLOW_Colon_in_ruleDocRequirement10653 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement10669 = new BitSet(new long[]{0x0000000000000000L,0x0001000000004000L});
-        public static final BitSet FOLLOW_For_in_ruleDocRequirement10690 = new BitSet(new long[]{0x1002A14400502000L,0x0500000000001000L});
+        public static final BitSet FOLLOW_For_in_ruleDocRequirement10690 = new BitSet(new long[]{0x2002A14400502000L,0x0500000000001000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement10707 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
         public static final BitSet FOLLOW_ruleAadlClassifierReference_in_ruleDocRequirement10742 = new BitSet(new long[]{0x0000000000000000L,0x0101000000000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement10762 = new BitSet(new long[]{0x0000000000000000L,0x0001000000000000L});
-        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleDocRequirement10791 = new BitSet(new long[]{0x1002A14400502000L,0x0101000000001000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocRequirement10808 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleDocRequirement10791 = new BitSet(new long[]{0x2002A14400502000L,0x0101000000001000L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleDocRequirement10808 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Category_in_ruleDocRequirement10866 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleCatRef_in_ruleDocRequirement10888 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_ruleDescription_in_ruleDocRequirement10965 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleDocRequirement11040 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleDocRequirement11116 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleWhenCondition_in_ruleDocRequirement11192 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleDocRequirement11267 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleRationale_in_ruleDocRequirement11342 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_ruleUncertainty_in_ruleDocRequirement11417 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleCatRef_in_ruleDocRequirement10888 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleDescription_in_ruleDocRequirement10965 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleValDeclaration_in_ruleDocRequirement11040 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleComputeDeclaration_in_ruleDocRequirement11116 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleWhenCondition_in_ruleDocRequirement11192 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleReqPredicate_in_ruleDocRequirement11267 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleRationale_in_ruleDocRequirement11342 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleUncertainty_in_ruleDocRequirement11417 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Mitigates_in_ruleDocRequirement11485 = new BitSet(new long[]{0x0000000000000000L,0x0500000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement11505 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement11528 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleDocRequirement11505 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement11528 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Refines_in_ruleDocRequirement11603 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11625 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11625 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Decomposes_in_ruleDocRequirement11695 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11717 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11717 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Inherits_in_ruleDocRequirement11787 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11809 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11809 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Evolves_in_ruleDocRequirement11878 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11900 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_Dropped_in_ruleDocRequirement11976 = new BitSet(new long[]{0x08001008B6AC1980L,0x0402000000240200L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement12004 = new BitSet(new long[]{0x08001008B6AC1980L,0x0002000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement11900 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_Dropped_in_ruleDocRequirement11976 = new BitSet(new long[]{0x10001008B6AC1980L,0x0402000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement12004 = new BitSet(new long[]{0x10001008B6AC1980L,0x0002000000240200L});
         public static final BitSet FOLLOW_Development_in_ruleDocRequirement12079 = new BitSet(new long[]{0x0000000000000400L});
         public static final BitSet FOLLOW_Stakeholder_in_ruleDocRequirement12091 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement12113 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
-        public static final BitSet FOLLOW_See_in_ruleDocRequirement12183 = new BitSet(new long[]{0x8000000000000000L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement12113 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_See_in_ruleDocRequirement12183 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
         public static final BitSet FOLLOW_Goal_in_ruleDocRequirement12195 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement12217 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleDocRequirement12217 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_See_in_ruleDocRequirement12287 = new BitSet(new long[]{0x0000000001000000L});
         public static final BitSet FOLLOW_Document_in_ruleDocRequirement12299 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
-        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleDocRequirement12319 = new BitSet(new long[]{0x08001008B6AC1980L,0x0102000000240200L});
+        public static final BitSet FOLLOW_ruleExternalDocument_in_ruleDocRequirement12319 = new BitSet(new long[]{0x10001008B6AC1980L,0x0102000000240200L});
         public static final BitSet FOLLOW_Issues_in_ruleDocRequirement12389 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement12405 = new BitSet(new long[]{0x08001008B6AC1980L,0x0402000000240200L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleDocRequirement12405 = new BitSet(new long[]{0x10001008B6AC1980L,0x0402000000240200L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleDocRequirement12465 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleIncludeGlobalRequirement_in_entryRuleIncludeGlobalRequirement12499 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleIncludeGlobalRequirement12509 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Include_in_ruleIncludeGlobalRequirement12547 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleQualifiedName_in_ruleIncludeGlobalRequirement12569 = new BitSet(new long[]{0x0000000000000002L,0x0000000000004000L});
-        public static final BitSet FOLLOW_For_in_ruleIncludeGlobalRequirement12583 = new BitSet(new long[]{0x1002A14400502000L,0x0100000000001008L});
-        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleIncludeGlobalRequirement12604 = new BitSet(new long[]{0x1002A14400502002L,0x0100000000001000L});
+        public static final BitSet FOLLOW_For_in_ruleIncludeGlobalRequirement12583 = new BitSet(new long[]{0x2002A14400502000L,0x0100000000001010L});
+        public static final BitSet FOLLOW_ruleComponentCategory_in_ruleIncludeGlobalRequirement12604 = new BitSet(new long[]{0x2002A14400502002L,0x0100000000001000L});
         public static final BitSet FOLLOW_Self_in_ruleIncludeGlobalRequirement12630 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleWhenCondition_in_entryRuleWhenCondition12679 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleWhenCondition12689 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_When_in_ruleWhenCondition12727 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
-        public static final BitSet FOLLOW_In_in_ruleWhenCondition12741 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000002L});
+        public static final BitSet FOLLOW_When_in_ruleWhenCondition12727 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
+        public static final BitSet FOLLOW_In_in_ruleWhenCondition12741 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000004L});
         public static final BitSet FOLLOW_Mode_in_ruleWhenCondition12753 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleWhenCondition12772 = new BitSet(new long[]{0x0000000000000002L,0x0000010000000000L});
         public static final BitSet FOLLOW_Comma_in_ruleWhenCondition12786 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
@@ -28254,20 +28226,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_STRING_in_ruleInformalPredicate13191 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rulePredicate_in_entryRulePredicate13231 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRulePredicate13241 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Predicate_in_rulePredicate13279 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_Predicate_in_rulePredicate13279 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_rulePredicate13299 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleValuePredicate_in_entryRuleValuePredicate13334 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleValuePredicate13344 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Value_in_ruleValuePredicate13382 = new BitSet(new long[]{0x0000000000080000L});
-        public static final BitSet FOLLOW_Predicate_in_ruleValuePredicate13394 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_Predicate_in_ruleValuePredicate13394 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAAndExpression_in_ruleValuePredicate13414 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000400L});
         public static final BitSet FOLLOW_With_in_ruleValuePredicate13428 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleDesiredValue_in_ruleValuePredicate13448 = new BitSet(new long[]{0x0000000000000002L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleDesiredValue_in_entryRuleDesiredValue13486 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDesiredValue13496 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleDesiredValue13541 = new BitSet(new long[]{0x0000020000000000L,0x0000000000000100L});
-        public static final BitSet FOLLOW_Upto_in_ruleDesiredValue13561 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
-        public static final BitSet FOLLOW_Downto_in_ruleDesiredValue13591 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_Upto_in_ruleDesiredValue13561 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
+        public static final BitSet FOLLOW_Downto_in_ruleDesiredValue13591 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleDesiredValue13612 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleExternalDocument_in_entryRuleExternalDocument13647 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleExternalDocument13657 = new BitSet(new long[]{0x0000000000000002L});
@@ -28293,8 +28265,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_ID_in_ruleCatRef14156 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleDescription_in_entryRuleDescription14200 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDescription14210 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Description_in_ruleDescription14248 = new BitSet(new long[]{0x0000000000000000L,0x0500000000008020L});
-        public static final BitSet FOLLOW_ruleDescriptionElement_in_ruleDescription14268 = new BitSet(new long[]{0x0000000000000002L,0x0500000000008020L});
+        public static final BitSet FOLLOW_Description_in_ruleDescription14248 = new BitSet(new long[]{0x0000000000000000L,0x0500000000008040L});
+        public static final BitSet FOLLOW_ruleDescriptionElement_in_ruleDescription14268 = new BitSet(new long[]{0x0000000000000002L,0x0500000000008040L});
         public static final BitSet FOLLOW_ruleDescriptionElement_in_entryRuleDescriptionElement14304 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleDescriptionElement14314 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleDescriptionElement14356 = new BitSet(new long[]{0x0000000000000002L});
@@ -28324,17 +28296,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue15059 = new BitSet(new long[]{0x0000000000000012L,0x0001000000000000L});
         public static final BitSet FOLLOW_DiagnosticId_in_ruleResultIssue15080 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
         public static final BitSet FOLLOW_RULE_STRING_in_ruleResultIssue15096 = new BitSet(new long[]{0x0000000000000002L,0x0001000000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleResultIssue15117 = new BitSet(new long[]{0x402000A000000000L,0x0002000000080001L});
-        public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue15137 = new BitSet(new long[]{0x402000A000000000L,0x0002000000080001L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleResultIssue15117 = new BitSet(new long[]{0x802000A000000000L,0x0002000000080002L});
+        public static final BitSet FOLLOW_ruleResultIssue_in_ruleResultIssue15137 = new BitSet(new long[]{0x802000A000000000L,0x0002000000080002L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleResultIssue15151 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleTypeRef_in_entryRuleTypeRef15187 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleTypeRef15197 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Boolean_in_ruleTypeRef15245 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Integer_in_ruleTypeRef15274 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
-        public static final BitSet FOLLOW_Unit_in_ruleTypeRef15287 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
+        public static final BitSet FOLLOW_Integer_in_ruleTypeRef15274 = new BitSet(new long[]{0x0800000000000002L});
+        public static final BitSet FOLLOW_Units_in_ruleTypeRef15287 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleTypeRef15309 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Real_in_ruleTypeRef15341 = new BitSet(new long[]{0x0000000000000002L,0x0000000000000080L});
-        public static final BitSet FOLLOW_Unit_in_ruleTypeRef15354 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
+        public static final BitSet FOLLOW_Real_in_ruleTypeRef15341 = new BitSet(new long[]{0x0800000000000002L});
+        public static final BitSet FOLLOW_Units_in_ruleTypeRef15354 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_ruleTypeRef15376 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_String_in_ruleTypeRef15408 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Model_in_ruleTypeRef15437 = new BitSet(new long[]{0x0000000040000000L});
@@ -28347,26 +28319,26 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_EOF_in_entryRuleValDeclaration15636 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Val_in_ruleValDeclaration15683 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleValDeclaration15699 = new BitSet(new long[]{0x0000000000000000L,0x0000500000000000L});
-        public static final BitSet FOLLOW_Colon_in_ruleValDeclaration15718 = new BitSet(new long[]{0x0204400208000000L,0x0101000000000004L});
+        public static final BitSet FOLLOW_Colon_in_ruleValDeclaration15718 = new BitSet(new long[]{0x0204400208000000L,0x0101000000000008L});
         public static final BitSet FOLLOW_ruleTypeRef_in_ruleValDeclaration15739 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
         public static final BitSet FOLLOW_Typeof_in_ruleValDeclaration15759 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_rulePropertyRef_in_ruleValDeclaration15779 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleValDeclaration15806 = new BitSet(new long[]{0x0204400208000000L,0x0100000000000004L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleValDeclaration15806 = new BitSet(new long[]{0x0204400208000000L,0x0100000000000008L});
         public static final BitSet FOLLOW_ruleTypeRef_in_ruleValDeclaration15839 = new BitSet(new long[]{0x0000000000000000L,0x0002000000000000L});
         public static final BitSet FOLLOW_Typeof_in_ruleValDeclaration15859 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_rulePropertyRef_in_ruleValDeclaration15879 = new BitSet(new long[]{0x0000000000000000L,0x0002000000000000L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleValDeclaration15894 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000000L});
-        public static final BitSet FOLLOW_EqualsSign_in_ruleValDeclaration15910 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_EqualsSign_in_ruleValDeclaration15910 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleValDeclaration15930 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleComputeDeclaration_in_entryRuleComputeDeclaration15965 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleComputeDeclaration15975 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Compute_in_ruleComputeDeclaration16022 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleComputeDeclaration16038 = new BitSet(new long[]{0x0000000000000000L,0x0000100000000000L});
-        public static final BitSet FOLLOW_Colon_in_ruleComputeDeclaration16056 = new BitSet(new long[]{0x0204400208000000L,0x0101000000000004L});
+        public static final BitSet FOLLOW_Colon_in_ruleComputeDeclaration16056 = new BitSet(new long[]{0x0204400208000000L,0x0101000000000008L});
         public static final BitSet FOLLOW_ruleTypeRef_in_ruleComputeDeclaration16077 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_Typeof_in_ruleComputeDeclaration16097 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_rulePropertyRef_in_ruleComputeDeclaration16117 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleComputeDeclaration16144 = new BitSet(new long[]{0x0204400208000000L,0x0100000000000004L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleComputeDeclaration16144 = new BitSet(new long[]{0x0204400208000000L,0x0100000000000008L});
         public static final BitSet FOLLOW_ruleTypeRef_in_ruleComputeDeclaration16177 = new BitSet(new long[]{0x0000000000000000L,0x0002000000000000L});
         public static final BitSet FOLLOW_Typeof_in_ruleComputeDeclaration16197 = new BitSet(new long[]{0x0000000000000000L,0x0100000000000000L});
         public static final BitSet FOLLOW_rulePropertyRef_in_ruleComputeDeclaration16217 = new BitSet(new long[]{0x0000000000000000L,0x0002000000000000L});
@@ -28412,7 +28384,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAOrExpression_in_entryRuleAOrExpression17302 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAOrExpression17312 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression17359 = new BitSet(new long[]{0x0000000000000002L,0x0000000300000000L});
-        public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression17408 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpOr_in_ruleAOrExpression17408 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAAndExpression_in_ruleAOrExpression17431 = new BitSet(new long[]{0x0000000000000002L,0x0000000300000000L});
         public static final BitSet FOLLOW_ruleOpOr_in_entryRuleOpOr17469 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleOpOr17480 = new BitSet(new long[]{0x0000000000000002L});
@@ -28421,7 +28393,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAAndExpression_in_entryRuleAAndExpression17576 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAAndExpression17586 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression17633 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800800L});
-        public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression17682 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpAnd_in_ruleAAndExpression17682 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAEqualityExpression_in_ruleAAndExpression17705 = new BitSet(new long[]{0x0000000000000002L,0x0000000000800800L});
         public static final BitSet FOLLOW_ruleOpAnd_in_entryRuleOpAnd17743 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleOpAnd17754 = new BitSet(new long[]{0x0000000000000002L});
@@ -28430,7 +28402,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAEqualityExpression_in_entryRuleAEqualityExpression17850 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAEqualityExpression17860 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression17907 = new BitSet(new long[]{0x0000000000000002L,0x0000000008400000L});
-        public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression17956 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpEquality_in_ruleAEqualityExpression17956 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleARelationalExpression_in_ruleAEqualityExpression17979 = new BitSet(new long[]{0x0000000000000002L,0x0000000008400000L});
         public static final BitSet FOLLOW_ruleOpEquality_in_entryRuleOpEquality18017 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleOpEquality18028 = new BitSet(new long[]{0x0000000000000002L});
@@ -28439,7 +28411,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleARelationalExpression_in_entryRuleARelationalExpression18124 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleARelationalExpression18134 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleARelationalExpression18181 = new BitSet(new long[]{0x0000000000000002L,0x0000A00034000000L});
-        public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression18230 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpCompare_in_ruleARelationalExpression18230 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAAdditiveExpression_in_ruleARelationalExpression18253 = new BitSet(new long[]{0x0000000000000002L,0x0000A00034000000L});
         public static final BitSet FOLLOW_ruleOpCompare_in_entryRuleOpCompare18291 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleOpCompare18302 = new BitSet(new long[]{0x0000000000000002L});
@@ -28451,7 +28423,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAAdditiveExpression_in_entryRuleAAdditiveExpression18455 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAAdditiveExpression18465 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression18512 = new BitSet(new long[]{0x0000000000000002L,0x0000028000000000L});
-        public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression18561 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpAdd_in_ruleAAdditiveExpression18561 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_ruleAAdditiveExpression18584 = new BitSet(new long[]{0x0000000000000002L,0x0000028000000000L});
         public static final BitSet FOLLOW_ruleOpAdd_in_entryRuleOpAdd18622 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleOpAdd18633 = new BitSet(new long[]{0x0000000000000002L});
@@ -28460,7 +28432,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_entryRuleAMultiplicativeExpression18729 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAMultiplicativeExpression18739 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression18786 = new BitSet(new long[]{0x0000000000000002L,0x0000084000012000L});
-        public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression18835 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpMulti_in_ruleAMultiplicativeExpression18835 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAMultiplicativeExpression18858 = new BitSet(new long[]{0x0000000000000002L,0x0000084000012000L});
         public static final BitSet FOLLOW_ruleOpMulti_in_entryRuleOpMulti18896 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleOpMulti18907 = new BitSet(new long[]{0x0000000000000002L});
@@ -28470,7 +28442,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_Mod_in_ruleOpMulti19002 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAUnaryOperation_in_entryRuleAUnaryOperation19041 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAUnaryOperation19051 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation19117 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_ruleOpUnary_in_ruleAUnaryOperation19117 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAUnaryOperation_in_ruleAUnaryOperation19138 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAUnitExpression_in_ruleAUnaryOperation19167 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpUnary_in_entryRuleOpUnary19202 = new BitSet(new long[]{0x0000000000000000L});
@@ -28496,27 +28468,27 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAFunctionCall_in_entryRuleAFunctionCall19773 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAFunctionCall19783 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_RULE_ID_in_ruleAFunctionCall19834 = new BitSet(new long[]{0x0000000000000000L,0x0000001000000000L});
-        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAFunctionCall19852 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAFunctionCall19852 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall19872 = new BitSet(new long[]{0x0000000000000000L,0x0000012000000000L});
-        public static final BitSet FOLLOW_Comma_in_ruleAFunctionCall19886 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_Comma_in_ruleAFunctionCall19886 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall19906 = new BitSet(new long[]{0x0000000000000000L,0x0000012000000000L});
         public static final BitSet FOLLOW_RightParenthesis_in_ruleAFunctionCall19921 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleARangeExpression_in_entryRuleARangeExpression19955 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleARangeExpression19965 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleARangeExpression20012 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleARangeExpression20012 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression20032 = new BitSet(new long[]{0x0000000000000000L,0x0000000001000000L});
-        public static final BitSet FOLLOW_FullStopFullStop_in_ruleARangeExpression20045 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_FullStopFullStop_in_ruleARangeExpression20045 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression20065 = new BitSet(new long[]{0x0008000000000000L,0x0002000000000000L});
-        public static final BitSet FOLLOW_Delta_in_ruleARangeExpression20086 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_Delta_in_ruleARangeExpression20086 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression20107 = new BitSet(new long[]{0x0000000000000000L,0x0002000000000000L});
         public static final BitSet FOLLOW_RightSquareBracket_in_ruleARangeExpression20122 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAIfExpression_in_entryRuleAIfExpression20156 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAIfExpression20166 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_If_in_ruleAIfExpression20213 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20233 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000010L});
-        public static final BitSet FOLLOW_Then_in_ruleAIfExpression20246 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20266 = new BitSet(new long[]{0x2010000000000000L});
-        public static final BitSet FOLLOW_Else_in_ruleAIfExpression20280 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_If_in_ruleAIfExpression20213 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20233 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000020L});
+        public static final BitSet FOLLOW_Then_in_ruleAIfExpression20246 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20266 = new BitSet(new long[]{0x4010000000000000L});
+        public static final BitSet FOLLOW_Else_in_ruleAIfExpression20280 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20300 = new BitSet(new long[]{0x0010000000000000L});
         public static final BitSet FOLLOW_Endif_in_ruleAIfExpression20315 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral20349 = new BitSet(new long[]{0x0000000000000000L});
@@ -28549,7 +28521,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString21156 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression21199 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression21209 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression21247 = new BitSet(new long[]{0x0040000000000000L,0x07210294C0020060L});
+        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression21247 = new BitSet(new long[]{0x0040000000000000L,0x07210294C00200C0L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression21268 = new BitSet(new long[]{0x0000000000000000L,0x0000002000000000L});
         public static final BitSet FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression21280 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory21315 = new BitSet(new long[]{0x0000000000000000L});

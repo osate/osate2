@@ -99,7 +99,6 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Then", "'then'");
 		tokenNameToValue.put("This", "'this'");
 		tokenNameToValue.put("True", "'true'");
-		tokenNameToValue.put("Unit", "'unit'");
 		tokenNameToValue.put("Upto", "'upto'");
 		tokenNameToValue.put("When", "'when'");
 		tokenNameToValue.put("With", "'with'");
@@ -111,6 +110,7 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Group", "'group'");
 		tokenNameToValue.put("Model", "'model'");
 		tokenNameToValue.put("State", "'state'");
+		tokenNameToValue.put("Units", "'units'");
 		tokenNameToValue.put("Value", "'value'");
 		tokenNameToValue.put("Device", "'device'");
 		tokenNameToValue.put("Downto", "'downto'");
@@ -15037,11 +15037,11 @@ rule__TypeRef__Group_1_2__0__Impl
     }
 :
 (
-{ before(grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0()); }
+{ before(grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0()); }
 
-	Unit 
+	Units 
 
-{ after(grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0()); }
+{ after(grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0()); }
 )
 
 ;
@@ -15196,11 +15196,11 @@ rule__TypeRef__Group_2_2__0__Impl
     }
 :
 (
-{ before(grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0()); }
+{ before(grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0()); }
 
-	Unit 
+	Units 
 
-{ after(grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0()); }
+{ after(grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0()); }
 )
 
 ;
