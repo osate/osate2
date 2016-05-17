@@ -136,10 +136,6 @@
   <eClassifiers xsi:type="ecore:EClass" name="InformalPredicate" eSuperTypes="#//ReqPredicate">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="description" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="Predicate" eSuperTypes="#//ReqPredicate">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="xpression" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ValuePredicate" eSuperTypes="#//ReqPredicate">
     <eStructuralFeatures xsi:type="ecore:EReference" name="xpression" eType="ecore:EClass platform:/resource/org.osate.aadl2/model/aadl2.ecore#//PropertyExpression"
         containment="true"/>

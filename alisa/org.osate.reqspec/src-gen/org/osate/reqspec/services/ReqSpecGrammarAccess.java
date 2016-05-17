@@ -2996,25 +2996,21 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ReqPredicate");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final RuleCall cInformalPredicateParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cPredicateParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cValuePredicateParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cValuePredicateParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
 		
 		//// | InputAssumption | OutputGuarantee| BehaviorEquation;
 		//ReqPredicate:
-		//	InformalPredicate | Predicate | ValuePredicate;
+		//	InformalPredicate | ValuePredicate;
 		@Override public ParserRule getRule() { return rule; }
 
-		//InformalPredicate | Predicate | ValuePredicate
+		//InformalPredicate | ValuePredicate
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//InformalPredicate
 		public RuleCall getInformalPredicateParserRuleCall_0() { return cInformalPredicateParserRuleCall_0; }
 
-		//Predicate
-		public RuleCall getPredicateParserRuleCall_1() { return cPredicateParserRuleCall_1; }
-
 		//ValuePredicate
-		public RuleCall getValuePredicateParserRuleCall_2() { return cValuePredicateParserRuleCall_2; }
+		public RuleCall getValuePredicateParserRuleCall_1() { return cValuePredicateParserRuleCall_1; }
 	}
 
 	public class InformalPredicateElements extends AbstractParserRuleElementFinder {
@@ -3043,30 +3039,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 		//STRING
 		public RuleCall getDescriptionSTRINGTerminalRuleCall_2_0() { return cDescriptionSTRINGTerminalRuleCall_2_0; }
-	}
-
-	public class PredicateElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Predicate");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Keyword cPredicateKeyword_0 = (Keyword)cGroup.eContents().get(0);
-		private final Assignment cXpressionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cXpressionAExpressionParserRuleCall_1_0 = (RuleCall)cXpressionAssignment_1.eContents().get(0);
-		
-		//Predicate:
-		//	"predicate" xpression=AExpression;
-		@Override public ParserRule getRule() { return rule; }
-
-		//"predicate" xpression=AExpression
-		public Group getGroup() { return cGroup; }
-
-		//"predicate"
-		public Keyword getPredicateKeyword_0() { return cPredicateKeyword_0; }
-
-		//xpression=AExpression
-		public Assignment getXpressionAssignment_1() { return cXpressionAssignment_1; }
-
-		//AExpression
-		public RuleCall getXpressionAExpressionParserRuleCall_1_0() { return cXpressionAExpressionParserRuleCall_1_0; }
 	}
 
 	public class ValuePredicateElements extends AbstractParserRuleElementFinder {
@@ -3306,7 +3278,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	private final WhenConditionElements pWhenCondition;
 	private final ReqPredicateElements pReqPredicate;
 	private final InformalPredicateElements pInformalPredicate;
-	private final PredicateElements pPredicate;
 	private final ValuePredicateElements pValuePredicate;
 	private final DesiredValueElements pDesiredValue;
 	private final ExternalDocumentElements pExternalDocument;
@@ -3341,7 +3312,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		this.pWhenCondition = new WhenConditionElements();
 		this.pReqPredicate = new ReqPredicateElements();
 		this.pInformalPredicate = new InformalPredicateElements();
-		this.pPredicate = new PredicateElements();
 		this.pValuePredicate = new ValuePredicateElements();
 		this.pDesiredValue = new DesiredValueElements();
 		this.pExternalDocument = new ExternalDocumentElements();
@@ -3601,7 +3571,7 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// | InputAssumption | OutputGuarantee| BehaviorEquation;
 	//ReqPredicate:
-	//	InformalPredicate | Predicate | ValuePredicate;
+	//	InformalPredicate | ValuePredicate;
 	public ReqPredicateElements getReqPredicateAccess() {
 		return pReqPredicate;
 	}
@@ -3618,16 +3588,6 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getInformalPredicateRule() {
 		return getInformalPredicateAccess().getRule();
-	}
-
-	//Predicate:
-	//	"predicate" xpression=AExpression;
-	public PredicateElements getPredicateAccess() {
-		return pPredicate;
-	}
-	
-	public ParserRule getPredicateRule() {
-		return getPredicateAccess().getRule();
 	}
 
 	//// intended to be restricted to deal with value limits

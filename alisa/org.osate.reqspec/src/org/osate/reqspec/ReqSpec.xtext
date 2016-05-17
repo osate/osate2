@@ -234,10 +234,9 @@ WhenCondition:
 	)
 ;
 
-ReqPredicate: InformalPredicate | Predicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
+ReqPredicate: InformalPredicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
 
 InformalPredicate: 'informal' 'predicate'  description=STRING ;
-Predicate: 'predicate' xpression=AExpression ;
 
 ValuePredicate: 'value' 'predicate' xpression=AAndExpression
 	('with' desiredValue+=DesiredValue+)?
