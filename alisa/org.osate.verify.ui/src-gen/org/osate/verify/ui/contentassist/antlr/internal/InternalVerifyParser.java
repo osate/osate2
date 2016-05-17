@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalVerifyParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'this'", "'%'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'system'", "'thread'", "'component'", "'feature'", "'connection'", "'flow'", "'mode'", "'element'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'verification'", "'plan'", "'for'", "'['", "']'", "':'", "'issues'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'timeout'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'category'", "'validation'", "'precondition'", "'methods'", "'typeof'", "'in'", "'method'", "'properties'", "'returns'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'junit'", "'.'", "'description'", "'rationale'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'unit'", "'real'", "'string'", "'model'", "'#'", "'img'", "'..'", "'delta'", "'if'", "'endif'", "'group'", "'virtual'", "'::'", "'report'", "'single'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'this'", "'%'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'abstract'", "'bus'", "'data'", "'device'", "'memory'", "'process'", "'processor'", "'subprogram'", "'system'", "'thread'", "'component'", "'feature'", "'connection'", "'flow'", "'mode'", "'element'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'verification'", "'plan'", "'for'", "'['", "']'", "':'", "'issues'", "'claim'", "'activities'", "'assert'", "'weight'", "'then'", "'else'", "'timeout'", "'all'", "','", "'('", "')'", "'='", "'property'", "'values'", "'category'", "'validation'", "'precondition'", "'methods'", "'typeof'", "'in'", "'method'", "'properties'", "'returns'", "'resolute'", "'java'", "'manual'", "'plugin'", "'agree'", "'junit'", "'.'", "'description'", "'rationale'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'units'", "'real'", "'string'", "'model'", "'#'", "'img'", "'..'", "'delta'", "'if'", "'endif'", "'group'", "'virtual'", "'::'", "'report'", "'single'", "'true'"
     };
     public static final int T__50=50;
     public static final int T__59=59;
@@ -31984,24 +31984,24 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__Group_1_2__0__Impl"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11106:1: rule__TypeRef__Group_1_2__0__Impl : ( 'unit' ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11106:1: rule__TypeRef__Group_1_2__0__Impl : ( 'units' ) ;
     public final void rule__TypeRef__Group_1_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11110:1: ( ( 'unit' ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11111:1: ( 'unit' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11110:1: ( ( 'units' ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11111:1: ( 'units' )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11111:1: ( 'unit' )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11112:1: 'unit'
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11111:1: ( 'units' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11112:1: 'units'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0()); 
+               before(grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0()); 
             }
             match(input,104,FOLLOW_104_in_rule__TypeRef__Group_1_2__0__Impl22535); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0()); 
+               after(grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0()); 
             }
 
             }
@@ -32400,24 +32400,24 @@ public class InternalVerifyParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__Group_2_2__0__Impl"
-    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11265:1: rule__TypeRef__Group_2_2__0__Impl : ( 'unit' ) ;
+    // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11265:1: rule__TypeRef__Group_2_2__0__Impl : ( 'units' ) ;
     public final void rule__TypeRef__Group_2_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11269:1: ( ( 'unit' ) )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11270:1: ( 'unit' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11269:1: ( ( 'units' ) )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11270:1: ( 'units' )
             {
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11270:1: ( 'unit' )
-            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11271:1: 'unit'
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11270:1: ( 'units' )
+            // ../org.osate.verify.ui/src-gen/org/osate/verify/ui/contentassist/antlr/internal/InternalVerify.g:11271:1: 'units'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0()); 
+               before(grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0()); 
             }
             match(input,104,FOLLOW_104_in_rule__TypeRef__Group_2_2__0__Impl22845); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0()); 
+               after(grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0()); 
             }
 
             }

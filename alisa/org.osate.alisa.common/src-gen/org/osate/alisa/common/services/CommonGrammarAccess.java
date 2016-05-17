@@ -295,7 +295,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAadlIntegerAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cIntegerKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Keyword cUnitKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Keyword cUnitsKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
 		private final Assignment cReferencedUnitsTypeAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
 		private final CrossReference cReferencedUnitsTypeUnitsTypeCrossReference_1_2_1_0 = (CrossReference)cReferencedUnitsTypeAssignment_1_2_1.eContents().get(0);
 		private final RuleCall cReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1 = (RuleCall)cReferencedUnitsTypeUnitsTypeCrossReference_1_2_1_0.eContents().get(1);
@@ -303,7 +303,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAadlRealAction_2_0 = (Action)cGroup_2.eContents().get(0);
 		private final Keyword cRealKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cUnitKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Keyword cUnitsKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
 		private final Assignment cReferencedUnitsTypeAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
 		private final CrossReference cReferencedUnitsTypeUnitsTypeCrossReference_2_2_1_0 = (CrossReference)cReferencedUnitsTypeAssignment_2_2_1.eContents().get(0);
 		private final RuleCall cReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_2_2_1_0_1 = (RuleCall)cReferencedUnitsTypeUnitsTypeCrossReference_2_2_1_0.eContents().get(1);
@@ -321,14 +321,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1 = (RuleCall)cRefPropertyTypeCrossReference_5_1_0.eContents().get(1);
 		
 		//TypeRef returns aadl2::PropertyType:
-		//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-		//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+		//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+		//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 		//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 		//	"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
-		//{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+		//{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 		//"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
 		public Alternatives getAlternatives() { return cAlternatives; }
@@ -342,7 +342,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"boolean"
 		public Keyword getBooleanKeyword_0_1() { return cBooleanKeyword_0_1; }
 
-		//{aadl2::AadlInteger} "integer" ("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//{aadl2::AadlInteger} "integer" ("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{aadl2::AadlInteger}
@@ -351,11 +351,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"integer"
 		public Keyword getIntegerKeyword_1_1() { return cIntegerKeyword_1_1; }
 
-		//("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
-		//"unit"
-		public Keyword getUnitKeyword_1_2_0() { return cUnitKeyword_1_2_0; }
+		//"units"
+		public Keyword getUnitsKeyword_1_2_0() { return cUnitsKeyword_1_2_0; }
 
 		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE]
 		public Assignment getReferencedUnitsTypeAssignment_1_2_1() { return cReferencedUnitsTypeAssignment_1_2_1; }
@@ -366,7 +366,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//AADLPROPERTYREFERENCE
 		public RuleCall getReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1() { return cReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1; }
 
-		//{aadl2::AadlReal} "real" ("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//{aadl2::AadlReal} "real" ("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//{aadl2::AadlReal}
@@ -375,11 +375,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"real"
 		public Keyword getRealKeyword_2_1() { return cRealKeyword_2_1; }
 
-		//("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_2_2() { return cGroup_2_2; }
 
-		//"unit"
-		public Keyword getUnitKeyword_2_2_0() { return cUnitKeyword_2_2_0; }
+		//"units"
+		public Keyword getUnitsKeyword_2_2_0() { return cUnitsKeyword_2_2_0; }
 
 		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE]
 		public Assignment getReferencedUnitsTypeAssignment_2_2_1() { return cReferencedUnitsTypeAssignment_2_2_1; }
@@ -2604,8 +2604,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeRef returns aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 	//	"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public TypeRefElements getTypeRefAccess() {

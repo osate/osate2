@@ -50,7 +50,7 @@
 'then'=60
 'this'=18
 'true'=63
-'unit'=26
+'units'=26
 'warning'=68
 '||'=38
 RULE_ANY_OTHER=16

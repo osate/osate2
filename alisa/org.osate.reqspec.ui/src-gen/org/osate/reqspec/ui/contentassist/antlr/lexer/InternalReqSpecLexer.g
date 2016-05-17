@@ -138,6 +138,8 @@ Model : 'model';
 
 State : 'state';
 
+Units : 'units';
+
 Value : 'value';
 
 Data : 'data';
@@ -161,8 +163,6 @@ Then : 'then';
 This : 'this';
 
 True : 'true';
-
-Unit : 'unit';
 
 Upto : 'upto';
 

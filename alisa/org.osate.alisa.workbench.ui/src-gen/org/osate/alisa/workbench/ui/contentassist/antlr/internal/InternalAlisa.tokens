@@ -64,7 +64,7 @@
 'then'=79
 'this'=17
 'true'=85
-'unit'=65
+'units'=65
 'warning'=40
 '||'=20
 RULE_ANY_OTHER=16
