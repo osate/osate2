@@ -5431,21 +5431,11 @@ ruleReqPredicate returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getPredicateParserRuleCall_1()); 
+        newCompositeNode(grammarAccess.getReqPredicateAccess().getValuePredicateParserRuleCall_1()); 
     }
-    this_Predicate_1=rulePredicate
+    this_ValuePredicate_1=ruleValuePredicate
     {
-        $current = $this_Predicate_1.current;
-        afterParserOrEnumRuleCall();
-    }
-
-    |
-    { 
-        newCompositeNode(grammarAccess.getReqPredicateAccess().getValuePredicateParserRuleCall_2()); 
-    }
-    this_ValuePredicate_2=ruleValuePredicate
-    {
-        $current = $this_ValuePredicate_2.current;
+        $current = $this_ValuePredicate_1.current;
         afterParserOrEnumRuleCall();
     }
 )
@@ -5494,50 +5484,6 @@ ruleInformalPredicate returns [EObject current=null]
        			"description",
         		lv_description_2_0, 
         		"STRING");
-	    }
-
-)
-))
-;
-
-
-
-
-
-// Entry rule entryRulePredicate
-entryRulePredicate returns [EObject current=null]
-	:
-	{ newCompositeNode(grammarAccess.getPredicateRule()); }
-	 iv_rulePredicate=rulePredicate 
-	 { $current=$iv_rulePredicate.current; } 
-	 EOF 
-;
-
-// Rule Predicate
-rulePredicate returns [EObject current=null] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	otherlv_0=Predicate
-    {
-    	newLeafNode(otherlv_0, grammarAccess.getPredicateAccess().getPredicateKeyword_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPredicateAccess().getXpressionAExpressionParserRuleCall_1_0()); 
-	    }
-		lv_xpression_1_0=ruleAExpression		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPredicateRule());
-	        }
-       		set(
-       			$current, 
-       			"xpression",
-        		lv_xpression_1_0, 
-        		"AExpression");
-	        afterParserOrEnumRuleCall();
 	    }
 
 )

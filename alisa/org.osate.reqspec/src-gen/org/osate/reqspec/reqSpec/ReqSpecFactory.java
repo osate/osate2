@@ -162,15 +162,6 @@ public interface ReqSpecFactory extends EFactory
   InformalPredicate createInformalPredicate();
 
   /**
-   * Returns a new object of class '<em>Predicate</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Predicate</em>'.
-   * @generated
-   */
-  Predicate createPredicate();
-
-  /**
    * Returns a new object of class '<em>Value Predicate</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

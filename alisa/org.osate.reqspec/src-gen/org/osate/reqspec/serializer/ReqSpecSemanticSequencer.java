@@ -67,7 +67,6 @@ import org.osate.reqspec.reqSpec.GlobalRequirementSet;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.IncludeGlobalRequirement;
 import org.osate.reqspec.reqSpec.InformalPredicate;
-import org.osate.reqspec.reqSpec.Predicate;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
@@ -234,9 +233,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
-				return; 
-			case ReqSpecPackage.PREDICATE:
-				sequence_Predicate(context, (Predicate) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQ_DOCUMENT:
 				sequence_ReqDocument(context, (ReqDocument) semanticObject); 
@@ -470,22 +466,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_2_0(), semanticObject.getDescription());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     xpression=AExpression
-	 */
-	protected void sequence_Predicate(EObject context, Predicate semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.PREDICATE__XPRESSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.PREDICATE__XPRESSION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPredicateAccess().getXpressionAExpressionParserRuleCall_1_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 	

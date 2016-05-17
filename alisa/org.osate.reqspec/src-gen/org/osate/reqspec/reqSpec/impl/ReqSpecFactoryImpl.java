@@ -91,7 +91,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.WHEN_CONDITION: return createWhenCondition();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
-      case ReqSpecPackage.PREDICATE: return createPredicate();
       case ReqSpecPackage.VALUE_PREDICATE: return createValuePredicate();
       case ReqSpecPackage.DESIRED_VALUE: return createDesiredValue();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
@@ -254,17 +253,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     InformalPredicateImpl informalPredicate = new InformalPredicateImpl();
     return informalPredicate;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public Predicate createPredicate()
-  {
-    PredicateImpl predicate = new PredicateImpl();
-    return predicate;
   }
 
   /**
