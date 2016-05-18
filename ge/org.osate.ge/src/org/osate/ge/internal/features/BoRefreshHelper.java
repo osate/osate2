@@ -1,6 +1,5 @@
 package org.osate.ge.internal.features;
 
-import java.awt.geom.Point2D;
 import java.util.Iterator;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -195,7 +194,7 @@ public class BoRefreshHelper {
 					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);				
 					if(name != null) {
 						if(pe instanceof ContainerShape) {
-							labelService.createLabelShape((ContainerShape)pe, BoHandlerUpdateFeature.nameShapeName, bo, name);
+							labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name);
 						} else if(pe instanceof Connection) {
 							final Connection connection = (Connection)pe;
 							
@@ -203,7 +202,7 @@ public class BoRefreshHelper {
 							int labelX = 0;
 							int labelY = 0;
 							for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
-								if(BoHandlerUpdateFeature.nameShapeName.equals(propertyService.getName(d))) {
+								if(BoHandlerFeatureHelper.nameShapeName.equals(propertyService.getName(d))) {
 									if(d.getGraphicsAlgorithm() != null) {
 										final Text text = (Text)d.getGraphicsAlgorithm();
 										labelX = text.getX();
@@ -217,7 +216,7 @@ public class BoRefreshHelper {
 							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 							text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
-							propertyService.setName(textDecorator, BoHandlerUpdateFeature.nameShapeName);
+							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);
 							gaService.setLocation(text, labelX, labelY);					 		
 						    text.setValue(name);
 						    featureProvider.link(textDecorator, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);			    
@@ -309,7 +308,7 @@ public class BoRefreshHelper {
 	        ga.setFilled(false);
 		} else if(gr instanceof Polygon) {
 			final Polygon poly = (Polygon)gr;
-			ga = createPolygon(shape, poly, width, height);
+			ga = BoHandlerFeatureHelper.createPolygon(shape, poly, width, height);
 		} else {
 			throw new RuntimeException("Unsupported object: " + gr);
 		}
@@ -317,22 +316,6 @@ public class BoRefreshHelper {
 		// Set to appropriate size. If just recreating the graphics algorithm, retain previous size
 		ga.setWidth(width);
         ga.setHeight(height);
-	}
-	
-	public static GraphicsAlgorithm createPolygon(final Shape shape, final Polygon poly, final int width, final int height) {
-		final int[] coords = new int[poly.getPoints().length * 2];
-		int i = 0;
-
-		// Build points based on the specified size
-		for(final Point2D.Double p : poly.getPoints()) {
-			coords[i++] = (int)(p.x * width);
-			coords[i++] = (int)(p.y * height);
-		}
-		
-		final GraphicsAlgorithm ga = Graphiti.getGaService().createPlainPolygon(shape, coords);
-		ga.setFilled(false);
-		
-		return ga;
 	}
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {

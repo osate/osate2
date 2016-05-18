@@ -44,7 +44,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 	public boolean layout(final ILayoutContext context) {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
 		if(shape.getGraphicsAlgorithm() != null) {
-			final Shape nameShape = shapeService.getChildShapeByName(shape, BoHandlerUpdateFeature.nameShapeName);
+			final Shape nameShape = shapeService.getChildShapeByName(shape, BoHandlerFeatureHelper.nameShapeName);
 			if(nameShape != null && nameShape.getGraphicsAlgorithm() != null) {
 				final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 				final GraphicsAlgorithm nameGa = nameShape.getGraphicsAlgorithm();

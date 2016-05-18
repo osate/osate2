@@ -104,8 +104,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		super.contributeToMenu(menubar);		
 		
 		// Add actions for increase and decrease the nesting depth to the view menu.
-		// TODO: As of 2014-11-10, Graphiti does not define a constant for the ID of the view menu so we must look it up. If/when such an ID is added,
-		// lookup the menu by ID.
 		for(final IContributionItem item : menubar.getItems()) {
 			if(item instanceof SubContributionItem) {
 				final IContributionItem innerItem = ((SubContributionItem) item).getInnerItem();

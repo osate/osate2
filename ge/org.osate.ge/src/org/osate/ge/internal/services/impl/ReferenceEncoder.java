@@ -6,8 +6,7 @@ public class ReferenceEncoder {
 	private static final char INNER_ESCAPE_CHAR = '%';
 	private static final String ESCAPED_INNER_ESCAPE_CHAR = Character.toString(INNER_ESCAPE_CHAR) + INNER_ESCAPE_CHAR;	
 	
-	public static String encodeSegment(final String seg) {
-		final StringBuilder sb = new StringBuilder(); // TODO: PASS IT IN?
+	public static void encodeSegment(final StringBuilder sb, final String seg) {
 		for(int i = 0; i < seg.length(); i++) {
 			final char ch = seg.charAt(i);
 			if(ch == OUTER_ESCAPE_CHAR) {
@@ -24,12 +23,9 @@ public class ReferenceEncoder {
 				sb.append(ch);
 			}
 		}
-		
-		return sb.toString();
 	}
 	
-	public static String decodeSegment(final String seg) {
-		final StringBuilder sb = new StringBuilder(); // TODO: PASS IT IN?
+	public static String decodeSegment(final StringBuilder sb, final String seg) {		
 		final int len = seg.length();
 		for(int i = 0; i < len; i++) {
 			char ch = seg.charAt(i);
@@ -58,18 +54,22 @@ public class ReferenceEncoder {
 				
 		return sb.toString();
 	}
-	
-	// PROBLEM.. Splitting it... There encoded has spaces in it
+
+	// Simple main function that encodes and decodes strings for testing purposes.
 	public static void main(final String[] args) {
-		testEncodeDecode("Test");
-		testEncodeDecode("C$");
-		testEncodeDecode("C$ DE");
-		testEncodeDecode("C$_DE");
+		final StringBuilder sb = new StringBuilder();
+		testEncodeDecode(sb, "Test");
+		testEncodeDecode(sb, "C$");
+		testEncodeDecode(sb, "C$ DE");
+		testEncodeDecode(sb, "C$_DE");
 	}
 	
-	private static void testEncodeDecode(final String str) {
-		final String encoded = encodeSegment(str);
-		final String decoded = decodeSegment(encoded);
+	private static void testEncodeDecode(final StringBuilder sb, final String str) {
+		sb.setLength(0);
+		encodeSegment(sb, str);
+		final String encoded = sb.toString();
+		sb.setLength(0);
+		final String decoded = decodeSegment(sb, encoded);
 		System.out.println("'" + str + "' : '" + encoded + "' : '" + decoded + "'");
 	}
 }

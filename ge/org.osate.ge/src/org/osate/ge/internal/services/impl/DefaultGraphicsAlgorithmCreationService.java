@@ -46,9 +46,6 @@ import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.styles.StyleConstants;
 
-// TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
-// allowing flexibility such as allowing the user to override symbols for particular shapes. In that case may move out of common package.
-// Some methods may not be included in such a system(such as createLabel*) but that is TBD
 public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorithmCreationService {
 	private final StyleService styleService;
 	private final AadlFeatureService featureService;

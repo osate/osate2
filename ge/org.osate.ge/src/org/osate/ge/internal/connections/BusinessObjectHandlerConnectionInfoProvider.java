@@ -35,14 +35,11 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 	private final Query<Object> srcQuery;
 	private final Query<Object> dstQuery;
 	
-	// TODO: Rename or something to indicate that they are used to store state during execution calls?
-	// TODO: Anyway to make RootPictogramQuery stateless?
+	// Values retrieved by the root queries
 	private PictogramElement rootValue;
 	private PictogramElement srcRootValue;
 	private PictogramElement dstRootValue;
-	
-	// TODO: Consider a default RootPictogramQuery implementation that contains both the query and the value.
-	
+
 	@SuppressWarnings("unchecked")
 	public BusinessObjectHandlerConnectionInfoProvider(final ExtensionService extService, final BusinessObjectResolutionService bor,
 			final Object boHandler, final QueryRunner queryRunner) {
@@ -102,7 +99,8 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 			
 			throw new RuntimeException("Query result is of unexpected type: " + result.getClass());
 		} finally {
-			this.rootValue = null;
+			this.srcRootValue = null;
+			this.dstRootValue = null;
 		}
 	}
 
@@ -123,10 +121,6 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 					
 			// Get anchor
 			// For now only chopbox anchors are supported.
-			// TODO: Expand
-			// Midpoint anchors for connections
-			// The anchor which should be used will be determined in a manner similar to the AadlConnectionInfoProvider. 
-			// Ownership of the source and destination along with whether it is a child will be used to determine whether inner and outer.		
 			final Anchor a1 = Graphiti.getPeService().getChopboxAnchor(srcAnchorContainer);
 			final Anchor a2 = Graphiti.getPeService().getChopboxAnchor(dstAnchorContainer);
 			if(a1 == null || a2 == null) {

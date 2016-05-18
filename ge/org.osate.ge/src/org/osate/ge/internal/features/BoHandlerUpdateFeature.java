@@ -21,7 +21,6 @@ import org.osate.ge.internal.services.InternalReferenceBuilderService;
 
 // IUpdateFeature implementation that delegates behavior to a business object handler
 public class BoHandlerUpdateFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature {
-	public static final String nameShapeName = "name";
 	private final InternalReferenceBuilderService refBuilder;
 	private final BusinessObjectResolutionService bor;
 	private final ConnectionService connectionService;

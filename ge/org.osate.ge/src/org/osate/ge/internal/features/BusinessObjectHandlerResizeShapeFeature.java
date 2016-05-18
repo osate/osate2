@@ -48,7 +48,7 @@ public class BusinessObjectHandlerResizeShapeFeature extends DefaultResizeShapeF
 						final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 						if(gr instanceof org.osate.ge.internal.graphics.Polygon) {
 							final org.osate.ge.internal.graphics.Polygon agePoly = (org.osate.ge.internal.graphics.Polygon)gr; 							
-							BoRefreshHelper.createPolygon(shape, agePoly, width, height);
+							BoHandlerFeatureHelper.createPolygon(shape, agePoly, width, height);
 						}
 					} finally {
 						eclipseCtx.dispose();

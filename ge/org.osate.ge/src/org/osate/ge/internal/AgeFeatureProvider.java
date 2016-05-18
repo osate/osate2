@@ -144,9 +144,9 @@ import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
@@ -159,10 +159,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private InternalReferenceBuilderService refBuilder;
 	private AadlModificationService aadlModService;
 	private ShapeService shapeService;
-	private LabelService labelService;
-	private ShapeCreationService shapeCreationService;
-	private ConnectionCreationService connectionCreationService;
-	private AnchorService anchorService;
 	private BusinessObjectResolutionService bor;
 	private PropertyService propertyService;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
@@ -175,7 +171,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	public void initialize(final IEclipseContext context) {
-		// TODO: Remove fields only used to instantiated the refresh helper
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
 		this.connectionService = Objects.requireNonNull(eclipseContext.get(ConnectionService.class), "unable to get connection service");		
@@ -183,14 +178,15 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.refBuilder = Objects.requireNonNull(eclipseContext.get(InternalReferenceBuilderService.class), "unable to retrieve reference builder service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
-		this.labelService = Objects.requireNonNull(eclipseContext.get(LabelService.class), "unable to retrieve label service");
-		this.shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
-		this.connectionCreationService = Objects.requireNonNull(eclipseContext.get(ConnectionCreationService.class), "unable to retrieve connection creation service");
-		this.anchorService = Objects.requireNonNull(eclipseContext.get(AnchorService.class), "unable to retrieve anchor service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
 		
+		// Create the refresh helper
 		final GhostingService ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
+		final LabelService labelService = Objects.requireNonNull(eclipseContext.get(LabelService.class), "unable to retrieve label service");
+		final ShapeCreationService shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
+		final ConnectionCreationService connectionCreationService = Objects.requireNonNull(eclipseContext.get(ConnectionCreationService.class), "unable to retrieve connection creation service");
+		final AnchorService anchorService = Objects.requireNonNull(eclipseContext.get(AnchorService.class), "unable to retrieve anchor service");
 		final StyleService styleService = Objects.requireNonNull(context.get(StyleService.class), "unable to retrieve style service");
 		this.pictogramRefreshHelper = new BoRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, shapeService, propertyService, styleService, this);
 		

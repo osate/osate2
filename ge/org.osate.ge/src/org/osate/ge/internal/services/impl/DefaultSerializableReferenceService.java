@@ -97,8 +97,9 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		}
 		
 		// Restore spaces
+		final StringBuilder sb = new StringBuilder();
 		for(int i = 0; i < ref.length; i++) {
-			ref[i] = ReferenceEncoder.decodeSegment(ref[i]);
+			ref[i] = ReferenceEncoder.decodeSegment(sb, ref[i]);
 		}
 		
 		try {

@@ -10,7 +10,6 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
 
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
@@ -91,11 +90,11 @@ public class ErrorBehaviorTransitionHandler {
 	}
 		
 	// TODO
-	//@GetCreateConnectionOwner - RENAME - Returns a business object not the owning pictogram element? May not have a pictogram element
+	/*@GetCreateOwner
 	public ContainerShape getCreateConnectionOwner() {
 		return null;
 	}
-	
+	*/
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final ErrorBehaviorState state) {
 		return true;

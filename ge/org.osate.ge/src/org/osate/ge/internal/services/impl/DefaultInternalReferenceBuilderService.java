@@ -99,10 +99,10 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 	
 	private static String segmentsToReference(final String[] segs) {
 		final StringBuilder sb = new StringBuilder();
-		sb.append(ReferenceEncoder.encodeSegment(segs[0]));
+		ReferenceEncoder.encodeSegment(sb, segs[0]);
 		for(int i = 1; i < segs.length; i++) {
 			sb.append(' ');
-			sb.append(ReferenceEncoder.encodeSegment(segs[i]));
+			ReferenceEncoder.encodeSegment(sb, segs[i]);
 		}
 		
 		return sb.toString();

@@ -34,8 +34,7 @@ public class ErrorTypeLibraryHandler {
 	
 	@GetChildren
 	public Stream<Object> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		// TODO: Also ensure that super type is added to diagram if it is part of another error type library?
-		
+		// TODO: Also ensure that super type is added to diagram if it is part of another error type library?		
 		return Stream.concat(typeLib.getErrorModelLibrary().getTypes().stream(), 
 				typeLib.getErrorModelLibrary().getTypes().stream(). // Error Type Extensions
 					filter((et) -> et.getSuperType() != null).
