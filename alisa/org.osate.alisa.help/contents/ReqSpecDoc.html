@@ -5,11 +5,15 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-03-15T00:25:22.372000000"/>
+	<meta name="changed" content="2016-05-18T00:19:13.137000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-05-17T23:53:58.453000000">
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-03-15T00:25:22.372000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-02-02T13:05:34.514000000">
 	<meta name="created" content="00:00:00">
@@ -18,10 +22,6 @@
 	<meta name="changed" content="2015-12-03T22:02:02.528000000">
 	<style type="text/css">
 		@page { margin: 0.79in }
-		p { margin-bottom: 0.08in; line-height: 0.19in }
-		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
-		p.cjk { font-size: 12pt; so-language: zxx }
-		p.ctl { font-size: 12pt; so-language: zxx }
 		td p { margin-bottom: 0.08in; line-height: 0.19in }
 		td p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
 		td p.cjk { font-size: 12pt; so-language: zxx }
@@ -30,6 +30,10 @@
 		h1.western { font-family: "Liberation Serif", serif; so-language: zxx }
 		h1.cjk { font-family: "Segoe UI"; font-size: 24pt; so-language: zxx }
 		h1.ctl { font-family: "Tahoma"; font-size: 24pt; so-language: zxx }
+		p { margin-bottom: 0.08in; line-height: 0.19in }
+		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
+		p.cjk { font-size: 12pt; so-language: zxx }
+		p.ctl { font-size: 12pt; so-language: zxx }
 		p.list-western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
 		p.list-cjk { font-size: 12pt; so-language: zxx }
 		p.list-ctl { font-family: "Mangal"; font-size: 12pt; so-language: zxx }
@@ -54,10 +58,10 @@ Specification for a System</font></h1>
 <br/>
 
 </p>
-<p lang="zxx" class="western"><span style="font-variant: normal"><font color="#000000"><span lang="zxx"><span style="font-style: normal">This
+<p lang="zxx" class="western"><span style="font-variant: normal"><font color="#000000"><span style="font-style: normal">This
 document describes a textual requirement specification notation,
-called </span></span></font></span><span style="font-variant: normal"><font color="#000000"><span lang="zxx"><i>ReqSpe</i></span></font></span><span style="font-variant: normal"><font color="#000000"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>c.</i></span></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>
-</i></span></font></font></font></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">It
+called </span></font></span><span style="font-variant: normal"><font color="#000000"><i>ReqSpe</i></font></span><span style="font-variant: normal"><font color="#000000"><font size="3" style="font-size: 12pt"><i>c.</i></font></font></span><span style="font-variant: normal"><font color="#000000">
+</font></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">It
 draws on the draft Requirements Definition and Analysis Language
 (RDAL) Annex, which defines a meta-model for requirement
 specification as annotations to AADL models. </span></font></font></span>
@@ -141,18 +145,16 @@ that includes <i>document section</i> declarations and <i>requirement
 		<td width="1087" valign="top" style="border: 1.00pt solid #1f497d; padding: 0.02in 0.08in">
 			<p lang="zxx" class="western" style="margin-bottom: 0in"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><b>Summary
 			of file extensions:</b></font></font></font></p>
-			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</font></span>For <i>goals document</i>, use the extension
-			<i>goaldoc</i>.</font></p>
-			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</font></span>For <i>requirements document</i>, use the extension
-			<i>reqdoc</i>.</font></p>
-			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</font></span>For <i>stakeholder goal set</i>, use the file
-			extension <i>goals</i>.</font></p>
-			<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			</font></span>For <i>system requirement set </i>and <i>global
-			requirement set,</i> use the extension <i>reqspec</i>.</font></p>
+			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>For <i>goals document</i>, use the extension <i>goaldoc</i>.</font></p>
+			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>For <i>requirements document</i>, use the extension <i>reqdoc</i>.</font></p>
+			<p lang="zxx" class="western" style="margin-bottom: 0.01in"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>For <i>stakeholder goal set</i>, use the file extension
+			<i>goals</i>.</font></p>
+			<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			</span>For <i>system requirement set </i>and <i>global requirement
+			set,</i> use the extension <i>reqspec</i>.</font></p>
 		</td>
 	</tr>
 </table>
@@ -184,15 +186,15 @@ indicating the type of element being referenced.</font></font></font></p>
 elements are shown as ( )?. Elements repeated one or more times are
 shown as ( )+, and elements repeated zero or more times as ( )*. For
 example:</font></font></font></p>
-<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol"><font size="2" style="font-size: 10pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></font></span><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">(
+<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">(
 </font></font></font><font color="#7e0055"><font face="Lucida Console"><font size="2" style="font-size: 10pt"><b>dropped
 </b></font></font></font><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">)</font></font></font><font face="Lucida Console"><font size="2" style="font-size: 10pt">?</font></font></font></p>
-<p lang="zxx" class="western"><font size="2" style="font-size: 10pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></span><font color="#000000"><font face="Lucida Console">(
+<p lang="zxx" class="western"><font size="2" style="font-size: 10pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font color="#000000"><font face="Lucida Console">(
 DocReference )+</font></font></font></p>
-<p lang="zxx" class="western"><font size="2" style="font-size: 10pt"><font face="Symbol">&middot;</font><span style="font-variant: normal"><font face="Symbol">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></span><font face="Lucida Console">( ConstantVariable )*</font></font></p>
+<p lang="zxx" class="western"><font size="2" style="font-size: 10pt"><font face="Symbol">&middot;</font><span style="font-variant: normal">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span><font face="Lucida Console">( ConstantVariable )*</font></font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
 set of elements between square brackets, [ ], can appear in any
 order.</font></font></font></p>
@@ -257,7 +259,7 @@ system.</font></p>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">|</span></span></span></font>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><b>when in error state &lt;</b></span><span lang="zxx"><span style="font-weight: normal">ErrorState&gt; ( </span></span><span lang="zxx"><b>, </b></span><span lang="zxx"><span style="font-weight: normal">&lt;ErrorState&gt; )*</span></span></span></font>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">|</span></span></span></font>
-<font color="#000000">  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">&lt;Java like expression&gt;</span></span></span></font></pre><p lang="zxx" class="western">
+<font color="#000000">  <span lang="zxx"><span lang="zxx"><b>when </b></span><span lang="zxx"><span style="font-weight: normal">e</span></span><span lang="zxx"><span style="font-weight: normal">xpression</span></span></span></font></pre><p lang="zxx" class="western">
 <br/>
 <br/>
 
@@ -278,13 +280,13 @@ declaration has the following elements:</font></p>
 <p lang="zxx" class="list-western"><font color="#000000"><i>For:
 	</i>if present it identifies the target of the goal within a system,
 	i.e., a model element within the classifier, e.g., a port, end to
-	end flow or subcomponent. The enclosing <i>StakeholderGoal</i><i>Set</i>
+	end flow or subcomponent. The enclosing <i>StakeholderGoalSet</i>
 	container specifies the component classifier of the system of
 	interest. </font>
 	</p>
 	<li/>
-<p lang="zxx" class="list-western"><font color="#000000"><span lang="zxx"><i>Categor</i></span></font><font color="#000000"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>y</i></span></font></font><font color="#000000"><font size="3" style="font-size: 12pt"><span lang="zxx">:
-	</span></font></font><font face="Times, serif"><font size="3" style="font-size: 12pt">list
+<p lang="zxx" class="list-western"><font color="#000000"><i>Categor</i></font><font color="#000000"><font size="3" style="font-size: 12pt"><i>y</i></font></font><font color="#000000"><font size="3" style="font-size: 12pt">:
+	</font></font><font face="Times, serif"><font size="3" style="font-size: 12pt">list
 	of user-defined category labels (without comma separation) to
 	characterize a stakeholder goal. Such labels can be used for
 	specifying filtered views of stakeholder goals.</font></font></p>
@@ -307,11 +309,14 @@ declaration has the following elements:</font></p>
 	Verify notation (documented in a separate report).</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>WhenCondition:
-	</i><span style="font-variant: normal"><span style="font-style: normal">the
+	</i></font><span style="font-variant: normal"><font color="#000000"><span style="font-style: normal">the
 	condition under which the requirement applies. The condition is a
 	set of AADL2 modes (operational modes), EMV2 error behavior states
 	(failure modes), or a general expression on model elements and
-	properties.</span></span></font></p>
+	properties</span></font></span><span style="font-variant: normal"><font color="#000000">
+	</font></span><span style="font-variant: normal"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">using
+	the syntax of value predicate expressions (see Appendix A for
+	details)</span></font></font></span><span style="font-variant: normal"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-style: normal">.</span></font></font></font></span></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Rationale:
 	</i>the rationale for a stakeholder goal as string.</font></p>
@@ -371,7 +376,7 @@ systems for different goals in the same document or document section.
 <h3 class="western"><font color="#000000">The Stakeholder Goal Set
 Construct</font></h3>
 <p lang="zxx" class="western"><font color="#000000">The
-<i>StakeholderGoal</i><i>Set</i> construct is a container for <i>Goal
+<i>StakeholderGoalSet</i> construct is a container for <i>Goal
 </i>declarations. It is typically used to group together stakeholder
 goals for a particular system. It represents a name scope for the
 goal declarations contained in it, i.e., a goal is referenced by the
@@ -389,10 +394,9 @@ separated by a dot. </font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Goal )+</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>issues</b></span><span style="letter-spacing: -0.5pt"> </span>(String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></font>
-<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">QualifiedName ::= Identifier ( <font color="#7e0055"><b>.</b></font> Identifier )*</span></font></font></font>
-</pre><p lang="zxx" class="western">
-<font color="#000000">A <i>StakeholderGoal</i><i>Set</i> declaration
-has the following elements:</font></p>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">QualifiedName ::= Identifier ( <font color="#7e0055"><b>.</b></font> Identifier )*</span></font></font></font></pre><p lang="zxx" class="western">
+<font color="#000000">A <i>StakeholderGoalSet</i> declaration has the
+following elements:</font></p>
 <ul>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>QualifiedName</i>:
@@ -460,16 +464,16 @@ system. </font>
 define requirements that are not specific to a particular system, but
 are applicable to any component or components of a specified set of
 component categories. Such <i>GlobalRequirements </i>can then be
-included in a <i>SystemRequirement</i><i>Set</i> declaration as a set
-or set individual requirements through an <i>include </i>statement.
-The system identified by the <i>SystemRequirement</i><i>Set</i><i>
-for </i>statement determines the scope of applicability of the
-requirement, i.e., the requirement is applicable to that system and
-its subsystems down the hierarchy that match the category. </font>
+included in a <i>SystemRequirementSet</i> declaration as a set or set
+individual requirements through an <i>include </i>statement. The
+system identified by the <i>SystemRequirementSet</i> <i>for </i>statement
+determines the scope of applicability of the requirement, i.e., the
+requirement is applicable to that system and its subsystems down the
+hierarchy that match the category. </font>
 </p>
 <p lang="zxx" class="western"><font color="#000000">We proceed by
-describing the <i>SystemRequirement</i>, <i>SystemRequirement</i><i>Set</i>,
-and <i>GlobalRequirement</i><i>Set</i> constructs in turn.</font></p>
+describing the <i>SystemRequirement</i>, <i>SystemRequirementSet</i>,
+and <i>GlobalRequirementSet</i> constructs in turn.</font></p>
 <p lang="zxx" class="western"><font color="#000000">Note that the
 term <i>system</i> in system requirements is not limited to the AADL
 <i>system </i>component category. A system may be represented by
@@ -523,11 +527,11 @@ following elements:</font></p>
 	interest. </font>
 	</p>
 	<li/>
-<p lang="zxx" class="list-western"><font color="#000000"><span lang="zxx"><i>Category</i></span></font><font color="#000000"><span lang="zxx">:
-	</span></font><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">list
+<p lang="zxx" class="list-western"><font color="#000000"><i>Category</i></font><font color="#000000">:
+	</font><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">list
 	of user-defined category labels (without comma separation) to
 	characterize a requirement. Such labels can be used for specifying
-	filtered views of system requirements</font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">.</span></font></font></font></p>
+	filtered views of system requirements</font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">.</font></font></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Description:
 	</i>A textual description of the requirement. In its most general
@@ -582,12 +586,13 @@ following elements:</font></p>
 	traceability across architecture layers.</font></p>
 	<li/>
 <p lang="zxx" class="western"><font color="#000000"><i>Inherits:
-	</i><span style="font-style: normal">one or more references to
-	requirements of an enclosing system that is being inherited as a
-	whole. For example, requirements on interfaces of an enclosing
-	system can be inherited by those subsystems that directly take the
-	input or produce the output of the enclosing system. This element
-	provides traceability across architecture layers.</span></font></p>
+	</i><span style="font-variant: normal"><span style="font-style: normal">one
+	or more references to requirements of an enclosing system that is
+	being inherited as a whole. For example, requirements on interfaces
+	of an enclosing system can be inherited by those subsystems that
+	directly take the input or produce the output of the enclosing
+	system. This element provides traceability across architecture
+	layers.</span></span></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Evolves</i>:
 	references to other goals this goal evolves from. This allows for
@@ -660,8 +665,8 @@ that are associated with an AADL component type or implementation. </font></font
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace">( </font><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>include</b></span></font> <font face="Lucida Console, monospace">&lt;GlobalRequirements or requirement&gt; ( </font><font face="Lucida Console, monospace"><b>for </b></font><font face="Lucida Console, monospace">ComponentCategory | </font><font face="Lucida Console, monospace"><b>self</b></font> <font face="Lucida Console, monospace">)*</font></span></font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx"><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt">( </span></font><font face="Lucida Console, monospace"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><span style="letter-spacing: -0.5pt"> </span><font face="Lucida Console, monospace">(String)+</font><span style="letter-spacing: -0.6pt"> </span><font face="Lucida Console, monospace">)?</font></span></font></font>
 <font color="#000000"><font size="2" style="font-size: 10pt"><span lang="zxx">]</span></font></font></pre><p lang="zxx" class="western">
-<font color="#000000">A <i>SystemRequirement</i><i>Set</i>
-declaration has the following elements:</font></p>
+<font color="#000000">A <i>SystemRequirementSet</i> declaration has
+the following elements:</font></p>
 <ul>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>QualifiedName</i>:
@@ -731,12 +736,12 @@ declaration has the following elements:</font></p>
 <font color="#000000">The Global Requirement Set and Requirement
 Constructs</font></h3>
 <p lang="zxx" class="western"><font color="#000000">The
-<i>GlobalRequirement</i><i>Set</i> construct is a container for
-<i>Requirement </i>declarations. A <i>GlobalRequirement</i><i>Set</i>
-declaration differs from <i>SystemRequirement</i><i>Set</i><i> </i>in
-that it contains <i>Global</i><i>Requirement </i>declarations instead
-of <i>SystemRequirement </i>declarations, and it does not have a <i>for
-</i>statement, not an <i>include </i>statement.</font></p>
+<i>GlobalRequirementSet</i> construct is a container for <i>Requirement
+</i>declarations. A <i>GlobalRequirementSet</i> declaration differs
+from <i>SystemRequirementSet</i> in that it contains
+<i>GlobalRequirement </i>declarations instead of <i>SystemRequirement
+</i>declarations, and it does not have a <i>for </i>statement, not an
+<i>include </i>statement.</font></p>
 <p lang="zxx" class="list-western"><font color="#000000">GlobalRequirementSet
 ::=</font></p>
 <p lang="zxx" class="list-western"><font color="#000000"><b>global
@@ -767,11 +772,11 @@ GlobalRequirement )*</font></p>
 <p lang="zxx" class="list-western"><font color="#000000">( <b>issues</b>
 (String)+ )?</font></p>
 <p lang="zxx" class="list-western"><font color="#000000"><b>]</b></font></p>
-<p lang="zxx" class="western">The <i>GlobalR</i><i>equirement</i>
-construct represents a global requirement. It application may be
-restricted to certain component categories through the <i>for
-</i>statement. The only difference to a <i>SystemRequirement
-</i>construct is the <i>for </i>statement.</p>
+<p lang="zxx" class="western">The <i>GlobalRequirement</i> construct
+represents a global requirement. It application may be restricted to
+certain component categories through the <i>for </i>statement. The
+only difference to a <i>SystemRequirement </i>construct is the <i>for
+</i>statement.</p>
 <pre lang="zxx" class="western">GlobalRequirement ::=
 <span lang="zxx"><b>requirement</b> Name ( <b>:</b><span style="letter-spacing: 4.3pt"> </span>Title )?</span>
 <span lang="zxx">( <b>for </b>ComponentCategory+ )?<span style="letter-spacing: 1.4pt"> </span></span>
@@ -828,7 +833,7 @@ system requirements. </font></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Requirement  | DocumentSection )+ </span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">(</span><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>issues</b></span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"> </span></font><font color="#7e0055"><span style="letter-spacing: -0.5pt"><b>(</b></span></font>String)+<span style="letter-spacing: -0.6pt"> </span>)?</span></font></font></pre><p lang="zxx" class="western">
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">]</font></font></p>
-<p lang="zxx" class="western">A <i>Requirement</i><i>s</i><i>Document</i>
+<p lang="zxx" class="western">A <i>RequirementsDocument</i>
 declaration has the following elements:</p>
 <ul>
 	<li/>
@@ -887,15 +892,21 @@ Variables and Predicates</h2>
 <h3 class="western"><a name="__RefHeading___Toc436393031"></a><a name="ConstantCompute"></a>
 Constants and Compute Variables 
 </h3>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">ReqSpec
-allows the user to introduce <i>Constants</i> to localize common
-changes to a stakeholder goal or system requirement. Constants act as
-parameters that can be referenced by Description elements in goal and
-requirement declarations and by Predicate elements in requirement
-declarations. Their values can be any numeric value with an optional
-measurement unit, as well as Booleans, strings, and enumeration
-literals. Acceptable measurement units are any unit defined as Units
-literals in property sets of the AADL core language.</font></font></font></p>
+<p lang="zxx" class="western"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><font color="#000000">ReqSpec
+allows the user to introduce </font><font color="#000000"><i>Constants</i></font><font color="#000000">
+to localize common changes to a stakeholder goal or system
+requirement. Constants act as parameters that can be referenced by
+Description elements in goal and requirement declarations and by
+Predicate elements in requirement declarations. Their values can be
+expressions that result in numeric values with an optional
+measurement unit, numeric value ranges, as well as Booleans, strings,
+references to model elements, and values of any user defined property
+type. Acceptable measurement units are any unit defined as Units
+literals in property sets of the AADL core language. See </font>Appendix
+A for expression syntax details. The type is inferred from the value
+when not explicitly declared. Users can optionally specify that the
+value of a property identified by the <b>as </b>for the model element
+must be the same as the <i>constant </i>value.</font></font></p>
 <p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Times, serif">A
 predicate for a requirement typically compares an expected value
 against a value that has been computed or measured during a
@@ -911,13 +922,17 @@ architecture-led incremental system assurance (ALISA) workbench
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Constant | ComputedVariable</span></font></font>
 
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Constant ::=</span></font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>val</b></span></font><font color="#7e0055"> ( </font>Type )?<font color="#7e0055"> </font>Name <font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>=</b></span></font> Value </span></font></font>
-
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><b>val</b></font><font color="#7e0055"> </font>Name <font color="#7e0055">(</font><font color="#7e0055"><b>:</b></font><font color="#7e0055"> </font>TypeSpec )?<font color="#7e0055"> </font><font color="#7e0055"><b>=</b></font> Expression <font color="#7e0055">(</font><font color="#7e0055"><b>as</b></font><font color="#7e0055"> &lt;</font>PropertyName&gt; )?</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">ComputedVariable ::=</span></font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><span style="letter-spacing: 0.1pt"><b>compute</b></span></font><font color="#7e0055"> </font>Name </span></font></font>
-
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Type ::= &lt;base type&gt;</span></font></font></pre><p lang="zxx" class="western">
-<br/>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><b>compute</b></font><font color="#7e0055"> </font>Name <font color="#7e0055"><b>: </b></font>TypeSpec</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">TypeSpec ::= BaseType | <font color="#7e0055"><b>typeof</b></font><font color="#7e0055"> &lt;</font>PropertyName&gt;</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">BaseType ::= <font color="#7e0055"><b>boolean </b></font>| <font color="#7e0055"><b>string </b></font>| <font color="#7e0055"><b>integer </b></font><font color="#7e0055">(</font><font color="#7e0055"><b>units</b></font><font color="#7e0055"> &lt;</font>UnitsTypeName&gt; )?</span></font></font></pre><p lang="zxx" class="western">
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt">|
+<font color="#7e0055"><b>real </b></font><font color="#7e0055">(</font><font color="#7e0055"><b>units</b></font><font color="#7e0055">
+&lt;</font>UnitsTypeName&gt; )? | <font color="#7e0055"><b>model
+element </b></font>| &lt;PropertyTypeName&gt; </font></font>
+</p>
+<p lang="zxx" class="western"><br/>
 <br/>
 
 </p>
@@ -957,31 +972,33 @@ several forms:</p>
 	quickly attempt to specify a predicate without getting hung up about
 	syntax of a particular notation.</font></p>
 	<li/>
-<p lang="zxx" class="list-western"><span lang="zxx">Value
-	assertion: </span><font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><span lang="zxx"><b>value
-	predicate </b></span></span></font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span lang="zxx">ActualBudget
-	&lt;= MaxBudget </span></font></font></font><font color="#2a00ff"><span lang="zxx"><br/>
-</span></font><font color="#000000">Expressions
+<p lang="zxx" class="list-western">Value assertion: <font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>value
+	predicate </b></span></font></font></font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">ActualBudget
+	&lt;= MaxBudget </font></font></font><font color="#2a00ff"><br/>
+</font><font color="#000000">Expressions
 	compare actual values against expected values. This is done by
 	comparing ReqSpec constant values, AADL property constants, AADL
 	property values associated with the system component in an AADL
 	model, and computed values represented by a </font><font color="#000000"><i>ComputedVariable</i></font><font color="#000000">.
 	Constants and computed variables are referenced by their name. AADL
 	property and property constant references are prefixed by </font><font color="#7e0055"><font face="Lucida Console"><font size="2" style="font-size: 10pt"><b>#</b></font></font></font><font color="#000000">.
-	The expression language includes Boolean, comparison, arithmetic
-	operators and functions such as min, max, round, abs.<br/>
-For
-	example, a user specifies </font><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">ActualCPUBudget
-	&lt;= MaxCPUBudget</font></font></font><font color="#000000"><font size="2" style="font-size: 10pt">
-	</font></font><font color="#000000">where MaxCPUBudget is a constant
-	and ActualCPUBudget is a computed variable.</font></p>
-	<li/>
-<p lang="zxx" class="list-western"><font color="#000000">Full
-	predicate expression: </font><font color="#7e0055"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt"><span style="letter-spacing: 0.1pt"><b>predicate</b></span></font></font></font><font color="#7e0055">
-	</font><font color="#000000"><font face="Lucida Console, monospace"><font size="2" style="font-size: 9pt">&lt;general
-	Java like expression&gt;</font></font></font><font color="#000000">
-	Java like expression syntax alligns with the Xbase. </font>
+	The expression language includes the operators: and, or, not, ==,
+	!=, &gt;=, &lt;=, &gt;, &lt;, &gt;&lt; (contained in range), +, -,
+	*, /, div (integer divide), mod. It supports parentheses and
+	functions such as min, max, round, and abs. See Appendix A for
+	details.<br/>
+For example, a user specifies </font><font color="#000000"><font face="Lucida Console"><font size="2" style="font-size: 10pt">ActualCPUBudget
+	&lt;= MaxCPUBudget</font></font></font><font color="#000000">, where
+	</font><font color="#000000"><i>MaxCPUBudget</i></font><font color="#000000">
+	is a constant and </font><font color="#000000"><i>ActualCPUBudget</i></font><font color="#000000">
+	is a computed variable. </font>
 	</p>
+	<li/>
+<p lang="zxx" class="western"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><font color="#000000">Behavioral
+	assertion: Behavioral predicate syntax will be supported in a future
+	version of ReqSpec. Meanwhile users can specify behavioral
+	assertions through the </font><font color="#000000"><i>informal
+	predicate</i></font><font color="#000000"> construct.</font></font></font></p>
 </ul>
 <h2 lang="zxx" class="western"><a name="__RefHeading___Toc436393034"></a><a name="Categories"></a>
 User-definable and Predefined Category Types and Labels</h2>
@@ -1000,7 +1017,7 @@ relevant to certain development phases. </font></font></font>
 <p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">Categories
 are declared in a separate file with the extension <i>cat</i> using
 the following syntax:</font></font></font></p>
-<pre lang="zxx" class="western"><font face="Courier New"><font size="2" style="font-size: 10pt"><span style="letter-spacing: 0.1pt">Categories ::= ( CategoryType )+</span></font></font>
+<pre lang="zxx" class="western" style="letter-spacing: 0.1pt"><font face="Courier New"><font size="2" style="font-size: 10pt">Categories ::= ( CategoryType )+</font></font>
 <font face="Courier New"><font size="2" style="font-size: 10pt"><span lang="zxx">CategoryType ::=</span></font></font></pre><p lang="zxx" class="western">
 <font size="2" style="font-size: 10pt"><font face="Times, serif">Name
 </font><font color="#7e0055"><font face="Times, serif"><b>[
@@ -1013,40 +1030,40 @@ must be unique within a category type.</font></font></font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
 following category types have been predefined within the ALISA
 workbench:</font></font></font></p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></font></span><i>Kind:</i> to indicate the kind of requirement</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Guarantee:
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal">
+</span><i>Kind:</i> to indicate the kind of requirement</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Guarantee:
 </i>guarantee made by a system to its environment, typically about
 its output.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Assumption:</i>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Assumption:</i>
 assumption made by a system about its environment, typically about
 its input.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Exception:
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Exception:
 </i>exceptional condition such as safety hazard or security
 vulnerability that the requirement addresses.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Constraint:</i>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Constraint:</i>
 a constraint on the implementation of a system, typically, on the
 subcomponents, their properties, state, and connectivity. 
 </p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">	&middot;</font></font><i>Consistency:</i>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Consistency:</i>
 a consistency constraint between information in ReqSpec and an AADL
 model or between models. For example, that the values of ReqSpec
 constants are consistent with property values in the AADL model.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></font></span><i>Quality:</i> to represent operational quality
-attributes that the requirement addresses. The following category
-literals are included: <i>Behavior</i>, <i>State</i>, <i>Timing</i>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal">
+</span><i>Quality:</i> to represent operational quality attributes
+that the requirement addresses. The following category literals are
+included: <i>Behavior</i>, <i>State</i>, <i>Timing</i>
 (schedulability), <i>Latency</i> (response time), <i>Safety</i>,
 <i>Security</i>, <i>Reliability</i>, <i>Availability</i>,
 <i>CPUUtilization</i>, <i>MemoryUtilization</i>, <i>NetworkUtilization</i>,
 <i>Mass</i>, <i>ElectricalPower</i></p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></font></span><i>Phase:</i> to represent development phases:
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal">
+</span><i>Phase:</i> to represent development phases:
 SystemRequirements, ArchitectureDesign, PDR, CDR, DetailedDesign,
 Implementation, UnitTest, SystemTest.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal"><font face="Symbol"><font size="1" style="font-size: 8pt">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-</font></font></span><i>Layer:</i> Tier of a layered architecture:
-<i>Tier1</i>, <i>Tier2</i>, <i>Tier3</i>, <i>Tier4</i>, <i>Tier5</i>.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal">
+</span><i>Layer:</i> Tier of a layered architecture: <i>Tier1</i>,
+<i>Tier2</i>, <i>Tier3</i>, <i>Tier4</i>, <i>Tier5</i>.</p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
 can define their own category types. Users can also extend
 predeclared category types by defining additional category labels
@@ -1104,19 +1121,20 @@ developed before, frequent changes in the operational environment,
 represents the effort involved in performing the change and
 addressing its impact other parts of a system. It may reflect
 indicators such as system complexity, precedence in technology use.</p>
-<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Times, serif">These
+<p lang="zxx" class="western"><font face="Times, serif"><font size="3" style="font-size: 12pt">These
 measures can identify high-payoff opportunities for reducing
 requirement change. [Nolan 2011] has demonstrated that reduction of
 up to 50% in requirement changes can be achieved based on expert
 assessment of such categorical measures. </font></font>
 </p>
 <h2 lang="zxx" class="western">Design Goals</h2>
-<p lang="zxx" class="western"><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">RDAL
+<p lang="zxx" class="western" style="font-variant: normal; font-style: normal; font-weight: normal">
+<font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">RDAL
 distinguishes between verifiable and satisfiable requirements.
 Verifiable requirements must be met, and testing will provide a
 true/false result. In ReqSpec, all system and global requirements
 must be verifiable. Satisfiable requirements are quantified and must
-be met to a certain degree. </span></span></span></font></font></font>
+be met to a certain degree. </font></font></font>
 </p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">ReqSpec
 supports the specification of desirable target values that a system
@@ -1130,22 +1148,23 @@ following to value predicates:</font></font></font></p>
 <pre lang="zxx" class="western" style="margin-top: 0.08in; margin-bottom: 0.08in"><font size="2" style="font-size: 10pt"><font color="#7e0055"><font face="Lucida Console"><b>with</b></font></font> <font face="Lucida Console">( &lt;constant&gt; </font><font color="#7e0055"><font face="Lucida Console"><b>upto </b></font></font><font face="Lucida Console">| </font><font color="#7e0055"><font face="Lucida Console"><b>downto</b></font></font> <font face="Lucida Console">&lt;value&gt; )+</font></font></pre><h2 lang="zxx" class="western">
 <a name="__RefHeading___Toc436393038"></a><a name="ReqSpecGuidelines"></a>
 Guidelines for Use of ReqSpec</h2>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">This
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx">This
 section provides some general guidelines on using ReqSpec with AADL
 models. ReqSpec is supported in OSATE by the workbench extension
-ALISA</font></font></font><a href="#_ftn1" name="_ftnref1"><font color="#000000"><sup><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">[1]</font></font></sup></font></a><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">
-that supports architecture-led incremental system assurance
-throughout the life cycle [Delange 2016]. Section </font></font></font><font size="3" style="font-size: 12pt">4.1
-provides detail on installing ReqSpec and ALISA in OSATE.</font></p>
+ALISA</span></font></font></font><a href="#_ftn1" name="_ftnref1"><font color="#000000"><sup><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">[1]</span></font></font></sup></font></a><font color="#000000"><span lang="zxx">
+</span></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx">that
+supports architecture-led incremental system assurance throughout the
+life cycle [Delange 2016]. Section </span></font></font></font><font size="3" style="font-size: 12pt"><span lang="zxx">4.1
+provides detail on installing ReqSpec and ALISA in OSATE.</span></font></p>
 <p lang="zxx" class="western" style="margin-bottom: 0in"><br/>
 
 </p>
-<hr width="438" align="left" size="1"/>
+<hr size="1"/>
 
 <div id="ftn1" dir="ltr">
-	<p lang="zxx" class="western"><a href="#_ftnref1" name="_ftn1"><font color="#000000"><sup><font face="Arial, sans-serif"><font size="1" style="font-size: 8pt">[1]</font></font></sup></font></a><font color="#000000">
+	<p lang="zxx" class="western"><a href="#_ftnref1" name="_ftn1"><font color="#000000"><sup><font face="Arial, sans-serif"><font size="1" style="font-size: 8pt"><span lang="zxx">[1]</span></font></font></sup></font></a><font color="#000000"><span lang="zxx">
 	ALISA as a whole or ReqSpec as a separate Eclipse feature are
-	available through an update site at www.github.com/osate/alisa.</font></p>
+	available through an update site at www.github.com/osate/alisa.</span></font></p>
 </div>
 <p lang="zxx" class="western"><br/>
 <br/>
@@ -1153,29 +1172,29 @@ provides detail on installing ReqSpec and ALISA in OSATE.</font></p>
 </p>
 <h3 class="western"><a name="__RefHeading___Toc436393039"></a><a name="ReqSpecFiles"></a>
 Organizing ReqSpec Files</h3>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">Users
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx">Users
 create files that contain stakeholder goal sets, system requirement
 sets, global requirement sets, goals and requirements in document
 structured format, global constants, stakeholders in organizations,
 and category types by creating files with the appropriate extension.
 Users can place these files in folders within a project that contains
 the AADL model; for instance, you can create a folder named
-</font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><i>requirements</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">
-at the same level within a project as a folder called </font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><i>packages
-</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">that
+</span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>requirements</i></span></font></font></font><font color="#000000"><span lang="zxx">
+</span></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx">at
+the same level within a project as a folder called </span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx"><i>packages
+</i></span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt"><span lang="zxx">that
 contains AADL packages. Users can also place these files in a project
 separate from the AADL model of a system. In this case, you must set
-the project references for the projects within OSATE/Eclipse.</font></font></font><a href="#_ftn1" name="_ftnref1"><font color="#000000"><sup><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">[1]</font></font></sup></font></a></p>
+the project references for the projects within OSATE/Eclipse.</span></font></font></font><a href="#_ftn1" name="_ftnref1"><font color="#000000"><sup><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt"><span lang="zxx">[1]</span></font></font></sup></font></a></p>
 <p lang="zxx" class="western" style="margin-bottom: 0in"><br/>
 
 </p>
-<hr width="438" align="left" size="1"/>
+<hr size="1"/>
 
 <div id="Section1" dir="ltr">
-	<p lang="zxx" class="western"><a name="ftn1"></a><a href="#_ftnref1" name="_ftn1"><sup><font face="Arial, sans-serif"><font size="1" style="font-size: 8pt">[1]</font></font></sup></a>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Set the project references using the
-	pull-down menu Project &rarr; Properties &rarr; Project References,
-	as shown in Figure 3.</p>
+	<p lang="zxx" class="western"><a name="ftn1"></a><a href="#_ftnref1" name="_ftn1"><sup><font face="Arial, sans-serif"><font size="1" style="font-size: 8pt"><span lang="zxx">[1]</span></font></font></sup></a><span lang="zxx">
+	Set the project references using the pull-down menu Project &rarr;
+	Properties &rarr; Project References, as shown in Figure 3.</span></p>
 </div>
 <p lang="zxx" class="western"><br/>
 <br/>
@@ -1201,7 +1220,7 @@ system components.</font></font></font></p>
 the following sections we describe usage in terms of requirements.
 The same principals apply to goals. </font></font></font>
 </p>
-<h3 lang="zxx" class="western"><br/>
+<h3 class="western"><br/>
 <br/>
 
 </h3>
@@ -1302,13 +1321,12 @@ from system requirements of a subsystem to requirements of a system
 goals. For qualified references, the system requirement set that
 contains the requirement must be identified.</font></font></font></p>
 <h3 class="western">Categorizing Goals and Requirements</h3>
-<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font color="#000000"><font face="Times New Roman"><span lang="zxx">Users
+<p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font color="#000000"><font face="Times New Roman">Users
 can associate category labels of different category types with
 requirements and goals. This allows users to create filtered views of
 requirements and verification plans, e.g., focus on safety and
 performance requirements. Predefined category types and labels have
-been introduced in Section </span></font></font><font color="#000000"><font face="Times New Roman"><span lang="zxx">Category
-Types and Labels</span></font></font><span lang="zxx">.</span></font></p>
+been introduced in Section Category Types and Labels</font></font>.</font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
 categorization also allows us to assess requirements coverage and
 verification early and throughout the development life cycle. For
@@ -1321,24 +1339,245 @@ covered. Similarly, categorization of verification activities
 according to phase allows the ALISA workbench to ensure that
 potential issues in a system design are discovered as early as
 possible through appropriate verification activities.</font></font></font></p>
-<p lang="zxx" class="western"> 
+<h2 lang="zxx" class="western">Appendix A</h2>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Operators
+and their precedence in ReqSpec expressions</font></font></font></p>
+<table width="1115" cellpadding="0" cellspacing="0">
+	<tr valign="top">
+		<td width="143" style="border: 1.00pt solid #000000; padding: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><b>Precedence</b></font></font></font></p>
+		</td>
+		<td width="192" style="border-top: 1.00pt solid #000000; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0.02in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><b>Category</b></font></font></font></p>
+		</td>
+		<td width="780" style="border-top: 1.00pt solid #000000; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0.02in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><b>Operator</b></font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">1
+			(lowest)</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Logical
+			OR</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;Boolean&gt;
+			<b>or</b> &lt;Boolean&gt;</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">2</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Logical
+			AND</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;Boolean&gt;
+			<b>and</b> &lt;Boolean&gt;</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">3</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Equality</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;expression&gt;
+			<b>==</b> &lt;expression&gt;<br/>
+&lt;expression&gt; <b>!=</b>
+			&lt;expression&gt;</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">4</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Relational</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>&lt;</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
+			&lt;numeric&gt; </font></font></font>also <font face="Consolas"><b>&lt;=</b></font><font face="Consolas">,
+			</font><font face="Consolas"><b>&gt;</b></font><font face="Consolas">,
+			</font><font face="Consolas"><b>&gt;=</b></font><font face="Consolas"><br/>
+&lt;range&gt;
+			</font><font face="Consolas"><b>&lt;</b></font><font face="Consolas">
+			&lt;range&gt; </font>also <font face="Consolas"><b>&lt;=</b></font><font face="Consolas">,
+			</font><font face="Consolas"><b>&gt;</b></font><font face="Consolas">,
+			</font><font face="Consolas"><b>&gt;=</b></font><font face="Consolas"><br/>
+&lt;numeric&gt;
+			</font><font face="Consolas"><b>&gt;&lt;</b></font><font face="Consolas">
+			&lt;range&gt; </font>(value included in range)<font face="Consolas"><br/>
+&lt;range1&gt;
+			</font><font face="Consolas"><b>&gt;&lt;</b></font><font face="Consolas">
+			&lt;range2&gt; </font>(range1 included in range2)</p>
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Numeric
+			or range expressions on the left and right hand side must use the
+			same units type, if any.</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">5</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Additive</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>+</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
+			&lt;numeric&gt; </font></font></font>also <font face="Consolas"><b>-</b></font><font face="Consolas"><br/>
+&lt;range1&gt;
+			</font><font face="Consolas"><b>+</b></font><font face="Consolas">
+			&lt;range2&gt; </font>(smallest range containing both ranges)</p>
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Numeric
+			or range expressions on the left and right hand side must use the
+			same units type, if any.</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">6</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Multiplicative</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>*</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
+			&lt;numeric&gt;<br/>
+&lt;real&gt; </font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>/</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
+			&lt;real&gt;<br/>
+&lt;integer&gt; </font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>div</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
+			&lt;integer&gt; </font></font></font>also <font face="Consolas"><b>mod<br/>
+</b></font><font face="Consolas">&lt;range&gt;
+			</font><font face="Consolas"><b>*</b></font><font face="Consolas">
+			&lt;range&gt; </font>(range intersection)</p>
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">For
+			multiplication at most one argument may have a units type.<br/>
+For
+			division, if the right hand side argument has a unit it must be of
+			the same type as the unit the left hand side.</font></font></font></p>
+		</td>
+	</tr>
+	<tr valign="top">
+		<td width="143" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: 1.00pt solid #000000; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0.02in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">7</font></font></font></p>
+		</td>
+		<td width="192" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Unary</font></font></font></p>
+		</td>
+		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
+			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>+</b></font></font></font>
+			<font face="Consolas">&lt;numeric&gt;<br/>
+</font><font face="Consolas"><b>-</b></font><font face="Consolas">
+			&lt;numeric&gt;<br/>
+</font><font face="Consolas"><b>not</b></font><font face="Consolas">
+			&lt;Boolean&gt;</font></p>
+		</td>
+	</tr>
+</table>
+<p lang="zxx" class="western"><font color="#000000">&nbsp;</font></p>
+<h3 class="western">Primary expressions:</h3>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">1.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Unit operations for numeric expressions</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Unit assignment to a unit-less
+expression<br/>
+<font face="Consolas">&lt;primary expression&gt;
+&lt;unit name&gt;</font><br/>
+Example: <font face="Consolas">(x </font><font face="Consolas"><b>+</b></font><font face="Consolas">
+1) ms</font>, where X is an integer or real value without a unit.</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Conversion to numeric value without
+unit<br/>
+<font face="Consolas">&lt;primary expression&gt; </font><font face="Consolas"><b>in</b></font><font face="Consolas">
+&lt;unit name&gt;</font><br/>
+Example: <font face="Consolas">(2.0ms)
+</font><font face="Consolas"><b>in</b></font><font face="Consolas">
+ns</font>, evaluates to 2000</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Conversion to different unit<br/>
+<font face="Consolas">&lt;primary
+expression&gt; </font><font face="Consolas"><b>%</b></font><font face="Consolas">
+&lt;unit name&gt;</font><br/>
+Example<font face="Consolas">: (2ms) </font><font face="Consolas"><b>%</b></font><font face="Consolas">
+ns</font>, evaluates to <font face="Consolas">2000ns</font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">2.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Conditional expression<br/>
+<font face="Consolas"><b>if</b></font>
+<font face="Consolas">&lt;Boolean&gt; </font><font face="Consolas"><b>then</b></font><font face="Consolas">
+&lt;expression1&gt; </font><font face="Consolas"><b>else</b></font><font face="Consolas">
+&lt;expression2&gt; </font><font face="Consolas"><b>endif</b></font><br/>
+Both
+expression1 and expression2 must have the same type.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">3.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Reference to model element<br/>
+<font face="Consolas"><b>this</b></font><font face="Consolas">.&lt;element
+name&gt;.&lt;element name&gt;. &hellip; .&lt;element name&gt;<br/>
+</font>The
+keyword <font face="Consolas"><b>this</b></font> refers to the target
+classifier of the requirement or requirement set.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">4.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Reference to property value in
+model<br/>
+<font face="Consolas">&lt;model element&gt;#&lt;property
+name&gt;<br/>
+#&lt;property name&gt; </font>(short form of
+<font face="Consolas"><b>this</b></font><font face="Consolas">#&lt;property
+name&gt;</font>)<br/>
+The property name must be a property or a
+property constant, the model element must be either a literal model
+element reference or a value of type model element.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">5.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Literals with examples</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Boolean literal: <font face="Consolas">true,
+false</font></p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Integer literal, optionally with unit:
+<font face="Consolas">2000, 20ms</font></p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Real literal: <font face="Consolas">12.5,
+2.5ms</font></p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">d.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>String literal: &ldquo;<font face="Consolas">strings
+are enclosed in double quotes&rdquo; </font>
+</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">e.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Range literal: <font face="Consolas">[1
+.. 5], [500ms .. 2s]<br/>
+</font>Note that a space character is
+needed before the two dots.</p>
+<p lang="zxx" class="western"><br/>
+<br/>
+
 </p>
 <h2 lang="zxx" class="western">References</h2>
-<p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b><font face="Arial, sans-serif"><span lang="zxx">[ALISA
-2016]</span></font></b></font></font></p>
+<p lang="zxx" class="western"><font face="Arial, sans-serif"><font size="2" style="font-size: 11pt"><b>[ALISA
+2016]</b></font></font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Architecture-Led
 Incremental System Assurance (ALISA) Workbench.&nbsp;
 https://github.com/osate/alisa </font></font></font>
 </p>
 <p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Delange
 2016]</b></font></font></p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Delange,
-J., Feiler, P., Ernst, N., </font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>Incremental
-Life Cycle Assurance of Safety-Critical Systems</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">,
-Proc. 8</font></font></font><font color="#000000"><sup><font face="Times New Roman"><font size="2" style="font-size: 10pt">th</font></font></sup></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-European Congress on Embedded Real Time Software and Systems, Jan
-2016. <a href="http://www.erts2016.org/inc/telechargerPdf.php?pdf=paper_13">http://www.erts2016.org/inc/telechargerPdf.php?pdf=paper_13</a>
-</font></font></font>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">Delange,
+J., Feiler, P., Ernst, N., </span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx"><i>Incremental
+Life Cycle Assurance of Safety-Critical Systems</i></span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">,
+Proc. 8</span></font></font></font><font color="#000000"><sup><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">th</span></font></font></sup></font><font color="#000000"><span lang="zxx">
+</span></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">European
+Congress on Embedded Real Time Software and Systems, Jan 2016.
+<a href="http://www.erts2016.org/inc/telechargerPdf.php?pdf=paper_13">http://www.erts2016.org/inc/telechargerPdf.php?pdf=paper_13</a>
+</span></font></font></font>
 </p>
 <p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Eclipse
 2015]</b></font></font></p>
@@ -1347,11 +1586,11 @@ Xtend. 2015. http://www.eclipse.org/xtend</font></font></font></p>
 <p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[FAA
 2009] </b></font></font>
 </p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Federal
-Aviation Administration. </font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>Requirements
-Engineering Management Handbook</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">Federal
+Aviation Administration. </span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx"><i>Requirements
+Engineering Management Handbook</i></span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">.
 DOT/FAA/AR-08/32. FAA. 2008.
-<a href="http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf">http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf</a></font></font></font></p>
+<a href="http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf">http://www.faa.gov/aircraft/air_cert/design_approvals/air_software/media/AR-08-32.pdf</a></span></font></font></font></p>
 <p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Feiler
 2015] </b></font></font>
 </p>
@@ -1376,13 +1615,13 @@ to UML Models to Software Specifications</i>. Wiley. 2009.</font></font></font><
 <p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[Nolan
 2011] </b></font></font>
 </p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Nolan,
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">Nolan,
 A. J.; Abrahao, S.; Clements, P.; and Pickard, A. Managing
 Requirements Uncertainty in Engine Control Systems Development.
-259&ndash;264. </font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><i>19th
-IEEE International Requirements Engineering Conference (RE)</i></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.
+259&ndash;264. </span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx"><i>19th
+IEEE International Requirements Engineering Conference (RE)</i></span></font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt"><span lang="zxx">.
 Aug. 29&ndash;Sep. 2, 2011.
-<a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6051622&amp;tag=1">http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6051622&amp;tag=1</a></font></font></font></p>
+<a href="http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6051622&amp;tag=1">http://ieeexplore.ieee.org/xpls/abs_all.jsp?arnumber=6051622&amp;tag=1</a></span></font></font></font></p>
 <p lang="zxx" class="western"><font face="Arial"><font size="2" style="font-size: 11pt"><b>[OMG
 2015]</b></font></font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Object
@@ -1408,9 +1647,5 @@ SAE. 1996.</font></font></font></p>
 <br/>
 
 </p>
-<div title="footer">
-	<p lang="zxx" class="western" align="center" style="margin-top: 0.2in; margin-bottom: 0in">
-	<sdfield type=PAGE subtype=RANDOM format=PAGE>17</sdfield></p>
-</div>
 </body>
 </html>
