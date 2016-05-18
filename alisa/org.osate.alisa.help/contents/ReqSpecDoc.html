@@ -5,11 +5,13 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-05-18T00:19:13.137000000"/>
+	<meta name="changed" content="2016-05-18T09:51:31.773000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-05-18T00:19:13.137000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-05-17T23:53:58.453000000">
 	<meta name="created" content="00:00:00">
@@ -259,7 +261,7 @@ system.</font></p>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">|</span></span></span></font>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><b>when in error state &lt;</b></span><span lang="zxx"><span style="font-weight: normal">ErrorState&gt; ( </span></span><span lang="zxx"><b>, </b></span><span lang="zxx"><span style="font-weight: normal">&lt;ErrorState&gt; )*</span></span></span></font>
 <font color="#000000">  <span lang="zxx"><span lang="zxx"><span style="font-weight: normal">|</span></span></span></font>
-<font color="#000000">  <span lang="zxx"><span lang="zxx"><b>when </b></span><span lang="zxx"><span style="font-weight: normal">e</span></span><span lang="zxx"><span style="font-weight: normal">xpression</span></span></span></font></pre><p lang="zxx" class="western">
+<font color="#000000">  <span lang="zxx"><span lang="zxx"><b>when </b></span><span lang="zxx"><span style="font-weight: normal">expression</span></span></span></font></pre><p lang="zxx" class="western">
 <br/>
 <br/>
 
@@ -1340,6 +1342,11 @@ according to phase allows the ALISA workbench to ensure that
 potential issues in a system design are discovered as early as
 possible through appropriate verification activities.</font></font></font></p>
 <h2 lang="zxx" class="western">Appendix A</h2>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">This
+Appendix describes the initial expression support for ReqSpec in the
+OSATE 2.2.1 maintenance release of May 2015. The expression notation
+will be aligned with the emerging AADL Constraint Annex. Please check
+the online help for the latest capabilities.</font></font></font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Operators
 and their precedence in ReqSpec expressions</font></font></font></p>
 <table width="1115" cellpadding="0" cellspacing="0">
@@ -1404,21 +1411,22 @@ and their precedence in ReqSpec expressions</font></font></font></p>
 		</td>
 		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
 			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
-			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>&lt;</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
-			&lt;numeric&gt; </font></font></font>also <font face="Consolas"><b>&lt;=</b></font><font face="Consolas">,
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>&lt;</b></font></font></font><font color="#000000">
+			</font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
+			</font></font></font>also <font face="Consolas"><b>&lt;=</b></font><font face="Consolas">,
 			</font><font face="Consolas"><b>&gt;</b></font><font face="Consolas">,
 			</font><font face="Consolas"><b>&gt;=</b></font><font face="Consolas"><br/>
 &lt;range&gt;
-			</font><font face="Consolas"><b>&lt;</b></font><font face="Consolas">
-			&lt;range&gt; </font>also <font face="Consolas"><b>&lt;=</b></font><font face="Consolas">,
+			</font><font face="Consolas"><b>&lt;</b></font> <font face="Consolas">&lt;range&gt;
+			</font>also <font face="Consolas"><b>&lt;=</b></font><font face="Consolas">,
 			</font><font face="Consolas"><b>&gt;</b></font><font face="Consolas">,
 			</font><font face="Consolas"><b>&gt;=</b></font><font face="Consolas"><br/>
 &lt;numeric&gt;
-			</font><font face="Consolas"><b>&gt;&lt;</b></font><font face="Consolas">
-			&lt;range&gt; </font>(value included in range)<font face="Consolas"><br/>
+			</font><font face="Consolas"><b>&gt;&lt;</b></font> <font face="Consolas">&lt;range&gt;
+			</font>(value included in range)<font face="Consolas"><br/>
 &lt;range1&gt;
-			</font><font face="Consolas"><b>&gt;&lt;</b></font><font face="Consolas">
-			&lt;range2&gt; </font>(range1 included in range2)</p>
+			</font><font face="Consolas"><b>&gt;&lt;</b></font> <font face="Consolas">&lt;range2&gt;
+			</font>(range1 included in range2)</p>
 			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Numeric
 			or range expressions on the left and right hand side must use the
 			same units type, if any.</font></font></font></p>
@@ -1433,11 +1441,12 @@ and their precedence in ReqSpec expressions</font></font></font></p>
 		</td>
 		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
 			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
-			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>+</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
-			&lt;numeric&gt; </font></font></font>also <font face="Consolas"><b>-</b></font><font face="Consolas"><br/>
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>+</b></font></font></font><font color="#000000">
+			</font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
+			</font></font></font>also <font face="Consolas"><b>-</b></font><font face="Consolas"><br/>
 &lt;range1&gt;
-			</font><font face="Consolas"><b>+</b></font><font face="Consolas">
-			&lt;range2&gt; </font>(smallest range containing both ranges)</p>
+			</font><font face="Consolas"><b>+</b></font> <font face="Consolas">&lt;range2&gt;
+			</font>(smallest range containing both ranges)</p>
 			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">Numeric
 			or range expressions on the left and right hand side must use the
 			same units type, if any.</font></font></font></p>
@@ -1452,15 +1461,18 @@ and their precedence in ReqSpec expressions</font></font></font></p>
 		</td>
 		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
 			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;
-			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>*</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
-			&lt;numeric&gt;<br/>
-&lt;real&gt; </font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>/</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
-			&lt;real&gt;<br/>
-&lt;integer&gt; </font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>div</b></font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">
-			&lt;integer&gt; </font></font></font>also <font face="Consolas"><b>mod<br/>
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>*</b></font></font></font><font color="#000000">
+			</font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;numeric&gt;<br/>
+&lt;real&gt;
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>/</b></font></font></font><font color="#000000">
+			</font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;real&gt;<br/>
+&lt;integer&gt;
+			</font></font></font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>div</b></font></font></font><font color="#000000">
+			</font><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt">&lt;integer&gt;
+			</font></font></font>also <font face="Consolas"><b>mod<br/>
 </b></font><font face="Consolas">&lt;range&gt;
-			</font><font face="Consolas"><b>*</b></font><font face="Consolas">
-			&lt;range&gt; </font>(range intersection)</p>
+			</font><font face="Consolas"><b>*</b></font> <font face="Consolas">&lt;range&gt;
+			</font>(range intersection)</p>
 			<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">For
 			multiplication at most one argument may have a units type.<br/>
 For
@@ -1478,85 +1490,101 @@ For
 		<td width="780" style="border-top: none; border-bottom: 1.00pt solid #000000; border-left: none; border-right: 1.00pt solid #000000; padding-top: 0in; padding-bottom: 0.02in; padding-left: 0in; padding-right: 0.02in">
 			<p lang="zxx" class="western"><font color="#000000"><font face="Consolas"><font size="2" style="font-size: 10pt"><b>+</b></font></font></font>
 			<font face="Consolas">&lt;numeric&gt;<br/>
-</font><font face="Consolas"><b>-</b></font><font face="Consolas">
-			&lt;numeric&gt;<br/>
-</font><font face="Consolas"><b>not</b></font><font face="Consolas">
-			&lt;Boolean&gt;</font></p>
+</font><font face="Consolas"><b>-</b></font>
+			<font face="Consolas">&lt;numeric&gt;<br/>
+</font><font face="Consolas"><b>not</b></font>
+			<font face="Consolas">&lt;Boolean&gt;</font></p>
 		</td>
 	</tr>
 </table>
 <p lang="zxx" class="western"><font color="#000000">&nbsp;</font></p>
 <h3 class="western">Primary expressions:</h3>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">1.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Unit operations for numeric expressions</p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Unit assignment to a unit-less
-expression<br/>
-<font face="Consolas">&lt;primary expression&gt;
-&lt;unit name&gt;</font><br/>
-Example: <font face="Consolas">(x </font><font face="Consolas"><b>+</b></font><font face="Consolas">
-1) ms</font>, where X is an integer or real value without a unit.</p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Conversion to numeric value without
-unit<br/>
-<font face="Consolas">&lt;primary expression&gt; </font><font face="Consolas"><b>in</b></font><font face="Consolas">
-&lt;unit name&gt;</font><br/>
-Example: <font face="Consolas">(2.0ms)
-</font><font face="Consolas"><b>in</b></font><font face="Consolas">
-ns</font>, evaluates to 2000</p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Conversion to different unit<br/>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">1.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Unit operations for numeric expressions</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Unit assignment to a unit-less expression<br/>
 <font face="Consolas">&lt;primary
-expression&gt; </font><font face="Consolas"><b>%</b></font><font face="Consolas">
-&lt;unit name&gt;</font><br/>
-Example<font face="Consolas">: (2ms) </font><font face="Consolas"><b>%</b></font><font face="Consolas">
-ns</font>, evaluates to <font face="Consolas">2000ns</font></p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">2.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Conditional expression<br/>
+expression&gt; &lt;unit name&gt;</font><br/>
+Example: <font face="Consolas">(x
+</font><font face="Consolas"><b>+</b></font> <font face="Consolas">1)
+ms</font>, where X is an integer or real value without a unit.</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Conversion to numeric value without unit<br/>
+<font face="Consolas">&lt;primary
+expression&gt; </font><font face="Consolas"><b>in</b></font> <font face="Consolas">&lt;unit
+name&gt;</font><br/>
+Example: <font face="Consolas">(2.0ms) </font><font face="Consolas"><b>in</b></font>
+<font face="Consolas">ns</font>, evaluates to 2000</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Conversion to different unit<br/>
+<font face="Consolas">&lt;primary
+expression&gt; </font><font face="Consolas"><b>%</b></font> <font face="Consolas">&lt;unit
+name&gt;</font><br/>
+Example<font face="Consolas">: (2ms) </font><font face="Consolas"><b>%</b></font>
+<font face="Consolas">ns</font>, evaluates to <font face="Consolas">2000ns</font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">2.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Conditional expression<br/>
 <font face="Consolas"><b>if</b></font>
-<font face="Consolas">&lt;Boolean&gt; </font><font face="Consolas"><b>then</b></font><font face="Consolas">
-&lt;expression1&gt; </font><font face="Consolas"><b>else</b></font><font face="Consolas">
-&lt;expression2&gt; </font><font face="Consolas"><b>endif</b></font><br/>
+<font face="Consolas">&lt;Boolean&gt; </font><font face="Consolas"><b>then</b></font>
+<font face="Consolas">&lt;expression1&gt; </font><font face="Consolas"><b>else</b></font>
+<font face="Consolas">&lt;expression2&gt; </font><font face="Consolas"><b>endif</b></font><br/>
 Both
 expression1 and expression2 must have the same type.</p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">3.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Reference to model element<br/>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">3.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Reference to model element<br/>
 <font face="Consolas"><b>this</b></font><font face="Consolas">.&lt;element
 name&gt;.&lt;element name&gt;. &hellip; .&lt;element name&gt;<br/>
 </font>The
 keyword <font face="Consolas"><b>this</b></font> refers to the target
 classifier of the requirement or requirement set.</p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">4.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Reference to property value in
-model<br/>
-<font face="Consolas">&lt;model element&gt;#&lt;property
-name&gt;<br/>
-#&lt;property name&gt; </font>(short form of
-<font face="Consolas"><b>this</b></font><font face="Consolas">#&lt;property
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">4.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Reference to property value in model<br/>
+<font face="Consolas">&lt;model
+element&gt;#&lt;property name&gt;<br/>
+#&lt;property name&gt; </font>(short
+form of <font face="Consolas"><b>this</b></font><font face="Consolas">#&lt;property
 name&gt;</font>)<br/>
 The property name must be a property or a
 property constant, the model element must be either a literal model
 element reference or a value of type model element.</p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">5.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Literals with examples</p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Boolean literal: <font face="Consolas">true,
-false</font></p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Integer literal, optionally with unit:
-<font face="Consolas">2000, 20ms</font></p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Real literal: <font face="Consolas">12.5,
-2.5ms</font></p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">d.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>String literal: &ldquo;<font face="Consolas">strings
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">5.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Literals with examples</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Boolean literal: <font face="Consolas">true, false</font></p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Integer literal, optionally with unit: <font face="Consolas">2000,
+20ms</font></p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Real literal: <font face="Consolas">12.5, 2.5ms</font></p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">d.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>String literal: &ldquo;<font face="Consolas">strings
 are enclosed in double quotes&rdquo; </font>
 </p>
-<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">e.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Range literal: <font face="Consolas">[1
-.. 5], [500ms .. 2s]<br/>
-</font>Note that a space character is
-needed before the two dots.</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">e.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Range literal: <font face="Consolas">[1 .. 5], [500ms
+.. 2s]<br/>
+</font>Note that a space character is needed before the
+two dots.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">6</font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Automatic type conversion between Real
+and Integer occurs to match the target type. For example users can
+assign an Integer value (numeric value without decimal point) to a
+<i>constant</i> of type Real. Similarly, addition of an Integer value
+and a Real value results in a Real value.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">7</font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>Built-in functions: the following
+built-in functions are supported</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.
+</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>min, max: minimum or maximum value of a
+range</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.
+</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>abs: absolute value</p>
+<p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.
+</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
+</font></font></font></span>floor, ceil, round: next lower, higher,
+closest Integer value for a given Real value</p>
 <p lang="zxx" class="western"><br/>
 <br/>
 
