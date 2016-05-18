@@ -25,7 +25,7 @@ public class ReferenceEncoder {
 		}
 	}
 	
-	public static String decodeSegment(final StringBuilder sb, final String seg) {		
+	public static void decodeSegment(final StringBuilder sb, final String seg) {
 		final int len = seg.length();
 		for(int i = 0; i < len; i++) {
 			char ch = seg.charAt(i);
@@ -51,8 +51,6 @@ public class ReferenceEncoder {
 				sb.append(ch);
 			}
 		}
-				
-		return sb.toString();
 	}
 
 	// Simple main function that encodes and decodes strings for testing purposes.
@@ -69,7 +67,8 @@ public class ReferenceEncoder {
 		encodeSegment(sb, str);
 		final String encoded = sb.toString();
 		sb.setLength(0);
-		final String decoded = decodeSegment(sb, encoded);
+		decodeSegment(sb, encoded);
+		final String decoded = sb.toString();
 		System.out.println("'" + str + "' : '" + encoded + "' : '" + decoded + "'");
 	}
 }
