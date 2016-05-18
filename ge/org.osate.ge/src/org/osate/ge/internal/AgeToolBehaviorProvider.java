@@ -48,7 +48,7 @@ import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
 import org.osate.ge.internal.Categorized;
-import org.osate.ge.internal.features.PictogramHandlerDoubleClickFeature;
+import org.osate.ge.internal.features.BoHandlerDoubleClickFeature;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
@@ -61,7 +61,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
-	private final PictogramHandlerDoubleClickFeature defaultDoubleClickFeature;
+	private final BoHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
 	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
@@ -69,7 +69,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;
-		this.defaultDoubleClickFeature = new PictogramHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
+		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
 	}
 
 	@Override

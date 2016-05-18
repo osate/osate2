@@ -32,7 +32,7 @@ public class SimplePaletteEntry implements PaletteEntry {
 	 * @param category
 	 */
 	public SimplePaletteEntry(final String category, final Type type, final String label, final String imageId, final Object context) {
-		this.category = Objects.requireNonNull(category, "category must not be null");
+		this.category = category;
 		this.type = Objects.requireNonNull(type, "type must not be null");
 		this.label = Objects.requireNonNull(label, "label must not be null");
 		this.imageId = imageId;

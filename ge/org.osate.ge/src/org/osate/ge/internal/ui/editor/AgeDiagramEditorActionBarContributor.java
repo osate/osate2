@@ -111,7 +111,7 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 				final IContributionItem innerItem = ((SubContributionItem) item).getInnerItem();
 				if(innerItem instanceof MenuManager) {
 					final MenuManager menuManager = (MenuManager)innerItem;
-					if(menuManager.getMenuText().equalsIgnoreCase("View")) {
+					if(MENU_ID_VIEW.equals(menuManager.getId())) {
 						menuManager.add(new Separator());
 						menuManager.add(getAction(IncreaseNestingDepthAction.ID));
 						menuManager.add(getAction(DecreaseNestingDepthAction.ID));

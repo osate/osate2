@@ -11,11 +11,10 @@ package org.osate.ge.errormodel.model;
 import java.util.Objects;
 
 import org.eclipse.emf.ecore.EObject;
-import org.osate.ge.EObjectOwnerProvider;
-import org.osate.ge.EObjectReferenceProvider;
+import org.osate.ge.EmfContainerProvider;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
-public class ErrorTypeExtension implements EObjectReferenceProvider, EObjectOwnerProvider {
+public class ErrorTypeExtension implements EmfContainerProvider {
 	private final ErrorType supertype;
 	private final ErrorType subtype;
 	
@@ -33,12 +32,7 @@ public class ErrorTypeExtension implements EObjectReferenceProvider, EObjectOwne
 	}
 
 	@Override
-	public EObject getEObjectReference() {
-		return subtype;
-	}
-	
-	@Override
-	public EObject getEObjectOwner() {
+	public EObject getEmfContainer() {
 		return subtype;
 	}
 

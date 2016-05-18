@@ -26,7 +26,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.ge.di.GetResource;
+import org.osate.ge.di.GetEmfResource;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
 import org.osate.ge.di.GetProject;
@@ -172,7 +172,7 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final Resource res = (Resource)ContextInjectionFactory.invoke(refBuilder, GetResource.class, serviceContext, argCtx, null);
+				final Resource res = (Resource)ContextInjectionFactory.invoke(refBuilder, GetEmfResource.class, serviceContext, argCtx, null);
 				if(res!= null) {
 					return res;
 				}

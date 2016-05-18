@@ -2,14 +2,12 @@ package org.osate.ge.internal.graphics;
 
 import java.util.Objects;
 
-import org.osate.ge.ConnectionTerminator;
-
 public class FreeFormConnection implements AgeConnection {
 	private final ConnectionStyle connectionStyle;
-	private final ConnectionTerminator srcTerminator;
-	private final ConnectionTerminator dstTerminator;
+	private final AgeConnectionTerminator srcTerminator;
+	private final AgeConnectionTerminator dstTerminator;
 	
-	public FreeFormConnection(final ConnectionStyle connectionStyle, final ConnectionTerminator srcTerminator, final ConnectionTerminator dstTerminator) {
+	public FreeFormConnection(final ConnectionStyle connectionStyle, final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator) {
 		this.connectionStyle = Objects.requireNonNull(connectionStyle, "connectionStyle must not be null");
 		this.srcTerminator = srcTerminator;
 		this.dstTerminator = dstTerminator;
@@ -21,12 +19,12 @@ public class FreeFormConnection implements AgeConnection {
 	}
 	
 	@Override
-	public ConnectionTerminator getSourceTerminator() {
+	public AgeConnectionTerminator getSourceTerminator() {
 		return srcTerminator;
 	}
 	
 	@Override
-	public ConnectionTerminator getDestinationTerminator() {
+	public AgeConnectionTerminator getDestinationTerminator() {
 		return dstTerminator;
 	}
 }

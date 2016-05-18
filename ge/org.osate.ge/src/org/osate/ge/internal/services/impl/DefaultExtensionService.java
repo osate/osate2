@@ -31,13 +31,13 @@ public class DefaultExtensionService implements ExtensionService {
 	}
 	
 	@Override
-	public Collection<Object> getPictogramHandlers() {
-    	return globalExtService.getPictogramHandlers();
+	public Collection<Object> getBusinessObjectHandlers() {
+    	return globalExtService.getBusinessObjectHandlers();
     }
 	
 	@Override
-	public Object getApplicablePictogramHandler(final Object bo) {
-		return globalExtService.getApplicablePictogramHandler(bo);
+	public Object getApplicableBusinessObjectHandler(final Object bo) {
+		return globalExtService.getApplicableBusinessObjectHandler(bo);
 	}
 	
 	@Override

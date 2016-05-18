@@ -40,17 +40,17 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
-	private static final String PICTOGRAM_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.pictogramHandlers";
+	private static final String BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectHandlers";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	
 	private final Collection<Object> tools;
-	private final Collection<Object> pictogramHandlers;
+	private final Collection<Object> boHandlers;
 	private final List<Category> categories;
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
 		tools = instantiateTools(registry);
-		pictogramHandlers = instantiatePictogramHandlers(registry);
+		boHandlers = instantiateBusinessObjectHandlers(registry);
 		categories = instantiateCategories(registry);
 	}
 
@@ -60,19 +60,19 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	@Override
-	public Collection<Object> getPictogramHandlers() {
-    	return pictogramHandlers;
+	public Collection<Object> getBusinessObjectHandlers() {
+    	return boHandlers;
     }
 	
 	@Override
-	public Object getApplicablePictogramHandler(final Object bo) {
+	public Object getApplicableBusinessObjectHandler(final Object bo) {
 		final IEclipseContext eclipseCtx =  EclipseContextFactory.create();
 
 		try {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
 
-			// Find the pictogram handler which can be used to handle the double-click
-			for(final Object handler : getPictogramHandlers()) {
+			// Find the business object handler which can be used to handle the double-click
+			for(final Object handler : getBusinessObjectHandlers()) {
 				final boolean isApplicable = (boolean)ContextInjectionFactory.invoke(handler, IsApplicable.class, eclipseCtx, false);
 				if(isApplicable) {
 					return handler;
@@ -96,8 +96,8 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool");
 	}
 	
-	private static Collection<Object> instantiatePictogramHandlers(final IExtensionRegistry registry) {
-		return instantiateSimpleExtensions(registry, PICTOGRAM_HANDLERS_EXTENSION_POINT_ID, "handler");
+	private static Collection<Object> instantiateBusinessObjectHandlers(final IExtensionRegistry registry) {
+		return instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler");
 	}
 
 	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements

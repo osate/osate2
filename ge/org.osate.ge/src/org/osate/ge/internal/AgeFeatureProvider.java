@@ -82,15 +82,15 @@ import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
 import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
-import org.osate.ge.internal.features.PictogramHandlerAddFeature;
-import org.osate.ge.internal.features.PictogramHandlerCreateConnectionFeature;
-import org.osate.ge.internal.features.PictogramHandlerCreateFeature;
-import org.osate.ge.internal.features.PictogramHandlerDeleteFeature;
-import org.osate.ge.internal.features.PictogramHandlerDirectEditFeature;
-import org.osate.ge.internal.features.PictogramHandlerLayoutFeature;
-import org.osate.ge.internal.features.PictogramHandlerRefreshHelper;
-import org.osate.ge.internal.features.PictogramHandlerResizeShapeFeature;
-import org.osate.ge.internal.features.PictogramHandlerUpdateFeature;
+import org.osate.ge.internal.features.BoHandlerAddFeature;
+import org.osate.ge.internal.features.BoHandlerCreateConnectionFeature;
+import org.osate.ge.internal.features.BoHandlerCreateFeature;
+import org.osate.ge.internal.features.BoHandlerDeleteFeature;
+import org.osate.ge.internal.features.BoHandlerDirectEditFeature;
+import org.osate.ge.internal.features.BoHandlerLayoutFeature;
+import org.osate.ge.internal.features.BoRefreshHelper;
+import org.osate.ge.internal.features.BusinessObjectHandlerResizeShapeFeature;
+import org.osate.ge.internal.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
@@ -132,7 +132,7 @@ import org.osate.ge.internal.features.RenameFlowSpecificationFeature;
 import org.osate.ge.internal.features.SetAccessFeatureKindFeature;
 import org.osate.ge.internal.features.SetFeatureDirectionFeature;
 import org.osate.ge.internal.features.SetFeatureGroupInverseFeature;
-import org.osate.ge.EObjectOwnerProvider;
+import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
@@ -165,10 +165,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private AnchorService anchorService;
 	private BusinessObjectResolutionService bor;
 	private PropertyService propertyService;
-	private PictogramHandlerDeleteFeature defaultDeleteFeature;
-	private PictogramHandlerDirectEditFeature defaultDirectEditFeature;
-	private PictogramHandlerLayoutFeature defaultLayoutFeature;
-	private PictogramHandlerRefreshHelper pictogramRefreshHelper;
+	private BoHandlerDeleteFeature defaultDeleteFeature;
+	private BoHandlerDirectEditFeature defaultDirectEditFeature;
+	private BoHandlerLayoutFeature defaultLayoutFeature;
+	private BoRefreshHelper pictogramRefreshHelper;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -192,7 +192,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		final GhostingService ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
 		final StyleService styleService = Objects.requireNonNull(context.get(StyleService.class), "unable to retrieve style service");
-		this.pictogramRefreshHelper = new PictogramHandlerRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, shapeService, propertyService, styleService, this);
+		this.pictogramRefreshHelper = new BoRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, shapeService, propertyService, styleService, this);
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
@@ -225,10 +225,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 		
-		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to pictogram handlers.
-		defaultDeleteFeature = make(PictogramHandlerDeleteFeature.class);
-		defaultDirectEditFeature = make(PictogramHandlerDirectEditFeature.class);
-		defaultLayoutFeature = make(PictogramHandlerLayoutFeature.class);
+		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
+		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
+		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
+		defaultLayoutFeature = make(BoHandlerLayoutFeature.class);
 	}
 
 	@Override
@@ -502,13 +502,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
-			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
+			for(final Object boHandler : extService.getBusinessObjectHandlers()) {
+				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(boHandler, GetPaletteEntries.class, childCtx, null);
 				if(extPaletteEntries != null) {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new PictogramHandlerCreateFeature(bor, extService, aadlModService, shapeService, this, simpleEntry, pictogramHandler));
+							features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, this, simpleEntry, boHandler));
 						}
 					}
 				}
@@ -522,9 +522,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			
 	@Override
 	protected IAddFeature getAddFeatureAdditional(final IAddContext addCtx) {
-		final Object pictogramHandler = extService.getApplicablePictogramHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
-		if(pictogramHandler != null) {
-			return new PictogramHandlerAddFeature(extService, pictogramRefreshHelper, this, pictogramHandler);
+		final Object boHandler = extService.getApplicableBusinessObjectHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
+		if(boHandler != null) {
+			return new BoHandlerAddFeature(extService, pictogramRefreshHelper, this, boHandler);
 		}
 
 		return super.getAddFeatureAdditional(addCtx);
@@ -533,9 +533,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	protected IUpdateFeature getUpdateFeatureAdditional(final IUpdateContext updateCtx) {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
-		final Object pictogramHandler = extService.getApplicablePictogramHandler(bor.getBusinessObjectForPictogramElement(pe));
-		if(pictogramHandler != null) {
-			return new PictogramHandlerUpdateFeature(refBuilder, bor, connectionService, pictogramRefreshHelper, this, pictogramHandler);
+		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(pe));
+		if(boHandler != null) {
+			return new BoHandlerUpdateFeature(refBuilder, bor, connectionService, pictogramRefreshHelper, this, boHandler);
 		}
 
 		return super.getUpdateFeatureAdditional(updateCtx);
@@ -572,13 +572,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Add extension create connection features		
 		final IEclipseContext childCtx = createGetPaletteEntriesContext();
 		try {
-			for(final Object pictogramHandler : extService.getPictogramHandlers()) {
-				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(pictogramHandler, GetPaletteEntries.class, childCtx, null);
+			for(final Object boHandler : extService.getBusinessObjectHandlers()) {
+				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(boHandler, GetPaletteEntries.class, childCtx, null);
 				if(extPaletteEntries != null) {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new PictogramHandlerCreateConnectionFeature(extService, aadlModService, bor, this, simpleEntry, pictogramHandler));
+							retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, this, simpleEntry, boHandler));
 						}
 					}
 				}
@@ -854,9 +854,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			return null;
 		}
 		
-		final Object pictogramHandler = extService.getApplicablePictogramHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
-		if(pictogramHandler != null) {
-			return new PictogramHandlerResizeShapeFeature(bor, extService, this, pictogramHandler);
+		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
+		if(boHandler != null) {
+			return new BusinessObjectHandlerResizeShapeFeature(bor, extService, this, boHandler);
 		}
 
 		return super.getResizeShapeFeatureAdditional(context);
@@ -875,8 +875,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		for(final Object rawBo : businessObjects) {
 			// Get an EMF object
 			Object bo = AadlElementWrapper.unwrap(rawBo);
-			if(bo instanceof EObjectOwnerProvider) {
-				bo = ((EObjectOwnerProvider) bo).getEObjectOwner();
+			if(bo instanceof EmfContainerProvider) {
+				bo = ((EmfContainerProvider) bo).getEmfContainer();
 			}
 			
 			if(bo == null) {

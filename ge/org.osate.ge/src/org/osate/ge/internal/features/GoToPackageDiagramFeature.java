@@ -15,7 +15,7 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
-import org.osate.ge.EObjectReferenceProvider;
+import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 
@@ -60,8 +60,8 @@ public class GoToPackageDiagramFeature extends AbstractCustomFeature {
 	}
     
     private Element getElement(Object bo) {
-    	if(bo instanceof EObjectReferenceProvider) {
-    		bo = ((EObjectReferenceProvider) bo).getEObjectReference();
+    	if(bo instanceof EmfContainerProvider) {
+    		bo = ((EmfContainerProvider) bo).getEmfContainer();
     	}
     	
     	return bo instanceof Element ? (Element)bo : null;

@@ -23,7 +23,7 @@ import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener;
-import org.osate.ge.EObjectReferenceProvider;
+import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.GraphitiService;
 
@@ -56,7 +56,7 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
 		final PictogramElement pe = pes[0];	
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 
-		return bo instanceof EObject || bo instanceof EObjectReferenceProvider;
+		return bo instanceof EObject || bo instanceof EmfContainerProvider;
 	}
     
     @Override
@@ -71,8 +71,8 @@ public class GraphicalToTextualFeature extends AbstractCustomFeature {
 		final EObject boEObj;
 		if(bo instanceof EObject) {
 			boEObj = (EObject)bo;
-		} else if(bo instanceof EObjectReferenceProvider) {
-			boEObj = ((EObjectReferenceProvider) bo).getEObjectReference();
+		} else if(bo instanceof EmfContainerProvider) {
+			boEObj = ((EmfContainerProvider) bo).getEmfContainer();
 		} else {
 			throw new RuntimeException("Unsupported type: " + bo);
 		}

@@ -27,11 +27,11 @@ public interface ExtensionRegistryService {
     Collection<Object> getTools();
 
 	/**
-	 * Pictogram handlers are extension which control aspects of handling a pictogram, e.g., creating and refreshing pictograms. 
+	 * Business object handlers are extension which provide  
 	 */
-    Collection<Object> getPictogramHandlers();
+    Collection<Object> getBusinessObjectHandlers();
 
-    Object getApplicablePictogramHandler(Object bo);
+    Object getApplicableBusinessObjectHandler(Object bo);
     
 	/**
 	 * Returns a list of registered categories for the palette.

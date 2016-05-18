@@ -26,7 +26,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.BuildReference;
 import org.osate.ge.di.GetProject;
-import org.osate.ge.di.GetResource;
+import org.osate.ge.di.GetEmfResource;
 import org.osate.ge.di.GetTitle;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
@@ -122,7 +122,7 @@ public class ErrorModelReferenceHandler {
 		return null;
 	}
 	
-	@GetResource
+	@GetEmfResource
 	public Resource getResource(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
 		return typeLib.getErrorModelLibrary().eResource();
 	}

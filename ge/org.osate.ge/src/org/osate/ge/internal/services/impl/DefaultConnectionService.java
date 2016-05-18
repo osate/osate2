@@ -25,7 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.osate.aadl2.ModeTransition;
-import org.osate.ge.di.CreateOwnerDiagramElementQuery;
+import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.internal.connections.AadlConnectionInfoProvider;
 import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
@@ -34,7 +34,7 @@ import org.osate.ge.internal.connections.GeneralizationInfoProvider;
 import org.osate.ge.internal.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionTriggerInfoProvider;
-import org.osate.ge.internal.connections.PictogramHandlerConnectionInfoProvider;
+import org.osate.ge.internal.connections.BusinessObjectHandlerConnectionInfoProvider;
 import org.osate.ge.internal.connections.SubprogramCallOrderInfoProvider;
 import org.osate.ge.internal.patterns.ModeTransitionPattern;
 import org.osate.ge.internal.query.QueryRunner;
@@ -86,13 +86,13 @@ public class DefaultConnectionService implements ConnectionService {
 		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
 		infoProviders.add(new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper));
 
-		// Create ConnectionInfoProvider for pictogram handlers.
+		// Create ConnectionInfoProvider for business object handlers.
 		final QueryRunner queryRunner = new QueryRunner(propertyService, this, bor, refBuilder);
-		for(final Object handler : extService.getPictogramHandlers()) {
-			// Look for a method which is used if and only if the pictogram handler handles connections
+		for(final Object handler : extService.getBusinessObjectHandlers()) {
+			// Look for a method which is used if and only if the business object handler handles connections
 			for(final Method m : handler.getClass().getMethods()) {
-				if(m.isAnnotationPresent(CreateOwnerDiagramElementQuery.class)) {
-					infoProviders.add(new PictogramHandlerConnectionInfoProvider(extService, bor, handler, queryRunner));
+				if(m.isAnnotationPresent(CreateParentQuery.class)) {
+					infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(extService, bor, handler, queryRunner));
 					break;
 				}
 			}

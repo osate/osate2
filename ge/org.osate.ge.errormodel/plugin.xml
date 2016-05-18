@@ -2,33 +2,33 @@
 <?eclipse version="3.4"?>
 <plugin>
    <extension
-         point="org.osate.ge.pictogramHandlers">
+         point="org.osate.ge.businessObjectHandlers">
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypePictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypeExtensionPictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeExtensionHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorStateMachinePictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorStateMachineHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorModelLibraryPictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorModelLibraryHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorModelSubclausePictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorModelSubclauseHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorTypeLibraryPictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorTypeLibraryHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorEventPictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorEventHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorStatePictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorStateHandler">
       </handler>
       <handler
-            class="org.osate.ge.errormodel.pictogramHandlers.ErrorBehaviorTransitionPictogramHandler">
+            class="org.osate.ge.errormodel.businessObjectHandlers.ErrorBehaviorTransitionHandler">
       </handler>
    </extension>
    <extension
