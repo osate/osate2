@@ -5,11 +5,15 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-05-18T09:51:31.773000000"/>
+	<meta name="changed" content="2016-05-19T15:29:20.373000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-05-19T15:27:41.187000000">
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-05-18T09:51:31.773000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-05-18T00:19:13.137000000">
 	<meta name="created" content="00:00:00">
@@ -24,6 +28,10 @@
 	<meta name="changed" content="2015-12-03T22:02:02.528000000">
 	<style type="text/css">
 		@page { margin: 0.79in }
+		p { margin-bottom: 0.08in; line-height: 0.19in }
+		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
+		p.cjk { font-size: 12pt; so-language: zxx }
+		p.ctl { font-size: 12pt; so-language: zxx }
 		td p { margin-bottom: 0.08in; line-height: 0.19in }
 		td p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
 		td p.cjk { font-size: 12pt; so-language: zxx }
@@ -32,10 +40,6 @@
 		h1.western { font-family: "Liberation Serif", serif; so-language: zxx }
 		h1.cjk { font-family: "Segoe UI"; font-size: 24pt; so-language: zxx }
 		h1.ctl { font-family: "Tahoma"; font-size: 24pt; so-language: zxx }
-		p { margin-bottom: 0.08in; line-height: 0.19in }
-		p.western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
-		p.cjk { font-size: 12pt; so-language: zxx }
-		p.ctl { font-size: 12pt; so-language: zxx }
 		p.list-western { font-family: "Liberation Serif", serif; font-size: 12pt; so-language: zxx }
 		p.list-cjk { font-size: 12pt; so-language: zxx }
 		p.list-ctl { font-family: "Mangal"; font-size: 12pt; so-language: zxx }
@@ -200,6 +204,10 @@ DocReference )+</font></font></font></p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
 set of elements between square brackets, [ ], can appear in any
 order.</font></font></font></p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman, serif"><font size="3" style="font-size: 12pt">Finally,
+users should be aware that ReqSpec is case sensitive. This is
+different from AADL,, which is not case sensitive. </font></font></font>
+</p>
 <p lang="zxx" class="western" style="margin-bottom: 0.1in; line-height: 0.19in">
 <br/>
 <br/>
@@ -233,7 +241,7 @@ system.</font></p>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt"><b>goal</b></span><span style="letter-spacing: -0.5pt"> </span>Name (<span style="letter-spacing: -0.2pt"> </span><span style="letter-spacing: 0.1pt"><b>:</b></span><span style="letter-spacing: 4.3pt"> </span>Title<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
 <font color="#000000"><span lang="zxx">(<span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>for</b></span><span style="letter-spacing: -0.2pt"> </span>TargetElement<span style="letter-spacing: -0.3pt"> </span>)?<span style="letter-spacing: 1.4pt"> </span></span></font>
 <font color="#000000"><span lang="zxx">[</span></font>
-<font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Categorylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
+<font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> </span>CategoryReference<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font>
 <font color="#000000"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>description</b></span><span style="letter-spacing: 4.4pt"> </span>Description )?<span style="letter-spacing: 1.2pt"> </span></span></font>
 <font color="#000000"><span lang="zxx">( Constant )*</span></font>
 <font color="#000000"><span lang="zxx">( WhenCondition )?</span></font>
@@ -252,6 +260,7 @@ system.</font></p>
 <font color="#000000"><span lang="zxx">Title ::= String</span></font>
 <font color="#000000"><span lang="zxx">TargetClassifier ::= &lt;AADL Component Classifier&gt;</span></font>
 <font color="#000000"><span lang="zxx">TargetElement ::= &lt;ModelElement&gt;</span></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">CategoryReference ::= &lt;CategoryType&gt;.&lt;CategoryLabel&gt;</span></font></font></font>
 <font color="#000000"><span lang="zxx">DocReference ::= URI to an element in an external document</span></font>
 
 <font face="Lucida Console"><font size="2" style="font-size: 10pt"><span lang="zxx">Description ::= String ( &lt;Constant or Variable&gt; | <font color="#7e0055"><b>this</b></font> | String )*</span></font></font>
@@ -289,7 +298,8 @@ declaration has the following elements:</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Categor</i></font><font color="#000000"><font size="3" style="font-size: 12pt"><i>y</i></font></font><font color="#000000"><font size="3" style="font-size: 12pt">:
 	</font></font><font face="Times, serif"><font size="3" style="font-size: 12pt">list
-	of user-defined category labels (without comma separation) to
+	of category references</font></font> <font face="Times, serif"><font size="3" style="font-size: 12pt">without
+	comma separation (see Section User-defined Categories) to
 	characterize a stakeholder goal. Such labels can be used for
 	specifying filtered views of stakeholder goals.</font></font></p>
 	<li/>
@@ -489,7 +499,7 @@ other categories as well, e.g., by <i>abstract</i> or <i>device</i>.</font></p>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">(<span style="letter-spacing: -0.3pt"> </span><span style="letter-spacing: 0.1pt"><b>for</b></span><span style="letter-spacing: -0.2pt"> </span>TargetElement )?<span style="letter-spacing: 1.4pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">[</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>quality</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Qualitylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
-<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> &lt;</span>Categorylabel&gt;<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
+<font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>category</b></span><span style="letter-spacing: -0.2pt"> </span>(<span style="letter-spacing: -0.3pt"> </span>CategoryReference<span style="letter-spacing: -0.2pt"> </span>)+<span style="letter-spacing: -0.3pt"> </span>)?</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><span style="letter-spacing: 0.1pt">( </span><span style="letter-spacing: 0.1pt"><b>description</b></span><span style="letter-spacing: 4.4pt"> </span>Description<span style="letter-spacing: -0.5pt"> </span>)?<span style="letter-spacing: 1.2pt"> </span></span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( Variable )*</span></font></font></font>
 <font color="#000000"><font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">( WhenCondition )?</span></font></font></font>
@@ -531,9 +541,9 @@ following elements:</font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Category</i></font><font color="#000000">:
 	</font><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">list
-	of user-defined category labels (without comma separation) to
-	characterize a requirement. Such labels can be used for specifying
-	filtered views of system requirements</font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">.</font></font></font></p>
+	of category references without comma separation (see Section
+	User-defined Categories) to characterize a requirement. Such labels
+	can be used for specifying filtered views of system requirements</font></font><font color="#000000"><font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt">.</font></font></font></p>
 	<li/>
 <p lang="zxx" class="list-western"><font color="#000000"><i>Description:
 	</i>A textual description of the requirement. In its most general
@@ -906,9 +916,8 @@ references to model elements, and values of any user defined property
 type. Acceptable measurement units are any unit defined as Units
 literals in property sets of the AADL core language. See </font>Appendix
 A for expression syntax details. The type is inferred from the value
-when not explicitly declared. Users can optionally specify that the
-value of a property identified by the <b>as </b>for the model element
-must be the same as the <i>constant </i>value.</font></font></p>
+when not explicitly declared. </font></font>
+</p>
 <p lang="zxx" class="western"><font size="3" style="font-size: 12pt"><font face="Times, serif">A
 predicate for a requirement typically compares an expected value
 against a value that has been computed or measured during a
@@ -924,7 +933,7 @@ architecture-led incremental system assurance (ALISA) workbench
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Constant | ComputedVariable</span></font></font>
 
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">Constant ::=</span></font></font>
-<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><b>val</b></font><font color="#7e0055"> </font>Name <font color="#7e0055">(</font><font color="#7e0055"><b>:</b></font><font color="#7e0055"> </font>TypeSpec )?<font color="#7e0055"> </font><font color="#7e0055"><b>=</b></font> Expression <font color="#7e0055">(</font><font color="#7e0055"><b>as</b></font><font color="#7e0055"> &lt;</font>PropertyName&gt; )?</span></font></font>
+<font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><b>val</b></font><font color="#7e0055"> </font>Name <font color="#7e0055">(</font><font color="#7e0055"><b>:</b></font><font color="#7e0055"> </font>TypeSpec )?<font color="#7e0055"> </font><font color="#7e0055"><b>=</b></font> Expression </span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">ComputedVariable ::=</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx"><font color="#7e0055"><b>compute</b></font><font color="#7e0055"> </font>Name <font color="#7e0055"><b>: </b></font>TypeSpec</span></font></font>
 <font face="Liberation Mono, monospace"><font size="2" style="font-size: 10pt"><span lang="zxx">TypeSpec ::= BaseType | <font color="#7e0055"><b>typeof</b></font><font color="#7e0055"> &lt;</font>PropertyName&gt;</span></font></font>
@@ -1021,14 +1030,15 @@ are declared in a separate file with the extension <i>cat</i> using
 the following syntax:</font></font></font></p>
 <pre lang="zxx" class="western" style="letter-spacing: 0.1pt"><font face="Courier New"><font size="2" style="font-size: 10pt">Categories ::= ( CategoryType )+</font></font>
 <font face="Courier New"><font size="2" style="font-size: 10pt"><span lang="zxx">CategoryType ::=</span></font></font></pre><p lang="zxx" class="western">
-<font size="2" style="font-size: 10pt"><font face="Times, serif">Name
-</font><font color="#7e0055"><font face="Times, serif"><b>[
-</b></font></font><font face="Times, serif">(CategoryLabel )+ </font><font color="#7e0055"><font face="Times, serif"><b>]</b></font></font>
-</font>
+<font face="Courier New, monospace"><font size="2" style="font-size: 10pt">Name
+<font color="#7e0055"><b>[ </b></font>(CategoryLabel )+ <font color="#7e0055"><b>]</b></font>
+</font></font>
 </p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
 name of each category type must unique among category types. Labels
-must be unique within a category type.</font></font></font></p>
+must be unique within a category type. </font></font></font>&nbsp;<font face="Times, serif"><font size="2" style="font-size: 10pt">A
+category is referenced by its type and label, e.g., </font></font><font face="Times, serif"><font size="2" style="font-size: 10pt"><i>Kind.Guarantee</i></font></font><font face="Times, serif"><font size="2" style="font-size: 10pt">.</font></font>
+</p>
 <p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="3" style="font-size: 12pt">The
 following category types have been predefined within the ALISA
 workbench:</font></font></font></p>
@@ -1037,20 +1047,22 @@ workbench:</font></font></font></p>
 <p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Guarantee:
 </i>guarantee made by a system to its environment, typically about
 its output.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Assumption:</i>
-assumption made by a system about its environment, typically about
-its input.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Exception:
-</i>exceptional condition such as safety hazard or security
-vulnerability that the requirement addresses.</p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Constraint:</i>
-a constraint on the implementation of a system, typically, on the
-subcomponents, their properties, state, and connectivity. 
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt"><i>&middot;&middot;
+</i></font></font><i>Assumption:</i> assumption made by a system
+about its environment, typically about its input.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;&middot;
+</font></font><i>Exception: </i>exceptional condition such as safety
+hazard or security vulnerability that the requirement addresses.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;&middot;
+</font></font><i>Constraint:</i> a constraint on the implementation
+of a system, typically, on the subcomponents, their properties,
+state, and connectivity. 
 </p>
-<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><i>Consistency:</i>
-a consistency constraint between information in ReqSpec and an AADL
-model or between models. For example, that the values of ReqSpec
-constants are consistent with property values in the AADL model.</p>
+<p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;&middot;
+</font></font><i>Consistency:</i> a consistency constraint between
+information in ReqSpec and an AADL model or between models. For
+example, that the values of ReqSpec constants are consistent with
+property values in the AADL model.</p>
 <p lang="zxx" class="western"><font face="Symbol"><font size="1" style="font-size: 8pt">&middot;</font></font><span style="font-variant: normal">
 </span><i>Quality:</i> to represent operational quality attributes
 that the requirement addresses. The following category literals are
@@ -1565,26 +1577,22 @@ are enclosed in double quotes&rdquo; </font>
 .. 2s]<br/>
 </font>Note that a space character is needed before the
 two dots.</p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">6</font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Automatic type conversion between Real
-and Integer occurs to match the target type. For example users can
-assign an Integer value (numeric value without decimal point) to a
-<i>constant</i> of type Real. Similarly, addition of an Integer value
-and a Real value results in a Real value.</p>
-<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">7</font></font></font><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">.</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>Built-in functions: the following
-built-in functions are supported</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">6.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Automatic type conversion between Real and Integer
+occurs to match the target type. For example users can assign an
+Integer value (numeric value without decimal point) to a <i>constant</i>
+of type Real. Similarly, addition of an Integer value and a Real
+value results in a Real value.</p>
+<p lang="zxx" class="western"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">7.</font></font></font><span style="font-variant: normal"><font color="#000000">
+</font></span>Built-in functions: the following built-in functions
+are supported</p>
 <p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">a.
-</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>min, max: minimum or maximum value of a
-range</p>
+</font></font></font>min, max: minimum or maximum value of a range</p>
 <p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">b.
-</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>abs: absolute value</p>
+</font></font></font>abs: absolute value</p>
 <p lang="zxx" class="western" style="margin-left: 1in"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">c.
-</font></font></font><span style="font-variant: normal"><font color="#000000"><font face="Times New Roman"><font size="2" style="font-size: 10pt">
-</font></font></font></span>floor, ceil, round: next lower, higher,
-closest Integer value for a given Real value</p>
+</font></font></font>floor, ceil, round: next lower, higher, closest
+Integer value for a given Real value</p>
 <p lang="zxx" class="western"><br/>
 <br/>
 
