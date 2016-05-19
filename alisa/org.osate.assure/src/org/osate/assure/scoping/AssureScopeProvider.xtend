@@ -49,12 +49,12 @@ class AssureScopeProvider extends CommonScopeProvider {
 		if (targetClassifier != null) {
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.getAllFeatures+targetClassifier.allModes,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			if (targetClassifier instanceof ComponentImplementation) {
 				new SimpleScope(thescope,
 					Scopes::scopedElementsFor(targetClassifier.allSubcomponents+targetClassifier.allEndToEndFlows+
 						targetClassifier.allConnections,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			} else {
 				return thescope
 			}
@@ -85,7 +85,7 @@ class AssureScopeProvider extends CommonScopeProvider {
 		if (!forSystemRequirements.requirements.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(forSystemRequirements.requirements,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 		}
 		return result
 	}
@@ -97,7 +97,7 @@ class AssureScopeProvider extends CommonScopeProvider {
 		if (!vas.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(vas,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 		}
 		return result
 	}
