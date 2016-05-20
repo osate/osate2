@@ -40,6 +40,7 @@ import org.eclipse.core.runtime.Status
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
+import org.eclipse.xtext.serializer.ISerializationContext
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.annexsupport.AnnexRegistry
@@ -58,7 +59,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 		unparserRegistry ?: (unparserRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID) as AnnexUnparserRegistry)
 	}
 
-	override createSequence(EObject context, EObject semanticObject) {
+	override createSequence(ISerializationContext context, EObject semanticObject) {
 		switch semanticObject {
 			DefaultAnnexLibrary case context == grammarAccess.annexLibraryRule || context == grammarAccess.defaultAnnexLibraryRule: {
 				val parsedLibrary = semanticObject.parsedAnnexLibrary

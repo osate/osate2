@@ -4,15 +4,16 @@
 package org.osate.xtext.aadl2.properties.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -41,8 +42,13 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	private PropertiesGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == Aadl2Package.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.ARRAY_RANGE:
 				sequence_ArrayRange(context, (ArrayRange) semanticObject); 
 				return; 
@@ -71,27 +77,27 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				sequence_ListTerm(context, (ListValue) semanticObject); 
 				return; 
 			case Aadl2Package.MODAL_PROPERTY_VALUE:
-				if(context == grammarAccess.getModalPropertyValueRule()) {
+				if (rule == grammarAccess.getModalPropertyValueRule()) {
 					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getOptionalModalPropertyValueRule()) {
+				else if (rule == grammarAccess.getOptionalModalPropertyValueRule()) {
 					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyValueRule()) {
+				else if (rule == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.NAMED_VALUE:
-				if(context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getNumAltRule()) {
+				if (rule == grammarAccess.getConstantValueRule()
+						|| rule == grammarAccess.getNumAltRule()) {
 					sequence_ConstantValue(context, (NamedValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getLiteralorReferenceTermRule() ||
-				   context == grammarAccess.getPropertyExpressionRule()) {
+				else if (rule == grammarAccess.getPropertyExpressionRule()
+						|| rule == grammarAccess.getLiteralorReferenceTermRule()) {
 					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
 					return; 
 				}
@@ -100,16 +106,16 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				sequence_SignedConstant(context, (Operation) semanticObject); 
 				return; 
 			case Aadl2Package.PROPERTY_ASSOCIATION:
-				if(context == grammarAccess.getBasicPropertyAssociationRule()) {
+				if (rule == grammarAccess.getBasicPropertyAssociationRule()) {
 					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContainedPropertyAssociationRule() ||
-				   context == grammarAccess.getPModelRule()) {
+				else if (rule == grammarAccess.getPModelRule()
+						|| rule == grammarAccess.getContainedPropertyAssociationRule()) {
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyAssociationRule()) {
+				else if (rule == grammarAccess.getPropertyAssociationRule()) {
 					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
@@ -121,12 +127,12 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				sequence_RealTerm(context, (RealLiteral) semanticObject); 
 				return; 
 			case Aadl2Package.RECORD_VALUE:
-				if(context == grammarAccess.getOldRecordTermRule()) {
+				if (rule == grammarAccess.getOldRecordTermRule()) {
 					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyExpressionRule() ||
-				   context == grammarAccess.getRecordTermRule()) {
+				else if (rule == grammarAccess.getPropertyExpressionRule()
+						|| rule == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
@@ -138,64 +144,109 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				sequence_StringTerm(context, (StringLiteral) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     ArrayRange returns ArrayRange
+	 *
 	 * Constraint:
 	 *     (lowerBound=INTVALUE upperBound=INTVALUE?)
 	 */
-	protected void sequence_ArrayRange(EObject context, ArrayRange semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ArrayRange(ISerializationContext context, ArrayRange semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     BasicPropertyAssociation returns PropertyAssociation
+	 *
 	 * Constraint:
 	 *     (property=[Property|QPREF] ownedValue+=PropertyValue)
 	 */
-	protected void sequence_BasicPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_BasicPropertyAssociation(ISerializationContext context, PropertyAssociation semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns BooleanLiteral
+	 *     BooleanLiteral returns BooleanLiteral
+	 *
 	 * Constraint:
-	 *     (value?='true'?)
+	 *     value?='true'?
 	 */
-	protected void sequence_BooleanLiteral(EObject context, BooleanLiteral semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_BooleanLiteral(ISerializationContext context, BooleanLiteral semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns ClassifierValue
+	 *     ComponentClassifierTerm returns ClassifierValue
+	 *
 	 * Constraint:
 	 *     classifier=[ComponentClassifier|QCREF]
 	 */
-	protected void sequence_ComponentClassifierTerm(EObject context, ClassifierValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ComponentClassifierTerm(ISerializationContext context, ClassifierValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getClassifierValue_Classifier()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getClassifierValue_Classifier()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getComponentClassifierTermAccess().getClassifierComponentClassifierQCREFParserRuleCall_2_0_1(), semanticObject.getClassifier());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns ComputedValue
+	 *     ComputedTerm returns ComputedValue
+	 *
 	 * Constraint:
 	 *     function=ID
 	 */
-	protected void sequence_ComputedTerm(EObject context, ComputedValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ComputedTerm(ISerializationContext context, ComputedValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getComputedValue_Function()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getComputedValue_Function()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getComputedTermAccess().getFunctionIDTerminalRuleCall_2_0(), semanticObject.getFunction());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ConstantValue returns NamedValue
+	 *     NumAlt returns NamedValue
+	 *
 	 * Constraint:
 	 *     namedValue=[PropertyConstant|QPREF]
 	 */
-	protected void sequence_ConstantValue(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ConstantValue(ISerializationContext context, NamedValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedValue_NamedValue()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedValue_NamedValue()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getConstantValueAccess().getNamedValuePropertyConstantQPREFParserRuleCall_0_1(), semanticObject.getNamedValue());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PModel returns PropertyAssociation
+	 *     ContainedPropertyAssociation returns PropertyAssociation
+	 *
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
@@ -207,102 +258,161 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
-	protected void sequence_ContainedPropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ContainedPropertyAssociation(ISerializationContext context, PropertyAssociation semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ContainmentPathElement returns ContainmentPathElement
+	 *
 	 * Constraint:
 	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange? path=ContainmentPathElement?)
 	 */
-	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ContainmentPathElement(ISerializationContext context, ContainmentPathElement semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ContainmentPath returns ContainedNamedElement
+	 *
 	 * Constraint:
 	 *     path=ContainmentPathElement
 	 */
-	protected void sequence_ContainmentPath(EObject context, ContainedNamedElement semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ContainmentPath(ISerializationContext context, ContainedNamedElement semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getContainedNamedElement_Path()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getContainedNamedElement_Path()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getContainmentPathAccess().getPathContainmentPathElementParserRuleCall_0(), semanticObject.getPath());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     FieldPropertyAssociation returns BasicPropertyAssociation
+	 *
 	 * Constraint:
 	 *     (property=[BasicProperty|ID] ownedValue=PropertyExpression)
 	 */
-	protected void sequence_FieldPropertyAssociation(EObject context, BasicPropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_FieldPropertyAssociation(ISerializationContext context, BasicPropertyAssociation semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getBasicPropertyAssociation_Property()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getBasicPropertyAssociation_Property()));
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getBasicPropertyAssociation_OwnedValue()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getBasicPropertyAssociation_OwnedValue()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyIDTerminalRuleCall_0_0_1(), semanticObject.getProperty());
+		feeder.accept(grammarAccess.getFieldPropertyAssociationAccess().getOwnedValuePropertyExpressionParserRuleCall_2_0(), semanticObject.getOwnedValue());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns IntegerLiteral
+	 *     IntegerTerm returns IntegerLiteral
+	 *     NumAlt returns IntegerLiteral
+	 *
 	 * Constraint:
 	 *     (value=SignedInt unit=[UnitLiteral|ID]?)
 	 */
-	protected void sequence_IntegerTerm(EObject context, IntegerLiteral semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_IntegerTerm(ISerializationContext context, IntegerLiteral semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns ListValue
+	 *     ListTerm returns ListValue
+	 *
 	 * Constraint:
-	 *     ((ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)?)
+	 *     (ownedListElement+=PropertyExpression ownedListElement+=PropertyExpression*)?
 	 */
-	protected void sequence_ListTerm(EObject context, ListValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ListTerm(ISerializationContext context, ListValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns NamedValue
+	 *     LiteralorReferenceTerm returns NamedValue
+	 *
 	 * Constraint:
 	 *     namedValue=[AbstractNamedValue|QPREF]
 	 */
-	protected void sequence_LiteralorReferenceTerm(EObject context, NamedValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_LiteralorReferenceTerm(ISerializationContext context, NamedValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedValue_NamedValue()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedValue_NamedValue()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getLiteralorReferenceTermAccess().getNamedValueAbstractNamedValueQPREFParserRuleCall_0_1(), semanticObject.getNamedValue());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ModalPropertyValue returns ModalPropertyValue
+	 *
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression inMode+=[Mode|ID] inMode+=[Mode|ID]*)
 	 */
-	protected void sequence_ModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ModalPropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns RangeValue
+	 *     NumericRangeTerm returns RangeValue
+	 *
 	 * Constraint:
 	 *     (minimum=NumAlt maximum=NumAlt delta=NumAlt?)
 	 */
-	protected void sequence_NumericRangeTerm(EObject context, RangeValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_NumericRangeTerm(ISerializationContext context, RangeValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     OldRecordTerm returns RecordValue
+	 *
 	 * Constraint:
 	 *     ownedFieldValue+=FieldPropertyAssociation+
 	 */
-	protected void sequence_OldRecordTerm(EObject context, RecordValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_OldRecordTerm(ISerializationContext context, RecordValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     OptionalModalPropertyValue returns ModalPropertyValue
+	 *
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression (inMode+=[Mode|ID] inMode+=[Mode|ID]*)?)
 	 */
-	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_OptionalModalPropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyAssociation returns PropertyAssociation
+	 *
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
@@ -313,61 +423,105 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	 *         inBinding+=[Classifier|QCREF]?
 	 *     )
 	 */
-	protected void sequence_PropertyAssociation(EObject context, PropertyAssociation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_PropertyAssociation(ISerializationContext context, PropertyAssociation semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyValue returns ModalPropertyValue
+	 *
 	 * Constraint:
 	 *     ownedValue=PropertyExpression
 	 */
-	protected void sequence_PropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_PropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getModalPropertyValue_OwnedValue()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getPropertyValueAccess().getOwnedValuePropertyExpressionParserRuleCall_0(), semanticObject.getOwnedValue());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns RealLiteral
+	 *     RealTerm returns RealLiteral
+	 *     NumAlt returns RealLiteral
+	 *
 	 * Constraint:
 	 *     (value=SignedReal unit=[UnitLiteral|ID]?)
 	 */
-	protected void sequence_RealTerm(EObject context, RealLiteral semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_RealTerm(ISerializationContext context, RealLiteral semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns RecordValue
+	 *     RecordTerm returns RecordValue
+	 *
 	 * Constraint:
 	 *     ownedFieldValue+=FieldPropertyAssociation+
 	 */
-	protected void sequence_RecordTerm(EObject context, RecordValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_RecordTerm(ISerializationContext context, RecordValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns ReferenceValue
+	 *     ReferenceTerm returns ReferenceValue
+	 *
 	 * Constraint:
 	 *     path=ContainmentPathElement
 	 */
-	protected void sequence_ReferenceTerm(EObject context, ReferenceValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ReferenceTerm(ISerializationContext context, ReferenceValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getContainedNamedElement_Path()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getContainedNamedElement_Path()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getReferenceTermAccess().getPathContainmentPathElementParserRuleCall_2_0(), semanticObject.getPath());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SignedConstant returns Operation
+	 *     NumAlt returns Operation
+	 *
 	 * Constraint:
 	 *     (op=PlusMinus ownedPropertyExpression+=ConstantValue)
 	 */
-	protected void sequence_SignedConstant(EObject context, Operation semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_SignedConstant(ISerializationContext context, Operation semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns StringLiteral
+	 *     StringTerm returns StringLiteral
+	 *
 	 * Constraint:
 	 *     value=NoQuoteString
 	 */
-	protected void sequence_StringTerm(EObject context, StringLiteral semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_StringTerm(ISerializationContext context, StringLiteral semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getStringLiteral_Value()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getStringLiteral_Value()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0(), semanticObject.getValue());
+		feeder.finish();
 	}
+	
+	
 }
