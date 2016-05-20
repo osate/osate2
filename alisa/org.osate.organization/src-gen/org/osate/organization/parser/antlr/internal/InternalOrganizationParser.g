@@ -102,7 +102,7 @@ ruleOrganization returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -119,7 +119,7 @@ ruleOrganization returns [EObject current=null]
        			$current, 
        			"stakeholder",
         		lv_stakeholder_2_0, 
-        		"Stakeholder");
+        		"org.osate.organization.Organization.Stakeholder");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -178,7 +178,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -225,7 +225,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"fullname",
         		lv_fullname_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -260,7 +260,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"title",
         		lv_title_9_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -295,7 +295,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"description",
         		lv_description_11_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -330,7 +330,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"role",
         		lv_role_13_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -365,7 +365,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"email",
         		lv_email_15_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -400,7 +400,7 @@ ruleStakeholder returns [EObject current=null]
        			$current, 
        			"phone",
         		lv_phone_17_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -445,7 +445,8 @@ ruleStakeholder returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getStakeholderAccess().getSupervisorStakeholderCrossReference_1_0_1_0()); 
 	    }
-		ruleQID		{ 
+		ruleQID
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 

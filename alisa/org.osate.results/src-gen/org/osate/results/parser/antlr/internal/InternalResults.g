@@ -158,7 +158,7 @@ ruleResultReportCollection returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -180,7 +180,7 @@ ruleResultReportCollection returns [EObject current=null]
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -225,7 +225,7 @@ ruleResultReportCollection returns [EObject current=null]
        			$current, 
        			"description",
         		lv_description_8_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -242,7 +242,7 @@ ruleResultReportCollection returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_9_0, 
-        		"ResultReport");
+        		"org.osate.results.Results.ResultReport");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -260,12 +260,12 @@ ruleResultReportCollection returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_10_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)?	otherlv_11=']' 
+)*	otherlv_11=']' 
     {
     	newLeafNode(otherlv_11, grammarAccess.getResultReportCollectionAccess().getRightSquareBracketKeyword_9());
     }
@@ -308,7 +308,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -330,7 +330,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"title",
         		lv_title_3_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -375,7 +375,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"description",
         		lv_description_8_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -397,7 +397,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"heading",
         		lv_heading_10_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -414,7 +414,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"content",
         		lv_content_11_0, 
-        		"ResultContributor");
+        		"org.osate.results.Results.ResultContributor");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -436,7 +436,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"resultData",
         		lv_resultData_13_0, 
-        		"ResultData");
+        		"org.osate.results.Results.ResultData");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -454,7 +454,7 @@ ruleResultDataReport returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_14_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -524,7 +524,7 @@ ruleResultContributor returns [EObject current=null]
        			$current, 
        			"resultData",
         		lv_resultData_4_0, 
-        		"ResultData");
+        		"org.osate.results.Results.ResultData");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -542,7 +542,7 @@ ruleResultContributor returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_5_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -560,7 +560,7 @@ ruleResultContributor returns [EObject current=null]
        			$current, 
        			"subcontributor",
         		lv_subcontributor_6_0, 
-        		"ResultContributor");
+        		"org.osate.results.Results.ResultContributor");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -604,7 +604,7 @@ ruleResultData returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -626,7 +626,7 @@ ruleResultData returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_2_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -645,7 +645,7 @@ ruleResultData returns [EObject current=null]
        			$current, 
        			"integerValue",
         		lv_integerValue_3_0, 
-        		"INT");
+        		"org.eclipse.xtext.common.Terminals.INT");
 	    }
 
 )
@@ -688,7 +688,7 @@ ruleIssuesReport returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -733,7 +733,7 @@ ruleIssuesReport returns [EObject current=null]
        			$current, 
        			"description",
         		lv_description_6_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -750,7 +750,7 @@ ruleIssuesReport returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_7_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -796,7 +796,7 @@ ruleDescriptionElement returns [EObject current=null]
        			$current, 
        			"text",
         		lv_text_0_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -814,7 +814,7 @@ ruleDescriptionElement returns [EObject current=null]
        			$current, 
        			"showValue",
         		lv_showValue_1_0, 
-        		"ShowValue");
+        		"org.osate.alisa.common.Common.ShowValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -849,7 +849,7 @@ ruleDescriptionElement returns [EObject current=null]
        			$current, 
        			"image",
         		lv_image_3_0, 
-        		"ImageReference");
+        		"org.osate.alisa.common.Common.ImageReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -892,7 +892,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"issueType",
         		lv_issueType_0_0, 
-        		"ResultIssueType");
+        		"org.osate.alisa.common.Common.ResultIssueType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -911,7 +911,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"message",
         		lv_message_1_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -952,7 +952,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"exceptionType",
         		lv_exceptionType_5_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -974,7 +974,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"diagnosticId",
         		lv_diagnosticId_7_0, 
-        		"STRING");
+        		"org.eclipse.xtext.common.Terminals.STRING");
 	    }
 
 )
@@ -995,7 +995,7 @@ ruleResultIssue returns [EObject current=null]
        			$current, 
        			"issues",
         		lv_issues_9_0, 
-        		"ResultIssue");
+        		"org.osate.alisa.common.Common.ResultIssue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1495,7 +1495,7 @@ ruleImageReference returns [EObject current=null]
        			$current, 
        			"imgfile",
         		lv_imgfile_1_0, 
-        		"IMGREF");
+        		"org.osate.alisa.common.Common.IMGREF");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1638,7 +1638,7 @@ ruleOpOr
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpOr");
+        		"org.osate.alisa.common.Common.OpOr");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1656,7 +1656,7 @@ ruleOpOr
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AAndExpression");
+        		"org.osate.alisa.common.Common.AAndExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1749,7 +1749,7 @@ ruleOpAnd
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpAnd");
+        		"org.osate.alisa.common.Common.OpAnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1767,7 +1767,7 @@ ruleOpAnd
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AEqualityExpression");
+        		"org.osate.alisa.common.Common.AEqualityExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1860,7 +1860,7 @@ ruleOpEquality
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpEquality");
+        		"org.osate.alisa.common.Common.OpEquality");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1878,7 +1878,7 @@ ruleOpEquality
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"ARelationalExpression");
+        		"org.osate.alisa.common.Common.ARelationalExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1971,7 +1971,7 @@ ruleOpCompare
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpCompare");
+        		"org.osate.alisa.common.Common.OpCompare");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1989,7 +1989,7 @@ ruleOpCompare
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AAdditiveExpression");
+        		"org.osate.alisa.common.Common.AAdditiveExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2103,7 +2103,7 @@ ruleOpAdd
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpAdd");
+        		"org.osate.alisa.common.Common.OpAdd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2121,7 +2121,7 @@ ruleOpAdd
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AMultiplicativeExpression");
+        		"org.osate.alisa.common.Common.AMultiplicativeExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2214,7 +2214,7 @@ ruleOpMulti
        			$current, 
        			"operator",
         		lv_operator_2_0, 
-        		"OpMulti");
+        		"org.osate.alisa.common.Common.OpMulti");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2232,7 +2232,7 @@ ruleOpMulti
        			$current, 
        			"right",
         		lv_right_3_0, 
-        		"AUnaryOperation");
+        		"org.osate.alisa.common.Common.AUnaryOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2329,7 +2329,7 @@ ruleOpUnary
        			$current, 
        			"operator",
         		lv_operator_1_0, 
-        		"OpUnary");
+        		"org.osate.alisa.common.Common.OpUnary");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2347,7 +2347,7 @@ ruleOpUnary
        			$current, 
        			"operand",
         		lv_operand_2_0, 
-        		"AUnaryOperation");
+        		"org.osate.alisa.common.Common.AUnaryOperation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2614,7 +2614,7 @@ ruleAFunctionCall returns [EObject current=null]
        			$current, 
        			"function",
         		lv_function_1_0, 
-        		"ID");
+        		"org.eclipse.xtext.common.Terminals.ID");
 	    }
 
 )
@@ -2635,7 +2635,7 @@ ruleAFunctionCall returns [EObject current=null]
        			$current, 
        			"arguments",
         		lv_arguments_3_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2657,7 +2657,7 @@ ruleAFunctionCall returns [EObject current=null]
        			$current, 
        			"arguments",
         		lv_arguments_5_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2710,7 +2710,7 @@ ruleARangeExpression returns [EObject current=null]
        			$current, 
        			"minimum",
         		lv_minimum_2_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2732,7 +2732,7 @@ ruleARangeExpression returns [EObject current=null]
        			$current, 
        			"maximum",
         		lv_maximum_4_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2755,7 +2755,7 @@ ruleARangeExpression returns [EObject current=null]
        			$current, 
        			"delta",
         		lv_delta_6_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2808,7 +2808,7 @@ ruleAIfExpression returns [EObject current=null]
        			$current, 
        			"if",
         		lv_if_2_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2830,7 +2830,7 @@ ruleAIfExpression returns [EObject current=null]
        			$current, 
        			"then",
         		lv_then_4_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2852,7 +2852,7 @@ ruleAIfExpression returns [EObject current=null]
        			$current, 
        			"else",
         		lv_else_6_0, 
-        		"AExpression");
+        		"org.osate.alisa.common.Common.AExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2955,7 +2955,7 @@ ruleAIntegerTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"AInt");
+        		"org.osate.alisa.common.Common.AInt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3022,7 +3022,7 @@ ruleARealTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"AReal");
+        		"org.osate.alisa.common.Common.AReal");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3136,7 +3136,7 @@ ruleStringTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"NoQuoteString");
+        		"org.osate.alisa.common.Common.NoQuoteString");
 	        afterParserOrEnumRuleCall();
 	    }
 

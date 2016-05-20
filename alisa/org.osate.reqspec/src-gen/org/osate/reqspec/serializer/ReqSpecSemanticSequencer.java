@@ -16,16 +16,14 @@
 package org.osate.reqspec.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticNodeProvider.INodesForEObjectProvider;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
@@ -84,8 +82,13 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	private ReqSpecGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == Aadl2Package.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.AADL_BOOLEAN:
 				sequence_TypeRef(context, (AadlBoolean) semanticObject); 
 				return; 
@@ -111,7 +114,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_StringTerm(context, (StringLiteral) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == CommonPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case CommonPackage.ABINARY_OPERATION:
 				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
@@ -125,29 +129,29 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AModelReference(context, (AModelReference) semanticObject); 
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
-				if(context == grammarAccess.getAAdditiveExpressionRule() ||
-				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAAndExpressionRule() ||
-				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAEqualityExpressionRule() ||
-				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAExpressionRule() ||
-				   context == grammarAccess.getAModelOrPropertyReferenceRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAOrExpressionRule() ||
-				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAParenthesizedExpressionRule() ||
-				   context == grammarAccess.getAPrimaryExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAUnaryOperationRule() ||
-				   context == grammarAccess.getAUnitExpressionRule() ||
-				   context == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()) {
+				if (rule == grammarAccess.getAModelOrPropertyReferenceRule()
+						|| rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
 					sequence_AModelOrPropertyReference_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAPropertyReferenceRule()) {
+				else if (rule == grammarAccess.getAPropertyReferenceRule()) {
 					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
 				}
@@ -201,7 +205,8 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == ReqSpecPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == ReqSpecPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case ReqSpecPackage.DESIRED_VALUE:
 				sequence_DesiredValue(context, (DesiredValue) semanticObject); 
 				return; 
@@ -218,12 +223,12 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_GlobalRequirementSet(context, (GlobalRequirementSet) semanticObject); 
 				return; 
 			case ReqSpecPackage.GOAL:
-				if(context == grammarAccess.getDocGoalRule()) {
+				if (rule == grammarAccess.getDocGoalRule()) {
 					sequence_DocGoal(context, (Goal) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContractualElementRule() ||
-				   context == grammarAccess.getGoalRule()) {
+				else if (rule == grammarAccess.getContractualElementRule()
+						|| rule == grammarAccess.getGoalRule()) {
 					sequence_Goal(context, (Goal) semanticObject); 
 					return; 
 				}
@@ -241,16 +246,16 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ReqSpec(context, (ReqSpec) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQUIREMENT:
-				if(context == grammarAccess.getDocRequirementRule()) {
+				if (rule == grammarAccess.getDocRequirementRule()) {
 					sequence_DocRequirement(context, (Requirement) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getGlobalRequirementRule()) {
+				else if (rule == grammarAccess.getGlobalRequirementRule()) {
 					sequence_GlobalRequirement(context, (Requirement) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContractualElementRule() ||
-				   context == grammarAccess.getSystemRequirementRule()) {
+				else if (rule == grammarAccess.getContractualElementRule()
+						|| rule == grammarAccess.getSystemRequirementRule()) {
 					sequence_SystemRequirement(context, (Requirement) semanticObject); 
 					return; 
 				}
@@ -268,45 +273,59 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 				sequence_WhenCondition(context, (WhenCondition) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     DesiredValue returns DesiredValue
+	 *
 	 * Constraint:
 	 *     (desired=[AVariableReference|ID] upto?='upto'? value=AExpression)
 	 */
-	protected void sequence_DesiredValue(EObject context, DesiredValue semanticObject) {
+	protected void sequence_DesiredValue(ISerializationContext context, DesiredValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     DocGoal returns Goal
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         category+=[Category|CatRef]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         whencondition=WhenCondition? 
-	 *         rationale=Rationale? 
-	 *         changeUncertainty=Uncertainty? 
-	 *         refinesReference+=[Goal|QualifiedName]* 
-	 *         conflictsReference+=[Goal|QualifiedName]* 
-	 *         evolvesReference+=[Requirement|QualifiedName]* 
-	 *         (dropped?='dropped' dropRationale=STRING?)? 
-	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (
+	 *             (
+	 *                 category+=[Category|CatRef] | 
+	 *                 description=Description | 
+	 *                 constants+=ValDeclaration | 
+	 *                 whencondition=WhenCondition | 
+	 *                 rationale=Rationale | 
+	 *                 changeUncertainty=Uncertainty | 
+	 *                 refinesReference+=[Goal|QualifiedName] | 
+	 *                 conflictsReference+=[Goal|QualifiedName] | 
+	 *                 evolvesReference+=[Requirement|QualifiedName] | 
+	 *                 stakeholderReference+=[Stakeholder|QualifiedName] | 
+	 *                 docReference+=ExternalDocument | 
+	 *                 issues+=STRING
+	 *             )? 
+	 *             (dropped?='dropped' dropRationale=STRING?)?
+	 *         )+
 	 *     )
 	 */
-	protected void sequence_DocGoal(EObject context, Goal semanticObject) {
+	protected void sequence_DocGoal(ISerializationContext context, Goal semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     DocRequirement returns Requirement
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -316,271 +335,348 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
 	 *             componentCategory+=ComponentCategory+
 	 *         )? 
-	 *         category+=[Category|CatRef]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
-	 *         whencondition=WhenCondition? 
-	 *         predicate=ReqPredicate? 
-	 *         rationale=Rationale? 
-	 *         changeUncertainty=Uncertainty? 
-	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *         refinesReference+=[Requirement|QualifiedName]* 
-	 *         decomposesReference+=[Requirement|QualifiedName]* 
-	 *         inheritsReference=[Requirement|QualifiedName]? 
-	 *         evolvesReference+=[Requirement|QualifiedName]* 
-	 *         (dropped?='dropped' dropRationale=STRING?)? 
-	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
-	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (
+	 *             (
+	 *                 category+=[Category|CatRef] | 
+	 *                 description=Description | 
+	 *                 constants+=ValDeclaration | 
+	 *                 computes+=ComputeDeclaration | 
+	 *                 whencondition=WhenCondition | 
+	 *                 predicate=ReqPredicate | 
+	 *                 rationale=Rationale | 
+	 *                 changeUncertainty=Uncertainty | 
+	 *                 exception=[EObject|ID] | 
+	 *                 exceptionText=STRING | 
+	 *                 refinesReference+=[Requirement|QualifiedName] | 
+	 *                 decomposesReference+=[Requirement|QualifiedName] | 
+	 *                 inheritsReference=[Requirement|QualifiedName] | 
+	 *                 evolvesReference+=[Requirement|QualifiedName] | 
+	 *                 developmentStakeholder+=[Stakeholder|QualifiedName] | 
+	 *                 goalReference+=[Goal|QualifiedName] | 
+	 *                 docReference+=ExternalDocument | 
+	 *                 issues+=STRING
+	 *             )? 
+	 *             (dropped?='dropped' dropRationale=STRING?)?
+	 *         )+
 	 *     )
 	 */
-	protected void sequence_DocRequirement(EObject context, Requirement semanticObject) {
+	protected void sequence_DocRequirement(ISerializationContext context, Requirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     DocumentSection returns DocumentSection
+	 *
 	 * Constraint:
-	 *     (label=ID title=STRING? description=Description? (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)*)
+	 *     (label=ID title=STRING? (description=Description | content+=DocGoal | content+=DocRequirement | content+=DocumentSection)*)
 	 */
-	protected void sequence_DocumentSection(EObject context, DocumentSection semanticObject) {
+	protected void sequence_DocumentSection(ISerializationContext context, DocumentSection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ExternalDocument returns ExternalDocument
+	 *
 	 * Constraint:
 	 *     (docReference=DOCPATH docFragment=DOCFRAGMENT?)
 	 */
-	protected void sequence_ExternalDocument(EObject context, ExternalDocument semanticObject) {
+	protected void sequence_ExternalDocument(ISerializationContext context, ExternalDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     GlobalConstants returns GlobalConstants
+	 *
 	 * Constraint:
 	 *     (name=QualifiedName constants+=ValDeclaration*)
 	 */
-	protected void sequence_GlobalConstants(EObject context, GlobalConstants semanticObject) {
+	protected void sequence_GlobalConstants(ISerializationContext context, GlobalConstants semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqRoot returns GlobalRequirementSet
+	 *     GlobalRequirementSet returns GlobalRequirementSet
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         requirements+=GlobalRequirement* 
-	 *         docReference+=ExternalDocument* 
-	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
-	 *         issues+=STRING*
+	 *         (
+	 *             description=Description | 
+	 *             constants+=ValDeclaration | 
+	 *             requirements+=GlobalRequirement | 
+	 *             docReference+=ExternalDocument | 
+	 *             stakeholderGoals+=[ReqRoot|QualifiedName] | 
+	 *             issues+=STRING
+	 *         )*
 	 *     )
 	 */
-	protected void sequence_GlobalRequirementSet(EObject context, GlobalRequirementSet semanticObject) {
+	protected void sequence_GlobalRequirementSet(ISerializationContext context, GlobalRequirementSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     GlobalRequirement returns Requirement
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
-	 *         category+=[Category|CatRef]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
-	 *         whencondition=WhenCondition? 
-	 *         predicate=ReqPredicate? 
-	 *         rationale=Rationale? 
-	 *         changeUncertainty=Uncertainty? 
-	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *         refinesReference+=[Requirement|QualifiedName]* 
-	 *         decomposesReference+=[Requirement|QualifiedName]* 
-	 *         evolvesReference+=[Requirement|QualifiedName]* 
-	 *         (dropped?='dropped' dropRationale=STRING?)? 
-	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
-	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         requirementReference+=[Requirement|QualifiedName]* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (
+	 *             (
+	 *                 category+=[Category|CatRef] | 
+	 *                 description=Description | 
+	 *                 constants+=ValDeclaration | 
+	 *                 computes+=ComputeDeclaration | 
+	 *                 whencondition=WhenCondition | 
+	 *                 predicate=ReqPredicate | 
+	 *                 rationale=Rationale | 
+	 *                 changeUncertainty=Uncertainty | 
+	 *                 exception=[EObject|ID] | 
+	 *                 exceptionText=STRING | 
+	 *                 refinesReference+=[Requirement|QualifiedName] | 
+	 *                 decomposesReference+=[Requirement|QualifiedName] | 
+	 *                 evolvesReference+=[Requirement|QualifiedName] | 
+	 *                 developmentStakeholder+=[Stakeholder|QualifiedName] | 
+	 *                 goalReference+=[Goal|QualifiedName] | 
+	 *                 requirementReference+=[Requirement|QualifiedName] | 
+	 *                 docReference+=ExternalDocument | 
+	 *                 issues+=STRING
+	 *             )? 
+	 *             (dropped?='dropped' dropRationale=STRING?)?
+	 *         )+
 	 *     )
 	 */
-	protected void sequence_GlobalRequirement(EObject context, Requirement semanticObject) {
+	protected void sequence_GlobalRequirement(ISerializationContext context, Requirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ContractualElement returns Goal
+	 *     Goal returns Goal
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[Category|CatRef]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         whencondition=WhenCondition? 
-	 *         rationale=Rationale? 
-	 *         changeUncertainty=Uncertainty? 
-	 *         refinesReference+=[Goal|QualifiedName]* 
-	 *         conflictsReference+=[Goal|QualifiedName]* 
-	 *         evolvesReference+=[Requirement|QualifiedName]* 
-	 *         (dropped?='dropped' dropRationale=STRING?)? 
-	 *         stakeholderReference+=[Stakeholder|QualifiedName]* 
-	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (
+	 *             (
+	 *                 category+=[Category|CatRef] | 
+	 *                 description=Description | 
+	 *                 constants+=ValDeclaration | 
+	 *                 whencondition=WhenCondition | 
+	 *                 rationale=Rationale | 
+	 *                 changeUncertainty=Uncertainty | 
+	 *                 refinesReference+=[Goal|QualifiedName] | 
+	 *                 conflictsReference+=[Goal|QualifiedName] | 
+	 *                 evolvesReference+=[Requirement|QualifiedName] | 
+	 *                 stakeholderReference+=[Stakeholder|QualifiedName] | 
+	 *                 goalReference+=[Goal|QualifiedName] | 
+	 *                 docReference+=ExternalDocument | 
+	 *                 issues+=STRING
+	 *             )? 
+	 *             (dropped?='dropped' dropRationale=STRING?)?
+	 *         )+
 	 *     )
 	 */
-	protected void sequence_Goal(EObject context, Goal semanticObject) {
+	protected void sequence_Goal(ISerializationContext context, Goal semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     IncludeGlobalRequirement returns IncludeGlobalRequirement
+	 *
 	 * Constraint:
 	 *     (include=[EObject|QualifiedName] (componentCategory+=ComponentCategory+ | self?='self')?)
 	 */
-	protected void sequence_IncludeGlobalRequirement(EObject context, IncludeGlobalRequirement semanticObject) {
+	protected void sequence_IncludeGlobalRequirement(ISerializationContext context, IncludeGlobalRequirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqPredicate returns InformalPredicate
+	 *     InformalPredicate returns InformalPredicate
+	 *
 	 * Constraint:
 	 *     description=STRING
 	 */
-	protected void sequence_InformalPredicate(EObject context, InformalPredicate semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.INFORMAL_PREDICATE__DESCRIPTION) == ValueTransient.YES)
+	protected void sequence_InformalPredicate(ISerializationContext context, InformalPredicate semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.INFORMAL_PREDICATE__DESCRIPTION) == ValueTransient.YES)
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.INFORMAL_PREDICATE__DESCRIPTION));
 		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_2_0(), semanticObject.getDescription());
 		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqRoot returns ReqDocument
+	 *     ReqDocument returns ReqDocument
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
-	 *         description=Description? 
-	 *         (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (
+	 *             description=Description | 
+	 *             content+=DocGoal | 
+	 *             content+=DocRequirement | 
+	 *             content+=DocumentSection | 
+	 *             docReference+=ExternalDocument | 
+	 *             issues+=STRING
+	 *         )*
 	 *     )
 	 */
-	protected void sequence_ReqDocument(EObject context, ReqDocument semanticObject) {
+	protected void sequence_ReqDocument(ISerializationContext context, ReqDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqSpec returns ReqSpec
+	 *
 	 * Constraint:
 	 *     (parts+=SystemRequirementSet | parts+=GlobalRequirementSet | parts+=StakeholderGoals | parts+=ReqDocument | parts+=GlobalConstants)+
 	 */
-	protected void sequence_ReqSpec(EObject context, ReqSpec semanticObject) {
+	protected void sequence_ReqSpec(ISerializationContext context, ReqSpec semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqRoot returns StakeholderGoals
+	 *     StakeholderGoals returns StakeholderGoals
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         (target=[ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+) 
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         goals+=Goal* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (description=Description | constants+=ValDeclaration | goals+=Goal | docReference+=ExternalDocument | issues+=STRING)*
 	 *     )
 	 */
-	protected void sequence_StakeholderGoals(EObject context, StakeholderGoals semanticObject) {
+	protected void sequence_StakeholderGoals(ISerializationContext context, StakeholderGoals semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqRoot returns SystemRequirementSet
+	 *     SystemRequirementSet returns SystemRequirementSet
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
 	 *         title=STRING? 
 	 *         target=[ComponentClassifier|AadlClassifierReference] 
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         requirements+=SystemRequirement* 
-	 *         include+=IncludeGlobalRequirement* 
-	 *         docReference+=ExternalDocument* 
-	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
-	 *         issues+=STRING*
+	 *         (
+	 *             description=Description | 
+	 *             constants+=ValDeclaration | 
+	 *             requirements+=SystemRequirement | 
+	 *             include+=IncludeGlobalRequirement | 
+	 *             docReference+=ExternalDocument | 
+	 *             stakeholderGoals+=[ReqRoot|QualifiedName] | 
+	 *             issues+=STRING
+	 *         )*
 	 *     )
 	 */
-	protected void sequence_SystemRequirementSet(EObject context, SystemRequirementSet semanticObject) {
+	protected void sequence_SystemRequirementSet(ISerializationContext context, SystemRequirementSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ContractualElement returns Requirement
+	 *     SystemRequirement returns Requirement
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[Category|CatRef]* 
-	 *         description=Description? 
-	 *         constants+=ValDeclaration* 
-	 *         computes+=ComputeDeclaration* 
-	 *         whencondition=WhenCondition? 
-	 *         predicate=ReqPredicate? 
-	 *         rationale=Rationale? 
-	 *         changeUncertainty=Uncertainty? 
-	 *         (exception=[EObject|ID] | exceptionText=STRING)? 
-	 *         refinesReference+=[Requirement|QualifiedName]* 
-	 *         decomposesReference+=[Requirement|QualifiedName]* 
-	 *         inheritsReference=[Requirement|QualifiedName]? 
-	 *         evolvesReference+=[Requirement|QualifiedName]* 
-	 *         (dropped?='dropped' dropRationale=STRING?)? 
-	 *         developmentStakeholder+=[Stakeholder|QualifiedName]* 
-	 *         goalReference+=[Goal|QualifiedName]* 
-	 *         requirementReference+=[Requirement|QualifiedName]* 
-	 *         docReference+=ExternalDocument* 
-	 *         issues+=STRING*
+	 *         (
+	 *             (
+	 *                 category+=[Category|CatRef] | 
+	 *                 description=Description | 
+	 *                 constants+=ValDeclaration | 
+	 *                 computes+=ComputeDeclaration | 
+	 *                 whencondition=WhenCondition | 
+	 *                 predicate=ReqPredicate | 
+	 *                 rationale=Rationale | 
+	 *                 changeUncertainty=Uncertainty | 
+	 *                 exception=[EObject|ID] | 
+	 *                 exceptionText=STRING | 
+	 *                 refinesReference+=[Requirement|QualifiedName] | 
+	 *                 decomposesReference+=[Requirement|QualifiedName] | 
+	 *                 inheritsReference=[Requirement|QualifiedName] | 
+	 *                 evolvesReference+=[Requirement|QualifiedName] | 
+	 *                 developmentStakeholder+=[Stakeholder|QualifiedName] | 
+	 *                 goalReference+=[Goal|QualifiedName] | 
+	 *                 requirementReference+=[Requirement|QualifiedName] | 
+	 *                 docReference+=ExternalDocument | 
+	 *                 issues+=STRING
+	 *             )? 
+	 *             (dropped?='dropped' dropRationale=STRING?)?
+	 *         )+
 	 *     )
 	 */
-	protected void sequence_SystemRequirement(EObject context, Requirement semanticObject) {
+	protected void sequence_SystemRequirement(ISerializationContext context, Requirement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ReqPredicate returns ValuePredicate
+	 *     ValuePredicate returns ValuePredicate
+	 *
 	 * Constraint:
 	 *     (xpression=AAndExpression desiredValue+=DesiredValue*)
 	 */
-	protected void sequence_ValuePredicate(EObject context, ValuePredicate semanticObject) {
+	protected void sequence_ValuePredicate(ISerializationContext context, ValuePredicate semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     WhenCondition returns WhenCondition
+	 *
 	 * Constraint:
 	 *     ((inMode+=[Mode|ID] inMode+=[Mode|ID]*) | (inErrorState+=[ErrorBehaviorState|ID] inErrorState+=[ErrorBehaviorState|ID]*) | condition=AExpression)
 	 */
-	protected void sequence_WhenCondition(EObject context, WhenCondition semanticObject) {
+	protected void sequence_WhenCondition(ISerializationContext context, WhenCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
+	
+	
 }

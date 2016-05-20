@@ -73,27 +73,27 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+			if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+			else if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan_AssureKeyword_7_1_0_q.equals(syntax))
+			else if (match_AssurancePlan_AssureKeyword_7_1_0_q.equals(syntax))
 				emit_AssurancePlan_AssureKeyword_7_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan_IssuesKeyword_7_5_0_q.equals(syntax))
+			else if (match_AssurancePlan_IssuesKeyword_7_5_0_q.equals(syntax))
 				emit_AssurancePlan_IssuesKeyword_7_5_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q.equals(syntax))
+			else if (match_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q.equals(syntax))
 				emit_AssurancePlan___AssumeKeyword_7_4_0_SubsystemKeyword_7_4_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q.equals(syntax))
+			else if (match_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q.equals(syntax))
 				emit_AssurancePlan___AssureKeyword_7_2_0_GlobalKeyword_7_2_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q.equals(syntax))
+			else if (match_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q.equals(syntax))
 				emit_AssurancePlan___AssureKeyword_7_3_0_SubsystemKeyword_7_3_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_CategoryKeyword_6_1_0_q.equals(syntax))
+			else if (match_AssuranceTask_CategoryKeyword_6_1_0_q.equals(syntax))
 				emit_AssuranceTask_CategoryKeyword_6_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AssuranceTask_IssuesKeyword_6_2_0_q.equals(syntax))
+			else if (match_AssuranceTask_IssuesKeyword_6_2_0_q.equals(syntax))
 				emit_AssuranceTask_IssuesKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+			else if (match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ShowValue_PercentSignKeyword_1_0_q.equals(syntax))
+			else if (match_ShowValue_PercentSignKeyword_1_0_q.equals(syntax))
 				emit_ShowValue_PercentSignKeyword_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

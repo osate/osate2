@@ -23,5 +23,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Export-Package: org.osate.results.ui.quickfix,
  org.osate.results.ui.contentassist,
  org.osate.results.ui.contentassist.antlr,
- org.osate.results.ui.internal
+ org.osate.results.ui.internal,
+ org.osate.results.ui.contentassist.antlr.internal
 Bundle-Activator: org.osate.results.ui.internal.ResultsActivator
