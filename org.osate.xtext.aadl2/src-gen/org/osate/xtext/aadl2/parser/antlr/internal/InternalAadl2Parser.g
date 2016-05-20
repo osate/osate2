@@ -130,7 +130,7 @@ ruleAadlPackage returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"PNAME");
+        		"org.osate.xtext.aadl2.Aadl2.PNAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -148,7 +148,7 @@ ruleAadlPackage returns [EObject current=null]
        			$current, 
        			"ownedPublicSection",
         		lv_ownedPublicSection_2_0, 
-        		"PublicPackageSection");
+        		"org.osate.xtext.aadl2.Aadl2.PublicPackageSection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -166,7 +166,7 @@ ruleAadlPackage returns [EObject current=null]
        			$current, 
        			"ownedPrivateSection",
         		lv_ownedPrivateSection_3_0, 
-        		"PrivatePackageSection");
+        		"org.osate.xtext.aadl2.Aadl2.PrivatePackageSection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -185,7 +185,7 @@ ruleAadlPackage returns [EObject current=null]
        			$current, 
        			"ownedPrivateSection",
         		lv_ownedPrivateSection_4_0, 
-        		"PrivatePackageSection");
+        		"org.osate.xtext.aadl2.Aadl2.PrivatePackageSection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -208,7 +208,7 @@ ruleAadlPackage returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_6_0, 
-        		"BasicPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.BasicPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -289,7 +289,8 @@ rulePublicPackageSection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPublicPackageSectionAccess().getImportedUnitModelUnitCrossReference_2_0_1_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -309,7 +310,8 @@ rulePublicPackageSection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPublicPackageSectionAccess().getImportedUnitModelUnitCrossReference_2_0_2_1_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -334,7 +336,7 @@ rulePublicPackageSection returns [EObject current=null]
        			$current, 
        			"ownedPackageRename",
         		lv_ownedPackageRename_7_1, 
-        		"PackageRename");
+        		"org.osate.xtext.aadl2.Aadl2.PackageRename");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -349,7 +351,7 @@ rulePublicPackageSection returns [EObject current=null]
        			$current, 
        			"ownedPackageRename",
         		lv_ownedPackageRename_7_2, 
-        		"RenameAll");
+        		"org.osate.xtext.aadl2.Aadl2.RenameAll");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -370,7 +372,7 @@ rulePublicPackageSection returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupTypeRename",
         		lv_ownedFeatureGroupTypeRename_8_0, 
-        		"FGTRename");
+        		"org.osate.xtext.aadl2.Aadl2.FGTRename");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -389,7 +391,7 @@ rulePublicPackageSection returns [EObject current=null]
        			$current, 
        			"ownedComponentTypeRename",
         		lv_ownedComponentTypeRename_9_0, 
-        		"CTRename");
+        		"org.osate.xtext.aadl2.Aadl2.CTRename");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -407,7 +409,7 @@ rulePublicPackageSection returns [EObject current=null]
        			$current, 
        			"ownedClassifier",
         		lv_ownedClassifier_10_0, 
-        		"Classifier");
+        		"org.osate.xtext.aadl2.Aadl2.Classifier");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -426,7 +428,7 @@ rulePublicPackageSection returns [EObject current=null]
        			$current, 
        			"ownedAnnexLibrary",
         		lv_ownedAnnexLibrary_11_0, 
-        		"AnnexLibrary");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexLibrary");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -478,7 +480,8 @@ rulePrivatePackageSection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPrivatePackageSectionAccess().getImportedUnitModelUnitCrossReference_2_0_1_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -498,7 +501,8 @@ rulePrivatePackageSection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPrivatePackageSectionAccess().getImportedUnitModelUnitCrossReference_2_0_2_1_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -523,7 +527,7 @@ rulePrivatePackageSection returns [EObject current=null]
        			$current, 
        			"ownedPackageRename",
         		lv_ownedPackageRename_7_1, 
-        		"PackageRename");
+        		"org.osate.xtext.aadl2.Aadl2.PackageRename");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -538,7 +542,7 @@ rulePrivatePackageSection returns [EObject current=null]
        			$current, 
        			"ownedPackageRename",
         		lv_ownedPackageRename_7_2, 
-        		"RenameAll");
+        		"org.osate.xtext.aadl2.Aadl2.RenameAll");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -559,7 +563,7 @@ rulePrivatePackageSection returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupTypeRename",
         		lv_ownedFeatureGroupTypeRename_8_0, 
-        		"FGTRename");
+        		"org.osate.xtext.aadl2.Aadl2.FGTRename");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -578,7 +582,7 @@ rulePrivatePackageSection returns [EObject current=null]
        			$current, 
        			"ownedComponentTypeRename",
         		lv_ownedComponentTypeRename_9_0, 
-        		"CTRename");
+        		"org.osate.xtext.aadl2.Aadl2.CTRename");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -596,7 +600,7 @@ rulePrivatePackageSection returns [EObject current=null]
        			$current, 
        			"ownedClassifier",
         		lv_ownedClassifier_10_0, 
-        		"Classifier");
+        		"org.osate.xtext.aadl2.Aadl2.Classifier");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -615,7 +619,7 @@ rulePrivatePackageSection returns [EObject current=null]
        			$current, 
        			"ownedAnnexLibrary",
         		lv_ownedAnnexLibrary_11_0, 
-        		"AnnexLibrary");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexLibrary");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -655,7 +659,7 @@ rulePackageRename returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -679,7 +683,8 @@ rulePackageRename returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPackageRenameAccess().getRenamedPackageAadlPackageCrossReference_3_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -746,7 +751,8 @@ ruleRenameAll returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getRenameAllAccess().getRenamedPackageAadlPackageCrossReference_1_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -812,7 +818,7 @@ ruleFGTRename returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -841,7 +847,8 @@ ruleFGTRename returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFGTRenameAccess().getRenamedFeatureGroupTypeFeatureGroupTypeCrossReference_4_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -886,7 +893,7 @@ ruleCTRename returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -908,7 +915,7 @@ ruleCTRename returns [EObject current=null]
        			$current, 
        			"category",
         		lv_category_2_0, 
-        		"ComponentCategory");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -923,7 +930,8 @@ ruleCTRename returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getCTRenameAccess().getRenamedComponentTypeComponentTypeCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -969,7 +977,8 @@ ruleTypeExtension returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getTypeExtensionAccess().getExtendedComponentTypeCrossReference_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1010,7 +1019,8 @@ ruleImplementationExtension returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getImplementationExtensionAccess().getExtendedComponentImplementationCrossReference_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1051,7 +1061,8 @@ ruleGroupExtension returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getGroupExtensionAccess().getExtendedFeatureGroupTypeCrossReference_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1449,7 +1460,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -1466,7 +1477,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1489,7 +1500,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1512,7 +1523,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1562,7 +1573,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1607,7 +1618,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_15_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1626,7 +1637,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_16_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1645,7 +1656,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_17_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1664,7 +1675,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_18_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1683,7 +1694,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_19_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1702,7 +1713,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_20_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1721,7 +1732,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_21_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1740,7 +1751,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_22_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1759,7 +1770,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_23_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1782,7 +1793,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_25_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1843,7 +1854,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_30_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1867,7 +1878,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_32_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1886,7 +1897,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_33_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1931,7 +1942,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_37_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -1971,7 +1982,7 @@ ruleAbstractType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_40_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2030,7 +2041,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -2047,7 +2058,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2070,7 +2081,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2093,7 +2104,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2121,7 +2132,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_9_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2166,7 +2177,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_13_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2185,7 +2196,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_14_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2204,7 +2215,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_15_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2223,7 +2234,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_16_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2242,7 +2253,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_17_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2261,7 +2272,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_18_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2280,7 +2291,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_19_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2299,7 +2310,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_20_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2318,7 +2329,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_21_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2363,7 +2374,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_25_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2424,7 +2435,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_30_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2448,7 +2459,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_32_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2467,7 +2478,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_33_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2512,7 +2523,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_37_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2552,7 +2563,7 @@ ruleSystemType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_40_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2611,7 +2622,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -2628,7 +2639,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2651,7 +2662,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2674,7 +2685,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2724,7 +2735,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2769,7 +2780,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_15_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2788,7 +2799,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_16_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2807,7 +2818,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_17_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2826,7 +2837,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_18_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2845,7 +2856,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_19_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2864,7 +2875,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2883,7 +2894,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2902,7 +2913,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2925,7 +2936,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_24_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2986,7 +2997,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_29_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3010,7 +3021,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_31_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3029,7 +3040,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_32_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3074,7 +3085,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_36_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3114,7 +3125,7 @@ ruleProcessType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_39_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3178,7 +3189,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -3195,7 +3206,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_3_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3218,7 +3229,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3241,7 +3252,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3291,7 +3302,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3336,7 +3347,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_16_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3355,7 +3366,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_17_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3374,7 +3385,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_18_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3393,7 +3404,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_19_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3412,7 +3423,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_20_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3431,7 +3442,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_21_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3450,7 +3461,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_22_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3469,7 +3480,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_23_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3492,7 +3503,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_25_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3553,7 +3564,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_30_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3577,7 +3588,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_32_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3596,7 +3607,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_33_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3641,7 +3652,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_37_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3681,7 +3692,7 @@ ruleThreadGroupType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_40_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3740,7 +3751,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -3757,7 +3768,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3780,7 +3791,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3803,7 +3814,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3853,7 +3864,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3898,7 +3909,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_15_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3917,7 +3928,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_16_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3936,7 +3947,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_17_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3955,7 +3966,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_18_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3974,7 +3985,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_19_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -3993,7 +4004,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4012,7 +4023,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4031,7 +4042,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4054,7 +4065,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_24_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4115,7 +4126,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_29_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4139,7 +4150,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_31_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4158,7 +4169,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_32_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4203,7 +4214,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_36_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4243,7 +4254,7 @@ ruleThreadType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_39_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4302,7 +4313,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -4319,7 +4330,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4342,7 +4353,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4365,7 +4376,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4415,7 +4426,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4460,7 +4471,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedParameter",
         		lv_ownedParameter_15_0, 
-        		"Parameter");
+        		"org.osate.xtext.aadl2.Aadl2.Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4479,7 +4490,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_16_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4498,7 +4509,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_17_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4517,7 +4528,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_18_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4536,7 +4547,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_19_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4555,7 +4566,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4574,7 +4585,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4593,7 +4604,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4616,7 +4627,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_24_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4677,7 +4688,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_29_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4701,7 +4712,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_31_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4720,7 +4731,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_32_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4765,7 +4776,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_36_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4805,7 +4816,7 @@ ruleSubprogramType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_39_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4869,7 +4880,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -4886,7 +4897,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_3_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4909,7 +4920,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4932,7 +4943,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -4982,7 +4993,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5027,7 +5038,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_16_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5046,7 +5057,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_17_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5065,7 +5076,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_18_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5084,7 +5095,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_19_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5107,7 +5118,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_21_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5152,7 +5163,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_25_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5192,7 +5203,7 @@ ruleSubprogramGroupType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_28_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5251,7 +5262,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -5268,7 +5279,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5291,7 +5302,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5314,7 +5325,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5364,7 +5375,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5409,7 +5420,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_15_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5428,7 +5439,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_16_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5447,7 +5458,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_17_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5466,7 +5477,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_18_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5485,7 +5496,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_19_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5504,7 +5515,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5523,7 +5534,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5542,7 +5553,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5565,7 +5576,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_24_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5626,7 +5637,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_29_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5650,7 +5661,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_31_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5669,7 +5680,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_32_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5714,7 +5725,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_36_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5754,7 +5765,7 @@ ruleProcessorType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_39_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5813,7 +5824,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -5830,7 +5841,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5853,7 +5864,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5876,7 +5887,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5926,7 +5937,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5971,7 +5982,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_15_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -5990,7 +6001,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_16_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6009,7 +6020,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_17_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6028,7 +6039,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_18_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6047,7 +6058,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_19_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6066,7 +6077,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6085,7 +6096,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6104,7 +6115,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6127,7 +6138,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_24_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6188,7 +6199,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_29_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6212,7 +6223,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_31_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6231,7 +6242,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_32_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6276,7 +6287,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_36_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6316,7 +6327,7 @@ ruleDeviceType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_39_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6375,7 +6386,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -6392,7 +6403,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6415,7 +6426,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6438,7 +6449,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6488,7 +6499,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6533,7 +6544,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_15_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6552,7 +6563,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_16_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6571,7 +6582,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_17_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6590,7 +6601,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_18_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6609,7 +6620,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_19_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6628,7 +6639,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_20_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6667,7 +6678,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_23_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6691,7 +6702,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_25_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6710,7 +6721,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_26_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6755,7 +6766,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_30_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6795,7 +6806,7 @@ ruleMemoryType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_33_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6854,7 +6865,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -6871,7 +6882,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6894,7 +6905,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6917,7 +6928,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6967,7 +6978,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7012,7 +7023,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_15_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7031,7 +7042,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_16_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7050,7 +7061,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_17_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7069,7 +7080,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_18_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7088,7 +7099,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_19_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7107,7 +7118,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_20_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7146,7 +7157,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_23_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7170,7 +7181,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_25_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7189,7 +7200,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_26_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7234,7 +7245,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_30_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7274,7 +7285,7 @@ ruleBusType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_33_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7338,7 +7349,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -7355,7 +7366,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_3_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7378,7 +7389,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7401,7 +7412,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7451,7 +7462,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7496,7 +7507,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_16_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7515,7 +7526,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_17_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7534,7 +7545,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_18_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7553,7 +7564,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_19_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7572,7 +7583,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_20_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7611,7 +7622,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_23_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7635,7 +7646,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_25_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7654,7 +7665,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_26_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7699,7 +7710,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_30_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7739,7 +7750,7 @@ ruleVirtualBusType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_33_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7803,7 +7814,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -7820,7 +7831,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_3_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7843,7 +7854,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7866,7 +7877,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7916,7 +7927,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7961,7 +7972,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_16_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7980,7 +7991,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_17_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -7999,7 +8010,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_18_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8018,7 +8029,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_19_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8037,7 +8048,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8056,7 +8067,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8075,7 +8086,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8098,7 +8109,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_24_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8159,7 +8170,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_29_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8183,7 +8194,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_31_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8202,7 +8213,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_32_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8247,7 +8258,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_36_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8287,7 +8298,7 @@ ruleVirtualProcessorType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_39_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8346,7 +8357,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -8363,7 +8374,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_2_0, 
-        		"TypeExtension");
+        		"org.osate.xtext.aadl2.Aadl2.TypeExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8386,7 +8397,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8409,7 +8420,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_6_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8459,7 +8470,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_11_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8504,7 +8515,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_15_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8523,7 +8534,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_16_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8542,7 +8553,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_17_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8561,7 +8572,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_18_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8580,7 +8591,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_19_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8603,7 +8614,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedFlowSpecification",
         		lv_ownedFlowSpecification_21_0, 
-        		"FlowSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8664,7 +8675,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_26_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8688,7 +8699,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_28_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8707,7 +8718,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_29_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8752,7 +8763,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_33_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -8792,7 +8803,7 @@ ruleDataType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_36_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9049,7 +9060,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9072,7 +9083,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9090,7 +9101,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9113,7 +9124,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9136,7 +9147,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9164,7 +9175,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9209,7 +9220,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedSystemSubcomponent",
         		lv_ownedSystemSubcomponent_16_0, 
-        		"SystemSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SystemSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9228,7 +9239,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_17_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9247,7 +9258,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupSubcomponent",
         		lv_ownedSubprogramGroupSubcomponent_18_0, 
-        		"SubprogramGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9266,7 +9277,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedThreadSubcomponent",
         		lv_ownedThreadSubcomponent_19_0, 
-        		"ThreadSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ThreadSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9285,7 +9296,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedThreadGroupSubcomponent",
         		lv_ownedThreadGroupSubcomponent_20_0, 
-        		"ThreadGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ThreadGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9304,7 +9315,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedProcessSubcomponent",
         		lv_ownedProcessSubcomponent_21_0, 
-        		"ProcessSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ProcessSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9323,7 +9334,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedProcessorSubcomponent",
         		lv_ownedProcessorSubcomponent_22_0, 
-        		"ProcessorSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ProcessorSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9342,7 +9353,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualProcessorSubcomponent",
         		lv_ownedVirtualProcessorSubcomponent_23_0, 
-        		"VirtualProcessorSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualProcessorSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9361,7 +9372,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedMemorySubcomponent",
         		lv_ownedMemorySubcomponent_24_0, 
-        		"MemorySubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.MemorySubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9380,7 +9391,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedDeviceSubcomponent",
         		lv_ownedDeviceSubcomponent_25_0, 
-        		"DeviceSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DeviceSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9399,7 +9410,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedBusSubcomponent",
         		lv_ownedBusSubcomponent_26_0, 
-        		"BusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.BusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9418,7 +9429,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_27_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9437,7 +9448,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_28_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9456,7 +9467,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_29_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9506,7 +9517,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_34_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9525,7 +9536,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_35_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9553,7 +9564,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_38_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9572,7 +9583,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_39_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9595,7 +9606,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramCallSequence",
         		lv_ownedSubprogramCallSequence_41_0, 
-        		"SubprogramCallSequence");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramCallSequence");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9640,7 +9651,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_45_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9659,7 +9670,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_46_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9678,7 +9689,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_47_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9697,7 +9708,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_48_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9716,7 +9727,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedParameterConnection",
         		lv_ownedParameterConnection_49_0, 
-        		"ParameterConnection");
+        		"org.osate.xtext.aadl2.Aadl2.ParameterConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9761,7 +9772,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_53_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9780,7 +9791,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_54_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9825,7 +9836,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_58_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9844,7 +9855,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_59_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9889,7 +9900,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_63_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9929,7 +9940,7 @@ ruleAbstractImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_66_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9996,7 +10007,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10019,7 +10030,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10037,7 +10048,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10060,7 +10071,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10083,7 +10094,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10111,7 +10122,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10156,7 +10167,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedSystemSubcomponent",
         		lv_ownedSystemSubcomponent_16_0, 
-        		"SystemSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SystemSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10175,7 +10186,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_17_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10194,7 +10205,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupSubcomponent",
         		lv_ownedSubprogramGroupSubcomponent_18_0, 
-        		"SubprogramGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10213,7 +10224,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedProcessSubcomponent",
         		lv_ownedProcessSubcomponent_19_0, 
-        		"ProcessSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ProcessSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10232,7 +10243,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedProcessorSubcomponent",
         		lv_ownedProcessorSubcomponent_20_0, 
-        		"ProcessorSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ProcessorSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10251,7 +10262,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualProcessorSubcomponent",
         		lv_ownedVirtualProcessorSubcomponent_21_0, 
-        		"VirtualProcessorSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualProcessorSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10270,7 +10281,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedMemorySubcomponent",
         		lv_ownedMemorySubcomponent_22_0, 
-        		"MemorySubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.MemorySubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10289,7 +10300,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedDeviceSubcomponent",
         		lv_ownedDeviceSubcomponent_23_0, 
-        		"DeviceSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DeviceSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10308,7 +10319,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedBusSubcomponent",
         		lv_ownedBusSubcomponent_24_0, 
-        		"BusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.BusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10327,7 +10338,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_25_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10346,7 +10357,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_26_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10365,7 +10376,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_27_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10415,7 +10426,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_32_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10434,7 +10445,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_33_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10462,7 +10473,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_36_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10481,7 +10492,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_37_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10504,7 +10515,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_39_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10523,7 +10534,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_40_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10542,7 +10553,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_41_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10561,7 +10572,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_42_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10606,7 +10617,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_46_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10625,7 +10636,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_47_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10670,7 +10681,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_51_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10689,7 +10700,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_52_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10734,7 +10745,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_56_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10774,7 +10785,7 @@ ruleSystemImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_59_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10841,7 +10852,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10864,7 +10875,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10882,7 +10893,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10905,7 +10916,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10928,7 +10939,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -10956,7 +10967,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11001,7 +11012,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedThreadGroupSubcomponent",
         		lv_ownedThreadGroupSubcomponent_16_0, 
-        		"ThreadGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ThreadGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11020,7 +11031,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedThreadSubcomponent",
         		lv_ownedThreadSubcomponent_17_0, 
-        		"ThreadSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ThreadSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11039,7 +11050,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_18_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11058,7 +11069,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupSubcomponent",
         		lv_ownedSubprogramGroupSubcomponent_19_0, 
-        		"SubprogramGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11077,7 +11088,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_20_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11096,7 +11107,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_21_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11146,7 +11157,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_26_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11165,7 +11176,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_27_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11193,7 +11204,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_30_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11212,7 +11223,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_31_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11235,7 +11246,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_33_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11254,7 +11265,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_34_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11273,7 +11284,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_35_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11292,7 +11303,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_36_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11337,7 +11348,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_40_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11356,7 +11367,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_41_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11401,7 +11412,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_45_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11420,7 +11431,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_46_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11465,7 +11476,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_50_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11505,7 +11516,7 @@ ruleProcessImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_53_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11577,7 +11588,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_3_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11600,7 +11611,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11618,7 +11629,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_6_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11641,7 +11652,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_8_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11664,7 +11675,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11692,7 +11703,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_13_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11737,7 +11748,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedThreadGroupSubcomponent",
         		lv_ownedThreadGroupSubcomponent_17_0, 
-        		"ThreadGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ThreadGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11756,7 +11767,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedThreadSubcomponent",
         		lv_ownedThreadSubcomponent_18_0, 
-        		"ThreadSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.ThreadSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11775,7 +11786,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_19_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11794,7 +11805,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupSubcomponent",
         		lv_ownedSubprogramGroupSubcomponent_20_0, 
-        		"SubprogramGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11813,7 +11824,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_21_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11832,7 +11843,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_22_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11882,7 +11893,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_27_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11901,7 +11912,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_28_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11929,7 +11940,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_31_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11948,7 +11959,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_32_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11971,7 +11982,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_34_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -11990,7 +12001,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_35_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12009,7 +12020,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_36_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12028,7 +12039,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_37_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12073,7 +12084,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_41_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12092,7 +12103,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_42_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12137,7 +12148,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_46_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12156,7 +12167,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_47_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12201,7 +12212,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_51_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12241,7 +12252,7 @@ ruleThreadGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_54_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12308,7 +12319,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12331,7 +12342,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12349,7 +12360,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12372,7 +12383,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12395,7 +12406,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12423,7 +12434,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12468,7 +12479,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_16_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12487,7 +12498,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupSubcomponent",
         		lv_ownedSubprogramGroupSubcomponent_17_0, 
-        		"SubprogramGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12506,7 +12517,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_18_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12525,7 +12536,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_19_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12575,7 +12586,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_24_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12594,7 +12605,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_25_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12622,7 +12633,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_28_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12641,7 +12652,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_29_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12664,7 +12675,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramCallSequence",
         		lv_ownedSubprogramCallSequence_31_0, 
-        		"SubprogramCallSequence");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramCallSequence");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12709,7 +12720,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_35_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12728,7 +12739,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_36_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12747,7 +12758,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_37_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12766,7 +12777,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_38_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12785,7 +12796,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedParameterConnection",
         		lv_ownedParameterConnection_39_0, 
-        		"ParameterConnection");
+        		"org.osate.xtext.aadl2.Aadl2.ParameterConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12830,7 +12841,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_43_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12849,7 +12860,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_44_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12894,7 +12905,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_48_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12913,7 +12924,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_49_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12958,7 +12969,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_53_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -12998,7 +13009,7 @@ ruleThreadImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_56_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13065,7 +13076,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13088,7 +13099,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13106,7 +13117,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13129,7 +13140,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13152,7 +13163,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13180,7 +13191,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13225,7 +13236,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_16_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13244,7 +13255,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_17_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13263,7 +13274,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_18_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13313,7 +13324,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_23_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13332,7 +13343,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_24_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13360,7 +13371,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_27_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13379,7 +13390,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_28_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13402,7 +13413,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramCallSequence",
         		lv_ownedSubprogramCallSequence_30_0, 
-        		"SubprogramCallSequence");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramCallSequence");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13447,7 +13458,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_34_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13466,7 +13477,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_35_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13485,7 +13496,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_36_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13504,7 +13515,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_37_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13523,7 +13534,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedParameterConnection",
         		lv_ownedParameterConnection_38_0, 
-        		"ParameterConnection");
+        		"org.osate.xtext.aadl2.Aadl2.ParameterConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13568,7 +13579,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_42_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13587,7 +13598,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_43_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13632,7 +13643,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_47_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13651,7 +13662,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_48_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13696,7 +13707,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_52_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13736,7 +13747,7 @@ ruleSubprogramImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_55_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13808,7 +13819,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_3_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13831,7 +13842,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13849,7 +13860,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_6_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13872,7 +13883,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_8_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13895,7 +13906,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13923,7 +13934,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_13_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13968,7 +13979,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_17_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -13987,7 +13998,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_18_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14006,7 +14017,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupSubcomponent",
         		lv_ownedSubprogramGroupSubcomponent_19_0, 
-        		"SubprogramGroupSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14025,7 +14036,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_20_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14075,7 +14086,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_25_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14094,7 +14105,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_26_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14122,7 +14133,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_29_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14141,7 +14152,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_30_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14164,7 +14175,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_32_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14183,7 +14194,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_33_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14202,7 +14213,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_34_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14247,7 +14258,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_38_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14266,7 +14277,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_39_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14311,7 +14322,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_43_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14351,7 +14362,7 @@ ruleSubprogramGroupImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_46_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14418,7 +14429,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14441,7 +14452,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14459,7 +14470,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14482,7 +14493,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14505,7 +14516,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14533,7 +14544,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14578,7 +14589,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedMemorySubcomponent",
         		lv_ownedMemorySubcomponent_16_0, 
-        		"MemorySubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.MemorySubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14597,7 +14608,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_17_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14616,7 +14627,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedBusSubcomponent",
         		lv_ownedBusSubcomponent_18_0, 
-        		"BusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.BusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14635,7 +14646,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_19_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14654,7 +14665,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualProcessorSubcomponent",
         		lv_ownedVirtualProcessorSubcomponent_20_0, 
-        		"VirtualProcessorSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualProcessorSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14704,7 +14715,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_25_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14723,7 +14734,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_26_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14746,7 +14757,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_28_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14765,7 +14776,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_29_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14784,7 +14795,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_30_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14803,7 +14814,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_31_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14848,7 +14859,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_35_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14867,7 +14878,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_36_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14912,7 +14923,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_40_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14931,7 +14942,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_41_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -14976,7 +14987,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_45_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15016,7 +15027,7 @@ ruleProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_48_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15088,7 +15099,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_3_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15111,7 +15122,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15129,7 +15140,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_6_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15152,7 +15163,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_8_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15175,7 +15186,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15203,7 +15214,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_13_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15248,7 +15259,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_17_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15267,7 +15278,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_18_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15286,7 +15297,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualProcessorSubcomponent",
         		lv_ownedVirtualProcessorSubcomponent_19_0, 
-        		"VirtualProcessorSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualProcessorSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15336,7 +15347,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_24_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15355,7 +15366,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_25_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15383,7 +15394,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_28_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15402,7 +15413,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_29_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15425,7 +15436,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_31_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15444,7 +15455,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_32_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15463,7 +15474,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_33_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15482,7 +15493,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_34_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15527,7 +15538,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_38_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15546,7 +15557,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_39_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15591,7 +15602,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_43_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15610,7 +15621,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_44_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15655,7 +15666,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_48_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15695,7 +15706,7 @@ ruleVirtualProcessorImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_51_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15762,7 +15773,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15785,7 +15796,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15803,7 +15814,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15826,7 +15837,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15849,7 +15860,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15877,7 +15888,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15922,7 +15933,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_16_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15941,7 +15952,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_17_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15960,7 +15971,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_18_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -15979,7 +15990,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedBusSubcomponent",
         		lv_ownedBusSubcomponent_19_0, 
-        		"BusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.BusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16029,7 +16040,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_24_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16048,7 +16059,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_25_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16076,7 +16087,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortProxy",
         		lv_ownedPortProxy_28_0, 
-        		"PortProxy");
+        		"org.osate.xtext.aadl2.Aadl2.PortProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16095,7 +16106,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramProxy",
         		lv_ownedSubprogramProxy_29_0, 
-        		"SubprogramProxy");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramProxy");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16118,7 +16129,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedPortConnection",
         		lv_ownedPortConnection_31_0, 
-        		"PortConnection");
+        		"org.osate.xtext.aadl2.Aadl2.PortConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16137,7 +16148,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_32_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16156,7 +16167,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_33_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16175,7 +16186,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_34_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16220,7 +16231,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_38_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16239,7 +16250,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_39_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16284,7 +16295,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_43_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16303,7 +16314,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_44_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16348,7 +16359,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_48_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16388,7 +16399,7 @@ ruleDeviceImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_51_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16455,7 +16466,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16478,7 +16489,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16496,7 +16507,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16519,7 +16530,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16542,7 +16553,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16570,7 +16581,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16615,7 +16626,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_16_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16634,7 +16645,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedMemorySubcomponent",
         		lv_ownedMemorySubcomponent_17_0, 
-        		"MemorySubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.MemorySubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16653,7 +16664,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedBusSubcomponent",
         		lv_ownedBusSubcomponent_18_0, 
-        		"BusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.BusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16703,7 +16714,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_23_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16722,7 +16733,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_24_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16745,7 +16756,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_26_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16764,7 +16775,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_27_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16783,7 +16794,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_28_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16828,7 +16839,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_32_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16847,7 +16858,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_33_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16892,7 +16903,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_37_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16932,7 +16943,7 @@ ruleMemoryImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_40_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -16999,7 +17010,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_2_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17022,7 +17033,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_4_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17040,7 +17051,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_5_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17063,7 +17074,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17086,7 +17097,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17114,7 +17125,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17159,7 +17170,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_16_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17178,7 +17189,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_17_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17228,7 +17239,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_22_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17247,7 +17258,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_23_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17270,7 +17281,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_25_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17289,7 +17300,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_26_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17334,7 +17345,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_30_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17374,7 +17385,7 @@ ruleBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_33_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17446,7 +17457,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_3_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17469,7 +17480,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17487,7 +17498,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_6_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17510,7 +17521,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_8_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17533,7 +17544,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17561,7 +17572,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_13_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17606,7 +17617,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_17_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17625,7 +17636,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedVirtualBusSubcomponent",
         		lv_ownedVirtualBusSubcomponent_18_0, 
-        		"VirtualBusSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.VirtualBusSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17675,7 +17686,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_23_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17694,7 +17705,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_24_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17717,7 +17728,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_26_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17736,7 +17747,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_27_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17781,7 +17792,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_31_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17821,7 +17832,7 @@ ruleVirtualBusImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_34_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17894,7 +17905,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedRealization",
         		lv_ownedRealization_3_0, 
-        		"Realization");
+        		"org.osate.xtext.aadl2.Aadl2.Realization");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17917,7 +17928,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_5_0, 
-        		"INAME");
+        		"org.osate.xtext.aadl2.Aadl2.INAME");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17935,7 +17946,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_6_0, 
-        		"ImplementationExtension");
+        		"org.osate.xtext.aadl2.Aadl2.ImplementationExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17958,7 +17969,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_8_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -17981,7 +17992,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18009,7 +18020,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_13_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18054,7 +18065,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedAbstractSubcomponent",
         		lv_ownedAbstractSubcomponent_17_0, 
-        		"AbstractSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18073,7 +18084,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedDataSubcomponent",
         		lv_ownedDataSubcomponent_18_0, 
-        		"DataSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.DataSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18092,7 +18103,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedSubprogramSubcomponent",
         		lv_ownedSubprogramSubcomponent_19_0, 
-        		"SubprogramSubcomponent");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramSubcomponent");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18142,7 +18153,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventSource",
         		lv_ownedEventSource_24_0, 
-        		"EventSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18161,7 +18172,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedEventDataSource",
         		lv_ownedEventDataSource_25_0, 
-        		"EventDataSource");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18184,7 +18195,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedAccessConnection",
         		lv_ownedAccessConnection_27_0, 
-        		"AccessConnection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18203,7 +18214,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroupConnection",
         		lv_ownedFeatureGroupConnection_28_0, 
-        		"FeatureGroupConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18222,7 +18233,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedFeatureConnection",
         		lv_ownedFeatureConnection_29_0, 
-        		"FeatureConnection");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureConnection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18267,7 +18278,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedFlowImplementation",
         		lv_ownedFlowImplementation_33_0, 
-        		"FlowImplementation");
+        		"org.osate.xtext.aadl2.Aadl2.FlowImplementation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18286,7 +18297,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlow",
         		lv_ownedEndToEndFlow_34_0, 
-        		"EndToEndFlow");
+        		"org.osate.xtext.aadl2.Aadl2.EndToEndFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18331,7 +18342,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedMode",
         		lv_ownedMode_38_0, 
-        		"Mode");
+        		"org.osate.xtext.aadl2.Aadl2.Mode");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18350,7 +18361,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedModeTransition",
         		lv_ownedModeTransition_39_0, 
-        		"ModeTransition");
+        		"org.osate.xtext.aadl2.Aadl2.ModeTransition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18395,7 +18406,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_43_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18435,7 +18446,7 @@ ruleDataImplementation returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_46_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18493,7 +18504,7 @@ ruleSubprogramCallSequence returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -18520,7 +18531,7 @@ ruleSubprogramCallSequence returns [EObject current=null]
        			$current, 
        			"ownedSubprogramCall",
         		lv_ownedSubprogramCall_3_0, 
-        		"SubprogramCall");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramCall");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18548,7 +18559,7 @@ ruleSubprogramCallSequence returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_6_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18655,7 +18666,7 @@ ruleSubprogramCall returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -18679,7 +18690,8 @@ ruleSubprogramCall returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramCallAccess().getContextCallContextCrossReference_4_0_0_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18713,7 +18725,8 @@ ruleSubprogramCall returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramCallAccess().getCalledSubprogramCalledSubprogramCrossReference_4_1_0()); 
 	    }
-		rulePNAME		{ 
+		rulePNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18760,7 +18773,7 @@ ruleSubprogramCall returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18815,7 +18828,8 @@ rulePrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_0_0_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -18879,7 +18893,7 @@ rulePrototype returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_7_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19089,7 +19103,7 @@ ruleAbstractPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19109,7 +19123,8 @@ ruleAbstractPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19169,7 +19184,7 @@ ruleBusPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19189,7 +19204,8 @@ ruleBusPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getBusPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19249,7 +19265,7 @@ ruleDataPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19269,7 +19285,8 @@ ruleDataPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19329,7 +19346,7 @@ ruleDevicePrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19349,7 +19366,8 @@ ruleDevicePrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDevicePrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19409,7 +19427,7 @@ ruleMemoryPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19429,7 +19447,8 @@ ruleMemoryPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getMemoryPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19489,7 +19508,7 @@ ruleProcessPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19509,7 +19528,8 @@ ruleProcessPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getProcessPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19569,7 +19589,7 @@ ruleProcessorPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19589,7 +19609,8 @@ ruleProcessorPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getProcessorPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19649,7 +19670,7 @@ ruleSubprogramPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19669,7 +19690,8 @@ ruleSubprogramPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19729,7 +19751,7 @@ ruleSubprogramGroupPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19749,7 +19771,8 @@ ruleSubprogramGroupPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19814,7 +19837,7 @@ ruleSystemPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19834,7 +19857,8 @@ ruleSystemPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSystemPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19894,7 +19918,7 @@ ruleThreadPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19914,7 +19938,8 @@ ruleThreadPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getThreadPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -19974,7 +19999,7 @@ ruleThreadGroupPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -19994,7 +20019,8 @@ ruleThreadGroupPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getThreadGroupPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20059,7 +20085,7 @@ ruleVirtualBusPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -20079,7 +20105,8 @@ ruleVirtualBusPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVirtualBusPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20144,7 +20171,7 @@ ruleVirtualProcessorPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -20164,7 +20191,8 @@ ruleVirtualProcessorPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVirtualProcessorPrototypeAccess().getRefinedComponentPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20229,7 +20257,7 @@ ruleFeatureGroupPrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -20249,7 +20277,8 @@ ruleFeatureGroupPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupPrototypeAccess().getRefinedFeatureGroupPrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20289,7 +20318,8 @@ ruleFeatureGroupPrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupPrototypeAccess().getConstrainingFeatureGroupTypeFeatureGroupTypeCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20329,7 +20359,7 @@ ruleFeaturePrototype returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -20349,7 +20379,8 @@ ruleFeaturePrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeaturePrototypeAccess().getRefinedFeaturePrototypeCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20417,7 +20448,8 @@ ruleFeaturePrototype returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeaturePrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20534,7 +20566,7 @@ ruleFeatureGroupPrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_4_0, 
-        		"FeatureGroupPrototypeActual");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroupPrototypeActual");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20570,7 +20602,8 @@ ruleFeatureGroupPrototypeActual returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupPrototypeActualAccess().getFeatureTypeFeatureTypeCrossReference_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20593,7 +20626,7 @@ ruleFeatureGroupPrototypeActual returns [EObject current=null]
        			$current, 
        			"binding",
         		lv_binding_2_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20616,7 +20649,7 @@ ruleFeatureGroupPrototypeActual returns [EObject current=null]
        			$current, 
        			"binding",
         		lv_binding_4_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20679,7 +20712,7 @@ ruleFeaturePrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_2_1, 
-        		"PortSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.PortSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20694,7 +20727,7 @@ ruleFeaturePrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_2_2, 
-        		"AccessSpecification");
+        		"org.osate.xtext.aadl2.Aadl2.AccessSpecification");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20709,7 +20742,7 @@ ruleFeaturePrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_2_3, 
-        		"FeaturePrototypeReference");
+        		"org.osate.xtext.aadl2.Aadl2.FeaturePrototypeReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20799,7 +20832,7 @@ rulePortSpecification returns [EObject current=null]
        			$current, 
        			"category",
         		lv_category_3_0, 
-        		"PortCategory");
+        		"org.osate.xtext.aadl2.Aadl2.PortCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20819,7 +20852,8 @@ rulePortSpecification returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPortSpecificationAccess().getClassifierComponentClassifierCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20858,7 +20892,7 @@ ruleAccessSpecification returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_0_0, 
-        		"AccessDirection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessDirection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20876,7 +20910,7 @@ ruleAccessSpecification returns [EObject current=null]
        			$current, 
        			"category",
         		lv_category_1_0, 
-        		"AccessCategory");
+        		"org.osate.xtext.aadl2.Aadl2.AccessCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -20896,7 +20930,8 @@ ruleAccessSpecification returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAccessSpecificationAccess().getClassifierComponentClassifierCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21025,7 +21060,7 @@ ruleComponentPrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_2_0, 
-        		"ComponentReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21049,7 +21084,7 @@ ruleComponentPrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_4_0, 
-        		"ComponentReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21072,7 +21107,7 @@ ruleComponentPrototypeBinding returns [EObject current=null]
        			$current, 
        			"actual",
         		lv_actual_6_0, 
-        		"ComponentReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21116,7 +21151,7 @@ ruleComponentReference returns [EObject current=null]
        			$current, 
        			"category",
         		lv_category_0_0, 
-        		"ComponentCategory");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21131,7 +21166,8 @@ ruleComponentReference returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getComponentReferenceAccess().getSubcomponentTypeSubcomponentTypeCrossReference_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21154,7 +21190,7 @@ ruleComponentReference returns [EObject current=null]
        			$current, 
        			"binding",
         		lv_binding_3_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21177,7 +21213,7 @@ ruleComponentReference returns [EObject current=null]
        			$current, 
        			"binding",
         		lv_binding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21222,7 +21258,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -21242,7 +21278,8 @@ ruleAbstractSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractSubcomponentAccess().getRefinedAbstractSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21277,7 +21314,8 @@ ruleAbstractSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractSubcomponentAccess().getAbstractSubcomponentTypeAbstractSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21300,7 +21338,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21323,7 +21361,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21346,7 +21384,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21369,7 +21407,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21392,7 +21430,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21420,7 +21458,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21458,7 +21496,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21481,7 +21519,7 @@ ruleAbstractSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21531,7 +21569,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -21551,7 +21589,8 @@ ruleSystemSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSystemSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21586,7 +21625,8 @@ ruleSystemSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSystemSubcomponentAccess().getSystemSubcomponentTypeSystemSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21609,7 +21649,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21632,7 +21672,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21655,7 +21695,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21678,7 +21718,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21701,7 +21741,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21729,7 +21769,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21767,7 +21807,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21790,7 +21830,7 @@ ruleSystemSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21840,7 +21880,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -21860,7 +21900,8 @@ ruleProcessSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getProcessSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21895,7 +21936,8 @@ ruleProcessSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getProcessSubcomponentAccess().getProcessSubcomponentTypeProcessSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21918,7 +21960,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21941,7 +21983,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21964,7 +22006,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -21987,7 +22029,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22010,7 +22052,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22038,7 +22080,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22076,7 +22118,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22099,7 +22141,7 @@ ruleProcessSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22149,7 +22191,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -22169,7 +22211,8 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getThreadGroupSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22209,7 +22252,8 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getThreadGroupSubcomponentAccess().getThreadGroupSubcomponentTypeThreadGroupSubcomponentTypeCrossReference_3_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22232,7 +22276,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22255,7 +22299,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_12_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22278,7 +22322,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_14_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22301,7 +22345,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_16_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22324,7 +22368,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_18_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22352,7 +22396,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_21_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22390,7 +22434,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_26_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22413,7 +22457,7 @@ ruleThreadGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_28_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22463,7 +22507,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -22483,7 +22527,8 @@ ruleThreadSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getThreadSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22518,7 +22563,8 @@ ruleThreadSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getThreadSubcomponentAccess().getThreadSubcomponentTypeThreadSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22541,7 +22587,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22564,7 +22610,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22587,7 +22633,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22610,7 +22656,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22633,7 +22679,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22661,7 +22707,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22699,7 +22745,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22722,7 +22768,7 @@ ruleThreadSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22772,7 +22818,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -22792,7 +22838,8 @@ ruleSubprogramSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22827,7 +22874,8 @@ ruleSubprogramSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramSubcomponentAccess().getSubprogramSubcomponentTypeSubprogramSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22850,7 +22898,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22873,7 +22921,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22896,7 +22944,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22919,7 +22967,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22942,7 +22990,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -22970,7 +23018,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23008,7 +23056,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23031,7 +23079,7 @@ ruleSubprogramSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23081,7 +23129,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -23101,7 +23149,8 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23141,7 +23190,8 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupSubcomponentAccess().getSubprogramGroupSubcomponentTypeSubprogramGroupSubcomponentTypeCrossReference_3_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23164,7 +23214,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23187,7 +23237,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_12_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23210,7 +23260,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_14_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23233,7 +23283,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_16_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23256,7 +23306,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_18_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23284,7 +23334,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_21_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23322,7 +23372,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_26_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23345,7 +23395,7 @@ ruleSubprogramGroupSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_28_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23395,7 +23445,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -23415,7 +23465,8 @@ ruleProcessorSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getProcessorSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23450,7 +23501,8 @@ ruleProcessorSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getProcessorSubcomponentAccess().getProcessorSubcomponentTypeProcessorSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23473,7 +23525,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23496,7 +23548,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23519,7 +23571,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23542,7 +23594,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23565,7 +23617,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23593,7 +23645,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23631,7 +23683,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23654,7 +23706,7 @@ ruleProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23704,7 +23756,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -23724,7 +23776,8 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVirtualProcessorSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23764,7 +23817,8 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVirtualProcessorSubcomponentAccess().getVirtualProcessorSubcomponentTypeVirtualProcessorSubcomponentTypeCrossReference_3_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23787,7 +23841,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23810,7 +23864,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_12_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23833,7 +23887,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_14_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23856,7 +23910,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_16_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23879,7 +23933,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_18_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23907,7 +23961,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_21_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23945,7 +23999,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_26_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -23968,7 +24022,7 @@ ruleVirtualProcessorSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_28_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24018,7 +24072,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -24038,7 +24092,8 @@ ruleDeviceSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDeviceSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24073,7 +24128,8 @@ ruleDeviceSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDeviceSubcomponentAccess().getDeviceSubcomponentTypeDeviceSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24096,7 +24152,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24119,7 +24175,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24142,7 +24198,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24165,7 +24221,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24188,7 +24244,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24216,7 +24272,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24254,7 +24310,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24277,7 +24333,7 @@ ruleDeviceSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24327,7 +24383,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -24347,7 +24403,8 @@ ruleMemorySubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getMemorySubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24382,7 +24439,8 @@ ruleMemorySubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getMemorySubcomponentAccess().getMemorySubcomponentTypeMemorySubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24405,7 +24463,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24428,7 +24486,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24451,7 +24509,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24474,7 +24532,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24497,7 +24555,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24525,7 +24583,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24563,7 +24621,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24586,7 +24644,7 @@ ruleMemorySubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24636,7 +24694,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -24656,7 +24714,8 @@ ruleBusSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getBusSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24691,7 +24750,8 @@ ruleBusSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getBusSubcomponentAccess().getBusSubcomponentTypeBusSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24714,7 +24774,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24737,7 +24797,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24760,7 +24820,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24783,7 +24843,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24806,7 +24866,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24834,7 +24894,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24872,7 +24932,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24895,7 +24955,7 @@ ruleBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -24945,7 +25005,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -24965,7 +25025,8 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVirtualBusSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25005,7 +25066,8 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVirtualBusSubcomponentAccess().getVirtualBusSubcomponentTypeVirtualBusClassifierCrossReference_3_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25028,7 +25090,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_10_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25051,7 +25113,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_12_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25074,7 +25136,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_14_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25097,7 +25159,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_16_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25120,7 +25182,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_18_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25148,7 +25210,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_21_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25186,7 +25248,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_26_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25209,7 +25271,7 @@ ruleVirtualBusSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_28_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25259,7 +25321,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -25279,7 +25341,8 @@ ruleDataSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataSubcomponentAccess().getRefinedSubcomponentCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25314,7 +25377,8 @@ ruleDataSubcomponent returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataSubcomponentAccess().getDataSubcomponentTypeDataSubcomponentTypeCrossReference_2_0_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25337,7 +25401,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_9_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25360,7 +25424,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_11_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25383,7 +25447,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25406,7 +25470,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_15_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25429,7 +25493,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"implementationReference",
         		lv_implementationReference_17_0, 
-        		"ComponentImplementationReference");
+        		"org.osate.xtext.aadl2.Aadl2.ComponentImplementationReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25457,7 +25521,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25495,7 +25559,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_25_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25518,7 +25582,7 @@ ruleDataSubcomponent returns [EObject current=null]
        			$current, 
        			"ownedModeBinding",
         		lv_ownedModeBinding_27_0, 
-        		"ModeRef");
+        		"org.osate.xtext.aadl2.Aadl2.ModeRef");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25578,7 +25642,7 @@ ruleArrayDimension returns [EObject current=null]
        			$current, 
        			"size",
         		lv_size_2_0, 
-        		"ArraySize");
+        		"org.osate.xtext.aadl2.Aadl2.ArraySize");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25622,7 +25686,7 @@ ruleArraySize returns [EObject current=null]
        			$current, 
        			"size",
         		lv_size_0_0, 
-        		"INTVALUE");
+        		"org.osate.xtext.aadl2.properties.Properties.INTVALUE");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25638,7 +25702,8 @@ ruleArraySize returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getArraySizeAccess().getSizePropertyArraySizePropertyCrossReference_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25680,7 +25745,8 @@ ruleComponentImplementationReference returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getComponentImplementationReferenceAccess().getImplementationComponentImplementationCrossReference_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25703,7 +25769,7 @@ ruleComponentImplementationReference returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_3_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25726,7 +25792,7 @@ ruleComponentImplementationReference returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25777,7 +25843,7 @@ ruleDataPort returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -25797,7 +25863,8 @@ ruleDataPort returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataPortAccess().getRefinedFeatureCrossReference_1_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25886,7 +25953,8 @@ ruleDataPort returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataPortAccess().getDataFeatureClassifierDataSubcomponentTypeCrossReference_5_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25904,7 +25972,7 @@ ruleDataPort returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25927,7 +25995,7 @@ ruleDataPort returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_15_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -25983,7 +26051,7 @@ ruleEventDataPort returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -26003,7 +26071,8 @@ ruleEventDataPort returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getEventDataPortAccess().getRefinedFeatureCrossReference_1_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26097,7 +26166,8 @@ ruleEventDataPort returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getEventDataPortAccess().getDataFeatureClassifierDataSubcomponentTypeCrossReference_6_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26115,7 +26185,7 @@ ruleEventDataPort returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_14_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26138,7 +26208,7 @@ ruleEventDataPort returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_16_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26194,7 +26264,7 @@ ruleEventPort returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -26214,7 +26284,8 @@ ruleEventPort returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getEventPortAccess().getRefinedFeatureCrossReference_1_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26306,7 +26377,7 @@ ruleEventPort returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_12_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26329,7 +26400,7 @@ ruleEventPort returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_14_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26379,7 +26450,7 @@ ruleFeatureGroup returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -26399,7 +26470,8 @@ ruleFeatureGroup returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26493,7 +26565,8 @@ ruleFeatureGroup returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupAccess().getFeatureTypeFeatureTypeCrossReference_4_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26511,7 +26584,7 @@ ruleFeatureGroup returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_13_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26534,7 +26607,7 @@ ruleFeatureGroup returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_15_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26584,7 +26657,7 @@ ruleParameter returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -26604,7 +26677,8 @@ ruleParameter returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getParameterAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26688,7 +26762,8 @@ ruleParameter returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getParameterAccess().getDataFeatureClassifierDataSubcomponentTypeCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26706,7 +26781,7 @@ ruleParameter returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_11_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26729,7 +26804,7 @@ ruleParameter returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_13_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26779,7 +26854,7 @@ ruleSubprogramAccess returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -26799,7 +26874,8 @@ ruleSubprogramAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26832,7 +26908,7 @@ ruleSubprogramAccess returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_6_0, 
-        		"AccessDirection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessDirection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26857,7 +26933,8 @@ ruleSubprogramAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramAccessAccess().getSubprogramFeatureClassifierSubprogramSubcomponentTypeCrossReference_4_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26875,7 +26952,7 @@ ruleSubprogramAccess returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_10_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26898,7 +26975,7 @@ ruleSubprogramAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -26948,7 +27025,7 @@ ruleSubprogramGroupAccess returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -26968,7 +27045,8 @@ ruleSubprogramGroupAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27001,7 +27079,7 @@ ruleSubprogramGroupAccess returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_6_0, 
-        		"AccessDirection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessDirection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27031,7 +27109,8 @@ ruleSubprogramGroupAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramGroupAccessAccess().getSubprogramGroupFeatureClassifierSubprogramGroupSubcomponentTypeCrossReference_5_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27049,7 +27128,7 @@ ruleSubprogramGroupAccess returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_11_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27072,7 +27151,7 @@ ruleSubprogramGroupAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_13_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27122,7 +27201,7 @@ ruleBusAccess returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -27142,7 +27221,8 @@ ruleBusAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getBusAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27175,7 +27255,7 @@ ruleBusAccess returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_6_0, 
-        		"AccessDirection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessDirection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27200,7 +27280,8 @@ ruleBusAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getBusAccessAccess().getBusFeatureClassifierBusSubcomponentTypeCrossReference_4_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27218,7 +27299,7 @@ ruleBusAccess returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_10_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27241,7 +27322,7 @@ ruleBusAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27291,7 +27372,7 @@ ruleDataAccess returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -27311,7 +27392,8 @@ ruleDataAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataAccessAccess().getRefinedFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27344,7 +27426,7 @@ ruleDataAccess returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_6_0, 
-        		"AccessDirection");
+        		"org.osate.xtext.aadl2.Aadl2.AccessDirection");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27369,7 +27451,8 @@ ruleDataAccess returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getDataAccessAccess().getDataFeatureClassifierDataSubcomponentTypeCrossReference_4_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27387,7 +27470,7 @@ ruleDataAccess returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_10_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27410,7 +27493,7 @@ ruleDataAccess returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27460,7 +27543,7 @@ ruleAbstractFeature returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -27480,7 +27563,8 @@ ruleAbstractFeature returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getRefinedAbstractFeatureCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27548,7 +27632,8 @@ ruleAbstractFeature returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getFeaturePrototypeFeaturePrototypeCrossReference_2_0_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27569,7 +27654,8 @@ ruleAbstractFeature returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAbstractFeatureAccess().getAbstractFeatureClassifierFeatureClassifierCrossReference_2_1_1_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27587,7 +27673,7 @@ ruleAbstractFeature returns [EObject current=null]
        			$current, 
        			"arrayDimension",
         		lv_arrayDimension_12_0, 
-        		"ArrayDimension");
+        		"org.osate.xtext.aadl2.Aadl2.ArrayDimension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27610,7 +27696,7 @@ ruleAbstractFeature returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_14_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27757,7 +27843,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -27774,7 +27860,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedExtension",
         		lv_ownedExtension_3_0, 
-        		"GroupExtension");
+        		"org.osate.xtext.aadl2.Aadl2.GroupExtension");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27797,7 +27883,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_5_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27820,7 +27906,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototypeBinding",
         		lv_ownedPrototypeBinding_7_0, 
-        		"PrototypeBinding");
+        		"org.osate.xtext.aadl2.Aadl2.PrototypeBinding");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27870,7 +27956,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedPrototype",
         		lv_ownedPrototype_12_0, 
-        		"Prototype");
+        		"org.osate.xtext.aadl2.Aadl2.Prototype");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27893,7 +27979,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedDataPort",
         		lv_ownedDataPort_14_0, 
-        		"DataPort");
+        		"org.osate.xtext.aadl2.Aadl2.DataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27912,7 +27998,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedEventPort",
         		lv_ownedEventPort_15_0, 
-        		"EventPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27931,7 +28017,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedEventDataPort",
         		lv_ownedEventDataPort_16_0, 
-        		"EventDataPort");
+        		"org.osate.xtext.aadl2.Aadl2.EventDataPort");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27950,7 +28036,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedFeatureGroup",
         		lv_ownedFeatureGroup_17_0, 
-        		"FeatureGroup");
+        		"org.osate.xtext.aadl2.Aadl2.FeatureGroup");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27969,7 +28055,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedDataAccess",
         		lv_ownedDataAccess_18_0, 
-        		"DataAccess");
+        		"org.osate.xtext.aadl2.Aadl2.DataAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -27988,7 +28074,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedBusAccess",
         		lv_ownedBusAccess_19_0, 
-        		"BusAccess");
+        		"org.osate.xtext.aadl2.Aadl2.BusAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28007,7 +28093,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramAccess",
         		lv_ownedSubprogramAccess_20_0, 
-        		"SubprogramAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28026,7 +28112,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedSubprogramGroupAccess",
         		lv_ownedSubprogramGroupAccess_21_0, 
-        		"SubprogramGroupAccess");
+        		"org.osate.xtext.aadl2.Aadl2.SubprogramGroupAccess");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28045,7 +28131,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedAbstractFeature",
         		lv_ownedAbstractFeature_22_0, 
-        		"AbstractFeature");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractFeature");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28064,7 +28150,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedParameter",
         		lv_ownedParameter_23_0, 
-        		"Parameter");
+        		"org.osate.xtext.aadl2.Aadl2.Parameter");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28089,7 +28175,8 @@ ruleFeatureGroupType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupTypeAccess().getInverseFeatureGroupTypeCrossReference_6_2_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28112,7 +28199,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_28_0, 
-        		"ContainedPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainedPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28152,7 +28239,7 @@ ruleFeatureGroupType returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_31_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28210,7 +28297,7 @@ ruleEventSource returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -28242,7 +28329,7 @@ ruleEventSource returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_4_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28292,7 +28379,7 @@ ruleEventDataSource returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -28321,7 +28408,8 @@ ruleEventDataSource returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getEventDataSourceAccess().getDataClassifierDataClassifierCrossReference_4_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28344,7 +28432,7 @@ ruleEventDataSource returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_6_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28394,7 +28482,7 @@ rulePortProxy returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -28418,7 +28506,8 @@ rulePortProxy returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPortProxyAccess().getDataClassifierDataClassifierCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28441,7 +28530,7 @@ rulePortProxy returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_5_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28491,7 +28580,7 @@ ruleSubprogramProxy returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -28515,7 +28604,8 @@ ruleSubprogramProxy returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getSubprogramProxyAccess().getSubprogramClassifierSubprogramClassifierCrossReference_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28538,7 +28628,7 @@ ruleSubprogramProxy returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_5_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28864,7 +28954,7 @@ rulePortConnection returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -28891,7 +28981,7 @@ rulePortConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_3_0, 
-        		"AbstractConnectionEnd");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28931,7 +29021,7 @@ rulePortConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_6_0, 
-        		"AbstractConnectionEnd");
+        		"org.osate.xtext.aadl2.Aadl2.AbstractConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28947,7 +29037,8 @@ rulePortConnection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPortConnectionAccess().getRefinedPortConnectionCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -28990,7 +29081,7 @@ rulePortConnection returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_13_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29091,7 +29182,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -29113,7 +29204,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"accessCategory",
         		lv_accessCategory_2_0, 
-        		"AccessCategory");
+        		"org.osate.xtext.aadl2.Aadl2.AccessCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29136,7 +29227,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_4_0, 
-        		"AccessConnectionEnd");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29176,7 +29267,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_7_0, 
-        		"AccessConnectionEnd");
+        		"org.osate.xtext.aadl2.Aadl2.AccessConnectionEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29192,7 +29283,8 @@ ruleAccessConnection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAccessConnectionAccess().getRefinedAccessConnectionCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29225,7 +29317,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"accessCategory",
         		lv_accessCategory_12_0, 
-        		"AccessCategory");
+        		"org.osate.xtext.aadl2.Aadl2.AccessCategory");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29253,7 +29345,7 @@ ruleAccessConnection returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_15_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29354,7 +29446,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -29386,7 +29478,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_4_0, 
-        		"ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29426,7 +29518,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_7_0, 
-        		"ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29442,7 +29534,8 @@ ruleFeatureGroupConnection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureGroupConnectionAccess().getRefinedFeatureGroupConnectionCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29490,7 +29583,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_15_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29591,7 +29684,7 @@ ruleFeatureConnection returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -29618,7 +29711,7 @@ ruleFeatureConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_3_0, 
-        		"ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29658,7 +29751,7 @@ ruleFeatureConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_6_0, 
-        		"ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29674,7 +29767,8 @@ ruleFeatureConnection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFeatureConnectionAccess().getRefinedFeatureConnectionCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29717,7 +29811,7 @@ ruleFeatureConnection returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_13_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29818,7 +29912,7 @@ ruleParameterConnection returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -29845,7 +29939,7 @@ ruleParameterConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_3_0, 
-        		"ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29868,7 +29962,7 @@ ruleParameterConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_5_0, 
-        		"ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29884,7 +29978,8 @@ ruleParameterConnection returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getParameterConnectionAccess().getRefinedParameterConnectionCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -29927,7 +30022,7 @@ ruleParameterConnection returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_12_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30210,7 +30305,7 @@ ruleFlowSpecification returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_5_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30311,7 +30406,7 @@ ruleFlowSourceSpec returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -30338,7 +30433,7 @@ ruleFlowSourceSpec returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowSource");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30356,7 +30451,7 @@ ruleFlowSourceSpec returns [EObject current=null]
        			$current, 
        			"outEnd",
         		lv_outEnd_4_0, 
-        		"FlowEnd");
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30396,7 +30491,7 @@ ruleFlowSinkSpec returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -30423,7 +30518,7 @@ ruleFlowSinkSpec returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowSink");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSink");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30441,7 +30536,7 @@ ruleFlowSinkSpec returns [EObject current=null]
        			$current, 
        			"InEnd",
         		lv_InEnd_4_0, 
-        		"FlowEnd");
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30481,7 +30576,7 @@ ruleFlowPathSpec returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -30508,7 +30603,7 @@ ruleFlowPathSpec returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowPath");
+        		"org.osate.xtext.aadl2.Aadl2.FlowPath");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30526,7 +30621,7 @@ ruleFlowPathSpec returns [EObject current=null]
        			$current, 
        			"InEnd",
         		lv_InEnd_4_0, 
-        		"FlowEnd");
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30549,7 +30644,7 @@ ruleFlowPathSpec returns [EObject current=null]
        			$current, 
        			"outEnd",
         		lv_outEnd_6_0, 
-        		"FlowEnd");
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30637,7 +30732,8 @@ ruleFlowSpecRefinement returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getFlowSpecRefinementAccess().getRefinedFlowSpecificationCrossReference_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30675,7 +30771,7 @@ ruleFlowSpecRefinement returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_5_0, 
-        		"FlowKind");
+        		"org.osate.xtext.aadl2.Aadl2.FlowKind");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30748,7 +30844,7 @@ ruleFlowImplementation returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_4_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30871,7 +30967,7 @@ ruleFlowSourceImpl returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowSource");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSource");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30889,7 +30985,7 @@ ruleFlowSourceImpl returns [EObject current=null]
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_4_0, 
-        		"SubcomponentFlow");
+        		"org.osate.xtext.aadl2.Aadl2.SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30912,7 +31008,7 @@ ruleFlowSourceImpl returns [EObject current=null]
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_6_0, 
-        		"ConnectionFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectionFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30987,7 +31083,7 @@ ruleFlowSinkImpl returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowSink");
+        		"org.osate.xtext.aadl2.Aadl2.FlowSink");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31018,7 +31114,7 @@ ruleFLOWIN
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_6_0, 
-        		"ConnectionFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectionFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31041,7 +31137,7 @@ ruleFLOWIN
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_8_0, 
-        		"SubcomponentFlow");
+        		"org.osate.xtext.aadl2.Aadl2.SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31103,7 +31199,7 @@ ruleFlowPathImpl returns [EObject current=null]
        			$current, 
        			"kind",
         		lv_kind_3_0, 
-        		"FlowPath");
+        		"org.osate.xtext.aadl2.Aadl2.FlowPath");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31134,7 +31230,7 @@ ruleFLOWIN
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_6_0, 
-        		"ConnectionFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectionFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31157,7 +31253,7 @@ ruleFLOWIN
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_8_0, 
-        		"SubcomponentFlow");
+        		"org.osate.xtext.aadl2.Aadl2.SubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31180,7 +31276,7 @@ ruleFLOWIN
        			$current, 
        			"ownedFlowSegment",
         		lv_ownedFlowSegment_10_0, 
-        		"ConnectionFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ConnectionFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31233,7 +31329,7 @@ ruleEndToEndFlow returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -31275,7 +31371,7 @@ ruleEndToEndFlow returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlowSegment",
         		lv_ownedEndToEndFlowSegment_6_0, 
-        		"ETESubcomponentFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ETESubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31298,7 +31394,7 @@ ruleEndToEndFlow returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlowSegment",
         		lv_ownedEndToEndFlowSegment_8_0, 
-        		"ETEConnectionFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ETEConnectionFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31321,7 +31417,7 @@ ruleEndToEndFlow returns [EObject current=null]
        			$current, 
        			"ownedEndToEndFlowSegment",
         		lv_ownedEndToEndFlowSegment_10_0, 
-        		"ETESubcomponentFlow");
+        		"org.osate.xtext.aadl2.Aadl2.ETESubcomponentFlow");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31337,7 +31433,8 @@ ruleEndToEndFlow returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getEndToEndFlowAccess().getRefinedEndToEndFlowCrossReference_0_1_0_0()); 
 	    }
-		ruleREFINEDNAME		{ 
+		ruleREFINEDNAME
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31395,7 +31492,7 @@ ruleEndToEndFlow returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_20_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31668,7 +31765,7 @@ ruleMode returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -31716,7 +31813,7 @@ ruleMode returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_5_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31766,7 +31863,7 @@ ruleModeTransition returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -31806,7 +31903,7 @@ ruleModeTransition returns [EObject current=null]
        			$current, 
        			"ownedTrigger",
         		lv_ownedTrigger_4_0, 
-        		"Trigger");
+        		"org.osate.xtext.aadl2.Aadl2.Trigger");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31829,7 +31926,7 @@ ruleModeTransition returns [EObject current=null]
        			$current, 
        			"ownedTrigger",
         		lv_ownedTrigger_6_0, 
-        		"Trigger");
+        		"org.osate.xtext.aadl2.Aadl2.Trigger");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -31870,7 +31967,7 @@ ruleModeTransition returns [EObject current=null]
        			$current, 
        			"ownedPropertyAssociation",
         		lv_ownedPropertyAssociation_10_0, 
-        		"PropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -32107,7 +32204,7 @@ ruleDefaultAnnexLibrary returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -32125,7 +32222,7 @@ ruleDefaultAnnexLibrary returns [EObject current=null]
        			$current, 
        			"sourceText",
         		lv_sourceText_2_0, 
-        		"ANNEXTEXT");
+        		"org.osate.xtext.aadl2.Aadl2.ANNEXTEXT");
 	    }
 
 )
@@ -32204,7 +32301,7 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -32222,7 +32319,7 @@ ruleDefaultAnnexSubclause returns [EObject current=null]
        			$current, 
        			"sourceText",
         		lv_sourceText_2_0, 
-        		"ANNEXTEXT");
+        		"org.osate.xtext.aadl2.Aadl2.ANNEXTEXT");
 	    }
 
 )
@@ -32327,7 +32424,7 @@ rulePropertySet returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -32390,7 +32487,7 @@ rulePropertySet returns [EObject current=null]
        			$current, 
        			"ownedPropertyType",
         		lv_ownedPropertyType_9_0, 
-        		"PropertyType");
+        		"org.osate.xtext.aadl2.Aadl2.PropertyType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -32409,7 +32506,7 @@ rulePropertySet returns [EObject current=null]
        			$current, 
        			"ownedProperty",
         		lv_ownedProperty_10_0, 
-        		"PropertyDefinition");
+        		"org.osate.xtext.aadl2.Aadl2.PropertyDefinition");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -32428,7 +32525,7 @@ rulePropertySet returns [EObject current=null]
        			$current, 
        			"ownedPropertyConstant",
         		lv_ownedPropertyConstant_11_0, 
-        		"PropertyConstant");
+        		"org.osate.xtext.aadl2.Aadl2.PropertyConstant");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -32446,7 +32543,7 @@ rulePropertySet returns [EObject current=null]
        			$current, 
        			"ownedAnnexSubclause",
         		lv_ownedAnnexSubclause_12_0, 
-        		"AnnexSubclause");
+        		"org.osate.xtext.aadl2.Aadl2.AnnexSubclause");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -32755,7 +32852,7 @@ ruleBooleanType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -32841,7 +32938,7 @@ ruleStringType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -32927,7 +33024,7 @@ ruleEnumerationType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -32964,7 +33061,7 @@ ruleEnumerationType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_5_0, 
-        		"EnumerationLiteral");
+        		"org.osate.xtext.aadl2.Aadl2.EnumerationLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -32987,7 +33084,7 @@ ruleEnumerationType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_7_0, 
-        		"EnumerationLiteral");
+        		"org.osate.xtext.aadl2.Aadl2.EnumerationLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33041,7 +33138,7 @@ ruleUnnamedEnumerationType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_2_0, 
-        		"EnumerationLiteral");
+        		"org.osate.xtext.aadl2.Aadl2.EnumerationLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33064,7 +33161,7 @@ ruleUnnamedEnumerationType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_4_0, 
-        		"EnumerationLiteral");
+        		"org.osate.xtext.aadl2.Aadl2.EnumerationLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33109,7 +33206,7 @@ ruleEnumerationLiteral returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33148,7 +33245,7 @@ ruleUnitsType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33185,7 +33282,7 @@ ruleUnitsType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_5_0, 
-        		"UnitLiteral");
+        		"org.osate.xtext.aadl2.Aadl2.UnitLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33208,7 +33305,7 @@ ruleUnitsType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_7_0, 
-        		"UnitLiteralConversion");
+        		"org.osate.xtext.aadl2.Aadl2.UnitLiteralConversion");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33262,7 +33359,7 @@ ruleUnnamedUnitsType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_2_0, 
-        		"UnitLiteral");
+        		"org.osate.xtext.aadl2.Aadl2.UnitLiteral");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33285,7 +33382,7 @@ ruleUnnamedUnitsType returns [EObject current=null]
        			$current, 
        			"ownedLiteral",
         		lv_ownedLiteral_4_0, 
-        		"UnitLiteralConversion");
+        		"org.osate.xtext.aadl2.Aadl2.UnitLiteralConversion");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33330,7 +33427,7 @@ ruleUnitLiteral returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33369,7 +33466,7 @@ ruleUnitLiteralConversion returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33412,7 +33509,7 @@ ruleSTAR
        			$current, 
        			"factor",
         		lv_factor_4_0, 
-        		"NumberValue");
+        		"org.osate.xtext.aadl2.Aadl2.NumberValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33452,7 +33549,7 @@ ruleRealType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33484,7 +33581,7 @@ ruleRealType returns [EObject current=null]
        			$current, 
        			"range",
         		lv_range_4_0, 
-        		"RealRange");
+        		"org.osate.xtext.aadl2.Aadl2.RealRange");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33502,7 +33599,7 @@ ruleRealType returns [EObject current=null]
        			$current, 
        			"ownedUnitsType",
         		lv_ownedUnitsType_5_0, 
-        		"UnnamedUnitsType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedUnitsType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33523,7 +33620,8 @@ ruleRealType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getRealTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_5_1_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33573,7 +33671,7 @@ ruleUnnamedRealType returns [EObject current=null]
        			$current, 
        			"range",
         		lv_range_2_0, 
-        		"RealRange");
+        		"org.osate.xtext.aadl2.Aadl2.RealRange");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33591,7 +33689,7 @@ ruleUnnamedRealType returns [EObject current=null]
        			$current, 
        			"ownedUnitsType",
         		lv_ownedUnitsType_3_0, 
-        		"UnnamedUnitsType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedUnitsType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33612,7 +33710,8 @@ ruleUnnamedRealType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getUnnamedRealTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_3_1_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33652,7 +33751,7 @@ ruleIntegerType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33684,7 +33783,7 @@ ruleIntegerType returns [EObject current=null]
        			$current, 
        			"range",
         		lv_range_4_0, 
-        		"IntegerRange");
+        		"org.osate.xtext.aadl2.Aadl2.IntegerRange");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33702,7 +33801,7 @@ ruleIntegerType returns [EObject current=null]
        			$current, 
        			"ownedUnitsType",
         		lv_ownedUnitsType_5_0, 
-        		"UnnamedUnitsType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedUnitsType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33723,7 +33822,8 @@ ruleIntegerType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getIntegerTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_5_1_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33773,7 +33873,7 @@ ruleUnnamedIntegerType returns [EObject current=null]
        			$current, 
        			"range",
         		lv_range_2_0, 
-        		"IntegerRange");
+        		"org.osate.xtext.aadl2.Aadl2.IntegerRange");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33791,7 +33891,7 @@ ruleUnnamedIntegerType returns [EObject current=null]
        			$current, 
        			"ownedUnitsType",
         		lv_ownedUnitsType_3_0, 
-        		"UnnamedUnitsType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedUnitsType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33812,7 +33912,8 @@ ruleUnnamedIntegerType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getUnnamedIntegerTypeAccess().getReferencedUnitsTypeUnitsTypeCrossReference_3_1_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33852,7 +33953,7 @@ ruleRangeType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -33890,7 +33991,7 @@ ruleRangeType returns [EObject current=null]
        			$current, 
        			"ownedNumberType",
         		lv_ownedNumberType_5_1, 
-        		"UnnamedIntegerType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedIntegerType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33905,7 +34006,7 @@ ruleRangeType returns [EObject current=null]
        			$current, 
        			"ownedNumberType",
         		lv_ownedNumberType_5_2, 
-        		"UnnamedRealType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedRealType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33923,7 +34024,8 @@ ruleRangeType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_5_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33979,7 +34081,7 @@ ruleUnnamedRangeType returns [EObject current=null]
        			$current, 
        			"ownedNumberType",
         		lv_ownedNumberType_3_1, 
-        		"UnnamedIntegerType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedIntegerType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -33994,7 +34096,7 @@ ruleUnnamedRangeType returns [EObject current=null]
        			$current, 
        			"ownedNumberType",
         		lv_ownedNumberType_3_2, 
-        		"UnnamedRealType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedRealType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34012,7 +34114,8 @@ ruleUnnamedRangeType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getUnnamedRangeTypeAccess().getReferencedNumberTypeNumberTypeCrossReference_3_1_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34052,7 +34155,7 @@ ruleClassifierType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34089,7 +34192,7 @@ ruleClassifierType returns [EObject current=null]
        			$current, 
        			"classifierReference",
         		lv_classifierReference_5_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34112,7 +34215,7 @@ ruleClassifierType returns [EObject current=null]
        			$current, 
        			"classifierReference",
         		lv_classifierReference_7_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34172,7 +34275,7 @@ ruleUnnamedClassifierType returns [EObject current=null]
        			$current, 
        			"classifierReference",
         		lv_classifierReference_3_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34195,7 +34298,7 @@ ruleUnnamedClassifierType returns [EObject current=null]
        			$current, 
        			"classifierReference",
         		lv_classifierReference_5_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34245,7 +34348,7 @@ ruleQMReference returns [EObject current=null]
        			$current, 
        			"annexName",
         		lv_annexName_1_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34284,7 +34387,7 @@ ruleSTAR
        			$current, 
        			"metaclassName",
         		lv_metaclassName_5_1, 
-        		"CoreKeyWord");
+        		"org.osate.xtext.aadl2.Aadl2.CoreKeyWord");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34300,7 +34403,7 @@ ruleSTAR
        			$current, 
        			"metaclassName",
         		lv_metaclassName_5_2, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34337,7 +34440,8 @@ ruleQCReference returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getQCReferenceAccess().getClassifierComponentClassifierCrossReference_0()); 
 	    }
-		ruleFQCREF		{ 
+		ruleFQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34377,7 +34481,7 @@ ruleReferenceType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34414,7 +34518,7 @@ ruleReferenceType returns [EObject current=null]
        			$current, 
        			"namedElementReference",
         		lv_namedElementReference_5_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34437,7 +34541,7 @@ ruleReferenceType returns [EObject current=null]
        			$current, 
        			"namedElementReference",
         		lv_namedElementReference_7_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34497,7 +34601,7 @@ ruleUnnamedReferenceType returns [EObject current=null]
        			$current, 
        			"namedElementReference",
         		lv_namedElementReference_3_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34520,7 +34624,7 @@ ruleUnnamedReferenceType returns [EObject current=null]
        			$current, 
        			"namedElementReference",
         		lv_namedElementReference_5_0, 
-        		"QMReference");
+        		"org.osate.xtext.aadl2.Aadl2.QMReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34565,7 +34669,7 @@ ruleRecordType returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34602,7 +34706,7 @@ ruleRecordType returns [EObject current=null]
        			$current, 
        			"ownedField",
         		lv_ownedField_5_0, 
-        		"RecordField");
+        		"org.osate.xtext.aadl2.Aadl2.RecordField");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34656,7 +34760,7 @@ ruleUnnamedRecordType returns [EObject current=null]
        			$current, 
        			"ownedField",
         		lv_ownedField_2_0, 
-        		"RecordField");
+        		"org.osate.xtext.aadl2.Aadl2.RecordField");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34701,7 +34805,7 @@ ruleRecordField returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34720,7 +34824,8 @@ ruleRecordField returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getRecordFieldAccess().getReferencedPropertyTypePropertyTypeCrossReference_2_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34739,7 +34844,7 @@ ruleRecordField returns [EObject current=null]
        			$current, 
        			"ownedPropertyType",
         		lv_ownedPropertyType_3_0, 
-        		"UnnamedPropertyType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedPropertyType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34784,7 +34889,7 @@ rulePropertyDefinition returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -34819,7 +34924,8 @@ rulePropertyDefinition returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPropertyDefinitionAccess().getReferencedPropertyTypePropertyTypeCrossReference_3_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34838,7 +34944,7 @@ rulePropertyDefinition returns [EObject current=null]
        			$current, 
        			"ownedPropertyType",
         		lv_ownedPropertyType_4_0, 
-        		"UnnamedPropertyType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedPropertyType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34861,7 +34967,7 @@ rulePropertyDefinition returns [EObject current=null]
        			$current, 
        			"defaultValue",
         		lv_defaultValue_6_0, 
-        		"PropertyExpression");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34894,7 +35000,7 @@ rulePropertyDefinition returns [EObject current=null]
        			$current, 
        			"appliesTo",
         		lv_appliesTo_10_0, 
-        		"PropertyOwner");
+        		"org.osate.xtext.aadl2.Aadl2.PropertyOwner");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34917,7 +35023,7 @@ rulePropertyDefinition returns [EObject current=null]
        			$current, 
        			"appliesTo",
         		lv_appliesTo_12_0, 
-        		"PropertyOwner");
+        		"org.osate.xtext.aadl2.Aadl2.PropertyOwner");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -34936,7 +35042,7 @@ rulePropertyDefinition returns [EObject current=null]
        			$current, 
        			"appliesTo",
         		lv_appliesTo_13_0, 
-        		"AllReference");
+        		"org.osate.xtext.aadl2.Aadl2.AllReference");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35029,7 +35135,8 @@ ruleListType returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getListTypeAccess().getReferencedElementTypePropertyTypeCrossReference_2_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35048,7 +35155,7 @@ ruleListType returns [EObject current=null]
        			$current, 
        			"ownedElementType",
         		lv_ownedElementType_3_0, 
-        		"UnnamedPropertyType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedPropertyType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35128,7 +35235,7 @@ rulePropertyConstant returns [EObject current=null]
        			$current, 
        			"name",
         		lv_name_0_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -35152,7 +35259,8 @@ rulePropertyConstant returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPropertyConstantAccess().getReferencedPropertyTypePropertyTypeCrossReference_3_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35171,7 +35279,7 @@ rulePropertyConstant returns [EObject current=null]
        			$current, 
        			"ownedPropertyType",
         		lv_ownedPropertyType_4_0, 
-        		"UnnamedPropertyType");
+        		"org.osate.xtext.aadl2.Aadl2.UnnamedPropertyType");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35194,7 +35302,7 @@ rulePropertyConstant returns [EObject current=null]
        			$current, 
        			"constantValue",
         		lv_constantValue_6_0, 
-        		"ConstantPropertyExpression");
+        		"org.osate.xtext.aadl2.Aadl2.ConstantPropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35278,7 +35386,7 @@ ruleRealLit returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"SignedReal");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedReal");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35317,7 +35425,7 @@ ruleIntegerLit returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"SignedInt");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedInt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35477,7 +35585,7 @@ ruleIntegerRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_0_1, 
-        		"IntegerTerm");
+        		"org.osate.xtext.aadl2.properties.Properties.IntegerTerm");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35492,7 +35600,7 @@ ruleIntegerRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_0_2, 
-        		"SignedConstant");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedConstant");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35507,7 +35615,7 @@ ruleIntegerRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_0_3, 
-        		"ConstantValue");
+        		"org.osate.xtext.aadl2.properties.Properties.ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35533,7 +35641,7 @@ ruleIntegerRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_2_1, 
-        		"IntegerTerm");
+        		"org.osate.xtext.aadl2.properties.Properties.IntegerTerm");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35548,7 +35656,7 @@ ruleIntegerRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_2_2, 
-        		"SignedConstant");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedConstant");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35563,7 +35671,7 @@ ruleIntegerRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_2_3, 
-        		"ConstantValue");
+        		"org.osate.xtext.aadl2.properties.Properties.ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35605,7 +35713,7 @@ ruleRealRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_0_1, 
-        		"RealTerm");
+        		"org.osate.xtext.aadl2.properties.Properties.RealTerm");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35620,7 +35728,7 @@ ruleRealRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_0_2, 
-        		"SignedConstant");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedConstant");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35635,7 +35743,7 @@ ruleRealRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_0_3, 
-        		"ConstantValue");
+        		"org.osate.xtext.aadl2.properties.Properties.ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35661,7 +35769,7 @@ ruleRealRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_2_1, 
-        		"RealTerm");
+        		"org.osate.xtext.aadl2.properties.Properties.RealTerm");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35676,7 +35784,7 @@ ruleRealRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_2_2, 
-        		"SignedConstant");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedConstant");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -35691,7 +35799,7 @@ ruleRealRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_2_3, 
-        		"ConstantValue");
+        		"org.osate.xtext.aadl2.properties.Properties.ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36460,7 +36568,8 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36516,7 +36625,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_4_0, 
-        		"OptionalModalPropertyValue");
+        		"org.osate.xtext.aadl2.properties.Properties.OptionalModalPropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36539,7 +36648,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_6_0, 
-        		"OptionalModalPropertyValue");
+        		"org.osate.xtext.aadl2.properties.Properties.OptionalModalPropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36567,7 +36676,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
        			$current, 
        			"appliesTo",
         		lv_appliesTo_9_0, 
-        		"ContainmentPath");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainmentPath");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36590,7 +36699,7 @@ ruleContainedPropertyAssociation returns [EObject current=null]
        			$current, 
        			"appliesTo",
         		lv_appliesTo_11_0, 
-        		"ContainmentPath");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainmentPath");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36620,7 +36729,8 @@ ruleContainedPropertyAssociation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getContainedPropertyAssociationAccess().getInBindingClassifierCrossReference_5_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36666,7 +36776,8 @@ rulePropertyAssociation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36722,7 +36833,7 @@ rulePropertyAssociation returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_4_0, 
-        		"OptionalModalPropertyValue");
+        		"org.osate.xtext.aadl2.properties.Properties.OptionalModalPropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36745,7 +36856,7 @@ rulePropertyAssociation returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_6_0, 
-        		"OptionalModalPropertyValue");
+        		"org.osate.xtext.aadl2.properties.Properties.OptionalModalPropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36775,7 +36886,8 @@ rulePropertyAssociation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getPropertyAssociationAccess().getInBindingClassifierCrossReference_4_3_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36821,7 +36933,8 @@ ruleBasicPropertyAssociation returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getBasicPropertyAssociationAccess().getPropertyPropertyCrossReference_0_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36844,7 +36957,7 @@ ruleBasicPropertyAssociation returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_2_0, 
-        		"PropertyValue");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36888,7 +37001,7 @@ ruleContainmentPath returns [EObject current=null]
        			$current, 
        			"path",
         		lv_path_0_0, 
-        		"ContainmentPathElement");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainmentPathElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -36929,7 +37042,7 @@ ruleOptionalModalPropertyValue returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_0_0, 
-        		"PropertyExpression");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37019,7 +37132,7 @@ rulePropertyValue returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_0_0, 
-        		"PropertyExpression");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37185,7 +37298,8 @@ ruleLiteralorReferenceTerm returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getLiteralorReferenceTermAccess().getNamedValueAbstractNamedValueCrossReference_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37270,7 +37384,8 @@ ruleConstantValue returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getConstantValueAccess().getNamedValuePropertyConstantCrossReference_0()); 
 	    }
-		ruleQPREF		{ 
+		ruleQPREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37319,7 +37434,7 @@ ruleReferenceTerm returns [EObject current=null]
        			$current, 
        			"path",
         		lv_path_2_0, 
-        		"ContainmentPathElement");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainmentPathElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37368,7 +37483,7 @@ ruleRecordTerm returns [EObject current=null]
        			$current, 
        			"ownedFieldValue",
         		lv_ownedFieldValue_1_0, 
-        		"FieldPropertyAssociation");
+        		"org.osate.xtext.aadl2.properties.Properties.FieldPropertyAssociation");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37425,7 +37540,7 @@ ruleComputedTerm returns [EObject current=null]
        			$current, 
        			"function",
         		lv_function_2_0, 
-        		"ID");
+        		"org.osate.xtext.aadl2.properties.Properties.ID");
 	    }
 
 )
@@ -37475,7 +37590,8 @@ ruleComponentClassifierTerm returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getComponentClassifierTermAccess().getClassifierComponentClassifierCrossReference_2_0()); 
 	    }
-		ruleQCREF		{ 
+		ruleQCREF
+		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37530,7 +37646,7 @@ ruleListTerm returns [EObject current=null]
        			$current, 
        			"ownedListElement",
         		lv_ownedListElement_2_0, 
-        		"PropertyExpression");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37553,7 +37669,7 @@ ruleListTerm returns [EObject current=null]
        			$current, 
        			"ownedListElement",
         		lv_ownedListElement_4_0, 
-        		"PropertyExpression");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37615,7 +37731,7 @@ ruleFieldPropertyAssociation returns [EObject current=null]
        			$current, 
        			"ownedValue",
         		lv_ownedValue_2_0, 
-        		"PropertyExpression");
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37672,7 +37788,7 @@ ruleContainmentPathElement returns [EObject current=null]
        			$current, 
        			"arrayRange",
         		lv_arrayRange_1_0, 
-        		"ArrayRange");
+        		"org.osate.xtext.aadl2.properties.Properties.ArrayRange");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37695,7 +37811,7 @@ ruleContainmentPathElement returns [EObject current=null]
        			$current, 
        			"path",
         		lv_path_3_0, 
-        		"ContainmentPathElement");
+        		"org.osate.xtext.aadl2.properties.Properties.ContainmentPathElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37771,7 +37887,7 @@ ruleStringTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"NoQuoteString");
+        		"org.osate.xtext.aadl2.properties.Properties.NoQuoteString");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37850,7 +37966,7 @@ ruleArrayRange returns [EObject current=null]
        			$current, 
        			"lowerBound",
         		lv_lowerBound_2_0, 
-        		"INTVALUE");
+        		"org.osate.xtext.aadl2.properties.Properties.INTVALUE");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37873,7 +37989,7 @@ ruleArrayRange returns [EObject current=null]
        			$current, 
        			"upperBound",
         		lv_upperBound_4_0, 
-        		"INTVALUE");
+        		"org.osate.xtext.aadl2.properties.Properties.INTVALUE");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37917,7 +38033,7 @@ ruleSignedConstant returns [EObject current=null]
        			$current, 
        			"op",
         		lv_op_0_0, 
-        		"PlusMinus");
+        		"org.osate.xtext.aadl2.properties.Properties.PlusMinus");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37935,7 +38051,7 @@ ruleSignedConstant returns [EObject current=null]
        			$current, 
        			"ownedPropertyExpression",
         		lv_ownedPropertyExpression_1_0, 
-        		"ConstantValue");
+        		"org.osate.xtext.aadl2.properties.Properties.ConstantValue");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -37974,7 +38090,7 @@ ruleIntegerTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"SignedInt");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedInt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -38068,7 +38184,7 @@ ruleRealTerm returns [EObject current=null]
        			$current, 
        			"value",
         		lv_value_0_0, 
-        		"SignedReal");
+        		"org.osate.xtext.aadl2.properties.Properties.SignedReal");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -38162,7 +38278,7 @@ ruleNumericRangeTerm returns [EObject current=null]
        			$current, 
        			"minimum",
         		lv_minimum_0_0, 
-        		"NumAlt");
+        		"org.osate.xtext.aadl2.properties.Properties.NumAlt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -38185,7 +38301,7 @@ ruleNumericRangeTerm returns [EObject current=null]
        			$current, 
        			"maximum",
         		lv_maximum_2_0, 
-        		"NumAlt");
+        		"org.osate.xtext.aadl2.properties.Properties.NumAlt");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -38208,7 +38324,7 @@ ruleNumericRangeTerm returns [EObject current=null]
        			$current, 
        			"delta",
         		lv_delta_4_0, 
-        		"NumAlt");
+        		"org.osate.xtext.aadl2.properties.Properties.NumAlt");
 	        afterParserOrEnumRuleCall();
 	    }
 
