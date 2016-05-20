@@ -38,113 +38,29 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	protected AbstractElementAlias match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q;
 	protected AbstractElementAlias match_SConditionTerm_LeftParenthesisKeyword_4_0_a;
 	protected AbstractElementAlias match_SConditionTerm_LeftParenthesisKeyword_4_0_p;
-
+	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (ErrorModelGrammarAccess) access;
-		match_ConditionTerm_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true,
-				grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
-		match_ConditionTerm_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false,
-				grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
-		match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_0_1_2_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_0_1_2_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_0_1_2_6()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_0_1_2_7()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_0_1_2_8()));
-		match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q = new GroupAlias(
-				false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_1_6_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_1_6_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_1_6_6()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_1_6_7()),
-				new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_1_6_8()));
-		match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_8_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_8_2()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_8_9()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_10()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_8_11()));
-		match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_9_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_9_2()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_9_4()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_5()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_9_6()));
-		match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_10_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_10_4()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_5()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_10_6()));
-		match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(
-				false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_7_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationsKeyword_7_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_7_4()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationsKeyword_7_5()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_7_6()));
-		match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationKeyword_11_0()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPathsKeyword_11_1()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_11_4()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPathsKeyword_11_5()),
-				new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_11_6()));
-		match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_1()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getEndKeyword_1_6()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_7()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getSemicolonKeyword_1_8()));
-		match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_0()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_9()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_10()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_11()));
-		match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_0()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_7_1()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_7_2()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_7_4()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_5()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_7_6()));
-		match_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getConnectionKeyword_8_0()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_8_1()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_8_4()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getConnectionKeyword_8_5()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_8_6()));
-		match_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_0()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_1()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_4()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_5()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_6()));
-		match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q = new GroupAlias(
-				false, true,
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationKeyword_9_0()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPathsKeyword_9_1()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_9_4()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPathsKeyword_9_5()),
-				new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_9_6()));
-		match_SConditionTerm_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true,
-				grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_4_0());
-		match_SConditionTerm_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false,
-				grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_4_0());
+		match_ConditionTerm_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
+		match_ConditionTerm_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getConditionTermAccess().getLeftParenthesisKeyword_4_0());
+		match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_0_1_2_0()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_0_1_2_1()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_0_1_2_6()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_0_1_2_7()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_0_1_2_8()));
+		match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getErrorKeyword_1_6_0()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_1_6_1()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getEndKeyword_1_6_6()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getTypesKeyword_1_6_7()), new TokenAlias(false, false, grammarAccess.getEMV2LibraryAccess().getSemicolonKeyword_1_6_8()));
+		match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_8_2()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_8_9()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getComponentKeyword_8_10()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_8_11()));
+		match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getBehaviorKeyword_9_2()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_9_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getCompositeKeyword_9_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_9_6()));
+		match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_10_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_10_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getConnectionKeyword_10_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_10_6()));
+		match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getErrorKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationsKeyword_7_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_7_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationsKeyword_7_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_7_6()));
+		match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPropagationKeyword_11_0()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPathsKeyword_11_1()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getEndKeyword_11_4()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getPathsKeyword_11_5()), new TokenAlias(false, false, grammarAccess.getEMV2SubclauseAccess().getSemicolonKeyword_11_6()));
+		match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getErrorKeyword_1_0()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_1()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getEndKeyword_1_6()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getTypesKeyword_1_7()), new TokenAlias(false, false, grammarAccess.getErrorModelLibraryAccess().getSemicolonKeyword_1_8()));
+		match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_6_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_6_2()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_6_9()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getComponentKeyword_6_10()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_6_11()));
+		match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_7_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getBehaviorKeyword_7_2()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_7_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getCompositeKeyword_7_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_7_6()));
+		match_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getConnectionKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_8_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_8_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getConnectionKeyword_8_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_8_6()));
+		match_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getErrorKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_5_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationsKeyword_5_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_5_6()));
+		match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPropagationKeyword_9_0()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPathsKeyword_9_1()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getEndKeyword_9_4()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getPathsKeyword_9_5()), new TokenAlias(false, false, grammarAccess.getErrorModelSubclauseAccess().getSemicolonKeyword_9_6()));
+		match_SConditionTerm_LeftParenthesisKeyword_4_0_a = new TokenAlias(true, true, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_4_0());
+		match_SConditionTerm_LeftParenthesisKeyword_4_0_p = new TokenAlias(true, false, grammarAccess.getSConditionTermAccess().getLeftParenthesisKeyword_4_0());
 	}
-
+	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (ruleCall.getRule() == grammarAccess.getIDRule())
@@ -153,7 +69,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 			return getQEMREFToken(semanticObject, ruleCall, node);
 		return "";
 	}
-
+	
 	/**
 	 * terminal ID:	('a'..'z'
 	 *         |'A'..'Z'
@@ -166,7 +82,7 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 			return getTokenText(node);
 		return "";
 	}
-
+	
 	/**
 	 * QEMREF:
 	 * 	 ID ('::' ID)* ;
@@ -176,12 +92,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 			return getTokenText(node);
 		return "";
 	}
-
+	
 	@Override
-	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode,
-			INode toNode) {
-		if (transition.getAmbiguousSyntaxes().isEmpty())
-			return;
+	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
+		if (transition.getAmbiguousSyntaxes().isEmpty()) return;
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
@@ -189,64 +103,37 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 				emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_ConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q
-					.equals(syntax))
-				emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q
-					.equals(syntax))
-				emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q
-					.equals(syntax))
-				emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q
-					.equals(syntax))
-				emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q
-					.equals(syntax))
-				emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q
-					.equals(syntax))
-				emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q
-					.equals(syntax))
-				emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q
-					.equals(syntax))
-				emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q
-					.equals(syntax))
-				emit_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q
-					.equals(syntax))
-				emit_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q
-					.equals(syntax))
-				emit_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q
-					.equals(syntax))
-				emit_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q
-					.equals(syntax))
-				emit_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q(
-						semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q.equals(syntax))
+				emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q.equals(syntax))
+				emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q.equals(syntax))
+				emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
+				emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q.equals(syntax))
+				emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
+				emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q.equals(syntax))
+				emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q.equals(syntax))
+				emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q.equals(syntax))
+				emit_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
+				emit_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q.equals(syntax))
+				emit_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q.equals(syntax))
+				emit_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
+				emit_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_SConditionTerm_LeftParenthesisKeyword_4_0_a.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_SConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else
-				acceptNodes(getLastNavigableState(), syntaxNodes);
+			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
@@ -262,11 +149,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
-	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition,
-			List<INode> nodes) {
+	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     '('+
@@ -275,11 +161,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
-	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition,
-			List<INode> nodes) {
+	protected void emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('error' 'types' 'end' 'types' ';')?
@@ -290,11 +175,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     name=QEMREF (ambiguity) mappings+=TypeMappingSet
 	 *     name=QEMREF (ambiguity) transformations+=TypeTransformationSet
 	 */
-	protected void emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('error' 'types' 'end' 'types' ';')?
@@ -305,11 +189,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) mappings+=TypeMappingSet
 	 *     name=QEMREF 'public' 'annex' ID '{**' (ambiguity) transformations+=TypeTransformationSet
 	 */
-	protected void emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     (
@@ -750,11 +633,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 */
-	protected void emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     (
@@ -1277,11 +1159,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? 'end' 'subclause' ';' (rule end)
 	 */
-	protected void emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('connection' 'error' 'end' 'connection' ';')?
@@ -1730,11 +1611,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' paths+=PropagationPath
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 */
-	protected void emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('error' 'propagations' 'end' 'propagations' ';')?
@@ -2102,11 +1982,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 */
-	protected void emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('propagation' 'paths' 'end' 'paths' ';')?
@@ -2399,11 +2278,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'end' 'subclause' ';' (rule end)
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) 'properties' properties+=EMV2PropertyAssociation
 	 */
-	protected void emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('error' 'types' 'end' 'types' ';')?
@@ -2414,11 +2292,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) mappings+=TypeMappingSet
 	 *     (rule start) (ambiguity) transformations+=TypeTransformationSet
 	 */
-	protected void emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     (
@@ -2838,11 +2715,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useBehavior=[ErrorBehaviorStateMachine|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' ('error' 'propagations' 'end' 'propagations' ';')? (ambiguity) 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 */
-	protected void emit_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     (
@@ -3332,11 +3208,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? 'propagation' 'paths' points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' (ambiguity) ('connection' 'error' 'end' 'connection' ';')? ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 */
-	protected void emit_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('connection' 'error' 'end' 'connection' ';')?
@@ -3727,11 +3602,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) 'propagation' 'paths' points+=PropagationPoint
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? (ambiguity) ('propagation' 'paths' 'end' 'paths' ';')? (rule end)
 	 */
-	protected void emit_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('error' 'propagations' 'end' 'propagations' ';')?
@@ -4084,11 +3958,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) 'component' 'error' 'behavior' 'use' 'transformations' useTransformation=[TypeTransformationSet|QEMREF]
 	 *     useTypes+=[ErrorModelLibrary|QEMREF] ';' (ambiguity) ('component' 'error' 'behavior' 'end' 'component' ';')? 'composite' 'error' 'behavior' 'states' states+=CompositeState
 	 */
-	protected void emit_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     ('propagation' 'paths' 'end' 'paths' ';')?
@@ -4323,11 +4196,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     typeTransformationSet=[TypeTransformationSet|QEMREF] ';' 'end' 'connection' ';' (ambiguity) (rule end)
 	 *     useTransformation=[TypeTransformationSet|QEMREF] ';' 'end' 'component' ';' ('composite' 'error' 'behavior' 'end' 'composite' ';')? ('connection' 'error' 'end' 'connection' ';')? (ambiguity) (rule end)
 	 */
-	protected void emit_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q(
-			EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     '('*
@@ -4341,11 +4213,10 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
-	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition,
-			List<INode> nodes) {
+	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 	/**
 	 * Ambiguous syntax:
 	 *     '('+
@@ -4354,9 +4225,8 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	 *     (rule start) (ambiguity) {AndExpression.operands+=}
 	 *     (rule start) (ambiguity) {OrExpression.operands+=}
 	 */
-	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition,
-			List<INode> nodes) {
+	protected void emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
-
+	
 }
