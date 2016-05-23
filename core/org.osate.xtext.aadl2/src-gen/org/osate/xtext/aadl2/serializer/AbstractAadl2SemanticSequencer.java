@@ -239,16 +239,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_AbstractImplementation(context, (AbstractImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.ABSTRACT_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getAbstractPrototypeRule()) {
-					sequence_AbstractPrototype(context, (AbstractPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_AbstractPrototype_Prototype(context, (AbstractPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_AbstractPrototype(context, (AbstractPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.ABSTRACT_SUBCOMPONENT:
 				sequence_AbstractSubcomponent(context, (AbstractSubcomponent) semanticObject); 
 				return; 
@@ -286,16 +278,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_BusImplementation(context, (BusImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.BUS_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getBusPrototypeRule()) {
-					sequence_BusPrototype(context, (BusPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_BusPrototype_Prototype(context, (BusPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_BusPrototype(context, (BusPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.BUS_SUBCOMPONENT:
 				sequence_BusSubcomponent(context, (BusSubcomponent) semanticObject); 
 				return; 
@@ -388,16 +372,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_DataPort(context, (DataPort) semanticObject); 
 				return; 
 			case Aadl2Package.DATA_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getDataPrototypeRule()) {
-					sequence_DataPrototype(context, (DataPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_DataPrototype_Prototype(context, (DataPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_DataPrototype(context, (DataPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.DATA_SUBCOMPONENT:
 				sequence_DataSubcomponent(context, (DataSubcomponent) semanticObject); 
 				return; 
@@ -414,16 +390,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_DeviceImplementation(context, (DeviceImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.DEVICE_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getDevicePrototypeRule()) {
-					sequence_DevicePrototype(context, (DevicePrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_DevicePrototype_Prototype(context, (DevicePrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_DevicePrototype(context, (DevicePrototype) semanticObject); 
+				return; 
 			case Aadl2Package.DEVICE_SUBCOMPONENT:
 				sequence_DeviceSubcomponent(context, (DeviceSubcomponent) semanticObject); 
 				return; 
@@ -480,15 +448,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_FeatureGroupConnection(context, (FeatureGroupConnection) semanticObject); 
 				return; 
 			case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-				if (rule == grammarAccess.getFeatureGroupPrototypeRule()) {
-					sequence_FeatureGroupPrototype(context, (FeatureGroupPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_FeatureGroupPrototype_Prototype(context, (FeatureGroupPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_FeatureGroupPrototype(context, (FeatureGroupPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.FEATURE_GROUP_PROTOTYPE_ACTUAL:
 				sequence_FeatureGroupPrototypeActual(context, (FeatureGroupPrototypeActual) semanticObject); 
 				return; 
@@ -502,15 +463,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_FGTRename(context, (FeatureGroupTypeRename) semanticObject); 
 				return; 
 			case Aadl2Package.FEATURE_PROTOTYPE:
-				if (rule == grammarAccess.getFeaturePrototypeRule()) {
-					sequence_FeaturePrototype(context, (FeaturePrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_FeaturePrototype_Prototype(context, (FeaturePrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_FeaturePrototype(context, (FeaturePrototype) semanticObject); 
+				return; 
 			case Aadl2Package.FEATURE_PROTOTYPE_BINDING:
 				sequence_FeaturePrototypeBinding(context, (FeaturePrototypeBinding) semanticObject); 
 				return; 
@@ -521,12 +475,12 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_FlowEnd(context, (FlowEnd) semanticObject); 
 				return; 
 			case Aadl2Package.FLOW_IMPLEMENTATION:
-				if (rule == grammarAccess.getFlowImplementationRule()) {
-					sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(context, (FlowImplementation) semanticObject); 
+				if (rule == grammarAccess.getFlowPathImplRule()) {
+					sequence_FlowPathImpl(context, (FlowImplementation) semanticObject); 
 					return; 
 				}
-				else if (rule == grammarAccess.getFlowPathImplRule()) {
-					sequence_FlowPathImpl(context, (FlowImplementation) semanticObject); 
+				else if (rule == grammarAccess.getFlowImplementationRule()) {
+					sequence_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(context, (FlowImplementation) semanticObject); 
 					return; 
 				}
 				else if (rule == grammarAccess.getFlowSinkImplRule()) {
@@ -550,7 +504,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				else break;
 			case Aadl2Package.FLOW_SPECIFICATION:
 				if (rule == grammarAccess.getFlowSpecificationRule()) {
-					sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(context, (FlowSpecification) semanticObject); 
+					sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(context, (FlowSpecification) semanticObject); 
 					return; 
 				}
 				else if (rule == grammarAccess.getFlowPathSpecRule()) {
@@ -600,16 +554,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_MemoryImplementation(context, (MemoryImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.MEMORY_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getMemoryPrototypeRule()) {
-					sequence_MemoryPrototype(context, (MemoryPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_MemoryPrototype_Prototype(context, (MemoryPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_MemoryPrototype(context, (MemoryPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.MEMORY_SUBCOMPONENT:
 				sequence_MemorySubcomponent(context, (MemorySubcomponent) semanticObject); 
 				return; 
@@ -711,16 +657,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_ProcessImplementation(context, (ProcessImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.PROCESS_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getProcessPrototypeRule()) {
-					sequence_ProcessPrototype(context, (ProcessPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_ProcessPrototype_Prototype(context, (ProcessPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_ProcessPrototype(context, (ProcessPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.PROCESS_SUBCOMPONENT:
 				sequence_ProcessSubcomponent(context, (ProcessSubcomponent) semanticObject); 
 				return; 
@@ -731,16 +669,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_ProcessorImplementation(context, (ProcessorImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.PROCESSOR_PROTOTYPE:
-				if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getProcessorPrototypeRule()) {
-					sequence_ProcessorPrototype(context, (ProcessorPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_ProcessorPrototype_Prototype(context, (ProcessorPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_ProcessorPrototype(context, (ProcessorPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.PROCESSOR_SUBCOMPONENT:
 				sequence_ProcessorSubcomponent(context, (ProcessorSubcomponent) semanticObject); 
 				return; 
@@ -864,16 +794,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_SubprogramGroupImplementation(context, (SubprogramGroupImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.SUBPROGRAM_GROUP_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getSubprogramGroupPrototypeRule()) {
-					sequence_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_SubprogramGroupPrototype(context, (SubprogramGroupPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.SUBPROGRAM_GROUP_SUBCOMPONENT:
 				sequence_SubprogramGroupSubcomponent(context, (SubprogramGroupSubcomponent) semanticObject); 
 				return; 
@@ -884,16 +806,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_SubprogramImplementation(context, (SubprogramImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.SUBPROGRAM_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getSubprogramPrototypeRule()) {
-					sequence_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_SubprogramPrototype(context, (SubprogramPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.SUBPROGRAM_PROXY:
 				sequence_SubprogramProxy(context, (SubprogramProxy) semanticObject); 
 				return; 
@@ -907,16 +821,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_SystemImplementation(context, (SystemImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.SYSTEM_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_SystemPrototype(context, (SystemPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getSystemPrototypeRule()) {
-					sequence_SystemPrototype(context, (SystemPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_SystemPrototype(context, (SystemPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.SYSTEM_SUBCOMPONENT:
 				sequence_SystemSubcomponent(context, (SystemSubcomponent) semanticObject); 
 				return; 
@@ -927,16 +833,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_ThreadGroupImplementation(context, (ThreadGroupImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.THREAD_GROUP_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getThreadGroupPrototypeRule()) {
-					sequence_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_ThreadGroupPrototype(context, (ThreadGroupPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.THREAD_GROUP_SUBCOMPONENT:
 				sequence_ThreadGroupSubcomponent(context, (ThreadGroupSubcomponent) semanticObject); 
 				return; 
@@ -947,16 +845,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_ThreadImplementation(context, (ThreadImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.THREAD_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getThreadPrototypeRule()) {
-					sequence_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_ThreadPrototype(context, (ThreadPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.THREAD_SUBCOMPONENT:
 				sequence_ThreadSubcomponent(context, (ThreadSubcomponent) semanticObject); 
 				return; 
@@ -992,16 +882,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_VirtualBusImplementation(context, (VirtualBusImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.VIRTUAL_BUS_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getVirtualBusPrototypeRule()) {
-					sequence_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_VirtualBusPrototype(context, (VirtualBusPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.VIRTUAL_BUS_SUBCOMPONENT:
 				sequence_VirtualBusSubcomponent(context, (VirtualBusSubcomponent) semanticObject); 
 				return; 
@@ -1012,16 +894,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 				sequence_VirtualProcessorImplementation(context, (VirtualProcessorImplementation) semanticObject); 
 				return; 
 			case Aadl2Package.VIRTUAL_PROCESSOR_PROTOTYPE:
-				if (rule == grammarAccess.getPrototypeRule()) {
-					sequence_Prototype_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
-					return; 
-				}
-				else if (rule == grammarAccess.getComponentPrototypeRule()
-						|| rule == grammarAccess.getVirtualProcessorPrototypeRule()) {
-					sequence_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
-					return; 
-				}
-				else break;
+				sequence_VirtualProcessorPrototype(context, (VirtualProcessorPrototype) semanticObject); 
+				return; 
 			case Aadl2Package.VIRTUAL_PROCESSOR_SUBCOMPONENT:
 				sequence_VirtualProcessorSubcomponent(context, (VirtualProcessorSubcomponent) semanticObject); 
 				return; 
@@ -1155,20 +1029,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns AbstractPrototype
 	 *     ComponentPrototype returns AbstractPrototype
 	 *     AbstractPrototype returns AbstractPrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_AbstractPrototype(ISerializationContext context, AbstractPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns AbstractPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -1178,7 +1041,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_AbstractPrototype_Prototype(ISerializationContext context, AbstractPrototype semanticObject) {
+	protected void sequence_AbstractPrototype(ISerializationContext context, AbstractPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -1372,20 +1235,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns BusPrototype
 	 *     ComponentPrototype returns BusPrototype
 	 *     BusPrototype returns BusPrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_BusPrototype(ISerializationContext context, BusPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns BusPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -1395,7 +1247,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_BusPrototype_Prototype(ISerializationContext context, BusPrototype semanticObject) {
+	protected void sequence_BusPrototype(ISerializationContext context, BusPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -1675,20 +1527,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns DataPrototype
 	 *     ComponentPrototype returns DataPrototype
 	 *     DataPrototype returns DataPrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_DataPrototype(ISerializationContext context, DataPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns DataPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -1698,7 +1539,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_DataPrototype_Prototype(ISerializationContext context, DataPrototype semanticObject) {
+	protected void sequence_DataPrototype(ISerializationContext context, DataPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -1862,20 +1703,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns DevicePrototype
 	 *     ComponentPrototype returns DevicePrototype
 	 *     DevicePrototype returns DevicePrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_DevicePrototype(ISerializationContext context, DevicePrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns DevicePrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -1885,7 +1715,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_DevicePrototype_Prototype(ISerializationContext context, DevicePrototype semanticObject) {
+	protected void sequence_DevicePrototype(ISerializationContext context, DevicePrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -2050,7 +1880,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     InternalFeature returns EventDataSource
 	 *     EventDataSource returns EventDataSource
 	 *
 	 * Constraint:
@@ -2080,7 +1909,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     InternalFeature returns EventSource
 	 *     EventSource returns EventSource
 	 *
 	 * Constraint:
@@ -2171,19 +1999,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     FeatureGroupPrototype returns FeatureGroupPrototype
-	 *
-	 * Constraint:
-	 *     ((name=ID | refined=[FeatureGroupPrototype|REFINEDNAME]) constrainingFeatureGroupType=[FeatureGroupType|QCREF]?)
-	 */
-	protected void sequence_FeatureGroupPrototype(ISerializationContext context, FeatureGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Prototype returns FeatureGroupPrototype
+	 *     FeatureGroupPrototype returns FeatureGroupPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -2192,7 +2009,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_FeatureGroupPrototype_Prototype(ISerializationContext context, FeatureGroupPrototype semanticObject) {
+	protected void sequence_FeatureGroupPrototype(ISerializationContext context, FeatureGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -2274,19 +2091,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     FeaturePrototype returns FeaturePrototype
-	 *
-	 * Constraint:
-	 *     ((name=ID | refined=[FeaturePrototype|REFINEDNAME]) (in?='in' | out?='out')? constrainingClassifier=[ComponentClassifier|QCREF]?)
-	 */
-	protected void sequence_FeaturePrototype(ISerializationContext context, FeaturePrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     Prototype returns FeaturePrototype
+	 *     FeaturePrototype returns FeaturePrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -2296,7 +2102,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_FeaturePrototype_Prototype(ISerializationContext context, FeaturePrototype semanticObject) {
+	protected void sequence_FeaturePrototype(ISerializationContext context, FeaturePrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -2315,40 +2121,52 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     FlowImplementation returns FlowImplementation
-	 *
-	 * Constraint:
-	 *     (
-	 *         (
-	 *             (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*) | 
-	 *             (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*) | 
-	 *             (
-	 *                 specification=[FlowSpecification|ID] 
-	 *                 kind=FlowPath 
-	 *                 ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
-	 *             )
-	 *         ) 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
-	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
-	 *     )
-	 */
-	protected void sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(ISerializationContext context, FlowImplementation semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
 	 *     FlowPathImpl returns FlowImplementation
 	 *
 	 * Constraint:
 	 *     (
 	 *         specification=[FlowSpecification|ID] 
 	 *         kind=FlowPath 
-	 *         ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
+	 *         ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
 	 */
 	protected void sequence_FlowPathImpl(ISerializationContext context, FlowImplementation semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     FlowImplementation returns FlowImplementation
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             specification=[FlowSpecification|ID] 
+	 *             kind=FlowSource 
+	 *             (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)* 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             specification=[FlowSpecification|ID] 
+	 *             kind=FlowSink 
+	 *             (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             specification=[FlowSpecification|ID] 
+	 *             kind=FlowPath 
+	 *             ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)? 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         )
+	 *     )
+	 */
+	protected void sequence_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -2360,16 +2178,36 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (
-	 *             (name=ID kind=FlowSource outEnd=FlowEnd) | 
-	 *             (name=ID kind=FlowSink InEnd=FlowEnd) | 
-	 *             (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd) | 
-	 *             (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
-	 *         ) 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
-	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *             name=ID 
+	 *             kind=FlowSource 
+	 *             outEnd=FlowEnd 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             kind=FlowSink 
+	 *             InEnd=FlowEnd 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             kind=FlowPath 
+	 *             InEnd=FlowEnd 
+	 *             outEnd=FlowEnd 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             refined=[FlowSpecification|REFINEDNAME] 
+	 *             kind=FlowKind 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         )
 	 *     )
 	 */
-	protected void sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(ISerializationContext context, FlowSpecification semanticObject) {
+	protected void sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(ISerializationContext context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -2379,25 +2217,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     FlowPathSpec returns FlowSpecification
 	 *
 	 * Constraint:
-	 *     (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd)
+	 *     (
+	 *         name=ID 
+	 *         kind=FlowPath 
+	 *         InEnd=FlowEnd 
+	 *         outEnd=FlowEnd 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowPathSpec(ISerializationContext context, FlowSpecification semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_InEnd()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_InEnd()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd()));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getFlowPathSpecAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getFlowPathSpecAccess().getKindFlowPathParserRuleCall_3_0(), semanticObject.getKind());
-		feeder.accept(grammarAccess.getFlowPathSpecAccess().getInEndFlowEndParserRuleCall_4_0(), semanticObject.getInEnd());
-		feeder.accept(grammarAccess.getFlowPathSpecAccess().getOutEndFlowEndParserRuleCall_6_0(), semanticObject.getOutEnd());
-		feeder.finish();
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
@@ -2406,7 +2236,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     FlowSinkImpl returns FlowImplementation
 	 *
 	 * Constraint:
-	 *     (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*)
+	 *     (
+	 *         specification=[FlowSpecification|ID] 
+	 *         kind=FlowSink 
+	 *         (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSinkImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2418,22 +2254,16 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     FlowSinkSpec returns FlowSpecification
 	 *
 	 * Constraint:
-	 *     (name=ID kind=FlowSink InEnd=FlowEnd)
+	 *     (
+	 *         name=ID 
+	 *         kind=FlowSink 
+	 *         InEnd=FlowEnd 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSinkSpec(ISerializationContext context, FlowSpecification semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_InEnd()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_InEnd()));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getFlowSinkSpecAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getFlowSinkSpecAccess().getKindFlowSinkParserRuleCall_3_0(), semanticObject.getKind());
-		feeder.accept(grammarAccess.getFlowSinkSpecAccess().getInEndFlowEndParserRuleCall_4_0(), semanticObject.getInEnd());
-		feeder.finish();
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
@@ -2442,7 +2272,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     FlowSourceImpl returns FlowImplementation
 	 *
 	 * Constraint:
-	 *     (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*)
+	 *     (
+	 *         specification=[FlowSpecification|ID] 
+	 *         kind=FlowSource 
+	 *         (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)* 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSourceImpl(ISerializationContext context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -2454,22 +2290,16 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     FlowSourceSpec returns FlowSpecification
 	 *
 	 * Constraint:
-	 *     (name=ID kind=FlowSource outEnd=FlowEnd)
+	 *     (
+	 *         name=ID 
+	 *         kind=FlowSource 
+	 *         outEnd=FlowEnd 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSourceSpec(ISerializationContext context, FlowSpecification semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_OutEnd()));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getFlowSourceSpecAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
-		feeder.accept(grammarAccess.getFlowSourceSpecAccess().getKindFlowSourceParserRuleCall_3_0(), semanticObject.getKind());
-		feeder.accept(grammarAccess.getFlowSourceSpecAccess().getOutEndFlowEndParserRuleCall_4_0(), semanticObject.getOutEnd());
-		feeder.finish();
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
@@ -2478,19 +2308,15 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     FlowSpecRefinement returns FlowSpecification
 	 *
 	 * Constraint:
-	 *     (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
+	 *     (
+	 *         refined=[FlowSpecification|REFINEDNAME] 
+	 *         kind=FlowKind 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSpecRefinement(ISerializationContext context, FlowSpecification semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Refined()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Refined()));
-			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getFlowSpecification_Kind()));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getFlowSpecRefinementAccess().getRefinedFlowSpecificationREFINEDNAMEParserRuleCall_0_0_1(), semanticObject.getRefined());
-		feeder.accept(grammarAccess.getFlowSpecRefinementAccess().getKindFlowKindEnumRuleCall_5_0(), semanticObject.getKind());
-		feeder.finish();
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
@@ -2649,20 +2475,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns MemoryPrototype
 	 *     ComponentPrototype returns MemoryPrototype
 	 *     MemoryPrototype returns MemoryPrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_MemoryPrototype(ISerializationContext context, MemoryPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns MemoryPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -2672,7 +2487,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_MemoryPrototype_Prototype(ISerializationContext context, MemoryPrototype semanticObject) {
+	protected void sequence_MemoryPrototype(ISerializationContext context, MemoryPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -2837,7 +2652,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     ProcessorFeature returns PortProxy
 	 *     PortProxy returns PortProxy
 	 *
 	 * Constraint:
@@ -2952,20 +2766,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns ProcessPrototype
 	 *     ComponentPrototype returns ProcessPrototype
 	 *     ProcessPrototype returns ProcessPrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_ProcessPrototype(ISerializationContext context, ProcessPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns ProcessPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -2975,7 +2778,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_ProcessPrototype_Prototype(ISerializationContext context, ProcessPrototype semanticObject) {
+	protected void sequence_ProcessPrototype(ISerializationContext context, ProcessPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -3124,20 +2927,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns ProcessorPrototype
 	 *     ComponentPrototype returns ProcessorPrototype
 	 *     ProcessorPrototype returns ProcessorPrototype
-	 *
-	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
-	 */
-	protected void sequence_ProcessorPrototype(ISerializationContext context, ProcessorPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns ProcessorPrototype
 	 *
 	 * Constraint:
 	 *     (
@@ -3147,7 +2939,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *         ownedPropertyAssociation+=PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_ProcessorPrototype_Prototype(ISerializationContext context, ProcessorPrototype semanticObject) {
+	protected void sequence_ProcessorPrototype(ISerializationContext context, ProcessorPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -3273,125 +3065,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     )
 	 */
 	protected void sequence_PropertySet(ISerializationContext context, PropertySet semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns SubprogramGroupPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_SubprogramGroupPrototype(ISerializationContext context, SubprogramGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns SubprogramPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_SubprogramPrototype(ISerializationContext context, SubprogramPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns SystemPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_SystemPrototype(ISerializationContext context, SystemPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns ThreadGroupPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_ThreadGroupPrototype(ISerializationContext context, ThreadGroupPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns ThreadPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_ThreadPrototype(ISerializationContext context, ThreadPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns VirtualBusPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_VirtualBusPrototype(ISerializationContext context, VirtualBusPrototype semanticObject) {
-		genericSequencer.createSequence(context, (EObject) semanticObject);
-	}
-	
-	
-	/**
-	 * Contexts:
-	 *     Prototype returns VirtualProcessorPrototype
-	 *
-	 * Constraint:
-	 *     (
-	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
-	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
-	 *         array?='['? 
-	 *         ownedPropertyAssociation+=PropertyAssociation*
-	 *     )
-	 */
-	protected void sequence_Prototype_VirtualProcessorPrototype(ISerializationContext context, VirtualProcessorPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
@@ -3731,11 +3404,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns SubprogramGroupPrototype
 	 *     ComponentPrototype returns SubprogramGroupPrototype
 	 *     SubprogramGroupPrototype returns SubprogramGroupPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_SubprogramGroupPrototype(ISerializationContext context, SubprogramGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3868,11 +3547,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns SubprogramPrototype
 	 *     ComponentPrototype returns SubprogramPrototype
 	 *     SubprogramPrototype returns SubprogramPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_SubprogramPrototype(ISerializationContext context, SubprogramPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -3881,7 +3566,6 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
-	 *     ProcessorFeature returns SubprogramProxy
 	 *     SubprogramProxy returns SubprogramProxy
 	 *
 	 * Constraint:
@@ -4030,11 +3714,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns SystemPrototype
 	 *     ComponentPrototype returns SystemPrototype
 	 *     SystemPrototype returns SystemPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_SystemPrototype(ISerializationContext context, SystemPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4171,11 +3861,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns ThreadGroupPrototype
 	 *     ComponentPrototype returns ThreadGroupPrototype
 	 *     ThreadGroupPrototype returns ThreadGroupPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_ThreadGroupPrototype(ISerializationContext context, ThreadGroupPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4318,11 +4014,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns ThreadPrototype
 	 *     ComponentPrototype returns ThreadPrototype
 	 *     ThreadPrototype returns ThreadPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_ThreadPrototype(ISerializationContext context, ThreadPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4628,11 +4330,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns VirtualBusPrototype
 	 *     ComponentPrototype returns VirtualBusPrototype
 	 *     VirtualBusPrototype returns VirtualBusPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_VirtualBusPrototype(ISerializationContext context, VirtualBusPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);
@@ -4761,11 +4469,17 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Contexts:
+	 *     Prototype returns VirtualProcessorPrototype
 	 *     ComponentPrototype returns VirtualProcessorPrototype
 	 *     VirtualProcessorPrototype returns VirtualProcessorPrototype
 	 *
 	 * Constraint:
-	 *     (name=ID | refined=[ComponentPrototype|REFINEDNAME])
+	 *     (
+	 *         (name=ID | refined=[ComponentPrototype|REFINEDNAME]) 
+	 *         constrainingClassifier=[ComponentClassifier|QCREF]? 
+	 *         array?='['? 
+	 *         ownedPropertyAssociation+=PropertyAssociation*
+	 *     )
 	 */
 	protected void sequence_VirtualProcessorPrototype(ISerializationContext context, VirtualProcessorPrototype semanticObject) {
 		genericSequencer.createSequence(context, (EObject) semanticObject);

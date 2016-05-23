@@ -18809,60 +18809,23 @@ rulePrototype returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-(((
+((
     { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getComponentPrototypeParserRuleCall_0_0_0()); 
+        newCompositeNode(grammarAccess.getPrototypeAccess().getComponentPrototypeParserRuleCall_0_0()); 
     }
     this_ComponentPrototype_0=ruleComponentPrototype
     {
         $current = $this_ComponentPrototype_0.current;
         afterParserOrEnumRuleCall();
     }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPrototypeRule());
-	        }
-        }
-		{ 
-	        newCompositeNode(grammarAccess.getPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_0_0_1_0()); 
-	    }
-		ruleQCREF
-		{ 
-	        afterParserOrEnumRuleCall();
-	    }
 
-)
-)?((
-(
-		lv_array_2_0=
-	LeftSquareBracket
-    {
-        newLeafNode(lv_array_2_0, grammarAccess.getPrototypeAccess().getArrayLeftSquareBracketKeyword_0_0_2_0_0());
-    }
-
-	    {
-	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getPrototypeRule());
-	        }
-       		setWithLastConsumed($current, "array", true, "[");
-	    }
-
-)
-)
-	otherlv_3=RightSquareBracket
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getPrototypeAccess().getRightSquareBracketKeyword_0_0_2_1());
-    }
-)?)
     |
     { 
         newCompositeNode(grammarAccess.getPrototypeAccess().getFeatureGroupPrototypeParserRuleCall_0_1()); 
     }
-    this_FeatureGroupPrototype_4=ruleFeatureGroupPrototype
+    this_FeatureGroupPrototype_1=ruleFeatureGroupPrototype
     {
-        $current = $this_FeatureGroupPrototype_4.current;
+        $current = $this_FeatureGroupPrototype_1.current;
         afterParserOrEnumRuleCall();
     }
 
@@ -18870,43 +18833,15 @@ rulePrototype returns [EObject current=null]
     { 
         newCompositeNode(grammarAccess.getPrototypeAccess().getFeaturePrototypeParserRuleCall_0_2()); 
     }
-    this_FeaturePrototype_5=ruleFeaturePrototype
+    this_FeaturePrototype_2=ruleFeaturePrototype
     {
-        $current = $this_FeaturePrototype_5.current;
+        $current = $this_FeaturePrototype_2.current;
         afterParserOrEnumRuleCall();
     }
-)(
-	otherlv_6=LeftCurlyBracket
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getPrototypeAccess().getLeftCurlyBracketKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0()); 
-	    }
-		lv_ownedPropertyAssociation_7_0=rulePropertyAssociation		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getPrototypeRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_7_0, 
-        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
-	        afterParserOrEnumRuleCall();
-	    }
-
 )
-)+
-	otherlv_8=RightCurlyBracket
+	otherlv_3=Semicolon
     {
-    	newLeafNode(otherlv_8, grammarAccess.getPrototypeAccess().getRightCurlyBracketKeyword_1_2());
-    }
-)?
-	otherlv_9=Semicolon
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getPrototypeAccess().getSemicolonKeyword_2());
+    	newLeafNode(otherlv_3, grammarAccess.getPrototypeAccess().getSemicolonKeyword_1());
     }
 )
 ;
@@ -19149,7 +19084,72 @@ ruleAbstractPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getAbstractPrototypeAccess().getAbstractKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAbstractPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getAbstractPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getAbstractPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getAbstractPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getAbstractPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getAbstractPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getAbstractPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getAbstractPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getAbstractPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19230,7 +19230,72 @@ ruleBusPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getBusPrototypeAccess().getBusKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getBusPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getBusPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getBusPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getBusPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getBusPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getBusPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getBusPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getBusPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getBusPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19311,7 +19376,72 @@ ruleDataPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getDataPrototypeAccess().getDataKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDataPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getDataPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getDataPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDataPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getDataPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getDataPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDataPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDataPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getDataPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19392,7 +19522,72 @@ ruleDevicePrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getDevicePrototypeAccess().getDeviceKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDevicePrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getDevicePrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getDevicePrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getDevicePrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getDevicePrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getDevicePrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getDevicePrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getDevicePrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getDevicePrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19473,7 +19668,72 @@ ruleMemoryPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getMemoryPrototypeAccess().getMemoryKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMemoryPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getMemoryPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getMemoryPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getMemoryPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getMemoryPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getMemoryPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getMemoryPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getMemoryPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getMemoryPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19554,7 +19814,72 @@ ruleProcessPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getProcessPrototypeAccess().getProcessKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getProcessPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getProcessPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getProcessPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getProcessPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getProcessPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getProcessPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getProcessPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getProcessPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getProcessPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19635,7 +19960,72 @@ ruleProcessorPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getProcessorPrototypeAccess().getProcessorKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getProcessorPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getProcessorPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getProcessorPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getProcessorPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getProcessorPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getProcessorPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getProcessorPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getProcessorPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getProcessorPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19716,7 +20106,72 @@ ruleSubprogramPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getSubprogramPrototypeAccess().getSubprogramKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSubprogramPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSubprogramPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getSubprogramPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSubprogramPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getSubprogramPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getSubprogramPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSubprogramPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSubprogramPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getSubprogramPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19802,7 +20257,72 @@ ruleSubprogramGroupPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getSubprogramGroupPrototypeAccess().getGroupKeyword_2());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSubprogramGroupPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSubprogramGroupPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_3_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_9_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_9_0, grammarAccess.getSubprogramGroupPrototypeAccess().getArrayLeftSquareBracketKeyword_4_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSubprogramGroupPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_10=RightSquareBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getSubprogramGroupPrototypeAccess().getRightSquareBracketKeyword_4_1());
+    }
+)?(
+	otherlv_11=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getSubprogramGroupPrototypeAccess().getLeftCurlyBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSubprogramGroupPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSubprogramGroupPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_12_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_13=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getSubprogramGroupPrototypeAccess().getRightCurlyBracketKeyword_5_2());
+    }
+)?)
 ;
 
 
@@ -19883,7 +20403,72 @@ ruleSystemPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getSystemPrototypeAccess().getSystemKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSystemPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getSystemPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getSystemPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getSystemPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getSystemPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getSystemPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getSystemPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getSystemPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getSystemPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -19964,7 +20549,72 @@ ruleThreadPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_6, grammarAccess.getThreadPrototypeAccess().getThreadKeyword_1());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getThreadPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getThreadPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_2_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_8_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_8_0, grammarAccess.getThreadPrototypeAccess().getArrayLeftSquareBracketKeyword_3_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getThreadPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_9=RightSquareBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getThreadPrototypeAccess().getRightSquareBracketKeyword_3_1());
+    }
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getThreadPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getThreadPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getThreadPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getThreadPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
+)?)
 ;
 
 
@@ -20050,7 +20700,72 @@ ruleThreadGroupPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getThreadGroupPrototypeAccess().getGroupKeyword_2());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getThreadGroupPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getThreadGroupPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_3_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_9_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_9_0, grammarAccess.getThreadGroupPrototypeAccess().getArrayLeftSquareBracketKeyword_4_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getThreadGroupPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_10=RightSquareBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getThreadGroupPrototypeAccess().getRightSquareBracketKeyword_4_1());
+    }
+)?(
+	otherlv_11=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getThreadGroupPrototypeAccess().getLeftCurlyBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getThreadGroupPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getThreadGroupPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_12_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_13=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getThreadGroupPrototypeAccess().getRightCurlyBracketKeyword_5_2());
+    }
+)?)
 ;
 
 
@@ -20136,7 +20851,72 @@ ruleVirtualBusPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getVirtualBusPrototypeAccess().getBusKeyword_2());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVirtualBusPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getVirtualBusPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_3_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_9_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_9_0, grammarAccess.getVirtualBusPrototypeAccess().getArrayLeftSquareBracketKeyword_4_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVirtualBusPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_10=RightSquareBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getVirtualBusPrototypeAccess().getRightSquareBracketKeyword_4_1());
+    }
+)?(
+	otherlv_11=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getVirtualBusPrototypeAccess().getLeftCurlyBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getVirtualBusPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVirtualBusPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_12_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_13=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getVirtualBusPrototypeAccess().getRightCurlyBracketKeyword_5_2());
+    }
+)?)
 ;
 
 
@@ -20222,7 +21002,72 @@ ruleVirtualProcessorPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getVirtualProcessorPrototypeAccess().getProcessorKeyword_2());
     }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVirtualProcessorPrototypeRule());
+	        }
+        }
+		{ 
+	        newCompositeNode(grammarAccess.getVirtualProcessorPrototypeAccess().getConstrainingClassifierComponentClassifierCrossReference_3_0()); 
+	    }
+		ruleQCREF
+		{ 
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)?((
+(
+		lv_array_9_0=
+	LeftSquareBracket
+    {
+        newLeafNode(lv_array_9_0, grammarAccess.getVirtualProcessorPrototypeAccess().getArrayLeftSquareBracketKeyword_4_0_0());
+    }
+
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getVirtualProcessorPrototypeRule());
+	        }
+       		setWithLastConsumed($current, "array", true, "[");
+	    }
+
+)
+)
+	otherlv_10=RightSquareBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getVirtualProcessorPrototypeAccess().getRightSquareBracketKeyword_4_1());
+    }
+)?(
+	otherlv_11=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getVirtualProcessorPrototypeAccess().getLeftCurlyBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getVirtualProcessorPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_12_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVirtualProcessorPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_12_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_13=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getVirtualProcessorPrototypeAccess().getRightCurlyBracketKeyword_5_2());
+    }
+)?)
 ;
 
 
@@ -20324,6 +21169,34 @@ ruleFeatureGroupPrototype returns [EObject current=null]
 	    }
 
 )
+)?(
+	otherlv_9=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFeatureGroupPrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFeatureGroupPrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_10_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFeatureGroupPrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_10_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_11=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getFeatureGroupPrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
 )?)
 ;
 
@@ -20454,6 +21327,34 @@ ruleFeaturePrototype returns [EObject current=null]
 	    }
 
 )
+)?(
+	otherlv_10=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getFeaturePrototypeAccess().getLeftCurlyBracketKeyword_4_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFeaturePrototypeAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_11_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFeaturePrototypeRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_11_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_12=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFeaturePrototypeAccess().getRightCurlyBracketKeyword_4_2());
+    }
 )?)
 ;
 
@@ -28265,10 +29166,6 @@ this_ID_33=RULE_ID
 
 
 
-
-
-
-
 // Entry rule entryRuleEventSource
 entryRuleEventSource returns [EObject current=null]
 	:
@@ -30287,89 +31184,10 @@ ruleFlowSpecification returns [EObject current=null]
         $current = $this_FlowSpecRefinement_3.current;
         afterParserOrEnumRuleCall();
     }
-)(
-	otherlv_4=LeftCurlyBracket
-    {
-    	newLeafNode(otherlv_4, grammarAccess.getFlowSpecificationAccess().getLeftCurlyBracketKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getFlowSpecificationAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0()); 
-	    }
-		lv_ownedPropertyAssociation_5_0=rulePropertyAssociation		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getFlowSpecificationRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_5_0, 
-        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
-	        afterParserOrEnumRuleCall();
-	    }
-
 )
-)+
-	otherlv_6=RightCurlyBracket
+	otherlv_4=Semicolon
     {
-    	newLeafNode(otherlv_6, grammarAccess.getFlowSpecificationAccess().getRightCurlyBracketKeyword_1_2());
-    }
-)?(
-	otherlv_7=In
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getFlowSpecificationAccess().getInKeyword_2_0());
-    }
-
-	otherlv_8=Modes
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getFlowSpecificationAccess().getModesKeyword_2_1());
-    }
-
-	otherlv_9=LeftParenthesis
-    {
-    	newLeafNode(otherlv_9, grammarAccess.getFlowSpecificationAccess().getLeftParenthesisKeyword_2_2());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSpecificationRule());
-	        }
-        }
-	otherlv_10=RULE_ID
-	{
-		newLeafNode(otherlv_10, grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0()); 
-	}
-
-)
-)(
-	otherlv_11=Comma
-    {
-    	newLeafNode(otherlv_11, grammarAccess.getFlowSpecificationAccess().getCommaKeyword_2_4_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowSpecificationRule());
-	        }
-        }
-	otherlv_12=RULE_ID
-	{
-		newLeafNode(otherlv_12, grammarAccess.getFlowSpecificationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0()); 
-	}
-
-)
-))*
-	otherlv_13=RightParenthesis
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getFlowSpecificationAccess().getRightParenthesisKeyword_2_5());
-    }
-)?
-	otherlv_14=Semicolon
-    {
-    	newLeafNode(otherlv_14, grammarAccess.getFlowSpecificationAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_4, grammarAccess.getFlowSpecificationAccess().getSemicolonKeyword_1());
     }
 )
 ;
@@ -30456,7 +31274,86 @@ ruleFlowSourceSpec returns [EObject current=null]
 	    }
 
 )
-))
+)(
+	otherlv_5=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getFlowSourceSpecAccess().getLeftCurlyBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSourceSpecAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_6_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSourceSpecRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_6_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_7=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFlowSourceSpecAccess().getRightCurlyBracketKeyword_5_2());
+    }
+)?(
+	otherlv_8=In
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getFlowSourceSpecAccess().getInKeyword_6_0());
+    }
+
+	otherlv_9=Modes
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSourceSpecAccess().getModesKeyword_6_1());
+    }
+
+	otherlv_10=LeftParenthesis
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getFlowSourceSpecAccess().getLeftParenthesisKeyword_6_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSourceSpecRule());
+	        }
+        }
+	otherlv_11=RULE_ID
+	{
+		newLeafNode(otherlv_11, grammarAccess.getFlowSourceSpecAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0()); 
+	}
+
+)
+)(
+	otherlv_12=Comma
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFlowSourceSpecAccess().getCommaKeyword_6_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSourceSpecRule());
+	        }
+        }
+	otherlv_13=RULE_ID
+	{
+		newLeafNode(otherlv_13, grammarAccess.getFlowSourceSpecAccess().getInModeOrTransitionModeFeatureCrossReference_6_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_14=RightParenthesis
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getFlowSourceSpecAccess().getRightParenthesisKeyword_6_5());
+    }
+)?)
 ;
 
 
@@ -30541,7 +31438,86 @@ ruleFlowSinkSpec returns [EObject current=null]
 	    }
 
 )
-))
+)(
+	otherlv_5=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_5, grammarAccess.getFlowSinkSpecAccess().getLeftCurlyBracketKeyword_5_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkSpecAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_6_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkSpecRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_6_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_7=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFlowSinkSpecAccess().getRightCurlyBracketKeyword_5_2());
+    }
+)?(
+	otherlv_8=In
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getFlowSinkSpecAccess().getInKeyword_6_0());
+    }
+
+	otherlv_9=Modes
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSinkSpecAccess().getModesKeyword_6_1());
+    }
+
+	otherlv_10=LeftParenthesis
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getFlowSinkSpecAccess().getLeftParenthesisKeyword_6_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSinkSpecRule());
+	        }
+        }
+	otherlv_11=RULE_ID
+	{
+		newLeafNode(otherlv_11, grammarAccess.getFlowSinkSpecAccess().getInModeOrTransitionModeFeatureCrossReference_6_3_0()); 
+	}
+
+)
+)(
+	otherlv_12=Comma
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFlowSinkSpecAccess().getCommaKeyword_6_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSinkSpecRule());
+	        }
+        }
+	otherlv_13=RULE_ID
+	{
+		newLeafNode(otherlv_13, grammarAccess.getFlowSinkSpecAccess().getInModeOrTransitionModeFeatureCrossReference_6_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_14=RightParenthesis
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getFlowSinkSpecAccess().getRightParenthesisKeyword_6_5());
+    }
+)?)
 ;
 
 
@@ -30649,7 +31625,86 @@ ruleFlowPathSpec returns [EObject current=null]
 	    }
 
 )
-))
+)(
+	otherlv_7=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getFlowPathSpecAccess().getLeftCurlyBracketKeyword_7_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathSpecAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_7_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_8_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathSpecRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_8_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_9=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowPathSpecAccess().getRightCurlyBracketKeyword_7_2());
+    }
+)?(
+	otherlv_10=In
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getFlowPathSpecAccess().getInKeyword_8_0());
+    }
+
+	otherlv_11=Modes
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getFlowPathSpecAccess().getModesKeyword_8_1());
+    }
+
+	otherlv_12=LeftParenthesis
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFlowPathSpecAccess().getLeftParenthesisKeyword_8_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
+	        }
+        }
+	otherlv_13=RULE_ID
+	{
+		newLeafNode(otherlv_13, grammarAccess.getFlowPathSpecAccess().getInModeOrTransitionModeFeatureCrossReference_8_3_0()); 
+	}
+
+)
+)(
+	otherlv_14=Comma
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getFlowPathSpecAccess().getCommaKeyword_8_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathSpecRule());
+	        }
+        }
+	otherlv_15=RULE_ID
+	{
+		newLeafNode(otherlv_15, grammarAccess.getFlowPathSpecAccess().getInModeOrTransitionModeFeatureCrossReference_8_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_16=RightParenthesis
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getFlowPathSpecAccess().getRightParenthesisKeyword_8_5());
+    }
+)?)
 ;
 
 
@@ -30776,7 +31831,86 @@ ruleFlowSpecRefinement returns [EObject current=null]
 	    }
 
 )
-))
+)(
+	otherlv_6=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_6, grammarAccess.getFlowSpecRefinementAccess().getLeftCurlyBracketKeyword_6_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSpecRefinementAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_7_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSpecRefinementRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_7_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_8=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_8, grammarAccess.getFlowSpecRefinementAccess().getRightCurlyBracketKeyword_6_2());
+    }
+)?(
+	otherlv_9=In
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSpecRefinementAccess().getInKeyword_7_0());
+    }
+
+	otherlv_10=Modes
+    {
+    	newLeafNode(otherlv_10, grammarAccess.getFlowSpecRefinementAccess().getModesKeyword_7_1());
+    }
+
+	otherlv_11=LeftParenthesis
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getFlowSpecRefinementAccess().getLeftParenthesisKeyword_7_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSpecRefinementRule());
+	        }
+        }
+	otherlv_12=RULE_ID
+	{
+		newLeafNode(otherlv_12, grammarAccess.getFlowSpecRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0()); 
+	}
+
+)
+)(
+	otherlv_13=Comma
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getFlowSpecRefinementAccess().getCommaKeyword_7_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSpecRefinementRule());
+	        }
+        }
+	otherlv_14=RULE_ID
+	{
+		newLeafNode(otherlv_14, grammarAccess.getFlowSpecRefinementAccess().getInModeOrTransitionModeFeatureCrossReference_7_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_15=RightParenthesis
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getFlowSpecRefinementAccess().getRightParenthesisKeyword_7_5());
+    }
+)?)
 ;
 
 
@@ -30826,89 +31960,10 @@ ruleFlowImplementation returns [EObject current=null]
         $current = $this_FlowPathImpl_2.current;
         afterParserOrEnumRuleCall();
     }
-)(
-	otherlv_3=LeftCurlyBracket
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getFlowImplementationAccess().getLeftCurlyBracketKeyword_1_0());
-    }
-(
-(
-		{ 
-	        newCompositeNode(grammarAccess.getFlowImplementationAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_1_1_0()); 
-	    }
-		lv_ownedPropertyAssociation_4_0=rulePropertyAssociation		{
-	        if ($current==null) {
-	            $current = createModelElementForParent(grammarAccess.getFlowImplementationRule());
-	        }
-       		add(
-       			$current, 
-       			"ownedPropertyAssociation",
-        		lv_ownedPropertyAssociation_4_0, 
-        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
-	        afterParserOrEnumRuleCall();
-	    }
-
 )
-)+
-	otherlv_5=RightCurlyBracket
+	otherlv_3=Semicolon
     {
-    	newLeafNode(otherlv_5, grammarAccess.getFlowImplementationAccess().getRightCurlyBracketKeyword_1_2());
-    }
-)?(
-	otherlv_6=In
-    {
-    	newLeafNode(otherlv_6, grammarAccess.getFlowImplementationAccess().getInKeyword_2_0());
-    }
-
-	otherlv_7=Modes
-    {
-    	newLeafNode(otherlv_7, grammarAccess.getFlowImplementationAccess().getModesKeyword_2_1());
-    }
-
-	otherlv_8=LeftParenthesis
-    {
-    	newLeafNode(otherlv_8, grammarAccess.getFlowImplementationAccess().getLeftParenthesisKeyword_2_2());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowImplementationRule());
-	        }
-        }
-	otherlv_9=RULE_ID
-	{
-		newLeafNode(otherlv_9, grammarAccess.getFlowImplementationAccess().getInModeOrTransitionModeFeatureCrossReference_2_3_0()); 
-	}
-
-)
-)(
-	otherlv_10=Comma
-    {
-    	newLeafNode(otherlv_10, grammarAccess.getFlowImplementationAccess().getCommaKeyword_2_4_0());
-    }
-(
-(
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getFlowImplementationRule());
-	        }
-        }
-	otherlv_11=RULE_ID
-	{
-		newLeafNode(otherlv_11, grammarAccess.getFlowImplementationAccess().getInModeOrTransitionModeFeatureCrossReference_2_4_1_0()); 
-	}
-
-)
-))*
-	otherlv_12=RightParenthesis
-    {
-    	newLeafNode(otherlv_12, grammarAccess.getFlowImplementationAccess().getRightParenthesisKeyword_2_5());
-    }
-)?
-	otherlv_13=Semicolon
-    {
-    	newLeafNode(otherlv_13, grammarAccess.getFlowImplementationAccess().getSemicolonKeyword_3());
+    	newLeafNode(otherlv_3, grammarAccess.getFlowImplementationAccess().getSemicolonKeyword_1());
     }
 )
 ;
@@ -31026,7 +32081,86 @@ ruleFLOWOUT
     {
         afterParserOrEnumRuleCall();
     }
+(
+	otherlv_9=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSourceImplAccess().getLeftCurlyBracketKeyword_6_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_10_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSourceImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_10_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)+
+	otherlv_11=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getFlowSourceImplAccess().getRightCurlyBracketKeyword_6_2());
+    }
+)?(
+	otherlv_12=In
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFlowSourceImplAccess().getInKeyword_7_0());
+    }
+
+	otherlv_13=Modes
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getFlowSourceImplAccess().getModesKeyword_7_1());
+    }
+
+	otherlv_14=LeftParenthesis
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getFlowSourceImplAccess().getLeftParenthesisKeyword_7_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSourceImplRule());
+	        }
+        }
+	otherlv_15=RULE_ID
+	{
+		newLeafNode(otherlv_15, grammarAccess.getFlowSourceImplAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0()); 
+	}
+
+)
+)(
+	otherlv_16=Comma
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getFlowSourceImplAccess().getCommaKeyword_7_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSourceImplRule());
+	        }
+        }
+	otherlv_17=RULE_ID
+	{
+		newLeafNode(otherlv_17, grammarAccess.getFlowSourceImplAccess().getInModeOrTransitionModeFeatureCrossReference_7_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_18=RightParenthesis
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getFlowSourceImplAccess().getRightParenthesisKeyword_7_5());
+    }
+)?)
 ;
 
 
@@ -31142,7 +32276,86 @@ ruleFLOWIN
 	    }
 
 )
-))*)
+))*(
+	otherlv_9=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_9, grammarAccess.getFlowSinkImplAccess().getLeftCurlyBracketKeyword_6_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_6_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_10_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_10_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)+
+	otherlv_11=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_11, grammarAccess.getFlowSinkImplAccess().getRightCurlyBracketKeyword_6_2());
+    }
+)?(
+	otherlv_12=In
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFlowSinkImplAccess().getInKeyword_7_0());
+    }
+
+	otherlv_13=Modes
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getFlowSinkImplAccess().getModesKeyword_7_1());
+    }
+
+	otherlv_14=LeftParenthesis
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getFlowSinkImplAccess().getLeftParenthesisKeyword_7_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSinkImplRule());
+	        }
+        }
+	otherlv_15=RULE_ID
+	{
+		newLeafNode(otherlv_15, grammarAccess.getFlowSinkImplAccess().getInModeOrTransitionModeFeatureCrossReference_7_3_0()); 
+	}
+
+)
+)(
+	otherlv_16=Comma
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getFlowSinkImplAccess().getCommaKeyword_7_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowSinkImplRule());
+	        }
+        }
+	otherlv_17=RULE_ID
+	{
+		newLeafNode(otherlv_17, grammarAccess.getFlowSinkImplAccess().getInModeOrTransitionModeFeatureCrossReference_7_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_18=RightParenthesis
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getFlowSinkImplAccess().getRightParenthesisKeyword_7_5());
+    }
+)?)
 ;
 
 
@@ -31294,7 +32507,86 @@ ruleFLOWOUT
     {
         afterParserOrEnumRuleCall();
     }
+(
+	otherlv_13=LeftCurlyBracket
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getFlowPathImplAccess().getLeftCurlyBracketKeyword_8_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOwnedPropertyAssociationPropertyAssociationParserRuleCall_8_1_0()); 
+	    }
+		lv_ownedPropertyAssociation_14_0=rulePropertyAssociation		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
+	        }
+       		add(
+       			$current, 
+       			"ownedPropertyAssociation",
+        		lv_ownedPropertyAssociation_14_0, 
+        		"org.osate.xtext.aadl2.properties.Properties.PropertyAssociation");
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
+)+
+	otherlv_15=RightCurlyBracket
+    {
+    	newLeafNode(otherlv_15, grammarAccess.getFlowPathImplAccess().getRightCurlyBracketKeyword_8_2());
+    }
+)?(
+	otherlv_16=In
+    {
+    	newLeafNode(otherlv_16, grammarAccess.getFlowPathImplAccess().getInKeyword_9_0());
+    }
+
+	otherlv_17=Modes
+    {
+    	newLeafNode(otherlv_17, grammarAccess.getFlowPathImplAccess().getModesKeyword_9_1());
+    }
+
+	otherlv_18=LeftParenthesis
+    {
+    	newLeafNode(otherlv_18, grammarAccess.getFlowPathImplAccess().getLeftParenthesisKeyword_9_2());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathImplRule());
+	        }
+        }
+	otherlv_19=RULE_ID
+	{
+		newLeafNode(otherlv_19, grammarAccess.getFlowPathImplAccess().getInModeOrTransitionModeFeatureCrossReference_9_3_0()); 
+	}
+
+)
+)(
+	otherlv_20=Comma
+    {
+    	newLeafNode(otherlv_20, grammarAccess.getFlowPathImplAccess().getCommaKeyword_9_4_0());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getFlowPathImplRule());
+	        }
+        }
+	otherlv_21=RULE_ID
+	{
+		newLeafNode(otherlv_21, grammarAccess.getFlowPathImplAccess().getInModeOrTransitionModeFeatureCrossReference_9_4_1_0()); 
+	}
+
+)
+))*
+	otherlv_22=RightParenthesis
+    {
+    	newLeafNode(otherlv_22, grammarAccess.getFlowPathImplAccess().getRightParenthesisKeyword_9_5());
+    }
+)?)
 ;
 
 
