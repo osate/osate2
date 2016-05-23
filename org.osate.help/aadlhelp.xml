@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?NLS TYPE="org.eclipse.help.toc"?>
 
-<toc label="OSATE help" topic="html/overview.html">
+<toc label="OSATE Core Documentation" topic="html/overview.html">
 	<topic href="html/overview.html" label="Overview" />
 	<topic href="html/start/index.html" label="Getting started">
 		<topic href="html/start/eclipse-basics.html" label="Eclipse basics" />
@@ -9,6 +9,7 @@
 		<topic href="html/start/add-models.html" label="Adding models" />
 		<topic href="html/start/navigation-support.html" label="Navigating models" />
 		<topic href="html/start/instantiate.html" label="Instantiating models" />
+		<topic href="html/start/propview/propertyview.html" label="Viewing and editing property values" />
 		<topic href="html/start/team.html" label="Collaborative editing" />
 		<topic href="html/start/rules-syntax.html" label="Rules - Syntax" />
 		<topic href="html/start/rules-naming.html" label="Style Guide" />
