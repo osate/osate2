@@ -210,8 +210,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// This is similar to diagnostics
 		//ResultIssue:
-		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-		//	("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
+		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+		//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
@@ -2583,8 +2583,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-	//	("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public ResultIssueElements getResultIssueAccess() {
 		return pResultIssue;
 	}

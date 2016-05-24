@@ -38,7 +38,7 @@ CategoryFilter returns CategoryFilter:
 
 
 
-// Category reference. Currently it is only a single ID
+// Category reference. 
 CatRef:
 	ID '.' ID
 	;	

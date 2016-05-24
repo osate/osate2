@@ -87,7 +87,6 @@ public class AlisaParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAssuranceTaskAccess().getGroup_4(), "rule__AssuranceTask__Group_4__0");
 					put(grammarAccess.getAssuranceTaskAccess().getGroup_6_1(), "rule__AssuranceTask__Group_6_1__0");
 					put(grammarAccess.getAssuranceTaskAccess().getGroup_6_2(), "rule__AssuranceTask__Group_6_2__0");
-					put(grammarAccess.getCatRefAccess().getGroup(), "rule__CatRef__Group__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");

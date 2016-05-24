@@ -19,7 +19,7 @@ import org.eclipse.emf.common.util.EList;
 
 import org.eclipse.emf.ecore.EObject;
 
-import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
 
 /**
  * <!-- begin-user-doc -->
@@ -68,7 +68,7 @@ public interface GlobalConstants extends EObject
 
   /**
    * Returns the value of the '<em><b>Constants</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
+   * The list contents are of type {@link org.osate.alisa.common.common.ValDeclaration}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Constants</em>' containment reference list isn't clear,
@@ -80,6 +80,6 @@ public interface GlobalConstants extends EObject
    * @model containment="true"
    * @generated
    */
-  EList<AVariableDeclaration> getConstants();
+  EList<ValDeclaration> getConstants();
 
 } // GlobalConstants

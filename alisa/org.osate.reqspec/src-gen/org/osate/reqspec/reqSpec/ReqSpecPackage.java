@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.osate.alisa.common.common.CommonPackage;
+
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -1654,6 +1656,70 @@ public interface ReqSpecPackage extends EPackage
    */
   int GLOBAL_REQUIREMENT_SET_FEATURE_COUNT = REQUIREMENT_SET_FEATURE_COUNT + 0;
 
+  /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl <em>Req Val Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqValDeclaration()
+   * @generated
+   */
+  int REQ_VAL_DECLARATION = 19;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__NAME = CommonPackage.VAL_DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__TYPE = CommonPackage.VAL_DECLARATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Range</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__RANGE = CommonPackage.VAL_DECLARATION__RANGE;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__VALUE = CommonPackage.VAL_DECLARATION__VALUE;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__PROPERTY = CommonPackage.VAL_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Req Val Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION_FEATURE_COUNT = CommonPackage.VAL_DECLARATION_FEATURE_COUNT + 1;
+
 
   /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqSpec <em>Req Spec</em>}'.
@@ -2605,6 +2671,27 @@ public interface ReqSpecPackage extends EPackage
   EClass getGlobalRequirementSet();
 
   /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqValDeclaration <em>Req Val Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Req Val Declaration</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqValDeclaration
+   * @generated
+   */
+  EClass getReqValDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ReqValDeclaration#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Property</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqValDeclaration#getProperty()
+   * @see #getReqValDeclaration()
+   * @generated
+   */
+  EReference getReqValDeclaration_Property();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -3368,6 +3455,24 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass GLOBAL_REQUIREMENT_SET = eINSTANCE.getGlobalRequirementSet();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl <em>Req Val Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqValDeclaration()
+     * @generated
+     */
+    EClass REQ_VAL_DECLARATION = eINSTANCE.getReqValDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQ_VAL_DECLARATION__PROPERTY = eINSTANCE.getReqValDeclaration_Property();
 
   }
 

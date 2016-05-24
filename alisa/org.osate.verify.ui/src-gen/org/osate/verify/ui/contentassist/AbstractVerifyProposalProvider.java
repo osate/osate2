@@ -318,7 +318,4 @@ public class AbstractVerifyProposalProvider extends org.osate.alisa.common.ui.co
 	public void complete_JavaParameter(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
-	public void complete_CatRef(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		// subclasses may override
-	}
 }

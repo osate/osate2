@@ -1438,7 +1438,7 @@ ruleVerificationActivity returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getCategoryCategoryCrossReference_9_1_0_1_0()); 
 	    }
-		ruleCatRef		{ 
+		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2365,7 +2365,7 @@ ruleVerificationMethod returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getVerificationMethodAccess().getCategoryCategoryCrossReference_6_4_1_0()); 
 	    }
-		ruleCatRef		{ 
+		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -2848,47 +2848,6 @@ ruleJavaParameter returns [EObject current=null]
 )
 ))
 ;
-
-
-
-
-
-// Entry rule entryRuleCatRef
-entryRuleCatRef returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getCatRefRule()); } 
-	 iv_ruleCatRef=ruleCatRef 
-	 { $current=$iv_ruleCatRef.current.getText(); }  
-	 EOF 
-;
-
-// Rule CatRef
-ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_0()); 
-    }
-
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getCatRefAccess().getFullStopKeyword_1()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_2()); 
-    }
-)
-    ;
 
 
 

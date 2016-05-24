@@ -160,7 +160,6 @@ public class VerifyParser extends AbstractContentAssistParser {
 					put(grammarAccess.getAgreeMethodAccess().getGroup(), "rule__AgreeMethod__Group__0");
 					put(grammarAccess.getJUnit4MethodAccess().getGroup(), "rule__JUnit4Method__Group__0");
 					put(grammarAccess.getJavaParameterAccess().getGroup(), "rule__JavaParameter__Group__0");
-					put(grammarAccess.getCatRefAccess().getGroup(), "rule__CatRef__Group__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");
