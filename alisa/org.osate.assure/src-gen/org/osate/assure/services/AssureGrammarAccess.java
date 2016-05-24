@@ -1150,11 +1150,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
 		//featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)?
 		//("totalqualitycategorycount" totalQualityCategoryCount=INT)? ("requirementswithoutplanclaimcount"
-		//requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)? ("requirementscount"
-		//requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)? ("reqtargethasemv2subclausecount"
-		//reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount" featuresRequiringClassifierCount=INT)?
-		//("featureswithrequiredclassifiercount" featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time"
-		//executionTime=AInt)?
+		//requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)?
+		//("requirementscount" requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)?
+		//("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount"
+		//featuresRequiringClassifierCount=INT)? ("featureswithrequiredclassifiercount"
+		//featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?
 		public Group getGroup() { return cGroup; }
 
 		//{Metrics}
@@ -2076,8 +2076,8 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-	//	("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
 	}

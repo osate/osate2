@@ -96,6 +96,7 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       case ReqSpecPackage.SYSTEM_REQUIREMENT_SET: return createSystemRequirementSet();
       case ReqSpecPackage.GLOBAL_REQUIREMENT_SET: return createGlobalRequirementSet();
+      case ReqSpecPackage.REQ_VAL_DECLARATION: return createReqValDeclaration();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -308,6 +309,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     GlobalRequirementSetImpl globalRequirementSet = new GlobalRequirementSetImpl();
     return globalRequirementSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqValDeclaration createReqValDeclaration()
+  {
+    ReqValDeclarationImpl reqValDeclaration = new ReqValDeclarationImpl();
+    return reqValDeclaration;
   }
 
   /**

@@ -207,6 +207,15 @@ public interface ReqSpecFactory extends EFactory
   GlobalRequirementSet createGlobalRequirementSet();
 
   /**
+   * Returns a new object of class '<em>Req Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Req Val Declaration</em>'.
+   * @generated
+   */
+  ReqValDeclaration createReqValDeclaration();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

@@ -113,5 +113,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//SystemRequirementSet/include"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//GlobalRequirementSet"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ReqValDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqValDeclaration/property"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

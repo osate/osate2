@@ -340,7 +340,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_VerificationActivity_CategoryKeyword_9_1_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -364,11 +364,11 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('property' 'values' '(' ')')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     actuals+=AExpression ')' (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     actuals+=AExpression ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     actuals+=AExpression ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
 	 *     actuals+=AExpression ')' (ambiguity) '[' 'weight' weight=INT
 	 *     actuals+=AExpression ')' (ambiguity) ('[' ']')? (rule end)
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'weight' weight=INT
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) ('[' ']')? (rule end)
@@ -382,7 +382,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_VerificationMethod_CategoryKeyword_6_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -395,7 +395,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     name=ID (ambiguity) ':' title=STRING
 	 *     name=ID (ambiguity) '[' ']' (rule end)
-	 *     name=ID (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     name=ID (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     name=ID (ambiguity) '[' description=Description
 	 *     name=ID (ambiguity) '[' methodKind=MethodKind
 	 *     name=ID (ambiguity) '[' precondition=VerificationPrecondition
@@ -415,7 +415,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     formals+=FormalParameter ')' (ambiguity) 'returns' '(' results+=FormalParameter
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? ':' title=STRING
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' ']' (rule end)
-	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|CatRef]
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|QualifiedName]
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' description=Description
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' methodKind=MethodKind
 	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' precondition=VerificationPrecondition
@@ -430,7 +430,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     targetType=TargetType ',' ')' (ambiguity) 'returns' '(' results+=FormalParameter
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? ':' title=STRING
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' ']' (rule end)
-	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|CatRef]
+	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|QualifiedName]
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' description=Description
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' methodKind=MethodKind
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' precondition=VerificationPrecondition
@@ -451,7 +451,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) ':' title=STRING
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' ']' (rule end)
-	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' description=Description
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' methodKind=MethodKind
 	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' precondition=VerificationPrecondition
@@ -464,7 +464,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     name=ID '(' ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) ':' title=STRING
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' ']' (rule end)
-	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' description=Description
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' methodKind=MethodKind
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' precondition=VerificationPrecondition
@@ -475,7 +475,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) isResultReport?='report'
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) ':' title=STRING
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' ']' (rule end)
-	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' description=Description
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' methodKind=MethodKind
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' precondition=VerificationPrecondition

@@ -22,6 +22,9 @@ import org.eclipse.emf.common.notify.impl.AdapterFactoryImpl;
 
 import org.eclipse.emf.ecore.EObject;
 
+import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
+
 import org.osate.reqspec.reqSpec.*;
 
 /**
@@ -181,6 +184,21 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
       public Adapter caseGlobalRequirementSet(GlobalRequirementSet object)
       {
         return createGlobalRequirementSetAdapter();
+      }
+      @Override
+      public Adapter caseReqValDeclaration(ReqValDeclaration object)
+      {
+        return createReqValDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseAVariableDeclaration(AVariableDeclaration object)
+      {
+        return createAVariableDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseValDeclaration(ValDeclaration object)
+      {
+        return createValDeclarationAdapter();
       }
       @Override
       public Adapter defaultCase(EObject object)
@@ -485,6 +503,51 @@ public class ReqSpecAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createGlobalRequirementSetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.reqspec.reqSpec.ReqValDeclaration <em>Req Val Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.reqspec.reqSpec.ReqValDeclaration
+   * @generated
+   */
+  public Adapter createReqValDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AVariableDeclaration <em>AVariable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.AVariableDeclaration
+   * @generated
+   */
+  public Adapter createAVariableDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ValDeclaration <em>Val Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.alisa.common.common.ValDeclaration
+   * @generated
+   */
+  public Adapter createValDeclarationAdapter()
   {
     return null;
   }

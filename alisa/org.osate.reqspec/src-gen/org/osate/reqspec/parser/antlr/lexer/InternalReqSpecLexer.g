@@ -208,6 +208,8 @@ GreaterThanSignLessThanSign : '><';
 
 GreaterThanSignEqualsSign : '>=';
 
+As : 'as';
+
 If : 'if';
 
 In : 'in';

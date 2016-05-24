@@ -32,10 +32,8 @@ AssurancePlan:
 		{AssuranceTask} 'assurance''task' name=ID (':' title=STRING)? 
 		'['	(
 	(description=Description)?
-	&('category' category+=[categories::Category|CatRef]+ anyCategory?='any'? )?
+	&('category' category+=[categories::Category|QualifiedName]+ anyCategory?='any'? )?
 	&('issues' issues+=STRING+ )?
 	)']'
 	;
-
-CatRef : ID '.' ID;
 	
