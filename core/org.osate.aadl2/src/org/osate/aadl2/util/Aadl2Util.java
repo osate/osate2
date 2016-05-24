@@ -18,38 +18,12 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.instance.util.InstanceUtil;
 
 public class Aadl2Util {
-	private static boolean _useTunedEqualsMethods = true;
 	/**
 	 * The property service to be used by the meta-model class to lookup property definitions. When using OSATE in the
 	 * Eclipse IDE, an implementation is provided by the org.osate.xtext.aadl2.properties.ui plugin making use of
 	 * GetProperties to search for property definitions in the workspace.
 	 */
 	public static IPropertyService propertyService = null;
-
-	/**
-	 * The getUseTunedEqualsMethods() is used to change a configuration
-	 * flag that indicate if the equals() method from the AADL properties
-	 * must be overriden or not. We override the methods so that when adding
-	 * two similar property values, they are not added to the instance
-	 * model. However, for some other tools, this is very important
-	 * for not overriding these methods.
-	 * For reference, see https://penelope.enst.fr/aadlba/ticket/3
-	 * and https://bugs.eclipse.org/bugs/show_bug.cgi?id=412999
-	 * @return a boolean value indicated if the the behavior of equals of overriden or not
-	 */
-	public static boolean getUseTunedEqualsMethods() {
-		return _useTunedEqualsMethods;
-	}
-
-	/**
-	 * See above for the description of why we have the boolean value.
-	 * This method set the flag to use a dedicated behavior for the
-	 * equals methods of the EObject class related to AADL properties.
-	 * @param b the new value
-	 */
-	public static void setUseTunedEqualsMethods(boolean b) {
-		_useTunedEqualsMethods = b;
-	}
 
 	/**
 	 * Xtext resolver leaves unresolved proxy when reference cannot be resolved.
