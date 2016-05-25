@@ -79,7 +79,7 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		if (!forSystemRequirements.requirements.empty) {
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(forSystemRequirements.requirements,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 		}
 		return result
 	}
@@ -92,17 +92,17 @@ class VerifyScopeProvider extends CommonScopeProvider {
 			fd.body instanceof ClaimBody
 		]
 		return new SimpleScope(IScope.NULLSCOPE, Scopes::scopedElementsFor(fcns,
-			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
 
 	def scope_VerificationActivity(EObject context, EReference reference) {
 		val vas = getContainingClaim(context).activities
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(vas,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
 
 	def scope_FormalParameter(EObject context, EReference reference) {
-		val formalparams = getContainingVerificationMethod(context)?.params
+		val formalparams = getContainingVerificationMethod(context)?.formals
 		new SimpleScope(IScope::NULLSCOPE, Scopes::scopedElementsFor(formalparams,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}

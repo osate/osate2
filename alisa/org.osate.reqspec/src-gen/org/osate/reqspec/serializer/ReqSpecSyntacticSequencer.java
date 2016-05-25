@@ -332,7 +332,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_DocGoal_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -409,7 +409,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_DocRequirement_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -530,7 +530,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_GlobalRequirement_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -629,7 +629,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_Goal_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -819,7 +819,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_SystemRequirement_CategoryKeyword_5_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

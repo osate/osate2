@@ -28,7 +28,7 @@ import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
 import org.eclipse.emf.ecore.util.InternalEList;
 
-import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
 
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.ReqRoot;
@@ -72,7 +72,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * @generated
    * @ordered
    */
-  protected EList<AVariableDeclaration> constants;
+  protected EList<ValDeclaration> constants;
 
   /**
    * The cached value of the '{@link #getRequirements() <em>Requirements</em>}' containment reference list.
@@ -134,11 +134,11 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AVariableDeclaration> getConstants()
+  public EList<ValDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.REQUIREMENT_SET__CONSTANTS);
+      constants = new EObjectContainmentEList<ValDeclaration>(ValDeclaration.class, this, ReqSpecPackage.REQUIREMENT_SET__CONSTANTS);
     }
     return constants;
   }
@@ -228,7 +228,7 @@ public class RequirementSetImpl extends ReqRootImpl implements RequirementSet
         return;
       case ReqSpecPackage.REQUIREMENT_SET__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
+        getConstants().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
       case ReqSpecPackage.REQUIREMENT_SET__REQUIREMENTS:
         getRequirements().clear();

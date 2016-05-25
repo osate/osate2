@@ -367,7 +367,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cCategoryKeyword_6_1_0 = (Keyword)cGroup_6_1.eContents().get(0);
 		private final Assignment cCategoryAssignment_6_1_1 = (Assignment)cGroup_6_1.eContents().get(1);
 		private final CrossReference cCategoryCategoryCrossReference_6_1_1_0 = (CrossReference)cCategoryAssignment_6_1_1.eContents().get(0);
-		private final RuleCall cCategoryCategoryCatRefParserRuleCall_6_1_1_0_1 = (RuleCall)cCategoryCategoryCrossReference_6_1_1_0.eContents().get(1);
+		private final RuleCall cCategoryCategoryQualifiedNameParserRuleCall_6_1_1_0_1 = (RuleCall)cCategoryCategoryCrossReference_6_1_1_0.eContents().get(1);
 		private final Assignment cAnyCategoryAssignment_6_1_2 = (Assignment)cGroup_6_1.eContents().get(2);
 		private final Keyword cAnyCategoryAnyKeyword_6_1_2_0 = (Keyword)cAnyCategoryAssignment_6_1_2.eContents().get(0);
 		private final Group cGroup_6_2 = (Group)cUnorderedGroup_6.eContents().get(2);
@@ -378,11 +378,11 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//AssuranceTask returns categories::CategoryFilter:
 		//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (description=Description? & ("category"
-		//	category+=[categories::Category|CatRef]+ anyCategory?="any"?)? & ("issues" issues+=STRING+)?) "]";
+		//	category+=[categories::Category|QualifiedName]+ anyCategory?="any"?)? & ("issues" issues+=STRING+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (description=Description? & ("category"
-		//category+=[categories::Category|CatRef]+ anyCategory?="any"?)? & ("issues" issues+=STRING+)?) "]"
+		//category+=[categories::Category|QualifiedName]+ anyCategory?="any"?)? & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//{AssuranceTask}
@@ -415,7 +415,7 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//description=Description? & ("category" category+=[categories::Category|CatRef]+ anyCategory?="any"?)? & ("issues"
+		//description=Description? & ("category" category+=[categories::Category|QualifiedName]+ anyCategory?="any"?)? & ("issues"
 		//issues+=STRING+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
@@ -425,20 +425,20 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//Description
 		public RuleCall getDescriptionDescriptionParserRuleCall_6_0_0() { return cDescriptionDescriptionParserRuleCall_6_0_0; }
 
-		//("category" category+=[categories::Category|CatRef]+ anyCategory?="any"?)?
+		//("category" category+=[categories::Category|QualifiedName]+ anyCategory?="any"?)?
 		public Group getGroup_6_1() { return cGroup_6_1; }
 
 		//"category"
 		public Keyword getCategoryKeyword_6_1_0() { return cCategoryKeyword_6_1_0; }
 
-		//category+=[categories::Category|CatRef]+
+		//category+=[categories::Category|QualifiedName]+
 		public Assignment getCategoryAssignment_6_1_1() { return cCategoryAssignment_6_1_1; }
 
-		//[categories::Category|CatRef]
+		//[categories::Category|QualifiedName]
 		public CrossReference getCategoryCategoryCrossReference_6_1_1_0() { return cCategoryCategoryCrossReference_6_1_1_0; }
 
-		//CatRef
-		public RuleCall getCategoryCategoryCatRefParserRuleCall_6_1_1_0_1() { return cCategoryCategoryCatRefParserRuleCall_6_1_1_0_1; }
+		//QualifiedName
+		public RuleCall getCategoryCategoryQualifiedNameParserRuleCall_6_1_1_0_1() { return cCategoryCategoryQualifiedNameParserRuleCall_6_1_1_0_1; }
 
 		//anyCategory?="any"?
 		public Assignment getAnyCategoryAssignment_6_1_2() { return cAnyCategoryAssignment_6_1_2; }
@@ -461,36 +461,11 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		//"]"
 		public Keyword getRightSquareBracketKeyword_7() { return cRightSquareBracketKeyword_7; }
 	}
-
-	public class CatRefElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CatRef");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
-		
-		//CatRef:
-		//	ID "." ID;
-		@Override public ParserRule getRule() { return rule; }
-
-		//ID "." ID
-		public Group getGroup() { return cGroup; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
-
-		//"."
-		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_2() { return cIDTerminalRuleCall_2; }
-	}
 	
 	
 	private final AssuranceCaseElements pAssuranceCase;
 	private final AssurancePlanElements pAssurancePlan;
 	private final AssuranceTaskElements pAssuranceTask;
-	private final CatRefElements pCatRef;
 	
 	private final Grammar grammar;
 
@@ -504,7 +479,6 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 		this.pAssuranceCase = new AssuranceCaseElements();
 		this.pAssurancePlan = new AssurancePlanElements();
 		this.pAssuranceTask = new AssuranceTaskElements();
-		this.pCatRef = new CatRefElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -561,23 +535,13 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//AssuranceTask returns categories::CategoryFilter:
 	//	{AssuranceTask} "assurance" "task" name=ID (":" title=STRING)? "[" (description=Description? & ("category"
-	//	category+=[categories::Category|CatRef]+ anyCategory?="any"?)? & ("issues" issues+=STRING+)?) "]";
+	//	category+=[categories::Category|QualifiedName]+ anyCategory?="any"?)? & ("issues" issues+=STRING+)?) "]";
 	public AssuranceTaskElements getAssuranceTaskAccess() {
 		return pAssuranceTask;
 	}
 	
 	public ParserRule getAssuranceTaskRule() {
 		return getAssuranceTaskAccess().getRule();
-	}
-
-	//CatRef:
-	//	ID "." ID;
-	public CatRefElements getCatRefAccess() {
-		return pCatRef;
-	}
-	
-	public ParserRule getCatRefRule() {
-		return getCatRefAccess().getRule();
 	}
 
 	//Description:
@@ -622,8 +586,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-	//	("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
 	}
@@ -643,8 +607,8 @@ public class AlisaGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeRef returns aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 	//	"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {

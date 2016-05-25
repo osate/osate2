@@ -91,12 +91,12 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
       case ReqSpecPackage.WHEN_CONDITION: return createWhenCondition();
       case ReqSpecPackage.REQ_PREDICATE: return createReqPredicate();
       case ReqSpecPackage.INFORMAL_PREDICATE: return createInformalPredicate();
-      case ReqSpecPackage.PREDICATE: return createPredicate();
       case ReqSpecPackage.VALUE_PREDICATE: return createValuePredicate();
       case ReqSpecPackage.DESIRED_VALUE: return createDesiredValue();
       case ReqSpecPackage.EXTERNAL_DOCUMENT: return createExternalDocument();
       case ReqSpecPackage.SYSTEM_REQUIREMENT_SET: return createSystemRequirementSet();
       case ReqSpecPackage.GLOBAL_REQUIREMENT_SET: return createGlobalRequirementSet();
+      case ReqSpecPackage.REQ_VAL_DECLARATION: return createReqValDeclaration();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -261,17 +261,6 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public Predicate createPredicate()
-  {
-    PredicateImpl predicate = new PredicateImpl();
-    return predicate;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public ValuePredicate createValuePredicate()
   {
     ValuePredicateImpl valuePredicate = new ValuePredicateImpl();
@@ -320,6 +309,17 @@ public class ReqSpecFactoryImpl extends EFactoryImpl implements ReqSpecFactory
   {
     GlobalRequirementSetImpl globalRequirementSet = new GlobalRequirementSetImpl();
     return globalRequirementSet;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ReqValDeclaration createReqValDeclaration()
+  {
+    ReqValDeclarationImpl reqValDeclaration = new ReqValDeclarationImpl();
+    return reqValDeclaration;
   }
 
   /**

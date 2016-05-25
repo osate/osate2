@@ -57,7 +57,6 @@ import org.osate.alisa.common.common.ResultIssue;
 import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
-import org.osate.alisa.common.common.ValDeclaration;
 import org.osate.alisa.common.serializer.CommonSemanticSequencer;
 import org.osate.reqspec.reqSpec.DesiredValue;
 import org.osate.reqspec.reqSpec.DocumentSection;
@@ -67,10 +66,10 @@ import org.osate.reqspec.reqSpec.GlobalRequirementSet;
 import org.osate.reqspec.reqSpec.Goal;
 import org.osate.reqspec.reqSpec.IncludeGlobalRequirement;
 import org.osate.reqspec.reqSpec.InformalPredicate;
-import org.osate.reqspec.reqSpec.Predicate;
 import org.osate.reqspec.reqSpec.ReqDocument;
 import org.osate.reqspec.reqSpec.ReqSpec;
 import org.osate.reqspec.reqSpec.ReqSpecPackage;
+import org.osate.reqspec.reqSpec.ReqValDeclaration;
 import org.osate.reqspec.reqSpec.Requirement;
 import org.osate.reqspec.reqSpec.StakeholderGoals;
 import org.osate.reqspec.reqSpec.SystemRequirementSet;
@@ -198,9 +197,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case CommonPackage.UNCERTAINTY:
 				sequence_Uncertainty(context, (Uncertainty) semanticObject); 
 				return; 
-			case CommonPackage.VAL_DECLARATION:
-				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
-				return; 
 			}
 		else if(semanticObject.eClass().getEPackage() == ReqSpecPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
 			case ReqSpecPackage.DESIRED_VALUE:
@@ -235,14 +231,14 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 			case ReqSpecPackage.INFORMAL_PREDICATE:
 				sequence_InformalPredicate(context, (InformalPredicate) semanticObject); 
 				return; 
-			case ReqSpecPackage.PREDICATE:
-				sequence_Predicate(context, (Predicate) semanticObject); 
-				return; 
 			case ReqSpecPackage.REQ_DOCUMENT:
 				sequence_ReqDocument(context, (ReqDocument) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQ_SPEC:
 				sequence_ReqSpec(context, (ReqSpec) semanticObject); 
+				return; 
+			case ReqSpecPackage.REQ_VAL_DECLARATION:
+				sequence_ValDeclaration(context, (ReqValDeclaration) semanticObject); 
 				return; 
 			case ReqSpecPackage.REQUIREMENT:
 				if(context == grammarAccess.getDocRequirementRule()) {
@@ -290,7 +286,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (targetDescription=STRING | (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?))? 
-	 *         category+=[Category|CatRef]* 
+	 *         category+=[Category|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         whencondition=WhenCondition? 
@@ -320,7 +316,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             (target=[ComponentClassifier|AadlClassifierReference] targetElement=[NamedElement|ID]?) | 
 	 *             componentCategory+=ComponentCategory+
 	 *         )? 
-	 *         category+=[Category|CatRef]* 
+	 *         category+=[Category|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -356,7 +352,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (docReference=DOCPATH docFragment=DOCFRAGMENT?)
+	 *     (docReference=DOCPATH docFragment=QualifiedName?)
 	 */
 	protected void sequence_ExternalDocument(EObject context, ExternalDocument semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -397,7 +393,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         (componentCategory+=ComponentCategory+ | connections?='connections')? 
-	 *         category+=[Category|CatRef]* 
+	 *         category+=[Category|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -428,7 +424,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[Category|CatRef]* 
+	 *         category+=[Category|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         whencondition=WhenCondition? 
@@ -470,22 +466,6 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
 		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
 		feeder.accept(grammarAccess.getInformalPredicateAccess().getDescriptionSTRINGTerminalRuleCall_2_0(), semanticObject.getDescription());
-		feeder.finish();
-	}
-	
-	
-	/**
-	 * Constraint:
-	 *     xpression=AExpression
-	 */
-	protected void sequence_Predicate(EObject context, Predicate semanticObject) {
-		if(errorAcceptor != null) {
-			if(transientValues.isValueTransient(semanticObject, ReqSpecPackage.Literals.PREDICATE__XPRESSION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ReqSpecPackage.Literals.PREDICATE__XPRESSION));
-		}
-		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
-		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
-		feeder.accept(grammarAccess.getPredicateAccess().getXpressionAExpressionParserRuleCall_1_0(), semanticObject.getXpression());
 		feeder.finish();
 	}
 	
@@ -561,7 +541,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         targetElement=[NamedElement|ID]? 
-	 *         category+=[Category|CatRef]* 
+	 *         category+=[Category|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
 	 *         computes+=ComputeDeclaration* 
@@ -583,6 +563,15 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_SystemRequirement(EObject context, Requirement semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (name=ID (type=TypeRef | type=PropertyRef | (range?='[' (type=TypeRef | type=PropertyRef)))? value=AExpression property=PropertyRef?)
+	 */
+	protected void sequence_ValDeclaration(EObject context, ReqValDeclaration semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

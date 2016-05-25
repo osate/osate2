@@ -63,6 +63,7 @@ import org.osate.verify.services.VerifyGrammarAccess;
 import org.osate.verify.verify.AgreeMethod;
 import org.osate.verify.verify.AllExpr;
 import org.osate.verify.verify.Claim;
+import org.osate.verify.verify.ComputeRef;
 import org.osate.verify.verify.ElseExpr;
 import org.osate.verify.verify.FormalParameter;
 import org.osate.verify.verify.JUnit4Method;
@@ -216,6 +217,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 			case VerifyPackage.CLAIM:
 				sequence_Claim(context, (Claim) semanticObject); 
 				return; 
+			case VerifyPackage.COMPUTE_REF:
+				sequence_ComputeRef(context, (ComputeRef) semanticObject); 
+				return; 
 			case VerifyPackage.ELSE_EXPR:
 				if(context == grammarAccess.getArgumentExprRule() ||
 				   context == grammarAccess.getCompositeElseEvidenceExprRule() ||
@@ -324,6 +328,22 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 */
 	protected void sequence_CompositeElseEvidenceExpr_ElseEvidenceExpr_SingleElseEvidenceExpr(EObject context, ElseExpr semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     compute=[ComputeDeclaration|ID]
+	 */
+	protected void sequence_ComputeRef(EObject context, ComputeRef semanticObject) {
+		if(errorAcceptor != null) {
+			if(transientValues.isValueTransient(semanticObject, VerifyPackage.Literals.COMPUTE_REF__COMPUTE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.COMPUTE_REF__COMPUTE));
+		}
+		INodesForEObjectProvider nodes = createNodeProvider(semanticObject);
+		SequenceFeeder feeder = createSequencerFeeder(semanticObject, nodes);
+		feeder.accept(grammarAccess.getComputeRefAccess().getComputeComputeDeclarationIDTerminalRuleCall_0_1(), semanticObject.getCompute());
+		feeder.finish();
 	}
 	
 	
@@ -489,11 +509,11 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
-	 *         (result+=[ComputeDeclaration|ID] result+=[ComputeDeclaration|ID]*)? 
+	 *         (computes+=ComputeRef computes+=ComputeRef*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
-	 *         (parameters+=AExpression parameters+=AExpression*)? 
+	 *         (actuals+=AExpression actuals+=AExpression*)? 
 	 *         (propertyValues+=[ValDeclaration|ID] propertyValues+=[ValDeclaration|ID]*)? 
-	 *         (category+=[Category|CatRef]* timeout=AIntegerTerm? weight=INT?)?
+	 *         (category+=[Category|QualifiedName]* timeout=AIntegerTerm? weight=INT?)?
 	 *     )
 	 */
 	protected void sequence_VerificationActivity(EObject context, VerificationActivity semanticObject) {
@@ -516,9 +536,9 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         name=ID 
 	 *         (
 	 *             targetType=TargetType? 
-	 *             (params+=FormalParameter params+=FormalParameter*)? 
+	 *             (formals+=FormalParameter formals+=FormalParameter*)? 
 	 *             (properties+=[Property|AADLPROPERTYREFERENCE] properties+=[Property|AADLPROPERTYREFERENCE]*)? 
-	 *             (resultValues+=FormalParameter resultValues+=FormalParameter*)? 
+	 *             (results+=FormalParameter results+=FormalParameter*)? 
 	 *             (isPredicate?='boolean' | isResultReport?='report')?
 	 *         )? 
 	 *         title=STRING? 
@@ -527,7 +547,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         description=Description? 
 	 *         precondition=VerificationPrecondition? 
 	 *         validation=VerificationValidation? 
-	 *         category+=[Category|CatRef]*
+	 *         category+=[Category|QualifiedName]*
 	 *     )
 	 */
 	protected void sequence_VerificationMethod(EObject context, VerificationMethod semanticObject) {

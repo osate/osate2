@@ -696,7 +696,7 @@ ruleAssuranceTask returns [EObject current=null]
 		{ 
 	        newCompositeNode(grammarAccess.getAssuranceTaskAccess().getCategoryCategoryCrossReference_6_1_1_0()); 
 	    }
-		ruleCatRef		{ 
+		ruleQualifiedName		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -770,47 +770,6 @@ ruleAssuranceTask returns [EObject current=null]
     }
 )
 ;
-
-
-
-
-
-// Entry rule entryRuleCatRef
-entryRuleCatRef returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getCatRefRule()); } 
-	 iv_ruleCatRef=ruleCatRef 
-	 { $current=$iv_ruleCatRef.current.getText(); }  
-	 EOF 
-;
-
-// Rule CatRef
-ruleCatRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_0()); 
-    }
-
-	kw='.' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getCatRefAccess().getFullStopKeyword_1()); 
-    }
-    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getCatRefAccess().getIDTerminalRuleCall_2()); 
-    }
-)
-    ;
 
 
 
@@ -1137,9 +1096,9 @@ ruleTypeRef returns [EObject current=null]
     {
     	newLeafNode(otherlv_3, grammarAccess.getTypeRefAccess().getIntegerKeyword_1_1());
     }
-(	otherlv_4='unit' 
+(	otherlv_4='units' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0());
+    	newLeafNode(otherlv_4, grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0());
     }
 (
 (
@@ -1167,9 +1126,9 @@ ruleTypeRef returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getTypeRefAccess().getRealKeyword_2_1());
     }
-(	otherlv_8='unit' 
+(	otherlv_8='units' 
     {
-    	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0());
+    	newLeafNode(otherlv_8, grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0());
     }
 (
 (

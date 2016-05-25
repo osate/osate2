@@ -107,7 +107,4 @@ public class AbstractAlisaProposalProvider extends org.osate.alisa.common.ui.con
 	public void complete_AssuranceTask(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		// subclasses may override
 	}
-	public void complete_CatRef(EObject model, RuleCall ruleCall, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
-		// subclasses may override
-	}
 }

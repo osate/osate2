@@ -113,10 +113,10 @@ class ReqSpecUtilExtension {
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			}
 			result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes + req.constants,
-				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			return result
 		}
 
@@ -146,11 +146,11 @@ class ReqSpecUtilExtension {
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			}
 			result = new SimpleScope(result,
 				Scopes::scopedElementsFor(goal.constants,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			return result
 		}
 
@@ -177,10 +177,10 @@ class ReqSpecUtilExtension {
 			if (sr != null) {
 				result = new SimpleScope(result,
 					Scopes::scopedElementsFor(sr.constants,
-						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			}
 			result = new SimpleScope(result, Scopes::scopedElementsFor(req.constants,
-				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			return result
 		}
 
@@ -198,7 +198,7 @@ class ReqSpecUtilExtension {
 			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes,
-				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 			return result
 		}
 

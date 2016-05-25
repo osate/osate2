@@ -95,9 +95,6 @@
     <genClasses ecoreClass="ReqSpec.ecore#//InformalPredicate">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//InformalPredicate/description"/>
     </genClasses>
-    <genClasses ecoreClass="ReqSpec.ecore#//Predicate">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Predicate/xpression"/>
-    </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//ValuePredicate">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValuePredicate/xpression"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ValuePredicate/desiredValue"/>
@@ -116,5 +113,8 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//SystemRequirementSet/include"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//GlobalRequirementSet"/>
+    <genClasses ecoreClass="ReqSpec.ecore#//ReqValDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//ReqValDeclaration/property"/>
+    </genClasses>
   </genPackages>
 </genmodel:GenModel>

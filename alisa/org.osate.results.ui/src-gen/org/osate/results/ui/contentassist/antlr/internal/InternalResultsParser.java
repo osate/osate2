@@ -38,7 +38,7 @@ import java.util.HashMap;
 @SuppressWarnings("all")
 public class InternalResultsParser extends AbstractInternalContentAssistParser {
     public static final String[] tokenNames = new String[] {
-        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'this'", "'%'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'reports'", "'for'", "'['", "']'", "':'", "'description'", "'report'", "'heading'", "'results'", "'contributor'", "'='", "'issues'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'unit'", "'real'", "'string'", "'model'", "'element'", "'#'", "'.'", "'in'", "'img'", "'('", "')'", "','", "'..'", "'delta'", "'if'", "'then'", "'endif'", "'else'", "'::'", "'true'"
+        "<invalid>", "<EOR>", "<DOWN>", "<UP>", "RULE_INT", "RULE_REAL_LIT", "RULE_STRING", "RULE_ID", "RULE_DIGIT", "RULE_EXPONENT", "RULE_INT_EXPONENT", "RULE_EXTENDED_DIGIT", "RULE_BASED_INTEGER", "RULE_ML_COMMENT", "RULE_SL_COMMENT", "RULE_WS", "RULE_ANY_OTHER", "'this'", "'%'", "'or'", "'||'", "'and'", "'&&'", "'=='", "'!='", "'>='", "'<='", "'>'", "'<'", "'><'", "'+'", "'-'", "'*'", "'/'", "'div'", "'mod'", "'not'", "'false'", "'tbd'", "'error'", "'warning'", "'info'", "'success'", "'fail'", "'reports'", "'for'", "'['", "']'", "':'", "'description'", "'report'", "'heading'", "'results'", "'contributor'", "'='", "'issues'", "'target'", "'exception'", "'diagnosticId'", "'boolean'", "'integer'", "'units'", "'real'", "'string'", "'model'", "'element'", "'#'", "'.'", "'in'", "'img'", "'('", "')'", "','", "'..'", "'delta'", "'if'", "'then'", "'endif'", "'else'", "'::'", "'true'"
     };
     public static final int T__50=50;
     public static final int RULE_INT_EXPONENT=10;
@@ -13680,24 +13680,24 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__Group_1_2__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4597:1: rule__TypeRef__Group_1_2__0__Impl : ( 'unit' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4597:1: rule__TypeRef__Group_1_2__0__Impl : ( 'units' ) ;
     public final void rule__TypeRef__Group_1_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4601:1: ( ( 'unit' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4602:1: ( 'unit' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4601:1: ( ( 'units' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4602:1: ( 'units' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4602:1: ( 'unit' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4603:1: 'unit'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4602:1: ( 'units' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4603:1: 'units'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0()); 
+               before(grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0()); 
             }
             match(input,61,FOLLOW_61_in_rule__TypeRef__Group_1_2__0__Impl9445); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTypeRefAccess().getUnitKeyword_1_2_0()); 
+               after(grammarAccess.getTypeRefAccess().getUnitsKeyword_1_2_0()); 
             }
 
             }
@@ -14096,24 +14096,24 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__Group_2_2__0__Impl"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4756:1: rule__TypeRef__Group_2_2__0__Impl : ( 'unit' ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4756:1: rule__TypeRef__Group_2_2__0__Impl : ( 'units' ) ;
     public final void rule__TypeRef__Group_2_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4760:1: ( ( 'unit' ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4761:1: ( 'unit' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4760:1: ( ( 'units' ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4761:1: ( 'units' )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4761:1: ( 'unit' )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4762:1: 'unit'
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4761:1: ( 'units' )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:4762:1: 'units'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0()); 
+               before(grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0()); 
             }
             match(input,61,FOLLOW_61_in_rule__TypeRef__Group_2_2__0__Impl9755); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getTypeRefAccess().getUnitKeyword_2_2_0()); 
+               after(grammarAccess.getTypeRefAccess().getUnitsKeyword_2_2_0()); 
             }
 
             }

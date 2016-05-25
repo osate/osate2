@@ -20,6 +20,9 @@ import org.eclipse.emf.ecore.EPackage;
 
 import org.eclipse.emf.ecore.util.Switch;
 
+import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
+
 import org.osate.reqspec.reqSpec.*;
 
 /**
@@ -189,14 +192,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case ReqSpecPackage.PREDICATE:
-      {
-        Predicate predicate = (Predicate)theEObject;
-        T result = casePredicate(predicate);
-        if (result == null) result = caseReqPredicate(predicate);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
       case ReqSpecPackage.VALUE_PREDICATE:
       {
         ValuePredicate valuePredicate = (ValuePredicate)theEObject;
@@ -234,6 +229,15 @@ public class ReqSpecSwitch<T> extends Switch<T>
         T result = caseGlobalRequirementSet(globalRequirementSet);
         if (result == null) result = caseRequirementSet(globalRequirementSet);
         if (result == null) result = caseReqRoot(globalRequirementSet);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case ReqSpecPackage.REQ_VAL_DECLARATION:
+      {
+        ReqValDeclaration reqValDeclaration = (ReqValDeclaration)theEObject;
+        T result = caseReqValDeclaration(reqValDeclaration);
+        if (result == null) result = caseValDeclaration(reqValDeclaration);
+        if (result == null) result = caseAVariableDeclaration(reqValDeclaration);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -466,22 +470,6 @@ public class ReqSpecSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Predicate</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Predicate</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T casePredicate(Predicate object)
-  {
-    return null;
-  }
-
-  /**
    * Returns the result of interpreting the object as an instance of '<em>Value Predicate</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
@@ -557,6 +545,54 @@ public class ReqSpecSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseGlobalRequirementSet(GlobalRequirementSet object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Req Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Req Val Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseReqValDeclaration(ReqValDeclaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>AVariable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>AVariable Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseAVariableDeclaration(AVariableDeclaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Val Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseValDeclaration(ValDeclaration object)
   {
     return null;
   }

@@ -211,7 +211,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_AssuranceTask_CategoryKeyword_6_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

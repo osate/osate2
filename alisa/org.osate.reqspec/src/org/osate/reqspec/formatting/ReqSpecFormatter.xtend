@@ -61,7 +61,6 @@ class ReqSpecFormatter extends AbstractDeclarativeFormatter {
 		c.setLinewrap(1,2,2).before(docGoalRule);
 		c.setLinewrap(1,2,2).before(informalPredicateRule);
 		c.setLinewrap(1,2,2).before(valuePredicateRule);
-		c.setLinewrap(1,2,2).before(predicateRule);
 		c.setLinewrap(1,2,2).before(uncertaintyRule);
 		c.setLinewrap(1,2,2).before(rationaleRule);
 		

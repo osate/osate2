@@ -340,7 +340,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_VerificationActivity_CategoryKeyword_9_1_0_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -351,8 +351,8 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('[' ']')?
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     actuals+=AExpression ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
-	 *     parameters+=AExpression ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
 	 *     propertyValues+=[ValDeclaration|ID] ')' (ambiguity) (rule end)
 	 */
 	protected void emit_VerificationActivity___LeftSquareBracketKeyword_9_0_RightSquareBracketKeyword_9_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
@@ -364,14 +364,14 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('property' 'values' '(' ')')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     actuals+=AExpression ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
+	 *     actuals+=AExpression ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
+	 *     actuals+=AExpression ')' (ambiguity) '[' 'weight' weight=INT
+	 *     actuals+=AExpression ')' (ambiguity) ('[' ']')? (rule end)
+	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) '[' 'weight' weight=INT
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' (ambiguity) ('[' ']')? (rule end)
-	 *     parameters+=AExpression ')' (ambiguity) '[' 'category' category+=[Category|CatRef]
-	 *     parameters+=AExpression ')' (ambiguity) '[' 'timeout' timeout=AIntegerTerm
-	 *     parameters+=AExpression ')' (ambiguity) '[' 'weight' weight=INT
-	 *     parameters+=AExpression ')' (ambiguity) ('[' ']')? (rule end)
 	 */
 	protected void emit_VerificationActivity___PropertyKeyword_8_0_ValuesKeyword_8_1_LeftParenthesisKeyword_8_2_RightParenthesisKeyword_8_4__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -382,7 +382,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_VerificationMethod_CategoryKeyword_6_4_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -395,7 +395,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     name=ID (ambiguity) ':' title=STRING
 	 *     name=ID (ambiguity) '[' ']' (rule end)
-	 *     name=ID (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     name=ID (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     name=ID (ambiguity) '[' description=Description
 	 *     name=ID (ambiguity) '[' methodKind=MethodKind
 	 *     name=ID (ambiguity) '[' precondition=VerificationPrecondition
@@ -412,25 +412,25 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('properties' '(' ')')?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     name=ID '(' ')' (ambiguity) 'returns' '(' resultValues+=FormalParameter
+	 *     formals+=FormalParameter ')' (ambiguity) 'returns' '(' results+=FormalParameter
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? ':' title=STRING
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' ']' (rule end)
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|QualifiedName]
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' description=Description
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' methodKind=MethodKind
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' precondition=VerificationPrecondition
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' validation=VerificationValidation
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? 'for' componentCategory+=ComponentCategory
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? isPredicate?='boolean'
+	 *     formals+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? isResultReport?='report'
+	 *     name=ID '(' ')' (ambiguity) 'returns' '(' results+=FormalParameter
 	 *     name=ID '(' ')' (ambiguity) ('returns' '(' ')')? isPredicate?='boolean'
 	 *     name=ID '(' ')' (ambiguity) ('returns' '(' ')')? isResultReport?='report'
-	 *     params+=FormalParameter ')' (ambiguity) 'returns' '(' resultValues+=FormalParameter
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? ':' title=STRING
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' ']' (rule end)
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|CatRef]
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' description=Description
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' methodKind=MethodKind
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' precondition=VerificationPrecondition
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? '[' validation=VerificationValidation
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? 'for' componentCategory+=ComponentCategory
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? 'for' target=[ComponentClassifier|AadlClassifierReference]
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? isPredicate?='boolean'
-	 *     params+=FormalParameter ')' (ambiguity) ('returns' '(' ')')? isResultReport?='report'
-	 *     targetType=TargetType ',' ')' (ambiguity) 'returns' '(' resultValues+=FormalParameter
+	 *     targetType=TargetType ',' ')' (ambiguity) 'returns' '(' results+=FormalParameter
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? ':' title=STRING
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' ']' (rule end)
-	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|CatRef]
+	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' 'category' category+=[Category|QualifiedName]
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' description=Description
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' methodKind=MethodKind
 	 *     targetType=TargetType ',' ')' (ambiguity) ('returns' '(' ')')? '[' precondition=VerificationPrecondition
@@ -449,22 +449,22 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     ('returns' '(' ')')?
 	 *
 	 * This ambiguous syntax occurs at:
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) ':' title=STRING
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' ']' (rule end)
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|QualifiedName]
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' description=Description
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' methodKind=MethodKind
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' precondition=VerificationPrecondition
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' validation=VerificationValidation
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) 'for' componentCategory+=ComponentCategory
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) 'for' target=[ComponentClassifier|AadlClassifierReference]
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) isPredicate?='boolean'
+	 *     formals+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
 	 *     name=ID '(' ')' ('properties' '(' ')')? (ambiguity) isPredicate?='boolean'
 	 *     name=ID '(' ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) ':' title=STRING
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' ']' (rule end)
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|CatRef]
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' description=Description
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' methodKind=MethodKind
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' precondition=VerificationPrecondition
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) '[' validation=VerificationValidation
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) 'for' componentCategory+=ComponentCategory
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) 'for' target=[ComponentClassifier|AadlClassifierReference]
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) isPredicate?='boolean'
-	 *     params+=FormalParameter ')' ('properties' '(' ')')? (ambiguity) isResultReport?='report'
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) ':' title=STRING
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' ']' (rule end)
-	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' description=Description
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' methodKind=MethodKind
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) '[' precondition=VerificationPrecondition
@@ -475,7 +475,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     properties+=[Property|AADLPROPERTYREFERENCE] ')' (ambiguity) isResultReport?='report'
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) ':' title=STRING
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' ']' (rule end)
-	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|CatRef]
+	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' 'category' category+=[Category|QualifiedName]
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' description=Description
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' methodKind=MethodKind
 	 *     targetType=TargetType ',' ')' ('properties' '(' ')')? (ambiguity) '[' precondition=VerificationPrecondition

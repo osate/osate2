@@ -41,7 +41,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 
 	def protected static scopeFor(Iterable<? extends EObject> elements) {
 		new SimpleScope(IScope::NULLSCOPE,
-			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			Scopes::scopedElementsFor(elements, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 	}
 
 	def scope_UnitLiteral(EObject context, EReference reference) {
@@ -85,7 +85,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 	}
 	
 	def IScope scope_ComponentImplementation(EObject context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.map[convertImplName], true)
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[convertImplName], false)
 	}
 	
 	def IScope scope_ComponentClassifier(EObject context, EReference reference) {
@@ -95,7 +95,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			} else {
 				EObjectDescription.create(name.toString("::"), EObjectOrProxy)
 			}
-		], true)
+		], false)
 	}
 	
 	def private propertySetMemberScope(EObject context, EReference reference) {
@@ -105,7 +105,7 @@ class CommonScopeProvider extends AbstractDeclarativeScopeProvider {
 			} else {
 				emptyList
 			}
-		].flatten, true)
+		].flatten, false)
 	}
 	
 	def private convertImplName(IEObjectDescription description) {
