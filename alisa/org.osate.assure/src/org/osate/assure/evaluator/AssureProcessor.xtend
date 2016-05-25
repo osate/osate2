@@ -371,12 +371,12 @@ class AssureProcessor implements IAssureProcessor {
 					
 					} else if (agreemethod.singleLayer) {
 						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
-						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
+//						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
 						
 						//verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
 						
 						//Currently Agree does not work on Flows or Connections so this is valid
-						verHandler.executeSystemInstance(target as ComponentInstance, progressTreeViewer);
+//						verHandler.executeSystemInstance(target as ComponentInstance, progressTreeViewer);
 					}
 					
 					//Should not save here because it is job based

@@ -31,10 +31,15 @@ import java.util.SortedSet
 import java.util.TreeSet
 import org.eclipse.core.resources.IMarker
 import org.eclipse.core.resources.IResource
+import org.eclipse.core.resources.WorkspaceJob
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.Status
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtext.EcoreUtil2
+import org.junit.runner.Result
 import org.osate.aadl2.ComponentCategory
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
@@ -61,7 +66,9 @@ import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.NestedClaimReference
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.QualifiedClaimReference
 import org.osate.assure.assure.QualifiedVAReference
+import org.osate.assure.assure.QualifiedVerificationPlanElementReference
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
@@ -70,26 +77,19 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
-import org.osate.reqspec.reqSpec.Requirement
+import org.osate.categories.categories.CategoriesFactory
+import org.osate.categories.categories.CategoryFilter
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
+import org.osate.verify.verify.VerificationPlan
+
+import static org.osate.assure.util.AssureUtilExtension.*
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.assure.assure.QualifiedClaimReference
-import org.osate.verify.verify.VerificationPlan
-import org.osate.assure.assure.QualifiedVerificationPlanElementReference
-import org.junit.runner.Result
-import org.eclipse.core.resources.WorkspaceJob
-import org.eclipse.xtext.resource.XtextResource
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.xtext.util.concurrent.IUnitOfWork
-import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.Status
 
 class AssureUtilExtension {
 
@@ -779,11 +779,60 @@ class AssureUtilExtension {
 		counts.featuresRequirementsCount = counts.featuresRequirementsCount + subcounts.featuresRequirementsCount
 	}
 
+	def static CategoryFilter getCategoryFilter(AssureResult assureResult){
+		//TODO: get filter
+		val categoryFilter = CategoriesFactory.eINSTANCE.createCategoryFilter
+		categoryFilter.anyCategory = false
+		categoryFilter.name = "testFilterBehaviorAny"
+		
+		
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("categoryFilter = " + categoryFilter)
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		println("******************************************************")
+		
+//		if ( assureResult != null){
+//		 	val commonRefFinder =  new CommonGlobalReferenceFinder	 	
+//			println("commonRefFinder = " + commonRefFinder)
+//			println("assureResult = " + assureResult)
+//			println("CategoriesPackage.Literals.CATEGORY_FILTER = " + CategoriesPackage.Literals.CATEGORY_FILTER)
+//			
+//			val descs = commonRefFinder.getEObjectDescriptions(assureResult, CategoriesPackage.Literals.CATEGORY_FILTER, 'cat')
+//			descs.map [ eod |
+//				EcoreUtil.resolve(eod.EObjectOrProxy, assureResult) as CategoryFilter].findFirst[name=='testFilterBehaviorAny']
+//			}
+		null
+	}
+
 	/**
 	 * recompute and add the counts of the parts list to the result
 	 */
 	private def static void recomputeAllCounts(AssureResult result, List<? extends AssureResult> parts) {
-		parts.forEach[e|e.recomputeAllCounts.addTo(result)]
+		println("recomputeAllCounts(" + result + ", " + parts)
+
+		parts.forEach[e|
+			switch e {
+				ClaimResult: {
+					if (e.targetReference.findClaim.evaluateRequirementFilter(result.getCategoryFilter)) e.recomputeAllCounts.addTo(result)
+				}
+				VerificationActivityResult: {
+					val verificationActivity = e.targetReference.verificationActivity
+					if (verificationActivity.evaluateVerificationMethodFilter(result.getCategoryFilter) &&
+						verificationActivity.evaluateVerificationActivityFilter(result.getCategoryFilter)
+					) e.recomputeAllCounts.addTo(result)
+				}
+				default: e.recomputeAllCounts.addTo(result)
+			}
+		]
 	}
 
 	def static AssuranceCaseResult recomputeAllCounts(AssuranceCaseResult caseResult) {
