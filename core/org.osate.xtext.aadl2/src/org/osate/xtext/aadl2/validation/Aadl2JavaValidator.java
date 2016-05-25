@@ -5000,15 +5000,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 										+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 					}
 				} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
-							destinationClassifier)
-							&& !classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
-									destinationClassifier)) {
+					if (!classifiersFoundInSupportedClassifierSubsetMatchesProperty(connection, sourceClassifier,
+							destinationClassifier) && !isDataSubset(sourceClassifier, destinationClassifier)) {
 						error(connection,
-								"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
-										+ sourceClassifier.getQualifiedName() + "' and '"
+								"The data type of '" + source.getName() + "' ('" + sourceClassifier.getQualifiedName()
+										+ "') is not a subset of the data type of '" + destination.getName() + "' ('"
 										+ destinationClassifier.getQualifiedName()
-										+ "') are incompatible and they are not listed as matching classifiers in the property constant '"
+										+ "') based on name matching or the property constant '"
 										+ AadlProject.SUPPORTED_CLASSIFIER_SUBSET_MATCHES + "'.");
 					}
 				} else if (ModelingProperties.CONVERSION.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
@@ -5099,6 +5097,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						return true;
 					}
 				}
+			}
+		}
+		return false;
+	}
+
+	private boolean isDataSubset(Classifier source, Classifier destination) {
+		Boolean result = true;
+		if (source instanceof DataImplementation && destination instanceof DataImplementation) {
+			EList<Subcomponent> destElements = ((DataImplementation) destination).getAllSubcomponents();
+			EList<Subcomponent> srcElements = ((DataImplementation) source).getAllSubcomponents();
+			for (Subcomponent destSubcomponent : destElements) {
+				result = result && containsNamedElement(destSubcomponent.getName(), srcElements);
+			}
+		}
+		return result;
+	}
+
+	private boolean containsNamedElement(String name, EList<Subcomponent> srcElements) {
+		for (Subcomponent srcsubcomponent : srcElements) {
+			if (name.equalsIgnoreCase(srcsubcomponent.getName())) {
+				return true;
 			}
 		}
 		return false;
