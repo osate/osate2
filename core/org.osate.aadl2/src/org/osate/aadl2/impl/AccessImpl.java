@@ -144,7 +144,7 @@ public abstract class AccessImpl extends FeatureImpl implements Access {
 	@Override
 	public AccessCategory getCategory() {
 		if (this instanceof BusAccess) {
-			return AccessCategory.BUS;
+			return ((BusAccess) this).isVirtual() ? AccessCategory.VIRTUAL_BUS : AccessCategory.BUS;
 		}
 		if (this instanceof DataAccess) {
 			return AccessCategory.DATA;

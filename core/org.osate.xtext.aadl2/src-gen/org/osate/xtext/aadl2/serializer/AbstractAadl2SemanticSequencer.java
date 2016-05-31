@@ -1262,6 +1262,7 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (
 	 *         (name=ID | refined=[Feature|REFINEDNAME]) 
 	 *         kind=AccessDirection 
+	 *         virtual?='virtual'? 
 	 *         busFeatureClassifier=[BusSubcomponentType|QCREF]? 
 	 *         arrayDimension+=ArrayDimension? 
 	 *         ownedPropertyAssociation+=PropertyAssociation*
@@ -3609,7 +3610,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                 ownedDataPort+=DataPort | 
 	 *                 ownedEventPort+=EventPort | 
 	 *                 ownedEventDataPort+=EventDataPort | 
-	 *                 ownedAbstractFeature+=AbstractFeature
+	 *                 ownedAbstractFeature+=AbstractFeature | 
+	 *                 ownedBusAccess+=BusAccess
 	 *             )+
 	 *         )? 
 	 *         ((derivedModes?='requires' ownedMode+=Mode+) | (ownedMode+=Mode | ownedModeTransition+=ModeTransition)+ | noModes?='none')? 
@@ -3705,7 +3707,8 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *                 ownedFeatureGroup+=FeatureGroup | 
 	 *                 ownedSubprogramAccess+=SubprogramAccess | 
 	 *                 ownedSubprogramGroupAccess+=SubprogramGroupAccess | 
-	 *                 ownedAbstractFeature+=AbstractFeature
+	 *                 ownedAbstractFeature+=AbstractFeature | 
+	 *                 ownedBusAccess+=BusAccess
 	 *             )+
 	 *         )? 
 	 *         (ownedFlowSpecification+=FlowSpecification+ | noFlows?='none')? 

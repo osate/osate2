@@ -1287,6 +1287,7 @@ For access features, the classifier specifies the type of the shared component.<
             <body>Specifies access to a shared subprogram group component.</body>
           </ownedComment>
         </ownedLiteral>
+        <ownedLiteral xmi:id="_JFKJUCdzEeaJZfxPrdQ37A" name="virtualBus"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Enumeration" xmi:id="Features-PortCategory" name="PortCategory">
         <ownedComment xmi:id="Features-PortCategory-_ownedComment.0">

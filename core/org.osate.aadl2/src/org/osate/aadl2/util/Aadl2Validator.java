@@ -264,8 +264,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateAccess((Access) value, diagnostics, context);
 		case Aadl2Package.ACCESS_CONNECTION_END:
 			return validateAccessConnectionEnd((AccessConnectionEnd) value, diagnostics, context);
-		case Aadl2Package.BUS_SUBCOMPONENT_TYPE:
-			return validateBusSubcomponentType((BusSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.BUS_FEATURE_CLASSIFIER:
+			return validateBusFeatureClassifier((BusFeatureClassifier) value, diagnostics, context);
 		case Aadl2Package.DATA_ACCESS:
 			return validateDataAccess((DataAccess) value, diagnostics, context);
 		case Aadl2Package.PARAMETER_CONNECTION_END:
@@ -422,6 +422,8 @@ public class Aadl2Validator extends EObjectValidator {
 			return validateMemorySubcomponentType((MemorySubcomponentType) value, diagnostics, context);
 		case Aadl2Package.DEVICE_SUBCOMPONENT_TYPE:
 			return validateDeviceSubcomponentType((DeviceSubcomponentType) value, diagnostics, context);
+		case Aadl2Package.BUS_SUBCOMPONENT_TYPE:
+			return validateBusSubcomponentType((BusSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE:
 			return validateProcessorSubcomponentType((ProcessorSubcomponentType) value, diagnostics, context);
 		case Aadl2Package.ABSTRACT_IMPLEMENTATION:
@@ -1345,6 +1347,16 @@ public class Aadl2Validator extends EObjectValidator {
 	public boolean validateAccessConnectionEnd(AccessConnectionEnd accessConnectionEnd, DiagnosticChain diagnostics,
 			Map<Object, Object> context) {
 		return validate_EveryDefaultConstraint(accessConnectionEnd, diagnostics, context);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public boolean validateBusFeatureClassifier(BusFeatureClassifier busFeatureClassifier, DiagnosticChain diagnostics,
+			Map<Object, Object> context) {
+		return validate_EveryDefaultConstraint(busFeatureClassifier, diagnostics, context);
 	}
 
 	/**

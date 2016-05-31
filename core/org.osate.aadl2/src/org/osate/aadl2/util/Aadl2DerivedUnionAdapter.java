@@ -6705,6 +6705,13 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			break;
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_BUS_ACCESS:
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_Member());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
+			break;
 		}
 	}
 
@@ -7017,6 +7024,13 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			break;
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_Member());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_OwnedMember());
+			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
+			break;
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS:
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getComponentType_OwnedFeature());
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getClassifier_ClassifierFeature());
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getNamespace_Member());

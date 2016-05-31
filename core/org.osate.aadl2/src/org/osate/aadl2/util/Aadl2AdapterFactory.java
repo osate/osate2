@@ -442,8 +442,8 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		}
 
 		@Override
-		public Adapter caseBusSubcomponentType(BusSubcomponentType object) {
-			return createBusSubcomponentTypeAdapter();
+		public Adapter caseBusFeatureClassifier(BusFeatureClassifier object) {
+			return createBusFeatureClassifierAdapter();
 		}
 
 		@Override
@@ -829,6 +829,11 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 		@Override
 		public Adapter caseDeviceSubcomponentType(DeviceSubcomponentType object) {
 			return createDeviceSubcomponentTypeAdapter();
+		}
+
+		@Override
+		public Adapter caseBusSubcomponentType(BusSubcomponentType object) {
+			return createBusSubcomponentTypeAdapter();
 		}
 
 		@Override
@@ -2947,6 +2952,20 @@ public class Aadl2AdapterFactory extends AdapterFactoryImpl {
 	 * @generated
 	 */
 	public Adapter createAccessConnectionEndAdapter() {
+		return null;
+	}
+
+	/**
+	 * Creates a new adapter for an object of class '{@link org.osate.aadl2.BusFeatureClassifier <em>Bus Feature Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * This default implementation returns null so that we can easily ignore cases;
+	 * it's useful to ignore a case when inheritance will catch all the cases anyway.
+	 * <!-- end-user-doc -->
+	 * @return the new adapter.
+	 * @see org.osate.aadl2.BusFeatureClassifier
+	 * @generated
+	 */
+	public Adapter createBusFeatureClassifierAdapter() {
 		return null;
 	}
 

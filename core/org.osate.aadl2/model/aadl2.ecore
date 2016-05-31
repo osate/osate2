@@ -1364,8 +1364,14 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
     <eStructuralFeatures xsi:type="ecore:EReference" name="busFeatureClassifier" ordered="false"
-        eType="#//BusSubcomponentType">
+        eType="#//BusFeatureClassifier">
       <eAnnotations source="subsets" references="#//Feature/featureClassifier"/>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="virtual" ordered="false"
+        lowerBound="1" eType="#//Boolean" defaultValueLiteral="false">
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
       </eAnnotations>
@@ -1410,11 +1416,12 @@
     <eLiterals name="data" value="1"/>
     <eLiterals name="subprogram" value="2"/>
     <eLiterals name="subprogramGroup" value="3"/>
+    <eLiterals name="virtualBus" value="4"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType #//FeatureClassifier">
+  <eClassifiers xsi:type="ecore:EClass" name="BusFeatureClassifier" abstract="true"
+      eSuperTypes="#//FeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
-      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
+      <details key="documentation" value="&lt;p>From package AADLDetails::Features.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="DataAccess" eSuperTypes="#//Access #//FlowElement #//ParameterConnectionEnd #//PortConnectionEnd">
@@ -2571,7 +2578,7 @@
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponentType" abstract="true"
-      eSuperTypes="#//SubcomponentType">
+      eSuperTypes="#//SubcomponentType #//BusFeatureClassifier">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
     </eAnnotations>
@@ -2610,6 +2617,12 @@
       eSuperTypes="#//SubcomponentType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::Device.&lt;/p>"/>
+    </eAnnotations>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BusSubcomponentType" abstract="true"
+      eSuperTypes="#//SubcomponentType #//BusFeatureClassifier">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="&lt;p>From package AADLDetails::Components::Bus.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ProcessorSubcomponentType" abstract="true"
@@ -2904,7 +2917,7 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::ThreadGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponent" eSuperTypes="#//Subcomponent #//VirtualBus">
+  <eClassifiers xsi:type="ecore:EClass" name="VirtualBusSubcomponent" eSuperTypes="#//Subcomponent #//AccessConnectionEnd #//VirtualBus">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
     </eAnnotations>
@@ -4009,6 +4022,13 @@
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
       </eAnnotations>
     </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
+        upperBound="-1" eType="#//BusAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualBus.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VirtualBusImplementation" eSuperTypes="#//ComponentImplementation #//VirtualBusClassifier">
     <eAnnotations source="duplicates">
@@ -4080,6 +4100,13 @@
     </eStructuralFeatures>
     <eStructuralFeatures xsi:type="ecore:EReference" name="ownedSubprogramGroupAccess"
         ordered="false" upperBound="-1" eType="#//SubprogramGroupAccess" containment="true">
+      <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="ownedBusAccess" ordered="false"
+        upperBound="-1" eType="#//BusAccess" containment="true">
       <eAnnotations source="subsets" references="#//ComponentType/ownedFeature"/>
       <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
         <details key="documentation" value="&lt;p>From package AADLDetails::Components::VirtualProcessor.&lt;/p>"/>
