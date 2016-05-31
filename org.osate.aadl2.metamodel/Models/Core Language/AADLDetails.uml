@@ -515,9 +515,7 @@
           <generalization xmi:id="_SKEe8Kc8EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
-          <generalization xmi:id="_VpaJYLbvEeCFTe7PfIxrcw">
-            <general xmi:type="uml:Class" href="AADLConstructs.uml#_hn8cMLOzEeCzMYz5ww7glA"/>
-          </generalization>
+          <generalization xmi:id="_R3BScCdxEeaJZfxPrdQ37A" general="_glUIUCdwEeaJZfxPrdQ37A"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="_a1vLYKc4EeCYEIHXYlP5sg" name="BusPrototype">
           <generalization xmi:id="_fvCcoKc4EeCYEIHXYlP5sg" general="_9O0w4Kc3EeCYEIHXYlP5sg"/>
@@ -2268,12 +2266,18 @@
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kf_b4cjyEeCKY-_8-OsxgA" value="*"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
           </ownedAttribute>
+          <ownedAttribute xmi:id="_lVjGQCf2EealdIntNzCC3g" name="ownedBusAccess" visibility="public" type="Features-BusAccess" aggregation="composite" association="_lVajYCf2EealdIntNzCC3g">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_HY524Cf3EealdIntNzCC3g"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_HY86MCf3EealdIntNzCC3g" value="*"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
         </packagedElement>
         <packagedElement xmi:type="uml:Class" xmi:id="Components-VirtualBus-VirtualBusSubcomponent" name="VirtualBusSubcomponent">
           <generalization xmi:id="Components-VirtualBus-VirtualBusSubcomponent-_generalization.0" general="Components-VirtualBus-VirtualBus"/>
           <generalization xmi:id="Components-VirtualBus-VirtualBusSubcomponent-_generalization.1">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Components-Subcomponent"/>
           </generalization>
+          <generalization xmi:id="_a-pv4CdyEeaJZfxPrdQ37A" general="Connections-AccessConnectionEnd"/>
           <ownedAttribute xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier" name="virtualBusSubcomponentType" visibility="public" type="_TgY98KfGEeCYEIHXYlP5sg" association="Components-VirtualBus-A_virtualBusSubcomponent_virtualBusClassifier">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier-_lowerValue"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-VirtualBus-VirtualBusSubcomponent-virtualBusClassifier-_upperValue" value="1"/>
@@ -2325,6 +2329,7 @@
           <generalization xmi:id="_ovkQoKf2EeCYEIHXYlP5sg">
             <general xmi:type="uml:Class" href="AADLConstructs.uml#_qfELUKclEeCYEIHXYlP5sg"/>
           </generalization>
+          <generalization xmi:id="_TDrS0CdxEeaJZfxPrdQ37A" general="_glUIUCdwEeaJZfxPrdQ37A"/>
         </packagedElement>
         <packagedElement xmi:type="uml:Association" xmi:id="_j1oQQMjyEeCKY-_8-OsxgA" name="A_virtualBusType_ownedDataPort" memberEnd="_j1oQQcjyEeCKY-_8-OsxgA _j1KWMMjyEeCKY-_8-OsxgA">
           <ownedEnd xmi:id="_j1oQQcjyEeCKY-_8-OsxgA" name="owner" visibility="public" type="Components-VirtualBus-VirtualBusType" association="_j1oQQMjyEeCKY-_8-OsxgA">
@@ -2342,6 +2347,15 @@
           <ownedEnd xmi:id="_kgsmgcjyEeCKY-_8-OsxgA" name="owner" visibility="public" type="Components-VirtualBus-VirtualBusType" association="_kgsmgMjyEeCKY-_8-OsxgA">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_kgtNkcjyEeCKY-_8-OsxgA"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_kgtNkMjyEeCKY-_8-OsxgA" value="1"/>
+          </ownedEnd>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_lVajYCf2EealdIntNzCC3g" name="A_virtualBusType_ownedBusAccess" memberEnd="_lVjGQCf2EealdIntNzCC3g _lVkUYCf2EealdIntNzCC3g">
+          <eAnnotations xmi:id="_lVh4ICf2EealdIntNzCC3g" source="org.eclipse.papyrus">
+            <details xmi:id="_lVifMCf2EealdIntNzCC3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:id="_lVkUYCf2EealdIntNzCC3g" name="owner" type="Components-VirtualBus-VirtualBusType" association="_lVajYCf2EealdIntNzCC3g">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_JgKeUCf3EealdIntNzCC3g"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_JgLscCf3EealdIntNzCC3g" value="1"/>
           </ownedEnd>
         </packagedElement>
       </packagedElement>
@@ -2397,6 +2411,11 @@
           <ownedAttribute xmi:id="Components-VirtualProcessor-VirtualProcessorType-ownedSubprogramGroupAccess" name="ownedSubprogramGroupAccess" visibility="public" type="Features-SubprogramGroupAccess" aggregation="composite" association="Components-VirtualProcessor-A_virtualProcessorType_ownedSubprogramGroupAccess">
             <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Components-VirtualProcessor-VirtualProcessorType-ownedSubprogramGroupAccess-_lowerValue"/>
             <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Components-VirtualProcessor-VirtualProcessorType-ownedSubprogramGroupAccess-_upperValue" value="*"/>
+            <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:id="_zLzf4SgAEealdIntNzCC3g" name="ownedBusAccess" visibility="public" type="Features-BusAccess" aggregation="composite" association="_zLy40CgAEealdIntNzCC3g">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_3CF08CgAEealdIntNzCC3g"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_3CHDECgAEealdIntNzCC3g" value="*"/>
             <subsettedProperty href="AADLConstructs.uml#Components-ComponentType-ownedFeature"/>
           </ownedAttribute>
         </packagedElement>
@@ -2486,6 +2505,15 @@
             <general xmi:type="uml:Class" href="AADLConstructs.uml#Templates-ComponentPrototype"/>
           </generalization>
           <generalization xmi:id="_-QsAEKdDEeCYEIHXYlP5sg" general="Components-VirtualProcessor-VirtualProcessor"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Association" xmi:id="_zLy40CgAEealdIntNzCC3g" name="A_virtualProcessorType_ownedBusAccess" memberEnd="_zLzf4SgAEealdIntNzCC3g _zLzf4igAEealdIntNzCC3g">
+          <eAnnotations xmi:id="_zLy40SgAEealdIntNzCC3g" source="org.eclipse.papyrus">
+            <details xmi:id="_zLzf4CgAEealdIntNzCC3g" key="nature" value="UML_Nature"/>
+          </eAnnotations>
+          <ownedEnd xmi:id="_zLzf4igAEealdIntNzCC3g" name="owner" type="Components-VirtualProcessor-VirtualProcessorType" association="_zLy40CgAEealdIntNzCC3g">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9v3UgCgAEealdIntNzCC3g"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9v4ioCgAEealdIntNzCC3g" value="1"/>
+          </ownedEnd>
         </packagedElement>
       </packagedElement>
     </packagedElement>
@@ -2663,10 +2691,14 @@
         <generalization xmi:id="Features-BusAccess-_generalization.0">
           <general xmi:type="uml:Class" href="AADLConstructs.uml#Features-AccessFeature"/>
         </generalization>
-        <ownedAttribute xmi:id="Features-BusAccess-busClassifier" name="busFeatureClassifier" visibility="public" type="_9O0w4Kc3EeCYEIHXYlP5sg" association="Features-A_busAccess_busClassifier">
+        <ownedAttribute xmi:id="Features-BusAccess-busClassifier" name="busFeatureClassifier" visibility="public" type="_glUIUCdwEeaJZfxPrdQ37A" association="Features-A_busAccess_busClassifier">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="Features-BusAccess-busClassifier-_lowerValue"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-BusAccess-busClassifier-_upperValue" value="1"/>
           <subsettedProperty href="AADLConstructs.uml#Features-Feature-classifier"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_sngu4CdwEeaJZfxPrdQ37A" name="virtual">
+          <type xmi:type="uml:PrimitiveType" href="AADLInfrastructure.uml#Boolean"/>
+          <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_2BiZUCdwEeaJZfxPrdQ37A"/>
         </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Features-SubprogramAccess" name="SubprogramAccess">
@@ -2893,6 +2925,11 @@
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_I5ch0336EeOQi6TySwOMww"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_I5ch0n36EeOQi6TySwOMww" value="1"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Class" xmi:id="_glUIUCdwEeaJZfxPrdQ37A" name="BusFeatureClassifier" isAbstract="true">
+        <generalization xmi:id="_VpaJYLbvEeCFTe7PfIxrcw">
+          <general xmi:type="uml:Class" href="AADLConstructs.uml#_hn8cMLOzEeCzMYz5ww7glA"/>
+        </generalization>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="NoneSupport" name="NoneSupport">

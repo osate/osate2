@@ -407,7 +407,7 @@ VirtualBusType returns aadl2::VirtualBusType:
 	('features' ((noFeatures?='none' ';') |
 	(ownedFeatureGroup+=FeatureGroup 
 	| ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort 
-	| ownedAbstractFeature+=AbstractFeature
+	| ownedAbstractFeature+=AbstractFeature | ownedBusAccess+=BusAccess
 	)+ ) )?
 	((derivedModes?='requires' 'modes'
 	 ((ownedMode+=Mode)+))
@@ -433,7 +433,7 @@ VirtualProcessorType returns aadl2::VirtualProcessorType:
 	(ownedDataPort+=DataPort| ownedEventPort+=EventPort | ownedEventDataPort+=EventDataPort
 		| ownedFeatureGroup+=FeatureGroup  
 	| ownedSubprogramAccess+=SubprogramAccess | ownedSubprogramGroupAccess+=SubprogramGroupAccess
-	| ownedAbstractFeature+=AbstractFeature
+	| ownedAbstractFeature+=AbstractFeature | ownedBusAccess+=BusAccess
 	)+ ) )?
 	('flows'
 	((ownedFlowSpecification+=FlowSpecification)+ | (noFlows?='none' ';')))?
@@ -1633,7 +1633,7 @@ SubprogramGroupAccess returns aadl2::SubprogramGroupAccess:
 BusAccess returns aadl2::BusAccess: 
 	((name=ID ':' )|
 	(refined=[aadl2::Feature|REFINEDNAME] ':' 'refined' 'to'))
-	kind=AccessDirection  
+	kind=AccessDirection (virtual?='virtual')?
 	'bus' 'access' (busFeatureClassifier=[aadl2::BusSubcomponentType|QCREF])? 
 	(arrayDimension+=ArrayDimension)?
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')? ';' 
@@ -1844,7 +1844,7 @@ ParameterConnection returns aadl2::ParameterConnection:
 	';';
 
 AccessCategory returns aadl2::AccessCategory:
-	'bus' | 'data' | 'subprogram' | 'subprogram' 'group';
+	'bus' | 'data' | 'subprogram' | 'subprogram' 'group' | 'virtual' 'bus';
 
 
 // ******** Flows 

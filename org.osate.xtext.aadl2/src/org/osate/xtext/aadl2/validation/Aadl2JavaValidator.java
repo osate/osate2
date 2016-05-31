@@ -5832,6 +5832,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			sourceCategory = ((Access) source).getCategory();
 		} else if (source instanceof BusSubcomponent) {
 			sourceCategory = AccessCategory.BUS;
+		} else if (source instanceof VirtualBusSubcomponent) {
+			sourceCategory = AccessCategory.VIRTUAL_BUS;
 		} else if (source instanceof DataSubcomponent) {
 			sourceCategory = AccessCategory.DATA;
 		} else if (source instanceof SubprogramSubcomponent) {
@@ -5848,6 +5850,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			destinationCategory = ((Access) destination).getCategory();
 		} else if (destination instanceof BusSubcomponent) {
 			destinationCategory = AccessCategory.BUS;
+		} else if (destination instanceof VirtualBusSubcomponent) {
+			destinationCategory = AccessCategory.VIRTUAL_BUS;
 		} else if (destination instanceof DataSubcomponent) {
 			destinationCategory = AccessCategory.DATA;
 		} else if (destination instanceof SubprogramSubcomponent) {

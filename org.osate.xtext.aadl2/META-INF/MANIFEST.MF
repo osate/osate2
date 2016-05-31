@@ -42,7 +42,6 @@ Export-Package: org.osate.xtext.aadl2,
  org.osate.xtext.aadl2.serializer,
  org.osate.xtext.aadl2.serializing,
  org.osate.xtext.aadl2.services,
- org.osate.xtext.aadl2.unparsing,
  org.osate.xtext.aadl2.util,
  org.osate.xtext.aadl2.validation,
  org.osate.xtext.aadl2.valueconversion

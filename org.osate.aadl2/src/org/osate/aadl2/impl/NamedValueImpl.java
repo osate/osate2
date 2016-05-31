@@ -213,7 +213,7 @@ public class NamedValueImpl extends PropertyValueImpl implements NamedValue {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext)
 	 */
 	@Override

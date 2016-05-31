@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.eclipse.uml2.common.util.CacheAdapter;
 import org.eclipse.uml2.common.util.DerivedUnionEObjectEList;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DataPort;
 import org.osate.aadl2.EventDataPort;
@@ -70,6 +71,7 @@ import org.osate.aadl2.VirtualProcessorType;
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl#getOwnedEventPorts <em>Owned Event Port</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl#getOwnedSubprogramAccesses <em>Owned Subprogram Access</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl#getOwnedSubprogramGroupAccesses <em>Owned Subprogram Group Access</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.VirtualProcessorTypeImpl#getOwnedBusAccesses <em>Owned Bus Access</em>}</li>
  * </ul>
  *
  * @generated
@@ -120,6 +122,16 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * @ordered
 	 */
 	protected EList<SubprogramGroupAccess> ownedSubprogramGroupAccesses;
+
+	/**
+	 * The cached value of the '{@link #getOwnedBusAccesses() <em>Owned Bus Access</em>}' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getOwnedBusAccesses()
+	 * @generated
+	 * @ordered
+	 */
+	protected EList<BusAccess> ownedBusAccesses;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -179,7 +191,8 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 			Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_EVENT_DATA_PORT,
 			Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_EVENT_PORT,
 			Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_ACCESS,
-			Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS };
+			Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS,
+			Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS };
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -320,6 +333,32 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 	 * @generated
 	 */
 	@Override
+	public EList<BusAccess> getOwnedBusAccesses() {
+		if (ownedBusAccesses == null) {
+			ownedBusAccesses = new EObjectContainmentEList<BusAccess>(BusAccess.class, this,
+					Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS);
+		}
+		return ownedBusAccesses;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public BusAccess createOwnedBusAccess() {
+		BusAccess newOwnedBusAccess = (BusAccess) create(Aadl2Package.eINSTANCE.getBusAccess());
+		getOwnedBusAccesses().add(newOwnedBusAccess);
+		return newOwnedBusAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_DATA_PORT:
@@ -332,6 +371,8 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 			return ((InternalEList<?>) getOwnedSubprogramAccesses()).basicRemove(otherEnd, msgs);
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			return ((InternalEList<?>) getOwnedSubprogramGroupAccesses()).basicRemove(otherEnd, msgs);
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS:
+			return ((InternalEList<?>) getOwnedBusAccesses()).basicRemove(otherEnd, msgs);
 		}
 		return super.eInverseRemove(otherEnd, featureID, msgs);
 	}
@@ -354,6 +395,8 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 			return getOwnedSubprogramAccesses();
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			return getOwnedSubprogramGroupAccesses();
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS:
+			return getOwnedBusAccesses();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -387,6 +430,10 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 			getOwnedSubprogramGroupAccesses().clear();
 			getOwnedSubprogramGroupAccesses().addAll((Collection<? extends SubprogramGroupAccess>) newValue);
 			return;
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS:
+			getOwnedBusAccesses().clear();
+			getOwnedBusAccesses().addAll((Collection<? extends BusAccess>) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -414,6 +461,9 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			getOwnedSubprogramGroupAccesses().clear();
 			return;
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS:
+			getOwnedBusAccesses().clear();
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -438,6 +488,8 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 			return ownedSubprogramAccesses != null && !ownedSubprogramAccesses.isEmpty();
 		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS:
 			return ownedSubprogramGroupAccesses != null && !ownedSubprogramGroupAccesses.isEmpty();
+		case Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS:
+			return ownedBusAccesses != null && !ownedBusAccesses.isEmpty();
 		}
 		return super.eIsSet(featureID);
 	}
@@ -453,7 +505,8 @@ public class VirtualProcessorTypeImpl extends ComponentTypeImpl implements Virtu
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_EVENT_DATA_PORT)
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_EVENT_PORT)
 				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_ACCESS)
-				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS)
+				|| eIsSet(Aadl2Package.VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS);
 	}
 
 	@Override
