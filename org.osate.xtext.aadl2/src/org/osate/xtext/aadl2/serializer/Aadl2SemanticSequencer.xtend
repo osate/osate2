@@ -35,8 +35,6 @@
 package org.osate.xtext.aadl2.serializer
 
 import com.google.inject.Inject
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.core.runtime.Status
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
@@ -44,7 +42,6 @@ import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.annexsupport.AnnexRegistry
 import org.osate.annexsupport.AnnexUnparserRegistry
-import org.osate.xtext.aadl2.Activator
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
 class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
@@ -75,7 +72,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 							}
 						})
 					} catch (Exception e) {
-						Activator.^default.log.log(new Status(IStatus.ERROR, Activator.^default.bundle.symbolicName, '''Error while serializing «semanticObject.name» annex library''', e))
+						throw new RuntimeException('''Error while serializing «semanticObject.name» annex library''', e)
 					}
 				}
 				sequence_DefaultAnnexLibrary(context, semanticObject)
@@ -95,7 +92,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 							}
 						})
 					} catch (Exception e) {
-						Activator.^default.log.log(new Status(IStatus.ERROR, Activator.^default.bundle.symbolicName, '''Error while serializing «semanticObject.name» annex subclause''', e))
+						throw new RuntimeException('''Error while serializing «semanticObject.name» annex subclause''', e)
 					}
 				}
 				sequence_DefaultAnnexSubclause(context, semanticObject)
