@@ -82,7 +82,8 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			if (targetClassifier instanceof ComponentImplementation) {
 				new SimpleScope(thescope,
-					Scopes::scopedElementsFor(targetClassifier.allSubcomponents + targetClassifier.allEndToEndFlows,
+					Scopes::scopedElementsFor(targetClassifier.allSubcomponents + targetClassifier.allEndToEndFlows
+						+ targetClassifier.allConnections,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			} else {
 				return thescope
