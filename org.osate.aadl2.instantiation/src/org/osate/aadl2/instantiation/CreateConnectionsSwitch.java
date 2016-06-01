@@ -42,6 +42,7 @@ import static org.osate.aadl2.ComponentCategory.PROCESSOR;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM;
 import static org.osate.aadl2.ComponentCategory.SUBPROGRAM_GROUP;
 import static org.osate.aadl2.ComponentCategory.THREAD;
+import static org.osate.aadl2.ComponentCategory.VIRTUAL_BUS;
 import static org.osate.aadl2.ComponentCategory.VIRTUAL_PROCESSOR;
 
 import java.util.ArrayList;
@@ -254,7 +255,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			monitor.subTask("Creating connections in  " + ci.getName());
 		}
 
-		if (cat == DATA || cat == BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
+		if (cat == DATA || cat == BUS || cat == VIRTUAL_BUS || cat == SUBPROGRAM || cat == SUBPROGRAM_GROUP) {
 			// connection instance may start at a shared component
 			for (Connection conn : filterStartingConnections(parentConns, sub)) {
 				boolean opposite = sub.getAllSubcomponentRefinements().contains(conn.getAllDestination());
