@@ -104,25 +104,29 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 		}
 	}
 	
-	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(EObject context, FlowSpecification semanticObject) {
-		switch(semanticObject.kind) {
-			case FlowKind.SOURCE:
-				sequence_FlowSourceSpec(grammarAccess.flowSourceSpecRule, semanticObject)
-			case FlowKind.PATH:
-				sequence_FlowPathSpec(grammarAccess.flowPathSpecRule, semanticObject)
-			case FlowKind.SINK:
-				sequence_FlowSinkSpec(grammarAccess.flowSinkSpecRule, semanticObject)
+	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(EObject context, FlowSpecification spec) {
+		if (spec.refined != null) {
+			sequence_FlowSpecRefinement(grammarAccess.flowSpecRefinementRule, spec)
+		} else {
+			switch(spec.kind) {
+				case FlowKind.SOURCE:
+					sequence_FlowSourceSpec(grammarAccess.flowSourceSpecRule, spec)
+				case FlowKind.PATH:
+					sequence_FlowPathSpec(grammarAccess.flowPathSpecRule, spec)
+				case FlowKind.SINK:
+					sequence_FlowSinkSpec(grammarAccess.flowSinkSpecRule, spec)
+			}
 		}
 	}
 	
-	override protected sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(EObject context, FlowImplementation semanticObject) {
-		switch(semanticObject.kind) {
+	override protected sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(EObject context, FlowImplementation impl) {
+		switch(impl.kind) {
 			case FlowKind.SOURCE:
-				sequence_FlowSourceImpl(grammarAccess.flowSourceImplRule, semanticObject)
+				sequence_FlowSourceImpl(grammarAccess.flowSourceImplRule, impl)
 			case FlowKind.PATH:
-				sequence_FlowPathImpl(grammarAccess.flowPathImplRule, semanticObject)
+				sequence_FlowPathImpl(grammarAccess.flowPathImplRule, impl)
 			case FlowKind.SINK:
-				sequence_FlowSinkImpl(grammarAccess.flowSinkImplRule, semanticObject)
+				sequence_FlowSinkImpl(grammarAccess.flowSinkImplRule, impl)
 		}
 	}
 	
