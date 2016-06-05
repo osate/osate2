@@ -209,8 +209,11 @@ public class PropagationGraphBackwardTraversal {
 				// XXX this is the recursive call
 				EObject stateResult = sameState ? null : traverseErrorBehaviorState(component, ebt.getSource(), type);
 				if (conditionResult != null && stateResult != null) {
-					subResults.add(
-							processTransitionCondition(component, ebt.getSource(), type, conditionResult, stateResult));
+					EObject tmpresult = processTransitionCondition(component, ebt.getSource(), type, conditionResult,
+							stateResult);
+					if (tmpresult != null) {
+						subResults.add(tmpresult);
+					}
 				} else if (conditionResult == null && stateResult != null) {
 					subResults.add(stateResult);
 				} else if (conditionResult != null && stateResult == null) {
@@ -585,45 +588,97 @@ public class PropagationGraphBackwardTraversal {
 		return null;
 	}
 
+	/**
+	 * process outgoing EP condition with both conditional result and state result non-null
+	 * @param component Component Instance
+	 * @param opc outgoing error propagation condition
+	 * @param type Error Type
+	 * @param conditionResult trigger condition result object
+	 * @param stateResult original state result object
+	 * @return EObject or null
+	 */
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult) {
 		OsateDebug.osateDebug(
 				"processOutgoingErrorPropagationCondition " + component.getName() + " condition " + opc.getName());
-		return stateResult;
+		return null;
 	}
 
+	/**
+	 * pre process composite states
+	 * Non-null result will use it as result of traversal 
+	 * This allows handling of previously produced subtrees
+	 * @param component
+	 * @param state
+	 * @param targetType
+	 * @return EObject or null
+	 */
 	protected EObject preProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType) {
 		OsateDebug.osateDebug("preProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
 		return null;
 	}
 
+	/**
+	 * post process results composite error states back traversal result
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param state
+	 * @param targetType
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType, List<EObject> subResults) {
 		OsateDebug.osateDebug("postProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
-		return component;
-	}
-
-	protected EObject preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type) {
-		OsateDebug.osateDebug("preProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
-		return component;
-	}
-
-	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
-		return component;
-	}
-
-	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
-			ErrorTypes type) {
-		OsateDebug.osateDebug("processErrorBehaviorState " + component.getName() + " state " + state.getName());
-		return component;
+		return null;
 	}
 
 	/**
-	 * 
+	 * pre process error behavior state
+	 * Non-null result will use it as result of traversal 
+	 * This allows handling of previously produced subtrees
+	 * @param component
+	 * @param state
+	 * @param type
+	 * @return EObject or null
+	 */
+	protected EObject preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes type) {
+		OsateDebug.osateDebug("preProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
+		return null;
+	}
+
+	/**
+	 * post process error behavior state back traversal result based on transitions
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param state
+	 * @param targetType
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
+	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes type, List<EObject> subResults) {
+		OsateDebug.osateDebug("postProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
+		return null;
+	}
+
+	/**
+	 * process error behavior state as leaf of traversal
+	 * @param component ComponentInstance
+	 * @param state
+	 * @param type Error Type
+	 * @return EObject (can be null but is expected to return object representing traversal leaf)
+	 */
+	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
+			ErrorTypes type) {
+		OsateDebug.osateDebug("processErrorBehaviorState " + component.getName() + " state " + state.getName());
+		return null;
+	}
+
+	/**
+	 * process results of trigger condition and state backward traversal.
 	 * @param component
 	 * @param source ErrorBehaviorState
 	 * @param type Error Type
@@ -634,46 +689,112 @@ public class PropagationGraphBackwardTraversal {
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
 			ErrorTypes type, EObject conditionResult, EObject stateResult) {
 		OsateDebug.osateDebug("processTransitionCondition " + component.getName() + " state " + source.getName());
-		return component;
+		return null;
 	}
 
-	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorModelElement, ErrorTypes type,
+	/**
+	 * process error event as leaf of traversal
+	 * @param component ComponentInstance
+	 * @param event Error Event
+	 * @param type Error Type
+	 * @return EObject (can be null but is expected to return object representing traversal leaf)
+	 */
+	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
 			double scale) {
-		OsateDebug
-				.osateDebug("processErrorEvent " + component.getName() + " error event " + errorModelElement.getName());
-		return component;
+		OsateDebug.osateDebug("processErrorEvent " + component.getName() + " error event " + errorEvent.getName());
+		return null;
 	}
 
+	/**
+	 * pre process results AND expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition AND expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject preProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
 		OsateDebug.osateDebug("preProcessAnd " + component.getName());
 		return component;
 	}
 
+	/**
+	 * post process results AND expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition AND expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		OsateDebug.osateDebug("postProcessAnd " + component.getName());
 		return component;
 	}
 
+	/**
+	 * post process results XOR expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition XOR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		OsateDebug.osateDebug("postProcessXor " + component.getName());
 		return component;
 	}
 
+	/**
+	 * pre process results XOR expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition XOR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject preProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
 		OsateDebug.osateDebug("postProcessXor " + component.getName());
 		return component;
 	}
 
+	/**
+	 * post process results OR expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition OR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject postProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
 		OsateDebug.osateDebug("postProcessOr " + component.getName());
 		return component;
 	}
 
+	/**
+	 * pre process results OR expression
+	 * called with non-empty subResults list
+	 * @param component
+	 * @param condition OR expression
+	 * @param type Error Type
+	 * @param scale scaling factor for probability
+	 * @param subResults
+	 * @return EObject (can be null )
+	 */
 	protected EObject preProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
 		OsateDebug.osateDebug("postProcessOr " + component.getName());
