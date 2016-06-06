@@ -1,5 +1,6 @@
 package org.osate.xtext.aadl2.errormodel.util;
 
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -157,7 +158,7 @@ public class PropagationGraphBackwardTraversal {
 	}
 
 	/**
-	 * process error state. Recursively deal with source states of transitions (an AND gate).
+	 * process error state. Recursively deal with source states of transitions (an PRIORITY AND gate).
 	 * We only process error events (not recover or repair) and error propagations referenced by the expression.
 	 * @param component ComponentInstance
 	 * @param state ErrorBehaviorState
@@ -170,7 +171,8 @@ public class PropagationGraphBackwardTraversal {
 		}
 		List<EObject> subResults = new LinkedList<EObject>();
 		preProcessErrorBehaviorState(component, state, type);
-		for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(component)) {
+		Collection<ErrorBehaviorTransition> transitions = EMV2Util.getAllErrorBehaviorTransitions(component);
+		for (ErrorBehaviorTransition ebt : transitions) {
 			ConditionExpression conditionExpression = null;
 			// XXX deal with types
 			double scale = 1;
@@ -453,16 +455,10 @@ public class PropagationGraphBackwardTraversal {
 				}
 			}
 		}
-		if (subResults.isEmpty()) {
-			EObject res = traverseErrorBehaviorState(component, state, type);
-			if (res != null) {
-				subResults.add(res);
-			}
-		}
 		if (!subResults.isEmpty()) {
 			return postProcessCompositeErrorStates(component, state, type, subResults);
 		}
-		return processErrorBehaviorState(component, state, type);
+		return traverseErrorBehaviorState(component, state, type);
 	}
 
 //	methods to be overwritten by applications
