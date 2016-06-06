@@ -35,17 +35,18 @@
 package org.osate.xtext.aadl2.serializer
 
 import com.google.inject.Inject
-import org.eclipse.core.runtime.IStatus
-import org.eclipse.core.runtime.Status
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.xtext.serializer.ISerializationContext
+import org.eclipse.xtext.serializer.analysis.SerializationContext.RuleContext
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.aadl2.FlowImplementation
+import org.osate.aadl2.FlowKind
+import org.osate.aadl2.FlowSpecification
 import org.osate.annexsupport.AnnexRegistry
 import org.osate.annexsupport.AnnexUnparserRegistry
-import org.osate.xtext.aadl2.Activator
 import org.osate.xtext.aadl2.services.Aadl2GrammarAccess
 
 class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
@@ -76,7 +77,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 							}
 						})
 					} catch (Exception e) {
-						Activator.^default.log.log(new Status(IStatus.ERROR, Activator.^default.bundle.symbolicName, '''Error while serializing «semanticObject.name» annex library''', e))
+						throw new RuntimeException('''Error while serializing «semanticObject.name» annex library''', e)
 					}
 				}
 				sequence_DefaultAnnexLibrary(context, semanticObject)
@@ -96,7 +97,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 							}
 						})
 					} catch (Exception e) {
-						Activator.^default.log.log(new Status(IStatus.ERROR, Activator.^default.bundle.symbolicName, '''Error while serializing «semanticObject.name» annex subclause''', e))
+						throw new RuntimeException('''Error while serializing «semanticObject.name» annex subclause''', e)
 					}
 				}
 				sequence_DefaultAnnexSubclause(context, semanticObject)
@@ -104,4 +105,31 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 			default: super.createSequence(context, semanticObject)
 		}
 	}
+	
+	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(ISerializationContext context, FlowSpecification spec) {
+		if (spec.refined != null) {
+			sequence_FlowSpecRefinement(new RuleContext(context, grammarAccess.flowSpecRefinementRule), spec)
+		} else {
+			switch(spec.kind) {
+				case FlowKind.SOURCE:
+					sequence_FlowSourceSpec(new RuleContext(context, grammarAccess.flowSourceSpecRule), spec)
+				case FlowKind.PATH:
+					sequence_FlowPathSpec(new RuleContext(context, grammarAccess.flowPathSpecRule), spec)
+				case FlowKind.SINK:
+					sequence_FlowSinkSpec(new RuleContext(context, grammarAccess.flowSinkSpecRule), spec)
+			}
+		}
+	}
+	
+	override protected sequence_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(ISerializationContext context, FlowImplementation impl) {
+		switch(impl.kind) {
+			case FlowKind.SOURCE:
+				sequence_FlowSourceImpl(new RuleContext(context, grammarAccess.flowSourceImplRule), impl)
+			case FlowKind.PATH:
+				sequence_FlowPathImpl(new RuleContext(context, grammarAccess.flowPathImplRule), impl)
+			case FlowKind.SINK:
+				sequence_FlowSinkImpl(new RuleContext(context, grammarAccess.flowSinkImplRule), impl)
+		}
+	}
+	
 }

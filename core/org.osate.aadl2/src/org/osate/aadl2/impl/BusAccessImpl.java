@@ -42,7 +42,7 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.BusSubcomponentType;
+import org.osate.aadl2.BusFeatureClassifier;
 import org.osate.aadl2.FeatureClassifier;
 
 /**
@@ -55,6 +55,7 @@ import org.osate.aadl2.FeatureClassifier;
  * <ul>
  *   <li>{@link org.osate.aadl2.impl.BusAccessImpl#getFeatureClassifier <em>Feature Classifier</em>}</li>
  *   <li>{@link org.osate.aadl2.impl.BusAccessImpl#getBusFeatureClassifier <em>Bus Feature Classifier</em>}</li>
+ *   <li>{@link org.osate.aadl2.impl.BusAccessImpl#isVirtual <em>Virtual</em>}</li>
  * </ul>
  *
  * @generated
@@ -68,7 +69,26 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 * @ordered
 	 */
-	protected BusSubcomponentType busFeatureClassifier;
+	protected BusFeatureClassifier busFeatureClassifier;
+
+	/**
+	 * The default value of the '{@link #isVirtual() <em>Virtual</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isVirtual()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean VIRTUAL_EDEFAULT = false;
+	/**
+	 * The cached value of the '{@link #isVirtual() <em>Virtual</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isVirtual()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean virtual = VIRTUAL_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -120,10 +140,10 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 */
 	@Override
-	public BusSubcomponentType getBusFeatureClassifier() {
+	public BusFeatureClassifier getBusFeatureClassifier() {
 		if (busFeatureClassifier != null && ((EObject) busFeatureClassifier).eIsProxy()) {
 			InternalEObject oldBusFeatureClassifier = (InternalEObject) busFeatureClassifier;
-			busFeatureClassifier = (BusSubcomponentType) eResolveProxy(oldBusFeatureClassifier);
+			busFeatureClassifier = (BusFeatureClassifier) eResolveProxy(oldBusFeatureClassifier);
 			if (busFeatureClassifier != oldBusFeatureClassifier) {
 				if (eNotificationRequired()) {
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
@@ -140,7 +160,7 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public BusSubcomponentType basicGetBusFeatureClassifier() {
+	public BusFeatureClassifier basicGetBusFeatureClassifier() {
 		return busFeatureClassifier;
 	}
 
@@ -150,12 +170,37 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	 * @generated
 	 */
 	@Override
-	public void setBusFeatureClassifier(BusSubcomponentType newBusFeatureClassifier) {
-		BusSubcomponentType oldBusFeatureClassifier = busFeatureClassifier;
+	public void setBusFeatureClassifier(BusFeatureClassifier newBusFeatureClassifier) {
+		BusFeatureClassifier oldBusFeatureClassifier = busFeatureClassifier;
 		busFeatureClassifier = newBusFeatureClassifier;
 		if (eNotificationRequired()) {
 			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER,
 					oldBusFeatureClassifier, busFeatureClassifier));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public boolean isVirtual() {
+		return virtual;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setVirtual(boolean newVirtual) {
+		boolean oldVirtual = virtual;
+		virtual = newVirtual;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, Aadl2Package.BUS_ACCESS__VIRTUAL, oldVirtual,
+					virtual));
 		}
 	}
 
@@ -172,6 +217,8 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 				return getBusFeatureClassifier();
 			}
 			return basicGetBusFeatureClassifier();
+		case Aadl2Package.BUS_ACCESS__VIRTUAL:
+			return isVirtual();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -185,7 +232,10 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
 		case Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER:
-			setBusFeatureClassifier((BusSubcomponentType) newValue);
+			setBusFeatureClassifier((BusFeatureClassifier) newValue);
+			return;
+		case Aadl2Package.BUS_ACCESS__VIRTUAL:
+			setVirtual((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -200,7 +250,10 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 	public void eUnset(int featureID) {
 		switch (featureID) {
 		case Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER:
-			setBusFeatureClassifier((BusSubcomponentType) null);
+			setBusFeatureClassifier((BusFeatureClassifier) null);
+			return;
+		case Aadl2Package.BUS_ACCESS__VIRTUAL:
+			setVirtual(VIRTUAL_EDEFAULT);
 			return;
 		}
 		super.eUnset(featureID);
@@ -218,8 +271,28 @@ public class BusAccessImpl extends AccessImpl implements BusAccess {
 			return isSetFeatureClassifier();
 		case Aadl2Package.BUS_ACCESS__BUS_FEATURE_CLASSIFIER:
 			return busFeatureClassifier != null;
+		case Aadl2Package.BUS_ACCESS__VIRTUAL:
+			return virtual != VIRTUAL_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) {
+			return super.toString();
+		}
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (virtual: ");
+		result.append(virtual);
+		result.append(')');
+		return result.toString();
 	}
 
 	/**

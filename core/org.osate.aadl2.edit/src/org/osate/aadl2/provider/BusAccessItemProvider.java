@@ -42,6 +42,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.BusAccess;
 
@@ -74,6 +76,7 @@ public class BusAccessItemProvider extends AccessItemProvider {
 			super.getPropertyDescriptors(object);
 
 			addBusFeatureClassifierPropertyDescriptor(object);
+			addVirtualPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -92,6 +95,22 @@ public class BusAccessItemProvider extends AccessItemProvider {
 								"_UI_BusAccess_type"),
 						Aadl2Package.eINSTANCE.getBusAccess_BusFeatureClassifier(), true, false, true, null, null,
 						null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Virtual feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addVirtualPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_BusAccess_virtual_feature"),
+						getString("_UI_PropertyDescriptor_description", "_UI_BusAccess_virtual_feature",
+								"_UI_BusAccess_type"),
+						Aadl2Package.eINSTANCE.getBusAccess_Virtual(), true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
 	}
 
 	/**
@@ -128,6 +147,12 @@ public class BusAccessItemProvider extends AccessItemProvider {
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(BusAccess.class)) {
+		case Aadl2Package.BUS_ACCESS__VIRTUAL:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 

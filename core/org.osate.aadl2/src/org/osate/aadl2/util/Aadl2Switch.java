@@ -1318,23 +1318,11 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
-		case Aadl2Package.BUS_SUBCOMPONENT_TYPE: {
-			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
-			T result = caseBusSubcomponentType(busSubcomponentType);
+		case Aadl2Package.BUS_FEATURE_CLASSIFIER: {
+			BusFeatureClassifier busFeatureClassifier = (BusFeatureClassifier) theEObject;
+			T result = caseBusFeatureClassifier(busFeatureClassifier);
 			if (result == null) {
-				result = caseSubcomponentType(busSubcomponentType);
-			}
-			if (result == null) {
-				result = caseFeatureClassifier(busSubcomponentType);
-			}
-			if (result == null) {
-				result = caseType(busSubcomponentType);
-			}
-			if (result == null) {
-				result = caseNamedElement(busSubcomponentType);
-			}
-			if (result == null) {
-				result = caseElement(busSubcomponentType);
+				result = caseFeatureClassifier(busFeatureClassifier);
 			}
 			if (result == null) {
 				result = defaultCase(theEObject);
@@ -3201,13 +3189,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(abstractType);
+				result = caseBusFeatureClassifier(abstractType);
 			}
 			if (result == null) {
 				result = caseNamespace(abstractType);
 			}
 			if (result == null) {
 				result = caseType(abstractType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(abstractType);
 			}
 			if (result == null) {
 				result = caseNamedElement(abstractType);
@@ -3278,13 +3269,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractClassifier);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(abstractClassifier);
+				result = caseBusFeatureClassifier(abstractClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(abstractClassifier);
 			}
 			if (result == null) {
 				result = caseType(abstractClassifier);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(abstractClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(abstractClassifier);
@@ -3324,7 +3318,13 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusSubcomponentType);
 			}
 			if (result == null) {
+				result = caseBusFeatureClassifier(virtualBusSubcomponentType);
+			}
+			if (result == null) {
 				result = caseType(virtualBusSubcomponentType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(virtualBusSubcomponentType);
 			}
 			if (result == null) {
 				result = caseNamedElement(virtualBusSubcomponentType);
@@ -3457,6 +3457,32 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			return result;
 		}
+		case Aadl2Package.BUS_SUBCOMPONENT_TYPE: {
+			BusSubcomponentType busSubcomponentType = (BusSubcomponentType) theEObject;
+			T result = caseBusSubcomponentType(busSubcomponentType);
+			if (result == null) {
+				result = caseSubcomponentType(busSubcomponentType);
+			}
+			if (result == null) {
+				result = caseBusFeatureClassifier(busSubcomponentType);
+			}
+			if (result == null) {
+				result = caseType(busSubcomponentType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(busSubcomponentType);
+			}
+			if (result == null) {
+				result = caseNamedElement(busSubcomponentType);
+			}
+			if (result == null) {
+				result = caseElement(busSubcomponentType);
+			}
+			if (result == null) {
+				result = defaultCase(theEObject);
+			}
+			return result;
+		}
 		case Aadl2Package.PROCESSOR_SUBCOMPONENT_TYPE: {
 			ProcessorSubcomponentType processorSubcomponentType = (ProcessorSubcomponentType) theEObject;
 			T result = caseProcessorSubcomponentType(processorSubcomponentType);
@@ -3536,6 +3562,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseComponentClassifier(abstractImplementation);
+			}
+			if (result == null) {
+				result = caseBusFeatureClassifier(abstractImplementation);
 			}
 			if (result == null) {
 				result = caseClassifier(abstractImplementation);
@@ -4216,6 +4245,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponent(virtualBusSubcomponent);
 			}
 			if (result == null) {
+				result = caseAccessConnectionEnd(virtualBusSubcomponent);
+			}
+			if (result == null) {
 				result = caseVirtualBus(virtualBusSubcomponent);
 			}
 			if (result == null) {
@@ -4232,6 +4264,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseArrayableElement(virtualBusSubcomponent);
+			}
+			if (result == null) {
+				result = caseConnectionEnd(virtualBusSubcomponent);
 			}
 			if (result == null) {
 				result = caseRefinableElement(virtualBusSubcomponent);
@@ -4383,7 +4418,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(abstractPrototype);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(abstractPrototype);
+				result = caseBusFeatureClassifier(abstractPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(abstractPrototype);
@@ -4393,6 +4428,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseType(abstractPrototype);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(abstractPrototype);
 			}
 			if (result == null) {
 				result = caseRefinableElement(abstractPrototype);
@@ -4430,13 +4468,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busClassifier);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(busClassifier);
+				result = caseBusFeatureClassifier(busClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(busClassifier);
 			}
 			if (result == null) {
 				result = caseType(busClassifier);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(busClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(busClassifier);
@@ -4474,13 +4515,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(busType);
+				result = caseBusFeatureClassifier(busType);
 			}
 			if (result == null) {
 				result = caseNamespace(busType);
 			}
 			if (result == null) {
 				result = caseType(busType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(busType);
 			}
 			if (result == null) {
 				result = caseNamedElement(busType);
@@ -4518,13 +4562,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busImplementation);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(busImplementation);
+				result = caseBusFeatureClassifier(busImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(busImplementation);
 			}
 			if (result == null) {
 				result = caseType(busImplementation);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(busImplementation);
 			}
 			if (result == null) {
 				result = caseNamedElement(busImplementation);
@@ -4556,7 +4603,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(busPrototype);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(busPrototype);
+				result = caseBusFeatureClassifier(busPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(busPrototype);
@@ -4566,6 +4613,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseType(busPrototype);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(busPrototype);
 			}
 			if (result == null) {
 				result = caseRefinableElement(busPrototype);
@@ -6278,13 +6328,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusClassifier);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(virtualBusClassifier);
+				result = caseBusFeatureClassifier(virtualBusClassifier);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualBusClassifier);
 			}
 			if (result == null) {
 				result = caseType(virtualBusClassifier);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(virtualBusClassifier);
 			}
 			if (result == null) {
 				result = caseNamedElement(virtualBusClassifier);
@@ -6322,13 +6375,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusType);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(virtualBusType);
+				result = caseBusFeatureClassifier(virtualBusType);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualBusType);
 			}
 			if (result == null) {
 				result = caseType(virtualBusType);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(virtualBusType);
 			}
 			if (result == null) {
 				result = caseNamedElement(virtualBusType);
@@ -6366,13 +6422,16 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusImplementation);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(virtualBusImplementation);
+				result = caseBusFeatureClassifier(virtualBusImplementation);
 			}
 			if (result == null) {
 				result = caseNamespace(virtualBusImplementation);
 			}
 			if (result == null) {
 				result = caseType(virtualBusImplementation);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(virtualBusImplementation);
 			}
 			if (result == null) {
 				result = caseNamedElement(virtualBusImplementation);
@@ -6404,7 +6463,7 @@ public class Aadl2Switch<T> extends Switch<T> {
 				result = caseSubcomponentType(virtualBusPrototype);
 			}
 			if (result == null) {
-				result = caseFeatureClassifier(virtualBusPrototype);
+				result = caseBusFeatureClassifier(virtualBusPrototype);
 			}
 			if (result == null) {
 				result = caseStructuralFeature(virtualBusPrototype);
@@ -6414,6 +6473,9 @@ public class Aadl2Switch<T> extends Switch<T> {
 			}
 			if (result == null) {
 				result = caseType(virtualBusPrototype);
+			}
+			if (result == null) {
+				result = caseFeatureClassifier(virtualBusPrototype);
 			}
 			if (result == null) {
 				result = caseRefinableElement(virtualBusPrototype);
@@ -8948,6 +9010,21 @@ public class Aadl2Switch<T> extends Switch<T> {
 	 * @generated
 	 */
 	public T caseAccessConnectionEnd(AccessConnectionEnd object) {
+		return null;
+	}
+
+	/**
+	 * Returns the result of interpreting the object as an instance of '<em>Bus Feature Classifier</em>'.
+	 * <!-- begin-user-doc -->
+	 * This implementation returns null;
+	 * returning a non-null result will terminate the switch.
+	 * <!-- end-user-doc -->
+	 * @param object the target of the switch.
+	 * @return the result of interpreting the object as an instance of '<em>Bus Feature Classifier</em>'.
+	 * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+	 * @generated
+	 */
+	public T caseBusFeatureClassifier(BusFeatureClassifier object) {
 		return null;
 	}
 

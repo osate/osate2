@@ -53,6 +53,7 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedDataPorts <em>Owned Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedEventDataPorts <em>Owned Event Data Port</em>}</li>
  *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedEventPorts <em>Owned Event Port</em>}</li>
+ *   <li>{@link org.osate.aadl2.VirtualBusType#getOwnedBusAccesses <em>Owned Bus Access</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getVirtualBusType()
@@ -165,5 +166,36 @@ public interface VirtualBusType extends ComponentType, VirtualBusClassifier {
 	 * @generated
 	 */
 	EventPort createOwnedEventPort();
+
+	/**
+	 * Returns the value of the '<em><b>Owned Bus Access</b></em>' containment reference list.
+	 * The list contents are of type {@link org.osate.aadl2.BusAccess}.
+	 * <p>
+	 * This feature subsets the following features:
+	 * </p>
+	 * <ul>
+	 *   <li>'{@link org.osate.aadl2.ComponentType#getOwnedFeatures() <em>Owned Feature</em>}'</li>
+	 * </ul>
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLDetails::Components::VirtualBus.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Owned Bus Access</em>' containment reference list.
+	 * @see org.osate.aadl2.Aadl2Package#getVirtualBusType_OwnedBusAccess()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	EList<BusAccess> getOwnedBusAccesses();
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.BusAccess} and appends it to the '<em><b>Owned Bus Access</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.BusAccess}.
+	 * @see #getOwnedBusAccesses()
+	 * @generated
+	 */
+	BusAccess createOwnedBusAccess();
 
 } // VirtualBusType
