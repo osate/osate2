@@ -55,7 +55,7 @@ package org.osate.aadl2;
  * @model
  * @generated
  */
-public interface VirtualBusSubcomponent extends Subcomponent, VirtualBus {
+public interface VirtualBusSubcomponent extends Subcomponent, AccessConnectionEnd, VirtualBus {
 
 	/**
 	 * Returns the value of the '<em><b>Virtual Bus Subcomponent Type</b></em>' reference.

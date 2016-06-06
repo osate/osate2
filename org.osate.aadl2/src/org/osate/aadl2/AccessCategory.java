@@ -91,7 +91,16 @@ public enum AccessCategory implements Enumerator {
 	 * @generated NOT
 	 * @ordered
 	 */
-	SUBPROGRAM_GROUP(3, "subprogram group", "subprogram group");
+	SUBPROGRAM_GROUP(3, "subprogram group", "subprogram group"),
+	/**
+	 * The '<em><b>Virtual Bus</b></em>' literal object.
+	 * <!-- begin-user-doc -->
+	* <!-- end-user-doc -->
+	 * @see #VIRTUAL_BUS_VALUE
+	 * @generated NOT
+	 * @ordered
+	 */
+	VIRTUAL_BUS(4, "virtual bus", "virtual bus");
 
 	/**
 	 * The '<em><b>Bus</b></em>' literal value.
@@ -154,13 +163,28 @@ public enum AccessCategory implements Enumerator {
 	public static final int SUBPROGRAM_GROUP_VALUE = 3;
 
 	/**
+	 * The '<em><b>Virtual Bus</b></em>' literal value.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of '<em><b>Virtual Bus</b></em>' literal object isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @see #VIRTUAL_BUS
+	 * @model name="virtualBus"
+	 * @generated
+	 * @ordered
+	 */
+	public static final int VIRTUAL_BUS_VALUE = 4;
+
+	/**
 	 * An array of all the '<em><b>Access Category</b></em>' enumerators.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	private static final AccessCategory[] VALUES_ARRAY = new AccessCategory[] { BUS, DATA, SUBPROGRAM,
-			SUBPROGRAM_GROUP, };
+	private static final AccessCategory[] VALUES_ARRAY = new AccessCategory[] { BUS, DATA, SUBPROGRAM, SUBPROGRAM_GROUP,
+			VIRTUAL_BUS, };
 
 	/**
 	 * A public read-only list of all the '<em><b>Access Category</b></em>' enumerators.
@@ -222,6 +246,8 @@ public enum AccessCategory implements Enumerator {
 			return SUBPROGRAM;
 		case SUBPROGRAM_GROUP_VALUE:
 			return SUBPROGRAM_GROUP;
+		case VIRTUAL_BUS_VALUE:
+			return VIRTUAL_BUS;
 		}
 		return null;
 	}

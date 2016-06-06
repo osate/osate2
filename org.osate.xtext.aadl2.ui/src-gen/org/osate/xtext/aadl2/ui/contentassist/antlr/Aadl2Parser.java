@@ -387,7 +387,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureConnectionAccess().getAlternatives_0_0_4(), "rule__FeatureConnection__Alternatives_0_0_4");
 					put(grammarAccess.getParameterConnectionAccess().getAlternatives_0(), "rule__ParameterConnection__Alternatives_0");
 					put(grammarAccess.getAccessCategoryAccess().getAlternatives(), "rule__AccessCategory__Alternatives");
-					put(grammarAccess.getFlowSpecificationAccess().getAlternatives_0(), "rule__FlowSpecification__Alternatives_0");
+					put(grammarAccess.getFlowSpecificationAccess().getAlternatives(), "rule__FlowSpecification__Alternatives");
 					put(grammarAccess.getFlowImplementationAccess().getAlternatives_0(), "rule__FlowImplementation__Alternatives_0");
 					put(grammarAccess.getEndToEndFlowAccess().getAlternatives_0(), "rule__EndToEndFlow__Alternatives_0");
 					put(grammarAccess.getTriggerAccess().getAlternatives(), "rule__Trigger__Alternatives");
@@ -1201,7 +1201,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBusAccessAccess().getGroup(), "rule__BusAccess__Group__0");
 					put(grammarAccess.getBusAccessAccess().getGroup_0_0(), "rule__BusAccess__Group_0_0__0");
 					put(grammarAccess.getBusAccessAccess().getGroup_0_1(), "rule__BusAccess__Group_0_1__0");
-					put(grammarAccess.getBusAccessAccess().getGroup_6(), "rule__BusAccess__Group_6__0");
+					put(grammarAccess.getBusAccessAccess().getGroup_7(), "rule__BusAccess__Group_7__0");
 					put(grammarAccess.getDataAccessAccess().getGroup(), "rule__DataAccess__Group__0");
 					put(grammarAccess.getDataAccessAccess().getGroup_0_0(), "rule__DataAccess__Group_0_0__0");
 					put(grammarAccess.getDataAccessAccess().getGroup_0_1(), "rule__DataAccess__Group_0_1__0");
@@ -1273,7 +1273,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterConnectionAccess().getGroup_2_3(), "rule__ParameterConnection__Group_2_3__0");
 					put(grammarAccess.getParameterConnectionAccess().getGroup_2_3_1(), "rule__ParameterConnection__Group_2_3_1__0");
 					put(grammarAccess.getAccessCategoryAccess().getGroup_3(), "rule__AccessCategory__Group_3__0");
-					put(grammarAccess.getFlowSpecificationAccess().getGroup(), "rule__FlowSpecification__Group__0");
+					put(grammarAccess.getAccessCategoryAccess().getGroup_4(), "rule__AccessCategory__Group_4__0");
 					put(grammarAccess.getFlowSourceSpecAccess().getGroup(), "rule__FlowSourceSpec__Group__0");
 					put(grammarAccess.getFlowSourceSpecAccess().getGroup_5(), "rule__FlowSourceSpec__Group_5__0");
 					put(grammarAccess.getFlowSourceSpecAccess().getGroup_6(), "rule__FlowSourceSpec__Group_6__0");
@@ -1748,6 +1748,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedEventPortAssignment_5_1_1_2(), "rule__VirtualBusType__OwnedEventPortAssignment_5_1_1_2");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedEventDataPortAssignment_5_1_1_3(), "rule__VirtualBusType__OwnedEventDataPortAssignment_5_1_1_3");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedAbstractFeatureAssignment_5_1_1_4(), "rule__VirtualBusType__OwnedAbstractFeatureAssignment_5_1_1_4");
+					put(grammarAccess.getVirtualBusTypeAccess().getOwnedBusAccessAssignment_5_1_1_5(), "rule__VirtualBusType__OwnedBusAccessAssignment_5_1_1_5");
 					put(grammarAccess.getVirtualBusTypeAccess().getDerivedModesAssignment_6_0_0(), "rule__VirtualBusType__DerivedModesAssignment_6_0_0");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedModeAssignment_6_0_2(), "rule__VirtualBusType__OwnedModeAssignment_6_0_2");
 					put(grammarAccess.getVirtualBusTypeAccess().getOwnedModeAssignment_6_1_1_0_0(), "rule__VirtualBusType__OwnedModeAssignment_6_1_1_0_0");
@@ -1770,6 +1771,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedSubprogramAccessAssignment_5_1_1_4(), "rule__VirtualProcessorType__OwnedSubprogramAccessAssignment_5_1_1_4");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedSubprogramGroupAccessAssignment_5_1_1_5(), "rule__VirtualProcessorType__OwnedSubprogramGroupAccessAssignment_5_1_1_5");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedAbstractFeatureAssignment_5_1_1_6(), "rule__VirtualProcessorType__OwnedAbstractFeatureAssignment_5_1_1_6");
+					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedBusAccessAssignment_5_1_1_7(), "rule__VirtualProcessorType__OwnedBusAccessAssignment_5_1_1_7");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getOwnedFlowSpecificationAssignment_6_1_0(), "rule__VirtualProcessorType__OwnedFlowSpecificationAssignment_6_1_0");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getNoFlowsAssignment_6_1_1_0(), "rule__VirtualProcessorType__NoFlowsAssignment_6_1_1_0");
 					put(grammarAccess.getVirtualProcessorTypeAccess().getDerivedModesAssignment_7_0_0(), "rule__VirtualProcessorType__DerivedModesAssignment_7_0_0");
@@ -2543,9 +2545,10 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getBusAccessAccess().getNameAssignment_0_0_0(), "rule__BusAccess__NameAssignment_0_0_0");
 					put(grammarAccess.getBusAccessAccess().getRefinedAssignment_0_1_0(), "rule__BusAccess__RefinedAssignment_0_1_0");
 					put(grammarAccess.getBusAccessAccess().getKindAssignment_1(), "rule__BusAccess__KindAssignment_1");
-					put(grammarAccess.getBusAccessAccess().getBusFeatureClassifierAssignment_4(), "rule__BusAccess__BusFeatureClassifierAssignment_4");
-					put(grammarAccess.getBusAccessAccess().getArrayDimensionAssignment_5(), "rule__BusAccess__ArrayDimensionAssignment_5");
-					put(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__BusAccess__OwnedPropertyAssociationAssignment_6_1");
+					put(grammarAccess.getBusAccessAccess().getVirtualAssignment_2(), "rule__BusAccess__VirtualAssignment_2");
+					put(grammarAccess.getBusAccessAccess().getBusFeatureClassifierAssignment_5(), "rule__BusAccess__BusFeatureClassifierAssignment_5");
+					put(grammarAccess.getBusAccessAccess().getArrayDimensionAssignment_6(), "rule__BusAccess__ArrayDimensionAssignment_6");
+					put(grammarAccess.getBusAccessAccess().getOwnedPropertyAssociationAssignment_7_1(), "rule__BusAccess__OwnedPropertyAssociationAssignment_7_1");
 					put(grammarAccess.getDataAccessAccess().getNameAssignment_0_0_0(), "rule__DataAccess__NameAssignment_0_0_0");
 					put(grammarAccess.getDataAccessAccess().getRefinedAssignment_0_1_0(), "rule__DataAccess__RefinedAssignment_0_1_0");
 					put(grammarAccess.getDataAccessAccess().getKindAssignment_1(), "rule__DataAccess__KindAssignment_1");

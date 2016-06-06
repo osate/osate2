@@ -730,7 +730,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		withs.forEach[surround[indent].append[oneSpace]]
 		commas.forEach[prepend[noSpace].append[oneSpace]]
 		semicolons.forEach[
-			val newLineCount = switch nextSemanticRegion.semanticElement {
+			val newLineCount = switch nextSemanticRegion?.semanticElement {
 				Classifier,
 				AnnexLibrary,
 				PackageSection: 2
@@ -750,7 +750,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(PackageRename packageRename, extension IFormattableDocument document) {
-		val newLineCount = switch packageRename.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch packageRename.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -771,7 +771,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FeatureGroupTypeRename featureGroupTypeRename, extension IFormattableDocument document) {
-		val newLineCount = switch featureGroupTypeRename.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch featureGroupTypeRename.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -785,7 +785,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(ComponentTypeRename componentTypeRename, extension IFormattableDocument document) {
-		val newLineCount = switch componentTypeRename.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch componentTypeRename.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -798,7 +798,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(DefaultAnnexLibrary defaultAnnexLibrary, extension IFormattableDocument document) {
-		val newLineCount = switch defaultAnnexLibrary.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch defaultAnnexLibrary.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -924,7 +924,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def private formatComponentTypeCommon(ComponentType componentType, extension IFormattableDocument document,
 		ISemanticRegion nameAssignment, ISemanticRegion requiresModesKeyword, ISemanticRegion modesKeyword
 	) {
-		val newLineCount = switch componentType.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch componentType.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -963,7 +963,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Semicolons after none keywords
 		val semicolons = componentType.regionFor.keywords(";")
-		semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
+		if (semicolons.size > 1) {
+			semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
+		}
 		
 		//Requires modes
 		componentType.regionFor.keyword("requires").surround[indent].append[oneSpace]
@@ -1288,17 +1290,18 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		busAccess.regionFor.keyword(busAccessAccess.colonKeyword_0_1_1).prepend[noSpace].append[oneSpace]
 		busAccess.regionFor.keyword(busAccessAccess.toKeyword_0_1_3).surround[oneSpace]
 		
-		busAccess.regionFor.keyword(busAccessAccess.busKeyword_2).surround[oneSpace]
-		busAccess.regionFor.assignment(busAccessAccess.busFeatureClassifierAssignment_4).prepend[oneSpace]
+		busAccess.regionFor.keyword(busAccessAccess.virtualVirtualKeyword_2_0).prepend[oneSpace]
+		busAccess.regionFor.keyword(busAccessAccess.busKeyword_3).surround[oneSpace]
+		busAccess.regionFor.assignment(busAccessAccess.busFeatureClassifierAssignment_5).prepend[oneSpace]
 		busAccess.arrayDimensions.forEach[
 			prepend[noSpace]
 			it.format(document)
 		]
 		
-		formatCurlyProperties(busAccess, document, busAccess.regionFor.keyword(busAccessAccess.leftCurlyBracketKeyword_6_0),
-			busAccess.regionFor.keyword(busAccessAccess.rightCurlyBracketKeyword_6_2)
+		formatCurlyProperties(busAccess, document, busAccess.regionFor.keyword(busAccessAccess.leftCurlyBracketKeyword_7_0),
+			busAccess.regionFor.keyword(busAccessAccess.rightCurlyBracketKeyword_7_2)
 		)
-		busAccess.regionFor.keyword(busAccessAccess.semicolonKeyword_7).prepend[noSpace]
+		busAccess.regionFor.keyword(busAccessAccess.semicolonKeyword_8).prepend[noSpace]
 	}
 	
 	def dispatch void format(DataAccess dataAccess, extension IFormattableDocument document) {
@@ -1576,7 +1579,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	}
 	
 	def dispatch void format(FeatureGroupType featureGroupType, extension IFormattableDocument document) {
-		val newLineCount = switch featureGroupType.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch featureGroupType.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -1625,7 +1628,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Semicolons after none keywords
 		val semicolons = featureGroupType.regionFor.keywords(";")
-		semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
+		if (semicolons.size > 1) {
+			semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
+		}
 		
 		//Contents
 		(featureGroupType.ownedPrototypes +
@@ -1655,7 +1660,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 	def private formatComponentImplementationCommon(ComponentImplementation componentImplementation, extension IFormattableDocument document,
 		ISemanticRegion nameAssignment, ISemanticRegion processorFeaturesKeyword
 	) {
-		val newLineCount = switch componentImplementation.regionForEObject.nextSemanticRegion.semanticElement {
+		val newLineCount = switch componentImplementation.regionForEObject?.nextSemanticRegion?.semanticElement {
 			Classifier,
 			AnnexLibrary,
 			PackageSection: 2
@@ -1704,7 +1709,9 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		
 		//Semicolons after none keywords
 		val semicolons = componentImplementation.regionFor.keywords(";")
-		semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
+		if (semicolons.size > 1) {
+			semicolons.take(semicolons.size - 1).forEach[append[newLines = 1]]
+		}
 		
 		//Contents
 		(componentImplementation.ownedPrototypes +
@@ -2179,7 +2186,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			}
 		}
 		
-		flowSpecification.regionFor.keyword(flowSpecificationAccess.semicolonKeyword_1).prepend[noSpace]
+		flowSpecification.regionFor.keyword(";").prepend[noSpace]
 	}
 	
 	def dispatch void format(FlowEnd flowEnd, extension IFormattableDocument document) {

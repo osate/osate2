@@ -94,6 +94,7 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider {
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedDataPort());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventDataPort());
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventPort());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedBusAccess());
 		}
 		return childrenFeatures;
 	}
@@ -150,6 +151,7 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider {
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_DATA_PORT:
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT:
 		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT:
+		case Aadl2Package.VIRTUAL_BUS_TYPE__OWNED_BUS_ACCESS:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -175,6 +177,9 @@ public class VirtualBusTypeItemProvider extends ComponentTypeItemProvider {
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedEventPort(),
 				Aadl2Factory.eINSTANCE.createEventPort()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getVirtualBusType_OwnedBusAccess(),
+				Aadl2Factory.eINSTANCE.createBusAccess()));
 	}
 
 }

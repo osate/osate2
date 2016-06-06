@@ -501,6 +501,13 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	private EClass busFeatureClassifierEClass = null;
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	private EClass busClassifierEClass = null;
 
 	/**
@@ -4006,6 +4013,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EAttribute getBusAccess_Virtual() {
+		return (EAttribute) busAccessEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getAccess() {
 		return accessEClass;
 	}
@@ -4038,6 +4055,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	@Override
 	public EClass getAccessConnectionEnd() {
 		return accessConnectionEndEClass;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EClass getBusFeatureClassifier() {
+		return busFeatureClassifierEClass;
 	}
 
 	/**
@@ -7566,6 +7593,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getVirtualBusType_OwnedBusAccess() {
+		return (EReference) virtualBusTypeEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getVirtualBusImplementation() {
 		return virtualBusImplementationEClass;
 	}
@@ -7648,6 +7685,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	@Override
 	public EReference getVirtualProcessorType_OwnedSubprogramGroupAccess() {
 		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getVirtualProcessorType_OwnedBusAccess() {
+		return (EReference) virtualProcessorTypeEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -9356,6 +9403,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		busAccessEClass = createEClass(BUS_ACCESS);
 		createEReference(busAccessEClass, BUS_ACCESS__BUS_FEATURE_CLASSIFIER);
+		createEAttribute(busAccessEClass, BUS_ACCESS__VIRTUAL);
 
 		accessEClass = createEClass(ACCESS);
 		createEAttribute(accessEClass, ACCESS__KIND);
@@ -9363,7 +9411,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		accessConnectionEndEClass = createEClass(ACCESS_CONNECTION_END);
 
-		busSubcomponentTypeEClass = createEClass(BUS_SUBCOMPONENT_TYPE);
+		busFeatureClassifierEClass = createEClass(BUS_FEATURE_CLASSIFIER);
 
 		dataAccessEClass = createEClass(DATA_ACCESS);
 		createEReference(dataAccessEClass, DATA_ACCESS__DATA_FEATURE_CLASSIFIER);
@@ -9627,6 +9675,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		memorySubcomponentTypeEClass = createEClass(MEMORY_SUBCOMPONENT_TYPE);
 
 		deviceSubcomponentTypeEClass = createEClass(DEVICE_SUBCOMPONENT_TYPE);
+
+		busSubcomponentTypeEClass = createEClass(BUS_SUBCOMPONENT_TYPE);
 
 		processorSubcomponentTypeEClass = createEClass(PROCESSOR_SUBCOMPONENT_TYPE);
 
@@ -9900,6 +9950,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEReference(virtualBusTypeEClass, VIRTUAL_BUS_TYPE__OWNED_DATA_PORT);
 		createEReference(virtualBusTypeEClass, VIRTUAL_BUS_TYPE__OWNED_EVENT_DATA_PORT);
 		createEReference(virtualBusTypeEClass, VIRTUAL_BUS_TYPE__OWNED_EVENT_PORT);
+		createEReference(virtualBusTypeEClass, VIRTUAL_BUS_TYPE__OWNED_BUS_ACCESS);
 
 		virtualBusImplementationEClass = createEClass(VIRTUAL_BUS_IMPLEMENTATION);
 		createEReference(virtualBusImplementationEClass, VIRTUAL_BUS_IMPLEMENTATION__OWNED_VIRTUAL_BUS_SUBCOMPONENT);
@@ -9914,6 +9965,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEReference(virtualProcessorTypeEClass, VIRTUAL_PROCESSOR_TYPE__OWNED_EVENT_PORT);
 		createEReference(virtualProcessorTypeEClass, VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_ACCESS);
 		createEReference(virtualProcessorTypeEClass, VIRTUAL_PROCESSOR_TYPE__OWNED_SUBPROGRAM_GROUP_ACCESS);
+		createEReference(virtualProcessorTypeEClass, VIRTUAL_PROCESSOR_TYPE__OWNED_BUS_ACCESS);
 
 		virtualProcessorImplementationEClass = createEClass(VIRTUAL_PROCESSOR_IMPLEMENTATION);
 		createEReference(virtualProcessorImplementationEClass,
@@ -10166,8 +10218,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		accessEClass.getESuperTypes().add(getFeature());
 		accessEClass.getESuperTypes().add(getAccessConnectionEnd());
 		accessConnectionEndEClass.getESuperTypes().add(getConnectionEnd());
-		busSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
-		busSubcomponentTypeEClass.getESuperTypes().add(getFeatureClassifier());
+		busFeatureClassifierEClass.getESuperTypes().add(getFeatureClassifier());
 		dataAccessEClass.getESuperTypes().add(getAccess());
 		dataAccessEClass.getESuperTypes().add(getFlowElement());
 		dataAccessEClass.getESuperTypes().add(getParameterConnectionEnd());
@@ -10300,12 +10351,15 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		abstractClassifierEClass.getESuperTypes().add(getVirtualProcessorSubcomponentType());
 		virtualProcessorSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
+		virtualBusSubcomponentTypeEClass.getESuperTypes().add(getBusFeatureClassifier());
 		threadGroupSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		threadSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		systemSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		processSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		memorySubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		deviceSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
+		busSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
+		busSubcomponentTypeEClass.getESuperTypes().add(getBusFeatureClassifier());
 		processorSubcomponentTypeEClass.getESuperTypes().add(getSubcomponentType());
 		abstractImplementationEClass.getESuperTypes().add(getBehavioredImplementation());
 		abstractImplementationEClass.getESuperTypes().add(getAbstractClassifier());
@@ -10348,6 +10402,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		threadGroupSubcomponentEClass.getESuperTypes().add(getThreadGroup());
 		threadGroupEClass.getESuperTypes().add(getNamedElement());
 		virtualBusSubcomponentEClass.getESuperTypes().add(getSubcomponent());
+		virtualBusSubcomponentEClass.getESuperTypes().add(getAccessConnectionEnd());
 		virtualBusSubcomponentEClass.getESuperTypes().add(getVirtualBus());
 		virtualBusEClass.getESuperTypes().add(getNamedElement());
 		virtualProcessorSubcomponentEClass.getESuperTypes().add(getSubcomponent());
@@ -11168,9 +11223,11 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 
 		initEClass(busAccessEClass, BusAccess.class, "BusAccess", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getBusAccess_BusFeatureClassifier(), getBusSubcomponentType(), null, "busFeatureClassifier",
+		initEReference(getBusAccess_BusFeatureClassifier(), getBusFeatureClassifier(), null, "busFeatureClassifier",
 				null, 0, 1, BusAccess.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getBusAccess_Virtual(), getBoolean(), "virtual", "false", 1, 1, BusAccess.class, !IS_TRANSIENT,
+				!IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(accessEClass, Access.class, "Access", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getAccess_Kind(), getAccessType(), "kind", null, 1, 1, Access.class, !IS_TRANSIENT, !IS_VOLATILE,
@@ -11181,7 +11238,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(accessConnectionEndEClass, AccessConnectionEnd.class, "AccessConnectionEnd", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(busSubcomponentTypeEClass, BusSubcomponentType.class, "BusSubcomponentType", IS_ABSTRACT,
+		initEClass(busFeatureClassifierEClass, BusFeatureClassifier.class, "BusFeatureClassifier", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(dataAccessEClass, DataAccess.class, "DataAccess", !IS_ABSTRACT, !IS_INTERFACE,
@@ -11736,6 +11793,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(deviceSubcomponentTypeEClass, DeviceSubcomponentType.class, "DeviceSubcomponentType", IS_ABSTRACT,
+				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+		initEClass(busSubcomponentTypeEClass, BusSubcomponentType.class, "BusSubcomponentType", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
 		initEClass(processorSubcomponentTypeEClass, ProcessorSubcomponentType.class, "ProcessorSubcomponentType",
@@ -12338,6 +12398,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getVirtualBusType_OwnedEventPort(), getEventPort(), null, "ownedEventPort", null, 0, -1,
 				VirtualBusType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getVirtualBusType_OwnedBusAccess(), getBusAccess(), null, "ownedBusAccess", null, 0, -1,
+				VirtualBusType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(virtualBusImplementationEClass, VirtualBusImplementation.class, "VirtualBusImplementation",
 				!IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -12368,6 +12431,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getVirtualProcessorType_OwnedSubprogramGroupAccess(), getSubprogramGroupAccess(), null,
 				"ownedSubprogramGroupAccess", null, 0, -1, VirtualProcessorType.class, !IS_TRANSIENT, !IS_VOLATILE,
 				IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getVirtualProcessorType_OwnedBusAccess(), getBusAccess(), null, "ownedBusAccess", null, 0, -1,
+				VirtualProcessorType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(virtualProcessorImplementationEClass, VirtualProcessorImplementation.class,
 				"VirtualProcessorImplementation", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -12656,6 +12722,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addEEnumLiteral(accessCategoryEEnum, AccessCategory.DATA);
 		addEEnumLiteral(accessCategoryEEnum, AccessCategory.SUBPROGRAM);
 		addEEnumLiteral(accessCategoryEEnum, AccessCategory.SUBPROGRAM_GROUP);
+		addEEnumLiteral(accessCategoryEEnum, AccessCategory.VIRTUAL_BUS);
 
 		initEEnum(portCategoryEEnum, PortCategory.class, "PortCategory");
 		addEEnumLiteral(portCategoryEEnum, PortCategory.DATA);
@@ -13214,6 +13281,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualBusType_OwnedEventPort(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getVirtualBusType_OwnedBusAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualBusImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
 		addAnnotation(getVirtualProcessorType_OwnedDataPort(), source, new String[] {},
@@ -13225,6 +13294,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		addAnnotation(getVirtualProcessorType_OwnedSubprogramAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualProcessorType_OwnedSubprogramGroupAccess(), source, new String[] {},
+				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
+		addAnnotation(getVirtualProcessorType_OwnedBusAccess(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentType/ownedFeature") });
 		addAnnotation(getVirtualProcessorImplementation_OwnedVirtualBusSubcomponent(), source, new String[] {},
 				new URI[] { URI.createURI(eNS_URI).appendFragment("//ComponentImplementation/ownedSubcomponent") });
