@@ -1860,21 +1860,24 @@ FlowSpecification returns aadl2::FlowSpecification:
 	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec 
 		| FlowSpecRefinement
 	)
-		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
-	';'
 	;
 
 FlowSourceSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSource 
 	outEnd=FlowEnd
+		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	';'
 ;
 
 FlowSinkSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSink 
 	InEnd=FlowEnd
+		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	';'
 ;
 
 FlowPathSpec returns aadl2::FlowSpecification:
@@ -1882,6 +1885,9 @@ FlowPathSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowPath 
 	InEnd=FlowEnd
 	'->' 	outEnd=FlowEnd
+		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	';'
 ;
 
 FlowEnd returns aadl2::FlowEnd:
@@ -1891,13 +1897,13 @@ FlowEnd returns aadl2::FlowEnd:
 FlowSpecRefinement returns aadl2::FlowSpecification:
 	refined=[aadl2::FlowSpecification|REFINEDNAME] 
 	':' 'refined' 'to' 'flow' kind=FlowKind 
+		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	';'
 	;
 
 FlowImplementation returns aadl2::FlowImplementation:
 	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
-	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
-	';'
 ;
 
 FlowSourceImpl returns aadl2::FlowImplementation:
@@ -1905,6 +1911,9 @@ FlowSourceImpl returns aadl2::FlowImplementation:
 	':' 'flow' kind=FlowSource 
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
 FLOWOUT
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+	';'
 ;
 
 FlowSinkImpl returns aadl2::FlowImplementation:
@@ -1912,6 +1921,9 @@ FlowSinkImpl returns aadl2::FlowImplementation:
 	':' 'flow' kind=FlowSink 
 FLOWIN
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+	';'
 ;
 
 FlowPathImpl returns aadl2::FlowImplementation:
@@ -1921,6 +1933,9 @@ FLOWIN
 	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
 	    '->' ownedFlowSegment+=ConnectionFlow )?
  '->' FLOWOUT
+	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+	';'
 ;
 
 
