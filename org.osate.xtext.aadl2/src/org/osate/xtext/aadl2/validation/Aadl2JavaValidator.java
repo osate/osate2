@@ -48,7 +48,9 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -62,6 +64,7 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
+import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -1178,22 +1181,50 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 
 		ICompositeNode n = NodeModelUtils.getNode(flow);
-
-		INode lln = getLastLeaf(n);
-		String outFeatureName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
-				.replaceAll("\n", "");
-		int featureOffset = lln.getOffset();
-		int contextOffset = -99;
-
-		lln = getPreviousNode(lln);
-		String outContextName = null;
-		if (lln != null && lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
-				.replaceAll("\n", "").equals(".")) {
-			lln = getPreviousNode(lln);
-			outContextName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
-					.replaceAll("\n", "");
-			contextOffset = lln.getOffset();
+		
+		Optional<INode> flowOutNodeOptional = StreamSupport.stream(n.getChildren().spliterator(), true).filter(childNode -> {
+			EObject grammarElement = childNode.getGrammarElement();
+			if (grammarElement instanceof RuleCall) {
+				if (((RuleCall)grammarElement).getRule().getName().equals("FLOWOUT")) {
+					return true;
+				}
+			}
+			return false;
+		}).findAny();
+		if (!flowOutNodeOptional.isPresent() || !(flowOutNodeOptional.get() instanceof ICompositeNode)) {
+			return;
 		}
+		
+		ICompositeNode flowOutNode = (ICompositeNode)flowOutNodeOptional.get();
+		List<INode> idNodes = StreamSupport.stream(flowOutNode.getChildren().spliterator(), false).filter(childNode -> {
+			EObject grammarElement = childNode.getGrammarElement();
+			if (grammarElement instanceof RuleCall) {
+				if (((RuleCall)grammarElement).getRule().getName().equals("ID")) {
+					return true;
+				}
+			}
+			return false;
+		}).collect(Collectors.toList());
+		
+		String outContextName;
+		int contextOffset;
+		String outFeatureName;
+		int featureOffset;
+		
+		if (idNodes.size() == 1) {
+			outContextName = null;
+			contextOffset = -99;
+			outFeatureName = idNodes.get(0).getText();
+			featureOffset = idNodes.get(0).getOffset();
+		} else if (idNodes.size() == 2) {
+			outContextName = idNodes.get(0).getText();
+			contextOffset = idNodes.get(0).getOffset();
+			outFeatureName = idNodes.get(1).getText();
+			featureOffset = idNodes.get(1).getOffset();
+		} else {
+			return;
+		}
+		
 		FlowSpecification spec = flow.getSpecification();
 		if (Aadl2Util.isNull(spec)) {
 			return;
