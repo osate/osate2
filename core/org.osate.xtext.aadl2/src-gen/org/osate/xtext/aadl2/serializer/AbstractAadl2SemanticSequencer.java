@@ -1962,16 +1962,26 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (
-	 *             (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*) | 
-	 *             (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*) | 
-	 *             (
-	 *                 specification=[FlowSpecification|ID] 
-	 *                 kind=FlowPath 
-	 *                 ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
-	 *             )
-	 *         ) 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
-	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *             specification=[FlowSpecification|ID] 
+	 *             kind=FlowSource 
+	 *             (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)* 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             specification=[FlowSpecification|ID] 
+	 *             kind=FlowSink 
+	 *             (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             specification=[FlowSpecification|ID] 
+	 *             kind=FlowPath 
+	 *             ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)? 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         )
 	 *     )
 	 */
 	protected void sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(EObject context, FlowImplementation semanticObject) {
@@ -1984,7 +1994,9 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 *     (
 	 *         specification=[FlowSpecification|ID] 
 	 *         kind=FlowPath 
-	 *         ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)?
+	 *         ((ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* ownedFlowSegment+=ConnectionFlow)? 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
 	 *     )
 	 */
 	protected void sequence_FlowPathImpl(EObject context, FlowImplementation semanticObject) {
@@ -1996,13 +2008,33 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	 * Constraint:
 	 *     (
 	 *         (
-	 *             (name=ID kind=FlowSource outEnd=FlowEnd) | 
-	 *             (name=ID kind=FlowSink InEnd=FlowEnd) | 
-	 *             (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd) | 
-	 *             (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
-	 *         ) 
-	 *         ownedPropertyAssociation+=PropertyAssociation* 
-	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *             name=ID 
+	 *             kind=FlowSource 
+	 *             outEnd=FlowEnd 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             kind=FlowSink 
+	 *             InEnd=FlowEnd 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             name=ID 
+	 *             kind=FlowPath 
+	 *             InEnd=FlowEnd 
+	 *             outEnd=FlowEnd 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         ) | 
+	 *         (
+	 *             refined=[FlowSpecification|REFINEDNAME] 
+	 *             kind=FlowKind 
+	 *             ownedPropertyAssociation+=PropertyAssociation* 
+	 *             (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *         )
 	 *     )
 	 */
 	protected void sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(EObject context, FlowSpecification semanticObject) {
@@ -2012,7 +2044,14 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID kind=FlowPath InEnd=FlowEnd outEnd=FlowEnd)
+	 *     (
+	 *         name=ID 
+	 *         kind=FlowPath 
+	 *         InEnd=FlowEnd 
+	 *         outEnd=FlowEnd 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowPathSpec(EObject context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2021,7 +2060,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (specification=[FlowSpecification|ID] kind=FlowSink (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)*)
+	 *     (
+	 *         specification=[FlowSpecification|ID] 
+	 *         kind=FlowSink 
+	 *         (ownedFlowSegment+=ConnectionFlow ownedFlowSegment+=SubcomponentFlow)* 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSinkImpl(EObject context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2030,7 +2075,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID kind=FlowSink InEnd=FlowEnd)
+	 *     (
+	 *         name=ID 
+	 *         kind=FlowSink 
+	 *         InEnd=FlowEnd 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSinkSpec(EObject context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2039,7 +2090,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (specification=[FlowSpecification|ID] kind=FlowSource (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)*)
+	 *     (
+	 *         specification=[FlowSpecification|ID] 
+	 *         kind=FlowSource 
+	 *         (ownedFlowSegment+=SubcomponentFlow ownedFlowSegment+=ConnectionFlow)* 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSourceImpl(EObject context, FlowImplementation semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2048,7 +2105,13 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (name=ID kind=FlowSource outEnd=FlowEnd)
+	 *     (
+	 *         name=ID 
+	 *         kind=FlowSource 
+	 *         outEnd=FlowEnd 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSourceSpec(EObject context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
@@ -2057,7 +2120,12 @@ public abstract class AbstractAadl2SemanticSequencer extends PropertiesSemanticS
 	
 	/**
 	 * Constraint:
-	 *     (refined=[FlowSpecification|REFINEDNAME] kind=FlowKind)
+	 *     (
+	 *         refined=[FlowSpecification|REFINEDNAME] 
+	 *         kind=FlowKind 
+	 *         ownedPropertyAssociation+=PropertyAssociation* 
+	 *         (inModeOrTransition+=[ModeFeature|ID] inModeOrTransition+=[ModeFeature|ID]*)?
+	 *     )
 	 */
 	protected void sequence_FlowSpecRefinement(EObject context, FlowSpecification semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
