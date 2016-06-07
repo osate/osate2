@@ -133,16 +133,20 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cVolatilityAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
 		private final RuleCall cVolatilityINTTerminalRuleCall_2_0_1_0 = (RuleCall)cVolatilityAssignment_2_0_1.eContents().get(0);
 		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
-		private final Keyword cImpactKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cImpactAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cImpactINTTerminalRuleCall_2_1_1_0 = (RuleCall)cImpactAssignment_2_1_1.eContents().get(0);
+		private final Keyword cPrecedenceKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cPrecedenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cPrecedenceINTTerminalRuleCall_2_1_1_0 = (RuleCall)cPrecedenceAssignment_2_1_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cUnorderedGroup_2.eContents().get(2);
+		private final Keyword cImpactKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Assignment cImpactAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
+		private final RuleCall cImpactINTTerminalRuleCall_2_2_1_0 = (RuleCall)cImpactAssignment_2_2_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
+		//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]"
+		//"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
@@ -151,7 +155,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"volatility" volatility=INT & "impact" impact=INT
+		//"volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT
 		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
 		//"volatility" volatility=INT
@@ -166,17 +170,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getVolatilityINTTerminalRuleCall_2_0_1_0() { return cVolatilityINTTerminalRuleCall_2_0_1_0; }
 
-		//"impact" impact=INT
+		//"precedence" precedence=INT
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//"impact"
-		public Keyword getImpactKeyword_2_1_0() { return cImpactKeyword_2_1_0; }
+		//"precedence"
+		public Keyword getPrecedenceKeyword_2_1_0() { return cPrecedenceKeyword_2_1_0; }
 
-		//impact=INT
-		public Assignment getImpactAssignment_2_1_1() { return cImpactAssignment_2_1_1; }
+		//precedence=INT
+		public Assignment getPrecedenceAssignment_2_1_1() { return cPrecedenceAssignment_2_1_1; }
 
 		//INT
-		public RuleCall getImpactINTTerminalRuleCall_2_1_1_0() { return cImpactINTTerminalRuleCall_2_1_1_0; }
+		public RuleCall getPrecedenceINTTerminalRuleCall_2_1_1_0() { return cPrecedenceINTTerminalRuleCall_2_1_1_0; }
+
+		//"impact" impact=INT
+		public Group getGroup_2_2() { return cGroup_2_2; }
+
+		//"impact"
+		public Keyword getImpactKeyword_2_2_0() { return cImpactKeyword_2_2_0; }
+
+		//impact=INT
+		public Assignment getImpactAssignment_2_2_1() { return cImpactAssignment_2_2_1; }
+
+		//INT
+		public RuleCall getImpactINTTerminalRuleCall_2_2_1_0() { return cImpactINTTerminalRuleCall_2_2_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
@@ -2572,7 +2588,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}

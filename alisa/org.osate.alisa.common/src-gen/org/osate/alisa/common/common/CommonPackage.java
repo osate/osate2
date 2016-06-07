@@ -203,13 +203,22 @@ public interface CommonPackage extends EPackage
   int UNCERTAINTY__VOLATILITY = 0;
 
   /**
+   * The feature id for the '<em><b>Precedence</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int UNCERTAINTY__PRECEDENCE = 1;
+
+  /**
    * The feature id for the '<em><b>Impact</b></em>' attribute.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int UNCERTAINTY__IMPACT = 1;
+  int UNCERTAINTY__IMPACT = 2;
 
   /**
    * The number of structural features of the '<em>Uncertainty</em>' class.
@@ -218,7 +227,7 @@ public interface CommonPackage extends EPackage
    * @generated
    * @ordered
    */
-  int UNCERTAINTY_FEATURE_COUNT = 2;
+  int UNCERTAINTY_FEATURE_COUNT = 3;
 
   /**
    * The meta object id for the '{@link org.osate.alisa.common.common.impl.ResultIssueImpl <em>Result Issue</em>}' class.
@@ -1422,6 +1431,17 @@ public interface CommonPackage extends EPackage
   EAttribute getUncertainty_Volatility();
 
   /**
+   * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getPrecedence <em>Precedence</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Precedence</em>'.
+   * @see org.osate.alisa.common.common.Uncertainty#getPrecedence()
+   * @see #getUncertainty()
+   * @generated
+   */
+  EAttribute getUncertainty_Precedence();
+
+  /**
    * Returns the meta object for the attribute '{@link org.osate.alisa.common.common.Uncertainty#getImpact <em>Impact</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2167,6 +2187,14 @@ public interface CommonPackage extends EPackage
      * @generated
      */
     EAttribute UNCERTAINTY__VOLATILITY = eINSTANCE.getUncertainty_Volatility();
+
+    /**
+     * The meta object literal for the '<em><b>Precedence</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute UNCERTAINTY__PRECEDENCE = eINSTANCE.getUncertainty_Precedence();
 
     /**
      * The meta object literal for the '<em><b>Impact</b></em>' attribute feature.

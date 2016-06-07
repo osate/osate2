@@ -150,6 +150,7 @@ import org.osate.reqspec.services.ReqSpecGrammarAccess;
 		tokenNameToValue.put("Processor", "'processor'");
 		tokenNameToValue.put("Rationale", "'rationale'");
 		tokenNameToValue.put("Decomposes", "'decomposes'");
+		tokenNameToValue.put("Precedence", "'precedence'");
 		tokenNameToValue.put("Subprogram", "'subprogram'");
 		tokenNameToValue.put("Volatility", "'volatility'");
 		tokenNameToValue.put("Connections", "'connections'");
@@ -14541,11 +14542,11 @@ rule__Uncertainty__Group_2_1__0__Impl
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getImpactKeyword_2_1_0()); }
+{ before(grammarAccess.getUncertaintyAccess().getPrecedenceKeyword_2_1_0()); }
 
-	Impact 
+	Precedence 
 
-{ after(grammarAccess.getUncertaintyAccess().getImpactKeyword_2_1_0()); }
+{ after(grammarAccess.getUncertaintyAccess().getPrecedenceKeyword_2_1_0()); }
 )
 
 ;
@@ -14571,9 +14572,72 @@ rule__Uncertainty__Group_2_1__1__Impl
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_1_1()); }
-(rule__Uncertainty__ImpactAssignment_2_1_1)
-{ after(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_1_1()); }
+{ before(grammarAccess.getUncertaintyAccess().getPrecedenceAssignment_2_1_1()); }
+(rule__Uncertainty__PrecedenceAssignment_2_1_1)
+{ after(grammarAccess.getUncertaintyAccess().getPrecedenceAssignment_2_1_1()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+
+
+
+
+rule__Uncertainty__Group_2_2__0
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Uncertainty__Group_2_2__0__Impl
+	rule__Uncertainty__Group_2_2__1
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Uncertainty__Group_2_2__0__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUncertaintyAccess().getImpactKeyword_2_2_0()); }
+
+	Impact 
+
+{ after(grammarAccess.getUncertaintyAccess().getImpactKeyword_2_2_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
+rule__Uncertainty__Group_2_2__1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Uncertainty__Group_2_2__1__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Uncertainty__Group_2_2__1__Impl
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_2_1()); }
+(rule__Uncertainty__ImpactAssignment_2_2_1)
+{ after(grammarAccess.getUncertaintyAccess().getImpactAssignment_2_2_1()); }
 )
 
 ;
@@ -24454,6 +24518,26 @@ rule__Uncertainty__UnorderedGroup_2__Impl
 	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
 	 				}
  				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2);
+	 				}
+	 				{
+	 				  selected = true;
+	 				}
+					(
+					
+						{ before(grammarAccess.getUncertaintyAccess().getGroup_2_2()); }
+						(rule__Uncertainty__Group_2_2__0)
+						{ after(grammarAccess.getUncertaintyAccess().getGroup_2_2()); }
+					)
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	 				}
+ 				)
 			)  
 
 		)
@@ -24484,10 +24568,25 @@ rule__Uncertainty__UnorderedGroup_2__1
     }
 :
 	rule__Uncertainty__UnorderedGroup_2__Impl
+	rule__Uncertainty__UnorderedGroup_2__2?
 ;
 finally {
 	restoreStackSize(stackSize);
 }
+
+
+rule__Uncertainty__UnorderedGroup_2__2
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+	rule__Uncertainty__UnorderedGroup_2__Impl
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+
 
 
 
@@ -27572,14 +27671,29 @@ finally {
 	restoreStackSize(stackSize);
 }
 
-rule__Uncertainty__ImpactAssignment_2_1_1
+rule__Uncertainty__PrecedenceAssignment_2_1_1
     @init {
 		int stackSize = keepStackSize();
     }
 :
 (
-{ before(grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_1_1_0()); }
-	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_1_1_0()); }
+{ before(grammarAccess.getUncertaintyAccess().getPrecedenceINTTerminalRuleCall_2_1_1_0()); }
+	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getPrecedenceINTTerminalRuleCall_2_1_1_0()); }
+)
+
+;
+finally {
+	restoreStackSize(stackSize);
+}
+
+rule__Uncertainty__ImpactAssignment_2_2_1
+    @init {
+		int stackSize = keepStackSize();
+    }
+:
+(
+{ before(grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_2_1_0()); }
+	RULE_INT{ after(grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_2_1_0()); }
 )
 
 ;

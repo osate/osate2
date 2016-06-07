@@ -2327,7 +2327,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
