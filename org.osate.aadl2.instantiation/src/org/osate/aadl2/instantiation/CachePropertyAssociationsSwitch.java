@@ -328,10 +328,9 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 			// xxx: this is a misleading place to put the marker
 			error(conni, e.getMessage());
 			System.out.println("IllegalStateException raised in cacheConnectionPropertyAssociations");
-
 		} catch (InvalidModelException e) {
 			error(conni, e.getMessage());
-			System.out.println("IllegalStateException raised in cacheConnectionPropertyAssociations");
+			System.out.println("InvalidModelException raised in cacheConnectionPropertyAssociations");
 		}
 
 	}
