@@ -126,6 +126,72 @@ public class GetProperties {
 		}
 	}
 
+	public static String getSourceName (final NamedElement ne)
+	{
+		try {
+			Property sn = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
+					ProgrammingProperties.SOURCE_NAME);
+
+
+			PropertyAcc pacc = ne.getPropertyValue(sn);
+			if (pacc.getAssociations().size()>0)
+			{
+				ModalPropertyValue mdv = pacc.getAssociations().get(0).getOwnedValues().get(0);
+				PropertyExpression pe = mdv.getOwnedValue();
+//				System.out.println("pe=" + pe);
+				StringLiteral sl = (StringLiteral) pe;
+				return sl.getValue();
+
+			}
+//			System.out.println("pacc" + pacc.getAssociations().get(0).getOwnedValues().get(0));
+			return null;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static List<String> getDataEnumerators (final NamedElement ne)
+	{
+		List<String> res;
+		res = new ArrayList<String>();
+		try {
+			Property st = lookupPropertyDefinition(ne, DataModel._NAME,
+					DataModel.Enumerators);
+
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(st);
+			for (PropertyExpression propertyExpression : propertyValues) {
+//				System.out.println("pe=" + propertyExpression);
+				StringLiteral sl = (StringLiteral) propertyExpression;
+				res.add(sl.getValue());
+			}
+			return res;
+
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
+	public static List<String> getSourceText (final NamedElement ne)
+	{
+		List<String> res;
+		res = new ArrayList<String>();
+		try {
+			Property st = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
+					ProgrammingProperties.SOURCE_TEXT);
+
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(st);
+			for (PropertyExpression propertyExpression : propertyValues) {
+//				System.out.println("pe=" + propertyExpression);
+				StringLiteral sl = (StringLiteral) propertyExpression;
+				res.add(sl.getValue());
+			}
+			return res;
+
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
 	/**
 	 * returns true if property is explicitly assigned
 	 *
