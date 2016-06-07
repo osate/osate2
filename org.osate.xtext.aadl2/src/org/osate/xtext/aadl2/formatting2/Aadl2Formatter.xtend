@@ -1427,7 +1427,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.leftCurlyBracketKeyword_4_0),
 			featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.rightCurlyBracketKeyword_4_2)
 		)
-		featureGroupPrototype.regionFor.keyword(prototypeAccess.semicolonKeyword_1).prepend[noSpace]
+		featureGroupPrototype.regionFor.keyword(featureGroupPrototypeAccess.semicolonKeyword_5).prepend[noSpace]
 	}
 	
 	def dispatch void format(FeaturePrototype featurePrototype, extension IFormattableDocument document) {
@@ -1448,7 +1448,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		formatCurlyProperties(featurePrototype, document, featurePrototype.regionFor.keyword(featurePrototypeAccess.leftCurlyBracketKeyword_4_0),
 			featurePrototype.regionFor.keyword(featurePrototypeAccess.rightCurlyBracketKeyword_4_2)
 		)
-		featurePrototype.regionFor.keyword(prototypeAccess.semicolonKeyword_1).prepend[noSpace]
+		featurePrototype.regionFor.keyword(featurePrototypeAccess.semicolonKeyword_5).prepend[noSpace]
 	}
 	
 	def private formatComponentPrototypeCommon(ComponentPrototype componentPrototype, extension IFormattableDocument document, ISemanticRegion constrainingClassifierAssignment) {
@@ -1463,7 +1463,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 		formatCurlyProperties(componentPrototype, document, componentPrototype.regionFor.keyword("{"),
 			componentPrototype.regionFor.keyword("}")
 		)
-		componentPrototype.regionFor.keyword(prototypeAccess.semicolonKeyword_1).prepend[noSpace]
+		componentPrototype.regionFor.keyword(";").prepend[noSpace]
 	}
 	
 	def dispatch void format(AbstractPrototype abstractPrototype, extension IFormattableDocument document) {

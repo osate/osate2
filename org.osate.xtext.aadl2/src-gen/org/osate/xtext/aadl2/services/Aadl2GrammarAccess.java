@@ -13423,35 +13423,27 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	public class PrototypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.Prototype");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final RuleCall cComponentPrototypeParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
-		private final RuleCall cFeatureGroupPrototypeParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
-		private final RuleCall cFeaturePrototypeParserRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
-		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cComponentPrototypeParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cFeatureGroupPrototypeParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFeaturePrototypeParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//// ******* Prototypes
 		//Prototype aadl2::Prototype:
-		//	(ComponentPrototype | FeatureGroupPrototype | FeaturePrototype) ';'
+		//	ComponentPrototype | FeatureGroupPrototype | FeaturePrototype
 		@Override public ParserRule getRule() { return rule; }
 
-		//(ComponentPrototype | FeatureGroupPrototype | FeaturePrototype) ';'
-		public Group getGroup() { return cGroup; }
-
-		//(ComponentPrototype | FeatureGroupPrototype | FeaturePrototype)
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		//ComponentPrototype | FeatureGroupPrototype | FeaturePrototype
+		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//ComponentPrototype
-		public RuleCall getComponentPrototypeParserRuleCall_0_0() { return cComponentPrototypeParserRuleCall_0_0; }
+		public RuleCall getComponentPrototypeParserRuleCall_0() { return cComponentPrototypeParserRuleCall_0; }
 
 		//FeatureGroupPrototype
-		public RuleCall getFeatureGroupPrototypeParserRuleCall_0_1() { return cFeatureGroupPrototypeParserRuleCall_0_1; }
+		public RuleCall getFeatureGroupPrototypeParserRuleCall_1() { return cFeatureGroupPrototypeParserRuleCall_1; }
 
 		//FeaturePrototype
-		public RuleCall getFeaturePrototypeParserRuleCall_0_2() { return cFeaturePrototypeParserRuleCall_0_2; }
-
-		//';'
-		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
+		public RuleCall getFeaturePrototypeParserRuleCall_2() { return cFeaturePrototypeParserRuleCall_2; }
 	}
 
 	public class ComponentPrototypeElements extends AbstractParserRuleElementFinder {
@@ -13554,17 +13546,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//AbstractPrototype aadl2::AbstractPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'abstract'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'abstract'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -13641,6 +13635,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class BusPrototypeElements extends AbstractParserRuleElementFinder {
@@ -13671,17 +13668,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//BusPrototype aadl2::BusPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'bus'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'bus'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -13758,6 +13757,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class DataPrototypeElements extends AbstractParserRuleElementFinder {
@@ -13788,17 +13790,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//DataPrototype aadl2::DataPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'data'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'data'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -13875,6 +13879,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class DevicePrototypeElements extends AbstractParserRuleElementFinder {
@@ -13905,17 +13912,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//DevicePrototype aadl2::DevicePrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'device'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'device'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -13992,6 +14001,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class MemoryPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14022,17 +14034,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//MemoryPrototype aadl2::MemoryPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'memory'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'memory'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14109,6 +14123,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class ProcessPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14139,17 +14156,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ProcessPrototype aadl2::ProcessPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'process'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'process'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14226,6 +14245,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class ProcessorPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14256,17 +14278,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ProcessorPrototype aadl2::ProcessorPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'processor'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'processor'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14343,6 +14367,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class SubprogramPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14373,17 +14400,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//SubprogramPrototype aadl2::SubprogramPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'subprogram'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'subprogram'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14460,6 +14489,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class SubprogramGroupPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14491,17 +14523,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//SubprogramGroupPrototype aadl2::SubprogramGroupPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'subprogram' 'group'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'subprogram' 'group'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14581,6 +14615,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class SystemPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14611,17 +14648,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//SystemPrototype aadl2::SystemPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'system'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'system'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14698,6 +14737,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class ThreadPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14728,17 +14770,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//ThreadPrototype aadl2::ThreadPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'thread'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'thread'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14815,6 +14859,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class ThreadGroupPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14846,17 +14893,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//ThreadGroupPrototype aadl2::ThreadGroupPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'thread' 'group'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'thread' 'group'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -14936,6 +14985,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class VirtualBusPrototypeElements extends AbstractParserRuleElementFinder {
@@ -14967,17 +15019,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VirtualBusPrototype aadl2::VirtualBusPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'virtual' 'bus'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'virtual' 'bus'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -15057,6 +15111,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class VirtualProcessorPrototypeElements extends AbstractParserRuleElementFinder {
@@ -15088,17 +15145,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_5_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_5_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_5_2 = (Keyword)cGroup_5.eContents().get(2);
+		private final Keyword cSemicolonKeyword_6 = (Keyword)cGroup.eContents().get(6);
 		
 		//VirtualProcessorPrototype aadl2::VirtualProcessorPrototype:
 		//	(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'virtual' 'processor'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to') 'virtual' 'processor'
 		//constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -15178,6 +15237,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_5_2() { return cRightCurlyBracketKeyword_5_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_6() { return cSemicolonKeyword_6; }
 	}
 
 	public class FeatureGroupPrototypeElements extends AbstractParserRuleElementFinder {
@@ -15205,16 +15267,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//FeatureGroupPrototype aadl2::FeatureGroupPrototype:
 		//	(name=ID ':' | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ':' 'refined' 'to')
 		//	'feature' 'group'
 		//	constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF]? ('{' ownedPropertyAssociation+=PropertyAssociation+
 		//	'}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ':' 'refined' 'to') 'feature' 'group'
 		//constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF]? ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -15282,6 +15347,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class FeaturePrototypeElements extends AbstractParserRuleElementFinder {
@@ -15313,16 +15381,18 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedPropertyAssociationAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
 		private final RuleCall cOwnedPropertyAssociationPropertyAssociationParserRuleCall_4_1_0 = (RuleCall)cOwnedPropertyAssociationAssignment_4_1.eContents().get(0);
 		private final Keyword cRightCurlyBracketKeyword_4_2 = (Keyword)cGroup_4.eContents().get(2);
+		private final Keyword cSemicolonKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//FeaturePrototype aadl2::FeaturePrototype:
 		//	(name=ID ':' | refined=[aadl2::FeaturePrototype|REFINEDNAME] ':' 'refined' 'to') (in?='in' | out?='out')? // only in or out not inout
 		//	'feature'
 		//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//(name=ID ':' | refined=[aadl2::FeaturePrototype|REFINEDNAME] ':' 'refined' 'to') (in?='in' | out?='out')? // only in or out not inout
 		//'feature' constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? ('{' ownedPropertyAssociation+=PropertyAssociation+
-		//'}')?
+		//'}')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//(name=ID ':' | refined=[aadl2::FeaturePrototype|REFINEDNAME] ':' 'refined' 'to')
@@ -15403,6 +15473,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//'}'
 		public Keyword getRightCurlyBracketKeyword_4_2() { return cRightCurlyBracketKeyword_4_2; }
+
+		//';'
+		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
 	public class PrototypeBindingElements extends AbstractParserRuleElementFinder {
@@ -28739,7 +28812,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//// ******* Prototypes
 	//Prototype aadl2::Prototype:
-	//	(ComponentPrototype | FeatureGroupPrototype | FeaturePrototype) ';'
+	//	ComponentPrototype | FeatureGroupPrototype | FeaturePrototype
 	public PrototypeElements getPrototypeAccess() {
 		return pPrototype;
 	}
@@ -28765,6 +28838,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'abstract'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public AbstractPrototypeElements getAbstractPrototypeAccess() {
 		return pAbstractPrototype;
 	}
@@ -28778,6 +28852,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'bus'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public BusPrototypeElements getBusPrototypeAccess() {
 		return pBusPrototype;
 	}
@@ -28791,6 +28866,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'data'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public DataPrototypeElements getDataPrototypeAccess() {
 		return pDataPrototype;
 	}
@@ -28804,6 +28880,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'device'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public DevicePrototypeElements getDevicePrototypeAccess() {
 		return pDevicePrototype;
 	}
@@ -28817,6 +28894,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'memory'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public MemoryPrototypeElements getMemoryPrototypeAccess() {
 		return pMemoryPrototype;
 	}
@@ -28830,6 +28908,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'process'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public ProcessPrototypeElements getProcessPrototypeAccess() {
 		return pProcessPrototype;
 	}
@@ -28843,6 +28922,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'processor'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public ProcessorPrototypeElements getProcessorPrototypeAccess() {
 		return pProcessorPrototype;
 	}
@@ -28856,6 +28936,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'subprogram'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public SubprogramPrototypeElements getSubprogramPrototypeAccess() {
 		return pSubprogramPrototype;
 	}
@@ -28869,6 +28950,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'subprogram' 'group'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public SubprogramGroupPrototypeElements getSubprogramGroupPrototypeAccess() {
 		return pSubprogramGroupPrototype;
 	}
@@ -28882,6 +28964,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'system'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public SystemPrototypeElements getSystemPrototypeAccess() {
 		return pSystemPrototype;
 	}
@@ -28895,6 +28978,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'thread'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public ThreadPrototypeElements getThreadPrototypeAccess() {
 		return pThreadPrototype;
 	}
@@ -28908,6 +28992,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'thread' 'group'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public ThreadGroupPrototypeElements getThreadGroupPrototypeAccess() {
 		return pThreadGroupPrototype;
 	}
@@ -28921,6 +29006,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'virtual' 'bus'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public VirtualBusPrototypeElements getVirtualBusPrototypeAccess() {
 		return pVirtualBusPrototype;
 	}
@@ -28934,6 +29020,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'virtual' 'processor'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? (array?='[' ']')? ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public VirtualProcessorPrototypeElements getVirtualProcessorPrototypeAccess() {
 		return pVirtualProcessorPrototype;
 	}
@@ -28947,6 +29034,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'feature' 'group'
 	//	constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF]? ('{' ownedPropertyAssociation+=PropertyAssociation+
 	//	'}')?
+	//	';'
 	public FeatureGroupPrototypeElements getFeatureGroupPrototypeAccess() {
 		return pFeatureGroupPrototype;
 	}
@@ -28959,6 +29047,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	(name=ID ':' | refined=[aadl2::FeaturePrototype|REFINEDNAME] ':' 'refined' 'to') (in?='in' | out?='out')? // only in or out not inout
 	//	'feature'
 	//	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]? ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	//	';'
 	public FeaturePrototypeElements getFeaturePrototypeAccess() {
 		return pFeaturePrototype;
 	}

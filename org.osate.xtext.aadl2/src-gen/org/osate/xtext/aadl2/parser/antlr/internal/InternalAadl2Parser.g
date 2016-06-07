@@ -18847,9 +18847,9 @@ rulePrototype returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(
     { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getComponentPrototypeParserRuleCall_0_0()); 
+        newCompositeNode(grammarAccess.getPrototypeAccess().getComponentPrototypeParserRuleCall_0()); 
     }
     this_ComponentPrototype_0=ruleComponentPrototype
     {
@@ -18859,7 +18859,7 @@ rulePrototype returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getFeatureGroupPrototypeParserRuleCall_0_1()); 
+        newCompositeNode(grammarAccess.getPrototypeAccess().getFeatureGroupPrototypeParserRuleCall_1()); 
     }
     this_FeatureGroupPrototype_1=ruleFeatureGroupPrototype
     {
@@ -18869,17 +18869,12 @@ rulePrototype returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getPrototypeAccess().getFeaturePrototypeParserRuleCall_0_2()); 
+        newCompositeNode(grammarAccess.getPrototypeAccess().getFeaturePrototypeParserRuleCall_2()); 
     }
     this_FeaturePrototype_2=ruleFeaturePrototype
     {
         $current = $this_FeaturePrototype_2.current;
         afterParserOrEnumRuleCall();
-    }
-)
-	otherlv_3=Semicolon
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getPrototypeAccess().getSemicolonKeyword_1());
     }
 )
 ;
@@ -19187,7 +19182,12 @@ ruleAbstractPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getAbstractPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getAbstractPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -19333,7 +19333,12 @@ ruleBusPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getBusPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getBusPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -19479,7 +19484,12 @@ ruleDataPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getDataPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getDataPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -19625,7 +19635,12 @@ ruleDevicePrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getDevicePrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getDevicePrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -19771,7 +19786,12 @@ ruleMemoryPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getMemoryPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getMemoryPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -19917,7 +19937,12 @@ ruleProcessPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getProcessPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getProcessPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -20063,7 +20088,12 @@ ruleProcessorPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getProcessorPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getProcessorPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -20209,7 +20239,12 @@ ruleSubprogramPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getSubprogramPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getSubprogramPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -20360,7 +20395,12 @@ ruleSubprogramGroupPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_13, grammarAccess.getSubprogramGroupPrototypeAccess().getRightCurlyBracketKeyword_5_2());
     }
-)?)
+)?
+	otherlv_14=Semicolon
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getSubprogramGroupPrototypeAccess().getSemicolonKeyword_6());
+    }
+)
 ;
 
 
@@ -20506,7 +20546,12 @@ ruleSystemPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getSystemPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getSystemPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -20652,7 +20697,12 @@ ruleThreadPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getThreadPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getThreadPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -20803,7 +20853,12 @@ ruleThreadGroupPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_13, grammarAccess.getThreadGroupPrototypeAccess().getRightCurlyBracketKeyword_5_2());
     }
-)?)
+)?
+	otherlv_14=Semicolon
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getThreadGroupPrototypeAccess().getSemicolonKeyword_6());
+    }
+)
 ;
 
 
@@ -20954,7 +21009,12 @@ ruleVirtualBusPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_13, grammarAccess.getVirtualBusPrototypeAccess().getRightCurlyBracketKeyword_5_2());
     }
-)?)
+)?
+	otherlv_14=Semicolon
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getVirtualBusPrototypeAccess().getSemicolonKeyword_6());
+    }
+)
 ;
 
 
@@ -21105,7 +21165,12 @@ ruleVirtualProcessorPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_13, grammarAccess.getVirtualProcessorPrototypeAccess().getRightCurlyBracketKeyword_5_2());
     }
-)?)
+)?
+	otherlv_14=Semicolon
+    {
+    	newLeafNode(otherlv_14, grammarAccess.getVirtualProcessorPrototypeAccess().getSemicolonKeyword_6());
+    }
+)
 ;
 
 
@@ -21235,7 +21300,12 @@ ruleFeatureGroupPrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_11, grammarAccess.getFeatureGroupPrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_12=Semicolon
+    {
+    	newLeafNode(otherlv_12, grammarAccess.getFeatureGroupPrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
@@ -21393,7 +21463,12 @@ ruleFeaturePrototype returns [EObject current=null]
     {
     	newLeafNode(otherlv_12, grammarAccess.getFeaturePrototypeAccess().getRightCurlyBracketKeyword_4_2());
     }
-)?)
+)?
+	otherlv_13=Semicolon
+    {
+    	newLeafNode(otherlv_13, grammarAccess.getFeaturePrototypeAccess().getSemicolonKeyword_5());
+    }
+)
 ;
 
 
