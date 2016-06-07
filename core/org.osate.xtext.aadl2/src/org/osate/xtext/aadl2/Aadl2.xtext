@@ -1133,7 +1133,7 @@ SubprogramCall returns aadl2::SubprogramCall:
 //******* Prototypes
 
 Prototype returns aadl2::Prototype:
-	(ComponentPrototype | FeatureGroupPrototype | FeaturePrototype) ';'
+	ComponentPrototype | FeatureGroupPrototype | FeaturePrototype
 ;
 
 ComponentPrototype returns aadl2::ComponentPrototype:
@@ -1149,6 +1149,7 @@ AbstractPrototype returns aadl2::AbstractPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 BusPrototype returns aadl2::BusPrototype:
@@ -1158,6 +1159,7 @@ BusPrototype returns aadl2::BusPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 DataPrototype returns aadl2::DataPrototype:
@@ -1167,6 +1169,7 @@ DataPrototype returns aadl2::DataPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 DevicePrototype returns aadl2::DevicePrototype:
@@ -1176,6 +1179,7 @@ DevicePrototype returns aadl2::DevicePrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 MemoryPrototype returns aadl2::MemoryPrototype:
@@ -1185,6 +1189,7 @@ MemoryPrototype returns aadl2::MemoryPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 ProcessPrototype returns aadl2::ProcessPrototype:
@@ -1194,6 +1199,7 @@ ProcessPrototype returns aadl2::ProcessPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 ProcessorPrototype returns aadl2::ProcessorPrototype:
@@ -1203,6 +1209,7 @@ ProcessorPrototype returns aadl2::ProcessorPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 SubprogramPrototype returns aadl2::SubprogramPrototype:
@@ -1212,6 +1219,7 @@ SubprogramPrototype returns aadl2::SubprogramPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
@@ -1221,6 +1229,7 @@ SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 SystemPrototype returns aadl2::SystemPrototype:
@@ -1230,6 +1239,7 @@ SystemPrototype returns aadl2::SystemPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 
@@ -1240,6 +1250,7 @@ ThreadPrototype returns aadl2::ThreadPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
@@ -1249,6 +1260,7 @@ ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 VirtualBusPrototype returns aadl2::VirtualBusPrototype:
@@ -1258,6 +1270,7 @@ VirtualBusPrototype returns aadl2::VirtualBusPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
@@ -1267,6 +1280,7 @@ VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
 	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
 	(array?='[' ']')?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 
@@ -1276,6 +1290,7 @@ FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
 	'feature' 'group'
 	(constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF])?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 FeaturePrototype returns aadl2::FeaturePrototype:
@@ -1285,6 +1300,7 @@ FeaturePrototype returns aadl2::FeaturePrototype:
 	'feature'
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
 	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 /*

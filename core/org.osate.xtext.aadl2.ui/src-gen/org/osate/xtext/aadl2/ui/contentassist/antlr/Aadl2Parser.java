@@ -311,7 +311,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_13_1_0(), "rule__DataImplementation__Alternatives_13_1_0");
 					put(grammarAccess.getDataImplementationAccess().getAlternatives_14_1(), "rule__DataImplementation__Alternatives_14_1");
 					put(grammarAccess.getSubprogramCallAccess().getAlternatives_4(), "rule__SubprogramCall__Alternatives_4");
-					put(grammarAccess.getPrototypeAccess().getAlternatives_0(), "rule__Prototype__Alternatives_0");
+					put(grammarAccess.getPrototypeAccess().getAlternatives(), "rule__Prototype__Alternatives");
 					put(grammarAccess.getComponentPrototypeAccess().getAlternatives(), "rule__ComponentPrototype__Alternatives");
 					put(grammarAccess.getAbstractPrototypeAccess().getAlternatives_0(), "rule__AbstractPrototype__Alternatives_0");
 					put(grammarAccess.getBusPrototypeAccess().getAlternatives_0(), "rule__BusPrototype__Alternatives_0");
@@ -884,7 +884,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramCallAccess().getGroup_4_0(), "rule__SubprogramCall__Group_4_0__0");
 					put(grammarAccess.getSubprogramCallAccess().getGroup_4_2(), "rule__SubprogramCall__Group_4_2__0");
 					put(grammarAccess.getSubprogramCallAccess().getGroup_5(), "rule__SubprogramCall__Group_5__0");
-					put(grammarAccess.getPrototypeAccess().getGroup(), "rule__Prototype__Group__0");
 					put(grammarAccess.getAbstractPrototypeAccess().getGroup(), "rule__AbstractPrototype__Group__0");
 					put(grammarAccess.getAbstractPrototypeAccess().getGroup_0_0(), "rule__AbstractPrototype__Group_0_0__0");
 					put(grammarAccess.getAbstractPrototypeAccess().getGroup_0_1(), "rule__AbstractPrototype__Group_0_1__0");
