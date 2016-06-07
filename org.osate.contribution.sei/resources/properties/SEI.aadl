@@ -98,6 +98,8 @@ property set SEI is
   vdid_inspect : aadlboolean applies to (system, process, abstract, thread, subprogram);
   
   Broadcast_Protocol : aadlboolean applies to (bus, virtual bus, system);
+  
+  Platform : aadlstring applies to (processor, virtual processor);
 
   Reference_Kind_Type      : type enumeration (any,exist,component,connection,behavior,unknown);
   Model_Source_Type        : type enumeration (simulink,scade,geometry_stp,sysml);
