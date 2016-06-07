@@ -32013,9 +32013,9 @@ ruleFlowImplementation returns [EObject current=null]
     @init { enterRule(); 
     }
     @after { leaveRule(); }:
-((
+(
     { 
-        newCompositeNode(grammarAccess.getFlowImplementationAccess().getFlowSourceImplParserRuleCall_0_0()); 
+        newCompositeNode(grammarAccess.getFlowImplementationAccess().getFlowSourceImplParserRuleCall_0()); 
     }
     this_FlowSourceImpl_0=ruleFlowSourceImpl
     {
@@ -32025,7 +32025,7 @@ ruleFlowImplementation returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getFlowImplementationAccess().getFlowSinkImplParserRuleCall_0_1()); 
+        newCompositeNode(grammarAccess.getFlowImplementationAccess().getFlowSinkImplParserRuleCall_1()); 
     }
     this_FlowSinkImpl_1=ruleFlowSinkImpl
     {
@@ -32035,17 +32035,12 @@ ruleFlowImplementation returns [EObject current=null]
 
     |
     { 
-        newCompositeNode(grammarAccess.getFlowImplementationAccess().getFlowPathImplParserRuleCall_0_2()); 
+        newCompositeNode(grammarAccess.getFlowImplementationAccess().getFlowPathImplParserRuleCall_2()); 
     }
     this_FlowPathImpl_2=ruleFlowPathImpl
     {
         $current = $this_FlowPathImpl_2.current;
         afterParserOrEnumRuleCall();
-    }
-)
-	otherlv_3=Semicolon
-    {
-    	newLeafNode(otherlv_3, grammarAccess.getFlowImplementationAccess().getSemicolonKeyword_1());
     }
 )
 ;
@@ -32242,7 +32237,12 @@ ruleFLOWOUT
     {
     	newLeafNode(otherlv_18, grammarAccess.getFlowSourceImplAccess().getRightParenthesisKeyword_7_5());
     }
-)?)
+)?
+	otherlv_19=Semicolon
+    {
+    	newLeafNode(otherlv_19, grammarAccess.getFlowSourceImplAccess().getSemicolonKeyword_8());
+    }
+)
 ;
 
 
@@ -32437,7 +32437,12 @@ ruleFLOWIN
     {
     	newLeafNode(otherlv_18, grammarAccess.getFlowSinkImplAccess().getRightParenthesisKeyword_7_5());
     }
-)?)
+)?
+	otherlv_19=Semicolon
+    {
+    	newLeafNode(otherlv_19, grammarAccess.getFlowSinkImplAccess().getSemicolonKeyword_8());
+    }
+)
 ;
 
 
@@ -32668,7 +32673,12 @@ ruleFLOWOUT
     {
     	newLeafNode(otherlv_22, grammarAccess.getFlowPathImplAccess().getRightParenthesisKeyword_9_5());
     }
-)?)
+)?
+	otherlv_23=Semicolon
+    {
+    	newLeafNode(otherlv_23, grammarAccess.getFlowPathImplAccess().getSemicolonKeyword_10());
+    }
+)
 ;
 
 
