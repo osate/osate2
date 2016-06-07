@@ -388,7 +388,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getParameterConnectionAccess().getAlternatives_0(), "rule__ParameterConnection__Alternatives_0");
 					put(grammarAccess.getAccessCategoryAccess().getAlternatives(), "rule__AccessCategory__Alternatives");
 					put(grammarAccess.getFlowSpecificationAccess().getAlternatives(), "rule__FlowSpecification__Alternatives");
-					put(grammarAccess.getFlowImplementationAccess().getAlternatives_0(), "rule__FlowImplementation__Alternatives_0");
+					put(grammarAccess.getFlowImplementationAccess().getAlternatives(), "rule__FlowImplementation__Alternatives");
 					put(grammarAccess.getEndToEndFlowAccess().getAlternatives_0(), "rule__EndToEndFlow__Alternatives_0");
 					put(grammarAccess.getTriggerAccess().getAlternatives(), "rule__Trigger__Alternatives");
 					put(grammarAccess.getPropertySetAccess().getAlternatives_5(), "rule__PropertySet__Alternatives_5");
@@ -1292,7 +1292,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_6(), "rule__FlowSpecRefinement__Group_6__0");
 					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_7(), "rule__FlowSpecRefinement__Group_7__0");
 					put(grammarAccess.getFlowSpecRefinementAccess().getGroup_7_4(), "rule__FlowSpecRefinement__Group_7_4__0");
-					put(grammarAccess.getFlowImplementationAccess().getGroup(), "rule__FlowImplementation__Group__0");
 					put(grammarAccess.getFlowSourceImplAccess().getGroup(), "rule__FlowSourceImpl__Group__0");
 					put(grammarAccess.getFlowSourceImplAccess().getGroup_4(), "rule__FlowSourceImpl__Group_4__0");
 					put(grammarAccess.getFlowSourceImplAccess().getGroup_6(), "rule__FlowSourceImpl__Group_6__0");

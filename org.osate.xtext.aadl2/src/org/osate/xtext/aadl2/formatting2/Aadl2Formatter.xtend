@@ -2224,7 +2224,7 @@ class Aadl2Formatter extends AbstractFormatter2 {
 			}
 		}
 		
-		flowImplementation.regionFor.keyword(flowImplementationAccess.semicolonKeyword_1).prepend[noSpace]
+		flowImplementation.regionFor.keyword(";").prepend[noSpace]
 	}
 	
 	def dispatch void format(FlowSegment flowSegment, extension IFormattableDocument document) {

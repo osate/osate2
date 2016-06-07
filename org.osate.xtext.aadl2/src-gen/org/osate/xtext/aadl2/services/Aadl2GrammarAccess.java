@@ -23520,35 +23520,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	public class FlowImplementationElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FlowImplementation");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
-		private final RuleCall cFlowSourceImplParserRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
-		private final RuleCall cFlowSinkImplParserRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
-		private final RuleCall cFlowPathImplParserRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
-		private final Keyword cSemicolonKeyword_1 = (Keyword)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cFlowSourceImplParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cFlowSinkImplParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cFlowPathImplParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
 		
 		//FlowImplementation aadl2::FlowImplementation:
-		//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl)
-		//	';'
+		//	FlowSourceImpl | FlowSinkImpl | FlowPathImpl
 		@Override public ParserRule getRule() { return rule; }
 
-		//(FlowSourceImpl | FlowSinkImpl | FlowPathImpl) ';'
-		public Group getGroup() { return cGroup; }
-
-		//(FlowSourceImpl | FlowSinkImpl | FlowPathImpl)
-		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		//FlowSourceImpl | FlowSinkImpl | FlowPathImpl
+		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//FlowSourceImpl
-		public RuleCall getFlowSourceImplParserRuleCall_0_0() { return cFlowSourceImplParserRuleCall_0_0; }
+		public RuleCall getFlowSourceImplParserRuleCall_0() { return cFlowSourceImplParserRuleCall_0; }
 
 		//FlowSinkImpl
-		public RuleCall getFlowSinkImplParserRuleCall_0_1() { return cFlowSinkImplParserRuleCall_0_1; }
+		public RuleCall getFlowSinkImplParserRuleCall_1() { return cFlowSinkImplParserRuleCall_1; }
 
 		//FlowPathImpl
-		public RuleCall getFlowPathImplParserRuleCall_0_2() { return cFlowPathImplParserRuleCall_0_2; }
-
-		//';'
-		public Keyword getSemicolonKeyword_1() { return cSemicolonKeyword_1; }
+		public RuleCall getFlowPathImplParserRuleCall_2() { return cFlowPathImplParserRuleCall_2; }
 	}
 
 	public class FlowSourceImplElements extends AbstractParserRuleElementFinder {
@@ -23587,17 +23578,19 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cInModeOrTransitionModeFeatureCrossReference_7_4_1_0 = (CrossReference)cInModeOrTransitionAssignment_7_4_1.eContents().get(0);
 		private final RuleCall cInModeOrTransitionModeFeatureIDTerminalRuleCall_7_4_1_0_1 = (RuleCall)cInModeOrTransitionModeFeatureCrossReference_7_4_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
+		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//FlowSourceImpl aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification]
 		//	':' 'flow' kind=FlowSource (ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->')*
 		//	FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 		//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] ':' 'flow' kind=FlowSource (ownedFlowSegment+=SubcomponentFlow '->'
 		//ownedFlowSegment+=ConnectionFlow '->')* FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes'
-		//'(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+		//'(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//specification=[aadl2::FlowSpecification]
@@ -23698,6 +23691,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//')'
 		public Keyword getRightParenthesisKeyword_7_5() { return cRightParenthesisKeyword_7_5; }
+
+		//';'
+		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
 	public class FlowSinkImplElements extends AbstractParserRuleElementFinder {
@@ -23736,6 +23732,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cInModeOrTransitionModeFeatureCrossReference_7_4_1_0 = (CrossReference)cInModeOrTransitionAssignment_7_4_1.eContents().get(0);
 		private final RuleCall cInModeOrTransitionModeFeatureIDTerminalRuleCall_7_4_1_0_1 = (RuleCall)cInModeOrTransitionModeFeatureCrossReference_7_4_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_7_5 = (Keyword)cGroup_7.eContents().get(5);
+		private final Keyword cSemicolonKeyword_8 = (Keyword)cGroup.eContents().get(8);
 		
 		//FlowSinkImpl aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification] //name=ID 
@@ -23743,12 +23740,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	FLOWIN ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (','
 		//	inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] //name=ID 
 		//':' 'flow' kind=FlowSink FLOWIN ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
 		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (','
-		//inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+		//inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//specification=[aadl2::FlowSpecification]
@@ -23850,6 +23848,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//')'
 		public Keyword getRightParenthesisKeyword_7_5() { return cRightParenthesisKeyword_7_5; }
+
+		//';'
+		public Keyword getSemicolonKeyword_8() { return cSemicolonKeyword_8; }
 	}
 
 	public class FlowPathImplElements extends AbstractParserRuleElementFinder {
@@ -23894,6 +23895,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cInModeOrTransitionModeFeatureCrossReference_9_4_1_0 = (CrossReference)cInModeOrTransitionAssignment_9_4_1.eContents().get(0);
 		private final RuleCall cInModeOrTransitionModeFeatureIDTerminalRuleCall_9_4_1_0_1 = (RuleCall)cInModeOrTransitionModeFeatureCrossReference_9_4_1_0.eContents().get(1);
 		private final Keyword cRightParenthesisKeyword_9_5 = (Keyword)cGroup_9.eContents().get(5);
+		private final Keyword cSemicolonKeyword_10 = (Keyword)cGroup.eContents().get(10);
 		
 		//FlowPathImpl aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification] //name=ID 
@@ -23902,12 +23904,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//	'->' ownedFlowSegment+=ConnectionFlow)?
 		//	'->' FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 		//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+		//	';'
 		@Override public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] //name=ID 
 		//':' 'flow' kind=FlowPath FLOWIN (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* '->'
 		//ownedFlowSegment+=ConnectionFlow)? '->' FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes'
-		//'(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+		//'(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//specification=[aadl2::FlowSpecification]
@@ -24028,6 +24031,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 		//')'
 		public Keyword getRightParenthesisKeyword_9_5() { return cRightParenthesisKeyword_9_5; }
+
+		//';'
+		public Keyword getSemicolonKeyword_10() { return cSemicolonKeyword_10; }
 	}
 
 	public class EndToEndFlowElements extends AbstractParserRuleElementFinder {
@@ -29851,8 +29857,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//FlowImplementation aadl2::FlowImplementation:
-	//	(FlowSourceImpl | FlowSinkImpl | FlowPathImpl)
-	//	';'
+	//	FlowSourceImpl | FlowSinkImpl | FlowPathImpl
 	public FlowImplementationElements getFlowImplementationAccess() {
 		return pFlowImplementation;
 	}
@@ -29866,6 +29871,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	':' 'flow' kind=FlowSource (ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->')*
 	//	FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 	//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+	//	';'
 	public FlowSourceImplElements getFlowSourceImplAccess() {
 		return pFlowSourceImpl;
 	}
@@ -29880,6 +29886,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	FLOWIN ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (','
 	//	inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+	//	';'
 	public FlowSinkImplElements getFlowSinkImplAccess() {
 		return pFlowSinkImpl;
 	}
@@ -29895,6 +29902,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//	'->' ownedFlowSegment+=ConnectionFlow)?
 	//	'->' FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 	//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
+	//	';'
 	public FlowPathImplElements getFlowPathImplAccess() {
 		return pFlowPathImpl;
 	}
