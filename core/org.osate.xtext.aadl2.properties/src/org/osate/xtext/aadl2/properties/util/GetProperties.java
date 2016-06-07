@@ -35,7 +35,6 @@ package org.osate.xtext.aadl2.properties.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -54,6 +53,7 @@ import org.osate.aadl2.EnumerationType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.IntegerLiteral;
+import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.NumberValue;
@@ -64,6 +64,7 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.RangeValue;
 import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
@@ -84,7 +85,7 @@ import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
 public class GetProperties {
 	/**
 	 * returns true if property is explicitly assigned
-	 * 
+	 *
 	 * @param element
 	 *            NamedELement
 	 * @param pn
@@ -102,9 +103,32 @@ public class GetProperties {
 
 	}
 
+
+	public static String getPlatform (final NamedElement ne)
+	{
+		try {
+			Property sn = lookupPropertyDefinition(ne, SEI._NAME,
+					SEI.PLATFORM);
+
+
+			PropertyAcc pacc = ne.getPropertyValue(sn);
+			if (pacc.getAssociations().size()>0)
+			{
+				ModalPropertyValue mdv = pacc.getAssociations().get(0).getOwnedValues().get(0);
+				PropertyExpression pe = mdv.getOwnedValue();
+				StringLiteral sl = (StringLiteral) pe;
+				return sl.getValue();
+
+			}
+			return null;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
+
 	/**
 	 * returns true if property is explicitly assigned
-	 * 
+	 *
 	 * @param element
 	 *            NamedELement
 	 * @param pn
@@ -120,7 +144,7 @@ public class GetProperties {
 	 * find property definition for given name. The property may be qualified by
 	 * the property set name via the ps parameter For predeclared properties
 	 * this is not required
-	 * 
+	 *
 	 * @param context
 	 *            EObject the model object that references the property
 	 *            definition
@@ -139,7 +163,7 @@ public class GetProperties {
 	 * find property definition for given name. The property may be qualified by
 	 * the property set name via the ps parameter For predeclared properties
 	 * this is not required
-	 * 
+	 *
 	 * @param context
 	 *            EObject the model object that references the property
 	 *            definition
@@ -155,7 +179,7 @@ public class GetProperties {
 	 * find property type for given name. The property may be qualified by the
 	 * property set name via the ps parameter For predeclared properties this is
 	 * not required
-	 * 
+	 *
 	 * @param context
 	 *            EObject the model object that references the property
 	 *            definition
@@ -174,7 +198,7 @@ public class GetProperties {
 	 * find property type for given name. The property may be qualified by the
 	 * property set name via the ps parameter For predeclared properties this is
 	 * not required
-	 * 
+	 *
 	 * @param context
 	 *            EObject the model object that references the property
 	 *            definition
@@ -190,7 +214,7 @@ public class GetProperties {
 	 * find property constant for given name. The property may be qualified by
 	 * the property set name via the ps parameter For predeclared properties
 	 * this is not required
-	 * 
+	 *
 	 * @param context
 	 *            EObject the model object that references the property
 	 *            definition
@@ -209,7 +233,7 @@ public class GetProperties {
 	 * find property constant for given name. The property may be qualified by
 	 * the property set name via the ps parameter For predeclared properties
 	 * this is not required
-	 * 
+	 *
 	 * @param context
 	 *            EObject the model object that references the property
 	 *            definition
@@ -226,7 +250,7 @@ public class GetProperties {
 	/**
 	 * Retrieve the unit literal given a unit string for a property It is useful
 	 * when calling getScaledValue methods that require the literal as object
-	 * 
+	 *
 	 * @param pd
 	 *            Property Definition
 	 * @param literalname
@@ -512,7 +536,7 @@ public class GetProperties {
 	 * instruction execution time of processor This is calculated from the
 	 * MIPSCapacity. This function acts as replacement for the cycle_time
 	 * property
-	 * 
+	 *
 	 * @param proc
 	 *            processor component instance
 	 * @return
@@ -525,7 +549,7 @@ public class GetProperties {
 	 * instruction execution time of processor This is calculated from the
 	 * MIPSCapacity. This function acts as replacement for the cycle_time
 	 * property
-	 * 
+	 *
 	 * @param proc
 	 *            processor component instance
 	 * @return
@@ -669,7 +693,7 @@ public class GetProperties {
 	/**
 	 * calculate the scaling factor from the MIPSCapacity of the two processors.
 	 * The default value is 1
-	 * 
+	 *
 	 * @param thread
 	 * @return double scaling factor of processor speed
 	 */
@@ -732,7 +756,7 @@ public class GetProperties {
 
 	/**
 	 * compute MIPS for thread based on instructions per dispatch;
-	 * 
+	 *
 	 * @param threadinstance
 	 *            thread instance
 	 * @return MIPS or 0.0
@@ -749,10 +773,10 @@ public class GetProperties {
 
 	/**
 	 * @author: Dionisio de Niz
-	 * 
+	 *
 	 *          For now we will use MIPS as a representative of cycles per
 	 *          second but we will change it to a more meaningful property name
-	 * 
+	 *
 	 * @param threadInstance
 	 * @return execution time in cyles
 	 */
@@ -770,7 +794,7 @@ public class GetProperties {
 	/**
 	 * compute MIPS for thread based on instructions per dispatch; or based on
 	 * specified execution time
-	 * 
+	 *
 	 * @param threadinstance
 	 *            thread instance
 	 * @return MIPS or 0.0
@@ -795,7 +819,7 @@ public class GetProperties {
 	/**
 	 * compute Execution time for actual processor from instructions per
 	 * dispatch; or based on specified execution time
-	 * 
+	 *
 	 * @param threadinstance
 	 *            thread instance
 	 * @return double scaled execution time in Sec
@@ -812,7 +836,7 @@ public class GetProperties {
 	/**
 	 * compute Execution time for actual processor from instructions per
 	 * dispatch; or based on specified execution time
-	 * 
+	 *
 	 * @param threadinstance
 	 *            thread instance
 	 * @return double scaled execution time in Sec
@@ -830,7 +854,7 @@ public class GetProperties {
 	/**
 	 * get max execution time scaled in terms of the processor the thread is
 	 * bound to If it is not bound then return the specified execution time
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
@@ -850,7 +874,7 @@ public class GetProperties {
 	/**
 	 * get min execution time scaled in terms of the processor the thread is
 	 * bound to If it is not bound then return the specified execution time
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
@@ -870,7 +894,7 @@ public class GetProperties {
 	/**
 	 * get execution time scaled in terms of the processor the thread is bound
 	 * to If it is not bound then return the specified execution time
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return scaled time or 0.0
@@ -890,7 +914,7 @@ public class GetProperties {
 	/**
 	 * get execution time as specified in nsec - the upper bound not adjusted
 	 * for different processor speeds
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return specified time or 0.0
@@ -906,7 +930,7 @@ public class GetProperties {
 	/**
 	 * get execution time as specified in sec - the upper bound not adjusted for
 	 * different processor speeds
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return specified time or 0.0
@@ -922,7 +946,7 @@ public class GetProperties {
 	/**
 	 * get execution time as specified in sec - the lower bound not adjusted for
 	 * different processor speeds
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return specified time or 0.0
@@ -938,7 +962,7 @@ public class GetProperties {
 	/**
 	 * get execution time as specified in ms - the upper bound not adjusted for
 	 * different processor speeds
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return specified time or 0.0
@@ -954,7 +978,7 @@ public class GetProperties {
 	/**
 	 * get execution time as specified in ms - the lower bound not adjusted for
 	 * different processor speeds
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return specified time or 0.0
@@ -969,7 +993,7 @@ public class GetProperties {
 
 	/**
 	 * get specified instructions per dispatch as MIPD
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return double MIPD
@@ -983,7 +1007,7 @@ public class GetProperties {
 
 	/**
 	 * get specified instructions per dispatch as IPD
-	 * 
+	 *
 	 * @param ne
 	 *            thread component instance
 	 * @return double IPD
@@ -1209,8 +1233,9 @@ public class GetProperties {
 		if (res != 0.0) {
 			return res * mult;
 		}
-		if (nesting > 10)
+		if (nesting > 10) {
 			return 0.0;
+		}
 		if (ne instanceof DataSubcomponent || ne instanceof DataImplementation) {
 			// mult is one or the array size of the data subcomponent.
 			return sumElementsDataSize(ne, unit, DataSize, SourceDataSize, nesting + 1) * mult;
@@ -1378,8 +1403,8 @@ public class GetProperties {
 		boolean looking = true;
 		UnitLiteral target = null;
 		UnitLiteral previous = null;
-		for (Iterator it = ut.getOwnedLiterals().iterator(); it.hasNext();) {
-			target = (UnitLiteral) it.next();
+		for (Object element : ut.getOwnedLiterals()) {
+			target = (UnitLiteral) element;
 			if (looking) {
 				if (target == original) {
 					looking = false;
@@ -1583,7 +1608,7 @@ public class GetProperties {
 
 	/**
 	 * Get the module schedule for a processor
-	 * 
+	 *
 	 * @param ne
 	 *            - the processor component
 	 * @return - a list with all the module schedule. An empty list if not
@@ -1628,7 +1653,7 @@ public class GetProperties {
 							"periodic_processing_start");
 					windowPartition = (InstanceReferenceValue) PropertyUtils.getRecordFieldValue(window, "partition");
 
-					part = (ComponentInstance) ((InstanceReferenceValue) windowPartition).getReferencedInstanceObject();
+					part = (ComponentInstance) windowPartition.getReferencedInstanceObject();
 					time = ((NumberValue) windowTime).getScaledValue(milliseconds);
 					scheduleWindow = new ARINC653ScheduleWindow(part, time, startProcessing);
 					windows.add(scheduleWindow);
@@ -1642,7 +1667,7 @@ public class GetProperties {
 
 	/**
 	 * Return the value of the property ARINC653::Module_Major_Frame
-	 * 
+	 *
 	 * @param module
 	 *            - the component that represents the ARINC653 module
 	 * @return - the major frame - 0 otherwise
@@ -1666,7 +1691,7 @@ public class GetProperties {
 
 	/**
 	 * Get the virtual bus required for a connection, virtual bus, port, etc.
-	 * 
+	 *
 	 * @param io
 	 *            - the component which has the property
 	 * @return - the list of virtual bus classifier
@@ -1719,8 +1744,9 @@ public class GetProperties {
 
 	public static double getMaxDataRate(RecordValue rate) {
 		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
-		if (vr == null)
+		if (vr == null) {
 			return 0;
+		}
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
 		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
 		return ((NumberValue) maximum).getScaledValue();
@@ -1728,8 +1754,9 @@ public class GetProperties {
 
 	public static double getMinDataRate(RecordValue rate) {
 		BasicPropertyAssociation vr = GetProperties.getRecordField(rate.getOwnedFieldValues(), "Value_Range");
-		if (vr == null)
+		if (vr == null) {
 			return 0;
+		}
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
 		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
 		return ((NumberValue) minimum).getScaledValue();
@@ -1740,8 +1767,9 @@ public class GetProperties {
 		if (dr == null) {
 			dr = GetProperties.lookupPropertyDefinition(ne, SEI._NAME, SEI.MESSAGE_RATE);
 		}
-		if (dr == null)
+		if (dr == null) {
 			return 0;
+		}
 		return PropertyUtils.getRealValue(ne, dr, 0.0);
 	}
 
@@ -1770,16 +1798,19 @@ public class GetProperties {
 				} else {
 					period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
 				}
-				if (period == 0)
+				if (period == 0) {
 					return 0;
+				}
 				res = res / period;
 			}
-			if (res > 0)
+			if (res > 0) {
 				return res;
+			}
 		}
 		double period = GetProperties.getPeriodInSeconds(ne.getContainingClassifier(), 0);
-		if (period == 0)
+		if (period == 0) {
 			return 0;
+		}
 		res = 1 / period;
 		return res;
 	}
