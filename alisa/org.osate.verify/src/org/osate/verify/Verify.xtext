@@ -78,22 +78,24 @@ VAReference returns ArgumentExpr:
 	{RefExpr} verification=[VerificationActivity|ID]
 ;
 
-
+ComputeRef:
+	compute=[common::ComputeDeclaration|ID]
+;
 
 VerificationActivity:
 	name=ID (':' title=STRING)? 
 	':'
-	(result+=[common::ComputeDeclaration|ID] (',' result+=[common::ComputeDeclaration|ID])* '=')?
+	(computes+=ComputeRef (',' computes+=ComputeRef)* '=')?
 	method=[VerificationMethod|QualifiedName] 
 //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-	'(' (parameters+=AExpression (',' parameters+=AExpression)*)? ')' 
+	'(' (actuals+=AExpression (',' actuals+=AExpression)*)? ')' 
 	(
 		'property' 'values' '(' 
 		(propertyValues+=[common::ValDeclaration|ID] (',' propertyValues+=[common::ValDeclaration|ID])*)? 
 		')'
 	)?
 	('['(
- 	('category'  category+=[categories::Category|CatRef]+ )?
+ 	('category'  category+=[categories::Category|QualifiedName]+ )?
 	&('timeout' timeout=AIntegerTerm)?
 	&('weight' weight=INT)?
 	)']')?
@@ -130,7 +132,7 @@ enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'
 VerificationMethod:
 	'method' name=ID 
 	(
-		'(' (targetType=TargetType ',')? (params+=FormalParameter (',' params+=FormalParameter)*)? ')'
+		'(' (targetType=TargetType ',')? (formals+=FormalParameter (',' formals+=FormalParameter)*)? ')'
 		(
 			'properties' '('
 			(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? 
@@ -138,7 +140,7 @@ VerificationMethod:
 		)?
 		(
 			'returns' '('
-			(resultValues+=FormalParameter (',' resultValues+=FormalParameter)*)? 
+			(results+=FormalParameter (',' results+=FormalParameter)*)? 
 			')'
 		)?
 		(isPredicate?='boolean'|isResultReport?='report')?
@@ -151,7 +153,7 @@ VerificationMethod:
 		& description=Description?
 		& precondition=VerificationPrecondition?
 		& validation=VerificationValidation?
- 	&('category'  category+=[categories::Category|CatRef]+ )?
+ 	&('category'  category+=[categories::Category|QualifiedName]+ )?
 	)
 	']'
 	;
@@ -188,8 +190,6 @@ MethodKind:
 JavaParameter returns JavaParameter:
 	parameterType=ID name=ID ;
 
-
-CatRef : ID '.' ID;
 	
 //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 

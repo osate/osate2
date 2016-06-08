@@ -35,11 +35,11 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
 import org.osate.categories.categories.Category;
 
+import org.osate.verify.verify.ComputeRef;
 import org.osate.verify.verify.VerificationActivity;
 import org.osate.verify.verify.VerificationMethod;
 import org.osate.verify.verify.VerifyPackage;
@@ -54,9 +54,9 @@ import org.osate.verify.verify.VerifyPackage;
  * <ul>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getResult <em>Result</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getActuals <em>Actuals</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getPropertyValues <em>Property Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.impl.VerificationActivityImpl#getTimeout <em>Timeout</em>}</li>
@@ -108,14 +108,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected String title = TITLE_EDEFAULT;
 
   /**
-   * The cached value of the '{@link #getResult() <em>Result</em>}' reference list.
+   * The cached value of the '{@link #getComputes() <em>Computes</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getResult()
+   * @see #getComputes()
    * @generated
    * @ordered
    */
-  protected EList<ComputeDeclaration> result;
+  protected EList<ComputeRef> computes;
 
   /**
    * The cached value of the '{@link #getMethod() <em>Method</em>}' reference.
@@ -128,14 +128,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected VerificationMethod method;
 
   /**
-   * The cached value of the '{@link #getParameters() <em>Parameters</em>}' containment reference list.
+   * The cached value of the '{@link #getActuals() <em>Actuals</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @see #getParameters()
+   * @see #getActuals()
    * @generated
    * @ordered
    */
-  protected EList<PropertyExpression> parameters;
+  protected EList<PropertyExpression> actuals;
 
   /**
    * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
@@ -259,13 +259,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ComputeDeclaration> getResult()
+  public EList<ComputeRef> getComputes()
   {
-    if (result == null)
+    if (computes == null)
     {
-      result = new EObjectResolvingEList<ComputeDeclaration>(ComputeDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__RESULT);
+      computes = new EObjectContainmentEList<ComputeRef>(ComputeRef.class, this, VerifyPackage.VERIFICATION_ACTIVITY__COMPUTES);
     }
-    return result;
+    return computes;
   }
 
   /**
@@ -316,13 +316,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<PropertyExpression> getParameters()
+  public EList<PropertyExpression> getActuals()
   {
-    if (parameters == null)
+    if (actuals == null)
     {
-      parameters = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS);
+      actuals = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS);
     }
-    return parameters;
+    return actuals;
   }
 
   /**
@@ -434,8 +434,10 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   {
     switch (featureID)
     {
-      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
-        return ((InternalEList<?>)getParameters()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTES:
+        return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS:
+        return ((InternalEList<?>)getActuals()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return basicSetTimeout(null, msgs);
     }
@@ -456,13 +458,13 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return getName();
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return getTitle();
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
-        return getResult();
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTES:
+        return getComputes();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         if (resolve) return getMethod();
         return basicGetMethod();
-      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
-        return getParameters();
+      case VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS:
+        return getActuals();
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         return getPropertyValues();
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
@@ -492,16 +494,16 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle((String)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
-        getResult().clear();
-        getResult().addAll((Collection<? extends ComputeDeclaration>)newValue);
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTES:
+        getComputes().clear();
+        getComputes().addAll((Collection<? extends ComputeRef>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)newValue);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
-        getParameters().clear();
-        getParameters().addAll((Collection<? extends PropertyExpression>)newValue);
+      case VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS:
+        getActuals().clear();
+        getActuals().addAll((Collection<? extends PropertyExpression>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
@@ -537,14 +539,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         setTitle(TITLE_EDEFAULT);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
-        getResult().clear();
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTES:
+        getComputes().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         setMethod((VerificationMethod)null);
         return;
-      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
-        getParameters().clear();
+      case VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS:
+        getActuals().clear();
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
@@ -576,12 +578,12 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case VerifyPackage.VERIFICATION_ACTIVITY__TITLE:
         return TITLE_EDEFAULT == null ? title != null : !TITLE_EDEFAULT.equals(title);
-      case VerifyPackage.VERIFICATION_ACTIVITY__RESULT:
-        return result != null && !result.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__COMPUTES:
+        return computes != null && !computes.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__METHOD:
         return method != null;
-      case VerifyPackage.VERIFICATION_ACTIVITY__PARAMETERS:
-        return parameters != null && !parameters.isEmpty();
+      case VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS:
+        return actuals != null && !actuals.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         return propertyValues != null && !propertyValues.isEmpty();
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:

@@ -22,7 +22,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
-import org.osate.alisa.common.common.ComputeDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
 import org.osate.categories.categories.Category;
@@ -38,9 +37,9 @@ import org.osate.categories.categories.Category;
  * <ul>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTitle <em>Title</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getResult <em>Result</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getMethod <em>Method</em>}</li>
- *   <li>{@link org.osate.verify.verify.VerificationActivity#getParameters <em>Parameters</em>}</li>
+ *   <li>{@link org.osate.verify.verify.VerificationActivity#getActuals <em>Actuals</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getPropertyValues <em>Property Values</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getCategory <em>Category</em>}</li>
  *   <li>{@link org.osate.verify.verify.VerificationActivity#getTimeout <em>Timeout</em>}</li>
@@ -106,20 +105,20 @@ public interface VerificationActivity extends EObject
   void setTitle(String value);
 
   /**
-   * Returns the value of the '<em><b>Result</b></em>' reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.ComputeDeclaration}.
+   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.verify.verify.ComputeRef}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Result</em>' reference list isn't clear,
+   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Result</em>' reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Result()
-   * @model
+   * @return the value of the '<em>Computes</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Computes()
+   * @model containment="true"
    * @generated
    */
-  EList<ComputeDeclaration> getResult();
+  EList<ComputeRef> getComputes();
 
   /**
    * Returns the value of the '<em><b>Method</b></em>' reference.
@@ -148,20 +147,20 @@ public interface VerificationActivity extends EObject
   void setMethod(VerificationMethod value);
 
   /**
-   * Returns the value of the '<em><b>Parameters</b></em>' containment reference list.
+   * Returns the value of the '<em><b>Actuals</b></em>' containment reference list.
    * The list contents are of type {@link org.osate.aadl2.PropertyExpression}.
    * <!-- begin-user-doc -->
    * <p>
-   * If the meaning of the '<em>Parameters</em>' containment reference list isn't clear,
+   * If the meaning of the '<em>Actuals</em>' containment reference list isn't clear,
    * there really should be more of a description here...
    * </p>
    * <!-- end-user-doc -->
-   * @return the value of the '<em>Parameters</em>' containment reference list.
-   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Parameters()
+   * @return the value of the '<em>Actuals</em>' containment reference list.
+   * @see org.osate.verify.verify.VerifyPackage#getVerificationActivity_Actuals()
    * @model containment="true"
    * @generated
    */
-  EList<PropertyExpression> getParameters();
+  EList<PropertyExpression> getActuals();
 
   /**
    * Returns the value of the '<em><b>Property Values</b></em>' reference list.

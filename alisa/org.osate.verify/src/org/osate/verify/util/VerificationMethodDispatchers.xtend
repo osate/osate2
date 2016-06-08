@@ -106,7 +106,7 @@ class VerificationMethodDispatchers {
 			return null;
 		val className = vm.methodPath.substring(0, i)
 		val methodName = vm.methodPath.substring(i + 1)
-		val EList<FormalParameter> formalparameters = (vm.eContainer as VerificationMethod).params
+		val EList<FormalParameter> formalparameters = (vm.eContainer as VerificationMethod).formals
 
 		try {
 			val workspaceRoot = ResourcesPlugin.workspace.root
@@ -164,7 +164,7 @@ class VerificationMethodDispatchers {
 	// Method returns null if Java class was found.
 	// Otherwise it returns an error message
 	def String methodExists(JavaMethod vm) {
-		val EList<FormalParameter> parameters = (vm.eContainer as VerificationMethod).params
+		val EList<FormalParameter> parameters = (vm.eContainer as VerificationMethod).formals
 		val i = vm.methodPath.lastIndexOf('.')
 		if (i == -1) {
 			throw new IllegalArgumentException("Java method '" + vm.methodPath + "' is missing Class")

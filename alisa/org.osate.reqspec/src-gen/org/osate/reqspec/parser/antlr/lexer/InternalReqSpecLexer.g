@@ -46,6 +46,8 @@ Uncertainty : 'uncertainty';
 
 Decomposes : 'decomposes';
 
+Precedence : 'precedence';
+
 Subprogram : 'subprogram';
 
 Volatility : 'volatility';
@@ -138,6 +140,8 @@ Model : 'model';
 
 State : 'state';
 
+Units : 'units';
+
 Value : 'value';
 
 Data : 'data';
@@ -161,8 +165,6 @@ Then : 'then';
 This : 'this';
 
 True : 'true';
-
-Unit : 'unit';
 
 Upto : 'upto';
 
@@ -207,6 +209,8 @@ EqualsSignEqualsSign : '==';
 GreaterThanSignLessThanSign : '><';
 
 GreaterThanSignEqualsSign : '>=';
+
+As : 'as';
 
 If : 'if';
 

@@ -35,8 +35,8 @@ import org.osate.aadl2.AadlReal
 import org.osate.aadl2.AadlString
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
-import org.osate.alisa.common.validation.CommonValidator
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
@@ -57,7 +57,7 @@ import org.osate.verify.verify.VerifyPackage
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class VerifyValidator extends CommonValidator {
+class VerifyValidator extends VerifyTypeSystemValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
 	public static val INCORRECT_CLASS_PATH = "org.osate.verify.incorrectClassPath"
@@ -128,9 +128,9 @@ class VerifyValidator extends CommonValidator {
 	
 	@Check(CheckType.NORMAL)
 	def checkVerificationActivityParams(VerificationActivity va) {
-		val actualParameters = va.parameters
+		val actualParameters = va.actuals
 		val method = va.method
-		val expectedParms = method.params
+		val expectedParms = method.formals
 		if ((expectedParms?.size != actualParameters?.size)) {
 			warning("The number of actual parameters differs from the number of formal parameters for verification activity",
 					va, VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD)
@@ -248,7 +248,7 @@ class VerifyValidator extends CommonValidator {
 				possibleEnds.set(2, if (bracketPos < 0) Integer.MAX_VALUE else bracketPos)
 				val changeEnd = possibleEnds.min
 				val adjustment = if (changeEnd == parenPos) 1 else 0
-				val vmParms = vm.params
+				val vmParms = vm.formals
 				val  methodRefName = methodKind.methodReference.name
 				val methodArgs = methodKind.methodReference.args
 				val methodArgsString = vmName + 

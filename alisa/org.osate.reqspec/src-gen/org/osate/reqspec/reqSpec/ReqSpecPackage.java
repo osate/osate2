@@ -20,6 +20,8 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
 
+import org.osate.alisa.common.common.CommonPackage;
+
 /**
  * <!-- begin-user-doc -->
  * The <b>Package</b> for the model.
@@ -681,22 +683,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT_SET__CONSTANTS = REQ_ROOT_FEATURE_COUNT + 1;
 
   /**
-   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT_SET__COMPUTES = REQ_ROOT_FEATURE_COUNT + 2;
-
-  /**
    * The feature id for the '<em><b>Requirements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_SET__REQUIREMENTS = REQ_ROOT_FEATURE_COUNT + 3;
+  int REQUIREMENT_SET__REQUIREMENTS = REQ_ROOT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Stakeholder Goals</b></em>' reference list.
@@ -705,7 +698,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_SET__STAKEHOLDER_GOALS = REQ_ROOT_FEATURE_COUNT + 4;
+  int REQUIREMENT_SET__STAKEHOLDER_GOALS = REQ_ROOT_FEATURE_COUNT + 3;
 
   /**
    * The number of structural features of the '<em>Requirement Set</em>' class.
@@ -714,7 +707,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_SET_FEATURE_COUNT = REQ_ROOT_FEATURE_COUNT + 5;
+  int REQUIREMENT_SET_FEATURE_COUNT = REQ_ROOT_FEATURE_COUNT + 4;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1326,34 +1319,6 @@ public interface ReqSpecPackage extends EPackage
   int INFORMAL_PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
 
   /**
-   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.PredicateImpl <em>Predicate</em>}' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see org.osate.reqspec.reqSpec.impl.PredicateImpl
-   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
-   * @generated
-   */
-  int PREDICATE = 14;
-
-  /**
-   * The feature id for the '<em><b>Xpression</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PREDICATE__XPRESSION = REQ_PREDICATE_FEATURE_COUNT + 0;
-
-  /**
-   * The number of structural features of the '<em>Predicate</em>' class.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int PREDICATE_FEATURE_COUNT = REQ_PREDICATE_FEATURE_COUNT + 1;
-
-  /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ValuePredicateImpl <em>Value Predicate</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1361,7 +1326,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getValuePredicate()
    * @generated
    */
-  int VALUE_PREDICATE = 15;
+  int VALUE_PREDICATE = 14;
 
   /**
    * The feature id for the '<em><b>Xpression</b></em>' containment reference.
@@ -1398,7 +1363,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getDesiredValue()
    * @generated
    */
-  int DESIRED_VALUE = 16;
+  int DESIRED_VALUE = 15;
 
   /**
    * The feature id for the '<em><b>Desired</b></em>' reference.
@@ -1444,7 +1409,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getExternalDocument()
    * @generated
    */
-  int EXTERNAL_DOCUMENT = 17;
+  int EXTERNAL_DOCUMENT = 16;
 
   /**
    * The feature id for the '<em><b>Doc Reference</b></em>' attribute.
@@ -1481,7 +1446,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getSystemRequirementSet()
    * @generated
    */
-  int SYSTEM_REQUIREMENT_SET = 18;
+  int SYSTEM_REQUIREMENT_SET = 17;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1547,15 +1512,6 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENT_SET__CONSTANTS = REQUIREMENT_SET__CONSTANTS;
 
   /**
-   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int SYSTEM_REQUIREMENT_SET__COMPUTES = REQUIREMENT_SET__COMPUTES;
-
-  /**
    * The feature id for the '<em><b>Requirements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1608,7 +1564,7 @@ public interface ReqSpecPackage extends EPackage
    * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getGlobalRequirementSet()
    * @generated
    */
-  int GLOBAL_REQUIREMENT_SET = 19;
+  int GLOBAL_REQUIREMENT_SET = 18;
 
   /**
    * The feature id for the '<em><b>Name</b></em>' attribute.
@@ -1674,15 +1630,6 @@ public interface ReqSpecPackage extends EPackage
   int GLOBAL_REQUIREMENT_SET__CONSTANTS = REQUIREMENT_SET__CONSTANTS;
 
   /**
-   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int GLOBAL_REQUIREMENT_SET__COMPUTES = REQUIREMENT_SET__COMPUTES;
-
-  /**
    * The feature id for the '<em><b>Requirements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1708,6 +1655,70 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int GLOBAL_REQUIREMENT_SET_FEATURE_COUNT = REQUIREMENT_SET_FEATURE_COUNT + 0;
+
+  /**
+   * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl <em>Req Val Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl
+   * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqValDeclaration()
+   * @generated
+   */
+  int REQ_VAL_DECLARATION = 19;
+
+  /**
+   * The feature id for the '<em><b>Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__NAME = CommonPackage.VAL_DECLARATION__NAME;
+
+  /**
+   * The feature id for the '<em><b>Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__TYPE = CommonPackage.VAL_DECLARATION__TYPE;
+
+  /**
+   * The feature id for the '<em><b>Range</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__RANGE = CommonPackage.VAL_DECLARATION__RANGE;
+
+  /**
+   * The feature id for the '<em><b>Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__VALUE = CommonPackage.VAL_DECLARATION__VALUE;
+
+  /**
+   * The feature id for the '<em><b>Property</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION__PROPERTY = CommonPackage.VAL_DECLARATION_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Req Val Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQ_VAL_DECLARATION_FEATURE_COUNT = CommonPackage.VAL_DECLARATION_FEATURE_COUNT + 1;
 
 
   /**
@@ -2198,17 +2209,6 @@ public interface ReqSpecPackage extends EPackage
   EReference getRequirementSet_Constants();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementSet#getComputes <em>Computes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Computes</em>'.
-   * @see org.osate.reqspec.reqSpec.RequirementSet#getComputes()
-   * @see #getRequirementSet()
-   * @generated
-   */
-  EReference getRequirementSet_Computes();
-
-  /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementSet#getRequirements <em>Requirements</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2522,27 +2522,6 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getInformalPredicate_Description();
 
   /**
-   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.Predicate <em>Predicate</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for class '<em>Predicate</em>'.
-   * @see org.osate.reqspec.reqSpec.Predicate
-   * @generated
-   */
-  EClass getPredicate();
-
-  /**
-   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.Predicate#getXpression <em>Xpression</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference '<em>Xpression</em>'.
-   * @see org.osate.reqspec.reqSpec.Predicate#getXpression()
-   * @see #getPredicate()
-   * @generated
-   */
-  EReference getPredicate_Xpression();
-
-  /**
    * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ValuePredicate <em>Value Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2690,6 +2669,27 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EClass getGlobalRequirementSet();
+
+  /**
+   * Returns the meta object for class '{@link org.osate.reqspec.reqSpec.ReqValDeclaration <em>Req Val Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Req Val Declaration</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqValDeclaration
+   * @generated
+   */
+  EClass getReqValDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.ReqValDeclaration#getProperty <em>Property</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Property</em>'.
+   * @see org.osate.reqspec.reqSpec.ReqValDeclaration#getProperty()
+   * @see #getReqValDeclaration()
+   * @generated
+   */
+  EReference getReqValDeclaration_Property();
 
   /**
    * Returns the factory that creates the instances of the model.
@@ -3091,14 +3091,6 @@ public interface ReqSpecPackage extends EPackage
     EReference REQUIREMENT_SET__CONSTANTS = eINSTANCE.getRequirementSet_Constants();
 
     /**
-     * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQUIREMENT_SET__COMPUTES = eINSTANCE.getRequirementSet_Computes();
-
-    /**
      * The meta object literal for the '<em><b>Requirements</b></em>' containment reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3343,24 +3335,6 @@ public interface ReqSpecPackage extends EPackage
     EAttribute INFORMAL_PREDICATE__DESCRIPTION = eINSTANCE.getInformalPredicate_Description();
 
     /**
-     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.PredicateImpl <em>Predicate</em>}' class.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @see org.osate.reqspec.reqSpec.impl.PredicateImpl
-     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getPredicate()
-     * @generated
-     */
-    EClass PREDICATE = eINSTANCE.getPredicate();
-
-    /**
-     * The meta object literal for the '<em><b>Xpression</b></em>' containment reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference PREDICATE__XPRESSION = eINSTANCE.getPredicate_Xpression();
-
-    /**
      * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ValuePredicateImpl <em>Value Predicate</em>}' class.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3481,6 +3455,24 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EClass GLOBAL_REQUIREMENT_SET = eINSTANCE.getGlobalRequirementSet();
+
+    /**
+     * The meta object literal for the '{@link org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl <em>Req Val Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.reqspec.reqSpec.impl.ReqValDeclarationImpl
+     * @see org.osate.reqspec.reqSpec.impl.ReqSpecPackageImpl#getReqValDeclaration()
+     * @generated
+     */
+    EClass REQ_VAL_DECLARATION = eINSTANCE.getReqValDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Property</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQ_VAL_DECLARATION__PROPERTY = eINSTANCE.getReqValDeclaration_Property();
 
   }
 

@@ -63,7 +63,7 @@ SystemRequirementSet returns RequirementSet:
 	(
 	 description=Description? 
 	&constants+=ValDeclaration*
-	& computes+=ComputeDeclaration* 
+//	& computes+=ComputeDeclaration* 
 	& requirements+= SystemRequirement*
 	& include+= IncludeGlobalRequirement*
 	 &('see''document'  docReference+=ExternalDocument+)? 
@@ -80,7 +80,7 @@ GlobalRequirementSet returns RequirementSet:
 	(
 	 description=Description? 
 	&constants+=ValDeclaration*
-	& computes+=ComputeDeclaration* 
+//	& computes+=ComputeDeclaration* 
 	& requirements+= (GlobalRequirement)*
 	 &('see''document'  docReference+=ExternalDocument+)? 
 	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
@@ -96,7 +96,7 @@ DocGoal returns Goal:
 		)
 	)?
 '['  (
- 	('category' category+=[categories::Category|CatRef]+ )?
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
 	 & description=Description? 
 	&constants+=ValDeclaration* 
 	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
@@ -118,7 +118,7 @@ Goal returns Goal:
 	( 'for'  targetElement=[aadl2::NamedElement|ID]
 	)?
 '['  (
- 	('category' category+=[categories::Category|CatRef]+ )?
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
 	 &(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
@@ -144,7 +144,7 @@ SystemRequirement returns Requirement:
 		targetElement=[aadl2::NamedElement|ID] )
 	)?
 '['	(
- 	('category' category+=[categories::Category|CatRef]+ )?
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -171,7 +171,7 @@ GlobalRequirement returns Requirement:
 	(':'  title=STRING)? 
 	( 'for'  (componentCategory+=ComponentCategory+ | connections?='connections')	)?
 '['	(
- 	('category' category+=[categories::Category|CatRef]+ )?
+ 	('category' category+=[categories::Category|QualifiedName]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -200,7 +200,7 @@ DocRequirement returns Requirement:
 		componentCategory+=ComponentCategory+)
 	)?
 '['	(
- 	('category'  category+=[categories::Category|CatRef]+ )?
+ 	('category'  category+=[categories::Category|QualifiedName]+ )?
 	&(  description=Description)? 
 	& (  constants+=ValDeclaration* )
 	& (  computes+=ComputeDeclaration* )
@@ -234,10 +234,9 @@ WhenCondition:
 	)
 ;
 
-ReqPredicate: InformalPredicate | Predicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
+ReqPredicate: InformalPredicate | ValuePredicate;// | InputAssumption | OutputGuarantee| BehaviorEquation;
 
 InformalPredicate: 'informal' 'predicate'  description=STRING ;
-Predicate: 'predicate' xpression=AExpression ;
 
 ValuePredicate: 'value' 'predicate' xpression=AAndExpression
 	('with' desiredValue+=DesiredValue+)?
@@ -246,16 +245,18 @@ ValuePredicate: 'value' 'predicate' xpression=AAndExpression
 DesiredValue: desired=[common::AVariableReference|ID] (upto?='upto' | 'downto') value=AExpression ;
 
 ExternalDocument : 
-	docReference=DOCPATH ( '#' docFragment=DOCFRAGMENT)?
+	docReference=DOCPATH ( '#' docFragment=QualifiedName)?
+;
+
+
+ValDeclaration returns common::ValDeclaration:
+	 {ReqValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof' type=PropertyRef) ']') )? '=' value=AExpression
+	 ('as' property=PropertyRef)?  
 ;
 
 
 // path to external document and its fragment
 DOCPATH: ( ID '/')* ID '.' ID;
-
-DOCFRAGMENT: ID ('.' ID)*;
-
-CatRef : ID '.' ID;
 
 
 	

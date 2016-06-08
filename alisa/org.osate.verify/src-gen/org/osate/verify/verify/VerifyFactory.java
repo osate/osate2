@@ -72,6 +72,15 @@ public interface VerifyFactory extends EFactory
   ArgumentExpr createArgumentExpr();
 
   /**
+   * Returns a new object of class '<em>Compute Ref</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Compute Ref</em>'.
+   * @generated
+   */
+  ComputeRef createComputeRef();
+
+  /**
    * Returns a new object of class '<em>Verification Activity</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

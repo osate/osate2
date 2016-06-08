@@ -162,15 +162,6 @@ public interface ReqSpecFactory extends EFactory
   InformalPredicate createInformalPredicate();
 
   /**
-   * Returns a new object of class '<em>Predicate</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>Predicate</em>'.
-   * @generated
-   */
-  Predicate createPredicate();
-
-  /**
    * Returns a new object of class '<em>Value Predicate</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -214,6 +205,15 @@ public interface ReqSpecFactory extends EFactory
    * @generated
    */
   GlobalRequirementSet createGlobalRequirementSet();
+
+  /**
+   * Returns a new object of class '<em>Req Val Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Req Val Declaration</em>'.
+   * @generated
+   */
+  ReqValDeclaration createReqValDeclaration();
 
   /**
    * Returns the package supported by this factory.

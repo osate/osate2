@@ -133,16 +133,20 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cVolatilityAssignment_2_0_1 = (Assignment)cGroup_2_0.eContents().get(1);
 		private final RuleCall cVolatilityINTTerminalRuleCall_2_0_1_0 = (RuleCall)cVolatilityAssignment_2_0_1.eContents().get(0);
 		private final Group cGroup_2_1 = (Group)cUnorderedGroup_2.eContents().get(1);
-		private final Keyword cImpactKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
-		private final Assignment cImpactAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
-		private final RuleCall cImpactINTTerminalRuleCall_2_1_1_0 = (RuleCall)cImpactAssignment_2_1_1.eContents().get(0);
+		private final Keyword cPrecedenceKeyword_2_1_0 = (Keyword)cGroup_2_1.eContents().get(0);
+		private final Assignment cPrecedenceAssignment_2_1_1 = (Assignment)cGroup_2_1.eContents().get(1);
+		private final RuleCall cPrecedenceINTTerminalRuleCall_2_1_1_0 = (RuleCall)cPrecedenceAssignment_2_1_1.eContents().get(0);
+		private final Group cGroup_2_2 = (Group)cUnorderedGroup_2.eContents().get(2);
+		private final Keyword cImpactKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Assignment cImpactAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
+		private final RuleCall cImpactINTTerminalRuleCall_2_2_1_0 = (RuleCall)cImpactAssignment_2_2_1.eContents().get(0);
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
+		//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]"
+		//"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
@@ -151,7 +155,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"volatility" volatility=INT & "impact" impact=INT
+		//"volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT
 		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
 		//"volatility" volatility=INT
@@ -166,17 +170,29 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getVolatilityINTTerminalRuleCall_2_0_1_0() { return cVolatilityINTTerminalRuleCall_2_0_1_0; }
 
-		//"impact" impact=INT
+		//"precedence" precedence=INT
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
-		//"impact"
-		public Keyword getImpactKeyword_2_1_0() { return cImpactKeyword_2_1_0; }
+		//"precedence"
+		public Keyword getPrecedenceKeyword_2_1_0() { return cPrecedenceKeyword_2_1_0; }
 
-		//impact=INT
-		public Assignment getImpactAssignment_2_1_1() { return cImpactAssignment_2_1_1; }
+		//precedence=INT
+		public Assignment getPrecedenceAssignment_2_1_1() { return cPrecedenceAssignment_2_1_1; }
 
 		//INT
-		public RuleCall getImpactINTTerminalRuleCall_2_1_1_0() { return cImpactINTTerminalRuleCall_2_1_1_0; }
+		public RuleCall getPrecedenceINTTerminalRuleCall_2_1_1_0() { return cPrecedenceINTTerminalRuleCall_2_1_1_0; }
+
+		//"impact" impact=INT
+		public Group getGroup_2_2() { return cGroup_2_2; }
+
+		//"impact"
+		public Keyword getImpactKeyword_2_2_0() { return cImpactKeyword_2_2_0; }
+
+		//impact=INT
+		public Assignment getImpactAssignment_2_2_1() { return cImpactAssignment_2_2_1; }
+
+		//INT
+		public RuleCall getImpactINTTerminalRuleCall_2_2_1_0() { return cImpactINTTerminalRuleCall_2_2_1_0; }
 
 		//"]"
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
@@ -210,8 +226,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// This is similar to diagnostics
 		//ResultIssue:
-		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-		//	("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
+		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+		//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
@@ -295,7 +311,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAadlIntegerAction_1_0 = (Action)cGroup_1.eContents().get(0);
 		private final Keyword cIntegerKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		private final Group cGroup_1_2 = (Group)cGroup_1.eContents().get(2);
-		private final Keyword cUnitKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
+		private final Keyword cUnitsKeyword_1_2_0 = (Keyword)cGroup_1_2.eContents().get(0);
 		private final Assignment cReferencedUnitsTypeAssignment_1_2_1 = (Assignment)cGroup_1_2.eContents().get(1);
 		private final CrossReference cReferencedUnitsTypeUnitsTypeCrossReference_1_2_1_0 = (CrossReference)cReferencedUnitsTypeAssignment_1_2_1.eContents().get(0);
 		private final RuleCall cReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1 = (RuleCall)cReferencedUnitsTypeUnitsTypeCrossReference_1_2_1_0.eContents().get(1);
@@ -303,7 +319,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Action cAadlRealAction_2_0 = (Action)cGroup_2.eContents().get(0);
 		private final Keyword cRealKeyword_2_1 = (Keyword)cGroup_2.eContents().get(1);
 		private final Group cGroup_2_2 = (Group)cGroup_2.eContents().get(2);
-		private final Keyword cUnitKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
+		private final Keyword cUnitsKeyword_2_2_0 = (Keyword)cGroup_2_2.eContents().get(0);
 		private final Assignment cReferencedUnitsTypeAssignment_2_2_1 = (Assignment)cGroup_2_2.eContents().get(1);
 		private final CrossReference cReferencedUnitsTypeUnitsTypeCrossReference_2_2_1_0 = (CrossReference)cReferencedUnitsTypeAssignment_2_2_1.eContents().get(0);
 		private final RuleCall cReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_2_2_1_0_1 = (RuleCall)cReferencedUnitsTypeUnitsTypeCrossReference_2_2_1_0.eContents().get(1);
@@ -321,14 +337,14 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1 = (RuleCall)cRefPropertyTypeCrossReference_5_1_0.eContents().get(1);
 		
 		//TypeRef returns aadl2::PropertyType:
-		//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-		//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+		//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+		//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 		//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 		//	"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 		@Override public ParserRule getRule() { return rule; }
 
-		//{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+		//{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 		//"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
 		public Alternatives getAlternatives() { return cAlternatives; }
@@ -342,7 +358,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"boolean"
 		public Keyword getBooleanKeyword_0_1() { return cBooleanKeyword_0_1; }
 
-		//{aadl2::AadlInteger} "integer" ("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//{aadl2::AadlInteger} "integer" ("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_1() { return cGroup_1; }
 
 		//{aadl2::AadlInteger}
@@ -351,11 +367,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"integer"
 		public Keyword getIntegerKeyword_1_1() { return cIntegerKeyword_1_1; }
 
-		//("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_1_2() { return cGroup_1_2; }
 
-		//"unit"
-		public Keyword getUnitKeyword_1_2_0() { return cUnitKeyword_1_2_0; }
+		//"units"
+		public Keyword getUnitsKeyword_1_2_0() { return cUnitsKeyword_1_2_0; }
 
 		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE]
 		public Assignment getReferencedUnitsTypeAssignment_1_2_1() { return cReferencedUnitsTypeAssignment_1_2_1; }
@@ -366,7 +382,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//AADLPROPERTYREFERENCE
 		public RuleCall getReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1() { return cReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1; }
 
-		//{aadl2::AadlReal} "real" ("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//{aadl2::AadlReal} "real" ("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//{aadl2::AadlReal}
@@ -375,11 +391,11 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"real"
 		public Keyword getRealKeyword_2_1() { return cRealKeyword_2_1; }
 
-		//("unit" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
+		//("units" referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 		public Group getGroup_2_2() { return cGroup_2_2; }
 
-		//"unit"
-		public Keyword getUnitKeyword_2_2_0() { return cUnitKeyword_2_2_0; }
+		//"units"
+		public Keyword getUnitsKeyword_2_2_0() { return cUnitsKeyword_2_2_0; }
 
 		//referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE]
 		public Assignment getReferencedUnitsTypeAssignment_2_2_1() { return cReferencedUnitsTypeAssignment_2_2_1; }
@@ -2572,7 +2588,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}
@@ -2583,8 +2599,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-	//	("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public ResultIssueElements getResultIssueAccess() {
 		return pResultIssue;
 	}
@@ -2604,8 +2620,8 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//TypeRef returns aadl2::PropertyType:
-	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("unit"
-	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("unit"
+	//	{aadl2::AadlBoolean} "boolean" | {aadl2::AadlInteger} "integer" ("units"
+	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlReal} "real" ("units"
 	//	referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])? | {aadl2::AadlString} "string" | {ModelRef} "model"
 	//	"element" | {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public TypeRefElements getTypeRefAccess() {

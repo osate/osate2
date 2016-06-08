@@ -418,9 +418,19 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getUncertainty_Impact()
+  public EAttribute getUncertainty_Precedence()
   {
     return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getUncertainty_Impact()
+  {
+    return (EAttribute)uncertaintyEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -1047,6 +1057,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     uncertaintyEClass = createEClass(UNCERTAINTY);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__VOLATILITY);
+    createEAttribute(uncertaintyEClass, UNCERTAINTY__PRECEDENCE);
     createEAttribute(uncertaintyEClass, UNCERTAINTY__IMPACT);
 
     resultIssueEClass = createEClass(RESULT_ISSUE);
@@ -1193,6 +1204,7 @@ public class CommonPackageImpl extends EPackageImpl implements CommonPackage
 
     initEClass(uncertaintyEClass, Uncertainty.class, "Uncertainty", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getUncertainty_Volatility(), theEcorePackage.getEInt(), "volatility", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getUncertainty_Precedence(), theEcorePackage.getEInt(), "precedence", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getUncertainty_Impact(), theEcorePackage.getEInt(), "impact", null, 0, 1, Uncertainty.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(resultIssueEClass, ResultIssue.class, "ResultIssue", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);

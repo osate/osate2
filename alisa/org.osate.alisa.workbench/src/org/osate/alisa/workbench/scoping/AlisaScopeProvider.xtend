@@ -44,13 +44,13 @@ class AlisaScopeProvider extends CommonScopeProvider {
 //			targetClassifier.getAllFeatures.scopeFor
 			return new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.allSubcomponents,
-					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
 		} else {
 			IScope.NULLSCOPE
 		}
 	}
 	
 	def IScope scope_AssuranceCase_system(EObject context, EReference reference) {
-		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.toString("::"), EObjectOrProxy)], true)
+		new SimpleScope(delegateGetScope(context, reference).allElements.map[EObjectDescription.create(name.toString("::"), EObjectOrProxy)], false)
 	}
 }

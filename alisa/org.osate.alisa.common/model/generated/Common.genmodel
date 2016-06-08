@@ -50,6 +50,7 @@
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//Uncertainty">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/volatility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/precedence"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Uncertainty/impact"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ResultIssue">

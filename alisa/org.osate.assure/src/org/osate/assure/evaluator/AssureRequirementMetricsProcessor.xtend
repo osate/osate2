@@ -115,8 +115,9 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 
 	def getCategoryFilters(AssureResult assureResult){
 		val descs = commonRefFinder.getEObjectDescriptions(assureResult, CategoriesPackage.Literals.CATEGORY_FILTER, 'cat')
-		descs.map [ eod |
+		val filter = descs.map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, assureResult) as CategoryFilter].filter[name=='testFilterBehaviorAny']
+		filter	
 	}
 
 	def dispatch void process(SubsystemResult caseResult) {
