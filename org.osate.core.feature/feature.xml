@@ -69,13 +69,13 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
       <import plugin="org.osate.xtext.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.edit" version="2.7.0" match="greaterOrEqual"/>
       <import plugin="org.apache.commons.logging" version="1.0.4" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext" version="2.9.2" match="equivalent"/>
-      <import plugin="org.eclipse.xtext.util" version="2.9.2" match="equivalent"/>
+      <import plugin="org.eclipse.xtext" version="2.10.0" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.util" version="2.10.0" match="equivalent"/>
       <import plugin="org.antlr.runtime" version="3.2.0" match="greaterOrEqual"/>
       <import plugin="org.osate.annexsupport" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.workspace" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.osate.core" version="1.0.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.xtext.common.types" version="2.9.2" match="equivalent"/>
+      <import plugin="org.eclipse.xtext.common.types" version="2.10.0" match="equivalent"/>
       <import plugin="org.eclipse.xtext.xbase.lib"/>
       <import plugin="org.osate.aadl2" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.xtext" version="2.1.0" match="greaterOrEqual"/>
