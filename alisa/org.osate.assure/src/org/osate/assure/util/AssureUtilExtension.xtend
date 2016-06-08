@@ -84,6 +84,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.alisa.workbench.alisa.AssuranceCase
 
 class AssureUtilExtension {
 
@@ -774,45 +775,24 @@ class AssureUtilExtension {
 	}
 
 	def static CategoryFilter getCategoryFilter(AssureResult assureResult){
-		//TODO: get filter
-		val categoryFilter = CategoriesFactory.eINSTANCE.createCategoryFilter
-		categoryFilter.anyCategory = false
-		categoryFilter.name = "testFilterBehaviorAny"
+//		null
+		val filters = (assureResult.modelResult.plan.eContainer as AssuranceCase).tasks
+		println("filters = " + filters)
+		if (filters.nullOrEmpty) {
+		println("filters.nullOrEmpty = " + filters.nullOrEmpty)
 		
-		
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("categoryFilter = " + categoryFilter)
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		println("******************************************************")
-		
-//		if ( assureResult != null){
-//		 	val commonRefFinder =  new CommonGlobalReferenceFinder	 	
-//			println("commonRefFinder = " + commonRefFinder)
-//			println("assureResult = " + assureResult)
-//			println("CategoriesPackage.Literals.CATEGORY_FILTER = " + CategoriesPackage.Literals.CATEGORY_FILTER)
-//			
-//			val descs = commonRefFinder.getEObjectDescriptions(assureResult, CategoriesPackage.Literals.CATEGORY_FILTER, 'cat')
-//			descs.map [ eod |
-//				EcoreUtil.resolve(eod.EObjectOrProxy, assureResult) as CategoryFilter].findFirst[name=='testFilterBehaviorAny']
-//			}
-		null
+			null
+		} else {
+		println("filters.head = " + filters.head)
+			filters.head
+			
+		}
 	}
 
 	/**
 	 * recompute and add the counts of the parts list to the result
 	 */
 	private def static void recomputeAllCounts(AssureResult result, List<? extends AssureResult> parts) {
-		println("recomputeAllCounts(" + result + ", " + parts)
-
 		parts.forEach[e|
 			switch e {
 				ClaimResult: {
