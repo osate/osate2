@@ -253,7 +253,7 @@ public class EM2TypeSetUtil {
 		ts = EMV2Util.resolveAlias(ts);
 		int toksize = token.getType().size();
 		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (tselement.getType().size() == toksize || tselement.getType().get(0) instanceof TypeSet) {
+			if (tselement.getType().size() == toksize) { // || tselement.getType().get(0) instanceof TypeSet) {
 				if (contains(tselement, token)) {
 					return true;
 				}
