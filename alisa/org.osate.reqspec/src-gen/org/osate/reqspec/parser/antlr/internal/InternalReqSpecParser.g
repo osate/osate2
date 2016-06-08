@@ -6220,15 +6220,50 @@ ruleUncertainty returns [EObject current=null]
 	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 1);
 	 				}
 					({true}?=>(
-	otherlv_5=Impact
+	otherlv_5=Precedence
     {
-    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getImpactKeyword_2_1_0());
+    	newLeafNode(otherlv_5, grammarAccess.getUncertaintyAccess().getPrecedenceKeyword_2_1_0());
     }
 (
 (
-		lv_impact_6_0=RULE_INT
+		lv_precedence_6_0=RULE_INT
 		{
-			newLeafNode(lv_impact_6_0, grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_1_1_0()); 
+			newLeafNode(lv_precedence_6_0, grammarAccess.getUncertaintyAccess().getPrecedenceINTTerminalRuleCall_2_1_1_0()); 
+		}
+		{
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getUncertaintyRule());
+	        }
+       		setWithLastConsumed(
+       			$current, 
+       			"precedence",
+        		lv_precedence_6_0, 
+        		"INT");
+	    }
+
+)
+)))
+					{ 
+	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2());
+	 				}
+ 				)
+			)  |
+
+			( 
+				{getUnorderedGroupHelper().canSelect(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2)}?=>(
+					{ 
+	 				  getUnorderedGroupHelper().select(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2(), 2);
+	 				}
+					({true}?=>(
+	otherlv_7=Impact
+    {
+    	newLeafNode(otherlv_7, grammarAccess.getUncertaintyAccess().getImpactKeyword_2_2_0());
+    }
+(
+(
+		lv_impact_8_0=RULE_INT
+		{
+			newLeafNode(lv_impact_8_0, grammarAccess.getUncertaintyAccess().getImpactINTTerminalRuleCall_2_2_1_0()); 
 		}
 		{
 	        if ($current==null) {
@@ -6237,7 +6272,7 @@ ruleUncertainty returns [EObject current=null]
        		setWithLastConsumed(
        			$current, 
        			"impact",
-        		lv_impact_6_0, 
+        		lv_impact_8_0, 
         		"INT");
 	    }
 
@@ -6258,9 +6293,9 @@ ruleUncertainty returns [EObject current=null]
 	}
 
 )
-	otherlv_7=RightSquareBracket
+	otherlv_9=RightSquareBracket
     {
-    	newLeafNode(otherlv_7, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_3());
+    	newLeafNode(otherlv_9, grammarAccess.getUncertaintyAccess().getRightSquareBracketKeyword_3());
     }
 )
 ;

@@ -21,6 +21,7 @@ Uncertainty:
 	'['
 	(
 		('volatility' volatility=INT)
+		&('precedence' precedence=INT)
 		&('impact' impact=INT)
 	)
 	']'

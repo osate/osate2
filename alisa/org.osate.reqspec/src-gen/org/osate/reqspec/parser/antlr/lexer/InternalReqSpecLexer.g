@@ -46,6 +46,8 @@ Uncertainty : 'uncertainty';
 
 Decomposes : 'decomposes';
 
+Precedence : 'precedence';
+
 Subprogram : 'subprogram';
 
 Volatility : 'volatility';
