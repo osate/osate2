@@ -32,6 +32,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 import org.osate.verify.util.VerifyUtilExtension;
 
 public class AssureResetHandler extends AlisaHandler {
@@ -48,7 +49,7 @@ public class AssureResetHandler extends AlisaHandler {
 							EObject eobj = resource.getResourceSet().getEObject(uri, true);
 							AssuranceCaseResult ae = AssureUtilExtension.getAssuranceCaseResult(eobj);
 							if (ae != null) {
-								return runJob(ae, monitor);
+								return runJob(ae, null, monitor);
 							} else {
 								return Status.CANCEL_STATUS;
 							}
@@ -68,7 +69,7 @@ public class AssureResetHandler extends AlisaHandler {
 	}
 
 	@Override
-	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 		AssuranceCaseResult rootCaseResult = null;
 		try {
 			rootCaseResult = (AssuranceCaseResult) sel;

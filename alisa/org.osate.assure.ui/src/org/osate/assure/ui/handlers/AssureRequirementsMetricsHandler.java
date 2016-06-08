@@ -15,6 +15,7 @@ import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.evaluator.IAssureRequirementMetricsProcessor;
 import org.osate.assure.ui.views.AssureRequirementsCoverageView;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
@@ -41,7 +42,7 @@ public class AssureRequirementsMetricsHandler extends AlisaHandler {
 	}
 
 	@Override
-	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 		clearProofs();
 		disableRerunHandler();
 

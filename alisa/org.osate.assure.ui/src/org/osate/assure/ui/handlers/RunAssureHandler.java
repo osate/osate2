@@ -30,6 +30,7 @@ import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.ui.views.AssureView;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 
 public class RunAssureHandler extends AlisaHandler {
 	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAssure";
@@ -41,7 +42,7 @@ public class RunAssureHandler extends AlisaHandler {
 	}
 
 	@Override
-	protected IStatus runJob(EObject root, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject root, CategoryFilter filter, IProgressMonitor monitor) {
 		clearProofs();
 		disableRerunHandler();
 

@@ -23,8 +23,10 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.assure.assure.VerificationResult;
 import org.osate.categories.categories.CategoryFilter;
+import org.osate.verify.util.VerifyUtilExtension;
 
 public class AssureProgressContentProvider implements ITreeContentProvider {
 
@@ -53,8 +55,19 @@ public class AssureProgressContentProvider implements ITreeContentProvider {
 
 		for (Iterator iterator = roots.eAllContents(); iterator.hasNext();) {
 			EObject verificationResult = (EObject) iterator.next();
-			if (verificationResult instanceof VerificationResult) {
-				elemList.add((VerificationResult) verificationResult);
+			if (verificationResult instanceof VerificationActivityResult) {
+				VerificationActivityResult vaResult = (VerificationActivityResult) verificationResult;
+
+				if (VerifyUtilExtension.evaluateRequirementFilter(
+						vaResult.getTargetReference().getRequirement().getRequirement(), filter)
+						&& VerifyUtilExtension.evaluateVerificationActivityFilter(
+								vaResult.getTargetReference().getVerificationActivity(), filter)
+						&& VerifyUtilExtension.evaluateVerificationMethodFilter(
+								vaResult.getTargetReference().getVerificationActivity(), filter)) {
+
+					elemList.add(vaResult);
+				}
+
 			}
 		}
 		return elemList.toArray();

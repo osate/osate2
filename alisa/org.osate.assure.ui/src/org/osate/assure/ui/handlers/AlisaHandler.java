@@ -60,7 +60,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 		this.executionEvent = executionEvent;
 	}
 
-	abstract protected IStatus runJob(EObject sel, IProgressMonitor monitor);
+	abstract protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor);
 
 	abstract protected String getJobName();
 
@@ -182,7 +182,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						return runJob(eobj, monitor);
+						return runJob(eobj, filter, monitor);
 					}
 				});
 			}
@@ -194,7 +194,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
-				return runJob(assuranceCaseResult, monitor);
+				return runJob(assuranceCaseResult, filter, monitor);
 			}
 		};
 		return job;

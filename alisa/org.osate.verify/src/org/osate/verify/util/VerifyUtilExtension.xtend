@@ -34,6 +34,7 @@ import org.osate.aadl2.NumberValue
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.UnitLiteral
+import org.osate.reqspec.reqSpec.Requirement
 
 class VerifyUtilExtension {
 
@@ -118,6 +119,11 @@ class VerifyUtilExtension {
 		throw new UnsupportedOperationException("TODO: auto-generated method stub")
 	}
 	
+	def static evaluateRequirementFilter(Requirement req, CategoryFilter filter) {
+		if (filter == null) return true
+		if (Aadl2Util.isNull(req)) return false
+		return  matches(req.category,filter.category,filter.anyCategory)
+	}
 
 	def static evaluateRequirementFilter(Claim claim, CategoryFilter filter) {
 		if (filter == null) return true

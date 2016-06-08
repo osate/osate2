@@ -61,6 +61,7 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.junit.runner.JUnitCore
 import org.osate.verify.verify.JUnit4Method
 import org.osate.aadl2.PropertyExpression
@@ -92,6 +93,8 @@ class AssureProcessor implements IAssureProcessor {
 	var TreeViewer progressTreeViewer
 
 	var long start = 0
+	
+	var CategoryFilter filter;
 
 	def void startSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
@@ -112,6 +115,7 @@ class AssureProcessor implements IAssureProcessor {
 
 	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor) {
 		progressmonitor = monitor
+		this.filter = filter;
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
 		try {
 			progressmonitor.beginTask(assureResult.name, count)
@@ -139,28 +143,35 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
-		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
-		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
+		if(claimResult.targetReference.requirement.requirement.evaluateRequirementFilter(filter)){
+			claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
+			claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
+		}
 	}
 
 	def dispatch void process(VerificationActivityResult vaResult) {
-		startSubTask(vaResult)
-		if (vaResult.executionState != VerificationExecutionState.TODO) {
-			doneSubTask(vaResult)
-			return;
-		}
-		if (vaResult.preconditionResult != null) {
-			vaResult.preconditionResult.process
-			if (!vaResult.preconditionResult.isSuccess) {
+		
+		if(vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
+			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)){
+			startSubTask(vaResult)
+			if (vaResult.executionState != VerificationExecutionState.TODO) {
 				doneSubTask(vaResult)
-				return
+				return;
 			}
+			if (vaResult.preconditionResult != null) {
+				vaResult.preconditionResult.process
+				if (!vaResult.preconditionResult.isSuccess) {
+					doneSubTask(vaResult)
+					return
+				}
+			}
+			runVerificationMethod(vaResult)
+			if (vaResult.validationResult != null) {
+				vaResult.validationResult.process
+			}
+			doneSubTask(vaResult)
+		
 		}
-		runVerificationMethod(vaResult)
-		if (vaResult.validationResult != null) {
-			vaResult.validationResult.process
-		}
-		doneSubTask(vaResult)
 	}
 
 	def dispatch void process(ElseResult vaResult) {
@@ -286,7 +297,7 @@ class AssureProcessor implements IAssureProcessor {
 				if (actual instanceof NumberValue) {
 					if (formalParam.unit != null && actual.unit != null &&
 						!formalParam.unit.name.equals(actual.unit.name)) {
-						actual = convertValueToUnit(actual, formalParam.unit)
+						actual = AssureUtilExtension.convertValueToUnit(actual, formalParam.unit)
 					}
 				}
 				

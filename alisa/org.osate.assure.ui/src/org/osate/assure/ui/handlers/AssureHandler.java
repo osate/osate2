@@ -33,6 +33,7 @@ import org.osate.assure.evaluator.AssureProcessor;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.ui.views.AssureProgressView;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
@@ -93,7 +94,7 @@ public class AssureHandler extends AlisaHandler {
 	}
 
 	@Override
-	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 
 		AssuranceCaseResult rootCaseResult = null;
 		try {
