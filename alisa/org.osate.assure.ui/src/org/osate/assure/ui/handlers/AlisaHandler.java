@@ -153,7 +153,8 @@ public abstract class AlisaHandler extends AbstractHandler {
 			return null;
 		}
 		WorkspaceJob job = getWorkspaceJob(getJobName(), xtextEditor, uri);
-		scheduleJob(job, new org.osate.assure.ui.views.MutexSchedulingRule(), uri);
+		// scheduleJob(job, new org.osate.assure.ui.views.MutexSchedulingRule(), uri);
+		scheduleJob(job, ResourcesPlugin.getWorkspace().getRoot(), uri);
 		return null;
 	}
 

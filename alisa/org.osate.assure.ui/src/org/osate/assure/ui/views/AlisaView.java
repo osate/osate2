@@ -681,8 +681,8 @@ public class AlisaView extends ViewPart {
 										(AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), currentResourceSet));
 
 							}
-							System.out.println("AlisaView.loadAssuranceCases()   loadAssuranceCaseResult size: "
-									+ loadAssuranceCaseResult.size());
+//							System.out.println("AlisaView.loadAssuranceCases()   loadAssuranceCaseResult size: "
+//									+ loadAssuranceCaseResult.size());
 							globalFilterList.clear();
 
 							for (Iterator iterator = rds

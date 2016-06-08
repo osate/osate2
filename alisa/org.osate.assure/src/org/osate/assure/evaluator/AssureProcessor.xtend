@@ -462,6 +462,7 @@ class AssureProcessor implements IAssureProcessor {
 						}
 
 						verificationResult.eResource.save(null)
+						updateProgress(verificationResult)
 					}
 					ManualMethod: {
 						verificationResult.eResource.save(null)
