@@ -43,6 +43,7 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractSubcomponentType
 import org.osate.aadl2.AccessType
 import org.osate.aadl2.BehavioredImplementation
+import org.osate.aadl2.BusFeatureClassifier
 import org.osate.aadl2.BusSubcomponentType
 import org.osate.aadl2.CallContext
 import org.osate.aadl2.CalledSubprogram
@@ -382,7 +383,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	//Reference is from BusAccess in Aadl2.xtext
 	def scope_BusAccess_busFeatureClassifier(Element context, EReference reference) {
-		context.getContainerOfType(Classifier).allPrototypes.filter(BusSubcomponentType).filterRefined.scopeFor(scope_Classifier(context, reference))
+		context.getContainerOfType(Classifier).allPrototypes.filter(BusFeatureClassifier).filterRefined.scopeFor(scope_Classifier(context, reference))
 	}
 	
 	//Reference is from DataAccess in Aadl2.xtext
