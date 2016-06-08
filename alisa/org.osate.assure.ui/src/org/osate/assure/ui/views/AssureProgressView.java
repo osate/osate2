@@ -210,9 +210,8 @@ public class AssureProgressView extends ViewPart {
 //		Object[] expandedElements = treeViewer.getExpandedElements();
 //		TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
 
-		if (filter != null) {
-			treeViewer.setContentProvider(new AssureProgressContentProvider(filter));
-		}
+		treeViewer.setContentProvider(new AssureProgressContentProvider(filter));
+
 		if (proofTrees != null) {
 			inputURI = EcoreUtil.getURI(proofTrees);
 			// treeViewer.setInput(Arrays.asList(proofTrees));
