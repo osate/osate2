@@ -82,9 +82,26 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 		if (iol.size() == 0) {
 			// reference to a non-instantiated element, e.g., subprogram or call sequence
 			return null;
-		} else if (iol.size() > 1) {
-			throw new InvalidModelException(this, "Reference refers to more than one instance object");
-		} else {
+		} else if (iol.size() > 1) 
+//brl attempt to handle multiple instance objects			
+		{
+			PropertyExpression pe = null;
+			for (InstanceObject io: iol)
+			{
+				final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
+				irv.setReferencedInstanceObject(io);
+				pe = irv;
+			}
+			return pe;
+		}
+//		{
+////verbose exception message			
+//			String refs="";
+//			for (int i=0;i<iol.size();i++) refs+=iol.get(i).getFullName()+",";
+//			throw new InvalidModelException(this, 
+//				root.getName()+" refers to more than one instance object: "+refs);
+//		} 
+		else {
 			final InstanceObject io = iol.get(0);
 			final InstanceReferenceValue irv = InstanceFactory.eINSTANCE.createInstanceReferenceValue();
 			irv.setReferencedInstanceObject(io);
