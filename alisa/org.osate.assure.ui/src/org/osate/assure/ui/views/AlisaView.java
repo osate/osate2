@@ -568,8 +568,8 @@ public class AlisaView extends ViewPart {
 					}
 
 					acr = assureConstructor.generateFullAssuranceCase(selectedAssuranceCase);
-					AssureUtilExtension.resetToTBD(acr);
-					AssureUtilExtension.recomputeAllCounts(acr);
+					AssureUtilExtension.resetToTBD(acr, getSelectedCategoryFilter());
+					AssureUtilExtension.recomputeAllCounts(acr, getSelectedCategoryFilter());
 
 					rrr.getContents().add(acr);
 

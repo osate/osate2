@@ -66,6 +66,8 @@ public abstract class AlisaHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) {
+		// Initialize to no filter
+		filter = null;
 
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (!(selection instanceof IStructuredSelection) || ((IStructuredSelection) selection).size() != 1) {

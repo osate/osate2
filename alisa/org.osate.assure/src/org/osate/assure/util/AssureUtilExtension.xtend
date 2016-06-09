@@ -668,12 +668,31 @@ class AssureUtilExtension {
 	/**
 	  * this method resets the execution state of all verification activities to TBD
 	  */
-	def static void resetToTBD(AssuranceCaseResult root) {
+	def static void resetToTBD(AssuranceCaseResult root, CategoryFilter filter) {
 		val vrlist = EcoreUtil2.eAllOfType(root, VerificationResult)
 		vrlist.forEach [ vr |
-			vr.resultState = VerificationResultState.TBD
-			vr.executionState = VerificationExecutionState.TODO
-			vr.issues.clear
+			//If there is no filter reset all.
+			if(filter == null ){
+				vr.resultState = VerificationResultState.TBD
+				vr.executionState = VerificationExecutionState.TODO
+				vr.issues.clear
+			
+			//reset only the ones that we will be redoing
+			}else{
+				switch vr {
+					VerificationActivityResult: {
+						val verificationActivity = vr.targetReference.verificationActivity
+						if (verificationActivity.evaluateVerificationMethodFilter(filter) &&
+							verificationActivity.evaluateVerificationActivityFilter(filter)
+						) {
+							vr.resultState = VerificationResultState.TBD
+							vr.executionState = VerificationExecutionState.TODO
+							vr.issues.clear
+						}
+					}
+					//default:
+				}
+			}
 		]
 	}
 
@@ -787,68 +806,73 @@ class AssureUtilExtension {
 			filters.head
 			
 		}
+		
+		//If we want it to get the filter through the UI, should be something like this be can't access AlisaView
+//		val IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+//		val alisaView = page.showView(AlisaView.ID) as AlisaView
+//		alisaView.getSelectedCategoryFilter
 	}
 
 	/**
 	 * recompute and add the counts of the parts list to the result
 	 */
-	private def static void recomputeAllCounts(AssureResult result, List<? extends AssureResult> parts) {
+	private def static void recomputeAllCounts(AssureResult result, List<? extends AssureResult> parts, CategoryFilter filter) {
 		parts.forEach[e|
 			switch e {
 				ClaimResult: {
-					if (e.targetReference.findClaim.evaluateRequirementFilter(result.getCategoryFilter)) e.recomputeAllCounts.addTo(result)
+					if (e.targetReference.findClaim.evaluateRequirementFilter(filter)) e.recomputeAllCounts(filter).addTo(result)
 				}
 				VerificationActivityResult: {
 					val verificationActivity = e.targetReference.verificationActivity
-					if (verificationActivity.evaluateVerificationMethodFilter(result.getCategoryFilter) &&
-						verificationActivity.evaluateVerificationActivityFilter(result.getCategoryFilter)
-					) e.recomputeAllCounts.addTo(result)
+					if (verificationActivity.evaluateVerificationMethodFilter(filter) &&
+						verificationActivity.evaluateVerificationActivityFilter(filter)
+					) e.recomputeAllCounts(filter).addTo(result)
 				}
-				default: e.recomputeAllCounts.addTo(result)
+				default: e.recomputeAllCounts(filter).addTo(result)
 			}
 		]
 	}
 
-	def static AssuranceCaseResult recomputeAllCounts(AssuranceCaseResult caseResult) {
+	def static AssuranceCaseResult recomputeAllCounts(AssuranceCaseResult caseResult, CategoryFilter filter) {
 		caseResult.resetCounts
-		caseResult.recomputeAllCounts(caseResult.modelResult)
+		caseResult.recomputeAllCounts(caseResult.modelResult, filter)
 		caseResult
 	}
 
-	def static ModelResult recomputeAllCounts(ModelResult modelResult) {
+	def static ModelResult recomputeAllCounts(ModelResult modelResult, CategoryFilter filter) {
 		modelResult.resetCounts
-		modelResult.recomputeAllCounts(modelResult.claimResult)
-		modelResult.recomputeAllCounts(modelResult.subsystemResult)
-		modelResult.recomputeAllCounts(modelResult.subAssuranceCase)
+		modelResult.recomputeAllCounts(modelResult.claimResult, filter)
+		modelResult.recomputeAllCounts(modelResult.subsystemResult, filter)
+		modelResult.recomputeAllCounts(modelResult.subAssuranceCase, filter)
 		modelResult
 	}
 
-	def static SubsystemResult recomputeAllCounts(SubsystemResult subsystemResult) {
+	def static SubsystemResult recomputeAllCounts(SubsystemResult subsystemResult, CategoryFilter filter) {
 		subsystemResult.resetCounts
-		subsystemResult.recomputeAllCounts(subsystemResult.claimResult)
-		subsystemResult.recomputeAllCounts(subsystemResult.subsystemResult)
+		subsystemResult.recomputeAllCounts(subsystemResult.claimResult, filter)
+		subsystemResult.recomputeAllCounts(subsystemResult.subsystemResult, filter)
 		subsystemResult
 	}
 
-	private def static ClaimResult recomputeAllCounts(ClaimResult claimResult) {
+	private def static ClaimResult recomputeAllCounts(ClaimResult claimResult, CategoryFilter filter) {
 		claimResult.resetCounts
-		claimResult.recomputeAllCounts(claimResult.verificationActivityResult)
-		claimResult.recomputeAllCounts(claimResult.subClaimResult)
+		claimResult.recomputeAllCounts(claimResult.verificationActivityResult, filter)
+		claimResult.recomputeAllCounts(claimResult.subClaimResult, filter)
 		claimResult
 	}
 
-	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult) {
+	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult, CategoryFilter filter) {
 		vaResult.resetCounts
-		if (vaResult.preconditionResult != null) vaResult.preconditionResult.recomputeAllCounts.addTo(vaResult)
+		if (vaResult.preconditionResult != null) vaResult.preconditionResult.recomputeAllCounts(filter).addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
-		if (vaResult.validationResult != null) vaResult.validationResult.recomputeAllCounts.addTo(vaResult)
+		if (vaResult.validationResult != null) vaResult.validationResult.recomputeAllCounts(filter).addTo(vaResult)
 		vaResult
 	}
 
-	private def static ElseResult recomputeAllCounts(ElseResult vaResult) {
+	private def static ElseResult recomputeAllCounts(ElseResult vaResult, CategoryFilter filter) {
 		vaResult.resetCounts
 		vaResult.didFail = ElseType.OK
-		vaResult.recomputeAllCounts(vaResult.first)
+		vaResult.recomputeAllCounts(vaResult.first, filter)
 		if (vaResult.first.isSuccess) {
 			vaResult.recordNoElse
 		} else {
@@ -856,49 +880,49 @@ class AssureUtilExtension {
 				vaResult.recordElse(ElseType.FAIL)
 			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT) else vaResult.recordElse(
 				ElseType.ERROR)
-			vaResult.recomputeAllCounts(vaResult.error)
-			vaResult.recomputeAllCounts(vaResult.fail)
-			vaResult.recomputeAllCounts(vaResult.timeout)
+			vaResult.recomputeAllCounts(vaResult.error, filter)
+			vaResult.recomputeAllCounts(vaResult.fail, filter)
+			vaResult.recomputeAllCounts(vaResult.timeout, filter)
 		}
 		vaResult
 	}
 
-	private def static ThenResult recomputeAllCounts(ThenResult vaResult) {
+	private def static ThenResult recomputeAllCounts(ThenResult vaResult, CategoryFilter filter) {
 		vaResult.resetCounts
 		vaResult.didThenFail = false
-		vaResult.recomputeAllCounts(vaResult.first)
+		vaResult.recomputeAllCounts(vaResult.first, filter)
 		if (vaResult.first.isSuccess) {
 			vaResult.recordSkip
-			vaResult.recomputeAllCounts(vaResult.second)
+			vaResult.recomputeAllCounts(vaResult.second, filter)
 		} else {
 			vaResult.recordNoSkip
 		}
 		vaResult
 	}
 
-	private def static ValidationResult recomputeAllCounts(ValidationResult validationResult) {
+	private def static ValidationResult recomputeAllCounts(ValidationResult validationResult, CategoryFilter filter) {
 		validationResult.resetCounts
 		validationResult.addOwnResultStateToCount()
 		validationResult
 	}
 
-	private def static PreconditionResult recomputeAllCounts(PreconditionResult preconditionResult) {
+	private def static PreconditionResult recomputeAllCounts(PreconditionResult preconditionResult, CategoryFilter filter) {
 		preconditionResult.resetCounts
 		preconditionResult.addOwnResultStateToCount()
 		preconditionResult
 	}
 
-	private def static AssureResult recomputeAllCounts(AssureResult assureResult) {
+	private def static AssureResult recomputeAllCounts(AssureResult assureResult, CategoryFilter filter) {
 		switch (assureResult) {
-			AssuranceCaseResult: assureResult.recomputeAllCounts
-			ModelResult: assureResult.recomputeAllCounts
-			SubsystemResult: assureResult.recomputeAllCounts
-			ClaimResult: assureResult.recomputeAllCounts
-			ValidationResult: assureResult.recomputeAllCounts
-			PreconditionResult: assureResult.recomputeAllCounts
-			VerificationActivityResult: assureResult.recomputeAllCounts
-			ElseResult: assureResult.recomputeAllCounts
-			ThenResult: assureResult.recomputeAllCounts
+			AssuranceCaseResult: assureResult.recomputeAllCounts(filter)
+			ModelResult: assureResult.recomputeAllCounts(filter)
+			SubsystemResult: assureResult.recomputeAllCounts(filter)
+			ClaimResult: assureResult.recomputeAllCounts(filter)
+			ValidationResult: assureResult.recomputeAllCounts(filter)
+			PreconditionResult: assureResult.recomputeAllCounts(filter)
+			VerificationActivityResult: assureResult.recomputeAllCounts(filter)
+			ElseResult: assureResult.recomputeAllCounts(filter)
+			ThenResult: assureResult.recomputeAllCounts(filter)
 		}
 	}
 
@@ -1343,7 +1367,7 @@ class AssureUtilExtension {
 		val elec= ele.metrics
 		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null){
 			ele.resetCounts
-			ele.recomputeAllCounts
+			ele.recomputeAllCounts(null)
 		}
 		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " E" + elec.errorCount + " tbd" +
 			elec.tbdCount + " EL" + elec.didelseCount + " TS" + elec.thenskipCount + ")"

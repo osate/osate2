@@ -79,10 +79,9 @@ public class AssureResetHandler extends AlisaHandler {
 		}
 
 		long start = System.currentTimeMillis();
-		
-		
-		resetToTBD(rootCaseResult);
-		recomputeAllCounts(rootCaseResult);
+
+		resetToTBD(rootCaseResult, filter);
+		recomputeAllCounts(rootCaseResult, filter);
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
 		try {

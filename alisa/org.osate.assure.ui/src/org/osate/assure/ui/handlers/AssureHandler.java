@@ -104,8 +104,8 @@ public class AssureHandler extends AlisaHandler {
 			return Status.CANCEL_STATUS;
 		}
 		long start = System.currentTimeMillis();
-		resetToTBD(rootCaseResult);
-		recomputeAllCounts(rootCaseResult);
+		resetToTBD(rootCaseResult, filter);
+		recomputeAllCounts(rootCaseResult, filter);
 		try {
 			rootCaseResult.eResource().save(null);
 		} catch (IOException e1) {
