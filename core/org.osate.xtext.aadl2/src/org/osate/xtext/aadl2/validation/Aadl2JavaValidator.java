@@ -387,6 +387,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckParameterConnectionEnd(connection.getSource());
 		typeCheckParameterConnectionEnd(connection.getDestination());
 		checkParameterConnectionClassifiers(connection);
+		
+		if (!(connection.getAllSourceContext() instanceof Subcomponent) && !(connection.getAllDestinationContext() instanceof Subcomponent)) {
+			error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
+		}
 	}
 
 	@Check(CheckType.FAST)
@@ -396,6 +400,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkAccessConnectionCategory(connection);
 		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
+		
+		if (!(connection.getAllSourceContext() instanceof Subcomponent) && !(connection.getAllDestinationContext() instanceof Subcomponent)) {
+			error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
+		}
 	}
 
 	@Check(CheckType.FAST)
@@ -7464,6 +7472,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
 							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
 				}
+			} else if (!(srccxt instanceof Subcomponent) && !(dstcxt instanceof Subcomponent)) {
+				// directly across component
+				error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
 			} else if (!(srccxt instanceof Subcomponent)) {
 				// going down
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.OUT)) {
