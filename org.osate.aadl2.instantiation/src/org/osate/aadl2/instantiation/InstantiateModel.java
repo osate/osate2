@@ -354,6 +354,18 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+
+		try {
+			// We're done: Save the model.
+			// We don't respond to a cancel at this point
+			monitor.subTask("Saving instance model");
+			aadlResource.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+			setErrorMessage(e.getMessage());
+			return null;
+		}
+
 		resultList = (List<SystemInstance>) cmd.getResult();
 		result = resultList.get(0);
 
@@ -393,12 +405,6 @@ public class InstantiateModel {
 				e.printStackTrace();
 				return null;
 			}
-			// We're done: Save the model.
-			// We don't respond to a cancel at this point
-
-			monitor.subTask("Saving instance model");
-
-			aadlResource.save(null);
 		} catch (IOException e) {
 			e.printStackTrace();
 			setErrorMessage(e.getMessage());
