@@ -771,10 +771,10 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 					"ba1".assertEquals(name)
 					//Tests scope_BusAccess_busFeatureClassifier
 					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto1", "b1", "b1.i",
-						"b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
-						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
-						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
-						"pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i"
+						"b3", "b3.i", "b5", "bproto1", "container", "container.i", "ra", "rb", "rvb", "vb1", "vb1.i", "vb3", "vb3.i", "vb5", "vbproto1", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
+						"pack1::container", "pack1::container.i", "pack1::vb1", "pack1::vb1.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack2::vb2", "pack2::vb2.i", "pack3::a3", "pack3::a3.i",
+						"pack3::b3", "pack3::b3.i", "pack3::vb3", "pack3::vb3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack4::vb4", "pack4::vb4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
+						"pack5::b5", "pack5::b5.i", "pack5::b6", "pack5::vb5", "pack5::vb5.i", "pack5::vb6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i", "renamed_package::vb4", "renamed_package::vb4.i"
 					])
 				]
 				ownedDataAccesses.head => [
@@ -1021,11 +1021,13 @@ class FeaturesAndSubcomponentsTest extends OsateTest {
 				ownedBusAccesses.head => [
 					"ba2".assertEquals(name)
 					//Tests scope_BusAccess_busFeatureClassifier
-					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i",
-						"b3", "b3.i", "b5", "bproto3", "container", "container.i", "ra", "rb", "pack1::a1", "pack1::a1.i", "pack1::b1", "pack1::b1.i",
-						"pack1::container", "pack1::container.i", "pack2::a2", "pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack3::a3", "pack3::a3.i",
-						"pack3::b3", "pack3::b3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack5::a5", "pack5::a5.i", "pack5::a6",
-						"pack5::b5", "pack5::b5.i", "pack5::b6", "renamed_package::a4", "renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i"
+					assertScope(Aadl2Package::eINSTANCE.busAccess_BusFeatureClassifier, #["a1", "a1.i", "a3", "a3.i", "a5", "aproto3", "b1", "b1.i", "b3", 
+						"b3.i", "b5", "bproto3", "container", "container.i", "ra", "rb", "rvb", "vb1", "vb1.i", "vb3", "vb3.i", "vb5", "vbproto3", "pack1::a1", 
+						"pack1::a1.i", "pack1::b1", "pack1::b1.i", "pack1::container", "pack1::container.i", "pack1::vb1", "pack1::vb1.i", "pack2::a2", 
+						"pack2::a2.i", "pack2::b2", "pack2::b2.i", "pack2::vb2", "pack2::vb2.i", "pack3::a3", "pack3::a3.i", "pack3::b3", "pack3::b3.i", 
+						"pack3::vb3", "pack3::vb3.i", "pack4::a4", "pack4::a4.i", "pack4::b4", "pack4::b4.i", "pack4::vb4", "pack4::vb4.i", "pack5::a5", 
+						"pack5::a5.i", "pack5::a6", "pack5::b5", "pack5::b5.i", "pack5::b6", "pack5::vb5", "pack5::vb5.i", "pack5::vb6", "renamed_package::a4", 
+						"renamed_package::a4.i", "renamed_package::b4", "renamed_package::b4.i", "renamed_package::vb4", "renamed_package::vb4.i"
 					])
 				]
 				ownedDataAccesses.head => [
