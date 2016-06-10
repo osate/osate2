@@ -7638,12 +7638,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Context srcContext = connection.getAllSourceContext();
 		Context dstContext = connection.getAllDestinationContext();
 		// connection across or through a component
-		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent
-				|| (srcContext == null || srcContext instanceof FeatureGroup)
-						&& (dstContext == null || dstContext instanceof FeatureGroup)) {
+		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent) {
 			if (classifierMatchingRuleValue == null
 					|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)) {
+				if (!testIfFeatureGroupsAreInverses(source, destination)) {
 					error(connection, "The feature groups '" + source.getName() + "' and '" + destination.getName()
 							+ "' are not inverses of each other.");
 				}
@@ -7815,23 +7813,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, Context sourceContext, FeatureGroup destination,
-			Context destinationContext) {
-		return isInverse(source, sourceContext) ^ isInverse(destination, destinationContext);
-	}
-
-	private boolean isInverse(FeatureGroup fg, Context context) {
-		boolean result = fg.isInverse();
-
-		result ^= fg.getAllFeatureGroupType().getInverse() != null;
-
-		if (context instanceof FeatureGroup) {
-			FeatureGroup parent = (FeatureGroup) context;
-			result ^= parent.isInverse();
-			FeatureGroupType parentType = parent.getAllFeatureGroupType();
-			result ^= parentType.getInverse() != null;
+	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, FeatureGroup destination) {
+		boolean sourceIsInverse = source.isInverse() ^ source.getAllFeatureGroupType().getInverse() != null;
+		boolean destinationIsInverse = destination.isInverse() ^ destination.getAllFeatureGroupType().getInverse() != null;
+		if (sourceIsInverse == destinationIsInverse) {
+			return false;
+		};
+		FeatureGroupType sourceType = source.getAllFeatureGroupType();
+		if (sourceType.getInverse() != null) {
+			sourceType = sourceType.getInverse();
 		}
-		return result;
+		FeatureGroupType destinationType = destination.getAllFeatureGroupType();
+		if (destinationType.getInverse() != null) {
+			destinationType = destinationType.getInverse();
+		}
+		return sourceType == destinationType;
 	}
 
 	private boolean testIfFeatureGroupTypeExtensionsAreInverses(FeatureGroup source, FeatureGroupType sourceType,
