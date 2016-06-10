@@ -16,5 +16,6 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface PropagationPoint extends EObject, NamedElement {
+public interface PropagationPoint extends EObject, NamedElement
+{
 } // PropagationPoint

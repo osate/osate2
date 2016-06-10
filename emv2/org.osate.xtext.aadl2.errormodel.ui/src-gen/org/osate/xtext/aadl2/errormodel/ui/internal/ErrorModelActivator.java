@@ -22,33 +22,32 @@ import com.google.inject.Module;
  * introduced subclass. 
  */
 public class ErrorModelActivator extends AbstractUIPlugin {
-
+	
 	public static final String ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL = "org.osate.xtext.aadl2.errormodel.ErrorModel";
-
+	
 	private static final Logger logger = Logger.getLogger(ErrorModelActivator.class);
-
+	
 	private static ErrorModelActivator INSTANCE;
-
-	private Map<String, Injector> injectors = Collections
-			.synchronizedMap(Maps.<String, Injector> newHashMapWithExpectedSize(1));
-
+	
+	private Map<String, Injector> injectors = Collections.synchronizedMap(Maps.<String, Injector> newHashMapWithExpectedSize(1));
+	
 	@Override
 	public void start(BundleContext context) throws Exception {
 		super.start(context);
 		INSTANCE = this;
 	}
-
+	
 	@Override
 	public void stop(BundleContext context) throws Exception {
 		injectors.clear();
 		INSTANCE = null;
 		super.stop(context);
 	}
-
+	
 	public static ErrorModelActivator getInstance() {
 		return INSTANCE;
 	}
-
+	
 	public Injector getInjector(String language) {
 		synchronized (injectors) {
 			Injector injector = injectors.get(language);
@@ -58,7 +57,7 @@ public class ErrorModelActivator extends AbstractUIPlugin {
 			return injector;
 		}
 	}
-
+	
 	protected Injector createInjector(String language) {
 		try {
 			Module runtimeModule = getRuntimeModule(language);
@@ -77,20 +76,20 @@ public class ErrorModelActivator extends AbstractUIPlugin {
 		if (ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL.equals(grammar)) {
 			return new org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule();
 		}
-
+		
 		throw new IllegalArgumentException(grammar);
 	}
-
+	
 	protected Module getUiModule(String grammar) {
 		if (ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL.equals(grammar)) {
 			return new org.osate.xtext.aadl2.errormodel.ui.ErrorModelUiModule(this);
 		}
-
+		
 		throw new IllegalArgumentException(grammar);
 	}
-
+	
 	protected Module getSharedStateModule() {
 		return new SharedStateModule();
 	}
-
+	
 }

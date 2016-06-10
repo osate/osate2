@@ -23,17 +23,16 @@ public abstract class AbstractErrorModelRuntimeModule extends org.eclipse.xtext.
 		properties = tryBindProperties(binder, "org/osate/xtext/aadl2/errormodel/ErrorModel.properties");
 		super.configure(binder);
 	}
-
+	
 	public void configureLanguageName(Binder binder) {
-		binder.bind(String.class).annotatedWith(Names.named(Constants.LANGUAGE_NAME))
-				.toInstance("org.osate.xtext.aadl2.errormodel.ErrorModel");
+		binder.bind(String.class).annotatedWith(Names.named(Constants.LANGUAGE_NAME)).toInstance("org.osate.xtext.aadl2.errormodel.ErrorModel");
 	}
-
+	
 	public void configureFileExtensions(Binder binder) {
 		if (properties == null || properties.getProperty(Constants.FILE_EXTENSIONS) == null)
 			binder.bind(String.class).annotatedWith(Names.named(Constants.FILE_EXTENSIONS)).toInstance("emv2,emv2lib");
 	}
-
+	
 	// contributed by org.eclipse.xtext.generator.grammarAccess.GrammarAccessFragment
 	public java.lang.ClassLoader bindClassLoaderToInstance() {
 		return getClass().getClassLoader();
@@ -81,15 +80,12 @@ public abstract class AbstractErrorModelRuntimeModule extends org.eclipse.xtext.
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
 	public com.google.inject.Provider<org.osate.xtext.aadl2.errormodel.parser.antlr.lexer.InternalErrorModelLexer> provideInternalErrorModelLexer() {
-		return org.eclipse.xtext.parser.antlr.LexerProvider
-				.create(org.osate.xtext.aadl2.errormodel.parser.antlr.lexer.InternalErrorModelLexer.class);
+		return org.eclipse.xtext.parser.antlr.LexerProvider.create(org.osate.xtext.aadl2.errormodel.parser.antlr.lexer.InternalErrorModelLexer.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
 	public void configureRuntimeLexer(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class)
-				.annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.parser.antlr.LexerBindings.RUNTIME))
-				.to(org.osate.xtext.aadl2.errormodel.parser.antlr.lexer.InternalErrorModelLexer.class);
+		binder.bind(org.eclipse.xtext.parser.antlr.Lexer.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.parser.antlr.LexerBindings.RUNTIME)).to(org.osate.xtext.aadl2.errormodel.parser.antlr.lexer.InternalErrorModelLexer.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.parser.antlr.ex.rt.AntlrGeneratorFragment
@@ -108,8 +104,7 @@ public abstract class AbstractErrorModelRuntimeModule extends org.eclipse.xtext.
 	}
 
 	// contributed by org.eclipse.xtext.generator.validation.JavaValidatorFragment
-	@org.eclipse.xtext.service.SingletonBinding(eager = true)
-	public Class<? extends org.osate.xtext.aadl2.errormodel.validation.ErrorModelJavaValidator> bindErrorModelJavaValidator() {
+	@org.eclipse.xtext.service.SingletonBinding(eager=true)	public Class<? extends org.osate.xtext.aadl2.errormodel.validation.ErrorModelJavaValidator> bindErrorModelJavaValidator() {
 		return org.osate.xtext.aadl2.errormodel.validation.ErrorModelJavaValidator.class;
 	}
 
@@ -120,10 +115,7 @@ public abstract class AbstractErrorModelRuntimeModule extends org.eclipse.xtext.
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
 	public void configureIScopeProviderDelegate(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class)
-				.annotatedWith(com.google.inject.name.Names
-						.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE))
-				.to(org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class);
+		binder.bind(org.eclipse.xtext.scoping.IScopeProvider.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider.NAMED_DELEGATE)).to(org.eclipse.xtext.scoping.impl.ImportedNamespaceAwareLocalScopeProvider.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.scoping.AbstractScopingFragment
@@ -153,16 +145,12 @@ public abstract class AbstractErrorModelRuntimeModule extends org.eclipse.xtext.
 
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
 	public void configureIResourceDescriptions(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class)
-				.to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
+		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class).to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.builder.BuilderIntegrationFragment
 	public void configureIResourceDescriptionsPersisted(com.google.inject.Binder binder) {
-		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class)
-				.annotatedWith(com.google.inject.name.Names
-						.named(org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS))
-				.to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
+		binder.bind(org.eclipse.xtext.resource.IResourceDescriptions.class).annotatedWith(com.google.inject.name.Names.named(org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider.PERSISTED_DESCRIPTIONS)).to(org.eclipse.xtext.resource.impl.ResourceSetBasedResourceDescriptions.class);
 	}
 
 	// contributed by org.eclipse.xtext.generator.formatting.FormatterFragment

@@ -24,83 +24,84 @@ import org.osate.aadl2.Element;
  * @model
  * @generated
  */
-public interface QualifiedErrorBehaviorState extends EObject, Element {
-	/**
-	 * Returns the value of the '<em><b>Subcomponent</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Subcomponent</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Subcomponent</em>' containment reference.
-	 * @see #setSubcomponent(SubcomponentElement)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedErrorBehaviorState_Subcomponent()
-	 * @model containment="true"
-	 * @generated
-	 */
-	SubcomponentElement getSubcomponent();
+public interface QualifiedErrorBehaviorState extends EObject, Element
+{
+  /**
+   * Returns the value of the '<em><b>Subcomponent</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Subcomponent</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Subcomponent</em>' containment reference.
+   * @see #setSubcomponent(SubcomponentElement)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedErrorBehaviorState_Subcomponent()
+   * @model containment="true"
+   * @generated
+   */
+  SubcomponentElement getSubcomponent();
 
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getSubcomponent <em>Subcomponent</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Subcomponent</em>' containment reference.
-	 * @see #getSubcomponent()
-	 * @generated
-	 */
-	void setSubcomponent(SubcomponentElement value);
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getSubcomponent <em>Subcomponent</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Subcomponent</em>' containment reference.
+   * @see #getSubcomponent()
+   * @generated
+   */
+  void setSubcomponent(SubcomponentElement value);
 
-	/**
-	 * Returns the value of the '<em><b>Next</b></em>' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Next</em>' containment reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Next</em>' containment reference.
-	 * @see #setNext(QualifiedErrorBehaviorState)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedErrorBehaviorState_Next()
-	 * @model containment="true"
-	 * @generated
-	 */
-	QualifiedErrorBehaviorState getNext();
+  /**
+   * Returns the value of the '<em><b>Next</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Next</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Next</em>' containment reference.
+   * @see #setNext(QualifiedErrorBehaviorState)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedErrorBehaviorState_Next()
+   * @model containment="true"
+   * @generated
+   */
+  QualifiedErrorBehaviorState getNext();
 
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getNext <em>Next</em>}' containment reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Next</em>' containment reference.
-	 * @see #getNext()
-	 * @generated
-	 */
-	void setNext(QualifiedErrorBehaviorState value);
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getNext <em>Next</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Next</em>' containment reference.
+   * @see #getNext()
+   * @generated
+   */
+  void setNext(QualifiedErrorBehaviorState value);
 
-	/**
-	 * Returns the value of the '<em><b>State</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>State</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>State</em>' reference.
-	 * @see #setState(ErrorBehaviorState)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedErrorBehaviorState_State()
-	 * @model
-	 * @generated
-	 */
-	ErrorBehaviorState getState();
+  /**
+   * Returns the value of the '<em><b>State</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>State</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>State</em>' reference.
+   * @see #setState(ErrorBehaviorState)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getQualifiedErrorBehaviorState_State()
+   * @model
+   * @generated
+   */
+  ErrorBehaviorState getState();
 
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getState <em>State</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>State</em>' reference.
-	 * @see #getState()
-	 * @generated
-	 */
-	void setState(ErrorBehaviorState value);
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState#getState <em>State</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>State</em>' reference.
+   * @see #getState()
+   * @generated
+   */
+  void setState(ErrorBehaviorState value);
 
 } // QualifiedErrorBehaviorState

@@ -18,33 +18,37 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
  * <!-- end-user-doc -->
  * @generated
  */
-public class ErrorModelXMLProcessor extends XMLProcessor {
+public class ErrorModelXMLProcessor extends XMLProcessor
+{
 
-	/**
-	 * Public constructor to instantiate the helper.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public ErrorModelXMLProcessor() {
-		super((EPackage.Registry.INSTANCE));
-		ErrorModelPackage.eINSTANCE.eClass();
-	}
+  /**
+   * Public constructor to instantiate the helper.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ErrorModelXMLProcessor()
+  {
+    super((EPackage.Registry.INSTANCE));
+    ErrorModelPackage.eINSTANCE.eClass();
+  }
+  
+  /**
+   * Register for "*" and "xml" file extensions the ErrorModelResourceFactoryImpl factory.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected Map<String, Resource.Factory> getRegistrations()
+  {
+    if (registrations == null)
+    {
+      super.getRegistrations();
+      registrations.put(XML_EXTENSION, new ErrorModelResourceFactoryImpl());
+      registrations.put(STAR_EXTENSION, new ErrorModelResourceFactoryImpl());
+    }
+    return registrations;
+  }
 
-	/**
-	 * Register for "*" and "xml" file extensions the ErrorModelResourceFactoryImpl factory.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected Map<String, Resource.Factory> getRegistrations() {
-		if (registrations == null) {
-			super.getRegistrations();
-			registrations.put(XML_EXTENSION, new ErrorModelResourceFactoryImpl());
-			registrations.put(STAR_EXTENSION, new ErrorModelResourceFactoryImpl());
-		}
-		return registrations;
-	}
-
-} // ErrorModelXMLProcessor
+} //ErrorModelXMLProcessor

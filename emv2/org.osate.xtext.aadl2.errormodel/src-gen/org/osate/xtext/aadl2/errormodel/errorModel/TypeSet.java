@@ -21,47 +21,48 @@ import org.eclipse.emf.common.util.EList;
  * @model
  * @generated
  */
-public interface TypeSet extends ErrorTypes {
-	/**
-	 * Returns the value of the '<em><b>Type Tokens</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeToken}.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Type Tokens</em>' containment reference list isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Type Tokens</em>' containment reference list.
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeSet_TypeTokens()
-	 * @model containment="true"
-	 * @generated
-	 */
-	EList<TypeToken> getTypeTokens();
+public interface TypeSet extends ErrorTypes
+{
+  /**
+   * Returns the value of the '<em><b>Type Tokens</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.TypeToken}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Type Tokens</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Type Tokens</em>' containment reference list.
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeSet_TypeTokens()
+   * @model containment="true"
+   * @generated
+   */
+  EList<TypeToken> getTypeTokens();
 
-	/**
-	 * Returns the value of the '<em><b>Aliased Type</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <p>
-	 * If the meaning of the '<em>Aliased Type</em>' reference isn't clear,
-	 * there really should be more of a description here...
-	 * </p>
-	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Aliased Type</em>' reference.
-	 * @see #setAliasedType(TypeSet)
-	 * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeSet_AliasedType()
-	 * @model
-	 * @generated
-	 */
-	TypeSet getAliasedType();
+  /**
+   * Returns the value of the '<em><b>Aliased Type</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Aliased Type</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Aliased Type</em>' reference.
+   * @see #setAliasedType(TypeSet)
+   * @see org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage#getTypeSet_AliasedType()
+   * @model
+   * @generated
+   */
+  TypeSet getAliasedType();
 
-	/**
-	 * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getAliasedType <em>Aliased Type</em>}' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Aliased Type</em>' reference.
-	 * @see #getAliasedType()
-	 * @generated
-	 */
-	void setAliasedType(TypeSet value);
+  /**
+   * Sets the value of the '{@link org.osate.xtext.aadl2.errormodel.errorModel.TypeSet#getAliasedType <em>Aliased Type</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Aliased Type</em>' reference.
+   * @see #getAliasedType()
+   * @generated
+   */
+  void setAliasedType(TypeSet value);
 
 } // TypeSet
