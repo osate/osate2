@@ -3114,6 +3114,11 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             case PlusSign:
                 {
                 switch ( input.LA(2) ) {
+                case RULE_ID:
+                    {
+                    alt7=3;
+                    }
+                    break;
                 case RULE_INTEGER_LIT:
                     {
                     alt7=2;
@@ -3122,11 +3127,6 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                 case RULE_REAL_LIT:
                     {
                     alt7=1;
-                    }
-                    break;
-                case RULE_ID:
-                    {
-                    alt7=3;
                     }
                     break;
                 default:
@@ -3141,11 +3141,6 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             case HyphenMinus:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt7=3;
-                    }
-                    break;
                 case RULE_INTEGER_LIT:
                     {
                     alt7=2;
@@ -3154,6 +3149,11 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                 case RULE_REAL_LIT:
                     {
                     alt7=1;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt7=3;
                     }
                     break;
                 default:
@@ -8525,40 +8525,47 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ContainmentPathElement__Group_0__1__Impl"
-    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3263:1: rule__ContainmentPathElement__Group_0__1__Impl : ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? ) ;
+    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3263:1: rule__ContainmentPathElement__Group_0__1__Impl : ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* ) ;
     public final void rule__ContainmentPathElement__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3267:1: ( ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? ) )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3267:1: ( ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* ) )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* )
             {
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? )
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3269:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )?
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* )
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3269:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )*
             {
              before(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); 
-            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3270:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3270:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )*
+            loop19:
+            do {
+                int alt19=2;
+                int LA19_0 = input.LA(1);
 
-            if ( (LA19_0==LeftSquareBracket) ) {
-                alt19=1;
-            }
-            switch (alt19) {
-                case 1 :
-                    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3270:2: rule__ContainmentPathElement__ArrayRangeAssignment_0_1
-                    {
-                    pushFollow(FollowSets000.FOLLOW_rule__ContainmentPathElement__ArrayRangeAssignment_0_1_in_rule__ContainmentPathElement__Group_0__1__Impl6646);
-                    rule__ContainmentPathElement__ArrayRangeAssignment_0_1();
-
-                    state._fsp--;
+                if ( (LA19_0==LeftSquareBracket) ) {
+                    alt19=1;
+                }
 
 
-                    }
-                    break;
+                switch (alt19) {
+            	case 1 :
+            	    // ../org.osate.xtext.aadl2.properties.ui/src-gen/org/osate/xtext/aadl2/properties/ui/contentassist/antlr/internal/InternalPropertiesParser.g:3270:2: rule__ContainmentPathElement__ArrayRangeAssignment_0_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_rule__ContainmentPathElement__ArrayRangeAssignment_0_1_in_rule__ContainmentPathElement__Group_0__1__Impl6646);
+            	    rule__ContainmentPathElement__ArrayRangeAssignment_0_1();
 
-            }
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop19;
+                }
+            } while (true);
 
              after(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); 
 
@@ -13547,7 +13554,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_rule__ContainmentPathElement__Group_0__1_in_rule__ContainmentPathElement__Group_0__06562 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPathElement__NamedElementAssignment_0_0_in_rule__ContainmentPathElement__Group_0__0__Impl6589 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_rule__ContainmentPathElement__Group_0__1__Impl_in_rule__ContainmentPathElement__Group_0__16619 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_rule__ContainmentPathElement__ArrayRangeAssignment_0_1_in_rule__ContainmentPathElement__Group_0__1__Impl6646 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_rule__ContainmentPathElement__ArrayRangeAssignment_0_1_in_rule__ContainmentPathElement__Group_0__1__Impl6646 = new BitSet(new long[]{0x0000000010000002L});
         public static final BitSet FOLLOW_rule__ContainmentPathElement__Group_1__0__Impl_in_rule__ContainmentPathElement__Group_1__06681 = new BitSet(new long[]{0x0000020000000000L});
         public static final BitSet FOLLOW_rule__ContainmentPathElement__Group_1__1_in_rule__ContainmentPathElement__Group_1__06684 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_FullStop_in_rule__ContainmentPathElement__Group_1__0__Impl6712 = new BitSet(new long[]{0x0000000000000002L});

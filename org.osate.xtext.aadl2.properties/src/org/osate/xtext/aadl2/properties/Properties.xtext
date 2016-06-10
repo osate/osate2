@@ -149,7 +149,7 @@ ContainmentPathElement returns aadl2::ContainmentPathElement:
 	(
 		(
 			namedElement=[aadl2::NamedElement|ID]
-	 		(arrayRange+=ArrayRange)?
+	 		(arrayRange+=ArrayRange)*
 		) 
 		('.' path=ContainmentPathElement)?
 //	 | 	 'annex' namedElement=[aadl2::NamedElement|ID]

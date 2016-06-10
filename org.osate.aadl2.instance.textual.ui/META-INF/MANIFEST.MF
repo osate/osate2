@@ -17,7 +17,8 @@ Require-Bundle: org.osate.aadl2.instance.textual;visibility:=reexport,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties.ui;bundle-version="1.0.0",
  org.osate.xtext.aadl2.ui;bundle-version="1.0.0",
- org.osate.aadl2;bundle-version="1.0.0"
+ org.osate.aadl2;bundle-version="1.0.0",
+ org.eclipse.xtext.xbase.lib
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-Activator: org.osate.aadl2.instance.textual.ui.internal.InstanceActivator
