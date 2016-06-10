@@ -20,11 +20,10 @@ public class ErrorModelExecutableExtensionFactory extends AbstractGuiceAwareExec
 	protected Bundle getBundle() {
 		return ErrorModelActivator.getInstance().getBundle();
 	}
-
+	
 	@Override
 	protected Injector getInjector() {
-		return ErrorModelActivator.getInstance()
-				.getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
+		return ErrorModelActivator.getInstance().getInjector(ErrorModelActivator.ORG_OSATE_XTEXT_AADL2_ERRORMODEL_ERRORMODEL);
 	}
-
+	
 }

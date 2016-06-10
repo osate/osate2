@@ -24,27 +24,25 @@ public class ErrorModelStandaloneSetupGenerated implements ISetup {
 		register(injector);
 		return injector;
 	}
-
+	
 	public Injector createInjector() {
 		return Guice.createInjector(new org.osate.xtext.aadl2.errormodel.ErrorModelRuntimeModule());
 	}
-
+	
 	public void register(Injector injector) {
-		if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/EMV2")) {
-			EPackage.Registry.INSTANCE.put("http://www.aadl.info/EMV2",
-					org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage.eINSTANCE);
-		}
+	if (!EPackage.Registry.INSTANCE.containsKey("http://www.aadl.info/EMV2")) {
+		EPackage.Registry.INSTANCE.put("http://www.aadl.info/EMV2", org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage.eINSTANCE);
+	}
 
-		org.eclipse.xtext.resource.IResourceFactory resourceFactory = injector
-				.getInstance(org.eclipse.xtext.resource.IResourceFactory.class);
-		org.eclipse.xtext.resource.IResourceServiceProvider serviceProvider = injector
-				.getInstance(org.eclipse.xtext.resource.IResourceServiceProvider.class);
+		org.eclipse.xtext.resource.IResourceFactory resourceFactory = injector.getInstance(org.eclipse.xtext.resource.IResourceFactory.class);
+		org.eclipse.xtext.resource.IResourceServiceProvider serviceProvider = injector.getInstance(org.eclipse.xtext.resource.IResourceServiceProvider.class);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2",
-				serviceProvider);
+		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2", serviceProvider);
 		Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib", resourceFactory);
-		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib",
-				serviceProvider);
+		org.eclipse.xtext.resource.IResourceServiceProvider.Registry.INSTANCE.getExtensionToFactoryMap().put("emv2lib", serviceProvider);
+		
+
+
 
 	}
 }
