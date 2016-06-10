@@ -11971,7 +11971,10 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             if ( (LA35_0==RULE_ID) ) {
                 int LA35_1 = input.LA(2);
 
-                if ( (LA35_1==Colon) ) {
+                if ( (LA35_1==FullStop) ) {
+                    alt35=2;
+                }
+                else if ( (LA35_1==Colon) ) {
                     int LA35_3 = input.LA(3);
 
                     if ( (LA35_3==Recover||LA35_3==Repair||LA35_3==Error) ) {
@@ -11986,9 +11989,6 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
                         throw nvae;
                     }
-                }
-                else if ( (LA35_1==FullStop) ) {
-                    alt35=2;
                 }
                 else {
                     NoViableAltException nvae =
@@ -13538,11 +13538,6 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             case PlusSign:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt50=3;
-                    }
-                    break;
                 case RULE_INTEGER_LIT:
                     {
                     alt50=2;
@@ -13551,6 +13546,11 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
                 case RULE_REAL_LIT:
                     {
                     alt50=1;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt50=3;
                     }
                     break;
                 default:
@@ -82424,40 +82424,47 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ContainmentPathElement__Group_0__1__Impl"
-    // InternalErrorModelParser.g:30987:1: rule__ContainmentPathElement__Group_0__1__Impl : ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? ) ;
+    // InternalErrorModelParser.g:30987:1: rule__ContainmentPathElement__Group_0__1__Impl : ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* ) ;
     public final void rule__ContainmentPathElement__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalErrorModelParser.g:30991:1: ( ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? ) )
-            // InternalErrorModelParser.g:30992:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? )
+            // InternalErrorModelParser.g:30991:1: ( ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* ) )
+            // InternalErrorModelParser.g:30992:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* )
             {
-            // InternalErrorModelParser.g:30992:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? )
-            // InternalErrorModelParser.g:30993:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )?
+            // InternalErrorModelParser.g:30992:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* )
+            // InternalErrorModelParser.g:30993:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )*
             {
              before(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); 
-            // InternalErrorModelParser.g:30994:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )?
-            int alt247=2;
-            int LA247_0 = input.LA(1);
+            // InternalErrorModelParser.g:30994:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )*
+            loop247:
+            do {
+                int alt247=2;
+                int LA247_0 = input.LA(1);
 
-            if ( (LA247_0==LeftSquareBracket) ) {
-                alt247=1;
-            }
-            switch (alt247) {
-                case 1 :
-                    // InternalErrorModelParser.g:30994:2: rule__ContainmentPathElement__ArrayRangeAssignment_0_1
-                    {
-                    pushFollow(FOLLOW_2);
-                    rule__ContainmentPathElement__ArrayRangeAssignment_0_1();
-
-                    state._fsp--;
+                if ( (LA247_0==LeftSquareBracket) ) {
+                    alt247=1;
+                }
 
 
-                    }
-                    break;
+                switch (alt247) {
+            	case 1 :
+            	    // InternalErrorModelParser.g:30994:2: rule__ContainmentPathElement__ArrayRangeAssignment_0_1
+            	    {
+            	    pushFollow(FOLLOW_133);
+            	    rule__ContainmentPathElement__ArrayRangeAssignment_0_1();
 
-            }
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop247;
+                }
+            } while (true);
 
              after(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); 
 
@@ -82796,7 +82803,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31138:1: ( rule__ArrayRange__Group__2__Impl rule__ArrayRange__Group__3 )
             // InternalErrorModelParser.g:31139:2: rule__ArrayRange__Group__2__Impl rule__ArrayRange__Group__3
             {
-            pushFollow(FOLLOW_133);
+            pushFollow(FOLLOW_134);
             rule__ArrayRange__Group__2__Impl();
 
             state._fsp--;
@@ -82881,7 +82888,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31167:1: ( rule__ArrayRange__Group__3__Impl rule__ArrayRange__Group__4 )
             // InternalErrorModelParser.g:31168:2: rule__ArrayRange__Group__3__Impl rule__ArrayRange__Group__4
             {
-            pushFollow(FOLLOW_133);
+            pushFollow(FOLLOW_134);
             rule__ArrayRange__Group__3__Impl();
 
             state._fsp--;
@@ -83202,7 +83209,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31299:1: ( rule__SignedConstant__Group__0__Impl rule__SignedConstant__Group__1 )
             // InternalErrorModelParser.g:31300:2: rule__SignedConstant__Group__0__Impl rule__SignedConstant__Group__1
             {
-            pushFollow(FOLLOW_134);
+            pushFollow(FOLLOW_135);
             rule__SignedConstant__Group__0__Impl();
 
             state._fsp--;
@@ -83543,7 +83550,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31421:1: ( rule__SignedInt__Group__0__Impl rule__SignedInt__Group__1 )
             // InternalErrorModelParser.g:31422:2: rule__SignedInt__Group__0__Impl rule__SignedInt__Group__1
             {
-            pushFollow(FOLLOW_135);
+            pushFollow(FOLLOW_136);
             rule__SignedInt__Group__0__Impl();
 
             state._fsp--;
@@ -83885,7 +83892,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31543:1: ( rule__SignedReal__Group__0__Impl rule__SignedReal__Group__1 )
             // InternalErrorModelParser.g:31544:2: rule__SignedReal__Group__0__Impl rule__SignedReal__Group__1
             {
-            pushFollow(FOLLOW_136);
+            pushFollow(FOLLOW_137);
             rule__SignedReal__Group__0__Impl();
 
             state._fsp--;
@@ -84051,7 +84058,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31604:1: ( rule__NumericRangeTerm__Group__0__Impl rule__NumericRangeTerm__Group__1 )
             // InternalErrorModelParser.g:31605:2: rule__NumericRangeTerm__Group__0__Impl rule__NumericRangeTerm__Group__1
             {
-            pushFollow(FOLLOW_137);
+            pushFollow(FOLLOW_138);
             rule__NumericRangeTerm__Group__0__Impl();
 
             state._fsp--;
@@ -84136,7 +84143,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31633:1: ( rule__NumericRangeTerm__Group__1__Impl rule__NumericRangeTerm__Group__2 )
             // InternalErrorModelParser.g:31634:2: rule__NumericRangeTerm__Group__1__Impl rule__NumericRangeTerm__Group__2
             {
-            pushFollow(FOLLOW_134);
+            pushFollow(FOLLOW_135);
             rule__NumericRangeTerm__Group__1__Impl();
 
             state._fsp--;
@@ -84211,7 +84218,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31664:1: ( rule__NumericRangeTerm__Group__2__Impl rule__NumericRangeTerm__Group__3 )
             // InternalErrorModelParser.g:31665:2: rule__NumericRangeTerm__Group__2__Impl rule__NumericRangeTerm__Group__3
             {
-            pushFollow(FOLLOW_138);
+            pushFollow(FOLLOW_139);
             rule__NumericRangeTerm__Group__2__Impl();
 
             state._fsp--;
@@ -84387,7 +84394,7 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
             // InternalErrorModelParser.g:31729:1: ( rule__NumericRangeTerm__Group_3__0__Impl rule__NumericRangeTerm__Group_3__1 )
             // InternalErrorModelParser.g:31730:2: rule__NumericRangeTerm__Group_3__0__Impl rule__NumericRangeTerm__Group_3__1
             {
-            pushFollow(FOLLOW_134);
+            pushFollow(FOLLOW_135);
             rule__NumericRangeTerm__Group_3__0__Impl();
 
             state._fsp--;
@@ -98506,11 +98513,12 @@ public class InternalErrorModelParser extends AbstractInternalContentAssistParse
     public static final BitSet FOLLOW_130 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000000L});
     public static final BitSet FOLLOW_131 = new BitSet(new long[]{0x0200400001010200L,0x0000064410AC0000L});
     public static final BitSet FOLLOW_132 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_133 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000400L});
-    public static final BitSet FOLLOW_134 = new BitSet(new long[]{0x0000000000000000L,0x0000044400A00000L});
-    public static final BitSet FOLLOW_135 = new BitSet(new long[]{0x0000000000000000L,0x0000000400A00000L});
-    public static final BitSet FOLLOW_136 = new BitSet(new long[]{0x0000000000000000L,0x0000004000A00000L});
-    public static final BitSet FOLLOW_137 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
-    public static final BitSet FOLLOW_138 = new BitSet(new long[]{0x0000080000000000L});
+    public static final BitSet FOLLOW_133 = new BitSet(new long[]{0x0000000000000002L,0x0000000010000000L});
+    public static final BitSet FOLLOW_134 = new BitSet(new long[]{0x0000000000000000L,0x0000000020000400L});
+    public static final BitSet FOLLOW_135 = new BitSet(new long[]{0x0000000000000000L,0x0000044400A00000L});
+    public static final BitSet FOLLOW_136 = new BitSet(new long[]{0x0000000000000000L,0x0000000400A00000L});
+    public static final BitSet FOLLOW_137 = new BitSet(new long[]{0x0000000000000000L,0x0000004000A00000L});
+    public static final BitSet FOLLOW_138 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000400L});
+    public static final BitSet FOLLOW_139 = new BitSet(new long[]{0x0000080000000000L});
 
 }

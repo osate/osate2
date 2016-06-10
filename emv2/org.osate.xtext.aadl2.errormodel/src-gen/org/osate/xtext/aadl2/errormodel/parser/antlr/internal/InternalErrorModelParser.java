@@ -23828,7 +23828,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContainmentPathElement"
-    // InternalErrorModelParser.g:9557:1: ruleContainmentPathElement returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) ;
+    // InternalErrorModelParser.g:9557:1: ruleContainmentPathElement returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) ;
     public final EObject ruleContainmentPathElement() throws RecognitionException {
         EObject current = null;
 
@@ -23842,14 +23842,14 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:9560:28: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) )
-            // InternalErrorModelParser.g:9561:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
+            // InternalErrorModelParser.g:9560:28: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) )
+            // InternalErrorModelParser.g:9561:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
             {
-            // InternalErrorModelParser.g:9561:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
-            // InternalErrorModelParser.g:9561:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
+            // InternalErrorModelParser.g:9561:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
+            // InternalErrorModelParser.g:9561:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
             {
-            // InternalErrorModelParser.g:9561:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? )
-            // InternalErrorModelParser.g:9561:3: ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )?
+            // InternalErrorModelParser.g:9561:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* )
+            // InternalErrorModelParser.g:9561:3: ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )*
             {
             // InternalErrorModelParser.g:9561:3: ( (otherlv_0= RULE_ID ) )
             // InternalErrorModelParser.g:9562:1: (otherlv_0= RULE_ID )
@@ -23872,47 +23872,54 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:9574:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )?
-            int alt238=2;
-            int LA238_0 = input.LA(1);
+            // InternalErrorModelParser.g:9574:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )*
+            loop238:
+            do {
+                int alt238=2;
+                int LA238_0 = input.LA(1);
 
-            if ( (LA238_0==LeftSquareBracket) ) {
-                alt238=1;
-            }
-            switch (alt238) {
-                case 1 :
-                    // InternalErrorModelParser.g:9575:1: (lv_arrayRange_1_0= ruleArrayRange )
-                    {
-                    // InternalErrorModelParser.g:9575:1: (lv_arrayRange_1_0= ruleArrayRange )
-                    // InternalErrorModelParser.g:9576:3: lv_arrayRange_1_0= ruleArrayRange
-                    {
-                     
-                    	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_0()); 
-                    	    
-                    pushFollow(FOLLOW_66);
-                    lv_arrayRange_1_0=ruleArrayRange();
-
-                    state._fsp--;
+                if ( (LA238_0==LeftSquareBracket) ) {
+                    alt238=1;
+                }
 
 
-                    	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
-                    	        }
-                           		add(
-                           			current, 
-                           			"arrayRange",
-                            		lv_arrayRange_1_0, 
-                            		"org.osate.xtext.aadl2.properties.Properties.ArrayRange");
-                    	        afterParserOrEnumRuleCall();
-                    	    
+                switch (alt238) {
+            	case 1 :
+            	    // InternalErrorModelParser.g:9575:1: (lv_arrayRange_1_0= ruleArrayRange )
+            	    {
+            	    // InternalErrorModelParser.g:9575:1: (lv_arrayRange_1_0= ruleArrayRange )
+            	    // InternalErrorModelParser.g:9576:3: lv_arrayRange_1_0= ruleArrayRange
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_0()); 
+            	    	    
+            	    pushFollow(FOLLOW_154);
+            	    lv_arrayRange_1_0=ruleArrayRange();
 
-                    }
+            	    state._fsp--;
 
 
-                    }
-                    break;
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"arrayRange",
+            	            		lv_arrayRange_1_0, 
+            	            		"org.osate.xtext.aadl2.properties.Properties.ArrayRange");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
 
-            }
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop238;
+                }
+            } while (true);
 
 
             }
@@ -25354,6 +25361,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             case PlusSign:
                 {
                 switch ( input.LA(2) ) {
+                case RULE_ID:
+                    {
+                    alt247=3;
+                    }
+                    break;
                 case RULE_REAL_LIT:
                     {
                     alt247=1;
@@ -25362,11 +25374,6 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                 case RULE_INTEGER_LIT:
                     {
                     alt247=2;
-                    }
-                    break;
-                case RULE_ID:
-                    {
-                    alt247=3;
                     }
                     break;
                 default:
