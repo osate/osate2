@@ -3267,7 +3267,7 @@ rule__ContainmentPathElement__Group_0__1__Impl
 :
 (
 { before(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); }
-(rule__ContainmentPathElement__ArrayRangeAssignment_0_1)?
+(rule__ContainmentPathElement__ArrayRangeAssignment_0_1)*
 { after(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); }
 )
 
