@@ -387,10 +387,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckParameterConnectionEnd(connection.getSource());
 		typeCheckParameterConnectionEnd(connection.getDestination());
 		checkParameterConnectionClassifiers(connection);
-		
-		if (!(connection.getAllSourceContext() instanceof Subcomponent) && !(connection.getAllDestinationContext() instanceof Subcomponent)) {
-			error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
-		}
+		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -400,10 +397,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkAccessConnectionCategory(connection);
 		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
-		
-		if (!(connection.getAllSourceContext() instanceof Subcomponent) && !(connection.getAllDestinationContext() instanceof Subcomponent)) {
-			error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
-		}
+		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -5295,6 +5289,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					dstDirection = dstDirection.getInverseDirection();
 				}
 			}
+			checkThroughConnection(connection);
 			if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
 					// between ports of subcomponents
 					|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
@@ -5339,11 +5334,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (source instanceof InternalFeature && destination instanceof InternalFeature) {
 					error(connection, "Cannot connect two internal features of the containing component.");
 				}
-			} else {
-				// we have a connection a component implementation going
-				// directly from its incoming feature to an outgoing feature
-				error(connection,
-						"Illegal connection: Cannot directly connect two features of the containing component.");
 			}
 		}
 	}
@@ -7452,6 +7442,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Context srccxt = connection.getAllSourceContext();
 			Context dstcxt = connection.getAllDestinationContext();
 			boolean inverseContext = false;
+			checkThroughConnection(connection);
 			if (srccxt instanceof Subcomponent && dstcxt instanceof Subcomponent) {
 				// sibling to sibling
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.IN)) {
@@ -7472,9 +7463,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.OUT, connection,
 							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
 				}
-			} else if (!(srccxt instanceof Subcomponent) && !(dstcxt instanceof Subcomponent)) {
-				// directly across component
-				error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
 			} else if (!(srccxt instanceof Subcomponent)) {
 				// going down
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.OUT)) {
@@ -7515,6 +7503,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.IN, connection,
 							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
+				}
+			}
+		}
+	}
+	
+	private void checkThroughConnection(Connection connection) {
+		ConnectedElement source = connection.getSource();
+		ConnectedElement destination = connection.getDestination();
+		if (source != null && destination != null) {
+			if (source.getConnectionEnd() instanceof Feature && destination.getConnectionEnd() instanceof Feature) {
+				if ((source.getContext() == null || source.getContext() instanceof FeatureGroup) && (destination.getContext() == null || destination.getContext() instanceof FeatureGroup)) {
+					error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
 				}
 			}
 		}
