@@ -946,13 +946,13 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//// from AADL2
 		//// need to add annex path element
 		//ContainmentPathElement aadl2::ContainmentPathElement:
-		//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ('.' path=ContainmentPathElement)?
+		//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange*) ('.' path=ContainmentPathElement)?
 		@Override public ParserRule getRule() { return rule; }
 
-		//(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ('.' path=ContainmentPathElement)?
+		//(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange*) ('.' path=ContainmentPathElement)?
 		public Group getGroup() { return cGroup; }
 
-		//(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?)
+		//(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange*)
 		public Group getGroup_0() { return cGroup_0; }
 
 		//namedElement=[aadl2::NamedElement]
@@ -964,7 +964,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNamedElementNamedElementIDTerminalRuleCall_0_0_0_1() { return cNamedElementNamedElementIDTerminalRuleCall_0_0_0_1; }
 
-		//arrayRange+=ArrayRange?
+		//arrayRange+=ArrayRange*
 		public Assignment getArrayRangeAssignment_0_1() { return cArrayRangeAssignment_0_1; }
 
 		//ArrayRange
@@ -1829,7 +1829,7 @@ public class PropertiesGrammarAccess extends AbstractGrammarElementFinder {
 	//// from AADL2
 	//// need to add annex path element
 	//ContainmentPathElement aadl2::ContainmentPathElement:
-	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange?) ('.' path=ContainmentPathElement)?
+	//	(namedElement=[aadl2::NamedElement] arrayRange+=ArrayRange*) ('.' path=ContainmentPathElement)?
 	public ContainmentPathElementElements getContainmentPathElementAccess() {
 		return pContainmentPathElement;
 	}

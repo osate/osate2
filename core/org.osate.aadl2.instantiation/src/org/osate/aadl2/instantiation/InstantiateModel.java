@@ -354,6 +354,18 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+
+		try {
+			// We're done: Save the model.
+			// We don't respond to a cancel at this point
+			monitor.subTask("Saving instance model");
+			aadlResource.save(null);
+		} catch (IOException e) {
+			e.printStackTrace();
+			setErrorMessage(e.getMessage());
+			return null;
+		}
+
 		resultList = (List<SystemInstance>) cmd.getResult();
 		result = resultList.get(0);
 
@@ -393,12 +405,6 @@ public class InstantiateModel {
 				e.printStackTrace();
 				return null;
 			}
-			// We're done: Save the model.
-			// We don't respond to a cancel at this point
-
-			monitor.subTask("Saving instance model");
-
-			aadlResource.save(null);
 		} catch (IOException e) {
 			e.printStackTrace();
 			setErrorMessage(e.getMessage());
@@ -1217,19 +1223,20 @@ public class InstantiateModel {
 		}
 
 		if (!isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (srcOffset >= srcSizes.size())) {
-			errManager.error(conni, "Too few indices for connection source");
+			errManager.error(conni, "Too few indices for connection source for " + conni.getFullName());
 			return false;
 		}
 		if (!isOpposite && !patternName.equalsIgnoreCase("All_To_One") && (dstOffset >= dstSizes.size())) {
-			errManager.error(conni, "Too few indices for connection destination");
+			errManager.error(conni, "Too few indices for connection destination for " + conni.getFullName());
 			return false;
 		}
 		if (isOpposite && !patternName.equalsIgnoreCase("One_To_All") && (dstOffset >= dstSizes.size())) {
-			errManager.error(conni, "Too few indices for connection source");
+			// verbose exception message
+			errManager.error(conni, "Too few indices for connection source for " + conni.getFullName());
 			return false;
 		}
 		if (isOpposite && !patternName.equalsIgnoreCase("All_To_One") && (srcOffset >= srcSizes.size())) {
-			errManager.error(conni, "Too few indices for connection destination");
+			errManager.error(conni, "Too few indices for connection destination for " + conni.getFullName());
 			return false;
 		}
 		if (patternName.equalsIgnoreCase("All_To_All")) {
@@ -1261,8 +1268,13 @@ public class InstantiateModel {
 			}
 		} else {
 			if (!srcSizes.get(srcOffset).equals(dstSizes.get(dstOffset))) {
-				errManager.error(conni, "Array size mismatch (" + patternName + "): " + srcSizes.get(srcOffset)
-						+ " at source and " + dstSizes.get(dstOffset) + " at destination end");
+//verbose exception message			
+				errManager.error(conni,
+						"Array size mismatch (" + patternName + ") on connection " + conni.getFullName() + " in "
+								+ conni.getContainingComponentInstance().getFullName() + ": " + srcSizes.get(srcOffset)
+								+ " at source " + // ("+conni.getSource().getFullName()+")
+								"and " + dstSizes.get(dstOffset) + " at destination." // ("+conni.getSource().getFullName()+")."
+				);
 				return false;
 			} else {
 				if (patternName.equalsIgnoreCase("One_To_One")) {
@@ -1515,7 +1527,9 @@ public class InstantiateModel {
 		// filter out one side being an element without index (array of 1) (many to one mapping)
 				!(sizes.size() == 0 && dstIndices.size() == 1)) {
 			errManager.error(newConn,
-					"Destination indices " + dstIndices + " do not match destination dimension " + sizes.size());
+					"For " + newConn.getConnectionReferences().get(0).getFullName() + " : " + newConn.getFullName()
+							+ ", destination indices " + dstIndices + " do not match destination dimension "
+							+ sizes.size());
 		}
 		InstanceObject dst = resolveConnectionInstancePath(newConn, topConnRef, names, dims, sizes, dstIndices, false);
 		if (src == null) {

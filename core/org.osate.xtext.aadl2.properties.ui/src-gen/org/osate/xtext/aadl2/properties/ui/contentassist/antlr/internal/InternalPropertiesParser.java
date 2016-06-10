@@ -3114,6 +3114,11 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             case PlusSign:
                 {
                 switch ( input.LA(2) ) {
+                case RULE_ID:
+                    {
+                    alt7=3;
+                    }
+                    break;
                 case RULE_INTEGER_LIT:
                     {
                     alt7=2;
@@ -3122,11 +3127,6 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                 case RULE_REAL_LIT:
                     {
                     alt7=1;
-                    }
-                    break;
-                case RULE_ID:
-                    {
-                    alt7=3;
                     }
                     break;
                 default:
@@ -3141,11 +3141,6 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             case HyphenMinus:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt7=3;
-                    }
-                    break;
                 case RULE_INTEGER_LIT:
                     {
                     alt7=2;
@@ -3154,6 +3149,11 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
                 case RULE_REAL_LIT:
                     {
                     alt7=1;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt7=3;
                     }
                     break;
                 default:
@@ -8525,40 +8525,47 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
 
 
     // $ANTLR start "rule__ContainmentPathElement__Group_0__1__Impl"
-    // InternalPropertiesParser.g:3263:1: rule__ContainmentPathElement__Group_0__1__Impl : ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? ) ;
+    // InternalPropertiesParser.g:3263:1: rule__ContainmentPathElement__Group_0__1__Impl : ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* ) ;
     public final void rule__ContainmentPathElement__Group_0__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalPropertiesParser.g:3267:1: ( ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? ) )
-            // InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? )
+            // InternalPropertiesParser.g:3267:1: ( ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* ) )
+            // InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* )
             {
-            // InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )? )
-            // InternalPropertiesParser.g:3269:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )?
+            // InternalPropertiesParser.g:3268:1: ( ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )* )
+            // InternalPropertiesParser.g:3269:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )*
             {
              before(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); 
-            // InternalPropertiesParser.g:3270:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )?
-            int alt19=2;
-            int LA19_0 = input.LA(1);
+            // InternalPropertiesParser.g:3270:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_0_1 )*
+            loop19:
+            do {
+                int alt19=2;
+                int LA19_0 = input.LA(1);
 
-            if ( (LA19_0==LeftSquareBracket) ) {
-                alt19=1;
-            }
-            switch (alt19) {
-                case 1 :
-                    // InternalPropertiesParser.g:3270:2: rule__ContainmentPathElement__ArrayRangeAssignment_0_1
-                    {
-                    pushFollow(FollowSets000.FOLLOW_2);
-                    rule__ContainmentPathElement__ArrayRangeAssignment_0_1();
-
-                    state._fsp--;
+                if ( (LA19_0==LeftSquareBracket) ) {
+                    alt19=1;
+                }
 
 
-                    }
-                    break;
+                switch (alt19) {
+            	case 1 :
+            	    // InternalPropertiesParser.g:3270:2: rule__ContainmentPathElement__ArrayRangeAssignment_0_1
+            	    {
+            	    pushFollow(FollowSets000.FOLLOW_24);
+            	    rule__ContainmentPathElement__ArrayRangeAssignment_0_1();
 
-            }
+            	    state._fsp--;
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop19;
+                }
+            } while (true);
 
              after(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); 
 
@@ -8822,7 +8829,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3383:1: ( rule__ArrayRange__Group__1__Impl rule__ArrayRange__Group__2 )
             // InternalPropertiesParser.g:3384:2: rule__ArrayRange__Group__1__Impl rule__ArrayRange__Group__2
             {
-            pushFollow(FollowSets000.FOLLOW_24);
+            pushFollow(FollowSets000.FOLLOW_25);
             rule__ArrayRange__Group__1__Impl();
 
             state._fsp--;
@@ -8897,7 +8904,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3414:1: ( rule__ArrayRange__Group__2__Impl rule__ArrayRange__Group__3 )
             // InternalPropertiesParser.g:3415:2: rule__ArrayRange__Group__2__Impl rule__ArrayRange__Group__3
             {
-            pushFollow(FollowSets000.FOLLOW_25);
+            pushFollow(FollowSets000.FOLLOW_26);
             rule__ArrayRange__Group__2__Impl();
 
             state._fsp--;
@@ -8982,7 +8989,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3443:1: ( rule__ArrayRange__Group__3__Impl rule__ArrayRange__Group__4 )
             // InternalPropertiesParser.g:3444:2: rule__ArrayRange__Group__3__Impl rule__ArrayRange__Group__4
             {
-            pushFollow(FollowSets000.FOLLOW_25);
+            pushFollow(FollowSets000.FOLLOW_26);
             rule__ArrayRange__Group__3__Impl();
 
             state._fsp--;
@@ -9148,7 +9155,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3512:1: ( rule__ArrayRange__Group_3__0__Impl rule__ArrayRange__Group_3__1 )
             // InternalPropertiesParser.g:3513:2: rule__ArrayRange__Group_3__0__Impl rule__ArrayRange__Group_3__1
             {
-            pushFollow(FollowSets000.FOLLOW_24);
+            pushFollow(FollowSets000.FOLLOW_25);
             rule__ArrayRange__Group_3__0__Impl();
 
             state._fsp--;
@@ -9303,7 +9310,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3575:1: ( rule__SignedConstant__Group__0__Impl rule__SignedConstant__Group__1 )
             // InternalPropertiesParser.g:3576:2: rule__SignedConstant__Group__0__Impl rule__SignedConstant__Group__1
             {
-            pushFollow(FollowSets000.FOLLOW_26);
+            pushFollow(FollowSets000.FOLLOW_27);
             rule__SignedConstant__Group__0__Impl();
 
             state._fsp--;
@@ -9644,7 +9651,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3697:1: ( rule__SignedInt__Group__0__Impl rule__SignedInt__Group__1 )
             // InternalPropertiesParser.g:3698:2: rule__SignedInt__Group__0__Impl rule__SignedInt__Group__1
             {
-            pushFollow(FollowSets000.FOLLOW_27);
+            pushFollow(FollowSets000.FOLLOW_28);
             rule__SignedInt__Group__0__Impl();
 
             state._fsp--;
@@ -9986,7 +9993,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3819:1: ( rule__SignedReal__Group__0__Impl rule__SignedReal__Group__1 )
             // InternalPropertiesParser.g:3820:2: rule__SignedReal__Group__0__Impl rule__SignedReal__Group__1
             {
-            pushFollow(FollowSets000.FOLLOW_28);
+            pushFollow(FollowSets000.FOLLOW_29);
             rule__SignedReal__Group__0__Impl();
 
             state._fsp--;
@@ -10152,7 +10159,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3880:1: ( rule__NumericRangeTerm__Group__0__Impl rule__NumericRangeTerm__Group__1 )
             // InternalPropertiesParser.g:3881:2: rule__NumericRangeTerm__Group__0__Impl rule__NumericRangeTerm__Group__1
             {
-            pushFollow(FollowSets000.FOLLOW_29);
+            pushFollow(FollowSets000.FOLLOW_30);
             rule__NumericRangeTerm__Group__0__Impl();
 
             state._fsp--;
@@ -10237,7 +10244,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3909:1: ( rule__NumericRangeTerm__Group__1__Impl rule__NumericRangeTerm__Group__2 )
             // InternalPropertiesParser.g:3910:2: rule__NumericRangeTerm__Group__1__Impl rule__NumericRangeTerm__Group__2
             {
-            pushFollow(FollowSets000.FOLLOW_26);
+            pushFollow(FollowSets000.FOLLOW_27);
             rule__NumericRangeTerm__Group__1__Impl();
 
             state._fsp--;
@@ -10312,7 +10319,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:3940:1: ( rule__NumericRangeTerm__Group__2__Impl rule__NumericRangeTerm__Group__3 )
             // InternalPropertiesParser.g:3941:2: rule__NumericRangeTerm__Group__2__Impl rule__NumericRangeTerm__Group__3
             {
-            pushFollow(FollowSets000.FOLLOW_30);
+            pushFollow(FollowSets000.FOLLOW_31);
             rule__NumericRangeTerm__Group__2__Impl();
 
             state._fsp--;
@@ -10488,7 +10495,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:4005:1: ( rule__NumericRangeTerm__Group_3__0__Impl rule__NumericRangeTerm__Group_3__1 )
             // InternalPropertiesParser.g:4006:2: rule__NumericRangeTerm__Group_3__0__Impl rule__NumericRangeTerm__Group_3__1
             {
-            pushFollow(FollowSets000.FOLLOW_26);
+            pushFollow(FollowSets000.FOLLOW_27);
             rule__NumericRangeTerm__Group_3__0__Impl();
 
             state._fsp--;
@@ -10643,7 +10650,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:4069:1: ( rule__QPREF__Group__0__Impl rule__QPREF__Group__1 )
             // InternalPropertiesParser.g:4070:2: rule__QPREF__Group__0__Impl rule__QPREF__Group__1
             {
-            pushFollow(FollowSets000.FOLLOW_31);
+            pushFollow(FollowSets000.FOLLOW_32);
             rule__QPREF__Group__0__Impl();
 
             state._fsp--;
@@ -11229,7 +11236,7 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
             // InternalPropertiesParser.g:4285:1: ( rule__QCREF__Group_0__0__Impl rule__QCREF__Group_0__1 )
             // InternalPropertiesParser.g:4286:2: rule__QCREF__Group_0__0__Impl rule__QCREF__Group_0__1
             {
-            pushFollow(FollowSets000.FOLLOW_31);
+            pushFollow(FollowSets000.FOLLOW_32);
             rule__QCREF__Group_0__0__Impl();
 
             state._fsp--;
@@ -13265,14 +13272,15 @@ public class InternalPropertiesParser extends AbstractInternalContentAssistParse
         public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000008000000L});
         public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000004000000L});
         public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000010000000L});
-        public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000004000000000L});
-        public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000000020008000L});
-        public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000025002800000L});
-        public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000004002800000L});
-        public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000001002800000L});
-        public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000008000L});
-        public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000000400L});
-        public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000000010000L});
+        public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000000010000002L});
+        public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000004000000000L});
+        public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000020008000L});
+        public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000025002800000L});
+        public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000004002800000L});
+        public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000001002800000L});
+        public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000008000L});
+        public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000000000400L});
+        public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000000000010000L});
     }
 
 

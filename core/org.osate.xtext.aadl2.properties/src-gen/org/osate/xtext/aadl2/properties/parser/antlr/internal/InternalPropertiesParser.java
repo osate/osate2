@@ -2560,7 +2560,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleContainmentPathElement"
-    // InternalPropertiesParser.g:1086:1: ruleContainmentPathElement returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) ;
+    // InternalPropertiesParser.g:1086:1: ruleContainmentPathElement returns [EObject current=null] : ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) ;
     public final EObject ruleContainmentPathElement() throws RecognitionException {
         EObject current = null;
 
@@ -2574,14 +2574,14 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalPropertiesParser.g:1089:28: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) )
-            // InternalPropertiesParser.g:1090:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
+            // InternalPropertiesParser.g:1089:28: ( ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? ) )
+            // InternalPropertiesParser.g:1090:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
             {
-            // InternalPropertiesParser.g:1090:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
-            // InternalPropertiesParser.g:1090:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
+            // InternalPropertiesParser.g:1090:1: ( ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )? )
+            // InternalPropertiesParser.g:1090:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* ) (otherlv_2= FullStop ( (lv_path_3_0= ruleContainmentPathElement ) ) )?
             {
-            // InternalPropertiesParser.g:1090:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )? )
-            // InternalPropertiesParser.g:1090:3: ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )?
+            // InternalPropertiesParser.g:1090:2: ( ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )* )
+            // InternalPropertiesParser.g:1090:3: ( (otherlv_0= RULE_ID ) ) ( (lv_arrayRange_1_0= ruleArrayRange ) )*
             {
             // InternalPropertiesParser.g:1090:3: ( (otherlv_0= RULE_ID ) )
             // InternalPropertiesParser.g:1091:1: (otherlv_0= RULE_ID )
@@ -2604,47 +2604,54 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalPropertiesParser.g:1103:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )?
-            int alt14=2;
-            int LA14_0 = input.LA(1);
+            // InternalPropertiesParser.g:1103:2: ( (lv_arrayRange_1_0= ruleArrayRange ) )*
+            loop14:
+            do {
+                int alt14=2;
+                int LA14_0 = input.LA(1);
 
-            if ( (LA14_0==LeftSquareBracket) ) {
-                alt14=1;
-            }
-            switch (alt14) {
-                case 1 :
-                    // InternalPropertiesParser.g:1104:1: (lv_arrayRange_1_0= ruleArrayRange )
-                    {
-                    // InternalPropertiesParser.g:1104:1: (lv_arrayRange_1_0= ruleArrayRange )
-                    // InternalPropertiesParser.g:1105:3: lv_arrayRange_1_0= ruleArrayRange
-                    {
-                     
-                    	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_0()); 
-                    	    
-                    pushFollow(FollowSets000.FOLLOW_20);
-                    lv_arrayRange_1_0=ruleArrayRange();
-
-                    state._fsp--;
+                if ( (LA14_0==LeftSquareBracket) ) {
+                    alt14=1;
+                }
 
 
-                    	        if (current==null) {
-                    	            current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
-                    	        }
-                           		add(
-                           			current, 
-                           			"arrayRange",
-                            		lv_arrayRange_1_0, 
-                            		"org.osate.xtext.aadl2.properties.Properties.ArrayRange");
-                    	        afterParserOrEnumRuleCall();
-                    	    
+                switch (alt14) {
+            	case 1 :
+            	    // InternalPropertiesParser.g:1104:1: (lv_arrayRange_1_0= ruleArrayRange )
+            	    {
+            	    // InternalPropertiesParser.g:1104:1: (lv_arrayRange_1_0= ruleArrayRange )
+            	    // InternalPropertiesParser.g:1105:3: lv_arrayRange_1_0= ruleArrayRange
+            	    {
+            	     
+            	    	        newCompositeNode(grammarAccess.getContainmentPathElementAccess().getArrayRangeArrayRangeParserRuleCall_0_1_0()); 
+            	    	    
+            	    pushFollow(FollowSets000.FOLLOW_19);
+            	    lv_arrayRange_1_0=ruleArrayRange();
 
-                    }
+            	    state._fsp--;
 
 
-                    }
-                    break;
+            	    	        if (current==null) {
+            	    	            current = createModelElementForParent(grammarAccess.getContainmentPathElementRule());
+            	    	        }
+            	           		add(
+            	           			current, 
+            	           			"arrayRange",
+            	            		lv_arrayRange_1_0, 
+            	            		"org.osate.xtext.aadl2.properties.Properties.ArrayRange");
+            	    	        afterParserOrEnumRuleCall();
+            	    	    
 
-            }
+            	    }
+
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop14;
+                }
+            } while (true);
 
 
             }
@@ -3071,7 +3078,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_21); 
+            otherlv_1=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_20); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getArrayRangeAccess().getLeftSquareBracketKeyword_1());
                 
@@ -3084,7 +3091,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getArrayRangeAccess().getLowerBoundINTVALUEParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_22);
+            pushFollow(FollowSets000.FOLLOW_21);
             lv_lowerBound_2_0=ruleINTVALUE();
 
             state._fsp--;
@@ -3117,7 +3124,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalPropertiesParser.g:1300:2: otherlv_3= FullStopFullStop ( (lv_upperBound_4_0= ruleINTVALUE ) )
                     {
-                    otherlv_3=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_21); 
+                    otherlv_3=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_20); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getArrayRangeAccess().getFullStopFullStopKeyword_3_0());
                         
@@ -3130,7 +3137,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                      
                     	        newCompositeNode(grammarAccess.getArrayRangeAccess().getUpperBoundINTVALUEParserRuleCall_3_1_0()); 
                     	    
-                    pushFollow(FollowSets000.FOLLOW_23);
+                    pushFollow(FollowSets000.FOLLOW_22);
                     lv_upperBound_4_0=ruleINTVALUE();
 
                     state._fsp--;
@@ -3246,7 +3253,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getSignedConstantAccess().getOpPlusMinusParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_24);
+            pushFollow(FollowSets000.FOLLOW_23);
             lv_op_0_0=rulePlusMinus();
 
             state._fsp--;
@@ -3382,7 +3389,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getIntegerTermAccess().getValueSignedIntParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_25);
+            pushFollow(FollowSets000.FOLLOW_24);
             lv_value_0_0=ruleSignedInt();
 
             state._fsp--;
@@ -3523,7 +3530,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalPropertiesParser.g:1459:2: kw= PlusSign
                     {
-                    kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_21); 
+                    kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_20); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedIntAccess().getPlusSignKeyword_0_0()); 
@@ -3534,7 +3541,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // InternalPropertiesParser.g:1466:2: kw= HyphenMinus
                     {
-                    kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_21); 
+                    kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_20); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedIntAccess().getHyphenMinusKeyword_0_1()); 
@@ -3636,7 +3643,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getRealTermAccess().getValueSignedRealParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_25);
+            pushFollow(FollowSets000.FOLLOW_24);
             lv_value_0_0=ruleSignedReal();
 
             state._fsp--;
@@ -3777,7 +3784,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalPropertiesParser.g:1553:2: kw= PlusSign
                     {
-                    kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_26); 
+                    kw=(Token)match(input,PlusSign,FollowSets000.FOLLOW_25); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedRealAccess().getPlusSignKeyword_0_0()); 
@@ -3788,7 +3795,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // InternalPropertiesParser.g:1560:2: kw= HyphenMinus
                     {
-                    kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_26); 
+                    kw=(Token)match(input,HyphenMinus,FollowSets000.FOLLOW_25); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getSignedRealAccess().getHyphenMinusKeyword_0_1()); 
@@ -3895,7 +3902,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMinimumNumAltParserRuleCall_0_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_27);
+            pushFollow(FollowSets000.FOLLOW_26);
             lv_minimum_0_0=ruleNumAlt();
 
             state._fsp--;
@@ -3917,7 +3924,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_24); 
+            otherlv_1=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_23); 
 
                 	newLeafNode(otherlv_1, grammarAccess.getNumericRangeTermAccess().getFullStopFullStopKeyword_1());
                 
@@ -3930,7 +3937,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
              
             	        newCompositeNode(grammarAccess.getNumericRangeTermAccess().getMaximumNumAltParserRuleCall_2_0()); 
             	    
-            pushFollow(FollowSets000.FOLLOW_28);
+            pushFollow(FollowSets000.FOLLOW_27);
             lv_maximum_2_0=ruleNumAlt();
 
             state._fsp--;
@@ -3963,7 +3970,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 case 1 :
                     // InternalPropertiesParser.g:1635:2: otherlv_3= Delta ( (lv_delta_4_0= ruleNumAlt ) )
                     {
-                    otherlv_3=(Token)match(input,Delta,FollowSets000.FOLLOW_24); 
+                    otherlv_3=(Token)match(input,Delta,FollowSets000.FOLLOW_23); 
 
                         	newLeafNode(otherlv_3, grammarAccess.getNumericRangeTermAccess().getDeltaKeyword_3_0());
                         
@@ -4380,7 +4387,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             // InternalPropertiesParser.g:1770:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
             // InternalPropertiesParser.g:1770:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_29); 
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_28); 
 
             		current.merge(this_ID_0);
                 
@@ -4513,7 +4520,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
             	case 1 :
             	    // InternalPropertiesParser.g:1812:7: this_ID_0= RULE_ID kw= ColonColon
             	    {
-            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_30); 
+            	    this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_29); 
 
             	    		current.merge(this_ID_0);
             	        
@@ -4534,7 +4541,7 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
                 }
             } while (true);
 
-            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_20); 
+            this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_30); 
 
             		current.merge(this_ID_2);
                 
@@ -4744,17 +4751,17 @@ public class InternalPropertiesParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_17 = new BitSet(new long[]{0x0000035012B02A70L});
         public static final BitSet FOLLOW_18 = new BitSet(new long[]{0x0000000000020000L});
         public static final BitSet FOLLOW_19 = new BitSet(new long[]{0x0000000014000002L});
-        public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000000004000002L});
-        public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000004000000000L});
-        public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000020008000L});
-        public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000000020000000L});
-        public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000025002800000L});
-        public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000020000000002L});
-        public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000001000000000L});
-        public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000008000L});
-        public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000000402L});
-        public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000010002L});
-        public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000010000L});
+        public static final BitSet FOLLOW_20 = new BitSet(new long[]{0x0000004000000000L});
+        public static final BitSet FOLLOW_21 = new BitSet(new long[]{0x0000000020008000L});
+        public static final BitSet FOLLOW_22 = new BitSet(new long[]{0x0000000020000000L});
+        public static final BitSet FOLLOW_23 = new BitSet(new long[]{0x0000025002800000L});
+        public static final BitSet FOLLOW_24 = new BitSet(new long[]{0x0000020000000002L});
+        public static final BitSet FOLLOW_25 = new BitSet(new long[]{0x0000001000000000L});
+        public static final BitSet FOLLOW_26 = new BitSet(new long[]{0x0000000000008000L});
+        public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0000000000000402L});
+        public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000010002L});
+        public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000010000L});
+        public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000004000002L});
     }
 
 

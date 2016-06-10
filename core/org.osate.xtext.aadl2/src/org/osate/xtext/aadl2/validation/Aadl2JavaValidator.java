@@ -387,6 +387,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		typeCheckParameterConnectionEnd(connection.getSource());
 		typeCheckParameterConnectionEnd(connection.getDestination());
 		checkParameterConnectionClassifiers(connection);
+		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -396,6 +397,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkAccessConnectionCategory(connection);
 		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
+		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -5287,6 +5289,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					dstDirection = dstDirection.getInverseDirection();
 				}
 			}
+			checkThroughConnection(connection);
 			if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
 					// between ports of subcomponents
 					|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
@@ -5331,11 +5334,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (source instanceof InternalFeature && destination instanceof InternalFeature) {
 					error(connection, "Cannot connect two internal features of the containing component.");
 				}
-			} else {
-				// we have a connection a component implementation going
-				// directly from its incoming feature to an outgoing feature
-				error(connection,
-						"Illegal connection: Cannot directly connect two features of the containing component.");
 			}
 		}
 	}
@@ -7448,6 +7446,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Context srccxt = connection.getAllSourceContext();
 			Context dstcxt = connection.getAllDestinationContext();
 			boolean inverseContext = false;
+			checkThroughConnection(connection);
 			if (srccxt instanceof Subcomponent && dstcxt instanceof Subcomponent) {
 				// sibling to sibling
 				if (((FeatureGroup) source).getDirection().equals(DirectionType.IN)) {
@@ -7508,6 +7507,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					inverseContext = dstcxt instanceof FeatureGroup && ((FeatureGroup) dstcxt).isInverse();
 					checkDirectionOfFeatureGroupMembers((FeatureGroup) destination, DirectionType.IN, connection,
 							Aadl2Package.eINSTANCE.getConnection_Destination(), inverseContext);
+				}
+			}
+		}
+	}
+	
+	private void checkThroughConnection(Connection connection) {
+		ConnectedElement source = connection.getSource();
+		ConnectedElement destination = connection.getDestination();
+		if (source != null && destination != null) {
+			if (source.getConnectionEnd() instanceof Feature && destination.getConnectionEnd() instanceof Feature) {
+				if ((source.getContext() == null || source.getContext() instanceof FeatureGroup) && (destination.getContext() == null || destination.getContext() instanceof FeatureGroup)) {
+					error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
 				}
 			}
 		}
@@ -7627,12 +7638,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Context srcContext = connection.getAllSourceContext();
 		Context dstContext = connection.getAllDestinationContext();
 		// connection across or through a component
-		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent
-				|| (srcContext == null || srcContext instanceof FeatureGroup)
-						&& (dstContext == null || dstContext instanceof FeatureGroup)) {
+		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent) {
 			if (classifierMatchingRuleValue == null
 					|| ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue.getName())) {
-				if (!testIfFeatureGroupsAreInverses(source, srcContext, destination, dstContext)) {
+				if (!testIfFeatureGroupsAreInverses(source, destination)) {
 					error(connection, "The feature groups '" + source.getName() + "' and '" + destination.getName()
 							+ "' are not inverses of each other.");
 				}
@@ -7804,23 +7813,21 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, Context sourceContext, FeatureGroup destination,
-			Context destinationContext) {
-		return isInverse(source, sourceContext) ^ isInverse(destination, destinationContext);
-	}
-
-	private boolean isInverse(FeatureGroup fg, Context context) {
-		boolean result = fg.isInverse();
-
-		result ^= fg.getAllFeatureGroupType().getInverse() != null;
-
-		if (context instanceof FeatureGroup) {
-			FeatureGroup parent = (FeatureGroup) context;
-			result ^= parent.isInverse();
-			FeatureGroupType parentType = parent.getAllFeatureGroupType();
-			result ^= parentType.getInverse() != null;
+	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, FeatureGroup destination) {
+		boolean sourceIsInverse = source.isInverse() ^ source.getAllFeatureGroupType().getInverse() != null;
+		boolean destinationIsInverse = destination.isInverse() ^ destination.getAllFeatureGroupType().getInverse() != null;
+		if (sourceIsInverse == destinationIsInverse) {
+			return false;
+		};
+		FeatureGroupType sourceType = source.getAllFeatureGroupType();
+		if (sourceType.getInverse() != null) {
+			sourceType = sourceType.getInverse();
 		}
-		return result;
+		FeatureGroupType destinationType = destination.getAllFeatureGroupType();
+		if (destinationType.getInverse() != null) {
+			destinationType = destinationType.getInverse();
+		}
+		return sourceType == destinationType;
 	}
 
 	private boolean testIfFeatureGroupTypeExtensionsAreInverses(FeatureGroup source, FeatureGroupType sourceType,
