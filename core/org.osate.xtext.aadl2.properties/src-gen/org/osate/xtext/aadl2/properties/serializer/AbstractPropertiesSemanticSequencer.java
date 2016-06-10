@@ -214,7 +214,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 	
 	/**
 	 * Constraint:
-	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange? path=ContainmentPathElement?)
+	 *     (namedElement=[NamedElement|ID] arrayRange+=ArrayRange* path=ContainmentPathElement?)
 	 */
 	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
 		genericSequencer.createSequence(context, (EObject)semanticObject);
