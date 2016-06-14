@@ -16529,7 +16529,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOrmoreExpression"
-    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6555:1: ruleOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis ) ;
+    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6555:1: ruleOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
     public final EObject ruleOrmoreExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16547,11 +16547,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6558:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6558:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis
             {
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6559:2: ( (lv_count_0_0= ruleINTVALUE ) )
             // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6560:1: (lv_count_0_0= ruleINTVALUE )
@@ -16592,17 +16592,17 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_2, grammarAccess.getOrmoreExpressionAccess().getLeftParenthesisKeyword_2());
                 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6587:1: ( (lv_operands_3_0= ruleConditionElement ) )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6588:1: (lv_operands_3_0= ruleConditionElement )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6587:1: ( (lv_operands_3_0= ruleConditionExpression ) )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6588:1: (lv_operands_3_0= ruleConditionExpression )
             {
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6588:1: (lv_operands_3_0= ruleConditionElement )
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6589:3: lv_operands_3_0= ruleConditionElement
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6588:1: (lv_operands_3_0= ruleConditionExpression )
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6589:3: lv_operands_3_0= ruleConditionExpression
             {
              
-            	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
+            	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); 
             	    
-            pushFollow(FOLLOW_ruleConditionElement_in_ruleOrmoreExpression13501);
-            lv_operands_3_0=ruleConditionElement();
+            pushFollow(FOLLOW_ruleConditionExpression_in_ruleOrmoreExpression13501);
+            lv_operands_3_0=ruleConditionExpression();
 
             state._fsp--;
 
@@ -16614,7 +16614,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                    			current, 
                    			"operands",
                     		lv_operands_3_0, 
-                    		"ConditionElement");
+                    		"ConditionExpression");
             	        afterParserOrEnumRuleCall();
             	    
 
@@ -16623,7 +16623,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6605:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )*
+            // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6605:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )*
             loop189:
             do {
                 int alt189=2;
@@ -16636,23 +16636,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt189) {
             	case 1 :
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6606:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6606:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) )
             	    {
             	    otherlv_4=(Token)match(input,Comma,FOLLOW_Comma_in_ruleOrmoreExpression13515); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getOrmoreExpressionAccess().getCommaKeyword_4_0());
             	        
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6610:1: ( (lv_operands_5_0= ruleConditionElement ) )
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6611:1: (lv_operands_5_0= ruleConditionElement )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6610:1: ( (lv_operands_5_0= ruleConditionExpression ) )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6611:1: (lv_operands_5_0= ruleConditionExpression )
             	    {
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6611:1: (lv_operands_5_0= ruleConditionElement )
-            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6612:3: lv_operands_5_0= ruleConditionElement
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6611:1: (lv_operands_5_0= ruleConditionExpression )
+            	    // ../org.osate.xtext.aadl2.errormodel/src-gen/org/osate/xtext/aadl2/errormodel/parser/antlr/internal/InternalErrorModelParser.g:6612:3: lv_operands_5_0= ruleConditionExpression
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
+            	    	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleConditionElement_in_ruleOrmoreExpression13535);
-            	    lv_operands_5_0=ruleConditionElement();
+            	    pushFollow(FOLLOW_ruleConditionExpression_in_ruleOrmoreExpression13535);
+            	    lv_operands_5_0=ruleConditionExpression();
 
             	    state._fsp--;
 
@@ -16664,7 +16664,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	           			current, 
             	           			"operands",
             	            		lv_operands_5_0, 
-            	            		"ConditionElement");
+            	            		"ConditionExpression");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -25946,15 +25946,20 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     static final String DFA233_eofS =
         "\10\uffff\1\17\1\21\1\23\3\uffff\1\17\1\uffff\1\21\3\uffff\1\23";
     static final String DFA233_minS =
-        "\1\11\5\uffff\2\142\3\26\3\uffff\1\26\1\uffff\1\26\1\uffff\1\152\1\uffff\1\26";
+        "\1\11\5\uffff\2\142\3\26\3\uffff\1\26\1\uffff\1\26\1\uffff\1\152"+
+        "\1\uffff\1\26";
     static final String DFA233_maxS =
-        "\1\152\5\uffff\4\152\1\132\3\uffff\1\132\1\uffff\1\132\1\uffff\1\152\1\uffff\1\132";
+        "\1\152\5\uffff\4\152\1\132\3\uffff\1\132\1\uffff\1\132\1\uffff"+
+        "\1\152\1\uffff\1\132";
     static final String DFA233_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7\1\uffff\1\10\1\uffff\1\13\1\uffff";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\5\uffff\1\11\1\12\1\6\1\uffff\1\7"+
+        "\1\uffff\1\10\1\uffff\1\13\1\uffff";
     static final String DFA233_specialS =
         "\25\uffff}>";
     static final String[] DFA233_transitionS = {
-            "\1\3\6\uffff\1\2\7\uffff\1\4\25\uffff\1\14\12\uffff\1\14\30\uffff\1\13\2\uffff\1\6\1\uffff\1\7\4\uffff\1\1\5\uffff\1\11\3\uffff\1\10\2\uffff\1\5\1\12",
+            "\1\3\6\uffff\1\2\7\uffff\1\4\25\uffff\1\14\12\uffff\1\14\30"+
+            "\uffff\1\13\2\uffff\1\6\1\uffff\1\7\4\uffff\1\1\5\uffff\1\11"+
+            "\3\uffff\1\10\2\uffff\1\5\1\12",
             "",
             "",
             "",
@@ -25962,19 +25967,25 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             "",
             "\1\11\3\uffff\1\10\3\uffff\1\15",
             "\1\11\3\uffff\1\10\3\uffff\1\15",
-            "\1\17\63\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17\3\uffff\1\17\17\uffff\1\16",
-            "\1\21\63\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21\3\uffff\1\21\17\uffff\1\20",
-            "\1\23\63\uffff\1\15\1\22\2\uffff\1\23\4\uffff\1\23\2\uffff\1\23\3\uffff\1\23",
+            "\1\17\63\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17"+
+            "\3\uffff\1\17\17\uffff\1\16",
+            "\1\21\63\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21"+
+            "\3\uffff\1\21\17\uffff\1\20",
+            "\1\23\63\uffff\1\15\1\22\2\uffff\1\23\4\uffff\1\23\2\uffff"+
+            "\1\23\3\uffff\1\23",
             "",
             "",
             "",
-            "\1\17\63\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17\3\uffff\1\17",
+            "\1\17\63\uffff\1\15\3\uffff\1\17\4\uffff\1\17\2\uffff\1\17"+
+            "\3\uffff\1\17",
             "",
-            "\1\21\63\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21\3\uffff\1\21",
+            "\1\21\63\uffff\1\15\3\uffff\1\21\4\uffff\1\21\2\uffff\1\21"+
+            "\3\uffff\1\21",
             "",
             "\1\24",
             "",
-            "\1\23\63\uffff\1\15\3\uffff\1\23\4\uffff\1\23\2\uffff\1\23\3\uffff\1\23"
+            "\1\23\63\uffff\1\15\3\uffff\1\23\4\uffff\1\23\2\uffff\1\23"+
+            "\3\uffff\1\23"
     };
 
     static final short[] DFA233_eot = DFA.unpackEncodedString(DFA233_eotS);
@@ -26672,10 +26683,10 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
     public static final BitSet FOLLOW_EOF_in_entryRuleOrmoreExpression13410 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleINTVALUE_in_ruleOrmoreExpression13456 = new BitSet(new long[]{0x0000001000000000L});
     public static final BitSet FOLLOW_Ormore_in_ruleOrmoreExpression13469 = new BitSet(new long[]{0x0000000000000000L,0x0000000000040000L});
-    public static final BitSet FOLLOW_LeftParenthesis_in_ruleOrmoreExpression13481 = new BitSet(new long[]{0x0000000500888400L,0x0000040000000000L});
-    public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrmoreExpression13501 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
-    public static final BitSet FOLLOW_Comma_in_ruleOrmoreExpression13515 = new BitSet(new long[]{0x0000000500888400L,0x0000040000000000L});
-    public static final BitSet FOLLOW_ruleConditionElement_in_ruleOrmoreExpression13535 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
+    public static final BitSet FOLLOW_LeftParenthesis_in_ruleOrmoreExpression13481 = new BitSet(new long[]{0x0000000500888400L,0x0000040400040001L});
+    public static final BitSet FOLLOW_ruleConditionExpression_in_ruleOrmoreExpression13501 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
+    public static final BitSet FOLLOW_Comma_in_ruleOrmoreExpression13515 = new BitSet(new long[]{0x0000000500888400L,0x0000040400040001L});
+    public static final BitSet FOLLOW_ruleConditionExpression_in_ruleOrmoreExpression13535 = new BitSet(new long[]{0x0000000000000000L,0x0000000000480000L});
     public static final BitSet FOLLOW_RightParenthesis_in_ruleOrmoreExpression13550 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleOrlessExpression_in_entryRuleOrlessExpression13584 = new BitSet(new long[]{0x0000000000000000L});
     public static final BitSet FOLLOW_EOF_in_entryRuleOrlessExpression13594 = new BitSet(new long[]{0x0000000000000002L});

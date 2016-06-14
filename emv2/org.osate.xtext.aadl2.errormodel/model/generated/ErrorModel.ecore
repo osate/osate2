@@ -247,7 +247,7 @@
   <eClassifiers xsi:type="ecore:EClass" name="OrmoreExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element #//ConditionExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="operands" upperBound="-1"
-        eType="#//ConditionElement" containment="true"/>
+        eType="#//ConditionExpression" containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="OrlessExpression" eSuperTypes="platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Element #//ConditionExpression">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="count" eType="ecore:EDataType platform:/resource/org.osate.aadl2/model/aadl2.ecore#//Integer"/>

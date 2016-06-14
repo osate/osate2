@@ -919,7 +919,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	
 	/**
 	 * Constraint:
-	 *     (count=INTVALUE operands+=ConditionElement operands+=ConditionElement*)
+	 *     (count=INTVALUE operands+=ConditionExpression operands+=ConditionExpression*)
 	 */
 	protected void sequence_OrmoreExpression(EObject context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
