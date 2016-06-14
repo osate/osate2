@@ -53,7 +53,7 @@ public interface OrmoreExpression extends Element, ConditionExpression
 
   /**
    * Returns the value of the '<em><b>Operands</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement}.
+   * The list contents are of type {@link org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression}.
    * <!-- begin-user-doc -->
    * <p>
    * If the meaning of the '<em>Operands</em>' containment reference list isn't clear,
@@ -65,6 +65,6 @@ public interface OrmoreExpression extends Element, ConditionExpression
    * @model containment="true"
    * @generated
    */
-  EList<ConditionElement> getOperands();
+  EList<ConditionExpression> getOperands();
 
 } // OrmoreExpression
