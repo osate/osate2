@@ -228,7 +228,15 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessErrorBehaviorState(component, state, type, subResults);
 		}
-		return processErrorBehaviorState(component, state, type);
+		if (transitions.isEmpty()) {
+			// we cannot trace back to an error event triggering a transition
+			// give the opportunity to present the error state as Event
+			return processErrorBehaviorState(component, state, type);
+		} else {
+			// we have found an operational error state (no incoming transitions with error events)
+			// Do not include in EMFTA tree
+			return null;
+		}
 	}
 
 	/**
