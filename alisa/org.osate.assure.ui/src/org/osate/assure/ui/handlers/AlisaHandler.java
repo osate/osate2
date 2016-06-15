@@ -33,7 +33,9 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.resource.XtextResource;
@@ -42,6 +44,7 @@ import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.ui.views.AlisaView;
 import org.osate.categories.categories.CategoryFilter;
 
 public abstract class AlisaHandler extends AbstractHandler {
@@ -50,6 +53,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 	protected IWorkbenchWindow window;
 	protected ExecutionEvent executionEvent;
 
+	private AlisaView alisaView;
 	protected CategoryFilter filter;
 
 	public ExecutionEvent getExecutionEvent() {
@@ -66,7 +70,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) {
-		// Initialize to no filter
+		// Initialize to no filter. Will be updated in executeURI
 		filter = null;
 
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
@@ -96,6 +100,28 @@ public abstract class AlisaHandler extends AbstractHandler {
 
 		if (window != null) {
 			saveChanges(window.getActivePage().getDirtyEditors());
+		}
+
+	}
+
+	protected void updateSelectedFilter() {
+
+		if (alisaView == null) {
+			try {
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				alisaView = (AlisaView) page.showView(AlisaView.ID);
+			} catch (PartInitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				filter = null;
+				return;
+			}
+		}
+		filter = alisaView.getSelectedCategoryFilter();
+		if (filter == null) {
+			System.out.println("AlisaHandler.updateSelectedFilter() null");
+		} else {
+			System.out.println("AlisaHandler.updateSelectedFilter() " + filter.getName());
 		}
 
 	}
@@ -154,6 +180,9 @@ public abstract class AlisaHandler extends AbstractHandler {
 		if (!saveChanges(window.getActivePage().getDirtyEditors())) {
 			return null;
 		}
+
+		updateSelectedFilter();
+
 		WorkspaceJob job = getWorkspaceJob(getJobName(), xtextEditor, uri);
 		// scheduleJob(job, new org.osate.assure.ui.views.MutexSchedulingRule(), uri);
 		scheduleJob(job, ResourcesPlugin.getWorkspace().getRoot(), uri);
