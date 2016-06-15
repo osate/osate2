@@ -65,13 +65,13 @@ class AlisaGenerator implements IGenerator {
 
 	override void doGenerate(Resource resource, IFileSystemAccess fsa) {
 		//Turning off generator
-		val mycase = resource.contents.get(0) as AssuranceCase
-		if (mycase != null) {
-			fsa.generateFile('''«mycase.name»_debug.assure''', generateFullAssuranceCase(mycase))
-			mycase.tasks.forEach [ task |
-				fsa.generateFile('''«task.name»_debug.assure''', generateAssuranceTask(task as AssuranceTask))
-			]
-		}
+//		val mycase = resource.contents.get(0) as AssuranceCase
+//		if (mycase != null) {
+//			fsa.generateFile('''«mycase.name»_debug.assure''', generateFullAssuranceCase(mycase))
+//			mycase.tasks.forEach [ task |
+//				fsa.generateFile('''«task.name»_debug.assure''', generateAssuranceTask(task as AssuranceTask))
+//			]
+//		}
 	}
 
 	@Inject extension IQualifiedNameProvider qualifiedNameProvider

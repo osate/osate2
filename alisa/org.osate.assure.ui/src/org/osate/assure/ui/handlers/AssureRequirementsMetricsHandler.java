@@ -23,6 +23,7 @@ import com.google.inject.Inject;
 public class AssureRequirementsMetricsHandler extends AlisaHandler {
 	private static final String ASSURE_REQUIREMENTS_COVERAGE_VIEW_ID = "org.osate.assure.commands.OpenAssureRequirementCoverageView";
 	private IHandlerActivation openAssureRequirementsCoverageViewerActivation;
+	private CategoryFilter selectedFilter;
 
 	@Inject
 	private IAssureRequirementMetricsProcessor assureRequirementsMetricsProcessor;
@@ -45,6 +46,7 @@ public class AssureRequirementsMetricsHandler extends AlisaHandler {
 	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 		clearProofs();
 		disableRerunHandler();
+		selectedFilter = filter;
 
 		AssuranceCaseResult rootCaseResult = null;
 		try {
@@ -60,19 +62,19 @@ public class AssureRequirementsMetricsHandler extends AlisaHandler {
 			return Status.CANCEL_STATUS;
 		}
 
-		long start = System.currentTimeMillis();
-		VerifyUtilExtension.clearAllHasRunRecords();
-		AssureUtilExtension.clearAllInstanceModels();
-		try {
-			assureRequirementsMetricsProcessor.processCase(rootCaseResult, monitor);
-			drawProofs(rootCaseResult);
-		} catch (Exception e) {
-			if (e instanceof java.lang.NoSuchMethodException) {
-				enableRerunHandler(sel);
-				return Status.CANCEL_STATUS;
-			}
-			e.printStackTrace();
-		}
+//		long start = System.currentTimeMillis();
+//		VerifyUtilExtension.clearAllHasRunRecords();
+//		AssureUtilExtension.clearAllInstanceModels();
+//		try {
+//			assureRequirementsMetricsProcessor.processCase(rootCaseResult, filter, monitor);
+//			drawProofs(rootCaseResult);
+//		} catch (Exception e) {
+//			if (e instanceof java.lang.NoSuchMethodException) {
+//				enableRerunHandler(sel);
+//				return Status.CANCEL_STATUS;
+//			}
+//			e.printStackTrace();
+//		}
 
 //		long stop = System.currentTimeMillis();
 //		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
@@ -97,7 +99,7 @@ public class AssureRequirementsMetricsHandler extends AlisaHandler {
 			// TODO: change below to new view name
 			AssureRequirementsCoverageView view = (AssureRequirementsCoverageView) page
 					.showView(AssureRequirementsCoverageView.ID);
-			view.setProofs(ac);
+			view.setProofs(ac, selectedFilter);
 			view.setFocus();
 		} catch (PartInitException e) {
 			e.printStackTrace();

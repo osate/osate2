@@ -32,6 +32,7 @@ import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.evaluator.AssureProcessor;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.ui.views.AssureProgressView;
+import org.osate.assure.ui.views.AssureRequirementsCoverageView;
 import org.osate.assure.util.AssureUtilExtension;
 import org.osate.categories.categories.CategoryFilter;
 import org.osate.verify.util.VerifyUtilExtension;
@@ -150,10 +151,17 @@ public class AssureHandler extends AlisaHandler {
 
 	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
 		try {
+			
+			
+			AssureRequirementsCoverageView view2 = (AssureRequirementsCoverageView) page
+					.showView(AssureRequirementsCoverageView.ID);
+			view2.setProofs(ac, filter);
+			
 			AssureProgressView view = (AssureProgressView) page.showView(AssureProgressView.ID);
 			view.setProofs(ac, filter);
 			view.setFocus();
 			assureProcessor.setProgressTreeViewer(view.getTreeViewer());
+			
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

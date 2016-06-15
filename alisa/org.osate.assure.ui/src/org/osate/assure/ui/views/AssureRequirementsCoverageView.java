@@ -19,6 +19,7 @@ package org.osate.assure.ui.views;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.eclipse.core.runtime.Status;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -49,6 +50,9 @@ import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.evaluator.AssureRequirementMetricsProcessor;
+import org.osate.assure.evaluator.IAssureProcessor;
+import org.osate.assure.evaluator.IAssureRequirementMetricsProcessor;
 import org.osate.assure.ui.labeling.AssureFeaturesRequirementsColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureNoVerificationPlansColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureQualityCategoryRequirementsColumnLabelProvider;
@@ -57,7 +61,9 @@ import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsExceptionCo
 import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsFeaturesRequiringClassifierLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsCoverageNameColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsWithNoPlanClaimColumnLabelProvider;
+import org.osate.assure.util.AssureUtilExtension;
 import org.osate.categories.categories.CategoryFilter;
+import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -70,6 +76,10 @@ public class AssureRequirementsCoverageView extends ViewPart {
 
 	private AlisaView alisaView;
 	private CategoryFilter selectedCategoryFilter;
+	private AssuranceCaseResult recentProofTrees;
+	
+	@Inject
+	private IAssureRequirementMetricsProcessor assureRequirementMetricsProcessor;
 
 	IXtextDocument xtextDoc;
 	IXtextModelListener modelListener = new IXtextModelListener() {
@@ -292,7 +302,11 @@ public class AssureRequirementsCoverageView extends ViewPart {
 
 			@Override
 			public void focusGained(FocusEvent e) {
+				CategoryFilter oldfilter = selectedCategoryFilter;
 				updateSelectedFilter();
+				if(oldfilter != selectedCategoryFilter){
+					setProofs(recentProofTrees, selectedCategoryFilter);
+				}
 
 			}
 		});
@@ -333,17 +347,25 @@ public class AssureRequirementsCoverageView extends ViewPart {
 		return result;
 	}
 
-	public void setProofs(AssuranceCaseResult proofTrees) {
+	public void setProofs(AssuranceCaseResult proofTrees, CategoryFilter filter) {
 		if (xtextDoc != null) {
 			xtextDoc.removeModelListener(modelListener);
 		}
+		
 		xtextDoc = EditorUtils.getActiveXtextEditor().getDocument();
 		xtextDoc.addModelListener(modelListener);
 		Object[] expandedElements = treeViewer.getExpandedElements();
 		TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
 		if (proofTrees != null) {
+			recentProofTrees = proofTrees;
 			inputURI = EcoreUtil.getURI(proofTrees);
-			treeViewer.setInput(Arrays.asList(proofTrees));
+			
+			VerifyUtilExtension.clearAllHasRunRecords();
+			AssureUtilExtension.clearAllInstanceModels();
+			assureRequirementMetricsProcessor.processCase(recentProofTrees, filter, null);
+				
+			
+			treeViewer.setInput(Arrays.asList(recentProofTrees));
 		} else {
 			inputURI = null;
 			treeViewer.setInput(Collections.emptyList());
