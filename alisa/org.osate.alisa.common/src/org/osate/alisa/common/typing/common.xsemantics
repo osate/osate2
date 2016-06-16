@@ -14,7 +14,6 @@
  * See COPYRIGHT file for full details.
  */
 
-import it.xsemantics.runtime.RuleFailedException
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.osate.aadl2.Aadl2Factory
