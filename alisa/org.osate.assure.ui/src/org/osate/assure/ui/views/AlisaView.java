@@ -54,6 +54,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerFilter;
@@ -107,13 +108,19 @@ public class AlisaView extends ViewPart {
 	private static final String FILTER_NONE = "None";
 	private static final String BUTTON_READY = "Execute Assurance Case\nwith Selected Filter";
 	private static final String BUTTON_WAITING = "Select Assurance Case to Execute";
-	private TreeViewer treeViewer;
+	private AlisaTreeViewer treeViewer;
 
 	private ResourceSet currentResourceSet;
 	private ArrayList<String> filterNames = new ArrayList<String>();
 	private Combo filterCombo;
 	private Button alisaButton;
+
 	private AssuranceCase selectedAssuranceCase;
+
+	public AssuranceCase getSelectedAssuranceCase() {
+		return selectedAssuranceCase;
+	}
+
 	private URI assureDirURI, assureURI;
 	private Map<String, CategoryFilter> globalFilterList = Collections
 			.synchronizedMap(new HashMap<String, CategoryFilter>());
@@ -121,7 +128,7 @@ public class AlisaView extends ViewPart {
 
 	private ISchedulingRule msr;
 	private WorkspaceJob loadAssuranceCaseJob;
-	private ArrayList<AssuranceCase> loadAssuranceCaseResult = new ArrayList<AssuranceCase>();
+	private ArrayList<AssuranceCase> existingAssuranceCases = new ArrayList<AssuranceCase>();
 
 	IXtextDocument xtextDoc;
 	IXtextModelListener modelListener = new IXtextModelListener() {
@@ -206,7 +213,7 @@ public class AlisaView extends ViewPart {
 		parent.setLayout(new GridLayout(2, false));
 
 		treeViewer = new AlisaTreeViewer(parent,
-				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.VIRTUAL);
+				SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION | SWT.VIRTUAL | SWT.SINGLE);
 		treeViewer.getTree().setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 
 		treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
@@ -214,6 +221,9 @@ public class AlisaView extends ViewPart {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				if (event.getSelection().isEmpty()) {
+					System.out.println("selectedAssuranceCase: null");
+
+					selectedAssuranceCase = null;
 					alisaButton.setEnabled(false);
 					alisaButton.setText(BUTTON_WAITING);
 					alisaButton.redraw();
@@ -229,6 +239,8 @@ public class AlisaView extends ViewPart {
 						alisaButton.redraw();
 
 					} else {
+						System.out.println("selectedAssuranceCase: null");
+						selectedAssuranceCase = null;
 						alisaButton.setEnabled(false);
 						alisaButton.setText(BUTTON_WAITING);
 						alisaButton.redraw();
@@ -479,12 +491,35 @@ public class AlisaView extends ViewPart {
 			}
 		});
 
+		treeViewer.setInput(existingAssuranceCases);
+
 		getSite().getPage().addPartListener(partListener);
 
 		loadAssuranceCases();
+
+//		treeViewer.getTree().addFocusListener(new FocusListener() {
+//
+//			@Override
+//			public void focusLost(FocusEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void focusGained(FocusEvent e) {
+//
+//				// Updates recentProofTrees based on selection from AlisaView
+//				loadAssuranceCases();
+//			}
+//		});
 	}
 
-	protected AssuranceCaseResult findCaseResult(String name) {
+	/**
+	 * Finds assure file based on name of assurance case from alisa file
+	 * @param name
+	 * @return
+	 */
+	public AssuranceCaseResult findCaseResult(String name) {
 		for (Iterator iterator = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
 				.iterator(); iterator.hasNext();) {
 			IEObjectDescription eod = (IEObjectDescription) iterator.next();
@@ -652,17 +687,14 @@ public class AlisaView extends ViewPart {
 		// getSite().getWorkbenchWindow().getActivePage().getActivePart();
 		// activeEditor as XtextEditor
 
+		// Need an editor to be opened to get resource set
 		if (EditorUtils.getActiveXtextEditor() == null) {
 			// leave it as is
 			return;
 		}
-
 		xtextDoc = EditorUtils.getActiveXtextEditor().getDocument();
 
-//		ArrayList<AssuranceCase> result = new ArrayList<AssuranceCase>();
-
-//		result.addAll((Collection<? extends AssuranceCase>) refFinder.getAssuranceCases(null));
-		if (loadAssuranceCaseJob == null) { // to make sure loading job is at max only once scheduled
+		if (loadAssuranceCaseJob == null) { // to make sure loading job is at max only once scheduled, we use a single instance
 			loadAssuranceCaseJob = new WorkspaceJob("Alisa View") {
 				@Override
 				public IStatus runInWorkspace(final IProgressMonitor monitor) {
@@ -670,16 +702,30 @@ public class AlisaView extends ViewPart {
 						@Override
 						public IStatus exec(XtextResource resource) throws Exception {
 							currentResourceSet = resource.getResourceSet();
-							loadAssuranceCaseResult.clear();
 
+							existingAssuranceCases.clear();
 							for (Iterator iterator = rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE)
 									.iterator(); iterator.hasNext();) {
 								IEObjectDescription eod = (IEObjectDescription) iterator.next();
 
 								// result.add((AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), eod.getEObjectOrProxy().eResource()));
-								loadAssuranceCaseResult.add(
+								existingAssuranceCases.add(
 										(AssuranceCase) EcoreUtil.resolve(eod.getEObjectOrProxy(), currentResourceSet));
 
+							}
+
+							// If there is an existing selection
+							// Find the alisa with the same name if there is a selection
+							if (selectedAssuranceCase != null) {
+								AssuranceCase tempAssuranceCase = selectedAssuranceCase;
+								selectedAssuranceCase = null;
+								for (Iterator iterator = existingAssuranceCases.iterator(); iterator.hasNext();) {
+									AssuranceCase assuranceCase = (AssuranceCase) iterator.next();
+									if (assuranceCase.getName().equals(tempAssuranceCase.getName())) {
+										selectedAssuranceCase = assuranceCase;
+										break;
+									}
+								}
 							}
 //							System.out.println("AlisaView.loadAssuranceCases()   loadAssuranceCaseResult size: "
 //									+ loadAssuranceCaseResult.size());
@@ -703,7 +749,18 @@ public class AlisaView extends ViewPart {
 									if (treeViewer.getTree().isDisposed()) {
 										return;
 									}
-									treeViewer.setInput(loadAssuranceCaseResult);
+									// treeViewer.setInput(existingAssuranceCases);
+
+									if (selectedAssuranceCase != null) {
+										StructuredSelection selection = new StructuredSelection(selectedAssuranceCase);
+										treeViewer.setSelection(selection, true);
+										// treeViewer.refresh();
+										// treeViewer.reveal(selectedAssuranceCase);
+										// treeViewer.ssshow(selectedAssuranceCase);
+
+									}
+
+									treeViewer.refresh(true);
 
 									updateFilterCombo(globalFilterList.values());
 

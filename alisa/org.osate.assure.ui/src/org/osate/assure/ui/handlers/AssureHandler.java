@@ -151,17 +151,17 @@ public class AssureHandler extends AlisaHandler {
 
 	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
 		try {
-			
-			
+
 			AssureRequirementsCoverageView view2 = (AssureRequirementsCoverageView) page
 					.showView(AssureRequirementsCoverageView.ID);
 			view2.setProofs(ac, filter);
-			
+			assureProcessor.setRequirementsCoverageTreeViewer(view2.getTreeViewer());
+
 			AssureProgressView view = (AssureProgressView) page.showView(AssureProgressView.ID);
 			view.setProofs(ac, filter);
 			view.setFocus();
 			assureProcessor.setProgressTreeViewer(view.getTreeViewer());
-			
+
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

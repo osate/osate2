@@ -35,6 +35,7 @@ import org.osate.categories.categories.CategoryFilter;
 public class OpenAssureViewHandler extends AlisaHandler {
 	private static final String ASSURE_VIEW_ID = "org.osate.assure.commands.OpenAssureView";
 	private IHandlerActivation openAssureViewerActivation;
+	private CategoryFilter selectedFilter;
 //	    private final URI uri;
 //	    private final OpenAssureViewHandler assureHandler;
 
@@ -52,6 +53,7 @@ public class OpenAssureViewHandler extends AlisaHandler {
 	protected IStatus runJob(EObject root, CategoryFilter filter, IProgressMonitor monitor) {
 		clearProofs();
 		disableRerunHandler();
+		selectedFilter = filter;
 
 		long start = System.currentTimeMillis();
 

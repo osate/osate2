@@ -35,6 +35,7 @@ import org.osate.categories.categories.CategoryFilter;
 public class RunAssureHandler extends AlisaHandler {
 	private static final String RERUN_ID = "org.osate.alisa.commands.rerunAssure";
 	private IHandlerActivation rerunActivation;
+	private CategoryFilter selectedFilter;
 
 	@Override
 	protected String getJobName() {
@@ -45,6 +46,7 @@ public class RunAssureHandler extends AlisaHandler {
 	protected IStatus runJob(EObject root, CategoryFilter filter, IProgressMonitor monitor) {
 		clearProofs();
 		disableRerunHandler();
+		selectedFilter = filter;
 
 		long start = System.currentTimeMillis();
 

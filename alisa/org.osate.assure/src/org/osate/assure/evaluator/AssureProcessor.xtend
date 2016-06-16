@@ -81,6 +81,7 @@ import org.osate.alisa.common.common.ValDeclaration
 interface IAssureProcessor {
 	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
 	def void setProgressTreeViewer (TreeViewer viewPage);
+	def void setRequirementsCoverageTreeViewer (TreeViewer viewPage);
 }
 
 /**
@@ -94,6 +95,7 @@ class AssureProcessor implements IAssureProcessor {
 	var IProgressMonitor progressmonitor
 
 	var TreeViewer progressTreeViewer
+	var TreeViewer requirementsCoverageTreeViewer
 
 	var long start = 0
 	
@@ -128,6 +130,7 @@ class AssureProcessor implements IAssureProcessor {
 			progressmonitor.done
 		}
 		
+		updateRequirementsCoverage();
 	}
 
 	def dispatch void process(AssuranceCaseResult caseResult) {
@@ -482,6 +485,8 @@ class AssureProcessor implements IAssureProcessor {
 				updateProgress(verificationResult)
 			}
 		// verificationResult.eResource.save(null)
+			
+			
 		}
 
 		def updateProgress(VerificationResult result) {
@@ -489,6 +494,16 @@ class AssureProcessor implements IAssureProcessor {
 				Display.getDefault().asyncExec(new Runnable() {
 					override void run() {
 						progressTreeViewer.update(result, null)
+					}
+				});
+			}
+		}
+		
+		def updateRequirementsCoverage() {
+			if (requirementsCoverageTreeViewer != null) {
+				Display.getDefault().asyncExec(new Runnable() {
+					override void run() {
+						requirementsCoverageTreeViewer.refresh(true);
 					}
 				});
 			}
@@ -620,6 +635,10 @@ class AssureProcessor implements IAssureProcessor {
 
 		override void setProgressTreeViewer(TreeViewer treeViewer) {
 			progressTreeViewer = treeViewer
+		}
+
+		override void setRequirementsCoverageTreeViewer(TreeViewer treeViewer) {
+			requirementsCoverageTreeViewer = treeViewer
 		}
 
 	}

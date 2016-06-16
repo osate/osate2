@@ -15,6 +15,8 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TreeItem;
+import org.eclipse.swt.widgets.Widget;
 import org.osate.alisa.workbench.alisa.AssuranceCase;
 import org.osate.alisa.workbench.alisa.AssurancePlan;
 
@@ -193,6 +195,17 @@ public class AlisaTreeViewer extends TreeViewer {
 
 		int getWidth() {
 			return width;
+		}
+
+	}
+
+	public void ssshow(AssuranceCase selectedAssuranceCase) {
+		Widget selectWidget;
+		selectWidget = internalExpand(selectedAssuranceCase, false);
+
+		// This means that it had been expanded before and widget to select is in memory
+		if (selectWidget != null) {
+			showItem((TreeItem) selectWidget);
 		}
 
 	}

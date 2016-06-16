@@ -14,9 +14,7 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.evaluator.IAssureRequirementMetricsProcessor;
 import org.osate.assure.ui.views.AssureRequirementsCoverageView;
-import org.osate.assure.util.AssureUtilExtension;
 import org.osate.categories.categories.CategoryFilter;
-import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -62,6 +60,7 @@ public class AssureRequirementsMetricsHandler extends AlisaHandler {
 			return Status.CANCEL_STATUS;
 		}
 
+		// moved to be run when setProofs from viewer
 //		long start = System.currentTimeMillis();
 //		VerifyUtilExtension.clearAllHasRunRecords();
 //		AssureUtilExtension.clearAllInstanceModels();
