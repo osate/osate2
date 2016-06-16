@@ -1049,6 +1049,10 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 					processor features
 						sp2: subprogram subpcontainer;
 						pp2: port;
+					calls
+						sequence2: {
+							call2: subprogram subpcontainer;
+						};
 					connections
 						--AccessConnections
 						--AccessConnections
@@ -1181,7 +1185,7 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 						
 						
 						--Parameter
-						paramconn78: parameter param1 -> param1;
+						paramconn78: parameter param1 -> call2.param1;
 						
 						--Parameter.BusSubcomponent
 						paramconn79: parameter param1.bsub2 -> param1;
