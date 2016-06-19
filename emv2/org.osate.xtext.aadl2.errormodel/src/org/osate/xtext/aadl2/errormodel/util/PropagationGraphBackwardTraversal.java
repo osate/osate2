@@ -180,38 +180,59 @@ public class PropagationGraphBackwardTraversal {
 			double scale = 1;
 			boolean sameState = false;
 			if (ebt.getTarget() != null && EMV2Util.isSame(state, ebt.getTarget())) {
-				if (!(EMV2Util.isSame(ebt.getSource(), state) || ebt.isSteadyState())) {
-					conditionExpression = ebt.getCondition();
-				} else {
+				conditionExpression = ebt.getCondition();
+				if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())) {
 					sameState = true;
 				}
-			} else {
+			} else if (!ebt.getDestinationBranches().isEmpty()) {
 				// deal with transition branches
 				EList<TransitionBranch> tbs = ebt.getDestinationBranches();
 				for (TransitionBranch transitionBranch : tbs) {
-					if (EMV2Util.isSame(transitionBranch.getTarget(), state)) {
-						conditionExpression = ebt.getCondition();
+					if (transitionBranch.getTarget() != null) {
+						if (EMV2Util.isSame(transitionBranch.getTarget(), state)) {
+							conditionExpression = ebt.getCondition();
+							if (EMV2Util.isSame(ebt.getSource(), state)) {
+								sameState = true;
+							}
+
+						}
+					} else if (transitionBranch.isSteadyState()) {
+						// same state
+						if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())) {
+							conditionExpression = ebt.getCondition();
+							sameState = true;
+						}
+					}
+					if (conditionExpression != null) {
 						BranchValue val = transitionBranch.getValue();
 						if (val.getRealvalue() != null) {
 							scale = Double.valueOf(val.getRealvalue());
 						} else if (val.getSymboliclabel() != null) {
-							if (!EMV2Util.isSame(ebt.getSource(), state)) {
-								ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
-								List<EMV2PropertyAssociation> pa = EMV2Properties
-										.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
-								for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
-									scale = scale + EMV2Properties.getRealValue(emv2PropertyAssociation);
-								}
-								break;
+							ComponentClassifier cl = EMV2Util.getAssociatedClassifier(ebt);
+							List<EMV2PropertyAssociation> pa = EMV2Properties
+									.getProperty(val.getSymboliclabel().getQualifiedName(), cl, ebt, null);
+							for (EMV2PropertyAssociation emv2PropertyAssociation : pa) {
+								scale = scale + EMV2Properties.getRealValue(emv2PropertyAssociation);
 							}
 						}
+						break;
 					}
 				}
+			} else if (ebt.isSteadyState()) {
+				// same state
+				if (ebt.getSource() != null && EMV2Util.isSame(state, ebt.getSource())) {
+					conditionExpression = ebt.getCondition();
+					sameState = true;
+				}
 			}
-			if (conditionExpression != null) {
+			if (!sameState && conditionExpression != null) {
+				// don't include transition staying in same state
 				EObject conditionResult = processCondition(component, conditionExpression, type, scale);
 				// XXX this is the recursive call
-				EObject stateResult = sameState ? null : traverseErrorBehaviorState(component, ebt.getSource(), type);
+				// do not traverse back in same state
+				// we also do not traverse back if left is allstates.
+				EObject stateResult = sameState || ebt.isAllStates() ? null
+						: traverseErrorBehaviorState(component, ebt.getSource(), type);
 				if (conditionResult != null && stateResult != null) {
 					EObject tmpresult = processTransitionCondition(component, ebt.getSource(), type, conditionResult,
 							stateResult);
@@ -228,6 +249,8 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessErrorBehaviorState(component, state, type, subResults);
 		}
+		// subResults is empty if state without incoming transition triggered by error events or incoming propagations
+		// or if no transitions specified for state machine
 		if (transitions.isEmpty()) {
 			// we cannot trace back to an error event triggering a transition
 			// give the opportunity to present the error state as Event
