@@ -36,7 +36,6 @@ import org.osate.aadl2.AadlString
 import org.osate.aadl2.PropertyType
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.reqspec.reqSpec.SystemRequirementSet
-import org.osate.verify.typing.validation.VerifyTypeSystemValidator
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.Claim
@@ -57,7 +56,8 @@ import org.osate.verify.verify.VerifyPackage
  * 
  * see http://www.eclipse.org/Xtext/documentation.html#validation
  */
-class VerifyValidator extends VerifyTypeSystemValidator {
+//class VerifyValidator extends VerifyTypeSystemValidator {
+class VerifyValidator extends AbstractVerifyValidator {
 
 	public static val INCORRECT_METHOD_PATH = "org.osate.verify.incorrectMethodPath"
 	public static val INCORRECT_CLASS_PATH = "org.osate.verify.incorrectClassPath"
