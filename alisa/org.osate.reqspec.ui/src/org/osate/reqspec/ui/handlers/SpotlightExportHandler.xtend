@@ -1,5 +1,6 @@
-package org.osate.alisa.common.ui.handlers;
+package org.osate.reqspec.ui.handlers;
 
+import com.google.inject.Inject
 import java.io.ByteArrayInputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -17,10 +18,14 @@ import org.eclipse.ui.handlers.HandlerUtil
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
+import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
+import org.osate.reqspec.util.ReqspecGlobalReferenceFinder
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.*
+import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
+import org.osate.reqspec.ui.internal.ReqSpecActivator
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -28,6 +33,12 @@ import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil
  * @see AbstractHandler
  */
 class SpotlightExportHandler extends AbstractHandler {
+		@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
+	//	@Inject ICommonGlobalReferenceFinder commonRefFinder
+
+	new (){
+		ReqSpecActivator.instance.getInjector(ReqSpecActivator.ORG_OSATE_REQSPEC_REQSPEC).injectMembers(this)
+	}
 	/**
 	 * the command has been executed, so extract extract the needed information
 	 * from the application context.
@@ -87,21 +98,17 @@ class SpotlightExportHandler extends AbstractHandler {
 	}
 	
 	def String generateComponentList(SystemInstance systemInstance){
-		//systemInstance.getAllContents(true).filter(ComponentInstance).toList.join(System.getProperty("line.separator"), [name + "," + "1"])
 		systemInstance.getAllContents(true).filter(ComponentInstance).toList.join(System.getProperty("line.separator"), [fullName])
-//		systemInstance.getAllContents(true).filter(NamedElement).toList.join(System.getProperty("line.separator"), [name])
-		//systemInstance.getAllContents(true).filter(ComponentInstance).filter[getAllComponentInstances().empty].toList.join(System.getProperty("line.separator"), [name])
-		//systemInstance.getAllContentsOfType(ComponentInstance).join(System.getProperty("line.separator"), [name + "," + "1"])
-		//systemInstance.getAllComponentInstances().join(System.getProperty("line.separator"), [name + "," + "1"])
 	}
 	
 	def String generateRequirementsList(SystemInstance systemInstance){
-		systemInstance.getAllContents(true).filter(ComponentInstance).toList.forEach[compInstance |
-			// code to get requirements and scores
-			
-				
-		]// code to build string.join(System.getProperty("line.separator"), [fullName])
-		"To do: create comma separated list of requirements and scores"
+		systemInstance.getAllContents(true).filter(ComponentInstance).join(System.getProperty("line.separator"), [compInst |
+			compInst.fullName + reqSpecrefFinder.getAllRequirements(compInst).join(",", ",", "", [
+					name + "," + 
+						if(it.changeUncertainty == null) "" 
+						else it.changeUncertainty.volatility
+			])
+		])
 	}
 	
 	def IFolder getSpotlightFolder(IProject project){

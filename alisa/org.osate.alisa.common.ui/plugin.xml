@@ -54,36 +54,6 @@
 				</and>
             </activeWhen>
         </handler>
-        <handler
-              class="org.osate.alisa.common.ui.handlers.SpotlightExportHandler"
-              commandId="org.osate.alisa.common.ui.commands.spotlightExportCommand">
-                     
-<!--               <or>
-                  <and>
-                  
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-              </activeWhen>
--->
-<!--               <enabledWhen>
-                 <with variable="selection">
-                  <adapt type="org.eclipse.core.resources.IFile"/>
-
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-
-               </with>
-              </enabledWhen>
-              -->
-          </handler>
     </extension>
     <extension point="org.eclipse.core.expressions.definitions">
         <definition id="org.osate.alisa.common.Common.Editor.opened">
@@ -223,31 +193,6 @@
 					</and>
 				</visibleWhen>
 			</command>
-         </menuContribution>
-         <menuContribution
-               locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-            <menu
-                  id="org.osate.alisa.common.ui.menus.spotlightMenu"
-                  label="Spotlight"
-                  mnemonic="S">
-               <command
-                     commandId="org.osate.alisa.common.ui.commands.spotlightExportCommand"
-                     id="org.osate.alisa.common.ui.menus.spotlightExportCommand"
-                     mnemonic="E">
-               </command>
-            </menu>
-         </menuContribution>
-         <menuContribution
-               locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-            <toolbar
-                  id="org.osate.alisa.common.ui.toolbars.spotlightToolbar">
-               <command
-                     commandId="org.osate.alisa.common.ui.commands.spotlightExportCommand"
-                     icon="icons/sample.gif"
-                     id="org.osate.alisa.common.ui.toolbars.spotlightExportCommand"
-                     tooltip="Export Spotlight">
-               </command>
-            </toolbar>
          </menuContribution>
     </extension>
     <extension point="org.eclipse.ui.menus">
