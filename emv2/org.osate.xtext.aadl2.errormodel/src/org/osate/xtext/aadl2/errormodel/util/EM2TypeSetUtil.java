@@ -259,6 +259,11 @@ public class EM2TypeSetUtil {
 				}
 			}
 		}
+		for (ErrorTypes et : token.getType()) {
+			if (contains(ts, et)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
