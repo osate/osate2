@@ -10,7 +10,6 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
@@ -507,8 +506,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessOutgoingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessOutgoingErrorPropagation " + component.getName() + " propagation "
-				+ EMV2Util.getPropagationName(errorPropagation));
+//		OsateDebug.osateDebug("postProcessOutgoingErrorPropagation " + component.getName() + " propagation "
+//				+ EMV2Util.getPropagationName(errorPropagation));
 		return null;
 	}
 
@@ -523,8 +522,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType) {
-		OsateDebug.osateDebug("preProcessOutgoingErrorPropagation " + component.getName() + " propagation "
-				+ EMV2Util.getPropagationName(errorPropagation));
+//		OsateDebug.osateDebug("preProcessOutgoingErrorPropagation " + component.getName() + " propagation "
+//				+ EMV2Util.getPropagationName(errorPropagation));
 		return null;
 	}
 
@@ -539,8 +538,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessErrorFlows(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes targetType, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessErrorFlows " + component.getName() + " propagation "
-				+ EMV2Util.getPropagationName(errorPropagation));
+//		OsateDebug.osateDebug("postProcessErrorFlows " + component.getName() + " propagation "
+//				+ EMV2Util.getPropagationName(errorPropagation));
 		return null;
 	}
 
@@ -553,7 +552,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource,
 			TypeSet typeTokenConstraint) {
-		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
+//		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
 		return null;
 	}
 
@@ -568,8 +567,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes type) {
-		OsateDebug.osateDebug("preProcessIncomingErrorPropagation " + component.getName() + " propagation "
-				+ EMV2Util.getPropagationName(errorPropagation));
+//		OsateDebug.osateDebug("preProcessIncomingErrorPropagation " + component.getName() + " propagation "
+//				+ EMV2Util.getPropagationName(errorPropagation));
 		return null;
 	}
 
@@ -582,8 +581,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processIncomingErrorPropagation(ComponentInstance component, ErrorPropagation incoming,
 			ErrorTypes type) {
-		OsateDebug.osateDebug("processIncomingErrorPropagation " + component.getName() + " propagation "
-				+ EMV2Util.getPropagationName(incoming));
+//		OsateDebug.osateDebug("processIncomingErrorPropagation " + component.getName() + " propagation "
+//				+ EMV2Util.getPropagationName(incoming));
 		return null;
 	}
 
@@ -598,8 +597,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessIncomingErrorPropagation(ComponentInstance component,
 			ErrorPropagation errorPropagation, ErrorTypes targetType, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessIncomingErrorPropagation " + component.getName() + " propagation "
-				+ EMV2Util.getPropagationName(errorPropagation));
+//		OsateDebug.osateDebug("postProcessIncomingErrorPropagation " + component.getName() + " propagation "
+//				+ EMV2Util.getPropagationName(errorPropagation));
 		return null;
 	}
 
@@ -612,8 +611,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processOutgoingErrorPropagation(ComponentInstance component, ErrorPropagation ep,
 			ErrorTypes type) {
-		OsateDebug
-				.osateDebug("processOutgoingErrorPropagation " + component.getName() + " propagation " + ep.getName());
+//		OsateDebug
+//				.osateDebug("processOutgoingErrorPropagation " + component.getName() + " propagation " + ep.getName());
 		return null;
 	}
 
@@ -628,8 +627,8 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processOutgoingErrorPropagationCondition(ComponentInstance component,
 			OutgoingPropagationCondition opc, ErrorTypes type, EObject conditionResult, EObject stateResult) {
-		OsateDebug.osateDebug(
-				"processOutgoingErrorPropagationCondition " + component.getName() + " condition " + opc.getName());
+//		OsateDebug.osateDebug(
+//				"processOutgoingErrorPropagationCondition " + component.getName() + " condition " + opc.getName());
 		return null;
 	}
 
@@ -644,7 +643,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType) {
-		OsateDebug.osateDebug("preProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
+//		OsateDebug.osateDebug("preProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
 		return null;
 	}
 
@@ -659,7 +658,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessCompositeErrorStates(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes targetType, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
+//		OsateDebug.osateDebug("postProcessCompositeErrorStates " + component.getName() + " state " + state.getName());
 		return null;
 	}
 
@@ -674,7 +673,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type) {
-		OsateDebug.osateDebug("preProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
+//		OsateDebug.osateDebug("preProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
 		return null;
 	}
 
@@ -689,7 +688,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
+//		OsateDebug.osateDebug("postProcessErrorBehaviorState " + component.getName() + " state " + state.getName());
 		return null;
 	}
 
@@ -702,7 +701,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processErrorBehaviorState(ComponentInstance component, ErrorBehaviorState state,
 			ErrorTypes type) {
-		OsateDebug.osateDebug("processErrorBehaviorState " + component.getName() + " state " + state.getName());
+//		OsateDebug.osateDebug("processErrorBehaviorState " + component.getName() + " state " + state.getName());
 		return null;
 	}
 
@@ -717,7 +716,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processTransitionCondition(ComponentInstance component, ErrorBehaviorState source,
 			ErrorTypes type, EObject conditionResult, EObject stateResult) {
-		OsateDebug.osateDebug("processTransitionCondition " + component.getName() + " state " + source.getName());
+//		OsateDebug.osateDebug("processTransitionCondition " + component.getName() + " state " + source.getName());
 		return null;
 	}
 
@@ -730,7 +729,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processErrorEvent(ComponentInstance component, ErrorEvent errorEvent, ErrorTypes type,
 			double scale) {
-		OsateDebug.osateDebug("processErrorEvent " + component.getName() + " error event " + errorEvent.getName());
+//		OsateDebug.osateDebug("processErrorEvent " + component.getName() + " error event " + errorEvent.getName());
 		return null;
 	}
 
@@ -746,7 +745,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
-		OsateDebug.osateDebug("preProcessAnd " + component.getName());
+//		OsateDebug.osateDebug("preProcessAnd " + component.getName());
 		return null;
 	}
 
@@ -762,7 +761,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessAnd(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessAnd " + component.getName());
+//		OsateDebug.osateDebug("postProcessAnd " + component.getName());
 		return null;
 	}
 
@@ -778,7 +777,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessXor " + component.getName());
+//		OsateDebug.osateDebug("postProcessXor " + component.getName());
 		return null;
 	}
 
@@ -794,7 +793,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessXor(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
-		OsateDebug.osateDebug("postProcessXor " + component.getName());
+//		OsateDebug.osateDebug("postProcessXor " + component.getName());
 		return null;
 	}
 
@@ -810,7 +809,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject postProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale, List<EObject> subResults) {
-		OsateDebug.osateDebug("postProcessOr " + component.getName());
+//		OsateDebug.osateDebug("postProcessOr " + component.getName());
 		return null;
 	}
 
@@ -826,7 +825,7 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject preProcessOr(ComponentInstance component, ConditionExpression condition, ErrorTypes type,
 			double scale) {
-		OsateDebug.osateDebug("postProcessOr " + component.getName());
+//		OsateDebug.osateDebug("postProcessOr " + component.getName());
 		return null;
 	}
 
