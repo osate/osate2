@@ -139,18 +139,19 @@ public class FlowLatencyLogicComponent {
 		worstmethod = LatencyContributorMethod.UNKNOWN;
 
 		if (executionTimeHigher != 0.0 && !Values.doWorstCaseDeadline()) {
-			// Use deadline for worst-case if specified in preferences
+			// Use execution time for worst-case if preferences specify not deadline
 			worstCaseValue = executionTimeHigher;
 			worstmethod = LatencyContributorMethod.PROCESSING_TIME;
 		}
 
 		if ((worstCaseValue == 0.0) && isAssignedDeadline) {
-			// filter out if deadline was not explicitly assigned
+			// use deadline if no execution time and deadline was explicitly assigned
 			worstCaseValue = deadline;
 			worstmethod = LatencyContributorMethod.DEADLINE;
 		}
 
 		if ((worstCaseValue == 0.0) && (expectedMax != 0.0)) {
+			// use flow latency if neither deadline nor execution time
 			worstCaseValue = expectedMax;
 			worstmethod = LatencyContributorMethod.SPECIFIED;
 		}
