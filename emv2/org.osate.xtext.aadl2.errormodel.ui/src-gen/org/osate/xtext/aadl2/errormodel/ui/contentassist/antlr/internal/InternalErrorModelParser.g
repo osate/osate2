@@ -30991,7 +30991,7 @@ rule__ContainmentPathElement__Group_0__1__Impl
 :
 (
 { before(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); }
-(rule__ContainmentPathElement__ArrayRangeAssignment_0_1)?
+(rule__ContainmentPathElement__ArrayRangeAssignment_0_1)*
 { after(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_0_1()); }
 )
 
@@ -35554,8 +35554,8 @@ rule__OrmoreExpression__OperandsAssignment_3
     }
 :
 (
-{ before(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); }
-	ruleConditionElement{ after(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); }
+{ before(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); }
+	ruleConditionExpression{ after(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); }
 )
 
 ;
@@ -35569,8 +35569,8 @@ rule__OrmoreExpression__OperandsAssignment_4_1
     }
 :
 (
-{ before(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); }
-	ruleConditionElement{ after(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); }
+{ before(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); }
+	ruleConditionExpression{ after(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); }
 )
 
 ;

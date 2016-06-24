@@ -2,6 +2,7 @@
  */
 package org.osate.xtext.aadl2.errormodel.errorModel;
 
+
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Qualified Error Event Or Propagation</b></em>'.
@@ -12,5 +13,6 @@ package org.osate.xtext.aadl2.errormodel.errorModel;
  * @model
  * @generated
  */
-public interface QualifiedErrorEventOrPropagation extends EMV2Path {
+public interface QualifiedErrorEventOrPropagation extends EMV2Path
+{
 } // QualifiedErrorEventOrPropagation

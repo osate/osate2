@@ -6587,9 +6587,9 @@ ruleOrmoreExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); 
 	    }
-		lv_operands_3_0=ruleConditionElement		{
+		lv_operands_3_0=ruleConditionExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOrmoreExpressionRule());
 	        }
@@ -6597,7 +6597,7 @@ ruleOrmoreExpression returns [EObject current=null]
        			$current, 
        			"operands",
         		lv_operands_3_0, 
-        		"ConditionElement");
+        		"ConditionExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6610,9 +6610,9 @@ ruleOrmoreExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); 
 	    }
-		lv_operands_5_0=ruleConditionElement		{
+		lv_operands_5_0=ruleConditionExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOrmoreExpressionRule());
 	        }
@@ -6620,7 +6620,7 @@ ruleOrmoreExpression returns [EObject current=null]
        			$current, 
        			"operands",
         		lv_operands_5_0, 
-        		"ConditionElement");
+        		"ConditionExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -9536,7 +9536,7 @@ ruleContainmentPathElement returns [EObject current=null]
 	    }
 
 )
-)?)(
+)*)(
 	otherlv_2=FullStop
     {
     	newLeafNode(otherlv_2, grammarAccess.getContainmentPathElementAccess().getFullStopKeyword_1_0());

@@ -519,8 +519,8 @@ AllExpression returns ConditionExpression:
 
   
 OrmoreExpression returns OrmoreExpression: 
-	count=INTVALUE 'ormore' '(' operands+=ConditionElement
-	            ( ',' operands+=ConditionElement)* ')'
+	count=INTVALUE 'ormore' '(' operands+=ConditionExpression
+	            ( ',' operands+=ConditionExpression)* ')'
 ;
   
 OrlessExpression returns OrlessExpression: 

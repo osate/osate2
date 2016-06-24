@@ -14,24 +14,27 @@ import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagat
  *
  * @generated
  */
-public class QualifiedErrorEventOrPropagationImpl extends EMV2PathImpl implements QualifiedErrorEventOrPropagation {
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	protected QualifiedErrorEventOrPropagationImpl() {
-		super();
-	}
+public class QualifiedErrorEventOrPropagationImpl extends EMV2PathImpl implements QualifiedErrorEventOrPropagation
+{
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  protected QualifiedErrorEventOrPropagationImpl()
+  {
+    super();
+  }
 
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
-	protected EClass eStaticClass() {
-		return ErrorModelPackage.Literals.QUALIFIED_ERROR_EVENT_OR_PROPAGATION;
-	}
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  @Override
+  protected EClass eStaticClass()
+  {
+    return ErrorModelPackage.Literals.QUALIFIED_ERROR_EVENT_OR_PROPAGATION;
+  }
 
-} // QualifiedErrorEventOrPropagationImpl
+} //QualifiedErrorEventOrPropagationImpl

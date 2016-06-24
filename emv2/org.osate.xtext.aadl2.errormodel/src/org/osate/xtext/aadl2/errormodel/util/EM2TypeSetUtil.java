@@ -259,6 +259,11 @@ public class EM2TypeSetUtil {
 				}
 			}
 		}
+		for (ErrorTypes et : token.getType()) {
+			if (contains(ts, et)) {
+				return true;
+			}
+		}
 		return false;
 	}
 
@@ -278,12 +283,9 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		ts = EMV2Util.resolveAlias(ts);
-		int toksize = token.getType().size();
-		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (tselement.getType().size() == toksize) {
-				if (contains(token, tselement)) {
-					return true;
-				}
+		for (ErrorTypes et : token.getType()) {
+			if (contains(et, ts)) {
+				return true;
 			}
 		}
 		return false;
@@ -324,6 +326,8 @@ public class EM2TypeSetUtil {
 		}
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
+		if (ts == subts)
+			return true;
 		EList<TypeToken> subelements = subts.getTypeTokens();
 		for (TypeToken typeToken : subelements) {
 			if (!contains(ts, typeToken)) {
@@ -347,6 +351,10 @@ public class EM2TypeSetUtil {
 		}
 		ts1 = EMV2Util.resolveAlias(ts1);
 		ts2 = EMV2Util.resolveAlias(ts2);
+		if (ts1 == ts2) {
+			result.addAll(ts1.getTypeTokens());
+			return result;
+		}
 		for (TypeToken tselement1 : ts1.getTypeTokens()) {
 			int toksize = tselement1.getType().size();
 			for (TypeToken tselement2 : ts2.getTypeTokens()) {

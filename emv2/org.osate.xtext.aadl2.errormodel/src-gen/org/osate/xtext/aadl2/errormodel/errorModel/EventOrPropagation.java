@@ -16,5 +16,6 @@ import org.osate.aadl2.NamedElement;
  * @model
  * @generated
  */
-public interface EventOrPropagation extends EObject, NamedElement {
+public interface EventOrPropagation extends EObject, NamedElement
+{
 } // EventOrPropagation
