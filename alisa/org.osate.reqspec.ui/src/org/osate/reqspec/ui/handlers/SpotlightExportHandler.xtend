@@ -2,8 +2,6 @@ package org.osate.reqspec.ui.handlers;
 
 import com.google.inject.Inject
 import java.io.ByteArrayInputStream
-import java.text.SimpleDateFormat
-import java.util.Calendar
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
@@ -18,14 +16,12 @@ import org.eclipse.ui.handlers.HandlerUtil
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
+import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
-import org.osate.reqspec.util.ReqspecGlobalReferenceFinder
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.*
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
-import org.osate.reqspec.ui.internal.ReqSpecActivator
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -34,7 +30,10 @@ import org.osate.reqspec.ui.internal.ReqSpecActivator
  */
 class SpotlightExportHandler extends AbstractHandler {
 		@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
-	//	@Inject ICommonGlobalReferenceFinder commonRefFinder
+	val SPOTLIGHTEXT = "_spotlight.csv"
+	val SPOTLIGHTFOLDER = "spotlight"
+	val LINE_SEPARATOR = System.getProperty("line.separator")
+	val COMMA = ","
 
 	new (){
 		ReqSpecActivator.instance.getInjector(ReqSpecActivator.ORG_OSATE_REQSPEC_REQSPEC).injectMembers(this)
@@ -76,19 +75,11 @@ class SpotlightExportHandler extends AbstractHandler {
 				
 				val spotlightFolder = project.getSpotlightFolder();
 
-
-				val spotlightComponentFile = spotlightFolder.getFile(systemInstance.name + "_components" + ".csv")
-				if (spotlightComponentFile.exists){
-					spotlightComponentFile.delete(true,null)
-				}
-				val newSpotlightComponentFile = spotlightFolder.getFile(systemInstance.name  + "_components" + ".csv")
-				newSpotlightComponentFile.create(new ByteArrayInputStream(systemInstance.generateComponentList.bytes), false, null)
-
-				val spotlightRequirementsFile = spotlightFolder.getFile(systemInstance.name + "_requirements" + ".csv")
+				val spotlightRequirementsFile = spotlightFolder.getFile(systemInstance.name + SPOTLIGHTEXT)
 				if (spotlightRequirementsFile.exists){
 					spotlightRequirementsFile.delete(true,null)
 				}
-				val newSpotlightRequirementsFile = spotlightFolder.getFile(systemInstance.name  + "_requirements" + ".csv")
+				val newSpotlightRequirementsFile = spotlightFolder.getFile(systemInstance.name  + SPOTLIGHTEXT)
 				newSpotlightRequirementsFile.create(new ByteArrayInputStream(systemInstance.generateRequirementsList.bytes), false, null)
 
 				project.refreshLocal(IResource.DEPTH_ONE, null)
@@ -97,37 +88,30 @@ class SpotlightExportHandler extends AbstractHandler {
 		null
 	}
 	
-	def String generateComponentList(SystemInstance systemInstance){
-		systemInstance.getAllContents(true).filter(ComponentInstance).toList.join(System.getProperty("line.separator"), [fullName])
-	}
 	
 	def String generateRequirementsList(SystemInstance systemInstance){
-		systemInstance.getAllContents(true).filter(ComponentInstance).join(System.getProperty("line.separator"), [compInst |
-			compInst.fullName + reqSpecrefFinder.getAllRequirements(compInst).join(",", ",", "", [
-					name + "," + 
-						if(it.changeUncertainty == null) "" 
-						else it.changeUncertainty.volatility
-			])
-		])
+		systemInstance.getAllContents(true).filter(ComponentInstance).join(LINE_SEPARATOR, 
+			[compInst |
+					compInst.fullName + reqSpecrefFinder.getAllRequirements(compInst).
+							join(COMMA, LINE_SEPARATOR + compInst.fullName + COMMA, "", 
+									[ name + COMMA + 
+										if(it.changeUncertainty == null) {""} 
+										else {it.changeUncertainty.volatility + COMMA + it.changeUncertainty.precedence}
+									]
+								)
+			]
+		)
 	}
 	
 	def IFolder getSpotlightFolder(IProject project){
 		if (project.exists() && !project.isOpen()) {
 			project.open(null)
 		}	
-		val spotlightFolder = project.getFolder("spotlight");
+		val spotlightFolder = project.getFolder(SPOTLIGHTFOLDER);
 		if (!spotlightFolder.exists()) {
 			spotlightFolder.create(true,false,null)
 		}
 		spotlightFolder
 	}
 	
-	def ByteArrayInputStream getSpotlightComponentStream(String comp){
-
-		var cal = Calendar.getInstance()
-		val sdf = new SimpleDateFormat("HH:mm:ss")
-		var ts =  sdf.format(cal.getTime())	
-		val content = "test: " + ts
-		new ByteArrayInputStream(content.bytes) 	
-	}
 }
