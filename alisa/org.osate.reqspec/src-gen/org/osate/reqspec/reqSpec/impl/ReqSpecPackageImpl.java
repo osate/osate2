@@ -728,7 +728,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementSet_Requirements()
+  public EReference getRequirementSet_Computes()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(2);
   }
@@ -738,9 +738,19 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirementSet_StakeholderGoals()
+  public EReference getRequirementSet_Requirements()
   {
     return (EReference)requirementSetEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getRequirementSet_StakeholderGoals()
+  {
+    return (EReference)requirementSetEClass.getEStructuralFeatures().get(4);
   }
 
   /**
@@ -1255,6 +1265,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     requirementSetEClass = createEClass(REQUIREMENT_SET);
     createEReference(requirementSetEClass, REQUIREMENT_SET__IMPORT_CONSTANTS);
     createEReference(requirementSetEClass, REQUIREMENT_SET__CONSTANTS);
+    createEReference(requirementSetEClass, REQUIREMENT_SET__COMPUTES);
     createEReference(requirementSetEClass, REQUIREMENT_SET__REQUIREMENTS);
     createEReference(requirementSetEClass, REQUIREMENT_SET__STAKEHOLDER_GOALS);
 
@@ -1415,6 +1426,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEClass(requirementSetEClass, RequirementSet.class, "RequirementSet", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getRequirementSet_ImportConstants(), this.getGlobalConstants(), null, "importConstants", null, 0, -1, RequirementSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirementSet_Constants(), theCommonPackage.getValDeclaration(), null, "constants", null, 0, -1, RequirementSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRequirementSet_Computes(), theCommonPackage.getAVariableDeclaration(), null, "computes", null, 0, -1, RequirementSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirementSet_Requirements(), this.getRequirement(), null, "requirements", null, 0, -1, RequirementSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirementSet_StakeholderGoals(), this.getReqRoot(), null, "stakeholderGoals", null, 0, -1, RequirementSet.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 

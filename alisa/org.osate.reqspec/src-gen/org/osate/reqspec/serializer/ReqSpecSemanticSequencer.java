@@ -376,6 +376,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
 	 *         requirements+=GlobalRequirement* 
 	 *         docReference+=ExternalDocument* 
 	 *         stakeholderGoals+=[ReqRoot|QualifiedName]* 
@@ -523,6 +524,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *         importConstants+=[GlobalConstants|QualifiedName]* 
 	 *         description=Description? 
 	 *         constants+=ValDeclaration* 
+	 *         computes+=ComputeDeclaration* 
 	 *         requirements+=SystemRequirement* 
 	 *         include+=IncludeGlobalRequirement* 
 	 *         docReference+=ExternalDocument* 
