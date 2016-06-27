@@ -1,0 +1,42 @@
+package org.osate.xtext.aadl2.properties.ui.builder
+
+import org.eclipse.core.resources.IFolder
+import org.eclipse.core.resources.IProject
+import org.eclipse.core.resources.IStorage
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.emf.common.util.URI
+import org.eclipse.xtext.builder.impl.IToBeBuiltComputerContribution
+import org.eclipse.xtext.builder.impl.ToBeBuilt
+
+class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContribution {
+	boolean virtualLibUpdated = false
+	
+	override removeProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) {
+	}
+	
+	override updateProject(ToBeBuilt toBeBuilt, IProject project, IProgressMonitor monitor) throws CoreException {
+	}
+	
+	override removeStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
+		false
+	}
+	
+	override updateStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
+		if (!virtualLibUpdated) {
+			toBeBuilt.toBeUpdated += URI.createPlatformPluginURI("/org.osate.xtext.aadl2.properties.ui/VTest.aadl", true)
+			virtualLibUpdated = true
+			true
+		} else {
+			false
+		}
+	}
+	
+	override isPossiblyHandled(IStorage storage) {
+		storage.fullPath.fileExtension == "aadl"
+	}
+	
+	override isRejected(IFolder folder) {
+		false
+	}
+}
