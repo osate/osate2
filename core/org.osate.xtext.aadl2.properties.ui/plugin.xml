@@ -203,6 +203,12 @@
          </command>
       </menuContribution>
    </extension>
+    <extension
+          point="org.eclipse.xtext.ui.shared.sharedStateContributingModule">
+       <module
+             class="org.osate.xtext.aadl2.properties.ui.PropertiesSharedStateContributingModule">
+       </module>
+    </extension>
 
 
 </plugin>

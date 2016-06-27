@@ -38,6 +38,7 @@ import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_
 import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_HANDLE;
 import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_KEY;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
@@ -59,7 +60,9 @@ import com.google.inject.Singleton;
 public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 
 	private final static Logger log = Logger.getLogger(Aadl2ProjectsStateHelper.class);
-
+	private final static String VIRTUAL_HANDLE = "$virtual_handle$";
+	private final static URI VTEST_URI = URI.createPlatformPluginURI("/org.osate.xtext.aadl2.properties.ui/VTest.aadl", true);
+	
 	private IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
 
 	@Override
@@ -68,6 +71,8 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 		if (uri.lastSegment().equals(AADL_PROJECT) && !uri.equals(URI.createPlatformResourceURI(path, true))) {
 			log.debug("skipped " + path);
 			return null;
+		} else if (uri.equals(VTEST_URI)) {
+			return VIRTUAL_HANDLE;
 		}
 		return super.initHandle(uri);
 	}
@@ -79,6 +84,8 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 			String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
 			result = Collections.singleton(URI.createPlatformResourceURI(path, true));
 			log.debug("added " + path);
+		} else if (containerHandle.equals(VIRTUAL_HANDLE)) {
+			result = Collections.singleton(VTEST_URI);
 		} else {
 			result = new HashSet<URI>();
 			for (URI uri : super.initContainedURIs(containerHandle)) {
@@ -92,14 +99,10 @@ public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
 
 	@Override
 	public List<String> initVisibleHandles(String handle) {
-		List<String> result = super.initVisibleHandles(handle);
+		List<String> result = new ArrayList<>(super.initVisibleHandles(handle));
 
-		// empty result list is immutable so we can't add to it
-		if (result.isEmpty()) {
-			result = Collections.singletonList(AADL_PROJECT_HANDLE);
-		} else {
-			result.add(AADL_PROJECT_HANDLE);
-		}
+		result.add(AADL_PROJECT_HANDLE);
+		result.add(VIRTUAL_HANDLE);
 		return result;
 	}
 
