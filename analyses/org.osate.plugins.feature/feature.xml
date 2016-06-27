@@ -2,7 +2,7 @@
 <feature
       id="org.osate.plugins.feature"
       label="Open Source AADL Tool Environment Analysis Plug-ins"
-      version="2.2.1.vupdate01"
+      version="2.2.1.vupdate02"
       provider-name="CMU-SEI"
       plugin="org.osate.branding"
       image="icons/osateupdate_120.jpg"
