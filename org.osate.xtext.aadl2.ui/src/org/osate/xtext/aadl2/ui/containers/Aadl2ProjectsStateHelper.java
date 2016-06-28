@@ -33,85 +33,43 @@
  */
 package org.osate.xtext.aadl2.ui.containers;
 
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_DEFAULT;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_HANDLE;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_KEY;
-
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.xtext.ui.containers.WorkspaceProjectsStateHelper;
-import org.osate.aadl2.modelsupport.Activator;
-import org.osate.core.AadlNature;
+import org.osate.pluginsupport.PluginSupportUtil;
 
 import com.google.inject.Singleton;
 
 @Singleton
 public class Aadl2ProjectsStateHelper extends WorkspaceProjectsStateHelper {
-
-	private final static Logger log = Logger.getLogger(Aadl2ProjectsStateHelper.class);
-	private final static String VIRTUAL_HANDLE = "$virtual_handle$";
-	private final static URI VTEST_URI = URI.createPlatformPluginURI("/org.osate.xtext.aadl2.properties.ui/VTest.aadl", true);
+	private final static String CONTRIBUTED_HANDLE = "$contributed_aadl_handle$";
+	private final static List<URI> CONTRIBUTED_AADL = PluginSupportUtil.getContributedAadl();
 	
-	private IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
-
 	@Override
 	public String initHandle(URI uri) {
-		String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
-		if (uri.lastSegment().equals(AADL_PROJECT) && !uri.equals(URI.createPlatformResourceURI(path, true))) {
-			log.debug("skipped " + path);
-			return null;
-		} else if (uri.equals(VTEST_URI)) {
-			return VIRTUAL_HANDLE;
+		if (CONTRIBUTED_AADL.contains(uri)) {
+			return CONTRIBUTED_HANDLE;
+		} else {
+			return super.initHandle(uri);
 		}
-		return super.initHandle(uri);
 	}
 
 	@Override
 	public Collection<URI> initContainedURIs(String containerHandle) {
-		Collection<URI> result;
-		if (containerHandle.equals(AADL_PROJECT_HANDLE)) {
-			String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
-			result = Collections.singleton(URI.createPlatformResourceURI(path, true));
-			log.debug("added " + path);
-		} else if (containerHandle.equals(VIRTUAL_HANDLE)) {
-			result = Collections.singleton(VTEST_URI);
+		if (containerHandle.equals(CONTRIBUTED_HANDLE)) {
+			return CONTRIBUTED_AADL;
 		} else {
-			result = new HashSet<URI>();
-			for (URI uri : super.initContainedURIs(containerHandle)) {
-				if (!uri.lastSegment().equals(AADL_PROJECT)) {
-					result.add(uri);
-				}
-			}
+			return super.initContainedURIs(containerHandle);
 		}
-		return result;
 	}
 
 	@Override
 	public List<String> initVisibleHandles(String handle) {
 		List<String> result = new ArrayList<>(super.initVisibleHandles(handle));
-
-		result.add(AADL_PROJECT_HANDLE);
-		result.add(VIRTUAL_HANDLE);
+		result.add(CONTRIBUTED_HANDLE);
 		return result;
-	}
-
-	protected boolean isAccessibleAadlProject(IProject project) {
-		try {
-			return isAccessibleXtextProject(project) && project.hasNature(AadlNature.ID);
-		} catch (CoreException e) {
-			log.error(e.getMessage(), e);
-		}
-		return false;
 	}
 }

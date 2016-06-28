@@ -509,17 +509,4 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 	}
 
 	private static Aadl2LinkingService eInstance = null;
-
-	@Deprecated
-	public static Aadl2LinkingService getAadl2LinkingService() {
-		if (eInstance == null) {
-			if (Platform.isRunning()) {
-				PredeclaredProperties.initPluginContributedAadl();
-			}
-			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(
-					PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + "/AADL_Project.aadl"));
-			eInstance = (Aadl2LinkingService) ((LazyLinkingResource) rsrc).getLinkingService();
-		}
-		return eInstance;
-	}
 }

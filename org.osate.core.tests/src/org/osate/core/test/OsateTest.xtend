@@ -32,9 +32,9 @@ import org.junit.After
 import org.junit.Before
 import org.junit.ComparisonFailure
 import org.osate.aadl2.ModelUnit
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties
 import org.osate.aadl2.modelsupport.util.AadlUtil
 import org.osate.core.AadlNature
+import org.osate.pluginsupport.PluginSupportUtil
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.junit.Assert.assertEquals
@@ -55,12 +55,11 @@ abstract class OsateTest extends XtextTest {
 
 	protected val workspaceRoot = ResourcesPlugin.workspace.root
 	
-	Set<String> pluginResourcesNames
+	Set<String> contributedAadlNames
 	
 	@Before
 	def setUp() {
 		createProject(projectName)
-		buildProject("Plugin_Resources", true)
 		setResourceRoot("platform:/resource/" + projectName)
 	}
 	
@@ -78,15 +77,12 @@ abstract class OsateTest extends XtextTest {
 		val project = workspaceRoot.getProject(projectName)
 		val operation = new WorkspaceModifyOperation() {
 			override def execute(IProgressMonitor monitor) {
-				PredeclaredProperties.initPluginContributedAadl
-				val plugin_resources = pluginResources
 				if (!project.exists) {
 					project.create(monitor)
 					project.open(monitor)
 
 					val description = project.getDescription
 					description.natureIds = #["org.eclipse.xtext.ui.shared.xtextNature", AadlNature.ID]
-					description.referencedProjects = #[plugin_resources]
 					project.setDescription(description, monitor)
 
 					for (srcDir : srcDirs) {
@@ -115,7 +111,6 @@ abstract class OsateTest extends XtextTest {
 	 * Build the named project. Optionally wait until the build is done.
 	 */
 	def buildProject(String name, boolean wait) {
-		pluginResources
 		val project = workspaceRoot.getProject(name)
 		Assert.isTrue(project.exists, "Project " + name + " does not exist in the workspace")
 		buildProject(project, wait)
@@ -125,7 +120,6 @@ abstract class OsateTest extends XtextTest {
 	 * Build a given project. Optionally wait until the build is done.
 	 */
 	def buildProject(IProject project, boolean wait) {
-		pluginResources
 		try {
 			project.build(IncrementalProjectBuilder.CLEAN_BUILD, null)
 		} catch (CoreException e) {
@@ -135,20 +129,6 @@ abstract class OsateTest extends XtextTest {
 		if (wait) {
 			waitForBuild
 		}
-	}
-
-	/**
-	 * Check if plugin resources exists, wait up to 10s. Return project.
-	 */
-	def getPluginResources() {
-		val project = workspaceRoot.getProject(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)
-		var int i;
-		for (; !project.exists && i < 20; i++) {
-			Thread.sleep(500);
-		}
-		Assert.isTrue(project.exists,
-			"Project " + PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + " does not exist in the workspace")
-		project
 	}
 
 	/**
@@ -233,9 +213,8 @@ abstract class OsateTest extends XtextTest {
 	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
 		boolean scopingForModelUnits, Iterable<String> expected
 	) {
-		if (pluginResourcesNames == null) {
-			pluginResourcesNames = pluginResources.allMembers.filter(IFile).filter[name.toLowerCase.endsWith(".aadl")].map[
-				val uri = URI.createPlatformResourceURI(it.fullPath.toString, false)
+		if (contributedAadlNames == null) {
+			contributedAadlNames = PluginSupportUtil.contributedAadl.map[uri |
 				val modelUnit = context.eResource.resourceSet.getResource(uri, true).contents.head as ModelUnit
 				modelUnit.name.toLowerCase
 			].toSet
@@ -248,7 +227,7 @@ abstract class OsateTest extends XtextTest {
 			} else {
 				substring(0, separatorIndex)
 			}
-			modelUnitName.predeclaredPropertySet || !pluginResourcesNames.contains(modelUnitName.toLowerCase)
+			modelUnitName.predeclaredPropertySet || !contributedAadlNames.contains(modelUnitName.toLowerCase)
 		].sortWith(CUSTOM_NAME_COMPARATOR).join(", ")
 		expectedNames.assertEquals(actualNames)
 	}
