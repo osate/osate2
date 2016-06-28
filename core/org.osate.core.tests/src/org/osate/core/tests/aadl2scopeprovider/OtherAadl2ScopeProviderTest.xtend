@@ -593,13 +593,18 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    asub1: abstract a1;
 			    asub2: abstract a2;
 			    asub3: abstract a2;
+			  calls
+			    sequence1: {
+			      call1: subprogram subp1;
+			      call2: subprogram subp2;
+			    };
 			  connections
 			  	portconn1: port ep1 -> asub1.ep1 in modes (m1, m2, mt1, mt2);
 			  	portconn2: port asub2.ep2 -> asub3.ep3;
 			  	aconn1: data access da1 -> asub1.da1 in modes (m1, m2, mt1, mt2);
 			    fgconn1: feature group fg1 <-> fg1 in modes (m1, m2, mt1, mt2);
 			    fconn1: feature fg1 -> asub1.fg1 in modes (m1, m2, mt1, mt2);
-			    paramconn1: parameter da1 -> da1 in modes (m1, m2, mt1, mt2);
+			    paramconn1: parameter call1.param1 -> call2.param2 in modes (m1, m2, mt1, mt2);
 			  flows
 			    ete1: end to end flow asub2.fsource1 -> portconn2 -> asub3.fsink1 in modes (m1, m2, mt1, mt2);
 			  modes
@@ -636,6 +641,16 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    fsource1: flow source ep2 in modes (m5, m6, m7, mt5, mt6, mt7);
 			    fsink1: flow sink ep3 in modes (m5, m6, m7, mt5, mt6, mt7);
 			  end a2.i;
+			  
+			  subprogram subp1
+			  features
+			    param1: out parameter;
+			  end subp1;
+			  
+			  subprogram subp2
+			  features
+			    param2: in parameter;
+			  end subp2;
 			end pack;
 		'''.parse as AadlPackage) => [
 			assertNoIssues

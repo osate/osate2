@@ -176,7 +176,7 @@ abstract class OsateTest extends XtextTest {
 			jobManager.join(ResourcesPlugin.FAMILY_AUTO_BUILD, null);
 			jobManager.join(ResourcesPlugin.FAMILY_MANUAL_BUILD, null);
 		} catch (InterruptedException e) {
-			// just continue
+			waitForBuild
 		}
 	}
 
