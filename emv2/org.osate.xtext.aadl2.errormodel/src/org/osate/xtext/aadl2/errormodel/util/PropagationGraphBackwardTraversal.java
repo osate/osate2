@@ -308,8 +308,7 @@ public class PropagationGraphBackwardTraversal {
 			AllExpression allCondition = (AllExpression) condition;
 			if (allCondition.getCount() == 0) {
 				preProcessAnd(component, condition, type, scale);
-				AndExpression expression = (AndExpression) condition;
-				for (ConditionExpression ce : expression.getOperands()) {
+				for (ConditionExpression ce : allCondition.getOperands()) {
 					EObject res = processCondition(component, ce, type, scale);
 					if (res != null) {
 						subResults.add(res);
