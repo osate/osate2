@@ -37,13 +37,10 @@ package org.osate.xtext.aadl2.properties.linking;
 import java.util.Collections;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
@@ -117,8 +114,6 @@ import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.aadl2.util.Aadl2ResourceImpl;
@@ -135,19 +130,6 @@ public class PropertiesLinkingService extends DefaultLinkingService {
 
 	public PropertiesLinkingService() {
 		super();
-	}
-
-	@Deprecated
-	public static PropertiesLinkingService getPropertiesLinkingService() {
-		if (eInstance == null) {
-			if (Platform.isRunning()) {
-				PredeclaredProperties.initPluginContributedAadl();
-			}
-			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(
-					PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + "/AADL_Project.aadl"));
-			eInstance = (PropertiesLinkingService) ((LazyLinkingResource) rsrc).getLinkingService();
-		}
-		return eInstance;
 	}
 
 	@Deprecated

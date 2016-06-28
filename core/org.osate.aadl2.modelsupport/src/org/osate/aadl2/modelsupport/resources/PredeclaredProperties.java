@@ -3,9 +3,6 @@ package org.osate.aadl2.modelsupport.resources;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.commands.ExecutionException;
@@ -32,17 +29,12 @@ import org.eclipse.osgi.util.NLS;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.internal.ide.IDEWorkbenchPlugin;
-import org.eclipse.xtext.ui.XtextProjectHelper;
 import org.osate.aadl2.modelsupport.Activator;
-import org.osate.core.AadlNature;
 import org.osate.pluginsupport.PluginSupportUtil;
 import org.osgi.service.prefs.BackingStoreException;
 
 @SuppressWarnings("restriction")
 public class PredeclaredProperties {
-
-	private static boolean isInitialized = false;
-
 	public static final String PLUGIN_RESOURCES_PROJECT_NAME = "Plugin_Resources";
 	public static final String AADL_PROJECT = "AADL_Project.aadl";
 	public static final String AADL_PROJECT_HANDLE = "$aadl_project$";
@@ -51,184 +43,6 @@ public class PredeclaredProperties {
 	public static final String AADL_PROJECT_DEFAULT = "/" + PLUGIN_RESOURCES_PROJECT_NAME + "/" + AADL_PROJECT_RELPATH;
 
 	private final static Logger log = Logger.getLogger(PredeclaredProperties.class);
-
-	/**
-	 * update unmodified plugin resources. If not present, create them.
-	 */
-	public static void updatePluginContributedAadl() {
-		isInitialized = false;
-		doInitPluginContributedAadl(false);
-	}
-
-	/**
-	 * reset plugin resources to originals. If not present, create them.
-	 */
-	public static void resetPluginContributedAadl() {
-		isInitialized = false;
-		doInitPluginContributedAadl(true);
-		try {
-			setAadlProject(getPluginResourcesProject().findMember(AADL_PROJECT_RELPATH));
-		} catch (ExecutionException e) {
-			Activator.logThrowable(e);
-			Activator.logErrorMessage("Cannot set AADL_Project preference.");
-		}
-	}
-
-	/**
-	 * force plugin resources to be the original ones.
-	 */
-	public static void initPluginContributedAadl() {
-		if (isInitialized) {
-			return;
-		}
-		doInitPluginContributedAadl(false);
-	}
-
-	public static void doInitPluginContributedAadl(final boolean forceOriginal) {
-
-		try {
-			if (existsPluginResourcesProject() && !isOpenPluginResourcesProject()) {
-
-				Activator.logErrorMessage("Cannot access plugin property sets predeclared properties. The project '"
-						+ PLUGIN_RESOURCES_PROJECT_NAME + "' is closed.");
-				isInitialized = true;
-				return;
-			}
-			new WorkspaceModifyOperation() {
-				@Override
-				protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException {
-					try {
-						if (forceOriginal) {
-							deletePluginResourcesProject();
-						}
-						IProject pluginResourcesProject = createPluginResourcesProject();
-						if (pluginResourcesProject.isOpen()) {
-							for (URI contributedResourceUri : PluginSupportUtil.getContributedAadl()) {
-								StringBuilder resourceName = new StringBuilder(50);
-								String[] segs = contributedResourceUri.segments();
-								int i = 2;
-								while (true) {
-									String seg = segs[i].toLowerCase();
-									if (seg.startsWith("resource") || seg.startsWith("package")
-											|| seg.startsWith("propert")) {
-										i++;
-									} else {
-										break;
-									}
-								}
-								for (; i < segs.length - 1; i++) {
-									resourceName.append(segs[i]);
-									resourceName.append("/");
-								}
-								resourceName.append(segs[i]);
-								IFile contributedResourceInWorkspace = pluginResourcesProject
-										.getFile(resourceName.toString());
-								// exists() is true even though the file doesn't exist!
-								if (!contributedResourceInWorkspace.exists()
-										|| contributedResourceInWorkspace.getResourceAttributes() == null
-										|| forceOriginal
-										|| contributedResourceInWorkspace.getResourceAttributes().isReadOnly()) {
-									try {
-										copyContributedResourceIntoWorkspace(contributedResourceUri,
-												contributedResourceInWorkspace);
-										// delete obsolete old file in project root
-										if (contributedResourceInWorkspace.getParent() != pluginResourcesProject) {
-											String oldName = contributedResourceUri.lastSegment();
-											IFile oldFile = pluginResourcesProject.getFile(oldName);
-											if (oldFile.exists()) {
-												ResourceAttributes attributes = contributedResourceInWorkspace
-														.getResourceAttributes();
-												attributes.setReadOnly(false);
-												oldFile.delete(true, monitor);
-											}
-										}
-									} catch (Exception e) {
-									}
-								}
-							}
-						}
-
-						// DB Avoid removing the project's current natures.
-						final IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
-								.getDescription();
-						final Set<String> newNatures = new HashSet<String>(
-								Arrays.asList(pluginResourcesProjectDescription.getNatureIds()));
-						newNatures.add(XtextProjectHelper.NATURE_ID);
-						newNatures.add(AadlNature.ID);
-						pluginResourcesProjectDescription
-								.setNatureIds(newNatures.toArray(new String[newNatures.size()]));
-						pluginResourcesProject.setDescription(pluginResourcesProjectDescription, null);
-					} catch (IOException e) {
-						throw new InvocationTargetException(e);
-					}
-				}
-			}.run(null);
-			isInitialized = true;
-		} catch (InvocationTargetException e) {
-			Activator.logThrowable(e.getCause());
-			Activator.logErrorMessage("Cannot load plugin property sets and packages.");
-		} catch (InterruptedException e) {
-			Activator.logThrowable(e);
-			Activator.logErrorMessage("Cannot load plugin property sets and packages.");
-		}
-	}
-
-	private static boolean existsPluginResourcesProject() {
-		IProject pluginResourcesProject = getPluginResourcesProject();
-		return pluginResourcesProject.exists();
-	}
-
-	private static boolean isOpenPluginResourcesProject() {
-		IProject pluginResourcesProject = getPluginResourcesProject();
-		return pluginResourcesProject.exists() && pluginResourcesProject.isOpen();
-	}
-
-	private static IProject createPluginResourcesProject() throws CoreException, IOException {
-		IProject pluginResourcesProject = getPluginResourcesProject();
-		if (!pluginResourcesProject.exists()) {
-			try {
-				pluginResourcesProject.create(null);
-				pluginResourcesProject.open(null);
-				pluginResourcesProject.refreshLocal(1, null);
-
-				/*
-				 * We really should just have the following line:
-				 * AadlNature.addNature(pluginResourcesProject, null);
-				 * 
-				 * This cannot be done because it would introduce a cycle in the
-				 * plugin dependencies. Perhaps this can be cleaned up at a
-				 * later date, but this solution is good enough for now.
-				 */
-//				IProjectDescription pluginResourcesProjectDescription = pluginResourcesProject
-//						.getDescription();
-//				pluginResourcesProjectDescription
-//						.setNatureIds(new String[] { "edu.cmu.sei.osate.core.aadlnature" , XtextProjectHelper.NATURE_ID});
-//				pluginResourcesProject.setDescription(
-//						pluginResourcesProjectDescription, null);
-			} catch (CoreException e) {
-				if (pluginResourcesProject.exists()) {
-					try {
-						pluginResourcesProject.delete(true, true, null);
-					} catch (CoreException ex) {
-						// Ignore this exception.
-					}
-				}
-				throw e;
-			}
-		}
-		return pluginResourcesProject;
-	}
-
-	private static void deletePluginResourcesProject() {
-		IProject pluginResourcesProject = getPluginResourcesProject();
-		if (pluginResourcesProject.exists()) {
-			try {
-				pluginResourcesProject.delete(true, true, null);
-			} catch (Exception ex) {
-				// Ignore this exception.
-			}
-		}
-	}
 
 	private static void copyContributedResourceIntoWorkspace(URI contributedResourceUri,
 			IFile contributedResourceInWorkspace) {
