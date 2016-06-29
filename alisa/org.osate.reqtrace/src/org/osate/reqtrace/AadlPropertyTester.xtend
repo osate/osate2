@@ -55,8 +55,13 @@ class AadlPropertyTester extends PropertyTester {
 		switch receiver {
 			IFile case property == "isAadlPackage" && receiver.fullPath.fileExtension == "aadl": {
 				val uri = URI.createPlatformResourceURI(receiver.fullPath.toString, false)
-				val resource = resourceSetProvider.get.getResource(uri, true)
-				resource?.contents?.head instanceof AadlPackage
+				try {
+					val resource = resourceSetProvider.get.getResource(uri, true)
+					resource?.contents?.head instanceof AadlPackage
+				} catch (Exception e) {
+					//If we could not load the resource, then the test simply fails.
+					false
+				}
 			}
 			default: false
 		}
