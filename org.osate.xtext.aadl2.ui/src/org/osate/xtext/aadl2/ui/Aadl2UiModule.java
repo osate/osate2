@@ -39,6 +39,7 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
@@ -46,6 +47,7 @@ import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
+import org.osate.xtext.aadl2.ui.resource.Aadl2Storage2UriMapper;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -113,7 +115,11 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	public Class<? extends IContentAssistProcessor> bindIContentAssistProcessor() {
 		return AnnexAwareContentAssistProcessor.class;
 	}
-
+	
+	public Class<? extends IStorage2UriMapper> bindIStorage2UriMapper() {
+		return Aadl2Storage2UriMapper.class;
+	}
+	
 // FIXME: Formatting doesn't work for classifier: no newline before, no indentation for end <name>
 //	public Class<? extends ITextEditComposer> bindITextEditComposer() {
 //		return FormattingTextEditComposer.class;
