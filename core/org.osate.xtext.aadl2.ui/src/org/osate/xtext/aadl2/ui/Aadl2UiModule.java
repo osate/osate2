@@ -39,11 +39,13 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
+import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
+import org.osate.xtext.aadl2.ui.editor.model.Aadl2ResourceForEditorInputFactory;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
 import org.osate.xtext.aadl2.ui.refactoring.impl.Aadl2RenameStrategy;
@@ -118,6 +120,11 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 	
 	public Class<? extends IStorage2UriMapper> bindIStorage2UriMapper() {
 		return Aadl2Storage2UriMapper.class;
+	}
+	
+	@Override
+	public Class<? extends IResourceForEditorInputFactory> bindIResourceForEditorInputFactory() {
+		return Aadl2ResourceForEditorInputFactory.class;
 	}
 	
 // FIXME: Formatting doesn't work for classifier: no newline before, no indentation for end <name>
