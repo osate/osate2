@@ -17,6 +17,7 @@ package org.osate.reqspec.reqSpec;
 
 import org.eclipse.emf.common.util.EList;
 
+import org.osate.alisa.common.common.AVariableDeclaration;
 import org.osate.alisa.common.common.ValDeclaration;
 
 /**
@@ -30,6 +31,7 @@ import org.osate.alisa.common.common.ValDeclaration;
  * <ul>
  *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getImportConstants <em>Import Constants</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getConstants <em>Constants</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getRequirements <em>Requirements</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.RequirementSet#getStakeholderGoals <em>Stakeholder Goals</em>}</li>
  * </ul>
@@ -71,6 +73,22 @@ public interface RequirementSet extends ReqRoot
    * @generated
    */
   EList<ValDeclaration> getConstants();
+
+  /**
+   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Computes</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirementSet_Computes()
+   * @model containment="true"
+   * @generated
+   */
+  EList<AVariableDeclaration> getComputes();
 
   /**
    * Returns the value of the '<em><b>Requirements</b></em>' containment reference list.
