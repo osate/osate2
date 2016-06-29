@@ -33,33 +33,19 @@
  */
 package org.osate.ui.navigator;
 
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_DEFAULT;
-import static org.osate.aadl2.modelsupport.resources.PredeclaredProperties.AADL_PROJECT_KEY;
-
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.preferences.IEclipsePreferences;
-import org.eclipse.core.runtime.preferences.InstanceScope;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.jface.viewers.DecoratingLabelProvider;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PrivatePackageSection;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.PublicPackageSection;
 import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.modelsupport.Activator;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
@@ -72,13 +58,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public String getText(Object element) {
 		StringBuilder text = new StringBuilder(super.getText(element));
-		if (element instanceof IFile) {
-			IFile file = (IFile) element;
-			if (file.getProject().getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)
-					&& !file.getResourceAttributes().isReadOnly()) {
-				text.append(" (Modified)");
-			}
-		} else if (element instanceof PublicPackageSection) {
+		if (element instanceof PublicPackageSection) {
 			text.append("Public Package Section");
 		} else if (element instanceof PrivatePackageSection) {
 			text.append("Private Package Section");
@@ -95,10 +75,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public Image getImage(Object element) {
 		Image image;
-		if (element instanceof IProject
-				&& ((IProject) element).getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
-			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
-		} else if (element instanceof PropertyType) {
+		if (element instanceof PropertyType) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);
 		} else if (element instanceof InstanceObject) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);
@@ -108,19 +85,6 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 			image = super.getImage(element);
 		}
 		return decorateImage(image, element);
-	}
-
-	@Override
-	public Color getForeground(Object element) {
-		if (element instanceof IFile) {
-			IEclipsePreferences prefs = InstanceScope.INSTANCE.getNode(Activator.PLUGIN_ID);
-			URI uri = URI.createPlatformResourceURI(((IFile) element).getFullPath().toString(), true);
-			String path = prefs.get(AADL_PROJECT_KEY, AADL_PROJECT_DEFAULT);
-			if (uri.lastSegment().equals(AADL_PROJECT) && !uri.equals(URI.createPlatformResourceURI(path, true))) {
-				return Display.getCurrent().getSystemColor(SWT.COLOR_GRAY);
-			}
-		}
-		return super.getForeground(element);
 	}
 
 	private Image decorateImage(Image image, Object obj) {

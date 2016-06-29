@@ -37,8 +37,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.model.WorkbenchContentProvider;
@@ -53,7 +51,6 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 
 public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
@@ -63,18 +60,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
 	@Override
 	public Object[] getChildren(Object element) {
-		if (element instanceof IProject) {
-			IProject project = (IProject) element;
-			if (project.getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
-				try {
-					// DB: Fix
-					return project.members();
-					// return project.getFolder(WorkspacePlugin.DEFAULT_SOURCE_DIR).members();
-				} catch (CoreException e) {
-					// Do Nothing.
-				}
-			}
-		} else if (element instanceof IFile) {
+		if (element instanceof IFile) {
 			IFile modelFile = (IFile) element;
 			if (AADL_EXT.equals(modelFile.getFileExtension())) {
 				EList<EObject> contents = OsateResourceUtil.getResource(modelFile).getContents();
