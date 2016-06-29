@@ -329,9 +329,6 @@
          		<instanceof value= "org.osate.aadl2.NamedElement" />
          	</or>
          </possibleChildren>
-		<actionProvider
-			class="org.osate.ui.navigator.AadlNavigatorActionGroup">
-		</actionProvider>
 		  <enablement>
 		  </enablement>
 		  
@@ -469,39 +466,4 @@
           </adapt>
        </definition>
     </extension>
-    <extension
-          point="org.eclipse.ui.menus">
-       <menuContribution
-             allPopups="false"
-             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
-          <command
-                commandId="org.osate.ui.setAadlProjectProperties"
-                label="Set as AADL_Project property set"
-                style="push">
-             <visibleWhen>
-                <with variable="selection">
-                   <iterate
-                         ifEmtpy="false">
-                      <reference definitionId="org.osate.is_aadl_project_propertyset"/>
-                   </iterate>
-                </with>
-             </visibleWhen>
-          </command>
-       </menuContribution>
-    </extension>
-    <extension
-          point="org.eclipse.ui.commands">
-       <command
-             id="org.osate.ui.setAadlProjectProperties"
-             name="Set as AADL_Project property set">
-       </command>
-    </extension>
-    <extension
-          point="org.eclipse.ui.handlers">
-       <handler
-             class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
-             commandId="org.osate.ui.setAadlProjectProperties">
-       </handler>
-    </extension>
-
 </plugin>
