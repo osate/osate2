@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="adding-support-for-a-new-business-object">Adding Support for a new Business Object</h1>
+<p><strong>This capability is currently in development. The documentation will be updated as the extension points are finalized.</strong></p>
+<p>Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by pictogram elements inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.</p>
+<h2 id="reference-builders-and-reference-resolvers">Reference Builders and Reference Resolvers</h2>
+<p>Referenced Builders and Reference Resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object. Reference resolvers are used to retrieve a business object using the previously generated reference.</p>
+<p>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference builder and resolver. A single reference builder/resolver pair may handle multiple types of business objects.</p>
+<h3 id="reference-builders">Reference Builders</h3>
+<p>In addition to building references, reference builders may optionally produce a user friendly title for a business object. It may also provide the ability to determine the project to which the business object belongs. The latter capabilities are required when the object may serve as the root business object for a diagram.</p>
+<p>The DeclarativeReferenceBuilder class may be used as an example of a reference builder.</p>
+<h4 id="required-annotations">Required Annotations:</h4>
+<ul>
+<li>BuildReference</li>
+</ul>
+<h4 id="optional-annotations">Optional Annotations:</h4>
+<ul>
+<li>GetProject</li>
+<li>GetTitle</li>
+</ul>
+<h4 id="supported-named-parameters">Supported named parameters:</h4>
+<ul>
+<li>BUSINESS_OBJECT(BuildReference)</li>
+</ul>
+<h3 id="reference-resolvers">Reference Resolvers</h3>
+<p>The DeclarativeReferenceResolver class may be used as an example of a reference resolver.</p>
+<p>Reference resolvers differ from reference builders and other extensions in a couple ways.</p>
+<ul>
+<li>Instances are not shared between diagrams.</li>
+<li>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</li>
+</ul>
+<h4 id="required-annotations-1">Required Annotations:</h4>
+<ul>
+<li>ResolveReference</li>
+</ul>
+<h4 id="optional-annotations-1">Optional Annotations:</h4>
+<ul>
+<li>PreDestroy</li>
+</ul>
+<h4 id="supported-named-parameters-1">Supported named parameters:</h4>
+<ul>
+<li>REFERENCE(ResolveReference)</li>
+</ul>
+</body>
+</html>

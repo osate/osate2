@@ -8,6 +8,7 @@
   <!-- Define base properties -->
   <property name="input.dir" value="input" />
   <property name="output.dir" value="output" />
+  <property name="dev_guide_output.dir" value="dev_guide_output" />
   <property name="docbook.xsl.dir" value="docbook-xsl-1.76.1" />
   <property name="html.stylesheet" value="${docbook.xsl.dir}/html/docbook.xsl" />
   <property name="eclipse.stylesheet" value="${docbook.xsl.dir}/eclipse/eclipse3.xsl" />
@@ -25,6 +26,7 @@
   <!-- - target: clean -->
   <target name="clean" description="Cleans up generated files.">
 <delete dir="${output.dir}" />
+<delete dir="${dev_guide_output.dir}" />
   </target>
 
   <!-- - target: depends -->
@@ -33,7 +35,7 @@
 <mkdir dir="${output.dir}/images" />
   </target>
 
-  <target name="build-help" depends="clean, createtargetdir"
+  <target name="build-help" depends="clean, createtargetdir, build_dev_guide"
 description="Generates eclipse help files">
 <echo message="Building output" />
 
@@ -59,5 +61,22 @@ description="Generates eclipse help files">
   <classpath refid="saxon.class.path" />
 </xslt>
   </target>
-
+	
+   <target name="build_dev_guide" description="Build the developer guide">
+	<mkdir dir="${dev_guide_output.dir}" />
+	<mkdir dir="${dev_guide_output.dir}/images" />
+   	
+   	<apply executable="pandoc" dest="./dev_guide_output/" parallel="false">
+        <srcfile/>
+    	<arg value="-s"/>
+   		<arg value="-f"/>
+   	    <arg value="markdown"/>
+   		<arg value="-t"/>
+   		<arg value="html5"/>
+   		<arg value="-o"/>
+   		<targetfile/>	
+        <fileset dir="./dev_guide" includes="*.md"/>
+   		<mapper type="glob" from="*.md" to="*.html"/>
+    </apply>
+   </target>
 </project> 
