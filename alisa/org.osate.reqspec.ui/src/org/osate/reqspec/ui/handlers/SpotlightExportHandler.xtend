@@ -16,6 +16,8 @@ import org.eclipse.ui.handlers.HandlerUtil
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
+import org.osate.categories.categories.Category
+import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
@@ -92,7 +94,7 @@ class SpotlightExportHandler extends AbstractHandler {
 	def String generateRequirementsList(SystemInstance systemInstance){
 		systemInstance.getAllContents(true).filter(ComponentInstance).join(LINE_SEPARATOR, 
 			[compInst |
-					compInst.fullName + reqSpecrefFinder.getAllRequirements(compInst).
+					compInst.fullName + reqSpecrefFinder.getAllRequirements(compInst).filter[req | req.ssp].
 							join(COMMA, LINE_SEPARATOR + compInst.fullName + COMMA, "", 
 									[ name + COMMA + 
 										if(it.changeUncertainty == null) {""} 
@@ -102,6 +104,20 @@ class SpotlightExportHandler extends AbstractHandler {
 			]
 		)
 	}
+	
+	def boolean isSsp(Requirement req){
+		val ssp = (#["safety", "security", "performance"]).toSet
+		val categories = req.category
+		val iterator = categories.iterator
+		while(iterator.hasNext){
+			var nextCat = iterator.next as Category
+			if (ssp.contains(nextCat.name.toLowerCase)) {
+				return true
+			}
+		}
+		false
+	}
+	
 	
 	def IFolder getSpotlightFolder(IProject project){
 		if (project.exists() && !project.isOpen()) {
