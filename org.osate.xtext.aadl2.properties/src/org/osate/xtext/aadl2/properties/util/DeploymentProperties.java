@@ -58,5 +58,6 @@ public final class DeploymentProperties {
 
 	public static final String NOT_COLLOCATED = "Not_Collocated";
 	public static final String SCHEDULING_PROTOCOL = "Scheduling_Protocol";
+	public static final String CONCURRENCY_CONTROL_PROTOCOL = "Concurrency_Control_Protocol";
 	public static final String REQUIRED_CONNECTION = "Required_Connection";
 }
