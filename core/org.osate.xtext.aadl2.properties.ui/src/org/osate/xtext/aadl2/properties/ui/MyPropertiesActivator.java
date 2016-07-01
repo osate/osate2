@@ -50,13 +50,7 @@ import org.osgi.framework.BundleContext;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class MyPropertiesActivator extends PropertiesActivator implements org.eclipse.ui.IStartup {
-
-	@Override
-	public void earlyStartup() {
-		new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
-	};
-
+public class MyPropertiesActivator extends PropertiesActivator {
 	@Inject
 	private ResourceDescriptionsProvider rdp;
 
