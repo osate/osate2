@@ -1118,7 +1118,7 @@ public class GetProperties {
 	public static String getConcurrencyControlProtocol(final NamedElement ne) {
 		try {
 			Property concurrencyControlProtocol = lookupPropertyDefinition(ne, ThreadProperties._NAME,
-					DeploymentProperties.SCHEDULING_PROTOCOL);
+					DeploymentProperties.CONCURRENCY_CONTROL_PROTOCOL);
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(concurrencyControlProtocol);
 			for (PropertyExpression propertyExpression : propertyValues) {
 				return ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
