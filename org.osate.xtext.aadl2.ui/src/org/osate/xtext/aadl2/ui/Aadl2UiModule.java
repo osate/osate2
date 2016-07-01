@@ -43,12 +43,14 @@ import org.eclipse.xtext.ui.LanguageSpecific;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.eclipse.xtext.ui.editor.autoedit.AbstractEditStrategyProvider;
 import org.eclipse.xtext.ui.editor.model.IResourceForEditorInputFactory;
+import org.eclipse.xtext.ui.editor.model.XtextDocumentProvider;
 import org.eclipse.xtext.ui.resource.IStorage2UriMapper;
 import org.eclipse.xtext.ui.shared.Access;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
 import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
 import org.osate.xtext.aadl2.ui.contentassist.AnnexAwareContentAssistProcessor;
 import org.osate.xtext.aadl2.ui.editor.Aadl2LanguageSpecificURIEditorOpener;
+import org.osate.xtext.aadl2.ui.editor.model.Aadl2DocumentProvider;
 import org.osate.xtext.aadl2.ui.editor.model.Aadl2ResourceForEditorInputFactory;
 import org.osate.xtext.aadl2.ui.editor.occurrences.Aadl2OccurrenceComputer;
 import org.osate.xtext.aadl2.ui.outline.Aadl2OutlinePage;
@@ -138,6 +140,10 @@ public class Aadl2UiModule extends org.osate.xtext.aadl2.ui.AbstractAadl2UiModul
 		if (PlatformUI.isWorkbenchRunning()) {
 			binder.bind(IURIEditorOpener.class).annotatedWith(LanguageSpecific.class).to(Aadl2LanguageSpecificURIEditorOpener.class);
 		}
+	}
+	
+	public Class<? extends XtextDocumentProvider> bindXtextDocumentProvider() {
+		return Aadl2DocumentProvider.class;
 	}
 	
 // FIXME: Formatting doesn't work for classifier: no newline before, no indentation for end <name>
