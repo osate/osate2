@@ -2,12 +2,6 @@
 <?eclipse version="3.0"?>
 
 <plugin>
-<extension
-      point="org.eclipse.ui.startup">
-   <startup
-         class="org.osate.xtext.aadl2.properties.ui.PropertiesUiStartup">
-   </startup>
-</extension>
     <extension
             point="org.eclipse.ui.editors">
         <editor
