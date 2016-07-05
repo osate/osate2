@@ -12,7 +12,11 @@ import java.util.Objects;
 
 import org.osate.ge.internal.SimplePaletteEntry;
 
-public class PaletteEntryBuilder {
+/**
+ * Builder for creating palette entries. 
+ * @noextend
+ */
+public final class PaletteEntryBuilder {
 	private SimplePaletteEntry.Type type = SimplePaletteEntry.Type.CREATE;
 	private String category;
 	private String label;
@@ -21,40 +25,93 @@ public class PaletteEntryBuilder {
 	
 	private PaletteEntryBuilder() {}
 	
+	/**
+	 * Creates a new palette entry builder
+	 * @return a new palette entry builder
+	 */
 	public static PaletteEntryBuilder create() {
 		return new PaletteEntryBuilder();
 	}
 	
+	/**
+	 * Configures the PaletteEntryBuilder to create a palette entry for creating a business object based on an owner business object.
+	 * Such a palette entry is most often used to create business objects represented by shapes.
+	 * @return the palette entry builder on which the method was invoked to allow method chaining.
+	 * @see org.osate.ge.di.Names#OWNER_BO
+	 * @see org.osate.ge.di.GetCreateOwner
+	 * @see org.osate.ge.di.CanCreate
+	 * @see org.osate.ge.di.Create
+	 */
 	public PaletteEntryBuilder creation() {
 		this.type = SimplePaletteEntry.Type.CREATE;
 		return this;
 	}
 	
+	/**
+	 * Configures the PaletteEntryBuilder to create a palette entry for creating a business object based on a source and a destination business object.
+	 * Such a palette entry is most often used to create business objects represented by connections.
+	 * @return the palette entry builder on which the method was invoked to allow method chaining.
+	 * @see org.osate.ge.di.Names#SOURCE_BO
+	 * @see org.osate.ge.di.Names#DESTINATION_BO
+	 * @see org.osate.ge.di.GetCreateOwner
+	 * @see org.osate.ge.di.CanCreate
+	 * @see org.osate.ge.di.Create
+	 */
 	public PaletteEntryBuilder connectionCreation() {
 		this.type = SimplePaletteEntry.Type.CREATE_CONNECTION;
 		return this;
 	}
 	
+	/**
+	 * Configures the palette entry builder to create a palette entry with the specified label.
+	 * @param label the label to use when creating the palette entry
+	 * @return the palette entry builder on which the method was invoked to allow method chaining.
+	 */
 	public PaletteEntryBuilder label(final String label) {
 		this.label = Objects.requireNonNull(label, "label must not be null");
 		return this;
 	}
 
+	/**
+	 * Configures the palette entry builder to create a palette entry with the specified category. The category id must be the id of built-in category 
+	 * as provided by the {@link Categories} class or a category id registered using the org.osate.ge.categories extension point.
+	 * @param category the id of the category to use when creating the palette entry
+	 * @return the palette entry builder on which the method was invoked to allow method chaining.
+	 * @see Categories
+	 */
 	public PaletteEntryBuilder category(final String category) {
 		this.category = category;
 		return this;
 	}
 	
+	/**
+	 * Configures the palette entry builder to create a palette entry which uses the specified image as its icon. 
+	 * The image id must be one which has been registered using the org.osate.ge.images extension point. 
+	 * @param imageId the id of the category to use when creating the palette entry
+	 * @return the palette entry builder on which the method was invoked to allow method chaining.
+	 */
 	public PaletteEntryBuilder icon(final String imageId) {
 		this.imageId = imageId;
 		return this;
 	}
 	
+	
+	/**
+	 * Configures the palette entry builder to create a palette entry with the specified context. 
+	 * The context may be any object. It is passed to the business object handler when the palette entry is used.
+	 * @param context the context to use when creating the palette entry.
+	 * @return the palette entry builder on which the method was invoked to allow method chaining.
+	 * @see org.osate.ge.di.Names#PALETTE_ENTRY_CONTEXT
+	 */
 	public PaletteEntryBuilder context(final Object context) {
 		this.context = context;
 		return this;
 	}
 	
+	/**
+	 * Creates a PaletteEntry object based on the current state of the PaleetteEntryBuilder
+	 * @return the newly created PaletteEntry object
+	 */
 	public PaletteEntry build() {
 		return new SimplePaletteEntry(category, type, label, imageId, context);
 	}

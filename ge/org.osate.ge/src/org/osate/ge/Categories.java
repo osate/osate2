@@ -8,6 +8,11 @@
  *******************************************************************************/
 package org.osate.ge;
 
+/**
+ * Contains constants whose values are the id's of built-in categories.
+ * @noimplement
+ * @see PaletteEntryBuilder#category(String)
+ */
 public interface Categories {
 	public static final String CLASSIFIERS = "org.osate.ge.categories.classifiers";
 	public static final String CONNECTIONS = "org.osate.ge.categories.connections";

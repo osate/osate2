@@ -11,11 +11,14 @@ package org.osate.ge;
 import org.eclipse.emf.ecore.EObject;
 
 /**
- * Optional interface for providing the EObject which contains a business object. 
+ * Optional interface for providing the EMF object which contains a business object the graphical editor.
  * Should be implemented by business objects which are not EMF Objects
- * When this interface is implemented by a business object, it will be used to allow deletion of the business object. 
- * It is also used for navigation purposes.
  */
 public interface EmfContainerProvider {
+	/**
+	 * It will be used to allow deletion of the business object. When deleting a non-EMF object, the EMF container is considered the owner of the object.
+	 * It is also used to support navigating to the package diagram and between graphical and textual representations when using non EMF Objects.
+	 * @return the EMF objects which is considered the container for the non-EMF object which implements this interface. 
+	 */
 	EObject getEmfContainer();
 }
