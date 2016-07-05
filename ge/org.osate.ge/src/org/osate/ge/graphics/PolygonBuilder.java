@@ -13,20 +13,38 @@ import java.util.Objects;
 
 import org.osate.ge.internal.graphics.Polygon;
 
+/**
+ * Builder for creating polygon graphics.
+ * @noextend
+ * @see Graphic
+ */
 public class PolygonBuilder {
 	private Point2D.Double[] points;
 	
 	private PolygonBuilder() {}
 	
+	/**
+	 * Creates a polygon builder.
+	 * @return a new polygon builder
+	 */
 	public static PolygonBuilder create() {
 		return new PolygonBuilder();
 	}
 	
+	/**
+	 * Configures the polygon builder to build a polygon composed of the specified points.
+	 * @param points the points to use when creating the polygon
+	 * @return this builder to allow method chaining.
+	 */
 	public PolygonBuilder points(final Point2D.Double... points) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		return this;
 	}
 	
+	/**
+	 * Creates a polygon graphic based on the current state of the builder.
+	 * @return the newly created graphic
+	 */
 	public Graphic build() {
 		return new Polygon(points);
 	}

@@ -8,5 +8,16 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
+/**
+ * Describes the visual representation of a business object. The graphic for a business object is provided to the graphical editor by the business object handler 
+ * method with the @link {org.osate.ge.di.GetGraphic} annotation. Graphics are created by business object handlers using builder classes.
+ * @noextend
+ * @noimplement
+ * @see RectangleBuilder
+ * @see EllipseBuilder
+ * @see PolygonBuilder
+ * @see ConnectionBuilder
+ * @see org.osate.ge.di.GetGraphic
+ */
 public interface Graphic {
 }

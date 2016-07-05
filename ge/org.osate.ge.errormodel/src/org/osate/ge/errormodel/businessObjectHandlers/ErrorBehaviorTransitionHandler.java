@@ -26,7 +26,7 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.ConnectionGraphicBuilder;
+import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.ge.di.Names;
@@ -35,7 +35,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 
 public class ErrorBehaviorTransitionHandler {
-	private static final Graphic graphic = ConnectionGraphicBuilder.create().
+	private static final Graphic graphic = ConnectionBuilder.create().
 			sourceTerminator(ArrowBuilder.create().open().build()).
 			destinationTerminator(ArrowBuilder.create().filled().build()).build();
 	

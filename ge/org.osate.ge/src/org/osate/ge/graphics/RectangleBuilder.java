@@ -11,20 +11,37 @@ package org.osate.ge.graphics;
 import org.osate.ge.internal.graphics.Rectangle;
 import org.osate.ge.internal.graphics.RoundedRectangle;
 
+/**
+ * Builder for creating rectangle graphics.
+ * @noextend
+ * @see Graphic
+ */
 public class RectangleBuilder {
 	private boolean rounded = false;
 	
 	private RectangleBuilder() {}
 	
+	/**
+	 * Creates a rectangle builder.
+	 * @return a new rectangle builder
+	 */
 	public static RectangleBuilder create() {
 		return new RectangleBuilder();
 	}
 	
+	/**
+	 * Configures the rectangle builder to create a rounded rectangle.
+	 * @return this builder to allow method chaining.
+	 */
 	public RectangleBuilder rounded() {
 		this.rounded = true;
 		return this;
 	}
 	
+	/**
+	 * Creates a rectangle graphic based on the current state of the builder.
+	 * @return the newly created graphic
+	 */
 	public Graphic build() {
 		return rounded ? new RoundedRectangle() : new Rectangle();
 	}

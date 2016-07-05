@@ -8,5 +8,12 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
+/**
+ * A connection terminator is a symbol which is placed at the end of a connection.
+ * @noextend
+ * @noimplement
+ * @see ArrowBuilder
+ * @see ConnectionBuilder
+ */
 public interface ConnectionTerminator {
 }

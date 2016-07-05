@@ -9,8 +9,8 @@
 package org.osate.ge;
 
 /**
- * Marker interface representing an entry in graphical editor palette. The graphical editor's palette is populated based on PaletteEntry objects 
- * provided by the Business Object Handler extensions. PaletteEntry objects must be created using the {@link PaletteEntryBuilder} class.
+ * An entry in the graphical editor palette. Palette entries are provided to the graphical editor by business object handlers via a method
+ * with the {@link org.osate.ge.di.GetPaletteEntries} annotation. PaletteEntry objects must be created using the {@link PaletteEntryBuilder} class.
  * @noextend
  * @noimplement
  * @see org.osate.ge.di.GetPaletteEntries

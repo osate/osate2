@@ -20,14 +20,14 @@ import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.errormodel.model.ErrorTypeLibrary;
-import org.osate.ge.graphics.ConnectionGraphicBuilder;
+import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeExtensionHandler {
-	private static final Graphic graphic = ConnectionGraphicBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
+	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorTypeLibrary typeLib) {
