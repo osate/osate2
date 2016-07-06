@@ -8,6 +8,19 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
+/**
+ * Service for retrieving a business object using a reference created using ReferenceBuilderService.
+ * @noextend
+ * @noimplement
+ * @see ReferenceBuilderService
+ * @see org.osate.ge.di.ResolveReference
+ */
 public interface ReferenceResolutionService {
+	/**
+	 * Retrieves the business object using a reference returned by #{ReferenceBuilderService#getReference(Object)}. 
+	 * @param reference the reference
+	 * @return the referenced business object or null if the business object could not be retrieved
+	 * @see ReferenceBuilderService#getReference(Object)
+	 */
 	Object getReferencedObject(String reference);
 }
