@@ -8,7 +8,17 @@
  *******************************************************************************/
 package org.osate.ge.query;
 
+/**
+ * A generic interface for a supplier which accepts a single argument.
+ * @param <A> the type of the argument
+ * @param <R> the type of the result
+ */
 @FunctionalInterface
 public interface Supplier<A, R> {
-	R get(final A queryArgument);
+	/**
+	 * Gets a result. The result must always be the same given the same argument.
+	 * @param arg the argument to the supplier. 
+	 * @return a result
+	 */
+	R get(final A arg);
 }
