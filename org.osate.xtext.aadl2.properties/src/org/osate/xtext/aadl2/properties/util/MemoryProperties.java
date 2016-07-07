@@ -49,6 +49,7 @@ public final class MemoryProperties {
 	public static final String STACK_SIZE = "Stack_Size";
 	public static final String HEAP_SIZE = "Heap_Size";
 	public static final String MEMORY_SIZE = "Memory_Size";
+	public static final String BASE_ADDRESS = "Base_Address";
 
 	/**
 	 * Backward compatibility. The Source_* were removed.
