@@ -1252,6 +1252,11 @@ public class GetProperties {
 		return getDataSize(ne, Bytes);
 	}
 
+	public static long getBaseAddress(final NamedElement ne) {
+		Property ba = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.BASE_ADDRESS);
+		return PropertyUtils.getIntegerValue(ne, ba);
+	}
+
 	/*
 	 * deprecated. Now called getDataSize
 	 */
