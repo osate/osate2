@@ -92,7 +92,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
 			childCtx.set(Names.NAME, value);
-			return (String)ContextInjectionFactory.invoke(handler, ValidateName.class, childCtx, true);
+			return (String)ContextInjectionFactory.invoke(handler, ValidateName.class, childCtx, false);
 		} finally {
 			childCtx.dispose();
 		}

@@ -7,6 +7,7 @@
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
 package org.osate.ge.errormodel.businessObjectHandlers;
+
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -15,7 +16,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -48,15 +48,10 @@ public class ErrorBehaviorStateHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.PARENT_BO) ErrorBehaviorStateMachine stateMachine) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) ErrorBehaviorStateMachine stateMachine) {
 		return true;
 	}
 
-	@GetCreateOwner
-	public Object getOwnerBusinessObject(final @Named(Names.PARENT_BO) ErrorBehaviorStateMachine stateMachine) {
-		return stateMachine;
-	}
-	
 	@Create
 	public Object createBusinessObject(@Named(Names.OWNER_BO) final ErrorBehaviorStateMachine stateMachine) {
 		// Create the state

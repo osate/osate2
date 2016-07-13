@@ -10,7 +10,6 @@ package org.osate.ge.di;
 
 /**
  * Constants for named parameters. For use with the @Named annotation.
- *
  */
 public interface Names {
 	public static final String DIAGRAM_BO = "diagram_bo";
@@ -20,7 +19,7 @@ public interface Names {
 	public static final String NAME = "name";
 	public static final String OWNER_BO = "owner_bo";
 	public static final String PALETTE_ENTRY_CONTEXT = "palette_entry_ctx";
-	public static final String PARENT_BO = "parent_bo";
+	public static final String TARGET_BO = "target_bo";
 	public static final String REFERENCE = "ref";
 	public static final String ROOT_QUERY = "root_query";
 	public static final String SOURCE_BO = "src_bo";

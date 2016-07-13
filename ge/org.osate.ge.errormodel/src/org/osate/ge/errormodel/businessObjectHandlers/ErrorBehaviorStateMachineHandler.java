@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 import javax.inject.Named;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
@@ -20,6 +21,7 @@ import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -55,12 +57,12 @@ public class ErrorBehaviorStateMachineHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.PARENT_BO) AadlPackage pkg) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) AadlPackage pkg) {
 		return true;
 	}
 
 	@GetCreateOwner
-	public Object getOwnerBusinessObject(final @Named(Names.PARENT_BO) AadlPackage pkg) {
+	public Object getOwnerBusinessObject(final @Named(Names.TARGET_BO) AadlPackage pkg) {
 		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(pkg);
 	}
 	
@@ -82,6 +84,13 @@ public class ErrorBehaviorStateMachineHandler {
 	@GetGraphic
 	public Graphic getGraphicalRepresentation() {
 		return graphic;
+	}
+	
+	@GetDiagramName
+	public String getTitle(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine) {
+		final NamedElement elementRoot = stateMachine.getElementRoot();
+		final String packageName = elementRoot == null ? "" : elementRoot.getQualifiedName();
+		return packageName + " : " + stateMachine.getName();
 	}
 	
 	@GetName

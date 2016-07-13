@@ -15,8 +15,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called to get the resource for a business object
+ * <p>
  * This annotation must not be applied to more than one method per class.
+ * </p>
+ * <h1>Usages</h1>
+ * <table summary="Annotation Usages">
+ *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns the name of the specified business object. Optional. If a handler does not implement a method with this annotation, a label will not be created for the business object.</td><td>String</td></tr>
+ * </table>
+ * <h1>Named Parameters</h1>
+ * <table summary="Named Parameters">
+ *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to return the name.</td></tr>
+ * </table>
+ * @see SetName
+ * @see ValidateName
  */
 @Documented
 @Target({ElementType.METHOD})

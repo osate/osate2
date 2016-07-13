@@ -13,21 +13,10 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.inject.Named;
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.BuildReference;
-import org.osate.ge.di.GetProject;
-import org.osate.ge.di.GetEmfResource;
-import org.osate.ge.di.GetTitle;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
@@ -88,43 +77,6 @@ public class ErrorModelReferenceHandler {
 		}
 		
 		return null;
-	}
-		
-	@GetTitle
-	public String getTitle(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		final NamedElement elementRoot = typeLib.getErrorModelLibrary().getElementRoot();
-		final String packageName = elementRoot == null ? "" : elementRoot.getQualifiedName();
-		return packageName + " : Error Type Library";
-	}
-
-	@GetTitle
-	public String getTitle(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine) {
-		final NamedElement elementRoot = stateMachine.getElementRoot();
-		final String packageName = elementRoot == null ? "" : elementRoot.getQualifiedName();
-		return packageName + " : " + stateMachine.getName();
-	}
-	
-	@GetProject
-	public IProject getProject(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		// Get the project for the error model library
-		final Resource resource = typeLib.getErrorModelLibrary().eResource();
-		if(resource != null) {
-			final URI uri = resource.getURI();
-			if(uri != null) {
-				final IPath projectPath = new Path(uri.toPlatformString(true)).uptoSegment(1);
-				final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
-				if(projectResource instanceof IProject) {
-					return (IProject)projectResource;
-				}
-			}
-		}
-
-		return null;
-	}
-	
-	@GetEmfResource
-	public Resource getResource(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
-		return typeLib.getErrorModelLibrary().eResource();
 	}
 	
 	@ResolveReference

@@ -66,7 +66,6 @@ import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
@@ -267,9 +266,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		
 		final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
 		if(bo != null) {
-			// Invalidate the cache
-			final InternalReferenceBuilderService referenceBuilder = Objects.requireNonNull((InternalReferenceBuilderService)getAdapter(InternalReferenceBuilderService.class), "unable to retrieve reference builder service");
-			final Resource diagramBoResource = referenceBuilder.getResource(bo);
+			final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
+			final Resource diagramBoResource = diagramService.getResource(bo);
 
 			if(diagramBoResource == resource) {
 				update();

@@ -35,7 +35,6 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.internal.patterns.SubprogramCallOrder;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
-import org.osate.ge.di.GetTitle;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {
@@ -210,15 +209,6 @@ public class DeclarativeReferenceBuilder {
 		}
 
 		return -1;
-	}
-	
-	@GetTitle
-	public String getTitle(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		if(bo instanceof AadlPackage || bo instanceof Classifier) {
-			return ((NamedElement) bo).getQualifiedName();
-		}
-		
-		return null;
 	}
 }
 

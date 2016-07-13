@@ -895,6 +895,14 @@
   			</imageobject></mediaobject>
 		</section>
 		<section>
+			<title>Out of Handles Exception</title>
+			<para>When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.</para>
+		</section>		
+		<section>
+			<title>Unable to Set Properties Unless Text Model is Open</title>
+			<para>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</para>
+		</section>		
+		<section>
 			<title>Updating a Diagram</title>
 			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>
 			<mediaobject><imageobject>

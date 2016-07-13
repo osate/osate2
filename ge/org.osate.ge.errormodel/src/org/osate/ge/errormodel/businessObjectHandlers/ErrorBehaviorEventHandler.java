@@ -19,7 +19,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -54,15 +53,10 @@ public class ErrorBehaviorEventHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.PARENT_BO) ErrorBehaviorStateMachine stateMachine) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) ErrorBehaviorStateMachine stateMachine) {
 		return true;
 	}
 
-	@GetCreateOwner
-	public Object getOwnerBusinessObject(final @Named(Names.PARENT_BO) ErrorBehaviorStateMachine stateMachine) {
-		return stateMachine;
-	}
-	
 	@Create
 	public Object createBusinessObject(@Named(Names.OWNER_BO) final ErrorBehaviorStateMachine stateMachine, @Named(Names.PALETTE_ENTRY_CONTEXT) final EClass classToCreate) {
 		// Create the state

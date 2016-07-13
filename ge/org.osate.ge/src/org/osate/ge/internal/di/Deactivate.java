@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
-package org.osate.ge.di;
+package org.osate.ge.internal.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -15,11 +15,23 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag static fields which contains a brief description of the functionality of the tool. Likely to be displayed in a tooltip.
+ * <p>
  * This annotation must not be applied to more than one method per class.
+ * </p>
+ * <h1>Usages</h1>
+ * <table summary="Annotation Usages">
+ *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
+ *   <tr><td>Tools</td><td>Not API. Deactivates the tool.</td><td>None</td></tr>
+ * </table>
+ * <h1>Named Parameters</h1>
+ * <table summary="Named Parameters">
+ *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
+ *   <tr><td colspan="3">None</td></tr>
+ * </table>
  */
 @Documented
-@Target({ElementType.FIELD})
+@Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Description {
+public @interface Deactivate {
+
 }

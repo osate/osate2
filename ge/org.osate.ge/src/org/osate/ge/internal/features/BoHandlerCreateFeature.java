@@ -66,7 +66,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.PARENT_BO, containerBo);
+			eclipseCtx.set(Names.TARGET_BO, containerBo);
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);
 		} finally {
 			eclipseCtx.dispose();
@@ -114,10 +114,11 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	}
 	
 	private EObject getOwnerBo(final PictogramElement container) {
+		final Object parentBo = bor.getBusinessObjectForPictogramElement(container);
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.PARENT_BO, bor.getBusinessObjectForPictogramElement(container));
+			eclipseCtx.set(Names.TARGET_BO, parentBo);
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;
@@ -126,7 +127,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 			eclipseCtx.dispose();
 		}
 		
-		return (EObject)bor.getBusinessObjectForPictogramElement(container);
+		return (EObject)parentBo;
 	}
 	
 	// ICustomUndoRedoFeature

@@ -15,7 +15,19 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * <p>
  * This annotation must not be applied to more than one method per class.
+ * </p>
+ * <h1>Usages</h1>
+ * <table summary="Annotation Usages">
+ *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns a stream of child business objects for the specified business object. The graphical editor created diagram elements using the children and the appropriate business object handlers.</td><td>java.util.stream.Stream{@literal <}?{@literal >}</td></tr>
+ * </table>
+ * <h1>Named Parameters</h1>
+ * <table summary="Named Parameters">
+ *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to return the children.</td></tr>
+ * </table>
  */
 @Documented
 @Target({ElementType.METHOD})

@@ -9,6 +9,7 @@
 package org.osate.ge.internal.features;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -50,16 +51,16 @@ import org.osate.ge.internal.features.DiagramUpdateFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements DiagramUpdateFeature {
-	private final InternalReferenceBuilderService refBuilder;
+	private final DiagramService diagramService;
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final GhostingService ghostingService;
@@ -68,10 +69,10 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	private final PropertyService propertyService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final InternalReferenceBuilderService refBuilder, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final DiagramService diagramService, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
 			final ShapeCreationService shapeCreationService, final PropertyService propertyService) {
 		super(fp);
-		this.refBuilder = refBuilder;
+		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
 		this.ghostingService = ghostingService;
@@ -112,9 +113,9 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final AadlPackage pkg = (AadlPackage)element;
 		
 		// Update the diagram's name
-		final String newTitle = refBuilder.getTitle(pkg);
-		if(newTitle != null) {
-			diagram.setName(newTitle);
+		final String newName = diagramService.getDiagramNameByBusinessObject(pkg);
+		if(newName != null) {
+			diagram.setName(newName);
 		}
 	
 		// Ghost children

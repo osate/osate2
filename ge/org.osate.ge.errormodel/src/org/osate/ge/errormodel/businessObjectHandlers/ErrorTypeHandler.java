@@ -50,12 +50,12 @@ public class ErrorTypeHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.PARENT_BO) ErrorTypeLibrary errorTypeLib) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) ErrorTypeLibrary errorTypeLib) {
 		return true;
 	}
 
 	@GetCreateOwner
-	public Object getOwnerBusinessObject(final @Named(Names.PARENT_BO) ErrorTypeLibrary typeLib) {
+	public Object getOwnerBusinessObject(final @Named(Names.TARGET_BO) ErrorTypeLibrary typeLib) {
 		return typeLib.getErrorModelLibrary();
 	}
 	

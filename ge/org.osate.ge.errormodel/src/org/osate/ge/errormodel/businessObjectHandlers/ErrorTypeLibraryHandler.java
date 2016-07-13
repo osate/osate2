@@ -12,7 +12,9 @@ import java.util.stream.Stream;
 
 import javax.inject.Named;
 
+import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.GetChildren;
+import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
@@ -49,6 +51,13 @@ public class ErrorTypeLibraryHandler {
 	@HandleDoubleClick
 	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib, final GraphicalEditorService editorService) {
 		editorService.openBusinessObject(typeLib);
+	}
+
+	@GetDiagramName
+	public String getTitle(final @Named(Names.BUSINESS_OBJECT) ErrorTypeLibrary typeLib) {
+		final NamedElement elementRoot = typeLib.getErrorModelLibrary().getElementRoot();
+		final String packageName = elementRoot == null ? "" : elementRoot.getQualifiedName();
+		return packageName + " : Error Type Library";
 	}
 	
 	@GetName

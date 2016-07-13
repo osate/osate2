@@ -16,9 +16,9 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.di.Deactivate;
-import org.osate.ge.di.SelectionChanged;
+import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**

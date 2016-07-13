@@ -12,8 +12,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -23,16 +21,9 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.ge.di.GetEmfResource;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
-import org.osate.ge.di.GetProject;
-import org.osate.ge.di.GetTitle;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
-import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -106,82 +97,5 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 		}
 		
 		return sb.toString();
-	}
-	
-	@Override
-	public String getTitle(Object bo) {
-		if(bo == null) {
-			return null;
-		}
-		
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final String title = (String)ContextInjectionFactory.invoke(refBuilder, GetTitle.class, serviceContext, argCtx, null);
-				if(title != null) {
-					return title;
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public IProject getProject(Object bo) {
-		// Handle EObject instances without delegating to specialized handlers
-		if(bo instanceof EObject) {
-			final Resource resource = ((EObject)bo).eResource();
-			if(resource != null) {
-				final URI uri = resource.getURI();
-				if(uri != null) {
-					return SelectionHelper.getProject(uri);
-				}
-			}
-		}
-		
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final IProject project = (IProject)ContextInjectionFactory.invoke(refBuilder, GetProject.class, serviceContext, argCtx, null);
-				if(project != null) {
-					return project;
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
-		}
-		
-		return null;
-	}
-	
-	@Override
-	public Resource getResource(Object bo) {
-		// Handle EObject instances without delegating to specialized handlers
-		if(bo instanceof EObject) {
-			return ((EObject)bo).eResource();
-		}
-		
-		try {
-			// Set context fields
-			argCtx.set(Names.BUSINESS_OBJECT, bo);
-			for(final Object refBuilder : referenceBuilders) {
-				final Resource res = (Resource)ContextInjectionFactory.invoke(refBuilder, GetEmfResource.class, serviceContext, argCtx, null);
-				if(res!= null) {
-					return res;
-				}
-			}
-		} finally {
-			// Remove entries from context
-			argCtx.remove(Names.BUSINESS_OBJECT);
-		}
-		
-		return null;
 	}
 }

@@ -17,20 +17,20 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.DiagramService;
 
 // IUpdateFeature implementation that delegates behavior to a business object handler
 public class BoHandlerUpdateFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature {
-	private final InternalReferenceBuilderService refBuilder;
+	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	private final ConnectionService connectionService;
 	private final BoRefreshHelper refreshHelper;
 	private final Object handler;
 	
-	public BoHandlerUpdateFeature(final InternalReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor, final ConnectionService connectionService,
+	public BoHandlerUpdateFeature(final DiagramService diagramService, final BusinessObjectResolutionService bor, final ConnectionService connectionService,
 			final BoRefreshHelper refreshHelper, final IFeatureProvider fp, final Object boHandler) {
 		super(fp);
-		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
+		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.refreshHelper = Objects.requireNonNull(refreshHelper, "refreshHelper must not be null");
@@ -86,9 +86,9 @@ public class BoHandlerUpdateFeature extends AbstractUpdateFeature implements ICu
 		if(pe instanceof Diagram) {
 			// Update the diagram's name
 			final Diagram diagram = (Diagram)pe;
-			final String newTitle = refBuilder.getTitle(bo);
-			if(newTitle != null) {
-				diagram.setName(newTitle);
+			final String newName = diagramService.getDiagramNameByBusinessObject(bo);
+			if(newName != null) {
+				diagram.setName(newName);
 			}
 			
 			// Adjust positions of shapes that have not been positioned.

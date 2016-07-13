@@ -15,9 +15,21 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called to retrieve palette entries from an extension. The annotated method must return an object of type
- * PaletteEntry[] containing elements created by the PaletteEntryFactory class.
+ * <p>
  * This annotation must not be applied to more than one method per class.
+ * </p>
+ * <h1>Usages</h1>
+ * <table summary="Annotation Usages">
+ *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns any array of palette entries for a diagram.</td><td>{@link org.osate.ge.PaletteEntry}[]</td></tr>
+ * </table>
+ * <h1>Named Parameters</h1>
+ * <table summary="Named Parameters">
+ *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#DIAGRAM_BO}</td><td>Business Object handler</td><td>The business object of the diagram.</td></tr>
+ * </table>
+ * @see org.osate.ge.PaletteEntry
+ * @see org.osate.ge.PaletteEntryBuilder
  */
 @Documented
 @Target({ElementType.METHOD})

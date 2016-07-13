@@ -71,7 +71,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		try {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
 
-			// Find the business object handler which can be used to handle the double-click
+			// Find the business object handler which is applicable for this business object
 			for(final Object handler : getBusinessObjectHandlers()) {
 				final boolean isApplicable = (boolean)ContextInjectionFactory.invoke(handler, IsApplicable.class, eclipseCtx, false);
 				if(isApplicable) {

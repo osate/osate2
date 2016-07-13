@@ -142,10 +142,10 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
@@ -156,7 +156,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private IEclipseContext eclipseContext;
 	private ConnectionService connectionService;
 	private ExtensionService extService;
-	private InternalReferenceBuilderService refBuilder;
+	private DiagramService diagramService;
 	private AadlModificationService aadlModService;
 	private ShapeService shapeService;
 	private BusinessObjectResolutionService bor;
@@ -175,7 +175,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		this.eclipseContext.set(IFeatureProvider.class, this);
 		this.connectionService = Objects.requireNonNull(eclipseContext.get(ConnectionService.class), "unable to get connection service");		
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
-		this.refBuilder = Objects.requireNonNull(eclipseContext.get(InternalReferenceBuilderService.class), "unable to retrieve reference builder service");
+		this.diagramService = Objects.requireNonNull(eclipseContext.get(DiagramService.class), "unable to retrieve diagram service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve aadl modification service");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
@@ -531,7 +531,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
 		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(pe));
 		if(boHandler != null) {
-			return new BoHandlerUpdateFeature(refBuilder, bor, connectionService, pictogramRefreshHelper, this, boHandler);
+			return new BoHandlerUpdateFeature(diagramService, bor, connectionService, pictogramRefreshHelper, this, boHandler);
 		}
 
 		return super.getUpdateFeatureAdditional(updateCtx);

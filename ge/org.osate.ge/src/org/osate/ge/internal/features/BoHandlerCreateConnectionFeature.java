@@ -120,7 +120,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
 								
-			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
+			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
 			if(ownerBo == null) {
 				return null;
 			}

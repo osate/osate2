@@ -19,12 +19,10 @@ import org.osate.ge.GraphicalEditor;
 public interface GraphicalEditorService {
 	/**
 	 * Opens a diagram with the specified root business object in a graphical editor. If a diagram is not found, one is created. 
-	 * The root business object should support retrieving its title, project, and EMF resource.  
+	 * The root business object should support retrieving its title.  
 	 * @param bo is the business object which is the root business object of the diagram that diagram to be opened.
 	 * @return the editor in which the diagram was open. Throws an exception if the editor could not be opened.
-	 * @see org.osate.ge.di.GetTitle
-	 * @see org.osate.ge.di.GetProject
-	 * @see org.osate.ge.di.GetEmfResource
+	 * @see org.osate.ge.di.GetDiagramName
 	 */
 	GraphicalEditor openBusinessObject(Object bo);
 }
