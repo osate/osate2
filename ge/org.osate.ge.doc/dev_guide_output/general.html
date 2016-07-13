@@ -12,13 +12,11 @@
 </head>
 <body>
 <h1 id="general-information">General Information</h1>
-<p>Extensions to the graphical editor are registered as Eclipse extensions. Each extension is implemented by the Java Extensions are implemented which have a no-argument constructor and which contains annotations to specify which methods should be called. Required services and other arguments are passed into annotated methods via dependency injection.</p>
-<p>The graphical editor is built on top of the Graphiti framework. In many cases knowledge of Graphiti is not required, but it is needed for more advanced use cases.</p>
+<p>Extensions to the graphical editor are registered as Eclipse extensions. Each extension is implemented by a Java class which have a no-argument constructor and which contains annotations to mark methods which should be called by the graphical editor. Required services and other arguments are passed into annotated methods via dependency injection.</p>
 <h2 id="services">Services</h2>
-<p>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <emphasis>TBD</emphasis> package.</p>
+<p>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <a href="../api/org/osate/ge/services/package-summary.html">org.osate.ge.services</a> package.</p>
 <p><strong>Unless otherwise noted, extensions may be reused between diagrams. Extensions should not retain references to services.</strong></p>
-<p><strong>The set of services which will be provided to extensions has not yet been finalized.</strong></p>
 <h2 id="annotations">Annotations</h2>
-<p>Extensions are found in the <emphasis>org.osate.ge.ext.annotations</emphasis> package. The applicable extensions depend on the type of extension being implemented. For details regarding each annotation, it is recommended to consult the annotation package.</p>
+<p>Extensions are found in the <a href="../api/org/osate/ge/di/package-summary.html">org.osate.ge.di</a> package. The applicable annotations depend on the type of extension being implemented. For details regarding each annotation, consult the API reference for the annotation.</p>
 </body>
 </html>

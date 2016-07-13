@@ -1,30 +1,28 @@
 # Adding Support for a new Business Object
-**This capability is currently in development. The documentation will be updated as the extension points are finalized.**
+Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by a diagram element inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.
 
-Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by pictogram elements inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.
+## Non-EMF Objects
+The graphical editor depends on capabilities provided by EMF objects. The [EmfContainerProvider](../api/org/osate/ge/EmfContainerProvider.html) interface must be implemented by all business objects which are not EMF objects. 
 
 ## Reference Builders and Reference Resolvers
-Referenced Builders and Reference Resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object.  Reference resolvers are used to retrieve a business object using the previously generated reference.
+Referenced builders and reference resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object.  Reference resolvers are used to retrieve a business object using the previously generated reference. A single reference builder/resolver pair may handle multiple types of business objects. 
 
-References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference builder and resolver. A single reference builder/resolver pair may handle multiple types of business objects.				
+References are used to associate a diagram element with a business object. References are stored in the diagram and must be unique to the business object. 
+
+**All business objects for which a diagram element is associated must be handled by a reference builder and resolver.**
 
 ### Reference Builders
-In addition to building references, reference builders may optionally produce a user friendly title for a business object. It may also provide the ability to determine the project to which the business object belongs. The latter capabilities are required when the object may serve as the root business object for a diagram.					
-
-The DeclarativeReferenceBuilder class may be used as an example of a reference builder.
+#### Examples
+* org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder
+* org.osate.ge.errormodel.ErrorModelReferenceHandler
 
 #### Required Annotations:
-* BuildReference
-
-#### Optional Annotations:
-* GetProject
-* GetTitle
-
-#### Supported named parameters:
-* BUSINESS_OBJECT(BuildReference)
+* [BuildReference](../api/org/osate/ge/di/BuildReference.html)
 
 ### Reference Resolvers
-The DeclarativeReferenceResolver class may be used as an example of a reference resolver.
+#### Examples
+* org.osate.ge.internal.services.impl.DeclarativeReferenceResolver
+* org.osate.ge.errormodel.ErrorModelReferenceHandler
 
 Reference resolvers differ from reference builders and other extensions in a couple ways.
 
@@ -32,10 +30,46 @@ Reference resolvers differ from reference builders and other extensions in a cou
 * Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.
 
 #### Required Annotations:
-* ResolveReference
+* [ResolveReference](../api/org/osate/ge/di/ResolveReference.html)
 
 #### Optional Annotations:
-* PreDestroy
+* javax.annotation.PreDestroy
 
-#### Supported named parameters:
-* REFERENCE(ResolveReference)
+## Business Object Handlers
+Business object handlers are classes which provide business object specific functionality to the graphical editor. They are registered using the org.osate.ge.businessObjectHandlers extension point. Business object handlers may provide partial functionality by only including a subset of the supported annotations.
+
+#### Examples
+* org.osate.ge.errormodel.businessObjectHandlers package
+
+#### Annotations
+##### Required
+* [IsApplicable](../api/org/osate/ge/di/IsApplicable.html)
+
+##### General
+* [GetGraphic](../api/org/osate/ge/di/GetGraphic.html)
+* [GetChildren](../api/org/osate/ge/di/GetChildren.html)
+* [GetDiagramName](../api/org/osate/ge/di/GetDiagramName.html)
+* [HandleDoubleClick](../api/org/osate/ge/di/HandleDoubleClick.html)
+
+##### Business Object Creation
+* [GetPaletteEntries](../api/org/osate/ge/di/GetPaletteEntries.html)
+* [CanCreate](../api/org/osate/ge/di/CanCreate.html)
+* [GetCreateOwner](../api/org/osate/ge/di/GetCreateOwner.html)
+* [CanStartConnection](../api/org/osate/ge/di/CanStartConnection.html)
+* [Create](../api/org/osate/ge/di/Create.html)
+
+##### Connections
+* [CreateSourceQuery](../api/org/osate/ge/di/CreateSourceQuery.html)
+* [CreateDestinationQuery](../api/org/osate/ge/di/CreateDestinationQuery.html)
+* [CreateParentQuery](../api/org/osate/ge/di/CreateParentQuery.html)
+
+##### Business Object Deletion
+* [CanDelete](../api/org/osate/ge/di/CanDelete.html)
+* [Delete](../api/org/osate/ge/di/Delete.html)
+
+##### Naming
+* [GetName](../api/org/osate/ge/di/GetName.html)
+* [ValidateName](../api/org/osate/ge/di/ValidateName.html)
+* [SetName](../api/org/osate/ge/di/SetName.html)
+
+

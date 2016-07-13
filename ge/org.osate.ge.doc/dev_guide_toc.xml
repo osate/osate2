@@ -2,7 +2,6 @@
 <toc label="Developer Guide" topic="dev_guide_output/index.html">
    <topic label="General Information" href="dev_guide_output/general.html"/>
    <topic label="Extension Points" href="dev_guide_output/ep.html">
-      <topic label="Tools" href="dev_guide_output/ep_tools.html"/>
       <topic label="Categories" href="dev_guide_output/ep_categories.html"/>
       <topic label="Images" href="dev_guide_output/ep_images.html"/>
       <topic label="Adding Support for a new Business Object" href="dev_guide_output/ep_bo.html"/>
