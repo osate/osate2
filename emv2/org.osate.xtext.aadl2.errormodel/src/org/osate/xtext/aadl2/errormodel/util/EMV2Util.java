@@ -1743,6 +1743,12 @@ public class EMV2Util {
 		return result;
 	}
 
+	public static Collection<ConditionElement> getAllConditionElementsFromConditionExpression(ConditionExpression ce) {
+		EList<ConditionElement> result = new BasicEList<ConditionElement>();
+		getAllConditionElementsFromConditionExpression(result, ce);
+		return result;
+	}
+
 	/**
 	 * return list of ErrorBehaviorTransition including those inherited from classifiers being extended
 	 * @param cl Classifier
