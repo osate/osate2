@@ -342,6 +342,9 @@
                  </instanceof>
                  <instanceof value="org.osate.aadl2.instance.InstanceObject" />
                  <instanceof value="org.osate.aadl2.NamedElement" />
+                 <instanceof
+                       value="org.osate.ui.navigator.VirtualPluginResources">
+                 </instanceof>
                 </or>
            </parentExpression>
         </commonSorter>
