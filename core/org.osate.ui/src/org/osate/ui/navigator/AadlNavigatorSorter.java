@@ -12,7 +12,15 @@ import org.osate.aadl2.instance.InstanceObject;
 public class AadlNavigatorSorter extends ViewerSorter {
 	@Override
 	public int compare(Viewer viewer, Object e1, Object e2) {
-		if (e1 instanceof IFile && e2 instanceof IContainer) {
+		if (e1 instanceof VirtualPluginResources) {
+			return 1;
+		} else if (e2 instanceof VirtualPluginResources) {
+			return -1;
+		} else if (e1 instanceof ContributedAadlFile && e2 instanceof ContributedDirectory) {
+			return 1;
+		} else if (e1 instanceof ContributedDirectory && e2 instanceof ContributedAadlFile) {
+			return -1;
+		} else if (e1 instanceof IFile && e2 instanceof IContainer) {
 			return 1;
 		} else if (e1 instanceof IContainer && e2 instanceof IFile) {
 			return -1;

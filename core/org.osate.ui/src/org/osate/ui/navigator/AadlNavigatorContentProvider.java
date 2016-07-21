@@ -34,10 +34,19 @@
 package org.osate.ui.navigator;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.OptionalInt;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
+import org.eclipse.core.resources.IWorkspaceRoot;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.ui.model.WorkbenchContentProvider;
 import org.osate.aadl2.AadlPackage;
@@ -51,6 +60,7 @@ import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.pluginsupport.PluginSupportUtil;
 
 public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
@@ -60,7 +70,32 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
 	@Override
 	public Object[] getChildren(Object element) {
-		if (element instanceof IFile) {
+		if (element instanceof IWorkspaceRoot) {
+			List<Object> result = new ArrayList<>(Arrays.asList(super.getChildren(element)));
+			result.add(VirtualPluginResources.INSTANCE);
+			return result.toArray();
+		} else if (element instanceof VirtualPluginResources) {
+			Map<String, List<URI>> groupings = PluginSupportUtil.getContributedAadl().stream().collect(Collectors.groupingBy(uri -> {
+				OptionalInt firstSignificantIndex = IntStream.range(2, uri.segmentCount()).filter(index -> {
+					String segment = uri.segment(index);
+					return !(segment.startsWith("resource") || segment.startsWith("package") || segment.startsWith("propert"));
+				}).findFirst();
+				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
+					return "";
+				} else {
+					return uri.segment(firstSignificantIndex.getAsInt());
+				}
+			}));
+			return groupings.entrySet().stream().flatMap(entry -> {
+				if (entry.getKey().isEmpty()) {
+					return entry.getValue().stream().map(uri -> new ContributedAadlFile(uri, element));
+				} else {
+					return Stream.of(new ContributedDirectory(entry.getKey(), entry.getValue()));
+				}
+			}).toArray();
+		} else if (element instanceof ContributedDirectory) {
+			return ((ContributedDirectory) element).getMembers().stream().map(uri -> new ContributedAadlFile(uri, element)).toArray();
+		} else if (element instanceof IFile) {
 			IFile modelFile = (IFile) element;
 			if (AADL_EXT.equals(modelFile.getFileExtension())) {
 				EList<EObject> contents = OsateResourceUtil.getResource(modelFile).getContents();
@@ -124,5 +159,17 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
 		return super.getChildren(element);
 	}
-
+	
+	@Override
+	public Object getParent(Object element) {
+		if (element instanceof VirtualPluginResources) {
+			return ResourcesPlugin.getWorkspace().getRoot();
+		} else if (element instanceof ContributedDirectory) {
+			return VirtualPluginResources.INSTANCE;
+		} else if (element instanceof ContributedAadlFile) {
+			return ((ContributedAadlFile) element).getParent();
+		} else {
+			return super.getParent(element);
+		}
+	}
 }

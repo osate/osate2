@@ -40,6 +40,8 @@ import org.eclipse.jface.viewers.DecoratingLabelProvider;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PrivatePackageSection;
@@ -58,7 +60,13 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public String getText(Object element) {
 		StringBuilder text = new StringBuilder(super.getText(element));
-		if (element instanceof PublicPackageSection) {
+		if (element instanceof VirtualPluginResources) {
+			text.append("Plugin_Resources");
+		} else if (element instanceof ContributedDirectory) {
+			text.append(((ContributedDirectory) element).getName());
+		} else if (element instanceof ContributedAadlFile) {
+			text.append(((ContributedAadlFile) element).getURI().lastSegment());
+		} else if (element instanceof PublicPackageSection) {
 			text.append("Public Package Section");
 		} else if (element instanceof PrivatePackageSection) {
 			text.append("Private Package Section");
@@ -75,7 +83,13 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	@Override
 	public Image getImage(Object element) {
 		Image image;
-		if (element instanceof PropertyType) {
+		if (element instanceof VirtualPluginResources) {
+			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
+		} else if (element instanceof ContributedDirectory) {
+			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
+		} else if (element instanceof ContributedAadlFile) {
+			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE);
+		} else if (element instanceof PropertyType) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);
 		} else if (element instanceof InstanceObject) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);
