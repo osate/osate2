@@ -133,7 +133,8 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 					layoutConnections.add(new org.osate.ge.internal.layout.Connection(startLayoutShape, endLayoutShape));
 					
 					// Remove all bendpoints because the layout algorithm assumes that all connections are straight lines
-					if(connection instanceof FreeFormConnection) {
+					// Even though it may produce a less than optimal layout, only do this if all shapes are being relayed out. 
+					if(relayoutShapes && connection instanceof FreeFormConnection) {
 						final FreeFormConnection ffc = (FreeFormConnection)connection;
 						ffc.getBendpoints().clear();
 					}
