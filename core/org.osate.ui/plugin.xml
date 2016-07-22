@@ -352,7 +352,7 @@
               class="org.osate.ui.navigator.AadlNavigatorActionProvider">
            <enablement>
               <instanceof
-                    value="org.osate.ui.navigator.ContributedAadlFile">
+                    value="org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage">
               </instanceof>
            </enablement>
         </actionProvider>

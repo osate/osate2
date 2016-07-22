@@ -44,7 +44,6 @@ import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IWorkspaceRoot;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -61,6 +60,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.pluginsupport.PluginSupportUtil;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 
@@ -88,13 +88,13 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			}));
 			return groupings.entrySet().stream().flatMap(entry -> {
 				if (entry.getKey().isEmpty()) {
-					return entry.getValue().stream().map(uri -> new ContributedAadlFile(uri, element));
+					return entry.getValue().stream().map(uri -> new ContributedAadlStorage(uri));
 				} else {
 					return Stream.of(new ContributedDirectory(entry.getKey(), entry.getValue()));
 				}
 			}).toArray();
 		} else if (element instanceof ContributedDirectory) {
-			return ((ContributedDirectory) element).getMembers().stream().map(uri -> new ContributedAadlFile(uri, element)).toArray();
+			return ((ContributedDirectory) element).getMembers().stream().map(uri -> new ContributedAadlStorage(uri)).toArray();
 		} else if (element instanceof IFile) {
 			IFile modelFile = (IFile) element;
 			if (AADL_EXT.equals(modelFile.getFileExtension())) {
@@ -158,18 +158,5 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 		}
 
 		return super.getChildren(element);
-	}
-	
-	@Override
-	public Object getParent(Object element) {
-		if (element instanceof VirtualPluginResources) {
-			return ResourcesPlugin.getWorkspace().getRoot();
-		} else if (element instanceof ContributedDirectory) {
-			return VirtualPluginResources.INSTANCE;
-		} else if (element instanceof ContributedAadlFile) {
-			return ((ContributedAadlFile) element).getParent();
-		} else {
-			return super.getParent(element);
-		}
 	}
 }

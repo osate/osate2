@@ -38,9 +38,11 @@ Export-Package: de.itemis.utils.jface.viewers,
  de.itemis.xtext.utils.jface.viewers,
  org.osate.xtext.aadl2.ui,
  org.osate.xtext.aadl2.ui.contentassist,
+ org.osate.xtext.aadl2.ui.editor,
  org.osate.xtext.aadl2.ui.internal,
  org.osate.xtext.aadl2.ui.outline,
  org.osate.xtext.aadl2.ui.propertyview,
- org.osate.xtext.aadl2.ui.quickfix
+ org.osate.xtext.aadl2.ui.quickfix,
+ org.osate.xtext.aadl2.ui.resource
 Bundle-Activator: org.osate.xtext.aadl2.ui.MyAadl2Activator
 Import-Package: org.apache.log4j
