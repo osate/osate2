@@ -51,6 +51,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ui.OsateUiPlugin;
 import org.osate.ui.UiUtil;
 import org.osate.ui.navigator.AadlElementImageDescriptor.ModificationFlag;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	public AadlNavigatorLabelProvider() {
@@ -64,8 +65,8 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 			text.append("Plugin_Resources");
 		} else if (element instanceof ContributedDirectory) {
 			text.append(((ContributedDirectory) element).getName());
-		} else if (element instanceof ContributedAadlFile) {
-			text.append(((ContributedAadlFile) element).getURI().lastSegment());
+		} else if (element instanceof ContributedAadlStorage) {
+			text.append(((ContributedAadlStorage) element).getUri().lastSegment());
 		} else if (element instanceof PublicPackageSection) {
 			text.append("Public Package Section");
 		} else if (element instanceof PrivatePackageSection) {
@@ -87,7 +88,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 			image = OsateUiPlugin.getImageDescriptor("icons/library_obj.gif").createImage();
 		} else if (element instanceof ContributedDirectory) {
 			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FOLDER);
-		} else if (element instanceof ContributedAadlFile) {
+		} else if (element instanceof ContributedAadlStorage) {
 			image = PlatformUI.getWorkbench().getSharedImages().getImage(ISharedImages.IMG_OBJ_FILE);
 		} else if (element instanceof PropertyType) {
 			image = UiUtil.getModelElementLabelProvider().getImage(element);

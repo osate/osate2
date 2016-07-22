@@ -8,6 +8,7 @@ import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 public class AadlNavigatorSorter extends ViewerSorter {
 	@Override
@@ -16,9 +17,9 @@ public class AadlNavigatorSorter extends ViewerSorter {
 			return 1;
 		} else if (e2 instanceof VirtualPluginResources) {
 			return -1;
-		} else if (e1 instanceof ContributedAadlFile && e2 instanceof ContributedDirectory) {
+		} else if (e1 instanceof ContributedAadlStorage && e2 instanceof ContributedDirectory) {
 			return 1;
-		} else if (e1 instanceof ContributedDirectory && e2 instanceof ContributedAadlFile) {
+		} else if (e1 instanceof ContributedDirectory && e2 instanceof ContributedAadlStorage) {
 			return -1;
 		} else if (e1 instanceof IFile && e2 instanceof IContainer) {
 			return 1;

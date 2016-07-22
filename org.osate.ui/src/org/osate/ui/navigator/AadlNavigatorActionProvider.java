@@ -10,6 +10,7 @@ import org.eclipse.ui.navigator.CommonActionProvider;
 import org.eclipse.ui.navigator.ICommonActionConstants;
 import org.eclipse.xtext.ui.editor.IURIEditorOpener;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
+import org.osate.xtext.aadl2.ui.resource.ContributedAadlStorage;
 
 import com.google.inject.Injector;
 
@@ -28,8 +29,8 @@ public class AadlNavigatorActionProvider extends CommonActionProvider {
 			@Override
 			public void run() {
 				List<Object> selectedElements = Arrays.asList(getActionSite().getStructuredViewer().getStructuredSelection().toArray());
-				Stream<ContributedAadlFile> files = selectedElements.stream().filter(file -> file instanceof ContributedAadlFile).map(file -> (ContributedAadlFile)file);
-				files.forEach(file -> editorOpener.open(file.getURI(), true));
+				Stream<ContributedAadlStorage> files = selectedElements.stream().filter(file -> file instanceof ContributedAadlStorage).map(file -> (ContributedAadlStorage)file);
+				files.forEach(file -> editorOpener.open(file.getUri(), true));
 			}
 		});
 	}
