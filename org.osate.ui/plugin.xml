@@ -348,6 +348,14 @@
                 </or>
            </parentExpression>
         </commonSorter>
+        <actionProvider
+              class="org.osate.ui.navigator.AadlNavigatorActionProvider">
+           <enablement>
+              <instanceof
+                    value="org.osate.ui.navigator.ContributedAadlFile">
+              </instanceof>
+           </enablement>
+        </actionProvider>
       </navigatorContent>
    </extension>
    
