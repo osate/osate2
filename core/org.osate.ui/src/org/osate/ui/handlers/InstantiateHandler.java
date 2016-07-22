@@ -32,7 +32,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.ui.handlers;
+package org.osate.ui.handlers;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
@@ -74,6 +74,7 @@ import org.osate.aadl2.modelsupport.errorreporting.LogInternalErrorReporter;
 import org.osate.core.OsateCorePlugin;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.navigator.AadlNavigator;
+import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
 
 import com.google.inject.Inject;
 
@@ -84,6 +85,10 @@ public class InstantiateHandler extends AbstractHandler {
 
 	protected static final InternalErrorReporter internalErrorLogger = new LogInternalErrorReporter(
 			OsateCorePlugin.getDefault().getBundle());
+	
+	public InstantiateHandler() {
+		Aadl2Activator.getInstance().getInjector(Aadl2Activator.ORG_OSATE_XTEXT_AADL2_AADL2).injectMembers(this);
+	}
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
