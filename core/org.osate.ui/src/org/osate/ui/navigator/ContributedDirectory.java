@@ -2,22 +2,24 @@ package org.osate.ui.navigator;
 
 import java.util.List;
 
-import org.eclipse.emf.common.util.URI;
-
 public class ContributedDirectory {
-	private final String name;
-	private final List<URI> members;
+	private final List<String> path;
 	
-	public ContributedDirectory(String name, List<URI> members) {
-		this.name = name;
-		this.members = members;
+	public ContributedDirectory(List<String> path) {
+		this.path = path;
 	}
 	
-	public String getName() {
-		return name;
+	public List<String> getPath() {
+		return path;
 	}
 	
-	public List<URI> getMembers() {
-		return members;
+	@Override
+	public boolean equals(Object obj) {
+		return obj instanceof ContributedDirectory && ((ContributedDirectory)obj).path.equals(path);
+	}
+	
+	@Override
+	public int hashCode() {
+		return path.hashCode();
 	}
 }
