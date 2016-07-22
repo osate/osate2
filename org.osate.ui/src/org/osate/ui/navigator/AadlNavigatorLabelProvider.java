@@ -33,6 +33,8 @@
  */
 package org.osate.ui.navigator;
 
+import java.util.List;
+
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
@@ -64,7 +66,8 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 		if (element instanceof VirtualPluginResources) {
 			text.append("Plugin_Resources");
 		} else if (element instanceof ContributedDirectory) {
-			text.append(((ContributedDirectory) element).getName());
+			List<String> directoryPath = ((ContributedDirectory) element).getPath();
+			text.append(directoryPath.get(directoryPath.size() - 1));
 		} else if (element instanceof ContributedAadlStorage) {
 			text.append(((ContributedAadlStorage) element).getUri().lastSegment());
 		} else if (element instanceof PublicPackageSection) {
