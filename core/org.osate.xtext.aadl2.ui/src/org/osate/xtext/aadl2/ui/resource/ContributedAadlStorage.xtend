@@ -27,4 +27,16 @@ class ContributedAadlStorage extends PlatformObject implements IStorage {
 	override isReadOnly() {
 		true
 	}
+	
+	override equals(Object obj) {
+		if (obj instanceof ContributedAadlStorage) {
+			uri == obj.uri
+		} else {
+			false
+		}
+	}
+	
+	override hashCode() {
+		uri.hashCode
+	}
 }
