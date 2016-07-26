@@ -13,8 +13,10 @@ class PropertiesUiStartup implements IStartup {
 	override earlyStartup() {
 		val WorkspaceModifyOperation operation = [monitor |
 			val pluginResourcesProject = ResourcesPlugin.workspace.root.getProject("Plugin_Resources")
-			setModifiable(pluginResourcesProject)
-			pluginResourcesProject.delete(true, true, monitor)
+			if (pluginResourcesProject.exists) {
+				setModifiable(pluginResourcesProject)
+				pluginResourcesProject.delete(true, true, monitor)
+			}
 		]
 		try {
 			operation.run(null)
