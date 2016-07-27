@@ -41,7 +41,7 @@
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="it.xsemantics.runtime.feature.feature.group" version="1.8.1.v20151009-0657"/>
-<repository location="http://sourceforge.net/projects/xsemantics/files/updates/releases/1.8"/>
+<repository location="http://sourceforge.net/projects/xsemantics/files/updates/releases/1.8/1.8.1.v20151009-0657/"/>
 </location>
 <!-- certware and dependencies -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
