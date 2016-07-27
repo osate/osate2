@@ -53,5 +53,11 @@
 <repository location="http://updatesite.certware.net"/>
 </location>
 <!-- end certware -->
+<!-- dcase editor -->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="net.dependableos.dcase.feature.feature.group" version="1.0.0.axe_201504121822"/>
+<repository location="http://www.dimensions-japan.org/dcase/eclipse/"/>
+</location>
+<!-- end dcase-->
 </locations>
 </target>
