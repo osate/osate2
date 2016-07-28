@@ -127,7 +127,14 @@ public class AssureRequirementsCoverageView extends ViewPart {
 		}
 	}
 
-	protected void updateRecentProofTrees() {
+	/**
+	 * 
+	 * @return Whether prooftree has been changed. 
+	 */
+	protected boolean updateRecentProofTrees() {
+
+		AssuranceCaseResult oldProofTrees = recentProofTrees;
+
 		if (alisaView == null) {
 			try {
 				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
@@ -136,16 +143,24 @@ public class AssureRequirementsCoverageView extends ViewPart {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				recentProofTrees = null;
-				return;
+				return true;
 			}
 		}
-		recentProofTrees = alisaView.findCaseResult(alisaView.getSelectedAssuranceCase().getName());
-		if (recentProofTrees == null) {
+		if (alisaView.getSelectedAssuranceCase() == null) {
 			System.out.println(
-					"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Failed to find assure file");
+					"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Assurance case is not selected in Alisaview");
 		} else {
-			System.out.println("AssureRequirementsCoverageView.updateRecentProofTrees() " + recentProofTrees.getName());
+			recentProofTrees = alisaView.findCaseResult(alisaView.getSelectedAssuranceCase().getName());
+			if (recentProofTrees == null) {
+				System.out.println(
+						"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Failed to find assure file or never been generated.");
+			} else {
+				System.out.println(
+						"AssureRequirementsCoverageView.updateRecentProofTrees() " + recentProofTrees.getName());
+			}
 		}
+
+		return oldProofTrees != recentProofTrees;
 	}
 
 	@Override
@@ -317,12 +332,13 @@ public class AssureRequirementsCoverageView extends ViewPart {
 			public void focusGained(FocusEvent e) {
 
 				// Updates recentProofTrees based on selection from AlisaView
-				updateRecentProofTrees();
+				boolean changed = updateRecentProofTrees();
 
 				if (recentProofTrees != null) {
 					CategoryFilter oldfilter = selectedCategoryFilter;
 					updateSelectedFilter();
-					if (oldfilter != selectedCategoryFilter) {
+
+					if (changed || oldfilter != selectedCategoryFilter) {
 						setProofs(recentProofTrees, selectedCategoryFilter);
 					}
 				}
@@ -382,7 +398,8 @@ public class AssureRequirementsCoverageView extends ViewPart {
 			VerifyUtilExtension.clearAllHasRunRecords();
 			AssureUtilExtension.clearAllInstanceModels();
 			assureRequirementMetricsProcessor.processCase(recentProofTrees, filter, null);
-
+			AssureContentProvider contentProvider = (AssureContentProvider) treeViewer.getContentProvider();
+			contentProvider.setFilter(filter);
 			treeViewer.setInput(Arrays.asList(recentProofTrees));
 		} else {
 			inputURI = null;

@@ -115,7 +115,7 @@ public class OpenAssureViewHandler extends AlisaHandler {
 	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
 		try {
 			AssureView view = (AssureView) page.showView(AssureView.ID);
-			view.setProofs(ac);
+			view.setProofs(ac, selectedFilter);
 			view.setFocus();
 		} catch (PartInitException e) {
 			e.printStackTrace();

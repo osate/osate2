@@ -324,20 +324,20 @@ public class AlisaView extends ViewPart {
 
 		updateFilterCombo(null);
 
-		filterCombo.addSelectionListener(new SelectionListener() {
-
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void widgetDefaultSelected(SelectionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
+//		filterCombo.addSelectionListener(new SelectionListener() {
+//
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//
+//			@Override
+//			public void widgetDefaultSelected(SelectionEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
 
 		alisaButton = new Button(rightSide, SWT.CENTER | SWT.WRAP);
 		alisaButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));

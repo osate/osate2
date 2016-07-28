@@ -16,51 +16,93 @@
 
 package org.osate.assure.ui.views;
 
-	import java.util.List;
+import java.util.List;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-	import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.osate.assure.assure.ClaimResult;
+import org.osate.assure.assure.VerificationActivityResult;
+import org.osate.categories.categories.CategoryFilter;
+import org.osate.verify.util.VerifyUtilExtension;
 
+public class AssureContentProvider implements ITreeContentProvider {
 
-	public class AssureContentProvider implements ITreeContentProvider {
-		@Override
-		public void dispose() {
-		}
+	private CategoryFilter filter;
+	private static final Object[] EMPTY = new Object[] {};
 
-		@Override
-		public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-		}
+	@Override
+	public void dispose() {
+	}
 
-		@Override
-		public Object[] getElements(Object inputElement) {
-			@SuppressWarnings("rawtypes")
-			List roots = (List) inputElement;
-			return roots.toArray();
-		}
+	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
 
-		@Override
-		public Object[] getChildren(Object parentElement) {
-			if (parentElement instanceof EObject) {
-				EObject node = (EObject) parentElement;
-				return node.eContents().toArray();
+	@Override
+	public Object[] getElements(Object inputElement) {
+		@SuppressWarnings("rawtypes")
+		List roots = (List) inputElement;
+		return roots.toArray();
+	}
+
+	@Override
+	public Object[] getChildren(Object parentElement) {
+//		if (parentElement instanceof EObject) {
+//			EObject node = (EObject) parentElement;
+//			return node.eContents().toArray();
+//		} else {
+//			throw new IllegalArgumentException();
+//		}
+
+		// This is how we are applying filter in AssureProcessor
+		if (parentElement instanceof ClaimResult) {
+			ClaimResult claimResult = (ClaimResult) parentElement;
+			if (VerifyUtilExtension.evaluateRequirementFilter(
+					claimResult.getTargetReference().getRequirement().getRequirement(), filter)) {
+				return claimResult.eContents().toArray();
 			} else {
-				throw new IllegalArgumentException();
+				return EMPTY;
 			}
-		}
 
-		@Override
-		public Object getParent(Object element) {
-			return null;
-		}
-
-		@Override
-		public boolean hasChildren(Object element) {
-			if (element instanceof EObject) {
-				EObject node = (EObject) element;
-				return !node.eContents().isEmpty();
+		} else if (parentElement instanceof VerificationActivityResult) {
+			VerificationActivityResult vaResult = (VerificationActivityResult) parentElement;
+			if (VerifyUtilExtension
+					.evaluateVerificationActivityFilter(vaResult.getTargetReference().getVerificationActivity(), filter)
+					&& VerifyUtilExtension.evaluateVerificationMethodFilter(
+							vaResult.getTargetReference().getVerificationActivity(), filter)) {
+				return vaResult.eContents().toArray();
 			} else {
-				throw new IllegalArgumentException();
+				return EMPTY;
 			}
+		} else if (parentElement instanceof EObject) {
+			EObject node = (EObject) parentElement;
+			return node.eContents().toArray();
+		} else {
+			throw new IllegalArgumentException();
 		}
 	}
+
+	@Override
+	public Object getParent(Object element) {
+		return null;
+	}
+
+	@Override
+	public boolean hasChildren(Object element) {
+		if (element instanceof EObject) {
+			EObject node = (EObject) element;
+			return !node.eContents().isEmpty();
+		} else {
+			throw new IllegalArgumentException();
+		}
+	}
+
+	public CategoryFilter getFilter() {
+		return filter;
+	}
+
+	public void setFilter(CategoryFilter filter) {
+		this.filter = filter;
+	}
+}
