@@ -84,6 +84,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="constants" upperBound="-1"
         eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//ValDeclaration"
         containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="computes" upperBound="-1"
+        eType="ecore:EClass platform:/resource/org.osate.alisa.common/model/generated/Common.ecore#//AVariableDeclaration"
+        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="requirements" upperBound="-1"
         eType="#//Requirement" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="stakeholderGoals" unique="false"

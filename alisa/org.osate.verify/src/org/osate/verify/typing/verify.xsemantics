@@ -1,7 +1,9 @@
 import java.util.List
 import org.eclipse.emf.common.util.EList
+import org.osate.aadl2.NumberType
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
+import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.typing.CommonTypeSystem
 import org.osate.verify.verify.ComputeRef
 import org.osate.verify.verify.FormalParameter
@@ -16,16 +18,35 @@ system org.osate.verify.typing.VerifyTypeSystem extends CommonTypeSystem
 judgments {
 	assignArgument |- FormalParameter formal <- PropertyExpression actual
 	assignReturn |- FormalParameter ret --> ComputeRef compute
-	assignarguments |- VerificationActivity owner ~> List<FormalParameter> formals << List<PropertyExpression> actuals
-	assignreturns |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computes
+	assignArguments |- VerificationActivity owner ~> List<FormalParameter> formals << List<PropertyExpression> actuals
+	assignReturns |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computes
 }
 
 rule TypeFormalParameter
-	G |- FormalParameter param : PropertyType type
+	G |- FormalParameter param : PropertyType expType
 from {
 	val declared = param.getType
 	declared != null
-	G |- declared : type
+	G |- declared : expType
+	if (param.unit != null) {
+		val targetType = param.unit.eContainer as UnitsType
+		if (expType instanceof NumberType) {
+			expType.unitsType == null
+			or
+				fail
+					error 'typing: parameter type has no unit'
+					source param
+			G |- expType.unitsType ~~ targetType
+			or
+				fail
+					error 'typing: cannot convert ' + stringRep(expType) + ' to ' + stringRep(targetType)
+					source param
+		} else {
+			fail
+				error 'typing: can only convert unit of a numeric type'
+				source param
+		}
+	}
 }
 
 rule ArgumentSequence
