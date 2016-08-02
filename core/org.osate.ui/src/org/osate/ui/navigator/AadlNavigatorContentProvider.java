@@ -38,7 +38,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.OptionalInt;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import org.eclipse.core.resources.IFile;
@@ -76,7 +75,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			return result.toArray();
 		} else if (element instanceof VirtualPluginResources) {
 			return PluginSupportUtil.getContributedAadl().stream().map(uri -> {
-				OptionalInt firstSignificantIndex = getFirstSignificantIndex(uri);
+				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (!firstSignificantIndex.isPresent() || firstSignificantIndex.getAsInt() == uri.segmentCount() - 1) {
 					return new ContributedAadlStorage(uri);
 				} else {
@@ -86,7 +85,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
 			Stream<URI> inDirectory = PluginSupportUtil.getContributedAadl().stream().filter(uri -> {
-				OptionalInt firstSignificantIndex = getFirstSignificantIndex(uri);
+				OptionalInt firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri);
 				if (firstSignificantIndex.isPresent() && firstSignificantIndex.getAsInt() < uri.segmentCount() - 1) {
 					List<String> uriDirectory = uri.segmentsList().subList(firstSignificantIndex.getAsInt(), uri.segmentCount() - 1);
 					return directoryPath.equals(uriDirectory);
@@ -96,7 +95,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			});
 			
 			return inDirectory.map(uri -> {
-				int nextSignificantIndex = getFirstSignificantIndex(uri).getAsInt() + directoryPath.size();
+				int nextSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt() + directoryPath.size();
 				if (nextSignificantIndex == uri.segmentCount() - 1) {
 					return new ContributedAadlStorage(uri);
 				} else {
@@ -185,7 +184,7 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 			}
 		} else if (element instanceof ContributedAadlStorage) {
 			URI uri = ((ContributedAadlStorage) element).getUri();
-			int firstSignificantIndex = getFirstSignificantIndex(uri).getAsInt();
+			int firstSignificantIndex = PluginSupportUtil.getFirstSignificantIndex(uri).getAsInt();
 			if (firstSignificantIndex == uri.segmentCount() - 1) {
 				return VirtualPluginResources.INSTANCE;
 			} else {
@@ -195,12 +194,5 @@ public class AadlNavigatorContentProvider extends WorkbenchContentProvider {
 		} else {
 			return super.getParent(element);
 		}
-	}
-	
-	private static OptionalInt getFirstSignificantIndex(URI uri) {
-		return IntStream.range(2, uri.segmentCount()).filter(index -> {
-			String segment = uri.segment(index);
-			return !(segment.startsWith("resource") || segment.startsWith("package") || segment.startsWith("propert"));
-		}).findFirst();
 	}
 }
