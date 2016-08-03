@@ -1222,6 +1222,22 @@ public class GetProperties {
 			return null;
 		}
 	}
+	
+	public static List<String> getSourceLanguage(final NamedElement ne) {
+		try {
+			List<String> res = new ArrayList<String> ();
+			Property sourceLanguage = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
+					ProgrammingProperties.SOURCE_LANGUAGE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(sourceLanguage);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				String v = ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
+				res.add (v);
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
 
 	public static List<String> getSourceLanguage(final NamedElement ne) {
 		try {
