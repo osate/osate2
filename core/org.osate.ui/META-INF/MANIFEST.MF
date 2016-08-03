@@ -16,6 +16,7 @@ Export-Package: org.osate.internal.ui.actions,
  org.osate.ui.marker,
  org.osate.ui.navigator,
  org.osate.ui.perspective,
+ org.osate.ui.utils,
  org.osate.ui.wizards
 Require-Bundle: org.eclipse.core.runtime;bundle-version="3.7.0",
  org.eclipse.core.resources;bundle-version="3.7.0",
