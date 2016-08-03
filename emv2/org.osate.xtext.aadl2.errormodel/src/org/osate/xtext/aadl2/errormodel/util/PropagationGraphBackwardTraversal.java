@@ -230,18 +230,18 @@ public class PropagationGraphBackwardTraversal {
 				// XXX this is the recursive call
 				// do not traverse back in same state
 				// we also do not traverse back if left is allstates.
-				EObject stateResult = sameState || ebt.isAllStates() ? null
-						: traverseErrorBehaviorState(component, ebt.getSource(), type);
-				if (conditionResult != null && stateResult != null) {
-					EObject tmpresult = processTransitionCondition(component, ebt.getSource(), type, conditionResult,
-							stateResult);
-					if (tmpresult != null) {
-						subResults.add(tmpresult);
+				if (conditionResult != null) {
+					EObject stateResult = sameState || ebt.isAllStates() ? null
+							: traverseErrorBehaviorState(component, ebt.getSource(), type);
+					if (stateResult != null) {
+						EObject tmpresult = processTransitionCondition(component, ebt.getSource(), type,
+								conditionResult, stateResult);
+						if (tmpresult != null) {
+							subResults.add(tmpresult);
+						}
+					} else if (stateResult == null) {
+						subResults.add(conditionResult);
 					}
-				} else if (conditionResult == null && stateResult != null) {
-					subResults.add(stateResult);
-				} else if (conditionResult != null && stateResult == null) {
-					subResults.add(conditionResult);
 				}
 			}
 		}
@@ -385,6 +385,12 @@ public class PropagationGraphBackwardTraversal {
 
 			}
 
+			if (conditionElement.getConstraint() != null) {
+				if (EMV2Util.isNoError(conditionElement.getConstraint())) {
+					// this is a recovery transition since an incoming propagation constraint is NoError
+					return null;
+				}
+			}
 			if (conditionElement.getQualifiedErrorPropagationReference() != null) {
 				EMV2Path path = conditionElement.getQualifiedErrorPropagationReference();
 
@@ -406,6 +412,11 @@ public class PropagationGraphBackwardTraversal {
 				if (errorModelElement instanceof ErrorPropagation) {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
 					// XXX deal with type constraint
+					TypeSet ts = errorPropagation.getTypeSet();
+					if (EMV2Util.isNoError(ts)) {
+						// this is a recovery transition since an incoming propagation became error free
+						return null;
+					}
 					if (errorPropagation.getDirection() == DirectionType.IN) {
 						return traverseIncomingErrorPropagation(relatedComponent, errorPropagation,
 								referencedErrorType);
