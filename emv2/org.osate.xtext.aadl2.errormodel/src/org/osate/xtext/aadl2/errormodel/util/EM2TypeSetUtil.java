@@ -472,6 +472,9 @@ public class EM2TypeSetUtil {
 						// product type: add other type elements from the product type
 						newitems = addItemSet(newitems, etlist);
 					}
+				} else {
+					EList<TypeToken> etlist = generateAllLeafTypeTokens((TypeSet) errorType, usetypes);
+					newitems.addAll(etlist);
 				}
 			}
 			result.addAll(newitems);
