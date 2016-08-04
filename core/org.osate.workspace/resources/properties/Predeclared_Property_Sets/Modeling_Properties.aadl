@@ -3,8 +3,10 @@
 --Appendix A: Predeclared Property Sets
 
 property set Modeling_Properties is
-	Acceptable_Array_Size: list of Size_Range
+	Acceptable_Array_Size: list of Array_Size_Range
 		applies to (subcomponent, feature);
+		
+	Array_Size_Range : type range of aadlinteger;
 	
 	Classifier_Matching_Rule: inherit enumeration (Classifier_Match, Type_Extension, Equivalence, Subset, Conversion)
 		applies to (connection, component implementation);
