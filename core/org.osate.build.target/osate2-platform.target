@@ -53,5 +53,15 @@
 <repository location="http://updatesite.certware.net"/>
 </location>
 <!-- end certware -->
+<!-- dcase editor -->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="net.dependableos.dcase.feature.feature.group" version="1.0.0.axe_201504121822"/>
+<repository location="http://www.dimensions-japan.org/dcase/eclipse/"/>
+</location>
+<!-- end dcase-->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/"/>
+</location>
 </locations>
 </target>
