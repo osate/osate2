@@ -59,5 +59,9 @@
 <repository location="http://www.dimensions-japan.org/dcase/eclipse/"/>
 </location>
 <!-- end dcase-->
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.apache.commons.io" version="2.2.0.v201405211200"/>
+<repository location="http://download.eclipse.org/tools/orbit/downloads/drops/R20160221192158/repository/"/>
+</location>
 </locations>
 </target>
