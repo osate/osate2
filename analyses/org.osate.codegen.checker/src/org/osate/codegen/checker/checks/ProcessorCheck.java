@@ -26,12 +26,27 @@ public class ProcessorCheck extends AbstractCheck {
 		 */
 		if (vxworks() || deos())
 		{
-			List<ComponentInstance> badProcessors = (List<ComponentInstance>) si.getAllComponentInstances().stream()
+			final List<ComponentInstance> badProcessors = (List<ComponentInstance>) si.getAllComponentInstances().stream()
 					.filter( comp -> comp.getCategory() == ComponentCategory.PROCESSOR).filter( cpu -> GetProperties.getModuleSchedule(cpu).size() == 0).collect(Collectors.toList());
 	
 			for (ComponentInstance cpu : badProcessors)
 			{
 				addError (new ErrorReport (cpu, "Need to define the processor schedule"));
+			}
+		}
+		
+		/**
+		 * For vxworks, we need to check that the Source_Name property
+		 * is defined on each virtual processor.
+		 */
+		if (vxworks())
+		{
+			final List<ComponentInstance> virtualProcessorsWithoutSourceName = 
+					si.getAllComponentInstances(ComponentCategory.VIRTUAL_PROCESSOR).stream()
+					.filter(comp -> ( (comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) && (GetProperties.getSourceName(comp) == null) )).collect(Collectors.toList());
+			for (ComponentInstance vp : virtualProcessorsWithoutSourceName)
+			{
+				addError (new ErrorReport (vp, "Need to define the source_name property"));
 			}
 		}
 		
@@ -45,9 +60,9 @@ public class ProcessorCheck extends AbstractCheck {
 			 */
 			for (ComponentInstance cpu : si.getComponentInstances().stream().filter(comp -> comp.getCategory() == ComponentCategory.PROCESSOR).collect(Collectors.toList()) )
 			{
-				List<ComponentInstance> badVirtualProcessor = cpu.getComponentInstances().stream()
+				final List<ComponentInstance> unreferencedVirtualProcessors = cpu.getComponentInstances().stream()
 						.filter(comp -> ( (comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) && (PokProperties.getSlotsAllocation(cpu).contains(comp) == false) )).collect(Collectors.toList());
-				for (ComponentInstance vp : badVirtualProcessor)
+				for (ComponentInstance vp : unreferencedVirtualProcessors)
 				{
 					addError (new ErrorReport (cpu, "Need to be referenced in the processor slots"));
 				}
