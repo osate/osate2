@@ -5,6 +5,11 @@ package org.osate.recspec.ui.spotlight.utils;
  * @author klream
  *
  */
+/** Revised by renaming the variables "{eE}ffortEstimate"->"{eE}ffortEstimateConstant"
+ * And then making a similar change in four places in SpotlightUtil.java
+ * @author mdk
+ *
+ */
 public class SpotlightFactorValues {
 	//TODO; There will need to be a screen for user to enter these values and a way to persist this in OSATE
 	private double data = 1.28;
@@ -20,14 +25,14 @@ public class SpotlightFactorValues {
 	private double tool = 0.78;
 	private double site = 0.93;
 	private double sced = 1.00;
-	private double effortEstimationA = 2.94; 
-	private double effortEstimationB = 0.91; 
+	private double effortEstimationConstantA = 2.94; 
+	private double effortEstimationConstantB = 0.91; 
 	private double flex = 5.07;
 	private double resl = 1.41;
 	private double team = 1.10;
 	private double pmat = 3.12;
 	private double tlc = 10000;
-
+	
 	public SpotlightFactorValues() {
 	}
 
@@ -138,20 +143,20 @@ public class SpotlightFactorValues {
 		this.sced = sced;
 	}
 
-	public double getEffortEstimationA() {
-		return effortEstimationA;
+	public double getEffortEstimationConstantA() {
+		return effortEstimationConstantA;
 	}
 
-	public void setEffortEstimationA(double effortEstimationA) {
-		this.effortEstimationA = effortEstimationA;
+	public void setEffortEstimationConstantA(double effortEstimationConstantA) {
+		this.effortEstimationConstantA = effortEstimationConstantA;
 	}
 
-	public double getEffortEstimationB() {
-		return effortEstimationB;
+	public double getEffortEstimationConstantB() {
+		return effortEstimationConstantB;
 	}
 
-	public void setEffortEstimationB(double effortEstimationB) {
-		this.effortEstimationB = effortEstimationB;
+	public void setEffortEstimationConstantB(double effortEstimationConstantB) {
+		this.effortEstimationConstantB = effortEstimationConstantB;
 	}
 
 	public double getFlex() {
