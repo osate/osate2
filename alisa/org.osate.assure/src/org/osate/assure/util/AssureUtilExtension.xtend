@@ -781,18 +781,18 @@ class AssureUtilExtension {
 	}
 
 	def static CategoryFilter getCategoryFilter(AssureResult assureResult){
-//		null
-		val filters = (assureResult.modelResult.plan.eContainer as AssuranceCase).tasks
-		println("filters = " + filters)
-		if (filters.nullOrEmpty) {
-		println("filters.nullOrEmpty = " + filters.nullOrEmpty)
-		
-			null
-		} else {
-		println("filters.head = " + filters.head)
-			filters.head
-			
-		}
+		null
+//		val filters = (assureResult.modelResult.plan.eContainer as AssuranceCase).tasks
+//		println("filters = " + filters)
+//		if (filters.nullOrEmpty) {
+//		println("filters.nullOrEmpty = " + filters.nullOrEmpty)
+//		
+//			null
+//		} else {
+//		println("filters.head = " + filters.head)
+//			filters.head
+//			
+//		}
 	}
 
 	/**
