@@ -542,7 +542,7 @@ public class EMV2Properties {
 					ErrorTypes typeelement = EMV2Util.getErrorType(emv2Path);
 					if (typeelement != null && ts != null) {
 						// check to see if the desired ts is contained in the PA containment path
-						if (EM2TypeSetUtil.contains(typeelement, ts)) {
+						if (EM2TypeSetUtil.contains(ts, typeelement) || EM2TypeSetUtil.contains(typeelement, ts)) {
 							return propertyAssociation;
 						}
 					} else {

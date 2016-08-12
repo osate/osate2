@@ -60,15 +60,19 @@ import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.EventOrPropagation;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
@@ -277,9 +281,23 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				// for all error types/aliases in type set or the element identified in the containment clause
 
 				if (ts != null) {
-					for (TypeToken token : ts.getTypeTokens()) {
-						reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
-								EMV2Util.getName(token));
+					// do smaller of ts or hazard type set.
+					EList<EMV2Path> epathlist = PA.getEmv2Path();
+					for (EMV2Path ep : epathlist) {
+						ErrorTypes et = EMV2Util.getErrorType(ep);
+						ErrorTypes targettype = ts;
+						if (EM2TypeSetUtil.contains(ts, et)) {
+							targettype = et;
+						}
+						if (targettype instanceof TypeSet) {
+							for (TypeToken token : ((TypeSet) targettype).getTypeTokens()) {
+								reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+										EMV2Util.getName(token));
+							}
+						} else {
+							reportFHAEntry(report, fields, severityValue, likelihoodValue, ci, targetName,
+									((ErrorType) targettype).getName());
+						}
 					}
 				} else {
 					// did not have a type set. Let's use fmr (state of type set as failure mode.
