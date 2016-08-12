@@ -189,6 +189,12 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				target = errorSource;
 				localContext = null;
+				if (HazardPA.isEmpty() && errorSource.getFailureModeType() != null) {
+					ts = errorSource.getFailureModeType();
+					HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
+					Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
+					Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
+				}
 			}
 			// Will be handled in next section processing error propagations
 //			if ((HazardPA == null) || (HazardPA.isEmpty())) {
