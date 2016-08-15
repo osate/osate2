@@ -37,9 +37,9 @@ class ConnectionInfo {
 	private ConnectionKind kind;
 	final List<Connection> connections;
 	final List<Boolean> opposites;
-	private final List<ComponentInstance> contexts;
-	private final List<ConnectionInstanceEnd> sources;
-	private final List<ConnectionInstanceEnd> destinations;
+	final List<ComponentInstance> contexts;
+	final List<ConnectionInstanceEnd> sources;
+	final List<ConnectionInstanceEnd> destinations;
 	ConnectionInstanceEnd src;
 	private boolean bidirectional = true;
 	boolean complete = false;
