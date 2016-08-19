@@ -739,7 +739,7 @@ public class AnalysisModel {
 		return result;
 	}
 
-	public boolean existsPropagationPath(ComponentInstance srcCI, ErrorPropagation srcEP, ComponentInstance dstCI,
+	private boolean existsPropagationPath(ComponentInstance srcCI, ErrorPropagation srcEP, ComponentInstance dstCI,
 			ErrorPropagation dstEP, ConnectionInstance conni) {
 		for (PropagationPathRecord pp : propagationPaths) {
 			if (pp.getConnectionInstance() == conni && pp.getSrcCI() == srcCI && pp.getDstCI() == dstCI

@@ -37,16 +37,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 public class PropagationGraphBackwardTraversal {
 
 	private AnalysisModel currentAnalysisModel;
-	private ComponentInstance rootComponent;
 
-	public PropagationGraphBackwardTraversal(ComponentInstance root) {
-
-		rootComponent = root;
-		currentAnalysisModel = new AnalysisModel(rootComponent, false);
-	}
-
-	public ComponentInstance getRootComponent() {
-		return rootComponent;
+	public PropagationGraphBackwardTraversal(AnalysisModel m) {
+		currentAnalysisModel = m;
 	}
 
 	/**
