@@ -38,7 +38,18 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 		@Override
 		public InternalReferenceBuilderService createService(final IEclipseContext context) {
 			return new DefaultInternalReferenceBuilderService();
-		}		
+		}	
+		
+		@Override
+		protected void deactivate() {
+			// Dispose the service if it is valid
+			final InternalReferenceBuilderService service = getService();
+			if(service instanceof DefaultInternalReferenceBuilderService) {
+				((DefaultInternalReferenceBuilderService)service).dispose();
+			}
+			
+			super.deactivate();
+		}
 	}
 
 	public DefaultInternalReferenceBuilderService() {
@@ -46,6 +57,10 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 		
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());
 		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+	}
+	
+	public void dispose() {
+		argCtx.dispose();
 	}
 	
 	private static List<Object> instantiateReferenceBuilders() {		
