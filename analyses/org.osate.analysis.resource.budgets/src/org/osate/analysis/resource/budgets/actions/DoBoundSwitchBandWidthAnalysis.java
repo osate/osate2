@@ -60,7 +60,7 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 
 	@Override
 	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("BoundBandwidthBudgets", obj);
+		setCSVLog("Bandwidth", obj);
 		return true;
 	}
 
