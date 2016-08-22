@@ -20,8 +20,14 @@
 package org.osate.alisa.common.ui;
 
 import org.eclipse.ui.plugin.AbstractUIPlugin;
+import org.eclipse.xtext.resource.containers.IAllContainersState;
 import org.eclipse.xtext.ui.editor.hover.IEObjectHoverProvider;
+import org.eclipse.xtext.ui.shared.Access;
 import org.osate.alisa.common.ui.editor.hover.html.CommonEObjectHoverProvider;
+import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsState;
+import org.osate.xtext.aadl2.ui.containers.Aadl2ProjectsStateHelper;
+
+import com.google.inject.Provider;
 
 /**
  * Use this class to register components to be used within the IDE.
@@ -33,5 +39,14 @@ public class CommonUiModule extends org.osate.alisa.common.ui.AbstractCommonUiMo
 
 	public Class<? extends IEObjectHoverProvider> bindIEObjectHoverProvider() {
 		return CommonEObjectHoverProvider.class;
+	}
+	
+	@Override
+	public Provider<IAllContainersState> provideIAllContainersState() {
+		return Access.provider(Aadl2ProjectsState.class);
+	}
+	
+	public Class<? extends Aadl2ProjectsStateHelper> bindWorkspaceProjectsStateHelper() {
+		return Aadl2ProjectsStateHelper.class;
 	}
 }
