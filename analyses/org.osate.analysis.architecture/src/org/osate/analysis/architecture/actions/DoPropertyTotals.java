@@ -40,7 +40,6 @@
 package org.osate.analysis.architecture.actions;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.ui.IWorkbenchWindow;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -52,14 +51,17 @@ import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osgi.framework.Bundle;
 
 public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
+	@Override
 	protected Bundle getBundle() {
 		return ArchitecturePlugin.getDefault().getBundle();
 	}
 
+	@Override
 	public String getMarkerType() {
 		return "org.osate.analysis.architecture.WeightTotalObjectMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Weight totals";
 	}
@@ -89,7 +91,7 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 		monitor.beginTask("Gathering weight summaries", IProgressMonitor.UNKNOWN);
 
 		if (!(obj instanceof ComponentInstance)) {
-			warning(obj, "Weight Totals: Please invoke command on an instance model");
+			warning(obj, "Weight totals: Please invoke command on an instance model");
 			monitor.done();
 			return;
 		}
