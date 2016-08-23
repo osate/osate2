@@ -50,6 +50,29 @@ public class ProcessorCheck extends AbstractCheck {
 			}
 		}
 		
+		/**
+		 * For vxworks, we need to check that the Source_Name property
+		 * is defined on each virtual processor.
+		 */
+		if (deos())
+		{
+			final List<ComponentInstance> virtualProcessorsWithoutExecutionTime = 
+					si.getAllComponentInstances(ComponentCategory.VIRTUAL_PROCESSOR).stream()
+					.filter(comp -> ( (comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) && (GetProperties.getExecutionTimeInMS(comp) == 0) )).collect(Collectors.toList());
+			for (ComponentInstance vp : virtualProcessorsWithoutExecutionTime)
+			{
+				addError (new ErrorReport (vp, "Need to define the execution_time property"));
+			}
+			
+			final List<ComponentInstance> virtualProcessorsWithoutPeriod = 
+					si.getAllComponentInstances(ComponentCategory.VIRTUAL_PROCESSOR).stream()
+					.filter(comp -> ( (comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) && (GetProperties.getPeriodinMS(comp) == 0) )).collect(Collectors.toList());
+			for (ComponentInstance vp : virtualProcessorsWithoutPeriod)
+			{
+				addError (new ErrorReport (vp, "Need to define the period property"));
+			}
+		}
+		
 		if (pok())
 		{
 			OsateDebug.osateDebug("pok case");
