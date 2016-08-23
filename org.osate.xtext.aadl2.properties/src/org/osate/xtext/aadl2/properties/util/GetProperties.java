@@ -1108,6 +1108,12 @@ public class GetProperties {
 		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
 	}
+	
+	public static double getExecutionTimeInMS(final NamedElement ne) {
+		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.EXECUTION_TIME);
+		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
+	}	
 
 	public static double getPeriodinMicroSec(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.PERIOD);
