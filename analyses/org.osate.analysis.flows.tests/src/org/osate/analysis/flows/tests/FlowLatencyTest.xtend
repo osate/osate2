@@ -170,7 +170,7 @@ end PullProtocols;
 	'''
 
 	val expected = '''
-Latency analysis for end-to-end flow 'prot.XferOnly' of system 'stub.i' with latency preference stettings AS-MF-ET-EQ,
+Latency analysis for end-to-end flow 'prot.XferOnly' of system 'stub.i' with preference settings AS-MF-ET-EQ,
 
 Contributor,Min Specified,Min Value,Min Method,Max Specified,Max Value,Max Method,Comments,
 thread prot.sender,,0.0ms,first sampling,,0.0ms,first sampling,Initial 100.0ms sampling latency not added,
