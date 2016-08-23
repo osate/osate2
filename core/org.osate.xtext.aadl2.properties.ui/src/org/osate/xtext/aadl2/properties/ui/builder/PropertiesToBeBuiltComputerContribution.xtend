@@ -25,7 +25,7 @@ class PropertiesToBeBuiltComputerContribution implements IToBeBuiltComputerContr
 	
 	override updateStorage(ToBeBuilt toBeBuilt, IStorage storage, IProgressMonitor monitor) {
 		toBeBuilt.toBeUpdated += CONTRIBUTED
-		true
+		false
 	}
 	
 	override isPossiblyHandled(IStorage storage) {
