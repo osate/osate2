@@ -66,6 +66,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		this.action = action;
 	}
 
+	@Override
 	protected final void initSwitches() {
 		/*
 		 * We overwrite the case method for a class in the meta model
@@ -107,7 +108,8 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			weight += netconn > 0 ? netconn : grossconn;
 			reportWeight(connectionInstance.getName(), "Connection ", netconn > 0 ? netconn : grossconn, netconn > 0);
 			if (netconn > 0 || grossconn > 0) {
-				String ResultMsg = String.format(connectionInstance.getName() + ": Weight of access connection %.3f kg",
+				String ResultMsg = String.format(
+						connectionInstance.getName() + ": Weight of access connection is %.3f kg",
 						netconn > 0 ? netconn : grossconn);
 				reportinfo(connectionInstance, ResultMsg);
 			}
@@ -126,12 +128,13 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			if (weight > gross) {
 				// problem
 				reportwarning(ci,
-						String.format("[G] Sum of weights %.3f kg exceeds grossweight %.3f kg", weight, gross));
+						String.format("[G] Sum of weights (%.3f kg) exceeds gross weight of %.3f kg", weight, gross));
 				// Set gross weight
 			} else if (weight > 0 && weight < gross) {
 				// problem
 				reportwarning(ci,
-						String.format("[G] Sum of weights %.3f kg less than grossweight %.3f kg (using gross weight)",
+						String.format(
+								"[G] Sum of weights (%.3f kg) less than gross weight of %.3f kg (using gross weight)",
 								weight, gross));
 				weight = gross;
 			}
@@ -143,30 +146,31 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 		if (limit > 0.0) {
 			if (weight > limit) {
 				// problem
-				String ResultMsg = String.format("[A] Sum of weights %.3f kg exceeds weight limit %.3f kg", weight,
+				String ResultMsg = String.format("[A] Sum of weights (%.3f kg) exceeds weight limit of %.3f kg", weight,
 						limit);
 				reporterror(ci, ResultMsg);
 			} else {
 				if (sublimit > limit) {
 					// problem
 					reportwarning(ci,
-							String.format("[L] Sum of subcomponent weight limits %.3f kg exceeds weight limit %.3f kg",
+							String.format(
+									"[L] Sum of subcomponent weight limits (%.3f kg) exceeds weight limit of %.3f kg",
 									sublimit, limit));
 				}
 				if (weight < limit) {
 					String ResultMsg = String.format(
-							"[A] Sum of weights %.3f kg below weight limit %.3f kg (%.1f %% Weight slack)", weight,
-							limit, (limit - weight) / limit * 100);
+							"[A] Sum of weights (%.3f kg) is below weight limit of %.3f kg (%.1f %% Weight slack)",
+							weight, limit, (limit - weight) / limit * 100);
 					reportinfo(ci, ResultMsg);
 				}
 			}
 		} else {
 			if (weight > 0.0) {
-				String ResultMsg = String.format("[L] Sum of weights / Gross weight %.3f kg (no limit specified",
+				String ResultMsg = String.format("[L] Sum of weights / gross weight is %.3f kg (no limit specified)",
 						weight);
 				reportinfo(ci, ResultMsg);
 			} else if (needWeight) {
-				String ResultMsg = "[L] no net weight plus subcomponent weight or no grossweight";
+				String ResultMsg = "[L] No net weight plus subcomponent weight or no gross weight";
 				reportwarning(ci, ResultMsg);
 			}
 		}
