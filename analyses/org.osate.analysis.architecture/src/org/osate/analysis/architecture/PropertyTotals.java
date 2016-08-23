@@ -159,7 +159,7 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 				}
 				if (weight < limit) {
 					String ResultMsg = String.format(
-							"[A] Sum of weights (%.3f kg) is below weight limit of %.3f kg (%.1f %% Weight slack)",
+							"[A] Sum of weights (%.3f kg) is below weight limit of %.3f kg (%.1f %% weight slack)",
 							weight, limit, (limit - weight) / limit * 100);
 					reportinfo(ci, ResultMsg);
 				}
