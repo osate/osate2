@@ -26,6 +26,7 @@ platforms:
  * **Processor**: defines the slots property and is the same size than the slots_allocation
 
 ## DeOS Specific Rules
+ * **Virtual Processor**: needs to define *Period* and *Execution_Time*
 
 
 ## VxWorks Specific Rules
