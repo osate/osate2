@@ -2726,6 +2726,16 @@ public class EMV2Util {
 		return false;
 	}
 
+	public static boolean hasOutgoingPropagations(ComponentInstance ci) {
+		Collection<ErrorPropagation> ceb = getAllOutgoingErrorPropagations(ci.getComponentClassifier());
+		return !ceb.isEmpty();
+	}
+
+	public static boolean hasErrorBehaviorStates(ComponentInstance ci) {
+		Collection<ErrorBehaviorState> ceb = getAllErrorBehaviorStates(ci);
+		return !ceb.isEmpty();
+	}
+
 	public static boolean hasOutgoingPropagationCondition(ComponentInstance ci) {
 		return hasOutgoingPropagationCondition(ci.getComponentClassifier());
 	}
