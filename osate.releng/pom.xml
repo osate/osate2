@@ -23,6 +23,7 @@
 		<module>../../osate-ge/osate-ge.releng/modules</module>
 
 		<module>../../osate2-ba/org.osate.ba</module>
+		<module>../../osate2-ba/org.osate.ba.contrib</module>
 		<module>../../osate2-ba/org.osate.ba.feature</module>
 		<module>../../osate2-ba/org.osate.ba.edit</module>
 		<module>../../osate2-ba/org.osate.utils</module>
