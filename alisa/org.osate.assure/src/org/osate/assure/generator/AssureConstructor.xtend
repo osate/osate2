@@ -139,7 +139,7 @@ class AssureConstructor implements IAssureConstructor{
 		for (acp : acs.assurancePlans) {
 			//For each assurance Plan we add a model result
 			
-			System.out.println("modelResultInstance constructAssuranceCaseResult: 0000");
+			System.out.println("AssureConstructor constructAssuranceCaseResult: 0000");
 			
 			val modelResultInstance = acp.constructModelResult
 			if(modelResultInstance != null)
@@ -183,7 +183,7 @@ class AssureConstructor implements IAssureConstructor{
 		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase)
 		//doSubsystemResult(acp, myplans, cc, mr.subsystemResult, mr.subAssuranceCase)
 		
-		System.out.println("modelResultInstance constructAssuranceCaseResult: 1111");
+		System.out.println("AssureConstructor constructModelResult: 1111");
 		
 		if(mr.claimResult.length == 0 && mr.subsystemResult.length == 0 && mr.subAssuranceCase.length == 0) return null
 		

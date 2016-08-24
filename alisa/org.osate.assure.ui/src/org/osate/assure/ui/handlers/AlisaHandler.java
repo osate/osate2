@@ -146,7 +146,7 @@ public abstract class AlisaHandler extends AbstractHandler {
 			System.out.println("AlisaHandler.execute2() EObject");
 			uri = EcoreUtil.getURI((EObject) assuranceCaseResult);
 		}
-		System.out.println("AlisaHandler.execute2() assuranceCaseResult: " + assuranceCaseResult.getName());
+		System.out.println("AlisaHandler.execute2() assuranceCaseResult name: " + assuranceCaseResult.getName());
 		System.out.println("AlisaHandler.execute2() uri from AssuranceCaseResult, if null we can have deadlock: "
 				+ uri.toString());
 		// System.out.println("AlisaHandler.execute2() assureURI generated just checking : " + assureURI.toString());
@@ -200,7 +200,9 @@ public abstract class AlisaHandler extends AbstractHandler {
 		} else if (uri.isFile()) {
 			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toFileString()));
 		}
-		// job.setRule(file);
+
+		System.out.println("  MultiRule>>>>>>>>>>>>scheduleJob file: " + file.toString());
+//		job.setRule(file);
 		job.setRule(MultiRule.combine(msr, file));
 		job.schedule();
 		return null;

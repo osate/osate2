@@ -34,7 +34,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
@@ -122,6 +121,7 @@ public class AlisaView extends ViewPart {
 	}
 
 	private URI assureDirURI, assureURI;
+	private IProject assureProject;
 	private Map<String, CategoryFilter> globalFilterList = Collections
 			.synchronizedMap(new HashMap<String, CategoryFilter>());
 //	private NoClaimResultsFilter noClaimsResultFilter = new NoClaimResultsFilter();
@@ -249,16 +249,9 @@ public class AlisaView extends ViewPart {
 
 			}
 		});
-//		resultTree.setLinesVisible(false);
 
-//	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
 		getSite().setSelectionProvider(treeViewer);
-
 		AssureTooltipListener.createAndRegister(treeViewer);
-
-//		treeViewer.addFilter(new NoMetricsFilter());
-
-		// treeViewer.addFilter(noClaimsResultFilter);
 //	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
 
 		// Not sure we need this.
@@ -324,21 +317,6 @@ public class AlisaView extends ViewPart {
 
 		updateFilterCombo(null);
 
-//		filterCombo.addSelectionListener(new SelectionListener() {
-//
-//			@Override
-//			public void widgetSelected(SelectionEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void widgetDefaultSelected(SelectionEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-
 		alisaButton = new Button(rightSide, SWT.CENTER | SWT.WRAP);
 		alisaButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
 		alisaButton.setText(BUTTON_WAITING);
@@ -348,146 +326,12 @@ public class AlisaView extends ViewPart {
 
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if (selectedAssuranceCase != null) {
-
-					AssureHandler ah = new AssureHandler();
-
-					ah.prepare();
-
-					// Doesn't seem to always find it.
-					AssuranceCaseResult assuranceCaseResult = findCaseResult(selectedAssuranceCase.getName());
-					if (assuranceCaseResult == null) {
-						System.err.println("AlisaView.createPartControl() matching assure resource not found.");
-
-						assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
-					} else {
-						System.out.println("  >>>>>>>>>>>>Found existing assure resource");
-
-						// Just for now to have assureDirURI
-						URI uri = null;
-						if (selectedAssuranceCase instanceof EObjectNode) {
-							uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
-						} else if (selectedAssuranceCase instanceof EObject) {
-							uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
-						}
-						URI file_uri = uri;
-						IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-						for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
-							IProject tempProject = myWorkspaceRoot.getProjects()[i];
-							if (tempProject.isAccessible()) {
-								System.out.println("Project paths: " + tempProject.getFullPath());
-								if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
-
-									System.out.println(
-											"Found Project, creating String for assure: " + tempProject.getFullPath()
-													+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
-
-									assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure",
-											false);
-								}
-							}
-						}
-					}
-
-					// TODO: should send filter
-
-					Resource res = selectedAssuranceCase.getSystem().eResource();
-					URI modeluri = res.getURI();
-//					String last = modeluri.lastSegment();
-//					String filename = last.substring(0, last.indexOf('.'));
-					URI path = modeluri.trimSegments(1);
-					if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
-						path = path.trimSegments(1);
-					}
-					URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
-					System.out.println("  >>>>>>>>>>>>instanceDirURI: " + instanceDirURI.toString());
-					System.out.println("  >>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
-
-					msr = MultiRule.combine(
-							ResourcesPlugin.getWorkspace().getRoot()
-									.getFolder(new Path(instanceDirURI.toPlatformString(true))),
-							ResourcesPlugin.getWorkspace().getRoot()
-									.getFolder(new Path(assureDirURI.toPlatformString(true))));
-
-					ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
-
-				}
-
+				alisaButtonSelected();
 			}
 
 			@Override
 			public void widgetDefaultSelected(SelectionEvent e) {
-				if (selectedAssuranceCase != null) {
-
-					AssuranceCaseResult assuranceCaseResult = findCaseResult(selectedAssuranceCase.getName());
-					if (assuranceCaseResult == null) {
-						// TODO: generate assure file. Until assure file is auto-generated this should not be a problem.
-						System.err.println("2AlisaView.createPartControl() matching assure resource not found.");
-
-						assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
-					} else {
-						System.out.println("2  >>>>>>>>>>>>Found assure resource");
-						// Just for now to have assureDirURI
-						URI uri = null;
-						if (selectedAssuranceCase instanceof EObjectNode) {
-							uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
-						} else if (selectedAssuranceCase instanceof EObject) {
-							uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
-						}
-						URI file_uri = uri;
-						IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-						for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
-							IProject tempProject = myWorkspaceRoot.getProjects()[i];
-							if (tempProject.isAccessible()) {
-								System.out.println("Project paths: " + tempProject.getFullPath());
-								if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
-
-									System.out.println(
-											"Found Project, creating String for assure: " + tempProject.getFullPath()
-													+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
-
-									assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure",
-											false);
-								}
-							}
-						}
-					}
-
-					// assuranceCaseResult does not have filter applied.
-
-//					if (uri != null) {
-					AssureHandler ah = new AssureHandler();
-					ah.prepare();
-
-					Resource res = selectedAssuranceCase.getSystem().eResource();
-					URI modeluri = res.getURI();
-//					String last = modeluri.lastSegment();
-//					String filename = last.substring(0, last.indexOf('.'));
-					URI path = modeluri.trimSegments(1);
-					if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
-						path = path.trimSegments(1);
-					}
-					URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
-					System.out.println("  >>>>>>>>>>>>instanceDirURI: " + instanceDirURI.toString());
-					System.out.println("  >>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
-
-//					if (instanceDirURI.isPlatform()) {
-//						System.out.println("  >>>>>>>>>>>>0000: " + instanceDirURI.toString());
-					msr = MultiRule.combine(
-							ResourcesPlugin.getWorkspace().getRoot()
-									.getFolder(new Path(instanceDirURI.toPlatformString(true))),
-							ResourcesPlugin.getWorkspace().getRoot()
-									.getFolder(new Path(assureDirURI.toPlatformString(true))));
-//					} else if (instanceDirURI.isFile()) {
-//						System.out.println("  >>>>>>>>>>>>1111: " + instanceDirURI.toString());
-//						msr = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(instanceDirURI.toFileString()));
-//					}
-
-					ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
-//					}
-
-				}
-
+				alisaButtonSelected();
 			}
 		});
 
@@ -514,8 +358,81 @@ public class AlisaView extends ViewPart {
 //		});
 	}
 
+	private void alisaButtonSelected() {
+		if (selectedAssuranceCase != null) {
+
+			AssureHandler ah = new AssureHandler();
+
+			ah.prepare();
+
+			// Doesn't seem to always find it.
+			AssuranceCaseResult assuranceCaseResult = findCaseResult(selectedAssuranceCase.getName());
+			if (assuranceCaseResult == null) {
+				System.err.println("AlisaView existing assure resource not found. Not an error. createCaseResult");
+
+				assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
+			} else {
+				System.out.println("  >>>>>>>>>>>>Found existing assure resource");
+
+				// Need assureDirURI to be set at least. Same is done in createCaseResult
+
+				URI uri = null;
+				if (selectedAssuranceCase instanceof EObjectNode) {
+					uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
+				} else if (selectedAssuranceCase instanceof EObject) {
+					uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
+				}
+
+				URI file_uri = uri;
+				IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+				for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
+					IProject tempProject = myWorkspaceRoot.getProjects()[i];
+					if (tempProject.isAccessible()) {
+						System.out.println("Project paths: " + tempProject.getFullPath());
+						System.out.println("file_uri: " + file_uri.toString());
+						System.out.println("tempProject.getFullPath: " + tempProject.getFullPath().toString());
+						if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
+
+							System.out.println("Found Project, creating String for assure: " + tempProject.getFullPath()
+									+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
+							assureProject = tempProject;
+							// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
+							// Should not include assure subdirectory because in some cases assure directory does not preexist
+							// Eventually, need rule to have the whole project
+							assureDirURI = URI.createPlatformResourceURI(assureProject.getFullPath().toString(), false);
+							break;
+						}
+					}
+				}
+			}
+
+			Resource res = selectedAssuranceCase.getSystem().eResource();
+			URI modeluri = res.getURI();
+//			String last = modeluri.lastSegment();
+//			String filename = last.substring(0, last.indexOf('.'));
+			URI path = modeluri.trimSegments(1);
+			if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
+				path = path.trimSegments(1);
+			}
+			URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
+			System.out.println("  MultiRule>>>>>No longer>>>>>>>instanceDirURI: " + instanceDirURI.toString());
+			System.out.println("  MultiRule>>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
+
+//			msr = MultiRule.combine(
+//					ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(instanceDirURI.toPlatformString(true))),
+//					ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(assureDirURI.toPlatformString(true))));
+
+//			msr = new MultiRule(new ISchedulingRule[] { ResourcesPlugin.getWorkspace().getRoot()
+//					.getFolder(new Path(assureDirURI.toPlatformString(true))) });
+			msr = new MultiRule(new ISchedulingRule[] { assureProject });
+			ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
+
+		}
+	}
+
 	/**
-	 * Finds assure file based on name of assurance case from alisa file
+	 * Finds assure file based on name of assurance case from alisa file.
+	 * 
 	 * @param name
 	 * @return
 	 */
@@ -531,7 +448,9 @@ public class AlisaView extends ViewPart {
 			AssuranceCaseResult temp = (AssuranceCaseResult) EcoreUtil.resolve(eod.getEObjectOrProxy(),
 					currentResourceSet);
 
-			if (temp != null && temp.getName().equals(name)) {
+			// Can a AssuranceCaseResult exist without a name? Getting nulls for temp.getName()
+			// Probably if there is a empty assure file in the workspace.
+			if (temp != null && temp.getName() != null && temp.getName().equals(name)) {
 				return temp;
 			}
 		}
@@ -543,14 +462,16 @@ public class AlisaView extends ViewPart {
 		// If not loaded use assurance case to guess uri
 		URI uri = null;
 		if (selectedAssuranceCase instanceof EObjectNode) {
-			System.out.println("createCaseResult selectedAssuranceCase ----");
+			System.out.println("createCaseResult selectedAssuranceCase EObjectNode");
 			uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
 		} else if (selectedAssuranceCase instanceof EObject) {
-			System.out.println("createCaseResult selectedAssuranceCase +++++");
+			System.out.println("createCaseResult selectedAssuranceCase EObject");
 			uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
 		}
 
-		System.out.println("\n\ncreateCaseResult selectedAssuranceCase URI: " + uri.toString());
+		System.out.println("\ncreateCaseResult selectedAssuranceCase URI: " + uri.toString());
+
+		// Just printing out several stuffs here. Only uses file_uri for now.
 
 		// URI file_uri = selectedAssuranceCase.eResource().getURI();
 
@@ -558,17 +479,17 @@ public class AlisaView extends ViewPart {
 		System.out.println("createCaseResult selectedAssuranceCase file_uri: " + file_uri.toString());
 
 		String file_name = file_uri.toPlatformString(true);
-		System.out.println("createCaseResult selectedAssuranceCase file_name: " + file_uri.toString());
+		System.out.println("createCaseResult selectedAssuranceCase file_name: " + file_name.toString());
 
 		file_name = file_name.replace("/", File.separator);
 
 		String projectPath = Platform.getLocation().toOSString();
-		System.out.println("createCaseResult projectPath 111: " + projectPath.toString());
+		System.out.println("createCaseResult projectPath (workspace): " + projectPath.toString());
 
 		projectPath = projectPath.replace("/", File.separator);
 
 		projectPath = projectPath + file_name;
-		System.out.println("createCaseResult projectPath 222: " + projectPath.toString());
+		System.out.println("createCaseResult projectPath (selected alisa file path): " + projectPath.toString());
 
 		// String[] pathsplit= projectPath.split(File.separator);
 
@@ -583,22 +504,27 @@ public class AlisaView extends ViewPart {
 			IProject tempProject = myWorkspaceRoot.getProjects()[i];
 			if (tempProject.isAccessible()) {
 				System.out.println("Project paths: " + tempProject.getFullPath());
+				System.out.println("file_uri: " + file_uri.toString());
+				System.out.println("tempProject.getFullPath: " + tempProject.getFullPath().toString());
 				if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
 
-					System.out.println("Found Project, creating String for assure: " + tempProject.getFullPath()
-							+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
+					// TODO: If user plays with the project name, this could be wrong
+					System.out.println("Found Project that holds selected alisa file, creating String for assure file: "
+							+ tempProject.getFullPath() + "/assure/" + selectedAssuranceCase.getName() + ".assure");
 
-					assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
+					assureProject = tempProject;
+					// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
+					assureDirURI = URI.createPlatformResourceURI(assureProject.getFullPath().toString(), false);
 
 					assureURI = URI.createPlatformResourceURI(
-							tempProject.getFullPath() + "/assure/" + selectedAssuranceCase.getName() + ".assure",
+							assureProject.getFullPath() + "/assure/" + selectedAssuranceCase.getName() + ".assure",
 							false);
 
 					ResourceSet rs = selectedAssuranceCase.eResource().getResourceSet();
 					Resource rrr = rs.getResource(assureURI, false);
 
 					if (rrr == null) {
-						System.out.println(">>>>> Creating resource");
+						System.out.println(">>>>> Creating resource since assure file doesn't exist in resource set.");
 						rrr = rs.createResource(assureURI);
 					}
 
@@ -608,7 +534,7 @@ public class AlisaView extends ViewPart {
 
 					rrr.getContents().add(acr);
 
-					// Going to save later from the job
+					// Going to save later from the job. Trying to save it here may cause some problem because it is delayed.
 //					try {
 //						rrr.save(null);
 //					} catch (IOException e) {
@@ -616,7 +542,7 @@ public class AlisaView extends ViewPart {
 //						e.printStackTrace();
 //					}
 
-					System.out.println("Resource saved: " + rrr.toString());
+					System.out.println("Assure Resource added to Resource Set (not saved yet): " + rrr.toString());
 
 					break;
 				}
@@ -702,6 +628,7 @@ public class AlisaView extends ViewPart {
 						@Override
 						public IStatus exec(XtextResource resource) throws Exception {
 							currentResourceSet = resource.getResourceSet();
+							// System.out.println("Updating currentResourceSet");
 
 							existingAssuranceCases.clear();
 							for (Iterator iterator = rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE)
@@ -777,21 +704,6 @@ public class AlisaView extends ViewPart {
 		// If an analysis is going on, msr will make it wait for the analysis job to finish.
 //		loadAssuranceCaseJob.setRule(msr);
 		loadAssuranceCaseJob.schedule();
-//		try {
-//			loadAssuranceCaseJob.join();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-
-//		if (treeViewer.getTree().isDisposed()) {
-//			return;
-//		}
-//
-//		treeViewer.setInput(loadAssuranceCaseResult);
-
-//		updateFilterCombo(globalFilterList.values());
-		// Watch out for synchronized if we fire to other views to load filter
 
 	}
 

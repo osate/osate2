@@ -85,6 +85,17 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.alisa.workbench.alisa.AssuranceCase
+import org.eclipse.emf.common.util.URI
+import org.eclipse.core.resources.WorkspaceJob
+import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.core.runtime.Status
+import org.eclipse.core.runtime.jobs.ISchedulingRule
+import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.runtime.Path
+import org.eclipse.emf.ecore.resource.Resource
+import org.osate.workspace.WorkspacePlugin
 
 class AssureUtilExtension {
 
@@ -1411,45 +1422,73 @@ class AssureUtilExtension {
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si == null) {
 			
-			System.out.println("Instantiating "+cimpl.getQualifiedName())
-			si = cimpl.buildInstanceModelFile
-			setInstanceModel(cimpl, si)
-
-			//mnam: Trying to make this a separate job due to schedule rule conflict when called by assure handler
+			System.out.println("\tInstantiating "+cimpl.getQualifiedName())
 			
+			//------------Tried Method1
+			//In this case instantiation is run with current thread which is set with a rule that is the project of
+			//where the alisa file is. This works when the AADL model is in the same project. It does not work when 
+			//AADL model is in a different project and gets an error like 
+			//java.lang.IllegalArgumentException: Attempted to beginRule: F/TestDifferentProject/aadl/instances, does not match outer scope rule: MultiRule[P/SimpleAlisaExample]
+//			si = cimpl.buildInstanceModelFile
+//			setInstanceModel(cimpl, si)
+			//------------Tried Method1 END-------
+			
+			
+			//------------Tried Method2
+			//In this case we are trying to make the instantiation be a new job with a schedule rule that includes the project of the aadl file.
+			//Now the current thread is set with a rule that is the project of where the alisa file is.
+			//The current thread waits for the instantiation job to finish. 
+			//Problem is that if aadl and assure are in the same directory, somewhere during instantiation
+			//it seems to go into deadlock by waiting for the current job that has the rule of the assure project which
+			//is the same as project of the aadl.
+			//So this works for when the projects are different but goes into deadlock if the same.
 			//This is from InstantiateModel.buildInstanceModelFile
-//			var ComponentImplementation ici = cimpl;
-//			var eobj = OsateResourceUtil.loadElementIntoResourceSet(cimpl);
-//			if (eobj instanceof ComponentImplementation) {
-//				ici = eobj as ComponentImplementation;
-//			}
-//			val URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
-//			
-//			//upto making the resource for instantiation.
-//			val aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
-//			
-//			
-//			val job = new WorkspaceJob("Instantiating " +cimpl.getQualifiedName()) {
-//				override runInWorkspace(IProgressMonitor monitor) throws CoreException {
-//					val sii = cimpl.buildInstanceModelFile(aadlResource, new NullProgressMonitor())
-//					setInstanceModel(cimpl, sii)
-//					Status.OK_STATUS
-//				}
-//			};
-//			
-//			System.out.println("instance uri: "+instanceURI.toString)
-//			//building scheduling rule with the instance uri
+			var ComponentImplementation ici = cimpl;
+			var eobj = OsateResourceUtil.loadElementIntoResourceSet(cimpl);
+			if (eobj instanceof ComponentImplementation) {
+				ici = eobj as ComponentImplementation;
+			}
+			val URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
+			
+			//This is from OsateResourceUtil.getInstanceModelURI
+			val URI modeluri = ici.eResource.getURI();
+			
+			//TODO: This is a tricky thing and can be the cause of error. Need project Name
+			var String projectPath = modeluri.segment(1);  //0 was "resource"
+			
+			val job = new WorkspaceJob("\tInstantiating " +cimpl.getQualifiedName()) {
+				override runInWorkspace(IProgressMonitor monitor) throws CoreException {
+					
+					//upto making the resource for instantiation.
+					val aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);
+			
+					val sii = cimpl.buildInstanceModelFile(aadlResource, new NullProgressMonitor())
+					setInstanceModel(cimpl, sii)
+					System.out.println("\tFinished Instantiating in Job for"+cimpl.getQualifiedName())
+					Status.OK_STATUS
+				}
+			};
+			System.out.println("  AssureUtilExtension Rule>>>>>>>>>should be project name that holds aadl instance: " + projectPath);
+			
+			//Rather than this
 //			var ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot();
 //			if (instanceURI.isPlatform()) {
 //				file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(instanceURI.toPlatformString(true)));
 //			} else if (instanceURI.isFile()) {
 //				file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(instanceURI.toFileString()));
 //			}
-//			
-//			job.setRule(file)
-//			
-//			job.schedule();
-//			job.join();
+			
+			//Need the project where instance file is no be generated.
+			var ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot().getProject(projectPath);
+			
+			job.setRule(file)
+			
+			job.schedule()
+			job.join()
+			
+			//------------Tried Method2 END-------
+			
+			System.out.println("\tFinished Instantiating "+cimpl.getQualifiedName())
 			//-----------mnam
 
 		}

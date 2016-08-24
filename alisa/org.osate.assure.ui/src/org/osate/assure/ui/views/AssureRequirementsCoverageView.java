@@ -151,13 +151,13 @@ public class AssureRequirementsCoverageView extends ViewPart {
 					"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Assurance case is not selected in Alisaview");
 		} else {
 			recentProofTrees = alisaView.findCaseResult(alisaView.getSelectedAssuranceCase().getName());
-			if (recentProofTrees == null) {
-				System.out.println(
-						"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Failed to find assure file or never been generated.");
-			} else {
-				System.out.println(
-						"AssureRequirementsCoverageView.updateRecentProofTrees() " + recentProofTrees.getName());
-			}
+//			if (recentProofTrees == null) {
+//				System.out.println(
+//						"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Failed to find assure file or never been generated.");
+//			} else {
+//				System.out.println(
+//						"AssureRequirementsCoverageView.updateRecentProofTrees() " + recentProofTrees.getName());
+//			}
 		}
 
 		return oldProofTrees != recentProofTrees;

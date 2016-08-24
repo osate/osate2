@@ -24,7 +24,9 @@ import java.io.IOException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -108,6 +110,8 @@ public class AssureHandler extends AlisaHandler {
 		resetToTBD(rootCaseResult, filter);
 		recomputeAllCounts(rootCaseResult, filter);
 		try {
+			URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
+			System.out.println("AssureHandler Initial save: " + uri.toString());
 			rootCaseResult.eResource().save(null);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
