@@ -9,25 +9,6 @@
        class = "org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage"
        genModel = "model/generated/ErrorModel.genmodel" /> 
   </extension>
-   <extension
-         point="org.osate.pluginsupport.aadlcontribution">
-      <aadlcontribution
-            file="resources/properties/EMV2.aadl"
-            id="org.osate.contributes.EMV2.aadlcontribution1">
-      </aadlcontribution>
-      <aadlcontribution
-            file="resources/packages/ErrorLibrary.aadl"
-            id="org.osate.contributes.EMV2.aadlcontribution2">
-      </aadlcontribution>
-      <aadlcontribution
-            file="resources/properties/ARP4761.aadl"
-            id="org.osate.contributes.EMV2.aadlcontribution3">
-      </aadlcontribution>
-      <aadlcontribution
-            file="resources/properties/MILSTD882.aadl"
-            id="org.osate.contributes.EMV2.aadlcontribution4">
-      </aadlcontribution>
-   </extension>
 
 
 

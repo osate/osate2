@@ -311,4 +311,23 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
+   <extension
+         point="org.osate.pluginsupport.aadlcontribution">
+      <aadlcontribution
+            file="resources/properties/ARP4761.aadl"
+            id="org.osate.aadl2.errormodel.analysis.aadlcontribution1">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/MILSTD882.aadl"
+            id="org.osate.aadl2.errormodel.analysis.aadlcontribution2">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/packages/ErrorLibrary.aadl"
+            id="org.osate.aadl2.errormodel.analysis.aadlcontribution3">
+      </aadlcontribution>
+      <aadlcontribution
+            file="resources/properties/EMV2.aadl"
+            id="org.osate.aadl2.errormodel.analysis.aadlcontribution6">
+      </aadlcontribution>
+   </extension>
 </plugin>
