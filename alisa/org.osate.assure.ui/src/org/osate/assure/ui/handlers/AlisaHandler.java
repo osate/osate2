@@ -23,9 +23,7 @@ import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
-import org.eclipse.core.runtime.jobs.MultiRule;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -140,33 +138,23 @@ public abstract class AlisaHandler extends AbstractHandler {
 
 		URI uri = null;
 		if (assuranceCaseResult instanceof EObjectNode) {
-			System.out.println("AlisaHandler.execute2() EObjectNode");
+			// System.out.println("AlisaHandler.execute2() EObjectNode");
 			uri = ((EObjectNode) assuranceCaseResult).getEObjectURI();
 		} else if (assuranceCaseResult instanceof EObject) {
-			System.out.println("AlisaHandler.execute2() EObject");
+			// System.out.println("AlisaHandler.execute2() EObject");
 			uri = EcoreUtil.getURI((EObject) assuranceCaseResult);
 		}
 		System.out.println("AlisaHandler.execute2() assuranceCaseResult name: " + assuranceCaseResult.getName());
-		System.out.println("AlisaHandler.execute2() uri from AssuranceCaseResult, if null we can have deadlock: "
-				+ uri.toString());
+//		System.out.println("AlisaHandler.execute2() uri from AssuranceCaseResult: " + uri.toString());
 		// System.out.println("AlisaHandler.execute2() assureURI generated just checking : " + assureURI.toString());
-
-//		final XtextEditor xtextEditor = EditorUtils.getActiveXtextEditor();
-//		if (xtextEditor == null) {
-//			return null;
-//		}
 
 //		window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 //
 //		if (window != null && !saveChanges(window.getActivePage().getDirtyEditors())) {
 //			return null;
 //		}
+
 		WorkspaceJob job = getWorkspaceJob2(getJobName(), assuranceCaseResult);
-
-//		if (uri == null) {
-//			uri = assureURI;
-//		}
-
 		scheduleJob(job, msr, uri);
 
 		return null;
@@ -189,22 +177,31 @@ public abstract class AlisaHandler extends AbstractHandler {
 		return null;
 	}
 
+	/**
+	 * 
+	 * @param job
+	 * @param msr  Set as combination of project of where aadl models is and the project with selected alisa
+	 * @param uri  uri of assure file that is to be generated/updated.
+	 * @return
+	 */
 	protected Object scheduleJob(WorkspaceJob job, ISchedulingRule msr, final URI uri) {
-//		job.setRule(ResourcesPlugin.getWorkspace().getRoot()); // This will block workspace
+//		job.setRule(ResourcesPlugin.getWorkspace().getRoot()); 
 
-		// Scheduling with a lower rule and made instantiation that are needed in the process to be separate rule job.
-		// This way workspace is only blocked only during instantiation and not during method verification
-		ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot();
-		if (uri.isPlatform()) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toPlatformString(true)));
-		} else if (uri.isFile()) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toFileString()));
-		}
+		// Currently msr would have the project of the AADL and project of the alisa
+//		ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot();
+//		if (uri.isPlatform()) {
+//			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toPlatformString(true)));
+//		} else if (uri.isFile()) {
+//			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toFileString()));
+//		}
 
-		System.out.println("  MultiRule>>>>>>>>>>>>scheduleJob file: " + file.toString());
+		System.out.println("  MultiRule>>>>>>>>>>>>scheduleJob setting: " + msr.toString());
 //		job.setRule(file);
-		job.setRule(MultiRule.combine(msr, file));
+//		job.setRule(MultiRule.combine(msr, file));
+		job.setRule(msr);
 		job.schedule();
+
+		// release the main thread
 		return null;
 	}
 

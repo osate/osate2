@@ -20,12 +20,13 @@ import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.awt.datatransfer.Transferable;
-import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.core.resources.IProject;
@@ -34,15 +35,18 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
-import org.eclipse.core.runtime.Platform;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.core.runtime.jobs.MultiRule;
+import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
+import org.eclipse.emf.transaction.TransactionalCommandStack;
+import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ContributionManager;
 import org.eclipse.jface.action.GroupMarker;
@@ -370,7 +374,12 @@ public class AlisaView extends ViewPart {
 			if (assuranceCaseResult == null) {
 				System.err.println("AlisaView existing assure resource not found. Not an error. createCaseResult");
 
-				assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
+				try {
+					assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			} else {
 				System.out.println("  >>>>>>>>>>>>Found existing assure resource");
 
@@ -383,22 +392,25 @@ public class AlisaView extends ViewPart {
 					uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
 				}
 
+				// IF something changes here, likely it should be applied to createCaseResult as well
 				URI file_uri = uri;
+				String projectNameFromURI = "/" + file_uri.segment(1);
+
+				System.out.println("projectNameFromURI   " + projectNameFromURI);
 				IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
 				for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
 					IProject tempProject = myWorkspaceRoot.getProjects()[i];
 					if (tempProject.isAccessible()) {
-						System.out.println("Project paths: " + tempProject.getFullPath());
-						System.out.println("file_uri: " + file_uri.toString());
-						System.out.println("tempProject.getFullPath: " + tempProject.getFullPath().toString());
-						if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
+						System.out.println("Checking Project paths: " + tempProject.getFullPath());
+						if (projectNameFromURI.equals(tempProject.getFullPath().toString())) {
 
 							System.out.println("Found Project, creating String for assure: " + tempProject.getFullPath()
 									+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
 							assureProject = tempProject;
-							// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
+
 							// Should not include assure subdirectory because in some cases assure directory does not preexist
 							// Eventually, need rule to have the whole project
+							// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
 							assureDirURI = URI.createPlatformResourceURI(assureProject.getFullPath().toString(), false);
 							break;
 						}
@@ -414,17 +426,41 @@ public class AlisaView extends ViewPart {
 			if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
 				path = path.trimSegments(1);
 			}
-			URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
-			System.out.println("  MultiRule>>>>>No longer>>>>>>>instanceDirURI: " + instanceDirURI.toString());
-			System.out.println("  MultiRule>>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
+//			URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
+//			System.out.println("  MultiRule>>>>>No longer used>>>>>>>instanceDirURI: " + instanceDirURI.toString());
+//			System.out.println("  MultiRule>>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
 
+			// Intersection of instance directory and assure directory
 //			msr = MultiRule.combine(
 //					ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(instanceDirURI.toPlatformString(true))),
 //					ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(assureDirURI.toPlatformString(true))));
 
+			// Only the assure directory
 //			msr = new MultiRule(new ISchedulingRule[] { ResourcesPlugin.getWorkspace().getRoot()
 //					.getFolder(new Path(assureDirURI.toPlatformString(true))) });
-			msr = new MultiRule(new ISchedulingRule[] { assureProject });
+
+			// Only the assure project
+//			msr = new MultiRule(new ISchedulingRule[] { assureProject });
+
+			IProject aadlProject = null;
+			String projectNameFromAADL = "/" + path.segment(1);
+			IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+			for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
+				IProject tempProject = myWorkspaceRoot.getProjects()[i];
+				if (tempProject.isAccessible()) {
+					System.out.println("Checking Project paths AADL: " + tempProject.getFullPath());
+					if (projectNameFromAADL.equals(tempProject.getFullPath().toString())) {
+
+						System.out.println("Found AADL Project: " + tempProject.getFullPath().toString());
+						aadlProject = tempProject;
+						break;
+					}
+				}
+			}
+
+			// Using combination of assureProject and aadlProject. Has to be project because if subdirectories
+			// such as instances or assure may be created.
+			msr = new MultiRule(new ISchedulingRule[] { assureProject, aadlProject });
 			ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
 
 		}
@@ -457,62 +493,39 @@ public class AlisaView extends ViewPart {
 		return null;
 	}
 
-	protected AssuranceCaseResult createCaseResult(String name) {
+	protected AssuranceCaseResult createCaseResult(String name) throws Exception {
 
 		// If not loaded use assurance case to guess uri
 		URI uri = null;
 		if (selectedAssuranceCase instanceof EObjectNode) {
-			System.out.println("createCaseResult selectedAssuranceCase EObjectNode");
 			uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
 		} else if (selectedAssuranceCase instanceof EObject) {
-			System.out.println("createCaseResult selectedAssuranceCase EObject");
 			uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
 		}
 
-		System.out.println("\ncreateCaseResult selectedAssuranceCase URI: " + uri.toString());
-
-		// Just printing out several stuffs here. Only uses file_uri for now.
-
 		// URI file_uri = selectedAssuranceCase.eResource().getURI();
-
 		URI file_uri = uri; // trimFileExtension();
-		System.out.println("createCaseResult selectedAssuranceCase file_uri: " + file_uri.toString());
+		System.out.println("\ncreateCaseResult selectedAssuranceCase file_uri: " + file_uri.toString());
 
-		String file_name = file_uri.toPlatformString(true);
-		System.out.println("createCaseResult selectedAssuranceCase file_name: " + file_name.toString());
-
-		file_name = file_name.replace("/", File.separator);
-
-		String projectPath = Platform.getLocation().toOSString();
-		System.out.println("createCaseResult projectPath (workspace): " + projectPath.toString());
-
-		projectPath = projectPath.replace("/", File.separator);
-
-		projectPath = projectPath + file_name;
-		System.out.println("createCaseResult projectPath (selected alisa file path): " + projectPath.toString());
-
-		// String[] pathsplit= projectPath.split(File.separator);
-
-//		projectPath = projectPath.substring(0, projectPath.lastIndexOf(File.separator));
-//		System.out.println("createCaseResult projectPath 333: " + projectPath.toString());
-		// currentResourceSet.getResource(uri, true);
-
-		AssuranceCaseResult acr = null;
-
+		List<AssuranceCaseResult> resultList = null;
 		IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+
+		String projectNameFromURI = "/" + file_uri.segment(1);
+		System.out.println("projectNameFromURI   " + projectNameFromURI);
+
 		for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
 			IProject tempProject = myWorkspaceRoot.getProjects()[i];
 			if (tempProject.isAccessible()) {
-				System.out.println("Project paths: " + tempProject.getFullPath());
-				System.out.println("file_uri: " + file_uri.toString());
-				System.out.println("tempProject.getFullPath: " + tempProject.getFullPath().toString());
-				if (file_uri.toString().contains(tempProject.getFullPath().toString())) {
+				System.out.println("Checking Project paths: " + tempProject.getFullPath());
+				if (projectNameFromURI.equals(tempProject.getFullPath().toString())) {
 
-					// TODO: If user plays with the project name, this could be wrong
 					System.out.println("Found Project that holds selected alisa file, creating String for assure file: "
 							+ tempProject.getFullPath() + "/assure/" + selectedAssuranceCase.getName() + ".assure");
 
 					assureProject = tempProject;
+
+					// Should not include assure subdirectory because in some cases assure directory does not preexist
+					// Eventually, need rule to have the whole project
 					// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
 					assureDirURI = URI.createPlatformResourceURI(assureProject.getFullPath().toString(), false);
 
@@ -523,33 +536,59 @@ public class AlisaView extends ViewPart {
 					ResourceSet rs = selectedAssuranceCase.eResource().getResourceSet();
 					Resource rrr = rs.getResource(assureURI, false);
 
-					if (rrr == null) {
-						System.out.println(">>>>> Creating resource since assure file doesn't exist in resource set.");
-						rrr = rs.createResource(assureURI);
-					}
+					/////////////////////////// Using same domain in InstatiateModel
+					final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+							.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+					// We execute this command on the command stack because otherwise, we will not
+					// have write permissions on the editing domain.
+					Command cmd = new RecordingCommand(domain) {
+						public Resource temprrr;
+						public AssuranceCaseResult acr;
 
-					acr = assureConstructor.generateFullAssuranceCase(selectedAssuranceCase);
-					AssureUtilExtension.resetToTBD(acr, getSelectedCategoryFilter());
-					AssureUtilExtension.recomputeAllCounts(acr, getSelectedCategoryFilter());
+						@Override
+						protected void doExecute() {
+							if (rrr == null) {
+								System.out.println(
+										">>>>> Creating resource since assure file doesn't exist in resource set.");
+								temprrr = rs.createResource(assureURI);
+							} else {
+								temprrr = rrr;
+							}
+							acr = assureConstructor.generateFullAssuranceCase(selectedAssuranceCase);
+							AssureUtilExtension.resetToTBD(acr, getSelectedCategoryFilter());
+							AssureUtilExtension.recomputeAllCounts(acr, getSelectedCategoryFilter());
 
-					rrr.getContents().add(acr);
+							temprrr.getContents().add(acr);
+							try {
+								temprrr.save(null);
+								System.out.println(
+										"Assure Resource added to Resource Set and saved " + temprrr.toString());
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
 
-					// Going to save later from the job. Trying to save it here may cause some problem because it is delayed.
-//					try {
-//						rrr.save(null);
-//					} catch (IOException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
+						@Override
+						public List<AssuranceCaseResult> getResult() {
+							return Collections.singletonList(acr);
+						}
+					};
 
-					System.out.println("Assure Resource added to Resource Set (not saved yet): " + rrr.toString());
+					((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+					// This waits for the completion.
+					resultList = (List<AssuranceCaseResult>) cmd.getResult();
 
 					break;
 				}
 			}
 		}
 
-		return acr;
+		if (resultList != null && resultList.size() > 0) {
+			return resultList.get(0);
+		} else {
+			return null;
+		}
 	}
 
 	private void updateFilterCombo(Collection<CategoryFilter> collection) {
