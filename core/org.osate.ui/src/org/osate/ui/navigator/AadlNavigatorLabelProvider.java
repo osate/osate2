@@ -64,7 +64,7 @@ public class AadlNavigatorLabelProvider extends DecoratingLabelProvider {
 	public String getText(Object element) {
 		StringBuilder text = new StringBuilder(super.getText(element));
 		if (element instanceof VirtualPluginResources) {
-			text.append("Plugin_Resources");
+			text.append("Plugin_Contributions");
 		} else if (element instanceof ContributedDirectory) {
 			List<String> directoryPath = ((ContributedDirectory) element).getPath();
 			text.append(directoryPath.get(directoryPath.size() - 1));
