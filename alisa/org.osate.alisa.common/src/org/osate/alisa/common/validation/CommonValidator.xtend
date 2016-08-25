@@ -33,7 +33,7 @@ import org.osate.alisa.common.typing.validation.CommonTypeSystemValidator
 class CommonValidator extends CommonTypeSystemValidator {
 	public static val UNSUPPORTED_FUNCTION = 'UnSupportedFunction'
 
-	public static val SupportedFunctions = #['max', 'min', 'abs', 'floor', 'ceil', 'round']
+	public static val SupportedFunctions = #['max', 'min', 'abs', 'floor', 'ceil', 'round','atTime','prev']
 
 	@Check
 	def checkAFeatureCall(AFunctionCall call) {

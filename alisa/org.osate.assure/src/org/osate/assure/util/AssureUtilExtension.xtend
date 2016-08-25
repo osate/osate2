@@ -804,8 +804,8 @@ class AssureUtilExtension {
 		counts.featuresRequirementsCount = counts.featuresRequirementsCount + subcounts.featuresRequirementsCount
 	}
 
-//	def static CategoryFilter getCategoryFilter(AssureResult assureResult){
-////		null
+	def static CategoryFilter getCategoryFilter(AssureResult assureResult){
+		null
 //		val filters = (assureResult.modelResult.plan.eContainer as AssuranceCase).tasks
 //		println("filters = " + filters)
 //		if (filters.nullOrEmpty) {
@@ -817,12 +817,7 @@ class AssureUtilExtension {
 //			filters.head
 //			
 //		}
-//		
-//		//If we want it to get the filter through the UI, should be something like this be can't access AlisaView
-////		val IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
-////		val alisaView = page.showView(AlisaView.ID) as AlisaView
-////		alisaView.getSelectedCategoryFilter
-//	}
+	}
 
 	/**
 	 * recompute and add the counts of the parts list to the result
