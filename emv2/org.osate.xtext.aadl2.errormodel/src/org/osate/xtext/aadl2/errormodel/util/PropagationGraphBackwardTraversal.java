@@ -76,6 +76,22 @@ public class PropagationGraphBackwardTraversal {
 		if (!subResults.isEmpty()) {
 			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults);
 		}
+		// try to find a path from an inner to an outer error propagation
+		EList<PropagationPathEnd> propagationSources = currentAnalysisModel.getAllPropagationSourceEnds(component,
+				errorPropagation);
+
+		for (PropagationPathEnd ppe : propagationSources) {
+			ComponentInstance componentSource = ppe.getComponentInstance();
+			ErrorPropagation propagationSource = ppe.getErrorPropagation();
+			EObject res = traverseOutgoingErrorPropagation(componentSource, propagationSource, type);
+			if (res != null) {
+				subResults.add(res);
+			}
+		}
+		if (!subResults.isEmpty()) {
+			return postProcessOutgoingErrorPropagation(component, errorPropagation, type, subResults);
+		}
+
 		for (ErrorFlow ef : EMV2Util.getAllErrorFlows(component)) {
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
