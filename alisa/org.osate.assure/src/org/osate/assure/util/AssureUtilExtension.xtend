@@ -279,7 +279,7 @@ class AssureUtilExtension {
 				msg.contains(matchstr)
 			]
 		}
-		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(instance, em, diagnosticId)]
+		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null/*instance*/, em, diagnosticId)]
 		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.FAIL]) {
 			verificationActivityResult.setToFail
 		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
