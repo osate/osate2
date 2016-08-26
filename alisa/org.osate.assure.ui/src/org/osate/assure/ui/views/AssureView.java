@@ -16,6 +16,8 @@
 
 package org.osate.assure.ui.views;
 
+import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
+
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
@@ -296,6 +298,10 @@ public class AssureView extends ViewPart {
 					CategoryFilter oldfilter = selectedCategoryFilter;
 					updateSelectedFilter();
 					if (changed || oldfilter != selectedCategoryFilter) {
+						// LAST CHANGE
+						System.out.println(">>>>>>>>>>>>>>>>>>DOING RECOUNT");
+						recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
+
 						setProofs(recentProofTrees, selectedCategoryFilter);
 					}
 				}
