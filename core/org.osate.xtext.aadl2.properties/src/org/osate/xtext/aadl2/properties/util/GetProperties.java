@@ -1108,6 +1108,12 @@ public class GetProperties {
 		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
 	}
+	
+	public static double getExecutionTimeInMS(final NamedElement ne) {
+		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.EXECUTION_TIME);
+		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
+	}	
 
 	public static double getPeriodinMicroSec(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.PERIOD);
@@ -1204,6 +1210,22 @@ public class GetProperties {
 			return null;
 		}
 	}
+	
+	public static List<String> getSourceLanguage(final NamedElement ne) {
+		try {
+			List<String> res = new ArrayList<String> ();
+			Property sourceLanguage = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
+					ProgrammingProperties.SOURCE_LANGUAGE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(sourceLanguage);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				String v = ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
+				res.add (v);
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return null;
+		}
+	}
 
 	public static String getConcurrencyControlProtocol(final NamedElement ne) {
 		try {
@@ -1250,6 +1272,11 @@ public class GetProperties {
 		Property SourceDataSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.DATA_SIZE);
 		UnitLiteral Bytes = findUnitLiteral(SourceDataSize, AadlProject.B_LITERAL);
 		return getDataSize(ne, Bytes);
+	}
+
+	public static long getBaseAddress(final NamedElement ne) {
+		Property ba = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.BASE_ADDRESS);
+		return PropertyUtils.getIntegerValue(ne, ba);
 	}
 
 	/*
