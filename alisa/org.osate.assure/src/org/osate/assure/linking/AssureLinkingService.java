@@ -52,7 +52,10 @@ public class AssureLinkingService extends DefaultLinkingService {
 		if (InstancePackage.eINSTANCE.getInstanceObject() == requiredType) {
 			ResourceSet resset = context.eResource().getResourceSet();
 			if (name.length() > 2) {
-				String uriname = name.substring(1, name.length() - 1);
+				String uriname = name;
+				if (name.startsWith("\"")) {
+					uriname = name.substring(1, name.length() - 1);
+				}
 				try {
 					URI rooturi = URI.createURI(uriname);
 					EObject searchResult = resset.getEObject(rooturi, true);
@@ -67,7 +70,10 @@ public class AssureLinkingService extends DefaultLinkingService {
 		} else if (EcorePackage.eINSTANCE.getEObject() == requiredType) {
 			ResourceSet resset = context.eResource().getResourceSet();
 			if (name.length() > 2) {
-				String uriname = name.substring(1, name.length() - 1);
+				String uriname = name;
+				if (name.startsWith("\"")) {
+					uriname = name.substring(1, name.length() - 1);
+				}
 				try {
 					URI rooturi = URI.createURI(uriname);
 					EObject searchResult = resset.getEObject(rooturi, true);
