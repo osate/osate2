@@ -1183,36 +1183,37 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 
 		ICompositeNode n = NodeModelUtils.getNode(flow);
-		
-		Optional<INode> flowOutNodeOptional = StreamSupport.stream(n.getChildren().spliterator(), true).filter(childNode -> {
-			EObject grammarElement = childNode.getGrammarElement();
-			if (grammarElement instanceof RuleCall) {
-				if (((RuleCall)grammarElement).getRule().getName().equals("FLOWOUT")) {
-					return true;
-				}
-			}
-			return false;
-		}).findAny();
+
+		Optional<INode> flowOutNodeOptional = StreamSupport.stream(n.getChildren().spliterator(), true)
+				.filter(childNode -> {
+					EObject grammarElement = childNode.getGrammarElement();
+					if (grammarElement instanceof RuleCall) {
+						if (((RuleCall) grammarElement).getRule().getName().equals("FLOWOUT")) {
+							return true;
+						}
+					}
+					return false;
+				}).findAny();
 		if (!flowOutNodeOptional.isPresent() || !(flowOutNodeOptional.get() instanceof ICompositeNode)) {
 			return;
 		}
-		
-		ICompositeNode flowOutNode = (ICompositeNode)flowOutNodeOptional.get();
+
+		ICompositeNode flowOutNode = (ICompositeNode) flowOutNodeOptional.get();
 		List<INode> idNodes = StreamSupport.stream(flowOutNode.getChildren().spliterator(), false).filter(childNode -> {
 			EObject grammarElement = childNode.getGrammarElement();
 			if (grammarElement instanceof RuleCall) {
-				if (((RuleCall)grammarElement).getRule().getName().equals("ID")) {
+				if (((RuleCall) grammarElement).getRule().getName().equals("ID")) {
 					return true;
 				}
 			}
 			return false;
 		}).collect(Collectors.toList());
-		
+
 		String outContextName;
 		int contextOffset;
 		String outFeatureName;
 		int featureOffset;
-		
+
 		if (idNodes.size() == 1) {
 			outContextName = null;
 			contextOffset = -99;
@@ -1226,7 +1227,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		} else {
 			return;
 		}
-		
+
 		FlowSpecification spec = flow.getSpecification();
 		if (Aadl2Util.isNull(spec)) {
 			return;
@@ -1607,7 +1608,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			} else if (sub == conn.getAllDestinationContext()) {
 				ce = conn.getAllDestination();
 			}
-			if (ce != null) {
+			if (ce != null && sub.getComponentImplementation() != null) {
 				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
 					if ((innerConn.getAllSourceContext() == null && innerConn.getAllSource() == ce)
 							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllDestination() == ce)) {
@@ -7511,14 +7512,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
-	
+
 	private void checkThroughConnection(Connection connection) {
 		ConnectedElement source = connection.getSource();
 		ConnectedElement destination = connection.getDestination();
 		if (source != null && destination != null) {
 			if (source.getConnectionEnd() instanceof Feature && destination.getConnectionEnd() instanceof Feature) {
-				if ((source.getContext() == null || source.getContext() instanceof FeatureGroup) && (destination.getContext() == null || destination.getContext() instanceof FeatureGroup)) {
-					error(connection, "Illegal connection: Cannot directly connect two features of the containing component.");
+				if ((source.getContext() == null || source.getContext() instanceof FeatureGroup)
+						&& (destination.getContext() == null || destination.getContext() instanceof FeatureGroup)) {
+					error(connection,
+							"Illegal connection: Cannot directly connect two features of the containing component.");
 				}
 			}
 		}
@@ -7815,10 +7818,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private boolean testIfFeatureGroupsAreInverses(FeatureGroup source, FeatureGroup destination) {
 		boolean sourceIsInverse = source.isInverse() ^ source.getAllFeatureGroupType().getInverse() != null;
-		boolean destinationIsInverse = destination.isInverse() ^ destination.getAllFeatureGroupType().getInverse() != null;
+		boolean destinationIsInverse = destination.isInverse()
+				^ destination.getAllFeatureGroupType().getInverse() != null;
 		if (sourceIsInverse == destinationIsInverse) {
 			return false;
-		};
+		}
+		;
 		FeatureGroupType sourceType = source.getAllFeatureGroupType();
 		if (sourceType.getInverse() != null) {
 			sourceType = sourceType.getInverse();

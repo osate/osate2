@@ -179,7 +179,7 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedFields.get(0) => [
 					"f1".assertEquals(name)
 					//Tests scope_BasicProperty_referencedPropertyType
-					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Array_Size_Range", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -193,14 +193,14 @@ class PropertySetReferencesTest extends OsateTest {
 						"AADL_Project::Supported_Queue_Processing_Protocols", "AADL_Project::Supported_Scheduling_Protocols",
 						"AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units", "Communication_Properties::Connection_Pair",
 						"Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec", "Communication_Properties::Rate_Spec",
-						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "AADL_Project::Size",
+						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Modeling_Properties::Array_Size_Range", "AADL_Project::Size",
 						"AADL_Project::Size_Range", "AADL_Project::Time", "AADL_Project::Time_Range"
 					])
 				]
 				ownedFields.get(1) => [
 					"f2".assertEquals(name)
 					//Tests scope_BasicProperty_referencedPropertyType
-					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Array_Size_Range", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -214,7 +214,7 @@ class PropertySetReferencesTest extends OsateTest {
 						"AADL_Project::Supported_Queue_Processing_Protocols", "AADL_Project::Supported_Scheduling_Protocols",
 						"AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units", "Communication_Properties::Connection_Pair",
 						"Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec", "Communication_Properties::Rate_Spec",
-						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "AADL_Project::Size",
+						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Modeling_Properties::Array_Size_Range", "AADL_Project::Size",
 						"AADL_Project::Size_Range", "AADL_Project::Time", "AADL_Project::Time_Range"
 					])
 				]
@@ -259,7 +259,7 @@ class PropertySetReferencesTest extends OsateTest {
 			ownedProperties.get(5) => [
 				"def6".assertEquals(name)
 				//Tests scope_BasicProperty_referencedPropertyType
-				assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+				assertScope(Aadl2Package::eINSTANCE.basicProperty_ReferencedPropertyType, #["Access_Rights", "Array_Size_Range", "Connection_Pair", "Data_Rate_Units",
 					"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec", "Size",
 					"Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 					"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -272,7 +272,7 @@ class PropertySetReferencesTest extends OsateTest {
 					"AADL_Project::Supported_Hardware_Source_Languages", "AADL_Project::Supported_Queue_Processing_Protocols",
 					"AADL_Project::Supported_Scheduling_Protocols", "AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units",
 					"Communication_Properties::Connection_Pair", "Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec",
-					"Communication_Properties::Rate_Spec", "Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights",
+					"Communication_Properties::Rate_Spec", "Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Modeling_Properties::Array_Size_Range",
 					"AADL_Project::Size", "AADL_Project::Size_Range", "AADL_Project::Time", "AADL_Project::Time_Range"
 				])
 			]
@@ -281,7 +281,7 @@ class PropertySetReferencesTest extends OsateTest {
 				ownedPropertyType as ListType => [
 					"ps::pt1".assertEquals(elementType.getQualifiedName())
 					//Tests scope_ListType_referencedElementType
-					assertScope(Aadl2Package::eINSTANCE.listType_ReferencedElementType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+					assertScope(Aadl2Package::eINSTANCE.listType_ReferencedElementType, #["Access_Rights", "Array_Size_Range", "Connection_Pair", "Data_Rate_Units",
 						"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec",
 						"Size", "Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 						"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -295,7 +295,7 @@ class PropertySetReferencesTest extends OsateTest {
 						"AADL_Project::Supported_Queue_Processing_Protocols", "AADL_Project::Supported_Scheduling_Protocols",
 						"AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units", "Communication_Properties::Connection_Pair",
 						"Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec", "Communication_Properties::Rate_Spec",
-						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "AADL_Project::Size",
+						"Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Modeling_Properties::Array_Size_Range", "AADL_Project::Size",
 						"AADL_Project::Size_Range", "AADL_Project::Time", "AADL_Project::Time_Range"
 					])
 				]
@@ -303,7 +303,7 @@ class PropertySetReferencesTest extends OsateTest {
 			ownedPropertyConstants.get(1) => [
 				"const2".assertEquals(name)
 				//Tests scope_PropertyConstant_referencedPropertyType
-				assertScope(Aadl2Package::eINSTANCE.propertyConstant_ReferencedPropertyType, #["Access_Rights", "Connection_Pair", "Data_Rate_Units",
+				assertScope(Aadl2Package::eINSTANCE.propertyConstant_ReferencedPropertyType, #["Access_Rights", "Array_Size_Range", "Connection_Pair", "Data_Rate_Units",
 					"Data_Volume", "Data_Volume_Units", "IO_Reference_Time", "IO_Time_Spec", "Priority_Mapping", "Processor_Speed_Units", "Rate_Spec", "Size",
 					"Size_Range", "Size_Units", "Supported_Active_Thread_Handling_Protocols", "Supported_Classifier_Substitutions",
 					"Supported_Concurrency_Control_Protocols", "Supported_Connection_Patterns", "Supported_Connection_QoS", "Supported_Dispatch_Protocols",
@@ -316,7 +316,7 @@ class PropertySetReferencesTest extends OsateTest {
 					"AADL_Project::Supported_Hardware_Source_Languages", "AADL_Project::Supported_Queue_Processing_Protocols",
 					"AADL_Project::Supported_Scheduling_Protocols", "AADL_Project::Supported_Source_Languages", "AADL_Project::Time_Units",
 					"Communication_Properties::Connection_Pair", "Communication_Properties::IO_Reference_Time", "Communication_Properties::IO_Time_Spec",
-					"Communication_Properties::Rate_Spec", "Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights",
+					"Communication_Properties::Rate_Spec", "Deployment_Properties::Priority_Mapping", "Memory_Properties::Access_Rights", "Modeling_Properties::Array_Size_Range",
 					"AADL_Project::Size", "AADL_Project::Size_Range", "AADL_Project::Time", "AADL_Project::Time_Range"
 				])
 			]
