@@ -16,10 +16,6 @@
 
 package org.osate.assure.ui.views;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,10 +43,6 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.jface.action.Action;
-import org.eclipse.jface.action.ContributionManager;
-import org.eclipse.jface.action.GroupMarker;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
@@ -58,9 +50,6 @@ import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
 import org.eclipse.jface.viewers.StructuredSelection;
-import org.eclipse.jface.viewers.TreeViewer;
-import org.eclipse.jface.viewers.Viewer;
-import org.eclipse.jface.viewers.ViewerFilter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
@@ -72,16 +61,13 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.ui.IPartListener;
-import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.menus.IMenuService;
 import org.eclipse.ui.part.ViewPart;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
@@ -90,9 +76,6 @@ import org.osate.alisa.workbench.alisa.AssuranceCase;
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssurePackage;
-import org.osate.assure.assure.AssureResult;
-import org.osate.assure.assure.ClaimResult;
-import org.osate.assure.assure.Metrics;
 import org.osate.assure.generator.IAssureConstructor;
 import org.osate.assure.ui.handlers.AssureHandler;
 import org.osate.assure.util.AssureUtilExtension;
@@ -135,32 +118,32 @@ public class AlisaView extends ViewPart {
 	private ArrayList<AssuranceCase> existingAssuranceCases = new ArrayList<AssuranceCase>();
 
 	IXtextDocument xtextDoc;
-	IXtextModelListener modelListener = new IXtextModelListener() {
 
-		@Override
-		public void modelChanged(XtextResource resource) {
+	// This probably for when a save occurs to update the view. May need it or not.
+//	IXtextModelListener modelListener = new IXtextModelListener() {
+//
+//		@Override
+//		public void modelChanged(XtextResource resource) {
 //				System.out.println("model changed: " + resource);
-			getSite().getShell().getDisplay().asyncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					if (inputURI != null) {
-						AssuranceCaseResult assuranceCase = xtextDoc
-								.readOnly(new IUnitOfWork<AssuranceCaseResult, XtextResource>() {
-									@Override
-									public AssuranceCaseResult exec(XtextResource state) throws Exception {
-										return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
-									}
-								});
-						// treeViewer.setInput(Arrays.asList(assuranceCase));
-
-//						treeViewer.setInput(assuranceCase);
-					}
-
-				}
-			});
-		}
-	};
+//			getSite().getShell().getDisplay().asyncExec(new Runnable() {
+//
+//				@Override
+//				public void run() {
+//					if (inputURI != null) {
+//						AssuranceCaseResult assuranceCase = xtextDoc
+//								.readOnly(new IUnitOfWork<AssuranceCaseResult, XtextResource>() {
+//									@Override
+//									public AssuranceCaseResult exec(XtextResource state) throws Exception {
+//										return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
+//									}
+//								});
+//					loadAssuranceCases();
+//					}
+//
+//				}
+//			});
+//		}
+//	};
 
 	@Inject
 	GlobalURIEditorOpener globalURIEditorOpener;
@@ -172,6 +155,7 @@ public class AlisaView extends ViewPart {
 //	ILabelProvider labelProvider;
 	URI inputURI;
 
+	// To have tree in AlisaView refreshed whenever any editor is pressed
 	IPartListener partListener = new IPartListener() {
 
 		@Override
@@ -207,13 +191,6 @@ public class AlisaView extends ViewPart {
 	@Override
 	public void createPartControl(Composite parent) {
 
-//		Tree resultTree = new Tree(parent, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
-//		resultTree.setHeaderVisible(true);
-
-//		Composite mainComposite = new Composite(parent, SWT.NONE);
-//		mainComposite.setLayout(new GridLayout(3, false));
-
-//		Composite mainComposite = new Composite(parent, SWT.NONE);
 		parent.setLayout(new GridLayout(2, false));
 
 		treeViewer = new AlisaTreeViewer(parent,
@@ -225,7 +202,8 @@ public class AlisaView extends ViewPart {
 			@Override
 			public void selectionChanged(SelectionChangedEvent event) {
 				if (event.getSelection().isEmpty()) {
-					System.out.println("selectedAssuranceCase: null");
+					System.out.println(
+							"selectedAssuranceCase: null. This happens if same name for AssuranceCase is not found in a tree reload.");
 
 					selectedAssuranceCase = null;
 					alisaButton.setEnabled(false);
@@ -243,7 +221,7 @@ public class AlisaView extends ViewPart {
 						alisaButton.redraw();
 
 					} else {
-						System.out.println("selectedAssuranceCase: null");
+						System.out.println("selectedAssuranceCase: null. Please select parent AssuranceCase in Tree");
 						selectedAssuranceCase = null;
 						alisaButton.setEnabled(false);
 						alisaButton.setText(BUTTON_WAITING);
@@ -258,7 +236,7 @@ public class AlisaView extends ViewPart {
 		AssureTooltipListener.createAndRegister(treeViewer);
 //	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
 
-		// Not sure we need this.
+		// Not sure we need this. Maybe for future when we need right clickmenus
 		MenuManager manager = new MenuManager();
 		manager.setRemoveAllWhenShown(true);
 
@@ -267,40 +245,40 @@ public class AlisaView extends ViewPart {
 			public void menuAboutToShow(IMenuManager manager) {
 				IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
 				if (!selection.isEmpty()) {
-					final AssureResult ar = (AssureResult) selection.getFirstElement();
-
-					if (ar instanceof ClaimResult) {
-						final ClaimResult claim = (ClaimResult) ar;
-						EObject location = AssureUtilExtension.getTarget(claim);
+//					final AssureResult ar = (AssureResult) selection.getFirstElement();
+//
+//					if (ar instanceof ClaimResult) {
+//						final ClaimResult claim = (ClaimResult) ar;
+//						EObject location = AssureUtilExtension.getTarget(claim);
 //	                    if (claim instanceof FailResult) {
 //	                        manager.add(createHyperlinkAction("Open Failure Location", location));
 //	                    } else if (location instanceof ProveStatement) { 
 //	                        manager.add(createHyperlinkAction("Open Prove Statement", location));
 //	                        manager.add(createExportSubmenu(claim));
 //	                    } else {
-						manager.add(createHyperlinkAction("Open Requirement", location));
+//						manager.add(createHyperlinkAction("Open Requirement", location));
 //	                    }
 //	                    Map<String, EObject> references = claim.getReferences();
 //	                    for (String name : new TreeSet<String>(references.keySet())) {
 //	                        manager.add(createHyperlinkAction("Go to '" + name + "'",
 //	                                references.get(name)));
 //	                    }
-
-						manager.add(new Action("Copy Claim Text") {
-							@Override
-							public void run() {
-								Transferable text = new StringSelection(
-										AssureUtilExtension.constructDescription(claim));
-								Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-								clipboard.setContents(text, null);
-							}
-						});
-					}
+//
+//						manager.add(new Action("Copy Claim Text") {
+//							@Override
+//							public void run() {
+//								Transferable text = new StringSelection(
+//										AssureUtilExtension.constructDescription(claim));
+//								Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+//								clipboard.setContents(text, null);
+//							}
+//						});
+//					}
 				}
-
-				manager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-				IMenuService menuService = getViewSite().getWorkbenchWindow().getService(IMenuService.class);
-				menuService.populateContributionManager((ContributionManager) manager, "popup:" + ID);
+//
+//				manager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+//				IMenuService menuService = getViewSite().getWorkbenchWindow().getService(IMenuService.class);
+//				menuService.populateContributionManager((ContributionManager) manager, "popup:" + ID);
 			}
 		});
 		// getViewSite().getActionBars().getToolBarManager().add(createToggleShowClaimResultsAction());
@@ -345,21 +323,6 @@ public class AlisaView extends ViewPart {
 
 		loadAssuranceCases();
 
-//		treeViewer.getTree().addFocusListener(new FocusListener() {
-//
-//			@Override
-//			public void focusLost(FocusEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//
-//			@Override
-//			public void focusGained(FocusEvent e) {
-//
-//				// Updates recentProofTrees based on selection from AlisaView
-//				loadAssuranceCases();
-//			}
-//		});
 	}
 
 	private void alisaButtonSelected() {
@@ -536,7 +499,7 @@ public class AlisaView extends ViewPart {
 					ResourceSet rs = selectedAssuranceCase.eResource().getResourceSet();
 					Resource rrr = rs.getResource(assureURI, false);
 
-					/////////////////////////// Using same domain in InstatiateModel
+					/////////////////////////// Using same domain as in InstatiateModel
 					final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
 							.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
 					// We execute this command on the command stack because otherwise, we will not
@@ -716,7 +679,6 @@ public class AlisaView extends ViewPart {
 									if (treeViewer.getTree().isDisposed()) {
 										return;
 									}
-									// treeViewer.setInput(existingAssuranceCases);
 
 									if (selectedAssuranceCase != null) {
 										StructuredSelection selection = new StructuredSelection(selectedAssuranceCase);
@@ -752,102 +714,13 @@ public class AlisaView extends ViewPart {
 		// getSite().getPage().removePartListener(partListener);
 	}
 
-	private IAction createHyperlinkAction(String text, final EObject eObject) {
-		return new Action(text) {
-			@Override
-			public void run() {
-				globalURIEditorOpener.open(EcoreUtil.getURI(eObject), true);
-			}
-		};
-	}
-
-//	private IAction createToggleShowClaimResultsAction() {
-//
-//		IAction result = new Action("Show Claim Results", IAction.AS_CHECK_BOX) {
-//			public void run() {
-//				if (isChecked()) {
-//					setToolTipText(HIDE_CLAIMRESULTS_TOOL_TIP);
-//					treeViewer.removeFilter(noClaimsResultFilter);
-//				} else {
-//					setToolTipText(SHOW_CLAIMRESULTS_TOOL_TIP);
-//					treeViewer.addFilter(noClaimsResultFilter);
-//				}
-//				treeViewer.refresh();
-//			}
-//		};
-//		result.setChecked(true);
-//		result.setImageDescriptor(ImageDescriptor.createFromFile(AlisaView.class, "/icons/claims.png"));
-//		return result;
-//	}
-
-//	public void setProofs(AssuranceCaseResult proofTrees) {
-//		if (xtextDoc != null) {
-//			xtextDoc.removeModelListener(modelListener);
-//		}
-//		xtextDoc = EditorUtils.getActiveXtextEditor().getDocument();
-//		xtextDoc.addModelListener(modelListener);
-////		Object[] expandedElements = treeViewer.getExpandedElements();
-////		TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
-//		if (proofTrees != null) {
-//			inputURI = EcoreUtil.getURI(proofTrees);
-//			// treeViewer.setInput(Arrays.asList(proofTrees));
-//			treeViewer.setInput(proofTrees);
-//		} else {
-//			inputURI = null;
-//			// treeViewer.setInput(Collections.emptyList());
-//			treeViewer.setInput(null);
-//		}
-////		treeViewer.setExpandedElements(expandedElements);
-////		treeViewer.setExpandedTreePaths(expandedTreePaths);
-//	}
-
 	@Override
 	public void setFocus() {
 		treeViewer.getControl().setFocus();
 	}
 
-	/**
-	 * Viewer Filter class.
-	 */
-	private class NoMetricsFilter extends ViewerFilter {
-
-		/**
-		 * @param viewer the viewer
-		 * @param parentElement the parent element
-		 * @param element the element
-		 * @return if the element is to display: true
-		 * @see org.eclipse.jface.viewers.ViewerFilter
-		 *      #select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-		 */
-		@Override
-		public boolean select(Viewer viewer, Object parentElement, Object element) {
-			if (element instanceof Metrics) {
-				return false;
-			}
-			return true;
-		}
-	}
-
-	private class NoClaimResultsFilter extends ViewerFilter {
-		/**
-		 * @param viewer the viewer
-		 * @param parentElement the parent element
-		 * @param element the element
-		 * @return if the element is to display: true
-		 * @see org.eclipse.jface.viewers.ViewerFilter
-		 *      #select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
-		 */
-		@Override
-		public boolean select(Viewer viewer, Object parentElement, Object element) {
-			if (element instanceof ClaimResult) {
-				return false;
-			}
-			return true;
-		}
-	}
-
-	public TreeViewer getTreeViewer() {
-		return treeViewer;
-	}
+//	public TreeViewer getTreeViewer() {
+//		return treeViewer;
+//	}
 
 }
