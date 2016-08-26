@@ -32,13 +32,14 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.DiagramReference;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.util.Log;
 
@@ -48,12 +49,14 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	}
 	
 	private final DiagramService diagramService;
+	private final InternalReferenceBuilderService refBuilder;
 	private final BusinessObjectResolutionService bor;
 	private final GhostPurger ghostPurger;
 	
-	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final BusinessObjectResolutionService bor) {
+	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final InternalReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor) {
 		this.diagramService = diagramService;
 		this.ghostPurger = ghostPurger;
+		this.refBuilder = refBuilder;
 		this.bor = bor;
 	}
 
@@ -63,7 +66,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	}
 
 	class DefaultModification implements Modification {
-		private final Map<Diagram, Map<NamedElement, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<Diagram, Map<NamedElement, PictogramElement[]>>();
+		private final Map<Diagram, Map<Object, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<>();
 		private final Set<DiagramReference> dirtyDiagramReferences = new HashSet<DiagramReference>();
 		private List<DiagramReference> diagramReferences = null;
 		
@@ -78,17 +81,17 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			return diagramReferences;
 		}
 		
-		private Map<NamedElement, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
-    		Map<NamedElement, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
+		private Map<Object, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
+    		Map<Object, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
     		if(dirtyLinkages == null) {
-    			dirtyLinkages = new HashMap<NamedElement, PictogramElement[]>();
+    			dirtyLinkages = new HashMap<Object, PictogramElement[]>();
     			diagramToDirtyLinkages.put(diagram, dirtyLinkages);
     		}
     		return dirtyLinkages;
     	}
 
-    	private void setDirtyLinkages(final Diagram diagram, final NamedElement el, PictogramElement[] pes) {
-    		getDirtyLinkages(diagram).put(el, pes);
+    	private void setDirtyLinkages(final Diagram diagram, final Object bo, PictogramElement[] pes) {
+    		getDirtyLinkages(diagram).put(bo, pes);
     	}
     	    	    	
     	private List<Classifier> getSelfAndSpecificClassifiers(final Classifier c) {
@@ -130,7 +133,6 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     			// Mark as dirty if the diagram contains a shape whose BO is in the relevant element list
     			final List<Classifier> relevantClassifiers = getSelfAndSpecificClassifiers(c);
     			final Set<AadlPackage> relevantPackages = getPackages(relevantClassifiers);
-    			//final List<AadlElementWrapper> relevantElements = getRelevantElements(relevantClassifiers);
     			
     			for(final DiagramReference tmpDiagramReference : getDiagramReferences()) {
     				if(tmpDiagramReference.isOpen()) {
@@ -165,23 +167,21 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	}
     	
     	@Override
-    	public void markLinkagesAsDirty(final NamedElement el) {
-    		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
-    		
+    	public void markLinkagesAsDirty(final Object bo) {    		
     		// For each diagram
+    		final String boRef = refBuilder.getReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
-    			markLinkagesAsDirty(elWrapper, diagramRef);
+    			markLinkagesAsDirty(bo, boRef, diagramRef);
     		}
     	}
     	
     	@Override
-		public void markOpenLinkagesAsDirty(final NamedElement el) {
-    		final AadlElementWrapper elWrapper = new AadlElementWrapper(el);
-    		
+		public void markOpenLinkagesAsDirty(final Object bo) {
     		// For each diagram
+    		final String boRef = refBuilder.getReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			if(diagramRef.isOpen()) {
-	    			markLinkagesAsDirty(elWrapper, diagramRef);
+	    			markLinkagesAsDirty(bo, boRef, diagramRef);
     			}
     		}
     	}
@@ -191,11 +191,10 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	 * @param elWrapper
     	 * @param diagram
     	 */
-    	private void markLinkagesAsDirty(final AadlElementWrapper elWrapper, final DiagramReference diagramReference) {
+    	private void markLinkagesAsDirty(final Object bo, final String boRef, final DiagramReference diagramReference) {
     		final Diagram diagram = diagramReference.getDiagram();
     		if(diagram != null) {
-	    		final NamedElement el = (NamedElement)elWrapper.getElement();
-	    		
+    			
 	    		// Create a feature provider and check if it is linked to the aadl element
 				final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 				if(featureProvider != null) {
@@ -205,19 +204,19 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					final List<PictogramElement> linkages = new ArrayList<PictogramElement>();
 					
 					// Get pictogram elements in the diagram that is linked to the element
-					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(elWrapper);
+					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 					for(PictogramElement pe : pes) {
 						linkages.add(pe);
 					}
 	
 					// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
-					if(diagramBo instanceof NamedElement && el.getQualifiedName().equalsIgnoreCase(((NamedElement)diagramBo).getQualifiedName())) {
+					if(boRef.equals(refBuilder.getReference(diagramBo))) {
 						linkages.add(diagram);
 					}						
 					
 					// Add to dirty linkages
 					if(linkages.size() > 0) {
-						setDirtyLinkages(diagram, el, linkages.toArray(new PictogramElement[0]));
+						setDirtyLinkages(diagram, bo, linkages.toArray(new PictogramElement[0]));
 						dirtyDiagramReferences.add(diagramReference);
 					}
 				}
@@ -234,12 +233,13 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 						// Update any dirty linkages stored for the diagram
 						final IFeatureProvider fp = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 						if(fp != null) {
-							final Map<NamedElement, PictogramElement[]> dirtyLinkagesMap = diagramToDirtyLinkages.get(diagram);
+							final Map<Object, PictogramElement[]> dirtyLinkagesMap = diagramToDirtyLinkages.get(diagram);
 							if(dirtyLinkagesMap != null) {
-				    			for(final Entry<NamedElement, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
-				    				final AadlElementWrapper elWrapper = new AadlElementWrapper(dirtyLinkagesEntry.getKey());
+				    			for(final Entry<Object, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
+				    				final Object bo = dirtyLinkagesEntry.getKey();
+				    				final Object wrappedBo = bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo;
 				    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
-				    					fp.link(pe, elWrapper);
+				    					fp.link(pe, wrappedBo);
 				    				}
 				    			}
 							}

@@ -175,7 +175,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
 			final ColoringService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
 			final ConnectionService connectionService, final @Named("Feature Type") EClass featureType) {
-		super(anchorUtil, ghostingService);
+		super(anchorUtil, ghostingService, propertyUtil);
 		this.anchorUtil = anchorUtil;
 		this.ghostingService = ghostingService;
 		this.propertyUtil = propertyUtil;

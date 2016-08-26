@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -53,5 +54,13 @@ public interface DiagramService {
 	 * @param name
 	 */
 	public void savePersistentProperties(final Diagram diagram);
-
+	
+	/**
+	 * Returns a name for a diagram with the specified business object
+	 * @param bo
+	 * @return
+	 */
+	public String getDiagramNameByBusinessObject(Object bo);
+	
+	public Resource getResource(Object bo);
 }

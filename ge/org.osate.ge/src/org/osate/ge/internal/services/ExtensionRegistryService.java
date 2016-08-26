@@ -25,7 +25,14 @@ public interface ExtensionRegistryService {
 	 * SelectionChanged - Optional
 	 */
     Collection<Object> getTools();
-	
+
+	/**
+	 * Business object handlers are extension which provide  
+	 */
+    Collection<Object> getBusinessObjectHandlers();
+
+    Object getApplicableBusinessObjectHandler(Object bo);
+    
 	/**
 	 * Returns a list of registered categories for the palette.
 	 */

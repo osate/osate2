@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.internal.features;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import org.eclipse.core.runtime.IStatus;
@@ -31,22 +33,22 @@ import org.eclipse.ui.statushandlers.StatusManager;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
+import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.util.Log;
 
 public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature, DiagramUpdateFeature {
-	private final ReferenceBuilderService refBuilder;
+	private final DiagramService diagramService;
 	private final StyleService styleService;
 	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	
 	@Inject
-	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final ReferenceBuilderService refBuilder, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
+	public UpdateClassifierDiagramFeature(final IFeatureProvider fp, final DiagramService diagramService, final StyleService styleService, final GhostingService ghostingService, final ShapeService shapeService) {
 		super(fp);
-		this.refBuilder = refBuilder;
+		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.styleService = styleService;
 		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
@@ -60,7 +62,7 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		
 		return null;
 	}
-	
+		
 	@Override
 	public boolean canUpdate(final IUpdateContext context) {
 		return true;
@@ -83,9 +85,9 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 		
 		// Update the diagram's name
 		final Diagram diagram = getDiagram();
-		final String newTitle = refBuilder.getTitle(classifier);
-		if(newTitle != null) {
-			diagram.setName(newTitle);
+		final String newName = diagramService.getDiagramNameByBusinessObject(classifier);
+		if(newName != null) {
+			diagram.setName(newName);
 		}
 		
 		styleService.refreshStyles();
@@ -128,23 +130,24 @@ public class UpdateClassifierDiagramFeature extends AbstractUpdateFeature implem
 
 		return false;
 	}
-	
+
+	// ICustomUndoRedoFeature
 	@Override
 	public boolean canUndo(final IContext context) {
 		return false;
 	}
 	
 	@Override
-	public boolean canRedo(final IContext context) {
-		return false;
-	}
-
-	@Override
 	public void preUndo(IContext context) {
 	}
 
 	@Override
 	public void postUndo(IContext context) {
+	}
+
+	@Override
+	public boolean canRedo(IContext context) {
+		return false;
 	}
 
 	@Override

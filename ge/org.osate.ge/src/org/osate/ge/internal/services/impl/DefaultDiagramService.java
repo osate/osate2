@@ -24,6 +24,8 @@ import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -43,22 +45,33 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
+import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.Classifier;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.EmfContainerProvider;
+import org.osate.ge.di.GetDiagramName;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.util.Log;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 public class DefaultDiagramService implements DiagramService {
-	private final ReferenceBuilderService referenceBuilder;
+	private final InternalReferenceBuilderService referenceBuilder;
+	private final ExtensionRegistryService extRegService;
+	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
+	private final IEclipseContext serviceContext;
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
 		public DiagramService createService(final IEclipseContext context) {
-			return new DefaultDiagramService(context.get(ReferenceBuilderService.class));
+			return new DefaultDiagramService(context.get(InternalReferenceBuilderService.class), context.get(ExtensionRegistryService.class));
 		}		
 	}
 	
@@ -133,15 +146,19 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 	
-	public DefaultDiagramService(final ReferenceBuilderService referenceBuilder) {
-		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder service");
+	public DefaultDiagramService(final InternalReferenceBuilderService referenceBuilder, final ExtensionRegistryService extRegService) {
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "unable to retrieve internal reference builder service");
+		this.extRegService = Objects.requireNonNull(extRegService, "extRegService must not be null");
+		
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		this.serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 	}
 		
 	@Override
 	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo) {
 		final String boReference = referenceBuilder.getReference(bo);
 		final List<DiagramReference> diagramRefs = findDiagrams();
-		final IProject project = referenceBuilder.getProject(bo);
+		final IProject project = getProject(bo);
 		if(project == null) {
 			throw new RuntimeException("Unable to get project for business object: " + bo);
 		}
@@ -309,17 +326,22 @@ public class DefaultDiagramService implements DiagramService {
 	
 			// Create the diagram and its file
 			final IPeService peService = Graphiti.getPeService();
-			final Diagram diagram = peService.createDiagram(diagramTypeId, referenceBuilder.getTitle(bo), true);
+			final String diagramName = getDiagramNameByBusinessObject(bo);
+			if(diagramName == null) {
+				Log.error("Unable to get title for business object: " + bo);
+				throw new RuntimeException("Unable to get title for business object: " + bo);
+			}
 			
+			final Diagram diagram = peService.createDiagram(diagramTypeId, diagramName, true);
 			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo instanceof NamedElement ? new AadlElementWrapper((NamedElement)bo) : bo);
 			
 			// Create a resource to hold the diagram
-			final IProject project = referenceBuilder.getProject(bo);
+			final IProject project = getProject(bo);
 			if(project == null) {
 				throw new RuntimeException("Unable to get project for business object: " + bo);
 			}
 			final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
-			
+
 			// Store the diagram in the resource
 			editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 				@Override
@@ -327,7 +349,7 @@ public class DefaultDiagramService implements DiagramService {
 					createdResource.getContents().add(diagram);
 				}			
 			});		
-			
+
 			try {
 				createdResource.save(null);
 			} catch (IOException e) {
@@ -461,6 +483,69 @@ public class DefaultDiagramService implements DiagramService {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	@Override
+	public String getDiagramNameByBusinessObject(Object bo) {
+		if(bo == null) {
+			return null;
+		}
+		
+		// Determine diagram title for basic types
+		if(bo instanceof AadlPackage || bo instanceof Classifier) {
+			return ((NamedElement) bo).getQualifiedName();
+		}
+			
+		// Find the applicable business object handler and use it to determine the diagram title
+		final Object boHandler = extRegService.getApplicableBusinessObjectHandler(bo);
+		if(boHandler != null) {
+			try {
+				// Set context fields
+				argCtx.set(Names.BUSINESS_OBJECT, bo);
+				final String title = (String)ContextInjectionFactory.invoke(boHandler, GetDiagramName.class, serviceContext, argCtx, null);
+				if(title != null) {
+					return title;
+				}
+			} finally {
+				// Remove entries from context
+				argCtx.remove(Names.BUSINESS_OBJECT);
+			}
+		}
+				
+		return null;
+	}
+	
+	private IProject getProject(Object bo) {
+		final Resource resource = getResource(bo);
+		if(resource != null) {
+			final URI uri = resource.getURI();
+			if(uri != null) {
+				return SelectionHelper.getProject(uri);
+			}
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public Resource getResource(Object bo) {		
+		final EObject eObject;
+		
+		// Handle EObject instances without delegating to specialized handlers
+		if(bo instanceof EObject) {
+			eObject = (EObject)bo;
+		} else if(bo instanceof EmfContainerProvider) { // Use the EMF Object container if the business object is not an EMF Object
+			final EObject container = ((EmfContainerProvider)bo).getEmfContainer();
+			if(container == null) {
+				return null;
+			}
+			
+			eObject = container;
+		} else {
+			return null;
+		}
+
+		return eObject.eResource();
 	}
 	
 	private final QualifiedName diagramNameModificationStampPropertyName = new QualifiedName("org.osate.ge", "diagram_name_modification_stamp");

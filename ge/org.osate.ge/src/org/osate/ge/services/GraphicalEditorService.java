@@ -10,11 +10,19 @@ package org.osate.ge.services;
 
 import org.osate.ge.GraphicalEditor;
 
+/**
+ * Service for interacting with the graphical editor.
+ * @noextend
+ * @noimplement
+ * @see org.osate.ge.GraphicalEditor
+ */
 public interface GraphicalEditorService {
 	/**
-	 * Opens a diagram which is linked to the specified specified business object in a graphical editor. If a diagram is not found, one is created.
-	 * @param bo
+	 * Opens a diagram with the specified root business object in a graphical editor. If a diagram is not found, one is created. 
+	 * The root business object should support retrieving its title.  
+	 * @param bo is the business object which is the root business object of the diagram that diagram to be opened.
 	 * @return the editor in which the diagram was open. Throws an exception if the editor could not be opened.
+	 * @see org.osate.ge.di.GetDiagramName
 	 */
 	GraphicalEditor openBusinessObject(Object bo);
 }

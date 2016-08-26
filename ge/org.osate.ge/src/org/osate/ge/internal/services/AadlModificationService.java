@@ -8,8 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.osate.aadl2.Element;
 
 /**
  * Service providing a mechanism for making changes to the model
@@ -23,28 +23,29 @@ public interface AadlModificationService {
 	 * @param modifier the modifier that will perform the actual modification
 	 * @returns the result of the modification or null if the modification failed
 	 */
-	<E extends Element, R> R modify(E element, Modifier<E, R> modifier);
+	<E extends EObject, R> R modify(E bo, Modifier<E, R> modifier);
 	
 	public static interface Modifier<E, R> {
-		R modify(Resource resource, final E element);
+		R modify(Resource resource, final E bo);
 		
 		/**
-		 * Called after a modification but before the AADL text file has been updated and the diagram has been updated. Is not executed if the modification is aborted.
+		 * Called after a modification but before the AADL text file has been updated and the diagram has been updated. It is not executed if the modification is aborted.
+		 * Because of this, annexes will not have been relinked prior to beforeCommit() being executed.
 		 */
-		void beforeCommit(Resource resource, E element, R modificationResult);
+		void beforeCommit(Resource resource, E bo, R modificationResult);
 		
 		/**
-		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. Is not executed if the modification is aborted.
+		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. It is not executed if the modification is aborted.
 		 */
 		void afterCommit(Resource resource);
 	}
 	
 	public static abstract class AbstractModifier<E, R> implements Modifier<E,R> {
 		@Override
-		public abstract R modify(Resource resource, E element);		
+		public abstract R modify(Resource resource, E bo);		
 		
 		@Override
-		public void beforeCommit(Resource resource, E element, R modificationResult) {			
+		public void beforeCommit(Resource resource, E bo, R modificationResult) {			
 		}
 		
 		@Override

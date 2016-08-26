@@ -103,26 +103,11 @@
          <topic label="Creating Annex Libraries and Annex Subclauses" href="output/ch03s11.html#d0e1091"/>
       </topic>
    </topic>
-   <topic label="Developing Extensions" href="output/ch04.html">
-      <topic label="General Information" href="output/ch04.html#d0e1119">
-         <topic label="Services" href="output/ch04.html#d0e1126"/>
-         <topic label="Annotations" href="output/ch04.html#d0e1140"/>
-      </topic>
-      <topic label="Extension Points" href="output/ch04s02.html">
-         <topic label="Tools" href="output/ch04s02.html#d0e1156"/>
-         <topic label="Adding Support for a new Business Object" href="output/ch04s02.html#d0e1201">
-            <topic label="Reference Builders and Reference Resolvers" href="output/ch04s02.html#d0e1207">
-               <topic label="Reference Builders" href="output/ch04s02.html#d0e1214"/>
-               <topic label="Reference Resolvers" href="output/ch04s02.html#d0e1242"/>
-            </topic>
-            <topic label="Categories" href="output/ch04s02.html#d0e1274"/>
-            <topic label="Images" href="output/ch04s02.html#d0e1282"/>
-         </topic>
-      </topic>
-   </topic>
-   <topic label="Troubleshooting" href="output/ch05.html">
-      <topic label="Build Automatically" href="output/ch05.html#d0e1295"/>
-      <topic label="Updating a Diagram" href="output/ch05s02.html"/>
-      <topic label="Reporting Bugs" href="output/ch05s03.html"/>
+   <topic label="Troubleshooting" href="output/ch04.html">
+      <topic label="Build Automatically" href="output/ch04.html#d0e1114"/>
+      <topic label="Out of Handles Exception" href="output/ch04s02.html"/>
+      <topic label="Unable to Set Properties Unless Text Model is Open" href="output/ch04s03.html"/>
+      <topic label="Updating a Diagram" href="output/ch04s04.html"/>
+      <topic label="Reporting Bugs" href="output/ch04s05.html"/>
    </topic>
 </toc>

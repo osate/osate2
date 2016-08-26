@@ -19,7 +19,7 @@ public class DefaultExtensionService implements ExtensionService {
 	private final ExtensionRegistryService globalExtService;
 	private final IEclipseContext baseCtx;
 	
-	// TODO: Rather than accepting a base context, accept a limited set of services which will be made available to extensions
+	// TODO: Rather than accepting a base context, consider accepting a limited set of services which will be made available to extensions
 	public DefaultExtensionService(final ExtensionRegistryService globalExtService, final IEclipseContext baseCtx) {
 		this.globalExtService = globalExtService;
 		this.baseCtx = baseCtx;
@@ -28,6 +28,16 @@ public class DefaultExtensionService implements ExtensionService {
 	@Override
 	public Collection<Object> getTools() {
 		return globalExtService.getTools();
+	}
+	
+	@Override
+	public Collection<Object> getBusinessObjectHandlers() {
+    	return globalExtService.getBusinessObjectHandlers();
+    }
+	
+	@Override
+	public Object getApplicableBusinessObjectHandler(final Object bo) {
+		return globalExtService.getApplicableBusinessObjectHandler(bo);
 	}
 	
 	@Override

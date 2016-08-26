@@ -68,7 +68,7 @@ import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.util.ImageHelper;
 
 /**
- * Pattern for handling AnnexLibraries and AnnexSubclauses
+ * Pattern for generic handling of AnnexLibrary and AnnexSubclause objects. Not used if specialized annex handling support is implemented by an extension.
  */
 public class AnnexPattern extends AgePattern {
 	private final static String annexLabelName = "annex_label";
@@ -93,11 +93,12 @@ public class AnnexPattern extends AgePattern {
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
 	private final StyleService styleService;
-
+	
 	@Inject
 	public AnnexPattern(final GhostingService ghostingService, final AnchorService anchorService, final ShapeService shapeService, final LabelService labelService, final UserInputService userInputService, final StyleService styleService, 
 			final LayoutService layoutService, final BusinessObjectResolutionService bor, final PropertyService propertyService, final AadlModificationService aadlModService, final RefactoringService refactoringService,
-			final DiagramModificationService diagramModService, final ShapeCreationService shapeCreationService, final NamingService namingService, final @Named("Annex Type") EClass annexType) {
+			final DiagramModificationService diagramModService, final ShapeCreationService shapeCreationService, final NamingService namingService, 
+			final @Named("Annex Type") EClass annexType) {
 		this.ghostingService = ghostingService;
 		this.anchorService = anchorService;
 		this.shapeService = shapeService;
@@ -138,7 +139,7 @@ public class AnnexPattern extends AgePattern {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		final Object bo = AadlElementWrapper.unwrap(mainBusinessObject);
-		return bo instanceof AnnexLibrary || bo instanceof AnnexSubclause;
+		return bo instanceof DefaultAnnexLibrary || bo instanceof DefaultAnnexSubclause;
 	}
 
 	@Override
@@ -221,12 +222,11 @@ public class AnnexPattern extends AgePattern {
 
 	@Override
 	public final PictogramElement add(final IAddContext context) {
-		final NamedElement neNewAnnex = (NamedElement)AadlElementWrapper.unwrap(context.getNewObject());
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		
+
 		// Create the container shape for the generic representation
 		final ContainerShape containerShape = peCreateService.createContainerShape(context.getTargetContainer(), true);
-		link(containerShape, new AadlElementWrapper(neNewAnnex));
+		link(containerShape, context.getNewObject());
 		
 		createStubGraphicsAlgorithm(containerShape, context.getX(), context.getY());		
 		
@@ -310,9 +310,10 @@ public class AnnexPattern extends AgePattern {
 
 		return true;
 	}
-
+	
 	// Refresh
 	private void refresh(final ContainerShape shape) {
+		propertyService.setIsLogicalTreeNode(shape, true); 
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostChildShapes(shape);
 		

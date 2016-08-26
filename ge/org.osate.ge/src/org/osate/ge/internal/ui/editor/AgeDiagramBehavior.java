@@ -59,12 +59,11 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.features.DiagramUpdateFeature;
-import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.ui.util.GhostPurger;
@@ -266,8 +265,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}
 		
 		final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
-		if(bo instanceof Element) {
-			if(((Element)bo).eResource() == resource) {
+		if(bo != null) {
+			final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
+			final Resource diagramBoResource = diagramService.getResource(bo);
+
+			if(diagramBoResource == resource) {
 				update();
 			}
 		}

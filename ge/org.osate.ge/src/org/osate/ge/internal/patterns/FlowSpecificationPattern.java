@@ -52,21 +52,22 @@ import org.osate.aadl2.SystemType;
 import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
-import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.UserInputService;
+import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.styles.StyleConstants;
 import org.osate.ge.internal.util.ImageHelper;
@@ -86,8 +87,8 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	public FlowSpecificationPattern(final GhostingService ghostingService, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
 			final ColoringService coloringService, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
-			final NamingService namingService, final BusinessObjectResolutionService bor) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+			final NamingService namingService, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.styleUtil = styleUtil;
 		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.shapeService = shapeService;

@@ -66,6 +66,8 @@ import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.ListValue;
@@ -77,38 +79,38 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
-import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.DefaultAgeResizeConfiguration;
+import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.services.AadlArrayService;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
+import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.internal.services.PropertyService.BindingType;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.services.UserInputService;
+import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.internal.services.PropertyService.BindingType;
-import org.osate.ge.internal.styles.StyleConstants;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.ge.internal.styles.StyleConstants;
+import org.osate.ge.Categories;
 
 /**
  * A pattern for top level classifier shapes as well as subcomponents.
@@ -331,11 +333,12 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	}
 	
 	private void refresh(final ContainerShape shape, final Object bo, final int x, final int y) {
+		propertyService.setIsLogicalTreeNode(shape, true);
 		ghostingService.setIsGhost(shape, false);
 		anchorService.removeAnchorsWithoutConnections(shape);
 		
 		// Determine whether the subcomponent/classifier should be shown based on the the depth level setting
-		final int depthLevel = getDepthLevel(shape);
+		final int depthLevel = shapeService.getDepthLevel(shape) - 1; // Subtract 1 because of the container shape that contains all other shapes
 		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
 		
 		// Ghost children
@@ -357,12 +360,12 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 				final ComponentImplementation ci = (ComponentImplementation)classifier;
 				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllInternalFeatures(ci));
 				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllProcessorFeatures(ci));
-				shapeCreationService.createUpdateShapesForElements(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);		
+				shapeCreationService.createUpdateShapes(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);		
 			}
 			
 			if(classifier instanceof BehavioredImplementation) {
 				final BehavioredImplementation bi = (BehavioredImplementation)classifier;
-				shapeCreationService.createUpdateShapesForElements(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
+				shapeCreationService.createUpdateShapes(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
 			}
 			
 			// Create/Update Modes and Mode Transitions
@@ -373,7 +376,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			
 			// Annex Subclauses
 			if(classifier instanceof Classifier) {
-				shapeCreationService.createUpdateShapesForElements(shape, getAllDefaultAnnexSubclauses((Classifier)classifier), 25, true, 30, 25, true, 20);			
+				updateAnnexSubclauses(shape, getAllDefaultAnnexSubclauses((Classifier)classifier));		
 			}
 		}
 
@@ -439,6 +442,37 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			refreshBindingIndicators(shape, (ComponentImplementation)bo);
 		}
 	}	
+
+	/**
+	 * Creates and updates pictogram elements for annex subclauses
+	 * If specialized handling for the parsed pictogram element is implemented, then it is used. Otherwise, generic annex handling is used.
+	 * @param subclauses a collection containing the default annex subclauses 
+	 */
+	private void updateAnnexSubclauses(final ContainerShape container, final Collection<AnnexSubclause> subclauses) {
+		for(final AnnexSubclause subclause : subclauses) {
+			final NamedElement parsedAnnexSubclause = getParsedAnnexSubclause(subclause);
+			final boolean specializedHandling = parsedAnnexSubclause != null && shapeCreationService.createUpdateShape(container, parsedAnnexSubclause);
+			
+			if(!specializedHandling) {
+				shapeCreationService.createUpdateShape(container, subclause);
+			}
+		}
+	}
+	
+	private NamedElement getParsedAnnexSubclause(final AnnexSubclause annexSubclause) {
+		if(annexSubclause instanceof DefaultAnnexSubclause) {
+			final NamedElement parsedSubclause = ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
+			
+			// Don't return subclauses which inherit from DefaultAnnexSubclause
+			if(parsedSubclause instanceof DefaultAnnexLibrary) {
+				return null;
+			}
+			
+			return parsedSubclause;
+		}
+		
+		return null;
+	}
 	
 	// Starting Binding Handling
 	// The Binding Tracker class is used to track information regarding a particular binding(such as actual_connection_binding). The data is built each time a classifier is refreshed.
@@ -814,19 +848,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		return true;
 	}
 
-	// Determines the shapes depth level
-	private int getDepthLevel(Shape shape) {
-		int depthLevel = -1; // Start at -1 because of the container shape that contains all other shapes.
-		while(shape != null && !(shape instanceof Diagram)) {
-			if(bor.getBusinessObjectForPictogramElement(shape) != null) {
-				depthLevel++;
-			}
-			shape = shape.getContainer();
-		}
-
-		return depthLevel;
-	}	
-	
 	// Labels
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();

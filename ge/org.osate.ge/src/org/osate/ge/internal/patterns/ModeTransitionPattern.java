@@ -49,9 +49,11 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
+import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -59,18 +61,16 @@ import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.services.UserInputService;
+import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.styles.StyleConstants;
-import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
-import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.util.ImageHelper;
 
 public class ModeTransitionPattern extends AgeConnectionPattern implements Categorized {
@@ -93,7 +93,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService,
 			final SubcomponentService subcomponentService, final ComponentImplementationService componentImplementationService) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
 		this.namingService = namingService;
@@ -267,6 +267,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	private static Point getConnectionMidpoint(final Connection connection, final double d) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 
+		//final IGefService gefService = GraphitiUiInternal.getGefService();
 		// Should be end point?
 		final Shape startShape = (Shape)connection.getStart().getParent();
 		final Shape endShape = (Shape)connection.getEnd().getParent();

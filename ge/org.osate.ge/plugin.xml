@@ -5,6 +5,7 @@
    <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
+   <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
 	   <command 
@@ -739,7 +740,5 @@
        <referenceBuilder
              class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
        </referenceBuilder>
-       <referenceResolver
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceResolver"></referenceResolver>
     </extension>
 </plugin>

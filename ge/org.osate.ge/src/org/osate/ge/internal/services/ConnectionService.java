@@ -8,6 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
+import java.util.Collection;
+
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -18,7 +20,13 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
  *
  */
 public interface ConnectionService {
-
+	/**
+	 *
+	 * @param ownerShape
+	 * @return all connections owned by the specified shape
+	 */
+	Collection<Connection> getConnections(ContainerShape ownerShape);
+	
 	Connection getConnection(ContainerShape ownerShape, Object bo);
 
 	Anchor[] getAnchors(ContainerShape ownerShape, Object bo);
@@ -43,4 +51,7 @@ public interface ConnectionService {
 	 * @param shape
 	 */
 	void updateConnectionAnchors(Shape shape);
+
+	// Called to notify the connection service of a new connection. Must be called to ensure cache contains all connections
+	void onConnectionCreated(final Shape ownerShape, final Object bo, final Connection c);
 }

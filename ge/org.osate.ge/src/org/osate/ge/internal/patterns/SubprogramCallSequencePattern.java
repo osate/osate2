@@ -45,29 +45,30 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.DefaultAgeResizeConfiguration;
+import org.osate.ge.internal.patterns.AgePattern;
+import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
+import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
+import org.osate.ge.internal.Categorized;
+import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.RefactoringService;
-import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
+import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.UserInputService;
-import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
-import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 
@@ -181,6 +182,8 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	
 	// Shared Between add and update
 	private void refresh(final ContainerShape shape, final SubprogramCallSequence cs, final int x, final int y) {
+		propertyService.setIsLogicalTreeNode(shape, true);
+		
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostChildren(shape);
@@ -188,7 +191,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		final List<SubprogramCall> subprogramCalls = cs.getOwnedSubprogramCalls();
 
 		// Create/Update subprogram call shapes
-		shapeCreationService.createUpdateShapesForElements(shape, subprogramCalls, 25, true, 30, 25, true, 20);
+		shapeCreationService.createUpdateShapes(shape, subprogramCalls, 25, true, 30, 25, true, 20);
 	
 		// Create connections to represent the order of the subprogram calls
 		connectionCreationService.createUpdateConnections(shape, getSubprogramCallOrders(subprogramCalls));

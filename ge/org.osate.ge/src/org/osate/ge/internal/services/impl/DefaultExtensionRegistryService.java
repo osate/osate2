@@ -20,9 +20,14 @@ import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
 import org.eclipse.core.runtime.IExtensionRegistry;
 import org.eclipse.core.runtime.Platform;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.Categories;
+import org.osate.ge.di.IsApplicable;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.ExtensionRegistryService;
+
 /**
  * Instantiates extensions which are registered via extension points.
  */
@@ -35,14 +40,17 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
+	private static final String BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectHandlers";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	
 	private final Collection<Object> tools;
+	private final Collection<Object> boHandlers;
 	private final List<Category> categories;
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
 		tools = instantiateTools(registry);
+		boHandlers = instantiateBusinessObjectHandlers(registry);
 		categories = instantiateCategories(registry);
 	}
 
@@ -52,12 +60,44 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	@Override
+	public Collection<Object> getBusinessObjectHandlers() {
+    	return boHandlers;
+    }
+	
+	@Override
+	public Object getApplicableBusinessObjectHandler(final Object bo) {
+		final IEclipseContext eclipseCtx =  EclipseContextFactory.create();
+
+		try {
+			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
+
+			// Find the business object handler which is applicable for this business object
+			for(final Object handler : getBusinessObjectHandlers()) {
+				final boolean isApplicable = (boolean)ContextInjectionFactory.invoke(handler, IsApplicable.class, eclipseCtx, false);
+				if(isApplicable) {
+					return handler;
+				}
+				
+			}
+			
+		} finally {
+			eclipseCtx.dispose();
+		}
+		
+		return null;
+	}
+	
+	@Override
 	public List<Category> getCategories() {
 		return categories;
 	}
 	
 	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
 		return instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool");
+	}
+	
+	private static Collection<Object> instantiateBusinessObjectHandlers(final IExtensionRegistry registry) {
+		return instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler");
 	}
 
 	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements

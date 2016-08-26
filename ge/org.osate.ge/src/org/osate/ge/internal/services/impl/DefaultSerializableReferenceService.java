@@ -21,21 +21,23 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.aadl2.Element;
+import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
-import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 
 public class DefaultSerializableReferenceService implements SerializableReferenceService {
 	private static final String REFERENCE_RESOLVER_ELEMENT_NAME = "referenceResolver";
-	private final ReferenceBuilderService referenceBuilderService;
+	private final InternalReferenceBuilderService referenceBuilderService;
 	private final IEclipseContext ctx;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private List<Object> referenceResolvers = null;
-
-	public DefaultSerializableReferenceService(final ExtensionService extService, final ReferenceBuilderService referenceBuilderService) {
+	private DeclarativeReferenceResolver declarativeReferenceResolver;
+	
+	public DefaultSerializableReferenceService(final ExtensionService extService, final InternalReferenceBuilderService referenceBuilderService) {
 		this.referenceBuilderService = referenceBuilderService;
 		ctx = extService.createChildContext();
 	}
@@ -43,6 +45,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	public void dispose() {
 		// Disposing of the context will dispose of reference resolvers
 		ctx.dispose();
+		argCtx.dispose();
 	}
 	
 	/**
@@ -52,8 +55,15 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		if(referenceResolvers == null) {
 			// Instantiate reference resolvers
 			referenceResolvers = new ArrayList<>();
+
+			// Create the declarative reference handler. It is not registered with plugin.xml because an explicit reference to it is needed
+			this.declarativeReferenceResolver = ContextInjectionFactory.make(DeclarativeReferenceResolver.class, ctx);
+			referenceResolvers.add(declarativeReferenceResolver);
+			
+			// Instantiate other reference handlers
+			
 			final IExtensionRegistry registry = Platform.getExtensionRegistry();	
-			final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
+			final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultInternalReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
 			for(final IExtension extension : point.getExtensions()) {
 				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
 					if(ce.getName().equals(REFERENCE_RESOLVER_ELEMENT_NAME)) {
@@ -74,7 +84,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	public String getReference(final Object bo) {
 		return referenceBuilderService.getReference(bo);
 	}
-		
+
 	@Override
 	public Object getReferencedObject(final String referenceStr) {
 		Objects.requireNonNull(referenceStr, "referenceStr must not be null");
@@ -85,7 +95,15 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		if(ref.length < 2) {
 			return null;
 		}
-			
+		
+		// Restore spaces
+		final StringBuilder sb = new StringBuilder();
+		for(int i = 0; i < ref.length; i++) {
+			sb.setLength(0);
+			ReferenceEncoder.decodeSegment(sb, ref[i]);
+			ref[i] = sb.toString();
+		}
+		
 		try {
 			// Set context fields
 			argCtx.set(Names.REFERENCE, ref);	
@@ -101,5 +119,10 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public AadlPackage getAadlPackage(final String qualifiedName) {
+		return declarativeReferenceResolver.getAadlPackage(qualifiedName);
 	}
 }

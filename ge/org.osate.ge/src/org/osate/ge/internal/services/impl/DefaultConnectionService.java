@@ -8,6 +8,13 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
@@ -18,6 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.osate.aadl2.ModeTransition;
+import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.internal.connections.AadlConnectionInfoProvider;
 import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
@@ -26,41 +34,77 @@ import org.osate.ge.internal.connections.GeneralizationInfoProvider;
 import org.osate.ge.internal.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionTriggerInfoProvider;
+import org.osate.ge.internal.connections.BusinessObjectHandlerConnectionInfoProvider;
 import org.osate.ge.internal.connections.SubprogramCallOrderInfoProvider;
 import org.osate.ge.internal.patterns.ModeTransitionPattern;
+import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.CachingService;
+import org.osate.ge.internal.services.CachingService.Cache;
 import org.osate.ge.internal.services.ConnectionService;
+import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeService;
 
-//TODO:Split class so that one will be the utility class and one will be the delegate to the extensions
 public class DefaultConnectionService implements ConnectionService {
 	private final AnchorService anchorService;
 	private final SerializableReferenceService referenceService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider fp;
-	private final ConnectionInfoProvider[] infoProviders;
-	
-	public DefaultConnectionService(final AnchorService anchorUtil, final SerializableReferenceService referenceService, final ShapeService shapeHelper, final PropertyService propertyService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	private final CachingService cachingService;
+	private final List<ConnectionInfoProvider> infoProviders = new ArrayList<>();
+	private final Map<Shape, Map<Object, Connection>> ownerShapeToBusinessObjectToConnectionMap = new HashMap<>();
+	final Map<Connection, ConnectionInfoProvider> connectionToProviderMap = new HashMap<>();
+	private final Cache cache = new Cache() {
+		@Override
+		public void invalidate() {
+			ownerShapeToBusinessObjectToConnectionMap.clear();
+			connectionToProviderMap.clear();
+		}			
+	};
+
+	public DefaultConnectionService(final AnchorService anchorUtil, final SerializableReferenceService referenceService, final ShapeService shapeHelper, 
+			final PropertyService propertyService, final BusinessObjectResolutionService bor, final CachingService cachingService, 
+			final ExtensionService extService, final InternalReferenceBuilderService refBuilder, final IFeatureProvider fp) {
 		this.anchorService = anchorUtil;
 		this.referenceService = referenceService;
 		this.bor = bor;
 		this.fp = fp;
+		this.cachingService = cachingService;
 		
-		// TODO: Use extension point or something
 		final Diagram diagram = getDiagram();
-		infoProviders = new ConnectionInfoProvider[] {
-				new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper),
-				new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper),
-				new GeneralizationInfoProvider(bor, diagram, shapeHelper),
-				new ModeTransitionInfoProvider(bor, diagram, anchorUtil, shapeHelper),
-				new InitialModeConnectionInfoProvider(bor, diagram, propertyService),
-				new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService),
-				new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper),
-				new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper)
-		};
+		
+		infoProviders.add(new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
+		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
+		infoProviders.add(new GeneralizationInfoProvider(bor, diagram, shapeHelper));
+		infoProviders.add(new ModeTransitionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
+		infoProviders.add(new InitialModeConnectionInfoProvider(bor, diagram, propertyService));
+		infoProviders.add(new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService));
+		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
+		infoProviders.add(new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper));
+
+		// Create ConnectionInfoProvider for business object handlers.
+		final QueryRunner queryRunner = new QueryRunner(propertyService, this, bor, refBuilder);
+		for(final Object handler : extService.getBusinessObjectHandlers()) {
+			// Look for a method which is used if and only if the business object handler handles connections
+			for(final Method m : handler.getClass().getMethods()) {
+				if(m.isAnnotationPresent(CreateParentQuery.class)) {
+					infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(extService, bor, handler, queryRunner));
+					break;
+				}
+			}
+		}
+		
+		this.cachingService.registerCache(cache);
+	}
+	
+	@Override
+	public Collection<Connection> getConnections(ContainerShape ownerShape) {
+		ensureCacheIsPopulated();
+		return getBusinessObjectToConnectionMap(ownerShape).values();	
 	}
 	
 	/* (non-Javadoc)
@@ -68,15 +112,9 @@ public class DefaultConnectionService implements ConnectionService {
 	 */
 	@Override
 	public Connection getConnection(final ContainerShape ownerShape, final Object bo) {
-		// Find all connections that match the anchors
-		final Diagram diagram = getDiagram();
-		for(final Connection c : diagram.getConnections()) {
-			if(getOwnerShape(c) == ownerShape && bor.areBusinessObjectsEqual(bor.getBusinessObjectForPictogramElement(c), bo)) {
-				return c;
-			}
-		}
-		
-		return null;
+		ensureCacheIsPopulated();
+		final Connection result = getBusinessObjectToConnectionMap(ownerShape).get(bo);
+		return result;
 	}
 
 	/* (non-Javadoc)
@@ -132,8 +170,14 @@ public class DefaultConnectionService implements ConnectionService {
 	}
 	
 	private ConnectionInfoProvider getInfoProviderByConnection(final Connection c) {
+		final ConnectionInfoProvider infoProvider = connectionToProviderMap.get(c);
+		if(infoProvider != null) {
+			return infoProvider;			
+		}
+		
 		for(final ConnectionInfoProvider p : infoProviders) {
 			if(p.isApplicable(c)) {
+				connectionToProviderMap.put(c, p);
 				return p;
 			}
 		}
@@ -153,7 +197,7 @@ public class DefaultConnectionService implements ConnectionService {
 			return null;
 		}
 		
-		// DEtermine the name of the anchor
+		// Determine the name of the anchor
 		final String anchorName = getMidpointAnchorName(connection);
 		if(anchorName == null) {
 			return null;
@@ -187,8 +231,7 @@ public class DefaultConnectionService implements ConnectionService {
 	}
 
 	private boolean allowMidpointAnchor(final Connection connection) {
-		final Object connectionBo = bor.getBusinessObjectForPictogramElement(connection);
-		final ConnectionInfoProvider connectionInfoProvider = getInfoProviderByBusinessObject(connectionBo);
+		final ConnectionInfoProvider connectionInfoProvider = getInfoProviderByConnection(connection);
 		return connectionInfoProvider != null && connectionInfoProvider.allowMidpointAnchor();
 	}
 	
@@ -208,5 +251,45 @@ public class DefaultConnectionService implements ConnectionService {
 				createUpdateMidpointAnchor(connection);
 			}
 		}
+	}
+	
+	@Override
+	public void onConnectionCreated(final Shape ownerShape, final Object bo, final Connection c) {
+		addToCache(ownerShape, bo, c);
+	}
+	
+	// Caching
+	private void populateCache() {
+		final Diagram diagram = getDiagram();
+		for(final Connection c : diagram.getConnections()) {
+			final Object bo = bor.getBusinessObjectForPictogramElement(c);
+			if(bo != null) {
+				final Shape ownerShape = getOwnerShape(c);
+				if(ownerShape != null) {					
+					addToCache(ownerShape, bo, c);
+				}
+			}
+		}
+	}
+	
+	private void addToCache(final Shape ownerShape, final Object bo, final Connection c) {
+		final Map<Object, Connection> boToConnectionMap = getBusinessObjectToConnectionMap(ownerShape);					
+		boToConnectionMap.put(bo, c);
+	}
+	
+	private void ensureCacheIsPopulated() {
+		if(ownerShapeToBusinessObjectToConnectionMap.size() == 0) {
+			populateCache();
+		}
+	}
+	
+	private Map<Object, Connection> getBusinessObjectToConnectionMap(final Shape ownerShape) {		
+		Map<Object, Connection> boToConnectionMap = ownerShapeToBusinessObjectToConnectionMap.get(ownerShape);
+		if(boToConnectionMap == null) {
+			boToConnectionMap = new HashMap<>();
+			ownerShapeToBusinessObjectToConnectionMap.put(ownerShape, boToConnectionMap);
+		}
+		
+		return boToConnectionMap;
 	}
 }

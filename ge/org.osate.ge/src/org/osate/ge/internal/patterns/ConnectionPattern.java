@@ -63,21 +63,22 @@ import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.UserInputService;
+import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.styles.StyleConstants;
 import org.osate.ge.internal.util.ImageHelper;
@@ -122,7 +123,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
 			final @Named("Connection Type") EClass connectionType) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.bor = bor;

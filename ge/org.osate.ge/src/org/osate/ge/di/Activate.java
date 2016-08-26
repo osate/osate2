@@ -15,8 +15,20 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Use this annotation to tag methods called when the tool is activated.
+ * <p>
  * This annotation must not be applied to more than one method per class.
+ * </p>
+ * <h1>Usages</h1>
+ * <table summary="Annotation Usages">
+ *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
+ *   <tr><td>Tools</td><td>Not API. Activates a tool.</td><td>None</td></tr>
+ *   <tr><td>Style Factory</td><td>Internal Use Only. Returns a new style.</td><td>Style</td></tr>
+ * </table>
+ * <h1>Named Parameters</h1>
+ * <table summary="Named Parameters">
+ *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
+ *   <tr><td colspan="3">None</td></tr>
+ * </table>
  */
 @Documented
 @Target({ElementType.METHOD})

@@ -11,7 +11,6 @@ package org.osate.ge.internal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -48,22 +47,29 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
+import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.features.BoHandlerDoubleClickFeature;
+import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
+	private final static String GRAPHICAL_TO_TEXTUAL_FEATURE_HINT = "graphicalToTextualFeature";
+	
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
+	private final BoHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;
+		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
 	}
 
 	@Override
@@ -107,14 +113,15 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		
 		return super.getAdapter(type);
 	}	
-	
+
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
 	    final ICustomFeature customFeature = ContextInjectionFactory.make(DrillDownFeature.class, getContext());
 	    if(customFeature.canExecute(context)) {
 	        return customFeature;
 	    }
-	    return super.getDoubleClickFeature(context);
+	    
+	    return defaultDoubleClickFeature;
 	 }
 	
 	/**
@@ -142,11 +149,11 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
 		//Use hint to verify command should be executed
-		if(GraphicalToTextualFeature.HINT.equals(hint)){
+		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){
 			final ICustomFeature customFeature = ContextInjectionFactory.make(GraphicalToTextualFeature.class, getContext());
-				if(customFeature.canExecute(context)){	
-					return customFeature;
-				}
+			if(customFeature.canExecute(context)){	
+				return customFeature;
+			}
 		}
 		return super.getCommandFeature(context, hint);
 	}
