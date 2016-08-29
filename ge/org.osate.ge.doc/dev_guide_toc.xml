@@ -3,7 +3,9 @@
    <topic label="General Information" href="dev_guide_output/general.html"/>
    <topic label="Extension Points" href="dev_guide_output/ep.html">
       <topic label="Categories" href="dev_guide_output/ep_categories.html"/>
+      <topic label="Commands" href="dev_guide_output/ep_commands.html"/>
       <topic label="Images" href="dev_guide_output/ep_images.html"/>
       <topic label="Adding Support for a new Business Object" href="dev_guide_output/ep_bo.html"/>
+      <topic label="Tooltips" href="dev_guide_output/ep_tooltips.html"/>
    </topic>
 </toc>

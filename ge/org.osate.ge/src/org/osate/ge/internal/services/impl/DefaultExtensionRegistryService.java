@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -14,6 +35,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -39,18 +61,41 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}		
 	}
 	
+	private static class TooltipContributorInfo {
+		final private int priority;
+		final private Object object;
+		public TooltipContributorInfo(final int priority, final Object object) {
+			this.priority = priority;
+			this.object = object;
+		}
+		
+		public int getPriority() {
+			return priority;
+		}
+		
+		public Object getObject() {
+			return object;
+		}
+	}
+	
 	private static final String TOOL_EXTENSION_POINT_ID = "org.osate.ge.tools";
 	private static final String BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectHandlers";
+	private static final String TOOLTIP_EXTENSION_POINT_ID = "org.osate.ge.tooltips";
+	private static final String COMMAND_EXTENSION_POINT_ID = "org.osate.ge.commands";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
 	
 	private final Collection<Object> tools;
 	private final Collection<Object> boHandlers;
+	private final Collection<Object> commands;	
 	private final List<Category> categories;
+	private final Collection<Object> tooltipContributors;
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
 		tools = instantiateTools(registry);
 		boHandlers = instantiateBusinessObjectHandlers(registry);
+		tooltipContributors = instantiateTooltipContributors(registry);
+		commands = instantiateCommands(registry);
 		categories = instantiateCategories(registry);
 	}
 
@@ -92,6 +137,16 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return categories;
 	}
 	
+	@Override
+	public Collection<Object> getTooltipContributors() {
+		return tooltipContributors;
+	}
+	
+	@Override
+	public Collection<Object> getCommands() {
+		return commands;
+	}
+	
 	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
 		return instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool");
 	}
@@ -100,6 +155,46 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler");
 	}
 
+	private static Collection<Object> instantiateTooltipContributors(final IExtensionRegistry registry) {
+		final Comparator<TooltipContributorInfo> tooltipContributorPriorityComparator = new Comparator<TooltipContributorInfo>() {
+			@Override
+			public int compare(final TooltipContributorInfo tooltipContributor1, final TooltipContributorInfo tooltipContributor2) {
+				return Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
+			}
+		};
+		
+		final Collection<Object> tooltipContributors = new ArrayList<Object>();
+		final IExtensionPoint tooltipContributorsExtPoint = registry.getExtensionPoint(TOOLTIP_EXTENSION_POINT_ID);
+		if(tooltipContributorsExtPoint != null) {
+			final ArrayList<TooltipContributorInfo> tooltipContributorInfos = new ArrayList<TooltipContributorInfo>();
+			for(final IExtension extension : tooltipContributorsExtPoint.getExtensions()) {
+				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
+					if(ce.getName().equals("tooltipContributor")) {
+						final int priority = Integer.parseInt(ce.getAttribute("priority"));
+						try {
+							final Object contributor = (Object)ce.createExecutableExtension("class");
+							final TooltipContributorInfo tooltipContributerInfo = new TooltipContributorInfo(priority, contributor);
+							tooltipContributorInfos.add(tooltipContributerInfo);
+						} catch (final CoreException e) {
+							throw new RuntimeException(e);
+						}
+					}
+				}
+			}
+			
+			tooltipContributorInfos.sort(tooltipContributorPriorityComparator);
+			for (final TooltipContributorInfo t : tooltipContributorInfos) {
+				tooltipContributors.add(t.getObject());
+			}
+		}
+		
+		return Collections.unmodifiableCollection(tooltipContributors);
+	}
+	
+	private static Collection<Object> instantiateCommands(final IExtensionRegistry registry) {
+		return instantiateSimpleExtensions(registry, COMMAND_EXTENSION_POINT_ID, "command");
+	}
+	
 	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
 	// with the specified name for a specified extension point.
 	private static Collection<Object> instantiateSimpleExtensions(final IExtensionRegistry registry, final String extensionPointId, final String elementName) {

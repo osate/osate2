@@ -13,5 +13,5 @@ package org.osate.ge;
  * @noimplement
  */
 public interface GraphicalEditor {
-
+	void selectDiagramElementsForBusinessObject(Object bo);
 }

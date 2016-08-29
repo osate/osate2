@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -74,12 +95,17 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
+import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
+import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
+import org.osate.ge.internal.features.CommandCustomFeature;
 import org.osate.ge.internal.features.ComponentImplementationToTypeFeature;
 import org.osate.ge.internal.features.GoToPackageDiagramFeature;
 import org.osate.ge.internal.features.ConfigureInModesFeature;
 import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
+import org.osate.ge.internal.features.InstanceUpdateDiagramFeature;
 import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.features.BoHandlerAddFeature;
@@ -103,11 +129,14 @@ import org.osate.ge.internal.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.AnnexPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
+import org.osate.ge.internal.patterns.ComponentInstancePattern;
+import org.osate.ge.internal.patterns.ConnectionPattern;
+import org.osate.ge.internal.patterns.ConnectionReferencePattern;
+import org.osate.ge.internal.patterns.FeatureInstancePattern;
 import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
 import org.osate.ge.internal.patterns.ModePattern;
 import org.osate.ge.internal.patterns.ModeTransitionPattern;
-import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.internal.features.EditFlowsFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallDownFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallUpFeature;
@@ -120,7 +149,6 @@ import org.osate.ge.internal.patterns.SubprogramCallOrder;
 import org.osate.ge.internal.patterns.SubprogramCallOrderPattern;
 import org.osate.ge.internal.patterns.SubprogramCallPattern;
 import org.osate.ge.internal.patterns.SubprogramCallSequencePattern;
-import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.internal.features.PackageUpdateDiagramFeature;
 import org.osate.ge.internal.patterns.PackageClassifierPattern;
@@ -220,6 +248,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		addConnectionPattern(make(SubprogramCallOrderPattern.class));
+		
+		// Instance Model
+		addPattern(make(ComponentInstancePattern.class));
+		addPattern(make(FeatureInstancePattern.class));
+		addConnectionPattern(make(ConnectionReferencePattern.class));
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
@@ -385,6 +418,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Subprogram Call
 		features.add(make(MoveSubprogramCallUpFeature.class));
 		features.add(make(MoveSubprogramCallDownFeature.class));
+		
+		// Commands
+		for(final Object cmd : extService.getCommands()) {
+			features.add(new CommandCustomFeature(cmd, extService, bor, this)); 		
+		}
 	}
 	
 	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
@@ -412,11 +450,16 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		PictogramElement pictogramElement = context.getPictogramElement();
 		
 		if(pictogramElement instanceof Diagram) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-			if(bo instanceof Classifier) {
-				return make(UpdateClassifierDiagramFeature.class);
-			} else if(bo instanceof AadlPackage) {
-				return make(PackageUpdateDiagramFeature.class);
+			final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
+			if(bor != null) {
+				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+				if(bo instanceof Classifier) {
+					return make(UpdateClassifierDiagramFeature.class);
+				} else if(bo instanceof AadlPackage) {
+					return make(PackageUpdateDiagramFeature.class);
+				} else if(bo instanceof SystemInstance) {
+					return make(InstanceUpdateDiagramFeature.class);
+				}
 			}
 		}
 		   
@@ -605,9 +648,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 }
 	
 	// Specialized handling for manipulating bendpoints.
-	// Currently only allow editing when working with AadlConnections
-	// This will disable manipulating connections associated with flow specifications and other model elements
-	
+	// Currently only allow editing when working with a limited subset of connections.
+	// This will disable manipulating connections associated with flow specifications and other model elements which are not persisted. 	
 	private final IMoveBendpointFeature moveBendpointFeature = new DefaultMoveBendpointFeature(this) {
 		@Override
 		public boolean canMoveBendpoint(IMoveBendpointContext context) {
@@ -665,7 +707,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder;
+		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference;
 	}
 	
 	// ComponentImplementation

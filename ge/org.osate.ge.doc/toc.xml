@@ -8,103 +8,104 @@
       <topic label="Opening an Associated Diagram" href="output/ch02.html#d0e87"/>
       <topic label="Opening an Element's Package Diagram" href="output/ch02s02.html"/>
       <topic label="Opening the Type Diagram for a Component Implementation" href="output/ch02s03.html"/>
+      <topic label="Opening an AADL Instance Model" href="output/ch02s04.html"/>
    </topic>
    <topic label="Editing AADL Models" href="output/ch03.html">
-      <topic label="Basics" href="output/ch03.html#d0e125">
-         <topic label="Deleting" href="output/ch03.html#d0e130"/>
-         <topic label="Renaming" href="output/ch03.html#d0e147"/>
-         <topic label="Refining" href="output/ch03.html#d0e174"/>
-         <topic label="Instantiating" href="output/ch03.html#d0e182"/>
-         <topic label="Editing Property Associations" href="output/ch03.html#d0e196"/>
-         <topic label="Moving Shapes Using Arrow Keys" href="output/ch03.html#d0e204"/>
-         <topic label="Performing Diagram Layout" href="output/ch03.html#d0e232"/>
+      <topic label="Basics" href="output/ch03.html#d0e143">
+         <topic label="Deleting" href="output/ch03.html#d0e148"/>
+         <topic label="Renaming" href="output/ch03.html#d0e165"/>
+         <topic label="Refining" href="output/ch03.html#d0e192"/>
+         <topic label="Instantiating" href="output/ch03.html#d0e200"/>
+         <topic label="Editing Property Associations" href="output/ch03.html#d0e214"/>
+         <topic label="Moving Shapes Using Arrow Keys" href="output/ch03.html#d0e222"/>
+         <topic label="Performing Diagram Layout" href="output/ch03.html#d0e250"/>
       </topic>
       <topic label="Connections" href="output/ch03s02.html">
-         <topic label="Creating Connections" href="output/ch03s02.html#d0e248"/>
-         <topic label="Editing Connections" href="output/ch03s02.html#d0e263">
-            <topic label="Using the Context Menu to Edit Connections" href="output/ch03s02.html#d0e268"/>
-            <topic label="Using the Properties Diagram View to Edit Connections" href="output/ch03s02.html#d0e273"/>
+         <topic label="Creating Connections" href="output/ch03s02.html#d0e266"/>
+         <topic label="Editing Connections" href="output/ch03s02.html#d0e281">
+            <topic label="Using the Context Menu to Edit Connections" href="output/ch03s02.html#d0e286"/>
+            <topic label="Using the Properties Diagram View to Edit Connections" href="output/ch03s02.html#d0e291"/>
          </topic>
-         <topic label="Connection_Pattern Property Visualization" href="output/ch03s02.html#d0e297"/>
+         <topic label="Connection_Pattern Property Visualization" href="output/ch03s02.html#d0e315"/>
       </topic>
       <topic label="Classifiers" href="output/ch03s03.html">
-         <topic label="Creating" href="output/ch03s03.html#d0e312"/>
-         <topic label="Extending" href="output/ch03s03.html#d0e330">
-            <topic label="Using the Palette to Extend a Classifier" href="output/ch03s03.html#d0e335"/>
-            <topic label="Using the Context Menu to Set Extended Classifier" href="output/ch03s03.html#d0e351"/>
+         <topic label="Creating" href="output/ch03s03.html#d0e330"/>
+         <topic label="Extending" href="output/ch03s03.html#d0e348">
+            <topic label="Using the Palette to Extend a Classifier" href="output/ch03s03.html#d0e353"/>
+            <topic label="Using the Context Menu to Set Extended Classifier" href="output/ch03s03.html#d0e369"/>
          </topic>
-         <topic label="Performing Update Layout from Classifier Diagram" href="output/ch03s03.html#d0e375"/>
+         <topic label="Performing Update Layout from Classifier Diagram" href="output/ch03s03.html#d0e393"/>
       </topic>
       <topic label="Features" href="output/ch03s04.html">
-         <topic label="Creating" href="output/ch03s04.html#d0e388"/>
-         <topic label="Setting the Feature Classifier" href="output/ch03s04.html#d0e393"/>
-         <topic label="Setting the Feature Direction (Directional Features Only)" href="output/ch03s04.html#d0e404"/>
-         <topic label="Setting Access Kind (Access Features Only)" href="output/ch03s04.html#d0e418"/>
-         <topic label="Setting a Feature Group as Inverse" href="output/ch03s04.html#d0e429"/>
+         <topic label="Creating" href="output/ch03s04.html#d0e406"/>
+         <topic label="Setting the Feature Classifier" href="output/ch03s04.html#d0e411"/>
+         <topic label="Setting the Feature Direction (Directional Features Only)" href="output/ch03s04.html#d0e422"/>
+         <topic label="Setting Access Kind (Access Features Only)" href="output/ch03s04.html#d0e436"/>
+         <topic label="Setting a Feature Group as Inverse" href="output/ch03s04.html#d0e447"/>
       </topic>
       <topic label="Subcomponents" href="output/ch03s05.html">
-         <topic label="Creating" href="output/ch03s05.html#d0e445"/>
-         <topic label="Setting the Classifier" href="output/ch03s05.html#d0e450"/>
-         <topic label="Setting Modes" href="output/ch03s05.html#d0e461"/>
-         <topic label="Displaying Details" href="output/ch03s05.html#d0e468">
-            <topic label="Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth" href="output/ch03s05.html#d0e473"/>
-            <topic label="Using the Depth Selector Drop-Down to Select a Nesting Depth" href="output/ch03s05.html#d0e482"/>
+         <topic label="Creating" href="output/ch03s05.html#d0e463"/>
+         <topic label="Setting the Classifier" href="output/ch03s05.html#d0e468"/>
+         <topic label="Setting Modes" href="output/ch03s05.html#d0e479"/>
+         <topic label="Displaying Details" href="output/ch03s05.html#d0e486">
+            <topic label="Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth" href="output/ch03s05.html#d0e491"/>
+            <topic label="Using the Depth Selector Drop-Down to Select a Nesting Depth" href="output/ch03s05.html#d0e500"/>
          </topic>
       </topic>
       <topic label="Flows" href="output/ch03s06.html">
-         <topic label="Creating Flow Specifications" href="output/ch03s06.html#d0e503">
-            <topic label="Creating Flow Paths" href="output/ch03s06.html#d0e511"/>
-            <topic label="Creating Flow Sinks" href="output/ch03s06.html#d0e527"/>
-            <topic label="Creating Flow Sources" href="output/ch03s06.html#d0e540"/>
+         <topic label="Creating Flow Specifications" href="output/ch03s06.html#d0e521">
+            <topic label="Creating Flow Paths" href="output/ch03s06.html#d0e529"/>
+            <topic label="Creating Flow Sinks" href="output/ch03s06.html#d0e545"/>
+            <topic label="Creating Flow Sources" href="output/ch03s06.html#d0e558"/>
          </topic>
-         <topic label="Creating Flow Implementations and End-To-End Flow Specifications" href="output/ch03s06.html#d0e553">
-            <topic label="Creating Flow Implementations" href="output/ch03s06.html#d0e567">
-               <topic label="Creating Source Flow Implementations" href="output/ch03s06.html#d0e579"/>
-               <topic label="Creating Sink Flow Implementations" href="output/ch03s06.html#d0e607"/>
-               <topic label="Creating Path Flow Implementations" href="output/ch03s06.html#d0e635"/>
+         <topic label="Creating Flow Implementations and End-To-End Flow Specifications" href="output/ch03s06.html#d0e571">
+            <topic label="Creating Flow Implementations" href="output/ch03s06.html#d0e585">
+               <topic label="Creating Source Flow Implementations" href="output/ch03s06.html#d0e597"/>
+               <topic label="Creating Sink Flow Implementations" href="output/ch03s06.html#d0e625"/>
+               <topic label="Creating Path Flow Implementations" href="output/ch03s06.html#d0e653"/>
             </topic>
-            <topic label="Creating End-To-End Flow Specifications" href="output/ch03s06.html#d0e663"/>
+            <topic label="Creating End-To-End Flow Specifications" href="output/ch03s06.html#d0e681"/>
          </topic>
-         <topic label="Editing Flow Implementations and End-to-End Flows" href="output/ch03s06.html#d0e700"/>
-         <topic label="Highlighting Flow Implementations and End-to-End Flow Specifications" href="output/ch03s06.html#d0e711"/>
+         <topic label="Editing Flow Implementations and End-to-End Flows" href="output/ch03s06.html#d0e718"/>
+         <topic label="Highlighting Flow Implementations and End-to-End Flow Specifications" href="output/ch03s06.html#d0e729"/>
       </topic>
       <topic label="Modes" href="output/ch03s07.html">
-         <topic label="Creating Modes" href="output/ch03s07.html#d0e721"/>
-         <topic label="Setting the Initial Mode" href="output/ch03s07.html#d0e729"/>
-         <topic label="Creating Mode Transitions" href="output/ch03s07.html#d0e737"/>
-         <topic label="Setting Mode Transition Triggers" href="output/ch03s07.html#d0e773"/>
-         <topic label="Switching Between Derived and Non-derived Modes" href="output/ch03s07.html#d0e781"/>
-         <topic label="Highlighting" href="output/ch03s07.html#d0e800"/>
+         <topic label="Creating Modes" href="output/ch03s07.html#d0e739"/>
+         <topic label="Setting the Initial Mode" href="output/ch03s07.html#d0e747"/>
+         <topic label="Creating Mode Transitions" href="output/ch03s07.html#d0e755"/>
+         <topic label="Setting Mode Transition Triggers" href="output/ch03s07.html#d0e791"/>
+         <topic label="Switching Between Derived and Non-derived Modes" href="output/ch03s07.html#d0e799"/>
+         <topic label="Highlighting" href="output/ch03s07.html#d0e818"/>
          <topic label="Selecting Active Components" href="output/ch03s07.html#modes_configuring_in_modes"/>
       </topic>
       <topic label="Bindings" href="output/ch03s08.html">
-         <topic label="Creating Bindings" href="output/ch03s08.html#d0e816"/>
-         <topic label="Setting Bindings" href="output/ch03s08.html#d0e821">
-            <topic label="Using the Toolbar to Set Bindings" href="output/ch03s08.html#d0e824"/>
-            <topic label="Using the Context Menu to Set Bindings" href="output/ch03s08.html#d0e856"/>
+         <topic label="Creating Bindings" href="output/ch03s08.html#d0e834"/>
+         <topic label="Setting Bindings" href="output/ch03s08.html#d0e839">
+            <topic label="Using the Toolbar to Set Bindings" href="output/ch03s08.html#d0e842"/>
+            <topic label="Using the Context Menu to Set Bindings" href="output/ch03s08.html#d0e874"/>
          </topic>
-         <topic label="Bindings Diagram Properties" href="output/ch03s08.html#d0e884"/>
+         <topic label="Bindings Diagram Properties" href="output/ch03s08.html#d0e902"/>
       </topic>
       <topic label="Arrays" href="output/ch03s09.html">
-         <topic label="Creating Arrays" href="output/ch03s09.html#d0e916"/>
-         <topic label="Editing Arrays" href="output/ch03s09.html#d0e955">
-            <topic label="Add Dimension" href="output/ch03s09.html#d0e963"/>
-            <topic label="Change Dimension Order" href="output/ch03s09.html#d0e991"/>
-            <topic label="Delete Dimension" href="output/ch03s09.html#d0e1005"/>
+         <topic label="Creating Arrays" href="output/ch03s09.html#d0e934"/>
+         <topic label="Editing Arrays" href="output/ch03s09.html#d0e973">
+            <topic label="Add Dimension" href="output/ch03s09.html#d0e981"/>
+            <topic label="Change Dimension Order" href="output/ch03s09.html#d0e1009"/>
+            <topic label="Delete Dimension" href="output/ch03s09.html#d0e1023"/>
          </topic>
       </topic>
       <topic label="Subprogram Call Sequences" href="output/ch03s10.html">
-         <topic label="Creating Subprogram Call Sequences" href="output/ch03s10.html#d0e1021">
-            <topic label="Adding Subprogram Calls" href="output/ch03s10.html#d0e1048"/>
+         <topic label="Creating Subprogram Call Sequences" href="output/ch03s10.html#d0e1039">
+            <topic label="Adding Subprogram Calls" href="output/ch03s10.html#d0e1066"/>
          </topic>
-         <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e1075"/>
+         <topic label="Editing Subprogram Call Sequences" href="output/ch03s10.html#d0e1093"/>
       </topic>
       <topic label="Annexes" href="output/ch03s11.html">
-         <topic label="Creating Annex Libraries and Annex Subclauses" href="output/ch03s11.html#d0e1091"/>
+         <topic label="Creating Annex Libraries and Annex Subclauses" href="output/ch03s11.html#d0e1109"/>
       </topic>
    </topic>
    <topic label="Troubleshooting" href="output/ch04.html">
-      <topic label="Build Automatically" href="output/ch04.html#d0e1114"/>
+      <topic label="Build Automatically" href="output/ch04.html#d0e1132"/>
       <topic label="Out of Handles Exception" href="output/ch04s02.html"/>
       <topic label="Unable to Set Properties Unless Text Model is Open" href="output/ch04s03.html"/>
       <topic label="Updating a Diagram" href="output/ch04s04.html"/>

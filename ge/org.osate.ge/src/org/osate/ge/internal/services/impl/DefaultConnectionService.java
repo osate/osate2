@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -29,6 +50,7 @@ import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.internal.connections.AadlConnectionInfoProvider;
 import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
+import org.osate.ge.internal.connections.ConnectionReferenceInfoProvider;
 import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
 import org.osate.ge.internal.connections.GeneralizationInfoProvider;
 import org.osate.ge.internal.connections.InitialModeConnectionInfoProvider;
@@ -76,7 +98,7 @@ public class DefaultConnectionService implements ConnectionService {
 		this.cachingService = cachingService;
 		
 		final Diagram diagram = getDiagram();
-		
+
 		infoProviders.add(new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new GeneralizationInfoProvider(bor, diagram, shapeHelper));
@@ -85,6 +107,7 @@ public class DefaultConnectionService implements ConnectionService {
 		infoProviders.add(new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService));
 		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
 		infoProviders.add(new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper));
+		infoProviders.add(new ConnectionReferenceInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 
 		// Create ConnectionInfoProvider for business object handlers.
 		final QueryRunner queryRunner = new QueryRunner(propertyService, this, bor, refBuilder);

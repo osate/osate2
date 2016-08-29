@@ -76,7 +76,7 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 	public boolean canDelete(final IDeleteContext context) {
 		final Object bo = (Object)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		
-		// Business object must be an EObject or an EObjectOwnerProvider
+		// Business object must be an EObject or an EmfContainerProvider
 		if(!(bo instanceof EObject || bo instanceof EmfContainerProvider)) {
 			return false;
 		}

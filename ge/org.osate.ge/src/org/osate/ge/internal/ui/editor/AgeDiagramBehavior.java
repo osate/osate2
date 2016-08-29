@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -27,6 +48,8 @@ import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.gef.ContextMenuProvider;
+import org.eclipse.gef.EditPart;
+import org.eclipse.gef.GraphicalEditPart;
 import org.eclipse.gef.palette.PaletteDrawer;
 import org.eclipse.gef.palette.PaletteRoot;
 import org.eclipse.gef.ui.actions.ActionRegistry;
@@ -51,25 +74,38 @@ import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.MouseMoveListener;
+import org.eclipse.swt.events.MouseTrackListener;
 import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.features.DiagramUpdateFeature;
-import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.IEclipseContext;
 
 import java.util.Map;
 
@@ -155,8 +191,147 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			registerAction(new IncreaseNestingDepthAction(editor, propertyService));
 	 		registerAction(new DecreaseNestingDepthAction(editor, propertyService));
 
- 			// Register an action for each tool
+			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
 	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
+
+			// Register mouse listeners to handle tooltips
+			final ShapeService shapeService = (ShapeService)getAdapter(ShapeService.class);
+			class ToolTipHandler implements MouseMoveListener, MouseTrackListener, IPartListener {
+				private Shell tooltipShell = null;
+				private Object tooltipBo = null;
+				private int tooltipCursorX = Integer.MIN_VALUE;
+				private int tooltipCursorY = Integer.MIN_VALUE;
+				private final int cursorMoveThreshold = 40;
+				
+				@Override
+				public void mouseEnter(MouseEvent e) {
+				}
+				@Override
+				public void mouseExit(MouseEvent e) {
+					disposeCurrentToolTip();
+				}
+				
+				@Override
+				public void mouseHover(final MouseEvent e) {
+					final PictogramElement hoverPe = getPictogramElementByControlCoordinates(e.x, e.y);
+					
+					// Don't show tooltips for the diagram pictogram element
+					if(!(hoverPe instanceof Diagram)) {
+						final Object hoverBo = getClosestBusinessObject(hoverPe);						
+						if (hoverBo != null) {
+							if(!hoverBo.equals(tooltipBo) || exceedsCursorMoveThreshold(e.x, e.y)) {
+								disposeCurrentToolTip();
+								tooltipBo = hoverBo;
+																
+								// Create new tooltip shell
+								final Display display = Display.getCurrent();
+								tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
+								tooltipShell.setVisible(false);
+								tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+								tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
+								
+								// Configure layout
+								final RowLayout rowLayout = new RowLayout();
+								rowLayout.fill = true;
+				                rowLayout.wrap = false;
+				                rowLayout.pack = true;
+				                rowLayout.type = SWT.VERTICAL;
+				                rowLayout.spacing = 0;
+				                tooltipShell.setLayout(rowLayout);
+				                
+								// Call tooltip contributors
+								final IEclipseContext context = extService.createChildContext();
+				                try {
+									context.set(Composite.class, tooltipShell);
+									context.set(Names.BUSINESS_OBJECT, tooltipBo);
+									for (final Object tooltipContributor : extService.getTooltipContributors()) {
+										ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context);
+									}
+				                } finally {
+				                	context.dispose();
+				                }
+								
+								// Show tooltip shell if something was contributed
+								if (tooltipShell.getChildren().length > 0) {
+									final Point point = display.getCursorLocation();
+									tooltipShell.setLocation(point.x, point.y+20);
+									tooltipCursorX = e.x;
+									tooltipCursorY = e.y;
+									tooltipShell.pack(true);
+									tooltipShell.setVisible(true);
+								}
+							}
+						}
+					}
+				}
+				
+				@Override
+				public void mouseMove(final MouseEvent e) {
+					final PictogramElement movePe = getPictogramElementByControlCoordinates(e.x, e.y);
+					final Object moveBo = getClosestBusinessObject(movePe);
+					if (tooltipShell != null && (movePe instanceof Diagram || !moveBo.equals(tooltipBo) || exceedsCursorMoveThreshold(e.x, e.y))) {
+						disposeCurrentToolTip();
+					}
+				}
+				
+				private void disposeCurrentToolTip() {
+					if(tooltipShell != null) {
+						tooltipShell.dispose();
+					}
+					
+					tooltipShell = null;
+					tooltipBo = null;
+					tooltipCursorX = Integer.MIN_VALUE;
+					tooltipCursorY = Integer.MIN_VALUE;
+				}
+				
+				private boolean exceedsCursorMoveThreshold(final int cursorX, final int cursorY) {
+					return (Math.abs(cursorX - tooltipCursorX) + Math.abs(cursorY - tooltipCursorY)) >= cursorMoveThreshold;
+				}
+				
+				private Object getClosestBusinessObject(final PictogramElement pe) {
+					if(pe == null) {
+						return null;
+					}
+					
+					return pe instanceof Shape ? shapeService.getClosestBusinessObjectOfType((Shape)pe, Object.class) : bor.getBusinessObjectForPictogramElement(pe);
+				}
+				@Override
+				public void partActivated(final IWorkbenchPart part) {
+				}
+				
+				@Override
+				public void partBroughtToTop(final IWorkbenchPart part) {
+
+				}
+				
+				@Override
+				public void partClosed(final IWorkbenchPart part) {
+					 if(part == editor) {
+						 disposeCurrentToolTip();
+					 }
+				}
+				
+				@Override
+				public void partDeactivated(final IWorkbenchPart part) {
+					 if(part == editor) {
+						 disposeCurrentToolTip();
+					 }
+				}
+				
+				@Override
+				public void partOpened(final IWorkbenchPart part) {
+				}
+				
+			};
+			
+			// Instantiate tooltip handler and register listeners
+			final ToolTipHandler toolTipHandler = new ToolTipHandler();			
+			editor.getGraphicalViewer().getControl().addMouseMoveListener(toolTipHandler);
+			editor.getGraphicalViewer().getControl().addMouseTrackListener(toolTipHandler);
+			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolTipHandler);
+
+ 			// Register an action for each tool
 	 		toolHandler = new ToolHandler(extService, getPaletteBehavior());
 	 		for(final Object tool : extService.getTools()) {
 	 			registerAction(new ActivateToolAction(editor, toolHandler, tool));
@@ -213,6 +388,30 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		Objects.requireNonNull(toolId, "toolId must not be null");
 		final ActionRegistry actionRegistry = getDiagramContainer().getActionRegistry();
 		return Objects.requireNonNull(actionRegistry.getAction(ActivateToolAction.getActionId(toolId)), "unable to retrieve action for tool: " + toolId);
+	}
+	
+	/**
+	 * Gets the pictogram element based on a set of coordinates relative to the graphical viewer control
+	 * @param controlX
+	 * @param controlY
+	 * @return
+	 */
+	private PictogramElement getPictogramElementByControlCoordinates(int controlX, int controlY) {
+		final AgeDiagramEditor parentPart = getDiagramEditor();
+		if(parentPart.getGraphicalViewer().getRootEditPart() instanceof GraphicalEditPart) {
+			// Transform the control coordinates to diagram coordinates
+			final GraphicalEditPart rootEditPart = (GraphicalEditPart)parentPart.getGraphicalViewer().getRootEditPart();
+			final org.eclipse.draw2d.geometry.Point p = new org.eclipse.draw2d.geometry.Point(controlX, controlY);
+			rootEditPart.getContentPane().translateToRelative(p);
+			
+			@SuppressWarnings("restriction")
+			final EditPart ep = org.eclipse.graphiti.ui.internal.services.GraphitiUiInternal.getGefService().findEditPartAt(parentPart.getGraphicalViewer(), new org.eclipse.draw2d.geometry.Point(p.x, p.y), true);
+			if(ep != null  && ep.getModel() instanceof PictogramElement) {
+				return (PictogramElement)ep.getModel();
+			}
+		}
+		
+		return null;
 	}
 	
 	public void deactivateActiveTool() {
@@ -564,6 +763,10 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		};
 	}
 
+	private final AgeDiagramEditor getDiagramEditor() {
+		return (AgeDiagramEditor)getParentPart();
+	}
+	
 	// This prevents cluttering the context menu with global eclipse menu items
 	@Override
 	protected boolean shouldRegisterContextMenu() {

@@ -82,6 +82,18 @@
     			<imagedata fileref="images/GoToTypeDiagram.png" format="PNG"/>
   			</imageobject></mediaobject>
 		</section>
+		<section>
+			<title>Opening an AADL Instance Model</title>
+			<para>An AADL instance model can be viewed in the graphical editor. The instance model may not be modified using the graphical editor.</para>
+			<orderedlist>
+				<listitem>
+					<para>Right-click on the AADL instance model in the <emphasis>AADL Navigator</emphasis> view.</para>
+				</listitem>
+				<listitem>
+					<para>Select <emphasis>Open Diagram</emphasis> to open the diagram for the selected component instance. The diagram will be created if one does not already exist.</para>
+				</listitem>
+			</orderedlist>
+		</section>
 	</chapter>
 		
 	<chapter>
