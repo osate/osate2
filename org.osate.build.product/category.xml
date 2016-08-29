@@ -48,10 +48,10 @@
    <feature id="com.rockwellcollins.atc.resolute.feature.source">
       <category name="osate2source"/>
    </feature>
-   <feature id="org.osate.reqspec.sdk">
+   <feature id="org.osate.alisa.workbench.sdk">
       <category name="reqspec"/>
    </feature>
-   <feature id="org.osate.reqspec.sdk.source">
+   <feature id="org.osate.alisa.workbench.sdk.source">
       <category name="reqspec"/>
    </feature>
    <feature id="edu.cmu.emfta.feature">
@@ -72,7 +72,7 @@
       </description>
    </category-def>
    <category-def name="osate2source" label="OSATE2 Source Code"/>
-   <category-def name="reqspec" label="ALISA Requirements Specification Language"/>
+   <category-def name="reqspec" label="ALISA Requirements Specification and Verification"/>
    <category-def name="emfta" label="EMFTA"/>
    <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true" />
 </site>
