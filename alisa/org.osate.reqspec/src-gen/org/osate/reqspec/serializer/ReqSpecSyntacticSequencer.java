@@ -742,7 +742,7 @@ public class ReqSpecSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     diagnosticId=STRING (ambiguity) (rule end)
 	 *     exceptionType=STRING (ambiguity) (rule end)
 	 *     message=STRING (ambiguity) (rule end)
-	 *     target=[EObject|URIID] (ambiguity) (rule end)
+	 *     target=[EObject|NoQuoteString] (ambiguity) (rule end)
 	 */
 	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);

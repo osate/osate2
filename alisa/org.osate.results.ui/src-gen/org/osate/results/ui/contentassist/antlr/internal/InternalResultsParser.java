@@ -26000,34 +26000,34 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__TargetAssignment_2_1"
-    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9169:1: rule__ResultIssue__TargetAssignment_2_1 : ( ( ruleURIID ) ) ;
+    // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9169:1: rule__ResultIssue__TargetAssignment_2_1 : ( ( ruleNoQuoteString ) ) ;
     public final void rule__ResultIssue__TargetAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9173:1: ( ( ( ruleURIID ) ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9174:1: ( ( ruleURIID ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9173:1: ( ( ( ruleNoQuoteString ) ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9174:1: ( ( ruleNoQuoteString ) )
             {
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9174:1: ( ( ruleURIID ) )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9175:1: ( ruleURIID )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9174:1: ( ( ruleNoQuoteString ) )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9175:1: ( ruleNoQuoteString )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); 
             }
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9176:1: ( ruleURIID )
-            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9177:1: ruleURIID
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9176:1: ( ruleNoQuoteString )
+            // ../org.osate.results.ui/src-gen/org/osate/results/ui/contentassist/antlr/internal/InternalResults.g:9177:1: ruleNoQuoteString
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); 
+               before(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleURIID_in_rule__ResultIssue__TargetAssignment_2_118423);
-            ruleURIID();
+            pushFollow(FOLLOW_ruleNoQuoteString_in_rule__ResultIssue__TargetAssignment_2_118423);
+            ruleNoQuoteString();
 
             state._fsp--;
             if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); 
+               after(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); 
             }
 
             }
@@ -28986,7 +28986,7 @@ public class InternalResultsParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_ruleImageReference_in_rule__DescriptionElement__ImageAssignment_318322 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_018357 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_118388 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleURIID_in_rule__ResultIssue__TargetAssignment_2_118423 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNoQuoteString_in_rule__ResultIssue__TargetAssignment_2_118423 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_3_118458 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__DiagnosticIdAssignment_4_118489 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_118520 = new BitSet(new long[]{0x0000000000000002L});

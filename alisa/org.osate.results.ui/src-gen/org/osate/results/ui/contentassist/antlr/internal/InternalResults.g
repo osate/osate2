@@ -9174,8 +9174,8 @@ rule__ResultIssue__TargetAssignment_2_1
 (
 { before(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); }
 (
-{ before(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); }
-	ruleURIID{ after(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); }
+{ before(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); }
+	ruleNoQuoteString{ after(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); }
 )
 { after(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); }
 )

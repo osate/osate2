@@ -391,7 +391,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (
 	 *         issueType=ResultIssueType 
 	 *         message=STRING 
-	 *         target=[EObject|URIID]? 
+	 *         target=[EObject|NoQuoteString]? 
 	 *         exceptionType=STRING? 
 	 *         diagnosticId=STRING? 
 	 *         issues+=ResultIssue*

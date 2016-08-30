@@ -31,7 +31,7 @@ Uncertainty:
 ResultIssue returns ResultIssue:
 	issueType=ResultIssueType
 	message=STRING
-	('target' target=[ecore::EObject|URIID])?
+	('target' target=[ecore::EObject|NoQuoteString])?
 	('exception' exceptionType = STRING)?
 	('diagnosticId' diagnosticId = STRING)?
 	('[' issues+=ResultIssue*']')?

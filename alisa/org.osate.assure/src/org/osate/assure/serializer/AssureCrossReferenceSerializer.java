@@ -31,6 +31,13 @@ public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 		if (target instanceof Classifier) {
 			return ((Classifier) target).getQualifiedName();
 		}
+//		if (target instanceof AadlPackage) {
+//		return ((NamedElement) target).getName();}
+//	    if (target instanceof Property || target instanceof PropertyType || target instanceof PropertyConstant) {
+//		return AadlUtil.getPropertySetElementName((NamedElement) target);}
+//	    if (target instanceof NamedElement) {
+//		return ((NamedElement) target).getName();
+//	    } 
 
 		return super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors);
 	}

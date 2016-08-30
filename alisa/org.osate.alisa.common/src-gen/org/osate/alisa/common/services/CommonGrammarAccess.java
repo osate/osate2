@@ -209,7 +209,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cTargetKeyword_2_0 = (Keyword)cGroup_2.eContents().get(0);
 		private final Assignment cTargetAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
 		private final CrossReference cTargetEObjectCrossReference_2_1_0 = (CrossReference)cTargetAssignment_2_1.eContents().get(0);
-		private final RuleCall cTargetEObjectURIIDParserRuleCall_2_1_0_1 = (RuleCall)cTargetEObjectCrossReference_2_1_0.eContents().get(1);
+		private final RuleCall cTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1 = (RuleCall)cTargetEObjectCrossReference_2_1_0.eContents().get(1);
 		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
 		private final Keyword cExceptionKeyword_3_0 = (Keyword)cGroup_3.eContents().get(0);
 		private final Assignment cExceptionTypeAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
@@ -226,12 +226,12 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//// This is similar to diagnostics
 		//ResultIssue:
-		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+		//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|NoQuoteString])? ("exception"
 		//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception" exceptionType=STRING)?
-		//("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?
+		//issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|NoQuoteString])? ("exception"
+		//exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?
 		public Group getGroup() { return cGroup; }
 
 		//issueType=ResultIssueType
@@ -246,20 +246,20 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getMessageSTRINGTerminalRuleCall_1_0() { return cMessageSTRINGTerminalRuleCall_1_0; }
 
-		//("target" target=[ecore::EObject|URIID])?
+		//("target" target=[ecore::EObject|NoQuoteString])?
 		public Group getGroup_2() { return cGroup_2; }
 
 		//"target"
 		public Keyword getTargetKeyword_2_0() { return cTargetKeyword_2_0; }
 
-		//target=[ecore::EObject|URIID]
+		//target=[ecore::EObject|NoQuoteString]
 		public Assignment getTargetAssignment_2_1() { return cTargetAssignment_2_1; }
 
-		//[ecore::EObject|URIID]
+		//[ecore::EObject|NoQuoteString]
 		public CrossReference getTargetEObjectCrossReference_2_1_0() { return cTargetEObjectCrossReference_2_1_0; }
 
-		//URIID
-		public RuleCall getTargetEObjectURIIDParserRuleCall_2_1_0_1() { return cTargetEObjectURIIDParserRuleCall_2_1_0_1; }
+		//NoQuoteString
+		public RuleCall getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1() { return cTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1; }
 
 		//("exception" exceptionType=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
@@ -2599,7 +2599,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|NoQuoteString])? ("exception"
 	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public ResultIssueElements getResultIssueAccess() {
 		return pResultIssue;
