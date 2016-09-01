@@ -28,6 +28,7 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 
 import static org.osate.categories.util.CategoriesUtil.*
+import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import org.osate.aadl2.NumberValue
@@ -35,6 +36,9 @@ import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.UnitLiteral
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.aadl2.Classifier
+import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.aadl2.ComponentClassifier
 
 class VerifyUtilExtension {
 
@@ -182,6 +186,14 @@ class VerifyUtilExtension {
 			RealLiteral: numberValue.setValue(value)
 			IntegerLiteral: numberValue.setValue((value as long))
 		}
+	}
+	
+	def static ComponentClassifier getTargetClassifier(VerificationPlan vp){
+		val rs = vp.requirementSet
+		if (rs instanceof SystemRequirementSet){
+			return rs.target
+		}
+		return null
 	}
 	
 }
