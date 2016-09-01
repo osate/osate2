@@ -1,27 +1,41 @@
 package org.osate.reqspec.ui.handlers;
 
 import com.google.inject.Inject
+import java.util.List
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
 import org.eclipse.core.commands.IHandler
 import org.eclipse.core.resources.IFile
-import org.eclipse.core.resources.IFolder
-import org.eclipse.core.resources.IProject
-import org.eclipse.core.resources.IResource
 import org.eclipse.core.runtime.IAdaptable
+import org.eclipse.jface.dialogs.IDialogConstants
+import org.eclipse.jface.dialogs.TitleAreaDialog
+import org.eclipse.jface.layout.TableColumnLayout
+import org.eclipse.jface.viewers.ArrayContentProvider
+import org.eclipse.jface.viewers.ColumnLabelProvider
+import org.eclipse.jface.viewers.ColumnPixelData
+import org.eclipse.jface.viewers.ColumnWeightData
 import org.eclipse.jface.viewers.IStructuredSelection
+import org.eclipse.jface.viewers.TableViewer
+import org.eclipse.jface.viewers.TableViewerColumn
+import org.eclipse.swt.SWT
+import org.eclipse.swt.graphics.Point
+import org.eclipse.swt.layout.GridData
+import org.eclipse.swt.widgets.Composite
+import org.eclipse.swt.widgets.Shell
 import org.eclipse.ui.handlers.HandlerUtil
+import org.eclipse.xtend.lib.annotations.FinalFieldsConstructor
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.categories.categories.Category
 import org.osate.recspec.ui.spotlight.utils.SpotlightUtil
 import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.ui.handlers.SpotlightExportHandler.SpotlightResult
 import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.*
+import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
 import static extension org.eclipse.xtext.EcoreUtil2.*
 import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil.*
 
@@ -32,8 +46,6 @@ import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil
  */
 class SpotlightExportHandler extends AbstractHandler {
 	@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
-	val SPOTLIGHTEXT = "_spotlight.csv"
-	val SPOTLIGHTFOLDER = "spotlight"
 
 	new() {
 		ReqSpecActivator.instance.getInjector(ReqSpecActivator.ORG_OSATE_REQSPEC_REQSPEC).injectMembers(this)
@@ -48,36 +60,15 @@ class SpotlightExportHandler extends AbstractHandler {
 		if (window != null) {
 			val selection = window.getSelectionService().getSelection() as IStructuredSelection
 			val firstElement = selection.getFirstElement()
-			var SystemInstance systemInstance = null
 
 			if (firstElement instanceof IAdaptable) {
-				val project = switch firstElement {
-					SystemInstance: {
-						systemInstance = ((firstElement as IAdaptable).getAdapter(SystemInstance)) as SystemInstance
-						(systemInstance.eResource.convertToIResource as IFile).project
-					}
-					IFile: {
-						val potentialFile = (firstElement as IAdaptable).getAdapter(IFile) as IFile
-						if (potentialFile.name.endsWith(".aaxl2")) {
-							systemInstance = potentialFile.resource.contents.head as SystemInstance
-							potentialFile.project
-						}
-					}
-					InstanceObject: {
-						val instanceObject = ((firstElement as IAdaptable).getAdapter(InstanceObject)) as InstanceObject
-						systemInstance = instanceObject.getContainerOfType(SystemInstance)
-						(systemInstance.eResource.convertToIResource as IFile).project
-					}
+				val systemInstance = switch firstElement {
+					SystemInstance: firstElement
+					IFile case firstElement.name.endsWith(".aaxl2"): firstElement.resource.contents.head as SystemInstance
+					InstanceObject: firstElement.getContainerOfType(SystemInstance)
 				}
 				if (systemInstance == null) {
 					return null
-				}
-
-				val spotlightFolder = project.getSpotlightFolder();
-
-				val spotlightRequirementsFile = spotlightFolder.getFile(systemInstance.name + SPOTLIGHTEXT)
-				if (spotlightRequirementsFile.exists) {
-					spotlightRequirementsFile.delete(true, null)
 				}
 
 				val leafNodesIterator = systemInstance.getAllContents(true).filter(ComponentInstance).filter [
@@ -86,18 +77,14 @@ class SpotlightExportHandler extends AbstractHandler {
 				val leafNodesList = leafNodesIterator.toList
 
 				val numleaves = leafNodesList.size
-				/* Console */ println("Name  Classifier [#ASRs] <<PUR>>")
-
-				val ASRTable = leafNodesList.map[leaf|leaf.name + ":  " + leaf.category + "   " + leaf.analyze(numleaves)]
-				ASRTable.sort.forEach[req|println(req)]
-
-				project.refreshLocal(IResource.DEPTH_ONE, null)
+				val ASRTable = leafNodesList.map[leaf | leaf.analyze(numleaves)].sortBy[instance.name]
+				new SpotlightDialog(event.activeShell, systemInstance.name, ASRTable).open
 			}
 		}
 		null
 	}
 
-	def String analyze(ComponentInstance leafInstance, int numleaves) {
+	def SpotlightResult analyze(ComponentInstance leafInstance, int numleaves) {
 		val ASRsForLeafNode = reqSpecrefFinder.getAllRequirements(leafInstance).filter[req|req.ssp].toList
 		val numASRs = ASRsForLeafNode.size
 
@@ -130,7 +117,7 @@ class SpotlightExportHandler extends AbstractHandler {
 
 		val PUR = SpotlightUtil.calculatePUR(numleaves, maxVol, medianVol, medianPrec, numSafety, numSecurity,
 			numPerformance)
-		return "[" + numASRs + "]     " + PUR
+		return new SpotlightResult(leafInstance, numASRs, PUR)
 	}
 
 	def boolean isSsp(Requirement req) {
@@ -138,7 +125,7 @@ class SpotlightExportHandler extends AbstractHandler {
 		val categories = req.category
 		val iterator = categories.iterator
 		while (iterator.hasNext) {
-			var nextCat = iterator.next as Category
+			var nextCat = iterator.next
 			if (ssp.contains(nextCat.name.toLowerCase)) {
 				return true
 			}
@@ -146,15 +133,102 @@ class SpotlightExportHandler extends AbstractHandler {
 		false
 	}
 
-	def IFolder getSpotlightFolder(IProject project) {
-		if (project.exists() && !project.isOpen()) {
-			project.open(null)
-		}
-		val spotlightFolder = project.getFolder(SPOTLIGHTFOLDER);
-		if (!spotlightFolder.exists()) {
-			spotlightFolder.create(true, false, null)
-		}
-		spotlightFolder
+	@FinalFieldsConstructor
+	private static class SpotlightResult {
+		val ComponentInstance instance
+		val int numberOfASRs
+		val double pur
 	}
-
+	
+	private static class SpotlightDialog extends TitleAreaDialog {
+		val String systemInstanceName
+		val List<SpotlightResult> results
+		
+		new(Shell parentShell, String systemInstanceName, List<SpotlightResult> results) {
+			super(parentShell)
+			this.systemInstanceName = systemInstanceName
+			this.results = results
+		}
+		
+		override protected isResizable() {
+			true
+		}
+		
+		override isHelpAvailable() {
+			false
+		}
+		
+		override protected getInitialSize() {
+			new Point(convertHorizontalDLUsToPixels(500), convertVerticalDLUsToPixels(300))
+		}
+		
+		override protected configureShell(Shell newShell) {
+			super.configureShell(newShell)
+			newShell.text = "Spotlight Results"
+		}
+		
+		override create() {
+			super.create
+			title = '''Spotlight Results for System Instance "«systemInstanceName»"'''
+		}
+		
+		//Overriden so that the cancel button will not be created.
+		override protected createButtonsForButtonBar(Composite parent) {
+			createButton(parent, IDialogConstants.OK_ID, IDialogConstants.OK_LABEL, true);
+		}
+		
+		override protected createDialogArea(Composite parent) {
+			super.createDialogArea(parent) as Composite => [
+				initializeDialogUnits
+				new Composite(it, SWT.NONE) => [
+					layoutData = new GridData(SWT.FILL, SWT.FILL, true, true)
+					val tableColumnLayout = new TableColumnLayout
+					layout = tableColumnLayout
+					new TableViewer(it, SWT.BORDER.bitwiseOr(SWT.FULL_SELECTION)) => [tableViewer |
+						new TableViewerColumn(tableViewer, SWT.LEFT) => [
+							column.text = "Component Instance"
+							tableColumnLayout.setColumnData(column, new ColumnPixelData(convertHorizontalDLUsToPixels(100), true, true))
+							labelProvider = new ColumnLabelProvider {
+								override getText(Object element) {
+									(element as SpotlightResult).instance.name
+								}
+							}
+						]
+						new TableViewerColumn(tableViewer, SWT.LEFT) => [
+							column.text = "Classifier"
+							tableColumnLayout.setColumnData(column, new ColumnWeightData(1, true))
+							labelProvider = new ColumnLabelProvider {
+								override getText(Object element) {
+									(element as SpotlightResult).instance.subcomponent.allClassifier?.getQualifiedName ?: ""
+								}
+							}
+						]
+						new TableViewerColumn(tableViewer, SWT.LEFT) => [
+							column.text = "Number of ASRs"
+							tableColumnLayout.setColumnData(column, new ColumnPixelData(convertHorizontalDLUsToPixels(50), true, true))
+							labelProvider = new ColumnLabelProvider {
+								override getText(Object element) {
+									(element as SpotlightResult).numberOfASRs.toString
+								}
+							}
+						]
+						new TableViewerColumn(tableViewer, SWT.LEFT) => [
+							column.text = "PUR"
+							tableColumnLayout.setColumnData(column, new ColumnPixelData(convertHorizontalDLUsToPixels(100), true, true))
+							labelProvider = new ColumnLabelProvider {
+								override getText(Object element) {
+									(element as SpotlightResult).pur.toString
+								}
+							}
+						]
+						
+						tableViewer.contentProvider = ArrayContentProvider.instance
+						tableViewer.input = results
+						tableViewer.table.linesVisible = true
+						tableViewer.table.headerVisible = true
+					]
+				]
+			]
+		}
+	}
 }
