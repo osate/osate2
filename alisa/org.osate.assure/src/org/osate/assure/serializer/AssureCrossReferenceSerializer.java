@@ -21,7 +21,13 @@ import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
 import org.eclipse.xtext.serializer.tokens.CrossReferenceSerializer;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 
 public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 
@@ -31,13 +37,15 @@ public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 		if (target instanceof Classifier) {
 			return ((Classifier) target).getQualifiedName();
 		}
-//		if (target instanceof AadlPackage) {
-//		return ((NamedElement) target).getName();}
-//	    if (target instanceof Property || target instanceof PropertyType || target instanceof PropertyConstant) {
-//		return AadlUtil.getPropertySetElementName((NamedElement) target);}
-//	    if (target instanceof NamedElement) {
-//		return ((NamedElement) target).getName();
-//	    } 
+		if (target instanceof AadlPackage) {
+			return ((NamedElement) target).getName();
+		}
+		if (target instanceof Property || target instanceof PropertyType || target instanceof PropertyConstant) {
+			return AadlUtil.getPropertySetElementName((NamedElement) target);
+		}
+		if (target instanceof NamedElement) {
+			return ((NamedElement) target).getName();
+		}
 
 		return super.getCrossReferenceNameFromScope(semanticObject, crossref, target, scope, errors);
 	}
