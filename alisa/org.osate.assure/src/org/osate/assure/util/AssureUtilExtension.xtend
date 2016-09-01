@@ -305,7 +305,7 @@ class AssureUtilExtension {
 	def static ResultIssue addMarkerIssue(VerificationResult vr, EObject target, IMarker marker, String diagnosticId) {
 		val msg = marker.getAttribute(IMarker.MESSAGE) as String
 		switch (marker.getAttribute(IMarker.SEVERITY)) {
-			case IMarker.SEVERITY_ERROR: addErrorIssue(vr, target, msg, diagnosticId)
+			case IMarker.SEVERITY_ERROR: addFailIssue(vr, target, msg, diagnosticId)
 			case IMarker.SEVERITY_WARNING: addWarningIssue(vr, target, msg, diagnosticId)
 			case IMarker.SEVERITY_INFO: addSuccessIssue(vr, target, msg, diagnosticId)
 		}
