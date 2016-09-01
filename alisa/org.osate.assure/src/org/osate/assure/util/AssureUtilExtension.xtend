@@ -726,6 +726,7 @@ class AssureUtilExtension {
 		counts.validationfailCount = 0
 		counts.featuresCount = 0
 		counts.featuresRequirementsCount = 0
+		counts.executionTime = 0
 	}
 
 	/**
