@@ -30,7 +30,7 @@ import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.recspec.ui.spotlight.utils.SpotlightUtil
 import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.ui.handlers.SpotlightExportHandler.SpotlightResult
+import org.osate.reqspec.ui.handlers.SpotlightHandler.SpotlightResult
 import org.osate.reqspec.ui.internal.ReqSpecActivator
 import org.osate.reqspec.util.IReqspecGlobalReferenceFinder
 
@@ -44,7 +44,7 @@ import static extension org.osate.aadl2.modelsupport.resources.OsateResourceUtil
  * @see IHandler
  * @see AbstractHandler
  */
-class SpotlightExportHandler extends AbstractHandler {
+class SpotlightHandler extends AbstractHandler {
 	@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
 
 	new() {
