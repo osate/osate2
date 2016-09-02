@@ -88,30 +88,13 @@ interface IAssureConstructor {
  */
 class AssureConstructor implements IAssureConstructor{
 
-// Needs to be synched with Alisa Generator.
-
 	val factory = AssureFactory.eINSTANCE
 
-//	var List<SelectionCategory> selectionFilter = Collections.EMPTY_LIST
-//	var List<RequirementCategory> requirementFilter = Collections.EMPTY_LIST
-//	var List<VerificationCategory> verificationFilter = Collections.EMPTY_LIST
-
-	
-//	var Iterable<VerificationPlan> allPlans = null
-	
-	
 	
 	var EList<VerificationPlan> globalPlans
 
 	var EList<Claim> globalClaims
 	
-
-//	def constructAssuranceTask(AssuranceTask at) {
-//		selectionFilter = at.selectionFilter
-//		requirementFilter = at.requirementFilter
-//		verificationFilter = at.verificationFilter
-//		at.assurancePlan?.constructCase
-//	}
 
 	override generateFullAssuranceCase(AssuranceCase acs) {
 		globalPlans = new BasicEList()
@@ -119,16 +102,7 @@ class AssureConstructor implements IAssureConstructor{
 		acs.constructAssuranceCaseResult
 	}
 
-	//Same as generateAssuranceCase(AssuranceCase acp)
 	def constructAssuranceCaseResult(AssuranceCase acs) {
-		//Revisit later
-//		if (acp.assureGlobal.isEmpty){
-//			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp)
-//		} else {
-//			allPlans = acp.assureGlobal
-//		}
-
-		
 		var AssuranceCaseResult acr = factory.createAssuranceCaseResult
 		acr.name = acs.name
 		acr.metrics = factory.createMetrics
@@ -137,19 +111,20 @@ class AssureConstructor implements IAssureConstructor{
 		val mrs = acr.modelResult
 		
 		for (acp : acs.assurancePlans) {
-			//For each assurance Plan we add a model result
-			
-			System.out.println("AssureConstructor constructAssuranceCaseResult: 0000");
-			
 			val modelResultInstance = acp.constructModelResult
 			if(modelResultInstance != null)
 				mrs.add(modelResultInstance)
 		}
-		
 		acr
 	}
 	
 	def constructModelResult(AssurancePlan acp) {
+		// XXX TODO Revisit later should we auto include all global if no explicit global assure
+//		if (acp.assureGlobal.isEmpty){
+//			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp)
+//		} else {
+//			allPlans = acp.assureGlobal
+//		}
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 			
 		var ComponentClassifier cc
@@ -160,7 +135,6 @@ class AssureConstructor implements IAssureConstructor{
 				myplans = cc.getVerificationPlans(acp)
 			}
 		}
-		
 //		'''	
 //			model «acp.assuranceCase.name».«acp.name»
 //			for «acp.target.getQualifiedName»
