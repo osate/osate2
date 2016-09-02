@@ -27,12 +27,6 @@ Require-Bundle: org.eclipse.xtext.ui,
  org.eclipse.ui.console,
  org.osate.results;bundle-version="1.0.0",
  org.osate.results.ui;bundle-version="1.0.0"
-Import-Package: org.apache.log4j,
- org.eclipse.emf.transaction,
- org.eclipse.gmf.runtime.diagram.core.preferences,
- org.eclipse.gmf.runtime.diagram.core.services,
- org.eclipse.gmf.runtime.emf.commands.core.command,
- org.eclipse.gmf.runtime.notation
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure.ui,
  org.osate.assure.ui.contentassist,
@@ -44,3 +38,4 @@ Export-Package: org.osate.assure.ui,
  org.osate.assure.ui.quickfix,
  org.osate.assure.ui.contentassist.antlr.internal
 Bundle-Activator: org.osate.assure.ui.internal.AssureActivator
+Import-Package: org.apache.log4j

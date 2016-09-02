@@ -52,6 +52,8 @@ import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.assure.QualifiedClaimReference;
+import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.util.AssureUtilExtension;
 
 import com.google.inject.Inject;
@@ -115,7 +117,7 @@ public class AssureProgressView extends ViewPart {
 		getSite().setSelectionProvider(treeViewer);
 
 		AssureTooltipListener.createAndRegister(treeViewer);
-		treeViewer.addFilter(new NoMetricsFilter());
+		treeViewer.addFilter(new NoMetricsRefObjectsFilter());
 
 		// treeViewer.addFilter(noClaimsResultFilter);
 //	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
@@ -229,7 +231,7 @@ public class AssureProgressView extends ViewPart {
 	/**
 	 * Viewer Filter class.
 	 */
-	private class NoMetricsFilter extends ViewerFilter {
+	private class NoMetricsRefObjectsFilter extends ViewerFilter {
 
 		/**
 		 * @param viewer the viewer
@@ -241,7 +243,8 @@ public class AssureProgressView extends ViewPart {
 		 */
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
-			if (element instanceof Metrics) {
+			if (element instanceof Metrics|| element instanceof QualifiedClaimReference
+					|| element instanceof QualifiedVAReference) {
 				return false;
 			}
 			return true;
