@@ -29,7 +29,9 @@ Require-Bundle: org.eclipse.xtext.ui,
  org.osate.results.ui;bundle-version="1.0.0",
  org.osate.categories,
  org.osate.alisa.workbench,
- org.osate.workspace
+ org.osate.workspace,
+ org.eclipse.ui.workbench,
+ org.eclipse.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure.ui,
  org.osate.assure.ui.contentassist,

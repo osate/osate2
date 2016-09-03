@@ -36,18 +36,17 @@ import org.eclipse.swt.events.FocusEvent;
 import org.eclipse.swt.events.FocusListener;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.ViewPart;
-import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.eclipse.xtext.ui.editor.utils.EditorUtils;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
+import org.osate.assure.evaluator.IAssureRequirementMetricsProcessor;
 import org.osate.assure.ui.labeling.AssureFeaturesRequirementsColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureNoVerificationPlansColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureQualityCategoryRequirementsColumnLabelProvider;
@@ -56,7 +55,9 @@ import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsExceptionCo
 import org.osate.assure.ui.labeling.AssureRequirementsCoverageMetricsFeaturesRequiringClassifierLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsCoverageNameColumnLabelProvider;
 import org.osate.assure.ui.labeling.AssureRequirementsWithNoPlanClaimColumnLabelProvider;
+import org.osate.assure.util.AssureUtilExtension;
 import org.osate.categories.categories.CategoryFilter;
+import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
 
@@ -67,30 +68,12 @@ public class AssureRequirementsCoverageView extends ViewPart {
 	public static String SHOW_CLAIMRESULTS_TOOL_TIP = "Show Claim Results";
 	private NoClaimResultsFilter noClaimsResultFilter = new NoClaimResultsFilter();
 
-	IXtextDocument xtextDoc;
-	IXtextModelListener modelListener = new IXtextModelListener() {
+	private AlisaView alisaView;
+	private CategoryFilter selectedCategoryFilter;
+	private AssuranceCaseResult recentProofTrees;
 
-		@Override
-		public void modelChanged(XtextResource resource) {
-//				System.out.println("model changed: " + resource);
-			getSite().getShell().getDisplay().asyncExec(new Runnable() {
-
-				@Override
-				public void run() {
-					if (inputURI != null) {
-						AssuranceCaseResult assuranceCase = xtextDoc
-								.readOnly(new IUnitOfWork<AssuranceCaseResult, XtextResource>() {
-									@Override
-									public AssuranceCaseResult exec(XtextResource state) throws Exception {
-										return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
-									}
-								});
-						treeViewer.setInput(Arrays.asList(assuranceCase));
-					}
-				}
-			});
-		}
-	};
+	@Inject
+	private IAssureRequirementMetricsProcessor assureRequirementMetricsProcessor;
 
 	@Inject
 	GlobalURIEditorOpener globalURIEditorOpener;
@@ -98,6 +81,63 @@ public class AssureRequirementsCoverageView extends ViewPart {
 	@Inject
 	ILabelProvider labelProvider;
 	URI inputURI;
+
+	protected void updateSelectedFilter() {
+		if (alisaView == null) {
+			try {
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				alisaView = (AlisaView) page.showView(AlisaView.ID);
+			} catch (PartInitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				selectedCategoryFilter = null;
+				return;
+			}
+		}
+		selectedCategoryFilter = alisaView.getSelectedCategoryFilter();
+		if (selectedCategoryFilter == null) {
+			System.out.println("AssureRequirementsCoverageView.updateSelectedFilter() null");
+		} else {
+			System.out.println(
+					"AssureRequirementsCoverageView.updateSelectedFilter() " + selectedCategoryFilter.getName());
+		}
+	}
+
+	/**
+	 * 
+	 * @return Whether prooftree has been changed. 
+	 */
+	protected boolean updateRecentProofTrees() {
+
+		AssuranceCaseResult oldProofTrees = recentProofTrees;
+
+		if (alisaView == null) {
+			try {
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				alisaView = (AlisaView) page.showView(AlisaView.ID);
+			} catch (PartInitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				recentProofTrees = null;
+				return true;
+			}
+		}
+		if (alisaView.getSelectedAssuranceCase() == null) {
+			System.out.println(
+					"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Assurance case is not selected in Alisaview");
+		} else {
+			recentProofTrees = alisaView.findCaseResult(alisaView.getSelectedAssuranceCase().getName());
+//			if (recentProofTrees == null) {
+//				System.out.println(
+//						"AssureRequirementsCoverageView.updateRecentProofTrees() null -- Failed to find assure file or never been generated.");
+//			} else {
+//				System.out.println(
+//						"AssureRequirementsCoverageView.updateRecentProofTrees() " + recentProofTrees.getName());
+//			}
+		}
+
+		return oldProofTrees != recentProofTrees;
+	}
 
 	@Override
 	public void createPartControl(Composite parent) {
@@ -197,14 +237,64 @@ public class AssureRequirementsCoverageView extends ViewPart {
 		column7.getColumn().setResizable(true);
 		column7.setLabelProvider(new AssureRequirementsCoverageMetricsFeaturesRequiringClassifierLabelProvider());
 
-//	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
+//        treeViewer = new TreeViewer(parent, SWT.SINGLE);
 		getSite().setSelectionProvider(treeViewer);
 		treeViewer.setContentProvider(new AssureContentProvider());
-		// treeViewer.addFilter(noClaimsResultFilter);
+//        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
 		AssureTooltipListener.createAndRegister(treeViewer);
 		treeViewer.addFilter(new NoMetricsRefObjectsFilter());
 		// treeViewer.addFilter(noClaimsResultFilter);
-//	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
+//        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
+		/*
+		 * MenuManager manager = new MenuManager();
+		 * manager.setRemoveAllWhenShown(true);
+		 * 
+		 * 
+		 * manager.addMenuListener(new IMenuListener() {
+		 * 
+		 * @Override
+		 * public void menuAboutToShow(IMenuManager manager) {
+		 * IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
+		 * if (!selection.isEmpty()) {
+		 * final AssureResult ar = (AssureResult) selection.getFirstElement();
+		 * 
+		 * if (ar instanceof ClaimResult){
+		 * final ClaimResult claim = (ClaimResult) ar;
+		 * EObject location = AssureUtilExtension.getTarget(claim);
+		 * // if (claim instanceof FailResult) {
+		 * // manager.add(createHyperlinkAction("Open Failure Location", location));
+		 * // } else if (location instanceof ProveStatement) {
+		 * // manager.add(createHyperlinkAction("Open Prove Statement", location));
+		 * // manager.add(createExportSubmenu(claim));
+		 * // } else {
+		 * manager.add(createHyperlinkAction("Open Requirement", location));
+		 * // }
+		 * // Map<String, EObject> references = claim.getReferences();
+		 * // for (String name : new TreeSet<String>(references.keySet())) {
+		 * // manager.add(createHyperlinkAction("Go to '" + name + "'",
+		 * // references.get(name)));
+		 * // }
+		 * 
+		 * manager.add(new Action("Copy Claim Text") {
+		 * 
+		 * @Override
+		 * public void run() {
+		 * Transferable text = new StringSelection(AssureUtilExtension.constructDescription(claim));
+		 * Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		 * clipboard.setContents(text, null);
+		 * }
+		 * });
+		 * }
+		 * }
+		 * 
+		 * manager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+		 * IMenuService menuService = getViewSite().getWorkbenchWindow().getService(IMenuService.class);
+		 * menuService.populateContributionManager((ContributionManager) manager, "popup:" + ID);
+		 * }
+		 * });
+		 */
+		// getViewSite().getActionBars().getToolBarManager().add(createToggleShowClaimResultsAction());
+		// treeViewer.getControl().setMenu(manager.createContextMenu(treeViewer.getTree()));
 
 		resultTree.addFocusListener(new FocusListener() {
 
@@ -216,26 +306,25 @@ public class AssureRequirementsCoverageView extends ViewPart {
 
 			@Override
 			public void focusGained(FocusEvent e) {
-//
-//				// Updates recentProofTrees based on selection from AlisaView
-//				boolean changed = updateRecentProofTrees();
-//
-//				if (recentProofTrees != null) {
-//					CategoryFilter oldfilter = selectedCategoryFilter;
-//					updateSelectedFilter();
-//
-//					if (changed || oldfilter != selectedCategoryFilter) {
-//						setProofs(recentProofTrees, selectedCategoryFilter);
-//					}
-//				}
-//
+
+				// Updates recentProofTrees based on selection from AlisaView
+				boolean changed = updateRecentProofTrees();
+
+				if (recentProofTrees != null) {
+					CategoryFilter oldfilter = selectedCategoryFilter;
+					updateSelectedFilter();
+
+					if (changed || oldfilter != selectedCategoryFilter) {
+						setProofs(recentProofTrees, selectedCategoryFilter);
+					}
+				}
+
 			}
 		});
 
 	}
 
 	public void dispose() {
-		xtextDoc.removeModelListener(modelListener);
 	}
 
 	private IAction createHyperlinkAction(String text, final EObject eObject) {
@@ -266,17 +355,19 @@ public class AssureRequirementsCoverageView extends ViewPart {
 		return result;
 	}
 
-	public void setProofs(AssuranceCaseResult proofTrees, CategoryFilter catfilter) {
-		if (xtextDoc != null) {
-			xtextDoc.removeModelListener(modelListener);
-		}
-		xtextDoc = EditorUtils.getActiveXtextEditor().getDocument();
-		xtextDoc.addModelListener(modelListener);
+	public void setProofs(AssuranceCaseResult proofTrees, CategoryFilter filter) {
 		Object[] expandedElements = treeViewer.getExpandedElements();
 		TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
 		if (proofTrees != null) {
+			recentProofTrees = proofTrees;
 			inputURI = EcoreUtil.getURI(proofTrees);
-			treeViewer.setInput(Arrays.asList(proofTrees));
+
+			VerifyUtilExtension.clearAllHasRunRecords();
+			AssureUtilExtension.clearAllInstanceModels();
+			assureRequirementMetricsProcessor.processCase(recentProofTrees, filter, null);
+			AssureContentProvider contentProvider = (AssureContentProvider) treeViewer.getContentProvider();
+			contentProvider.setFilter(filter);
+			treeViewer.setInput(Arrays.asList(recentProofTrees));
 		} else {
 			inputURI = null;
 			treeViewer.setInput(Collections.emptyList());
@@ -334,5 +425,4 @@ public class AssureRequirementsCoverageView extends ViewPart {
 			return true;
 		}
 	}
-
 }
