@@ -21,10 +21,7 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.Viewer;
-import org.osate.assure.assure.ClaimResult;
-import org.osate.assure.assure.VerificationActivityResult;
 import org.osate.categories.categories.CategoryFilter;
-import org.osate.verify.util.VerifyUtilExtension;
 
 public class AssureContentProvider implements ITreeContentProvider {
 
@@ -36,10 +33,6 @@ public class AssureContentProvider implements ITreeContentProvider {
 	}
 
 	@Override
-	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
-	}
-
-	@Override
 	public Object[] getElements(Object inputElement) {
 		@SuppressWarnings("rawtypes")
 		List roots = (List) inputElement;
@@ -47,35 +40,51 @@ public class AssureContentProvider implements ITreeContentProvider {
 	}
 
 	@Override
+	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+	}
+
+	@Override
 	public Object[] getChildren(Object parentElement) {
-//		if (parentElement instanceof EObject) {
-//			EObject node = (EObject) parentElement;
-//			return node.eContents().toArray();
-//		} else {
-//			throw new IllegalArgumentException();
+//		if (parentElement instanceof AssuranceCaseResult) {
+//			AssuranceCaseResult node = (AssuranceCaseResult) parentElement;
+//			return node.getModelResult().toArray();
 //		}
-
-		// This is how we are applying filter in AssureProcessor
-		if (parentElement instanceof ClaimResult) {
-			ClaimResult claimResult = (ClaimResult) parentElement;
-			if (VerifyUtilExtension.evaluateRequirementFilter(
-					claimResult.getTargetReference().getRequirement().getRequirement(), filter)) {
-				return claimResult.eContents().toArray();
-			} else {
-				return EMPTY;
-			}
-
-		} else if (parentElement instanceof VerificationActivityResult) {
-			VerificationActivityResult vaResult = (VerificationActivityResult) parentElement;
-			if (VerifyUtilExtension
-					.evaluateVerificationActivityFilter(vaResult.getTargetReference().getVerificationActivity(), filter)
-					&& VerifyUtilExtension.evaluateVerificationMethodFilter(
-							vaResult.getTargetReference().getVerificationActivity(), filter)) {
-				return vaResult.eContents().toArray();
-			} else {
-				return EMPTY;
-			}
-		} else if (parentElement instanceof EObject) {
+//		if (parentElement instanceof SubsystemResult) {
+//			SubsystemResult node = (SubsystemResult) parentElement;
+//			EList<EObject> kids = new BasicEList<EObject>();
+//			kids.addAll(node.getClaimResult());
+//			kids.addAll(node.getSubsystemResult());
+//			return kids.toArray();
+//		}
+//		if (parentElement instanceof ModelResult) {
+//			ModelResult node = (ModelResult) parentElement;
+//			EList<EObject> kids = new BasicEList<EObject>();
+//			kids.addAll(node.getClaimResult());
+//			kids.addAll(node.getSubsystemResult());
+//			kids.addAll(node.getSubAssuranceCase());
+//			return kids.toArray();
+//		}
+//		if (parentElement instanceof ClaimResult) {
+//			ClaimResult node = (ClaimResult) parentElement;
+//			EList<EObject> kids = new BasicEList<EObject>();
+//			kids.addAll(node.getVerificationActivityResult());
+//			kids.addAll(node.getSubClaimResult());
+//			return kids.toArray();
+//		}
+//		if (parentElement instanceof VerificationActivityResult) {
+//			VerificationActivityResult node = (VerificationActivityResult) parentElement;
+//			EList<EObject> kids = new BasicEList<EObject>();
+//			kids.add(node.getPreconditionResult());
+//			kids.add(node.getValidationResult());
+//			return kids.toArray();
+//		}
+//		if (parentElement instanceof ValidationResult) {
+//			return ArrayUtils.EMPTY_OBJECT_ARRAY;
+//		}
+//		if (parentElement instanceof PreconditionResult) {
+//			return ArrayUtils.EMPTY_OBJECT_ARRAY;
+//		}
+		if (parentElement instanceof EObject) {
 			EObject node = (EObject) parentElement;
 			return node.eContents().toArray();
 		} else {
