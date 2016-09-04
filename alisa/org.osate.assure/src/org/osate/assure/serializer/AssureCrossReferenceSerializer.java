@@ -17,6 +17,7 @@
 package org.osate.assure.serializer;
 
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.CrossReference;
 import org.eclipse.xtext.scoping.IScope;
 import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
@@ -28,12 +29,16 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyConstant;
 import org.osate.aadl2.PropertyType;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.alisa.common.common.ResultIssue;
 
 public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 
 	@Override
 	protected String getCrossReferenceNameFromScope(EObject semanticObject, CrossReference crossref, EObject target,
 			final IScope scope, Acceptor errors) {
+		if (semanticObject instanceof ResultIssue) {
+			return EcoreUtil.getURI(target).toString();
+		}
 		if (target instanceof Classifier) {
 			return ((Classifier) target).getQualifiedName();
 		}
