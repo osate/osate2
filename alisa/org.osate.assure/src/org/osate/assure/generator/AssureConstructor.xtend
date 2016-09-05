@@ -120,11 +120,7 @@ class AssureConstructor implements IAssureConstructor{
 	
 	def constructModelResult(AssurancePlan acp) {
 		// XXX TODO Revisit later should we auto include all global if no explicit global assure
-//		if (acp.assureGlobal.isEmpty){
-//			allPlans = referenceFinder.getGlobalReqVerificationPlans(acp)
-//		} else {
-//			allPlans = acp.assureGlobal
-//		}
+//		deal with assure global plans
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 			
 		var ComponentClassifier cc
