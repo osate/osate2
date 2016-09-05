@@ -37,7 +37,7 @@ public class AssureCrossReferenceSerializer extends CrossReferenceSerializer {
 	protected String getCrossReferenceNameFromScope(EObject semanticObject, CrossReference crossref, EObject target,
 			final IScope scope, Acceptor errors) {
 		if (semanticObject instanceof ResultIssue) {
-			return EcoreUtil.getURI(target).toString();
+			return '"' + EcoreUtil.getURI(target).toString() + '"';
 		}
 		if (target instanceof Classifier) {
 			return ((Classifier) target).getQualifiedName();

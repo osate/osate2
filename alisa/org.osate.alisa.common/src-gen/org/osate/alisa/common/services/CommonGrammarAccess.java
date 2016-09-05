@@ -66,35 +66,34 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cImageAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
 		private final RuleCall cImageImageReferenceParserRuleCall_3_0 = (RuleCall)cImageAssignment_3.eContents().get(0);
 		
-		//DescriptionElement:
-		//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#XtextFragmentProvider_org.osate.alisa.common.Common/DescriptionElement'
 		@Override public ParserRule getRule() { return rule; }
 
-		//text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives'
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//text=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.0'
 		public Assignment getTextAssignment_0() { return cTextAssignment_0; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.0/@terminal'
 		public RuleCall getTextSTRINGTerminalRuleCall_0_0() { return cTextSTRINGTerminalRuleCall_0_0; }
 
-		//showValue=ShowValue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.1'
 		public Assignment getShowValueAssignment_1() { return cShowValueAssignment_1; }
 
-		//ShowValue
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.1/@terminal'
 		public RuleCall getShowValueShowValueParserRuleCall_1_0() { return cShowValueShowValueParserRuleCall_1_0; }
 
-		//thisTarget?="this"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.2'
 		public Assignment getThisTargetAssignment_2() { return cThisTargetAssignment_2; }
 
-		//"this"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.2/@terminal'
 		public Keyword getThisTargetThisKeyword_2_0() { return cThisTargetThisKeyword_2_0; }
 
-		//image=ImageReference
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.3'
 		public Assignment getImageAssignment_3() { return cImageAssignment_3; }
 
-		//ImageReference
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.3/@terminal'
 		public RuleCall getImageImageReferenceParserRuleCall_3_0() { return cImageImageReferenceParserRuleCall_3_0; }
 	}
 
@@ -105,20 +104,19 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTextAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTextSTRINGTerminalRuleCall_1_0 = (RuleCall)cTextAssignment_1.eContents().get(0);
 		
-		//Rationale:
-		//	"rationale" text=STRING;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#XtextFragmentProvider_org.osate.alisa.common.Common/Rationale'
 		@Override public ParserRule getRule() { return rule; }
 
-		//"rationale" text=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives'
 		public Group getGroup() { return cGroup; }
 
-		//"rationale"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives/@elements.0'
 		public Keyword getRationaleKeyword_0() { return cRationaleKeyword_0; }
 
-		//text=STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives/@elements.1'
 		public Assignment getTextAssignment_1() { return cTextAssignment_1; }
 
-		//STRING
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives/@elements.1/@terminal'
 		public RuleCall getTextSTRINGTerminalRuleCall_1_0() { return cTextSTRINGTerminalRuleCall_1_0; }
 	}
 

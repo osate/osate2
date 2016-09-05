@@ -46,6 +46,10 @@ public class AssureLinkingService extends DefaultLinkingService {
 			ResourceSet resset = context.eResource().getResourceSet();
 			if (name.length() > 2) {
 				String uriname = name;
+				if (uriname.charAt(0) == '"') {
+					uriname = uriname.substring(1, uriname.length() - 2);
+				}
+
 				try {
 					URI rooturi = URI.createURI(uriname);
 					EObject searchResult = resset.getEObject(rooturi, true);

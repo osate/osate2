@@ -3116,38 +3116,37 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
 		private final RuleCall cValueAExpressionParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
-		//DesiredValue:
-		//	desired=[common::AVariableReference] (upto?="upto" | "downto") value=AExpression;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#XtextFragmentProvider_org.osate.reqspec.ReqSpec/DesiredValue'
 		@Override public ParserRule getRule() { return rule; }
 
-		//desired=[common::AVariableReference] (upto?="upto" | "downto") value=AExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives'
 		public Group getGroup() { return cGroup; }
 
-		//desired=[common::AVariableReference]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.0'
 		public Assignment getDesiredAssignment_0() { return cDesiredAssignment_0; }
 
-		//[common::AVariableReference]
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.0/@terminal'
 		public CrossReference getDesiredAVariableReferenceCrossReference_0_0() { return cDesiredAVariableReferenceCrossReference_0_0; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.0/@terminal/@terminal'
 		public RuleCall getDesiredAVariableReferenceIDTerminalRuleCall_0_0_1() { return cDesiredAVariableReferenceIDTerminalRuleCall_0_0_1; }
 
-		//upto?="upto" | "downto"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.1'
 		public Alternatives getAlternatives_1() { return cAlternatives_1; }
 
-		//upto?="upto"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.1/@elements.0'
 		public Assignment getUptoAssignment_1_0() { return cUptoAssignment_1_0; }
 
-		//"upto"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.1/@elements.0/@terminal'
 		public Keyword getUptoUptoKeyword_1_0_0() { return cUptoUptoKeyword_1_0_0; }
 
-		//"downto"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.1/@elements.1'
 		public Keyword getDowntoKeyword_1_1() { return cDowntoKeyword_1_1; }
 
-		//value=AExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.2'
 		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//AExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.19/@alternatives/@elements.2/@terminal'
 		public RuleCall getValueAExpressionParserRuleCall_2_0() { return cValueAExpressionParserRuleCall_2_0; }
 	}
 
@@ -3161,29 +3160,28 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cDocFragmentAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
 		private final RuleCall cDocFragmentQualifiedNameParserRuleCall_1_1_0 = (RuleCall)cDocFragmentAssignment_1_1.eContents().get(0);
 		
-		//ExternalDocument:
-		//	docReference=DOCPATH ("#" docFragment=QualifiedName)?;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#XtextFragmentProvider_org.osate.reqspec.ReqSpec/ExternalDocument'
 		@Override public ParserRule getRule() { return rule; }
 
-		//docReference=DOCPATH ("#" docFragment=QualifiedName)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives'
 		public Group getGroup() { return cGroup; }
 
-		//docReference=DOCPATH
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives/@elements.0'
 		public Assignment getDocReferenceAssignment_0() { return cDocReferenceAssignment_0; }
 
-		//DOCPATH
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives/@elements.0/@terminal'
 		public RuleCall getDocReferenceDOCPATHParserRuleCall_0_0() { return cDocReferenceDOCPATHParserRuleCall_0_0; }
 
-		//("#" docFragment=QualifiedName)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives/@elements.1'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"#"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives/@elements.1/@elements.0'
 		public Keyword getNumberSignKeyword_1_0() { return cNumberSignKeyword_1_0; }
 
-		//docFragment=QualifiedName
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives/@elements.1/@elements.1'
 		public Assignment getDocFragmentAssignment_1_1() { return cDocFragmentAssignment_1_1; }
 
-		//QualifiedName
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.20/@alternatives/@elements.1/@elements.1/@terminal'
 		public RuleCall getDocFragmentQualifiedNameParserRuleCall_1_1_0() { return cDocFragmentQualifiedNameParserRuleCall_1_1_0; }
 	}
 
@@ -3222,100 +3220,97 @@ public class ReqSpecGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPropertyAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
 		private final RuleCall cPropertyPropertyRefParserRuleCall_6_1_0 = (RuleCall)cPropertyAssignment_6_1.eContents().get(0);
 		
-		//ValDeclaration returns common::ValDeclaration:
-		//	{ReqValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef |
-		//	"typeof" type=PropertyRef) "]"))? "=" value=AExpression ("as" property=PropertyRef)?;
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#XtextFragmentProvider_org.osate.reqspec.ReqSpec/ValDeclaration'
 		@Override public ParserRule getRule() { return rule; }
 
-		//{ReqValDeclaration} "val" name=ID (":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof"
-		//type=PropertyRef) "]"))? "=" value=AExpression ("as" property=PropertyRef)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives'
 		public Group getGroup() { return cGroup; }
 
-		//{ReqValDeclaration}
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.0'
 		public Action getReqValDeclarationAction_0() { return cReqValDeclarationAction_0; }
 
-		//"val"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.1'
 		public Keyword getValKeyword_1() { return cValKeyword_1; }
 
-		//name=ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.2'
 		public Assignment getNameAssignment_2() { return cNameAssignment_2; }
 
-		//ID
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.2/@terminal'
 		public RuleCall getNameIDTerminalRuleCall_2_0() { return cNameIDTerminalRuleCall_2_0; }
 
-		//(":" (type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"))?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3'
 		public Group getGroup_3() { return cGroup_3; }
 
-		//":"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.0'
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//type=TypeRef | "typeof" type=PropertyRef | range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1'
 		public Alternatives getAlternatives_3_1() { return cAlternatives_3_1; }
 
-		//type=TypeRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.0'
 		public Assignment getTypeAssignment_3_1_0() { return cTypeAssignment_3_1_0; }
 
-		//TypeRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.0/@terminal'
 		public RuleCall getTypeTypeRefParserRuleCall_3_1_0_0() { return cTypeTypeRefParserRuleCall_3_1_0_0; }
 
-		//"typeof" type=PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.1'
 		public Group getGroup_3_1_1() { return cGroup_3_1_1; }
 
-		//"typeof"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.1/@elements.0'
 		public Keyword getTypeofKeyword_3_1_1_0() { return cTypeofKeyword_3_1_1_0; }
 
-		//type=PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.1/@elements.1'
 		public Assignment getTypeAssignment_3_1_1_1() { return cTypeAssignment_3_1_1_1; }
 
-		//PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.1/@elements.1/@terminal'
 		public RuleCall getTypePropertyRefParserRuleCall_3_1_1_1_0() { return cTypePropertyRefParserRuleCall_3_1_1_1_0; }
 
-		//range?="[" (type=TypeRef | "typeof" type=PropertyRef) "]"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2'
 		public Group getGroup_3_1_2() { return cGroup_3_1_2; }
 
-		//range?="["
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.0'
 		public Assignment getRangeAssignment_3_1_2_0() { return cRangeAssignment_3_1_2_0; }
 
-		//"["
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.0/@terminal'
 		public Keyword getRangeLeftSquareBracketKeyword_3_1_2_0_0() { return cRangeLeftSquareBracketKeyword_3_1_2_0_0; }
 
-		//type=TypeRef | "typeof" type=PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1'
 		public Alternatives getAlternatives_3_1_2_1() { return cAlternatives_3_1_2_1; }
 
-		//type=TypeRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1/@elements.0'
 		public Assignment getTypeAssignment_3_1_2_1_0() { return cTypeAssignment_3_1_2_1_0; }
 
-		//TypeRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1/@elements.0/@terminal'
 		public RuleCall getTypeTypeRefParserRuleCall_3_1_2_1_0_0() { return cTypeTypeRefParserRuleCall_3_1_2_1_0_0; }
 
-		//"typeof" type=PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1/@elements.1'
 		public Group getGroup_3_1_2_1_1() { return cGroup_3_1_2_1_1; }
 
-		//"typeof"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1/@elements.1/@elements.0'
 		public Keyword getTypeofKeyword_3_1_2_1_1_0() { return cTypeofKeyword_3_1_2_1_1_0; }
 
-		//type=PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1/@elements.1/@elements.1'
 		public Assignment getTypeAssignment_3_1_2_1_1_1() { return cTypeAssignment_3_1_2_1_1_1; }
 
-		//PropertyRef
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.1/@elements.1/@elements.1/@terminal'
 		public RuleCall getTypePropertyRefParserRuleCall_3_1_2_1_1_1_0() { return cTypePropertyRefParserRuleCall_3_1_2_1_1_1_0; }
 
-		//"]"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.3/@elements.1/@elements.2/@elements.2'
 		public Keyword getRightSquareBracketKeyword_3_1_2_2() { return cRightSquareBracketKeyword_3_1_2_2; }
 
-		//"="
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.4'
 		public Keyword getEqualsSignKeyword_4() { return cEqualsSignKeyword_4; }
 
-		//value=AExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.5'
 		public Assignment getValueAssignment_5() { return cValueAssignment_5; }
 
-		//AExpression
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.5/@terminal'
 		public RuleCall getValueAExpressionParserRuleCall_5_0() { return cValueAExpressionParserRuleCall_5_0; }
 
-		//("as" property=PropertyRef)?
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.6'
 		public Group getGroup_6() { return cGroup_6; }
 
-		//"as"
+		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/reqspec/ReqSpec.xtext#/0/@rules.21/@alternatives/@elements.6/@elements.0'
 		public Keyword getAsKeyword_6_0() { return cAsKeyword_6_0; }
 
 		//property=PropertyRef
