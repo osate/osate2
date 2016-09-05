@@ -145,14 +145,6 @@ public abstract class AlisaHandler extends AbstractHandler {
 			uri = EcoreUtil.getURI((EObject) assuranceCaseResult);
 		}
 		System.out.println("AlisaHandler.execute2() assuranceCaseResult name: " + assuranceCaseResult.getName());
-//		System.out.println("AlisaHandler.execute2() uri from AssuranceCaseResult: " + uri.toString());
-		// System.out.println("AlisaHandler.execute2() assureURI generated just checking : " + assureURI.toString());
-
-//		window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
-//
-//		if (window != null && !saveChanges(window.getActivePage().getDirtyEditors())) {
-//			return null;
-//		}
 
 		WorkspaceJob job = getWorkspaceJob2(getJobName(), assuranceCaseResult);
 		scheduleJob(job, msr, uri);

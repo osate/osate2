@@ -16,9 +16,6 @@
 
 package org.osate.assure.ui.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
-import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
-
 import java.io.IOException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -114,8 +111,7 @@ public class AssureHandler extends AlisaHandler {
 			return Status.CANCEL_STATUS;
 		}
 		long start = System.currentTimeMillis();
-		resetToTBD(rootCaseResult, filter);
-		recomputeAllCounts(rootCaseResult, filter);
+		AssureUtilExtension.recomputeAllCounts(rootCaseResult, filter);
 		try {
 			// URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
 			// System.out.println("AssureHandler Initial save: " + uri.toString());

@@ -92,7 +92,8 @@ public class AlisaView extends ViewPart {
 
 	public static final String ID = "org.osate.assure.ui.views.alisaView";
 	private static final String FILTER_NONE = "None";
-	private static final String BUTTON_READY = "Execute Assurance Case\nwith Selected Filter";
+	private static final String VERIFY_ALL_BUTTON_READY = "Verify all in Assurance Case\nwith Selected Filter";
+	private static final String VERIFY_REMAINING_BUTTON_READY = "Verify remaining in Assurance Case\nwith Selected Filter";
 	private static final String BUTTON_WAITING = "Select Assurance Case to Execute";
 	private AlisaTreeViewer treeViewer;
 
@@ -100,6 +101,7 @@ public class AlisaView extends ViewPart {
 	private ArrayList<String> filterNames = new ArrayList<String>();
 	private Combo filterCombo;
 	private Button verifyAllButton;
+	private Button verifyRemainingButton;
 
 	private AssuranceCase selectedAssuranceCase;
 
@@ -209,6 +211,9 @@ public class AlisaView extends ViewPart {
 					verifyAllButton.setEnabled(false);
 					verifyAllButton.setText(BUTTON_WAITING);
 					verifyAllButton.redraw();
+					verifyRemainingButton.setEnabled(false);
+					verifyRemainingButton.setText(BUTTON_WAITING);
+					verifyRemainingButton.redraw();
 					return;
 				}
 				if (event.getSelection() instanceof IStructuredSelection) {
@@ -217,8 +222,11 @@ public class AlisaView extends ViewPart {
 						selectedAssuranceCase = (AssuranceCase) selection.getFirstElement();
 						System.out.println("selectedAssuranceCase: " + selectedAssuranceCase.getName());
 						verifyAllButton.setEnabled(true);
-						verifyAllButton.setText(BUTTON_READY);
+						verifyAllButton.setText(VERIFY_ALL_BUTTON_READY);
 						verifyAllButton.redraw();
+						verifyRemainingButton.setEnabled(true);
+						verifyRemainingButton.setText(VERIFY_REMAINING_BUTTON_READY);
+						verifyRemainingButton.redraw();
 
 					} else {
 						System.out.println("selectedAssuranceCase: null. Please select parent AssuranceCase in Tree");
@@ -226,6 +234,9 @@ public class AlisaView extends ViewPart {
 						verifyAllButton.setEnabled(false);
 						verifyAllButton.setText(BUTTON_WAITING);
 						verifyAllButton.redraw();
+						verifyRemainingButton.setEnabled(false);
+						verifyRemainingButton.setText(BUTTON_WAITING);
+						verifyRemainingButton.redraw();
 					}
 				}
 
@@ -317,6 +328,24 @@ public class AlisaView extends ViewPart {
 			}
 		});
 
+		verifyRemainingButton = new Button(rightSide, SWT.CENTER | SWT.WRAP);
+		verifyRemainingButton.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		verifyRemainingButton.setText(BUTTON_WAITING);
+		verifyRemainingButton.setEnabled(false);
+
+		verifyRemainingButton.addSelectionListener(new SelectionListener() {
+
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				verifyRemainingButtonSelected();
+			}
+
+			@Override
+			public void widgetDefaultSelected(SelectionEvent e) {
+				verifyRemainingButtonSelected();
+			}
+		});
+
 		treeViewer.setInput(existingAssuranceCases);
 
 		getSite().getPage().addPartListener(partListener);
@@ -342,42 +371,92 @@ public class AlisaView extends ViewPart {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-//			} else {
-//				System.out.println("  >>>>>>>>>>>>Found existing assure resource");
-//
-//				// Need assureDirURI to be set at least. Same is done in createCaseResult
-//
-//				URI uri = null;
-//				if (selectedAssuranceCase instanceof EObjectNode) {
-//					uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
-//				} else if (selectedAssuranceCase instanceof EObject) {
-//					uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
-//				}
-//
-//				// IF something changes here, likely it should be applied to createCaseResult as well
-//				URI file_uri = uri;
-//				String projectNameFromURI = "/" + file_uri.segment(1);
-//
-//				System.out.println("projectNameFromURI   " + projectNameFromURI);
-//				IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
-//				for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
-//					IProject tempProject = myWorkspaceRoot.getProjects()[i];
-//					if (tempProject.isAccessible()) {
-//						System.out.println("Checking Project paths: " + tempProject.getFullPath());
-//						if (projectNameFromURI.equals(tempProject.getFullPath().toString())) {
-//
-//							System.out.println("Found Project, creating String for assure: " + tempProject.getFullPath()
-//									+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
-//							assureProject = tempProject;
-//
-//							// Should not include assure subdirectory because in some cases assure directory does not preexist
-//							// Eventually, need rule to have the whole project
-//							// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
-////							assureDirURI = URI.createPlatformResourceURI(assureProject.getFullPath().toString(), false);
-//							break;
-//						}
-//					}
-//				}
+			}
+
+			Resource res = selectedAssuranceCase.getSystem().eResource();
+			URI modeluri = res.getURI();
+			URI path = modeluri.trimSegments(1);
+			if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
+				path = path.trimSegments(1);
+			}
+
+			IProject aadlProject = null;
+			String projectNameFromAADL = "/" + path.segment(1);
+			IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+			for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
+				IProject tempProject = myWorkspaceRoot.getProjects()[i];
+				if (tempProject.isAccessible()) {
+					System.out.println("Checking Project paths AADL: " + tempProject.getFullPath());
+					if (projectNameFromAADL.equals(tempProject.getFullPath().toString())) {
+
+						System.out.println("Found AADL Project: " + tempProject.getFullPath().toString());
+						aadlProject = tempProject;
+						break;
+					}
+				}
+			}
+
+			// Using combination of assureProject and aadlProject. Has to be project because if subdirectories
+			// such as instances or assure may be created.
+			msr = new MultiRule(new ISchedulingRule[] { assureProject, aadlProject });
+			ah.execute2(assuranceCaseResult, getSelectedCategoryFilter(), msr);
+
+		}
+	}
+
+	private void verifyRemainingButtonSelected() {
+		if (selectedAssuranceCase != null) {
+
+			AssureHandler ah = new AssureHandler();
+
+			ah.prepare();
+
+			// Doesn't seem to always find it.
+			AssuranceCaseResult assuranceCaseResult = findCaseResult(selectedAssuranceCase.getName());
+			if (assuranceCaseResult == null) {
+
+				try {
+					assuranceCaseResult = createCaseResult(selectedAssuranceCase.getName());
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else {
+				System.out.println("  >>>>>>>>>>>>Found existing assure resource");
+
+				// Need assureDirURI to be set at least. Same is done in createCaseResult
+
+				URI uri = null;
+				if (selectedAssuranceCase instanceof EObjectNode) {
+					uri = ((EObjectNode) selectedAssuranceCase).getEObjectURI();
+				} else if (selectedAssuranceCase instanceof EObject) {
+					uri = EcoreUtil.getURI((EObject) selectedAssuranceCase);
+				}
+
+				// IF something changes here, likely it should be applied to createCaseResult as well
+				URI file_uri = uri;
+				String projectNameFromURI = "/" + file_uri.segment(1);
+
+				System.out.println("projectNameFromURI   " + projectNameFromURI);
+				IWorkspaceRoot myWorkspaceRoot = ResourcesPlugin.getWorkspace().getRoot();
+				for (int i = 0; i < myWorkspaceRoot.getProjects().length; i++) {
+					IProject tempProject = myWorkspaceRoot.getProjects()[i];
+					if (tempProject.isAccessible()) {
+						System.out.println("Checking Project paths: " + tempProject.getFullPath());
+						if (projectNameFromURI.equals(tempProject.getFullPath().toString())) {
+
+							System.out.println("Found Project, creating String for assure: " + tempProject.getFullPath()
+									+ "/assure/" + selectedAssuranceCase.getName() + ".assure");
+							assureProject = tempProject;
+
+							// Should not include assure subdirectory because in some cases assure directory does not preexist
+							// Eventually, need rule to have the whole project
+							// assureDirURI = URI.createPlatformResourceURI(tempProject.getFullPath() + "/assure", false);
+//							assureDirURI = URI.createPlatformResourceURI(assureProject.getFullPath().toString(), false);
+							break;
+						}
+					}
+				}
 			}
 
 			Resource res = selectedAssuranceCase.getSystem().eResource();
@@ -388,21 +467,6 @@ public class AlisaView extends ViewPart {
 			if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {
 				path = path.trimSegments(1);
 			}
-//			URI instanceDirURI = path.appendSegment(WorkspacePlugin.AADL_INSTANCES_DIR);
-//			System.out.println("  MultiRule>>>>>No longer used>>>>>>>instanceDirURI: " + instanceDirURI.toString());
-//			System.out.println("  MultiRule>>>>>>>>>>>>assureDirURI: " + assureDirURI.toString());
-
-			// Intersection of instance directory and assure directory
-//			msr = MultiRule.combine(
-//					ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(instanceDirURI.toPlatformString(true))),
-//					ResourcesPlugin.getWorkspace().getRoot().getFolder(new Path(assureDirURI.toPlatformString(true))));
-
-			// Only the assure directory
-//			msr = new MultiRule(new ISchedulingRule[] { ResourcesPlugin.getWorkspace().getRoot()
-//					.getFolder(new Path(assureDirURI.toPlatformString(true))) });
-
-			// Only the assure project
-//			msr = new MultiRule(new ISchedulingRule[] { assureProject });
 
 			IProject aadlProject = null;
 			String projectNameFromAADL = "/" + path.segment(1);
