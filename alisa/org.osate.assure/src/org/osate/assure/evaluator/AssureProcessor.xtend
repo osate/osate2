@@ -28,20 +28,25 @@ import com.rockwellcollins.atc.resolute.resolute.ThisExpr
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.ecore.EObject
+import org.eclipse.jface.viewers.TreeViewer
+import org.eclipse.swt.widgets.Display
+import org.junit.runner.JUnitCore
+import org.osate.aadl2.AadlBoolean
+import org.osate.aadl2.AadlInteger
+import org.osate.aadl2.AadlReal
+import org.osate.aadl2.AadlString
 import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
+import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.alisa.common.common.APropertyReference
-import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.CommonFactory
-import org.osate.alisa.common.common.ValDeclaration
+import org.osate.alisa.common.common.TypeRef
+import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
@@ -58,6 +63,7 @@ import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
 import org.osate.verify.verify.FormalParameter
+import org.osate.verify.verify.JUnit4Method
 import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
@@ -66,18 +72,6 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import org.osate.aadl2.PropertyConstant
-import org.junit.runner.JUnitCore
-import org.junit.runner.Result
-import org.osate.verify.verify.JUnit4Method
-import org.osate.aadl2.PropertyExpression
-import org.eclipse.jface.viewers.TreeViewer
-import org.eclipse.swt.widgets.Display
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.AadlString
-import org.osate.aadl2.AadlBoolean
-import org.osate.alisa.common.common.AUnitExpression
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -93,6 +87,8 @@ interface IAssureProcessor {
  * It assumes the counts are ok
  */
 class AssureProcessor implements IAssureProcessor {
+
+	val interpreter = new CommonInterpreter
 
 	var IProgressMonitor progressmonitor
 
@@ -230,49 +226,49 @@ class AssureProcessor implements IAssureProcessor {
 			val x = targetComponent.findElementInstance(targetElement)
 			target = x ?: targetComponent
 		}
-		// actualParameters are those specified as part of the method call in the verification activity
-		var Iterable actualParameters
+		// parameters are those specified as part of the method call in the verification activity
+		var Iterable parameters
 		if (verificationResult instanceof VerificationActivityResult) {
-			actualParameters = verificationResult.target.actuals
+			parameters = verificationResult.target.actuals
 		} else if (verificationResult instanceof ValidationResult) {
-			actualParameters = method.validation.parameters
+			parameters = method.validation.parameters
 			method = method.validation.method
 		} else if (verificationResult instanceof PreconditionResult) {
-			actualParameters = method.precondition.parameters
+			parameters = method.precondition.parameters
 			method = method.precondition.method
 		}
 
 		// the actual parameters can be fewer than the formal parameters. i.e., the last few may be optional
-		if (actualParameters.size < method.formals.size) {
+		if (parameters.size < method.formals.size) {
 			setToError(verificationResult, "Fewer actual parameters than formal parameters for verification activity",
 				null)
 			return
 		}
 		val nbParams = method.formals.size
 		var i = 0
-		// actualParameterObjects is the list of objects actually passed to the call.
+		// parameterObjects is the list of objects actually passed to the call.
 		// This means actual parameter values that are references to "val" are resolved to the value object
 		// In this context we also convert from StringLiteral to String if String is expected.
 		// Same for RealLiteral, IntegerLiteral, and BooleanLiteral.
-		var List<PropertyExpression> actualParameterObjects = new ArrayList(actualParameters.size)
+		var List<PropertyExpression> parameterObjects = new ArrayList(parameters.size)
 
-		for (ap : actualParameters) {
-			var PropertyExpression actual
+		for (p : parameters) {
+			var PropertyExpression exp
 			// first handle references to formal parameters, as used in precondition and validation calls
-			if (ap instanceof FormalParameter) {
+			if (p instanceof FormalParameter) {
 				val varesult = verificationResult.eContainer as VerificationActivityResult
 				val aps = varesult.target.actuals
-				val idx = method.formals.indexOf(ap)
+				val idx = method.formals.indexOf(p)
 				if (idx >= 0) {
-					actual = aps.get(idx).valueCopy
+					exp = aps.get(idx)
 				} else {
 					setToError(verificationResult,
-						"Referenced formal parameter " + ap.name + " of method " + method.name +
+						"Referenced formal parameter " + p.name + " of method " + method.name +
 							" does not have an actual value", null)
 					return
 				}
-			} else if (ap instanceof PropertyExpression) {
-				actual = ap.valueCopy
+			} else if (p instanceof PropertyExpression) {
+				exp = p
 			} else {
 				var formalParam = method.formals.get(i)
 				setToError(verificationResult,
@@ -281,132 +277,96 @@ class AssureProcessor implements IAssureProcessor {
 				return
 			}
 
+			val result = interpreter.interpretExpression(exp)
+			if (result.failed) {
+				var formalParam = method.formals.get(i)
+				setToError(verificationResult,
+					"Could not evaluate expression for " + formalParam.name + " of method " + method.name + ": " +
+						result.ruleFailedException, null)
+				return
+			}
+			var actual = result.value
+			
 			if (i < nbParams) {
 				var formalParam = method.formals.get(i)
-				if (actual instanceof AUnitExpression) {
-					var tmpactual = actual.expression
-					if (tmpactual instanceof AVariableReference) {
-						val tmpval = tmpactual.variable
-						if (tmpval instanceof ValDeclaration) {
-							tmpactual = tmpval.value
-						}
-					}
-					if (tmpactual instanceof AUnitExpression){
-						val setunit = tmpactual.unit
-						val tmpval = tmpactual.expression.valueCopy
-						if (tmpval instanceof NumberValue){
-							tmpval.unit = setunit
-							tmpactual = tmpval
-						}
-					}
-					if (tmpactual instanceof NumberValue) {
-						if (tmpactual.unit != null && actual.unit != null &&
-							!tmpactual.unit.name.equals(actual.unit.name)) {
-							tmpactual = convertValueToUnit(tmpactual, actual.unit)
-						}
-					}
-					actual = tmpactual
-				}
+				i = i + 1
 				if (actual instanceof NumberValue) {
 					if (formalParam.unit != null && actual.unit != null &&
 						!formalParam.unit.name.equals(actual.unit.name)) {
 						actual = convertValueToUnit(actual, formalParam.unit)
 					}
 				}
+				parameterObjects.add(actual)
+			}
+		}
+		
+		if (verificationResult instanceof VerificationActivityResult) {
+			checkProperties(target, verificationResult)
+		}
 
-				val paramType = formalParam.type
-				if (actual == null) {
-					return
+		try {
+			val methodtype = method.methodKind
+			switch (methodtype) {
+				JavaMethod: {
+					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
+					executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
+					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
-				var typeName = actual.getClass.name
-				val idx = typeName.lastIndexOf('.')
-				if (idx >= 0) typeName = typeName.substring(idx + 1)
-				if (typeName.endsWith("Impl")) typeName = typeName.substring(0, typeName.length - 4)
-				if (typeName != null && paramType != null &&
-					! (
-//	                    typeName.equalsIgnoreCase(paramType) || 
-						typeName.equalsIgnoreCase("RealLiteral") && paramType instanceof AadlReal ||
-						typeName.equalsIgnoreCase("IntegerLiteral") && paramType instanceof AadlInteger ||
-						typeName.equalsIgnoreCase("StringLiteral") && paramType instanceof AadlString ||
-						typeName.equalsIgnoreCase("BooleanLiteral") && paramType instanceof AadlBoolean
-					)) {
+				PluginMethod: {
+					// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
+					val res = VerificationMethodDispatchers.eInstance.
+						dispatchVerificationMethod(methodtype, instanceroot, parameterObjects) // returning the marker or diagnostic id as string
+					if (res instanceof String) {
+						addMarkersAsResult(verificationResult, target, res, method)
+					} else {
+						setToError(verificationResult, "Analysis return type is not a string of MarkerType", target);
+					}
+					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
+				}
+				ResoluteMethod: {
+					// The parameters are objects from the Properties Meta model. Resolute likes them this way
+					AssureUtilExtension.initializeResoluteContext(instanceroot);
+					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
+					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
+					val provecall = createWrapperProveCall(methodtype, targetComponent, parameterObjects)
+					if (provecall == null) {
 						setToError(verificationResult,
-							"Parameter " + formalParam.name + ": mismatched types " + paramType + " and actual " +
-								typeName, null)
-						return
+							"Could not find Resolute Function " + verificationResult.method.name)
+					} else {
+
+						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
+						val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
+						if (proof.valid) {
+							setToSuccess(verificationResult)
+						} else {
+							val proveri = CommonFactory.eINSTANCE.createResultIssue
+							proof.doResoluteResults(proveri)
+							setToFail(verificationResult, proveri.issues)
+						}
 					}
-					actualParameterObjects.add(actual)
-					i = i + 1
+					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
 				}
-			}
-			if (verificationResult instanceof VerificationActivityResult) {
-				checkProperties(target, verificationResult)
-			}
+				AgreeMethod: {
+					AssureUtilExtension.initializeResoluteContext(instanceroot);
 
-			try {
-				val methodtype = method.methodKind
-				switch (methodtype) {
-					JavaMethod: {
-						// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-						executeJavaMethod(verificationResult, methodtype, target, actualParameterObjects)
-						verificationResult.eResource.save(null)
-						updateProgress(verificationResult)
-					}
-					PluginMethod: {
-						// The parameters are objects from the Properties Meta model. It is up to the plugin interface method to convert to Java base types
-						val res = VerificationMethodDispatchers.eInstance.
-							dispatchVerificationMethod(methodtype, instanceroot, actualParameterObjects) // returning the marker or diagnostic id as string
-						if (res instanceof String) {
-							addMarkersAsResult(verificationResult, target, res, method)
-						} else {
-							setToError(verificationResult, "Analysis return type is not a string of MarkerType",
-								target);
-						}
-						verificationResult.eResource.save(null)
-						updateProgress(verificationResult)
-					}
-					ResoluteMethod: {
-						// The parameters are objects from the Properties Meta model. Resolute likes them this way
-						AssureUtilExtension.initializeResoluteContext(instanceroot);
-						val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
-						val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
-						val provecall = createWrapperProveCall(methodtype, targetComponent, actualParameterObjects)
-						if (provecall == null) {
-							setToError(verificationResult,
-								"Could not find Resolute Function " + verificationResult.method.name)
-						} else {
+					val agreemethod = methodtype as AgreeMethod
 
-							// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
-							val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
-							if (proof.valid) {
-								setToSuccess(verificationResult)
-							} else {
-								val proveri = CommonFactory.eINSTANCE.createResultIssue
-								proof.doResoluteResults(proveri)
-								setToFail(verificationResult, proveri.issues)
-							}
-						}
-						verificationResult.eResource.save(null)
-						updateProgress(verificationResult)
-					}
-					AgreeMethod: {
-						AssureUtilExtension.initializeResoluteContext(instanceroot);
-
-						val agreemethod = methodtype as AgreeMethod
-
-						if (agreemethod.isAll) { // is recursive
-							// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
-						} else if (agreemethod.singleLayer) {
-							System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
+					if (agreemethod.isAll) { // is recursive
+						// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
+					} else if (agreemethod.singleLayer) {
+						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
 //						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
-						// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
-						// Currently Agree does not work on Flows or Connections so this is valid
+					// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
+					// Currently Agree does not work on Flows or Connections so this is valid
 //						verHandler.executeSystemInstance(target as ComponentInstance, progressTreeViewer);
-						}
-
-					// Should not save here because it is job based
-					// verificationResult.eResource.save(null)
 					}
+
+				// Should not save here because it is job based
+				// verificationResult.eResource.save(null)
+				}
 //					case SupportedTypes.RESOLUTEPREDICATE: {
 //					AssureUtilExtension.initializeResoluteContext(instance);
 //						val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
@@ -433,176 +393,176 @@ class AssureProcessor implements IAssureProcessor {
 //							}
 //						}
 //					}
-					JUnit4Method: {
-						val test = VerificationMethodDispatchers.eInstance.findClass(methodtype.classPath);
-						val junit = new JUnitCore();
-						val result = junit.run(test);
-						if (result.failureCount == 0) {
-							setToSuccess(verificationResult)
-						} else {
-							val proveri = CommonFactory.eINSTANCE.createResultIssue
-							result.doJUnitResults(proveri)
-							setToFail(verificationResult, proveri.issues)
-						}
-						verificationResult.eResource.save(null)
-					}
-					ManualMethod: {
-						verificationResult.eResource.save(null)
-						updateProgress(verificationResult)
-					}
-				} // end switch on method
-			} catch (AssertionError e) {
-				setToFail(verificationResult, e);
-				verificationResult.eResource.save(null)
-				updateProgress(verificationResult)
-			} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
-				throw e;
-			} catch (Throwable e) {
-				setToError(verificationResult, e);
-				// e.printStackTrace;
-				verificationResult.eResource.save(null)
-				updateProgress(verificationResult)
-			}
-		// verificationResult.eResource.save(null)
-		}
-
-		def updateProgress(VerificationResult result) {
-			if (progressTreeViewer != null) {
-				Display.getDefault().asyncExec(new Runnable() {
-					override void run() {
-						progressTreeViewer.update(result, null)
-					}
-				});
-			}
-		}
-
-		def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
-			List<PropertyExpression> parameters) {
-			val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
-			if (res != null) {
-				if (res instanceof Boolean) {
-					if (res != true) {
-						setToFail(verificationResult, "", target);
-					} else {
+				JUnit4Method: {
+					val test = VerificationMethodDispatchers.eInstance.findClass(methodtype.classPath);
+					val junit = new JUnitCore();
+					val result = junit.run(test);
+					if (result.failureCount == 0) {
 						setToSuccess(verificationResult)
+					} else {
+						val proveri = CommonFactory.eINSTANCE.createResultIssue
+						result.doJUnitResults(proveri)
+						setToFail(verificationResult, proveri.issues)
 					}
-				} else if (res instanceof String) {
-					setToSuccess(verificationResult, res, target)
-				} else if (res instanceof ResultReport) {
-					verificationResult.resultReport = res
+					verificationResult.eResource.save(null)
+				}
+				ManualMethod: {
+					verificationResult.eResource.save(null)
+					updateProgress(verificationResult)
+				}
+			} // end switch on method
+		} catch (AssertionError e) {
+			setToFail(verificationResult, e);
+			verificationResult.eResource.save(null)
+			updateProgress(verificationResult)
+		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+			throw e;
+		} catch (Throwable e) {
+			setToError(verificationResult, e);
+			// e.printStackTrace;
+			verificationResult.eResource.save(null)
+			updateProgress(verificationResult)
+		}
+	// verificationResult.eResource.save(null)
+	}
+
+	def updateProgress(VerificationResult result) {
+		if (progressTreeViewer != null) {
+			Display.getDefault().asyncExec(new Runnable() {
+				override void run() {
+					progressTreeViewer.update(result, null)
+				}
+			});
+		}
+	}
+
+	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
+		List<PropertyExpression> parameters) {
+		val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
+		if (res != null) {
+			if (res instanceof Boolean) {
+				if (res != true) {
+					setToFail(verificationResult, "", target);
 				} else {
-					setToError(verificationResult, "No result report from analysis", target);
+					setToSuccess(verificationResult)
 				}
+			} else if (res instanceof String) {
+				setToSuccess(verificationResult, res, target)
+			} else if (res instanceof ResultReport) {
+				verificationResult.resultReport = res
+			} else {
+				setToError(verificationResult, "No result report from analysis", target);
 			}
-
-		}
-
-		def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
-			List<PropertyExpression> params) {
-			val found = rm.methodReference
-			val factory = ResoluteFactory.eINSTANCE
-			if (found == null) return null
-			val call = factory.createFnCallExpr
-			call.fn = found
-			call.args.add(createComponentinstanceReference(ci))
-			addParams(call, params)
-			val prove = factory.createProveStatement
-			prove.expr = call
-			prove
-		}
-
-		def ThisExpr createComponentinstanceReference(ComponentInstance ci) {
-			val factory = ResoluteFactory.eINSTANCE
-			var NestedDotID nid = null
-			var nci = ci
-			while (!(nci instanceof SystemInstance)) {
-				val x = factory.createNestedDotID
-				x.base = nci.subcomponent
-				x.sub = nid
-				nid = x
-				nci = nci.eContainer as ComponentInstance
-			}
-			val te = factory.createThisExpr
-			te.sub = nid
-			te
-		}
-
-		def addParams(FnCallExpr call, List<PropertyExpression> params) {
-			for (p : params) {
-				if (p instanceof RealLiteral) {
-					val realval = ResoluteFactory.eINSTANCE.createRealExpr
-					realval.^val = p
-					call.args.add(realval)
-				} else if (p instanceof IntegerLiteral) {
-					val intval = ResoluteFactory.eINSTANCE.createIntExpr
-					intval.^val = p
-					call.args.add(intval)
-				} else if (p instanceof StringLiteral) {
-					val stringval = ResoluteFactory.eINSTANCE.createStringExpr
-					stringval.^val = p
-					call.args.add(stringval)
-				} else if (p instanceof BooleanLiteral) {
-					val stringval = ResoluteFactory.eINSTANCE.createBoolExpr
-					stringval.^val = p
-					call.args.add(stringval)
-				}
-			}
-		}
-
-		def createWrapperFnCall(ResoluteMethod vr, List<PropertyExpression> params) {
-			val found = vr.methodReference
-			val factory = ResoluteFactory.eINSTANCE
-			val target = factory.createIdExpr
-			target.id = vr.caseTargetModelElement
-			val call = factory.createFnCallExpr
-			call.fn = found
-			call.args.add(target)
-			addParams(call, params)
-			call
-		}
-
-		def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
-			val method = result.method
-			val properties = method.properties
-			val values = result.target.propertyValues
-
-			val iter1 = properties.iterator
-			val iter2 = values.iterator
-			var success = true;
-
-			while (iter1.hasNext && iter2.hasNext) {
-				val property = iter1.next
-				val variable = iter2.next
-
-				try {
-					val value = variable.value
-					if (value instanceof NumberValue) {
-						val unit = value.unit
-						val reqValue = value.getScaledValue(unit)
-						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
-
-						if (reqValue != modelValue) {
-							println(
-								"Property " + property.getQualifiedName() + ": Value in model (" + modelValue +
-									unit.name + ") does not match required value (" + reqValue + unit.name + ")")
-							result.addErrorIssue(object,
-								"Property " + property.getQualifiedName() + ": Value in model (" + modelValue +
-									unit.name + ") does not match required value (" + reqValue + unit.name + ")")
-							result.setToFail
-						} else {
-							println("   match " + modelValue + " == " + reqValue)
-						}
-					}
-				} catch (Exception e) {
-					e.printStackTrace
-				}
-			}
-			return success;
-		}
-
-		override void setProgressTreeViewer(TreeViewer treeViewer) {
-			progressTreeViewer = treeViewer
 		}
 
 	}
+
+	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
+		List<PropertyExpression> params) {
+		val found = rm.methodReference
+		val factory = ResoluteFactory.eINSTANCE
+		if (found == null) return null
+		val call = factory.createFnCallExpr
+		call.fn = found
+		call.args.add(createComponentinstanceReference(ci))
+		addParams(call, params)
+		val prove = factory.createProveStatement
+		prove.expr = call
+		prove
+	}
+
+	def ThisExpr createComponentinstanceReference(ComponentInstance ci) {
+		val factory = ResoluteFactory.eINSTANCE
+		var NestedDotID nid = null
+		var nci = ci
+		while (!(nci instanceof SystemInstance)) {
+			val x = factory.createNestedDotID
+			x.base = nci.subcomponent
+			x.sub = nid
+			nid = x
+			nci = nci.eContainer as ComponentInstance
+		}
+		val te = factory.createThisExpr
+		te.sub = nid
+		te
+	}
+
+	def addParams(FnCallExpr call, List<PropertyExpression> params) {
+		for (p : params) {
+			if (p instanceof RealLiteral) {
+				val realval = ResoluteFactory.eINSTANCE.createRealExpr
+				realval.^val = p
+				call.args.add(realval)
+			} else if (p instanceof IntegerLiteral) {
+				val intval = ResoluteFactory.eINSTANCE.createIntExpr
+				intval.^val = p
+				call.args.add(intval)
+			} else if (p instanceof StringLiteral) {
+				val stringval = ResoluteFactory.eINSTANCE.createStringExpr
+				stringval.^val = p
+				call.args.add(stringval)
+			} else if (p instanceof BooleanLiteral) {
+				val stringval = ResoluteFactory.eINSTANCE.createBoolExpr
+				stringval.^val = p
+				call.args.add(stringval)
+			}
+		}
+	}
+
+	def createWrapperFnCall(ResoluteMethod vr, List<PropertyExpression> params) {
+		val found = vr.methodReference
+		val factory = ResoluteFactory.eINSTANCE
+		val target = factory.createIdExpr
+		target.id = vr.caseTargetModelElement
+		val call = factory.createFnCallExpr
+		call.fn = found
+		call.args.add(target)
+		addParams(call, params)
+		call
+	}
+
+	def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
+		val method = result.method
+		val properties = method.properties
+		val values = result.target.propertyValues
+
+		val iter1 = properties.iterator
+		val iter2 = values.iterator
+		var success = true;
+
+		while (iter1.hasNext && iter2.hasNext) {
+			val property = iter1.next
+			val variable = iter2.next
+
+			try {
+				val value = variable.value
+				if (value instanceof NumberValue) {
+					val unit = value.unit
+					val reqValue = value.getScaledValue(unit)
+					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+
+					if (reqValue != modelValue) {
+						println(
+							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
+								") does not match required value (" + reqValue + unit.name + ")")
+						result.addErrorIssue(object,
+							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
+								") does not match required value (" + reqValue + unit.name + ")")
+						result.setToFail
+					} else {
+						println("   match " + modelValue + " == " + reqValue)
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace
+			}
+		}
+		return success;
+	}
+
+	override void setProgressTreeViewer(TreeViewer treeViewer) {
+		progressTreeViewer = treeViewer
+	}
+
+}
 
