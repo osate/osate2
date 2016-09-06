@@ -207,26 +207,4 @@ class CommonUtilExtension {
 		return res
 	}
 
-	def static getValueCopy(PropertyExpression vd) {
-		if (vd instanceof ValDeclaration) {
-			return EcoreUtil.copy(vd.value)
-		} else if (vd instanceof AVariableReference) {
-			// handle Val reference if AExpression is used
-			val pari = vd.variable
-			if (pari instanceof ValDeclaration) {
-			return EcoreUtil.copy(pari.value)
-			}
-		} else if (vd instanceof APropertyReference) {
-			// handle property or property constant reference
-			val pari = vd.property
-			if (pari instanceof PropertyConstant) {
-				return EcoreUtil.copy(pari.constantValue)
-			} else if (pari instanceof Property) {
-			}
-		} else {
-			// the value literal object as found in AExpression
-			return vd 
-		}
-	}
-
 }
