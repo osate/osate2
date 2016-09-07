@@ -25,16 +25,13 @@ import com.rockwellcollins.atc.resolute.resolute.NestedDotID
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr
+import it.xsemantics.runtime.RuleEnvironment
 import java.util.ArrayList
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
 import org.junit.runner.JUnitCore
-import org.osate.aadl2.AadlBoolean
-import org.osate.aadl2.AadlInteger
-import org.osate.aadl2.AadlReal
-import org.osate.aadl2.AadlString
 import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
@@ -45,7 +42,6 @@ import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
 import org.osate.alisa.common.common.CommonFactory
-import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
 import org.osate.assure.assure.ElseResult
@@ -72,6 +68,7 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import java.util.HashMap
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -94,6 +91,8 @@ class AssureProcessor implements IAssureProcessor {
 
 	var TreeViewer progressTreeViewer
 
+	val RuleEnvironment env = new RuleEnvironment
+	
 	var long start = 0
 
 	def void startSubTask(VerificationActivityResult vaResult) {
@@ -136,7 +135,10 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
+		env.add('vals', new HashMap<Object, Object>)
+		env.add('computes', new HashMap<Object, Object>)
 		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
+		env.environment.clear
 		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
 	}
 
@@ -277,7 +279,7 @@ class AssureProcessor implements IAssureProcessor {
 				return
 			}
 
-			val result = interpreter.interpretExpression(exp)
+			val result = interpreter.interpretExpression(env, exp)
 			if (result.failed) {
 				var formalParam = method.formals.get(i)
 				setToError(verificationResult,

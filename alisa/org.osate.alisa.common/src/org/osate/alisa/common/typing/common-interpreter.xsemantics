@@ -14,6 +14,7 @@
  * See COPYRIGHT file for full details.
  */
 
+import java.util.HashMap
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.AadlInteger
 import org.osate.aadl2.BooleanLiteral
@@ -209,15 +210,26 @@ from {
 rule InterpretVal
 	G ||- ValDeclaration varDecl ~> PropertyValue propVal
 from {
-	G |- varDecl.value ~> propVal
+	val map = env(G, 'vals', Object) as HashMap<ValDeclaration, PropertyValue>
+	if (map.containsKey(varDecl)) {
+		propVal = map.get(varDecl)
+	} else {
+		G |- varDecl.value ~> propVal
+		map.put(varDecl, propVal)
+	}
 }
 
 rule InterpretCompute
 	G ||- ComputeDeclaration varDecl ~> PropertyValue propVal
 from {
-	fail
-		error 'interpreter: compute variables are not yet implemented'
-		source varDecl
+	{ 
+		val map = env(G, 'vals', Object) as HashMap<String, PropertyValue>
+		map.containsKey(varDecl.name)
+		propVal = map.get(varDecl.name)
+	} or {
+		fail
+			error 'interpreter: compute variable ' + varDecl.name + ' has no value'
+	}
 }
 
 rule InterpretVarRef
