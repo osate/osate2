@@ -14,7 +14,7 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
-class Issue734 extends OsateTest {
+class Issue734Test extends OsateTest {
 	override getProjectName() {
 		"issue734"
 	}
