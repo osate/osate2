@@ -99,14 +99,13 @@ import org.osate.workspace.WorkspacePlugin
 
 class AssureUtilExtension {
 
-	
 	def static SubsystemResult getEnclosingSubsystemResult(EObject assureObject) {
 		if (assureObject.eContainer == null) return null;
 		var result = assureObject.eContainer
 		while (result != null && !(result instanceof SubsystemResult)) {
 			result = result.eContainer
 		}
-		if(result == null) return null
+		if (result == null) return null
 		return result as SubsystemResult
 	}
 
@@ -134,12 +133,12 @@ class AssureUtilExtension {
 		var ac = assureObject
 		while (ac != null) {
 			ac = ac.eContainer
-			if (ac instanceof ModelResult){
-				if (ac.target != null){
+			if (ac instanceof ModelResult) {
+				if (ac.target != null) {
 					return ac.target
 				}
-			} else if (ac instanceof SubsystemResult){
-				if (ac.targetSystem != null){
+			} else if (ac instanceof SubsystemResult) {
+				if (ac.targetSystem != null) {
 					return ac.targetSystem.allClassifier
 				}
 			}
@@ -158,7 +157,6 @@ class AssureUtilExtension {
 
 // Deal with qualified verification activity references	
 // reference string constructor is in VerifyUtilExtension
-
 	def static VerificationPlan findVerificationPlan(NestedClaimReference refObject) {
 		var EObject result = refObject
 		while (!(result instanceof QualifiedVerificationPlanElementReference)) {
@@ -166,15 +164,15 @@ class AssureUtilExtension {
 		}
 		return (result as QualifiedVerificationPlanElementReference).verificationPlan
 	}
-	
-	def static findClaim(QualifiedVAReference qva){
+
+	def static findClaim(QualifiedVAReference qva) {
 		return getReferencedClaim(qva.requirement, qva.verificationPlan.claim)
 	}
-	
-	def static Claim getReferencedClaim(NestedClaimReference cref, Iterable<Claim> claims){
-		for (cl : claims){
+
+	def static Claim getReferencedClaim(NestedClaimReference cref, Iterable<Claim> claims) {
+		for (cl : claims) {
 			if (cl.requirement.name.equalsIgnoreCase(cref.requirement.name)) {
-				if (cref.sub != null && !cl.subclaim.empty){
+				if (cref.sub != null && !cl.subclaim.empty) {
 					return getReferencedClaim(cref.sub, cl.subclaim)
 				}
 				return cl
@@ -182,14 +180,15 @@ class AssureUtilExtension {
 		}
 		return null
 	}
-	
-	def static findClaim(QualifiedClaimReference qc){
+
+	def static findClaim(QualifiedClaimReference qc) {
 		return getReferencedClaim(qc.requirement, qc.verificationPlan.claim)
 	}
-	
-	def static getTarget(ClaimResult cr){
-		var qualreqref=cr.targetReference.requirement
-		while (qualreqref.sub != null) qualreqref = qualreqref.sub
+
+	def static getTarget(ClaimResult cr) {
+		var qualreqref = cr.targetReference.requirement
+		while (qualreqref.sub != null)
+			qualreqref = qualreqref.sub
 		return qualreqref.requirement
 	}
 
@@ -199,11 +198,10 @@ class AssureUtilExtension {
 	def static NamedElement getCaseTargetModelElement(EObject assureObject) {
 		val cr = assureObject.claimResult
 		val res = cr.modelElement
-		if (!Aadl2Util.isNull(res))	return res
+		if (!Aadl2Util.isNull(res)) return res
 		val req = cr.target
-		req?.targetElement ?: req.targetClassifier?:cr.caseTargetClassifier
+		req?.targetElement ?: req.targetClassifier ?: cr.caseTargetClassifier
 	}
-
 
 	def static boolean isConnections(EObject assureObject) {
 		assureObject.claimResult.target?.connections
@@ -215,20 +213,19 @@ class AssureUtilExtension {
 		(rac as ComponentImplementation).instanceModel
 	}
 
-	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si,SubsystemResult ac){
-		if (ac != null && ac.targetSystem != null){
-			val ci = findTargetSystemComponentInstance(si,ac.enclosingSubsystemResult)
-			findElementInstance(ci,ac.targetSystem) as ComponentInstance
+	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si, SubsystemResult ac) {
+		if (ac != null && ac.targetSystem != null) {
+			val ci = findTargetSystemComponentInstance(si, ac.enclosingSubsystemResult)
+			findElementInstance(ci, ac.targetSystem) as ComponentInstance
 		} else {
 			si
 		}
 	}
-	
-	def static VerificationActivity getTarget(VerificationActivityResult vares){
+
+	def static VerificationActivity getTarget(VerificationActivityResult vares) {
 		val vaqref = vares.targetReference
 		return vaqref.verificationActivity
 	}
-
 
 	def static VerificationMethod getMethod(VerificationResult vr) {
 		switch (vr) {
@@ -243,10 +240,9 @@ class AssureUtilExtension {
 	 */
 	def static void addMarkersAsResult(VerificationResult verificationActivityResult, InstanceObject instance,
 		String markertype, VerificationMethod vm) {
-			addMarkersAsResult(verificationActivityResult, instance, markertype, vm, "")
-		}
-	 
-	 
+		addMarkersAsResult(verificationActivityResult, instance, markertype, vm, "")
+	}
+
 	def static void addMarkersAsResult(VerificationResult verificationActivityResult, InstanceObject instance,
 		String markertype, VerificationMethod vm, String diagnosticId) {
 		val res = instance.eResource
@@ -279,10 +275,10 @@ class AssureUtilExtension {
 				msg.contains(matchstr)
 			]
 		}
-		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null/*instance*/, em, diagnosticId)]
+		targetmarkers.forEach[em|verificationActivityResult.addMarkerIssue(null /*instance*/ , em, diagnosticId)]
 		if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.FAIL]) {
 			verificationActivityResult.setToFail
-		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]){
+		} else if (verificationActivityResult.issues.exists[ri|ri.issueType == ResultIssueType.ERROR]) {
 			verificationActivityResult.setToError
 		} else {
 			verificationActivityResult.setToSuccess
@@ -314,13 +310,15 @@ class AssureUtilExtension {
 	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message) {
 		addErrorIssue(vr, target, message, null, "")
 	}
+
 	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String diagnosticId) {
 		addErrorIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource, String diagnosticId) {
+	def static ResultIssue addErrorIssue(VerificationResult vr, EObject target, String message, String issueSource,
+		String diagnosticId) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
-		issue.message = message?:"no message"
+		issue.message = message ?: "no message"
 		issue.issueType = ResultIssueType.ERROR;
 		issue.exceptionType = issueSource
 		issue.target = target
@@ -333,9 +331,10 @@ class AssureUtilExtension {
 		addFailIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource, String diagnosticId) {
+	def static ResultIssue addFailIssue(VerificationResult vr, EObject target, String message, String issueSource,
+		String diagnosticId) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
-		issue.message = message?:"no message"
+		issue.message = message ?: "no message"
 		issue.issueType = ResultIssueType.FAIL;
 		issue.exceptionType = issueSource
 		issue.target = target
@@ -348,7 +347,8 @@ class AssureUtilExtension {
 		addInfoIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource, String diagnosticId) {
+	def static ResultIssue addInfoIssue(VerificationResult vr, EObject target, String message, String issueSource,
+		String diagnosticId) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.INFO;
@@ -362,7 +362,8 @@ class AssureUtilExtension {
 		addSuccessIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource, String diagnosticId) {
+	def static ResultIssue addSuccessIssue(VerificationResult vr, EObject target, String message, String issueSource,
+		String diagnosticId) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.SUCCESS;
@@ -377,7 +378,8 @@ class AssureUtilExtension {
 		addWarningIssue(vr, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource, String diagnosticId) {
+	def static ResultIssue addWarningIssue(VerificationResult vr, EObject target, String message, String issueSource,
+		String diagnosticId) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = ResultIssueType.WARNING;
@@ -406,12 +408,10 @@ class AssureUtilExtension {
 		]
 	}
 
-
-
 	def static void doJUnitResults(Result rr, ResultIssue ri) {
 		val failist = rr.failures
 		failist.forEach [ failed |
-					ri.addFailIssue(null, failed.message)
+			ri.addFailIssue(null, failed.message)
 		]
 	}
 
@@ -420,10 +420,11 @@ class AssureUtilExtension {
 	}
 
 	def static ResultIssue addFailIssue(ResultIssue ri, EObject target, String message, String diagnosticId) {
-		addIssue(ri, ResultIssueType.FAIL,target, message, null, diagnosticId)
+		addIssue(ri, ResultIssueType.FAIL, target, message, null, diagnosticId)
 	}
 
-	def static ResultIssue addIssue(ResultIssue ri, ResultIssueType type, EObject target, String message, String issueSource, String diagnosticId) {
+	def static ResultIssue addIssue(ResultIssue ri, ResultIssueType type, EObject target, String message,
+		String issueSource, String diagnosticId) {
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.message = message
 		issue.issueType = type;
@@ -507,6 +508,16 @@ class AssureUtilExtension {
 	}
 
 	/**
+	 * true at least one element is TBD
+	 */
+	def static boolean isTBD(EList<VerificationExpr> vel) {
+		for (ar : vel) {
+			if (ar.isTBD) return true
+		}
+		return false
+	}
+
+	/**
 	 * true iff none of the elements have a fail or error
 	 */
 	def static boolean isSuccess(EList<VerificationExpr> vel) {
@@ -579,13 +590,13 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			AssuranceCaseResult: return "system "+ar.name
-			ModelResult: return "model "+ar.name
-			SubsystemResult: return "subsystem "+ar.name
-			ClaimResult: return "claim "+ar.name
-			ValidationResult: return "validation "+ar.name
-			PreconditionResult: return "precondition "+ar.name
-			VerificationActivityResult: return "evidence "+ar.name
+			AssuranceCaseResult: return "system " + ar.name
+			ModelResult: return "model " + ar.name
+			SubsystemResult: return "subsystem " + ar.name
+			ClaimResult: return "claim " + ar.name
+			ValidationResult: return "validation " + ar.name
+			PreconditionResult: return "precondition " + ar.name
+			VerificationActivityResult: return "evidence " + ar.name
 			ElseResult: return "Else"
 			ThenResult: return "Then"
 		}
@@ -677,31 +688,30 @@ class AssureUtilExtension {
 	 * methods to deal with assurance case instance
 	 */
 	/**
-	  * this method resets the execution state of all verification activities to TBD
-	  */
+	 * this method resets the execution state of all verification activities to TBD
+	 */
 	def static void resetToTBD(AssuranceCaseResult root, CategoryFilter filter) {
 		val vrlist = EcoreUtil2.eAllOfType(root, VerificationResult)
 		vrlist.forEach [ vr |
-			//If there is no filter reset all.
-			if(filter == null ){
+			// If there is no filter reset all.
+			if (filter == null) {
 				vr.resultState = VerificationResultState.TBD
 				vr.executionState = VerificationExecutionState.TODO
 				vr.issues.clear
-			
-			//reset only the ones that we will be redoing
-			}else{
+
+			// reset only the ones that we will be redoing
+			} else {
 				switch vr {
 					VerificationActivityResult: {
 						val verificationActivity = vr.targetReference.verificationActivity
 						if (verificationActivity.evaluateVerificationMethodFilter(filter) &&
-							verificationActivity.evaluateVerificationActivityFilter(filter)
-						) {
+							verificationActivity.evaluateVerificationActivityFilter(filter)) {
 							vr.resultState = VerificationResultState.TBD
 							vr.executionState = VerificationExecutionState.TODO
 							vr.issues.clear
 						}
 					}
-					//default:
+				// default:
 				}
 			}
 		]
@@ -805,7 +815,7 @@ class AssureUtilExtension {
 		counts.featuresRequirementsCount = counts.featuresRequirementsCount + subcounts.featuresRequirementsCount
 	}
 
-	def static CategoryFilter getCategoryFilter(AssureResult assureResult){
+	def static CategoryFilter getCategoryFilter(AssureResult assureResult) {
 		null
 //		val filters = (assureResult.modelResult.plan.eContainer as AssuranceCase).tasks
 //		println("filters = " + filters)
@@ -823,19 +833,22 @@ class AssureUtilExtension {
 	/**
 	 * recompute and add the counts of the parts list to the result
 	 */
-	private def static void recomputeAllCounts(AssureResult result, List<? extends AssureResult> parts, CategoryFilter filter) {
-		parts.forEach[e|
+	private def static void recomputeAllCounts(AssureResult result, List<? extends AssureResult> parts,
+		CategoryFilter filter) {
+		parts.forEach [ e |
 			switch e {
 				ClaimResult: {
-					if (e.targetReference.findClaim.evaluateRequirementFilter(filter)) e.recomputeAllCounts(filter).addTo(result)
+					if (e.targetReference.findClaim.evaluateRequirementFilter(filter))
+						e.recomputeAllCounts(filter).addTo(result)
 				}
 				VerificationActivityResult: {
 					val verificationActivity = e.targetReference.verificationActivity
 					if (verificationActivity.evaluateVerificationMethodFilter(filter) &&
-						verificationActivity.evaluateVerificationActivityFilter(filter)
-					) e.recomputeAllCounts(filter).addTo(result)
+						verificationActivity.evaluateVerificationActivityFilter(filter))
+						e.recomputeAllCounts(filter).addTo(result)
 				}
-				default: e.recomputeAllCounts(filter).addTo(result)
+				default:
+					e.recomputeAllCounts(filter).addTo(result)
 			}
 		]
 	}
@@ -868,7 +881,8 @@ class AssureUtilExtension {
 		claimResult
 	}
 
-	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult, CategoryFilter filter) {
+	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult,
+		CategoryFilter filter) {
 		vaResult.resetCounts
 		if (vaResult.preconditionResult != null) vaResult.preconditionResult.recomputeAllCounts(filter).addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
@@ -880,16 +894,20 @@ class AssureUtilExtension {
 		vaResult.resetCounts
 		vaResult.didFail = ElseType.OK
 		vaResult.recomputeAllCounts(vaResult.first, filter)
-		if (vaResult.first.isSuccess) {
-			vaResult.recordNoElse
-		} else {
-			if (vaResult.first.isFailed)
-				vaResult.recordElse(ElseType.FAIL)
-			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT) else vaResult.recordElse(
-				ElseType.ERROR)
-			vaResult.recomputeAllCounts(vaResult.error, filter)
-			vaResult.recomputeAllCounts(vaResult.fail, filter)
-			vaResult.recomputeAllCounts(vaResult.timeout, filter)
+		if (! vaResult.first.isTBD) {
+			if (vaResult.first.isSuccess) {
+				vaResult.recordNoElse
+			} else {
+				if (vaResult.first.isFailed)
+					vaResult.recordElse(ElseType.FAIL)
+				else if (vaResult.first.isTimeout)
+					vaResult.recordElse(ElseType.TIMEOUT)
+				else if (vaResult.first.isEmpty)
+					vaResult.recordElse(ElseType.ERROR)
+				vaResult.recomputeAllCounts(vaResult.error, filter)
+				vaResult.recomputeAllCounts(vaResult.fail, filter)
+				vaResult.recomputeAllCounts(vaResult.timeout, filter)
+			}
 		}
 		vaResult
 	}
@@ -898,11 +916,13 @@ class AssureUtilExtension {
 		vaResult.resetCounts
 		vaResult.didThenFail = false
 		vaResult.recomputeAllCounts(vaResult.first, filter)
-		if (vaResult.first.isSuccess) {
-			vaResult.recordSkip
-			vaResult.recomputeAllCounts(vaResult.second, filter)
-		} else {
-			vaResult.recordNoSkip
+		if (! vaResult.first.isTBD) {
+			if (vaResult.first.isSuccess) {
+				vaResult.recordSkip
+				vaResult.recomputeAllCounts(vaResult.second, filter)
+			} else {
+				vaResult.recordNoSkip
+			}
 		}
 		vaResult
 	}
@@ -913,7 +933,8 @@ class AssureUtilExtension {
 		validationResult
 	}
 
-	private def static PreconditionResult recomputeAllCounts(PreconditionResult preconditionResult, CategoryFilter filter) {
+	private def static PreconditionResult recomputeAllCounts(PreconditionResult preconditionResult,
+		CategoryFilter filter) {
 		preconditionResult.resetCounts
 		preconditionResult.addOwnResultStateToCount()
 		preconditionResult
@@ -946,8 +967,10 @@ class AssureUtilExtension {
 		setToSuccess(verificationActivityResult, message, target, "")
 	}
 
-	def static void setToSuccess(VerificationResult verificationActivityResult, String message, EObject target, String diagnosticId) {
-		if (message != null && !message.isEmpty) verificationActivityResult.addSuccessIssue(target, message, null, diagnosticId);
+	def static void setToSuccess(VerificationResult verificationActivityResult, String message, EObject target,
+		String diagnosticId) {
+		if (message != null && !message.isEmpty)
+			verificationActivityResult.addSuccessIssue(target, message, null, diagnosticId);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
 			verificationActivityResult.propagateCountChangeUp
 	}
@@ -1017,7 +1040,7 @@ class AssureUtilExtension {
 		} else {
 			result.didFail = et
 			result.metrics.didelseCount = result.metrics.didelseCount + 1
-			result.propagateCountChangeUp
+//			result.propagateCountChangeUp
 		}
 	}
 
@@ -1029,7 +1052,7 @@ class AssureUtilExtension {
 		if (result.didFail != ElseType.OK) {
 			result.didFail = ElseType.OK
 			result.metrics.didelseCount = result.metrics.didelseCount - 1
-			result.propagateCountChangeUp
+//			result.propagateCountChangeUp
 		} else {
 			// was already no didThen
 		}
@@ -1045,19 +1068,18 @@ class AssureUtilExtension {
 		} else {
 			result.didThenFail = true
 			result.metrics.thenskipCount = result.metrics.thenskipCount + 1
-			result.propagateCountChangeUp
+//			result.propagateCountChangeUp
 		}
 	}
 
 	/**
 	 * the next methods update the counts for FailThen and AndThen
-	 * returns true if change of state
 	 */
 	def static void recordNoSkip(ThenResult result) {
 		if (result.didThenFail) {
 			result.didThenFail = false
 			result.metrics.thenskipCount = result.metrics.thenskipCount - 1
-			result.propagateCountChangeUp
+//			result.propagateCountChangeUp
 		} else {
 			// was already no didThen
 		}
@@ -1069,49 +1091,51 @@ class AssureUtilExtension {
 	 */
 	def private static boolean updateOwnResultState(VerificationResult ar, VerificationResultState newState) {
 		val counts = ar.metrics
-		
+
 		if (ar.resultState == newState) return false
-	
-		if (ar.resultState == VerificationResultState.FAIL && newState != VerificationResultState.TBD) return true 
-		if (ar.resultState == VerificationResultState.ERROR && (newState == VerificationResultState.SUCCESS|| newState == VerificationResultState.TIMEOUT)) return true 
-		if (ar.resultState == VerificationResultState.TIMEOUT && newState == VerificationResultState.SUCCESS ) return true 
-	// undo old state count
-			switch (ar.resultState) {
-				case VerificationResultState.SUCCESS:
-					counts.successCount = counts.successCount - 1
-				case VerificationResultState.FAIL:
-					counts.failCount = counts.failCount - 1
-				case VerificationResultState.ERROR:
-					counts.errorCount = counts.errorCount - 1
-				case VerificationResultState.TIMEOUT:
-					counts.timeoutCount = counts.timeoutCount - 1
-				case VerificationResultState.TBD:
-					counts.tbdCount = counts.tbdCount - 1
-			}
+
+		if (ar.resultState == VerificationResultState.FAIL && newState != VerificationResultState.TBD) return true
+		if (ar.resultState == VerificationResultState.ERROR &&
+			(newState == VerificationResultState.SUCCESS || newState == VerificationResultState.TIMEOUT)) return true
+		if (ar.resultState == VerificationResultState.TIMEOUT &&
+			newState == VerificationResultState.SUCCESS) return true
+		// undo old state count
+		switch (ar.resultState) {
+			case VerificationResultState.SUCCESS:
+				counts.successCount = counts.successCount - 1
+			case VerificationResultState.FAIL:
+				counts.failCount = counts.failCount - 1
+			case VerificationResultState.ERROR:
+				counts.errorCount = counts.errorCount - 1
+			case VerificationResultState.TIMEOUT:
+				counts.timeoutCount = counts.timeoutCount - 1
+			case VerificationResultState.TBD:
+				counts.tbdCount = counts.tbdCount - 1
+		}
 		// do new state count
-			switch (newState) {
-				case VerificationResultState.SUCCESS: {
-					counts.successCount = counts.successCount + 1
-					ar.executionState = VerificationExecutionState.COMPLETED
-					}
-				case VerificationResultState.FAIL: {
-					counts.failCount = counts.failCount + 1
-					ar.executionState = VerificationExecutionState.COMPLETED
-				}
-				case VerificationResultState.ERROR:{
-					counts.errorCount = counts.errorCount + 1
-					ar.executionState = VerificationExecutionState.COMPLETED
-				}
-				case VerificationResultState.TIMEOUT: {
-					counts.timeoutCount = counts.timeoutCount + 1
-					ar.executionState = VerificationExecutionState.COMPLETED
-				}
-				case VerificationResultState.TBD: {
-					counts.tbdCount = counts.tbdCount + 1
-					ar.executionState = VerificationExecutionState.TODO
-				}
+		switch (newState) {
+			case VerificationResultState.SUCCESS: {
+				counts.successCount = counts.successCount + 1
+				ar.executionState = VerificationExecutionState.COMPLETED
 			}
-		
+			case VerificationResultState.FAIL: {
+				counts.failCount = counts.failCount + 1
+				ar.executionState = VerificationExecutionState.COMPLETED
+			}
+			case VerificationResultState.ERROR: {
+				counts.errorCount = counts.errorCount + 1
+				ar.executionState = VerificationExecutionState.COMPLETED
+			}
+			case VerificationResultState.TIMEOUT: {
+				counts.timeoutCount = counts.timeoutCount + 1
+				ar.executionState = VerificationExecutionState.COMPLETED
+			}
+			case VerificationResultState.TBD: {
+				counts.tbdCount = counts.tbdCount + 1
+				ar.executionState = VerificationExecutionState.TODO
+			}
+		}
+
 		ar.resultState = newState
 		true
 	}
@@ -1171,16 +1195,21 @@ class AssureUtilExtension {
 		vaResult.resetCounts
 		vaResult.didFail = ElseType.OK
 		vaResult.first.forEach[e|e.addTo(vaResult)]
+		if (! vaResult.first.isTBD) {
 		if (vaResult.first.isSuccess) {
 			vaResult.recordNoElse
 		} else {
 			if (vaResult.first.isFailed)
 				vaResult.recordElse(ElseType.FAIL)
-			else if (vaResult.first.isTimeout) vaResult.recordElse(ElseType.TIMEOUT) else vaResult.recordElse(
-				ElseType.ERROR)
+			else if (vaResult.first.isTimeout)
+				vaResult.recordElse(ElseType.TIMEOUT)
+			else
+				vaResult.recordElse(ElseType.ERROR)
 			vaResult.error.forEach[e|e.addTo(vaResult)]
 			vaResult.fail.forEach[e|e.addTo(vaResult)]
 			vaResult.timeout.forEach[e|e.addTo(vaResult)]
+		}
+		
 		}
 		vaResult
 	}
@@ -1189,11 +1218,14 @@ class AssureUtilExtension {
 		vaResult.resetCounts
 		vaResult.didThenFail = false
 		vaResult.first.forEach[e|e.addTo(vaResult)]
+		if (! vaResult.first.isTBD) {
 		if (vaResult.first.isSuccess) {
 			vaResult.recordSkip
 			vaResult.second.forEach[e|e.addTo(vaResult)]
 		} else {
 			vaResult.recordNoSkip
+		}
+		
 		}
 		vaResult
 	}
@@ -1271,23 +1303,23 @@ class AssureUtilExtension {
 		val va = vr.target
 		if (va.title != null) return va.title
 		val vm = va.method
-		if (vm.description != null) return vm.description.toText(null)//va.target)
+		if (vm.description != null) return vm.description.toText(null) // va.target)
 		if (vm.title != null) return vm.title
 		return ""
 	}
 
 	def static String constructMessage(AssuranceCaseResult ce) {
-		if(ce.message != null) return ce.message
+		if (ce.message != null) return ce.message
 		return ""
 	}
 
 	def static String constructMessage(ModelResult ce) {
-		if(ce.message != null) return ce.message
+		if (ce.message != null) return ce.message
 		return ""
 	}
 
 	def static String constructMessage(SubsystemResult ce) {
-		if(ce.message != null) return ce.message
+		if (ce.message != null) return ce.message
 		return ""
 	}
 
@@ -1295,7 +1327,7 @@ class AssureUtilExtension {
 		val plan = ar.plan
 		if (plan?.description != null) return plan.description.toText(plan.target)
 		if (plan.title != null) return plan.title
-		"Verified system implementation "+plan.target.getQualifiedName()
+		"Verified system implementation " + plan.target.getQualifiedName()
 	}
 
 	def static String getName(VerificationActivityResult cr) {
@@ -1324,7 +1356,7 @@ class AssureUtilExtension {
 	}
 
 	def static String getName(ModelResult ce) {
-		return ce.assuranceCaseResult.name+'.'+ce.plan.getName+"("+ce.target.name+")"
+		return ce.assuranceCaseResult.name + '.' + ce.plan.getName + "(" + ce.target.name + ")"
 	}
 
 	def static String getName(SubsystemResult ce) {
@@ -1333,12 +1365,11 @@ class AssureUtilExtension {
 
 	def static String getName(ClaimResult cr) {
 		val me = cr.caseTargetModelElement
-		val targetElementLabel= if(me != null) "("+me.name+")" 
-		else ""
+		val targetElementLabel = if (me != null) "(" + me.name + ")" else ""
 		if (!Aadl2Util.isNull(cr.target)) {
 			return cr.target?.name + targetElementLabel
 		}
-		return "[unresolved:" + cr.target.toString + "]"+targetElementLabel
+		return "[unresolved:" + cr.target.toString + "]" + targetElementLabel
 	}
 
 	def static String constructDescription(ClaimResult cr) {
@@ -1354,25 +1385,25 @@ class AssureUtilExtension {
 	}
 
 	def static String constructMessage(ValidationResult cr) {
-		if(cr.message != null) return cr.message
+		if (cr.message != null) return cr.message
 		""
 	}
 
 	def static String constructMessage(PreconditionResult cr) {
-		if(cr.message != null) return cr.message
+		if (cr.message != null) return cr.message
 		""
 	}
 
 	def static String constructMessage(ResultIssue ri) {
-		if (ri.message != null) return ri.message +
-			if (ri.exceptionType != null) ( " [" + ri.exceptionType + "]" ) else ""
+		if (ri.message != null)
+			return ri.message + if (ri.exceptionType != null) ( " [" + ri.exceptionType + "]" ) else ""
 		if (ri.exceptionType != null) return ri.exceptionType
 		""
 	}
 
 	def static String assureResultCounts(AssureResult ele) {
-		val elec= ele.metrics
-		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null){
+		val elec = ele.metrics
+		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null) {
 			ele.resetCounts
 			ele.recomputeAllCounts(null)
 		}
@@ -1381,24 +1412,26 @@ class AssureUtilExtension {
 	}
 
 	def static String assureExecutionTime(AssureResult ele) {
-		val elec= ele.metrics
-		"("+elec.executionTime+" ms)"
+		val elec = ele.metrics
+		"(" + elec.executionTime + " ms)"
 	}
-	
-	
-	def static String buildCaseModelElementPath(AssureResult ar){
-		switch (ar){
-			SubsystemResult: buildCaseModelElementPath(ar.eContainer as AssureResult)+"."+ar.targetSystem?.name
-			ModelResult: ar.target.getQualifiedName()
+
+	def static String buildCaseModelElementPath(AssureResult ar) {
+		switch (ar) {
+			SubsystemResult:
+				buildCaseModelElementPath(ar.eContainer as AssureResult) + "." + ar.targetSystem?.name
+			ModelResult:
+				ar.target.getQualifiedName()
 			ClaimResult: {
 				val res = buildCaseModelElementPath(ar.eContainer as AssureResult)
-				if (ar.eContainer instanceof ClaimResult)  res
-				else 
-				if (ar.modelElement != null)  res+"."+ar.modelElement.name
-				else  res
-				}
-			VerificationResult: buildCaseModelElementPath(ar.claimResult)
-			AssuranceCaseResult: ""
+				if (ar.eContainer instanceof ClaimResult)
+					res
+				else if (ar.modelElement != null) res + "." + ar.modelElement.name else res
+			}
+			VerificationResult:
+				buildCaseModelElementPath(ar.claimResult)
+			AssuranceCaseResult:
+				""
 		}
 	}
 
@@ -1417,28 +1450,26 @@ class AssureUtilExtension {
 		if (Aadl2Util.isNull(cimpl)) return null
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
 		if (si == null) {
-			
-			System.out.println("\tInstantiating "+cimpl.getQualifiedName())
-			
-			//------------Tried Method1
+
+			System.out.println("\tInstantiating " + cimpl.getQualifiedName())
+
+			// ------------Tried Method1
 			si = cimpl.buildInstanceModelFile
 			setInstanceModel(cimpl, si)
-			//------------Tried Method1 END-------
-			
-			//CONCLUSION: After putting the assure file creation into a TransactionalEditingDomain
-			//and using the combination of aadl project and assue project (whether they are different or not) as the rule,
-			//we are not experiencing a deadlock. Leaving the Method2 code just in case. 
-			
-			//------------Tried Method2
-			//In this case we are trying to make the instantiation be a new job with a schedule rule that includes the project of the aadl file.
-			//Now the current thread is set with a rule that is the project of where the alisa file is.
-			//The current thread waits for the instantiation job to finish. 
-			//Problem is that if aadl and assure are in the same directory, somewhere during instantiation
-			//it seems to go into deadlock by waiting for the current job that has the rule of the assure project which
-			//is the same as project of the aadl. deadlock happens after InstantiateModel.createSystemInstanceInt aadlResource.save(null); is called
-			//during instantiation.
-			//So this works for when the projects are different but goes into deadlock if the same.
-			//This is from InstantiateModel.buildInstanceModelFile
+			// ------------Tried Method1 END-------
+			// CONCLUSION: After putting the assure file creation into a TransactionalEditingDomain
+			// and using the combination of aadl project and assue project (whether they are different or not) as the rule,
+			// we are not experiencing a deadlock. Leaving the Method2 code just in case. 
+			// ------------Tried Method2
+			// In this case we are trying to make the instantiation be a new job with a schedule rule that includes the project of the aadl file.
+			// Now the current thread is set with a rule that is the project of where the alisa file is.
+			// The current thread waits for the instantiation job to finish. 
+			// Problem is that if aadl and assure are in the same directory, somewhere during instantiation
+			// it seems to go into deadlock by waiting for the current job that has the rule of the assure project which
+			// is the same as project of the aadl. deadlock happens after InstantiateModel.createSystemInstanceInt aadlResource.save(null); is called
+			// during instantiation.
+			// So this works for when the projects are different but goes into deadlock if the same.
+			// This is from InstantiateModel.buildInstanceModelFile
 //			var ComponentImplementation ici = cimpl;
 //			var eobj = OsateResourceUtil.loadElementIntoResourceSet(cimpl);   //This can cause a ConcurrentModificationException if Transaction is used for assure write and save is done. 
 //			if (eobj instanceof ComponentImplementation) {
@@ -1474,30 +1505,26 @@ class AssureUtilExtension {
 //			
 //			job.schedule()
 //			job.join()
-			
-			//------------Tried Method2 END-------
-			
-			System.out.println("\tFinished Instantiating "+cimpl.getQualifiedName())
-			//-----------mnam
-
+			// ------------Tried Method2 END-------
+			System.out.println("\tFinished Instantiating " + cimpl.getQualifiedName())
+		// -----------mnam
 		}
-		
+
 		si = instanceModelRecord.get(cimpl.name) as SystemInstance
-		
+
 		return si
 	}
-	
-	def static int  numberVerificationResults(AssuranceCaseResult ac){
+
+	def static int numberVerificationResults(AssuranceCaseResult ac) {
 		return EcoreUtil2.eAllOfType(ac, typeof(VerificationActivityResult)).size();
 	}
-	
 
 	/**
 	 * convert to target unit. If target unit is null or number value has no unit return the original
 	 */
 	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
 		val unit = numberValue.getUnit();
-		if (unit == null || target == null) return numberValue 
+		if (unit == null || target == null) return numberValue
 		val value = numberValue.scaledValue;
 		var factor = 1.0
 		factor = unit.getAbsoluteFactor(target);
