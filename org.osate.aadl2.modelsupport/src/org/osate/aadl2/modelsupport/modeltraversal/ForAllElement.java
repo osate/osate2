@@ -52,6 +52,9 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
@@ -283,7 +286,23 @@ public class ForAllElement implements IProcessingMethod {
 	 */
 	@Override
 	public final void processObject(final Element theElement) {
-		process(theElement);
+		if (theElement instanceof InstanceObject) {
+			InstanceObject io = (InstanceObject) theElement;
+			List<SystemOperationMode> modes = io.getExistsInModes();
+
+			if (modes == null) {
+				process(io);
+			} else {
+				SystemInstance root = io.getSystemInstance();
+				SystemOperationMode som = root.getCurrentSystemOperationMode();
+
+				if (modes.contains(som)) {
+					process(io);
+				}
+			}
+		} else {
+			process(theElement);
+		}
 	}
 
 	/**
@@ -639,7 +658,7 @@ public class ForAllElement implements IProcessingMethod {
 	 * @see #process(Element)
 	 */
 	public final EList<Element> processPreOrderComponentInstance(final ComponentInstance obj) {
-		process(obj);
+		processObject(obj);
 		final EList<Element> list = obj.getChildren();
 		for (Iterator<Element> it = list.iterator(); notCancelled() && it.hasNext();) {
 			final Element child = it.next();
@@ -670,7 +689,7 @@ public class ForAllElement implements IProcessingMethod {
 			final ComponentCategory cat) {
 		// Only process if the category matches
 		if (obj.getCategory() == cat) {
-			process(obj);
+			processObject(obj);
 		}
 		// always scan the children
 		final EList<?> list = obj.getChildren();
@@ -858,7 +877,7 @@ public class ForAllElement implements IProcessingMethod {
 			}
 		}
 		if (notCancelled()) {
-			process(obj);
+			processObject(obj);
 		}
 		return resultList;
 	}
@@ -891,7 +910,7 @@ public class ForAllElement implements IProcessingMethod {
 		}
 		// Only process if the category matches
 		if (notCancelled() && (obj.getCategory() == cat)) {
-			process(obj);
+			processObject(obj);
 		}
 		return resultList;
 	}
