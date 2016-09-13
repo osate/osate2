@@ -212,48 +212,48 @@ public class AssureView extends ViewPart {
 			}
 			indicatorColumns.get(i).setLabelProvider(new AssureColorColumnLabelProvider(i));
 		}
-			TreeViewerColumn column2 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
-			column2.getColumn().setAlignment(SWT.LEFT);
-			column2.getColumn().setText("Description");
-			column2.getColumn().setWidth(450);
-			column2.getColumn().setResizable(true);
-			column2.setLabelProvider(new AssureDescriptionColumnLabelProvider());
+		TreeViewerColumn column2 = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+		column2.getColumn().setAlignment(SWT.LEFT);
+		column2.getColumn().setText("Description");
+		column2.getColumn().setWidth(450);
+		column2.getColumn().setResizable(true);
+		column2.setLabelProvider(new AssureDescriptionColumnLabelProvider());
 
-			TreeViewerColumn columnx = new TreeViewerColumn(treeViewer, SWT.RIGHT);
-			columnx.getColumn().setAlignment(SWT.LEFT);
-			columnx.getColumn().setText("results count");
-			columnx.getColumn().setWidth(200);
-			columnx.getColumn().setResizable(true);
-			columnx.setLabelProvider(new AssureMetricsColumnLabelProvider());
+		TreeViewerColumn columnx = new TreeViewerColumn(treeViewer, SWT.RIGHT);
+		columnx.getColumn().setAlignment(SWT.LEFT);
+		columnx.getColumn().setText("results count");
+		columnx.getColumn().setWidth(200);
+		columnx.getColumn().setResizable(true);
+		columnx.setLabelProvider(new AssureMetricsColumnLabelProvider());
 
 //	        treeViewer = new TreeViewer(parent, SWT.SINGLE);
-			getSite().setSelectionProvider(treeViewer);
-			treeViewer.setContentProvider(new AssureContentProvider());
+		getSite().setSelectionProvider(treeViewer);
+		treeViewer.setContentProvider(new AssureContentProvider());
 //	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
-			AssureTooltipListener.createAndRegister(treeViewer);
-			treeViewer.addFilter(new NoMetricsRefObjectsFilter());
-			// treeViewer.addFilter(noClaimsResultFilter);
+		AssureTooltipListener.createAndRegister(treeViewer);
+		treeViewer.addFilter(new NoMetricsRefObjectsFilter());
+		// treeViewer.addFilter(noClaimsResultFilter);
 //	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
-			MenuManager manager = new MenuManager();
-			manager.setRemoveAllWhenShown(true);
+		MenuManager manager = new MenuManager();
+		manager.setRemoveAllWhenShown(true);
 
-			manager.addMenuListener(new IMenuListener() {
-				@Override
-				public void menuAboutToShow(IMenuManager manager) {
-					IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
-					if (!selection.isEmpty()) {
-						final AssureResult ar = (AssureResult) selection.getFirstElement();
+		manager.addMenuListener(new IMenuListener() {
+			@Override
+			public void menuAboutToShow(IMenuManager manager) {
+				IStructuredSelection selection = (IStructuredSelection) treeViewer.getSelection();
+				if (!selection.isEmpty()) {
+					final AssureResult ar = (AssureResult) selection.getFirstElement();
 
-						if (ar instanceof ClaimResult) {
-							final ClaimResult claim = (ClaimResult) ar;
-							EObject location = AssureUtilExtension.getTarget(claim);
+					if (ar instanceof ClaimResult) {
+						final ClaimResult claim = (ClaimResult) ar;
+						EObject location = AssureUtilExtension.getTarget(claim);
 //	                    if (claim instanceof FailResult) {
 //	                        manager.add(createHyperlinkAction("Open Failure Location", location));
 //	                    } else if (location instanceof ProveStatement) { 
 //	                        manager.add(createHyperlinkAction("Open Prove Statement", location));
 //	                        manager.add(createExportSubmenu(claim));
 //	                    } else {
-							manager.add(createHyperlinkAction("Open Requirement", location));
+						manager.add(createHyperlinkAction("Open Requirement", location));
 //	                    }
 //	                    Map<String, EObject> references = claim.getReferences();
 //	                    for (String name : new TreeSet<String>(references.keySet())) {
@@ -261,55 +261,54 @@ public class AssureView extends ViewPart {
 //	                                references.get(name)));
 //	                    }
 
-							manager.add(new Action("Copy Claim Text") {
-								@Override
-								public void run() {
-									Transferable text = new StringSelection(
-											AssureUtilExtension.constructDescription(claim));
-									Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-									clipboard.setContents(text, null);
-								}
-							});
-						}
+						manager.add(new Action("Copy Claim Text") {
+							@Override
+							public void run() {
+								Transferable text = new StringSelection(
+										AssureUtilExtension.constructDescription(claim));
+								Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+								clipboard.setContents(text, null);
+							}
+						});
 					}
-
-					manager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
-					IMenuService menuService = getViewSite().getWorkbenchWindow().getService(IMenuService.class);
-					menuService.populateContributionManager((ContributionManager) manager, "popup:" + ID);
-				}
-			});
-			getViewSite().getActionBars().getToolBarManager().add(createToggleShowClaimResultsAction());
-			treeViewer.getControl().setMenu(manager.createContextMenu(treeViewer.getTree()));
-
-			resultTree.addFocusListener(new FocusListener() {
-
-				@Override
-				public void focusLost(FocusEvent e) {
-					// TODO Auto-generated method stub
-
 				}
 
-				@Override
-				public void focusGained(FocusEvent e) {
-					// Updates recentProofTrees based on selection from AlisaView
-					boolean changed = updateRecentProofTrees();
+				manager.add(new GroupMarker(IWorkbenchActionConstants.MB_ADDITIONS));
+				IMenuService menuService = getViewSite().getWorkbenchWindow().getService(IMenuService.class);
+				menuService.populateContributionManager((ContributionManager) manager, "popup:" + ID);
+			}
+		});
+		getViewSite().getActionBars().getToolBarManager().add(createToggleShowClaimResultsAction());
+		treeViewer.getControl().setMenu(manager.createContextMenu(treeViewer.getTree()));
 
-					if (recentProofTrees != null) {
-						CategoryFilter oldfilter = selectedCategoryFilter;
-						updateSelectedFilter();
-						if (changed || oldfilter != selectedCategoryFilter) {
-							// LAST CHANGE
-							System.out.println(">>>>>>>>>>>>>>>>>>DOING RECOUNT");
-							recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
+		resultTree.addFocusListener(new FocusListener() {
 
-							setProofs(recentProofTrees, selectedCategoryFilter);
-						}
+			@Override
+			public void focusLost(FocusEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void focusGained(FocusEvent e) {
+				// Updates recentProofTrees based on selection from AlisaView
+				boolean changed = updateRecentProofTrees();
+
+				if (recentProofTrees != null) {
+					CategoryFilter oldfilter = selectedCategoryFilter;
+					updateSelectedFilter();
+					if (changed || !oldfilter.equals(selectedCategoryFilter)) {
+						// LAST CHANGE
+						System.out.println(">>>>>>>>>>>>>>>>>>DOING RECOUNT");
+						recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
+
+						setProofs(recentProofTrees, selectedCategoryFilter);
 					}
-
 				}
-			});
-		}
 
+			}
+		});
+	}
 
 	public void dispose() {
 	}
