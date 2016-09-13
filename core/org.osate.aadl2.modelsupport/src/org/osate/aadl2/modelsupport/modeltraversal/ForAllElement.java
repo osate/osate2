@@ -296,7 +296,7 @@ public class ForAllElement implements IProcessingMethod {
 				SystemInstance root = io.getSystemInstance();
 				SystemOperationMode som = root.getCurrentSystemOperationMode();
 
-				if (modes.contains(som)) {
+				if (som == null || modes.contains(som)) {
 					process(io);
 				}
 			}
