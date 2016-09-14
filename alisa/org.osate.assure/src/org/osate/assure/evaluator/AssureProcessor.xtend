@@ -27,6 +27,7 @@ import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr
 import it.xsemantics.runtime.RuleEnvironment
 import java.util.ArrayList
+import java.util.HashMap
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.jface.viewers.TreeViewer
@@ -55,6 +56,7 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
+import org.osate.results.results.ResultDataReport
 import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
@@ -68,7 +70,8 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
-import java.util.HashMap
+import org.osate.results.results.ResultData
+import org.osate.aadl2.Aadl2Factory
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -92,9 +95,16 @@ class AssureProcessor implements IAssureProcessor {
 	var TreeViewer progressTreeViewer
 
 	val RuleEnvironment env = new RuleEnvironment
+	val computes = new HashMap<String, PropertyExpression>
+	val vals = new HashMap<String, Object>
 	
 	var long start = 0
 
+  new() {
+  	env.add('vals', vals)
+		env.add('computes', computes)
+  }
+  
 	def void startSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
 		start = System.currentTimeMillis();
@@ -135,10 +145,9 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
-		env.add('vals', new HashMap<Object, Object>)
-		env.add('computes', new HashMap<Object, Object>)
+		vals.clear
+		computes.clear
 		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
-		env.environment.clear
 		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
 	}
 
@@ -312,6 +321,21 @@ class AssureProcessor implements IAssureProcessor {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
+					val report = verificationResult.resultReport
+					if (verificationResult instanceof VerificationActivityResult) {
+						if (report instanceof ResultDataReport) {
+							val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
+							method.results.forEach [ variable |
+								val data = report.resultData.findFirst[it.name == variable.name]
+								if (data != null) {
+									val computeRef = computeIter.next
+									computes.put(computeRef.compute.name, toLiteral(data))
+								} else {
+									setToError(verificationResult, 'No computed value for' + variable.name)
+								}
+							]
+						}
+					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
 				}
@@ -427,6 +451,18 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	// verificationResult.eResource.save(null)
 	}
+	
+	def PropertyExpression toLiteral(ResultData data) {
+		if (data.value != null) {
+			val str = Aadl2Factory.eINSTANCE.createStringLiteral
+			str.value = data.value
+			str
+		} else {
+			val integer = Aadl2Factory.eINSTANCE.createIntegerLiteral
+			integer.value = data.integerValue
+			integer
+		}
+	}
 
 	def updateProgress(VerificationResult result) {
 		if (progressTreeViewer != null) {
@@ -452,6 +488,7 @@ class AssureProcessor implements IAssureProcessor {
 				setToSuccess(verificationResult, res, target)
 			} else if (res instanceof ResultReport) {
 				verificationResult.resultReport = res
+				setToSuccess(verificationResult)
 			} else {
 				setToError(verificationResult, "No result report from analysis", target);
 			}

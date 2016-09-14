@@ -223,7 +223,7 @@ rule InterpretCompute
 	G ||- ComputeDeclaration varDecl ~> PropertyValue propVal
 from {
 	{ 
-		val map = env(G, 'vals', Object) as HashMap<String, PropertyValue>
+		val map = env(G, 'computes', Object) as HashMap<String, PropertyValue>
 		map.containsKey(varDecl.name)
 		propVal = map.get(varDecl.name)
 	} or {
