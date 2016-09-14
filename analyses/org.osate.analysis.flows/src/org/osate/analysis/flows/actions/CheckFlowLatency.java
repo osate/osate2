@@ -51,11 +51,11 @@ import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
+import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
 import org.osate.ui.dialogs.Dialog;
 import org.osgi.framework.Bundle;
 
-public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelModifyActionAction {
+public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
 	protected static LatencyReport latreport = null;
 
 	@Override
