@@ -62,8 +62,9 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	def scope_AVariableReference_variable(AVariableReference context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
-		return scopeForVal(req, result)
+		val result1 = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		val result2 = scopeForCompute(req, result1)
+		return scopeForVal(req, result2)
 	}
 
 	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
