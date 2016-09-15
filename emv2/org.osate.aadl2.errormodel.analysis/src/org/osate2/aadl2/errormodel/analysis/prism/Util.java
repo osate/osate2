@@ -234,7 +234,7 @@ public class Util {
 					 *  2. For CTMC, we are supposed to have poisson/exponential occurence rate.
 					 */
 					if ((Model.getCurrentInstance().getType() == ModelType.DTMC)
-							&& (!EMV2Properties.getOccurenceType(PA).equals("fixed"))) {
+							&& (!EMV2Properties.getOccurrenceType(PA).equals("fixed"))) {
 						/**
 						 * Have to find out why the reportWarning does not work right now.
 						 */
@@ -244,13 +244,13 @@ public class Util {
 					}
 
 					if ((Model.getCurrentInstance().getType() == ModelType.CTMC)
-							&& (!EMV2Properties.getOccurenceType(PA).equals("poisson"))
-							&& (!EMV2Properties.getOccurenceType(PA).equals(EMV2Properties.INVALID_OCCURRENCE_TYPE))) {
+							&& (!EMV2Properties.getOccurrenceType(PA).equals("poisson"))
+							&& (!EMV2Properties.getOccurrenceType(PA).equals(EMV2Properties.INVALID_OCCURRENCE_TYPE))) {
 						/**
 						 * Have to find out why the reportWarning does not work right now.
 						 */
 						OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance + " found="
-								+ EMV2Properties.getOccurenceType(PA));
+								+ EMV2Properties.getOccurrenceType(PA));
 						PRISMAction.reportWarning(instance,
 								"Distribution occurence should be set to poisson for CTMC generation");
 					}
