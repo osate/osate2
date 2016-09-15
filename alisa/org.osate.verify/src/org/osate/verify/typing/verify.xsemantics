@@ -1,6 +1,5 @@
 import java.util.List
 import org.eclipse.emf.common.util.EList
-import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.NumberType
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
@@ -74,7 +73,7 @@ from {
 	G |- actual : var PropertyType actualType
 	var PropertyType formalType
 	G |- formal : formalType
-	or {}
+	or {/* ignore */}
 	if (formalType != null) {
 		G |- formalType <: actualType
   	or
@@ -109,7 +108,7 @@ from {
 	G |- computeRef.compute : var PropertyType computeType
 	var PropertyType retType
 	G |- ret : retType
-	or {}
+	or {/* ignore */}
 	if (retType != null) {
 		G |- computeType <: retType
   	or

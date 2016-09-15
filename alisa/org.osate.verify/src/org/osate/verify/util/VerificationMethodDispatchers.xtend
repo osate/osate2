@@ -301,8 +301,13 @@ class VerificationMethodDispatchers {
 		switch (actual) {
 			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||
 				formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
-			IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long") ||
-				formalParam.parameterType.equalsIgnoreCase("int")) result = actual.value
+			IntegerLiteral: {
+				if (formalParam.parameterType.equalsIgnoreCase("long")) {
+					result = actual.value
+				} else if (formalParam.parameterType.equalsIgnoreCase("int")) {
+					result = actual.value.intValue
+				}
+			}
 			StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
 			BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
 		}
