@@ -1523,13 +1523,12 @@ class AssureUtilExtension {
 	 * convert to target unit. If target unit is null or number value has no unit return the original
 	 */
 	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
-		val unit = numberValue.getUnit();
+		val unit = numberValue.unit
 		if (unit == null || target == null) return numberValue
-		val value = numberValue.scaledValue;
-		var factor = 1.0
-		factor = unit.getAbsoluteFactor(target);
-		val result = value * factor;
-		val resultValue = numberValue.cloneNumber();
+		val value = getValue(numberValue)
+		val factor = unit.getAbsoluteFactor(target)
+		val result = value * factor
+		val resultValue = numberValue.cloneNumber
 		resultValue.setUnit(target);
 		setValue(resultValue, result);
 		return resultValue;
@@ -1539,6 +1538,13 @@ class AssureUtilExtension {
 		switch (numberValue) {
 			RealLiteral: numberValue.setValue(value)
 			IntegerLiteral: numberValue.setValue((value as long))
+		}
+	}
+	
+	def static getValue(NumberValue numberValue){
+		switch (numberValue) {
+			RealLiteral: numberValue.getValue()
+			IntegerLiteral: numberValue.getValue()
 		}
 	}
 
