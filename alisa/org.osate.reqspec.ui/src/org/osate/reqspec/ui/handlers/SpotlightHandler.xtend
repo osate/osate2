@@ -77,7 +77,7 @@ class SpotlightHandler extends AbstractHandler {
 				val leafNodesList = leafNodesIterator.toList
 
 				val numleaves = leafNodesList.size
-				val ASRTable = leafNodesList.map[leaf | leaf.analyze(numleaves)].sortBy[instance.name]
+				val ASRTable = leafNodesList.map[leaf | leaf.analyze(numleaves)].sortBy[pur].reverseView
 				new SpotlightDialog(event.activeShell, systemInstance.name, ASRTable).open
 			}
 		}
