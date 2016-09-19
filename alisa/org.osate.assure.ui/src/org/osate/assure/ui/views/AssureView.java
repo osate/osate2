@@ -232,6 +232,7 @@ public class AssureView extends ViewPart {
 //	        treeViewer.setLabelProvider(labelProvider);//new AssureLabelProvider(null));
 		AssureTooltipListener.createAndRegister(treeViewer);
 		treeViewer.addFilter(new NoMetricsRefObjectsFilter());
+		treeViewer.addFilter(new NoZeroCountObjectsFilter());
 		// treeViewer.addFilter(noClaimsResultFilter);
 //	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
 		MenuManager manager = new MenuManager();
@@ -297,10 +298,10 @@ public class AssureView extends ViewPart {
 				if (recentProofTrees != null) {
 					CategoryFilter oldfilter = selectedCategoryFilter;
 					updateSelectedFilter();
+					recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
 					if (changed || !oldfilter.equals(selectedCategoryFilter)) {
 						// LAST CHANGE
 						System.out.println(">>>>>>>>>>>>>>>>>>DOING RECOUNT");
-						recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
 
 						setProofs(recentProofTrees, selectedCategoryFilter);
 					}
@@ -400,6 +401,30 @@ public class AssureView extends ViewPart {
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
 			if (element instanceof ClaimResult) {
 				return false;
+			}
+			return true;
+		}
+	}
+
+	/**
+	 * Viewer Filter class.
+	 */
+	private class NoZeroCountObjectsFilter extends ViewerFilter {
+
+		/**
+		 * @param viewer the viewer
+		 * @param parentElement the parent element
+		 * @param element the element
+		 * @return if the element is to display: true
+		 * @see org.eclipse.jface.viewers.ViewerFilter
+		 *      #select(org.eclipse.jface.viewers.Viewer, java.lang.Object, java.lang.Object)
+		 */
+		@Override
+		public boolean select(Viewer viewer, Object parentElement, Object element) {
+			if (element instanceof AssureResult) {
+				if (AssureUtilExtension.isZeroTotalCount(((AssureResult) element))) {
+					return false;
+				}
 			}
 			return true;
 		}
