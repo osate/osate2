@@ -488,6 +488,11 @@ class AssureUtilExtension {
 		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0
 	}
 
+	def static isZeroTotalCount(AssureResult ar) {
+		val counts = ar.metrics
+		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0 && counts.successCount == 0
+	}
+
 	/** 
 	 * state of VerificationResult 
 	 */
