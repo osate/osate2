@@ -815,20 +815,6 @@ class AssureUtilExtension {
 		counts.featuresRequirementsCount = counts.featuresRequirementsCount + subcounts.featuresRequirementsCount
 	}
 
-	def static CategoryFilter getCategoryFilter(AssureResult assureResult) {
-		null
-//		val filters = (assureResult.modelResult.plan.eContainer as AssuranceCase).tasks
-//		println("filters = " + filters)
-//		if (filters.nullOrEmpty) {
-//		println("filters.nullOrEmpty = " + filters.nullOrEmpty)
-//		
-//			null
-//		} else {
-//		println("filters.head = " + filters.head)
-//			filters.head
-//			
-//		}
-	}
 
 	/**
 	 * recompute and add the counts of the parts list to the result
@@ -859,7 +845,7 @@ class AssureUtilExtension {
 		caseResult
 	}
 
-	def static ModelResult recomputeAllCounts(ModelResult modelResult, CategoryFilter filter) {
+	private def static ModelResult recomputeAllCounts(ModelResult modelResult, CategoryFilter filter) {
 		modelResult.resetCounts
 		modelResult.recomputeAllCounts(modelResult.claimResult, filter)
 		modelResult.recomputeAllCounts(modelResult.subsystemResult, filter)
@@ -867,7 +853,7 @@ class AssureUtilExtension {
 		modelResult
 	}
 
-	def static SubsystemResult recomputeAllCounts(SubsystemResult subsystemResult, CategoryFilter filter) {
+	private def static SubsystemResult recomputeAllCounts(SubsystemResult subsystemResult, CategoryFilter filter) {
 		subsystemResult.resetCounts
 		subsystemResult.recomputeAllCounts(subsystemResult.claimResult, filter)
 		subsystemResult.recomputeAllCounts(subsystemResult.subsystemResult, filter)
@@ -894,6 +880,9 @@ class AssureUtilExtension {
 		vaResult.resetCounts
 		vaResult.didFail = ElseType.OK
 		vaResult.recomputeAllCounts(vaResult.first, filter)
+		vaResult.recomputeAllCounts(vaResult.error, filter)
+		vaResult.recomputeAllCounts(vaResult.fail, filter)
+		vaResult.recomputeAllCounts(vaResult.timeout, filter)
 		if (! vaResult.first.isTBD) {
 			if (vaResult.first.isSuccess) {
 				vaResult.recordNoElse
@@ -904,9 +893,6 @@ class AssureUtilExtension {
 					vaResult.recordElse(ElseType.TIMEOUT)
 				else if (vaResult.first.isEmpty)
 					vaResult.recordElse(ElseType.ERROR)
-				vaResult.recomputeAllCounts(vaResult.error, filter)
-				vaResult.recomputeAllCounts(vaResult.fail, filter)
-				vaResult.recomputeAllCounts(vaResult.timeout, filter)
 			}
 		}
 		vaResult
@@ -916,10 +902,10 @@ class AssureUtilExtension {
 		vaResult.resetCounts
 		vaResult.didThenFail = false
 		vaResult.recomputeAllCounts(vaResult.first, filter)
+		vaResult.recomputeAllCounts(vaResult.second, filter)
 		if (! vaResult.first.isTBD) {
 			if (vaResult.first.isSuccess) {
 				vaResult.recordSkip
-				vaResult.recomputeAllCounts(vaResult.second, filter)
 			} else {
 				vaResult.recordNoSkip
 			}

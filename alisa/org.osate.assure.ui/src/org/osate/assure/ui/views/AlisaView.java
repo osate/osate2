@@ -71,6 +71,7 @@ import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.aadl2.ComponentType;
 import org.osate.alisa.workbench.alisa.AlisaPackage;
 import org.osate.alisa.workbench.alisa.AssuranceCase;
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder;
@@ -372,8 +373,8 @@ public class AlisaView extends ViewPart {
 					e.printStackTrace();
 				}
 			}
-
-			Resource res = selectedAssuranceCase.getSystem().eResource();
+			ComponentType sys = selectedAssuranceCase.getSystem();
+			Resource res = sys.eResource();
 			URI modeluri = res.getURI();
 			URI path = modeluri.trimSegments(1);
 			if (path.lastSegment().equalsIgnoreCase(WorkspacePlugin.AADL_PACKAGES_DIR)) {

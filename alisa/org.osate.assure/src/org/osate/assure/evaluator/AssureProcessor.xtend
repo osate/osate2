@@ -70,14 +70,17 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.results.results.ResultData
 import org.osate.aadl2.Aadl2Factory
+import org.osate.categories.categories.CategoryFilter
+import org.eclipse.core.runtime.OperationCanceledException
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
-	def void processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor);
-
-	def void setProgressTreeViewer(TreeViewer viewPage);
+	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
+	def void setProgressTreeViewer (TreeViewer viewPage);
+	def void setRequirementsCoverageTreeViewer (TreeViewer viewPage);
 }
 
 /**
@@ -93,12 +96,15 @@ class AssureProcessor implements IAssureProcessor {
 	var IProgressMonitor progressmonitor
 
 	var TreeViewer progressTreeViewer
+	var TreeViewer requirementsCoverageTreeViewer
 
 	val RuleEnvironment env = new RuleEnvironment
 	val computes = new HashMap<String, PropertyExpression>
 	val vals = new HashMap<String, Object>
 	
 	var long start = 0
+	
+	var CategoryFilter filter;
 
   new() {
   	env.add('vals', vals)
@@ -122,11 +128,19 @@ class AssureProcessor implements IAssureProcessor {
 			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + targetPath);
 	}
 
-	override processCase(AssuranceCaseResult assureResult, IProgressMonitor monitor) {
+	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor) {
 		progressmonitor = monitor
+		this.filter = filter;
 		val count = AssureUtilExtension.numberVerificationResults(assureResult)
-		progressmonitor.beginTask(assureResult.name, count)
-		assureResult.process
+		try {
+			progressmonitor.beginTask(assureResult.name, count)
+			assureResult.process
+		}finally{
+			//assureResult.eResource.save(null)
+			progressmonitor.done
+		}
+		
+		updateRequirementsCoverage();
 	}
 
 	def dispatch void process(AssuranceCaseResult caseResult) {
@@ -145,30 +159,37 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
+		if(claimResult.targetReference.requirement.requirement.evaluateRequirementFilter(filter)){
 		vals.clear
 		computes.clear
 		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
 		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
+		}
 	}
 
 	def dispatch void process(VerificationActivityResult vaResult) {
-		startSubTask(vaResult)
-		if (vaResult.executionState != VerificationExecutionState.TODO) {
-			doneSubTask(vaResult)
-			return;
-		}
-		if (vaResult.preconditionResult != null) {
-			vaResult.preconditionResult.process
-			if (!vaResult.preconditionResult.isSuccess) {
+		
+		if(vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
+			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)){
+			startSubTask(vaResult)
+			if (vaResult.executionState != VerificationExecutionState.TODO) {
 				doneSubTask(vaResult)
-				return
+				return;
 			}
+			if (vaResult.preconditionResult != null) {
+				vaResult.preconditionResult.process
+				if (!vaResult.preconditionResult.isSuccess) {
+					doneSubTask(vaResult)
+					return
+				}
+			}
+			runVerificationMethod(vaResult)
+			if (vaResult.validationResult != null) {
+				vaResult.validationResult.process
+			}
+			doneSubTask(vaResult)
+		
 		}
-		runVerificationMethod(vaResult)
-		if (vaResult.validationResult != null) {
-			vaResult.validationResult.process
-		}
-		doneSubTask(vaResult)
 	}
 
 	def dispatch void process(ElseResult vaResult) {
@@ -213,6 +234,9 @@ class AssureProcessor implements IAssureProcessor {
 	 * null or bool for analysis with results in marker/diagnostic, or the result report object
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
+		if( progressmonitor.isCanceled )
+			throw new OperationCanceledException
+			
 		var method = verificationResult.method;
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
@@ -304,7 +328,7 @@ class AssureProcessor implements IAssureProcessor {
 				if (actual instanceof NumberValue) {
 					if (formalParam.unit != null && actual.unit != null &&
 						!formalParam.unit.name.equals(actual.unit.name)) {
-						actual = convertValueToUnit(actual, formalParam.unit)
+						actual = AssureUtilExtension.convertValueToUnit(actual, formalParam.unit)
 					}
 				}
 				parameterObjects.add(actual)
@@ -393,32 +417,6 @@ class AssureProcessor implements IAssureProcessor {
 				// Should not save here because it is job based
 				// verificationResult.eResource.save(null)
 				}
-//					case SupportedTypes.RESOLUTEPREDICATE: {
-//					AssureUtilExtension.initializeResoluteContext(instance);
-//						val EvaluationContext context = new EvaluationContext(instance, sets, featToConnsMap);
-//						val ResoluteEvaluator evaluator = new ResoluteEvaluator(context, null);
-//						val fncall = createWrapperFnCall(verificationResult,parameters)
-//						if (fncall == null) {
-//							setToError(verificationResult,
-//								"Could not find Resolute Function " + verificationResult.method.name)
-//						} else {
-//							try {
-//								val ResoluteValue resultvalue = evaluator.caseFnCallExpr(fncall)
-//								if (resultvalue instanceof BoolValue) {
-//									if (resultvalue.getBool) {
-//										setToSuccess(verificationResult)
-//									} else {
-//										setToFail(verificationResult, "Resolute predicate evaluated to false")
-//									}
-//								} else {
-//									setToError(verificationResult, "Expected boolean result. Found " + resultvalue.type)
-//								}
-//							} catch (Throwable t) {
-//								setToError(verificationResult,
-//									"Verification activity did not complete. Exception: " + t.message)
-//							}
-//						}
-//					}
 				JUnit4Method: {
 					val test = VerificationMethodDispatchers.eInstance.findClass(methodtype.classPath);
 					val junit = new JUnitCore();
@@ -451,6 +449,18 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	// verificationResult.eResource.save(null)
 	}
+	
+			def updateRequirementsCoverage() {
+			if (requirementsCoverageTreeViewer != null) {
+				Display.getDefault().asyncExec(new Runnable() {
+					override void run() {
+						requirementsCoverageTreeViewer.refresh(true);
+					}
+				});
+			}
+		}
+	
+	
 	
 	def PropertyExpression toLiteral(ResultData data) {
 		if (data.value != null) {
@@ -493,8 +503,8 @@ class AssureProcessor implements IAssureProcessor {
 				setToError(verificationResult, "No result report from analysis", target);
 			}
 		}
+		}
 
-	}
 
 	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
 		List<PropertyExpression> params) {
@@ -603,5 +613,10 @@ class AssureProcessor implements IAssureProcessor {
 		progressTreeViewer = treeViewer
 	}
 
+	override void setRequirementsCoverageTreeViewer(TreeViewer treeViewer) {
+		requirementsCoverageTreeViewer = treeViewer
+	}
+
+	
 }
 

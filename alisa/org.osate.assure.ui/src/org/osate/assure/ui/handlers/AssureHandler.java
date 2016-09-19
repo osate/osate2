@@ -16,19 +16,10 @@
 
 package org.osate.assure.ui.handlers;
 
-import java.io.IOException;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
-import org.eclipse.emf.common.command.Command;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.RollbackException;
-import org.eclipse.emf.transaction.TransactionalCommandStack;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
@@ -111,43 +102,43 @@ public class AssureHandler extends AlisaHandler {
 			return Status.CANCEL_STATUS;
 		}
 		long start = System.currentTimeMillis();
-		AssureUtilExtension.recomputeAllCounts(rootCaseResult, filter);
-		try {
-			// URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
-			// System.out.println("AssureHandler Initial save: " + uri.toString());
-			// rootCaseResult.eResource().save(null);
-
-			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
-					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
-			// We execute this command on the command stack because otherwise, we will not
-			// have write permissions on the editing domain.
-			Command cmd = new RecordingCommand(domain) {
-				// final public AssuranceCaseResult tempRootCaseResult;
-
-				@Override
-				protected void doExecute() {
-					try {
-						rootCaseResult.eResource().save(null);
-						URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
-						System.out.println("AssureHandler Initial save Done: " + uri.toString());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			};
-
-			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
-//		} catch (IOException e1) {
+//		AssureUtilExtension.recomputeAllCounts(rootCaseResult, filter);
+//		try {
+//			// URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
+//			// System.out.println("AssureHandler Initial save: " + uri.toString());
+//			// rootCaseResult.eResource().save(null);
+//
+//			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+//					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+//			// We execute this command on the command stack because otherwise, we will not
+//			// have write permissions on the editing domain.
+//			Command cmd = new RecordingCommand(domain) {
+//				// final public AssuranceCaseResult tempRootCaseResult;
+//
+//				@Override
+//				protected void doExecute() {
+//					try {
+//						rootCaseResult.eResource().save(null);
+//						URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
+//						System.out.println("AssureHandler Initial save Done: " + uri.toString());
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			};
+//
+//			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+////		} catch (IOException e1) {
+////			// TODO Auto-generated catch block
+////			e1.printStackTrace();
+//		} catch (InterruptedException e) {
 //			// TODO Auto-generated catch block
-//			e1.printStackTrace();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RollbackException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			e.printStackTrace();
+//		} catch (RollbackException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
