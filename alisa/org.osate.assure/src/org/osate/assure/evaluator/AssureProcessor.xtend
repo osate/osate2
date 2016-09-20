@@ -79,8 +79,10 @@ import org.eclipse.core.runtime.OperationCanceledException
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
 	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
-	def void setProgressTreeViewer (TreeViewer viewPage);
-	def void setRequirementsCoverageTreeViewer (TreeViewer viewPage);
+
+	def void setProgressTreeViewer(TreeViewer viewPage);
+
+	def void setRequirementsCoverageTreeViewer(TreeViewer viewPage);
 }
 
 /**
@@ -101,16 +103,16 @@ class AssureProcessor implements IAssureProcessor {
 	val RuleEnvironment env = new RuleEnvironment
 	val computes = new HashMap<String, PropertyExpression>
 	val vals = new HashMap<String, Object>
-	
+
 	var long start = 0
-	
+
 	var CategoryFilter filter;
 
-  new() {
-  	env.add('vals', vals)
+	new() {
+		env.add('vals', vals)
 		env.add('computes', computes)
-  }
-  
+	}
+
 	def void startSubTask(VerificationActivityResult vaResult) {
 		progressmonitor.subTask(vaResult.target.name) // + " on " + vaResult.claimSubject.name)
 		start = System.currentTimeMillis();
@@ -135,11 +137,11 @@ class AssureProcessor implements IAssureProcessor {
 		try {
 			progressmonitor.beginTask(assureResult.name, count)
 			assureResult.process
-		}finally{
-			//assureResult.eResource.save(null)
+		} finally {
+			// assureResult.eResource.save(null)
 			progressmonitor.done
 		}
-		
+
 		updateRequirementsCoverage();
 	}
 
@@ -159,18 +161,18 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(org.osate.assure.assure.ClaimResult claimResult) {
-		if(claimResult.targetReference.requirement.requirement.evaluateRequirementFilter(filter)){
-		vals.clear
-		computes.clear
-		claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
-		claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
+		if (claimResult.targetReference.requirement.requirement.evaluateRequirementFilter(filter)) {
+			vals.clear
+			computes.clear
+			claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
+			claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
 		}
 	}
 
 	def dispatch void process(VerificationActivityResult vaResult) {
-		
-		if(vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
-			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)){
+
+		if (vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
+			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)) {
 			startSubTask(vaResult)
 			if (vaResult.executionState != VerificationExecutionState.TODO) {
 				doneSubTask(vaResult)
@@ -188,7 +190,7 @@ class AssureProcessor implements IAssureProcessor {
 				vaResult.validationResult.process
 			}
 			doneSubTask(vaResult)
-		
+
 		}
 	}
 
@@ -234,9 +236,9 @@ class AssureProcessor implements IAssureProcessor {
 	 * null or bool for analysis with results in marker/diagnostic, or the result report object
 	 */
 	def void runVerificationMethod(VerificationResult verificationResult) {
-		if( progressmonitor.isCanceled )
+		if (progressmonitor.isCanceled)
 			throw new OperationCanceledException
-			
+
 		var method = verificationResult.method;
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
@@ -321,7 +323,7 @@ class AssureProcessor implements IAssureProcessor {
 				return
 			}
 			var actual = result.value
-			
+
 			if (i < nbParams) {
 				var formalParam = method.formals.get(i)
 				i = i + 1
@@ -334,7 +336,7 @@ class AssureProcessor implements IAssureProcessor {
 				parameterObjects.add(actual)
 			}
 		}
-		
+
 		if (verificationResult instanceof VerificationActivityResult) {
 			checkProperties(target, verificationResult)
 		}
@@ -344,18 +346,17 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
-					val report = verificationResult.resultReport
+					val res = executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
 					if (verificationResult instanceof VerificationActivityResult) {
-						if (report instanceof ResultDataReport) {
+						if (res instanceof HashMap) {
 							val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
 							method.results.forEach [ variable |
-								val data = report.resultData.findFirst[it.name == variable.name]
+								val data = res.get(variable.name)
 								if (data != null) {
 									val computeRef = computeIter.next
 									computes.put(computeRef.compute.name, toLiteral(data))
 								} else {
-									setToError(verificationResult, 'No computed value for' + variable.name)
+									setToError(verificationResult, 'No computed value for ' + variable.name)
 								}
 							]
 						}
@@ -449,28 +450,41 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	// verificationResult.eResource.save(null)
 	}
-	
-			def updateRequirementsCoverage() {
-			if (requirementsCoverageTreeViewer != null) {
-				Display.getDefault().asyncExec(new Runnable() {
-					override void run() {
-						requirementsCoverageTreeViewer.refresh(true);
-					}
-				});
-			}
+
+	def updateRequirementsCoverage() {
+		if (requirementsCoverageTreeViewer != null) {
+			Display.getDefault().asyncExec(new Runnable() {
+				override void run() {
+					requirementsCoverageTreeViewer.refresh(true);
+				}
+			});
 		}
-	
-	
-	
-	def PropertyExpression toLiteral(ResultData data) {
-		if (data.value != null) {
-			val str = Aadl2Factory.eINSTANCE.createStringLiteral
-			str.value = data.value
-			str
-		} else {
-			val integer = Aadl2Factory.eINSTANCE.createIntegerLiteral
-			integer.value = data.integerValue
-			integer
+	}
+
+	def PropertyExpression toLiteral(Object data) {
+		switch data {
+			Boolean: {
+				val b = Aadl2Factory.eINSTANCE.createBooleanLiteral
+				b.value = data
+				b
+			}
+			Integer: {
+				val i = Aadl2Factory.eINSTANCE.createIntegerLiteral
+				i.value = data
+				i
+			}
+			Double: {
+				val r = Aadl2Factory.eINSTANCE.createRealLiteral
+				r.value = data
+				r
+			}
+			String: {
+				val str = Aadl2Factory.eINSTANCE.createStringLiteral
+				str.value = data
+				str
+			}
+			default:
+				data as PropertyExpression
 		}
 	}
 
@@ -486,25 +500,35 @@ class AssureProcessor implements IAssureProcessor {
 
 	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
 		List<PropertyExpression> parameters) {
-		val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
-		if (res != null) {
-			if (res instanceof Boolean) {
-				if (res != true) {
+		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
+		if (returned != null) {
+			if (returned instanceof Boolean) {
+				if (returned != true) {
 					setToFail(verificationResult, "", target);
 				} else {
 					setToSuccess(verificationResult)
 				}
-			} else if (res instanceof String) {
-				setToSuccess(verificationResult, res, target)
-			} else if (res instanceof ResultReport) {
-				verificationResult.resultReport = res
+				new HashMap
+			} else if (returned instanceof HashMap) {
+				val report = returned.get("_result_report_") as ResultReport
+				if (report != null) {
+					verificationResult.resultReport = report
+				} else {
+					setToSuccess(verificationResult, "", target)
+				}
+				returned
+			} else if (returned instanceof ResultReport) {
+				verificationResult.resultReport = returned
 				setToSuccess(verificationResult)
+				new HashMap
 			} else {
 				setToError(verificationResult, "No result report from analysis", target);
+				new HashMap
 			}
+		} else {
+			new HashMap
 		}
-		}
-
+	}
 
 	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
 		List<PropertyExpression> params) {
@@ -617,6 +641,5 @@ class AssureProcessor implements IAssureProcessor {
 		requirementsCoverageTreeViewer = treeViewer
 	}
 
-	
 }
 
