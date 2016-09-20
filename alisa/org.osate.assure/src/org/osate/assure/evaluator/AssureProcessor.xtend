@@ -30,9 +30,11 @@ import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
 import org.junit.runner.JUnitCore
+import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
@@ -49,6 +51,7 @@ import org.osate.assure.assure.ElseResult
 import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.PredicateResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
@@ -56,7 +59,7 @@ import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.util.AssureUtilExtension
-import org.osate.results.results.ResultDataReport
+import org.osate.categories.categories.CategoryFilter
 import org.osate.results.results.ResultReport
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AgreeMethod
@@ -71,10 +74,6 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.results.results.ResultData
-import org.osate.aadl2.Aadl2Factory
-import org.osate.categories.categories.CategoryFilter
-import org.eclipse.core.runtime.OperationCanceledException
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -165,6 +164,7 @@ class AssureProcessor implements IAssureProcessor {
 			vals.clear
 			computes.clear
 			claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
+			claimResult.predicateResult.process
 			claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
 		}
 	}
@@ -190,7 +190,6 @@ class AssureProcessor implements IAssureProcessor {
 				vaResult.validationResult.process
 			}
 			doneSubTask(vaResult)
-
 		}
 	}
 
@@ -228,6 +227,10 @@ class AssureProcessor implements IAssureProcessor {
 		runVerificationMethod(preconditionResult)
 	}
 
+	def dispatch void process(PredicateResult predicateResult) {
+		evaluatePredicate(predicateResult)
+	}
+	
 	/**
 	 * who needs to understand the method types?
 	 * the runVerificationMethod dispatcher may do different catch methods
@@ -498,6 +501,34 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
+	def evaluatePredicate(PredicateResult predicateResult) {
+		try {
+			val predicate = predicateResult.predicate
+			val result = interpreter.interpretExpression(env, predicate.xpression)
+			if (result.failed) {
+				setToError(predicateResult, "Could not evaluate value predicate: " + result.ruleFailedException, null)
+			}
+			val success = (result.value as BooleanLiteral).getValue
+			if (success) {
+				setToFail(predicateResult)
+			} else {
+				setToSuccess(predicateResult)
+			}
+			predicateResult.eResource.save(null)
+			updateProgress(predicateResult)
+		} catch (AssertionError e) {
+			setToFail(predicateResult, e);
+			predicateResult.eResource.save(null)
+			updateProgress(predicateResult)
+		} catch (ThreadDeath e) { // don't catch ThreadDeath by accident
+			throw e;
+		} catch (Throwable e) {
+			setToError(predicateResult, e);
+			predicateResult.eResource.save(null)
+			updateProgress(predicateResult)
+		}
+	}
+	
 	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
 		List<PropertyExpression> parameters) {
 		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)

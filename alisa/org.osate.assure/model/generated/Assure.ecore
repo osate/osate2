@@ -35,6 +35,8 @@
         eType="#//ClaimResult" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="verificationActivityResult"
         upperBound="-1" eType="#//VerificationExpr" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="predicateResult" eType="#//VerificationResult"
+        containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="VerificationResult" eSuperTypes="#//AssureResult #//VerificationExpr">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="executionState" eType="#//VerificationExecutionState"/>
@@ -146,6 +148,10 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="preconditionResult" eType="#//VerificationResult"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="validationResult" eType="#//VerificationResult"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PredicateResult" eSuperTypes="#//VerificationResult">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="targetReference" eType="#//QualifiedClaimReference"
         containment="true"/>
   </eClassifiers>
 </ecore:EPackage>

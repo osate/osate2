@@ -62,6 +62,7 @@ import org.osate.assure.assure.ElseType
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.NestedClaimReference
 import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.PredicateResult
 import org.osate.assure.assure.QualifiedClaimReference
 import org.osate.assure.assure.QualifiedVAReference
 import org.osate.assure.assure.QualifiedVerificationPlanElementReference
@@ -73,8 +74,8 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
-import org.osate.categories.categories.CategoriesFactory
 import org.osate.categories.categories.CategoryFilter
+import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.VerificationActivity
 import org.osate.verify.verify.VerificationMethod
@@ -84,18 +85,6 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.alisa.workbench.alisa.AssuranceCase
-import org.eclipse.emf.common.util.URI
-import org.eclipse.core.resources.WorkspaceJob
-import org.eclipse.core.runtime.IProgressMonitor
-import org.eclipse.core.runtime.CoreException
-import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.core.runtime.Status
-import org.eclipse.core.runtime.jobs.ISchedulingRule
-import org.eclipse.core.resources.ResourcesPlugin
-import org.eclipse.core.runtime.Path
-import org.eclipse.emf.ecore.resource.Resource
-import org.osate.workspace.WorkspacePlugin
 
 class AssureUtilExtension {
 
@@ -190,6 +179,13 @@ class AssureUtilExtension {
 		while (qualreqref.sub != null)
 			qualreqref = qualreqref.sub
 		return qualreqref.requirement
+	}
+
+	def static getPredicate(PredicateResult pr) {
+		var qualreqref = pr.targetReference.requirement
+		while (qualreqref.sub != null)
+			qualreqref = qualreqref.sub
+		return qualreqref.requirement.predicate as ValuePredicate
 	}
 
 	/*
@@ -799,6 +795,23 @@ class AssureUtilExtension {
 		ar
 	}
 
+	private def static addOwnResultStateToCount(PredicateResult ar) {
+		val counts = ar.metrics
+		switch (ar.resultState) {
+			case VerificationResultState.SUCCESS:
+				counts.successCount = counts.successCount + 1
+			case VerificationResultState.FAIL:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.ERROR:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.TIMEOUT:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.TBD:
+				counts.tbdCount = counts.tbdCount + 1
+		}
+		ar
+	}
+
 	/**
 	 * add all but the total count to the result object
 	 * This method is used in the process and set result methods
@@ -869,6 +882,7 @@ class AssureUtilExtension {
 		claimResult.resetCounts
 		claimResult.recomputeAllCounts(claimResult.verificationActivityResult, filter)
 		claimResult.recomputeAllCounts(claimResult.subClaimResult, filter)
+		claimResult.recomputeAllCounts(#[claimResult.predicateResult], filter)
 		claimResult
 	}
 
@@ -931,12 +945,20 @@ class AssureUtilExtension {
 		preconditionResult
 	}
 
+	private def static PredicateResult recomputeAllCounts(PredicateResult predicateResult,
+		CategoryFilter filter) {
+		predicateResult.resetCounts
+		predicateResult.addOwnResultStateToCount()
+		predicateResult
+	}
+
 	private def static AssureResult recomputeAllCounts(AssureResult assureResult, CategoryFilter filter) {
 		switch (assureResult) {
 			AssuranceCaseResult: assureResult.recomputeAllCounts(filter)
 			ModelResult: assureResult.recomputeAllCounts(filter)
 			SubsystemResult: assureResult.recomputeAllCounts(filter)
 			ClaimResult: assureResult.recomputeAllCounts(filter)
+			PredicateResult: assureResult.recomputeAllCounts(filter)
 			ValidationResult: assureResult.recomputeAllCounts(filter)
 			PreconditionResult: assureResult.recomputeAllCounts(filter)
 			VerificationActivityResult: assureResult.recomputeAllCounts(filter)

@@ -53,6 +53,7 @@ ClaimResult:
 	('message' message= STRING)?
 	(subClaimResult += ClaimResult)*
 	(verificationActivityResult+= VerificationExpr)*
+	predicateResult=PredicateResult?
 	']'  
 ;
 
@@ -108,9 +109,25 @@ VerificationActivityResult returns VerificationResult:
 	']'  
 ;
 
+PredicateResult returns VerificationResult:
+	{PredicateResult}
+	'predicate' targetReference=QualifiedClaimReference
+	'['
+	'executionstate'  executionState=VerificationExecutionState
+	'resultstate' resultState=VerificationResultState
+	('issues' '['
+		issues+=ResultIssue*
+		']'
+	)?
+	('report' resultReport=[results::ResultReport|QualifiedName])? 
+	metrics=Metrics
+	('message' message= STRING)?
+	']'  
+;
+
 AssureResult:
 	VerificationExpr | ModelResult | SubsystemResult |
-		AssuranceCaseResult | ClaimResult  | PreconditionResult | ValidationResult
+		AssuranceCaseResult | ClaimResult  | PreconditionResult | ValidationResult | PredicateResult
 	;
 
 enum ElseType: 
