@@ -164,7 +164,7 @@ class AssureProcessor implements IAssureProcessor {
 			vals.clear
 			computes.clear
 			claimResult.verificationActivityResult.forEach[vaResult|vaResult.process]
-			claimResult.predicateResult.process
+			claimResult.predicateResult?.process
 			claimResult.subClaimResult.forEach[subclaimResult|subclaimResult.process]
 		}
 	}
@@ -507,12 +507,13 @@ class AssureProcessor implements IAssureProcessor {
 			val result = interpreter.interpretExpression(env, predicate.xpression)
 			if (result.failed) {
 				setToError(predicateResult, "Could not evaluate value predicate: " + result.ruleFailedException, null)
-			}
-			val success = (result.value as BooleanLiteral).getValue
-			if (success) {
-				setToFail(predicateResult)
 			} else {
-				setToSuccess(predicateResult)
+				val success = (result.value as BooleanLiteral).getValue
+				if (success) {
+					setToFail(predicateResult)
+				} else {
+					setToSuccess(predicateResult)
+				}
 			}
 			predicateResult.eResource.save(null)
 			updateProgress(predicateResult)
