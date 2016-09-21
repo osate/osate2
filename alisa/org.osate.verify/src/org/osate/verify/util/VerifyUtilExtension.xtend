@@ -133,6 +133,8 @@ class VerifyUtilExtension {
 		if (filter == null) return true
 		val req = claim.requirement
 		if (Aadl2Util.isNull(req)) return false
+		// for requirements always drop through to verification activities if no categories
+		if (req.category.empty) return true
 		return  matches(req.category,filter.category,filter.anyCategory)
 	}
 
