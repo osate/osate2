@@ -298,11 +298,11 @@ public class AssureView extends ViewPart {
 				if (recentProofTrees != null) {
 					CategoryFilter oldfilter = selectedCategoryFilter;
 					updateSelectedFilter();
-					recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
-					if (changed || !oldfilter.equals(selectedCategoryFilter)) {
+					if (changed || oldfilter == null || selectedCategoryFilter == null
+							|| !oldfilter.equals(selectedCategoryFilter)) {
 						// LAST CHANGE
 						System.out.println(">>>>>>>>>>>>>>>>>>DOING RECOUNT");
-
+						recomputeAllCounts(recentProofTrees, selectedCategoryFilter);
 						setProofs(recentProofTrees, selectedCategoryFilter);
 					}
 				}
