@@ -31,6 +31,7 @@ import java.util.HashMap
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
+import org.eclipse.emf.ecore.EObject
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
 import org.junit.runner.JUnitCore
@@ -267,7 +268,7 @@ class AssureProcessor implements IAssureProcessor {
 			target = x ?: targetComponent
 		}
 		// parameters are those specified as part of the method call in the verification activity
-		var Iterable parameters
+		var Iterable<? extends EObject> parameters
 		if (verificationResult instanceof VerificationActivityResult) {
 			parameters = verificationResult.target.actuals
 		} else if (verificationResult instanceof ValidationResult) {
@@ -351,18 +352,16 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
 					val res = executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
 					if (verificationResult instanceof VerificationActivityResult) {
-						if (res instanceof HashMap) {
-							val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
-							method.results.forEach [ variable |
-								val data = res.get(variable.name)
-								if (data != null) {
-									val computeRef = computeIter.next
-									computes.put(computeRef.compute.name, toLiteral(data))
-								} else {
-									setToError(verificationResult, 'No computed value for ' + variable.name)
-								}
-							]
-						}
+						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
+						method.results.forEach [ variable |
+							val data = res.get(variable.name)
+							if (data != null) {
+								val computeRef = computeIter.next
+								computes.put(computeRef.compute.name, toLiteral(data))
+							} else {
+								setToError(verificationResult, 'No computed value for ' + variable.name)
+							}
+						]
 					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)
@@ -406,7 +405,7 @@ class AssureProcessor implements IAssureProcessor {
 				AgreeMethod: {
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 
-					val agreemethod = methodtype as AgreeMethod
+					val agreemethod = methodtype
 
 					if (agreemethod.isAll) { // is recursive
 						// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
@@ -541,7 +540,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToSuccess(verificationResult)
 				}
 				new HashMap
-			} else if (returned instanceof HashMap) {
+			} else if (returned instanceof HashMap<?,?>) {
 				val report = returned.get("_result_report_") as ResultReport
 				if (report != null) {
 					verificationResult.resultReport = report
