@@ -490,7 +490,8 @@ class AssureUtilExtension {
 
 	def static isZeroTotalCount(AssureResult ar) {
 		val counts = ar.metrics
-		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0 && counts.successCount == 0
+		counts.failCount == 0 && counts.errorCount == 0 && counts.timeoutCount == 0 && counts.tbdCount == 0 &&
+			counts.successCount == 0
 	}
 
 	/** 
@@ -595,8 +596,8 @@ class AssureUtilExtension {
 
 	def static getPrintableName(AssureResult ar) {
 		switch (ar) {
-			AssuranceCaseResult: return "system " + ar.name
-			ModelResult: return "model " + ar.name
+			AssuranceCaseResult: return "case " + ar.name
+			ModelResult: return "plan " + ar.name
 			SubsystemResult: return "subsystem " + ar.name
 			ClaimResult: return "claim " + ar.name
 			ValidationResult: return "validation " + ar.name
@@ -820,7 +821,6 @@ class AssureUtilExtension {
 		counts.featuresRequirementsCount = counts.featuresRequirementsCount + subcounts.featuresRequirementsCount
 	}
 
-
 	/**
 	 * recompute and add the counts of the parts list to the result
 	 */
@@ -843,15 +843,18 @@ class AssureUtilExtension {
 			}
 		]
 	}
+	
+	private def static void setAllCountstoZero(AssuranceCaseResult caseResult){
+		EcoreUtil2.eAllOfType(caseResult,AssureResult).forEach[ao| ao.resetCounts]
+	}
 
 	def static AssuranceCaseResult recomputeAllCounts(AssuranceCaseResult caseResult, CategoryFilter filter) {
-		caseResult.resetCounts
+		caseResult.setAllCountstoZero
 		caseResult.recomputeAllCounts(caseResult.modelResult, filter)
 		caseResult
 	}
 
 	private def static ModelResult recomputeAllCounts(ModelResult modelResult, CategoryFilter filter) {
-		modelResult.resetCounts
 		modelResult.recomputeAllCounts(modelResult.claimResult, filter)
 		modelResult.recomputeAllCounts(modelResult.subsystemResult, filter)
 		modelResult.recomputeAllCounts(modelResult.subAssuranceCase, filter)
@@ -859,14 +862,12 @@ class AssureUtilExtension {
 	}
 
 	private def static SubsystemResult recomputeAllCounts(SubsystemResult subsystemResult, CategoryFilter filter) {
-		subsystemResult.resetCounts
 		subsystemResult.recomputeAllCounts(subsystemResult.claimResult, filter)
 		subsystemResult.recomputeAllCounts(subsystemResult.subsystemResult, filter)
 		subsystemResult
 	}
 
 	private def static ClaimResult recomputeAllCounts(ClaimResult claimResult, CategoryFilter filter) {
-		claimResult.resetCounts
 		claimResult.recomputeAllCounts(claimResult.verificationActivityResult, filter)
 		claimResult.recomputeAllCounts(claimResult.subClaimResult, filter)
 		claimResult
@@ -874,7 +875,6 @@ class AssureUtilExtension {
 
 	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult,
 		CategoryFilter filter) {
-		vaResult.resetCounts
 		if (vaResult.preconditionResult != null) vaResult.preconditionResult.recomputeAllCounts(filter).addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
 		if (vaResult.validationResult != null) vaResult.validationResult.recomputeAllCounts(filter).addTo(vaResult)
@@ -882,51 +882,54 @@ class AssureUtilExtension {
 	}
 
 	private def static ElseResult recomputeAllCounts(ElseResult vaResult, CategoryFilter filter) {
-		vaResult.resetCounts
 		vaResult.didFail = ElseType.OK
 		vaResult.recomputeAllCounts(vaResult.first, filter)
-		vaResult.recomputeAllCounts(vaResult.error, filter)
-		vaResult.recomputeAllCounts(vaResult.fail, filter)
-		vaResult.recomputeAllCounts(vaResult.timeout, filter)
 		if (! vaResult.first.isTBD) {
 			if (vaResult.first.isSuccess) {
 				vaResult.recordNoElse
 			} else {
-				if (vaResult.first.isFailed)
+				if (vaResult.first.isFailed) {
 					vaResult.recordElse(ElseType.FAIL)
-				else if (vaResult.first.isTimeout)
+					vaResult.recomputeAllCounts(vaResult.fail, filter)
+				} else if (vaResult.first.isTimeout) {
 					vaResult.recordElse(ElseType.TIMEOUT)
-				else if (vaResult.first.isEmpty)
+				} else if (vaResult.first.isEmpty) {
 					vaResult.recordElse(ElseType.ERROR)
+					vaResult.recomputeAllCounts(vaResult.error, filter)
+				}
 			}
+		} else {
+			// if ELSE first is TBD only count it since it is the only one that needs to be successful
+//			vaResult.recomputeAllCounts(vaResult.error, filter)
+//			vaResult.recomputeAllCounts(vaResult.fail, filter)
+//			vaResult.recomputeAllCounts(vaResult.timeout, filter)
 		}
 		vaResult
 	}
 
 	private def static ThenResult recomputeAllCounts(ThenResult vaResult, CategoryFilter filter) {
-		vaResult.resetCounts
 		vaResult.didThenFail = false
 		vaResult.recomputeAllCounts(vaResult.first, filter)
-		vaResult.recomputeAllCounts(vaResult.second, filter)
 		if (! vaResult.first.isTBD) {
 			if (vaResult.first.isSuccess) {
-				vaResult.recordSkip
-			} else {
 				vaResult.recordNoSkip
+				vaResult.recomputeAllCounts(vaResult.second, filter)
+			} else {
+				vaResult.recordSkip
 			}
+		} else {
+			vaResult.recomputeAllCounts(vaResult.second, filter)
 		}
 		vaResult
 	}
 
 	private def static ValidationResult recomputeAllCounts(ValidationResult validationResult, CategoryFilter filter) {
-		validationResult.resetCounts
 		validationResult.addOwnResultStateToCount()
 		validationResult
 	}
 
 	private def static PreconditionResult recomputeAllCounts(PreconditionResult preconditionResult,
 		CategoryFilter filter) {
-		preconditionResult.resetCounts
 		preconditionResult.addOwnResultStateToCount()
 		preconditionResult
 	}
@@ -1187,20 +1190,20 @@ class AssureUtilExtension {
 		vaResult.didFail = ElseType.OK
 		vaResult.first.forEach[e|e.addTo(vaResult)]
 		if (! vaResult.first.isTBD) {
-		if (vaResult.first.isSuccess) {
-			vaResult.recordNoElse
-		} else {
-			if (vaResult.first.isFailed)
-				vaResult.recordElse(ElseType.FAIL)
-			else if (vaResult.first.isTimeout)
-				vaResult.recordElse(ElseType.TIMEOUT)
-			else
-				vaResult.recordElse(ElseType.ERROR)
-			vaResult.error.forEach[e|e.addTo(vaResult)]
-			vaResult.fail.forEach[e|e.addTo(vaResult)]
-			vaResult.timeout.forEach[e|e.addTo(vaResult)]
-		}
-		
+			if (vaResult.first.isSuccess) {
+				vaResult.recordNoElse
+			} else {
+				if (vaResult.first.isFailed)
+					vaResult.recordElse(ElseType.FAIL)
+				else if (vaResult.first.isTimeout)
+					vaResult.recordElse(ElseType.TIMEOUT)
+				else
+					vaResult.recordElse(ElseType.ERROR)
+				vaResult.error.forEach[e|e.addTo(vaResult)]
+				vaResult.fail.forEach[e|e.addTo(vaResult)]
+				vaResult.timeout.forEach[e|e.addTo(vaResult)]
+			}
+
 		}
 		vaResult
 	}
@@ -1210,13 +1213,13 @@ class AssureUtilExtension {
 		vaResult.didThenFail = false
 		vaResult.first.forEach[e|e.addTo(vaResult)]
 		if (! vaResult.first.isTBD) {
-		if (vaResult.first.isSuccess) {
-			vaResult.recordSkip
-			vaResult.second.forEach[e|e.addTo(vaResult)]
-		} else {
-			vaResult.recordNoSkip
-		}
-		
+			if (vaResult.first.isSuccess) {
+				vaResult.recordSkip
+				vaResult.second.forEach[e|e.addTo(vaResult)]
+			} else {
+				vaResult.recordNoSkip
+			}
+
 		}
 		vaResult
 	}
@@ -1394,10 +1397,10 @@ class AssureUtilExtension {
 
 	def static String assureResultCounts(AssureResult ele) {
 		val elec = ele.metrics
-		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null) {
-			ele.resetCounts
-			ele.recomputeAllCounts(null)
-		}
+//		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null) {
+//			ele.resetCounts
+//			ele.recomputeAllCounts(null)
+//		}
 		" (S" + elec.successCount + " F" + elec.failCount + " T" + elec.timeoutCount + " E" + elec.errorCount + " tbd" +
 			elec.tbdCount + " EL" + elec.didelseCount + " TS" + elec.thenskipCount + ")"
 	}
@@ -1531,8 +1534,8 @@ class AssureUtilExtension {
 			IntegerLiteral: numberValue.setValue((value as long))
 		}
 	}
-	
-	def static getValue(NumberValue numberValue){
+
+	def static getValue(NumberValue numberValue) {
 		switch (numberValue) {
 			RealLiteral: numberValue.getValue()
 			IntegerLiteral: numberValue.getValue()
