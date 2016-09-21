@@ -5,7 +5,9 @@
 	<title>Introduction</title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-03-16T11:24:55.383000000"/>
+	<meta name="changed" content="2016-09-20T14:46:23.588000000"/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-03-16T11:24:55.383000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2015-12-03T09:27:48.105000000">
 	<meta name="created" content="00:00:00">
@@ -74,7 +76,8 @@ lifecycle assurance.
 	case result instance, i.e., </i>the assurance evidence as the result
 	of executing verification plans on one or more system instance
 	models. Assure instances in this notation are automatically
-	generated for an assurance case and assurance task. 
+	generated for an assurance case and a filtered view based on
+	specified categories (assurance task). 
 	</p>
 </ul>
 <p>These notations are supported by additional notations: 
@@ -85,29 +88,15 @@ lifecycle assurance.
 	notation for defining the stakeholders of a system. 
 	</p>
 	<li/>
-<p><em>Categories:</em> a notation for defining requirement
-	categories, verification categories, and selection categories 
-	</p>
-</ul>
-<p>Users can define the following types of categories: 
-</p>
-<ul>
-	<li/>
-<p style="margin-bottom: 0in"><em>quality category labels:</em>
-	These labels represent quality attributes and are used to categorize
-	requirements, goals, and verification methods. 
-	</p>
-	<li/>
-<p style="margin-bottom: 0in"><em>phase category labels:</em>
-	These labels represent development phases and are used to categorize
-	verification methods. 
-	</p>
-	<li/>
-<p><em>selection category labels:</em> These labels are used
-	to introduce additional user-defined selection criteria and are used
-	on requirements, goals, verification methods, and verification
-	activities. 
-	</p>
+<p><em>Categories:</em> a notation for defining different
+	types of categories. These categories can be used to characterize
+	requirements, verification activities, and verification methods.
+	Users can filter assurance case viewing and automated verification
+	by filtering on these categories.<br/>
+A set of category types are
+	predefined: requirement <i>kind</i> (such as assumption, guarantee),
+	<i>quality</i> (e.g., safety, security, latency), development <i>phase</i><span style="font-style: normal">,
+	and tier in an architecture </span><i>layer</i><span style="font-style: normal">.</span></p>
 </ul>
 <p>Note: All the notations in Alisa are case sensitive.</p>
 <h2 class="western">Grammars and Notational Conventions</h2>
