@@ -67,22 +67,22 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(AssuranceCaseResult ele) {
-		"System case "+ele.name +": "+ele.constructMessage		
+		"Assurance case "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
 	def text(ModelResult ele) {
-		"Model "+ele.name +": "+ele.constructMessage		
+		"Assurance plan "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
 	def text(SubsystemResult ele) {
-		"Subsystem "+ele.name +": "+ele.constructMessage		
+		"Subsystem verification "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
 	def text(ResultIssue ele) {
-		return (ele.target?.constructLabel?:"")+ ele.constructMessage
+		return "Issue "+(ele.target?.constructLabel?:"")+ ele.constructMessage
 	}
 	
 	def text(ElseResult ele) {
