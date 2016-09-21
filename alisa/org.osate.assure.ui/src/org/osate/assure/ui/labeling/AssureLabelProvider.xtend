@@ -53,7 +53,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Evidence "+ele.name + " "+ele.assureExecutionTime+": " + ele.constructMessage 
+		"Evidence "+ele.name + ": "+ ele.constructMessage 
 		
 
 	}
@@ -86,10 +86,10 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(ElseResult ele) {
-		'else'
+		'else: '+ ele.assureResultCounts
 	}
 	def text(ThenResult ele) {
-		'then'
+		'then: '+ ele.assureResultCounts
 	}
 
 	def image(ResultIssue ele) {
