@@ -72,8 +72,7 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.aadl2.Subcomponent
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
 import com.google.inject.ImplementedBy
-
-
+import org.osate.reqspec.reqSpec.ValuePredicate
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -377,18 +376,32 @@ class AssureConstructor implements IAssureConstructor{
 		if(claim.assert != null){
 			//TODO: Need to check
 			claimResult.verificationActivityResult.construct(claim.assert)
-			
-			
 		} else {
 			for(claimva : claimvas) {
 				claimResult.verificationActivityResult.add(claimva)
 			}
 		}
+		val predicate = claim.requirement.predicate
+		if (predicate instanceof ValuePredicate) {
+			claimResult.predicateResult = generatePredicateResult(claim)	
+		}
 		
 		claimResultlist.add(claimResult)
-		
 	}
-	
+
+	def generatePredicateResult(Claim claim) {
+		val predicate = factory.createPredicateResult
+		val QualifiedClaimReference ref = factory.createQualifiedClaimReference
+		ref.verificationPlan = claim.containingVerificationPlan
+		val NestedClaimReference nested = factory.createNestedClaimReference
+		nested.requirement = claim.requirement
+		ref.requirement = constructClaimReferencePath(claim, nested)
+		predicate.targetReference = ref
+		predicate.metrics = factory.createMetrics
+		predicate.metrics.tbdCount = 0
+		predicate
+	}
+		
 	@Inject IAlisaGlobalReferenceFinder refFinder
 	
 	
@@ -561,7 +574,7 @@ class AssureConstructor implements IAssureConstructor{
 		
 		vaList.add(vaResult)
 	}
-	
+
 	def NestedClaimReference constructClaimReferencePath(Claim claim, NestedClaimReference ncr){
 		val parent = claim.eContainer
 		if (parent instanceof Claim){

@@ -37,6 +37,7 @@ import org.osate.assure.assure.AssurePackage;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.VerificationExpr;
+import org.osate.assure.assure.VerificationResult;
 
 /**
  * <!-- begin-user-doc -->
@@ -51,6 +52,7 @@ import org.osate.assure.assure.VerificationExpr;
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.impl.ClaimResultImpl#getPredicateResult <em>Predicate Result</em>}</li>
  * </ul>
  *
  * @generated
@@ -116,6 +118,16 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * @ordered
    */
   protected EList<VerificationExpr> verificationActivityResult;
+
+  /**
+   * The cached value of the '{@link #getPredicateResult() <em>Predicate Result</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPredicateResult()
+   * @generated
+   * @ordered
+   */
+  protected VerificationResult predicateResult;
 
   /**
    * <!-- begin-user-doc -->
@@ -285,6 +297,54 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
    * <!-- end-user-doc -->
    * @generated
    */
+  public VerificationResult getPredicateResult()
+  {
+    return predicateResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public NotificationChain basicSetPredicateResult(VerificationResult newPredicateResult, NotificationChain msgs)
+  {
+    VerificationResult oldPredicateResult = predicateResult;
+    predicateResult = newPredicateResult;
+    if (eNotificationRequired())
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__PREDICATE_RESULT, oldPredicateResult, newPredicateResult);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPredicateResult(VerificationResult newPredicateResult)
+  {
+    if (newPredicateResult != predicateResult)
+    {
+      NotificationChain msgs = null;
+      if (predicateResult != null)
+        msgs = ((InternalEObject)predicateResult).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CLAIM_RESULT__PREDICATE_RESULT, null, msgs);
+      if (newPredicateResult != null)
+        msgs = ((InternalEObject)newPredicateResult).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - AssurePackage.CLAIM_RESULT__PREDICATE_RESULT, null, msgs);
+      msgs = basicSetPredicateResult(newPredicateResult, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, AssurePackage.CLAIM_RESULT__PREDICATE_RESULT, newPredicateResult, newPredicateResult));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   @Override
   public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
@@ -296,6 +356,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         return ((InternalEList<?>)getSubClaimResult()).basicRemove(otherEnd, msgs);
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
         return ((InternalEList<?>)getVerificationActivityResult()).basicRemove(otherEnd, msgs);
+      case AssurePackage.CLAIM_RESULT__PREDICATE_RESULT:
+        return basicSetPredicateResult(null, msgs);
     }
     return super.eInverseRemove(otherEnd, featureID, msgs);
   }
@@ -321,6 +383,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         return getSubClaimResult();
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
         return getVerificationActivityResult();
+      case AssurePackage.CLAIM_RESULT__PREDICATE_RESULT:
+        return getPredicateResult();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -353,6 +417,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         getVerificationActivityResult().clear();
         getVerificationActivityResult().addAll((Collection<? extends VerificationExpr>)newValue);
         return;
+      case AssurePackage.CLAIM_RESULT__PREDICATE_RESULT:
+        setPredicateResult((VerificationResult)newValue);
+        return;
     }
     super.eSet(featureID, newValue);
   }
@@ -382,6 +449,9 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
         getVerificationActivityResult().clear();
         return;
+      case AssurePackage.CLAIM_RESULT__PREDICATE_RESULT:
+        setPredicateResult((VerificationResult)null);
+        return;
     }
     super.eUnset(featureID);
   }
@@ -406,6 +476,8 @@ public class ClaimResultImpl extends AssureResultImpl implements ClaimResult
         return subClaimResult != null && !subClaimResult.isEmpty();
       case AssurePackage.CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT:
         return verificationActivityResult != null && !verificationActivityResult.isEmpty();
+      case AssurePackage.CLAIM_RESULT__PREDICATE_RESULT:
+        return predicateResult != null;
     }
     return super.eIsSet(featureID);
   }

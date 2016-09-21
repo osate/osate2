@@ -67,6 +67,7 @@ import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.PredicateResult;
 import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
@@ -130,6 +131,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
+				return; 
+			case AssurePackage.PREDICATE_RESULT:
+				sequence_PredicateResult(context, (PredicateResult) semanticObject); 
 				return; 
 			case AssurePackage.QUALIFIED_CLAIM_REFERENCE:
 				sequence_QualifiedClaimReference(context, (QualifiedClaimReference) semanticObject); 
@@ -260,7 +264,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         modelElement=[NamedElement|ID]? 
 	 *         message=STRING? 
 	 *         subClaimResult+=ClaimResult* 
-	 *         verificationActivityResult+=VerificationExpr*
+	 *         verificationActivityResult+=VerificationExpr* 
+	 *         predicateResult=PredicateResult?
 	 *     )
 	 */
 	protected void sequence_ClaimResult(EObject context, ClaimResult semanticObject) {
@@ -354,6 +359,23 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_PreconditionResult(EObject context, PreconditionResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Constraint:
+	 *     (
+	 *         targetReference=QualifiedClaimReference 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         metrics=Metrics 
+	 *         message=STRING?
+	 *     )
+	 */
+	protected void sequence_PredicateResult(EObject context, PredicateResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
