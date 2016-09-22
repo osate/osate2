@@ -5,11 +5,13 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-09-21T23:15:10.206000000"/>
+	<meta name="changed" content="2016-09-21T23:50:56.932000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-09-21T23:15:10.206000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-09-21T22:59:35.552000000">
 	<meta name="created" content="00:00:00">
@@ -24,11 +26,11 @@
 	<meta name="changed" content="2015-12-03T19:50:41.608000000">
 	<style type="text/css">
 		@page { margin: 0.79in }
+		p { margin-bottom: 0.08in; so-language: zxx }
 		h1 { margin-bottom: 0.08in }
 		h1.western { font-family: "Liberation Serif", serif; so-language: zxx }
 		h1.cjk { font-family: "Segoe UI"; font-size: 24pt; so-language: zxx }
 		h1.ctl { font-family: "Tahoma"; font-size: 24pt; so-language: zxx }
-		p { margin-bottom: 0.08in; so-language: zxx }
 		h2.western { so-language: zxx }
 		h2.cjk { font-family: "SimSun"; so-language: zxx }
 		h2.ctl { font-family: "Mangal"; so-language: zxx }
@@ -95,13 +97,13 @@ activity.</span></span></p>
 the type and signature of a verification method as well as a
 reference to its implementation in an implementation language neutral
 way. The actual method may take a variety of forms. However, the
-methods have a common interface to interface with the Alisa
+methods have a common interface to interface with the ALISA
 incremental assurance engine. Currently we support Osate analysis
 plug-ins (reporting results via Eclipse markers), Resolute (reporting
 results in Resolute format), JUnit4 (reporting results via
 AssertionException and JUnit result format), and Java/Xtend based
 method implementations (reporting result via AssertionException,
-return value, or a result format defined by Alisa.</p>
+return value, or a result format defined by ALISA.</p>
 <p lang="zxx">The <i>Verify </i><span style="font-variant: normal"><span style="font-style: normal">notation
 supports two file extensions: </span></span><i>verify</i><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">for
@@ -500,11 +502,11 @@ expression operators. </span>
 <h2 lang="zxx" class="western"><a name="MethodRegistry"></a>Registry
 of Verification Methods 
 </h2>
-<p lang="zxx"><span lang="zxx">A verification method registry allows
-users to register implementations of different verification methods
-in an implementation language neutral format. </span><span lang="zxx">Currently
-OSATE Analysis plug-ins, Java, Resolute, Agree, JUnit, and manual
-methods are supported.</span></p>
+<p lang="zxx">A verification method registry allows users to register
+implementations of different verification methods in an
+implementation language neutral format. Currently OSATE Analysis
+plug-ins, Java, Resolute, Agree, JUnit, and manual methods are
+supported.</p>
 <p lang="zxx"><span lang="zxx">A verification method registry is
 defined in a separate file with the extension </span><em><span lang="zxx">methodregistry</span></em><span lang="zxx">.
 </span>
@@ -514,8 +516,7 @@ defined in a separate file with the extension </span><em><span lang="zxx">method
 <span lang="zxx"><font color="#800000"><b>[</b></font> </span>
   <span lang="zxx"><span lang="zxx">( </span><font color="#7f0055"><span lang="zxx"><b>description</b></span></font><span lang="zxx"> Description )? </span></span>
   <span lang="zxx"><span lang="zxx">VerificationMethod+ </span></span>
-<span lang="zxx"><font color="#800000"><b>]</b></font> </span>
-</pre><p lang="zxx">
+<span lang="zxx"><font color="#800000"><b>]</b></font> </span></pre><p lang="zxx">
 The verification method registry consists of:</p>
 <ul>
 	<li/>
@@ -616,12 +617,13 @@ The verification method declaration consists of:
 	default the component instance, whose requirement is verified, is
 	passed. Some requirements apply to an element within a component
 	instance, e.g., to a feature. In this case, users must specify the
-	fact that the methods expes a feature instance instead of a
-	component instance. Other targets are conneciton instances, mode
-	instances, and (end to end) flow instances. Element is used to
-	indicate that a InstanceObject is expected. In the case of Java
-	methods, the specified target type must match the class of the first
-	parameter.</span></span></span></em><em><span lang="zxx"> </span></em>
+	fact that the methods exp</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">r</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">e</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">s</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">s
+	a feature instance instead of a component instance. Other targets
+	are connec</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">ti</span></span></span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">on
+	instances, mode instances, and (end to end) flow instances. Element
+	is used to indicate that a InstanceObject is expected. In the case
+	of Java methods, the specified target type must match the class of
+	the first parameter.</span></span></span></em><em><span lang="zxx"> </span></em>
 	</p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">FormalParameter list:</span></em><span lang="zxx">
@@ -659,8 +661,9 @@ The verification method declaration consists of:
 	indication that the method returns a </span><span lang="zxx"><i>result
 	report</i></span><span style="font-variant: normal"><span lang="zxx">
 	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">in
-	an Alisa specified format. This report can contain a collection of
-	result indicators and result data (see <a href="ResultReport.html">ResultReport.html</a>).</span></span></span></p>
+	an A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	specified format. This report can contain a collection of result
+	indicators and result data (see <a href="ResultReport.html">ResultReport.html</a>).</span></span></span></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx"><i>Title:</i></span></em><em><span lang="zxx">
 	</span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">a
@@ -710,20 +713,15 @@ The verification method declaration consists of:
 	</span></span>success <span style="font-variant: normal"><span style="font-style: normal">result
 	while the validation may indicate a </span></span>fail<span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
 	<li/>
-<p lang="zxx"><i><span style="font-weight: normal">Quality</span></i><span style="font-weight: normal">:
+<p lang="zxx"><i><span style="font-weight: normal">Category</span></i><span style="font-weight: normal">:
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">list
 	of quality attribute</span></span></span><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">labels
 	(without comma separation) that</span></span></span><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">this
 	verification method addresses. It is used when defining filter
-	criteria for assurance tasks.</span></span></span></p>
-	<li/>
-<p lang="zxx"><i><span style="font-weight: normal">Category</span></i><span style="font-weight: normal">:</span><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">list
-	of user defined category labels (without comma separation) in which
-	this verification activity should be performed. It is used when
-	defining assurance tasks.</span></span></span></p>
+	criteria </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">via</span></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">
+	assurance tasks.</span></span></span></p>
 </ul>
 <p lang="zxx"><br/>
 <br/>
@@ -759,17 +757,18 @@ Java methods can return a Boolean result, which gets mapped
 	</b></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">keyword</span></span></span></span><span lang="zxx"><i>.</i></span><span style="font-variant: normal"><span lang="zxx">
 	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><br/>
 Java
-	methods can return result reports in an Alisa</span></span></span><span style="font-variant: normal"><span lang="zxx">
+	methods can return result reports in an A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx">
 	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">defined
 	format (see <a href="ResultReport.html">Result Report</a>) if the
 	method is registered accordingly (</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><b>report</b></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">)</span></span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.<br/>
-Jave
+Jav</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">a</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
 	methods can return a single value as object or a hasmap of multiple
 	values. These values will be assigned to the specified </span></span></span><span style="font-variant: normal"><span lang="zxx"><i>computed
 	variables</i></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">.<br/>
 The
 	actual Java method may expect Java types that are not part of the
-	ALISA Types. For example, the Java method may expect a l</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>ong</i></span></span><span style="font-variant: normal"><span lang="zxx">
+	A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	Types. For example, the Java method may expect a l</span></span></span><span style="font-variant: normal"><span lang="zxx"><i>ong</i></span></span><span style="font-variant: normal"><span lang="zxx">
 	</span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">numeric.
 	An optional parameter list allows users to specify the expected Java
 	type followed by the name of the formal parameter. Currently we map
@@ -794,30 +793,36 @@ The
 	</span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">an
 	OSATE analysis plugin method identified by an identifier. Plugin
 	methods are defined in a predeclared method registry (see <a href="#Built-in and User-defined Registries|outline">Predefined
-	Method Registry</a>). OSAT Eplugins report their results via the
-	Eclipse Marker mechanism. These results are mapped into a common
-	Alisa result issue format for inclusion in the assurance case result
+	Method Registry</a>). OSAT</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">E
+	analysis </span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">plugins
+	report their results via the Eclipse Marker mechanism. These results
+	are mapped into a A</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">LISA</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">
+	result issue format for inclusion in the assurance case result
 	instance.</span></span></span></p>
 	<li/>
 <p lang="zxx"><i>Resolute:</i><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal">a
 	Resolute claim function or computational functions</span></span><span style="font-variant: normal">
 	</span><span style="font-variant: normal"><span style="font-style: normal">identified
-	by the unqualified method name. Results in the Resolute result
-	format are mapped into the</span></span><span style="font-variant: normal">
-	</span><span style="font-variant: normal"><span style="font-style: normal">Alisa
+	by the method name. Results in the Resolute result format are mapped
+	into the</span></span><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal">A</span></span><span style="font-variant: normal"><span style="font-style: normal">LISA</span></span><span style="font-variant: normal"><span style="font-style: normal">
 	Result Issue format. In the case of computational functions the
 	returned value is assigned to the specified </span></span><span style="font-variant: normal"><i>Computed
 	Variable</i></span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
 	<li/>
 <p lang="zxx"><i>Agree:</i><span style="font-variant: normal">
 	Agree verification is invoked on the target component for a single
-	layer verificaiton or for verifying all layers. This is equivalent
-	to invoking Agree on a component through the user interface</span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
+	layer verifica</span><span style="font-variant: normal">ti</span><span style="font-variant: normal">on
+	or for verifying all layers. This is equivalent to invoking Agree on
+	a component through the user interface</span><span style="font-variant: normal"><span style="font-style: normal">.
+	</span></span><span style="font-variant: normal"><span style="font-style: normal">Note
+	that for execution of Agree the Jkind verifier must be installed
+	(see Agree documentation).</span></span></p>
 	<li/>
 <p lang="zxx"><i>JUnit:</i><span style="font-variant: normal">
 	The specified JUnit test class is invoked. Results of a JUnit run
-	are mapped back into the Alisa Result Issue format</span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
+	are mapped back into the A</span><span style="font-variant: normal">LISA</span><span style="font-variant: normal">
+	Result Issue format</span><span style="font-variant: normal"><span style="font-style: normal">.</span></span></p>
 	<li/>
 <p lang="zxx"><span style="font-variant: normal"><i><span style="font-weight: normal">Manual:
 	</span></i></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">the
@@ -828,7 +833,7 @@ The
 </ul>
 <h2 lang="zxx" class="western"><a name="Registries"></a><a name="BuiltinRegistry"></a><a name="Built-in and User-defined Registries|outline"></a>
 Built-in and User-defined Registries</h2>
-<p lang="zxx">Alisa comes with a built-in registry of verification
+<p lang="zxx">ALISA comes with a built-in registry of verification
 methods. This registry is available as a project called
 <i>AlisaPredefined</i> in the Github repository <i>osate/alisa-examples</i><span style="font-variant: normal"><span style="font-style: normal">.
 The registry contains OSATE analysis plugin method declarations.</span></span></p>
@@ -837,7 +842,7 @@ The registry contains OSATE analysis plugin method declarations.</span></span></
 </span><span style="font-variant: normal"><span style="font-style: normal">Project
 also contains a set of predefined category types and labels. See the
 ReqSpec documentation for details.</span></span></p>
-<p lang="zxx">Users can add verification methods to Alisa in several
+<p lang="zxx">Users can add verification methods to ALISA in several
 ways. 
 </p>
 <p lang="zxx">First, users can write claim functions and
