@@ -201,7 +201,7 @@ public class PropagateErrorSources {
 			}
 
 			for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(ci)) {
-				if (opc.getTypeToken() != null && EMV2Util.isNoError(opc.getTypeToken())) {
+				if (opc.getTypeToken() != null && EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
 					continue;
 				}
 
