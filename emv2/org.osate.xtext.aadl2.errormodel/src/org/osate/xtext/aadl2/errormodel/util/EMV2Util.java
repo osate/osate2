@@ -3004,8 +3004,13 @@ public class EMV2Util {
 		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
 	}
 
-	public static boolean isNoError(TypeSet type) {
-		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
-	}
+	// XXX moved to EM2TypeSetUtil
+//	public static boolean isNoError(ErrorTypes type) {
+//		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
+//	}
+//
+//	public static boolean isNoError(TypeSet type) {
+//		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
+//	}
 
 }

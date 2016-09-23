@@ -64,12 +64,14 @@ public class PropagationGraphBackwardTraversal {
 			return found;
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
-			ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), type);
-			if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
-					&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
-				EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
-				if (res != null) {
-					subResults.add(res);
+			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
+				ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), type);
+				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
+						&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
+					EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
+					if (res != null) {
+						subResults.add(res);
+					}
 				}
 			}
 		}
@@ -395,7 +397,7 @@ public class PropagationGraphBackwardTraversal {
 			}
 
 			if (conditionElement.getConstraint() != null) {
-				if (EMV2Util.isNoError(conditionElement.getConstraint())) {
+				if (EM2TypeSetUtil.isNoError(conditionElement.getConstraint())) {
 					// this is a recovery transition since an incoming propagation constraint is NoError
 					return null;
 				}
@@ -420,9 +422,7 @@ public class PropagationGraphBackwardTraversal {
 				 */
 				if (errorModelElement instanceof ErrorPropagation) {
 					ErrorPropagation errorPropagation = (ErrorPropagation) errorModelElement;
-					// XXX deal with type constraint
-					TypeSet ts = errorPropagation.getTypeSet();
-					if (EMV2Util.isNoError(ts)) {
+					if (EM2TypeSetUtil.isNoError(referencedErrorType)) {
 						// this is a recovery transition since an incoming propagation became error free
 						return null;
 					}
