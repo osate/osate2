@@ -800,7 +800,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		}
 		ErrorPropagation ep = opc.getOutgoing();
 		if (ep != null) {
-			if (!EM2TypeSetUtil.contains(ep.getTypeSet(), opc.getTypeToken())) {
+			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())
+					&& !EM2TypeSetUtil.contains(ep.getTypeSet(), opc.getTypeToken())) {
 				error(opc,
 						"Outgoing error type " + EMV2Util.getPrintName(opc.getTypeToken())
 								+ " is not contained in type set of outgoing error propagation specification \'"
@@ -813,7 +814,8 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 				Collection<ErrorPropagation> eps = EMV2Util.getAllOutgoingErrorPropagations(cl);
 				for (ErrorPropagation errorPropagation : eps) {
 					if (opc.getTypeToken() != null) {
-						if (!EM2TypeSetUtil.contains(errorPropagation.getTypeSet(), opc.getTypeToken())) {
+						if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())
+								&& !EM2TypeSetUtil.contains(errorPropagation.getTypeSet(), opc.getTypeToken())) {
 							error(opc,
 									"Outgoing error type " + EMV2Util.getPrintName(opc.getTypeToken())
 											+ " is not contained in type set of outgoing propagation "
