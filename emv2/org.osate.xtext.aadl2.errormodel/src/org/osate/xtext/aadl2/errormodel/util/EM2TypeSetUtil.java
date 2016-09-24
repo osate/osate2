@@ -73,6 +73,7 @@ public class EM2TypeSetUtil {
 	/**
 	 * true if super type contains type as subtype
 	 * aliases are resolved before the error types are compared
+	 * if either is null return false
 	 * @param supertype
 	 * @param type
 	 * @return boolean
@@ -93,6 +94,9 @@ public class EM2TypeSetUtil {
 		return false;
 	}
 
+	/**
+	 * Dispatch on ErrorTypes
+	 */
 	public static boolean contains(ErrorTypes constraint, ErrorType type) {
 		if (constraint instanceof ErrorType) {
 			return contains((ErrorType) constraint, type);
@@ -113,8 +117,41 @@ public class EM2TypeSetUtil {
 		return false;
 	}
 
+	public static boolean contains(TypeToken constraint, ErrorTypes type) {
+		if (type instanceof ErrorType) {
+			return contains(constraint, (ErrorType) type);
+		}
+		if (type instanceof TypeSet) {
+			return contains(constraint, (TypeSet) type);
+		}
+		return true;
+	}
+
+	public static boolean contains(ErrorTypes constraint, TypeToken type) {
+		if (constraint instanceof ErrorType) {
+			return contains((ErrorType) constraint, type);
+		}
+		if (constraint instanceof TypeSet) {
+			return contains((TypeSet) constraint, type);
+		}
+		return true;
+	}
+
+	public static boolean contains(ErrorTypes constraint, ErrorTypes type) {
+		if (type instanceof ErrorType) {
+			ErrorType et = (ErrorType) type;
+			return contains(constraint, et);
+		}
+		if (type instanceof TypeSet) {
+			TypeSet ts = (TypeSet) type;
+			return contains(constraint, ts);
+		}
+		return false;
+	}
+
 	/**
 	 * the constraint contains every element of the type set
+	 * If typeset is empty return true
 	 * @param constraint
 	 * @param ts
 	 * @return
@@ -153,40 +190,9 @@ public class EM2TypeSetUtil {
 		return false;
 	}
 
-	public static boolean contains(TypeToken constraint, ErrorTypes type) {
-		if (type instanceof ErrorType) {
-			return contains(constraint, (ErrorType) type);
-		}
-		if (type instanceof TypeSet) {
-			return contains(constraint, (TypeSet) type);
-		}
-		return true;
-	}
-
-	public static boolean contains(ErrorTypes constraint, TypeToken type) {
-		if (constraint instanceof ErrorType) {
-			return contains((ErrorType) constraint, type);
-		}
-		if (constraint instanceof TypeSet) {
-			return contains((TypeSet) constraint, type);
-		}
-		return true;
-	}
-
-	public static boolean contains(ErrorTypes constraint, ErrorTypes type) {
-		if (type instanceof ErrorType) {
-			ErrorType et = (ErrorType) type;
-			return contains(constraint, et);
-		}
-		if (type instanceof TypeSet) {
-			TypeSet ts = (TypeSet) type;
-			return contains(constraint, ts);
-		}
-		return false;
-	}
-
 	/**
-	 * true if TypeToken constraint contains ErrorType type as its single element
+	 * true if TypeToken constraint has single element and it contains ErrorType type
+	 * NoError constraint returns false
 	 * aliases are resolved before the error types are compared
 	 * @param constraint TypeToken
 	 * @param type ErrorType
@@ -200,12 +206,6 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		EList<ErrorTypes> tsetype = constraint.getType();
-//		for (ErrorTypes errorType : tsetype) {
-//			if (contains(errorType, type)) {
-//				return true;
-//			}
-//		}
-
 		if (tsetype.size() == 1) {
 			ErrorTypes errorType = tsetype.get(0);
 			if (contains(errorType, type)) {
@@ -233,9 +233,10 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		if (!constraint.isNoError() && token.isNoError()) {
-			return false;
+			return true;
 		}
 		if (constraint.getType().size() != token.getType().size()) {
+			// they are of different size
 			if (constraint.getType().size() == 1) {
 				// the constraint is a single type set
 				ErrorTypes ts = constraint.getType().get(0);
@@ -250,9 +251,24 @@ public class EM2TypeSetUtil {
 		} else {
 			// both type products have the same size
 			for (ErrorTypes errorType : token.getType()) {
-				if (!contains(constraint, errorType)) {
+				if (!containsElement(constraint, errorType)) {
 					return false;
 				}
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * type product contains typeelement as one of its elements
+	 * @param typeProduct
+	 * @param typeElement
+	 * @return
+	 */
+	public static boolean containsElement(TypeToken typeProduct, ErrorTypes typeElement) {
+		for (ErrorTypes errorType : typeProduct.getType()) {
+			if (!contains(errorType, typeElement)) {
+				return false;
 			}
 		}
 		return true;
@@ -278,21 +294,13 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		if (!token.isNoError() && isNoError(ts)) {
-			return false;
+			return true;
 		}
-//		int toksize = token.getType().size();
 		for (TypeToken tselement : ts.getTypeTokens()) {
-//			if (tselement.getType().size() == toksize) { // || tselement.getType().get(0) instanceof TypeSet) {
 			if (contains(tselement, token)) {
 				return true;
 			}
 		}
-//		}
-//		for (ErrorTypes et : token.getType()) {
-//			if (contains(ts, et)) {
-//				return true;
-//			}
-//		}
 		return false;
 	}
 
@@ -316,28 +324,20 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		if (!token.isNoError() && isNoError(ts)) {
-			return false;
-		}
-		if (ts.getTypeTokens().isEmpty()) {
-			return false;
+			return true;
 		}
 		for (TypeToken tselement : ts.getTypeTokens()) {
 			if (!contains(token, tselement)) {
 				return false;
 			}
 		}
-		// XXX switched from recursing on token to ts
-//		for (ErrorTypes et : token.getType()) {
-//			if (contains(et, ts)) {
-//				return true;
-//			}
-//		}
 		return true;
 	}
 
 	/**
 	 * true if TypeSet ts contains ErrorType et
 	 * The type set can represent a constraint
+	 * EMpty type set returns false
 	 * aliases are resolved before the error types are compared
 	 * @param ts TypeSet
 	 * @param et ErrorType
@@ -358,7 +358,7 @@ public class EM2TypeSetUtil {
 
 	/**
 	 * true if TypeSet ts contains TypeSet subts
-	 * The type set can represent a constraint, i.e., product types, and Type matching are taken into account
+	 * NoError is handled both NoError or subTS NoError returns true
 	 * aliases are resolved before the error types are compared
 	 * @param ts TypeSet
 	 * @param subts TypeSet
@@ -379,10 +379,7 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		if (!isNoError(subts) && isNoError(ts)) {
-			return false;
-		}
-		if (ts.getTypeTokens().isEmpty()) {
-			return false;
+			return true;
 		}
 		EList<TypeToken> subelements = subts.getTypeTokens();
 		for (TypeToken typeToken : subelements) {
