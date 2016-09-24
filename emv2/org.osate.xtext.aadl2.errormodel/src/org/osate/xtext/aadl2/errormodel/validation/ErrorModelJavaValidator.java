@@ -379,7 +379,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (triggerTS == null && condTS != null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
-		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {
+		} else if (!EM2TypeSetUtil.isNoError(condTS) && !EM2TypeSetUtil.contains(triggerTS, condTS)) {
 			error(conditionElement,
 					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
 							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
@@ -406,7 +406,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 		if (triggerTS == null && condTS != null) {
 			// it is ok for a state not to have a type set.
 			error(conditionElement, "Condition has type constraint but referenced " + triggerName + " does not.");
-		} else if (!EM2TypeSetUtil.contains(triggerTS, condTS)) {
+		} else if (!EM2TypeSetUtil.isNoError(condTS) && !EM2TypeSetUtil.contains(triggerTS, condTS)) {
 			error(conditionElement,
 					"Condition type constraint " + EMV2Util.getPrintName(condTS) + "is not contained in type set "
 							+ EMV2Util.getPrintName(triggerTS) + "of referenced " + triggerName);
