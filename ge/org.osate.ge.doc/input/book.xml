@@ -165,6 +165,18 @@
 				</orderedlist>
 			</section>
 			<section>
+				<title>Selecting a Diagram Element's Container</title>
+				<para>Under some circumstances, it is difficult to select the desired diagram element due to the location of child diagram elements. The desired shape can be selected using the following steps.</para>
+				<orderedlist>
+					<listitem>
+						<para>Right-click on the child of the diagram element to be selected.</para>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>Select Container</emphasis> from the context menu.</para>
+					</listitem>
+				</orderedlist>
+			</section>
+			<section>
 				<title>Performing Diagram Layout</title>
 				<para>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select <emphasis>Layout Diagram</emphasis>. Doing so will adjust the positions of all the shapes in the diagram.</para>
 				<mediaobject><imageobject>

@@ -108,6 +108,7 @@ import org.osate.ge.internal.features.GraphicalToTextualFeature;
 import org.osate.ge.internal.features.InstanceUpdateDiagramFeature;
 import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
+import org.osate.ge.internal.features.SelectAncestorFeature;
 import org.osate.ge.internal.features.BoHandlerAddFeature;
 import org.osate.ge.internal.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.features.BoHandlerCreateFeature;
@@ -351,6 +352,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(DrillDownFeature.class));
+		features.add(make(SelectAncestorFeature.class));
 		features.add(make(ComponentImplementationToTypeFeature.class));
 		features.add(make(GoToPackageDiagramFeature.class));
 		features.add(make(GraphicalToTextualFeature.class));

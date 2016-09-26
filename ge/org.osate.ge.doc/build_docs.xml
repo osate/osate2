@@ -51,7 +51,7 @@ description="Generates eclipse help files">
 
   <param name="create.plugin.xml" expression="0" />
   <param name="eclipse.manifest" expression="0" />
-  <param name="base.dir" expression="output/" />	
+  <param name="base.dir" expression="${output.dir}/" />	
   <param name="eclipse.plugin.name" expression="AADL Graphical Editor"/>
   <param name="ulink.target" expression="_blank"/>
 
