@@ -825,7 +825,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		} else {
 			final Classifier classifier = getClassifier(shape);
 			final int newSize[] = layoutService.getMinimumSize(shape);
-			
+
 			// Enforce a minimum size for classifiers
 			newSize[0] = Math.max(newSize[0], classifierMinimumWidth);
 			newSize[1] = Math.max(newSize[1], classifierMinimumHeight);

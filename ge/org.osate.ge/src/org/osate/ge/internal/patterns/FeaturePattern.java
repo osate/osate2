@@ -65,7 +65,9 @@ import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -785,12 +787,16 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 					final NamedElement newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
 					
+					final boolean isLeft = calculateIsLeft(context.getTargetContainer(), context.getX(), 0);
 					if(newFeature instanceof DirectedFeature) {
-						if(!(newFeature instanceof AbstractFeature || newFeature instanceof FeatureGroup)) {
-							final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;
-							newDirectedFeature.setIn(true);
-							newDirectedFeature.setOut(true);
+						if(!(newFeature instanceof FeatureGroup)) {
+							final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;						
+							newDirectedFeature.setIn(isLeft);
+							newDirectedFeature.setOut(!isLeft);
 						}
+					} else if(newFeature instanceof Access) {
+						final Access access = (Access)newFeature;						
+						access.setKind(isLeft ? AccessType.REQUIRES : AccessType.PROVIDES);
 					}
 					
 					if(classifier instanceof ComponentType) {
@@ -808,8 +814,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 						@Override
 						public void setProperties(final Shape newShape) {
 							// Set the is left property
-							final GraphicsAlgorithm newShapeGa = newShape.getGraphicsAlgorithm();
-							final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), newShapeGa.getWidth());
+							final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), 0);
 							propertyUtil.setIsLeft(newShape, isLeft);							
 						}						
 					});
