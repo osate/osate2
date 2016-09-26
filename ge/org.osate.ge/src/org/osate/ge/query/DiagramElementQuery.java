@@ -58,7 +58,7 @@ public interface DiagramElementQuery<A> {
 	
 	/**
 	 * Returns a query whose results are all the ancestors of the results of this query which have a specified depth relative to this query.
-	 * @param depth must be {@literal >} 0. A value of 1 returns all immediate ancestors.
+	 * @param depth must be {@literal >} 0. A value of 1 returns the immediate ancestor.
 	 * @return the new query
 	 */
 	DiagramElementQuery<A> ancestor(int depth);
