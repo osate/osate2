@@ -41,13 +41,21 @@ public interface ShapeCreationService {
 	 */
 	boolean createUpdateShape(ContainerShape shape, Object bo);
 	
+	Shape createShape(final ContainerShape container, final Object bo, final int x, final int y);
+
 	/**
 	 * Create a shape for the specified element in the specified container if one does not exist. Otherwise, it sets the shapes position.
 	 * @param container
 	 * @param bo
 	 * @param x
 	 * @param y
+	 * @param propertySetter may be used to set properties after a shape is created but before checkShapeBoundsWithAncestor is called.
 	 * @return
 	 */
-	Shape createShape(final ContainerShape container, final Object bo, final int x, final int y);
+	Shape createShape(final ContainerShape container, final Object bo, final int x, final int y, final PropertySetter propertySetter);
+	
+	interface PropertySetter {
+		void setProperties(final Shape newShape);
+	}
+	
 }

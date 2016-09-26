@@ -117,6 +117,11 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	
 	@Override
 	public Shape createShape(final ContainerShape container, final Object bo, final int x, final int y) {
+		return createShape(container, bo, x, y, null);
+	}
+	
+	@Override
+	public Shape createShape(final ContainerShape container, final Object bo, final int x, final int y, final PropertySetter propertySetter) {
 		if(bo == null) {
 			return null;
 		}
@@ -143,6 +148,9 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 		if(newShape != null) {
 			Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), x, y);
 			propertyService.setIsLayedOut(newShape, true);
+			if(propertySetter != null) {
+				propertySetter.setProperties(newShape);
+			}
 			layoutService.checkShapeBoundsWithAncestors((ContainerShape)newShape);
 		}
 

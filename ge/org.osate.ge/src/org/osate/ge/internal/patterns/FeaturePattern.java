@@ -114,6 +114,7 @@ import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.ShapeCreationService;
+import org.osate.ge.internal.services.ShapeCreationService.PropertySetter;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -803,12 +804,15 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 				public void beforeCommit(final Resource resource, final Classifier classifier, final NamedElement newFeature) {
 					diagramMod.commit();
 					
-					final ContainerShape newShape = (ContainerShape)shapeCreationService.createShape(context.getTargetContainer(), newFeature, context.getX(), context.getY());
-					
-					// Set the is left property
-					final GraphicsAlgorithm newShapeGa = newShape.getGraphicsAlgorithm();
-					final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), newShapeGa.getWidth());
-					propertyUtil.setIsLeft(newShape, isLeft);
+					shapeCreationService.createShape(context.getTargetContainer(), newFeature, context.getX(), context.getY(), new PropertySetter() {
+						@Override
+						public void setProperties(final Shape newShape) {
+							// Set the is left property
+							final GraphicsAlgorithm newShapeGa = newShape.getGraphicsAlgorithm();
+							final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), newShapeGa.getWidth());
+							propertyUtil.setIsLeft(newShape, isLeft);							
+						}						
+					});
 				}
 			});
 		}
