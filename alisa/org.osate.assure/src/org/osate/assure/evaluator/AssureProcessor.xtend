@@ -75,6 +75,8 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.verify.verify.VerificationMethod
+import com.rockwellcollins.atc.resolute.resolute.ClaimBody
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -350,7 +352,7 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					val res = executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
+					val res = executeJavaMethod(verificationResult, method, target, parameterObjects)
 					if (verificationResult instanceof VerificationActivityResult) {
 						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
 						method.results.forEach [ variable |
@@ -382,6 +384,7 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. Resolute likes them this way
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
+					// check for claim function or compute function
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
 					val provecall = createWrapperProveCall(methodtype, targetComponent, parameterObjects)
 					if (provecall == null) {
@@ -529,11 +532,12 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 	
-	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
+	def executeJavaMethod(VerificationResult verificationResult, VerificationMethod method, InstanceObject target,
 		List<PropertyExpression> parameters) {
+		val methodtype = method.methodKind as JavaMethod
 		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 		if (returned != null) {
-			if (returned instanceof Boolean) {
+			if (method.isPredicate && returned instanceof Boolean) {
 				if (returned != true) {
 					setToFail(verificationResult, "", target);
 				} else {
@@ -552,13 +556,28 @@ class AssureProcessor implements IAssureProcessor {
 				verificationResult.resultReport = returned
 				setToSuccess(verificationResult)
 				new HashMap
+			} else if (method.results.size == 1 ){
+				setToSuccess(verificationResult)
+				val resparam = method.results.head
+				val res = new HashMap
+				// TODO some type checking of expected type against actual
+				res.put(resparam.name, returned)
+				res
 			} else {
-				setToError(verificationResult, "No result report from analysis", target);
+				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap", target);
 				new HashMap
 			}
 		} else {
 			new HashMap
 		}
+	}
+	
+	def isClaimFunction(ResoluteMethod rm){
+		val found = rm.methodReference
+		if(found != null && (found.body instanceof ClaimBody)){
+			return true
+		}
+		return false
 	}
 
 	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
