@@ -49,7 +49,6 @@ import org.osate.alisa.common.common.Operation
 import org.osate.alisa.common.common.ValDeclaration
 
 import static extension org.osate.alisa.common.typing.InterpreterUtil.*
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 system org.osate.alisa.common.typing.CommonInterpreter
 

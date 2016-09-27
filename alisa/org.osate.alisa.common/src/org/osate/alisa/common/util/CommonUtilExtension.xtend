@@ -207,19 +207,4 @@ class CommonUtilExtension {
 		return res
 	}
 
-	/**
-	 * Resolve a model element reference relative to an instance object
-	 */
-	static def InstanceObject resolve(AModelReference ref, InstanceObject root) {
-		if (ref.prev == null)
-			root
-		else {
-			val io = ref.prev.resolve(root)
-			io.eContents.findFirst[
-				if (it instanceof InstanceObject) it.name.equalsIgnoreCase(ref.modelElement.name) else false
-			] as InstanceObject
-		}
-	}
-	
-	
 }
