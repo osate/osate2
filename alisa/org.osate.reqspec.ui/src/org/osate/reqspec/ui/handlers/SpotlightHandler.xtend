@@ -117,7 +117,7 @@ class SpotlightHandler extends AbstractHandler {
 
 		val PUR = SpotlightUtil.calculatePUR(numleaves, maxVol, medianVol, medianPrec, numSafety, numSecurity,
 			numPerformance)
-		return new SpotlightResult(leafInstance, numASRs, PUR)
+		return new SpotlightResult(leafInstance, numASRs, PUR as int)
 	}
 
 	def boolean isSsp(Requirement req) {
@@ -137,7 +137,7 @@ class SpotlightHandler extends AbstractHandler {
 	private static class SpotlightResult {
 		val ComponentInstance instance
 		val int numberOfASRs
-		val double pur
+		val int pur
 	}
 	
 	private static class SpotlightDialog extends TitleAreaDialog {
