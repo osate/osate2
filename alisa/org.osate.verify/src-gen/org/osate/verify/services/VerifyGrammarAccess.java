@@ -213,8 +213,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Claim} "claim" requirement=[ReqSpec::Requirement|QualifiedName]? (":" title=STRING)? "[" (("activities"
-		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & ("weight" weight=INT)?
-		//& subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
+		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & ("weight" weight=INT)? &
+		//subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//{Claim}
@@ -761,8 +761,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
 		//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "("
 		//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("category"
-		//	category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-		//	"]")?;
+		//	category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
@@ -1050,8 +1049,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationPrecondition returns VerificationCondition:
-		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
-		//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+		//	("," parameters+=[FormalParameter])*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
@@ -1361,8 +1360,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
 		//("(" (targetType=TargetType ",")? (formals+=FormalParameter ("," formals+=FormalParameter)*)? ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//")")? ("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
+		//("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
 		//isResultReport?="report")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
@@ -2135,8 +2134,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
 	//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "("
 	//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("category"
-	//	category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-	//	"]")?;
+	//	category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -2157,8 +2155,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationPrecondition returns VerificationCondition:
-	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
-	//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+	//	("," parameters+=[FormalParameter])*)? ")";
 	public VerificationPreconditionElements getVerificationPreconditionAccess() {
 		return pVerificationPrecondition;
 	}
@@ -2327,7 +2325,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}
@@ -2338,7 +2336,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 	//// This is similar to diagnostics
 	//ResultIssue:
-	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|URIID])? ("exception"
+	//	issueType=ResultIssueType message=STRING ("target" target=[ecore::EObject|NoQuoteString])? ("exception"
 	//	exceptionType=STRING)? ("diagnosticId" diagnosticId=STRING)? ("[" issues+=ResultIssue* "]")?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();

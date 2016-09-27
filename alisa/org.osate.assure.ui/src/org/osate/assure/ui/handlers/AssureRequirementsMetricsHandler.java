@@ -14,14 +14,14 @@ import org.eclipse.xtext.EcoreUtil2;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.evaluator.IAssureRequirementMetricsProcessor;
 import org.osate.assure.ui.views.AssureRequirementsCoverageView;
-import org.osate.assure.util.AssureUtilExtension;
-import org.osate.verify.util.VerifyUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 
 import com.google.inject.Inject;
 
 public class AssureRequirementsMetricsHandler extends AlisaHandler {
 	private static final String ASSURE_REQUIREMENTS_COVERAGE_VIEW_ID = "org.osate.assure.commands.OpenAssureRequirementCoverageView";
 	private IHandlerActivation openAssureRequirementsCoverageViewerActivation;
+	private CategoryFilter selectedFilter;
 
 	@Inject
 	private IAssureRequirementMetricsProcessor assureRequirementsMetricsProcessor;
@@ -34,106 +34,109 @@ public class AssureRequirementsMetricsHandler extends AlisaHandler {
 	public Object execute(ExecutionEvent event) {
 		return super.execute(event);
 	}
-	
+
 	@Override
 	protected String getJobName() {
 		return "Assure requirements coverage metrics";
 	}
 
 	@Override
-	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 		clearProofs();
 		disableRerunHandler();
+		selectedFilter = filter;
 
 		AssuranceCaseResult rootCaseResult = null;
 		try {
-			if (sel instanceof AssuranceCaseResult){
-				rootCaseResult = (AssuranceCaseResult)sel;
+			if (sel instanceof AssuranceCaseResult) {
+				rootCaseResult = (AssuranceCaseResult) sel;
 			} else {
 				rootCaseResult = EcoreUtil2.getContainerOfType(sel, AssuranceCaseResult.class);
 			}
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			enableRerunHandler(sel);
 			return Status.CANCEL_STATUS;
 		}
-		
-		long start = System.currentTimeMillis();
-		VerifyUtilExtension.clearAllHasRunRecords();
-		AssureUtilExtension.clearAllInstanceModels();
-		try {
-			assureRequirementsMetricsProcessor.processCase(rootCaseResult, monitor);
-			drawProofs(rootCaseResult);
-		} catch (Exception e) {
-			if (e instanceof java.lang.NoSuchMethodException) {
-				enableRerunHandler(sel);
-				return Status.CANCEL_STATUS;
-			}
-			e.printStackTrace();
-		}
+
+		// moved to be run when setProofs from viewer
+//		long start = System.currentTimeMillis();
+//		VerifyUtilExtension.clearAllHasRunRecords();
+//		AssureUtilExtension.clearAllInstanceModels();
+//		try {
+//			assureRequirementsMetricsProcessor.processCase(rootCaseResult, filter, monitor);
+//			drawProofs(rootCaseResult);
+//		} catch (Exception e) {
+//			if (e instanceof java.lang.NoSuchMethodException) {
+//				enableRerunHandler(sel);
+//				return Status.CANCEL_STATUS;
+//			}
+//			e.printStackTrace();
+//		}
 
 //		long stop = System.currentTimeMillis();
 //		System.out.println("Evaluation time: " + (stop - start) / 1000.0 + "s");
 
 		enableRerunHandler(sel);
 		return Status.OK_STATUS;
-	 }
+	}
 
-		private void drawProofs(final AssuranceCaseResult ac) {
-			final IWorkbenchPage page = getWindow().getActivePage();
+	private void drawProofs(final AssuranceCaseResult ac) {
+		final IWorkbenchPage page = getWindow().getActivePage();
 
-			Display.getDefault().asyncExec(new Runnable() {
-				@Override
-				public void run() {
-					displayView(ac, page);
-				}
-			});
-		}
-
-		private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
-			try {
-				//TODO: change below to new view name
-				AssureRequirementsCoverageView view = (AssureRequirementsCoverageView) page.showView(AssureRequirementsCoverageView.ID);
-				view.setProofs(ac);
-				view.setFocus();
-			} catch (PartInitException e) {
-				e.printStackTrace();
+		Display.getDefault().asyncExec(new Runnable() {
+			@Override
+			public void run() {
+				displayView(ac, page);
 			}
-		}
+		});
+	}
 
-		protected void clearProofs() {
-			drawProofs(null);
+	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
+		try {
+			// TODO: change below to new view name
+			AssureRequirementsCoverageView view = (AssureRequirementsCoverageView) page
+					.showView(AssureRequirementsCoverageView.ID);
+			view.setProofs(ac, selectedFilter);
+			view.setFocus();
+		} catch (PartInitException e) {
+			e.printStackTrace();
 		}
+	}
 
-		private IHandlerService getHandlerService() {
-			return (IHandlerService) getWindow().getService(IHandlerService.class);
-		}
+	protected void clearProofs() {
+		drawProofs(null);
+	}
 
-		private void disableRerunHandler() {
-			if (openAssureRequirementsCoverageViewerActivation != null) {
-				getWindow().getShell().getDisplay().syncExec(new Runnable() {
-					@Override
-					public void run() {
-						IHandlerService handlerService = getHandlerService();
-						handlerService.deactivateHandler(openAssureRequirementsCoverageViewerActivation);
-						openAssureRequirementsCoverageViewerActivation = null;
-					}
-				});
-			}
-		}
-		private void enableRerunHandler(final EObject root) {
+	private IHandlerService getHandlerService() {
+		return (IHandlerService) getWindow().getService(IHandlerService.class);
+	}
+
+	private void disableRerunHandler() {
+		if (openAssureRequirementsCoverageViewerActivation != null) {
 			getWindow().getShell().getDisplay().syncExec(new Runnable() {
 				@Override
 				public void run() {
 					IHandlerService handlerService = getHandlerService();
-//					rerunActivation = handlerService
-//							.activateHandler(ASSURE_VIEW_ID, new OpenAssureViewHandler(root, OpenAssureViewHandler.this));
-					openAssureRequirementsCoverageViewerActivation = handlerService
-							.activateHandler(ASSURE_REQUIREMENTS_COVERAGE_VIEW_ID, new AssureRequirementsMetricsHandler());
+					handlerService.deactivateHandler(openAssureRequirementsCoverageViewerActivation);
+					openAssureRequirementsCoverageViewerActivation = null;
 				}
 			});
 		}
+	}
 
-	
+	private void enableRerunHandler(final EObject root) {
+		getWindow().getShell().getDisplay().syncExec(new Runnable() {
+			@Override
+			public void run() {
+				IHandlerService handlerService = getHandlerService();
+//					rerunActivation = handlerService
+//							.activateHandler(ASSURE_VIEW_ID, new OpenAssureViewHandler(root, OpenAssureViewHandler.this));
+				openAssureRequirementsCoverageViewerActivation = handlerService
+						.activateHandler(ASSURE_REQUIREMENTS_COVERAGE_VIEW_ID, new AssureRequirementsMetricsHandler());
+			}
+		});
+	}
+
 }

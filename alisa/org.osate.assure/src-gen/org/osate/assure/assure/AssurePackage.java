@@ -364,13 +364,22 @@ public interface AssurePackage extends EPackage
   int CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = ASSURE_RESULT_FEATURE_COUNT + 4;
 
   /**
+   * The feature id for the '<em><b>Predicate Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CLAIM_RESULT__PREDICATE_RESULT = ASSURE_RESULT_FEATURE_COUNT + 5;
+
+  /**
    * The number of structural features of the '<em>Claim Result</em>' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 5;
+  int CLAIM_RESULT_FEATURE_COUNT = ASSURE_RESULT_FEATURE_COUNT + 6;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -1240,6 +1249,88 @@ public interface AssurePackage extends EPackage
   int VERIFICATION_ACTIVITY_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 3;
 
   /**
+   * The meta object id for the '{@link org.osate.assure.assure.impl.PredicateResultImpl <em>Predicate Result</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.osate.assure.assure.impl.PredicateResultImpl
+   * @see org.osate.assure.assure.impl.AssurePackageImpl#getPredicateResult()
+   * @generated
+   */
+  int PREDICATE_RESULT = 17;
+
+  /**
+   * The feature id for the '<em><b>Metrics</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__METRICS = VERIFICATION_RESULT__METRICS;
+
+  /**
+   * The feature id for the '<em><b>Execution State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__EXECUTION_STATE = VERIFICATION_RESULT__EXECUTION_STATE;
+
+  /**
+   * The feature id for the '<em><b>Result State</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__RESULT_STATE = VERIFICATION_RESULT__RESULT_STATE;
+
+  /**
+   * The feature id for the '<em><b>Issues</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__ISSUES = VERIFICATION_RESULT__ISSUES;
+
+  /**
+   * The feature id for the '<em><b>Result Report</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__RESULT_REPORT = VERIFICATION_RESULT__RESULT_REPORT;
+
+  /**
+   * The feature id for the '<em><b>Message</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__MESSAGE = VERIFICATION_RESULT__MESSAGE;
+
+  /**
+   * The feature id for the '<em><b>Target Reference</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT__TARGET_REFERENCE = VERIFICATION_RESULT_FEATURE_COUNT + 0;
+
+  /**
+   * The number of structural features of the '<em>Predicate Result</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int PREDICATE_RESULT_FEATURE_COUNT = VERIFICATION_RESULT_FEATURE_COUNT + 1;
+
+  /**
    * The meta object id for the '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}' enum.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1247,7 +1338,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getElseType()
    * @generated
    */
-  int ELSE_TYPE = 17;
+  int ELSE_TYPE = 18;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationResultState <em>Verification Result State</em>}' enum.
@@ -1257,7 +1348,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationResultState()
    * @generated
    */
-  int VERIFICATION_RESULT_STATE = 18;
+  int VERIFICATION_RESULT_STATE = 19;
 
   /**
    * The meta object id for the '{@link org.osate.assure.assure.VerificationExecutionState <em>Verification Execution State</em>}' enum.
@@ -1267,7 +1358,7 @@ public interface AssurePackage extends EPackage
    * @see org.osate.assure.assure.impl.AssurePackageImpl#getVerificationExecutionState()
    * @generated
    */
-  int VERIFICATION_EXECUTION_STATE = 19;
+  int VERIFICATION_EXECUTION_STATE = 20;
 
 
   /**
@@ -1507,6 +1598,17 @@ public interface AssurePackage extends EPackage
    * @generated
    */
   EReference getClaimResult_VerificationActivityResult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.ClaimResult#getPredicateResult <em>Predicate Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Predicate Result</em>'.
+   * @see org.osate.assure.assure.ClaimResult#getPredicateResult()
+   * @see #getClaimResult()
+   * @generated
+   */
+  EReference getClaimResult_PredicateResult();
 
   /**
    * Returns the meta object for class '{@link org.osate.assure.assure.VerificationResult <em>Verification Result</em>}'.
@@ -2145,6 +2247,27 @@ public interface AssurePackage extends EPackage
   EReference getVerificationActivityResult_ValidationResult();
 
   /**
+   * Returns the meta object for class '{@link org.osate.assure.assure.PredicateResult <em>Predicate Result</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Predicate Result</em>'.
+   * @see org.osate.assure.assure.PredicateResult
+   * @generated
+   */
+  EClass getPredicateResult();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.osate.assure.assure.PredicateResult#getTargetReference <em>Target Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Target Reference</em>'.
+   * @see org.osate.assure.assure.PredicateResult#getTargetReference()
+   * @see #getPredicateResult()
+   * @generated
+   */
+  EReference getPredicateResult_TargetReference();
+
+  /**
    * Returns the meta object for enum '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2380,6 +2503,14 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT = eINSTANCE.getClaimResult_VerificationActivityResult();
+
+    /**
+     * The meta object literal for the '<em><b>Predicate Result</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CLAIM_RESULT__PREDICATE_RESULT = eINSTANCE.getClaimResult_PredicateResult();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.impl.VerificationResultImpl <em>Verification Result</em>}' class.
@@ -2878,6 +3009,24 @@ public interface AssurePackage extends EPackage
      * @generated
      */
     EReference VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT = eINSTANCE.getVerificationActivityResult_ValidationResult();
+
+    /**
+     * The meta object literal for the '{@link org.osate.assure.assure.impl.PredicateResultImpl <em>Predicate Result</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.osate.assure.assure.impl.PredicateResultImpl
+     * @see org.osate.assure.assure.impl.AssurePackageImpl#getPredicateResult()
+     * @generated
+     */
+    EClass PREDICATE_RESULT = eINSTANCE.getPredicateResult();
+
+    /**
+     * The meta object literal for the '<em><b>Target Reference</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference PREDICATE_RESULT__TARGET_REFERENCE = eINSTANCE.getPredicateResult_TargetReference();
 
     /**
      * The meta object literal for the '{@link org.osate.assure.assure.ElseType <em>Else Type</em>}' enum.

@@ -23,7 +23,6 @@ import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.jobs.ISchedulingRule;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
@@ -32,19 +31,28 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PartInitException;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.ui.editor.utils.EditorUtils;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
+import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.ui.views.AlisaView;
+import org.osate.categories.categories.CategoryFilter;
 
 public abstract class AlisaHandler extends AbstractHandler {
 	protected static final String TERMINATE_ID = "org.osate.alisa.commands.terminate";
 	protected static final String TERMINATE_ALL_ID = "org.osate.alisa.commands.terminateAll";
 	protected IWorkbenchWindow window;
 	protected ExecutionEvent executionEvent;
+
+	private AlisaView alisaView;
+	protected CategoryFilter filter;
 
 	public ExecutionEvent getExecutionEvent() {
 		return executionEvent;
@@ -54,12 +62,14 @@ public abstract class AlisaHandler extends AbstractHandler {
 		this.executionEvent = executionEvent;
 	}
 
-	abstract protected IStatus runJob(EObject sel, IProgressMonitor monitor);
+	abstract protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor);
 
 	abstract protected String getJobName();
 
 	@Override
 	public Object execute(ExecutionEvent event) {
+		// Initialize to no filter. Will be updated in executeURI
+		filter = null;
 
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (!(selection instanceof IStructuredSelection) || ((IStructuredSelection) selection).size() != 1) {
@@ -83,6 +93,65 @@ public abstract class AlisaHandler extends AbstractHandler {
 		return executeURI(uri);
 	}
 
+	public void prepare() {
+		window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
+
+		if (window != null) {
+			saveChanges(window.getActivePage().getDirtyEditors());
+		}
+
+	}
+
+	protected void updateSelectedFilter() {
+
+		if (alisaView == null) {
+			try {
+				IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+				alisaView = (AlisaView) page.showView(AlisaView.ID);
+			} catch (PartInitException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				filter = null;
+				return;
+			}
+		}
+		filter = alisaView.getSelectedCategoryFilter();
+		if (filter == null) {
+			System.out.println("AlisaHandler.updateSelectedFilter() null");
+		} else {
+			System.out.println("AlisaHandler.updateSelectedFilter() " + filter.getName());
+		}
+
+	}
+
+	/**
+	 * For executing programmatically instead of execute and executeURI
+	 * @param assuranceCaseResult
+	 * @param categoryFilter null when there is no filter
+	 * @param msr 
+	 * @param assureURI
+	 * @return
+	 */
+	public Object execute2(final AssuranceCaseResult assuranceCaseResult, CategoryFilter categoryFilter,
+			ISchedulingRule msr) {
+		filter = categoryFilter;
+
+		URI uri = null;
+		if (assuranceCaseResult instanceof EObjectNode) {
+			// System.out.println("AlisaHandler.execute2() EObjectNode");
+			uri = ((EObjectNode) assuranceCaseResult).getEObjectURI();
+		} else if (assuranceCaseResult instanceof EObject) {
+			// System.out.println("AlisaHandler.execute2() EObject");
+			uri = EcoreUtil.getURI((EObject) assuranceCaseResult);
+		}
+		System.out.println("AlisaHandler.execute2() assuranceCaseResult name: " + assuranceCaseResult.getName());
+
+		WorkspaceJob job = getWorkspaceJob2(getJobName(), assuranceCaseResult);
+		scheduleJob(job, msr, uri);
+
+		return null;
+	}
+
 	public Object executeURI(final URI uri) {
 		final XtextEditor xtextEditor = EditorUtils.getActiveXtextEditor();
 		if (xtextEditor == null) {
@@ -91,24 +160,40 @@ public abstract class AlisaHandler extends AbstractHandler {
 		if (!saveChanges(window.getActivePage().getDirtyEditors())) {
 			return null;
 		}
+
+		updateSelectedFilter();
+
 		WorkspaceJob job = getWorkspaceJob(getJobName(), xtextEditor, uri);
-		scheduleJob(job, xtextEditor, uri);
+		// scheduleJob(job, new org.osate.assure.ui.views.MutexSchedulingRule(), uri);
+		scheduleJob(job, ResourcesPlugin.getWorkspace().getRoot(), uri);
 		return null;
 	}
 
-	protected Object scheduleJob(WorkspaceJob job, final XtextEditor xtextEditor, final URI uri) {
-		// job.setRule(ResourcesPlugin.getWorkspace().getRoot());
+	/**
+	 * 
+	 * @param job
+	 * @param msr  Set as combination of project of where aadl models is and the project with selected alisa
+	 * @param uri  uri of assure file that is to be generated/updated.
+	 * @return
+	 */
+	protected Object scheduleJob(WorkspaceJob job, ISchedulingRule msr, final URI uri) {
+//		job.setRule(ResourcesPlugin.getWorkspace().getRoot()); 
 
-		// Scheduling with a lower rule and made instantiation that are needed in the process to be separate rule job.
-		// This way workspace is only blocked only during instantiation and not during method verification
-		ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot(); // This will block workspace
-		if (uri.isPlatform()) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toPlatformString(true)));
-		} else if (uri.isFile()) {
-			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toFileString()));
-		}
-		job.setRule(file);
+		// Currently msr would have the project of the AADL and project of the alisa
+//		ISchedulingRule file = ResourcesPlugin.getWorkspace().getRoot();
+//		if (uri.isPlatform()) {
+//			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toPlatformString(true)));
+//		} else if (uri.isFile()) {
+//			file = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(uri.toFileString()));
+//		}
+
+		System.out.println("  MultiRule>>>>>>>>>>>>scheduleJob setting: " + msr.toString());
+//		job.setRule(file);
+//		job.setRule(MultiRule.combine(msr, file));
+		job.setRule(msr);
 		job.schedule();
+
+		// release the main thread
 		return null;
 	}
 
@@ -120,9 +205,19 @@ public abstract class AlisaHandler extends AbstractHandler {
 					@Override
 					public IStatus exec(XtextResource resource) throws Exception {
 						EObject eobj = resource.getResourceSet().getEObject(uri, true);
-						return runJob(eobj, monitor);
+						return runJob(eobj, filter, monitor);
 					}
 				});
+			}
+		};
+		return job;
+	}
+
+	protected WorkspaceJob getWorkspaceJob2(String jobName, final EObject assuranceCaseResult) {
+		WorkspaceJob job = new WorkspaceJob(getJobName()) {
+			@Override
+			public IStatus runInWorkspace(final IProgressMonitor monitor) {
+				return runJob(assuranceCaseResult, filter, monitor);
 			}
 		};
 		return job;

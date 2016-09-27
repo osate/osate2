@@ -1257,32 +1257,6 @@ finally {
 
 
 
-// Entry rule entryRuleURIID
-entryRuleURIID 
-:
-{ before(grammarAccess.getURIIDRule()); }
-	 ruleURIID
-{ after(grammarAccess.getURIIDRule()); } 
-	 EOF 
-;
-
-// Rule URIID
-ruleURIID
-    @init {
-		int stackSize = keepStackSize();
-    }
-	:
-(
-{ before(grammarAccess.getURIIDAccess().getSTRINGTerminalRuleCall()); }
-	RULE_STRING
-{ after(grammarAccess.getURIIDAccess().getSTRINGTerminalRuleCall()); }
-)
-
-;
-finally {
-	restoreStackSize(stackSize);
-}
-
 
 
 
@@ -1973,6 +1947,7 @@ rule__Description__Group__1__Impl
 finally {
 	restoreStackSize(stackSize);
 }
+
 
 
 
@@ -6789,6 +6764,7 @@ finally {
 
 
 
+
 rule__ResultIssue__IssueTypeAssignment_0
     @init {
 		int stackSize = keepStackSize();
@@ -6827,8 +6803,8 @@ rule__ResultIssue__TargetAssignment_2_1
 (
 { before(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); }
 (
-{ before(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); }
-	ruleURIID{ after(grammarAccess.getResultIssueAccess().getTargetEObjectURIIDParserRuleCall_2_1_0_1()); }
+{ before(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); }
+	ruleNoQuoteString{ after(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); }
 )
 { after(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); }
 )

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<site>
-   <feature url="features/org.osate.reqspec.sdk_0.9.0.qualifier.jar" id="org.osate.reqspec.sdk" version="0.9.0.qualifier">
-      <category name="reqspec"/>
-   </feature>
-   <category-def name="reqspec" label="ReqSpec"/>
-</site>

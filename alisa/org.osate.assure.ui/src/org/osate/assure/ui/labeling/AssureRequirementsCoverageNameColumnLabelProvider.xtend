@@ -20,15 +20,15 @@ class AssureRequirementsCoverageNameColumnLabelProvider extends ColumnLabelProvi
 
 	override getText(Object ele) {
 		switch ele {
-			AssuranceCaseResult : "System case "+ele.name 
-			ModelResult : "Model "+ele.name 
-			SubsystemResult : "Subsystem "+ele.name 
+			AssuranceCaseResult : "Assurance case "+ele.name 
+			ModelResult : "Assurance plan "+ele.name 
+			SubsystemResult : "Subsystem verification "+ele.name 
 			ClaimResult : "Claim "+ele.name
 			VerificationActivityResult : "Evidence "+ele.name
 			ValidationResult : "Validation "+ele.name
 			PreconditionResult : "Precondition "+ele.name
 			ResultIssue : {
-					ele.target?.constructLabel?:""+ ele.constructMessage
+					"Issue "+ele.target?.constructLabel?:""+ ele.constructMessage
 			}
 			ElseResult : 'else'
 			ThenResult : 'then'

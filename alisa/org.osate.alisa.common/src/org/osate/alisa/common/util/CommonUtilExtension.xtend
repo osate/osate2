@@ -16,7 +16,8 @@
 
 package org.osate.alisa.common.util
 
-import org.eclipse.emf.common.util.EList
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.internal.xtend.expression.ast.NullLiteral
@@ -29,15 +30,14 @@ import org.osate.aadl2.Feature
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyConstant
-import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.properties.PropertyLookupException
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.APropertyReference
-import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
@@ -174,7 +174,7 @@ class CommonUtilExtension {
 		return null
 	}
 
-	def static InstanceObject findElementInstanceInList(EList<? extends InstanceObject> instancelist, String name) {
+	def static InstanceObject findElementInstanceInList(List<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
 			if (name.equalsIgnoreCase(n1)) return ei
@@ -207,26 +207,19 @@ class CommonUtilExtension {
 		return res
 	}
 
-	def static getValueCopy(PropertyExpression vd) {
-		if (vd instanceof ValDeclaration) {
-			return EcoreUtil.copy(vd.value)
-		} else if (vd instanceof AVariableReference) {
-			// handle Val reference if AExpression is used
-			val pari = vd.variable
-			if (pari instanceof ValDeclaration) {
-			return EcoreUtil.copy(pari.value)
-			}
-		} else if (vd instanceof APropertyReference) {
-			// handle property or property constant reference
-			val pari = vd.property
-			if (pari instanceof PropertyConstant) {
-				return EcoreUtil.copy(pari.constantValue)
-			} else if (pari instanceof Property) {
-			}
-		} else {
-			// the value literal object as found in AExpression
-			return vd 
+	/**
+	 * Resolve a model element reference relative to an instance object
+	 */
+	static def InstanceObject resolve(AModelReference ref, InstanceObject root) {
+		if (ref.prev == null)
+			root
+		else {
+			val io = ref.prev.resolve(root)
+			io.eContents.findFirst[
+				if (it instanceof InstanceObject) it.name.equalsIgnoreCase(ref.modelElement.name) else false
+			] as InstanceObject
 		}
 	}
-
+	
+	
 }

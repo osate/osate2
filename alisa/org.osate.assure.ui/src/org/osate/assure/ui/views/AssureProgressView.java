@@ -32,7 +32,6 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
@@ -52,7 +51,10 @@ import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.assure.ClaimResult;
 import org.osate.assure.assure.Metrics;
+import org.osate.assure.assure.QualifiedClaimReference;
+import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 
 import com.google.inject.Inject;
 
@@ -76,11 +78,11 @@ public class AssureProgressView extends ViewPart {
 					if (inputURI != null) {
 						AssuranceCaseResult assuranceCase = xtextDoc
 								.readOnly(new IUnitOfWork<AssuranceCaseResult, XtextResource>() {
-							@Override
-							public AssuranceCaseResult exec(XtextResource state) throws Exception {
-								return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
-							}
-						});
+									@Override
+									public AssuranceCaseResult exec(XtextResource state) throws Exception {
+										return (AssuranceCaseResult) state.getResourceSet().getEObject(inputURI, true);
+									}
+								});
 						// treeViewer.setInput(Arrays.asList(assuranceCase));
 						treeViewer.setInput(assuranceCase);
 					}
@@ -93,8 +95,8 @@ public class AssureProgressView extends ViewPart {
 	@Inject
 	GlobalURIEditorOpener globalURIEditorOpener;
 
-	@Inject
-	ILabelProvider labelProvider;
+//	@Inject
+//	ILabelProvider labelProvider;
 	URI inputURI;
 
 	@Override
@@ -115,7 +117,7 @@ public class AssureProgressView extends ViewPart {
 		getSite().setSelectionProvider(treeViewer);
 
 		AssureTooltipListener.createAndRegister(treeViewer);
-		treeViewer.addFilter(new NoMetricsFilter());
+		treeViewer.addFilter(new NoMetricsRefObjectsFilter());
 
 		// treeViewer.addFilter(noClaimsResultFilter);
 //	        getSite().getPage().addSelectionListener("org.osate.assure.Assure",listener);
@@ -169,7 +171,8 @@ public class AssureProgressView extends ViewPart {
 	}
 
 	public void dispose() {
-		xtextDoc.removeModelListener(modelListener);
+		if (xtextDoc != null)
+			xtextDoc.removeModelListener(modelListener);
 	}
 
 	private IAction createHyperlinkAction(String text, final EObject eObject) {
@@ -200,7 +203,7 @@ public class AssureProgressView extends ViewPart {
 		return result;
 	}
 
-	public void setProofs(AssuranceCaseResult proofTrees) {
+	public void setProofs(AssuranceCaseResult proofTrees, CategoryFilter filter) {
 		if (xtextDoc != null) {
 			xtextDoc.removeModelListener(modelListener);
 		}
@@ -208,6 +211,9 @@ public class AssureProgressView extends ViewPart {
 		xtextDoc.addModelListener(modelListener);
 //		Object[] expandedElements = treeViewer.getExpandedElements();
 //		TreePath[] expandedTreePaths = treeViewer.getExpandedTreePaths();
+
+		treeViewer.setContentProvider(new AssureProgressContentProvider(filter));
+
 		if (proofTrees != null) {
 			inputURI = EcoreUtil.getURI(proofTrees);
 			// treeViewer.setInput(Arrays.asList(proofTrees));
@@ -229,7 +235,7 @@ public class AssureProgressView extends ViewPart {
 	/**
 	 * Viewer Filter class.
 	 */
-	private class NoMetricsFilter extends ViewerFilter {
+	private class NoMetricsRefObjectsFilter extends ViewerFilter {
 
 		/**
 		 * @param viewer the viewer
@@ -241,7 +247,8 @@ public class AssureProgressView extends ViewPart {
 		 */
 		@Override
 		public boolean select(Viewer viewer, Object parentElement, Object element) {
-			if (element instanceof Metrics) {
+			if (element instanceof Metrics|| element instanceof QualifiedClaimReference
+					|| element instanceof QualifiedVAReference) {
 				return false;
 			}
 			return true;

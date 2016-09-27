@@ -683,13 +683,22 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT_SET__CONSTANTS = REQ_ROOT_FEATURE_COUNT + 1;
 
   /**
+   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT_SET__COMPUTES = REQ_ROOT_FEATURE_COUNT + 2;
+
+  /**
    * The feature id for the '<em><b>Requirements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT_SET__REQUIREMENTS = REQ_ROOT_FEATURE_COUNT + 2;
+  int REQUIREMENT_SET__REQUIREMENTS = REQ_ROOT_FEATURE_COUNT + 3;
 
   /**
    * The feature id for the '<em><b>Stakeholder Goals</b></em>' reference list.
@@ -698,7 +707,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_SET__STAKEHOLDER_GOALS = REQ_ROOT_FEATURE_COUNT + 3;
+  int REQUIREMENT_SET__STAKEHOLDER_GOALS = REQ_ROOT_FEATURE_COUNT + 4;
 
   /**
    * The number of structural features of the '<em>Requirement Set</em>' class.
@@ -707,7 +716,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT_SET_FEATURE_COUNT = REQ_ROOT_FEATURE_COUNT + 4;
+  int REQUIREMENT_SET_FEATURE_COUNT = REQ_ROOT_FEATURE_COUNT + 5;
 
   /**
    * The meta object id for the '{@link org.osate.reqspec.reqSpec.impl.GoalImpl <em>Goal</em>}' class.
@@ -1512,6 +1521,15 @@ public interface ReqSpecPackage extends EPackage
   int SYSTEM_REQUIREMENT_SET__CONSTANTS = REQUIREMENT_SET__CONSTANTS;
 
   /**
+   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SYSTEM_REQUIREMENT_SET__COMPUTES = REQUIREMENT_SET__COMPUTES;
+
+  /**
    * The feature id for the '<em><b>Requirements</b></em>' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1628,6 +1646,15 @@ public interface ReqSpecPackage extends EPackage
    * @ordered
    */
   int GLOBAL_REQUIREMENT_SET__CONSTANTS = REQUIREMENT_SET__CONSTANTS;
+
+  /**
+   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int GLOBAL_REQUIREMENT_SET__COMPUTES = REQUIREMENT_SET__COMPUTES;
 
   /**
    * The feature id for the '<em><b>Requirements</b></em>' containment reference list.
@@ -2207,6 +2234,17 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getRequirementSet_Constants();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementSet#getComputes <em>Computes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Computes</em>'.
+   * @see org.osate.reqspec.reqSpec.RequirementSet#getComputes()
+   * @see #getRequirementSet()
+   * @generated
+   */
+  EReference getRequirementSet_Computes();
 
   /**
    * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.RequirementSet#getRequirements <em>Requirements</em>}'.
@@ -3089,6 +3127,14 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT_SET__CONSTANTS = eINSTANCE.getRequirementSet_Constants();
+
+    /**
+     * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT_SET__COMPUTES = eINSTANCE.getRequirementSet_Computes();
 
     /**
      * The meta object literal for the '<em><b>Requirements</b></em>' containment reference list feature.

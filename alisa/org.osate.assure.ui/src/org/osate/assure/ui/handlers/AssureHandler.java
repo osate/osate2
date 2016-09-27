@@ -16,9 +16,6 @@
 
 package org.osate.assure.ui.handlers;
 
-import static org.osate.assure.util.AssureUtilExtension.recomputeAllCounts;
-import static org.osate.assure.util.AssureUtilExtension.resetToTBD;
-
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -27,9 +24,12 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PartInitException;
 import org.osate.assure.assure.AssuranceCaseResult;
+import org.osate.assure.evaluator.AssureProcessor;
 import org.osate.assure.evaluator.IAssureProcessor;
 import org.osate.assure.ui.views.AssureProgressView;
+import org.osate.assure.ui.views.AssureRequirementsCoverageView;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 import org.osate.verify.util.VerifyUtilExtension;
 
 import com.google.inject.Inject;
@@ -38,6 +38,8 @@ public class AssureHandler extends AlisaHandler {
 
 	@Inject
 	private IAssureProcessor assureProcessor;
+
+	private AssuranceCaseResult rootCaseResult;
 //		
 //	@Override
 //    protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri){
@@ -90,9 +92,9 @@ public class AssureHandler extends AlisaHandler {
 	}
 
 	@Override
-	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 
-		AssuranceCaseResult rootCaseResult = null;
+		rootCaseResult = null;
 		try {
 			rootCaseResult = (AssuranceCaseResult) sel;
 		} catch (Exception e) {
@@ -100,8 +102,44 @@ public class AssureHandler extends AlisaHandler {
 			return Status.CANCEL_STATUS;
 		}
 		long start = System.currentTimeMillis();
-		resetToTBD(rootCaseResult);
-		recomputeAllCounts(rootCaseResult);
+//		AssureUtilExtension.recomputeAllCounts(rootCaseResult, filter);
+//		try {
+//			// URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
+//			// System.out.println("AssureHandler Initial save: " + uri.toString());
+//			// rootCaseResult.eResource().save(null);
+//
+//			final TransactionalEditingDomain domain = TransactionalEditingDomain.Registry.INSTANCE
+//					.getEditingDomain("org.osate.aadl2.ModelEditingDomain");
+//			// We execute this command on the command stack because otherwise, we will not
+//			// have write permissions on the editing domain.
+//			Command cmd = new RecordingCommand(domain) {
+//				// final public AssuranceCaseResult tempRootCaseResult;
+//
+//				@Override
+//				protected void doExecute() {
+//					try {
+//						rootCaseResult.eResource().save(null);
+//						URI uri = EcoreUtil.getURI((EObject) rootCaseResult);
+//						System.out.println("AssureHandler Initial save Done: " + uri.toString());
+//					} catch (IOException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				}
+//			};
+//
+//			((TransactionalCommandStack) domain.getCommandStack()).execute(cmd, null);
+////		} catch (IOException e1) {
+////			// TODO Auto-generated catch block
+////			e1.printStackTrace();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (RollbackException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
 
@@ -109,7 +147,10 @@ public class AssureHandler extends AlisaHandler {
 		drawProofs(rootCaseResult);
 
 		try {
-			assureProcessor.processCase(rootCaseResult, monitor);
+			if (assureProcessor == null) {
+				assureProcessor = new AssureProcessor();
+			}
+			assureProcessor.processCase(rootCaseResult, filter, monitor);
 		} catch (Exception e) {
 			if (e instanceof java.lang.NoSuchMethodException) {
 
@@ -136,10 +177,17 @@ public class AssureHandler extends AlisaHandler {
 
 	private void displayView(final AssuranceCaseResult ac, final IWorkbenchPage page) {
 		try {
+
+			AssureRequirementsCoverageView view2 = (AssureRequirementsCoverageView) page
+					.showView(AssureRequirementsCoverageView.ID);
+			view2.setProofs(ac, filter);
+			assureProcessor.setRequirementsCoverageTreeViewer(view2.getTreeViewer());
+
 			AssureProgressView view = (AssureProgressView) page.showView(AssureProgressView.ID);
-			view.setProofs(ac);
+			view.setProofs(ac, filter);
 			view.setFocus();
 			assureProcessor.setProgressTreeViewer(view.getTreeViewer());
+
 		} catch (PartInitException e) {
 			e.printStackTrace();
 		}

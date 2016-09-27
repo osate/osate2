@@ -49,7 +49,7 @@ public class AssureProgressTreeViewer extends TreeViewer {
 		// NEED this to activate tooltip
 		ColumnViewerToolTipSupport.enableFor(this);
 
-		setContentProvider(new AssureProgressContentProvider());
+		setContentProvider(new AssureProgressContentProvider(null));
 
 		// Set up the table 3.3 version way with editors
 
@@ -244,8 +244,8 @@ public class AssureProgressTreeViewer extends TreeViewer {
 	public enum ColumnInfo {
 		NAME("Name", COLUMN_NAME, SWT.LEFT, 200), EXEC_STATUS("Exec. Status", COLUMN_EXEC_STATUS, SWT.LEFT,
 				120), RESULT_STATUS("Result Status", COLUMN_RESULT_STATUS, SWT.LEFT, 120), TIME("Time (msec)",
-						COLUMN_TIME, SWT.LEFT, 100), ISSUE("Issue Msg", COLUMN_DESCRIPTION, SWT.LEFT, 200), TYPE("Type",
-								COLUMN_TYPE, SWT.LEFT, 120),;
+						COLUMN_TIME, SWT.LEFT, 100), ISSUE("Issue Msg", COLUMN_DESCRIPTION, SWT.LEFT,
+								200), TYPE("Type", COLUMN_TYPE, SWT.LEFT, 120),;
 
 		private String stringRep;
 		private int columnIndex;

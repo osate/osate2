@@ -24,10 +24,10 @@ class AssureMetricsColumnLabelProvider extends ColumnLabelProvider {
 			ClaimResult : ele.assureResultCounts
 			VerificationActivityResult : ele.assureResultCounts
 			ResultIssue : {
-					ele.target?.constructLabel?:""+ ele.constructMessage
+					""//ele.target?.constructLabel?:""+ ele.constructMessage
 			}
-			ElseResult : 'else'
-			ThenResult : 'then'
+			ElseResult : ele.assureResultCounts
+			ThenResult : ele.assureResultCounts
 			default : '?'
 		}
 	}

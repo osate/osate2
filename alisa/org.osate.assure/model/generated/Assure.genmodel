@@ -52,6 +52,7 @@
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//ClaimResult/message"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/subClaimResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/verificationActivityResult"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//ClaimResult/predicateResult"/>
     </genClasses>
     <genClasses ecoreClass="Assure.ecore#//VerificationResult">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Assure.ecore#//VerificationResult/executionState"/>
@@ -122,6 +123,9 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/targetReference"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/preconditionResult"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//VerificationActivityResult/validationResult"/>
+    </genClasses>
+    <genClasses ecoreClass="Assure.ecore#//PredicateResult">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Assure.ecore#//PredicateResult/targetReference"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

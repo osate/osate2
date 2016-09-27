@@ -18,14 +18,22 @@
 		<module>../../org.osate.alisa.common</module>
 		<module>../../org.osate.alisa.common.ui</module>
 		<module>../../org.osate.alisa.help</module>
+		<module>../../org.osate.alisa.workbench</module>
+		<module>../../org.osate.alisa.workbench.sdk</module>
+		<module>../../org.osate.alisa.workbench.ui</module>
+		<module>../../org.osate.assure</module>
+		<module>../../org.osate.assure.ui</module>
 		<module>../../org.osate.categories</module>
 		<module>../../org.osate.categories.ui</module>
 		<module>../../org.osate.organization</module>
 		<module>../../org.osate.organization.ui</module>
 		<module>../../org.osate.reqspec</module>
 		<module>../../org.osate.reqspec.ui</module>
-		<module>../../org.osate.reqspec.sdk</module>
 		<module>../../org.osate.reqtrace</module>
+		<module>../../org.osate.results</module>
+		<module>../../org.osate.results.ui</module>
+		<module>../../org.osate.verify</module>
+		<module>../../org.osate.verify.ui</module>
 	</modules>
 
 </project>

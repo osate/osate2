@@ -32,12 +32,13 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.assure.assure.AssuranceCaseResult;
 import org.osate.assure.util.AssureUtilExtension;
+import org.osate.categories.categories.CategoryFilter;
 import org.osate.verify.util.VerifyUtilExtension;
 
 public class AssureResetHandler extends AlisaHandler {
 
 	@Override
-    protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri){
+	protected WorkspaceJob getWorkspaceJob(String jobName, final XtextEditor xtextEditor, final URI uri) {
 		WorkspaceJob job = new WorkspaceJob(getJobName()) {
 			@Override
 			public IStatus runInWorkspace(final IProgressMonitor monitor) {
@@ -48,7 +49,7 @@ public class AssureResetHandler extends AlisaHandler {
 							EObject eobj = resource.getResourceSet().getEObject(uri, true);
 							AssuranceCaseResult ae = AssureUtilExtension.getAssuranceCaseResult(eobj);
 							if (ae != null) {
-								return runJob(ae, monitor);
+								return runJob(ae, null, monitor);
 							} else {
 								return Status.CANCEL_STATUS;
 							}
@@ -59,27 +60,28 @@ public class AssureResetHandler extends AlisaHandler {
 				}
 			}
 		};
-        return job;
-    }
-		
+		return job;
+	}
+
 	@Override
 	protected String getJobName() {
 		return "Reset assure states and counts";
 	}
 
 	@Override
-	protected IStatus runJob(EObject sel, IProgressMonitor monitor) {
+	protected IStatus runJob(EObject sel, CategoryFilter filter, IProgressMonitor monitor) {
 		AssuranceCaseResult rootCaseResult = null;
 		try {
-			rootCaseResult = (AssuranceCaseResult)sel;
+			rootCaseResult = (AssuranceCaseResult) sel;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return Status.CANCEL_STATUS;
 		}
 
 		long start = System.currentTimeMillis();
-		resetToTBD(rootCaseResult);
-		recomputeAllCounts(rootCaseResult);
+
+		resetToTBD(rootCaseResult, filter);
+		recomputeAllCounts(rootCaseResult, filter);
 		VerifyUtilExtension.clearAllHasRunRecords();
 		AssureUtilExtension.clearAllInstanceModels();
 		try {
