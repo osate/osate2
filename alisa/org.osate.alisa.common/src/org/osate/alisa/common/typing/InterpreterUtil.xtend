@@ -5,6 +5,8 @@ import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.UnitLiteral
+import org.osate.aadl2.instance.InstanceObject
+import org.osate.alisa.common.common.AModelReference
 
 class InterpreterUtil {
 
@@ -204,6 +206,20 @@ class InterpreterUtil {
 		result.value = s1 % s2
 		result.unit = if (twoUnits) minUnit else unit
 		result
+	}
+	
+	/**
+	 * Resolve a model element reference relative to an instance object
+	 */
+	static def InstanceObject resolve(AModelReference ref, InstanceObject root) {
+		if (ref.prev == null)
+			root
+		else {
+			val io = ref.prev.resolve(root)
+			io.eContents.findFirst[
+				if (it instanceof InstanceObject) it.name.equalsIgnoreCase(ref.modelElement.name) else false
+			] as InstanceObject
+		}
 	}
 	
 }
