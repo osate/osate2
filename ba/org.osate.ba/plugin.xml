@@ -59,14 +59,6 @@ http://www.eclipse.org/org/documents/epl-v10.php
        genModel = "model/aadlba.genmodel" /> 
   </extension> 
 
-  <extension
-         point="org.osate.pluginsupport.aadlcontribution">
-      <aadlcontribution
-            file="resources/properties/behavior_properties.aadl"
-            id="org.osate.ba.behavior_properties.aadlcontribution"
-            name="AADL-BA-FrontEnd">
-      </aadlcontribution>
-   </extension>
 
   <extension
         point="org.osate.annexsupport.highlighter">
