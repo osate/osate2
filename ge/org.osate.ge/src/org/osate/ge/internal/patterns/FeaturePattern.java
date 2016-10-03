@@ -441,7 +441,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         } else {
         	gaService.createInvisibleRectangle(featureShape);
         	ghostingService.ghostChildShapes(featureShape);
-        }        
+        }
        
         // Set the feature shape as an inner shape
         propertyUtil.setIsInnerShape(featureShape, true);
@@ -459,7 +459,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         
 		// Create label
         final Shape labelShape = labelService.createLabelShape(shape, labelShapeName, feature, labelTxt);
-
+        labelShape.setActive(false); // Label must be inactive to allow renaming while making the label unselectable
+        
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
@@ -554,6 +555,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		// Create annotation label
 		final String annotationTxt = getAnnotationText(feature);
 		final Shape annotationShape = labelService.createLabelShape(shape, annotationShapeName, feature, annotationTxt);
+		propertyUtil.setIsUnselectable(annotationShape, true);
 		if(annotationTxt.length() == 0) {
 			gaService.setSize(annotationShape.getGraphicsAlgorithm(), 0, 0);
 		}
@@ -877,7 +879,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	        if (bo instanceof NamedElement && ga instanceof Text) {
 	        	final Shape labelShape = (Shape)context.getPictogramElement();
 	        	final Shape featureShape = labelShape.getContainer();
-	        	return canEdit(featureShape) && (!(bo instanceof Feature) || ((Feature)bo).getRefined() == null);
+	        	boolean result = canEdit(featureShape) && (!(bo instanceof Feature) || ((Feature)bo).getRefined() == null);
+	        	return result;
 	        }
 		}
 
