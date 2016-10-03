@@ -275,7 +275,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		} else {
 			final int bottomY = ctx.getY() + shapeGa.getHeight();
 			if(bottomY > containerHeight) {
-				mutableContext.setY(containerHeight - shapeGa.getHeight());
+				mutableContext.setY(Math.max(0, containerHeight - shapeGa.getHeight()));
 			}
 		}
 	}
@@ -401,7 +401,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 
 	@Override
 	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y) {
-		createGaAndInnerShapes(shape, bo, x, y, 0);
+		createGaAndInnerShapes(shape, bo, x, Math.max(y, 0), 0);
 	}
 
 	/**
@@ -566,7 +566,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
      	final int maxHeight = annotationShape.getGraphicsAlgorithm().getHeight() + labelShape.getGraphicsAlgorithm().getHeight() + featureShape.getGraphicsAlgorithm().getHeight();
         gaService.setSize(ga, maxWidth,	maxHeight);
      		
-        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
+        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape once.. This will cause it to happen multiple times        
 	}
 	
 	@Override
