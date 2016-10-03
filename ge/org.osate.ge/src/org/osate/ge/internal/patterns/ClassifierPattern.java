@@ -27,7 +27,6 @@ import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -38,7 +37,6 @@ import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
-import org.eclipse.graphiti.mm.algorithms.AbstractText;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -92,6 +90,7 @@ import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
+import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
@@ -142,6 +141,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
 	private final ComponentImplementationService componentImplementationService;
+	private final LabelService labelService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType; // The subcomponent the pattern is responsible for handling. null if the pattern is for handling a classifier.
 	
@@ -176,8 +176,8 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
 			final ColoringService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, 
-			final ConnectionService connectionService, final ComponentImplementationService componentImplementationService, final BusinessObjectResolutionService bor, 
-			final @Named("Subcomponent Type") EClass subcomponentType) {
+			final ConnectionService connectionService, final ComponentImplementationService componentImplementationService, 
+			final LabelService labelService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.ghostingService = ghostingService;
 		this.layoutService = layoutService;
 		this.shapeService = shapeService;
@@ -198,6 +198,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		this.refactoringService = refactoringService;
 		this.connectionService = connectionService;
 		this.componentImplementationService = componentImplementationService;
+		this.labelService = labelService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
 	}
@@ -265,7 +266,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return true;
+		return !propertyService.isTransient(context.getPictogramElement());
 	}
 	
 	@Override
@@ -409,27 +410,15 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		
 		// Update label and graphics algorithms
 		if(bo instanceof Subcomponent) {	
-			final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 			final Subcomponent sc = (Subcomponent)bo;
 			
 			// Create label
-	        final Shape labelShape = peCreateService.createShape(shape, false);
-	        propertyService.setName(labelShape, labelShapeName);
-	        propertyService.setIsManuallyPositioned(labelShape, true);
-	        propertyService.setIsTransient(labelShape, true);
-	        link(labelShape, new AadlElementWrapper(sc));
 	        final String name = getLabelText(sc);
-	        final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
-	        graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, name);
-	        
-			// Create Subcomponent Type Indicator
-	        final Shape subcomponentTypeIndicatorShape = peCreateService.createShape(shape, false);
-	        propertyService.setName(subcomponentTypeIndicatorShape, subcomponentTypeLabelShapeName);
-	        propertyService.setIsManuallyPositioned(subcomponentTypeIndicatorShape, true);
-	        propertyService.setIsTransient(subcomponentTypeIndicatorShape, true);
+	        labelService.createLabelShape(shape, labelShapeName, sc, name);
+
+	        // Create Subcomponent Type Indicator
 	        final String subcomponentTypeName = getTypeText(sc);
-	        final GraphicsAlgorithm subcomponentTypeLabelBackground = graphicsAlgorithmCreator.createTextBackground(subcomponentTypeIndicatorShape);
-	        graphicsAlgorithmCreator.createMultiLineLabelGraphicsAlgorithm(subcomponentTypeLabelBackground, subcomponentTypeName);
+	        labelService.createLabelShape(shape, subcomponentTypeLabelShapeName, sc, subcomponentTypeName);
 		}	
 
 		layout(shape, bo, x, y);
@@ -745,29 +734,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		return false;
 	}
 	
-	private GraphicsAlgorithm getBackgroundFromLabelShape(final Shape labelShape) {
-		final GraphicsAlgorithm bg = labelShape.getGraphicsAlgorithm();
-		if(bg == null || bg.getGraphicsAlgorithmChildren().size() < 1) {
-			return null;
-		}
-		
-		return bg;
-	}
-	
-	private AbstractText getTextFromLabelShape(final Shape labelShape) {
-		final GraphicsAlgorithm bg = getBackgroundFromLabelShape(labelShape);
-		if(bg == null) {
-			return null;
-		}
-		
-		final GraphicsAlgorithm txtGa = bg.getGraphicsAlgorithmChildren().get(0);
-		if(txtGa instanceof AbstractText) {
-			return (AbstractText)txtGa;
-		}
-		
-		return null;
-	}
-	
 	private Shape getLabelShape(final ContainerShape shape) {
 		return shapeService.getChildShapeByName(shape, labelShapeName);
 	}
@@ -793,35 +759,22 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		final GraphicsAlgorithm ga;			
 		
 		if(bo instanceof Subcomponent) {	
-	        // Determine text sizing
-	        // Currently adding padding to work around incorrect size being returned by calculateTextSize().
-			final Shape labelShape = getLabelShape(shape);
-			final GraphicsAlgorithm labelBackground = getBackgroundFromLabelShape(labelShape);
-			final AbstractText labelText = getTextFromLabelShape(labelShape);
-			
-			final Shape subcomponentTypeLabelShape = getSubcomponentTypeLabelShape(shape);
-			final GraphicsAlgorithm subcomponentTypeLabelBackground = getBackgroundFromLabelShape(subcomponentTypeLabelShape);
-			final AbstractText subcomponentTypeText = getTextFromLabelShape(subcomponentTypeLabelShape);
-			final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
-	        final IDimension unpaddedSubcomponentTypeTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(subcomponentTypeText.getValue(), subcomponentTypeText.getStyle().getFont(), true);
-	        final int paddedLabelTextWidth = textSize.getWidth() + 15;
-	        final int paddedLabelTextHeight = textSize.getHeight() + 5;
-	        final int paddedTypeTextWidth = unpaddedSubcomponentTypeTextSize.getWidth() + 15;
-	        final int paddedTypeTextHeight = unpaddedSubcomponentTypeTextSize.getHeight() + 5;
-	        
-	        // Sets initialize position and size of text. Centering will be done when the final size of the shape is determined
-	        gaService.setLocationAndSize(labelText, 0, 0, paddedLabelTextWidth, paddedLabelTextHeight);
-	        gaService.setLocationAndSize(labelBackground, 0, 0, paddedLabelTextWidth, paddedLabelTextHeight);
-	        gaService.setLocationAndSize(subcomponentTypeText, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
-			gaService.setLocationAndSize(subcomponentTypeLabelBackground, 0, 0, paddedTypeTextWidth, paddedTypeTextHeight);
-
+			// Update size of the shape
 	        final int[] newSize = layoutService.getMinimumSize(shape);
 	        ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, (Subcomponent)bo, newSize[0], newSize[1]);	                
 			gaService.setLocation(ga, x, y);
-	        
-			// Set the position and size of the text	        
-			gaService.setLocation(labelBackground, (ga.getWidth() - paddedLabelTextWidth) / 2, 2);
-			gaService.setLocation(subcomponentTypeLabelBackground, (ga.getWidth() - paddedTypeTextWidth) / 2, labelText.getY()+paddedLabelTextHeight);
+
+			// Update label position
+			final int shapeWidth = shape.getGraphicsAlgorithm().getWidth();
+			final Shape labelShape = getLabelShape(shape);
+			final Shape subcomponentTypeLabelShape = getSubcomponentTypeLabelShape(shape);
+			if(labelShape != null) {
+				gaService.setLocation(labelShape.getGraphicsAlgorithm(), (shapeWidth - labelShape.getGraphicsAlgorithm().getWidth()) / 2, 0);
+			}
+			
+			if(subcomponentTypeLabelShape != null) {
+				gaService.setLocation(subcomponentTypeLabelShape.getGraphicsAlgorithm(), (shapeWidth - subcomponentTypeLabelShape.getGraphicsAlgorithm().getWidth()) / 2, labelShape.getGraphicsAlgorithm().getY() + labelShape.getGraphicsAlgorithm().getHeight());
+			}
 		} else {
 			final Classifier classifier = getClassifier(shape);
 			final int newSize[] = layoutService.getMinimumSize(shape);
@@ -1060,7 +1013,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
         final GraphicsAlgorithm ga = context.getGraphicsAlgorithm();
         
         // To be able to be renamed the subcomponent must be contained by the component implementation represented by the diagram and it must not be refined
-        if (bo instanceof Subcomponent && pe instanceof Shape && ga instanceof Text) {
+        if (bo instanceof Subcomponent && pe instanceof Shape && ga instanceof Text && labelShapeName.equals(propertyService.getName(pe))) {
         	final Subcomponent sc = (Subcomponent)bo;
         	return sc.getContainingClassifier() == getComponentImplementation((Shape)pe) && sc.getRefined() == null;
         }

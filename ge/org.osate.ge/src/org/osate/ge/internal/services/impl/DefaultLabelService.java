@@ -51,9 +51,13 @@ public class DefaultLabelService implements LabelService {
         
         // Get sizes of text graphics algorithms
         final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
+        
+        // Add padding to the text size to account for rounding issues in GEF3/Graphiti
+        final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
+        final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
         final IGaService gaService = Graphiti.getGaService();
-		gaService.setSize(labelBackground, labelTextSize.getWidth(), labelTextSize.getHeight());
-		gaService.setSize(labelText, labelTextSize.getWidth(), labelTextSize.getHeight());
+		gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
+		gaService.setSize(labelText, paddedLabelTextWidth, paddedLabelTextHeight);
 		
         return labelShape;
 	}

@@ -746,7 +746,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final double halfSize = (size)/2.0;
 		final int paddingCircleSize = (int)(halfSize + 1 + halfSize *.2);
 		final int innerCircleSize = size/2;
-		gaService.setSize(ga, size, size);
+		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
 		ga.setFilled(false);	
 
