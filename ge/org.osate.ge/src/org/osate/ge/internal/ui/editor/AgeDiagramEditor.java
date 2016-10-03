@@ -33,6 +33,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.internal.services.PropertyService;
@@ -43,6 +44,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
 	public static final String EXTENSION_NO_DOT = "aadl_diagram";
 	public static final String EXTENSION = "." + EXTENSION_NO_DOT;
+	private AgeContentOutlinePage outlinePage = null;
 	
 	public AgeDiagramEditor() {
 	}
@@ -69,5 +71,17 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 			getDiagramBehavior().setPictogramElementForSelection(pe);					
 			getDiagramBehavior().selectBufferedPictogramElements();
 		}
+	}
+	
+	@Override
+	public Object getAdapter(@SuppressWarnings("rawtypes") Class required) {
+		if(IContentOutlinePage.class.equals(required)) {
+			if(outlinePage == null) {
+				outlinePage = new AgeContentOutlinePage(this);
+			}
+			return outlinePage;
+		}
+		
+		return super.getAdapter(required);
 	}
 }
