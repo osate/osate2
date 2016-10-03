@@ -156,7 +156,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
         	shapeWidth = shape.getGraphicsAlgorithm().getWidth();
         	shapeHeight = shape.getGraphicsAlgorithm().getHeight();
         }
-        
+
 		// Create the graphics algorithm
         final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, shapeWidth, shapeHeight); 
         gaService.setLocation(ga, x, y);
@@ -607,16 +607,17 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	}
 	
 	@Override
-	public IResizeConfiguration getResizeConfiguration(final IResizeShapeContext context) {
-		final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
-		
+	public IResizeConfiguration getResizeConfiguration(final IResizeShapeContext context) {		
 		// Prevent the layout algorithm from shrinking feature group types. This prevent the layout algorithm from cutting off the
 		// feature group type's label
 		if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof FeatureGroupType && 
 				context.getPictogramElement().getGraphicsAlgorithm() != null) {
 			final GraphicsAlgorithm ga = context.getPictogramElement().getGraphicsAlgorithm();
+			final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
 			conf.setMinimumSize(ga.getWidth(), ga.getHeight());
+			return conf;
 		}
-		return conf;		
+		
+		return super.getResizeConfiguration(context);
 	}
 }
