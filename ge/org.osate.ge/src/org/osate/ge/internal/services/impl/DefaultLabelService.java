@@ -41,7 +41,10 @@ public class DefaultLabelService implements LabelService {
         propertyService.setName(labelShape, shapeName);
         propertyService.setIsManuallyPositioned(labelShape, true);
         propertyService.setIsTransient(labelShape, true);
-        featureProvider.link(labelShape, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+        
+        if(bo != null) {
+        	featureProvider.link(labelShape, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+        }
         
         final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreationService.createTextBackground(labelShape);		
         final Text labelText = graphicsAlgorithmCreationService.createLabelGraphicsAlgorithm(labelBackground, labelValue);
