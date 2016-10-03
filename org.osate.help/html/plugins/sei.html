@@ -14,7 +14,7 @@
 <h3>Introduction</h3>
 <p>
 The analysis plugins designed by the SEI are available in the <em>Analyses</em>, as
-shown in the picture below. These plugins mostly acts on the instance model and thus
+shown in the picture below. These plugins mostly act on the instance model and thus
 you need to select the instance model and the root system instance when invoking these
 plugins.
 </p>
@@ -53,85 +53,6 @@ This plug-in aims at making statistics on your model: number of components,
 categories of components, etc. This plug-in is more a support
 for new plug-in developer and start with an established code base
 they can re-use.
-</p>
-
-<h3>Flow Latency Analysis</h3>
-<p>
-This analysis plug-in determines the latency of flow implementations declared for components and compares it to the latency specified by the corresponding flow specification of the component.  A detailed description of its current implementation can be found in Section 10.
-</p>
-<p> 
-The analysis performs this check for all flow implementations and their corresponding flow specifications for all component classifier declarations.  This analysis may be invoked on a system instance or a component implementation using �Analyses > Check Flow Latency� or the button in the toolbar.
-</p>
-<p> 
-The latency of a flow implementation is determined as the sum of all:
- </p>
-<p>
-The connection latencies in the flow implementation; the connection latency is determined by the Latency property value�if not declared, it is assumed to be zero.
-</p>
-<p>
-The flowspec latencies of all subcomponent flowspecs in the flow implementation; the subcomponent flowspec latency is determined by its Latency property value�if no value was declared and the component is a thread, then the period is used for periodic threads, and the deadline for all other threads. Otherwise, zero latency is assumed.
- </p>
-<p>
-The resulting latency value is then stored as a Latency property association of the flow implementation. 
-</p>
-<p>
-Finally, the latency value is compared to the latency value of the flow specification with the same name in the component type corresponding to the component implementation.  If the flow implementation latency value exceeds that of the flow specification an error is reported.
- </p>
-<p>
-A second form of flow latency analysis is performed for end-to-end flow specifications across components.  This can take place in two ways.  First, it can analyze flows across system components that play the role of system partitions that are scheduled as virtual processors, and that do not have to be further elaborated.  The latency contribution due to partition execution is determined by the property SEI::Partition_Latency.    This permits early latency analysis of integrated systems through a high-level  model of major subsystems based on specification information without expanding into subsystem details.
- </p>
-<p>
-Second, end-to-end flow through threads, devices, and processor can be analyzed.  In this case, both the flow specification latency and the latency due to execution characteristics such as period, deadline, and immediate or delayed connection, are taken into account in calculating the total latency. 
-</p>
-<p>
-Communication latency is currently taken into account if specified as connection latency.
- </p>
-<p>
-
-<p>
-This plug-in performs a latency analysis of your connection flows.
-More information about this plug-in can be also found in the
-<a href="http://www.sei.cmu.edu/reports/07tn010.pdf" target="blank">following technical report</a>.
-In order to work correctly, you must model a system with flow and define 
-the property <em>Transmission_Time</em> on <em>bus</em> components.
-You can see the definition of such a property above:
-</p>
-<pre>
-bus mybus
-properties
-   Transmission_Time => [ Fixed => 0 ms .. 10ms;
-                          PerByte => 0 ms .. 10 ms; ];
-end mybus; 
-</pre>
-
-<p>
-You must also define the <em>SEI::BandWidthBudget</em> property,
-like that:
-</p>
-<pre>
-SEI::BandWidthBudget => 1.0 KBytesps; 
-</pre>
-
-<p>
-Also, when declaring <strong>flows</strong>, you must declare
-the <em>latency</em> property, like the following:
-</p>
-<pre>
-process myprocess
-features
-   pout: out data port;
-   busAccess: requires bus access mybus;
-flows
-   myflow_src: flow source pout {latency => 1 ns .. 2 ns; } ; 
-end myprocess;
-</pre>
-
-<p>
-Once your model is done, you can execute the analysis from the menu on the
-instance model. To do so, select the root node of the instance
-model and click on <em>Analysis</em> and then <em>Check Flow Latency</em>.
-Once the plug-in finished, a report is generated in a directory called <em>reports</em>,
-it can be opened with a spreadsheet such as LibreOffice or Microsoft Excel.
 </p>
 
 
