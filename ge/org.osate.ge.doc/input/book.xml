@@ -811,6 +811,10 @@
   			</imageobject></mediaobject>
 		</section>
 		<section>
+			<title>Inconsistent Font Sizes Across Machines</title>
+			<para>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</para>
+		</section>	
+		<section>
 			<title>Out of Handles Exception</title>
 			<para>When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.</para>
 		</section>		

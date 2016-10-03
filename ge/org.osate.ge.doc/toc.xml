@@ -107,9 +107,10 @@
    </topic>
    <topic label="Troubleshooting" href="output/ch04.html">
       <topic label="Build Automatically" href="output/ch04.html#d0e1147"/>
-      <topic label="Out of Handles Exception" href="output/ch04s02.html"/>
-      <topic label="Unable to Set Properties Unless Text Model is Open" href="output/ch04s03.html"/>
-      <topic label="Updating a Diagram" href="output/ch04s04.html"/>
-      <topic label="Reporting Bugs" href="output/ch04s05.html"/>
+      <topic label="Inconsistent Font Sizes Across Machines" href="output/ch04s02.html"/>
+      <topic label="Out of Handles Exception" href="output/ch04s03.html"/>
+      <topic label="Unable to Set Properties Unless Text Model is Open" href="output/ch04s04.html"/>
+      <topic label="Updating a Diagram" href="output/ch04s05.html"/>
+      <topic label="Reporting Bugs" href="output/ch04s06.html"/>
    </topic>
 </toc>
