@@ -418,7 +418,11 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 
 	        // Create Subcomponent Type Indicator
 	        final String subcomponentTypeName = getTypeText(sc);
-	        labelService.createLabelShape(shape, subcomponentTypeLabelShapeName, sc, subcomponentTypeName);
+	        final Shape subcomponentTypeShape = labelService.createLabelShape(shape, subcomponentTypeLabelShapeName, sc, subcomponentTypeName);
+	        if(subcomponentTypeName.length() == 0) {
+	        	subcomponentTypeShape.getGraphicsAlgorithm().setWidth(0);
+	        	subcomponentTypeShape.getGraphicsAlgorithm().setHeight(0);
+	        }
 		}	
 
 		layout(shape, bo, x, y);
