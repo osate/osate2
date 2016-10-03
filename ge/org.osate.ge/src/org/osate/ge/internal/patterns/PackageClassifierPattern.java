@@ -161,8 +161,18 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 
         gaService.setLocationAndSize(text, labelX, 0, textWidth, 20);
         
+        final int shapeWidth;
+        final int shapeHeight;
+        if(shape.getGraphicsAlgorithm() == null) {
+        	shapeWidth = totalWidth;
+        	shapeHeight = height;
+        } else {
+        	shapeWidth = shape.getGraphicsAlgorithm().getWidth();
+        	shapeHeight = shape.getGraphicsAlgorithm().getHeight();
+        }
+        
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, totalWidth, height);        
+        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, shapeWidth, shapeHeight);        
         gaService.setLocation(ga, x, y);
 	}
 
@@ -178,7 +188,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return false;
+		return true;
 	}
 	
 	public void resizeShape(final IResizeShapeContext context) {
