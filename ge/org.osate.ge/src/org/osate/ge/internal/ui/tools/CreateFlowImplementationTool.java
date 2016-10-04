@@ -185,44 +185,48 @@ public class CreateFlowImplementationTool {
 					editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 						@Override
 						public void execute() {
-							if(selectedPes.length == 1 && dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-								// Get the selected pictogram
-								PictogramElement pe = selectedPes[0];
-								Shape shape = null;
-								if (pe instanceof Connection) {
-									shape = connectionService.getOwnerShape((Connection)pe);
-								} else if (pe instanceof ConnectionDecorator) {
-									final ConnectionDecorator cd = ((ConnectionDecorator)pe);
-									pe = cd.getConnection();
-									shape = connectionService.getOwnerShape((Connection)pe);
-								} else if (shape == null && pe instanceof Shape) {
-									shape = (Shape)pe;
-								}
-
-								// Get the business object
-								final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-								final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-								String error = null;
-								if (pe != null && !(pe instanceof Diagram)) {
-									if(dlg.addSelectedElement(bo, context)) {
-										if (bo == dlg.getFlow().getSpecification()) {
-											coloring.setForeground(pe, Color.ORANGE.darker());
-										} else if (bo instanceof ModeFeature) {
-											coloring.setForeground(pe, Color.MAGENTA.brighter());
-										} else {
-											coloring.setForeground(pe, Color.MAGENTA.darker());
-										}
-										previouslySelectedPes.add(pe);
-									} else {
-										error = "Invalid element selected. ";							
+							if(dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+								if(selectedPes.length > 1) {
+									dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
+								} else if(selectedPes.length == 1) {
+									// Get the selected pictogram
+									PictogramElement pe = selectedPes[0];
+									Shape shape = null;
+									if (pe instanceof Connection) {
+										shape = connectionService.getOwnerShape((Connection)pe);
+									} else if (pe instanceof ConnectionDecorator) {
+										final ConnectionDecorator cd = ((ConnectionDecorator)pe);
+										pe = cd.getConnection();
+										shape = connectionService.getOwnerShape((Connection)pe);
+									} else if (shape == null && pe instanceof Shape) {
+										shape = (Shape)pe;
 									}
-								} 
-								
-								if(error == null) {
-									dlg.setErrorMessage(null);
-									dlg.setMessage(getDialogMessage());
-								} else {
-									dlg.setErrorMessage(error + " " + getDialogMessage());
+	
+									// Get the business object
+									final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+									final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
+									String error = null;
+									if (pe != null && !(pe instanceof Diagram)) {
+										if(dlg.addSelectedElement(bo, context)) {
+											if (bo == dlg.getFlow().getSpecification()) {
+												coloring.setForeground(pe, Color.ORANGE.darker());
+											} else if (bo instanceof ModeFeature) {
+												coloring.setForeground(pe, Color.MAGENTA.brighter());
+											} else {
+												coloring.setForeground(pe, Color.MAGENTA.darker());
+											}
+											previouslySelectedPes.add(pe);
+										} else {
+											error = "Invalid element selected. ";							
+										}
+									} 
+									
+									if(error == null) {
+										dlg.setErrorMessage(null);
+										dlg.setMessage(getDialogMessage());
+									} else {
+										dlg.setErrorMessage(error + " " + getDialogMessage());
+									}
 								}
 							}
 						}
@@ -243,7 +247,7 @@ public class CreateFlowImplementationTool {
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
 			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == dlg.flowImpl.getSpecification()
 				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
-				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature";
+				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature.";
 			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
 					|| bo instanceof Subcomponent) {
 				msg = "Select a connection.";
@@ -531,6 +535,7 @@ public class CreateFlowImplementationTool {
 						final FlowEnd flowEnd = fs.getKind() == FlowKind.SINK ? fs.getInEnd() : fs.getOutEnd();
 						if (fs.getKind() == FlowKind.PATH) {
 							FlowEnd flowInEnd = fs.getInEnd();
+							
 							return con.getDestination().getConnectionEnd() == flowEnd.getFeature() ||
 									con.getSource().getConnectionEnd() == flowEnd.getFeature() ||
 									con.getDestination().getConnectionEnd() == flowInEnd.getFeature() ||
@@ -681,7 +686,7 @@ public class CreateFlowImplementationTool {
 			super.configureShell(newShell);
 			newShell.setText("Create Flow Implementation");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(450, 250);
+			newShell.setSize(540, 250);
 			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(300, 215);
 		}

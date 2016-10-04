@@ -190,41 +190,45 @@ public class CreateEndToEndFlowSpecificationTool {
 					editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 						@Override
 						public void execute() {
-							if(selectedPes.length == 1 && dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-								// Get the selected pictogram
-								PictogramElement pe = selectedPes[0];
-								Shape shape = null;
-								if (pe instanceof Connection) {
-									shape = connectionService.getOwnerShape((Connection)pe);
-								} else if (pe instanceof ConnectionDecorator) {
-									final ConnectionDecorator cd = ((ConnectionDecorator)pe);
-									pe = cd.getConnection();
-									shape = connectionService.getOwnerShape((Connection)pe);
-								}
-			
-								final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-								final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-			
-								if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
-									String error = null;
-									if (dlg.addSelectedElement((Element)bo, context)) {
-										if (bo instanceof ModeFeature) {
-											coloring.setForeground(pe, Color.MAGENTA.brighter());
-										} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
-											coloring.setForeground(pe, Color.ORANGE.darker());
-										} else {
-											coloring.setForeground(pe, Color.MAGENTA.darker());
-										}
-										previouslySelectedPes.add(pe);
-									} else {
-										error = "Invalid element selected. ";
+							if(dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+								if(selectedPes.length > 1) {
+									dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
+								} else if(selectedPes.length == 1) {
+									// Get the selected pictogram
+									PictogramElement pe = selectedPes[0];
+									Shape shape = null;
+									if (pe instanceof Connection) {
+										shape = connectionService.getOwnerShape((Connection)pe);
+									} else if (pe instanceof ConnectionDecorator) {
+										final ConnectionDecorator cd = ((ConnectionDecorator)pe);
+										pe = cd.getConnection();
+										shape = connectionService.getOwnerShape((Connection)pe);
 									}
-									
-									if(error == null) {
-										dlg.setErrorMessage(null);
-										dlg.setMessage(getDialogMessage());
-									} else {
-										dlg.setErrorMessage(error + " " + getDialogMessage());
+				
+									final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+									final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
+				
+									if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
+										String error = null;
+										if (dlg.addSelectedElement((Element)bo, context)) {
+											if (bo instanceof ModeFeature) {
+												coloring.setForeground(pe, Color.MAGENTA.brighter());
+											} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
+												coloring.setForeground(pe, Color.ORANGE.darker());
+											} else {
+												coloring.setForeground(pe, Color.MAGENTA.darker());
+											}
+											previouslySelectedPes.add(pe);
+										} else {
+											error = "Invalid element selected. ";
+										}
+										
+										if(error == null) {
+											dlg.setErrorMessage(null);
+											dlg.setMessage(getDialogMessage());
+										} else {
+											dlg.setErrorMessage(error + " " + getDialogMessage());
+										}
 									}
 								}
 							}
@@ -531,7 +535,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			super.configureShell(newShell);
 			newShell.setText("Create End To End Flow Specification");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(475, 275);
+			newShell.setSize(575, 275);
 			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(460, 215);
 		}
