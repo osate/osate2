@@ -37,6 +37,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.eclipse.graphiti.features.IFeatureProvider;
+import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
@@ -44,6 +45,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
+import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.context.impl.ResizeShapeContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
@@ -62,7 +64,6 @@ import org.osate.ge.internal.AgeResizeConfiguration;
 import org.osate.ge.internal.layout.LayoutAlgorithm;
 import org.osate.ge.internal.layout.SimpleLayoutAlgorithm;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
 
@@ -76,14 +77,12 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	// Settings that determine how many different layouts to test. See usage for more details.
 	private final BusinessObjectResolutionService bor;
 	private final ShapeService shapeService;
-	private final LayoutService resizeHelper;
 	private final PropertyService propertyService;
 	
 	@Inject
-	public LayoutDiagramFeature(final IFeatureProvider fp, final ShapeService shapeService, final LayoutService resizeHelper, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
+	public LayoutDiagramFeature(final IFeatureProvider fp, final ShapeService shapeService, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.shapeService = shapeService;
-		this.resizeHelper = resizeHelper;
 		this.propertyService = propertyService;
 		this.bor = bor;
 	}
@@ -254,28 +253,42 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 	}
 	
 	private void updateShape(final org.osate.ge.internal.layout.Shape layoutShape, final Map<Object, Object> shapeMap) {
-		for(final org.osate.ge.internal.layout.Shape childLayoutShape : layoutShape.getChildren()) {
-			updateShape(childLayoutShape, shapeMap);
-		}
-
 		final Shape diagramShape = (Shape)shapeMap.get(layoutShape);
+		ResizeShapeContext resizeShapeContext = null;
+		boolean canResize =  false;
+		IResizeShapeFeature resizeFeature = null;
 		if(layoutShape.isUnlocked()) {
-			final ResizeShapeContext context = new ResizeShapeContext(diagramShape);
-			context.setSize(layoutShape.getWidth(), layoutShape.getHeight());
-			context.setLocation(layoutShape.getX(), layoutShape.getY());
+			resizeShapeContext = new ResizeShapeContext(diagramShape);
+			resizeShapeContext.setSize(layoutShape.getWidth(), layoutShape.getHeight());
+			resizeShapeContext.setLocation(layoutShape.getX(), layoutShape.getY());
 			
 			// Try to resize the shape
-			final IResizeShapeFeature feature = getFeatureProvider().getResizeShapeFeature(context);
-			if(feature != null && feature.canResizeShape(context)) {
-				feature.resizeShape(context);
-			} else {
-				// Try simply moving the shape
-				move(diagramShape, layoutShape.getX(), layoutShape.getY());
+			resizeFeature = getFeatureProvider().getResizeShapeFeature(resizeShapeContext);
+			canResize = resizeFeature != null && resizeFeature.canResizeShape(resizeShapeContext);
+			if(canResize) {
+				resizeFeature.resizeShape(resizeShapeContext);
 			}
 			
 			propertyService.setIsLayedOut(diagramShape, true);
 		}
 		
+		for(final org.osate.ge.internal.layout.Shape childLayoutShape : layoutShape.getChildren()) {
+			if(!childLayoutShape.positionOnEdge()) {
+				updateShape(childLayoutShape, shapeMap);
+			}
+		}
+		
+		// Move/resize the shape. Resizing again ensures that the size isn't larger than needed.
+		if(resizeShapeContext != null) {
+			// Try to resize the shape
+			if(canResize) {
+				resizeFeature.resizeShape(resizeShapeContext);
+			} else {
+				// Try simply moving the shape
+				move(diagramShape, layoutShape.getX(), layoutShape.getY());
+			}
+		}
+				
 		// Reposition docked shapes after the container has layed out to ensure the shapes are docked to the appropriate edge
 		for(final org.osate.ge.internal.layout.Shape childLayoutShape : layoutShape.getChildren()) {
 			if(childLayoutShape.positionOnEdge()) {
@@ -283,9 +296,37 @@ public class LayoutDiagramFeature extends AbstractCustomFeature {
 			}
 		}
 		
-		// Check the diagram shape's size and container size?
-		if(!(diagramShape instanceof Diagram) && diagramShape instanceof ContainerShape) {
-			resizeHelper.checkShapeBounds((ContainerShape)diagramShape);
+		// Check bounds of children to be safe
+		if(diagramShape instanceof ContainerShape) {
+			checkBoundsOfChildren((ContainerShape)diagramShape);
+		}
+	}
+	
+	
+	private void checkBoundsOfChildren(final ContainerShape shape) {
+		if(shape instanceof Diagram) {
+			return;
+		}
+		
+		boolean layoutShape = false;
+		
+		// Check if the shape is entirely in the container
+		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+		for(final Shape child : shape.getChildren()) {
+			final GraphicsAlgorithm childGa = child.getGraphicsAlgorithm();
+			final int endX = childGa.getX() + childGa.getWidth();
+			final int endY = childGa.getY() + childGa.getHeight();
+			if(childGa.getX() < 0 || childGa.getY() < 0 || endX > ga.getWidth()|| endY > ga.getHeight()) {
+				layoutShape = true;
+			}	
+		}
+
+		if(layoutShape) {
+			final LayoutContext context = new LayoutContext(shape);
+			final ILayoutFeature feature = getFeatureProvider().getLayoutFeature(context);
+			if(feature != null && feature.canLayout(context)) {
+				feature.layout(context);
+			}
 		}
 	}
 	
