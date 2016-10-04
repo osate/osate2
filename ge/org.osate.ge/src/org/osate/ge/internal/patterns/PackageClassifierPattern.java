@@ -141,6 +141,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
         
 		// Create label
         final Shape labelShape = labelService.createLabelShape(shape, labelShapeName, classifier, labelTxt);
+        labelShape.setActive(false); // Prevent shape from being active to prevent issues with moving the classifier.
         
         final int shapeWidth;
         final int shapeHeight;
@@ -523,7 +524,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	public int getEditingType() {
         return TYPE_TEXT;
     }
- 
+     
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
+	
     @Override
     public boolean canDirectEdit(final IDirectEditingContext context) {
         final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
@@ -537,7 +543,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 
         return false;
     }
-    
+
     public String getInitialValue(final IDirectEditingContext context) {
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
     	return this.getLabelText(classifier);
