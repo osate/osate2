@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -18,7 +39,6 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
@@ -40,11 +60,12 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AbstractFeature;
+import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
+import org.osate.aadl2.AccessType;
 import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -87,12 +108,14 @@ import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
+import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.ShapeCreationService;
+import org.osate.ge.internal.services.ShapeCreationService.PropertySetter;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -133,6 +156,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private final RefactoringService refactoringService;
 	private final AadlArrayService arrayService;
 	private final ConnectionService connectionService;
+	private final LabelService labelService;
 	private final EClass featureType;
 	
 	/**
@@ -174,8 +198,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
 			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor, final ShapeCreationService shapeCreationService,
 			final ColoringService highlightingService, final RefactoringService refactoringService, final AadlArrayService arrayService,
-			final ConnectionService connectionService, final @Named("Feature Type") EClass featureType) {
-		super(anchorUtil, ghostingService);
+			final ConnectionService connectionService, final LabelService labelService, final @Named("Feature Type") EClass featureType) {
+		super(anchorUtil, ghostingService, propertyUtil);
 		this.anchorUtil = anchorUtil;
 		this.ghostingService = ghostingService;
 		this.propertyUtil = propertyUtil;
@@ -195,6 +219,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		this.refactoringService = refactoringService;
 		this.arrayService = arrayService;
 		this.connectionService = connectionService;
+		this.labelService = labelService;
 		this.featureType = featureType;
 	}
 
@@ -250,7 +275,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		} else {
 			final int bottomY = ctx.getY() + shapeGa.getHeight();
 			if(bottomY > containerHeight) {
-				mutableContext.setY(containerHeight - shapeGa.getHeight());
+				mutableContext.setY(Math.max(0, containerHeight - shapeGa.getHeight()));
 			}
 		}
 	}
@@ -326,14 +351,12 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	        }
 		}
 		
-		// All
-		featureGa.setX(isLeftLayout ? 0 : shapeGa.getWidth()-featureGa.getWidth());
-		
 		// Position the label shape
 		final Shape labelShape = getLabelShape(shape);
 		if(labelShape != null) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
 			labelGa.setX(isLeftLayout ? labelPadding : shapeGa.getWidth()-labelGa.getWidth()-labelPadding);
+			labelGa.setY(0);
 			
 			// Adjust the alignment.
 			for(final GraphicsAlgorithm labelChildGa : labelGa.getGraphicsAlgorithmChildren()) {
@@ -344,13 +367,18 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		        	labelTxt.setHorizontalAlignment(Orientation.ALIGNMENT_RIGHT);
 		        }
 			}    
-		}	
+		}
+		
+		// Position the feature symbol shape
+		featureGa.setX(isLeftLayout ? 0 : shapeGa.getWidth()-featureGa.getWidth());	
+		featureGa.setY(labelShape.getGraphicsAlgorithm().getHeight());  
 		
 		// Position the annotation shape
 		final Shape annotationShape = getAnnotationShape(shape);		
 		if(annotationShape != null) {
 			final GraphicsAlgorithm annotationGa = annotationShape.getGraphicsAlgorithm();
 			annotationGa.setX(isLeftLayout ? annotationPadding : shapeGa.getWidth()-annotationGa.getWidth()-annotationPadding);
+			annotationGa.setY(featureGa.getY() + featureGa.getHeight());
 		}
 		
 		// Handle positioning of the shape in cases where the shape container has a fully initialized container
@@ -373,7 +401,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 
 	@Override
 	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, final int x, final int y) {
-		createGaAndInnerShapes(shape, bo, x, y, 0);
+		createGaAndInnerShapes(shape, bo, x, Math.max(y, 0), 0);
 	}
 
 	/**
@@ -413,12 +441,12 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         } else {
         	gaService.createInvisibleRectangle(featureShape);
         	ghostingService.ghostChildShapes(featureShape);
-        }        
+        }
        
         // Set the feature shape as an inner shape
         propertyUtil.setIsInnerShape(featureShape, true);
 
-        // Adjust properties on shapes os that the feature shape will be the one which is colored
+        // Adjust properties on shapes so that the feature shape will be the one which is colored
         propertyUtil.setIsColoringContainer(shape, true);
         propertyUtil.setIsColoringChild(featureShape, true);
 
@@ -430,20 +458,9 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
         final String labelTxt = getLabelText(feature);        
         
 		// Create label
-        final Shape labelShape = peCreateService.createShape(shape, false);
-        propertyUtil.setIsManuallyPositioned(labelShape, true);
-        this.link(labelShape, new AadlElementWrapper(feature));
-        propertyUtil.setName(labelShape, labelShapeName);        
-		
-		final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreator.createTextBackground(labelShape);		
-        final Text label = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelBackground, labelTxt);
-
-        // Set the sizes        
-        final IDimension labelSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, label.getStyle().getFont());
-        labelSize.setWidth((int)(labelSize.getWidth()*1.06));
-		gaService.setLocationAndSize(label, 0, 0, labelSize.getWidth(), labelSize.getHeight());		
-		gaService.setLocationAndSize(labelBackground, 0, 0, labelSize.getWidth(), labelSize.getHeight());
-		
+        final Shape labelShape = labelService.createLabelShape(shape, labelShapeName, feature, labelTxt);
+        labelShape.setActive(false); // Label must be inactive to allow renaming while making the label unselectable
+        
 		// Special case for feature groups
 		if(feature instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)feature;
@@ -496,10 +513,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			// Create the feature group graphics algorithm
 			final GraphicsAlgorithm fgGa = graphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, featureGroupSymbolWidth, childY + 25);
 			graphicsAlgorithmUtil.shrink(fgGa);
-			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;
-	     	
-			// CLEAN-UP: Consider changing how symbol is created to assume left like the other symbols...
-			graphicsAlgorithmUtil.mirror(fgGa);					
+			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;	     	
 
 			featureShape.getGraphicsAlgorithm().setWidth(fgWidth);
 		} else {
@@ -537,34 +551,24 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 				graphicsAlgorithmCreator.createFeatureGraphicsAlgorithm(featureShape, feature);		
 			}
 		}
-
-		// Position the feature shape		
-		gaService.setLocation(featureShape.getGraphicsAlgorithm(), 0, labelSize.getHeight());  
 		
 		// Create annotation label
 		final String annotationTxt = getAnnotationText(feature);
-        final Shape annotationShape = peCreateService.createShape(shape, false);
-        propertyUtil.setIsManuallyPositioned(annotationShape, true);
-        this.link(annotationShape, new AadlElementWrapper(feature));
-        propertyUtil.setName(annotationShape, annotationShapeName);
-        final GraphicsAlgorithm annotationBackground = graphicsAlgorithmCreator.createTextBackground(annotationShape);
-        final Text annotation = graphicsAlgorithmCreator.createAnnotationGraphicsAlgorithm(annotationBackground, annotationTxt);
-        
-        if(annotationTxt.length() != 0) {
-        	final IDimension annotationSize = GraphitiUi.getUiLayoutService().calculateTextSize(annotationTxt, annotation.getStyle().getFont());
-        	gaService.setLocationAndSize(annotation, 0, 0, annotationSize.getWidth(), annotationSize.getHeight());
-        	gaService.setLocationAndSize(annotationBackground, 0, featureShape.getGraphicsAlgorithm().getY() + featureShape.getGraphicsAlgorithm().getHeight(), annotationSize.getWidth(), annotationSize.getHeight());
-        }				
-
+		final Shape annotationShape = labelService.createLabelShape(shape, annotationShapeName, feature, annotationTxt);
+		propertyUtil.setIsUnselectable(annotationShape, true);
+		if(annotationTxt.length() == 0) {
+			gaService.setSize(annotationShape.getGraphicsAlgorithm(), 0, 0);
+		}
+		
         // Apply coloring
      	highlightingService.applyColoring(shape);		
      	
         // Set size as appropriate
-     	final int maxWidth =  Math.max(getWidth(annotationBackground)+annotationPadding, Math.max(getWidth(label)+labelPadding, getWidth(featureShape.getGraphicsAlgorithm())));
-     	final int maxHeight = Math.max(getHeight(annotationBackground), Math.max(getHeight(label), getHeight(featureShape.getGraphicsAlgorithm())));
+     	final int maxWidth =  Math.max(annotationShape.getGraphicsAlgorithm().getWidth()+annotationPadding, Math.max(labelShape.getGraphicsAlgorithm().getWidth()+labelPadding, featureShape.getGraphicsAlgorithm().getWidth()));
+     	final int maxHeight = annotationShape.getGraphicsAlgorithm().getHeight() + labelShape.getGraphicsAlgorithm().getHeight() + featureShape.getGraphicsAlgorithm().getHeight();
         gaService.setSize(ga, maxWidth,	maxHeight);
      		
-        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape one.. This will cause it to happen multiple times        
+        layoutAll(shape); // CLEAN-UP: Ideally would only layout each shape once.. This will cause it to happen multiple times        
 	}
 	
 	@Override
@@ -619,14 +623,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private Shape getAnnotationShape(final ContainerShape container) {
 		return shapeService.getChildShapeByName(container, annotationShapeName);
 	}	
-	
-	private int getWidth(final GraphicsAlgorithm ga) {
-		return ga.getX() + ga.getWidth();
-	}
-	
-	private int getHeight(final GraphicsAlgorithm ga) {
-		return ga.getY() + ga.getHeight();
-	}
 	
 	public final String getAnnotationText(final NamedElement feature) {
 		if(feature instanceof InternalFeature) {
@@ -766,12 +762,16 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 					final NamedElement newFeature = createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
 					
+					final boolean isLeft = calculateIsLeft(context.getTargetContainer(), context.getX(), 0);
 					if(newFeature instanceof DirectedFeature) {
-						if(!(newFeature instanceof AbstractFeature || newFeature instanceof FeatureGroup)) {
-							final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;
-							newDirectedFeature.setIn(true);
-							newDirectedFeature.setOut(true);
+						if(!(newFeature instanceof FeatureGroup)) {
+							final DirectedFeature newDirectedFeature = (DirectedFeature)newFeature;						
+							newDirectedFeature.setIn(isLeft);
+							newDirectedFeature.setOut(!isLeft);
 						}
+					} else if(newFeature instanceof Access) {
+						final Access access = (Access)newFeature;						
+						access.setKind(isLeft ? AccessType.REQUIRES : AccessType.PROVIDES);
 					}
 					
 					if(classifier instanceof ComponentType) {
@@ -785,12 +785,14 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 				public void beforeCommit(final Resource resource, final Classifier classifier, final NamedElement newFeature) {
 					diagramMod.commit();
 					
-					final ContainerShape newShape = (ContainerShape)shapeCreationService.createShape(context.getTargetContainer(), newFeature, context.getX(), context.getY());
-					
-					// Set the is left property
-					final GraphicsAlgorithm newShapeGa = newShape.getGraphicsAlgorithm();
-					final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), newShapeGa.getWidth());
-					propertyUtil.setIsLeft(newShape, isLeft);
+					shapeCreationService.createShape(context.getTargetContainer(), newFeature, context.getX(), context.getY(), new PropertySetter() {
+						@Override
+						public void setProperties(final Shape newShape) {
+							// Set the is left property
+							final boolean isLeft = calculateIsLeft(newShape.getContainer(), context.getX(), 0);
+							propertyUtil.setIsLeft(newShape, isLeft);							
+						}						
+					});
 				}
 			});
 		}
@@ -877,7 +879,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	        if (bo instanceof NamedElement && ga instanceof Text) {
 	        	final Shape labelShape = (Shape)context.getPictogramElement();
 	        	final Shape featureShape = labelShape.getContainer();
-	        	return canEdit(featureShape) && (!(bo instanceof Feature) || ((Feature)bo).getRefined() == null);
+	        	boolean result = canEdit(featureShape) && (!(bo instanceof Feature) || ((Feature)bo).getRefined() == null);
+	        	return result;
 	        }
 		}
 

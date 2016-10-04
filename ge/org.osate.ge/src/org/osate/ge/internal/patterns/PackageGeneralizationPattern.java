@@ -55,6 +55,7 @@ import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -72,8 +73,8 @@ public class PackageGeneralizationPattern extends AgeConnectionPattern implement
 	public PackageGeneralizationPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil,
 			final AadlModificationService modificationService, final ConnectionService connectionService,
 			final ConnectionCreationService connectionCreationService, final UserInputService userInputService, 
-			final DiagramModificationService diagramModService, final BusinessObjectResolutionService bor) {
-		super(coloringService, ghostingService, connectionService, bor);
+			final DiagramModificationService diagramModService, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
+		super(coloringService, ghostingService, connectionService, propertyService, bor);
 		this.styleUtil = styleUtil;
 		this.modificationService = modificationService;
 		this.connectionCreationService = connectionCreationService;

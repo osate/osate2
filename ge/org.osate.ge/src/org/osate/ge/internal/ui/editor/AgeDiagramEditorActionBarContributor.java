@@ -104,14 +104,12 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		super.contributeToMenu(menubar);		
 		
 		// Add actions for increase and decrease the nesting depth to the view menu.
-		// TODO: As of 2014-11-10, Graphiti does not define a constant for the ID of the view menu so we must look it up. If/when such an ID is added,
-		// lookup the menu by ID.
 		for(final IContributionItem item : menubar.getItems()) {
 			if(item instanceof SubContributionItem) {
 				final IContributionItem innerItem = ((SubContributionItem) item).getInnerItem();
 				if(innerItem instanceof MenuManager) {
 					final MenuManager menuManager = (MenuManager)innerItem;
-					if(menuManager.getMenuText().equalsIgnoreCase("View")) {
+					if(MENU_ID_VIEW.equals(menuManager.getId())) {
 						menuManager.add(new Separator());
 						menuManager.add(getAction(IncreaseNestingDepthAction.ID));
 						menuManager.add(getAction(DecreaseNestingDepthAction.ID));
@@ -129,15 +127,17 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		nestingDepthSelectorItem.setActiveEditor(editor);
 		
 		// Update the visibility of contribution items
-		final AgeDiagramEditor ageEditor = (AgeDiagramEditor)editor;
-		if(ageEditor.getDiagramTypeProvider() != null) {
-			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)ageEditor.getAdapter(BusinessObjectResolutionService.class);
-			final Object diagramBo = bor.getBusinessObjectForPictogramElement(ageEditor.getDiagramTypeProvider().getDiagram());
-		
-			final boolean isComponentClassifierDiagram = diagramBo instanceof ComponentClassifier;
-			final boolean isComponentImplementationDiagram = diagramBo instanceof ComponentImplementation;
-			updateItemVisibility(getActionBars().getToolBarManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
-			updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+		if(editor instanceof AgeDiagramEditor) {
+			final AgeDiagramEditor ageEditor = (AgeDiagramEditor)editor;
+			if(ageEditor.getDiagramTypeProvider() != null) {
+				final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)ageEditor.getAdapter(BusinessObjectResolutionService.class);
+				final Object diagramBo = bor.getBusinessObjectForPictogramElement(ageEditor.getDiagramTypeProvider().getDiagram());
+			
+				final boolean isComponentClassifierDiagram = diagramBo instanceof ComponentClassifier;
+				final boolean isComponentImplementationDiagram = diagramBo instanceof ComponentImplementation;
+				updateItemVisibility(getActionBars().getToolBarManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+				updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
+			}
 		}
 	}
 	private void updateItemVisibility(final IContributionManager mgr, final boolean isComponentClassifierDiagram, final boolean isComponentImplementationDiagram) {

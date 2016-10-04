@@ -82,6 +82,18 @@
     			<imagedata fileref="images/GoToTypeDiagram.png" format="PNG"/>
   			</imageobject></mediaobject>
 		</section>
+		<section>
+			<title>Opening an AADL Instance Model</title>
+			<para>An AADL instance model can be viewed in the graphical editor. The instance model may not be modified using the graphical editor.</para>
+			<orderedlist>
+				<listitem>
+					<para>Right-click on the AADL instance model in the <emphasis>AADL Navigator</emphasis> view.</para>
+				</listitem>
+				<listitem>
+					<para>Select <emphasis>Open Diagram</emphasis> to open the diagram for the selected component instance. The diagram will be created if one does not already exist.</para>
+				</listitem>
+			</orderedlist>
+		</section>
 	</chapter>
 		
 	<chapter>
@@ -149,6 +161,18 @@
 					</listitem>
 					<listitem>
 						<para>Press the <emphasis><emphasis role="bold">Enter</emphasis></emphasis> key.</para>
+					</listitem>
+				</orderedlist>
+			</section>
+			<section>
+				<title>Selecting a Diagram Element's Container</title>
+				<para>Under some circumstances, it is difficult to select the desired diagram element due to the location of child diagram elements. The desired shape can be selected using the following steps.</para>
+				<orderedlist>
+					<listitem>
+						<para>Right-click on the child of the diagram element to be selected.</para>
+					</listitem>
+					<listitem>
+						<para>Select <emphasis>Select Container</emphasis> from the context menu.</para>
 					</listitem>
 				</orderedlist>
 			</section>
@@ -777,114 +801,6 @@
 		</section>
 	</chapter>
 	<chapter>
-		<title>Developing Extensions</title>
-		<para>
-		The OSATE Graphical Editor provides extension points to allow Eclipse plugins to expand the capabilities of the graphical editor.
-		</para>
-		<para>
-			<emphasis role="bold">Note: this documentation and the extension points described are currently Work In Progress (WIP) and the details will change before the interface is finalized.</emphasis>
-		</para>
-		<section>
-			<title>General Information</title>
-			<para>Extensions to the graphical editor are registered as Eclipse extensions. Each extension is implemented by the Java Extensions are implemented which have a no-argument constructor and which contains annotations to specify which methods should be called. Required services and other arguments are passed into annotated methods via dependency injection.</para>
-			<para>The graphical editor is built on top of the Graphiti framework. In many cases knowledge of Graphiti is not required, but it is needed for more advanced use cases.</para>
-			<section>
-				<title>Services</title>
-				<para>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <emphasis>TBD</emphasis> package.</para>
-				<para><emphasis role="bold">Unless otherwise noted, extensions may be reused between diagrams. To avoid increased unnecessary memory usage, extensions should not retain references to services.</emphasis></para>
-				<para><emphasis role="bold">The set of services which will be provided to extensions has not yet been finalized.</emphasis></para>
-			</section>
-			<section>
-				<title>Annotations</title>
-				<para>Extensions are found in the <emphasis>org.osate.ge.ext.annotations</emphasis> package. The applicable extensions depend on the type of extension being implemented. For details regarding each annotation, it is recommended to consult the annotation package.</para>
-			</section>
-		</section>
-		<section>
-			<title>Extension Points</title>
-			<para>Extensions may be used to extend the editing capabiliy of diagrams or the elements represented within the diagrams. 
-			<emphasis role="bold">NOTE: using extensions to add support for entirely new business objects is not currently supported.</emphasis> 
-			Extending the graphical editor with support for a new type of business object requires multiple extensions.
-			A business object is a generic term used to refer to any object which is representated pictogram elements inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.
-			</para>
-			<section>
-				<title>Tools</title>
-				<para>Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own user interface to provide feedback to the user. Tools are displayed in the toolbar.</para>
-				<para>The tools extension point(<emphasis>org.osate.ge.tools</emphasis>) is used to register tools. The graphical editor implements tool extensions which may be used as examples. Those tools are contained in the <emphasis>org.osate.ge.tools</emphasis> package.</para>
-				<emphasis role="bold">NOTE: The tool extension point is currently limited to internal use only. The tools implemented by the graphical editor makes us of internal interfaces which are not API. The tools extension point should not be used at this time.</emphasis>
-				<para>Required Annotations:</para>
-				<itemizedlist>
-					<listitem><para>Activate</para></listitem>
-					<listitem><para>Deactivate</para></listitem>
-					<listitem><para>Description</para></listitem>
-					<listitem><para>Id</para></listitem>
-					<listitem><para>Description</para></listitem>
-					<listitem><para>Icon</para></listitem>
-				</itemizedlist>
-				<para>Optional Annotations:</para>
-				<itemizedlist>
-					<listitem><para>CanActivate</para></listitem>
-					<listitem><para>SelectionChanged</para></listitem>
-				</itemizedlist>
-			</section>
-			<section>
-				<title>Adding Support for a new Business Object</title>
-				<para><emphasis role="bold">This capability is currently in development. The documentation will be updated as the extension points are finalized. </emphasis></para>
-				<section>
-					<title>Reference Builders and Reference Resolvers</title>
-					<para>Referenced Builders and Reference Resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object.  Reference resolvers are used to retrieve a business object using the previously generated reference.</para>
-					<para>References are used to associate a pictogram element with a business object. References are stored in the diagram and must be unique to the business object. All business objects for which a pictogram element is associated must be handled by a reference builder and resolver. A single reference builder/resolver pair may handle multiple types of business objects.</para>					
-					<section>
-						<title>Reference Builders</title>
-						<para>In addition to building references, reference builders may optionally produce a user friendly title for a business object. It may also provide the ability to determine the project to which the business object belongs. The latter capabilities are required when the object may serve as the root business object for a diagram.</para>
-						<para>The DeclarativeReferenceBuilder class may be used as an example of a reference builder.</para>
-						<para>Required Annotations:</para>
-						<itemizedlist>
-							<listitem><para>BuildReference</para></listitem>
-						</itemizedlist>
-						<para>Optional Annotations:</para>
-						<itemizedlist>
-							<listitem><para>GetProject</para></listitem>
-							<listitem><para>GetTitle</para></listitem>
-						</itemizedlist>
-						<para>Supported named parameters:</para>
-						<itemizedlist>
-							<listitem><para>BUSINESS_OBJECT(BuildReference)</para></listitem>
-						</itemizedlist>
-					</section>
-					<section>
-						<title>Reference Resolvers</title>
-						<para>The DeclarativeReferenceResolver class may be used as an example of a reference resolver.</para>
-						<para>Reference resolvers differ from reference builders and other extensions in a couple ways.</para>
-						<itemizedlist>
-							<listitem><para>Instances are not shared between diagrams.</para></listitem>
-							<listitem><para>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</para></listitem>
-						</itemizedlist>
-						<para>Required Annotations:</para>
-						<itemizedlist>
-							<listitem><para>ResolveReference</para></listitem>
-						</itemizedlist>
-						<para>Optional Annotations:</para>
-						<itemizedlist>
-							<listitem><para>PreDestroy</para></listitem>
-						</itemizedlist>
-						<para>Supported named parameters:</para>
-						<itemizedlist>
-							<listitem><para>REFERENCE(ResolveReference)</para></listitem>
-						</itemizedlist>
-					</section>
-				</section>
-				<section>
-					<title>Categories</title>
-					<para>The graphical editor manages a list of categories. These categories are used to group items in the palette. Categories are registered using the <emphasis>org.osate.ge.categories</emphasis> extension point.</para>
-				</section>
-				<section>
-					<title>Images</title>
-					<para>The graphical editor references images using unique identifiers. Images are registered using the <emphasis>org.osate.go.images</emphasis> extension point.</para>
-				</section>
-			</section>
-		</section>
-	</chapter>
-	<chapter>
 		<title>Troubleshooting</title>
 		<para>The following section contains solutions to known issues as well as instructions for reporting problems with the graphical editor.</para>
 		<section>
@@ -894,6 +810,18 @@
     			<imagedata fileref="images/BuildAutomatically.png" format="PNG"/>
   			</imageobject></mediaobject>
 		</section>
+		<section>
+			<title>Inconsistent Font Sizes Across Machines</title>
+			<para>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</para>
+		</section>	
+		<section>
+			<title>Out of Handles Exception</title>
+			<para>When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.</para>
+		</section>		
+		<section>
+			<title>Unable to Set Properties Unless Text Model is Open</title>
+			<para>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</para>
+		</section>		
 		<section>
 			<title>Updating a Diagram</title>
 			<para>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <emphasis>Update</emphasis> from the context menu.</para>

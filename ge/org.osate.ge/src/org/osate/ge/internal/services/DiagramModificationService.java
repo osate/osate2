@@ -9,7 +9,6 @@
 package org.osate.ge.internal.services;
 
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.NamedElement;
 
 /**
  * Includes methods for modifying diagrams.
@@ -29,13 +28,13 @@ public interface DiagramModificationService {
 		 * in both open and closed diagrams.
 		 * @param el
 		 */
-		void markLinkagesAsDirty(NamedElement el);		
+		void markLinkagesAsDirty(Object bo);		
 		
 		/**
 		 * The same as markLinkagesAsDirty but only affects open diagrams.
 		 * @param c
 		 */
-		void markOpenLinkagesAsDirty(NamedElement el);
+		void markOpenLinkagesAsDirty(Object bo);
 		
 		/**
     	 * Makes the actual changes to the diagrams.

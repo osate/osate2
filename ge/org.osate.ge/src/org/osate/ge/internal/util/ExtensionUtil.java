@@ -12,9 +12,9 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.osate.ge.di.Description;
-import org.osate.ge.di.Icon;
-import org.osate.ge.di.Id;
+import org.osate.ge.internal.di.Description;
+import org.osate.ge.internal.di.Icon;
+import org.osate.ge.internal.di.Id;
 
 public class ExtensionUtil {
 	public static String getId(final Object ext) {

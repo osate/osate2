@@ -36,6 +36,7 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.PropertyService;
 
 /**
  * Base class for all connection Patterns for AGE. Contains logic shared between all connection patterns.
@@ -45,13 +46,16 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	private final ColoringService coloringService;
 	private final GhostingService ghostingService;
 	protected final ConnectionService connectionService;
+	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public AgeConnectionPattern(final ColoringService coloringService, final GhostingService ghostingService, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
+	public AgeConnectionPattern(final ColoringService coloringService, final GhostingService ghostingService, final ConnectionService connectionService, 
+			final PropertyService propertyService, final BusinessObjectResolutionService bor) {
 		this.coloringService = coloringService;
 		this.ghostingService = ghostingService;
 		this.connectionService = connectionService;
+		this.propertyService = propertyService;
 		this.bor = bor;
 	}
 	
@@ -100,6 +104,11 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	protected abstract void createGraphicsAlgorithm(final Connection connection);
 	protected abstract void createDecorators(final Connection connection);
 	
+	private void finishRefresh(final Connection connection) {
+		propertyService.setIsLogicalTreeNode(connection, true);
+		onAfterRefresh(connection);
+	}
+	
 	/**
 	 * Called after the connection has been initially created or updated.
 	 * @param connection
@@ -132,7 +141,7 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
         createGraphicsAlgorithm(connection);
         createDecorators(connection);
         coloringService.applyColoring(connection);
-        onAfterRefresh(connection);
+        finishRefresh(connection);
         
 		return connection;
 	}
@@ -166,9 +175,9 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 			createGraphicsAlgorithmOnUpdate(connection);
 			createDecorators(connection);
 			coloringService.applyColoring(connection);
-			onAfterRefresh(connection);
+			finishRefresh(connection);
 		}
-		
+			
 		return true;
 	}
 	

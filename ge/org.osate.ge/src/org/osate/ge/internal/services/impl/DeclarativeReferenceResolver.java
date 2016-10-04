@@ -384,7 +384,7 @@ public class DeclarativeReferenceResolver {
 		return element;
 	}
 	
-	private AadlPackage getAadlPackage(final String packageName) {
+	public AadlPackage getAadlPackage(final String packageName) {
 		return declarativeCache.getAadlPackage(packageName);
 	}
 

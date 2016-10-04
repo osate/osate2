@@ -27,6 +27,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.osate.ge.di.Activate;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.StyleService;
+import org.osate.ge.internal.styles.StyleConstants;
 
 public class DefaultStyleService implements StyleService {
 	private static final Map<String, Object> styleIdToFactoryMap = new HashMap<>();
@@ -92,7 +93,9 @@ public class DefaultStyleService implements StyleService {
 	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallSequenceStyleFactory.class, "subprogram_call_sequence");
 	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallStyleFactory.class, "subprogram_call"); 	
 	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "subprogram_call_order");
-	 	createStyleFactory(org.osate.ge.internal.styles.DefaultAnnexStyleFactory.class, "default_annex");
+	 	createStyleFactory(org.osate.ge.internal.styles.DefaultAnnexStyleFactory.class, "default_annex");	 	
+	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, StyleConstants.SOLID_CONNECTION_STYLE);
+	 	createStyleFactory(org.osate.ge.internal.styles.DashedLineStyleFactory.class, StyleConstants.DASHED_CONNECTION_STYLE);
 	}
 	
 	public DefaultStyleService(final IFeatureProvider fp) {

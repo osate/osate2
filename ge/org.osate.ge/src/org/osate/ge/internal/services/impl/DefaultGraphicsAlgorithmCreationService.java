@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -30,6 +51,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EventDataSource;
 import org.osate.aadl2.EventSource;
+import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
@@ -39,6 +61,7 @@ import org.osate.aadl2.PortCategory;
 import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramProxy;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
@@ -46,10 +69,8 @@ import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.styles.StyleConstants;
 
-// TODO: Eventually replace with an extension mechanism similar to the ones for styles. Goal would be to allow sharing of graphics algorithms, sharing symbols, and 
-// allowing flexibility such as allowing the user to override symbols for particular shapes. In that case may move out of common package.
-// Some methods may not be included in such a system(such as createLabel*) but that is TBD
 public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorithmCreationService {
+	private static final int featureGroupDefaultSymbolWidth = 30;
 	private final StyleService styleService;
 	private final AadlFeatureService featureService;
 	private final SubcomponentService subcomponentService;
@@ -190,6 +211,39 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 			ga = createAbstractFeatureGraphicsAlgorithm(shape, DirectionType.IN_OUT);
 		} else if(feature instanceof Parameter) {
 			ga = createPortGraphicsAlgorithm(shape, PortCategory.DATA, ((Parameter) feature).getDirection());
+		} else {
+        	ga = gaService.createPlainRectangle(shape);
+            gaService.setSize(ga, 10, 10);
+        }
+
+		return ga;
+	}
+
+	@Override
+	public GraphicsAlgorithm createFeatureInstanceGraphicsAlgorithm(Shape shape, FeatureInstance featureInstance, int height) {
+		final IGaService gaService = Graphiti.getGaService();
+		
+        // Abstract Feature
+		final GraphicsAlgorithm ga;		
+		final Feature feature = featureInstance.getFeature();
+		if(feature instanceof Port) {
+			ga = createPortGraphicsAlgorithm(shape, ((Port)feature).getCategory(), featureInstance.getDirection());
+		} else if(feature instanceof AbstractFeature) { // Abstract Feature
+			ga = createAbstractFeatureGraphicsAlgorithm(shape, featureInstance.getDirection());
+        } else if(feature instanceof Access) {
+        	ga = createAccessGraphicsAlgorithm(shape, ((Access)feature).getCategory(), featureInstance.getDirection() == DirectionType.IN ? AccessType.REQUIRES : AccessType.PROVIDES);
+        } else if(feature instanceof FeatureGroup) {
+        	ga = createFeatureGroupGraphicsAlgorithm(shape, featureGroupDefaultSymbolWidth, height);		
+        } else if(feature instanceof EventSource) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.EVENT, DirectionType.IN);    
+		} else if(feature instanceof EventDataSource) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.EVENT_DATA, DirectionType.IN);
+		} else if(feature instanceof SubprogramProxy) {
+			ga = createAccessGraphicsAlgorithm(shape, AccessCategory.SUBPROGRAM, AccessType.REQUIRES);
+		} else if(feature instanceof PortProxy) {
+			ga = createAbstractFeatureGraphicsAlgorithm(shape, DirectionType.IN_OUT);
+		} else if(feature instanceof Parameter) {
+			ga = createPortGraphicsAlgorithm(shape, PortCategory.DATA, featureInstance.getDirection());
 		} else {
         	ga = gaService.createPlainRectangle(shape);
             gaService.setSize(ga, 10, 10);
@@ -673,12 +727,12 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		
 		// Circle
 		final GraphicsAlgorithm circle = gaService.createPlainEllipse(ga);
-		gaService.setLocationAndSize(circle, width-circleSize, height/2-circleSize/2, circleSize, circleSize);
+		gaService.setLocationAndSize(circle, 0, height/2-circleSize/2, circleSize, circleSize);
 		circle.setStyle(style);
 		
 		// Bar
 		final GraphicsAlgorithm bar = gaService.createPlainRectangle(ga);
-		gaService.setLocationAndSize(bar, circle.getX()-barWidth, 0, barWidth, height);
+		gaService.setLocationAndSize(bar, circleSize, 0, barWidth, height);
 		bar.setStyle(style);
 		
 		return ga;
@@ -692,7 +746,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		final double halfSize = (size)/2.0;
 		final int paddingCircleSize = (int)(halfSize + 1 + halfSize *.2);
 		final int innerCircleSize = size/2;
-		gaService.setSize(ga, size, size);
+		gaService.setSize(ga, width, height);
 		ga.setLineVisible(false);
 		ga.setFilled(false);	
 
@@ -741,6 +795,24 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 		return ga;
 	}
 	
+	@Override 
+	public void createDirectionIndicator(final GraphicsAlgorithmContainer gaContainer, final int x, final Style style) {
+	    final IGaService gaService = Graphiti.getGaService();
+	    final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
+	    		x+4, 6, 
+	    		x-4, 0, 
+	    		x+4, -6});
+	    ga.setStyle(style);
+	}
+		
+	@Override 
+	public void createDelayedIndicator(final GraphicsAlgorithmContainer gaContainer, final int x, final Style style) {
+	    final IGaService gaService = Graphiti.getGaService();
+		gaService.createPlainPolyline(gaContainer, new int[] {
+			x, -10, 
+			x, 10}).setStyle(style);
+	}
+
 	private Style getImplementationStyleConditionally(final String styleId, final boolean getImplementation) {
 		final String finalStyleId = getImplementation ? (styleId + "-implementation") : styleId;
 		return styleService.getStyle(finalStyleId);
@@ -824,6 +896,5 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 
 	private Style getProcessStyle(final boolean isImplementation) {
 		return getImplementationStyleConditionally("process", isImplementation);
-	}
-	
+	}	
 }

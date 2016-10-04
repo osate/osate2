@@ -23,8 +23,8 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.SubcomponentService;
 

@@ -16,6 +16,8 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.IColorConstant;
+import org.eclipse.swt.graphics.Device;
+import org.eclipse.swt.widgets.Display;
 import org.osate.ge.di.Activate;
 import org.osate.ge.internal.di.InternalNames;
 
@@ -28,7 +30,15 @@ public class LabelStyleFactory {
         style.setFilled(false);
         style.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
         style.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-        style.setFont(gaService.manageFont(diagram, "Arial", 10, false, true));
+        style.setFont(gaService.manageFont(diagram, "Arial", getScaledFontPointSize(10.0), false, true));
 		return style;
+	}
+	
+	private static int getScaledFontPointSize(final double unscaledFontSize) {
+		final Device device = Display.getCurrent();
+		// Round to 1 decimal point before casting to int. 
+		// This ensures that the value is rounded up only in cases where the value is within .1 of a whole number
+		final int fontSizeInPoints = (int)(Math.round(unscaledFontSize*96.0/device.getDPI().y*10.0)/10.0);
+		return fontSizeInPoints;
 	}
 }

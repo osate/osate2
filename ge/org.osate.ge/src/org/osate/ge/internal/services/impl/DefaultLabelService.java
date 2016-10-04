@@ -17,7 +17,7 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
-import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Element;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.LabelService;
@@ -35,22 +35,29 @@ public class DefaultLabelService implements LabelService {
 	}
 	
 	@Override
-	public Shape createLabelShape(final ContainerShape container, final String shapeName, final NamedElement bo, final String labelValue) {
+	public Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         final Shape labelShape = peCreateService.createShape(container, true);
         propertyService.setName(labelShape, shapeName);
         propertyService.setIsManuallyPositioned(labelShape, true);
         propertyService.setIsTransient(labelShape, true);
-        featureProvider.link(labelShape, new AadlElementWrapper(bo));
+        
+        if(bo != null) {
+        	featureProvider.link(labelShape, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+        }
         
         final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreationService.createTextBackground(labelShape);		
         final Text labelText = graphicsAlgorithmCreationService.createLabelGraphicsAlgorithm(labelBackground, labelValue);
         
         // Get sizes of text graphics algorithms
         final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
+        
+        // Add padding to the text size to account for rounding issues in GEF3/Graphiti
+        final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
+        final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
         final IGaService gaService = Graphiti.getGaService();
-		gaService.setSize(labelBackground, labelTextSize.getWidth(), labelTextSize.getHeight());
-		gaService.setSize(labelText, labelTextSize.getWidth(), labelTextSize.getHeight());
+		gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
+		gaService.setSize(labelText, paddedLabelTextWidth, paddedLabelTextHeight);
 		
         return labelShape;
 	}

@@ -157,7 +157,7 @@ public class DefaultSavedAadlResourceService implements SavedAadlResourceService
 	        	   // Check if the resource has been loaded indirectly and unload it
 	        	   if(!resourceUnloaded) {
 		        	   for(final Resource emfResource : resourceSet.getResources()) {
-		        		   if(emfResource.getURI().equals(resourceUri)) {
+		        		   if(emfResource != null && (emfResource.getURI() == null || emfResource.getURI().equals(resourceUri))) {
 		        			   emfResource.unload();
 		        		   }
 		        	   }

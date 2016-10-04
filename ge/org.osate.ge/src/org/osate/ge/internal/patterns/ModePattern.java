@@ -93,7 +93,7 @@ public class ModePattern extends AgeLeafShapePattern implements Categorized {
 			final ShapeCreationService shapeCreationService, DiagramModificationService diagramModService, final AadlModificationService modificationService, 
 			final UserInputService userInputService, final NamingService namingService, final RefactoringService refactoringService,
 			final BusinessObjectResolutionService bor, final LabelService labelService) {
-		super(anchorUtil, ghostingService);
+		super(anchorUtil, ghostingService, propertyUtil);
 		this.anchorService = anchorUtil;
 		this.connectionService = connectionService;
 		this.resizeHelper = resizeHelper;

@@ -23,6 +23,7 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.styles.StyleConstants;
 
@@ -30,8 +31,9 @@ public class SubprogramCallOrderPattern extends AgeConnectionPattern {
 	private final StyleService styleUtil;
 
 	@Inject
-	public SubprogramCallOrderPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil, final ConnectionService connectionService, final BusinessObjectResolutionService bor) {
-		super(coloringService, ghostingService, connectionService, bor);
+	public SubprogramCallOrderPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil, 
+			final ConnectionService connectionService, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
+		super(coloringService, ghostingService, connectionService, propertyService, bor);
 		this.styleUtil = styleUtil;
 	}
 

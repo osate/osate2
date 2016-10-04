@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -20,8 +41,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.features.context.ICreateConnectionContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
-import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Font;
@@ -63,16 +82,18 @@ import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
+import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
@@ -98,6 +119,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	private final ShapeService shapeService;
 	private final UserInputService userInputService;
 	private final PropertyService propertyService;
+	private final GraphicsAlgorithmCreationService gaCreationService;
 	private final EClass connectionType;
 	private static LinkedHashMap<EClass, String> connectionTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
 	
@@ -121,8 +143,8 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	public ConnectionPattern(final AadlFeatureService featureService, final GhostingService ghostingService, final StyleService styleUtil,final ColoringService coloringService, 
 			final ConnectionService connectionHelper, final BusinessObjectResolutionService bor, AadlModificationService aadlModService, NamingService namingService,
 			final DiagramModificationService diagramModService, final ShapeService shapeService, final UserInputService userInputService, final PropertyService propertyService,
-			final @Named("Connection Type") EClass connectionType) {
-		super(coloringService, ghostingService, connectionHelper, bor);
+			final GraphicsAlgorithmCreationService gaCreationService, final @Named("Connection Type") EClass connectionType) {
+		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.featureService = featureService;
 		this.styleUtil = styleUtil;
 		this.bor = bor;
@@ -133,6 +155,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		this.shapeService = shapeService;
 		this.userInputService = userInputService;		
 		this.propertyService = propertyService;
+		this.gaCreationService = gaCreationService;
 	}
 
 	@Override
@@ -250,21 +273,21 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		if(showDelayedDecoration) {
 			final int delayedSpacing = 3;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
+			gaCreationService.createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
+			gaCreationService.createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 		} else if(showImmediateDecoration) {
 			final int immediateSpacing = 5;
 			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
+			gaCreationService.createDirectionIndicator(timingDecorator1, -immediateSpacing, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
+			gaCreationService.createDirectionIndicator(timingDecorator2, immediateSpacing, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 		}
 
 		// Draw a direction indicator
 		if(showDirectionDecoration) {
 	        final ConnectionDecorator directionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.5, true);    
-	        createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
+	        gaCreationService.createDirectionIndicator(directionDecorator, decoratorXShift, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));
 		}
 		
 		// Create Label
@@ -330,25 +353,9 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		final Style style = styleUtil.getStyle(StyleConstants.DECORATOR_STYLE);
 		polyline.setStyle(style);
 	}
-	
-	private void createDirectionIndicator(final GraphicsAlgorithmContainer gaContainer, final int x, final Style style) {
-	    final IGaService gaService = Graphiti.getGaService();
-	    final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
-	    		x+4, 6, 
-	    		x-4, 0, 
-	    		x+4, -6});
-	    ga.setStyle(style);
-	}
-		
-	private void createDelayedIndicator(final GraphicsAlgorithmContainer gaContainer, final int x, final Style style) {
-	    final IGaService gaService = Graphiti.getGaService();
-		gaService.createPlainPolyline(gaContainer, new int[] {
-			x, -10, 
-			x, 10}).setStyle(style);
-	}
 
 	private ConnectedElement getConnectedElementForShape(PictogramElement pe) {
-		if(!(pe instanceof Shape)) {
+		if(!(pe instanceof Shape) || propertyService.isTransient(pe)) {
 			return null;
 		}
 		
@@ -356,7 +363,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
 		for(; shape != null; shape = shape.getContainer()) {
-			if(!propertyService.isInnerShape(shape)) {
+			if(!propertyService.isInnerShape(shape) && !propertyService.isTransient(pe)) {
 				final Object bo = bor.getBusinessObjectForPictogramElement(shape);
 				if(bo instanceof ConnectionEnd) {
 					ce.setConnectionEnd((ConnectionEnd)bo);
@@ -368,7 +375,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		if(ce.getConnectionEnd() == null) {
 			return null;
 		}
-		
+
 		for(shape = shape.getContainer(); shape != null; shape = shape.getContainer()) {
 			final Object bo = bor.getBusinessObjectForPictogramElement(shape);
 			if(bo instanceof Context) {
@@ -376,7 +383,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 				break;
 			}			
 		}
-		
+
 		return ce;
 	}
 	
@@ -454,10 +461,6 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	
 	@Override
 	public boolean canStartConnection(final ICreateConnectionContext context) {
-		if(getConnectedElementForShape(context.getSourcePictogramElement()) == null) {
-			return false;
-		}
-		
 		// Get the connection elements for the source and destination
 		final ConnectedElement srcConnectedElement = getConnectedElementForShape(context.getSourcePictogramElement());
 		if(srcConnectedElement == null) {
@@ -574,7 +577,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 				newAadlConnection.setSource(src);
 				final ConnectedElement dst = getConnectedElementForShape(context.getTargetPictogramElement());
 				newAadlConnection.setDestination(dst);
-
+				
 				// Set type of access connection
 				if(newAadlConnection instanceof AccessConnection) {
 					final AccessConnection ac = (AccessConnection)newAadlConnection;

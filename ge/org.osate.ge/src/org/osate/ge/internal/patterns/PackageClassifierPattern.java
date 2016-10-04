@@ -14,13 +14,12 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IAddFeature;
+import org.eclipse.graphiti.features.IResizeConfiguration;
 import org.eclipse.graphiti.features.context.IAddContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
@@ -36,8 +35,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
-import org.eclipse.graphiti.services.IPeCreateService;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -58,12 +55,14 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.DefaultAgeResizeConfiguration;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
+import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.RefactoringService;
@@ -77,6 +76,7 @@ import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 
 public class PackageClassifierPattern extends AgeLeafShapePattern implements Categorized {
+	private static final String labelShapeName = "label";
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final PropertyService propertyUtil;
 	private final AadlModificationService modificationService;
@@ -85,14 +85,16 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	private final NamingService namingService;
 	private final RefactoringService refactoringService; 
 	private final DiagramModificationService diagramModService;
+	private final LabelService labelService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass classifierType;
+	
 	@Inject
 	public PackageClassifierPattern(final AnchorService anchorUtil, final GhostingService ghostingService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator,
 			final PropertyService propertyUtil, final AadlModificationService modificationService, final ShapeService shapeService, final UserInputService userInputService,
 			final NamingService namingService, final RefactoringService refactoringService, final DiagramModificationService diagramModService,
-			final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
-		super(anchorUtil, ghostingService);
+			final LabelService labelService, final BusinessObjectResolutionService bor, final @Named("Classifier Type") EClass classifierType) {
+		super(anchorUtil, ghostingService, propertyUtil);
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.propertyUtil = propertyUtil;
 		this.modificationService = modificationService;
@@ -101,6 +103,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
 		this.diagramModService = diagramModService;
+		this.labelService = labelService;
 		this.bor = bor;
 		this.classifierType = classifierType;
 	}
@@ -129,8 +132,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	protected void createGaAndInnerShapes(final ContainerShape shape, final Object bo, int x, int y) {		
 		final Classifier classifier = (Classifier)bo;
 		final IGaService gaService = Graphiti.getGaService();
-		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		
+
 		// Remove child shapes
 		shape.getChildren().clear();
 		
@@ -138,31 +140,26 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
         final String labelTxt = getLabelText(classifier);
         
 		// Create label
-        final Shape labelShape = peCreateService.createShape(shape, false);
-        propertyUtil.setIsManuallyPositioned(labelShape, true);
-        this.link(labelShape, new AadlElementWrapper(classifier));
-        final Text text = graphicsAlgorithmCreator.createLabelGraphicsAlgorithm(labelShape, labelTxt);
+        final Shape labelShape = labelService.createLabelShape(shape, labelShapeName, classifier, labelTxt);
+        labelShape.setActive(false); // Prevent shape from being active to prevent issues with moving the classifier.
         
-        // Set the size
-        final IDimension textSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelTxt, text.getStyle().getFont());
-		final int textWidth = Math.max(100, textSize == null ? 0 : textSize.getWidth() + 30); 
-		final int height = 50; 
-
-		final int totalWidth;
-		final int labelX;
-        if(bo instanceof FeatureGroupType) {
-        	final int symbolWidth = height * 3 / 4;
-        	totalWidth = symbolWidth + textWidth;
-        	labelX = symbolWidth;
+        final int shapeWidth;
+        final int shapeHeight;
+        if(shape.getGraphicsAlgorithm() == null) {
+        	shapeHeight = 50;
+        	if(bo instanceof FeatureGroupType) {
+            	final int symbolWidth = getEstimatedSymbolSize(1000, shapeHeight);
+            	shapeWidth = symbolWidth + labelShape.getGraphicsAlgorithm().getWidth();
+        	} else {
+        		shapeWidth = labelShape.getGraphicsAlgorithm().getWidth();
+        	}
         } else {
-        	totalWidth = textWidth;
-        	labelX = 0;
-        }        
+        	shapeWidth = shape.getGraphicsAlgorithm().getWidth();
+        	shapeHeight = shape.getGraphicsAlgorithm().getHeight();
+        }
 
-        gaService.setLocationAndSize(text, labelX, 0, textWidth, 20);
-        
 		// Create the graphics algorithm
-        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, totalWidth, height);        
+        final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, shapeWidth, shapeHeight); 
         gaService.setLocation(ga, x, y);
 	}
 
@@ -170,15 +167,16 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 		final Diagram diagram = getDiagram();
 		final NamedElement diagramElement = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
 		
-		if(diagramElement == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null)
+		if(diagramElement == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
 			return "";
+		}
 		
-		 return diagramElement.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? classifier.getName() : classifier.getQualifiedName(); 
+		return diagramElement.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? classifier.getName() : classifier.getQualifiedName(); 
 	}
 	
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext context) {
-		return false;
+		return !propertyUtil.isTransient(context.getPictogramElement());
 	}
 	
 	public void resizeShape(final IResizeShapeContext context) {
@@ -194,35 +192,35 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	
 	@Override
 	public boolean canLayout(final ILayoutContext context) {
-		return isPatternControlled(context.getPictogramElement());
+		return isPatternControlled(context.getPictogramElement()) && context.getPictogramElement() instanceof ContainerShape;
 	}
 	
 	@Override
 	public boolean layout(final ILayoutContext context) {
-		final PictogramElement pictogramElement = context.getPictogramElement();
 		final Object bo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(context.getPictogramElement()));
+		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
 		
-		if(pictogramElement instanceof ContainerShape) {
-			final ContainerShape containerShape = (ContainerShape)pictogramElement;
-			final GraphicsAlgorithm outerGraphicsAlgorithm = containerShape.getGraphicsAlgorithm();
-			final EList<Shape> children = containerShape.getChildren();
-			if (children.size() > 0) {
-				final Shape shape = children.get(0);
-				final GraphicsAlgorithm graphicsAlgorithm = shape.getGraphicsAlgorithm();
-				if (graphicsAlgorithm instanceof Text) {
-					if(bo instanceof FeatureGroupType) {
-						final int estSymbolSize = Math.min(outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight()) * 3 / 4;
-						Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, estSymbolSize, 0, outerGraphicsAlgorithm.getWidth()-estSymbolSize, outerGraphicsAlgorithm.getHeight());
-					} else {
-						Graphiti.getGaLayoutService().setLocationAndSize(graphicsAlgorithm, 0, 0, outerGraphicsAlgorithm.getWidth(), outerGraphicsAlgorithm.getHeight());
-					}
-					
-					return true;
-				}
-			}
-		}
+		final int shapeWidth = shape.getGraphicsAlgorithm().getWidth();
+		final int shapeHeight = shape.getGraphicsAlgorithm().getHeight();
+		final Shape labelShape = getLabelShape(shape);
+		
+		final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
+		if(bo instanceof FeatureGroupType) {
+			final int estSymbolSize = getEstimatedSymbolSize(shapeWidth, shapeHeight);
+			Graphiti.getGaLayoutService().setLocation(labelGa, estSymbolSize, (shapeHeight - labelShape.getGraphicsAlgorithm().getHeight()) / 2);
+		} else {
+			Graphiti.getGaLayoutService().setLocation(labelGa, (shapeWidth - labelShape.getGraphicsAlgorithm().getWidth()) / 2, (shapeHeight - labelShape.getGraphicsAlgorithm().getHeight()) / 2);
+		}				
 
-		return false;
+		return true;
+	}
+	
+	private final int getEstimatedSymbolSize(final int shapeWidth, final int shapeHeight) {
+		return Math.min(shapeWidth, shapeHeight) * 3 / 4;
+	}
+	
+	private Shape getLabelShape(final ContainerShape shape) {
+		return shapeService.getChildShapeByName(shape, labelShapeName);
 	}
 	
 	@Override
@@ -526,7 +524,12 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	public int getEditingType() {
         return TYPE_TEXT;
     }
- 
+     
+	@Override
+	public boolean stretchFieldToFitText() {
+		return true;
+	}
+	
     @Override
     public boolean canDirectEdit(final IDirectEditingContext context) {
         final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
@@ -540,7 +543,7 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 
         return false;
     }
-    
+
     public String getInitialValue(final IDirectEditingContext context) {
     	final Classifier classifier = (Classifier)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
     	return this.getLabelText(classifier);
@@ -607,5 +610,20 @@ public class PackageClassifierPattern extends AgeLeafShapePattern implements Cat
 	@Override
 	public String getCategory() {
 		return Categories.CLASSIFIERS;
+	}
+	
+	@Override
+	public IResizeConfiguration getResizeConfiguration(final IResizeShapeContext context) {		
+		// Prevent the layout algorithm from shrinking feature group types. This prevent the layout algorithm from cutting off the
+		// feature group type's label
+		if(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()) instanceof FeatureGroupType && 
+				context.getPictogramElement().getGraphicsAlgorithm() != null) {
+			final GraphicsAlgorithm ga = context.getPictogramElement().getGraphicsAlgorithm();
+			final DefaultAgeResizeConfiguration conf = new DefaultAgeResizeConfiguration();
+			conf.setMinimumSize(ga.getWidth(), ga.getHeight());
+			return conf;
+		}
+		
+		return super.getResizeConfiguration(context);
 	}
 }

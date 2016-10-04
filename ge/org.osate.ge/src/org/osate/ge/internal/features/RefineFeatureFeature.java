@@ -19,8 +19,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.patterns.FeaturePattern;
@@ -69,7 +71,7 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
 		}
 		
 		final Feature feature = (Feature)bo;	
-		return feature.getContainingClassifier() != containerBo;
+		return feature.getContainingClassifier() != containerBo && (containerBo instanceof FeatureGroupType || containerBo instanceof ComponentType);
 	}
     
     @Override

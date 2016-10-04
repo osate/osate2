@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="adding-support-for-a-new-business-object">Adding Support for a new Business Object</h1>
+<p>Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by a diagram element inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.</p>
+<h2 id="non-emf-objects">Non-EMF Objects</h2>
+<p>The graphical editor depends on capabilities provided by EMF objects. The <a href="../api/org/osate/ge/EmfContainerProvider.html">EmfContainerProvider</a> interface must be implemented by all business objects which are not EMF objects.</p>
+<h2 id="reference-builders-and-reference-resolvers">Reference Builders and Reference Resolvers</h2>
+<p>Referenced builders and reference resolvers are both registered using the org.osate.ge.references extension point. The graphical editor uses reference builders to generate a serializable reference to a business object. Reference resolvers are used to retrieve a business object using the previously generated reference. A single reference builder/resolver pair may handle multiple types of business objects.</p>
+<p>References are used to associate a diagram element with a business object. References are stored in the diagram and must be unique to the business object.</p>
+<p><strong>All business objects for which a diagram element is associated must be handled by a reference builder and resolver.</strong></p>
+<h3 id="reference-builders">Reference Builders</h3>
+<h4 id="examples">Examples</h4>
+<ul>
+<li>org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder</li>
+<li>org.osate.ge.errormodel.ErrorModelReferenceHandler</li>
+</ul>
+<h4 id="required-annotations">Required Annotations:</h4>
+<ul>
+<li><a href="../api/org/osate/ge/di/BuildReference.html">BuildReference</a></li>
+</ul>
+<h3 id="reference-resolvers">Reference Resolvers</h3>
+<h4 id="examples-1">Examples</h4>
+<ul>
+<li>org.osate.ge.internal.services.impl.DeclarativeReferenceResolver</li>
+<li>org.osate.ge.errormodel.ErrorModelReferenceHandler</li>
+</ul>
+<p>Reference resolvers differ from reference builders and other extensions in a couple ways.</p>
+<ul>
+<li>Instances are not shared between diagrams.</li>
+<li>Constructors may accept arguments. As with method invocations, arguments are injected using dependency injection.</li>
+</ul>
+<h4 id="required-annotations-1">Required Annotations:</h4>
+<ul>
+<li><a href="../api/org/osate/ge/di/ResolveReference.html">ResolveReference</a></li>
+</ul>
+<h4 id="optional-annotations">Optional Annotations:</h4>
+<ul>
+<li>javax.annotation.PreDestroy</li>
+</ul>
+<h2 id="business-object-handlers">Business Object Handlers</h2>
+<p>Business object handlers are classes which provide business object specific functionality to the graphical editor. They are registered using the org.osate.ge.businessObjectHandlers extension point. Business object handlers may provide partial functionality by only including a subset of the supported annotations.</p>
+<h4 id="examples-2">Examples</h4>
+<ul>
+<li>org.osate.ge.errormodel.businessObjectHandlers package</li>
+</ul>
+<h4 id="annotations">Annotations</h4>
+<h5 id="required">Required</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/IsApplicable.html">IsApplicable</a></li>
+</ul>
+<h5 id="general">General</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/GetGraphic.html">GetGraphic</a></li>
+<li><a href="../api/org/osate/ge/di/GetChildren.html">GetChildren</a></li>
+<li><a href="../api/org/osate/ge/di/GetDiagramName.html">GetDiagramName</a></li>
+<li><a href="../api/org/osate/ge/di/HandleDoubleClick.html">HandleDoubleClick</a></li>
+</ul>
+<h5 id="business-object-creation">Business Object Creation</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/GetPaletteEntries.html">GetPaletteEntries</a></li>
+<li><a href="../api/org/osate/ge/di/CanCreate.html">CanCreate</a></li>
+<li><a href="../api/org/osate/ge/di/GetCreateOwner.html">GetCreateOwner</a></li>
+<li><a href="../api/org/osate/ge/di/CanStartConnection.html">CanStartConnection</a></li>
+<li><a href="../api/org/osate/ge/di/Create.html">Create</a></li>
+</ul>
+<h5 id="connections">Connections</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/CreateSourceQuery.html">CreateSourceQuery</a></li>
+<li><a href="../api/org/osate/ge/di/CreateDestinationQuery.html">CreateDestinationQuery</a></li>
+<li><a href="../api/org/osate/ge/di/CreateParentQuery.html">CreateParentQuery</a></li>
+</ul>
+<h5 id="business-object-deletion">Business Object Deletion</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/CanDelete.html">CanDelete</a></li>
+<li><a href="../api/org/osate/ge/di/Delete.html">Delete</a></li>
+</ul>
+<h5 id="naming">Naming</h5>
+<ul>
+<li><a href="../api/org/osate/ge/di/GetName.html">GetName</a></li>
+<li><a href="../api/org/osate/ge/di/ValidateName.html">ValidateName</a></li>
+<li><a href="../api/org/osate/ge/di/SetName.html">SetName</a></li>
+</ul>
+</body>
+</html>
