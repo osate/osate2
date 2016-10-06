@@ -66,34 +66,35 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cImageAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
 		private final RuleCall cImageImageReferenceParserRuleCall_3_0 = (RuleCall)cImageAssignment_3.eContents().get(0);
 		
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#XtextFragmentProvider_org.osate.alisa.common.Common/DescriptionElement'
+		//DescriptionElement:
+		//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
 		@Override public ParserRule getRule() { return rule; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives'
+		//text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference
 		public Alternatives getAlternatives() { return cAlternatives; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.0'
+		//text=STRING
 		public Assignment getTextAssignment_0() { return cTextAssignment_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.0/@terminal'
+		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_0_0() { return cTextSTRINGTerminalRuleCall_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.1'
+		//showValue=ShowValue
 		public Assignment getShowValueAssignment_1() { return cShowValueAssignment_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.1/@terminal'
+		//ShowValue
 		public RuleCall getShowValueShowValueParserRuleCall_1_0() { return cShowValueShowValueParserRuleCall_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.2'
+		//thisTarget?="this"
 		public Assignment getThisTargetAssignment_2() { return cThisTargetAssignment_2; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.2/@terminal'
+		//"this"
 		public Keyword getThisTargetThisKeyword_2_0() { return cThisTargetThisKeyword_2_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.3'
+		//image=ImageReference
 		public Assignment getImageAssignment_3() { return cImageAssignment_3; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.1/@alternatives/@elements.3/@terminal'
+		//ImageReference
 		public RuleCall getImageImageReferenceParserRuleCall_3_0() { return cImageImageReferenceParserRuleCall_3_0; }
 	}
 
@@ -104,19 +105,20 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cTextAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cTextSTRINGTerminalRuleCall_1_0 = (RuleCall)cTextAssignment_1.eContents().get(0);
 		
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#XtextFragmentProvider_org.osate.alisa.common.Common/Rationale'
+		//Rationale:
+		//	"rationale" text=STRING;
 		@Override public ParserRule getRule() { return rule; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives'
+		//"rationale" text=STRING
 		public Group getGroup() { return cGroup; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives/@elements.0'
+		//"rationale"
 		public Keyword getRationaleKeyword_0() { return cRationaleKeyword_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives/@elements.1'
+		//text=STRING
 		public Assignment getTextAssignment_1() { return cTextAssignment_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/alisa/common/Common.xtext#/0/@rules.2/@alternatives/@elements.1/@terminal'
+		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_1_0() { return cTextSTRINGTerminalRuleCall_1_0; }
 	}
 
@@ -141,10 +143,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
+		//	"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]"
+		//"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
@@ -153,10 +155,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT
+		//("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?
 		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
-		//"volatility" volatility=INT
+		//("volatility" volatility=INT)?
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//"volatility"
@@ -168,7 +170,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getVolatilityINTTerminalRuleCall_2_0_1_0() { return cVolatilityINTTerminalRuleCall_2_0_1_0; }
 
-		//"precedence" precedence=INT
+		//("precedence" precedence=INT)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//"precedence"
@@ -180,7 +182,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getPrecedenceINTTerminalRuleCall_2_1_1_0() { return cPrecedenceINTTerminalRuleCall_2_1_1_0; }
 
-		//"impact" impact=INT
+		//("impact" impact=INT)?
 		public Group getGroup_2_2() { return cGroup_2_2; }
 
 		//"impact"
@@ -2586,7 +2588,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}

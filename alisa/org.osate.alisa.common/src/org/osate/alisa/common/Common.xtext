@@ -20,9 +20,9 @@ Uncertainty:
 	'uncertainty' 
 	'['
 	(
-		('volatility' volatility=INT)
-		&('precedence' precedence=INT)
-		&('impact' impact=INT)
+		('volatility' volatility=INT)?
+		&('precedence' precedence=INT)?
+		&('impact' impact=INT)?
 	)
 	']'
 ;
