@@ -696,6 +696,8 @@ public class EM2TypeSetUtil {
 	}
 
 	public static boolean isNoError(TypeSet type) {
+		if (type == null)
+			return false;
 		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
 	}
 }
