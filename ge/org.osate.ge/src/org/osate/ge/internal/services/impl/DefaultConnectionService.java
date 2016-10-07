@@ -52,7 +52,6 @@ import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionReferenceInfoProvider;
 import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
-import org.osate.ge.internal.connections.GeneralizationInfoProvider;
 import org.osate.ge.internal.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionTriggerInfoProvider;
@@ -101,7 +100,6 @@ public class DefaultConnectionService implements ConnectionService {
 
 		infoProviders.add(new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
-		infoProviders.add(new GeneralizationInfoProvider(bor, diagram, shapeHelper));
 		infoProviders.add(new ModeTransitionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new InitialModeConnectionInfoProvider(bor, diagram, propertyService));
 		infoProviders.add(new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService));

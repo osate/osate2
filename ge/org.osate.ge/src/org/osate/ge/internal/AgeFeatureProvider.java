@@ -153,7 +153,6 @@ import org.osate.ge.internal.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.internal.features.PackageUpdateDiagramFeature;
 import org.osate.ge.internal.patterns.PackageClassifierPattern;
-import org.osate.ge.internal.patterns.PackageGeneralizationPattern;
 import org.osate.ge.internal.features.CreateSimpleFlowSpecificationFeature;
 import org.osate.ge.internal.features.RefineFeatureFeature;
 import org.osate.ge.internal.features.RefineFlowSpecificationFeature;
@@ -233,9 +232,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addPattern(make(ModePattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
-		// Package
-		addConnectionPattern(make(PackageGeneralizationPattern.class));
-		
+
 		addPackageClassifierPatterns();	
 		addAadlConnectionPatterns();
 		

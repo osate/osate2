@@ -76,9 +76,6 @@ public class DefaultStyleService implements StyleService {
 	 	createStyleFactory(org.osate.ge.internal.styles.BasicComponentTypeStyleFactory.class, "feature-group-type-edit");
 	 	createStyleFactory(org.osate.ge.internal.styles.ShadedStyleFactory.class, "shaded");
 	 	createStyleFactory(org.osate.ge.internal.styles.ImplementsStyleFactory.class, "implements");
-	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "flow_specification");
-	 	createStyleFactory(org.osate.ge.internal.styles.ExtendsStyleFactory.class, "extends");
-	 	createStyleFactory(org.osate.ge.internal.styles.GeneralizationArrowheadStyleFactory.class, "generalization-arrowhead");
 	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "decorator");
 	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "feature");
 	 	createStyleFactory(org.osate.ge.internal.styles.LabelStyleFactory.class, "label");
