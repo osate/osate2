@@ -185,12 +185,8 @@ public class AnalysisModel {
 	protected void populateConnectionPropagationPaths(ConnectionInstance connectionInstance,
 			PropagationPathLevel level) {
 		SystemOperationMode som = connectionInstance.getSystemInstance().getCurrentSystemOperationMode();
-		if (som != null) {
-			// skip inactive connections
-			List<SystemOperationMode> inSOMs = connectionInstance.getExistsInModes();
-			if (inSOMs != null && !inSOMs.contains(som)) {
-				return;
-			}
+		if (!isActive(connectionInstance, som)) {
+			return;
 		}
 		EList<ConnectionReference> connrefs = connectionInstance.getConnectionReferences();
 		if (connrefs.isEmpty()) {
@@ -444,6 +440,16 @@ public class AnalysisModel {
 		}
 	}
 
+	private boolean isActive(ConnectionInstance ci, SystemOperationMode som) {
+		if (som != null) {
+			List<SystemOperationMode> inSOMs = ci.getExistsInModes();
+			if (inSOMs != null && !inSOMs.contains(som)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	private boolean isActive(ConnectionReference cr, SystemOperationMode som) {
 		if (som != null) {
 			ComponentInstance ci = cr.getContext();
@@ -451,7 +457,7 @@ public class AnalysisModel {
 			ConnectionInstanceEnd dst = cr.getDestination();
 			return isActive(ci, som) && isActive(src, som) && isActive(dst, som);
 		}
-		return false;
+		return true;
 	}
 
 	private boolean isActive(ConnectionInstanceEnd end, SystemOperationMode som) {
@@ -467,7 +473,7 @@ public class AnalysisModel {
 			}
 			return isActive(ci, som);
 		}
-		return false;
+		return true;
 	}
 
 	private boolean isActive(ComponentInstance ci, SystemOperationMode som) {
