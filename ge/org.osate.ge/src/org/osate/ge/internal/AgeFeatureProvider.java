@@ -147,7 +147,6 @@ import org.osate.ge.internal.features.RenameConnectionFeature;
 import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
 import org.osate.ge.internal.patterns.SubprogramCallOrder;
-import org.osate.ge.internal.patterns.SubprogramCallOrderPattern;
 import org.osate.ge.internal.patterns.SubprogramCallPattern;
 import org.osate.ge.internal.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
@@ -245,7 +244,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
-		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 		
 		// Instance Model
 		addPattern(make(ComponentInstancePattern.class));

@@ -762,5 +762,8 @@
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.GeneralizatonHandler">
        </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallOrderHandler">
+       </handler>
     </extension>
 </plugin>

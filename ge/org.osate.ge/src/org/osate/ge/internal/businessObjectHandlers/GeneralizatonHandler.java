@@ -2,7 +2,6 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
 
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractImplementation;
@@ -26,7 +25,6 @@ import org.osate.ge.di.Create;
 import org.osate.ge.di.CreateDestinationQuery;
 import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.CreateSourceQuery;
-import org.osate.ge.di.Delete;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetPaletteEntries;
@@ -51,9 +49,13 @@ public class GeneralizatonHandler {
 	}
 	
 	@IsApplicable
-	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		return bo instanceof Realization || bo instanceof TypeExtension || bo instanceof ImplementationExtension || bo instanceof GroupExtension;
+	}
+	
+	@CanDelete
+	public boolean canDeleteGeneralization() {
+		return true;
 	}
 	
 	@GetGraphic
@@ -76,11 +78,6 @@ public class GeneralizatonHandler {
 		return rootQuery.children().filterByBusinessObject(g->((Generalization)g).getGeneral());
 	}
 	
-	@Delete
-	public void delete(final @Named(Names.BUSINESS_OBJECT) Classifier subtype) {
-		EcoreUtil.delete(subtype);
-	}		
-
 	@GetCreateOwner
 	public Classifier getCreateConnectionOwner(@Named(Names.SOURCE_BO) final Classifier subtype) {
 		return subtype;
