@@ -236,7 +236,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Package
 		addConnectionPattern(make(PackageGeneralizationPattern.class));
 		
-		addPackageClassifierPatterns();	
+		//addPackageClassifierPatterns(); // TODO: Remove after migration	
 		addAadlConnectionPatterns();
 		
 		// Classifiers
@@ -782,6 +782,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	// Package
+	// TODO: Remove after migration
 	private void addPackageClassifierPatterns() {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		addPattern(createPackageClassifierPattern(p.getAbstractType()));
@@ -815,6 +816,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(createPackageClassifierPattern(p.getVirtualProcessorImplementation()));
 	}
 	
+	// TODO: Remove after migration
 	private IPattern createPackageClassifierPattern(final EClass classifierType) {
 		final IEclipseContext childCtx = getContext().createChild();
 		try {

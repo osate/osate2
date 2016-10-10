@@ -206,7 +206,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	@Override
 	public boolean isMainBusinessObjectApplicable(final Object mainBusinessObject) {
 		final Object bo = AadlElementWrapper.unwrap(mainBusinessObject);
-		return bo instanceof Classifier || bo instanceof Subcomponent;
+		return !isPackageDiagram() && (bo instanceof Classifier || bo instanceof Subcomponent);
 	}
 	
 	/**
