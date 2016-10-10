@@ -802,11 +802,11 @@ class AssureUtilExtension {
 			case VerificationResultState.SUCCESS:
 				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
-				counts.validationfailCount = counts.validationfailCount + 1
+				counts.failCount = counts.failCount + 1
 			case VerificationResultState.ERROR:
-				counts.validationfailCount = counts.validationfailCount + 1
+				counts.errorCount = counts.errorCount + 1
 			case VerificationResultState.TIMEOUT:
-				counts.validationfailCount = counts.validationfailCount + 1
+				counts.timeoutCount = counts.timeoutCount + 1
 			case VerificationResultState.TBD:
 				counts.tbdCount = counts.tbdCount + 1
 		}

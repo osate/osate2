@@ -143,10 +143,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Uncertainty:
-		//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
+		//	"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
-		//"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]"
+		//"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//"uncertainty"
@@ -155,10 +155,10 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//"["
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
-		//"volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT
+		//("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?
 		public UnorderedGroup getUnorderedGroup_2() { return cUnorderedGroup_2; }
 
-		//"volatility" volatility=INT
+		//("volatility" volatility=INT)?
 		public Group getGroup_2_0() { return cGroup_2_0; }
 
 		//"volatility"
@@ -170,7 +170,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getVolatilityINTTerminalRuleCall_2_0_1_0() { return cVolatilityINTTerminalRuleCall_2_0_1_0; }
 
-		//"precedence" precedence=INT
+		//("precedence" precedence=INT)?
 		public Group getGroup_2_1() { return cGroup_2_1; }
 
 		//"precedence"
@@ -182,7 +182,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//INT
 		public RuleCall getPrecedenceINTTerminalRuleCall_2_1_1_0() { return cPrecedenceINTTerminalRuleCall_2_1_1_0; }
 
-		//"impact" impact=INT
+		//("impact" impact=INT)?
 		public Group getGroup_2_2() { return cGroup_2_2; }
 
 		//"impact"
@@ -2588,7 +2588,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]";
 	public UncertaintyElements getUncertaintyAccess() {
 		return pUncertainty;
 	}

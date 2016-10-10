@@ -177,7 +177,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
-		//// Category reference. Currently it is only a single ID
+		//// Category reference. 
 		//CatRef:
 		//	ID "." ID;
 		@Override public ParserRule getRule() { return rule; }
@@ -293,7 +293,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoryFilterAccess().getRule();
 	}
 
-	//// Category reference. Currently it is only a single ID
+	//// Category reference. 
 	//CatRef:
 	//	ID "." ID;
 	public CatRefElements getCatRefAccess() {

@@ -43,6 +43,7 @@ class AssureColorColumnLabelProvider extends ColumnLabelProvider {
 				switch(ele.issueType){
 					case ResultIssueType.ERROR: SWT.COLOR_DARK_GRAY
 					case ResultIssueType.SUCCESS: SWT.COLOR_GREEN
+					case ResultIssueType.FAIL: SWT.COLOR_RED
 					case ResultIssueType.WARNING: SWT.COLOR_YELLOW
 					case ResultIssueType.INFO: SWT.COLOR_DARK_BLUE
 					default : SWT.COLOR_BLUE
