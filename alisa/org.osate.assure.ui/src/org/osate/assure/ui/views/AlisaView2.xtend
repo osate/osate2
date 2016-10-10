@@ -2,6 +2,7 @@ package org.osate.assure.ui.views
 
 import com.google.inject.Inject
 import java.util.List
+import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
@@ -10,10 +11,14 @@ import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
 import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.resource.ImageDescriptor
+import org.eclipse.jface.viewers.ArrayContentProvider
 import org.eclipse.jface.viewers.ColumnLabelProvider
 import org.eclipse.jface.viewers.ColumnPixelData
 import org.eclipse.jface.viewers.ColumnWeightData
+import org.eclipse.jface.viewers.ComboBoxViewerCellEditor
+import org.eclipse.jface.viewers.EditingSupport
 import org.eclipse.jface.viewers.ITreeContentProvider
+import org.eclipse.jface.viewers.LabelProvider
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.viewers.Viewer
@@ -43,6 +48,8 @@ import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
 import org.osate.assure.ui.labeling.AssureColorBlockCountHolder
+import org.osate.categories.categories.CategoriesPackage
+import org.osate.categories.categories.CategoryFilter
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.assureResultCounts
@@ -62,7 +69,9 @@ class AlisaView2 extends ViewPart {
 	val static ASSURE_EXTENSION = "assure"
 	val ResourceSet resourceSet
 	val IResourceDescriptions rds
-	URI selectedAssuranceCaseURI
+	//Map is from AssuranceCase to CategoryFilter
+	val selectedFilters = <URI, URI>newHashMap
+	Pair<URI, URI> displayedCaseAndFilter = null -> null
 	
 	val IResourceChangeListener resourceChangeListener = [
 		val alisaFileChanged = new AtomicBoolean(false)
@@ -81,9 +90,16 @@ class AlisaView2 extends ViewPart {
 		]
 		if (alisaFileChanged.get) {
 			viewSite.shell.display.asyncExec[
+				val toRemove = selectedFilters.filter[assuranceCase, filter |
+					resourceSet.getEObject(assuranceCase, true) == null || resourceSet.getEObject(filter, true) == null
+				].keySet
+				toRemove.forEach[selectedFilters.remove(it)]
+				
 				val expandedElements = alisaViewer.expandedElements
 				alisaViewer.input = assuranceCaseURIsInWorkspace
 				alisaViewer.expandedElements = expandedElements
+				
+				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI)
 			]
 		}
 		if (assureFileChanged.get) {
@@ -132,9 +148,9 @@ class AlisaView2 extends ViewPart {
 	}
 	
 	def private createAlisaViewer(Composite parent, TreeColumnLayout columnLayout) {
-		new TreeViewer(parent, SWT.BORDER.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.SINGLE)) => [
-			tree.headerVisible = true
-			contentProvider = new ITreeContentProvider {
+		new TreeViewer(parent, SWT.BORDER.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL).bitwiseOr(SWT.SINGLE)) => [treeViewer |
+			treeViewer.tree.headerVisible = true
+			treeViewer.contentProvider = new ITreeContentProvider {
 				override dispose() {
 				}
 				
@@ -151,7 +167,7 @@ class AlisaView2 extends ViewPart {
 				
 				override getParent(Object element) {
 					switch elementEObject : resourceSet.getEObject(element as URI, true) {
-						AssuranceCase: input
+						AssuranceCase: treeViewer.input
 						AssurancePlan: elementEObject.eContainer.URI
 					}
 				}
@@ -166,10 +182,9 @@ class AlisaView2 extends ViewPart {
 				override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				}
 			}
-			new TreeViewerColumn(it, SWT.LEFT) => [
+			new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 				columnLayout.setColumnData(column, new ColumnWeightData(1))
 				column.text = "Assurance Cases and Plans"
-				column.width = 200
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSet.getEObject(element as URI, true) {
@@ -179,25 +194,58 @@ class AlisaView2 extends ViewPart {
 					}
 				}
 			]
-			addSelectionChangedListener[event |
-				val selectedURI = structuredSelection.firstElement as URI
-				if (selectedAssuranceCaseURI != selectedURI) {
-					selectedAssuranceCaseURI = selectedURI
-					assureViewer.input = if (selectedURI != null) {
-						val selectedAlisaObject = resourceSet.getEObject(selectedURI, true)
-						if (selectedAlisaObject instanceof AssuranceCase) {
-							val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
-							val results = resultDescriptions.map[resourceSet.getEObject(EObjectURI, true) as AssuranceCaseResult]
-							val result = results.findFirst[name == selectedAlisaObject.name]
-							if (result != null) {
-								result.recomputeAllCounts(null)
-								#[result.URI]
+			new TreeViewerColumn(treeViewer, SWT.LEFT) => [
+				columnLayout.setColumnData(column, new ColumnWeightData(1))
+				column.text = "Filter"
+				labelProvider = new ColumnLabelProvider {
+					override getText(Object element) {
+						val eObject = resourceSet.getEObject(element as URI, true)
+						if (eObject instanceof AssuranceCase) {
+							val filter = selectedFilters.get(element)
+							if (filter != null) {
+								(resourceSet.getEObject(filter, true) as CategoryFilter).name 
+							} else {
+								"No Filter"
 							}
 						}
 					}
 				}
+				editingSupport = new EditingSupport(treeViewer) {
+					override protected canEdit(Object element) {
+						resourceSet.getEObject(element as URI, true) instanceof AssuranceCase
+					}
+					
+					override protected getCellEditor(Object element) {
+						new ComboBoxViewerCellEditor(treeViewer.tree, SWT.READ_ONLY) => [
+							contentProvider = ArrayContentProvider.instance
+							labelProvider = new LabelProvider {
+								override getText(Object element) {
+									(element as Optional<URI>).map[(resourceSet.getEObject(it, true) as CategoryFilter).name].orElse("No Filter")
+								}
+							}
+							input = (#[Optional.empty] + rds.getExportedObjectsByType(CategoriesPackage.Literals.CATEGORY_FILTER).map[Optional.of(EObjectURI)]).toList
+						]
+					}
+					
+					override protected getValue(Object element) {
+						Optional.ofNullable(selectedFilters.get(element))
+					}
+					
+					override protected setValue(Object element, Object value) {
+						val assuranceCase = element as URI
+						val filter = value as Optional<URI>
+						if (filter.present) {
+							selectedFilters.put(assuranceCase, filter.get)
+						} else {
+							selectedFilters.remove(assuranceCase)
+						}
+						treeViewer.update(assuranceCase, null)
+						updateAssureViewer(assuranceCase)
+					}
+				}
 			]
-			input = assuranceCaseURIsInWorkspace
+			treeViewer.addSelectionChangedListener[updateAssureViewer(treeViewer.structuredSelection.firstElement as URI)]
+			treeViewer.input = assuranceCaseURIsInWorkspace
 		]
 	}
 	
@@ -374,6 +422,29 @@ class AlisaView2 extends ViewPart {
 					default: SWT.COLOR_RED
 				})
 			}
+		}
+	}
+	
+	def private updateAssureViewer(URI assuranceCaseURI) {
+		val newURIs = assuranceCaseURI -> selectedFilters.get(assuranceCaseURI)
+		if (displayedCaseAndFilter != newURIs) {
+			displayedCaseAndFilter = newURIs
+			val expandedElements = assureViewer.expandedElements
+			assureViewer.input = if (assuranceCaseURI != null) {
+				val selectedAlisaObject = resourceSet.getEObject(assuranceCaseURI, true)
+				if (selectedAlisaObject instanceof AssuranceCase) {
+					val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
+					val results = resultDescriptions.map[resourceSet.getEObject(EObjectURI, true) as AssuranceCaseResult]
+					val result = results.findFirst[name == selectedAlisaObject.name]
+					if (result != null) {
+						result.recomputeAllCounts(if (displayedCaseAndFilter.value != null) {
+							resourceSet.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
+						})
+						#[result.URI]
+					}
+				}
+			}
+			assureViewer.expandedElements = expandedElements
 		}
 	}
 }
