@@ -1,6 +1,7 @@
 package org.osate.assure.ui.views
 
 import com.google.inject.Inject
+import java.io.IOException
 import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
@@ -9,6 +10,8 @@ import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.jface.dialogs.DialogSettings
+import org.eclipse.jface.dialogs.IDialogSettings
 import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.resource.ImageDescriptor
 import org.eclipse.jface.viewers.ArrayContentProvider
@@ -28,6 +31,7 @@ import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
+import org.osate.aadl2.util.Activator
 import org.osate.alisa.common.common.ResultIssue
 import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssuranceCase
@@ -65,13 +69,22 @@ import static extension org.osate.assure.util.AssureUtilExtension.recomputeAllCo
 import static extension org.osate.assure.util.AssureUtilExtension.toTextLabel
 
 class AlisaView2 extends ViewPart {
+	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
+	val static FILTER_URIS_KEY = "FILTER_URIS_KEY"
 	val static ALISA_EXTENSION = "alisa"
 	val static ASSURE_EXTENSION = "assure"
+	
 	val ResourceSet resourceSet
 	val IResourceDescriptions rds
+	val String settingsFileName
+	val IDialogSettings dialogSettings
+	
 	//Map is from AssuranceCase to CategoryFilter
 	val selectedFilters = <URI, URI>newHashMap
 	Pair<URI, URI> displayedCaseAndFilter = null -> null
+	
+	TreeViewer alisaViewer
+	TreeViewer assureViewer
 	
 	val IResourceChangeListener resourceChangeListener = [
 		val alisaFileChanged = new AtomicBoolean(false)
@@ -112,13 +125,29 @@ class AlisaView2 extends ViewPart {
 		}
 	]
 	
-	TreeViewer alisaViewer
-	TreeViewer assureViewer
-	
 	@Inject
 	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds) {
 		resourceSet = resourceSetProvider.get(null)
 		this.rds = rds
+		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
+		settingsFileName = pluginsDir.append("org.osate.assure.ui").append("alisa_view_settings.xml").toOSString
+		dialogSettings = new DialogSettings("alisa_view_settings")
+		try {
+			dialogSettings.load(settingsFileName)
+			val assuranceCaseURIs = dialogSettings.getArray(ASSURANCE_CASE_URIS_KEY)
+			val filterURIs = dialogSettings.getArray(FILTER_URIS_KEY)
+			if (assuranceCaseURIs != null && filterURIs != null && assuranceCaseURIs.size == filterURIs.size) {
+				for (var i = 0; i < filterURIs.size; i++) {
+					val assuranceCaseURI = URI.createURI(assuranceCaseURIs.get(i))
+					val filterURI = URI.createURI(filterURIs.get(i))
+					if (resourceSet.getEObject(assuranceCaseURI, true) != null && resourceSet.getEObject(filterURI, true) != null) {
+						selectedFilters.put(assuranceCaseURI, filterURI)
+					}
+				}
+			}
+		} catch (IOException e) {
+			//Ignore exception
+		}
 	}
 	
 	override createPartControl(Composite parent) {
@@ -145,6 +174,11 @@ class AlisaView2 extends ViewPart {
 	
 	override dispose() {
 		ResourcesPlugin.workspace.removeResourceChangeListener(resourceChangeListener)
+		val caseURIs = selectedFilters.keySet.toList
+		val filterURIs = caseURIs.map[selectedFilters.get(it)]
+		dialogSettings.put(ASSURANCE_CASE_URIS_KEY, caseURIs.map[toString])
+		dialogSettings.put(FILTER_URIS_KEY, filterURIs.map[toString])
+		dialogSettings.save(settingsFileName)
 		super.dispose
 	}
 	
