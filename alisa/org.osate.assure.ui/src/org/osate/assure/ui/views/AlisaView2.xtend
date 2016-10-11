@@ -99,6 +99,7 @@ class AlisaView2 extends ViewPart {
 				alisaViewer.input = assuranceCaseURIsInWorkspace
 				alisaViewer.expandedElements = expandedElements
 				
+				displayedCaseAndFilter = null -> null
 				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI)
 			]
 		}
@@ -188,8 +189,8 @@ class AlisaView2 extends ViewPart {
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSet.getEObject(element as URI, true) {
-							AssuranceCase: "Assurance Case: " + eObject.name
-							AssurancePlan: "Assurance Plan: " + eObject.name
+							AssuranceCase: eObject.name
+							AssurancePlan: eObject.name
 						}
 					}
 				}
@@ -204,8 +205,6 @@ class AlisaView2 extends ViewPart {
 							val filter = selectedFilters.get(element)
 							if (filter != null) {
 								(resourceSet.getEObject(filter, true) as CategoryFilter).name 
-							} else {
-								"No Filter"
 							}
 						}
 					}
@@ -220,7 +219,10 @@ class AlisaView2 extends ViewPart {
 							contentProvider = ArrayContentProvider.instance
 							labelProvider = new LabelProvider {
 								override getText(Object element) {
-									(element as Optional<URI>).map[(resourceSet.getEObject(it, true) as CategoryFilter).name].orElse("No Filter")
+									val filterURI = element as Optional<URI>
+									if (filterURI.present) {
+										(resourceSet.getEObject(filterURI.get, true) as CategoryFilter).name
+									}
 								}
 							}
 							input = (#[Optional.empty] + rds.getExportedObjectsByType(CategoriesPackage.Literals.CATEGORY_FILTER).map[Optional.of(EObjectURI)]).toList
@@ -296,9 +298,9 @@ class AlisaView2 extends ViewPart {
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSet.getEObject(element as URI, true) {
-							AssuranceCaseResult: "Assurance case " + eObject.name
-							ModelResult: "Assurance plan " + eObject.name
-							SubsystemResult: "Subsystem verification " + eObject.name
+							AssuranceCaseResult: "Case " + eObject.name
+							ModelResult: '''Plan «eObject.plan.name»(«eObject.target.name»)'''
+							SubsystemResult: "Subsystem " + eObject.name
 							ClaimResult: "Claim " + eObject.name
 							VerificationActivityResult: "Evidence " + eObject.name
 							ValidationResult: "Validation " + eObject.name
