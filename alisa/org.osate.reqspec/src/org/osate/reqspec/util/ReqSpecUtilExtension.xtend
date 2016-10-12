@@ -109,6 +109,7 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
+			result = scopeForValComputeReq(req.inheritsReference, result)
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
@@ -197,8 +198,11 @@ class ReqSpecUtilExtension {
 				result = scopeForComputeReq(r, result)
 			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
-			result = new SimpleScope(result, Scopes::scopedElementsFor(req.computes,
-				QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+			if (sr != null) {
+				result = new SimpleScope(result,
+					Scopes::scopedElementsFor(sr.computes,
+						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+			}
 			return result
 		}
 
