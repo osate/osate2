@@ -109,7 +109,9 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValComputeReq(r, result)
 			}
+			if (req.inheritsReference != null){
 			result = scopeForValComputeReq(req.inheritsReference, result)
+			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
