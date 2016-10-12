@@ -6344,8 +6344,7 @@ ruleUncertainty returns [EObject current=null]
  				)
 			)  
 
-		)+
-	  	{getUnorderedGroupHelper().canLeave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2())}?	
+		)*	
 	)
 )
 	{ 

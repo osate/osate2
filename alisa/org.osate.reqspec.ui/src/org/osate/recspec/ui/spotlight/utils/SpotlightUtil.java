@@ -57,7 +57,7 @@ public class SpotlightUtil {
 		double BCEffort = calculateEffort(numberLeaves, revlMax, revlMedian, precMedian, numSafety, numSecurity,
 				numPerformance, IS_BEST_CASE);
 
-		return WCEffort - BCEffort;
+		return Math.floor(WCEffort - BCEffort);
 	}
 
 	private static double calculateEffort(int numberLeaves, double revlMax, double revlMedian, double precMedian,
@@ -82,23 +82,27 @@ public class SpotlightUtil {
 		return SpotlightFactorValues.EFFORT_ESTIMATION_CONSTANT_A
 				* Math.pow(calculateAdjustedSize(numberLeaves, revlMax, revlMedian, isForBestCase),
 						calculateExponent(precMedian, isForBestCase));
+
 	}
 
 	private static double calculateAdjustedSize(int numberLeaves, double revlMax, double revlMedian,
 			boolean isForBestCase) {
 
 		return calculateComponentSize(numberLeaves) * (1 + (getRevl(revlMax, revlMedian, isForBestCase) / 100.0));
+
 	}
 
 	private static double calculateExponent(double precMedian, boolean isForBestCase) {
 
 		return SpotlightFactorValues.EFFORT_ESTIMATION_CONSTANT_B
 				+ (0.01 * calculateSumOfScaleFactors(precMedian, isForBestCase));
+
 	}
 
 	private static double calculateSumOfScaleFactors(double precMedian, boolean isForBestCase) {
 
 		return calculatePrec(precMedian, isForBestCase) + SpotlightFactorValues.sumOfFourDefaultScaleFactors();
+
 	}
 
 	// The following methods calculate the 5 factors (1 scale factor, 3 effort
@@ -143,7 +147,9 @@ public class SpotlightUtil {
 				precRatingValue = SpotlightFactorValues.PREC_N;
 			}
 		}
+		
 		return precRatingValue;
+		
 	}
 
 	// Method calculateRely estimates, best-case and worst-case, the rating for

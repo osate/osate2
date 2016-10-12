@@ -70,7 +70,8 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	def scope_ComputeDeclaration(VerificationActivity context, EReference reference) {
 		val claim = getContainingClaim(context)
 		var req = claim.requirement
-		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+//		val result = scopeForGlobalVal(req,IScope.NULLSCOPE)
+		val result = IScope.NULLSCOPE
 		return scopeForCompute(req, result)
 	}
 

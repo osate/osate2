@@ -196,7 +196,8 @@ public class SpotlightFactorValues {
 		// capable but not necessarily co-located team,
 		// developing a safety-critical system in a regulated industry.
 		//
-		return FLEX_VL + RESL_VH + TEAM_VH + PMAT_H;
+
+				return FLEX_VL + RESL_VH + TEAM_VH + PMAT_H;
 	}
 
 	public static final double productOfFourteenDefaultEffortMultipliers() {

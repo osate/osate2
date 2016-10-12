@@ -1475,70 +1475,71 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//FormalParameter
 		public RuleCall getResultsFormalParameterParserRuleCall_2_5_2_1_1_0() { return cResultsFormalParameterParserRuleCall_2_5_2_1_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.2/@elements.5/@elements.3'
+		//")"
 		public Keyword getRightParenthesisKeyword_2_5_3() { return cRightParenthesisKeyword_2_5_3; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.2/@elements.6'
+		//(isPredicate?="boolean" | isResultReport?="report")?
 		public Alternatives getAlternatives_2_6() { return cAlternatives_2_6; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.2/@elements.6/@elements.0'
+		//isPredicate?="boolean"
 		public Assignment getIsPredicateAssignment_2_6_0() { return cIsPredicateAssignment_2_6_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.2/@elements.6/@elements.0/@terminal'
+		//"boolean"
 		public Keyword getIsPredicateBooleanKeyword_2_6_0_0() { return cIsPredicateBooleanKeyword_2_6_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.2/@elements.6/@elements.1'
+		//isResultReport?="report"
 		public Assignment getIsResultReportAssignment_2_6_1() { return cIsResultReportAssignment_2_6_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.2/@elements.6/@elements.1/@terminal'
+		//"report"
 		public Keyword getIsResultReportReportKeyword_2_6_1_0() { return cIsResultReportReportKeyword_2_6_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.3'
+		//(":" title=STRING)?
 		public Group getGroup_3() { return cGroup_3; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.3/@elements.0'
+		//":"
 		public Keyword getColonKeyword_3_0() { return cColonKeyword_3_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.3/@elements.1'
+		//title=STRING
 		public Assignment getTitleAssignment_3_1() { return cTitleAssignment_3_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.3/@elements.1/@terminal'
+		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_3_1_0() { return cTitleSTRINGTerminalRuleCall_3_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4'
+		//("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+))?
 		public Group getGroup_4() { return cGroup_4; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.0'
+		//"for"
 		public Keyword getForKeyword_4_0() { return cForKeyword_4_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.1'
+		//target=[aadl2::ComponentClassifier|AadlClassifierReference] | componentCategory+=ComponentCategory+
 		public Alternatives getAlternatives_4_1() { return cAlternatives_4_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.1/@elements.0'
+		//target=[aadl2::ComponentClassifier|AadlClassifierReference]
 		public Assignment getTargetAssignment_4_1_0() { return cTargetAssignment_4_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.1/@elements.0/@terminal'
+		//[aadl2::ComponentClassifier|AadlClassifierReference]
 		public CrossReference getTargetComponentClassifierCrossReference_4_1_0_0() { return cTargetComponentClassifierCrossReference_4_1_0_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.1/@elements.0/@terminal/@terminal'
+		//AadlClassifierReference
 		public RuleCall getTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1() { return cTargetComponentClassifierAadlClassifierReferenceParserRuleCall_4_1_0_0_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.1/@elements.1'
+		//componentCategory+=ComponentCategory+
 		public Assignment getComponentCategoryAssignment_4_1_1() { return cComponentCategoryAssignment_4_1_1; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.4/@elements.1/@elements.1/@terminal'
+		//ComponentCategory
 		public RuleCall getComponentCategoryComponentCategoryParserRuleCall_4_1_1_0() { return cComponentCategoryComponentCategoryParserRuleCall_4_1_1_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.5'
+		//"["
 		public Keyword getLeftSquareBracketKeyword_5() { return cLeftSquareBracketKeyword_5; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.6'
+		//methodKind=MethodKind & description=Description? & precondition=VerificationPrecondition? &
+		//validation=VerificationValidation? & ("category" category+=[categories::Category|QualifiedName]+)?
 		public UnorderedGroup getUnorderedGroup_6() { return cUnorderedGroup_6; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.6/@elements.0'
+		//methodKind=MethodKind
 		public Assignment getMethodKindAssignment_6_0() { return cMethodKindAssignment_6_0; }
 
-		//org.eclipse.xtext.resource.ClasspathUriResolutionException: org.eclipse.xtext.resource.FileNotFoundOnClasspathException: Couldn't find resource on classpath. URI was 'classpath:/org/osate/verify/Verify.xtext#/0/@rules.18/@alternatives/@elements.6/@elements.0/@terminal'
+		//MethodKind
 		public RuleCall getMethodKindMethodKindParserRuleCall_6_0_0() { return cMethodKindMethodKindParserRuleCall_6_0_0; }
 
 		//description=Description?
@@ -2326,7 +2327,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Uncertainty:
-	//	"uncertainty" "[" ("volatility" volatility=INT & "precedence" precedence=INT & "impact" impact=INT) "]";
+	//	"uncertainty" "[" (("volatility" volatility=INT)? & ("precedence" precedence=INT)? & ("impact" impact=INT)?) "]";
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
 	}

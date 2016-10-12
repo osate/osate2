@@ -31,9 +31,11 @@ import java.util.HashMap
 import java.util.List
 import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
+import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.jface.viewers.TreeViewer
 import org.eclipse.swt.widgets.Display
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
 import org.osate.aadl2.BooleanLiteral
@@ -95,8 +97,8 @@ interface IAssureProcessor {
  */
 class AssureProcessor implements IAssureProcessor {
 
-	val interpreter = new CommonInterpreter
-
+	var CommonInterpreter interpreter = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI.createFileURI("dummy.___common___")).get(CommonInterpreter)
+	
 	var IProgressMonitor progressmonitor
 
 	var TreeViewer progressTreeViewer
@@ -233,7 +235,7 @@ class AssureProcessor implements IAssureProcessor {
 	def dispatch void process(PredicateResult predicateResult) {
 		evaluatePredicate(predicateResult)
 	}
-	
+
 	/**
 	 * who needs to understand the method types?
 	 * the runVerificationMethod dispatcher may do different catch methods
@@ -246,8 +248,6 @@ class AssureProcessor implements IAssureProcessor {
 			throw new OperationCanceledException
 
 		var method = verificationResult.method;
-		// target element is the element referred to by the requirement. This may be empty
-		val targetElement = verificationResult.caseTargetModelElement
 		// the next outer assurance case object that refers to a system implementation. 
 		var instanceroot = verificationResult.assuranceCaseInstanceModel
 		if (instanceroot == null) {
@@ -260,15 +260,19 @@ class AssureProcessor implements IAssureProcessor {
 			setToError(verificationResult, "Unresolved target system for claim", null)
 			return
 		}
-		var InstanceObject target = targetComponent
-		if (targetElement != null) {
-			if (targetElement.eIsProxy) {
-				setToError(verificationResult, "Unresolved target element for claim", targetComponent)
-				return
+		// target element is the element referred to by the requirement. This may be empty
+		val targetElement = verificationResult.caseTargetModelElement
+		var InstanceObject target = if (targetElement != null) {
+				if (targetElement.eIsProxy) {
+					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
+					return
+				}
+				targetComponent.findElementInstance(targetElement) ?: targetComponent
+			} else {
+				targetComponent
 			}
-			val x = targetComponent.findElementInstance(targetElement)
-			target = x ?: targetComponent
-		}
+		env.add("component", targetComponent)
+		env.add("element", targetElement)
 		// parameters are those specified as part of the method call in the verification activity
 		var Iterable<? extends EObject> parameters
 		if (verificationResult instanceof VerificationActivityResult) {
@@ -512,9 +516,9 @@ class AssureProcessor implements IAssureProcessor {
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
-					setToFail(predicateResult)
-				} else {
 					setToSuccess(predicateResult)
+				} else {
+					setToFail(predicateResult)
 				}
 			}
 			predicateResult.eResource.save(null)
@@ -544,7 +548,7 @@ class AssureProcessor implements IAssureProcessor {
 					setToSuccess(verificationResult)
 				}
 				new HashMap
-			} else if (returned instanceof HashMap<?,?>) {
+			} else if (returned instanceof HashMap<?, ?>) {
 				val report = returned.get("_result_report_") as ResultReport
 				if (report != null) {
 					verificationResult.resultReport = report

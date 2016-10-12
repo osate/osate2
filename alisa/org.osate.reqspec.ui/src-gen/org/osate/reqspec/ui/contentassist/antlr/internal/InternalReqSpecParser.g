@@ -24516,8 +24516,7 @@ rule__Uncertainty__UnorderedGroup_2
     }
 :
 	rule__Uncertainty__UnorderedGroup_2__0
-	
-	{getUnorderedGroupHelper().canLeave(grammarAccess.getUncertaintyAccess().getUnorderedGroup_2())}?
+	?
 	
 ;
 finally {

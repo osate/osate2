@@ -16,7 +16,8 @@
 
 package org.osate.alisa.common.util
 
-import org.eclipse.emf.common.util.EList
+import java.util.ArrayList
+import java.util.List
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.internal.xtend.expression.ast.NullLiteral
@@ -29,15 +30,14 @@ import org.osate.aadl2.Feature
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyConstant
-import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.properties.PropertyLookupException
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.AModelReference
 import org.osate.alisa.common.common.APropertyReference
-import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
@@ -174,7 +174,7 @@ class CommonUtilExtension {
 		return null
 	}
 
-	def static InstanceObject findElementInstanceInList(EList<? extends InstanceObject> instancelist, String name) {
+	def static InstanceObject findElementInstanceInList(List<? extends InstanceObject> instancelist, String name) {
 		for (ei : instancelist) {
 			val n1 = ei.name
 			if (name.equalsIgnoreCase(n1)) return ei
