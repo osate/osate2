@@ -234,52 +234,30 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	def void checkVerificationMethodSignature(VerificationMethod vm) {
 		switch methodKind : vm.methodKind {
 			ResoluteMethod : {
-				val vmName = vm.name
-				val oldVMText = NodeModelUtils.getNode(vm).text
-				val indexOfVmName = oldVMText.indexOf(vmName)
-				val vmNameEnd = indexOfVmName + vmName.length
-				val parenPos = oldVMText.indexOf(")", vmNameEnd)
-				val colonPos = oldVMText.indexOf(":", if(parenPos < 0)  vmNameEnd else parenPos)
-				val bracketPos = oldVMText.indexOf("[", vmNameEnd)
-				
-				val possibleEnds = newArrayOfSize(3) 
-				possibleEnds.set(0, if (parenPos < 0) Integer.MAX_VALUE else parenPos)
-				possibleEnds.set(1, if (colonPos < 0) Integer.MAX_VALUE else colonPos)
-				possibleEnds.set(2, if (bracketPos < 0) Integer.MAX_VALUE else bracketPos)
-				val changeEnd = possibleEnds.min
-				val adjustment = if (changeEnd == parenPos) 1 else 0
-				val vmParms = vm.formals
-				val  methodRefName = methodKind.methodReference.name
-				val methodArgs = methodKind.methodReference.args
-				val methodArgsString = vmName + 
-						methodArgs.filter[it.name != "self"].join(" ( ", ", ", " ) ", [arg | arg.name + ": " + ((arg.type) as BaseType).type ])
-				if (vmParms.size != methodArgs.filter[it.name != "self"].size ){
-					val newVMText = oldVMText.substring(0, indexOfVmName) + methodArgsString + oldVMText.substring(changeEnd + adjustment)
-					val issueData = newArrayOfSize(2)
-					issueData.set(0, "" + oldVMText)
-					issueData.set(1, "" + newVMText)
+				val fparams = vm.formals
+				val aparams = methodKind.methodReference.args
+				val methodRefName = methodKind.methodReference.name
+				val hasComponentType = vm.targetType != null
+				val fcount = if (hasComponentType){
+					fparams.size +1
+				} else {
+					fparams.size
+				}
+				if (fcount != aparams.size){
 					warning("method " + vm.name + "'s number of parameters does not match the number of arguments for the Resolute method " + methodRefName, 
 						vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
-						METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION, issueData)
-					return
+						METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
+						return
 				}
-				vmParms.forEach[vmParm, j |
-					var i  =
-						switch methodArgs.head.name{
-							case "self": 1
-							default : 0
-						}
-					val baseType = methodArgs.get(j + i).type as BaseType
+				val i = if (hasComponentType){ 1 } else { 0}
+				fparams.forEach[vmParm, j |
+					val aparam = aparams.get(j + i)
+					val baseType = aparam.type as BaseType
 					if (!matchResoluteType(vmParm.type,baseType)){
-						val newVMText = oldVMText.substring(0, indexOfVmName) + methodArgsString + oldVMText.substring(changeEnd + adjustment)
-						val issueData = newArrayOfSize(2)
-						issueData.set(0, "" + oldVMText)
-						issueData.set(1, "" + newVMText)
-						
 						warning("method " + vm.name + 
-							"'s parameters do not match the type of the arguments defined in the Resolute method " + 
+							"'s parameter "+vmParm.name+" does not match the type of "+aparam.name+" in the Resolute method " + 
 							methodRefName, vm, VerifyPackage.Literals.VERIFICATION_METHOD__NAME,
-							METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION, issueData)
+							METHOD_PARMS_DO_NOT_MATCH_RESOLUTE_DEFINITION)
 						return
 					}
 				]
