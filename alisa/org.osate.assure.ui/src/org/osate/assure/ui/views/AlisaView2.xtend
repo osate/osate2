@@ -27,6 +27,7 @@ import org.eclipse.jface.viewers.TreeViewerColumn
 import org.eclipse.jface.viewers.Viewer
 import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.SashForm
+import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.IResourceDescriptions
@@ -86,6 +87,12 @@ class AlisaView2 extends ViewPart {
 	TreeViewer alisaViewer
 	TreeViewer assureViewer
 	
+	Color greenColor
+	Color yellowColor
+	Color orangeColor
+	Color blueColor
+	Color redColor
+	
 	val IResourceChangeListener resourceChangeListener = [
 		val alisaFileChanged = new AtomicBoolean(false)
 		val assureFileChanged = new AtomicBoolean(false)
@@ -102,7 +109,7 @@ class AlisaView2 extends ViewPart {
 			true
 		]
 		if (alisaFileChanged.get) {
-			viewSite.shell.display.asyncExec[
+			viewSite.workbenchWindow.workbench.display.asyncExec[
 				val toRemove = selectedFilters.filter[assuranceCase, filter |
 					resourceSet.getEObject(assuranceCase, true) == null || resourceSet.getEObject(filter, true) == null
 				].keySet
@@ -117,7 +124,7 @@ class AlisaView2 extends ViewPart {
 			]
 		}
 		if (assureFileChanged.get) {
-			viewSite.shell.display.asyncExec[
+			viewSite.workbenchWindow.workbench.display.asyncExec[
 				val expandedElements = assureViewer.expandedElements
 				assureViewer.refresh
 				assureViewer.expandedElements = expandedElements
@@ -151,6 +158,12 @@ class AlisaView2 extends ViewPart {
 	}
 	
 	override createPartControl(Composite parent) {
+		greenColor = new Color(viewSite.workbenchWindow.workbench.display, 171, 221, 164)
+		yellowColor = new Color(viewSite.workbenchWindow.workbench.display, 255, 255, 191)
+		orangeColor = new Color(viewSite.workbenchWindow.workbench.display, 253, 174, 97)
+		blueColor = new Color(viewSite.workbenchWindow.workbench.display, 43, 131, 186)
+		redColor = new Color(viewSite.workbenchWindow.workbench.display, 215, 25, 28)
+		
 		new SashForm(parent, SWT.HORIZONTAL) => [
 			new Composite(it, SWT.NONE) => [
 				val columnLayout = new TreeColumnLayout
@@ -174,11 +187,19 @@ class AlisaView2 extends ViewPart {
 	
 	override dispose() {
 		ResourcesPlugin.workspace.removeResourceChangeListener(resourceChangeListener)
+		
 		val caseURIs = selectedFilters.keySet.toList
 		val filterURIs = caseURIs.map[selectedFilters.get(it)]
 		dialogSettings.put(ASSURANCE_CASE_URIS_KEY, caseURIs.map[toString])
 		dialogSettings.put(FILTER_URIS_KEY, filterURIs.map[toString])
 		dialogSettings.save(settingsFileName)
+		
+		greenColor.dispose
+		yellowColor.dispose
+		orangeColor.dispose
+		blueColor.dispose
+		redColor.dispose
+		
 		super.dispose
 	}
 	
@@ -430,33 +451,33 @@ class AlisaView2 extends ViewPart {
 			}
 			
 			override getBackground(Object element) {
-				viewSite.shell.display.getSystemColor(switch eObject : resourceSet.getEObject(element as URI, true) {
+				switch eObject : resourceSet.getEObject(element as URI, true) {
 					ResultIssue: switch eObject.issueType {
-						case ERROR: SWT.COLOR_DARK_GRAY
-						case SUCCESS: SWT.COLOR_GREEN
-						case WARNING: SWT.COLOR_YELLOW
-						case INFO: SWT.COLOR_DARK_BLUE
-						default: SWT.COLOR_BLUE
+						case ERROR: null
+						case SUCCESS: greenColor
+						case WARNING: yellowColor
+						case INFO: orangeColor
+						default: blueColor
 					}
 					
-					AssureResult case eObject.successful: SWT.COLOR_GREEN
-					AssureResult case eObject.zeroCount: SWT.COLOR_DARK_BLUE
+					AssureResult case eObject.successful: greenColor
+					AssureResult case eObject.zeroCount: orangeColor
 					
 					ClaimResult,
 					AssuranceCaseResult,
 					ModelResult,
-					SubsystemResult: AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject).colorValues.get(columnIndex)
+					SubsystemResult: viewSite.shell.display.getSystemColor(AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject).colorValues.get(columnIndex))
 					
-					AssureResult case eObject.fail: SWT.COLOR_RED
-					AssureResult case eObject.errorTimeOut: SWT.COLOR_DARK_GRAY
+					AssureResult case eObject.fail: redColor
+					AssureResult case eObject.errorTimeOut: null
 					
 					VerificationActivityResult,
 					ValidationResult,
 					ThenResult,
-					ElseResult: SWT.COLOR_BLUE
+					ElseResult: blueColor
 					
-					default: SWT.COLOR_RED
-				})
+					default: redColor
+				}
 			}
 		}
 	}
