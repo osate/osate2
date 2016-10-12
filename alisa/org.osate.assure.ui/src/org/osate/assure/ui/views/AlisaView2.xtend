@@ -52,7 +52,7 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.ui.labeling.AssureColorBlockCountHolder
+import org.osate.assure.ui.labeling.AssureColorBlockCountHolder2
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
 
@@ -466,7 +466,7 @@ class AlisaView2 extends ViewPart {
 					ClaimResult,
 					AssuranceCaseResult,
 					ModelResult,
-					SubsystemResult: viewSite.shell.display.getSystemColor(AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject).colorValues.get(columnIndex))
+					SubsystemResult: AssureColorBlockCountHolder2.createAssureColorBlockCountHolder(eObject, blueColor, greenColor, redColor).colorValues.get(columnIndex)
 					
 					AssureResult case eObject.fail: redColor
 					AssureResult case eObject.errorTimeOut: null
