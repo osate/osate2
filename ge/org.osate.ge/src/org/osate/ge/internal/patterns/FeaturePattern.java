@@ -119,6 +119,7 @@ import org.osate.ge.internal.services.ShapeCreationService.PropertySetter;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 
@@ -484,8 +485,8 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 						showChild = false;
 						if(sc.getComponentType() != null) {
 			        		for(final FlowSpecification fs : sc.getComponentType().getAllFlowSpecifications()) {
-			        			if((fs.getAllInEnd() != null && fs.getAllInEnd().getContext() == feature && fs.getAllInEnd().getFeature() == childFeature) ||
-			        					(fs.getAllOutEnd() != null && fs.getAllOutEnd().getContext() == feature && fs.getAllOutEnd().getFeature() == childFeature)) {
+			        			if((fs.getAllInEnd() != null && AadlHelper.namesMatch(fs.getAllInEnd().getContext(), feature) && AadlHelper.namesMatch(fs.getAllInEnd().getFeature(), childFeature)) ||
+			        					(fs.getAllOutEnd() != null && AadlHelper.namesMatch(fs.getAllOutEnd().getContext(), feature) && AadlHelper.namesMatch(fs.getAllOutEnd().getFeature(), childFeature))) {
 			        				showChild = true;
 			        				break;
 			        			}		        			
