@@ -17,6 +17,7 @@ import org.eclipse.jface.resource.ImageDescriptor
 import org.eclipse.jface.viewers.ArrayContentProvider
 import org.eclipse.jface.viewers.ColumnLabelProvider
 import org.eclipse.jface.viewers.ColumnPixelData
+import org.eclipse.jface.viewers.ColumnViewerToolTipSupport
 import org.eclipse.jface.viewers.ColumnWeightData
 import org.eclipse.jface.viewers.ComboBoxViewerCellEditor
 import org.eclipse.jface.viewers.EditingSupport
@@ -61,6 +62,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.assureResultCo
 import static extension org.osate.assure.util.AssureUtilExtension.constructLabel
 import static extension org.osate.assure.util.AssureUtilExtension.constructMessage
 import static extension org.osate.assure.util.AssureUtilExtension.getName
+import static extension org.osate.assure.util.AssureUtilExtension.getTarget
 import static extension org.osate.assure.util.AssureUtilExtension.isErrorTimeOut
 import static extension org.osate.assure.util.AssureUtilExtension.isFail
 import static extension org.osate.assure.util.AssureUtilExtension.isSuccessful
@@ -309,6 +311,7 @@ class AlisaView2 extends ViewPart {
 	def private createAssureViewer(Composite parent, TreeColumnLayout columnLayout) {
 		new TreeViewer(parent, SWT.BORDER.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL)) => [
 			tree.headerVisible = true
+			ColumnViewerToolTipSupport.enableFor(it)
 			contentProvider = new ITreeContentProvider {
 				override dispose() {
 				}
@@ -368,6 +371,13 @@ class AlisaView2 extends ViewPart {
 						}
 					}
 					
+					override getToolTipText(Object element) {
+						val eObject = resourceSet.getEObject(element as URI, true)
+						if (eObject instanceof ClaimResult) {
+							eObject.target.title
+						}
+					}
+					
 					override getImage(Object element) {
 						val imageFileName = switch eObject : resourceSet.getEObject(element as URI, true) {
 							ResultIssue: switch eObject.issueType {
@@ -398,9 +408,9 @@ class AlisaView2 extends ViewPart {
 					default: SWT.RIGHT
 				}
 				column.text = switch columnIndex {
-					case 0: "0"
-					case 5: ".5    -"
-					case 9: "1"
+					case 0: "0%"
+					case 5: "50%   -"
+					case 9: "100%"
 					default: "-"
 				}
 				columnLayout.setColumnData(column, new ColumnPixelData(45))
