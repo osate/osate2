@@ -1,6 +1,8 @@
 package org.osate.assure.ui.views
 
 import com.google.inject.Inject
+import java.awt.Toolkit
+import java.awt.datatransfer.StringSelection
 import java.io.IOException
 import java.util.List
 import java.util.Optional
@@ -10,6 +12,8 @@ import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.jface.action.Action
+import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.dialogs.DialogSettings
 import org.eclipse.jface.dialogs.IDialogSettings
 import org.eclipse.jface.layout.TreeColumnLayout
@@ -32,6 +36,7 @@ import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Composite
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.IResourceDescriptions
+import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
 import org.eclipse.xtext.ui.resource.IResourceSetProvider
 import org.osate.aadl2.util.Activator
 import org.osate.alisa.common.common.ResultIssue
@@ -59,6 +64,7 @@ import org.osate.categories.categories.CategoryFilter
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.assureResultCounts
+import static extension org.osate.assure.util.AssureUtilExtension.constructDescription
 import static extension org.osate.assure.util.AssureUtilExtension.constructLabel
 import static extension org.osate.assure.util.AssureUtilExtension.constructMessage
 import static extension org.osate.assure.util.AssureUtilExtension.getName
@@ -79,6 +85,7 @@ class AlisaView2 extends ViewPart {
 	
 	val ResourceSet resourceSet
 	val IResourceDescriptions rds
+	val GlobalURIEditorOpener editorOpener
 	val String settingsFileName
 	val IDialogSettings dialogSettings
 	
@@ -135,9 +142,10 @@ class AlisaView2 extends ViewPart {
 	]
 	
 	@Inject
-	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds) {
+	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener) {
 		resourceSet = resourceSetProvider.get(null)
 		this.rds = rds
+		this.editorOpener = editorOpener
 		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
 		settingsFileName = pluginsDir.append("org.osate.assure.ui").append("alisa_view_settings.xml").toOSString
 		dialogSettings = new DialogSettings("alisa_view_settings")
@@ -309,10 +317,10 @@ class AlisaView2 extends ViewPart {
 	}
 	
 	def private createAssureViewer(Composite parent, TreeColumnLayout columnLayout) {
-		new TreeViewer(parent, SWT.BORDER.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL)) => [
-			tree.headerVisible = true
-			ColumnViewerToolTipSupport.enableFor(it)
-			contentProvider = new ITreeContentProvider {
+		new TreeViewer(parent, SWT.BORDER.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL)) => [treeViewer |
+			treeViewer.tree.headerVisible = true
+			ColumnViewerToolTipSupport.enableFor(treeViewer)
+			treeViewer.contentProvider = new ITreeContentProvider {
 				override dispose() {
 				}
 				
@@ -325,7 +333,7 @@ class AlisaView2 extends ViewPart {
 				}
 				
 				override getParent(Object element) {
-					resourceSet.getEObject(element as URI, true).eContainer?.URI ?: input
+					resourceSet.getEObject(element as URI, true).eContainer?.URI ?: treeViewer.input
 				}
 				
 				override hasChildren(Object element) {
@@ -335,7 +343,7 @@ class AlisaView2 extends ViewPart {
 				override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				}
 			}
-			addFilter[viewer, parentElement, element |
+			treeViewer.addFilter[viewer, parentElement, element |
 				switch resourceSet.getEObject(element as URI, true) {
 					Metrics,
 					QualifiedClaimReference,
@@ -343,13 +351,13 @@ class AlisaView2 extends ViewPart {
 					default: true
 				}
 			]
-			addFilter[viewer, parentElement, element |
+			treeViewer.addFilter[viewer, parentElement, element |
 				switch eObject : resourceSet.getEObject(element as URI, true) {
 					AssureResult: !eObject.zeroTotalCount
 					default: true
 				}
 			]
-			new TreeViewerColumn(it, SWT.LEFT) => [
+			new TreeViewerColumn(treeViewer, SWT.LEFT) => [
 				column.alignment = SWT.LEFT
 				column.text = "Evidence"
 				columnLayout.setColumnData(column, new ColumnWeightData(6))
@@ -400,7 +408,7 @@ class AlisaView2 extends ViewPart {
 					}
 				}
 			]
-			(0 ..< 10).forEach[columnIndex | new TreeViewerColumn(it, SWT.RIGHT) => [
+			(0 ..< 10).forEach[columnIndex | new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = switch columnIndex {
 					case 0,
 					case 5: SWT.LEFT
@@ -416,7 +424,7 @@ class AlisaView2 extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnPixelData(45))
 				labelProvider = getColorColumnLabelProvider(columnIndex)
 			]]
-			new TreeViewerColumn(it, SWT.RIGHT) => [
+			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "Description"
 				columnLayout.setColumnData(column, new ColumnWeightData(9))
@@ -435,7 +443,7 @@ class AlisaView2 extends ViewPart {
 					}
 				}
 			]
-			new TreeViewerColumn(it, SWT.RIGHT) => [
+			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "results count"
 				columnLayout.setColumnData(column, new ColumnWeightData(4))
@@ -447,6 +455,30 @@ class AlisaView2 extends ViewPart {
 					}
 				}
 			]
+			
+			val manager = new MenuManager
+			manager.removeAllWhenShown = true
+			manager.addMenuListener[
+				val uri = treeViewer.structuredSelection.firstElement as URI
+				if (uri != null) {
+					val eObject = resourceSet.getEObject(uri, true)
+					if (eObject instanceof ClaimResult) {
+						val requirementURI = eObject.target.URI
+						add(new Action("Open Requirement") {
+							override run() {
+								editorOpener.open(requirementURI, true)
+							}
+						})
+						val descriptionText = new StringSelection(eObject.constructDescription)
+						add(new Action("Copy Claim Text") {
+							override run() {
+								Toolkit.defaultToolkit.systemClipboard.setContents(descriptionText, null)
+							}
+						})
+					}
+				}
+			]
+			treeViewer.control.menu = manager.createContextMenu(treeViewer.tree)
 		]
 	}
 	
