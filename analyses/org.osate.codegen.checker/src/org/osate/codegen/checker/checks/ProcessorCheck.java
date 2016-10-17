@@ -46,7 +46,7 @@ public class ProcessorCheck extends AbstractCheck {
 					.filter(comp -> ( (comp.getCategory() == ComponentCategory.VIRTUAL_PROCESSOR) && (GetProperties.getSourceName(comp) == null) )).collect(Collectors.toList());
 			for (ComponentInstance vp : virtualProcessorsWithoutSourceName)
 			{
-				addError (new ErrorReport (vp, "Need to define the source_name property"));
+				addError (new ErrorReport (vp, "Need to define the source_name property (virtual processor)"));
 			}
 		}
 		
