@@ -7,15 +7,27 @@ import java.io.IOException
 import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
+import org.eclipse.core.resources.WorkspaceJob
+import org.eclipse.core.runtime.CoreException
+import org.eclipse.core.runtime.IProgressMonitor
+import org.eclipse.core.runtime.NullProgressMonitor
+import org.eclipse.core.runtime.Path
+import org.eclipse.core.runtime.Status
+import org.eclipse.core.runtime.jobs.ISchedulingRule
+import org.eclipse.core.runtime.jobs.MultiRule
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
+import org.eclipse.emf.transaction.RecordingCommand
+import org.eclipse.emf.transaction.TransactionalEditingDomain
 import org.eclipse.jface.action.Action
 import org.eclipse.jface.action.MenuManager
 import org.eclipse.jface.dialogs.DialogSettings
 import org.eclipse.jface.dialogs.IDialogSettings
+import org.eclipse.jface.dialogs.MessageDialog
 import org.eclipse.jface.layout.TreeColumnLayout
 import org.eclipse.jface.resource.ImageDescriptor
 import org.eclipse.jface.viewers.ArrayContentProvider
@@ -34,6 +46,7 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.SashForm
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Composite
+import org.eclipse.ui.IEditorPart
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
@@ -58,9 +71,13 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.evaluator.IAssureProcessor
+import org.osate.assure.generator.IAssureConstructor
 import org.osate.assure.ui.labeling.AssureColorBlockCountHolder2
+import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
+import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.assureResultCounts
@@ -75,6 +92,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.isSuccessful
 import static extension org.osate.assure.util.AssureUtilExtension.isZeroCount
 import static extension org.osate.assure.util.AssureUtilExtension.isZeroTotalCount
 import static extension org.osate.assure.util.AssureUtilExtension.recomputeAllCounts
+import static extension org.osate.assure.util.AssureUtilExtension.resetToTBD
 import static extension org.osate.assure.util.AssureUtilExtension.toTextLabel
 
 class AlisaView2 extends ViewPart {
@@ -83,9 +101,12 @@ class AlisaView2 extends ViewPart {
 	val static ALISA_EXTENSION = "alisa"
 	val static ASSURE_EXTENSION = "assure"
 	
-	val ResourceSet resourceSet
+	val IResourceSetProvider resourceSetProvider
+	val ResourceSet resourceSetForUI
 	val IResourceDescriptions rds
 	val GlobalURIEditorOpener editorOpener
+	val IAssureConstructor assureConstructor
+	val IAssureProcessor assureProcessor
 	val String settingsFileName
 	val IDialogSettings dialogSettings
 	
@@ -109,18 +130,18 @@ class AlisaView2 extends ViewPart {
 			if (resource.fileExtension == ALISA_EXTENSION) {
 				alisaFileChanged.set(true)
 				val resourceURI = URI.createPlatformResourceURI(resource.fullPath.toString, false)
-				resourceSet.getResource(resourceURI, false)?.unload
+				resourceSetForUI.getResource(resourceURI, false)?.unload
 			} else if (resource.fileExtension == ASSURE_EXTENSION) {
 				assureFileChanged.set(true)
 				val resourceURI = URI.createPlatformResourceURI(resource.fullPath.toString, false)
-				resourceSet.getResource(resourceURI, false)?.unload
+				resourceSetForUI.getResource(resourceURI, false)?.unload
 			}
 			true
 		]
 		if (alisaFileChanged.get) {
 			viewSite.workbenchWindow.workbench.display.asyncExec[
 				val toRemove = selectedFilters.filter[assuranceCase, filter |
-					resourceSet.getEObject(assuranceCase, true) == null || resourceSet.getEObject(filter, true) == null
+					resourceSetForUI.getEObject(assuranceCase, true) == null || resourceSetForUI.getEObject(filter, true) == null
 				].keySet
 				toRemove.forEach[selectedFilters.remove(it)]
 				
@@ -142,10 +163,13 @@ class AlisaView2 extends ViewPart {
 	]
 	
 	@Inject
-	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener) {
-		resourceSet = resourceSetProvider.get(null)
+	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener, IAssureConstructor assureConstructor, IAssureProcessor assureProcessor) {
+		this.resourceSetProvider = resourceSetProvider
+		resourceSetForUI = resourceSetProvider.get(null)
 		this.rds = rds
 		this.editorOpener = editorOpener
+		this.assureConstructor = assureConstructor
+		this.assureProcessor = assureProcessor
 		val pluginsDir = Activator.^default.stateLocation.removeLastSegments(1)
 		settingsFileName = pluginsDir.append("org.osate.assure.ui").append("alisa_view_settings.xml").toOSString
 		dialogSettings = new DialogSettings("alisa_view_settings")
@@ -157,7 +181,7 @@ class AlisaView2 extends ViewPart {
 				for (var i = 0; i < filterURIs.size; i++) {
 					val assuranceCaseURI = URI.createURI(assuranceCaseURIs.get(i))
 					val filterURI = URI.createURI(filterURIs.get(i))
-					if (resourceSet.getEObject(assuranceCaseURI, true) != null && resourceSet.getEObject(filterURI, true) != null) {
+					if (resourceSetForUI.getEObject(assuranceCaseURI, true) != null && resourceSetForUI.getEObject(filterURI, true) != null) {
 						selectedFilters.put(assuranceCaseURI, filterURI)
 					}
 				}
@@ -221,7 +245,7 @@ class AlisaView2 extends ViewPart {
 				}
 				
 				override getChildren(Object parentElement) {
-					switch parentEObject : resourceSet.getEObject(parentElement as URI, true) {
+					switch parentEObject : resourceSetForUI.getEObject(parentElement as URI, true) {
 						AssuranceCase: parentEObject.assurancePlans.map[URI]
 						default: #[]
 					}
@@ -232,14 +256,14 @@ class AlisaView2 extends ViewPart {
 				}
 				
 				override getParent(Object element) {
-					switch elementEObject : resourceSet.getEObject(element as URI, true) {
+					switch elementEObject : resourceSetForUI.getEObject(element as URI, true) {
 						AssuranceCase: treeViewer.input
 						AssurancePlan: elementEObject.eContainer.URI
 					}
 				}
 				
 				override hasChildren(Object element) {
-					switch elementEObject : resourceSet.getEObject(element as URI, true) {
+					switch elementEObject : resourceSetForUI.getEObject(element as URI, true) {
 						AssuranceCase: !elementEObject.assurancePlans.empty
 						default: false
 					}
@@ -253,7 +277,7 @@ class AlisaView2 extends ViewPart {
 				column.text = "Assurance Cases and Plans"
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
-						switch eObject : resourceSet.getEObject(element as URI, true) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							AssuranceCase: eObject.name
 							AssurancePlan: eObject.name
 						}
@@ -265,18 +289,18 @@ class AlisaView2 extends ViewPart {
 				column.text = "Filter"
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
-						val eObject = resourceSet.getEObject(element as URI, true)
+						val eObject = resourceSetForUI.getEObject(element as URI, true)
 						if (eObject instanceof AssuranceCase) {
 							val filter = selectedFilters.get(element)
 							if (filter != null) {
-								(resourceSet.getEObject(filter, true) as CategoryFilter).name 
+								(resourceSetForUI.getEObject(filter, true) as CategoryFilter).name 
 							}
 						}
 					}
 				}
 				editingSupport = new EditingSupport(treeViewer) {
 					override protected canEdit(Object element) {
-						resourceSet.getEObject(element as URI, true) instanceof AssuranceCase
+						resourceSetForUI.getEObject(element as URI, true) instanceof AssuranceCase
 					}
 					
 					override protected getCellEditor(Object element) {
@@ -286,7 +310,7 @@ class AlisaView2 extends ViewPart {
 								override getText(Object element) {
 									val filterURI = element as Optional<URI>
 									if (filterURI.present) {
-										(resourceSet.getEObject(filterURI.get, true) as CategoryFilter).name
+										(resourceSetForUI.getEObject(filterURI.get, true) as CategoryFilter).name
 									}
 								}
 							}
@@ -312,6 +336,29 @@ class AlisaView2 extends ViewPart {
 				}
 			]
 			treeViewer.addSelectionChangedListener[updateAssureViewer(treeViewer.structuredSelection.firstElement as URI)]
+			
+			val manager = new MenuManager
+			manager.removeAllWhenShown = true
+			manager.addMenuListener[
+				val uri = treeViewer.structuredSelection.firstElement as URI
+				if (uri != null) {
+					val eObject = resourceSetForUI.getEObject(uri, true)
+					if (eObject instanceof AssuranceCase) {
+						add(new Action("Verify All") {
+							override run() {
+								verifyAll(eObject as AssuranceCase, uri)
+							}
+						})
+						add(new Action("Verify TBD") {
+							override run() {
+								println("Need to Verify TBD")
+							}
+						})
+					}
+				}
+			]
+			treeViewer.control.menu = manager.createContextMenu(treeViewer.tree)
+			
 			treeViewer.input = assuranceCaseURIsInWorkspace
 		]
 	}
@@ -325,7 +372,7 @@ class AlisaView2 extends ViewPart {
 				}
 				
 				override getChildren(Object parentElement) {
-					resourceSet.getEObject(parentElement as URI, true).eContents.map[URI]
+					resourceSetForUI.getEObject(parentElement as URI, true).eContents.map[URI]
 				}
 				
 				override getElements(Object inputElement) {
@@ -333,18 +380,18 @@ class AlisaView2 extends ViewPart {
 				}
 				
 				override getParent(Object element) {
-					resourceSet.getEObject(element as URI, true).eContainer?.URI ?: treeViewer.input
+					resourceSetForUI.getEObject(element as URI, true).eContainer?.URI ?: treeViewer.input
 				}
 				
 				override hasChildren(Object element) {
-					!resourceSet.getEObject(element as URI, true).eContents.empty
+					!resourceSetForUI.getEObject(element as URI, true).eContents.empty
 				}
 				
 				override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 				}
 			}
 			treeViewer.addFilter[viewer, parentElement, element |
-				switch resourceSet.getEObject(element as URI, true) {
+				switch resourceSetForUI.getEObject(element as URI, true) {
 					Metrics,
 					QualifiedClaimReference,
 					QualifiedVAReference: false
@@ -352,7 +399,7 @@ class AlisaView2 extends ViewPart {
 				}
 			]
 			treeViewer.addFilter[viewer, parentElement, element |
-				switch eObject : resourceSet.getEObject(element as URI, true) {
+				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 					AssureResult: !eObject.zeroTotalCount
 					default: true
 				}
@@ -363,7 +410,7 @@ class AlisaView2 extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnWeightData(6))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
-						switch eObject : resourceSet.getEObject(element as URI, true) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							AssuranceCaseResult: "Case " + eObject.name
 							ModelResult: '''Plan «eObject.plan.name»(«eObject.target.name»)'''
 							SubsystemResult: "Subsystem " + eObject.name
@@ -380,14 +427,14 @@ class AlisaView2 extends ViewPart {
 					}
 					
 					override getToolTipText(Object element) {
-						val eObject = resourceSet.getEObject(element as URI, true)
+						val eObject = resourceSetForUI.getEObject(element as URI, true)
 						if (eObject instanceof ClaimResult) {
 							eObject.target.title
 						}
 					}
 					
 					override getImage(Object element) {
-						val imageFileName = switch eObject : resourceSet.getEObject(element as URI, true) {
+						val imageFileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							ResultIssue: switch eObject.issueType {
 								case ERROR: "error.png"
 								case SUCCESS: "valid.png"
@@ -430,7 +477,7 @@ class AlisaView2 extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnWeightData(9))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
-						switch eObject : resourceSet.getEObject(element as URI, true) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							ClaimResult: eObject.constructMessage
 							VerificationActivityResult: eObject.constructMessage + eObject.resultState.toTextLabel
 							AssuranceCaseResult: eObject.constructMessage
@@ -449,7 +496,7 @@ class AlisaView2 extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnWeightData(4))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
-						switch eObject : resourceSet.getEObject(element as URI, true) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							AssureResult: eObject.assureResultCounts
 						}
 					}
@@ -461,7 +508,7 @@ class AlisaView2 extends ViewPart {
 			manager.addMenuListener[
 				val uri = treeViewer.structuredSelection.firstElement as URI
 				if (uri != null) {
-					val eObject = resourceSet.getEObject(uri, true)
+					val eObject = resourceSetForUI.getEObject(uri, true)
 					if (eObject instanceof ClaimResult) {
 						val requirementURI = eObject.target.URI
 						add(new Action("Open Requirement") {
@@ -493,7 +540,7 @@ class AlisaView2 extends ViewPart {
 			}
 			
 			override getBackground(Object element) {
-				switch eObject : resourceSet.getEObject(element as URI, true) {
+				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 					ResultIssue: switch eObject.issueType {
 						case ERROR: null
 						case SUCCESS: greenColor
@@ -530,14 +577,14 @@ class AlisaView2 extends ViewPart {
 			displayedCaseAndFilter = newURIs
 			val expandedElements = assureViewer.expandedElements
 			assureViewer.input = if (assuranceCaseURI != null) {
-				val selectedAlisaObject = resourceSet.getEObject(assuranceCaseURI, true)
+				val selectedAlisaObject = resourceSetForUI.getEObject(assuranceCaseURI, true)
 				if (selectedAlisaObject instanceof AssuranceCase) {
 					val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
-					val results = resultDescriptions.map[resourceSet.getEObject(EObjectURI, true) as AssuranceCaseResult]
+					val results = resultDescriptions.map[resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult]
 					val result = results.findFirst[name == selectedAlisaObject.name]
 					if (result != null) {
 						result.recomputeAllCounts(if (displayedCaseAndFilter.value != null) {
-							resourceSet.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
+							resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
 						})
 						#[result.URI]
 					}
@@ -545,5 +592,107 @@ class AlisaView2 extends ViewPart {
 			}
 			assureViewer.expandedElements = expandedElements
 		}
+	}
+	
+	//From AlisaView.verifyAllButtonSelected()
+	def private verifyAll(AssuranceCase assuranceCase, URI assuranceCaseURI) {
+		handlerPrepare
+		val resourceSetForProcessing = resourceSetProvider.get(null)
+		val assureProjectAndResult = createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
+		val assureProject = assureProjectAndResult.key
+		val assuranceCaseResult = assureProjectAndResult.value
+		val aadlProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCase.system.URI.toPlatformString(true))).project
+		val schedulingRule = new MultiRule(#[assureProject, aadlProject])
+		val filterURI = selectedFilters.get(assuranceCaseURI)
+		val filter = if (filterURI != null) {
+			resourceSetForProcessing.getEObject(filterURI, true) as CategoryFilter
+		}
+		execute2(assuranceCaseResult, filter, schedulingRule)
+	}
+	
+	//From AlisaHandler.prepare()
+	def private handlerPrepare() {
+		saveChanges(viewSite.page.dirtyEditors)
+	}
+	
+	//From AlisaHandler.saveChanges(IEditorPart[])
+	def private saveChanges(IEditorPart[] dirtyEditors) {
+		if (!dirtyEditors.empty && MessageDialog.openConfirm(viewSite.shell, "Save editors", "Save editors and continue?")) {
+			val monitor = new NullProgressMonitor
+			dirtyEditors.forEach[doSave(monitor)]
+		}
+	}
+	
+	//From AlisaView.createCaseResult(String)
+	def private createCaseResult(AssuranceCase assuranceCase, URI assuranceCaseURI, ResourceSet resourceSetForProcessing) {
+		val assureProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).project
+		val assureURI = URI.createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».assure''', false)
+		val assuranceCaseResultHolder = new AtomicReference
+		val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
+		domain.commandStack.execute(new RecordingCommand(domain) {
+			override protected doExecute() {
+				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
+				assuranceCaseResult.resetToTBD(null)
+				assuranceCaseResult.recomputeAllCounts(null)
+				val resource = resourceSetForProcessing.getResource(assureURI, true)
+				resource.contents.clear
+				resource.contents += assuranceCaseResult
+				try {
+					resource.save(null)
+				} catch (IOException e) {
+					//Do nothing.
+				}
+				assuranceCaseResultHolder.set(assuranceCaseResult)
+			}
+		})
+		assureProject -> assuranceCaseResultHolder.get
+	}
+	
+	//From AlisaHandler.execute2(AssuranceCaseResult, CategoryFilter, ISchedulingRule)
+	def private execute2(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter, ISchedulingRule schedulingRule) {
+		val job = getWorkspaceJob2(assuranceCaseResult, filter)
+		job.rule = schedulingRule
+		job.schedule
+	}
+	
+	//From AlisaHandler.getWorkspaceJob2(String, EObject)
+	def private getWorkspaceJob2(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter) {
+		new WorkspaceJob("ASSURE verification") {
+			override runInWorkspace(IProgressMonitor monitor) throws CoreException {
+				runJob(assuranceCaseResult, filter, monitor)
+			}
+		}
+	}
+	
+	//From AssureHandler.runJob(EObject, CategoryFilter, IProgressMonitor)
+	def private runJob(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter, IProgressMonitor monitor) {
+		VerifyUtilExtension.clearAllHasRunRecords
+		AssureUtilExtension.clearAllInstanceModels
+		drawProofs
+		try {
+			assureProcessor.processCase(assuranceCaseResult, filter, monitor)
+			Status.OK_STATUS
+		} catch (NoSuchMethodException e) {
+			Status.CANCEL_STATUS
+		}
+	}
+	
+	//From AssureHandler.drawProofs(AssuranceCaseResult)
+	def private drawProofs() {
+		viewSite.workbenchWindow.workbench.display.asyncExec[displayView]
+	}
+	
+	def private displayView() {
+		/*
+		 * TODO
+		 * show AssureRequirementsCoverageView
+		 * set proofs on coverage view
+		 * set assure processor's coverage tree viewer
+		 * 
+		 * show AssureProgressView
+		 * set proofs on progress view
+		 * set focus on progress view
+		 * set assure processor's progress tree viewer
+		 */
 	}
 }
