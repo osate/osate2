@@ -8,6 +8,7 @@ import java.util.List
 import java.util.Optional
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
+import org.eclipse.core.resources.IProject
 import org.eclipse.core.resources.IResourceChangeEvent
 import org.eclipse.core.resources.IResourceChangeListener
 import org.eclipse.core.resources.ResourcesPlugin
@@ -17,7 +18,6 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
-import org.eclipse.core.runtime.jobs.ISchedulingRule
 import org.eclipse.core.runtime.jobs.MultiRule
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.resource.ResourceSet
@@ -46,7 +46,6 @@ import org.eclipse.swt.SWT
 import org.eclipse.swt.custom.SashForm
 import org.eclipse.swt.graphics.Color
 import org.eclipse.swt.widgets.Composite
-import org.eclipse.ui.IEditorPart
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.IResourceDescriptions
 import org.eclipse.xtext.ui.editor.GlobalURIEditorOpener
@@ -152,12 +151,10 @@ class AlisaView2 extends ViewPart {
 				displayedCaseAndFilter = null -> null
 				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI)
 			]
-		}
-		if (assureFileChanged.get) {
+		} else if (assureFileChanged.get) {
 			viewSite.workbenchWindow.workbench.display.asyncExec[
-				val expandedElements = assureViewer.expandedElements
-				assureViewer.refresh
-				assureViewer.expandedElements = expandedElements
+				displayedCaseAndFilter = null -> null
+				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI)
 			]
 		}
 	]
@@ -351,7 +348,7 @@ class AlisaView2 extends ViewPart {
 						})
 						add(new Action("Verify TBD") {
 							override run() {
-								println("Need to Verify TBD")
+								verifyTBD(eObject as AssuranceCase, uri)
 							}
 						})
 					}
@@ -594,36 +591,57 @@ class AlisaView2 extends ViewPart {
 		}
 	}
 	
-	//From AlisaView.verifyAllButtonSelected()
 	def private verifyAll(AssuranceCase assuranceCase, URI assuranceCaseURI) {
-		handlerPrepare
-		val resourceSetForProcessing = resourceSetProvider.get(null)
-		val assureProjectAndResult = createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
-		val assureProject = assureProjectAndResult.key
-		val assuranceCaseResult = assureProjectAndResult.value
-		val aadlProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCase.system.URI.toPlatformString(true))).project
-		val schedulingRule = new MultiRule(#[assureProject, aadlProject])
-		val filterURI = selectedFilters.get(assuranceCaseURI)
-		val filter = if (filterURI != null) {
-			resourceSetForProcessing.getEObject(filterURI, true) as CategoryFilter
-		}
-		execute2(assuranceCaseResult, filter, schedulingRule)
+		verifyCommon(assuranceCase, assuranceCaseURI, [resourceSetForProcessing |
+			createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
+		])
 	}
 	
-	//From AlisaHandler.prepare()
-	def private handlerPrepare() {
-		saveChanges(viewSite.page.dirtyEditors)
+	def private verifyTBD(AssuranceCase assuranceCase, URI assuranceCaseURI) {
+		verifyCommon(assuranceCase, assuranceCaseURI, [resourceSetForProcessing |
+			val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
+			val results = resultDescriptions.map[resourceSetForProcessing.getEObject(EObjectURI, true) as AssuranceCaseResult]
+			val findResult = results.findFirst[name == assuranceCase.name]
+			if (findResult == null) {
+				createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
+			} else {
+				ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).project -> findResult
+			}
+		])
 	}
 	
-	//From AlisaHandler.saveChanges(IEditorPart[])
-	def private saveChanges(IEditorPart[] dirtyEditors) {
+	def private verifyCommon(AssuranceCase assuranceCase, URI assuranceCaseURI, (ResourceSet)=>Pair<IProject, AssuranceCaseResult> getProjectAndResult) {
+		val dirtyEditors = viewSite.page.dirtyEditors
 		if (!dirtyEditors.empty && MessageDialog.openConfirm(viewSite.shell, "Save editors", "Save editors and continue?")) {
 			val monitor = new NullProgressMonitor
 			dirtyEditors.forEach[doSave(monitor)]
 		}
+		val resourceSetForProcessing = resourceSetProvider.get(null)
+		val assureProjectAndResult = getProjectAndResult.apply(resourceSetForProcessing)
+		val assureProject = assureProjectAndResult.key
+		val assuranceCaseResult = assureProjectAndResult.value
+		val filterURI = selectedFilters.get(assuranceCaseURI)
+		val filter = if (filterURI != null) {
+			resourceSetForProcessing.getEObject(filterURI, true) as CategoryFilter
+		}
+		val job = new WorkspaceJob("ASSURE verification") {
+			override runInWorkspace(IProgressMonitor monitor) throws CoreException {
+				VerifyUtilExtension.clearAllHasRunRecords
+				AssureUtilExtension.clearAllInstanceModels
+				viewSite.workbenchWindow.workbench.display.asyncExec[displayView]
+				try {
+					assureProcessor.processCase(assuranceCaseResult, filter, monitor)
+					Status.OK_STATUS
+				} catch (NoSuchMethodException e) {
+					Status.CANCEL_STATUS
+				}
+			}
+		}
+		val aadlProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCase.system.URI.toPlatformString(true))).project
+		job.rule = new MultiRule(#[assureProject, aadlProject])
+		job.schedule
 	}
 	
-	//From AlisaView.createCaseResult(String)
 	def private createCaseResult(AssuranceCase assuranceCase, URI assuranceCaseURI, ResourceSet resourceSetForProcessing) {
 		val assureProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).project
 		val assureURI = URI.createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».assure''', false)
@@ -648,40 +666,7 @@ class AlisaView2 extends ViewPart {
 		assureProject -> assuranceCaseResultHolder.get
 	}
 	
-	//From AlisaHandler.execute2(AssuranceCaseResult, CategoryFilter, ISchedulingRule)
-	def private execute2(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter, ISchedulingRule schedulingRule) {
-		val job = getWorkspaceJob2(assuranceCaseResult, filter)
-		job.rule = schedulingRule
-		job.schedule
-	}
-	
-	//From AlisaHandler.getWorkspaceJob2(String, EObject)
-	def private getWorkspaceJob2(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter) {
-		new WorkspaceJob("ASSURE verification") {
-			override runInWorkspace(IProgressMonitor monitor) throws CoreException {
-				runJob(assuranceCaseResult, filter, monitor)
-			}
-		}
-	}
-	
-	//From AssureHandler.runJob(EObject, CategoryFilter, IProgressMonitor)
-	def private runJob(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter, IProgressMonitor monitor) {
-		VerifyUtilExtension.clearAllHasRunRecords
-		AssureUtilExtension.clearAllInstanceModels
-		drawProofs
-		try {
-			assureProcessor.processCase(assuranceCaseResult, filter, monitor)
-			Status.OK_STATUS
-		} catch (NoSuchMethodException e) {
-			Status.CANCEL_STATUS
-		}
-	}
-	
-	//From AssureHandler.drawProofs(AssuranceCaseResult)
-	def private drawProofs() {
-		viewSite.workbenchWindow.workbench.display.asyncExec[displayView]
-	}
-	
+	//From AssureHandler.displayView(AssuranceCaseResult, IWorkbenchPage)
 	def private displayView() {
 		/*
 		 * TODO
