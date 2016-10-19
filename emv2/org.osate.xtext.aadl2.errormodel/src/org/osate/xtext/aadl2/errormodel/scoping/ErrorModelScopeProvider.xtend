@@ -234,7 +234,8 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 * Scope for elements of EMV2Path in transition conditions in state machine declarations
 	 */
 	def scope_EMV2PathElement_namedElement(ErrorBehaviorStateMachine context, EReference reference) {
-		context.events.scopeFor
+		val typesScope = scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes])
+		context.events.scopeFor(typesScope)
 	}
 
 	/**
