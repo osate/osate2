@@ -70,7 +70,7 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.evaluator.IAssureProcessor
+import org.osate.assure.evaluator.IAssureProcessor2
 import org.osate.assure.generator.IAssureConstructor
 import org.osate.assure.ui.labeling.AssureColorBlockCountHolder2
 import org.osate.assure.util.AssureUtilExtension
@@ -105,7 +105,7 @@ class AlisaView2 extends ViewPart {
 	val IResourceDescriptions rds
 	val GlobalURIEditorOpener editorOpener
 	val IAssureConstructor assureConstructor
-	val IAssureProcessor assureProcessor
+	val IAssureProcessor2 assureProcessor
 	val String settingsFileName
 	val IDialogSettings dialogSettings
 	
@@ -160,7 +160,7 @@ class AlisaView2 extends ViewPart {
 	]
 	
 	@Inject
-	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener, IAssureConstructor assureConstructor, IAssureProcessor assureProcessor) {
+	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener, IAssureConstructor assureConstructor, IAssureProcessor2 assureProcessor) {
 		this.resourceSetProvider = resourceSetProvider
 		resourceSetForUI = resourceSetProvider.get(null)
 		this.rds = rds
@@ -628,9 +628,34 @@ class AlisaView2 extends ViewPart {
 			override runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				VerifyUtilExtension.clearAllHasRunRecords
 				AssureUtilExtension.clearAllInstanceModels
-				viewSite.workbenchWindow.workbench.display.asyncExec[displayView]
+				val progressViewHolder = new AtomicReference
+				viewSite.workbenchWindow.workbench.display.syncExec[
+					val progressView = viewSite.page.showView(AssureProgressView2.ID) as AssureProgressView2
+					progressView.setAssuranceCaseResult(assuranceCaseResult.URI, filterURI, resourceSetForProcessing)
+					progressView.setFocus
+					assureProcessor.progressUpdater = [vaResultURI |
+						viewSite.workbenchWindow.workbench.display.asyncExec[progressView.update(vaResultURI)]
+					]
+					progressViewHolder.set(progressView)
+					
+					/*
+					 * TODO
+					 * From AssureHandler.displayView(AssuranceCaseResult, IWorkbenchPage)
+					 * 
+					 * 
+					 * show AssureRequirementsCoverageView
+					 * set proofs on coverage view
+					 * set assure processor's coverage tree viewer
+					 * 
+					 * show AssureProgressView
+					 * set proofs on progress view
+					 * set focus on progress view
+					 * set assure processor's progress tree viewer
+					 */
+				]
 				try {
 					assureProcessor.processCase(assuranceCaseResult, filter, monitor)
+					viewSite.workbenchWindow.workbench.display.asyncExec[progressViewHolder.get.refresh]
 					Status.OK_STATUS
 				} catch (NoSuchMethodException e) {
 					Status.CANCEL_STATUS
@@ -664,20 +689,5 @@ class AlisaView2 extends ViewPart {
 			}
 		})
 		assureProject -> assuranceCaseResultHolder.get
-	}
-	
-	//From AssureHandler.displayView(AssuranceCaseResult, IWorkbenchPage)
-	def private displayView() {
-		/*
-		 * TODO
-		 * show AssureRequirementsCoverageView
-		 * set proofs on coverage view
-		 * set assure processor's coverage tree viewer
-		 * 
-		 * show AssureProgressView
-		 * set proofs on progress view
-		 * set focus on progress view
-		 * set assure processor's progress tree viewer
-		 */
 	}
 }
