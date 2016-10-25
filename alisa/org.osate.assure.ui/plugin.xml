@@ -456,6 +456,13 @@
              id="org.osate.assure.ui.views.assureProgressView2"
              name="Assurance Progress 2">
        </view>
+       <view
+             category="org.osate.alisa.assure"
+             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureRequirementsCoverageView2"
+             icon="icons/claims.png"
+             id="org.osate.assure.ui.views.assure.requirements.coverage.view2"
+             name="Assurance Requirements Coverage 2">
+       </view>
    </extension>
      
          <extension point="org.eclipse.core.expressions.definitions">

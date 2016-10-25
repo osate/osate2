@@ -37,11 +37,6 @@ class AssureProgressView2 extends ViewPart {
 	
 	TableViewer tableViewer
 	
-//	@Inject
-//	new(IResourceSetProvider resourceSetProvider) {
-//		resourceSet = resourceSetProvider.get(null)
-//	}
-	
 	override createPartControl(Composite parent) {
 		new Composite(parent, SWT.NONE) => [
 			val columnLayout = new TableColumnLayout
@@ -132,14 +127,10 @@ class AssureProgressView2 extends ViewPart {
 		tableViewer.table.setFocus
 	}
 	
-	def package void setAssuranceCaseResult(URI assuranceCaseResultURI, URI filterURI, ResourceSet resourceSet) {
-		this.assuranceCaseResultURI = assuranceCaseResultURI
-		this.filterURI = filterURI
-		this.resourceSet = resourceSet
-		val assuranceCaseResult = resourceSet.getEObject(assuranceCaseResultURI, true) as AssuranceCaseResult
-		val categoryFilter = if (filterURI != null) {
-			resourceSet.getEObject(filterURI, true) as CategoryFilter
-		}
+	def package void setAssuranceCaseResult(AssuranceCaseResult assuranceCaseResult, CategoryFilter categoryFilter) {
+		assuranceCaseResultURI = assuranceCaseResult.URI
+		filterURI = categoryFilter?.URI
+		resourceSet = assuranceCaseResult.eResource.resourceSet
 		
 		val vaResults = assuranceCaseResult.eAllContents.filter(VerificationActivityResult)
 		val filteredResults = vaResults.filter[

@@ -33,8 +33,6 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.jface.viewers.TreeViewer
-import org.eclipse.swt.widgets.Display
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
@@ -86,7 +84,7 @@ interface IAssureProcessor2 {
 
 	def void setProgressUpdater((URI)=>void progressUpdater)
 
-	def void setRequirementsCoverageTreeViewer(TreeViewer viewPage);
+	def void setRequirementsCoverageUpdater(=>void requirementsCoverageUpdater)
 }
 
 /**
@@ -103,7 +101,8 @@ class AssureProcessor2 implements IAssureProcessor2 {
 
 	@Accessors(PUBLIC_SETTER)
 	(URI)=>void progressUpdater
-	var TreeViewer requirementsCoverageTreeViewer
+	@Accessors(PUBLIC_SETTER)
+	=>void requirementsCoverageUpdater
 
 	val RuleEnvironment env = new RuleEnvironment
 	val computes = new HashMap<String, PropertyExpression>
@@ -461,12 +460,8 @@ class AssureProcessor2 implements IAssureProcessor2 {
 	}
 
 	def updateRequirementsCoverage() {
-		if (requirementsCoverageTreeViewer != null) {
-			Display.getDefault().asyncExec(new Runnable() {
-				override void run() {
-					requirementsCoverageTreeViewer.refresh(true);
-				}
-			});
+		if (requirementsCoverageUpdater != null) {
+			requirementsCoverageUpdater.apply
 		}
 	}
 
@@ -666,10 +661,5 @@ class AssureProcessor2 implements IAssureProcessor2 {
 		}
 		return success;
 	}
-
-	override void setRequirementsCoverageTreeViewer(TreeViewer treeViewer) {
-		requirementsCoverageTreeViewer = treeViewer
-	}
-
 }
 

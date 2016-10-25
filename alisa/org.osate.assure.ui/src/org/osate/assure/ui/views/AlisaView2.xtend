@@ -388,15 +388,10 @@ class AlisaView2 extends ViewPart {
 				}
 			}
 			treeViewer.addFilter[viewer, parentElement, element |
-				switch resourceSetForUI.getEObject(element as URI, true) {
+				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 					Metrics,
 					QualifiedClaimReference,
 					QualifiedVAReference: false
-					default: true
-				}
-			]
-			treeViewer.addFilter[viewer, parentElement, element |
-				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 					AssureResult: !eObject.zeroTotalCount
 					default: true
 				}
@@ -630,28 +625,19 @@ class AlisaView2 extends ViewPart {
 				AssureUtilExtension.clearAllInstanceModels
 				val progressViewHolder = new AtomicReference
 				viewSite.workbenchWindow.workbench.display.syncExec[
+					val coverageView = viewSite.page.showView(AssureRequirementsCoverageView2.ID) as AssureRequirementsCoverageView2
+					coverageView.setAssuranceCaseResult(assuranceCaseResult, filter)
+					assureProcessor.requirementsCoverageUpdater = [
+						viewSite.workbenchWindow.workbench.display.asyncExec[coverageView.refresh]
+					]
+					
 					val progressView = viewSite.page.showView(AssureProgressView2.ID) as AssureProgressView2
-					progressView.setAssuranceCaseResult(assuranceCaseResult.URI, filterURI, resourceSetForProcessing)
+					progressView.setAssuranceCaseResult(assuranceCaseResult, filter)
 					progressView.setFocus
 					assureProcessor.progressUpdater = [vaResultURI |
 						viewSite.workbenchWindow.workbench.display.asyncExec[progressView.update(vaResultURI)]
 					]
 					progressViewHolder.set(progressView)
-					
-					/*
-					 * TODO
-					 * From AssureHandler.displayView(AssuranceCaseResult, IWorkbenchPage)
-					 * 
-					 * 
-					 * show AssureRequirementsCoverageView
-					 * set proofs on coverage view
-					 * set assure processor's coverage tree viewer
-					 * 
-					 * show AssureProgressView
-					 * set proofs on progress view
-					 * set focus on progress view
-					 * set assure processor's progress tree viewer
-					 */
 				]
 				try {
 					assureProcessor.processCase(assuranceCaseResult, filter, monitor)
