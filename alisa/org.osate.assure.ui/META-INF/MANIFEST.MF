@@ -36,11 +36,10 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Export-Package: org.osate.assure.ui,
  org.osate.assure.ui.contentassist,
  org.osate.assure.ui.contentassist.antlr,
- org.osate.assure.ui.handlers,
+ org.osate.assure.ui.contentassist.antlr.internal,
  org.osate.assure.ui.internal,
  org.osate.assure.ui.labeling,
  org.osate.assure.ui.outline,
- org.osate.assure.ui.quickfix,
- org.osate.assure.ui.contentassist.antlr.internal
+ org.osate.assure.ui.quickfix
 Bundle-Activator: org.osate.assure.ui.internal.AssureActivator
 Import-Package: org.apache.log4j
