@@ -149,12 +149,12 @@ class AlisaView2 extends ViewPart {
 				alisaViewer.expandedElements = expandedElements
 				
 				displayedCaseAndFilter = null -> null
-				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI)
+				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, true)
 			]
 		} else if (assureFileChanged.get) {
 			viewSite.workbenchWindow.workbench.display.asyncExec[
 				displayedCaseAndFilter = null -> null
-				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI)
+				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, false)
 			]
 		}
 	]
@@ -328,11 +328,11 @@ class AlisaView2 extends ViewPart {
 							selectedFilters.remove(assuranceCase)
 						}
 						treeViewer.update(assuranceCase, null)
-						updateAssureViewer(assuranceCase)
+						updateAssureViewer(assuranceCase, true)
 					}
 				}
 			]
-			treeViewer.addSelectionChangedListener[updateAssureViewer(treeViewer.structuredSelection.firstElement as URI)]
+			treeViewer.addSelectionChangedListener[updateAssureViewer(treeViewer.structuredSelection.firstElement as URI, true)]
 			
 			val manager = new MenuManager
 			manager.removeAllWhenShown = true
@@ -563,26 +563,39 @@ class AlisaView2 extends ViewPart {
 		}
 	}
 	
-	def private updateAssureViewer(URI assuranceCaseURI) {
+	def private updateAssureViewer(URI assuranceCaseURI, boolean updateRequirementsCoverageView) {
 		val newURIs = assuranceCaseURI -> selectedFilters.get(assuranceCaseURI)
 		if (displayedCaseAndFilter != newURIs) {
 			displayedCaseAndFilter = newURIs
-			val expandedElements = assureViewer.expandedElements
-			assureViewer.input = if (assuranceCaseURI != null) {
+			
+			val result = if (assuranceCaseURI != null) {
 				val selectedAlisaObject = resourceSetForUI.getEObject(assuranceCaseURI, true)
 				if (selectedAlisaObject instanceof AssuranceCase) {
 					val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
 					val results = resultDescriptions.map[resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult]
-					val result = results.findFirst[name == selectedAlisaObject.name]
+					results.findFirst[name == selectedAlisaObject.name]
+				}
+			}
+			val filter = if (result != null && displayedCaseAndFilter.value != null) {
+				resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
+			}
+			
+			val expandedElements = assureViewer.expandedElements
+			assureViewer.input = if (result != null) {
+				result.recomputeAllCounts(filter)
+				#[result.URI]
+			}
+			assureViewer.expandedElements = expandedElements
+			if (updateRequirementsCoverageView) {
+				val coverageView = viewSite.page.findView(AssureRequirementsCoverageView2.ID) as AssureRequirementsCoverageView2
+				if (coverageView != null) {
 					if (result != null) {
-						result.recomputeAllCounts(if (displayedCaseAndFilter.value != null) {
-							resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
-						})
-						#[result.URI]
+						coverageView.setAssuranceCaseResult(result, filter)
+					} else {
+						coverageView.clear
 					}
 				}
 			}
-			assureViewer.expandedElements = expandedElements
 		}
 	}
 	

@@ -454,6 +454,11 @@ class AssureRequirementsCoverageView2 extends ViewPart {
 		treeViewer.expandedElements = expandedElements
 	}
 	
+	def package void clear() {
+		treeViewer.input = null
+		resourceSet = null
+	}
+	
 	def package void refresh() {
 		treeViewer.refresh
 	}
