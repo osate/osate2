@@ -129,9 +129,6 @@ class AssureProcessor implements IAssureProcessor {
 
 //		val instanceroot = vaResult.assuranceCaseInstanceModel
 //		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
-		val targetPath = vaResult.buildCaseModelElementPath
-		System.out.println(
-			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + targetPath);
 	}
 
 	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor) {
@@ -416,7 +413,6 @@ class AssureProcessor implements IAssureProcessor {
 					if (agreemethod.isAll) { // is recursive
 						// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
 					} else if (agreemethod.singleLayer) {
-						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
 //						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
 					// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
 					// Currently Agree does not work on Flows or Connections so this is valid
@@ -644,15 +640,10 @@ class AssureProcessor implements IAssureProcessor {
 					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
 					if (reqValue != modelValue) {
-						println(
-							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
-								") does not match required value (" + reqValue + unit.name + ")")
 						result.addErrorIssue(object,
 							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
 								") does not match required value (" + reqValue + unit.name + ")")
 						result.setToFail
-					} else {
-						println("   match " + modelValue + " == " + reqValue)
 					}
 				}
 			} catch (Exception e) {

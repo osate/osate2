@@ -19,60 +19,56 @@
  */
 package org.osate.assure.generator
 
-import org.osate.assure.assure.AssureFactory
+import com.google.inject.ImplementedBy
+import com.google.inject.Inject
 import java.util.Collections
 import java.util.List
-import org.osate.verify.verify.VerificationPlan
-import org.osate.alisa.workbench.alisa.AssuranceTask
-import org.osate.alisa.workbench.alisa.AssurancePlan
-import org.osate.verify.util.IVerifyGlobalReferenceFinder
-import com.google.inject.Inject
+import org.eclipse.emf.common.util.BasicEList
+import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.ComponentClassifier
-import org.osate.alisa.workbench.alisa.AssuranceCase
-import org.osate.aadl2.ComponentType
 import org.osate.aadl2.ComponentImplementation
-import org.eclipse.emf.common.util.UniqueEList
+import org.osate.aadl2.NamedElement
+import org.osate.aadl2.Subcomponent
+import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.workbench.alisa.AssuranceCase
+import org.osate.alisa.workbench.alisa.AssurancePlan
+import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
+import org.osate.assure.assure.AssuranceCaseResult
+import org.osate.assure.assure.AssureFactory
 import org.osate.assure.assure.ClaimResult
-import org.osate.verify.verify.Claim
+import org.osate.assure.assure.ModelResult
+import org.osate.assure.assure.NestedClaimReference
+import org.osate.assure.assure.PreconditionResult
+import org.osate.assure.assure.QualifiedClaimReference
+import org.osate.assure.assure.QualifiedVAReference
+import org.osate.assure.assure.SubsystemResult
+import org.osate.assure.assure.ValidationResult
+import org.osate.assure.assure.VerificationActivityResult
+import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
-import org.osate.verify.verify.ArgumentExpr
+import org.osate.assure.assure.VerificationResult
+import org.osate.assure.assure.VerificationResultState
+import org.osate.reqspec.reqSpec.GlobalRequirementSet
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.RequirementSet
+import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.reqspec.reqSpec.ValuePredicate
+import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import org.osate.verify.verify.AllExpr
-import org.osate.verify.verify.ThenExpr
+import org.osate.verify.verify.ArgumentExpr
+import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.RefExpr
-import org.osate.assure.assure.VerificationResultState
-import org.osate.assure.assure.VerificationExecutionState
+import org.osate.verify.verify.ThenExpr
 import org.osate.verify.verify.VerificationActivity
-import org.osate.assure.assure.VerificationResult
-import org.osate.verify.verify.VerificationValidation
-import org.osate.verify.verify.VerificationPrecondition
 import org.osate.verify.verify.VerificationCondition
-import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.assure.assure.ModelResult
-import org.osate.aadl2.util.Aadl2Util
-import org.eclipse.emf.common.util.EList
-import org.eclipse.emf.common.util.BasicEList
-import org.osate.reqspec.reqSpec.SystemRequirementSet
-import org.osate.reqspec.reqSpec.RequirementSet
+import org.osate.verify.verify.VerificationPlan
+import org.osate.verify.verify.VerificationPrecondition
+import org.osate.verify.verify.VerificationValidation
 
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
-import static extension org.osate.alisa.common.util.CommonUtilExtension.*
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.reqspec.reqSpec.GlobalRequirementSet
-import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.assure.QualifiedVAReference
-import org.osate.assure.assure.NestedClaimReference
-import org.osate.assure.assure.ValidationResult
-import org.osate.assure.assure.PreconditionResult
-import org.osate.aadl2.NamedElement
-import org.osate.assure.assure.QualifiedClaimReference
-import org.osate.assure.assure.SubsystemResult
-import org.osate.aadl2.Subcomponent
-import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
-import com.google.inject.ImplementedBy
-import org.osate.reqspec.reqSpec.ValuePredicate
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -146,7 +142,6 @@ class AssureConstructor implements IAssureConstructor {
 //		if(APparts.length == 0) return ''''''
 		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase)
 		// doSubsystemResult(acp, myplans, cc, mr.subsystemResult, mr.subAssuranceCase)
-		System.out.println("AssureConstructor constructModelResult: 1111");
 
 		if (mr.claimResult.length == 0 && mr.subsystemResult.length == 0 && mr.subAssuranceCase.length == 0) return null
 
