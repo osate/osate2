@@ -70,9 +70,9 @@ import org.osate.assure.assure.SubsystemResult
 import org.osate.assure.assure.ThenResult
 import org.osate.assure.assure.ValidationResult
 import org.osate.assure.assure.VerificationActivityResult
-import org.osate.assure.evaluator.IAssureProcessor2
+import org.osate.assure.evaluator.IAssureProcessor
 import org.osate.assure.generator.IAssureConstructor
-import org.osate.assure.ui.labeling.AssureColorBlockCountHolder2
+import org.osate.assure.ui.labeling.AssureColorBlockCountHolder
 import org.osate.assure.util.AssureUtilExtension
 import org.osate.categories.categories.CategoriesPackage
 import org.osate.categories.categories.CategoryFilter
@@ -94,7 +94,7 @@ import static extension org.osate.assure.util.AssureUtilExtension.recomputeAllCo
 import static extension org.osate.assure.util.AssureUtilExtension.resetToTBD
 import static extension org.osate.assure.util.AssureUtilExtension.toTextLabel
 
-class AlisaView2 extends ViewPart {
+class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
 	val static FILTER_URIS_KEY = "FILTER_URIS_KEY"
 	val static ALISA_EXTENSION = "alisa"
@@ -105,7 +105,7 @@ class AlisaView2 extends ViewPart {
 	val IResourceDescriptions rds
 	val GlobalURIEditorOpener editorOpener
 	val IAssureConstructor assureConstructor
-	val IAssureProcessor2 assureProcessor
+	val IAssureProcessor assureProcessor
 	val String settingsFileName
 	val IDialogSettings dialogSettings
 	
@@ -160,7 +160,7 @@ class AlisaView2 extends ViewPart {
 	]
 	
 	@Inject
-	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener, IAssureConstructor assureConstructor, IAssureProcessor2 assureProcessor) {
+	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener, IAssureConstructor assureConstructor, IAssureProcessor assureProcessor) {
 		this.resourceSetProvider = resourceSetProvider
 		resourceSetForUI = resourceSetProvider.get(null)
 		this.rds = rds
@@ -547,7 +547,7 @@ class AlisaView2 extends ViewPart {
 					ClaimResult,
 					AssuranceCaseResult,
 					ModelResult,
-					SubsystemResult: AssureColorBlockCountHolder2.createAssureColorBlockCountHolder(eObject, blueColor, greenColor, redColor).colorValues.get(columnIndex)
+					SubsystemResult: AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject, blueColor, greenColor, redColor).colorValues.get(columnIndex)
 					
 					AssureResult case eObject.fail: redColor
 					AssureResult case eObject.errorTimeOut: null
@@ -587,7 +587,7 @@ class AlisaView2 extends ViewPart {
 			}
 			assureViewer.expandedElements = expandedElements
 			if (updateRequirementsCoverageView) {
-				val coverageView = viewSite.page.findView(AssureRequirementsCoverageView2.ID) as AssureRequirementsCoverageView2
+				val coverageView = viewSite.page.findView(AssureRequirementsCoverageView.ID) as AssureRequirementsCoverageView
 				if (coverageView != null) {
 					if (result != null) {
 						coverageView.setAssuranceCaseResult(result, filter)
@@ -638,13 +638,13 @@ class AlisaView2 extends ViewPart {
 				AssureUtilExtension.clearAllInstanceModels
 				val progressViewHolder = new AtomicReference
 				viewSite.workbenchWindow.workbench.display.syncExec[
-					val coverageView = viewSite.page.showView(AssureRequirementsCoverageView2.ID) as AssureRequirementsCoverageView2
+					val coverageView = viewSite.page.showView(AssureRequirementsCoverageView.ID) as AssureRequirementsCoverageView
 					coverageView.setAssuranceCaseResult(assuranceCaseResult, filter)
 					assureProcessor.requirementsCoverageUpdater = [
 						viewSite.workbenchWindow.workbench.display.asyncExec[coverageView.refresh]
 					]
 					
-					val progressView = viewSite.page.showView(AssureProgressView2.ID) as AssureProgressView2
+					val progressView = viewSite.page.showView(AssureProgressView.ID) as AssureProgressView
 					progressView.setAssuranceCaseResult(assuranceCaseResult, filter)
 					progressView.setFocus
 					assureProcessor.progressUpdater = [vaResultURI |

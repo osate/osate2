@@ -7,7 +7,7 @@ import org.eclipse.swt.graphics.Color;
 import org.osate.assure.assure.AssureResult;
 import org.osate.assure.util.AssureUtilExtension;
 
-public class AssureColorBlockCountHolder2 {
+public class AssureColorBlockCountHolder {
 
 	private int totalCount;
 	private int successBlocks;
@@ -15,14 +15,14 @@ public class AssureColorBlockCountHolder2 {
 	private int failBlocks;
 	private List<Color> colorValues = new ArrayList<Color>();
 
-	private AssureColorBlockCountHolder2(Color blueColor) {
+	private AssureColorBlockCountHolder(Color blueColor) {
 		for (int i = 0; i < 10; i++) {
 			colorValues.add(blueColor);
 		}
 	}
 
-	public static AssureColorBlockCountHolder2 createAssureColorBlockCountHolder(Object resultObj, Color blueColor, Color greenColor, Color redColor) {
-		AssureColorBlockCountHolder2 assureColorBlockCountHolder = new AssureColorBlockCountHolder2(blueColor);
+	public static AssureColorBlockCountHolder createAssureColorBlockCountHolder(Object resultObj, Color blueColor, Color greenColor, Color redColor) {
+		AssureColorBlockCountHolder assureColorBlockCountHolder = new AssureColorBlockCountHolder(blueColor);
 		assureColorBlockCountHolder.populateAssureColorBlockCountHolder(resultObj, greenColor, redColor);
 		return assureColorBlockCountHolder;
 	}

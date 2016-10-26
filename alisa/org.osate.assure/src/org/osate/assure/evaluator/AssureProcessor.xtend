@@ -78,8 +78,8 @@ import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
 
-@ImplementedBy(AssureProcessor2)
-interface IAssureProcessor2 {
+@ImplementedBy(AssureProcessor)
+interface IAssureProcessor {
 	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
 
 	def void setProgressUpdater((URI)=>void progressUpdater)
@@ -93,7 +93,7 @@ interface IAssureProcessor2 {
  * Will process only those that are TBD
  * It assumes the counts are ok
  */
-class AssureProcessor2 implements IAssureProcessor2 {
+class AssureProcessor implements IAssureProcessor {
 
 	var CommonInterpreter interpreter = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(URI.createFileURI("dummy.___common___")).get(CommonInterpreter)
 	

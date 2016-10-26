@@ -27,8 +27,8 @@ import static extension org.osate.verify.util.VerifyUtilExtension.evaluateRequir
 import static extension org.osate.verify.util.VerifyUtilExtension.evaluateVerificationActivityFilter
 import static extension org.osate.verify.util.VerifyUtilExtension.evaluateVerificationMethodFilter
 
-class AssureProgressView2 extends ViewPart {
-	val package static String ID = "org.osate.assure.ui.views.assureProgressView2"
+class AssureProgressView extends ViewPart {
+	val package static String ID = "org.osate.assure.ui.views.assureProgressView"
 	
 	ResourceSet resourceSet
 	

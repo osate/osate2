@@ -221,25 +221,25 @@
       </category>
        <view
              category="org.osate.alisa.assure"
-             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AlisaView2"
+             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AlisaView"
              icon="icons/claims.png"
-             id="org.osate.assure.ui.views.alisaView2"
-             name="Alisa View 2"
+             id="org.osate.assure.ui.views.alisaView"
+             name="Alisa View"
              restorable="true">
        </view>
        <view
              category="org.osate.alisa.assure"
-             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureProgressView2"
+             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureProgressView"
              icon="icons/claims.png"
-             id="org.osate.assure.ui.views.assureProgressView2"
-             name="Assurance Progress 2">
+             id="org.osate.assure.ui.views.assureProgressView"
+             name="Assurance Progress">
        </view>
        <view
              category="org.osate.alisa.assure"
-             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureRequirementsCoverageView2"
+             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureRequirementsCoverageView"
              icon="icons/claims.png"
-             id="org.osate.assure.ui.views.assure.requirements.coverage.view2"
-             name="Assurance Requirements Coverage 2">
+             id="org.osate.assure.ui.views.assure.requirements.coverage.view"
+             name="Assurance Requirements Coverage">
        </view>
    </extension>
      

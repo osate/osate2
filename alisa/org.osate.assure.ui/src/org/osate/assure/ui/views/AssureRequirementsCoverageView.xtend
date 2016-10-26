@@ -44,8 +44,8 @@ import static extension org.osate.assure.util.AssureUtilExtension.isFail
 import static extension org.osate.assure.util.AssureUtilExtension.isSuccessful
 import static extension org.osate.assure.util.AssureUtilExtension.isZeroCount
 
-class AssureRequirementsCoverageView2 extends ViewPart {
-	val package static String ID = "org.osate.assure.ui.views.assure.requirements.coverage.view2"
+class AssureRequirementsCoverageView extends ViewPart {
+	val package static String ID = "org.osate.assure.ui.views.assure.requirements.coverage.view"
 	
 	ResourceSet resourceSet
 	val IAssureRequirementMetricsProcessor assureRequirementMetricsProcessor
