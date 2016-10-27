@@ -86,7 +86,6 @@ import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
@@ -147,13 +146,10 @@ import org.osate.ge.internal.features.RenameConnectionFeature;
 import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
 import org.osate.ge.internal.patterns.SubprogramCallOrder;
-import org.osate.ge.internal.patterns.SubprogramCallOrderPattern;
 import org.osate.ge.internal.patterns.SubprogramCallPattern;
 import org.osate.ge.internal.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.internal.features.PackageUpdateDiagramFeature;
-import org.osate.ge.internal.patterns.PackageClassifierPattern;
-import org.osate.ge.internal.patterns.PackageGeneralizationPattern;
 import org.osate.ge.internal.features.CreateSimpleFlowSpecificationFeature;
 import org.osate.ge.internal.features.RefineFeatureFeature;
 import org.osate.ge.internal.features.RefineFlowSpecificationFeature;
@@ -233,10 +229,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addPattern(make(ModePattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
-		// Package
-		addConnectionPattern(make(PackageGeneralizationPattern.class));
-		
-		//addPackageClassifierPatterns(); // TODO: Remove after migration	
+
 		addAadlConnectionPatterns();
 		
 		// Classifiers
@@ -248,7 +241,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
-		addConnectionPattern(make(SubprogramCallOrderPattern.class));
 		
 		// Instance Model
 		addPattern(make(ComponentInstancePattern.class));
@@ -776,52 +768,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		try {
 			childCtx.set("Value", bidirectionalityValue);
 			return ContextInjectionFactory.make(SetConnectionBidirectionalityFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
-	// Package
-	// TODO: Remove after migration
-	private void addPackageClassifierPatterns() {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		addPattern(createPackageClassifierPattern(p.getAbstractType()));
-		addPattern(createPackageClassifierPattern(p.getAbstractImplementation()));
-		addPattern(createPackageClassifierPattern(p.getBusType()));
-		addPattern(createPackageClassifierPattern(p.getBusImplementation()));
-		addPattern(createPackageClassifierPattern(p.getDataType()));
-		addPattern(createPackageClassifierPattern(p.getDataImplementation()));
-		addPattern(createPackageClassifierPattern(p.getDeviceType()));
-		addPattern(createPackageClassifierPattern(p.getDeviceImplementation()));
-		addPattern(createPackageClassifierPattern(p.getFeatureGroupType()));
-		addPattern(createPackageClassifierPattern(p.getMemoryType()));
-		addPattern(createPackageClassifierPattern(p.getMemoryImplementation()));
-		addPattern(createPackageClassifierPattern(p.getProcessType()));
-		addPattern(createPackageClassifierPattern(p.getProcessImplementation()));
-		addPattern(createPackageClassifierPattern(p.getProcessorType()));
-		addPattern(createPackageClassifierPattern(p.getProcessorImplementation()));
-		addPattern(createPackageClassifierPattern(p.getSubprogramType()));
-		addPattern(createPackageClassifierPattern(p.getSubprogramImplementation()));
-		addPattern(createPackageClassifierPattern(p.getSubprogramGroupType()));
-		addPattern(createPackageClassifierPattern(p.getSubprogramGroupImplementation()));
-		addPattern(createPackageClassifierPattern(p.getSystemType()));
-		addPattern(createPackageClassifierPattern(p.getSystemImplementation()));
-		addPattern(createPackageClassifierPattern(p.getThreadType()));
-		addPattern(createPackageClassifierPattern(p.getThreadImplementation()));
-		addPattern(createPackageClassifierPattern(p.getThreadGroupType()));
-		addPattern(createPackageClassifierPattern(p.getThreadGroupImplementation()));
-		addPattern(createPackageClassifierPattern(p.getVirtualBusType()));
-		addPattern(createPackageClassifierPattern(p.getVirtualBusImplementation()));
-		addPattern(createPackageClassifierPattern(p.getVirtualProcessorType()));
-		addPattern(createPackageClassifierPattern(p.getVirtualProcessorImplementation()));
-	}
-	
-	// TODO: Remove after migration
-	private IPattern createPackageClassifierPattern(final EClass classifierType) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Classifier Type", classifierType);
-			return ContextInjectionFactory.make(PackageClassifierPattern.class, childCtx);
 		} finally {
 			childCtx.dispose();
 		}
