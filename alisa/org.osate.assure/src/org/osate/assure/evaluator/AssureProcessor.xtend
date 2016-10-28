@@ -20,6 +20,7 @@ import com.google.inject.ImplementedBy
 import com.rockwellcollins.atc.resolute.analysis.execution.EvaluationContext
 import com.rockwellcollins.atc.resolute.analysis.execution.ResoluteInterpreter
 import com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
+import com.rockwellcollins.atc.resolute.resolute.ClaimBody
 import com.rockwellcollins.atc.resolute.resolute.FnCallExpr
 import com.rockwellcollins.atc.resolute.resolute.NestedDotID
 import com.rockwellcollins.atc.resolute.resolute.ProveStatement
@@ -33,8 +34,7 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
-import org.eclipse.jface.viewers.TreeViewer
-import org.eclipse.swt.widgets.Display
+import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
 import org.osate.aadl2.Aadl2Factory
@@ -42,7 +42,6 @@ import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
-import org.osate.aadl2.Property
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
@@ -73,20 +72,21 @@ import org.osate.verify.verify.JavaMethod
 import org.osate.verify.verify.ManualMethod
 import org.osate.verify.verify.PluginMethod
 import org.osate.verify.verify.ResoluteMethod
+import org.osate.verify.verify.VerificationMethod
 import org.osate.xtext.aadl2.properties.util.PropertyUtils
 
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.xtext.aadl2.properties.util.GetProperties
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
 	def void processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor);
 
-	def void setProgressTreeViewer(TreeViewer viewPage);
+	def void setProgressUpdater((URI)=>void progressUpdater)
 
-	def void setRequirementsCoverageTreeViewer(TreeViewer viewPage);
+	def void setRequirementsCoverageUpdater(=>void requirementsCoverageUpdater)
 }
 
 /**
@@ -101,8 +101,10 @@ class AssureProcessor implements IAssureProcessor {
 	
 	var IProgressMonitor progressmonitor
 
-	var TreeViewer progressTreeViewer
-	var TreeViewer requirementsCoverageTreeViewer
+	@Accessors(PUBLIC_SETTER)
+	(URI)=>void progressUpdater
+	@Accessors(PUBLIC_SETTER)
+	=>void requirementsCoverageUpdater
 
 	val RuleEnvironment env = new RuleEnvironment
 	val computes = new HashMap<String, PropertyExpression>
@@ -129,9 +131,6 @@ class AssureProcessor implements IAssureProcessor {
 
 //		val instanceroot = vaResult.assuranceCaseInstanceModel
 //		val targetComponent = findTargetSystemComponentInstance(instanceroot, vaResult.enclosingSubsystemResult)
-		val targetPath = vaResult.buildCaseModelElementPath
-		System.out.println(
-			"Evaluation time: " + (stop - start) / 1000.0 + "s :" + vaResult.target.name + " on " + targetPath);
 	}
 
 	override processCase(AssuranceCaseResult assureResult, CategoryFilter filter, IProgressMonitor monitor) {
@@ -356,7 +355,7 @@ class AssureProcessor implements IAssureProcessor {
 			switch (methodtype) {
 				JavaMethod: {
 					// The parameters are objects from the Properties Meta model. May need to get converted to Java base types
-					val res = executeJavaMethod(verificationResult, methodtype, target, parameterObjects)
+					val res = executeJavaMethod(verificationResult, method, target, parameterObjects)
 					if (verificationResult instanceof VerificationActivityResult) {
 						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
 						method.results.forEach [ variable |
@@ -388,6 +387,7 @@ class AssureProcessor implements IAssureProcessor {
 					// The parameters are objects from the Properties Meta model. Resolute likes them this way
 					AssureUtilExtension.initializeResoluteContext(instanceroot);
 					val EvaluationContext context = new EvaluationContext(instanceroot, sets, featToConnsMap);
+					// check for claim function or compute function
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
 					val provecall = createWrapperProveCall(methodtype, targetComponent, parameterObjects)
 					if (provecall == null) {
@@ -416,7 +416,6 @@ class AssureProcessor implements IAssureProcessor {
 					if (agreemethod.isAll) { // is recursive
 						// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
 					} else if (agreemethod.singleLayer) {
-						System.out.println("AgreeMethodAgreeMethodAgreeMethod executeSystemInstance SINGLE   ");
 //						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
 					// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
 					// Currently Agree does not work on Flows or Connections so this is valid
@@ -460,12 +459,8 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def updateRequirementsCoverage() {
-		if (requirementsCoverageTreeViewer != null) {
-			Display.getDefault().asyncExec(new Runnable() {
-				override void run() {
-					requirementsCoverageTreeViewer.refresh(true);
-				}
-			});
+		if (requirementsCoverageUpdater != null) {
+			requirementsCoverageUpdater.apply
 		}
 	}
 
@@ -497,12 +492,8 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def updateProgress(VerificationResult result) {
-		if (progressTreeViewer != null) {
-			Display.getDefault().asyncExec(new Runnable() {
-				override void run() {
-					progressTreeViewer.update(result, null)
-				}
-			});
+		if (progressUpdater != null) {
+			progressUpdater.apply(result.URI)
 		}
 	}
 
@@ -534,12 +525,13 @@ class AssureProcessor implements IAssureProcessor {
 			updateProgress(predicateResult)
 		}
 	}
-
-	def executeJavaMethod(VerificationResult verificationResult, JavaMethod methodtype, InstanceObject target,
+	
+	def executeJavaMethod(VerificationResult verificationResult, VerificationMethod method, InstanceObject target,
 		List<PropertyExpression> parameters) {
+		val methodtype = method.methodKind as JavaMethod
 		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 		if (returned != null) {
-			if (returned instanceof Boolean) {
+			if (method.isPredicate && returned instanceof Boolean) {
 				if (returned != true) {
 					setToFail(verificationResult, "", target);
 				} else {
@@ -558,13 +550,28 @@ class AssureProcessor implements IAssureProcessor {
 				verificationResult.resultReport = returned
 				setToSuccess(verificationResult)
 				new HashMap
+			} else if (method.results.size == 1 ){
+				setToSuccess(verificationResult)
+				val resparam = method.results.head
+				val res = new HashMap
+				// TODO some type checking of expected type against actual
+				res.put(resparam.name, returned)
+				res
 			} else {
-				setToError(verificationResult, "No result report from analysis", target);
+				setToError(verificationResult, "Expected more than one result value as ResultReport or HashMap", target);
 				new HashMap
 			}
 		} else {
 			new HashMap
 		}
+	}
+	
+	def isClaimFunction(ResoluteMethod rm){
+		val found = rm.methodReference
+		if(found != null && (found.body instanceof ClaimBody)){
+			return true
+		}
+		return false
 	}
 
 	def ProveStatement createWrapperProveCall(ResoluteMethod rm, ComponentInstance ci,
@@ -670,7 +677,6 @@ class AssureProcessor implements IAssureProcessor {
 						if (!modelAcc.associations.nullOrEmpty) {
 							val modelValue = modelAcc.first
 						}
-						
 					}
 				}
 			} catch (Exception e) {
@@ -679,14 +685,5 @@ class AssureProcessor implements IAssureProcessor {
 		}
 		return success;
 	}
-
-	override void setProgressTreeViewer(TreeViewer treeViewer) {
-		progressTreeViewer = treeViewer
-	}
-
-	override void setRequirementsCoverageTreeViewer(TreeViewer treeViewer) {
-		requirementsCoverageTreeViewer = treeViewer
-	}
-
 }
 

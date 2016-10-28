@@ -12,9 +12,7 @@ import org.osate.aadl2.ClassifierFeature
 import org.osate.aadl2.DataAccess
 import org.osate.aadl2.DataPort
 import org.osate.aadl2.EventDataPort
-import org.osate.alisa.common.scoping.ICommonGlobalReferenceFinder
 import org.osate.assure.assure.AssuranceCaseResult
-import org.osate.assure.assure.AssureResult
 import org.osate.assure.assure.ModelResult
 import org.osate.assure.assure.SubsystemResult
 import org.osate.categories.categories.Categories
@@ -41,7 +39,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 	var CategoryFilter myFilter
 	
 	@Inject IReqspecGlobalReferenceFinder reqSpecrefFinder
-	@Inject ICommonGlobalReferenceFinder commonRefFinder
+
 	@Inject
 	new(ResourceDescriptionsProvider rdp) {
 		this.rdp = rdp
@@ -61,10 +59,8 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 	}
 
 	def int getTotalQualityCategoriesCount(EObject ele){
-		println("ele = " + ele)
 		 EcoreUtil.resolveAll(ele);
 		
-		println("ele.eResource = " + ele.eResource)
 		val rds = rdp.getResourceDescriptions(ele.eResource)
 		val categoriesDescriptions = rds.getExportedObjectsByType(CategoriesPackage.eINSTANCE.categories)
 		val categories = categoriesDescriptions.map[EObjectOrProxy.resolve(ele) as Categories]
