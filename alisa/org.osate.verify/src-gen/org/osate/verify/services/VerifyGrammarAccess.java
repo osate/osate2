@@ -213,8 +213,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Claim} "claim" requirement=[ReqSpec::Requirement|QualifiedName]? (":" title=STRING)? "[" (("activities"
-		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & ("weight" weight=INT)?
-		//& subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
+		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & ("weight" weight=INT)? &
+		//subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//{Claim}
@@ -730,13 +730,11 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cLeftParenthesisKeyword_8_2 = (Keyword)cGroup_8.eContents().get(2);
 		private final Group cGroup_8_3 = (Group)cGroup_8.eContents().get(3);
 		private final Assignment cPropertyValuesAssignment_8_3_0 = (Assignment)cGroup_8_3.eContents().get(0);
-		private final CrossReference cPropertyValuesValDeclarationCrossReference_8_3_0_0 = (CrossReference)cPropertyValuesAssignment_8_3_0.eContents().get(0);
-		private final RuleCall cPropertyValuesValDeclarationIDTerminalRuleCall_8_3_0_0_1 = (RuleCall)cPropertyValuesValDeclarationCrossReference_8_3_0_0.eContents().get(1);
+		private final RuleCall cPropertyValuesAExpressionParserRuleCall_8_3_0_0 = (RuleCall)cPropertyValuesAssignment_8_3_0.eContents().get(0);
 		private final Group cGroup_8_3_1 = (Group)cGroup_8_3.eContents().get(1);
 		private final Keyword cCommaKeyword_8_3_1_0 = (Keyword)cGroup_8_3_1.eContents().get(0);
 		private final Assignment cPropertyValuesAssignment_8_3_1_1 = (Assignment)cGroup_8_3_1.eContents().get(1);
-		private final CrossReference cPropertyValuesValDeclarationCrossReference_8_3_1_1_0 = (CrossReference)cPropertyValuesAssignment_8_3_1_1.eContents().get(0);
-		private final RuleCall cPropertyValuesValDeclarationIDTerminalRuleCall_8_3_1_1_0_1 = (RuleCall)cPropertyValuesValDeclarationCrossReference_8_3_1_1_0.eContents().get(1);
+		private final RuleCall cPropertyValuesAExpressionParserRuleCall_8_3_1_1_0 = (RuleCall)cPropertyValuesAssignment_8_3_1_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_8_4 = (Keyword)cGroup_8.eContents().get(4);
 		private final Group cGroup_9 = (Group)cGroup.eContents().get(9);
 		private final Keyword cLeftSquareBracketKeyword_9_0 = (Keyword)cGroup_9.eContents().get(0);
@@ -759,17 +757,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//VerificationActivity:
 		//	name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
 		//	method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-		//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "("
-		//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("category"
-		//	category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-		//	"]")?;
+		//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "(" (propertyValues+=AExpression (","
+		//	propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? & ("timeout"
+		//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
 		//method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-		//"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "("
-		//(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("category"
-		//category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?
+		//"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "(" (propertyValues+=AExpression (","
+		//propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? & ("timeout"
+		//timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -854,8 +851,7 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//")"
 		public Keyword getRightParenthesisKeyword_7() { return cRightParenthesisKeyword_7; }
 
-		//("property" "values" "(" (propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)?
-		//")")?
+		//("property" "values" "(" (propertyValues+=AExpression ("," propertyValues+=AExpression)*)? ")")?
 		public Group getGroup_8() { return cGroup_8; }
 
 		//"property"
@@ -867,32 +863,26 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//"("
 		public Keyword getLeftParenthesisKeyword_8_2() { return cLeftParenthesisKeyword_8_2; }
 
-		//(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)?
+		//(propertyValues+=AExpression ("," propertyValues+=AExpression)*)?
 		public Group getGroup_8_3() { return cGroup_8_3; }
 
-		//propertyValues+=[common::ValDeclaration]
+		//propertyValues+=AExpression
 		public Assignment getPropertyValuesAssignment_8_3_0() { return cPropertyValuesAssignment_8_3_0; }
 
-		//[common::ValDeclaration]
-		public CrossReference getPropertyValuesValDeclarationCrossReference_8_3_0_0() { return cPropertyValuesValDeclarationCrossReference_8_3_0_0; }
+		//AExpression
+		public RuleCall getPropertyValuesAExpressionParserRuleCall_8_3_0_0() { return cPropertyValuesAExpressionParserRuleCall_8_3_0_0; }
 
-		//ID
-		public RuleCall getPropertyValuesValDeclarationIDTerminalRuleCall_8_3_0_0_1() { return cPropertyValuesValDeclarationIDTerminalRuleCall_8_3_0_0_1; }
-
-		//("," propertyValues+=[common::ValDeclaration])*
+		//("," propertyValues+=AExpression)*
 		public Group getGroup_8_3_1() { return cGroup_8_3_1; }
 
 		//","
 		public Keyword getCommaKeyword_8_3_1_0() { return cCommaKeyword_8_3_1_0; }
 
-		//propertyValues+=[common::ValDeclaration]
+		//propertyValues+=AExpression
 		public Assignment getPropertyValuesAssignment_8_3_1_1() { return cPropertyValuesAssignment_8_3_1_1; }
 
-		//[common::ValDeclaration]
-		public CrossReference getPropertyValuesValDeclarationCrossReference_8_3_1_1_0() { return cPropertyValuesValDeclarationCrossReference_8_3_1_1_0; }
-
-		//ID
-		public RuleCall getPropertyValuesValDeclarationIDTerminalRuleCall_8_3_1_1_0_1() { return cPropertyValuesValDeclarationIDTerminalRuleCall_8_3_1_1_0_1; }
+		//AExpression
+		public RuleCall getPropertyValuesAExpressionParserRuleCall_8_3_1_1_0() { return cPropertyValuesAExpressionParserRuleCall_8_3_1_1_0; }
 
 		//")"
 		public Keyword getRightParenthesisKeyword_8_4() { return cRightParenthesisKeyword_8_4; }
@@ -1050,8 +1040,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationPrecondition returns VerificationCondition:
-		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
-		//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+		//	("," parameters+=[FormalParameter])*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
@@ -1361,8 +1351,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
 		//("(" (targetType=TargetType ",")? (formals+=FormalParameter ("," formals+=FormalParameter)*)? ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
-		//")")? ("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
+		//("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
 		//isResultReport?="report")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
@@ -2133,10 +2123,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//VerificationActivity:
 	//	name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
 	//	method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
-	//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "("
-	//	(propertyValues+=[common::ValDeclaration] ("," propertyValues+=[common::ValDeclaration])*)? ")")? ("[" (("category"
-	//	category+=[categories::Category|QualifiedName]+)? & ("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?)
-	//	"]")?;
+	//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "(" (propertyValues+=AExpression (","
+	//	propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? & ("timeout"
+	//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -2157,8 +2146,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationPrecondition returns VerificationCondition:
-	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
-	//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
+	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
+	//	("," parameters+=[FormalParameter])*)? ")";
 	public VerificationPreconditionElements getVerificationPreconditionAccess() {
 		return pVerificationPrecondition;
 	}

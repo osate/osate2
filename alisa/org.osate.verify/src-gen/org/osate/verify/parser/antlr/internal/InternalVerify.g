@@ -1374,15 +1374,20 @@ ruleVerificationActivity returns [EObject current=null]
     }
 ((
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionParserRuleCall_8_3_0_0()); 
+	    }
+		lv_propertyValues_17_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
 	        }
-        }
-	otherlv_17=RULE_ID
-	{
-		newLeafNode(otherlv_17, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_8_3_0_0()); 
-	}
+       		add(
+       			$current, 
+       			"propertyValues",
+        		lv_propertyValues_17_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 )(	otherlv_18=',' 
@@ -1391,15 +1396,20 @@ ruleVerificationActivity returns [EObject current=null]
     }
 (
 (
-		{
-			if ($current==null) {
-	            $current = createModelElement(grammarAccess.getVerificationActivityRule());
+		{ 
+	        newCompositeNode(grammarAccess.getVerificationActivityAccess().getPropertyValuesAExpressionParserRuleCall_8_3_1_1_0()); 
+	    }
+		lv_propertyValues_19_0=ruleAExpression		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getVerificationActivityRule());
 	        }
-        }
-	otherlv_19=RULE_ID
-	{
-		newLeafNode(otherlv_19, grammarAccess.getVerificationActivityAccess().getPropertyValuesValDeclarationCrossReference_8_3_1_1_0()); 
-	}
+       		add(
+       			$current, 
+       			"propertyValues",
+        		lv_propertyValues_19_0, 
+        		"AExpression");
+	        afterParserOrEnumRuleCall();
+	    }
 
 )
 ))*)?	otherlv_20=')' 

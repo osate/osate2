@@ -91,7 +91,7 @@ VerificationActivity:
 	'(' (actuals+=AExpression (',' actuals+=AExpression)*)? ')' 
 	(
 		'property' 'values' '(' 
-		(propertyValues+=[common::ValDeclaration|ID] (',' propertyValues+=[common::ValDeclaration|ID])*)? 
+		(propertyValues+=AExpression (',' propertyValues+=AExpression)*)? 
 		')'
 	)?
 	('['(

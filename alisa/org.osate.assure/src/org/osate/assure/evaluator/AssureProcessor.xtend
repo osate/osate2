@@ -42,6 +42,7 @@ import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.Property
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
@@ -77,6 +78,7 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.xtext.aadl2.properties.util.GetProperties
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -629,36 +631,46 @@ class AssureProcessor implements IAssureProcessor {
 		call
 	}
 
-	def boolean checkProperties(InstanceObject object, VerificationActivityResult result) {
-		val method = result.method
+	def boolean checkProperties(InstanceObject object, VerificationActivityResult vaResult) {
+		val method = vaResult.method
 		val properties = method.properties
-		val values = result.target.propertyValues
+		val exps = vaResult.target.propertyValues
 
-		val iter1 = properties.iterator
-		val iter2 = values.iterator
+		val propIter = properties.iterator
+		val expIter = exps.iterator
 		var success = true;
 
-		while (iter1.hasNext && iter2.hasNext) {
-			val property = iter1.next
-			val variable = iter2.next
+		while (propIter.hasNext && expIter.hasNext) {
+			val property = propIter.next
+			val exp = expIter.next
 
 			try {
-				val value = variable.value
-				if (value instanceof NumberValue) {
-					val unit = value.unit
-					val reqValue = value.getScaledValue(unit)
-					val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+				val expResult = interpreter.interpretExpression(env, exp)
+				if (expResult.failed) {
+					setToError(vaResult,
+						"Could not evaluate expression for " + property.name + ": " +
+							expResult.ruleFailedException, null)
+					success = false
+				} else {
+					val value = expResult.value
+					if (value instanceof NumberValue) {
+						val unit = value.unit
+						val reqValue = value.getScaledValue(unit)
+						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
 
-					if (reqValue != modelValue) {
-						println(
-							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
-								") does not match required value (" + reqValue + unit.name + ")")
-						result.addErrorIssue(object,
-							"Property " + property.getQualifiedName() + ": Value in model (" + modelValue + unit.name +
-								") does not match required value (" + reqValue + unit.name + ")")
-						result.setToFail
+						if (reqValue != modelValue) {
+							vaResult.addFailIssue(object,
+								"Property " + property.getQualifiedName() + ": Value in model (" +
+									modelValue + unit.name + ") does not match required value (" +
+									reqValue + unit.name + ")", "")
+							vaResult.setToFail
+						}
 					} else {
-						println("   match " + modelValue + " == " + reqValue)
+						val modelAcc = object.getPropertyValue(property)
+						if (!modelAcc.associations.nullOrEmpty) {
+							val modelValue = modelAcc.first
+						}
+						
 					}
 				}
 			} catch (Exception e) {

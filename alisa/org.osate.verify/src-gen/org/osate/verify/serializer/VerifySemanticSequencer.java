@@ -512,7 +512,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *         (computes+=ComputeRef computes+=ComputeRef*)? 
 	 *         method=[VerificationMethod|QualifiedName] 
 	 *         (actuals+=AExpression actuals+=AExpression*)? 
-	 *         (propertyValues+=[ValDeclaration|ID] propertyValues+=[ValDeclaration|ID]*)? 
+	 *         (propertyValues+=AExpression propertyValues+=AExpression*)? 
 	 *         (category+=[Category|QualifiedName]* timeout=AIntegerTerm? weight=INT?)?
 	 *     )
 	 */

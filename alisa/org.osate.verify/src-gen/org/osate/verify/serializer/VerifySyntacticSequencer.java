@@ -353,7 +353,7 @@ public class VerifySyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     actuals+=AExpression ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
 	 *     method=[VerificationMethod|QualifiedName] '(' ')' ('property' 'values' '(' ')')? (ambiguity) (rule end)
-	 *     propertyValues+=[ValDeclaration|ID] ')' (ambiguity) (rule end)
+	 *     propertyValues+=AExpression ')' (ambiguity) (rule end)
 	 */
 	protected void emit_VerificationActivity___LeftSquareBracketKeyword_9_0_RightSquareBracketKeyword_9_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
