@@ -191,29 +191,19 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a.i".assertEquals(name)
-				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head => [
-					//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(Classifier, EReference)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).propagations.head.featureorPPRef => [
+					"fg1".assertEquals(featureorPP.name)
+					//Tests scope_FeatureorPPReference_featureorPP
 					assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
-					featureorPPRef => [
-						"fg1".assertEquals(featureorPP.name)
-						//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+					next => [
+						"fg2".assertEquals(featureorPP.name)
+						//Tests scope_FeatureorPPReference_featureorPP
 						assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
-						//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-						assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["eds", "es", "fg1", "op1", "point1", "point2"])
 						next => [
-							"fg2".assertEquals(featureorPP.name)
-							//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
+							"op3".assertEquals(featureorPP.name)
+							//Tests scope_FeatureorPPReference_featureorPP
 							assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
-							//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-							assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["fg2", "op2"])
-							next => [
-								"op3".assertEquals(featureorPP.name)
-								//Tests ErrorModelScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-								assertScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #[])
-								//Tests ErrorModelSerializerScopeProvider.scope_FeatureorPPReference_featureorPP(FeatureorPPReference, EReference)
-								assertSerializerScope(ErrorModelPackage.eINSTANCE.featureorPPReference_FeatureorPP, #["op3"])
-								next.assertNull
-							]
+							next.assertNull
 						]
 					]
 				]
