@@ -1,4 +1,4 @@
-package org.osate.ge.internal.features;
+package org.osate.ge.internal.graphiti.features;
 
 import java.util.Iterator;
 import java.util.Objects;
@@ -46,7 +46,7 @@ import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.styles.StyleConstants;
 
-public class BoRefreshHelper {
+public class BoHandlerRefreshHelper {
 	private final ExtensionService extService;
 	private final GhostingService ghostingService;
 	private final LabelService labelService;
@@ -58,7 +58,7 @@ public class BoRefreshHelper {
 	private final StyleService styleService;
 	private final IFeatureProvider featureProvider;
 	
-	public BoRefreshHelper(final ExtensionService extService,
+	public BoHandlerRefreshHelper(final ExtensionService extService,
 		final GhostingService ghostingService,
 		final LabelService labelService,
 		final ShapeCreationService shapeCreationService,

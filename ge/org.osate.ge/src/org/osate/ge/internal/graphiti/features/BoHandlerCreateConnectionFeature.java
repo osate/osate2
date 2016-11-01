@@ -1,4 +1,4 @@
-package org.osate.ge.internal.features;
+package org.osate.ge.internal.graphiti.features;
 
 import java.util.Objects;
 

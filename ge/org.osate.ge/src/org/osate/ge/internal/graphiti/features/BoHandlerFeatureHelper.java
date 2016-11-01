@@ -1,4 +1,4 @@
-package org.osate.ge.internal.features;
+package org.osate.ge.internal.graphiti.features;
 
 /**
  * Helper class shared between business object handler features

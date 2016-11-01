@@ -1,4 +1,4 @@
-package org.osate.ge.internal.features;
+package org.osate.ge.internal.graphiti.features;
 
 import java.util.Objects;
 
@@ -18,13 +18,13 @@ import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
 
-public class BusinessObjectHandlerResizeShapeFeature extends DefaultResizeShapeFeature {
+public class BoHandlerResizeShapeFeature extends DefaultResizeShapeFeature {
 	private final BusinessObjectResolutionService bor;
 	private final ExtensionService extService;
 	private final Object handler;
 	
 	@Inject
-	public BusinessObjectHandlerResizeShapeFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final IFeatureProvider fp, final Object boHandler) {
+	public BoHandlerResizeShapeFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final IFeatureProvider fp, final Object boHandler) {
 		super(fp);
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");

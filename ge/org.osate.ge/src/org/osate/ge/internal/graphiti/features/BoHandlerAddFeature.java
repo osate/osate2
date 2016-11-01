@@ -1,4 +1,4 @@
-package org.osate.ge.internal.features;
+package org.osate.ge.internal.graphiti.features;
 
 import java.util.Objects;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
@@ -14,10 +14,10 @@ import org.osate.ge.internal.services.ExtensionService;
 
 // IAddFeature implementation that delegates behavior to a business object handler
 public class BoHandlerAddFeature extends AbstractAddFeature implements ICustomUndoRedoFeature{
-	private final BoRefreshHelper refreshHelper;
+	private final BoHandlerRefreshHelper refreshHelper;
 	private final Object handler;
 	
-	public BoHandlerAddFeature(final ExtensionService extService, final BoRefreshHelper refreshHelper, 
+	public BoHandlerAddFeature(final ExtensionService extService, final BoHandlerRefreshHelper refreshHelper, 
 			final IFeatureProvider fp, final Object boHandler) {
 		super(fp);
 		this.refreshHelper = Objects.requireNonNull(refreshHelper, "refreshHelper must not be null");

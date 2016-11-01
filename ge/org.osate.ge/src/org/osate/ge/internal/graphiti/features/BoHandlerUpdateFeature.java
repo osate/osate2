@@ -1,4 +1,4 @@
-package org.osate.ge.internal.features;
+package org.osate.ge.internal.graphiti.features;
 
 import java.util.Objects;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramService;
@@ -24,11 +25,11 @@ public class BoHandlerUpdateFeature extends AbstractUpdateFeature implements ICu
 	private final DiagramService diagramService;
 	private final BusinessObjectResolutionService bor;
 	private final ConnectionService connectionService;
-	private final BoRefreshHelper refreshHelper;
+	private final BoHandlerRefreshHelper refreshHelper;
 	private final Object handler;
 	
 	public BoHandlerUpdateFeature(final DiagramService diagramService, final BusinessObjectResolutionService bor, final ConnectionService connectionService,
-			final BoRefreshHelper refreshHelper, final IFeatureProvider fp, final Object boHandler) {
+			final BoHandlerRefreshHelper refreshHelper, final IFeatureProvider fp, final Object boHandler) {
 		super(fp);
 		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");

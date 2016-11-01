@@ -108,17 +108,17 @@ import org.osate.ge.internal.features.InstanceUpdateDiagramFeature;
 import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.features.SelectAncestorFeature;
-import org.osate.ge.internal.features.BoHandlerAddFeature;
-import org.osate.ge.internal.features.BoHandlerCreateConnectionFeature;
-import org.osate.ge.internal.features.BoHandlerCreateFeature;
-import org.osate.ge.internal.features.BoHandlerDeleteFeature;
-import org.osate.ge.internal.features.BoHandlerDirectEditFeature;
-import org.osate.ge.internal.features.BoHandlerLayoutFeature;
-import org.osate.ge.internal.features.BoRefreshHelper;
-import org.osate.ge.internal.features.BusinessObjectHandlerResizeShapeFeature;
-import org.osate.ge.internal.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerAddFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
+import org.osate.ge.internal.graphiti.features.BoHandlerResizeShapeFeature;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
@@ -189,7 +189,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private BoHandlerLayoutFeature defaultLayoutFeature;
-	private BoRefreshHelper pictogramRefreshHelper;
+	private BoHandlerRefreshHelper pictogramRefreshHelper;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -213,7 +213,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final ConnectionCreationService connectionCreationService = Objects.requireNonNull(eclipseContext.get(ConnectionCreationService.class), "unable to retrieve connection creation service");
 		final AnchorService anchorService = Objects.requireNonNull(eclipseContext.get(AnchorService.class), "unable to retrieve anchor service");
 		final StyleService styleService = Objects.requireNonNull(context.get(StyleService.class), "unable to retrieve style service");
-		this.pictogramRefreshHelper = new BoRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, shapeService, propertyService, styleService, this);
+		this.pictogramRefreshHelper = new BoHandlerRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, shapeService, propertyService, styleService, this);
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {
@@ -844,7 +844,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
 		if(boHandler != null) {
-			return new BusinessObjectHandlerResizeShapeFeature(bor, extService, this, boHandler);
+			return new BoHandlerResizeShapeFeature(bor, extService, this, boHandler);
 		}
 
 		return super.getResizeShapeFeatureAdditional(context);

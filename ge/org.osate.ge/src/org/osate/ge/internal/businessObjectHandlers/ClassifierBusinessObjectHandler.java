@@ -69,7 +69,7 @@ import org.osate.ge.internal.util.StringUtil;
 // TODO: Look at EMV2 plugin for suggestions on what to do with naming service?
 // TODO: Reconsider using query system for more things such as finding the create owner.
 // As an alternative to the current system or a replacement. If a replacement then need to cover any use cases the other one doesn't
-// suppor. Example query first ancestor which is an AadlPackage
+// support. Example query first ancestor which is an AadlPackage
 public class ClassifierBusinessObjectHandler {
 	// TODO: Position label to replicate old behavior.
 	// TODO: Label should be hidden on classifier diagram.
@@ -381,7 +381,7 @@ public class ClassifierBusinessObjectHandler {
 		return bo.getName();
 	}
 	
-	// TODO: Don't allow renaming classifiers which are in another package
+	// TODO: Don't allow renaming classifiers which are in another package?
 	// TODO: Avoid use of internal naming service
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.NAME) String value, final NamingService namingService) {
