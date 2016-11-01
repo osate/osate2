@@ -23,14 +23,14 @@ class ErrorModelSerializerScopeProvider extends ErrorModelScopeProvider {
 		super.scope_BasicPropertyAssociation_property(context.owner, reference)
 	}
 	
-	override scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
-		val parent = context.eContainer
-		if (parent instanceof EMV2PathElement) {
-			super.scope_EMV2PathElement_namedElement(parent, reference)
-		} else {
-			scope_EMV2PathElement_namedElement(parent.getContainerOfType(EMV2PropertyAssociation), reference)
-		}
-	}
+//	override scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
+//		val parent = context.eContainer
+//		if (parent instanceof EMV2PathElement) {
+//			super.scope_EMV2PathElement_namedElement(parent, reference)
+//		} else {
+//			scope_EMV2PathElement_namedElement(parent.getContainerOfType(EMV2PropertyAssociation), reference)
+//		}
+//	}
 	
 	override scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState context, EReference reference) {
 		val parent = context.eContainer
