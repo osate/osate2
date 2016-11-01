@@ -18,14 +18,12 @@
 package org.osate.xtext.aadl2.errormodel;
 
 import org.eclipse.xtext.conversion.IValueConverterService;
-import org.eclipse.xtext.linking.ILinkingService;
 import org.eclipse.xtext.naming.IQualifiedNameConverter;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.serializer.tokens.ICrossReferenceSerializer;
 import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding;
-import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameConverter;
 import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.errormodel.scoping.ErrorModelSerializerScopeProvider;
@@ -58,11 +56,6 @@ public class ErrorModelRuntimeModule extends org.osate.xtext.aadl2.errormodel.Ab
 	@Override
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITransientValueService> bindITransientValueService() {
 		return org.osate.xtext.aadl2.errormodel.serializer.EMV2TransientValueService.class;
-	}
-
-	@Override
-	public Class<? extends ILinkingService> bindILinkingService() {
-		return EMLinkingService.class;
 	}
 
 	public Class<? extends ICrossReferenceSerializer> bindICrossReferenceSerializer() {

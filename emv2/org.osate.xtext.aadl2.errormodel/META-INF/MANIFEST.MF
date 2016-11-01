@@ -31,16 +31,15 @@ Export-Package: org.osate.xtext.aadl2.errormodel,
  org.osate.xtext.aadl2.errormodel.errorModel.impl,
  org.osate.xtext.aadl2.errormodel.errorModel.util,
  org.osate.xtext.aadl2.errormodel.formatting,
- org.osate.xtext.aadl2.errormodel.linking,
  org.osate.xtext.aadl2.errormodel.naming,
  org.osate.xtext.aadl2.errormodel.parser.antlr,
  org.osate.xtext.aadl2.errormodel.parser.antlr.internal,
  org.osate.xtext.aadl2.errormodel.parser.antlr.lexer,
+ org.osate.xtext.aadl2.errormodel.scoping,
  org.osate.xtext.aadl2.errormodel.serializer,
  org.osate.xtext.aadl2.errormodel.services,
  org.osate.xtext.aadl2.errormodel.util,
  org.osate.xtext.aadl2.errormodel.validation,
- org.osate.xtext.aadl2.errormodel.valueconversion,
- org.osate.xtext.aadl2.errormodel.scoping
+ org.osate.xtext.aadl2.errormodel.valueconversion
 Import-Package: org.apache.log4j
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
