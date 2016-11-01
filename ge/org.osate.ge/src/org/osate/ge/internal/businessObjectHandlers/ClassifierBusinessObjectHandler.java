@@ -50,6 +50,7 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.ImageHelper;
@@ -70,8 +71,6 @@ import org.osate.ge.internal.util.StringUtil;
 // As an alternative to the current system or a replacement. If a replacement then need to cover any use cases the other one doesn't
 // suppor. Example query first ancestor which is an AadlPackage
 public class ClassifierBusinessObjectHandler {
-	private static final Graphic graphic = RectangleBuilder.create().build(); // TODO. Need graphic for each classifier type
-	
 	// TODO: Position label to replicate old behavior.
 	// TODO: Label should be hidden on classifier diagram.
 	// TODO: Need to decide how to handle things. If try to remove the diagram BO from most aspects, then there could be times
@@ -362,8 +361,8 @@ public class ClassifierBusinessObjectHandler {
 	// TODO: Support creating. Importing packages as necessary, etc.
 	
 	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
+		return AadlGraphics.getGraphic(bo);
 	}
 	
 	@GetName

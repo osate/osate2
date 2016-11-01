@@ -13,6 +13,8 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
 
@@ -37,26 +39,21 @@ public class BusinessObjectHandlerResizeShapeFeature extends DefaultResizeShapeF
 		int width = context.getWidth();
 		int height = context.getHeight();
 	
+		// Handle rebuild the graphics algorithm as appropriate
 		if (shape.getGraphicsAlgorithm() != null) {			
-			// Refresh the polygon
-			if(shape.getGraphicsAlgorithm() instanceof org.eclipse.graphiti.mm.algorithms.Polygon) {
-				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-				if(bo != null) {
-					final IEclipseContext eclipseCtx = extService.createChildContext();
-					try {
-						eclipseCtx.set(Names.BUSINESS_OBJECT, bo);			
-						final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
-						if(gr instanceof org.osate.ge.internal.graphics.Polygon) {
-							final org.osate.ge.internal.graphics.Polygon agePoly = (org.osate.ge.internal.graphics.Polygon)gr; 							
-							BoHandlerFeatureHelper.createPolygon(shape, agePoly, width, height);
-						}
-					} finally {
-						eclipseCtx.dispose();
-					}
+			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+			if(bo != null) {
+				final IEclipseContext eclipseCtx = extService.createChildContext();
+				try {
+					eclipseCtx.set(Names.BUSINESS_OBJECT, bo);			
+					final Object gr = (Graphic)ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
+					AgeGraphitiGraphicsUtil.resizeGraphicsAlgorithm(getDiagram(), shape, gr, width, height);
+				} finally {
+					eclipseCtx.dispose();
 				}
 			}
 			
-			Graphiti.getGaService().setLocationAndSize(shape.getGraphicsAlgorithm(), x, y, width, height);
+			Graphiti.getGaService().setLocation(shape.getGraphicsAlgorithm(), x, y);
 		}
 
 		layoutPictogramElement(shape);

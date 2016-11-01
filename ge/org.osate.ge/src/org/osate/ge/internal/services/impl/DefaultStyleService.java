@@ -111,14 +111,16 @@ public class DefaultStyleService implements StyleService {
 	public Style getStyle(final String styleId) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Diagram diagram  = getDiagram();
-        final Style style = gaService.findStyle(diagram, styleId);
+        Style style = gaService.findStyle(diagram, styleId);
     	
         // If it does not exist, create it
         if(style == null) {
         	final Object styleFactory = styleIdToFactoryMap.get(styleId);
-        	context.set(Diagram.class, fp.getDiagramTypeProvider().getDiagram());
-        	context.set(InternalNames.STYLE_ID, styleId);
-        	return (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
+        	if(styleFactory != null) {
+            	context.set(Diagram.class, fp.getDiagramTypeProvider().getDiagram());
+            	context.set(InternalNames.STYLE_ID, styleId);
+            	style = (Style)ContextInjectionFactory.invoke(styleFactory, Activate.class, context);
+        	}        	
         }
 		
 		return style;

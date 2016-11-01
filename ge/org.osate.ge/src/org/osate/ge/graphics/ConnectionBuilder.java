@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.graphics;
 
-import org.osate.ge.internal.graphics.ConnectionStyle;
+import org.osate.ge.internal.graphics.LineStyle;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphics.FreeFormConnection;
 
@@ -20,7 +20,7 @@ import org.osate.ge.internal.graphics.FreeFormConnection;
 public class ConnectionBuilder {
 	private AgeConnectionTerminator srcTerminator = null;
 	private AgeConnectionTerminator dstTerminator = null;
-	private ConnectionStyle connectionStyle = ConnectionStyle.SOLID;
+	private LineStyle connectionStyle = LineStyle.SOLID;
 	
 	private ConnectionBuilder() {}
 	
@@ -57,7 +57,7 @@ public class ConnectionBuilder {
 	 * @return this builder to allow method chaining.
 	 */
 	public ConnectionBuilder dashed() {
-		this.connectionStyle = ConnectionStyle.DASHED;
+		this.connectionStyle = LineStyle.DASHED;
 		return this;
 	}
 	

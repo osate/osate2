@@ -32,11 +32,8 @@ import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
-import org.osate.ge.internal.graphics.Ellipse;
 import org.osate.ge.internal.graphics.FreeFormConnection;
-import org.osate.ge.internal.graphics.Polygon;
-import org.osate.ge.internal.graphics.Rectangle;
-import org.osate.ge.internal.graphics.RoundedRectangle;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.patterns.AgePattern;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.ConnectionCreationService;
@@ -143,8 +140,8 @@ public class BoRefreshHelper {
 			        if(!(gr instanceof AgeConnection)) {
 			        	return null;
 			        }
-			        
-			        connection.getGraphicsAlgorithm().setStyle(styleService.getStyle(((AgeConnection)gr).getConnectionStyle().getStyleId()));				
+			        			        
+			        connection.getGraphicsAlgorithm().setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((AgeConnection)gr).getLineStyle()));		
 				}
 			}
 			
@@ -194,7 +191,7 @@ public class BoRefreshHelper {
 					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);				
 					if(name != null) {
 						if(pe instanceof ContainerShape) {
-							labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name);
+							labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name, true);
 						} else if(pe instanceof Connection) {
 							final Connection connection = (Connection)pe;
 							
@@ -293,29 +290,7 @@ public class BoRefreshHelper {
 		final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
 		final int width = Math.max(50, oldGa == null ? 0 : oldGa.getWidth());
 		final int height = Math.max(50, oldGa == null ? 50 : oldGa.getHeight());
-		
-		final GraphicsAlgorithm ga;
-		if(gr == null) {
-			return; 
-		} else if(gr instanceof Rectangle) {
-			ga = Graphiti.getGaService().createPlainRectangle(shape);
-			ga.setFilled(false);
-		} else if(gr instanceof RoundedRectangle) {
-			ga = Graphiti.getGaService().createPlainRoundedRectangle(shape, 25, 25);
-			ga.setFilled(false);
-		} else if(gr instanceof Ellipse) {
-	        ga = Graphiti.getGaService().createPlainEllipse(shape);
-	        ga.setFilled(false);
-		} else if(gr instanceof Polygon) {
-			final Polygon poly = (Polygon)gr;
-			ga = BoHandlerFeatureHelper.createPolygon(shape, poly, width, height);
-		} else {
-			throw new RuntimeException("Unsupported object: " + gr);
-		}
-		
-		// Set to appropriate size. If just recreating the graphics algorithm, retain previous size
-		ga.setWidth(width);
-        ga.setHeight(height);
+		AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shape, gr, width, height);		
 	}
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {

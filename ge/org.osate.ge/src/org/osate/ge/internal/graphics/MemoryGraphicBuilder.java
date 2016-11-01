@@ -6,54 +6,43 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
-package org.osate.ge.graphics;
+package org.osate.ge.internal.graphics;
 
-import org.osate.ge.internal.graphics.Ellipse;
-import org.osate.ge.internal.graphics.LineStyle;
+import org.osate.ge.graphics.Graphic;
 
 /**
- * Builder for creating ellipse graphics.
+ * Builder for creating memory graphics.
  * @noextend
  * @see Graphic
  */
-public class EllipseBuilder {
+public class MemoryGraphicBuilder {
 	private int lineWidth = 1;
-	private LineStyle lineStyle = LineStyle.SOLID;
 	
-	private EllipseBuilder() {}
+	private MemoryGraphicBuilder() {}
 	
 	/**
-	 * Creates an ellipse builder.
-	 * @return a new ellipse builder
+	 * Creates a memory graphic builder.
+	 * @return a new memory graphic builder
 	 */
-	public static EllipseBuilder create() {
-		return new EllipseBuilder();
+	public static MemoryGraphicBuilder create() {
+		return new MemoryGraphicBuilder();
 	}
-	
+		
 	/**
-	 * Sets the line width to use to create the ellipse
+	 * Sets the line width to use to create the memory graphic.
 	 * @param value the new value for the line width.
 	 * @return this builder to allow method chaining.
 	 */
-	public EllipseBuilder lineWidth(int value) {
+	public MemoryGraphicBuilder lineWidth(int value) {
 		this.lineWidth = value;
 		return this;
 	}
-	
+		
 	/**
-	 * Configures the ellipse builder to use dashed lines.
-	 * @return this builder to allow method chaining.
-	 */
-	public EllipseBuilder dashed() {
-		this.lineStyle = LineStyle.DASHED;
-		return this;
-	}
-	
-	/**
-	 * Creates an ellipse graphic based on the current state of the builder.
+	 * Creates a memory graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Ellipse(lineWidth, lineStyle);
+		return new MemoryGraphic(lineWidth);
 	}
 }

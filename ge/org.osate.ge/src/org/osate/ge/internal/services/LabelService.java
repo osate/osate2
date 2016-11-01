@@ -17,4 +17,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 public interface LabelService {
 	// Create a label shape. The label's position is not set.
 	Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue);
+	
+	Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue, final boolean includeBackground);
 }

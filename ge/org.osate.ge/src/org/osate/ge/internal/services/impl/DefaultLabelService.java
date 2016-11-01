@@ -36,6 +36,11 @@ public class DefaultLabelService implements LabelService {
 	
 	@Override
 	public Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue) {
+		return createLabelShape(container, shapeName, bo, labelValue, true);
+	}
+	
+	@Override
+	public Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue, final boolean includeBackground) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         final Shape labelShape = peCreateService.createShape(container, true);
         propertyService.setName(labelShape, shapeName);
@@ -46,8 +51,15 @@ public class DefaultLabelService implements LabelService {
         	featureProvider.link(labelShape, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
         }
         
-        final GraphicsAlgorithm labelBackground = graphicsAlgorithmCreationService.createTextBackground(labelShape);		
-        final Text labelText = graphicsAlgorithmCreationService.createLabelGraphicsAlgorithm(labelBackground, labelValue);
+        final GraphicsAlgorithm labelBackground;
+        final Text labelText;
+        if(includeBackground) {
+        	labelBackground = graphicsAlgorithmCreationService.createTextBackground(labelShape);		
+        	labelText = graphicsAlgorithmCreationService.createLabelGraphicsAlgorithm(labelBackground, labelValue);
+        } else {
+        	labelBackground = null;
+        	labelText = graphicsAlgorithmCreationService.createLabelGraphicsAlgorithm(labelShape, labelValue);
+        }
         
         // Get sizes of text graphics algorithms
         final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getStyle().getFont());
@@ -56,7 +68,9 @@ public class DefaultLabelService implements LabelService {
         final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
         final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
         final IGaService gaService = Graphiti.getGaService();
-		gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
+        if(labelBackground != null) {
+        	gaService.setSize(labelBackground, paddedLabelTextWidth, paddedLabelTextHeight);
+        }
 		gaService.setSize(labelText, paddedLabelTextWidth, paddedLabelTextHeight);
 		
         return labelShape;
