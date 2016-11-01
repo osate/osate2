@@ -34,6 +34,7 @@ import org.eclipse.core.runtime.IProgressMonitor
 import org.eclipse.core.runtime.OperationCanceledException
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.junit.runner.JUnitCore
@@ -42,11 +43,13 @@ import org.osate.aadl2.BooleanLiteral
 import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.NumberValue
 import org.osate.aadl2.PropertyExpression
+import org.osate.aadl2.PropertyValue
 import org.osate.aadl2.RealLiteral
 import org.osate.aadl2.StringLiteral
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
+import org.osate.aadl2.properties.PropertyNotPresentException
 import org.osate.alisa.common.common.CommonFactory
 import org.osate.alisa.common.typing.CommonInterpreter
 import org.osate.assure.assure.AssuranceCaseResult
@@ -347,7 +350,12 @@ class AssureProcessor implements IAssureProcessor {
 		}
 
 		if (verificationResult instanceof VerificationActivityResult) {
-			checkProperties(target, verificationResult)
+			val success = checkProperties(target, verificationResult)
+			if (!success) {
+				verificationResult.eResource.save(null)
+				updateProgress(verificationResult)
+				return;
+			}
 		}
 
 		try {
@@ -638,7 +646,7 @@ class AssureProcessor implements IAssureProcessor {
 		call
 	}
 
-	def boolean checkProperties(InstanceObject object, VerificationActivityResult vaResult) {
+	def boolean checkProperties(InstanceObject io, VerificationActivityResult vaResult) {
 		val method = vaResult.method
 		val properties = method.properties
 		val exps = vaResult.target.propertyValues
@@ -659,31 +667,51 @@ class AssureProcessor implements IAssureProcessor {
 							expResult.ruleFailedException, null)
 					success = false
 				} else {
+					var PropertyValue modelPropValue = null
+					val propertyIsSet = 
+							try {
+								val modelExp = io.getSimplePropertyValue(property)
+								modelPropValue = if (modelExp instanceof PropertyValue) modelExp else null
+								true
+							} catch (PropertyNotPresentException e) {
+								false
+							}
 					val value = expResult.value
-					if (value instanceof NumberValue) {
-						val unit = value.unit
-						val reqValue = value.getScaledValue(unit)
-						val modelValue = PropertyUtils.getScaledNumberValue(object, property, unit)
+					if (propertyIsSet) {
+						if (value instanceof NumberValue) {
+							val unit = value.unit
+							val reqValue = value.getScaledValue(unit)
+							val modelValue = PropertyUtils.getScaledNumberValue(io, property, unit)
 
-						if (reqValue != modelValue) {
-							vaResult.addFailIssue(object,
-								"Property " + property.getQualifiedName() + ": Value in model (" +
-									modelValue + unit.name + ") does not match required value (" +
-									reqValue + unit.name + ")", "")
-							vaResult.setToFail
+							if (reqValue != modelValue) {
+								vaResult.addFailIssue(io,
+									"Property " + property.getQualifiedName() + ": Value in model (" +
+										modelValue + unit.name + ") does not match required value (" +
+										reqValue + unit.name + ")", "")
+								vaResult.setToFail
+							}
+						} else {
+							if (value != modelPropValue) {
+								vaResult.addFailIssue(io,
+									"Property " + property.getQualifiedName() + ": Value in model (" +
+										modelPropValue + ") does not match required value (" +
+										value + ")", "")
+								vaResult.setToFail
+							}
 						}
 					} else {
-						val modelAcc = object.getPropertyValue(property)
-						if (!modelAcc.associations.nullOrEmpty) {
-							val modelValue = modelAcc.first
-						}
+						// set property
+						val pa = io.createOwnedPropertyAssociation
+						pa.property = property
+						val mpv = pa.createOwnedValue
+						mpv.setOwnedValue(EcoreUtil.copy(value))
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace
+				vaResult.setToError("Could not process property " + property.name)
 			}
 		}
-		return success;
+		success
 	}
 }
 
