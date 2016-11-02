@@ -322,18 +322,22 @@ from {
 		io = chooseRoot(prop, G)
 	}
 	val namedVal = prop.property // property or constant
-	{
-		val pexp = switch (namedVal) {
-				Property: 
+	val pexp = switch (namedVal) {
+			Property:
+				try {
 					io.getSimplePropertyValue(namedVal)
+				} catch (Exception e) {
+					null
+				}
 //				PropertyConstant:
 //					namedVal.constantValue
-				default: 
-					null
-		}
-		propVal = if (pexp instanceof PropertyValue) pexp else null
-		propVal != null
-	} or {
+			default: 
+				null
+	}
+	propVal = if (pexp instanceof PropertyValue) pexp else null
+
+	propVal != null
+  or {
 		fail
 			error 'cannot retrieve property value ' + 
 					NodeModelUtils.findActualNodeFor(prop).text + errorPosition(prop)
@@ -438,9 +442,11 @@ from {
 rule Equal
 	G |= PropertyValue left : PropertyValue right
 from {
-	fail
-		error 'interpreter: comparison not implemented'
-		source left
+	left.sameAs(right)
+	or
+		fail
+			error 'interpreter: property values are not equal'
+			source left
 }
 
 rule CompareNumbers

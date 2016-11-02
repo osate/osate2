@@ -394,6 +394,9 @@ class AssureConstructor implements IAssureConstructor {
 		EList<AssuranceCaseResult> subAssuranceCaseList
 	) {
 		val cc = subc.allClassifier
+		if (cc == null) {
+			return
+		}
 		if (subc.isAssumeSubsystem(parentap)) {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
 			return
