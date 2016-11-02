@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="units">in</property>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <data-sources>
+        <script-data-source name="requirements" id="4">
+            <method name="open"><![CDATA[/*
  * <copyright>
  * Copyright 2016 by Carnegie Mellon University, all rights reserved.
  *
@@ -32,16 +40,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
--->
-<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
-    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
-    <property name="units">in</property>
-    <property name="iconFile">/templates/blank_report.gif</property>
-    <property name="bidiLayoutOrientation">ltr</property>
-    <property name="imageDPI">96</property>
-    <data-sources>
-        <script-data-source name="requirements" id="4">
-            <method name="open"><![CDATA[Alisa = new JavaImporter(
+Alisa = new JavaImporter(
 	org.eclipse.xtext,
 	org.osate.aadl2,
 	org.osate.aadl2.instance,
@@ -94,7 +93,11 @@ function addNonDropped(set, elements) {
 }
 
 function qualifiedName(ne) {
-	return ne.eContainer().getName() + '.' + ne.getName()
+	var container = ne.eContainer()
+	if (typeof(container.name) === "undefined")
+		return ne.getName()
+	else
+		return container.getName() + '.' + ne.getName()
 }
 
 with (Alisa) {
@@ -132,6 +135,7 @@ with (Alisa) {
 		// get requirements used in instance model
 		
 		var componentInstances = new java.util.ArrayList()
+		si = resource.contents.get(0)
 		componentInstances.add(si)
 		componentInstances.addAll(EcoreUtil2.getAllContentsOfType(si, ComponentInstance))
 		
@@ -332,7 +336,11 @@ goal2stakeholders = null]]></method>
 }
 ]]></method>
             <method name="fetch"><![CDATA[function qualifiedName(ne) {
-	return ne.eContainer().getName() + '.' + ne.getName()
+	var container = ne.eContainer()
+	if (typeof(container.name) === "undefined")
+		return ne.getName()
+	else
+		return container.getName() + '.' + ne.getName()
 }
 
 with (Alisa) {
