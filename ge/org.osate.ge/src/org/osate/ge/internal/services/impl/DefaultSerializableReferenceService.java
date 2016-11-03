@@ -92,7 +92,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		
 		// Break the reference into segments
 		final String[] ref = referenceStr.split(" ");
-		if(ref.length < 2) {
+		if(ref.length < 1) {
 			return null;
 		}
 		

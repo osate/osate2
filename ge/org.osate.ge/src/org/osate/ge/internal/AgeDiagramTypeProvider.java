@@ -39,6 +39,7 @@ import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.PrototypeService;
+import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
@@ -70,6 +71,7 @@ import org.osate.ge.internal.services.impl.DefaultLayoutService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
 import org.osate.ge.internal.services.impl.DefaultPropertyService;
 import org.osate.ge.internal.services.impl.DefaultPrototypeService;
+import org.osate.ge.internal.services.impl.DefaultQueryService;
 import org.osate.ge.internal.services.impl.DefaultRefactoringService;
 import org.osate.ge.internal.services.impl.DefaultSerializableReferenceService;
 import org.osate.ge.internal.services.impl.DefaultShapeCreationService;
@@ -135,6 +137,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
+		final DefaultQueryService queryService = new DefaultQueryService(propertyUtil, connectionService, bor, refBuilder);
 		
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 
@@ -168,6 +171,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ColoringService.class, highlightingHelper);
 		context.set(LabelService.class, labelService);
 		context.set(GraphitiService.class, graphitiService);
+		context.set(QueryService.class, queryService);
 		
 		// Create Public Services
 		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));

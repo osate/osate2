@@ -19,12 +19,16 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
+import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.ui.util.SelectionHelper;
 
 // Direct Editing Feature implementation that delegates behavior to a business object handler
 public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature implements ICustomUndoRedoFeature {
@@ -63,13 +67,26 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			return false;
 		}
 		
+		final IEclipseContext childCtx = extService.createChildContext();
+		boolean canRename = true;
+		try {
+			childCtx.set(Names.BUSINESS_OBJECT, bo);
+			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));
+			canRename = (boolean)ContextInjectionFactory.invoke(handler, CanRename.class, childCtx, true);
+			if(!canRename) {
+				return false;
+			}
+		} finally {
+			childCtx.dispose();
+		}
+		
 		// Check if there is a method to set the name
 		for(final Method m : handler.getClass().getMethods()) {
 			if(m.isAnnotationPresent(SetName.class)) {
 				return true;
 			}
 		}		
-						
+		
 		return false;
 	}
 	
@@ -92,7 +109,8 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
 			childCtx.set(Names.NAME, value);
-			return (String)ContextInjectionFactory.invoke(handler, ValidateName.class, childCtx, false);
+			childCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
+			return (String)ContextInjectionFactory.invoke(handler, ValidateName.class, childCtx, null);
 		} finally {
 			childCtx.dispose();
 		}
@@ -106,6 +124,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
+			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));
 			
 			// Get the name of the business object from the handler
 			final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, childCtx, null);

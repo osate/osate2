@@ -12,9 +12,12 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
 import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.SimplePaletteEntry;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
@@ -23,6 +26,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ShapeService;
+import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 // ICreateFeature implementation that delegates behavior to a business object handler
@@ -75,7 +79,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	@Override
 	public Object[] create(final ICreateContext context) {		
 		final Object targetBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		final EObject ownerBo = getOwnerBo(targetBo);
+		final EObject ownerBo = getOwnerBo(targetBo, context.getTargetContainer());
 		if(ownerBo == null) {
 			return EMPTY;
 		}
@@ -89,6 +93,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 					eclipseCtx.set(Names.OWNER_BO, ownerBo);
 					eclipseCtx.set(Names.TARGET_BO, targetBo);
+					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
 					return newBo == null ? EMPTY : newBo;
 				} finally {
@@ -114,11 +119,12 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		return newBo == null ? EMPTY : new Object[] {newBo};
 	}
 	
-	private EObject getOwnerBo(final Object targetBo) {
+	private EObject getOwnerBo(final Object targetBo, final PictogramElement targetPe) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetBo);
+			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;

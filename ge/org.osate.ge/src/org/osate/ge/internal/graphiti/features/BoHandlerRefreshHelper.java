@@ -29,10 +29,12 @@ import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphics.FreeFormConnection;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.patterns.AgePattern;
 import org.osate.ge.internal.services.AnchorService;
@@ -45,6 +47,7 @@ import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.styles.StyleConstants;
+import org.osate.ge.internal.ui.util.SelectionHelper;
 
 public class BoHandlerRefreshHelper {
 	private final ExtensionService extService;
@@ -86,7 +89,9 @@ public class BoHandlerRefreshHelper {
 		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
-			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);			
+			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
+			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(pe));
+			
 			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			
 			final ContainerShape childContainer; // Container for any children
@@ -141,10 +146,14 @@ public class BoHandlerRefreshHelper {
 			        	return null;
 			        }
 			        			        
-			        connection.getGraphicsAlgorithm().setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((AgeConnection)gr).getLineStyle()));		
+			        final GraphicsAlgorithm ga = connection.getGraphicsAlgorithm();
+			        ga.setStyle(null);
+			        ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((AgeConnection)gr).getLineStyle()));
+			        ga.setLineWidth(2);
+			        ga.setForeground(Graphiti.getGaService().manageColor(getDiagram(), IColorConstant.BLACK));
 				}
 			}
-			
+
 			// Create children
 			if(childContainer != null) {
 				// Ghost children if the PE being added or updated is the child container
@@ -155,9 +164,11 @@ public class BoHandlerRefreshHelper {
 				// Determine whether children should be shown
 				final int depthLevel = shapeService.getDepthLevel(childContainer);
 				final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
+
 				if(showContents) {
 					// Refresh Children
 					// It is up to the business object handler to provide children in an appropriate order(objects represented by connections should be last)
+					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
 					final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(handler, GetChildren.class, eclipseCtx, null);
 					if(childBos != null) {
 						final Iterator<?> childIt = childBos.iterator();
@@ -188,10 +199,12 @@ public class BoHandlerRefreshHelper {
 					}
 
 					// Create name label
+					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(pe));
 					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);				
 					if(name != null) {
 						if(pe instanceof ContainerShape) {
-							labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name, true);
+							final Shape labelShape = labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name, true);
+							labelShape.setActive(false);
 						} else if(pe instanceof Connection) {
 							final Connection connection = (Connection)pe;
 							
@@ -295,14 +308,17 @@ public class BoHandlerRefreshHelper {
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {
 		final Object childBoHandler = extService.getApplicableBusinessObjectHandler(childBo);
-		eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			
-		final Object gr = ContextInjectionFactory.invoke(childBoHandler, GetGraphic.class, eclipseCtx, null);
-		if(gr instanceof AgeShape) {
-			shapeCreationService.createUpdateShape(containerShape, childBo);
-		} else if(gr instanceof AgeConnection) {
-			connectionCreationService.createUpdateConnection(containerShape, childBo);
-		} else {
-			throw new RuntimeException("Unsupported graphical representation: " + gr);
+		if(childBoHandler != null) {
+			eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			
+			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(containerShape));
+			final Object gr = ContextInjectionFactory.invoke(childBoHandler, GetGraphic.class, eclipseCtx, null);
+			if(gr instanceof AgeShape) {
+				shapeCreationService.createUpdateShape(containerShape, childBo);
+			} else if(gr instanceof AgeConnection) {
+				connectionCreationService.createUpdateConnection(containerShape, childBo);
+			} else {
+				throw new RuntimeException("Unsupported graphical representation: " + gr);
+			}
 		}
 	}
 	

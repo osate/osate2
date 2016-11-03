@@ -15,4 +15,6 @@ package org.osate.ge.internal.di;
 public class InternalNames {
 	public static final String STYLE_ID = "style_id";
 	public static final String SELECTED_PICTOGRAM_ELEMENTS = "selected_pictogram_elements";
+	public static final String PROJECT = "project";
+	public static final String DIAGRAM_ELEMENT_PROXY = "dep";
 }

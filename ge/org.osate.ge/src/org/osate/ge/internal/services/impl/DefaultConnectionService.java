@@ -50,7 +50,6 @@ import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.internal.connections.AadlConnectionInfoProvider;
 import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
-import org.osate.ge.internal.connections.ConnectionReferenceInfoProvider;
 import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
 import org.osate.ge.internal.connections.InitialModeConnectionInfoProvider;
 import org.osate.ge.internal.connections.ModeTransitionInfoProvider;
@@ -105,7 +104,6 @@ public class DefaultConnectionService implements ConnectionService {
 		infoProviders.add(new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService));
 		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
 		infoProviders.add(new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper));
-		infoProviders.add(new ConnectionReferenceInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 
 		// Create ConnectionInfoProvider for business object handlers.
 		final QueryRunner queryRunner = new QueryRunner(propertyService, this, bor, refBuilder);

@@ -14,6 +14,8 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -46,6 +48,7 @@ public class BoHandlerResizeShapeFeature extends DefaultResizeShapeFeature {
 				final IEclipseContext eclipseCtx = extService.createChildContext();
 				try {
 					eclipseCtx.set(Names.BUSINESS_OBJECT, bo);			
+					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));
 					final Object gr = (Graphic)ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 					AgeGraphitiGraphicsUtil.resizeGraphicsAlgorithm(getDiagram(), shape, gr, width, height);
 				} finally {

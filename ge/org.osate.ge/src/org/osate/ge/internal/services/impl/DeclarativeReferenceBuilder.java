@@ -32,12 +32,14 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ge.internal.businessObjectHandlers.ProjectOverview;
 import org.osate.ge.internal.patterns.SubprogramCallOrder;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {
+	public final static String TYPE_OVERVIEW = "overview";
 	public final static String TYPE_PACKAGE = "package";
 	public final static String TYPE_CLASSIFIER = "classifier";
 	public final static String TYPE_SUBCOMPONENT = "subcomponent";
@@ -113,6 +115,8 @@ public class DeclarativeReferenceBuilder {
 			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();	
 			final int index = getAnnexSubclauseIndex(annexSubclause);
 			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName().toLowerCase(), Integer.toString(index)};
+		} else if(bo instanceof ProjectOverview) {
+			return new String[] {TYPE_OVERVIEW};				
 		} else {
 			return null;
 		}

@@ -36,13 +36,16 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.DiagramElementQuery;
 
-// TODO: Switch generalizations so that they are children of the classifier instead of the AADL Package.
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if(!(diagramBo instanceof AadlPackage || diagramBo instanceof ProjectOverview)) {
+			return null;
+		}
+		
 		return new PaletteEntry[] { 
 			PaletteEntryBuilder.create().connectionCreation().label("Extension").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getGeneralization().getName())).category(Categories.RELATIONSHIPS).build()
 		};
@@ -64,18 +67,21 @@ public class GeneralizatonHandler {
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<?> createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<?> srcRootQuery) {
-		return srcRootQuery.ancestor(1);
+	public <T> DiagramElementQuery<T> createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<T> srcRootQuery, final @Named(Names.DESTINATION_ROOT_QUERY) DiagramElementQuery<T> dstRootQuery) {
+		// Owner will be the common ancestor for the shapes. Works for both overview and generalization diagram?
+		// TODO: Broken
+		//return srcRootQuery.ancestor(1);
+		return srcRootQuery.commonAncestors(dstRootQuery);
 	}
 	
 	@CreateSourceQuery
-	public DiagramElementQuery<?> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<?> rootQuery) {
-		return rootQuery.children().filterByBusinessObject(g->((Generalization)g).getSpecific());
+	public DiagramElementQuery<Generalization> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<Generalization> rootQuery) {
+		return rootQuery.descendants().filterByBusinessObject(g -> g.getSpecific());
 	}
 	
 	@CreateDestinationQuery
-	public DiagramElementQuery<?> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<?> rootQuery) {
-		return rootQuery.children().filterByBusinessObject(g->((Generalization)g).getGeneral());
+	public DiagramElementQuery<Generalization> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<Generalization> rootQuery) {
+		return rootQuery.descendants().filterByBusinessObject(g -> g.getGeneral());
 	}
 	
 	@GetCreateOwner

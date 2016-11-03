@@ -108,6 +108,10 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 		ReferenceEncoder.encodeSegment(sb, segs[0]);
 		for(int i = 1; i < segs.length; i++) {
 			sb.append(' ');
+			if(segs[i] == null) {
+				return null;
+			}
+			
 			ReferenceEncoder.encodeSegment(sb, segs[i]);
 		}
 		

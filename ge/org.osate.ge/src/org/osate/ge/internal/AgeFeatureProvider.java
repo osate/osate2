@@ -86,7 +86,6 @@ import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
@@ -131,7 +130,6 @@ import org.osate.ge.internal.patterns.AnnexPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ComponentInstancePattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
-import org.osate.ge.internal.patterns.ConnectionReferencePattern;
 import org.osate.ge.internal.patterns.FeatureInstancePattern;
 import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
@@ -149,7 +147,6 @@ import org.osate.ge.internal.patterns.SubprogramCallOrder;
 import org.osate.ge.internal.patterns.SubprogramCallPattern;
 import org.osate.ge.internal.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
-import org.osate.ge.internal.features.PackageUpdateDiagramFeature;
 import org.osate.ge.internal.features.CreateSimpleFlowSpecificationFeature;
 import org.osate.ge.internal.features.RefineFeatureFeature;
 import org.osate.ge.internal.features.RefineFlowSpecificationFeature;
@@ -233,8 +230,9 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addAadlConnectionPatterns();
 		
 		// Classifiers
-		addPattern(createClassifierPattern(null));
-		addSubcomponentPatterns();
+		// TODO: Remove. Disabled as part of business object handler migration
+		//addPattern(createClassifierPattern(null)); 
+		//addSubcomponentPatterns();
 		
 		addAnnexPatterns();
 		
@@ -245,8 +243,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Instance Model
 		addPattern(make(ComponentInstancePattern.class));
 		addPattern(make(FeatureInstancePattern.class));
-		addConnectionPattern(make(ConnectionReferencePattern.class));
-		
+
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
@@ -449,8 +446,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 				if(bo instanceof Classifier) {
 					return make(UpdateClassifierDiagramFeature.class);
-				} else if(bo instanceof AadlPackage) {
-					return make(PackageUpdateDiagramFeature.class);
 				} else if(bo instanceof SystemInstance) {
 					return make(InstanceUpdateDiagramFeature.class);
 				}

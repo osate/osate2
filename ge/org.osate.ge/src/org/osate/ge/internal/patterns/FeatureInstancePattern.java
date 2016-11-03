@@ -228,6 +228,7 @@ public class FeatureInstancePattern extends AgePattern{
 	// Feature Symbol Shape
 	// Children (For Feature Groups)
 	private void refresh(final ContainerShape shape) {
+		propertyService.setIsLogicalTreeNode(shape, true);
 		ghostingService.setIsGhost(shape, false);
 		
 		final FeatureInstance fi = (FeatureInstance)bor.getBusinessObjectForPictogramElement(shape);

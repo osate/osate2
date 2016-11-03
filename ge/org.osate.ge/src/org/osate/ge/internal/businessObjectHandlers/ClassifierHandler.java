@@ -12,11 +12,12 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Named;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -50,31 +51,28 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
+import org.osate.ge.internal.labels.LabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
+import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 
-// TODO: Implement missing functionality
-// NOTE: That this business object handler will eventually handle classifiers on both package diagrams and classifier diagrams.
-// TODO: When dealing with features, take into account cases where some features would be desired and cases where they would not be.
-// TODO: Package diagrams, regular features, classifier diagrams, internal features, feature group contents.
-// TODO: Fix TODOs
-// TODO: Several places require on diagram business object or target business object. Would like to avoid exposing the diagram business object
-// too much if possible. Could provide a mechanism for running queries on the target? Would allow navigating to top level or pattern as necessary.
-// is exposing the diagram BO really that bad?
-// Provide a service for calling ScopedEMFIndexRetrieval? Could be internal until confidence in API is gained.
-// TODO: Look at EMV2 plugin for suggestions on what to do with naming service?
-// TODO: Reconsider using query system for more things such as finding the create owner.
-// As an alternative to the current system or a replacement. If a replacement then need to cover any use cases the other one doesn't
-// support. Example query first ancestor which is an AadlPackage
-public class ClassifierBusinessObjectHandler {
-	// TODO: Position label to replicate old behavior.
-	// TODO: Label should be hidden on classifier diagram.
-	// TODO: Need to decide how to handle things. If try to remove the diagram BO from most aspects, then there could be times
-	// when behavior does not match previous system.
+public class ClassifierHandler {
+	private static final LabelConfiguration classifierDiagramNameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
+	private static final LabelConfiguration ccNameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
+	private static final LabelConfiguration fgtNameLabelConfiguration = LabelConfigurationBuilder.create().right().verticalCenter().build();
+	private static final StandaloneDiagramElementQuery packageQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
+	private static final Graphic featureGroupTypeClassifierDiagramGraphic = RectangleBuilder.create().lineWidth(2).build(); // Graphic to use for feature group types when they are not contained in a package diagram element.
 	
 	@IsApplicable
 	@CanDelete
@@ -83,7 +81,11 @@ public class ClassifierBusinessObjectHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		if(!(diagramBo instanceof AadlPackage || diagramBo instanceof ProjectOverview)) {
+			return null;
+		}
+		
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		return new PaletteEntry[] { 
 			createPaletteEntry(p.getAbstractType()),
@@ -122,8 +124,6 @@ public class ClassifierBusinessObjectHandler {
 		return PaletteEntryBuilder.create().label(StringUtil.camelCaseToUser(classifierType.getName())).icon(ImageHelper.getImage(classifierType.getName())).category(Categories.CLASSIFIERS).context(classifierType).build();
 	}
 	
-	// TODO: Need to distinguish between target and owner? Need to be able to create an implementation by clicking on a type
-	
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) EObject bo, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType) {
 		return bo instanceof AadlPackage || isValidBaseClassifier(bo, classifierType);
@@ -150,8 +150,7 @@ public class ClassifierBusinessObjectHandler {
 		return containerIsValidBaseClassifier;
 	}
 	
-	// TODO: Rework to avoid internal NamingService	
-	private EObject determineBaseClassifier(final EObject targetBo, final EClass classifierType) {
+	private EObject determineBaseClassifier(final EObject targetBo, final EClass classifierType, final IProject project) {
 		// Determine the base classifier using the container. The base classifier is the classifier that should be extended or implemented(if any)
 		final EObject baseClassifier;
 
@@ -163,7 +162,7 @@ public class ClassifierBusinessObjectHandler {
 			baseClassifier = targetBo;
 		} else {
 			if(isComponentImplementation(classifierType)) {
-				final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier to implement or extend.", getValidBaseClassifierDescriptions(classifierType));
+				final ElementSelectionDialog dlg = new ElementSelectionDialog(Display.getCurrent().getActiveShell(), "Select a Classifier", "Select a classifier to implement or extend.", getValidBaseClassifierDescriptions(project, classifierType));
 				if(dlg.open() == Dialog.CANCEL) {
 					return null;
 				}			
@@ -172,28 +171,20 @@ public class ClassifierBusinessObjectHandler {
 				baseClassifier = null;
 			}
 		}
-		
-		return baseClassifier;
+
+		return (baseClassifier != null && baseClassifier.eIsProxy()) ? EcoreUtil.resolve(baseClassifier, targetBo.eResource()) : baseClassifier;
 	}
 	
 	@GetCreateOwner
-	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo) {
+	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {
-			final Object elementRoot = ((Classifier)targetBo).getElementRoot();
-			System.err.println(elementRoot);
-			// TODO: If this classifier is one from another package, it will return the wrong package..
-			// TODO: Could getCreateOwner return a query? Would be @GetCreateOwnerQuery. Would work for some use cases but not all.
-			// The issue is that the target BO is not an actual child of the package.
-			
-			if(elementRoot instanceof AadlPackage) {
-				return (AadlPackage)elementRoot;
-			}
+			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
+			// target business object is contained.
+			return (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
 		}
-		
-		
-		
+
 		return null;
 	}
 	
@@ -203,11 +194,9 @@ public class ClassifierBusinessObjectHandler {
 	 * Assumes classifier type is a type of component implementation.
 	 * @return
 	 */
-	private List<IEObjectDescription> getValidBaseClassifierDescriptions(final EClass classifierType) {
+	private List<IEObjectDescription> getValidBaseClassifierDescriptions(final IProject project, final EClass classifierType) {
 		final List<IEObjectDescription> objectDescriptions = new ArrayList<IEObjectDescription>();
-		// TODO: Need a diagram resource?
-		/*
-		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(getDiagram().eResource(), Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(project, Aadl2Factory.eINSTANCE.getAadl2Package().getComponentClassifier())) {
 			// Add objects that have care either types or implementations of the same category as the classifier type
 			for(final EClass superType : classifierType.getESuperTypes()) {
 				if(!Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(superType)) {
@@ -218,14 +207,15 @@ public class ClassifierBusinessObjectHandler {
 				}
 			}
 		}
-		*/
+
 		return objectDescriptions;
 	}
 
-	// TODO: Is the target available as well?
 	@Create
-	public Object createBusinessObject(@Named(Names.OWNER_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType, final NamingService namingService) {
-		final EObject baseClassifier = determineBaseClassifier(targetBo, classifierType);
+	public Object createBusinessObject(@Named(Names.OWNER_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, 
+			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType, final @Named(InternalNames.PROJECT) IProject project,
+			final NamingService namingService) {
+		final EObject baseClassifier = determineBaseClassifier(targetBo, classifierType, project);
 		if(baseClassifier == null && isComponentImplementation(classifierType)) {
 			return null;
 		}
@@ -242,7 +232,7 @@ public class ClassifierBusinessObjectHandler {
 		final String newName = buildNewName(section, classifierType, baseClassifier, namingService);
 		if(newName == null) {
 			return null;
-		}
+		}		
 		
 		// Handle implementations
 		if(newClassifier instanceof ComponentImplementation) {
@@ -276,7 +266,6 @@ public class ClassifierBusinessObjectHandler {
 		return newClassifier;
 	}
 	
-	// TODO: Cleanup
 	private String buildNewName(final PackageSection section, final EClass classifierType, final Object contextBo, final NamingService namingService) {
 		// Determine the appropriate base name. The base name will be used if there are no conflicts
 		final String baseName;
@@ -296,12 +285,12 @@ public class ClassifierBusinessObjectHandler {
 			
 			// Resolve name. Add imports as needed
 			final String componentTypeName = resolveComponentTypeName(section, componentType, namingService);
-			
+
 			// Make sure the component type has a name
 			if(componentTypeName == null) {
 				return null;
 			}
-			
+
 			baseName = componentTypeName + ".impl";
 		} else {
 			baseName = "new_classifier";
@@ -338,8 +327,7 @@ public class ClassifierBusinessObjectHandler {
 		// Create a new component type rename
 		final String ctFullName = ct.getFullName();
 		if(ctFullName == null) {
-			return null;
-			
+			return null;			
 		}
 		
 		// Determine a unique name for the new rename
@@ -358,31 +346,51 @@ public class ClassifierBusinessObjectHandler {
 		return Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(classifierType);
 	}
 	
-	// TODO: Support creating. Importing packages as necessary, etc.
-	
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		if(bo instanceof FeatureGroupType && queryService.getFirstBusinessObject(packageQuery, diagramElement) == null) {
+			return featureGroupTypeClassifierDiagramGraphic;
+		}
+		
 		return AadlGraphics.getGraphic(bo);
 	}
 	
-	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
-		// TODO: Return qualified name if it doesn't belong to the containing packages
-		/*
-		final Diagram diagram = getDiagram();
-		final NamedElement diagramElement = (NamedElement)AadlElementWrapper.unwrap(this.getBusinessObjectForPictogramElement(diagram));
-		
-		if(diagramElement == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
-			return "";
+	@GetNameLabelConfiguration
+	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		// Is the diagram element contained inside a package diagram element
+		if(queryService.getFirstBusinessObject(packageQuery, diagramElement) == null) {
+			// Not in package
+			return classifierDiagramNameLabelConfiguration;
+		} else {
+			// In a package
+			if(classifier instanceof FeatureGroupType) {
+				return fgtNameLabelConfiguration;
+			} else {
+				return ccNameLabelConfiguration;
+			}
 		}
+	}
 		
-		return diagramElement.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? classifier.getName() : classifier.getQualifiedName(); 
-		*/
-		return bo.getName();
+	@CanRename
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		return classifierIsOwnedByPackage(classifier, diagramElement, queryService);
 	}
 	
-	// TODO: Don't allow renaming classifiers which are in another package?
-	// TODO: Avoid use of internal naming service
+	@GetName
+	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		return classifierIsOwnedByPackage(classifier, diagramElement, queryService) ? classifier.getName() : classifier.getQualifiedName(); 
+	}
+	
+	// Returns whether the classifier is owned by the package in which the diagram element is contained.
+	private boolean classifierIsOwnedByPackage(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
+		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
+			return false;
+		}
+		
+		return containingAadlPackage.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? true : false;
+	}
+	
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.NAME) String value, final NamingService namingService) {
     	// If the name hasn't changed or has only changed case

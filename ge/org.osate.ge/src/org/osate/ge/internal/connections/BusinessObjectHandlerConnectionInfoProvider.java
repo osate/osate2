@@ -10,6 +10,9 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.di.CreateDestinationQuery;
 import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.CreateSourceQuery;
@@ -89,12 +92,20 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 	@Override
 	public ContainerShape getOwnerShape(final Connection connection) {
 		try {
+			if(connection.getStart() == null || connection.getStart().getParent() == null || connection.getEnd() == null || connection.getEnd().getParent() == null) {
+				return null;
+			}
+			
 			this.srcRootValue = connection.getStart().getParent();
 			this.dstRootValue = connection.getEnd().getParent();
 			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 			final PictogramElement result = queryRunner.getFirstPictogramElement(ownerDiagramElementQuery, bo);
 			if(result instanceof ContainerShape) {
 				return (ContainerShape)result;
+			}
+			
+			if(result == null) {
+				return null;
 			}
 			
 			throw new RuntimeException("Query result is of unexpected type: " + result.getClass());
