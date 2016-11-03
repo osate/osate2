@@ -61,6 +61,6 @@ public class InstanceReferenceBuilder {
 	}	
 	
 	static String buildConnectionReferenceId(final ConnectionReference cr) {
-		return cr.getInstanceObjectPath().toLowerCase().replace(' ', '_');
+		return cr.getSource().getInstanceObjectPath() + " -> " + cr.getDestination().getInstanceObjectPath();
 	}
 }
