@@ -25,7 +25,26 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
-// TODO: Rename
+/**
+ * Handler for the root business object for project overview diagrams
+ * This is currently work in progress and is currently disabled. The proejct overview diagram will display all packages that are accessible by the project. 
+ * Notes:
+ *     Set Diagram Name - "PROJECT_NAME Overview"?
+ *     Add UI option to Open Overview Diagram. Update documentation
+ *     Issue: Tried to rename built in type. Received error as desired, but shape was renamed and encountered errors after updating.
+ *     Issue: Created new package from AADL Navigator and it did not appear even after updating.
+ *     Issue: Adding extend data type in another package with generalization business object handler did not add with clause.				
+ *     Issue: When adding type to package, diagram is not being updated automatically.
+ *     TODO: Ability to rename package
+ *         Package disappears... Connections remain. Disappear on save.
+ *         Need to keep existing layout. That goes along with refactoring issues though.
+ *     TODO: Add ability to create package. Also delete file?
+ *     TODO: Ability to delete packages.					
+ *     TODO: When showing contents, show relationships between elements. That part is done. However, don't try to do it when not showing contents.				
+ *     TODO: When not showing contents, show relationships between packages? Flatten relationships
+ *     TODO: Allow editing contents of package from package view?
+ *     Consider: Had to modify ClassifierBusinessObject and GeneralizationHandler to allow palette entries for overview. Is there a way to abstract that out to avoid having to change those?
+ */
 public class ProjectOverviewHandler {	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ProjectOverview bo) {

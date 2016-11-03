@@ -1,6 +1,9 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-// TODO: Rename
+/**
+ * Used as the root business object for project overview diagrams.
+ *
+ */
 public class ProjectOverview {
 
 }

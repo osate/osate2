@@ -248,7 +248,7 @@ public class DeclarativeReferenceResolver {
 		Object referencedObject = null; // The object that will be returned
 		final String type = refSegs[0]; 
 		
-		if(type.equals(DeclarativeReferenceBuilder.TYPE_OVERVIEW)) {
+		if(type.equals(DeclarativeReferenceBuilder.TYPE_PROJECT_OVERVIEW)) {
 			referencedObject = new ProjectOverview();
 		} else {		
 			if(refSegs.length < 2) {
