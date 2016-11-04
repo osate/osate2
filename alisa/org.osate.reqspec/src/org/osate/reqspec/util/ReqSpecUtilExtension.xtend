@@ -176,6 +176,9 @@ class ReqSpecUtilExtension {
 			for (r : req.refinesReference) {
 				result = scopeForValReq(r, result)
 			}
+			if (req.inheritsReference != null){
+				result = scopeForValReq(req.inheritsReference, result)
+			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
 				result = new SimpleScope(result,
@@ -196,8 +199,14 @@ class ReqSpecUtilExtension {
 
 		def static IScope scopeForComputeReq(Requirement req, IScope parentscope) {
 			var result = parentscope
+			for (r : req.decomposesReference) {
+				result = scopeForComputeReq(r, result)
+			}
 			for (r : req.refinesReference) {
 				result = scopeForComputeReq(r, result)
+			}
+			if (req.inheritsReference != null){
+				result = scopeForComputeReq(req.inheritsReference, result)
 			}
 			val sr = ReqSpecUtilExtension.containingRequirementSet(req)
 			if (sr != null) {
