@@ -633,6 +633,14 @@ public class LatencyReportEntry {
 		return section;
 	}
 
+	/**
+	 * Get the name associated with the related end-to-end flow
+	 * @return The related end-to-end flow's name
+	 */
+	public String getRelatedEndToEndFlowName(){
+		return this.relatedEndToEndFlow.getName();
+	}
+	
 	private String getRelatedObjectLabel() {
 		return this.relatedEndToEndFlow.getComponentInstancePath() + ": ";
 	}
