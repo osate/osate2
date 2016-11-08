@@ -39,5 +39,4 @@ public class AlisaRuntimeModule extends org.osate.alisa.workbench.AbstractAlisaR
 		return org.osate.alisa.workbench.scoping.AlisaScopeProvider.class;
 	}
 
-
 }

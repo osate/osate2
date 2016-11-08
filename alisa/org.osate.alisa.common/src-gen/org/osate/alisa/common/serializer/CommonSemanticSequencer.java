@@ -215,7 +215,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Constraint:
-	 *     (function=ID arguments+=AExpression arguments+=AExpression*)
+	 *     (function=QualifiedName (arguments+=AExpression arguments+=AExpression*)?)
 	 */
 	protected void sequence_AFunctionCall(EObject context, AFunctionCall semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

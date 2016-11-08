@@ -96,7 +96,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) function=QualifiedName
 	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
@@ -122,7 +122,7 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) function=QualifiedName
 	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
