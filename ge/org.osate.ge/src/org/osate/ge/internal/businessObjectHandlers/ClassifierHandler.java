@@ -69,8 +69,8 @@ import org.osate.ge.internal.util.StringUtil;
 
 public class ClassifierHandler {
 	private static final LabelConfiguration classifierDiagramNameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
-	private static final LabelConfiguration ccNameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
-	private static final LabelConfiguration fgtNameLabelConfiguration = LabelConfigurationBuilder.create().right().verticalCenter().build();
+	private static final LabelConfiguration ccNameLabelConfiguration = LabelConfigurationBuilder.create().aboveTop().horizontalCenter().build(); // TODO: Adjust. For testing//LabelConfigurationBuilder.create().center().build();
+	private static final LabelConfiguration fgtNameLabelConfiguration = LabelConfigurationBuilder.create().afterRight().verticalCenter().build();
 	private static final StandaloneDiagramElementQuery packageQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
 	private static final Graphic featureGroupTypeClassifierDiagramGraphic = RectangleBuilder.create().lineWidth(2).build(); // Graphic to use for feature group types when they are not contained in a package diagram element.
 	
@@ -347,11 +347,10 @@ public class ClassifierHandler {
 	}
 	
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
-		if(bo instanceof FeatureGroupType && queryService.getFirstBusinessObject(packageQuery, diagramElement) == null) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(InternalNames.INTERNAL_DIAGRAM_BO) Object diagramBo) {
+		if(bo instanceof FeatureGroupType && !(diagramBo instanceof AadlPackage)) {
 			return featureGroupTypeClassifierDiagramGraphic;
 		}
-		
 		return AadlGraphics.getGraphic(bo);
 	}
 	
@@ -382,7 +381,7 @@ public class ClassifierHandler {
 	}
 	
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
-	private boolean classifierIsOwnedByPackage(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	private boolean classifierIsOwnedByPackage(final Classifier classifier, final DiagramElementProxy diagramElement, final QueryService queryService) {
 		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
 		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
 			return false;

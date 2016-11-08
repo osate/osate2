@@ -2,7 +2,9 @@ package org.osate.ge.internal.labels;
 
 public enum LabelPosition {
 	DEFAULT,
-	BEGINNING,
-	CENTER,
-	END
+	GRAPHIC_BEGINNING,
+	GRAPHIC_CENTER,
+	GRAPHIC_END,
+	BEFORE_GRAPHIC,
+	AFTER_GRAPHIC
 }

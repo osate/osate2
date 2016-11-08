@@ -10,9 +10,6 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.di.CreateDestinationQuery;
 import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.CreateSourceQuery;
@@ -137,7 +134,7 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 			if(a1 == null || a2 == null) {
 				return null;
 			}
-			
+	
 			return new Anchor[] {a1, a2};
 		} finally {
 			this.rootValue = null;

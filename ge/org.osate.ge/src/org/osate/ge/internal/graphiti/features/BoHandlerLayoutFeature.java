@@ -15,6 +15,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.impl.GaServiceImpl;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.GetNameLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -66,21 +68,40 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 					
 					final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+					if(ga.getGraphicsAlgorithmChildren().size() == 0) {
+						// TODO
+						System.err.println("NO CHILDREN");
+						return false;
+					}
+					
+					final GraphicsAlgorithm innerGa = ga.getGraphicsAlgorithmChildren().get(0);// TODO
 					final GraphicsAlgorithm nameGa = nameShape.getGraphicsAlgorithm();
+					int innerGaX = 0;
+					int innerGaY = 0;
 					
 					// Set X value based on the label configuration
 					switch(labelConfiguration.horizontalPosition) {
-					case BEGINNING:
+					case BEFORE_GRAPHIC:
+						// TODO: Need a container for the overall shape?
+						nameGa.setX(0);
+						innerGaX = nameGa.getWidth() + 1;
+						break;	
+						
+					case GRAPHIC_BEGINNING:
 						nameGa.setX(0);
 						break;
 						
 					case DEFAULT:
-					case CENTER:
+					case GRAPHIC_CENTER:
 						nameGa.setX((ga.getWidth() - nameGa.getWidth()) / 2);
 						break;
 						
-					case END:
+					case GRAPHIC_END:
 						nameGa.setX(ga.getWidth() - nameGa.getWidth());
+						break;
+						
+					case AFTER_GRAPHIC:
+						nameGa.setX(innerGa.getWidth());
 						break;
 						
 					default:
@@ -90,23 +111,40 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					
 					// Set Y value based on the label configuration
 					switch(labelConfiguration.verticalPosition) {
-					case DEFAULT:
-					case BEGINNING:
+					case BEFORE_GRAPHIC:
+						// TODO: Need a container for the overall shape?
+						nameGa.setY(0);
+						innerGaY = nameGa.getHeight();
+						break;	
+						
+					case DEFAULT:					
+					case GRAPHIC_BEGINNING:
 						nameGa.setY(0);
 						break;
 						
-					case CENTER:
+					case GRAPHIC_CENTER:
 						nameGa.setY((ga.getHeight() - nameGa.getHeight()) / 2);
 						break;
 						
-					case END:
+					case GRAPHIC_END:
 						nameGa.setY(ga.getHeight() - nameGa.getHeight());
+						break;
+						
+					case AFTER_GRAPHIC:
+						// TODO
 						break;
 						
 					default:
 						nameGa.setY(0);
 						break;					
 					}
+					
+					innerGa.setX(innerGaX);
+					innerGa.setY(innerGaY);
+					
+					// TODO: Calculate another way? More efficient
+					ga.setHeight(Math.max(innerGa.getY() + innerGa.getHeight(), nameGa.getY() + nameGa.getHeight()));
+					ga.setWidth(Math.max(innerGa.getX() + innerGa.getWidth(), nameGa.getX() + nameGa.getWidth()));
 					
 				} finally {
 					eclipseCtx.dispose();
