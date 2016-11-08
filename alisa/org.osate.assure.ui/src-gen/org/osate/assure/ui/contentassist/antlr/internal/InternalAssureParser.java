@@ -7111,11 +7111,11 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
                 {
                 int LA16_2 = input.LA(2);
 
-                if ( (LA16_2==EOF||LA16_2==RULE_ID||(LA16_2>=18 && LA16_2<=35)||LA16_2==52||(LA16_2>=66 && LA16_2<=67)||LA16_2==102||(LA16_2>=105 && LA16_2<=108)||LA16_2==110) ) {
-                    alt16=2;
-                }
-                else if ( (LA16_2==104) ) {
+                if ( (LA16_2==92||LA16_2==104) ) {
                     alt16=4;
+                }
+                else if ( (LA16_2==EOF||LA16_2==RULE_ID||(LA16_2>=18 && LA16_2<=35)||LA16_2==52||(LA16_2>=66 && LA16_2<=67)||LA16_2==102||(LA16_2>=105 && LA16_2<=108)||LA16_2==110) ) {
+                    alt16=2;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return ;}
@@ -38818,34 +38818,45 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AFunctionCall__Group__3__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13679:1: rule__AFunctionCall__Group__3__Impl : ( ( rule__AFunctionCall__ArgumentsAssignment_3 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13679:1: rule__AFunctionCall__Group__3__Impl : ( ( rule__AFunctionCall__Group_3__0 )? ) ;
     public final void rule__AFunctionCall__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13683:1: ( ( ( rule__AFunctionCall__ArgumentsAssignment_3 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13684:1: ( ( rule__AFunctionCall__ArgumentsAssignment_3 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13683:1: ( ( ( rule__AFunctionCall__Group_3__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13684:1: ( ( rule__AFunctionCall__Group_3__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13684:1: ( ( rule__AFunctionCall__ArgumentsAssignment_3 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13685:1: ( rule__AFunctionCall__ArgumentsAssignment_3 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13684:1: ( ( rule__AFunctionCall__Group_3__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13685:1: ( rule__AFunctionCall__Group_3__0 )?
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3()); 
+               before(grammarAccess.getAFunctionCallAccess().getGroup_3()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13686:1: ( rule__AFunctionCall__ArgumentsAssignment_3 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13686:2: rule__AFunctionCall__ArgumentsAssignment_3
-            {
-            pushFollow(FOLLOW_rule__AFunctionCall__ArgumentsAssignment_3_in_rule__AFunctionCall__Group__3__Impl27441);
-            rule__AFunctionCall__ArgumentsAssignment_3();
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13686:1: ( rule__AFunctionCall__Group_3__0 )?
+            int alt107=2;
+            int LA107_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return ;
+            if ( ((LA107_0>=RULE_INT && LA107_0<=RULE_ID)||LA107_0==17||(LA107_0>=30 && LA107_0<=31)||(LA107_0>=36 && LA107_0<=37)||LA107_0==51||LA107_0==91||LA107_0==104||LA107_0==109||LA107_0==113) ) {
+                alt107=1;
+            }
+            switch (alt107) {
+                case 1 :
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13686:2: rule__AFunctionCall__Group_3__0
+                    {
+                    pushFollow(FOLLOW_rule__AFunctionCall__Group_3__0_in_rule__AFunctionCall__Group__3__Impl27441);
+                    rule__AFunctionCall__Group_3__0();
+
+                    state._fsp--;
+                    if (state.failed) return ;
+
+                    }
+                    break;
 
             }
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3()); 
+               after(grammarAccess.getAFunctionCallAccess().getGroup_3()); 
             }
 
             }
@@ -38869,22 +38880,17 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AFunctionCall__Group__4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13696:1: rule__AFunctionCall__Group__4 : rule__AFunctionCall__Group__4__Impl rule__AFunctionCall__Group__5 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13696:1: rule__AFunctionCall__Group__4 : rule__AFunctionCall__Group__4__Impl ;
     public final void rule__AFunctionCall__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13700:1: ( rule__AFunctionCall__Group__4__Impl rule__AFunctionCall__Group__5 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13701:2: rule__AFunctionCall__Group__4__Impl rule__AFunctionCall__Group__5
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13700:1: ( rule__AFunctionCall__Group__4__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13701:2: rule__AFunctionCall__Group__4__Impl
             {
-            pushFollow(FOLLOW_rule__AFunctionCall__Group__4__Impl_in_rule__AFunctionCall__Group__427471);
+            pushFollow(FOLLOW_rule__AFunctionCall__Group__4__Impl_in_rule__AFunctionCall__Group__427472);
             rule__AFunctionCall__Group__4__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AFunctionCall__Group__5_in_rule__AFunctionCall__Group__427474);
-            rule__AFunctionCall__Group__5();
 
             state._fsp--;
             if (state.failed) return ;
@@ -38907,52 +38913,24 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AFunctionCall__Group__4__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13708:1: rule__AFunctionCall__Group__4__Impl : ( ( rule__AFunctionCall__Group_4__0 )* ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13707:1: rule__AFunctionCall__Group__4__Impl : ( ')' ) ;
     public final void rule__AFunctionCall__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13712:1: ( ( ( rule__AFunctionCall__Group_4__0 )* ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13713:1: ( ( rule__AFunctionCall__Group_4__0 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13711:1: ( ( ')' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13712:1: ( ')' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13713:1: ( ( rule__AFunctionCall__Group_4__0 )* )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13714:1: ( rule__AFunctionCall__Group_4__0 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13712:1: ( ')' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13713:1: ')'
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getGroup_4()); 
+               before(grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_4()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13715:1: ( rule__AFunctionCall__Group_4__0 )*
-            loop107:
-            do {
-                int alt107=2;
-                int LA107_0 = input.LA(1);
-
-                if ( (LA107_0==106) ) {
-                    alt107=1;
-                }
-
-
-                switch (alt107) {
-            	case 1 :
-            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13715:2: rule__AFunctionCall__Group_4__0
-            	    {
-            	    pushFollow(FOLLOW_rule__AFunctionCall__Group_4__0_in_rule__AFunctionCall__Group__4__Impl27501);
-            	    rule__AFunctionCall__Group_4__0();
-
-            	    state._fsp--;
-            	    if (state.failed) return ;
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop107;
-                }
-            } while (true);
-
+            match(input,105,FOLLOW_105_in_rule__AFunctionCall__Group__4__Impl27500); if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getGroup_4()); 
+               after(grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_4()); 
             }
 
             }
@@ -38975,18 +38953,23 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AFunctionCall__Group__4__Impl"
 
 
-    // $ANTLR start "rule__AFunctionCall__Group__5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13725:1: rule__AFunctionCall__Group__5 : rule__AFunctionCall__Group__5__Impl ;
-    public final void rule__AFunctionCall__Group__5() throws RecognitionException {
+    // $ANTLR start "rule__AFunctionCall__Group_3__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13736:1: rule__AFunctionCall__Group_3__0 : rule__AFunctionCall__Group_3__0__Impl rule__AFunctionCall__Group_3__1 ;
+    public final void rule__AFunctionCall__Group_3__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13729:1: ( rule__AFunctionCall__Group__5__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13730:2: rule__AFunctionCall__Group__5__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13740:1: ( rule__AFunctionCall__Group_3__0__Impl rule__AFunctionCall__Group_3__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13741:2: rule__AFunctionCall__Group_3__0__Impl rule__AFunctionCall__Group_3__1
             {
-            pushFollow(FOLLOW_rule__AFunctionCall__Group__5__Impl_in_rule__AFunctionCall__Group__527532);
-            rule__AFunctionCall__Group__5__Impl();
+            pushFollow(FOLLOW_rule__AFunctionCall__Group_3__0__Impl_in_rule__AFunctionCall__Group_3__027541);
+            rule__AFunctionCall__Group_3__0__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__AFunctionCall__Group_3__1_in_rule__AFunctionCall__Group_3__027544);
+            rule__AFunctionCall__Group_3__1();
 
             state._fsp--;
             if (state.failed) return ;
@@ -39005,107 +38988,38 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AFunctionCall__Group__5"
+    // $ANTLR end "rule__AFunctionCall__Group_3__0"
 
 
-    // $ANTLR start "rule__AFunctionCall__Group__5__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13736:1: rule__AFunctionCall__Group__5__Impl : ( ')' ) ;
-    public final void rule__AFunctionCall__Group__5__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13740:1: ( ( ')' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13741:1: ( ')' )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13741:1: ( ')' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13742:1: ')'
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_5()); 
-            }
-            match(input,105,FOLLOW_105_in_rule__AFunctionCall__Group__5__Impl27560); if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_5()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__AFunctionCall__Group__5__Impl"
-
-
-    // $ANTLR start "rule__AFunctionCall__Group_4__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13767:1: rule__AFunctionCall__Group_4__0 : rule__AFunctionCall__Group_4__0__Impl rule__AFunctionCall__Group_4__1 ;
-    public final void rule__AFunctionCall__Group_4__0() throws RecognitionException {
+    // $ANTLR start "rule__AFunctionCall__Group_3__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13748:1: rule__AFunctionCall__Group_3__0__Impl : ( ( rule__AFunctionCall__ArgumentsAssignment_3_0 ) ) ;
+    public final void rule__AFunctionCall__Group_3__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13771:1: ( rule__AFunctionCall__Group_4__0__Impl rule__AFunctionCall__Group_4__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13772:2: rule__AFunctionCall__Group_4__0__Impl rule__AFunctionCall__Group_4__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13752:1: ( ( ( rule__AFunctionCall__ArgumentsAssignment_3_0 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13753:1: ( ( rule__AFunctionCall__ArgumentsAssignment_3_0 ) )
             {
-            pushFollow(FOLLOW_rule__AFunctionCall__Group_4__0__Impl_in_rule__AFunctionCall__Group_4__027603);
-            rule__AFunctionCall__Group_4__0__Impl();
-
-            state._fsp--;
-            if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AFunctionCall__Group_4__1_in_rule__AFunctionCall__Group_4__027606);
-            rule__AFunctionCall__Group_4__1();
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13753:1: ( ( rule__AFunctionCall__ArgumentsAssignment_3_0 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13754:1: ( rule__AFunctionCall__ArgumentsAssignment_3_0 )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3_0()); 
+            }
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13755:1: ( rule__AFunctionCall__ArgumentsAssignment_3_0 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13755:2: rule__AFunctionCall__ArgumentsAssignment_3_0
+            {
+            pushFollow(FOLLOW_rule__AFunctionCall__ArgumentsAssignment_3_0_in_rule__AFunctionCall__Group_3__0__Impl27571);
+            rule__AFunctionCall__ArgumentsAssignment_3_0();
 
             state._fsp--;
             if (state.failed) return ;
 
             }
 
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__AFunctionCall__Group_4__0"
-
-
-    // $ANTLR start "rule__AFunctionCall__Group_4__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13779:1: rule__AFunctionCall__Group_4__0__Impl : ( ',' ) ;
-    public final void rule__AFunctionCall__Group_4__0__Impl() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13783:1: ( ( ',' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13784:1: ( ',' )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13784:1: ( ',' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13785:1: ','
-            {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getCommaKeyword_4_0()); 
-            }
-            match(input,106,FOLLOW_106_in_rule__AFunctionCall__Group_4__0__Impl27634); if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getCommaKeyword_4_0()); 
+               after(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3_0()); 
             }
 
             }
@@ -39125,21 +39039,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AFunctionCall__Group_4__0__Impl"
+    // $ANTLR end "rule__AFunctionCall__Group_3__0__Impl"
 
 
-    // $ANTLR start "rule__AFunctionCall__Group_4__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13798:1: rule__AFunctionCall__Group_4__1 : rule__AFunctionCall__Group_4__1__Impl ;
-    public final void rule__AFunctionCall__Group_4__1() throws RecognitionException {
+    // $ANTLR start "rule__AFunctionCall__Group_3__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13765:1: rule__AFunctionCall__Group_3__1 : rule__AFunctionCall__Group_3__1__Impl ;
+    public final void rule__AFunctionCall__Group_3__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13802:1: ( rule__AFunctionCall__Group_4__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13803:2: rule__AFunctionCall__Group_4__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13769:1: ( rule__AFunctionCall__Group_3__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13770:2: rule__AFunctionCall__Group_3__1__Impl
             {
-            pushFollow(FOLLOW_rule__AFunctionCall__Group_4__1__Impl_in_rule__AFunctionCall__Group_4__127665);
-            rule__AFunctionCall__Group_4__1__Impl();
+            pushFollow(FOLLOW_rule__AFunctionCall__Group_3__1__Impl_in_rule__AFunctionCall__Group_3__127601);
+            rule__AFunctionCall__Group_3__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
@@ -39158,38 +39072,56 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AFunctionCall__Group_4__1"
+    // $ANTLR end "rule__AFunctionCall__Group_3__1"
 
 
-    // $ANTLR start "rule__AFunctionCall__Group_4__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13809:1: rule__AFunctionCall__Group_4__1__Impl : ( ( rule__AFunctionCall__ArgumentsAssignment_4_1 ) ) ;
-    public final void rule__AFunctionCall__Group_4__1__Impl() throws RecognitionException {
+    // $ANTLR start "rule__AFunctionCall__Group_3__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13776:1: rule__AFunctionCall__Group_3__1__Impl : ( ( rule__AFunctionCall__Group_3_1__0 )* ) ;
+    public final void rule__AFunctionCall__Group_3__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13813:1: ( ( ( rule__AFunctionCall__ArgumentsAssignment_4_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13814:1: ( ( rule__AFunctionCall__ArgumentsAssignment_4_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13780:1: ( ( ( rule__AFunctionCall__Group_3_1__0 )* ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13781:1: ( ( rule__AFunctionCall__Group_3_1__0 )* )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13814:1: ( ( rule__AFunctionCall__ArgumentsAssignment_4_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13815:1: ( rule__AFunctionCall__ArgumentsAssignment_4_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13781:1: ( ( rule__AFunctionCall__Group_3_1__0 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13782:1: ( rule__AFunctionCall__Group_3_1__0 )*
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_4_1()); 
+               before(grammarAccess.getAFunctionCallAccess().getGroup_3_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13816:1: ( rule__AFunctionCall__ArgumentsAssignment_4_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13816:2: rule__AFunctionCall__ArgumentsAssignment_4_1
-            {
-            pushFollow(FOLLOW_rule__AFunctionCall__ArgumentsAssignment_4_1_in_rule__AFunctionCall__Group_4__1__Impl27692);
-            rule__AFunctionCall__ArgumentsAssignment_4_1();
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13783:1: ( rule__AFunctionCall__Group_3_1__0 )*
+            loop108:
+            do {
+                int alt108=2;
+                int LA108_0 = input.LA(1);
 
-            state._fsp--;
-            if (state.failed) return ;
+                if ( (LA108_0==106) ) {
+                    alt108=1;
+                }
 
-            }
+
+                switch (alt108) {
+            	case 1 :
+            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13783:2: rule__AFunctionCall__Group_3_1__0
+            	    {
+            	    pushFollow(FOLLOW_rule__AFunctionCall__Group_3_1__0_in_rule__AFunctionCall__Group_3__1__Impl27628);
+            	    rule__AFunctionCall__Group_3_1__0();
+
+            	    state._fsp--;
+            	    if (state.failed) return ;
+
+            	    }
+            	    break;
+
+            	default :
+            	    break loop108;
+                }
+            } while (true);
 
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_4_1()); 
+               after(grammarAccess.getAFunctionCallAccess().getGroup_3_1()); 
             }
 
             }
@@ -39209,25 +39141,188 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
         }
         return ;
     }
-    // $ANTLR end "rule__AFunctionCall__Group_4__1__Impl"
+    // $ANTLR end "rule__AFunctionCall__Group_3__1__Impl"
+
+
+    // $ANTLR start "rule__AFunctionCall__Group_3_1__0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13797:1: rule__AFunctionCall__Group_3_1__0 : rule__AFunctionCall__Group_3_1__0__Impl rule__AFunctionCall__Group_3_1__1 ;
+    public final void rule__AFunctionCall__Group_3_1__0() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13801:1: ( rule__AFunctionCall__Group_3_1__0__Impl rule__AFunctionCall__Group_3_1__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13802:2: rule__AFunctionCall__Group_3_1__0__Impl rule__AFunctionCall__Group_3_1__1
+            {
+            pushFollow(FOLLOW_rule__AFunctionCall__Group_3_1__0__Impl_in_rule__AFunctionCall__Group_3_1__027663);
+            rule__AFunctionCall__Group_3_1__0__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+            pushFollow(FOLLOW_rule__AFunctionCall__Group_3_1__1_in_rule__AFunctionCall__Group_3_1__027666);
+            rule__AFunctionCall__Group_3_1__1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AFunctionCall__Group_3_1__0"
+
+
+    // $ANTLR start "rule__AFunctionCall__Group_3_1__0__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13809:1: rule__AFunctionCall__Group_3_1__0__Impl : ( ',' ) ;
+    public final void rule__AFunctionCall__Group_3_1__0__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13813:1: ( ( ',' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13814:1: ( ',' )
+            {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13814:1: ( ',' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13815:1: ','
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAFunctionCallAccess().getCommaKeyword_3_1_0()); 
+            }
+            match(input,106,FOLLOW_106_in_rule__AFunctionCall__Group_3_1__0__Impl27694); if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAFunctionCallAccess().getCommaKeyword_3_1_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AFunctionCall__Group_3_1__0__Impl"
+
+
+    // $ANTLR start "rule__AFunctionCall__Group_3_1__1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13828:1: rule__AFunctionCall__Group_3_1__1 : rule__AFunctionCall__Group_3_1__1__Impl ;
+    public final void rule__AFunctionCall__Group_3_1__1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13832:1: ( rule__AFunctionCall__Group_3_1__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13833:2: rule__AFunctionCall__Group_3_1__1__Impl
+            {
+            pushFollow(FOLLOW_rule__AFunctionCall__Group_3_1__1__Impl_in_rule__AFunctionCall__Group_3_1__127725);
+            rule__AFunctionCall__Group_3_1__1__Impl();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AFunctionCall__Group_3_1__1"
+
+
+    // $ANTLR start "rule__AFunctionCall__Group_3_1__1__Impl"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13839:1: rule__AFunctionCall__Group_3_1__1__Impl : ( ( rule__AFunctionCall__ArgumentsAssignment_3_1_1 ) ) ;
+    public final void rule__AFunctionCall__Group_3_1__1__Impl() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13843:1: ( ( ( rule__AFunctionCall__ArgumentsAssignment_3_1_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13844:1: ( ( rule__AFunctionCall__ArgumentsAssignment_3_1_1 ) )
+            {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13844:1: ( ( rule__AFunctionCall__ArgumentsAssignment_3_1_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13845:1: ( rule__AFunctionCall__ArgumentsAssignment_3_1_1 )
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3_1_1()); 
+            }
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13846:1: ( rule__AFunctionCall__ArgumentsAssignment_3_1_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13846:2: rule__AFunctionCall__ArgumentsAssignment_3_1_1
+            {
+            pushFollow(FOLLOW_rule__AFunctionCall__ArgumentsAssignment_3_1_1_in_rule__AFunctionCall__Group_3_1__1__Impl27752);
+            rule__AFunctionCall__ArgumentsAssignment_3_1_1();
+
+            state._fsp--;
+            if (state.failed) return ;
+
+            }
+
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAFunctionCallAccess().getArgumentsAssignment_3_1_1()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AFunctionCall__Group_3_1__1__Impl"
 
 
     // $ANTLR start "rule__ARangeExpression__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13830:1: rule__ARangeExpression__Group__0 : rule__ARangeExpression__Group__0__Impl rule__ARangeExpression__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13860:1: rule__ARangeExpression__Group__0 : rule__ARangeExpression__Group__0__Impl rule__ARangeExpression__Group__1 ;
     public final void rule__ARangeExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13834:1: ( rule__ARangeExpression__Group__0__Impl rule__ARangeExpression__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13835:2: rule__ARangeExpression__Group__0__Impl rule__ARangeExpression__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13864:1: ( rule__ARangeExpression__Group__0__Impl rule__ARangeExpression__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13865:2: rule__ARangeExpression__Group__0__Impl rule__ARangeExpression__Group__1
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__0__Impl_in_rule__ARangeExpression__Group__027726);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__0__Impl_in_rule__ARangeExpression__Group__027786);
             rule__ARangeExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__1_in_rule__ARangeExpression__Group__027729);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__1_in_rule__ARangeExpression__Group__027789);
             rule__ARangeExpression__Group__1();
 
             state._fsp--;
@@ -39251,23 +39346,23 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13842:1: rule__ARangeExpression__Group__0__Impl : ( () ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13872:1: rule__ARangeExpression__Group__0__Impl : ( () ) ;
     public final void rule__ARangeExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13846:1: ( ( () ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13847:1: ( () )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13876:1: ( ( () ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13877:1: ( () )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13847:1: ( () )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13848:1: ()
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13877:1: ( () )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13878:1: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getARangeAction_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13849:1: ()
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13851:1: 
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13879:1: ()
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13881:1: 
             {
             }
 
@@ -39292,21 +39387,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13861:1: rule__ARangeExpression__Group__1 : rule__ARangeExpression__Group__1__Impl rule__ARangeExpression__Group__2 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13891:1: rule__ARangeExpression__Group__1 : rule__ARangeExpression__Group__1__Impl rule__ARangeExpression__Group__2 ;
     public final void rule__ARangeExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13865:1: ( rule__ARangeExpression__Group__1__Impl rule__ARangeExpression__Group__2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13866:2: rule__ARangeExpression__Group__1__Impl rule__ARangeExpression__Group__2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13895:1: ( rule__ARangeExpression__Group__1__Impl rule__ARangeExpression__Group__2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13896:2: rule__ARangeExpression__Group__1__Impl rule__ARangeExpression__Group__2
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__1__Impl_in_rule__ARangeExpression__Group__127787);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__1__Impl_in_rule__ARangeExpression__Group__127847);
             rule__ARangeExpression__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__2_in_rule__ARangeExpression__Group__127790);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__2_in_rule__ARangeExpression__Group__127850);
             rule__ARangeExpression__Group__2();
 
             state._fsp--;
@@ -39330,22 +39425,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13873:1: rule__ARangeExpression__Group__1__Impl : ( '[' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13903:1: rule__ARangeExpression__Group__1__Impl : ( '[' ) ;
     public final void rule__ARangeExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13877:1: ( ( '[' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13878:1: ( '[' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13907:1: ( ( '[' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13908:1: ( '[' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13878:1: ( '[' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13879:1: '['
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13908:1: ( '[' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13909:1: '['
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getLeftSquareBracketKeyword_1()); 
             }
-            match(input,51,FOLLOW_51_in_rule__ARangeExpression__Group__1__Impl27818); if (state.failed) return ;
+            match(input,51,FOLLOW_51_in_rule__ARangeExpression__Group__1__Impl27878); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getARangeExpressionAccess().getLeftSquareBracketKeyword_1()); 
             }
@@ -39371,21 +39466,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13892:1: rule__ARangeExpression__Group__2 : rule__ARangeExpression__Group__2__Impl rule__ARangeExpression__Group__3 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13922:1: rule__ARangeExpression__Group__2 : rule__ARangeExpression__Group__2__Impl rule__ARangeExpression__Group__3 ;
     public final void rule__ARangeExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13896:1: ( rule__ARangeExpression__Group__2__Impl rule__ARangeExpression__Group__3 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13897:2: rule__ARangeExpression__Group__2__Impl rule__ARangeExpression__Group__3
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13926:1: ( rule__ARangeExpression__Group__2__Impl rule__ARangeExpression__Group__3 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13927:2: rule__ARangeExpression__Group__2__Impl rule__ARangeExpression__Group__3
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__2__Impl_in_rule__ARangeExpression__Group__227849);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__2__Impl_in_rule__ARangeExpression__Group__227909);
             rule__ARangeExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__3_in_rule__ARangeExpression__Group__227852);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__3_in_rule__ARangeExpression__Group__227912);
             rule__ARangeExpression__Group__3();
 
             state._fsp--;
@@ -39409,25 +39504,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__2__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13904:1: rule__ARangeExpression__Group__2__Impl : ( ( rule__ARangeExpression__MinimumAssignment_2 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13934:1: rule__ARangeExpression__Group__2__Impl : ( ( rule__ARangeExpression__MinimumAssignment_2 ) ) ;
     public final void rule__ARangeExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13908:1: ( ( ( rule__ARangeExpression__MinimumAssignment_2 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13909:1: ( ( rule__ARangeExpression__MinimumAssignment_2 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13938:1: ( ( ( rule__ARangeExpression__MinimumAssignment_2 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13939:1: ( ( rule__ARangeExpression__MinimumAssignment_2 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13909:1: ( ( rule__ARangeExpression__MinimumAssignment_2 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13910:1: ( rule__ARangeExpression__MinimumAssignment_2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13939:1: ( ( rule__ARangeExpression__MinimumAssignment_2 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13940:1: ( rule__ARangeExpression__MinimumAssignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getMinimumAssignment_2()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13911:1: ( rule__ARangeExpression__MinimumAssignment_2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13911:2: rule__ARangeExpression__MinimumAssignment_2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13941:1: ( rule__ARangeExpression__MinimumAssignment_2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13941:2: rule__ARangeExpression__MinimumAssignment_2
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__MinimumAssignment_2_in_rule__ARangeExpression__Group__2__Impl27879);
+            pushFollow(FOLLOW_rule__ARangeExpression__MinimumAssignment_2_in_rule__ARangeExpression__Group__2__Impl27939);
             rule__ARangeExpression__MinimumAssignment_2();
 
             state._fsp--;
@@ -39460,21 +39555,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13921:1: rule__ARangeExpression__Group__3 : rule__ARangeExpression__Group__3__Impl rule__ARangeExpression__Group__4 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13951:1: rule__ARangeExpression__Group__3 : rule__ARangeExpression__Group__3__Impl rule__ARangeExpression__Group__4 ;
     public final void rule__ARangeExpression__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13925:1: ( rule__ARangeExpression__Group__3__Impl rule__ARangeExpression__Group__4 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13926:2: rule__ARangeExpression__Group__3__Impl rule__ARangeExpression__Group__4
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13955:1: ( rule__ARangeExpression__Group__3__Impl rule__ARangeExpression__Group__4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13956:2: rule__ARangeExpression__Group__3__Impl rule__ARangeExpression__Group__4
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__3__Impl_in_rule__ARangeExpression__Group__327909);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__3__Impl_in_rule__ARangeExpression__Group__327969);
             rule__ARangeExpression__Group__3__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__4_in_rule__ARangeExpression__Group__327912);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__4_in_rule__ARangeExpression__Group__327972);
             rule__ARangeExpression__Group__4();
 
             state._fsp--;
@@ -39498,22 +39593,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__3__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13933:1: rule__ARangeExpression__Group__3__Impl : ( '..' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13963:1: rule__ARangeExpression__Group__3__Impl : ( '..' ) ;
     public final void rule__ARangeExpression__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13937:1: ( ( '..' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13938:1: ( '..' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13967:1: ( ( '..' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13968:1: ( '..' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13938:1: ( '..' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13939:1: '..'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13968:1: ( '..' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13969:1: '..'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getFullStopFullStopKeyword_3()); 
             }
-            match(input,107,FOLLOW_107_in_rule__ARangeExpression__Group__3__Impl27940); if (state.failed) return ;
+            match(input,107,FOLLOW_107_in_rule__ARangeExpression__Group__3__Impl28000); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getARangeExpressionAccess().getFullStopFullStopKeyword_3()); 
             }
@@ -39539,21 +39634,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13952:1: rule__ARangeExpression__Group__4 : rule__ARangeExpression__Group__4__Impl rule__ARangeExpression__Group__5 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13982:1: rule__ARangeExpression__Group__4 : rule__ARangeExpression__Group__4__Impl rule__ARangeExpression__Group__5 ;
     public final void rule__ARangeExpression__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13956:1: ( rule__ARangeExpression__Group__4__Impl rule__ARangeExpression__Group__5 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13957:2: rule__ARangeExpression__Group__4__Impl rule__ARangeExpression__Group__5
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13986:1: ( rule__ARangeExpression__Group__4__Impl rule__ARangeExpression__Group__5 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13987:2: rule__ARangeExpression__Group__4__Impl rule__ARangeExpression__Group__5
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__4__Impl_in_rule__ARangeExpression__Group__427971);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__4__Impl_in_rule__ARangeExpression__Group__428031);
             rule__ARangeExpression__Group__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__5_in_rule__ARangeExpression__Group__427974);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__5_in_rule__ARangeExpression__Group__428034);
             rule__ARangeExpression__Group__5();
 
             state._fsp--;
@@ -39577,25 +39672,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__4__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13964:1: rule__ARangeExpression__Group__4__Impl : ( ( rule__ARangeExpression__MaximumAssignment_4 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13994:1: rule__ARangeExpression__Group__4__Impl : ( ( rule__ARangeExpression__MaximumAssignment_4 ) ) ;
     public final void rule__ARangeExpression__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13968:1: ( ( ( rule__ARangeExpression__MaximumAssignment_4 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13969:1: ( ( rule__ARangeExpression__MaximumAssignment_4 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13998:1: ( ( ( rule__ARangeExpression__MaximumAssignment_4 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13999:1: ( ( rule__ARangeExpression__MaximumAssignment_4 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13969:1: ( ( rule__ARangeExpression__MaximumAssignment_4 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13970:1: ( rule__ARangeExpression__MaximumAssignment_4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13999:1: ( ( rule__ARangeExpression__MaximumAssignment_4 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14000:1: ( rule__ARangeExpression__MaximumAssignment_4 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getMaximumAssignment_4()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13971:1: ( rule__ARangeExpression__MaximumAssignment_4 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13971:2: rule__ARangeExpression__MaximumAssignment_4
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14001:1: ( rule__ARangeExpression__MaximumAssignment_4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14001:2: rule__ARangeExpression__MaximumAssignment_4
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__MaximumAssignment_4_in_rule__ARangeExpression__Group__4__Impl28001);
+            pushFollow(FOLLOW_rule__ARangeExpression__MaximumAssignment_4_in_rule__ARangeExpression__Group__4__Impl28061);
             rule__ARangeExpression__MaximumAssignment_4();
 
             state._fsp--;
@@ -39628,21 +39723,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13981:1: rule__ARangeExpression__Group__5 : rule__ARangeExpression__Group__5__Impl rule__ARangeExpression__Group__6 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14011:1: rule__ARangeExpression__Group__5 : rule__ARangeExpression__Group__5__Impl rule__ARangeExpression__Group__6 ;
     public final void rule__ARangeExpression__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13985:1: ( rule__ARangeExpression__Group__5__Impl rule__ARangeExpression__Group__6 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13986:2: rule__ARangeExpression__Group__5__Impl rule__ARangeExpression__Group__6
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14015:1: ( rule__ARangeExpression__Group__5__Impl rule__ARangeExpression__Group__6 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14016:2: rule__ARangeExpression__Group__5__Impl rule__ARangeExpression__Group__6
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__5__Impl_in_rule__ARangeExpression__Group__528031);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__5__Impl_in_rule__ARangeExpression__Group__528091);
             rule__ARangeExpression__Group__5__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__6_in_rule__ARangeExpression__Group__528034);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__6_in_rule__ARangeExpression__Group__528094);
             rule__ARangeExpression__Group__6();
 
             state._fsp--;
@@ -39666,33 +39761,33 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__5__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13993:1: rule__ARangeExpression__Group__5__Impl : ( ( rule__ARangeExpression__Group_5__0 )? ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14023:1: rule__ARangeExpression__Group__5__Impl : ( ( rule__ARangeExpression__Group_5__0 )? ) ;
     public final void rule__ARangeExpression__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13997:1: ( ( ( rule__ARangeExpression__Group_5__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13998:1: ( ( rule__ARangeExpression__Group_5__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14027:1: ( ( ( rule__ARangeExpression__Group_5__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14028:1: ( ( rule__ARangeExpression__Group_5__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13998:1: ( ( rule__ARangeExpression__Group_5__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:13999:1: ( rule__ARangeExpression__Group_5__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14028:1: ( ( rule__ARangeExpression__Group_5__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14029:1: ( rule__ARangeExpression__Group_5__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getGroup_5()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14000:1: ( rule__ARangeExpression__Group_5__0 )?
-            int alt108=2;
-            int LA108_0 = input.LA(1);
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14030:1: ( rule__ARangeExpression__Group_5__0 )?
+            int alt109=2;
+            int LA109_0 = input.LA(1);
 
-            if ( (LA108_0==108) ) {
-                alt108=1;
+            if ( (LA109_0==108) ) {
+                alt109=1;
             }
-            switch (alt108) {
+            switch (alt109) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14000:2: rule__ARangeExpression__Group_5__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14030:2: rule__ARangeExpression__Group_5__0
                     {
-                    pushFollow(FOLLOW_rule__ARangeExpression__Group_5__0_in_rule__ARangeExpression__Group__5__Impl28061);
+                    pushFollow(FOLLOW_rule__ARangeExpression__Group_5__0_in_rule__ARangeExpression__Group__5__Impl28121);
                     rule__ARangeExpression__Group_5__0();
 
                     state._fsp--;
@@ -39728,16 +39823,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14010:1: rule__ARangeExpression__Group__6 : rule__ARangeExpression__Group__6__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14040:1: rule__ARangeExpression__Group__6 : rule__ARangeExpression__Group__6__Impl ;
     public final void rule__ARangeExpression__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14014:1: ( rule__ARangeExpression__Group__6__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14015:2: rule__ARangeExpression__Group__6__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14044:1: ( rule__ARangeExpression__Group__6__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14045:2: rule__ARangeExpression__Group__6__Impl
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group__6__Impl_in_rule__ARangeExpression__Group__628092);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group__6__Impl_in_rule__ARangeExpression__Group__628152);
             rule__ARangeExpression__Group__6__Impl();
 
             state._fsp--;
@@ -39761,22 +39856,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group__6__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14021:1: rule__ARangeExpression__Group__6__Impl : ( ']' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14051:1: rule__ARangeExpression__Group__6__Impl : ( ']' ) ;
     public final void rule__ARangeExpression__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14025:1: ( ( ']' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14026:1: ( ']' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14055:1: ( ( ']' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14056:1: ( ']' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14026:1: ( ']' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14027:1: ']'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14056:1: ( ']' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14057:1: ']'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getRightSquareBracketKeyword_6()); 
             }
-            match(input,52,FOLLOW_52_in_rule__ARangeExpression__Group__6__Impl28120); if (state.failed) return ;
+            match(input,52,FOLLOW_52_in_rule__ARangeExpression__Group__6__Impl28180); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getARangeExpressionAccess().getRightSquareBracketKeyword_6()); 
             }
@@ -39802,21 +39897,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group_5__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14054:1: rule__ARangeExpression__Group_5__0 : rule__ARangeExpression__Group_5__0__Impl rule__ARangeExpression__Group_5__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14084:1: rule__ARangeExpression__Group_5__0 : rule__ARangeExpression__Group_5__0__Impl rule__ARangeExpression__Group_5__1 ;
     public final void rule__ARangeExpression__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14058:1: ( rule__ARangeExpression__Group_5__0__Impl rule__ARangeExpression__Group_5__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14059:2: rule__ARangeExpression__Group_5__0__Impl rule__ARangeExpression__Group_5__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14088:1: ( rule__ARangeExpression__Group_5__0__Impl rule__ARangeExpression__Group_5__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14089:2: rule__ARangeExpression__Group_5__0__Impl rule__ARangeExpression__Group_5__1
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group_5__0__Impl_in_rule__ARangeExpression__Group_5__028165);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group_5__0__Impl_in_rule__ARangeExpression__Group_5__028225);
             rule__ARangeExpression__Group_5__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ARangeExpression__Group_5__1_in_rule__ARangeExpression__Group_5__028168);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group_5__1_in_rule__ARangeExpression__Group_5__028228);
             rule__ARangeExpression__Group_5__1();
 
             state._fsp--;
@@ -39840,25 +39935,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group_5__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14066:1: rule__ARangeExpression__Group_5__0__Impl : ( ( 'delta' ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14096:1: rule__ARangeExpression__Group_5__0__Impl : ( ( 'delta' ) ) ;
     public final void rule__ARangeExpression__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14070:1: ( ( ( 'delta' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14071:1: ( ( 'delta' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14100:1: ( ( ( 'delta' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14101:1: ( ( 'delta' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14071:1: ( ( 'delta' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14072:1: ( 'delta' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14101:1: ( ( 'delta' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14102:1: ( 'delta' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getDeltaKeyword_5_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14073:1: ( 'delta' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14074:2: 'delta'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14103:1: ( 'delta' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14104:2: 'delta'
             {
-            match(input,108,FOLLOW_108_in_rule__ARangeExpression__Group_5__0__Impl28197); if (state.failed) return ;
+            match(input,108,FOLLOW_108_in_rule__ARangeExpression__Group_5__0__Impl28257); if (state.failed) return ;
 
             }
 
@@ -39887,16 +39982,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group_5__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14085:1: rule__ARangeExpression__Group_5__1 : rule__ARangeExpression__Group_5__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14115:1: rule__ARangeExpression__Group_5__1 : rule__ARangeExpression__Group_5__1__Impl ;
     public final void rule__ARangeExpression__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14089:1: ( rule__ARangeExpression__Group_5__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14090:2: rule__ARangeExpression__Group_5__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14119:1: ( rule__ARangeExpression__Group_5__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14120:2: rule__ARangeExpression__Group_5__1__Impl
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__Group_5__1__Impl_in_rule__ARangeExpression__Group_5__128229);
+            pushFollow(FOLLOW_rule__ARangeExpression__Group_5__1__Impl_in_rule__ARangeExpression__Group_5__128289);
             rule__ARangeExpression__Group_5__1__Impl();
 
             state._fsp--;
@@ -39920,25 +40015,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__Group_5__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14096:1: rule__ARangeExpression__Group_5__1__Impl : ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14126:1: rule__ARangeExpression__Group_5__1__Impl : ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) ) ;
     public final void rule__ARangeExpression__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14100:1: ( ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14101:1: ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14130:1: ( ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14131:1: ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14101:1: ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14102:1: ( rule__ARangeExpression__DeltaAssignment_5_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14131:1: ( ( rule__ARangeExpression__DeltaAssignment_5_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14132:1: ( rule__ARangeExpression__DeltaAssignment_5_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getDeltaAssignment_5_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14103:1: ( rule__ARangeExpression__DeltaAssignment_5_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14103:2: rule__ARangeExpression__DeltaAssignment_5_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14133:1: ( rule__ARangeExpression__DeltaAssignment_5_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14133:2: rule__ARangeExpression__DeltaAssignment_5_1
             {
-            pushFollow(FOLLOW_rule__ARangeExpression__DeltaAssignment_5_1_in_rule__ARangeExpression__Group_5__1__Impl28256);
+            pushFollow(FOLLOW_rule__ARangeExpression__DeltaAssignment_5_1_in_rule__ARangeExpression__Group_5__1__Impl28316);
             rule__ARangeExpression__DeltaAssignment_5_1();
 
             state._fsp--;
@@ -39971,21 +40066,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14117:1: rule__AIfExpression__Group__0 : rule__AIfExpression__Group__0__Impl rule__AIfExpression__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14147:1: rule__AIfExpression__Group__0 : rule__AIfExpression__Group__0__Impl rule__AIfExpression__Group__1 ;
     public final void rule__AIfExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14121:1: ( rule__AIfExpression__Group__0__Impl rule__AIfExpression__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14122:2: rule__AIfExpression__Group__0__Impl rule__AIfExpression__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14151:1: ( rule__AIfExpression__Group__0__Impl rule__AIfExpression__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14152:2: rule__AIfExpression__Group__0__Impl rule__AIfExpression__Group__1
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__0__Impl_in_rule__AIfExpression__Group__028290);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__0__Impl_in_rule__AIfExpression__Group__028350);
             rule__AIfExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group__1_in_rule__AIfExpression__Group__028293);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__1_in_rule__AIfExpression__Group__028353);
             rule__AIfExpression__Group__1();
 
             state._fsp--;
@@ -40009,23 +40104,23 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14129:1: rule__AIfExpression__Group__0__Impl : ( () ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14159:1: rule__AIfExpression__Group__0__Impl : ( () ) ;
     public final void rule__AIfExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14133:1: ( ( () ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14134:1: ( () )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14163:1: ( ( () ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14164:1: ( () )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14134:1: ( () )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14135:1: ()
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14164:1: ( () )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14165:1: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getAConditionalAction_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14136:1: ()
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14138:1: 
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14166:1: ()
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14168:1: 
             {
             }
 
@@ -40050,21 +40145,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14148:1: rule__AIfExpression__Group__1 : rule__AIfExpression__Group__1__Impl rule__AIfExpression__Group__2 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14178:1: rule__AIfExpression__Group__1 : rule__AIfExpression__Group__1__Impl rule__AIfExpression__Group__2 ;
     public final void rule__AIfExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14152:1: ( rule__AIfExpression__Group__1__Impl rule__AIfExpression__Group__2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14153:2: rule__AIfExpression__Group__1__Impl rule__AIfExpression__Group__2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14182:1: ( rule__AIfExpression__Group__1__Impl rule__AIfExpression__Group__2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14183:2: rule__AIfExpression__Group__1__Impl rule__AIfExpression__Group__2
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__1__Impl_in_rule__AIfExpression__Group__128351);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__1__Impl_in_rule__AIfExpression__Group__128411);
             rule__AIfExpression__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group__2_in_rule__AIfExpression__Group__128354);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__2_in_rule__AIfExpression__Group__128414);
             rule__AIfExpression__Group__2();
 
             state._fsp--;
@@ -40088,22 +40183,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14160:1: rule__AIfExpression__Group__1__Impl : ( 'if' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14190:1: rule__AIfExpression__Group__1__Impl : ( 'if' ) ;
     public final void rule__AIfExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14164:1: ( ( 'if' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14165:1: ( 'if' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14194:1: ( ( 'if' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14195:1: ( 'if' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14165:1: ( 'if' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14166:1: 'if'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14195:1: ( 'if' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14196:1: 'if'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getIfKeyword_1()); 
             }
-            match(input,109,FOLLOW_109_in_rule__AIfExpression__Group__1__Impl28382); if (state.failed) return ;
+            match(input,109,FOLLOW_109_in_rule__AIfExpression__Group__1__Impl28442); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAIfExpressionAccess().getIfKeyword_1()); 
             }
@@ -40129,21 +40224,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14179:1: rule__AIfExpression__Group__2 : rule__AIfExpression__Group__2__Impl rule__AIfExpression__Group__3 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14209:1: rule__AIfExpression__Group__2 : rule__AIfExpression__Group__2__Impl rule__AIfExpression__Group__3 ;
     public final void rule__AIfExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14183:1: ( rule__AIfExpression__Group__2__Impl rule__AIfExpression__Group__3 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14184:2: rule__AIfExpression__Group__2__Impl rule__AIfExpression__Group__3
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14213:1: ( rule__AIfExpression__Group__2__Impl rule__AIfExpression__Group__3 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14214:2: rule__AIfExpression__Group__2__Impl rule__AIfExpression__Group__3
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__2__Impl_in_rule__AIfExpression__Group__228413);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__2__Impl_in_rule__AIfExpression__Group__228473);
             rule__AIfExpression__Group__2__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group__3_in_rule__AIfExpression__Group__228416);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__3_in_rule__AIfExpression__Group__228476);
             rule__AIfExpression__Group__3();
 
             state._fsp--;
@@ -40167,25 +40262,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__2__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14191:1: rule__AIfExpression__Group__2__Impl : ( ( rule__AIfExpression__IfAssignment_2 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14221:1: rule__AIfExpression__Group__2__Impl : ( ( rule__AIfExpression__IfAssignment_2 ) ) ;
     public final void rule__AIfExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14195:1: ( ( ( rule__AIfExpression__IfAssignment_2 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14196:1: ( ( rule__AIfExpression__IfAssignment_2 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14225:1: ( ( ( rule__AIfExpression__IfAssignment_2 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14226:1: ( ( rule__AIfExpression__IfAssignment_2 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14196:1: ( ( rule__AIfExpression__IfAssignment_2 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14197:1: ( rule__AIfExpression__IfAssignment_2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14226:1: ( ( rule__AIfExpression__IfAssignment_2 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14227:1: ( rule__AIfExpression__IfAssignment_2 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getIfAssignment_2()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14198:1: ( rule__AIfExpression__IfAssignment_2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14198:2: rule__AIfExpression__IfAssignment_2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14228:1: ( rule__AIfExpression__IfAssignment_2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14228:2: rule__AIfExpression__IfAssignment_2
             {
-            pushFollow(FOLLOW_rule__AIfExpression__IfAssignment_2_in_rule__AIfExpression__Group__2__Impl28443);
+            pushFollow(FOLLOW_rule__AIfExpression__IfAssignment_2_in_rule__AIfExpression__Group__2__Impl28503);
             rule__AIfExpression__IfAssignment_2();
 
             state._fsp--;
@@ -40218,21 +40313,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14208:1: rule__AIfExpression__Group__3 : rule__AIfExpression__Group__3__Impl rule__AIfExpression__Group__4 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14238:1: rule__AIfExpression__Group__3 : rule__AIfExpression__Group__3__Impl rule__AIfExpression__Group__4 ;
     public final void rule__AIfExpression__Group__3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14212:1: ( rule__AIfExpression__Group__3__Impl rule__AIfExpression__Group__4 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14213:2: rule__AIfExpression__Group__3__Impl rule__AIfExpression__Group__4
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14242:1: ( rule__AIfExpression__Group__3__Impl rule__AIfExpression__Group__4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14243:2: rule__AIfExpression__Group__3__Impl rule__AIfExpression__Group__4
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__3__Impl_in_rule__AIfExpression__Group__328473);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__3__Impl_in_rule__AIfExpression__Group__328533);
             rule__AIfExpression__Group__3__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group__4_in_rule__AIfExpression__Group__328476);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__4_in_rule__AIfExpression__Group__328536);
             rule__AIfExpression__Group__4();
 
             state._fsp--;
@@ -40256,22 +40351,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__3__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14220:1: rule__AIfExpression__Group__3__Impl : ( 'then' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14250:1: rule__AIfExpression__Group__3__Impl : ( 'then' ) ;
     public final void rule__AIfExpression__Group__3__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14224:1: ( ( 'then' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14225:1: ( 'then' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14254:1: ( ( 'then' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14255:1: ( 'then' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14225:1: ( 'then' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14226:1: 'then'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14255:1: ( 'then' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14256:1: 'then'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getThenKeyword_3()); 
             }
-            match(input,67,FOLLOW_67_in_rule__AIfExpression__Group__3__Impl28504); if (state.failed) return ;
+            match(input,67,FOLLOW_67_in_rule__AIfExpression__Group__3__Impl28564); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAIfExpressionAccess().getThenKeyword_3()); 
             }
@@ -40297,21 +40392,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14239:1: rule__AIfExpression__Group__4 : rule__AIfExpression__Group__4__Impl rule__AIfExpression__Group__5 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14269:1: rule__AIfExpression__Group__4 : rule__AIfExpression__Group__4__Impl rule__AIfExpression__Group__5 ;
     public final void rule__AIfExpression__Group__4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14243:1: ( rule__AIfExpression__Group__4__Impl rule__AIfExpression__Group__5 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14244:2: rule__AIfExpression__Group__4__Impl rule__AIfExpression__Group__5
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14273:1: ( rule__AIfExpression__Group__4__Impl rule__AIfExpression__Group__5 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14274:2: rule__AIfExpression__Group__4__Impl rule__AIfExpression__Group__5
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__4__Impl_in_rule__AIfExpression__Group__428535);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__4__Impl_in_rule__AIfExpression__Group__428595);
             rule__AIfExpression__Group__4__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group__5_in_rule__AIfExpression__Group__428538);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__5_in_rule__AIfExpression__Group__428598);
             rule__AIfExpression__Group__5();
 
             state._fsp--;
@@ -40335,25 +40430,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__4__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14251:1: rule__AIfExpression__Group__4__Impl : ( ( rule__AIfExpression__ThenAssignment_4 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14281:1: rule__AIfExpression__Group__4__Impl : ( ( rule__AIfExpression__ThenAssignment_4 ) ) ;
     public final void rule__AIfExpression__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14255:1: ( ( ( rule__AIfExpression__ThenAssignment_4 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14256:1: ( ( rule__AIfExpression__ThenAssignment_4 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14285:1: ( ( ( rule__AIfExpression__ThenAssignment_4 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14286:1: ( ( rule__AIfExpression__ThenAssignment_4 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14256:1: ( ( rule__AIfExpression__ThenAssignment_4 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14257:1: ( rule__AIfExpression__ThenAssignment_4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14286:1: ( ( rule__AIfExpression__ThenAssignment_4 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14287:1: ( rule__AIfExpression__ThenAssignment_4 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getThenAssignment_4()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14258:1: ( rule__AIfExpression__ThenAssignment_4 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14258:2: rule__AIfExpression__ThenAssignment_4
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14288:1: ( rule__AIfExpression__ThenAssignment_4 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14288:2: rule__AIfExpression__ThenAssignment_4
             {
-            pushFollow(FOLLOW_rule__AIfExpression__ThenAssignment_4_in_rule__AIfExpression__Group__4__Impl28565);
+            pushFollow(FOLLOW_rule__AIfExpression__ThenAssignment_4_in_rule__AIfExpression__Group__4__Impl28625);
             rule__AIfExpression__ThenAssignment_4();
 
             state._fsp--;
@@ -40386,21 +40481,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14268:1: rule__AIfExpression__Group__5 : rule__AIfExpression__Group__5__Impl rule__AIfExpression__Group__6 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14298:1: rule__AIfExpression__Group__5 : rule__AIfExpression__Group__5__Impl rule__AIfExpression__Group__6 ;
     public final void rule__AIfExpression__Group__5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14272:1: ( rule__AIfExpression__Group__5__Impl rule__AIfExpression__Group__6 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14273:2: rule__AIfExpression__Group__5__Impl rule__AIfExpression__Group__6
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14302:1: ( rule__AIfExpression__Group__5__Impl rule__AIfExpression__Group__6 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14303:2: rule__AIfExpression__Group__5__Impl rule__AIfExpression__Group__6
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__5__Impl_in_rule__AIfExpression__Group__528595);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__5__Impl_in_rule__AIfExpression__Group__528655);
             rule__AIfExpression__Group__5__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group__6_in_rule__AIfExpression__Group__528598);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__6_in_rule__AIfExpression__Group__528658);
             rule__AIfExpression__Group__6();
 
             state._fsp--;
@@ -40424,33 +40519,33 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__5__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14280:1: rule__AIfExpression__Group__5__Impl : ( ( rule__AIfExpression__Group_5__0 )? ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14310:1: rule__AIfExpression__Group__5__Impl : ( ( rule__AIfExpression__Group_5__0 )? ) ;
     public final void rule__AIfExpression__Group__5__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14284:1: ( ( ( rule__AIfExpression__Group_5__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14285:1: ( ( rule__AIfExpression__Group_5__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14314:1: ( ( ( rule__AIfExpression__Group_5__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14315:1: ( ( rule__AIfExpression__Group_5__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14285:1: ( ( rule__AIfExpression__Group_5__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14286:1: ( rule__AIfExpression__Group_5__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14315:1: ( ( rule__AIfExpression__Group_5__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14316:1: ( rule__AIfExpression__Group_5__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getGroup_5()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14287:1: ( rule__AIfExpression__Group_5__0 )?
-            int alt109=2;
-            int LA109_0 = input.LA(1);
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14317:1: ( rule__AIfExpression__Group_5__0 )?
+            int alt110=2;
+            int LA110_0 = input.LA(1);
 
-            if ( (LA109_0==66) ) {
-                alt109=1;
+            if ( (LA110_0==66) ) {
+                alt110=1;
             }
-            switch (alt109) {
+            switch (alt110) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14287:2: rule__AIfExpression__Group_5__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14317:2: rule__AIfExpression__Group_5__0
                     {
-                    pushFollow(FOLLOW_rule__AIfExpression__Group_5__0_in_rule__AIfExpression__Group__5__Impl28625);
+                    pushFollow(FOLLOW_rule__AIfExpression__Group_5__0_in_rule__AIfExpression__Group__5__Impl28685);
                     rule__AIfExpression__Group_5__0();
 
                     state._fsp--;
@@ -40486,16 +40581,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14297:1: rule__AIfExpression__Group__6 : rule__AIfExpression__Group__6__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14327:1: rule__AIfExpression__Group__6 : rule__AIfExpression__Group__6__Impl ;
     public final void rule__AIfExpression__Group__6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14301:1: ( rule__AIfExpression__Group__6__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14302:2: rule__AIfExpression__Group__6__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14331:1: ( rule__AIfExpression__Group__6__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14332:2: rule__AIfExpression__Group__6__Impl
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group__6__Impl_in_rule__AIfExpression__Group__628656);
+            pushFollow(FOLLOW_rule__AIfExpression__Group__6__Impl_in_rule__AIfExpression__Group__628716);
             rule__AIfExpression__Group__6__Impl();
 
             state._fsp--;
@@ -40519,22 +40614,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group__6__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14308:1: rule__AIfExpression__Group__6__Impl : ( 'endif' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14338:1: rule__AIfExpression__Group__6__Impl : ( 'endif' ) ;
     public final void rule__AIfExpression__Group__6__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14312:1: ( ( 'endif' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14313:1: ( 'endif' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14342:1: ( ( 'endif' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14343:1: ( 'endif' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14313:1: ( 'endif' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14314:1: 'endif'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14343:1: ( 'endif' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14344:1: 'endif'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getEndifKeyword_6()); 
             }
-            match(input,110,FOLLOW_110_in_rule__AIfExpression__Group__6__Impl28684); if (state.failed) return ;
+            match(input,110,FOLLOW_110_in_rule__AIfExpression__Group__6__Impl28744); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAIfExpressionAccess().getEndifKeyword_6()); 
             }
@@ -40560,21 +40655,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group_5__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14341:1: rule__AIfExpression__Group_5__0 : rule__AIfExpression__Group_5__0__Impl rule__AIfExpression__Group_5__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14371:1: rule__AIfExpression__Group_5__0 : rule__AIfExpression__Group_5__0__Impl rule__AIfExpression__Group_5__1 ;
     public final void rule__AIfExpression__Group_5__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14345:1: ( rule__AIfExpression__Group_5__0__Impl rule__AIfExpression__Group_5__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14346:2: rule__AIfExpression__Group_5__0__Impl rule__AIfExpression__Group_5__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14375:1: ( rule__AIfExpression__Group_5__0__Impl rule__AIfExpression__Group_5__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14376:2: rule__AIfExpression__Group_5__0__Impl rule__AIfExpression__Group_5__1
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group_5__0__Impl_in_rule__AIfExpression__Group_5__028729);
+            pushFollow(FOLLOW_rule__AIfExpression__Group_5__0__Impl_in_rule__AIfExpression__Group_5__028789);
             rule__AIfExpression__Group_5__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AIfExpression__Group_5__1_in_rule__AIfExpression__Group_5__028732);
+            pushFollow(FOLLOW_rule__AIfExpression__Group_5__1_in_rule__AIfExpression__Group_5__028792);
             rule__AIfExpression__Group_5__1();
 
             state._fsp--;
@@ -40598,22 +40693,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group_5__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14353:1: rule__AIfExpression__Group_5__0__Impl : ( 'else' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14383:1: rule__AIfExpression__Group_5__0__Impl : ( 'else' ) ;
     public final void rule__AIfExpression__Group_5__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14357:1: ( ( 'else' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14358:1: ( 'else' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14387:1: ( ( 'else' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14388:1: ( 'else' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14358:1: ( 'else' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14359:1: 'else'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14388:1: ( 'else' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14389:1: 'else'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getElseKeyword_5_0()); 
             }
-            match(input,66,FOLLOW_66_in_rule__AIfExpression__Group_5__0__Impl28760); if (state.failed) return ;
+            match(input,66,FOLLOW_66_in_rule__AIfExpression__Group_5__0__Impl28820); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAIfExpressionAccess().getElseKeyword_5_0()); 
             }
@@ -40639,16 +40734,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group_5__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14372:1: rule__AIfExpression__Group_5__1 : rule__AIfExpression__Group_5__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14402:1: rule__AIfExpression__Group_5__1 : rule__AIfExpression__Group_5__1__Impl ;
     public final void rule__AIfExpression__Group_5__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14376:1: ( rule__AIfExpression__Group_5__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14377:2: rule__AIfExpression__Group_5__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14406:1: ( rule__AIfExpression__Group_5__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14407:2: rule__AIfExpression__Group_5__1__Impl
             {
-            pushFollow(FOLLOW_rule__AIfExpression__Group_5__1__Impl_in_rule__AIfExpression__Group_5__128791);
+            pushFollow(FOLLOW_rule__AIfExpression__Group_5__1__Impl_in_rule__AIfExpression__Group_5__128851);
             rule__AIfExpression__Group_5__1__Impl();
 
             state._fsp--;
@@ -40672,25 +40767,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__Group_5__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14383:1: rule__AIfExpression__Group_5__1__Impl : ( ( rule__AIfExpression__ElseAssignment_5_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14413:1: rule__AIfExpression__Group_5__1__Impl : ( ( rule__AIfExpression__ElseAssignment_5_1 ) ) ;
     public final void rule__AIfExpression__Group_5__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14387:1: ( ( ( rule__AIfExpression__ElseAssignment_5_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14388:1: ( ( rule__AIfExpression__ElseAssignment_5_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14417:1: ( ( ( rule__AIfExpression__ElseAssignment_5_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14418:1: ( ( rule__AIfExpression__ElseAssignment_5_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14388:1: ( ( rule__AIfExpression__ElseAssignment_5_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14389:1: ( rule__AIfExpression__ElseAssignment_5_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14418:1: ( ( rule__AIfExpression__ElseAssignment_5_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14419:1: ( rule__AIfExpression__ElseAssignment_5_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getElseAssignment_5_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14390:1: ( rule__AIfExpression__ElseAssignment_5_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14390:2: rule__AIfExpression__ElseAssignment_5_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14420:1: ( rule__AIfExpression__ElseAssignment_5_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14420:2: rule__AIfExpression__ElseAssignment_5_1
             {
-            pushFollow(FOLLOW_rule__AIfExpression__ElseAssignment_5_1_in_rule__AIfExpression__Group_5__1__Impl28818);
+            pushFollow(FOLLOW_rule__AIfExpression__ElseAssignment_5_1_in_rule__AIfExpression__Group_5__1__Impl28878);
             rule__AIfExpression__ElseAssignment_5_1();
 
             state._fsp--;
@@ -40723,21 +40818,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ABooleanLiteral__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14404:1: rule__ABooleanLiteral__Group__0 : rule__ABooleanLiteral__Group__0__Impl rule__ABooleanLiteral__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14434:1: rule__ABooleanLiteral__Group__0 : rule__ABooleanLiteral__Group__0__Impl rule__ABooleanLiteral__Group__1 ;
     public final void rule__ABooleanLiteral__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14408:1: ( rule__ABooleanLiteral__Group__0__Impl rule__ABooleanLiteral__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14409:2: rule__ABooleanLiteral__Group__0__Impl rule__ABooleanLiteral__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14438:1: ( rule__ABooleanLiteral__Group__0__Impl rule__ABooleanLiteral__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14439:2: rule__ABooleanLiteral__Group__0__Impl rule__ABooleanLiteral__Group__1
             {
-            pushFollow(FOLLOW_rule__ABooleanLiteral__Group__0__Impl_in_rule__ABooleanLiteral__Group__028852);
+            pushFollow(FOLLOW_rule__ABooleanLiteral__Group__0__Impl_in_rule__ABooleanLiteral__Group__028912);
             rule__ABooleanLiteral__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__ABooleanLiteral__Group__1_in_rule__ABooleanLiteral__Group__028855);
+            pushFollow(FOLLOW_rule__ABooleanLiteral__Group__1_in_rule__ABooleanLiteral__Group__028915);
             rule__ABooleanLiteral__Group__1();
 
             state._fsp--;
@@ -40761,23 +40856,23 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ABooleanLiteral__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14416:1: rule__ABooleanLiteral__Group__0__Impl : ( () ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14446:1: rule__ABooleanLiteral__Group__0__Impl : ( () ) ;
     public final void rule__ABooleanLiteral__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14420:1: ( ( () ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14421:1: ( () )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14450:1: ( ( () ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14451:1: ( () )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14421:1: ( () )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14422:1: ()
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14451:1: ( () )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14452:1: ()
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getABooleanLiteralAccess().getBooleanLiteralAction_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14423:1: ()
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14425:1: 
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14453:1: ()
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14455:1: 
             {
             }
 
@@ -40802,16 +40897,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ABooleanLiteral__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14435:1: rule__ABooleanLiteral__Group__1 : rule__ABooleanLiteral__Group__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14465:1: rule__ABooleanLiteral__Group__1 : rule__ABooleanLiteral__Group__1__Impl ;
     public final void rule__ABooleanLiteral__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14439:1: ( rule__ABooleanLiteral__Group__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14440:2: rule__ABooleanLiteral__Group__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14469:1: ( rule__ABooleanLiteral__Group__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14470:2: rule__ABooleanLiteral__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__ABooleanLiteral__Group__1__Impl_in_rule__ABooleanLiteral__Group__128913);
+            pushFollow(FOLLOW_rule__ABooleanLiteral__Group__1__Impl_in_rule__ABooleanLiteral__Group__128973);
             rule__ABooleanLiteral__Group__1__Impl();
 
             state._fsp--;
@@ -40835,25 +40930,25 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ABooleanLiteral__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14446:1: rule__ABooleanLiteral__Group__1__Impl : ( ( rule__ABooleanLiteral__Alternatives_1 ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14476:1: rule__ABooleanLiteral__Group__1__Impl : ( ( rule__ABooleanLiteral__Alternatives_1 ) ) ;
     public final void rule__ABooleanLiteral__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14450:1: ( ( ( rule__ABooleanLiteral__Alternatives_1 ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14451:1: ( ( rule__ABooleanLiteral__Alternatives_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14480:1: ( ( ( rule__ABooleanLiteral__Alternatives_1 ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14481:1: ( ( rule__ABooleanLiteral__Alternatives_1 ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14451:1: ( ( rule__ABooleanLiteral__Alternatives_1 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14452:1: ( rule__ABooleanLiteral__Alternatives_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14481:1: ( ( rule__ABooleanLiteral__Alternatives_1 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14482:1: ( rule__ABooleanLiteral__Alternatives_1 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getABooleanLiteralAccess().getAlternatives_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14453:1: ( rule__ABooleanLiteral__Alternatives_1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14453:2: rule__ABooleanLiteral__Alternatives_1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14483:1: ( rule__ABooleanLiteral__Alternatives_1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14483:2: rule__ABooleanLiteral__Alternatives_1
             {
-            pushFollow(FOLLOW_rule__ABooleanLiteral__Alternatives_1_in_rule__ABooleanLiteral__Group__1__Impl28940);
+            pushFollow(FOLLOW_rule__ABooleanLiteral__Alternatives_1_in_rule__ABooleanLiteral__Group__1__Impl29000);
             rule__ABooleanLiteral__Alternatives_1();
 
             state._fsp--;
@@ -40886,21 +40981,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AParenthesizedExpression__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14467:1: rule__AParenthesizedExpression__Group__0 : rule__AParenthesizedExpression__Group__0__Impl rule__AParenthesizedExpression__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14497:1: rule__AParenthesizedExpression__Group__0 : rule__AParenthesizedExpression__Group__0__Impl rule__AParenthesizedExpression__Group__1 ;
     public final void rule__AParenthesizedExpression__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14471:1: ( rule__AParenthesizedExpression__Group__0__Impl rule__AParenthesizedExpression__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14472:2: rule__AParenthesizedExpression__Group__0__Impl rule__AParenthesizedExpression__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14501:1: ( rule__AParenthesizedExpression__Group__0__Impl rule__AParenthesizedExpression__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14502:2: rule__AParenthesizedExpression__Group__0__Impl rule__AParenthesizedExpression__Group__1
             {
-            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__0__Impl_in_rule__AParenthesizedExpression__Group__028974);
+            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__0__Impl_in_rule__AParenthesizedExpression__Group__029034);
             rule__AParenthesizedExpression__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__1_in_rule__AParenthesizedExpression__Group__028977);
+            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__1_in_rule__AParenthesizedExpression__Group__029037);
             rule__AParenthesizedExpression__Group__1();
 
             state._fsp--;
@@ -40924,22 +41019,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AParenthesizedExpression__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14479:1: rule__AParenthesizedExpression__Group__0__Impl : ( '(' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14509:1: rule__AParenthesizedExpression__Group__0__Impl : ( '(' ) ;
     public final void rule__AParenthesizedExpression__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14483:1: ( ( '(' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14484:1: ( '(' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14513:1: ( ( '(' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14514:1: ( '(' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14484:1: ( '(' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14485:1: '('
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14514:1: ( '(' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14515:1: '('
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0()); 
             }
-            match(input,104,FOLLOW_104_in_rule__AParenthesizedExpression__Group__0__Impl29005); if (state.failed) return ;
+            match(input,104,FOLLOW_104_in_rule__AParenthesizedExpression__Group__0__Impl29065); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0()); 
             }
@@ -40965,21 +41060,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AParenthesizedExpression__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14498:1: rule__AParenthesizedExpression__Group__1 : rule__AParenthesizedExpression__Group__1__Impl rule__AParenthesizedExpression__Group__2 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14528:1: rule__AParenthesizedExpression__Group__1 : rule__AParenthesizedExpression__Group__1__Impl rule__AParenthesizedExpression__Group__2 ;
     public final void rule__AParenthesizedExpression__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14502:1: ( rule__AParenthesizedExpression__Group__1__Impl rule__AParenthesizedExpression__Group__2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14503:2: rule__AParenthesizedExpression__Group__1__Impl rule__AParenthesizedExpression__Group__2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14532:1: ( rule__AParenthesizedExpression__Group__1__Impl rule__AParenthesizedExpression__Group__2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14533:2: rule__AParenthesizedExpression__Group__1__Impl rule__AParenthesizedExpression__Group__2
             {
-            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__1__Impl_in_rule__AParenthesizedExpression__Group__129036);
+            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__1__Impl_in_rule__AParenthesizedExpression__Group__129096);
             rule__AParenthesizedExpression__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__2_in_rule__AParenthesizedExpression__Group__129039);
+            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__2_in_rule__AParenthesizedExpression__Group__129099);
             rule__AParenthesizedExpression__Group__2();
 
             state._fsp--;
@@ -41003,22 +41098,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AParenthesizedExpression__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14510:1: rule__AParenthesizedExpression__Group__1__Impl : ( ruleAExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14540:1: rule__AParenthesizedExpression__Group__1__Impl : ( ruleAExpression ) ;
     public final void rule__AParenthesizedExpression__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14514:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14515:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14544:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14545:1: ( ruleAExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14515:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14516:1: ruleAExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14545:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14546:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAParenthesizedExpressionAccess().getAExpressionParserRuleCall_1()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__AParenthesizedExpression__Group__1__Impl29066);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__AParenthesizedExpression__Group__1__Impl29126);
             ruleAExpression();
 
             state._fsp--;
@@ -41048,16 +41143,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AParenthesizedExpression__Group__2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14527:1: rule__AParenthesizedExpression__Group__2 : rule__AParenthesizedExpression__Group__2__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14557:1: rule__AParenthesizedExpression__Group__2 : rule__AParenthesizedExpression__Group__2__Impl ;
     public final void rule__AParenthesizedExpression__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14531:1: ( rule__AParenthesizedExpression__Group__2__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14532:2: rule__AParenthesizedExpression__Group__2__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14561:1: ( rule__AParenthesizedExpression__Group__2__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14562:2: rule__AParenthesizedExpression__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__2__Impl_in_rule__AParenthesizedExpression__Group__229095);
+            pushFollow(FOLLOW_rule__AParenthesizedExpression__Group__2__Impl_in_rule__AParenthesizedExpression__Group__229155);
             rule__AParenthesizedExpression__Group__2__Impl();
 
             state._fsp--;
@@ -41081,22 +41176,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AParenthesizedExpression__Group__2__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14538:1: rule__AParenthesizedExpression__Group__2__Impl : ( ')' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14568:1: rule__AParenthesizedExpression__Group__2__Impl : ( ')' ) ;
     public final void rule__AParenthesizedExpression__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14542:1: ( ( ')' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14543:1: ( ')' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14572:1: ( ( ')' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14573:1: ( ')' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14543:1: ( ')' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14544:1: ')'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14573:1: ( ')' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14574:1: ')'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2()); 
             }
-            match(input,105,FOLLOW_105_in_rule__AParenthesizedExpression__Group__2__Impl29123); if (state.failed) return ;
+            match(input,105,FOLLOW_105_in_rule__AParenthesizedExpression__Group__2__Impl29183); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2()); 
             }
@@ -41122,21 +41217,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14567:1: rule__AadlClassifierReference__Group__0 : rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14597:1: rule__AadlClassifierReference__Group__0 : rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 ;
     public final void rule__AadlClassifierReference__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14571:1: ( rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14572:2: rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14601:1: ( rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14602:2: rule__AadlClassifierReference__Group__0__Impl rule__AadlClassifierReference__Group__1
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__029164);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__029224);
             rule__AadlClassifierReference__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__029167);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__029227);
             rule__AadlClassifierReference__Group__1();
 
             state._fsp--;
@@ -41160,22 +41255,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14579:1: rule__AadlClassifierReference__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14609:1: rule__AadlClassifierReference__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__AadlClassifierReference__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14583:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14584:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14613:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14614:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14584:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14585:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14614:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14615:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl29194); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl29254); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_0()); 
             }
@@ -41201,21 +41296,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14596:1: rule__AadlClassifierReference__Group__1 : rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14626:1: rule__AadlClassifierReference__Group__1 : rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 ;
     public final void rule__AadlClassifierReference__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14600:1: ( rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14601:2: rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14630:1: ( rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14631:2: rule__AadlClassifierReference__Group__1__Impl rule__AadlClassifierReference__Group__2
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__129223);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__129283);
             rule__AadlClassifierReference__Group__1__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__129226);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__129286);
             rule__AadlClassifierReference__Group__2();
 
             state._fsp--;
@@ -41239,28 +41334,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14608:1: rule__AadlClassifierReference__Group__1__Impl : ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14638:1: rule__AadlClassifierReference__Group__1__Impl : ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) ) ;
     public final void rule__AadlClassifierReference__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14612:1: ( ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14613:1: ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14642:1: ( ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14643:1: ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14613:1: ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14614:1: ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14643:1: ( ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14644:1: ( ( rule__AadlClassifierReference__Group_1__0 ) ) ( ( rule__AadlClassifierReference__Group_1__0 )* )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14614:1: ( ( rule__AadlClassifierReference__Group_1__0 ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14615:1: ( rule__AadlClassifierReference__Group_1__0 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14644:1: ( ( rule__AadlClassifierReference__Group_1__0 ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14645:1: ( rule__AadlClassifierReference__Group_1__0 )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getGroup_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14616:1: ( rule__AadlClassifierReference__Group_1__0 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14616:2: rule__AadlClassifierReference__Group_1__0
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14646:1: ( rule__AadlClassifierReference__Group_1__0 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14646:2: rule__AadlClassifierReference__Group_1__0
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29255);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29315);
             rule__AadlClassifierReference__Group_1__0();
 
             state._fsp--;
@@ -41274,28 +41369,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
             }
 
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14619:1: ( ( rule__AadlClassifierReference__Group_1__0 )* )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14620:1: ( rule__AadlClassifierReference__Group_1__0 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14649:1: ( ( rule__AadlClassifierReference__Group_1__0 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14650:1: ( rule__AadlClassifierReference__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getGroup_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14621:1: ( rule__AadlClassifierReference__Group_1__0 )*
-            loop110:
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14651:1: ( rule__AadlClassifierReference__Group_1__0 )*
+            loop111:
             do {
-                int alt110=2;
-                int LA110_0 = input.LA(1);
+                int alt111=2;
+                int LA111_0 = input.LA(1);
 
-                if ( (LA110_0==111) ) {
-                    alt110=1;
+                if ( (LA111_0==111) ) {
+                    alt111=1;
                 }
 
 
-                switch (alt110) {
+                switch (alt111) {
             	case 1 :
-            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14621:2: rule__AadlClassifierReference__Group_1__0
+            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14651:2: rule__AadlClassifierReference__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29267);
+            	    pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29327);
             	    rule__AadlClassifierReference__Group_1__0();
 
             	    state._fsp--;
@@ -41305,7 +41400,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop110;
+            	    break loop111;
                 }
             } while (true);
 
@@ -41337,16 +41432,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14632:1: rule__AadlClassifierReference__Group__2 : rule__AadlClassifierReference__Group__2__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14662:1: rule__AadlClassifierReference__Group__2 : rule__AadlClassifierReference__Group__2__Impl ;
     public final void rule__AadlClassifierReference__Group__2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14636:1: ( rule__AadlClassifierReference__Group__2__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14637:2: rule__AadlClassifierReference__Group__2__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14666:1: ( rule__AadlClassifierReference__Group__2__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14667:2: rule__AadlClassifierReference__Group__2__Impl
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__229300);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__229360);
             rule__AadlClassifierReference__Group__2__Impl();
 
             state._fsp--;
@@ -41370,33 +41465,33 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group__2__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14643:1: rule__AadlClassifierReference__Group__2__Impl : ( ( rule__AadlClassifierReference__Group_2__0 )? ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14673:1: rule__AadlClassifierReference__Group__2__Impl : ( ( rule__AadlClassifierReference__Group_2__0 )? ) ;
     public final void rule__AadlClassifierReference__Group__2__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14647:1: ( ( ( rule__AadlClassifierReference__Group_2__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14648:1: ( ( rule__AadlClassifierReference__Group_2__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14677:1: ( ( ( rule__AadlClassifierReference__Group_2__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14678:1: ( ( rule__AadlClassifierReference__Group_2__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14648:1: ( ( rule__AadlClassifierReference__Group_2__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14649:1: ( rule__AadlClassifierReference__Group_2__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14678:1: ( ( rule__AadlClassifierReference__Group_2__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14679:1: ( rule__AadlClassifierReference__Group_2__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getGroup_2()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14650:1: ( rule__AadlClassifierReference__Group_2__0 )?
-            int alt111=2;
-            int LA111_0 = input.LA(1);
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14680:1: ( rule__AadlClassifierReference__Group_2__0 )?
+            int alt112=2;
+            int LA112_0 = input.LA(1);
 
-            if ( (LA111_0==92) ) {
-                alt111=1;
+            if ( (LA112_0==92) ) {
+                alt112=1;
             }
-            switch (alt111) {
+            switch (alt112) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14650:2: rule__AadlClassifierReference__Group_2__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14680:2: rule__AadlClassifierReference__Group_2__0
                     {
-                    pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__0_in_rule__AadlClassifierReference__Group__2__Impl29327);
+                    pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__0_in_rule__AadlClassifierReference__Group__2__Impl29387);
                     rule__AadlClassifierReference__Group_2__0();
 
                     state._fsp--;
@@ -41432,21 +41527,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_1__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14666:1: rule__AadlClassifierReference__Group_1__0 : rule__AadlClassifierReference__Group_1__0__Impl rule__AadlClassifierReference__Group_1__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14696:1: rule__AadlClassifierReference__Group_1__0 : rule__AadlClassifierReference__Group_1__0__Impl rule__AadlClassifierReference__Group_1__1 ;
     public final void rule__AadlClassifierReference__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14670:1: ( rule__AadlClassifierReference__Group_1__0__Impl rule__AadlClassifierReference__Group_1__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14671:2: rule__AadlClassifierReference__Group_1__0__Impl rule__AadlClassifierReference__Group_1__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14700:1: ( rule__AadlClassifierReference__Group_1__0__Impl rule__AadlClassifierReference__Group_1__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14701:2: rule__AadlClassifierReference__Group_1__0__Impl rule__AadlClassifierReference__Group_1__1
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__0__Impl_in_rule__AadlClassifierReference__Group_1__029364);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__0__Impl_in_rule__AadlClassifierReference__Group_1__029424);
             rule__AadlClassifierReference__Group_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__1_in_rule__AadlClassifierReference__Group_1__029367);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__1_in_rule__AadlClassifierReference__Group_1__029427);
             rule__AadlClassifierReference__Group_1__1();
 
             state._fsp--;
@@ -41470,22 +41565,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_1__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14678:1: rule__AadlClassifierReference__Group_1__0__Impl : ( '::' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14708:1: rule__AadlClassifierReference__Group_1__0__Impl : ( '::' ) ;
     public final void rule__AadlClassifierReference__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14682:1: ( ( '::' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14683:1: ( '::' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14712:1: ( ( '::' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14713:1: ( '::' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14683:1: ( '::' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14684:1: '::'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14713:1: ( '::' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14714:1: '::'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
             }
-            match(input,111,FOLLOW_111_in_rule__AadlClassifierReference__Group_1__0__Impl29395); if (state.failed) return ;
+            match(input,111,FOLLOW_111_in_rule__AadlClassifierReference__Group_1__0__Impl29455); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
             }
@@ -41511,16 +41606,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_1__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14697:1: rule__AadlClassifierReference__Group_1__1 : rule__AadlClassifierReference__Group_1__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14727:1: rule__AadlClassifierReference__Group_1__1 : rule__AadlClassifierReference__Group_1__1__Impl ;
     public final void rule__AadlClassifierReference__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14701:1: ( rule__AadlClassifierReference__Group_1__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14702:2: rule__AadlClassifierReference__Group_1__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14731:1: ( rule__AadlClassifierReference__Group_1__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14732:2: rule__AadlClassifierReference__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__1__Impl_in_rule__AadlClassifierReference__Group_1__129426);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_1__1__Impl_in_rule__AadlClassifierReference__Group_1__129486);
             rule__AadlClassifierReference__Group_1__1__Impl();
 
             state._fsp--;
@@ -41544,22 +41639,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_1__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14708:1: rule__AadlClassifierReference__Group_1__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14738:1: rule__AadlClassifierReference__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__AadlClassifierReference__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14712:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14713:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14742:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14743:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14713:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14714:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14743:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14744:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_1_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_1__1__Impl29453); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_1__1__Impl29513); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_1_1()); 
             }
@@ -41585,21 +41680,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_2__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14729:1: rule__AadlClassifierReference__Group_2__0 : rule__AadlClassifierReference__Group_2__0__Impl rule__AadlClassifierReference__Group_2__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14759:1: rule__AadlClassifierReference__Group_2__0 : rule__AadlClassifierReference__Group_2__0__Impl rule__AadlClassifierReference__Group_2__1 ;
     public final void rule__AadlClassifierReference__Group_2__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14733:1: ( rule__AadlClassifierReference__Group_2__0__Impl rule__AadlClassifierReference__Group_2__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14734:2: rule__AadlClassifierReference__Group_2__0__Impl rule__AadlClassifierReference__Group_2__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14763:1: ( rule__AadlClassifierReference__Group_2__0__Impl rule__AadlClassifierReference__Group_2__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14764:2: rule__AadlClassifierReference__Group_2__0__Impl rule__AadlClassifierReference__Group_2__1
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__0__Impl_in_rule__AadlClassifierReference__Group_2__029486);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__0__Impl_in_rule__AadlClassifierReference__Group_2__029546);
             rule__AadlClassifierReference__Group_2__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__1_in_rule__AadlClassifierReference__Group_2__029489);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__1_in_rule__AadlClassifierReference__Group_2__029549);
             rule__AadlClassifierReference__Group_2__1();
 
             state._fsp--;
@@ -41623,22 +41718,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_2__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14741:1: rule__AadlClassifierReference__Group_2__0__Impl : ( '.' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14771:1: rule__AadlClassifierReference__Group_2__0__Impl : ( '.' ) ;
     public final void rule__AadlClassifierReference__Group_2__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14745:1: ( ( '.' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14746:1: ( '.' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14775:1: ( ( '.' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14776:1: ( '.' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14746:1: ( '.' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14747:1: '.'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14776:1: ( '.' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14777:1: '.'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
             }
-            match(input,92,FOLLOW_92_in_rule__AadlClassifierReference__Group_2__0__Impl29517); if (state.failed) return ;
+            match(input,92,FOLLOW_92_in_rule__AadlClassifierReference__Group_2__0__Impl29577); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
             }
@@ -41664,16 +41759,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_2__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14760:1: rule__AadlClassifierReference__Group_2__1 : rule__AadlClassifierReference__Group_2__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14790:1: rule__AadlClassifierReference__Group_2__1 : rule__AadlClassifierReference__Group_2__1__Impl ;
     public final void rule__AadlClassifierReference__Group_2__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14764:1: ( rule__AadlClassifierReference__Group_2__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14765:2: rule__AadlClassifierReference__Group_2__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14794:1: ( rule__AadlClassifierReference__Group_2__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14795:2: rule__AadlClassifierReference__Group_2__1__Impl
             {
-            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__1__Impl_in_rule__AadlClassifierReference__Group_2__129548);
+            pushFollow(FOLLOW_rule__AadlClassifierReference__Group_2__1__Impl_in_rule__AadlClassifierReference__Group_2__129608);
             rule__AadlClassifierReference__Group_2__1__Impl();
 
             state._fsp--;
@@ -41697,22 +41792,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AadlClassifierReference__Group_2__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14771:1: rule__AadlClassifierReference__Group_2__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14801:1: rule__AadlClassifierReference__Group_2__1__Impl : ( RULE_ID ) ;
     public final void rule__AadlClassifierReference__Group_2__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14775:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14776:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14805:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14806:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14776:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14777:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14806:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14807:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_2__1__Impl29575); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_2__1__Impl29635); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAadlClassifierReferenceAccess().getIDTerminalRuleCall_2_1()); 
             }
@@ -41738,21 +41833,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14792:1: rule__AADLPROPERTYREFERENCE__Group__0 : rule__AADLPROPERTYREFERENCE__Group__0__Impl rule__AADLPROPERTYREFERENCE__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14822:1: rule__AADLPROPERTYREFERENCE__Group__0 : rule__AADLPROPERTYREFERENCE__Group__0__Impl rule__AADLPROPERTYREFERENCE__Group__1 ;
     public final void rule__AADLPROPERTYREFERENCE__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14796:1: ( rule__AADLPROPERTYREFERENCE__Group__0__Impl rule__AADLPROPERTYREFERENCE__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14797:2: rule__AADLPROPERTYREFERENCE__Group__0__Impl rule__AADLPROPERTYREFERENCE__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14826:1: ( rule__AADLPROPERTYREFERENCE__Group__0__Impl rule__AADLPROPERTYREFERENCE__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14827:2: rule__AADLPROPERTYREFERENCE__Group__0__Impl rule__AADLPROPERTYREFERENCE__Group__1
             {
-            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group__029608);
+            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group__029668);
             rule__AADLPROPERTYREFERENCE__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1_in_rule__AADLPROPERTYREFERENCE__Group__029611);
+            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1_in_rule__AADLPROPERTYREFERENCE__Group__029671);
             rule__AADLPROPERTYREFERENCE__Group__1();
 
             state._fsp--;
@@ -41776,22 +41871,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14804:1: rule__AADLPROPERTYREFERENCE__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14834:1: rule__AADLPROPERTYREFERENCE__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__AADLPROPERTYREFERENCE__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14808:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14809:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14838:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14839:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14809:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14810:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14839:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14840:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl29638); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl29698); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_0()); 
             }
@@ -41817,16 +41912,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14821:1: rule__AADLPROPERTYREFERENCE__Group__1 : rule__AADLPROPERTYREFERENCE__Group__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14851:1: rule__AADLPROPERTYREFERENCE__Group__1 : rule__AADLPROPERTYREFERENCE__Group__1__Impl ;
     public final void rule__AADLPROPERTYREFERENCE__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14825:1: ( rule__AADLPROPERTYREFERENCE__Group__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14826:2: rule__AADLPROPERTYREFERENCE__Group__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14855:1: ( rule__AADLPROPERTYREFERENCE__Group__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14856:2: rule__AADLPROPERTYREFERENCE__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group__129667);
+            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group__129727);
             rule__AADLPROPERTYREFERENCE__Group__1__Impl();
 
             state._fsp--;
@@ -41850,33 +41945,33 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14832:1: rule__AADLPROPERTYREFERENCE__Group__1__Impl : ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14862:1: rule__AADLPROPERTYREFERENCE__Group__1__Impl : ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? ) ;
     public final void rule__AADLPROPERTYREFERENCE__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14836:1: ( ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14837:1: ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14866:1: ( ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14867:1: ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14837:1: ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14838:1: ( rule__AADLPROPERTYREFERENCE__Group_1__0 )?
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14867:1: ( ( rule__AADLPROPERTYREFERENCE__Group_1__0 )? )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14868:1: ( rule__AADLPROPERTYREFERENCE__Group_1__0 )?
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getGroup_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14839:1: ( rule__AADLPROPERTYREFERENCE__Group_1__0 )?
-            int alt112=2;
-            int LA112_0 = input.LA(1);
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14869:1: ( rule__AADLPROPERTYREFERENCE__Group_1__0 )?
+            int alt113=2;
+            int LA113_0 = input.LA(1);
 
-            if ( (LA112_0==111) ) {
-                alt112=1;
+            if ( (LA113_0==111) ) {
+                alt113=1;
             }
-            switch (alt112) {
+            switch (alt113) {
                 case 1 :
-                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14839:2: rule__AADLPROPERTYREFERENCE__Group_1__0
+                    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14869:2: rule__AADLPROPERTYREFERENCE__Group_1__0
                     {
-                    pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0_in_rule__AADLPROPERTYREFERENCE__Group__1__Impl29694);
+                    pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0_in_rule__AADLPROPERTYREFERENCE__Group__1__Impl29754);
                     rule__AADLPROPERTYREFERENCE__Group_1__0();
 
                     state._fsp--;
@@ -41912,21 +42007,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group_1__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14853:1: rule__AADLPROPERTYREFERENCE__Group_1__0 : rule__AADLPROPERTYREFERENCE__Group_1__0__Impl rule__AADLPROPERTYREFERENCE__Group_1__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14883:1: rule__AADLPROPERTYREFERENCE__Group_1__0 : rule__AADLPROPERTYREFERENCE__Group_1__0__Impl rule__AADLPROPERTYREFERENCE__Group_1__1 ;
     public final void rule__AADLPROPERTYREFERENCE__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14857:1: ( rule__AADLPROPERTYREFERENCE__Group_1__0__Impl rule__AADLPROPERTYREFERENCE__Group_1__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14858:2: rule__AADLPROPERTYREFERENCE__Group_1__0__Impl rule__AADLPROPERTYREFERENCE__Group_1__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14887:1: ( rule__AADLPROPERTYREFERENCE__Group_1__0__Impl rule__AADLPROPERTYREFERENCE__Group_1__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14888:2: rule__AADLPROPERTYREFERENCE__Group_1__0__Impl rule__AADLPROPERTYREFERENCE__Group_1__1
             {
-            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__029729);
+            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__029789);
             rule__AADLPROPERTYREFERENCE__Group_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1_in_rule__AADLPROPERTYREFERENCE__Group_1__029732);
+            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1_in_rule__AADLPROPERTYREFERENCE__Group_1__029792);
             rule__AADLPROPERTYREFERENCE__Group_1__1();
 
             state._fsp--;
@@ -41950,22 +42045,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group_1__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14865:1: rule__AADLPROPERTYREFERENCE__Group_1__0__Impl : ( '::' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14895:1: rule__AADLPROPERTYREFERENCE__Group_1__0__Impl : ( '::' ) ;
     public final void rule__AADLPROPERTYREFERENCE__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14869:1: ( ( '::' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14870:1: ( '::' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14899:1: ( ( '::' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14900:1: ( '::' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14870:1: ( '::' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14871:1: '::'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14900:1: ( '::' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14901:1: '::'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
             }
-            match(input,111,FOLLOW_111_in_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl29760); if (state.failed) return ;
+            match(input,111,FOLLOW_111_in_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl29820); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
             }
@@ -41991,16 +42086,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group_1__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14884:1: rule__AADLPROPERTYREFERENCE__Group_1__1 : rule__AADLPROPERTYREFERENCE__Group_1__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14914:1: rule__AADLPROPERTYREFERENCE__Group_1__1 : rule__AADLPROPERTYREFERENCE__Group_1__1__Impl ;
     public final void rule__AADLPROPERTYREFERENCE__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14888:1: ( rule__AADLPROPERTYREFERENCE__Group_1__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14889:2: rule__AADLPROPERTYREFERENCE__Group_1__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14918:1: ( rule__AADLPROPERTYREFERENCE__Group_1__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14919:2: rule__AADLPROPERTYREFERENCE__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__129791);
+            pushFollow(FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__129851);
             rule__AADLPROPERTYREFERENCE__Group_1__1__Impl();
 
             state._fsp--;
@@ -42024,22 +42119,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AADLPROPERTYREFERENCE__Group_1__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14895:1: rule__AADLPROPERTYREFERENCE__Group_1__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14925:1: rule__AADLPROPERTYREFERENCE__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__AADLPROPERTYREFERENCE__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14899:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14900:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14929:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14930:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14900:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14901:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14930:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14931:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl29818); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl29878); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAADLPROPERTYREFERENCEAccess().getIDTerminalRuleCall_1_1()); 
             }
@@ -42065,21 +42160,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14916:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14946:1: rule__QualifiedName__Group__0 : rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 ;
     public final void rule__QualifiedName__Group__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14920:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14921:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14950:1: ( rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14951:2: rule__QualifiedName__Group__0__Impl rule__QualifiedName__Group__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__029851);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__029911);
             rule__QualifiedName__Group__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__029854);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__029914);
             rule__QualifiedName__Group__1();
 
             state._fsp--;
@@ -42103,22 +42198,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14928:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14958:1: rule__QualifiedName__Group__0__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14932:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14933:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14962:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14963:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14933:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14934:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14963:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14964:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl29881); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl29941); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
             }
@@ -42144,16 +42239,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14945:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14975:1: rule__QualifiedName__Group__1 : rule__QualifiedName__Group__1__Impl ;
     public final void rule__QualifiedName__Group__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14949:1: ( rule__QualifiedName__Group__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14950:2: rule__QualifiedName__Group__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14979:1: ( rule__QualifiedName__Group__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14980:2: rule__QualifiedName__Group__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__129910);
+            pushFollow(FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__129970);
             rule__QualifiedName__Group__1__Impl();
 
             state._fsp--;
@@ -42177,37 +42272,37 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14956:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14986:1: rule__QualifiedName__Group__1__Impl : ( ( rule__QualifiedName__Group_1__0 )* ) ;
     public final void rule__QualifiedName__Group__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14960:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14961:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14990:1: ( ( ( rule__QualifiedName__Group_1__0 )* ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14991:1: ( ( rule__QualifiedName__Group_1__0 )* )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14961:1: ( ( rule__QualifiedName__Group_1__0 )* )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14962:1: ( rule__QualifiedName__Group_1__0 )*
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14991:1: ( ( rule__QualifiedName__Group_1__0 )* )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14992:1: ( rule__QualifiedName__Group_1__0 )*
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getGroup_1()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14963:1: ( rule__QualifiedName__Group_1__0 )*
-            loop113:
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14993:1: ( rule__QualifiedName__Group_1__0 )*
+            loop114:
             do {
-                int alt113=2;
-                int LA113_0 = input.LA(1);
+                int alt114=2;
+                int LA114_0 = input.LA(1);
 
-                if ( (LA113_0==92) ) {
-                    alt113=1;
+                if ( (LA114_0==92) ) {
+                    alt114=1;
                 }
 
 
-                switch (alt113) {
+                switch (alt114) {
             	case 1 :
-            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14963:2: rule__QualifiedName__Group_1__0
+            	    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14993:2: rule__QualifiedName__Group_1__0
             	    {
-            	    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl29937);
+            	    pushFollow(FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl29997);
             	    rule__QualifiedName__Group_1__0();
 
             	    state._fsp--;
@@ -42217,7 +42312,7 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             	    break;
 
             	default :
-            	    break loop113;
+            	    break loop114;
                 }
             } while (true);
 
@@ -42246,21 +42341,21 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14977:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15007:1: rule__QualifiedName__Group_1__0 : rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 ;
     public final void rule__QualifiedName__Group_1__0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14981:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14982:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15011:1: ( rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1 )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15012:2: rule__QualifiedName__Group_1__0__Impl rule__QualifiedName__Group_1__1
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__029972);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__030032);
             rule__QualifiedName__Group_1__0__Impl();
 
             state._fsp--;
             if (state.failed) return ;
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__029975);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__030035);
             rule__QualifiedName__Group_1__1();
 
             state._fsp--;
@@ -42284,22 +42379,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__0__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14989:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15019:1: rule__QualifiedName__Group_1__0__Impl : ( '.' ) ;
     public final void rule__QualifiedName__Group_1__0__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14993:1: ( ( '.' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14994:1: ( '.' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15023:1: ( ( '.' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15024:1: ( '.' )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14994:1: ( '.' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:14995:1: '.'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15024:1: ( '.' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15025:1: '.'
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             }
-            match(input,92,FOLLOW_92_in_rule__QualifiedName__Group_1__0__Impl30003); if (state.failed) return ;
+            match(input,92,FOLLOW_92_in_rule__QualifiedName__Group_1__0__Impl30063); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             }
@@ -42325,16 +42420,16 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15008:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15038:1: rule__QualifiedName__Group_1__1 : rule__QualifiedName__Group_1__1__Impl ;
     public final void rule__QualifiedName__Group_1__1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15012:1: ( rule__QualifiedName__Group_1__1__Impl )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15013:2: rule__QualifiedName__Group_1__1__Impl
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15042:1: ( rule__QualifiedName__Group_1__1__Impl )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15043:2: rule__QualifiedName__Group_1__1__Impl
             {
-            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__130034);
+            pushFollow(FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__130094);
             rule__QualifiedName__Group_1__1__Impl();
 
             state._fsp--;
@@ -42358,22 +42453,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedName__Group_1__1__Impl"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15019:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15049:1: rule__QualifiedName__Group_1__1__Impl : ( RULE_ID ) ;
     public final void rule__QualifiedName__Group_1__1__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15023:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15024:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15053:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15054:1: ( RULE_ID )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15024:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15025:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15054:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15055:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl30061); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl30121); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
             }
@@ -42399,22 +42494,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceCaseResult__NameAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15042:1: rule__AssuranceCaseResult__NameAssignment_1 : ( ruleQualifiedName ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15072:1: rule__AssuranceCaseResult__NameAssignment_1 : ( ruleQualifiedName ) ;
     public final void rule__AssuranceCaseResult__NameAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15046:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15047:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15076:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15077:1: ( ruleQualifiedName )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15047:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15048:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15077:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15078:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAssuranceCaseResultAccess().getNameQualifiedNameParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssuranceCaseResult__NameAssignment_130100);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__AssuranceCaseResult__NameAssignment_130160);
             ruleQualifiedName();
 
             state._fsp--;
@@ -42444,22 +42539,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceCaseResult__MetricsAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15057:1: rule__AssuranceCaseResult__MetricsAssignment_3 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15087:1: rule__AssuranceCaseResult__MetricsAssignment_3 : ( ruleMetrics ) ;
     public final void rule__AssuranceCaseResult__MetricsAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15061:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15062:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15091:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15092:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15062:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15063:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15092:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15093:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAssuranceCaseResultAccess().getMetricsMetricsParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__AssuranceCaseResult__MetricsAssignment_330131);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__AssuranceCaseResult__MetricsAssignment_330191);
             ruleMetrics();
 
             state._fsp--;
@@ -42489,22 +42584,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceCaseResult__MessageAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15072:1: rule__AssuranceCaseResult__MessageAssignment_4_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15102:1: rule__AssuranceCaseResult__MessageAssignment_4_1 : ( RULE_STRING ) ;
     public final void rule__AssuranceCaseResult__MessageAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15076:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15077:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15106:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15107:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15077:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15078:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15107:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15108:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAssuranceCaseResultAccess().getMessageSTRINGTerminalRuleCall_4_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__AssuranceCaseResult__MessageAssignment_4_130162); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__AssuranceCaseResult__MessageAssignment_4_130222); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAssuranceCaseResultAccess().getMessageSTRINGTerminalRuleCall_4_1_0()); 
             }
@@ -42530,22 +42625,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AssuranceCaseResult__ModelResultAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15087:1: rule__AssuranceCaseResult__ModelResultAssignment_5 : ( ruleModelResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15117:1: rule__AssuranceCaseResult__ModelResultAssignment_5 : ( ruleModelResult ) ;
     public final void rule__AssuranceCaseResult__ModelResultAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15091:1: ( ( ruleModelResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15092:1: ( ruleModelResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15121:1: ( ( ruleModelResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15122:1: ( ruleModelResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15092:1: ( ruleModelResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15093:1: ruleModelResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15122:1: ( ruleModelResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15123:1: ruleModelResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAssuranceCaseResultAccess().getModelResultModelResultParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleModelResult_in_rule__AssuranceCaseResult__ModelResultAssignment_530193);
+            pushFollow(FOLLOW_ruleModelResult_in_rule__AssuranceCaseResult__ModelResultAssignment_530253);
             ruleModelResult();
 
             state._fsp--;
@@ -42575,28 +42670,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__PlanAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15102:1: rule__ModelResult__PlanAssignment_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15132:1: rule__ModelResult__PlanAssignment_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__ModelResult__PlanAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15106:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15107:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15136:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15137:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15107:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15108:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15137:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15138:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getPlanAssurancePlanCrossReference_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15109:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15110:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15139:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15140:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getPlanAssurancePlanQualifiedNameParserRuleCall_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ModelResult__PlanAssignment_130228);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ModelResult__PlanAssignment_130288);
             ruleQualifiedName();
 
             state._fsp--;
@@ -42632,28 +42727,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__TargetAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15121:1: rule__ModelResult__TargetAssignment_3 : ( ( ruleAadlClassifierReference ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15151:1: rule__ModelResult__TargetAssignment_3 : ( ( ruleAadlClassifierReference ) ) ;
     public final void rule__ModelResult__TargetAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15125:1: ( ( ( ruleAadlClassifierReference ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15126:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15155:1: ( ( ( ruleAadlClassifierReference ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15156:1: ( ( ruleAadlClassifierReference ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15126:1: ( ( ruleAadlClassifierReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15127:1: ( ruleAadlClassifierReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15156:1: ( ( ruleAadlClassifierReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15157:1: ( ruleAadlClassifierReference )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getTargetComponentImplementationCrossReference_3_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15128:1: ( ruleAadlClassifierReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15129:1: ruleAadlClassifierReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15158:1: ( ruleAadlClassifierReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15159:1: ruleAadlClassifierReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getTargetComponentImplementationAadlClassifierReferenceParserRuleCall_3_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__ModelResult__TargetAssignment_330267);
+            pushFollow(FOLLOW_ruleAadlClassifierReference_in_rule__ModelResult__TargetAssignment_330327);
             ruleAadlClassifierReference();
 
             state._fsp--;
@@ -42689,22 +42784,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__MetricsAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15140:1: rule__ModelResult__MetricsAssignment_5 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15170:1: rule__ModelResult__MetricsAssignment_5 : ( ruleMetrics ) ;
     public final void rule__ModelResult__MetricsAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15144:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15145:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15174:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15175:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15145:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15146:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15175:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15176:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getMetricsMetricsParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__ModelResult__MetricsAssignment_530302);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__ModelResult__MetricsAssignment_530362);
             ruleMetrics();
 
             state._fsp--;
@@ -42734,22 +42829,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__MessageAssignment_6_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15155:1: rule__ModelResult__MessageAssignment_6_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15185:1: rule__ModelResult__MessageAssignment_6_1 : ( RULE_STRING ) ;
     public final void rule__ModelResult__MessageAssignment_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15159:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15160:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15189:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15190:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15160:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15161:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15190:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15191:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getMessageSTRINGTerminalRuleCall_6_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ModelResult__MessageAssignment_6_130333); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ModelResult__MessageAssignment_6_130393); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getModelResultAccess().getMessageSTRINGTerminalRuleCall_6_1_0()); 
             }
@@ -42775,22 +42870,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__ClaimResultAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15170:1: rule__ModelResult__ClaimResultAssignment_7 : ( ruleClaimResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15200:1: rule__ModelResult__ClaimResultAssignment_7 : ( ruleClaimResult ) ;
     public final void rule__ModelResult__ClaimResultAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15174:1: ( ( ruleClaimResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15175:1: ( ruleClaimResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15204:1: ( ( ruleClaimResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15205:1: ( ruleClaimResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15175:1: ( ruleClaimResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15176:1: ruleClaimResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15205:1: ( ruleClaimResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15206:1: ruleClaimResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getClaimResultClaimResultParserRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleClaimResult_in_rule__ModelResult__ClaimResultAssignment_730364);
+            pushFollow(FOLLOW_ruleClaimResult_in_rule__ModelResult__ClaimResultAssignment_730424);
             ruleClaimResult();
 
             state._fsp--;
@@ -42820,22 +42915,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__SubsystemResultAssignment_8_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15185:1: rule__ModelResult__SubsystemResultAssignment_8_0 : ( ruleSubsystemResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15215:1: rule__ModelResult__SubsystemResultAssignment_8_0 : ( ruleSubsystemResult ) ;
     public final void rule__ModelResult__SubsystemResultAssignment_8_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15189:1: ( ( ruleSubsystemResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15190:1: ( ruleSubsystemResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15219:1: ( ( ruleSubsystemResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15220:1: ( ruleSubsystemResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15190:1: ( ruleSubsystemResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15191:1: ruleSubsystemResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15220:1: ( ruleSubsystemResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15221:1: ruleSubsystemResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getSubsystemResultSubsystemResultParserRuleCall_8_0_0()); 
             }
-            pushFollow(FOLLOW_ruleSubsystemResult_in_rule__ModelResult__SubsystemResultAssignment_8_030395);
+            pushFollow(FOLLOW_ruleSubsystemResult_in_rule__ModelResult__SubsystemResultAssignment_8_030455);
             ruleSubsystemResult();
 
             state._fsp--;
@@ -42865,22 +42960,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ModelResult__SubAssuranceCaseAssignment_8_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15200:1: rule__ModelResult__SubAssuranceCaseAssignment_8_1 : ( ruleAssuranceCaseResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15230:1: rule__ModelResult__SubAssuranceCaseAssignment_8_1 : ( ruleAssuranceCaseResult ) ;
     public final void rule__ModelResult__SubAssuranceCaseAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15204:1: ( ( ruleAssuranceCaseResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15205:1: ( ruleAssuranceCaseResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15234:1: ( ( ruleAssuranceCaseResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15235:1: ( ruleAssuranceCaseResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15205:1: ( ruleAssuranceCaseResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15206:1: ruleAssuranceCaseResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15235:1: ( ruleAssuranceCaseResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15236:1: ruleAssuranceCaseResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getModelResultAccess().getSubAssuranceCaseAssuranceCaseResultParserRuleCall_8_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAssuranceCaseResult_in_rule__ModelResult__SubAssuranceCaseAssignment_8_130426);
+            pushFollow(FOLLOW_ruleAssuranceCaseResult_in_rule__ModelResult__SubAssuranceCaseAssignment_8_130486);
             ruleAssuranceCaseResult();
 
             state._fsp--;
@@ -42910,28 +43005,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SubsystemResult__TargetSystemAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15215:1: rule__SubsystemResult__TargetSystemAssignment_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15245:1: rule__SubsystemResult__TargetSystemAssignment_1 : ( ( RULE_ID ) ) ;
     public final void rule__SubsystemResult__TargetSystemAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15219:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15220:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15249:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15250:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15220:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15221:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15250:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15251:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentCrossReference_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15222:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15223:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15252:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15253:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentIDTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SubsystemResult__TargetSystemAssignment_130461); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__SubsystemResult__TargetSystemAssignment_130521); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getSubsystemResultAccess().getTargetSystemSubcomponentIDTerminalRuleCall_1_0_1()); 
             }
@@ -42963,22 +43058,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SubsystemResult__MetricsAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15234:1: rule__SubsystemResult__MetricsAssignment_3 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15264:1: rule__SubsystemResult__MetricsAssignment_3 : ( ruleMetrics ) ;
     public final void rule__SubsystemResult__MetricsAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15238:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15239:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15268:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15269:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15239:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15240:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15269:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15270:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSubsystemResultAccess().getMetricsMetricsParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__SubsystemResult__MetricsAssignment_330496);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__SubsystemResult__MetricsAssignment_330556);
             ruleMetrics();
 
             state._fsp--;
@@ -43008,22 +43103,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SubsystemResult__MessageAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15249:1: rule__SubsystemResult__MessageAssignment_4_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15279:1: rule__SubsystemResult__MessageAssignment_4_1 : ( RULE_STRING ) ;
     public final void rule__SubsystemResult__MessageAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15253:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15254:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15283:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15284:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15254:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15255:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15284:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15285:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSubsystemResultAccess().getMessageSTRINGTerminalRuleCall_4_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__SubsystemResult__MessageAssignment_4_130527); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__SubsystemResult__MessageAssignment_4_130587); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getSubsystemResultAccess().getMessageSTRINGTerminalRuleCall_4_1_0()); 
             }
@@ -43049,22 +43144,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SubsystemResult__ClaimResultAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15264:1: rule__SubsystemResult__ClaimResultAssignment_5 : ( ruleClaimResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15294:1: rule__SubsystemResult__ClaimResultAssignment_5 : ( ruleClaimResult ) ;
     public final void rule__SubsystemResult__ClaimResultAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15268:1: ( ( ruleClaimResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15269:1: ( ruleClaimResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15298:1: ( ( ruleClaimResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15299:1: ( ruleClaimResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15269:1: ( ruleClaimResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15270:1: ruleClaimResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15299:1: ( ruleClaimResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15300:1: ruleClaimResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSubsystemResultAccess().getClaimResultClaimResultParserRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleClaimResult_in_rule__SubsystemResult__ClaimResultAssignment_530558);
+            pushFollow(FOLLOW_ruleClaimResult_in_rule__SubsystemResult__ClaimResultAssignment_530618);
             ruleClaimResult();
 
             state._fsp--;
@@ -43094,22 +43189,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__SubsystemResult__SubsystemResultAssignment_6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15279:1: rule__SubsystemResult__SubsystemResultAssignment_6 : ( ruleSubsystemResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15309:1: rule__SubsystemResult__SubsystemResultAssignment_6 : ( ruleSubsystemResult ) ;
     public final void rule__SubsystemResult__SubsystemResultAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15283:1: ( ( ruleSubsystemResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15284:1: ( ruleSubsystemResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15313:1: ( ( ruleSubsystemResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15314:1: ( ruleSubsystemResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15284:1: ( ruleSubsystemResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15285:1: ruleSubsystemResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15314:1: ( ruleSubsystemResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15315:1: ruleSubsystemResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getSubsystemResultAccess().getSubsystemResultSubsystemResultParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleSubsystemResult_in_rule__SubsystemResult__SubsystemResultAssignment_630589);
+            pushFollow(FOLLOW_ruleSubsystemResult_in_rule__SubsystemResult__SubsystemResultAssignment_630649);
             ruleSubsystemResult();
 
             state._fsp--;
@@ -43139,22 +43234,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__TargetReferenceAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15294:1: rule__ClaimResult__TargetReferenceAssignment_1 : ( ruleQualifiedClaimReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15324:1: rule__ClaimResult__TargetReferenceAssignment_1 : ( ruleQualifiedClaimReference ) ;
     public final void rule__ClaimResult__TargetReferenceAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15298:1: ( ( ruleQualifiedClaimReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15299:1: ( ruleQualifiedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15328:1: ( ( ruleQualifiedClaimReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15329:1: ( ruleQualifiedClaimReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15299:1: ( ruleQualifiedClaimReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15300:1: ruleQualifiedClaimReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15329:1: ( ruleQualifiedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15330:1: ruleQualifiedClaimReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getTargetReferenceQualifiedClaimReferenceParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedClaimReference_in_rule__ClaimResult__TargetReferenceAssignment_130620);
+            pushFollow(FOLLOW_ruleQualifiedClaimReference_in_rule__ClaimResult__TargetReferenceAssignment_130680);
             ruleQualifiedClaimReference();
 
             state._fsp--;
@@ -43184,22 +43279,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__MetricsAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15309:1: rule__ClaimResult__MetricsAssignment_3 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15339:1: rule__ClaimResult__MetricsAssignment_3 : ( ruleMetrics ) ;
     public final void rule__ClaimResult__MetricsAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15313:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15314:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15343:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15344:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15314:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15315:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15344:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15345:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getMetricsMetricsParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__ClaimResult__MetricsAssignment_330651);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__ClaimResult__MetricsAssignment_330711);
             ruleMetrics();
 
             state._fsp--;
@@ -43229,28 +43324,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__ModelElementAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15324:1: rule__ClaimResult__ModelElementAssignment_4_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15354:1: rule__ClaimResult__ModelElementAssignment_4_1 : ( ( RULE_ID ) ) ;
     public final void rule__ClaimResult__ModelElementAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15328:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15329:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15358:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15359:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15329:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15330:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15359:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15360:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getModelElementNamedElementCrossReference_4_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15331:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15332:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15361:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15362:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getModelElementNamedElementIDTerminalRuleCall_4_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ClaimResult__ModelElementAssignment_4_130686); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ClaimResult__ModelElementAssignment_4_130746); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getModelElementNamedElementIDTerminalRuleCall_4_1_0_1()); 
             }
@@ -43282,22 +43377,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__MessageAssignment_5_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15343:1: rule__ClaimResult__MessageAssignment_5_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15373:1: rule__ClaimResult__MessageAssignment_5_1 : ( RULE_STRING ) ;
     public final void rule__ClaimResult__MessageAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15347:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15348:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15377:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15378:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15348:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15349:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15378:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15379:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getMessageSTRINGTerminalRuleCall_5_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ClaimResult__MessageAssignment_5_130721); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ClaimResult__MessageAssignment_5_130781); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getClaimResultAccess().getMessageSTRINGTerminalRuleCall_5_1_0()); 
             }
@@ -43323,22 +43418,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__SubClaimResultAssignment_6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15358:1: rule__ClaimResult__SubClaimResultAssignment_6 : ( ruleClaimResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15388:1: rule__ClaimResult__SubClaimResultAssignment_6 : ( ruleClaimResult ) ;
     public final void rule__ClaimResult__SubClaimResultAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15362:1: ( ( ruleClaimResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15363:1: ( ruleClaimResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15392:1: ( ( ruleClaimResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15393:1: ( ruleClaimResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15363:1: ( ruleClaimResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15364:1: ruleClaimResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15393:1: ( ruleClaimResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15394:1: ruleClaimResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getSubClaimResultClaimResultParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleClaimResult_in_rule__ClaimResult__SubClaimResultAssignment_630752);
+            pushFollow(FOLLOW_ruleClaimResult_in_rule__ClaimResult__SubClaimResultAssignment_630812);
             ruleClaimResult();
 
             state._fsp--;
@@ -43368,22 +43463,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__VerificationActivityResultAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15373:1: rule__ClaimResult__VerificationActivityResultAssignment_7 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15403:1: rule__ClaimResult__VerificationActivityResultAssignment_7 : ( ruleVerificationExpr ) ;
     public final void rule__ClaimResult__VerificationActivityResultAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15377:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15378:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15407:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15408:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15378:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15379:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15408:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15409:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getVerificationActivityResultVerificationExprParserRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ClaimResult__VerificationActivityResultAssignment_730783);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ClaimResult__VerificationActivityResultAssignment_730843);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -43413,22 +43508,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ClaimResult__PredicateResultAssignment_8"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15388:1: rule__ClaimResult__PredicateResultAssignment_8 : ( rulePredicateResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15418:1: rule__ClaimResult__PredicateResultAssignment_8 : ( rulePredicateResult ) ;
     public final void rule__ClaimResult__PredicateResultAssignment_8() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15392:1: ( ( rulePredicateResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15393:1: ( rulePredicateResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15422:1: ( ( rulePredicateResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15423:1: ( rulePredicateResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15393:1: ( rulePredicateResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15394:1: rulePredicateResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15423:1: ( rulePredicateResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15424:1: rulePredicateResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getClaimResultAccess().getPredicateResultPredicateResultParserRuleCall_8_0()); 
             }
-            pushFollow(FOLLOW_rulePredicateResult_in_rule__ClaimResult__PredicateResultAssignment_830814);
+            pushFollow(FOLLOW_rulePredicateResult_in_rule__ClaimResult__PredicateResultAssignment_830874);
             rulePredicateResult();
 
             state._fsp--;
@@ -43458,28 +43553,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__TargetAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15403:1: rule__PreconditionResult__TargetAssignment_2 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15433:1: rule__PreconditionResult__TargetAssignment_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__PreconditionResult__TargetAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15407:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15408:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15437:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15438:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15408:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15409:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15438:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15439:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15410:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15411:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15440:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15441:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__TargetAssignment_230849);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__TargetAssignment_230909);
             ruleQualifiedName();
 
             state._fsp--;
@@ -43515,22 +43610,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__ExecutionStateAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15422:1: rule__PreconditionResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15452:1: rule__PreconditionResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
     public final void rule__PreconditionResult__ExecutionStateAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15426:1: ( ( ruleVerificationExecutionState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15427:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15456:1: ( ( ruleVerificationExecutionState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15457:1: ( ruleVerificationExecutionState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15427:1: ( ruleVerificationExecutionState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15428:1: ruleVerificationExecutionState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15457:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15458:1: ruleVerificationExecutionState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getExecutionStateVerificationExecutionStateEnumRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__PreconditionResult__ExecutionStateAssignment_530884);
+            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__PreconditionResult__ExecutionStateAssignment_530944);
             ruleVerificationExecutionState();
 
             state._fsp--;
@@ -43560,22 +43655,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__ResultStateAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15437:1: rule__PreconditionResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15467:1: rule__PreconditionResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
     public final void rule__PreconditionResult__ResultStateAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15441:1: ( ( ruleVerificationResultState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15442:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15471:1: ( ( ruleVerificationResultState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15472:1: ( ruleVerificationResultState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15442:1: ( ruleVerificationResultState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15443:1: ruleVerificationResultState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15472:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15473:1: ruleVerificationResultState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getResultStateVerificationResultStateEnumRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__PreconditionResult__ResultStateAssignment_730915);
+            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__PreconditionResult__ResultStateAssignment_730975);
             ruleVerificationResultState();
 
             state._fsp--;
@@ -43605,22 +43700,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__IssuesAssignment_8_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15452:1: rule__PreconditionResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15482:1: rule__PreconditionResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
     public final void rule__PreconditionResult__IssuesAssignment_8_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15456:1: ( ( ruleResultIssue ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15457:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15486:1: ( ( ruleResultIssue ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15487:1: ( ruleResultIssue )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15457:1: ( ruleResultIssue )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15458:1: ruleResultIssue
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15487:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15488:1: ruleResultIssue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getIssuesResultIssueParserRuleCall_8_2_0()); 
             }
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__PreconditionResult__IssuesAssignment_8_230946);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__PreconditionResult__IssuesAssignment_8_231006);
             ruleResultIssue();
 
             state._fsp--;
@@ -43650,28 +43745,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__ResultReportAssignment_9_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15467:1: rule__PreconditionResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15497:1: rule__PreconditionResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__PreconditionResult__ResultReportAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15471:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15472:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15501:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15502:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15472:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15473:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15502:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15503:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15474:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15475:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15504:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15505:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__ResultReportAssignment_9_130981);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__ResultReportAssignment_9_131041);
             ruleQualifiedName();
 
             state._fsp--;
@@ -43707,22 +43802,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__MetricsAssignment_10"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15486:1: rule__PreconditionResult__MetricsAssignment_10 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15516:1: rule__PreconditionResult__MetricsAssignment_10 : ( ruleMetrics ) ;
     public final void rule__PreconditionResult__MetricsAssignment_10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15490:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15491:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15520:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15521:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15491:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15492:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15521:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15522:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getMetricsMetricsParserRuleCall_10_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__PreconditionResult__MetricsAssignment_1031016);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__PreconditionResult__MetricsAssignment_1031076);
             ruleMetrics();
 
             state._fsp--;
@@ -43752,22 +43847,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PreconditionResult__MessageAssignment_11_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15501:1: rule__PreconditionResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15531:1: rule__PreconditionResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
     public final void rule__PreconditionResult__MessageAssignment_11_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15505:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15506:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15535:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15536:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15506:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15507:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15536:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15537:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPreconditionResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__PreconditionResult__MessageAssignment_11_131047); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__PreconditionResult__MessageAssignment_11_131107); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPreconditionResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
@@ -43793,28 +43888,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__TargetAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15516:1: rule__ValidationResult__TargetAssignment_2 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15546:1: rule__ValidationResult__TargetAssignment_2 : ( ( ruleQualifiedName ) ) ;
     public final void rule__ValidationResult__TargetAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15520:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15521:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15550:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15551:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15521:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15522:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15551:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15552:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getTargetVerificationMethodCrossReference_2_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15523:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15524:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15553:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15554:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getTargetVerificationMethodQualifiedNameParserRuleCall_2_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ValidationResult__TargetAssignment_231082);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ValidationResult__TargetAssignment_231142);
             ruleQualifiedName();
 
             state._fsp--;
@@ -43850,22 +43945,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__ExecutionStateAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15535:1: rule__ValidationResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15565:1: rule__ValidationResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
     public final void rule__ValidationResult__ExecutionStateAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15539:1: ( ( ruleVerificationExecutionState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15540:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15569:1: ( ( ruleVerificationExecutionState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15570:1: ( ruleVerificationExecutionState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15540:1: ( ruleVerificationExecutionState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15541:1: ruleVerificationExecutionState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15570:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15571:1: ruleVerificationExecutionState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getExecutionStateVerificationExecutionStateEnumRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__ValidationResult__ExecutionStateAssignment_531117);
+            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__ValidationResult__ExecutionStateAssignment_531177);
             ruleVerificationExecutionState();
 
             state._fsp--;
@@ -43895,22 +43990,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__ResultStateAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15550:1: rule__ValidationResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15580:1: rule__ValidationResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
     public final void rule__ValidationResult__ResultStateAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15554:1: ( ( ruleVerificationResultState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15555:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15584:1: ( ( ruleVerificationResultState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15585:1: ( ruleVerificationResultState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15555:1: ( ruleVerificationResultState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15556:1: ruleVerificationResultState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15585:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15586:1: ruleVerificationResultState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getResultStateVerificationResultStateEnumRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__ValidationResult__ResultStateAssignment_731148);
+            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__ValidationResult__ResultStateAssignment_731208);
             ruleVerificationResultState();
 
             state._fsp--;
@@ -43940,22 +44035,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__IssuesAssignment_8_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15565:1: rule__ValidationResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15595:1: rule__ValidationResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
     public final void rule__ValidationResult__IssuesAssignment_8_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15569:1: ( ( ruleResultIssue ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15570:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15599:1: ( ( ruleResultIssue ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15600:1: ( ruleResultIssue )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15570:1: ( ruleResultIssue )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15571:1: ruleResultIssue
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15600:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15601:1: ruleResultIssue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getIssuesResultIssueParserRuleCall_8_2_0()); 
             }
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__ValidationResult__IssuesAssignment_8_231179);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__ValidationResult__IssuesAssignment_8_231239);
             ruleResultIssue();
 
             state._fsp--;
@@ -43985,28 +44080,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__ResultReportAssignment_9_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15580:1: rule__ValidationResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15610:1: rule__ValidationResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__ValidationResult__ResultReportAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15584:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15585:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15614:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15615:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15585:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15586:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15615:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15616:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15587:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15588:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15617:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15618:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ValidationResult__ResultReportAssignment_9_131214);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__ValidationResult__ResultReportAssignment_9_131274);
             ruleQualifiedName();
 
             state._fsp--;
@@ -44042,22 +44137,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__MetricsAssignment_10"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15599:1: rule__ValidationResult__MetricsAssignment_10 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15629:1: rule__ValidationResult__MetricsAssignment_10 : ( ruleMetrics ) ;
     public final void rule__ValidationResult__MetricsAssignment_10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15603:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15604:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15633:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15634:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15604:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15605:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15634:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15635:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getMetricsMetricsParserRuleCall_10_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__ValidationResult__MetricsAssignment_1031249);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__ValidationResult__MetricsAssignment_1031309);
             ruleMetrics();
 
             state._fsp--;
@@ -44087,22 +44182,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ValidationResult__MessageAssignment_11_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15614:1: rule__ValidationResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15644:1: rule__ValidationResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
     public final void rule__ValidationResult__MessageAssignment_11_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15618:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15619:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15648:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15649:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15619:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15620:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15649:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15650:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getValidationResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ValidationResult__MessageAssignment_11_131280); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ValidationResult__MessageAssignment_11_131340); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getValidationResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
@@ -44128,22 +44223,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__TargetReferenceAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15629:1: rule__VerificationActivityResult__TargetReferenceAssignment_2 : ( ruleQualifiedVAReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15659:1: rule__VerificationActivityResult__TargetReferenceAssignment_2 : ( ruleQualifiedVAReference ) ;
     public final void rule__VerificationActivityResult__TargetReferenceAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15633:1: ( ( ruleQualifiedVAReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15634:1: ( ruleQualifiedVAReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15663:1: ( ( ruleQualifiedVAReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15664:1: ( ruleQualifiedVAReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15634:1: ( ruleQualifiedVAReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15635:1: ruleQualifiedVAReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15664:1: ( ruleQualifiedVAReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15665:1: ruleQualifiedVAReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getTargetReferenceQualifiedVAReferenceParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedVAReference_in_rule__VerificationActivityResult__TargetReferenceAssignment_231311);
+            pushFollow(FOLLOW_ruleQualifiedVAReference_in_rule__VerificationActivityResult__TargetReferenceAssignment_231371);
             ruleQualifiedVAReference();
 
             state._fsp--;
@@ -44173,22 +44268,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__ExecutionStateAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15644:1: rule__VerificationActivityResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15674:1: rule__VerificationActivityResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
     public final void rule__VerificationActivityResult__ExecutionStateAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15648:1: ( ( ruleVerificationExecutionState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15649:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15678:1: ( ( ruleVerificationExecutionState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15679:1: ( ruleVerificationExecutionState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15649:1: ( ruleVerificationExecutionState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15650:1: ruleVerificationExecutionState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15679:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15680:1: ruleVerificationExecutionState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getExecutionStateVerificationExecutionStateEnumRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__VerificationActivityResult__ExecutionStateAssignment_531342);
+            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__VerificationActivityResult__ExecutionStateAssignment_531402);
             ruleVerificationExecutionState();
 
             state._fsp--;
@@ -44218,22 +44313,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__ResultStateAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15659:1: rule__VerificationActivityResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15689:1: rule__VerificationActivityResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
     public final void rule__VerificationActivityResult__ResultStateAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15663:1: ( ( ruleVerificationResultState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15664:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15693:1: ( ( ruleVerificationResultState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15694:1: ( ruleVerificationResultState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15664:1: ( ruleVerificationResultState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15665:1: ruleVerificationResultState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15694:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15695:1: ruleVerificationResultState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getResultStateVerificationResultStateEnumRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__VerificationActivityResult__ResultStateAssignment_731373);
+            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__VerificationActivityResult__ResultStateAssignment_731433);
             ruleVerificationResultState();
 
             state._fsp--;
@@ -44263,22 +44358,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__IssuesAssignment_8_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15674:1: rule__VerificationActivityResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15704:1: rule__VerificationActivityResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
     public final void rule__VerificationActivityResult__IssuesAssignment_8_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15678:1: ( ( ruleResultIssue ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15679:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15708:1: ( ( ruleResultIssue ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15709:1: ( ruleResultIssue )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15679:1: ( ruleResultIssue )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15680:1: ruleResultIssue
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15709:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15710:1: ruleResultIssue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getIssuesResultIssueParserRuleCall_8_2_0()); 
             }
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__VerificationActivityResult__IssuesAssignment_8_231404);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__VerificationActivityResult__IssuesAssignment_8_231464);
             ruleResultIssue();
 
             state._fsp--;
@@ -44308,28 +44403,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__ResultReportAssignment_9_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15689:1: rule__VerificationActivityResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15719:1: rule__VerificationActivityResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__VerificationActivityResult__ResultReportAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15693:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15694:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15723:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15724:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15694:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15695:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15724:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15725:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15696:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15697:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15726:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15727:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationActivityResult__ResultReportAssignment_9_131439);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__VerificationActivityResult__ResultReportAssignment_9_131499);
             ruleQualifiedName();
 
             state._fsp--;
@@ -44365,22 +44460,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__MetricsAssignment_10"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15708:1: rule__VerificationActivityResult__MetricsAssignment_10 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15738:1: rule__VerificationActivityResult__MetricsAssignment_10 : ( ruleMetrics ) ;
     public final void rule__VerificationActivityResult__MetricsAssignment_10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15712:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15713:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15742:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15743:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15713:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15714:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15743:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15744:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getMetricsMetricsParserRuleCall_10_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__VerificationActivityResult__MetricsAssignment_1031474);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__VerificationActivityResult__MetricsAssignment_1031534);
             ruleMetrics();
 
             state._fsp--;
@@ -44410,22 +44505,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__MessageAssignment_11_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15723:1: rule__VerificationActivityResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15753:1: rule__VerificationActivityResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
     public final void rule__VerificationActivityResult__MessageAssignment_11_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15727:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15728:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15757:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15758:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15728:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15729:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15758:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15759:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__VerificationActivityResult__MessageAssignment_11_131505); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__VerificationActivityResult__MessageAssignment_11_131565); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getVerificationActivityResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
@@ -44451,22 +44546,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__PreconditionResultAssignment_12"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15738:1: rule__VerificationActivityResult__PreconditionResultAssignment_12 : ( rulePreconditionResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15768:1: rule__VerificationActivityResult__PreconditionResultAssignment_12 : ( rulePreconditionResult ) ;
     public final void rule__VerificationActivityResult__PreconditionResultAssignment_12() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15742:1: ( ( rulePreconditionResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15743:1: ( rulePreconditionResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15772:1: ( ( rulePreconditionResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15773:1: ( rulePreconditionResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15743:1: ( rulePreconditionResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15744:1: rulePreconditionResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15773:1: ( rulePreconditionResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15774:1: rulePreconditionResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getPreconditionResultPreconditionResultParserRuleCall_12_0()); 
             }
-            pushFollow(FOLLOW_rulePreconditionResult_in_rule__VerificationActivityResult__PreconditionResultAssignment_1231536);
+            pushFollow(FOLLOW_rulePreconditionResult_in_rule__VerificationActivityResult__PreconditionResultAssignment_1231596);
             rulePreconditionResult();
 
             state._fsp--;
@@ -44496,22 +44591,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__VerificationActivityResult__ValidationResultAssignment_13"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15753:1: rule__VerificationActivityResult__ValidationResultAssignment_13 : ( ruleValidationResult ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15783:1: rule__VerificationActivityResult__ValidationResultAssignment_13 : ( ruleValidationResult ) ;
     public final void rule__VerificationActivityResult__ValidationResultAssignment_13() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15757:1: ( ( ruleValidationResult ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15758:1: ( ruleValidationResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15787:1: ( ( ruleValidationResult ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15788:1: ( ruleValidationResult )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15758:1: ( ruleValidationResult )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15759:1: ruleValidationResult
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15788:1: ( ruleValidationResult )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15789:1: ruleValidationResult
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getVerificationActivityResultAccess().getValidationResultValidationResultParserRuleCall_13_0()); 
             }
-            pushFollow(FOLLOW_ruleValidationResult_in_rule__VerificationActivityResult__ValidationResultAssignment_1331567);
+            pushFollow(FOLLOW_ruleValidationResult_in_rule__VerificationActivityResult__ValidationResultAssignment_1331627);
             ruleValidationResult();
 
             state._fsp--;
@@ -44541,22 +44636,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__TargetReferenceAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15768:1: rule__PredicateResult__TargetReferenceAssignment_2 : ( ruleQualifiedClaimReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15798:1: rule__PredicateResult__TargetReferenceAssignment_2 : ( ruleQualifiedClaimReference ) ;
     public final void rule__PredicateResult__TargetReferenceAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15772:1: ( ( ruleQualifiedClaimReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15773:1: ( ruleQualifiedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15802:1: ( ( ruleQualifiedClaimReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15803:1: ( ruleQualifiedClaimReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15773:1: ( ruleQualifiedClaimReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15774:1: ruleQualifiedClaimReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15803:1: ( ruleQualifiedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15804:1: ruleQualifiedClaimReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getTargetReferenceQualifiedClaimReferenceParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedClaimReference_in_rule__PredicateResult__TargetReferenceAssignment_231598);
+            pushFollow(FOLLOW_ruleQualifiedClaimReference_in_rule__PredicateResult__TargetReferenceAssignment_231658);
             ruleQualifiedClaimReference();
 
             state._fsp--;
@@ -44586,22 +44681,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__ExecutionStateAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15783:1: rule__PredicateResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15813:1: rule__PredicateResult__ExecutionStateAssignment_5 : ( ruleVerificationExecutionState ) ;
     public final void rule__PredicateResult__ExecutionStateAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15787:1: ( ( ruleVerificationExecutionState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15788:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15817:1: ( ( ruleVerificationExecutionState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15818:1: ( ruleVerificationExecutionState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15788:1: ( ruleVerificationExecutionState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15789:1: ruleVerificationExecutionState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15818:1: ( ruleVerificationExecutionState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15819:1: ruleVerificationExecutionState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getExecutionStateVerificationExecutionStateEnumRuleCall_5_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__PredicateResult__ExecutionStateAssignment_531629);
+            pushFollow(FOLLOW_ruleVerificationExecutionState_in_rule__PredicateResult__ExecutionStateAssignment_531689);
             ruleVerificationExecutionState();
 
             state._fsp--;
@@ -44631,22 +44726,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__ResultStateAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15798:1: rule__PredicateResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15828:1: rule__PredicateResult__ResultStateAssignment_7 : ( ruleVerificationResultState ) ;
     public final void rule__PredicateResult__ResultStateAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15802:1: ( ( ruleVerificationResultState ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15803:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15832:1: ( ( ruleVerificationResultState ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15833:1: ( ruleVerificationResultState )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15803:1: ( ruleVerificationResultState )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15804:1: ruleVerificationResultState
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15833:1: ( ruleVerificationResultState )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15834:1: ruleVerificationResultState
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getResultStateVerificationResultStateEnumRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__PredicateResult__ResultStateAssignment_731660);
+            pushFollow(FOLLOW_ruleVerificationResultState_in_rule__PredicateResult__ResultStateAssignment_731720);
             ruleVerificationResultState();
 
             state._fsp--;
@@ -44676,22 +44771,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__IssuesAssignment_8_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15813:1: rule__PredicateResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15843:1: rule__PredicateResult__IssuesAssignment_8_2 : ( ruleResultIssue ) ;
     public final void rule__PredicateResult__IssuesAssignment_8_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15817:1: ( ( ruleResultIssue ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15818:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15847:1: ( ( ruleResultIssue ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15848:1: ( ruleResultIssue )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15818:1: ( ruleResultIssue )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15819:1: ruleResultIssue
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15848:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15849:1: ruleResultIssue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getIssuesResultIssueParserRuleCall_8_2_0()); 
             }
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__PredicateResult__IssuesAssignment_8_231691);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__PredicateResult__IssuesAssignment_8_231751);
             ruleResultIssue();
 
             state._fsp--;
@@ -44721,28 +44816,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__ResultReportAssignment_9_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15828:1: rule__PredicateResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15858:1: rule__PredicateResult__ResultReportAssignment_9_1 : ( ( ruleQualifiedName ) ) ;
     public final void rule__PredicateResult__ResultReportAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15832:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15833:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15862:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15863:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15833:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15834:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15863:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15864:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getResultReportResultReportCrossReference_9_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15835:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15836:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15865:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15866:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getResultReportResultReportQualifiedNameParserRuleCall_9_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PredicateResult__ResultReportAssignment_9_131726);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__PredicateResult__ResultReportAssignment_9_131786);
             ruleQualifiedName();
 
             state._fsp--;
@@ -44778,22 +44873,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__MetricsAssignment_10"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15847:1: rule__PredicateResult__MetricsAssignment_10 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15877:1: rule__PredicateResult__MetricsAssignment_10 : ( ruleMetrics ) ;
     public final void rule__PredicateResult__MetricsAssignment_10() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15851:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15852:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15881:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15882:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15852:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15853:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15882:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15883:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getMetricsMetricsParserRuleCall_10_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__PredicateResult__MetricsAssignment_1031761);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__PredicateResult__MetricsAssignment_1031821);
             ruleMetrics();
 
             state._fsp--;
@@ -44823,22 +44918,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PredicateResult__MessageAssignment_11_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15862:1: rule__PredicateResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15892:1: rule__PredicateResult__MessageAssignment_11_1 : ( RULE_STRING ) ;
     public final void rule__PredicateResult__MessageAssignment_11_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15866:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15867:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15896:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15897:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15867:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15868:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15897:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15898:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPredicateResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__PredicateResult__MessageAssignment_11_131792); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__PredicateResult__MessageAssignment_11_131852); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getPredicateResultAccess().getMessageSTRINGTerminalRuleCall_11_1_0()); 
             }
@@ -44864,22 +44959,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ElseResult__FirstAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15877:1: rule__ElseResult__FirstAssignment_1 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15907:1: rule__ElseResult__FirstAssignment_1 : ( ruleVerificationExpr ) ;
     public final void rule__ElseResult__FirstAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15881:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15882:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15911:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15912:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15882:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15883:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15912:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15913:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseResultAccess().getFirstVerificationExprParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FirstAssignment_131823);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FirstAssignment_131883);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -44909,22 +45004,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ElseResult__ErrorAssignment_2_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15892:1: rule__ElseResult__ErrorAssignment_2_1 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15922:1: rule__ElseResult__ErrorAssignment_2_1 : ( ruleVerificationExpr ) ;
     public final void rule__ElseResult__ErrorAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15896:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15897:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15926:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15927:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15897:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15898:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15927:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15928:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseResultAccess().getErrorVerificationExprParserRuleCall_2_1_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__ErrorAssignment_2_131854);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__ErrorAssignment_2_131914);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -44954,22 +45049,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ElseResult__FailAssignment_3_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15907:1: rule__ElseResult__FailAssignment_3_1 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15937:1: rule__ElseResult__FailAssignment_3_1 : ( ruleVerificationExpr ) ;
     public final void rule__ElseResult__FailAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15911:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15912:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15941:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15942:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15912:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15913:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15942:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15943:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseResultAccess().getFailVerificationExprParserRuleCall_3_1_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FailAssignment_3_131885);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FailAssignment_3_131945);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -44999,22 +45094,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ElseResult__TimeoutAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15922:1: rule__ElseResult__TimeoutAssignment_4_1 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15952:1: rule__ElseResult__TimeoutAssignment_4_1 : ( ruleVerificationExpr ) ;
     public final void rule__ElseResult__TimeoutAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15926:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15927:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15956:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15957:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15927:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15928:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15957:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15958:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseResultAccess().getTimeoutVerificationExprParserRuleCall_4_1_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__TimeoutAssignment_4_131916);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ElseResult__TimeoutAssignment_4_131976);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -45044,22 +45139,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ElseResult__DidFailAssignment_6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15937:1: rule__ElseResult__DidFailAssignment_6 : ( ruleElseType ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15967:1: rule__ElseResult__DidFailAssignment_6 : ( ruleElseType ) ;
     public final void rule__ElseResult__DidFailAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15941:1: ( ( ruleElseType ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15942:1: ( ruleElseType )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15971:1: ( ( ruleElseType ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15972:1: ( ruleElseType )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15942:1: ( ruleElseType )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15943:1: ruleElseType
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15972:1: ( ruleElseType )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15973:1: ruleElseType
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseResultAccess().getDidFailElseTypeEnumRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleElseType_in_rule__ElseResult__DidFailAssignment_631947);
+            pushFollow(FOLLOW_ruleElseType_in_rule__ElseResult__DidFailAssignment_632007);
             ruleElseType();
 
             state._fsp--;
@@ -45089,22 +45184,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ElseResult__MetricsAssignment_7"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15952:1: rule__ElseResult__MetricsAssignment_7 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15982:1: rule__ElseResult__MetricsAssignment_7 : ( ruleMetrics ) ;
     public final void rule__ElseResult__MetricsAssignment_7() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15956:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15957:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15986:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15987:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15957:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15958:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15987:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15988:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getElseResultAccess().getMetricsMetricsParserRuleCall_7_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__ElseResult__MetricsAssignment_731978);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__ElseResult__MetricsAssignment_732038);
             ruleMetrics();
 
             state._fsp--;
@@ -45134,22 +45229,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ThenResult__FirstAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15967:1: rule__ThenResult__FirstAssignment_1 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15997:1: rule__ThenResult__FirstAssignment_1 : ( ruleVerificationExpr ) ;
     public final void rule__ThenResult__FirstAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15971:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15972:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16001:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16002:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15972:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15973:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16002:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16003:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getThenResultAccess().getFirstVerificationExprParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ThenResult__FirstAssignment_132009);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ThenResult__FirstAssignment_132069);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -45179,22 +45274,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ThenResult__SecondAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15982:1: rule__ThenResult__SecondAssignment_3 : ( ruleVerificationExpr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16012:1: rule__ThenResult__SecondAssignment_3 : ( ruleVerificationExpr ) ;
     public final void rule__ThenResult__SecondAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15986:1: ( ( ruleVerificationExpr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15987:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16016:1: ( ( ruleVerificationExpr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16017:1: ( ruleVerificationExpr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15987:1: ( ruleVerificationExpr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15988:1: ruleVerificationExpr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16017:1: ( ruleVerificationExpr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16018:1: ruleVerificationExpr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getThenResultAccess().getSecondVerificationExprParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ThenResult__SecondAssignment_332040);
+            pushFollow(FOLLOW_ruleVerificationExpr_in_rule__ThenResult__SecondAssignment_332100);
             ruleVerificationExpr();
 
             state._fsp--;
@@ -45224,28 +45319,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ThenResult__DidThenFailAssignment_5"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:15997:1: rule__ThenResult__DidThenFailAssignment_5 : ( ( 'thenfailed' ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16027:1: rule__ThenResult__DidThenFailAssignment_5 : ( ( 'thenfailed' ) ) ;
     public final void rule__ThenResult__DidThenFailAssignment_5() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16001:1: ( ( ( 'thenfailed' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16002:1: ( ( 'thenfailed' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16031:1: ( ( ( 'thenfailed' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16032:1: ( ( 'thenfailed' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16002:1: ( ( 'thenfailed' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16003:1: ( 'thenfailed' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getThenResultAccess().getDidThenFailThenfailedKeyword_5_0()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16004:1: ( 'thenfailed' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16005:1: 'thenfailed'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16032:1: ( ( 'thenfailed' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16033:1: ( 'thenfailed' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getThenResultAccess().getDidThenFailThenfailedKeyword_5_0()); 
             }
-            match(input,112,FOLLOW_112_in_rule__ThenResult__DidThenFailAssignment_532076); if (state.failed) return ;
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16034:1: ( 'thenfailed' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16035:1: 'thenfailed'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getThenResultAccess().getDidThenFailThenfailedKeyword_5_0()); 
+            }
+            match(input,112,FOLLOW_112_in_rule__ThenResult__DidThenFailAssignment_532136); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getThenResultAccess().getDidThenFailThenfailedKeyword_5_0()); 
             }
@@ -45277,22 +45372,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ThenResult__MetricsAssignment_6"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16020:1: rule__ThenResult__MetricsAssignment_6 : ( ruleMetrics ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16050:1: rule__ThenResult__MetricsAssignment_6 : ( ruleMetrics ) ;
     public final void rule__ThenResult__MetricsAssignment_6() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16024:1: ( ( ruleMetrics ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16025:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16054:1: ( ( ruleMetrics ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16055:1: ( ruleMetrics )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16025:1: ( ruleMetrics )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16026:1: ruleMetrics
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16055:1: ( ruleMetrics )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16056:1: ruleMetrics
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getThenResultAccess().getMetricsMetricsParserRuleCall_6_0()); 
             }
-            pushFollow(FOLLOW_ruleMetrics_in_rule__ThenResult__MetricsAssignment_632115);
+            pushFollow(FOLLOW_ruleMetrics_in_rule__ThenResult__MetricsAssignment_632175);
             ruleMetrics();
 
             state._fsp--;
@@ -45322,22 +45417,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__TbdCountAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16035:1: rule__Metrics__TbdCountAssignment_1_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16065:1: rule__Metrics__TbdCountAssignment_1_1 : ( RULE_INT ) ;
     public final void rule__Metrics__TbdCountAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16039:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16040:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16069:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16070:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16040:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16041:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16070:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16071:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getTbdCountINTTerminalRuleCall_1_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__TbdCountAssignment_1_132146); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__TbdCountAssignment_1_132206); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getTbdCountINTTerminalRuleCall_1_1_0()); 
             }
@@ -45363,22 +45458,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__SuccessCountAssignment_2_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16050:1: rule__Metrics__SuccessCountAssignment_2_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16080:1: rule__Metrics__SuccessCountAssignment_2_1 : ( RULE_INT ) ;
     public final void rule__Metrics__SuccessCountAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16054:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16055:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16084:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16085:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16055:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16056:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16085:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16086:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getSuccessCountINTTerminalRuleCall_2_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__SuccessCountAssignment_2_132177); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__SuccessCountAssignment_2_132237); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getSuccessCountINTTerminalRuleCall_2_1_0()); 
             }
@@ -45404,22 +45499,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__FailCountAssignment_3_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16065:1: rule__Metrics__FailCountAssignment_3_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16095:1: rule__Metrics__FailCountAssignment_3_1 : ( RULE_INT ) ;
     public final void rule__Metrics__FailCountAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16069:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16070:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16099:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16100:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16070:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16071:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16100:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16101:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getFailCountINTTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FailCountAssignment_3_132208); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FailCountAssignment_3_132268); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getFailCountINTTerminalRuleCall_3_1_0()); 
             }
@@ -45445,22 +45540,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__TimeoutCountAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16080:1: rule__Metrics__TimeoutCountAssignment_4_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16110:1: rule__Metrics__TimeoutCountAssignment_4_1 : ( RULE_INT ) ;
     public final void rule__Metrics__TimeoutCountAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16084:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16085:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16114:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16115:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16085:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16086:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16115:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16116:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getTimeoutCountINTTerminalRuleCall_4_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__TimeoutCountAssignment_4_132239); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__TimeoutCountAssignment_4_132299); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getTimeoutCountINTTerminalRuleCall_4_1_0()); 
             }
@@ -45486,22 +45581,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__ErrorCountAssignment_5_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16095:1: rule__Metrics__ErrorCountAssignment_5_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16125:1: rule__Metrics__ErrorCountAssignment_5_1 : ( RULE_INT ) ;
     public final void rule__Metrics__ErrorCountAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16099:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16100:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16129:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16130:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16100:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16101:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16130:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16131:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getErrorCountINTTerminalRuleCall_5_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ErrorCountAssignment_5_132270); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ErrorCountAssignment_5_132330); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getErrorCountINTTerminalRuleCall_5_1_0()); 
             }
@@ -45527,22 +45622,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__DidelseCountAssignment_6_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16110:1: rule__Metrics__DidelseCountAssignment_6_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16140:1: rule__Metrics__DidelseCountAssignment_6_1 : ( RULE_INT ) ;
     public final void rule__Metrics__DidelseCountAssignment_6_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16114:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16115:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16144:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16145:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16115:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16116:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16145:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16146:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getDidelseCountINTTerminalRuleCall_6_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__DidelseCountAssignment_6_132301); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__DidelseCountAssignment_6_132361); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getDidelseCountINTTerminalRuleCall_6_1_0()); 
             }
@@ -45568,22 +45663,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__ThenskipCountAssignment_7_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16125:1: rule__Metrics__ThenskipCountAssignment_7_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16155:1: rule__Metrics__ThenskipCountAssignment_7_1 : ( RULE_INT ) ;
     public final void rule__Metrics__ThenskipCountAssignment_7_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16129:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16130:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16159:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16160:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16130:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16131:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16160:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16161:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getThenskipCountINTTerminalRuleCall_7_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ThenskipCountAssignment_7_132332); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ThenskipCountAssignment_7_132392); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getThenskipCountINTTerminalRuleCall_7_1_0()); 
             }
@@ -45609,22 +45704,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__PreconditionfailCountAssignment_8_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16140:1: rule__Metrics__PreconditionfailCountAssignment_8_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16170:1: rule__Metrics__PreconditionfailCountAssignment_8_1 : ( RULE_INT ) ;
     public final void rule__Metrics__PreconditionfailCountAssignment_8_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16144:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16145:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16174:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16175:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16145:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16146:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16175:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16176:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getPreconditionfailCountINTTerminalRuleCall_8_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__PreconditionfailCountAssignment_8_132363); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__PreconditionfailCountAssignment_8_132423); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getPreconditionfailCountINTTerminalRuleCall_8_1_0()); 
             }
@@ -45650,22 +45745,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__ValidationfailCountAssignment_9_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16155:1: rule__Metrics__ValidationfailCountAssignment_9_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16185:1: rule__Metrics__ValidationfailCountAssignment_9_1 : ( RULE_INT ) ;
     public final void rule__Metrics__ValidationfailCountAssignment_9_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16159:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16160:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16189:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16190:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16160:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16161:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16190:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16191:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getValidationfailCountINTTerminalRuleCall_9_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ValidationfailCountAssignment_9_132394); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ValidationfailCountAssignment_9_132454); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getValidationfailCountINTTerminalRuleCall_9_1_0()); 
             }
@@ -45691,22 +45786,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__FeaturesCountAssignment_10_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16170:1: rule__Metrics__FeaturesCountAssignment_10_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16200:1: rule__Metrics__FeaturesCountAssignment_10_1 : ( RULE_INT ) ;
     public final void rule__Metrics__FeaturesCountAssignment_10_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16174:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16175:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16204:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16205:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16175:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16176:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16205:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16206:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getFeaturesCountINTTerminalRuleCall_10_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesCountAssignment_10_132425); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesCountAssignment_10_132485); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getFeaturesCountINTTerminalRuleCall_10_1_0()); 
             }
@@ -45732,22 +45827,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__FeaturesRequirementsCountAssignment_11_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16185:1: rule__Metrics__FeaturesRequirementsCountAssignment_11_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16215:1: rule__Metrics__FeaturesRequirementsCountAssignment_11_1 : ( RULE_INT ) ;
     public final void rule__Metrics__FeaturesRequirementsCountAssignment_11_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16189:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16190:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16219:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16220:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16190:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16191:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16220:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16221:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getFeaturesRequirementsCountINTTerminalRuleCall_11_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequirementsCountAssignment_11_132456); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequirementsCountAssignment_11_132516); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getFeaturesRequirementsCountINTTerminalRuleCall_11_1_0()); 
             }
@@ -45773,22 +45868,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__QualityCategoryRequirementsCountAssignment_12_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16200:1: rule__Metrics__QualityCategoryRequirementsCountAssignment_12_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16230:1: rule__Metrics__QualityCategoryRequirementsCountAssignment_12_1 : ( RULE_INT ) ;
     public final void rule__Metrics__QualityCategoryRequirementsCountAssignment_12_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16204:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16205:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16234:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16235:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16205:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16206:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16235:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16236:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getQualityCategoryRequirementsCountINTTerminalRuleCall_12_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__QualityCategoryRequirementsCountAssignment_12_132487); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__QualityCategoryRequirementsCountAssignment_12_132547); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getQualityCategoryRequirementsCountINTTerminalRuleCall_12_1_0()); 
             }
@@ -45814,22 +45909,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__TotalQualityCategoryCountAssignment_13_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16215:1: rule__Metrics__TotalQualityCategoryCountAssignment_13_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16245:1: rule__Metrics__TotalQualityCategoryCountAssignment_13_1 : ( RULE_INT ) ;
     public final void rule__Metrics__TotalQualityCategoryCountAssignment_13_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16219:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16220:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16249:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16250:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16220:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16221:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16250:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16251:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getTotalQualityCategoryCountINTTerminalRuleCall_13_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__TotalQualityCategoryCountAssignment_13_132518); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__TotalQualityCategoryCountAssignment_13_132578); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getTotalQualityCategoryCountINTTerminalRuleCall_13_1_0()); 
             }
@@ -45855,22 +45950,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16230:1: rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16260:1: rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_1 : ( RULE_INT ) ;
     public final void rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16234:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16235:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16264:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16265:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16235:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16236:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16265:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16266:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getRequirementsWithoutPlanClaimCountINTTerminalRuleCall_14_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_132549); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_132609); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getRequirementsWithoutPlanClaimCountINTTerminalRuleCall_14_1_0()); 
             }
@@ -45896,22 +45991,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__NoVerificationPlansCountAssignment_15_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16245:1: rule__Metrics__NoVerificationPlansCountAssignment_15_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16275:1: rule__Metrics__NoVerificationPlansCountAssignment_15_1 : ( RULE_INT ) ;
     public final void rule__Metrics__NoVerificationPlansCountAssignment_15_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16249:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16250:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16279:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16280:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16250:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16251:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16280:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16281:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getNoVerificationPlansCountINTTerminalRuleCall_15_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__NoVerificationPlansCountAssignment_15_132580); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__NoVerificationPlansCountAssignment_15_132640); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getNoVerificationPlansCountINTTerminalRuleCall_15_1_0()); 
             }
@@ -45937,22 +46032,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__RequirementsCountAssignment_16_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16260:1: rule__Metrics__RequirementsCountAssignment_16_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16290:1: rule__Metrics__RequirementsCountAssignment_16_1 : ( RULE_INT ) ;
     public final void rule__Metrics__RequirementsCountAssignment_16_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16264:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16265:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16294:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16295:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16265:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16266:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16295:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16296:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getRequirementsCountINTTerminalRuleCall_16_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__RequirementsCountAssignment_16_132611); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__RequirementsCountAssignment_16_132671); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getRequirementsCountINTTerminalRuleCall_16_1_0()); 
             }
@@ -45978,22 +46073,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__ExceptionsCountAssignment_17_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16275:1: rule__Metrics__ExceptionsCountAssignment_17_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16305:1: rule__Metrics__ExceptionsCountAssignment_17_1 : ( RULE_INT ) ;
     public final void rule__Metrics__ExceptionsCountAssignment_17_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16279:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16280:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16309:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16310:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16280:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16281:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16310:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16311:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getExceptionsCountINTTerminalRuleCall_17_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ExceptionsCountAssignment_17_132642); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ExceptionsCountAssignment_17_132702); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getExceptionsCountINTTerminalRuleCall_17_1_0()); 
             }
@@ -46019,22 +46114,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16290:1: rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16320:1: rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_1 : ( RULE_INT ) ;
     public final void rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16294:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16295:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16324:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16325:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16295:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16296:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16325:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16326:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getReqTargetHasEMV2SubclauseCountINTTerminalRuleCall_18_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_132673); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_132733); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getReqTargetHasEMV2SubclauseCountINTTerminalRuleCall_18_1_0()); 
             }
@@ -46060,22 +46155,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16305:1: rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16335:1: rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_1 : ( RULE_INT ) ;
     public final void rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16309:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16310:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16339:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16340:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16310:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16311:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16340:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16341:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getFeaturesRequiringClassifierCountINTTerminalRuleCall_19_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_132704); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_132764); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getFeaturesRequiringClassifierCountINTTerminalRuleCall_19_1_0()); 
             }
@@ -46101,22 +46196,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16320:1: rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16350:1: rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_1 : ( RULE_INT ) ;
     public final void rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16324:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16325:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16354:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16355:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16325:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16326:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16355:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16356:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getFeaturesWithRequiredClassifierCountINTTerminalRuleCall_20_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_132735); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_132795); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getFeaturesWithRequiredClassifierCountINTTerminalRuleCall_20_1_0()); 
             }
@@ -46142,22 +46237,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__WeightAssignment_21_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16335:1: rule__Metrics__WeightAssignment_21_1 : ( RULE_INT ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16365:1: rule__Metrics__WeightAssignment_21_1 : ( RULE_INT ) ;
     public final void rule__Metrics__WeightAssignment_21_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16339:1: ( ( RULE_INT ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16340:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16369:1: ( ( RULE_INT ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16370:1: ( RULE_INT )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16340:1: ( RULE_INT )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16341:1: RULE_INT
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16370:1: ( RULE_INT )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16371:1: RULE_INT
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_21_1_0()); 
             }
-            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__WeightAssignment_21_132766); if (state.failed) return ;
+            match(input,RULE_INT,FOLLOW_RULE_INT_in_rule__Metrics__WeightAssignment_21_132826); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getMetricsAccess().getWeightINTTerminalRuleCall_21_1_0()); 
             }
@@ -46183,22 +46278,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__Metrics__ExecutionTimeAssignment_22_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16350:1: rule__Metrics__ExecutionTimeAssignment_22_1 : ( ruleAInt ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16380:1: rule__Metrics__ExecutionTimeAssignment_22_1 : ( ruleAInt ) ;
     public final void rule__Metrics__ExecutionTimeAssignment_22_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16354:1: ( ( ruleAInt ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16355:1: ( ruleAInt )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16384:1: ( ( ruleAInt ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16385:1: ( ruleAInt )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16355:1: ( ruleAInt )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16356:1: ruleAInt
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16385:1: ( ruleAInt )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16386:1: ruleAInt
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getMetricsAccess().getExecutionTimeAIntParserRuleCall_22_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAInt_in_rule__Metrics__ExecutionTimeAssignment_22_132797);
+            pushFollow(FOLLOW_ruleAInt_in_rule__Metrics__ExecutionTimeAssignment_22_132857);
             ruleAInt();
 
             state._fsp--;
@@ -46228,28 +46323,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedClaimReference__VerificationPlanAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16365:1: rule__QualifiedClaimReference__VerificationPlanAssignment_0 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16395:1: rule__QualifiedClaimReference__VerificationPlanAssignment_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__QualifiedClaimReference__VerificationPlanAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16369:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16370:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16399:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16400:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16370:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16371:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16400:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16401:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanVerificationPlanCrossReference_0_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16372:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16373:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16402:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16403:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedClaimReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedClaimReference__VerificationPlanAssignment_032832);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedClaimReference__VerificationPlanAssignment_032892);
             ruleQualifiedName();
 
             state._fsp--;
@@ -46285,22 +46380,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedClaimReference__RequirementAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16384:1: rule__QualifiedClaimReference__RequirementAssignment_2 : ( ruleNestedClaimReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16414:1: rule__QualifiedClaimReference__RequirementAssignment_2 : ( ruleNestedClaimReference ) ;
     public final void rule__QualifiedClaimReference__RequirementAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16388:1: ( ( ruleNestedClaimReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16389:1: ( ruleNestedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16418:1: ( ( ruleNestedClaimReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16419:1: ( ruleNestedClaimReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16389:1: ( ruleNestedClaimReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16390:1: ruleNestedClaimReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16419:1: ( ruleNestedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16420:1: ruleNestedClaimReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedClaimReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleNestedClaimReference_in_rule__QualifiedClaimReference__RequirementAssignment_232867);
+            pushFollow(FOLLOW_ruleNestedClaimReference_in_rule__QualifiedClaimReference__RequirementAssignment_232927);
             ruleNestedClaimReference();
 
             state._fsp--;
@@ -46330,28 +46425,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedVAReference__VerificationPlanAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16399:1: rule__QualifiedVAReference__VerificationPlanAssignment_0 : ( ( ruleQualifiedName ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16429:1: rule__QualifiedVAReference__VerificationPlanAssignment_0 : ( ( ruleQualifiedName ) ) ;
     public final void rule__QualifiedVAReference__VerificationPlanAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16403:1: ( ( ( ruleQualifiedName ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16404:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16433:1: ( ( ( ruleQualifiedName ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16434:1: ( ( ruleQualifiedName ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16404:1: ( ( ruleQualifiedName ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16405:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16434:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16435:1: ( ruleQualifiedName )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanCrossReference_0_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16406:1: ( ruleQualifiedName )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16407:1: ruleQualifiedName
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16436:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16437:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedVAReferenceAccess().getVerificationPlanVerificationPlanQualifiedNameParserRuleCall_0_0_1()); 
             }
-            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedVAReference__VerificationPlanAssignment_032902);
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__QualifiedVAReference__VerificationPlanAssignment_032962);
             ruleQualifiedName();
 
             state._fsp--;
@@ -46387,22 +46482,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedVAReference__RequirementAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16418:1: rule__QualifiedVAReference__RequirementAssignment_2 : ( ruleNestedClaimReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16448:1: rule__QualifiedVAReference__RequirementAssignment_2 : ( ruleNestedClaimReference ) ;
     public final void rule__QualifiedVAReference__RequirementAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16422:1: ( ( ruleNestedClaimReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16423:1: ( ruleNestedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16452:1: ( ( ruleNestedClaimReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16453:1: ( ruleNestedClaimReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16423:1: ( ruleNestedClaimReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16424:1: ruleNestedClaimReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16453:1: ( ruleNestedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16454:1: ruleNestedClaimReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedVAReferenceAccess().getRequirementNestedClaimReferenceParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleNestedClaimReference_in_rule__QualifiedVAReference__RequirementAssignment_232937);
+            pushFollow(FOLLOW_ruleNestedClaimReference_in_rule__QualifiedVAReference__RequirementAssignment_232997);
             ruleNestedClaimReference();
 
             state._fsp--;
@@ -46432,28 +46527,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__QualifiedVAReference__VerificationActivityAssignment_4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16433:1: rule__QualifiedVAReference__VerificationActivityAssignment_4 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16463:1: rule__QualifiedVAReference__VerificationActivityAssignment_4 : ( ( RULE_ID ) ) ;
     public final void rule__QualifiedVAReference__VerificationActivityAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16437:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16438:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16467:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16468:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16438:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16439:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16468:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16469:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityCrossReference_4_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16440:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16441:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16470:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16471:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedVAReference__VerificationActivityAssignment_432972); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__QualifiedVAReference__VerificationActivityAssignment_433032); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getQualifiedVAReferenceAccess().getVerificationActivityVerificationActivityIDTerminalRuleCall_4_0_1()); 
             }
@@ -46485,28 +46580,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedClaimReference__RequirementAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16452:1: rule__NestedClaimReference__RequirementAssignment_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16482:1: rule__NestedClaimReference__RequirementAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__NestedClaimReference__RequirementAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16456:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16457:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16486:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16487:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16457:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16458:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16487:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16488:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNestedClaimReferenceAccess().getRequirementRequirementCrossReference_0_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16459:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16460:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16489:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16490:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNestedClaimReferenceAccess().getRequirementRequirementIDTerminalRuleCall_0_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__NestedClaimReference__RequirementAssignment_033011); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__NestedClaimReference__RequirementAssignment_033071); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getNestedClaimReferenceAccess().getRequirementRequirementIDTerminalRuleCall_0_0_1()); 
             }
@@ -46538,22 +46633,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__NestedClaimReference__SubAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16471:1: rule__NestedClaimReference__SubAssignment_1_1 : ( ruleNestedClaimReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16501:1: rule__NestedClaimReference__SubAssignment_1_1 : ( ruleNestedClaimReference ) ;
     public final void rule__NestedClaimReference__SubAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16475:1: ( ( ruleNestedClaimReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16476:1: ( ruleNestedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16505:1: ( ( ruleNestedClaimReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16506:1: ( ruleNestedClaimReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16476:1: ( ruleNestedClaimReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16477:1: ruleNestedClaimReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16506:1: ( ruleNestedClaimReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16507:1: ruleNestedClaimReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getNestedClaimReferenceAccess().getSubNestedClaimReferenceParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleNestedClaimReference_in_rule__NestedClaimReference__SubAssignment_1_133046);
+            pushFollow(FOLLOW_ruleNestedClaimReference_in_rule__NestedClaimReference__SubAssignment_1_133106);
             ruleNestedClaimReference();
 
             state._fsp--;
@@ -46583,22 +46678,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__TextAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16487:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16517:1: rule__DescriptionElement__TextAssignment_0 : ( RULE_STRING ) ;
     public final void rule__DescriptionElement__TextAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16491:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16492:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16521:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16522:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16492:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16493:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16522:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16523:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_033078); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_033138); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getDescriptionElementAccess().getTextSTRINGTerminalRuleCall_0_0()); 
             }
@@ -46624,22 +46719,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__ShowValueAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16502:1: rule__DescriptionElement__ShowValueAssignment_1 : ( ruleShowValue ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16532:1: rule__DescriptionElement__ShowValueAssignment_1 : ( ruleShowValue ) ;
     public final void rule__DescriptionElement__ShowValueAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16506:1: ( ( ruleShowValue ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16507:1: ( ruleShowValue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16536:1: ( ( ruleShowValue ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16537:1: ( ruleShowValue )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16507:1: ( ruleShowValue )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16508:1: ruleShowValue
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16537:1: ( ruleShowValue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16538:1: ruleShowValue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDescriptionElementAccess().getShowValueShowValueParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleShowValue_in_rule__DescriptionElement__ShowValueAssignment_133109);
+            pushFollow(FOLLOW_ruleShowValue_in_rule__DescriptionElement__ShowValueAssignment_133169);
             ruleShowValue();
 
             state._fsp--;
@@ -46669,28 +46764,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__ThisTargetAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16517:1: rule__DescriptionElement__ThisTargetAssignment_2 : ( ( 'this' ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16547:1: rule__DescriptionElement__ThisTargetAssignment_2 : ( ( 'this' ) ) ;
     public final void rule__DescriptionElement__ThisTargetAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16521:1: ( ( ( 'this' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16522:1: ( ( 'this' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16551:1: ( ( ( 'this' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16552:1: ( ( 'this' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16522:1: ( ( 'this' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16523:1: ( 'this' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_2_0()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16524:1: ( 'this' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16525:1: 'this'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16552:1: ( ( 'this' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16553:1: ( 'this' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_2_0()); 
             }
-            match(input,17,FOLLOW_17_in_rule__DescriptionElement__ThisTargetAssignment_233145); if (state.failed) return ;
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16554:1: ( 'this' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16555:1: 'this'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_2_0()); 
+            }
+            match(input,17,FOLLOW_17_in_rule__DescriptionElement__ThisTargetAssignment_233205); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getDescriptionElementAccess().getThisTargetThisKeyword_2_0()); 
             }
@@ -46722,22 +46817,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__DescriptionElement__ImageAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16540:1: rule__DescriptionElement__ImageAssignment_3 : ( ruleImageReference ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16570:1: rule__DescriptionElement__ImageAssignment_3 : ( ruleImageReference ) ;
     public final void rule__DescriptionElement__ImageAssignment_3() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16544:1: ( ( ruleImageReference ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16545:1: ( ruleImageReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16574:1: ( ( ruleImageReference ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16575:1: ( ruleImageReference )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16545:1: ( ruleImageReference )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16546:1: ruleImageReference
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16575:1: ( ruleImageReference )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16576:1: ruleImageReference
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getDescriptionElementAccess().getImageImageReferenceParserRuleCall_3_0()); 
             }
-            pushFollow(FOLLOW_ruleImageReference_in_rule__DescriptionElement__ImageAssignment_333184);
+            pushFollow(FOLLOW_ruleImageReference_in_rule__DescriptionElement__ImageAssignment_333244);
             ruleImageReference();
 
             state._fsp--;
@@ -46767,22 +46862,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__IssueTypeAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16559:1: rule__ResultIssue__IssueTypeAssignment_0 : ( ruleResultIssueType ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16589:1: rule__ResultIssue__IssueTypeAssignment_0 : ( ruleResultIssueType ) ;
     public final void rule__ResultIssue__IssueTypeAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16563:1: ( ( ruleResultIssueType ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16564:1: ( ruleResultIssueType )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16593:1: ( ( ruleResultIssueType ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16594:1: ( ruleResultIssueType )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16564:1: ( ruleResultIssueType )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16565:1: ruleResultIssueType
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16594:1: ( ruleResultIssueType )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16595:1: ruleResultIssueType
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getIssueTypeResultIssueTypeEnumRuleCall_0_0()); 
             }
-            pushFollow(FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_033219);
+            pushFollow(FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_033279);
             ruleResultIssueType();
 
             state._fsp--;
@@ -46812,22 +46907,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__MessageAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16574:1: rule__ResultIssue__MessageAssignment_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16604:1: rule__ResultIssue__MessageAssignment_1 : ( RULE_STRING ) ;
     public final void rule__ResultIssue__MessageAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16578:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16579:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16608:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16609:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16579:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16580:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16609:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16610:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_133250); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_133310); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getMessageSTRINGTerminalRuleCall_1_0()); 
             }
@@ -46853,28 +46948,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__TargetAssignment_2_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16589:1: rule__ResultIssue__TargetAssignment_2_1 : ( ( ruleNoQuoteString ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16619:1: rule__ResultIssue__TargetAssignment_2_1 : ( ( ruleNoQuoteString ) ) ;
     public final void rule__ResultIssue__TargetAssignment_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16593:1: ( ( ( ruleNoQuoteString ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16594:1: ( ( ruleNoQuoteString ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16623:1: ( ( ( ruleNoQuoteString ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16624:1: ( ( ruleNoQuoteString ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16594:1: ( ( ruleNoQuoteString ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16595:1: ( ruleNoQuoteString )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16624:1: ( ( ruleNoQuoteString ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16625:1: ( ruleNoQuoteString )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getTargetEObjectCrossReference_2_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16596:1: ( ruleNoQuoteString )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16597:1: ruleNoQuoteString
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16626:1: ( ruleNoQuoteString )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16627:1: ruleNoQuoteString
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getTargetEObjectNoQuoteStringParserRuleCall_2_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleNoQuoteString_in_rule__ResultIssue__TargetAssignment_2_133285);
+            pushFollow(FOLLOW_ruleNoQuoteString_in_rule__ResultIssue__TargetAssignment_2_133345);
             ruleNoQuoteString();
 
             state._fsp--;
@@ -46910,22 +47005,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__ExceptionTypeAssignment_3_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16608:1: rule__ResultIssue__ExceptionTypeAssignment_3_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16638:1: rule__ResultIssue__ExceptionTypeAssignment_3_1 : ( RULE_STRING ) ;
     public final void rule__ResultIssue__ExceptionTypeAssignment_3_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16612:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16613:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16642:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16643:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16613:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16614:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16643:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16644:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_3_133320); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_3_133380); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getExceptionTypeSTRINGTerminalRuleCall_3_1_0()); 
             }
@@ -46951,22 +47046,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__DiagnosticIdAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16623:1: rule__ResultIssue__DiagnosticIdAssignment_4_1 : ( RULE_STRING ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16653:1: rule__ResultIssue__DiagnosticIdAssignment_4_1 : ( RULE_STRING ) ;
     public final void rule__ResultIssue__DiagnosticIdAssignment_4_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16627:1: ( ( RULE_STRING ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16628:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16657:1: ( ( RULE_STRING ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16658:1: ( RULE_STRING )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16628:1: ( RULE_STRING )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16629:1: RULE_STRING
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16658:1: ( RULE_STRING )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16659:1: RULE_STRING
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getDiagnosticIdSTRINGTerminalRuleCall_4_1_0()); 
             }
-            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__DiagnosticIdAssignment_4_133351); if (state.failed) return ;
+            match(input,RULE_STRING,FOLLOW_RULE_STRING_in_rule__ResultIssue__DiagnosticIdAssignment_4_133411); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getResultIssueAccess().getDiagnosticIdSTRINGTerminalRuleCall_4_1_0()); 
             }
@@ -46992,22 +47087,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ResultIssue__IssuesAssignment_5_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16638:1: rule__ResultIssue__IssuesAssignment_5_1 : ( ruleResultIssue ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16668:1: rule__ResultIssue__IssuesAssignment_5_1 : ( ruleResultIssue ) ;
     public final void rule__ResultIssue__IssuesAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16642:1: ( ( ruleResultIssue ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16643:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16672:1: ( ( ruleResultIssue ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16673:1: ( ruleResultIssue )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16643:1: ( ruleResultIssue )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16644:1: ruleResultIssue
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16673:1: ( ruleResultIssue )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16674:1: ruleResultIssue
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getResultIssueAccess().getIssuesResultIssueParserRuleCall_5_1_0()); 
             }
-            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_133382);
+            pushFollow(FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_133442);
             ruleResultIssue();
 
             state._fsp--;
@@ -47037,28 +47132,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16653:1: rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16683:1: rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
     public final void rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16657:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16658:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16687:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16688:1: ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16658:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16659:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16688:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16689:1: ( ruleAADLPROPERTYREFERENCE )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeRefAccess().getReferencedUnitsTypeUnitsTypeCrossReference_1_2_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16660:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16661:1: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16690:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16691:1: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeRefAccess().getReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_1_2_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_133417);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_133477);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -47094,28 +47189,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16672:1: rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16702:1: rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
     public final void rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16676:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16677:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16706:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16707:1: ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16677:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16678:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16707:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16708:1: ( ruleAADLPROPERTYREFERENCE )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeRefAccess().getReferencedUnitsTypeUnitsTypeCrossReference_2_2_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16679:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16680:1: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16709:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16710:1: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeRefAccess().getReferencedUnitsTypeUnitsTypeAADLPROPERTYREFERENCEParserRuleCall_2_2_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_133456);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_133516);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -47151,28 +47246,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__TypeRef__RefAssignment_5_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16691:1: rule__TypeRef__RefAssignment_5_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16721:1: rule__TypeRef__RefAssignment_5_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
     public final void rule__TypeRef__RefAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16695:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16696:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16725:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16726:1: ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16696:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16697:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16726:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16727:1: ( ruleAADLPROPERTYREFERENCE )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeRefAccess().getRefPropertyTypeCrossReference_5_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16698:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16699:1: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16728:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16729:1: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getTypeRefAccess().getRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__RefAssignment_5_133495);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__RefAssignment_5_133555);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -47208,28 +47303,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__PropertyRef__RefAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16710:1: rule__PropertyRef__RefAssignment_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16740:1: rule__PropertyRef__RefAssignment_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
     public final void rule__PropertyRef__RefAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16714:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16715:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16744:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16745:1: ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16715:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16716:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16745:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16746:1: ( ruleAADLPROPERTYREFERENCE )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyRefAccess().getRefPropertyCrossReference_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16717:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16718:1: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16747:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16748:1: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getPropertyRefAccess().getRefPropertyAADLPROPERTYREFERENCEParserRuleCall_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__PropertyRef__RefAssignment_133534);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__PropertyRef__RefAssignment_133594);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -47265,28 +47360,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AModelOrPropertyReference__PropertyAssignment_0_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16742:1: rule__AModelOrPropertyReference__PropertyAssignment_0_1_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16772:1: rule__AModelOrPropertyReference__PropertyAssignment_0_1_1 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
     public final void rule__AModelOrPropertyReference__PropertyAssignment_0_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16746:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16747:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16776:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16777:1: ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16747:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16748:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16777:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16778:1: ( ruleAADLPROPERTYREFERENCE )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAModelOrPropertyReferenceAccess().getPropertyAbstractNamedValueCrossReference_0_1_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16749:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16750:1: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16779:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16780:1: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAModelOrPropertyReferenceAccess().getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_0_1_1_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__AModelOrPropertyReference__PropertyAssignment_0_1_133586);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__AModelOrPropertyReference__PropertyAssignment_0_1_133646);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -47322,28 +47417,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AModelReference__ModelElementAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16761:1: rule__AModelReference__ModelElementAssignment_0 : ( ( ruleThisKeyword ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16791:1: rule__AModelReference__ModelElementAssignment_0 : ( ( ruleThisKeyword ) ) ;
     public final void rule__AModelReference__ModelElementAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16765:1: ( ( ( ruleThisKeyword ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16766:1: ( ( ruleThisKeyword ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16795:1: ( ( ( ruleThisKeyword ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16796:1: ( ( ruleThisKeyword ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16766:1: ( ( ruleThisKeyword ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16767:1: ( ruleThisKeyword )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16796:1: ( ( ruleThisKeyword ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16797:1: ( ruleThisKeyword )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementCrossReference_0_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16768:1: ( ruleThisKeyword )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16769:1: ruleThisKeyword
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16798:1: ( ruleThisKeyword )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16799:1: ruleThisKeyword
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementThisKeywordParserRuleCall_0_0_1()); 
             }
-            pushFollow(FOLLOW_ruleThisKeyword_in_rule__AModelReference__ModelElementAssignment_033625);
+            pushFollow(FOLLOW_ruleThisKeyword_in_rule__AModelReference__ModelElementAssignment_033685);
             ruleThisKeyword();
 
             state._fsp--;
@@ -47379,28 +47474,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AModelReference__ModelElementAssignment_1_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16780:1: rule__AModelReference__ModelElementAssignment_1_2 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16810:1: rule__AModelReference__ModelElementAssignment_1_2 : ( ( RULE_ID ) ) ;
     public final void rule__AModelReference__ModelElementAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16784:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16785:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16814:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16815:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16785:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16786:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16815:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16816:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementCrossReference_1_2_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16787:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16788:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16817:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16818:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementIDTerminalRuleCall_1_2_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AModelReference__ModelElementAssignment_1_233664); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AModelReference__ModelElementAssignment_1_233724); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAModelReferenceAccess().getModelElementNamedElementIDTerminalRuleCall_1_2_0_1()); 
             }
@@ -47432,28 +47527,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__APropertyReference__PropertyAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16799:1: rule__APropertyReference__PropertyAssignment_2 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16829:1: rule__APropertyReference__PropertyAssignment_2 : ( ( ruleAADLPROPERTYREFERENCE ) ) ;
     public final void rule__APropertyReference__PropertyAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16803:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16804:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16833:1: ( ( ( ruleAADLPROPERTYREFERENCE ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16834:1: ( ( ruleAADLPROPERTYREFERENCE ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16804:1: ( ( ruleAADLPROPERTYREFERENCE ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16805:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16834:1: ( ( ruleAADLPROPERTYREFERENCE ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16835:1: ( ruleAADLPROPERTYREFERENCE )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAPropertyReferenceAccess().getPropertyAbstractNamedValueCrossReference_2_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16806:1: ( ruleAADLPROPERTYREFERENCE )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16807:1: ruleAADLPROPERTYREFERENCE
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16836:1: ( ruleAADLPROPERTYREFERENCE )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16837:1: ruleAADLPROPERTYREFERENCE
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAPropertyReferenceAccess().getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1()); 
             }
-            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__APropertyReference__PropertyAssignment_233703);
+            pushFollow(FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__APropertyReference__PropertyAssignment_233763);
             ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -47489,28 +47584,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AVariableReference__VariableAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16818:1: rule__AVariableReference__VariableAssignment_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16848:1: rule__AVariableReference__VariableAssignment_1 : ( ( RULE_ID ) ) ;
     public final void rule__AVariableReference__VariableAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16822:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16823:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16852:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16853:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16823:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16824:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16853:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16854:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationCrossReference_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16825:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16826:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16855:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16856:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationIDTerminalRuleCall_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AVariableReference__VariableAssignment_133742); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AVariableReference__VariableAssignment_133802); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationIDTerminalRuleCall_1_0_1()); 
             }
@@ -47542,28 +47637,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ShowValue__RefAssignment_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16837:1: rule__ShowValue__RefAssignment_0 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16867:1: rule__ShowValue__RefAssignment_0 : ( ( RULE_ID ) ) ;
     public final void rule__ShowValue__RefAssignment_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16841:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16842:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16871:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16872:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16842:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16843:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16872:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16873:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getShowValueAccess().getRefAVariableDeclarationCrossReference_0_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16844:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16845:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16874:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16875:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getShowValueAccess().getRefAVariableDeclarationIDTerminalRuleCall_0_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ShowValue__RefAssignment_033781); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ShowValue__RefAssignment_033841); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getShowValueAccess().getRefAVariableDeclarationIDTerminalRuleCall_0_0_1()); 
             }
@@ -47595,28 +47690,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ShowValue__UnitAssignment_1_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16856:1: rule__ShowValue__UnitAssignment_1_1_1 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16886:1: rule__ShowValue__UnitAssignment_1_1_1 : ( ( RULE_ID ) ) ;
     public final void rule__ShowValue__UnitAssignment_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16860:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16861:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16890:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16891:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16861:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16862:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16891:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16892:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getShowValueAccess().getUnitUnitLiteralCrossReference_1_1_1_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16863:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16864:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16893:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16894:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getShowValueAccess().getUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ShowValue__UnitAssignment_1_1_133820); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__ShowValue__UnitAssignment_1_1_133880); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getShowValueAccess().getUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1()); 
             }
@@ -47648,22 +47743,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ImageReference__ImgfileAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16875:1: rule__ImageReference__ImgfileAssignment_1 : ( ruleIMGREF ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16905:1: rule__ImageReference__ImgfileAssignment_1 : ( ruleIMGREF ) ;
     public final void rule__ImageReference__ImgfileAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16879:1: ( ( ruleIMGREF ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16880:1: ( ruleIMGREF )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16909:1: ( ( ruleIMGREF ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16910:1: ( ruleIMGREF )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16880:1: ( ruleIMGREF )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16881:1: ruleIMGREF
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16910:1: ( ruleIMGREF )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16911:1: ruleIMGREF
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getImageReferenceAccess().getImgfileIMGREFParserRuleCall_1_0()); 
             }
-            pushFollow(FOLLOW_ruleIMGREF_in_rule__ImageReference__ImgfileAssignment_133855);
+            pushFollow(FOLLOW_ruleIMGREF_in_rule__ImageReference__ImgfileAssignment_133915);
             ruleIMGREF();
 
             state._fsp--;
@@ -47693,22 +47788,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AOrExpression__OperatorAssignment_1_0_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16890:1: rule__AOrExpression__OperatorAssignment_1_0_0_1 : ( ruleOpOr ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16920:1: rule__AOrExpression__OperatorAssignment_1_0_0_1 : ( ruleOpOr ) ;
     public final void rule__AOrExpression__OperatorAssignment_1_0_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16894:1: ( ( ruleOpOr ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16895:1: ( ruleOpOr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16924:1: ( ( ruleOpOr ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16925:1: ( ruleOpOr )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16895:1: ( ruleOpOr )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16896:1: ruleOpOr
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16925:1: ( ruleOpOr )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16926:1: ruleOpOr
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAOrExpressionAccess().getOperatorOpOrParserRuleCall_1_0_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpOr_in_rule__AOrExpression__OperatorAssignment_1_0_0_133886);
+            pushFollow(FOLLOW_ruleOpOr_in_rule__AOrExpression__OperatorAssignment_1_0_0_133946);
             ruleOpOr();
 
             state._fsp--;
@@ -47738,22 +47833,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AOrExpression__RightAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16905:1: rule__AOrExpression__RightAssignment_1_1 : ( ruleAAndExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16935:1: rule__AOrExpression__RightAssignment_1_1 : ( ruleAAndExpression ) ;
     public final void rule__AOrExpression__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16909:1: ( ( ruleAAndExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16910:1: ( ruleAAndExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16939:1: ( ( ruleAAndExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16940:1: ( ruleAAndExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16910:1: ( ruleAAndExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16911:1: ruleAAndExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16940:1: ( ruleAAndExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16941:1: ruleAAndExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAOrExpressionAccess().getRightAAndExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAAndExpression_in_rule__AOrExpression__RightAssignment_1_133917);
+            pushFollow(FOLLOW_ruleAAndExpression_in_rule__AOrExpression__RightAssignment_1_133977);
             ruleAAndExpression();
 
             state._fsp--;
@@ -47783,22 +47878,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AAndExpression__OperatorAssignment_1_0_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16920:1: rule__AAndExpression__OperatorAssignment_1_0_0_1 : ( ruleOpAnd ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16950:1: rule__AAndExpression__OperatorAssignment_1_0_0_1 : ( ruleOpAnd ) ;
     public final void rule__AAndExpression__OperatorAssignment_1_0_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16924:1: ( ( ruleOpAnd ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16925:1: ( ruleOpAnd )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16954:1: ( ( ruleOpAnd ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16955:1: ( ruleOpAnd )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16925:1: ( ruleOpAnd )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16926:1: ruleOpAnd
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16955:1: ( ruleOpAnd )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16956:1: ruleOpAnd
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAAndExpressionAccess().getOperatorOpAndParserRuleCall_1_0_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpAnd_in_rule__AAndExpression__OperatorAssignment_1_0_0_133948);
+            pushFollow(FOLLOW_ruleOpAnd_in_rule__AAndExpression__OperatorAssignment_1_0_0_134008);
             ruleOpAnd();
 
             state._fsp--;
@@ -47828,22 +47923,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AAndExpression__RightAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16935:1: rule__AAndExpression__RightAssignment_1_1 : ( ruleAEqualityExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16965:1: rule__AAndExpression__RightAssignment_1_1 : ( ruleAEqualityExpression ) ;
     public final void rule__AAndExpression__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16939:1: ( ( ruleAEqualityExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16940:1: ( ruleAEqualityExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16969:1: ( ( ruleAEqualityExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16970:1: ( ruleAEqualityExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16940:1: ( ruleAEqualityExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16941:1: ruleAEqualityExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16970:1: ( ruleAEqualityExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16971:1: ruleAEqualityExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAAndExpressionAccess().getRightAEqualityExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAEqualityExpression_in_rule__AAndExpression__RightAssignment_1_133979);
+            pushFollow(FOLLOW_ruleAEqualityExpression_in_rule__AAndExpression__RightAssignment_1_134039);
             ruleAEqualityExpression();
 
             state._fsp--;
@@ -47873,22 +47968,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AEqualityExpression__OperatorAssignment_1_0_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16950:1: rule__AEqualityExpression__OperatorAssignment_1_0_0_1 : ( ruleOpEquality ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16980:1: rule__AEqualityExpression__OperatorAssignment_1_0_0_1 : ( ruleOpEquality ) ;
     public final void rule__AEqualityExpression__OperatorAssignment_1_0_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16954:1: ( ( ruleOpEquality ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16955:1: ( ruleOpEquality )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16984:1: ( ( ruleOpEquality ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16985:1: ( ruleOpEquality )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16955:1: ( ruleOpEquality )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16956:1: ruleOpEquality
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16985:1: ( ruleOpEquality )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16986:1: ruleOpEquality
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAEqualityExpressionAccess().getOperatorOpEqualityParserRuleCall_1_0_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpEquality_in_rule__AEqualityExpression__OperatorAssignment_1_0_0_134010);
+            pushFollow(FOLLOW_ruleOpEquality_in_rule__AEqualityExpression__OperatorAssignment_1_0_0_134070);
             ruleOpEquality();
 
             state._fsp--;
@@ -47918,22 +48013,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AEqualityExpression__RightAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16965:1: rule__AEqualityExpression__RightAssignment_1_1 : ( ruleARelationalExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16995:1: rule__AEqualityExpression__RightAssignment_1_1 : ( ruleARelationalExpression ) ;
     public final void rule__AEqualityExpression__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16969:1: ( ( ruleARelationalExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16970:1: ( ruleARelationalExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16999:1: ( ( ruleARelationalExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17000:1: ( ruleARelationalExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16970:1: ( ruleARelationalExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16971:1: ruleARelationalExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17000:1: ( ruleARelationalExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17001:1: ruleARelationalExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAEqualityExpressionAccess().getRightARelationalExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleARelationalExpression_in_rule__AEqualityExpression__RightAssignment_1_134041);
+            pushFollow(FOLLOW_ruleARelationalExpression_in_rule__AEqualityExpression__RightAssignment_1_134101);
             ruleARelationalExpression();
 
             state._fsp--;
@@ -47963,22 +48058,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARelationalExpression__OperatorAssignment_1_0_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16980:1: rule__ARelationalExpression__OperatorAssignment_1_0_0_1 : ( ruleOpCompare ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17010:1: rule__ARelationalExpression__OperatorAssignment_1_0_0_1 : ( ruleOpCompare ) ;
     public final void rule__ARelationalExpression__OperatorAssignment_1_0_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16984:1: ( ( ruleOpCompare ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16985:1: ( ruleOpCompare )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17014:1: ( ( ruleOpCompare ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17015:1: ( ruleOpCompare )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16985:1: ( ruleOpCompare )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16986:1: ruleOpCompare
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17015:1: ( ruleOpCompare )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17016:1: ruleOpCompare
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARelationalExpressionAccess().getOperatorOpCompareParserRuleCall_1_0_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpCompare_in_rule__ARelationalExpression__OperatorAssignment_1_0_0_134072);
+            pushFollow(FOLLOW_ruleOpCompare_in_rule__ARelationalExpression__OperatorAssignment_1_0_0_134132);
             ruleOpCompare();
 
             state._fsp--;
@@ -48008,22 +48103,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARelationalExpression__RightAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16995:1: rule__ARelationalExpression__RightAssignment_1_1 : ( ruleAAdditiveExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17025:1: rule__ARelationalExpression__RightAssignment_1_1 : ( ruleAAdditiveExpression ) ;
     public final void rule__ARelationalExpression__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:16999:1: ( ( ruleAAdditiveExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17000:1: ( ruleAAdditiveExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17029:1: ( ( ruleAAdditiveExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17030:1: ( ruleAAdditiveExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17000:1: ( ruleAAdditiveExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17001:1: ruleAAdditiveExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17030:1: ( ruleAAdditiveExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17031:1: ruleAAdditiveExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARelationalExpressionAccess().getRightAAdditiveExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAAdditiveExpression_in_rule__ARelationalExpression__RightAssignment_1_134103);
+            pushFollow(FOLLOW_ruleAAdditiveExpression_in_rule__ARelationalExpression__RightAssignment_1_134163);
             ruleAAdditiveExpression();
 
             state._fsp--;
@@ -48053,22 +48148,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AAdditiveExpression__OperatorAssignment_1_0_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17010:1: rule__AAdditiveExpression__OperatorAssignment_1_0_0_1 : ( ruleOpAdd ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17040:1: rule__AAdditiveExpression__OperatorAssignment_1_0_0_1 : ( ruleOpAdd ) ;
     public final void rule__AAdditiveExpression__OperatorAssignment_1_0_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17014:1: ( ( ruleOpAdd ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17015:1: ( ruleOpAdd )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17044:1: ( ( ruleOpAdd ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17045:1: ( ruleOpAdd )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17015:1: ( ruleOpAdd )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17016:1: ruleOpAdd
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17045:1: ( ruleOpAdd )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17046:1: ruleOpAdd
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAAdditiveExpressionAccess().getOperatorOpAddParserRuleCall_1_0_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpAdd_in_rule__AAdditiveExpression__OperatorAssignment_1_0_0_134134);
+            pushFollow(FOLLOW_ruleOpAdd_in_rule__AAdditiveExpression__OperatorAssignment_1_0_0_134194);
             ruleOpAdd();
 
             state._fsp--;
@@ -48098,22 +48193,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AAdditiveExpression__RightAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17025:1: rule__AAdditiveExpression__RightAssignment_1_1 : ( ruleAMultiplicativeExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17055:1: rule__AAdditiveExpression__RightAssignment_1_1 : ( ruleAMultiplicativeExpression ) ;
     public final void rule__AAdditiveExpression__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17029:1: ( ( ruleAMultiplicativeExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17030:1: ( ruleAMultiplicativeExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17059:1: ( ( ruleAMultiplicativeExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17060:1: ( ruleAMultiplicativeExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17030:1: ( ruleAMultiplicativeExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17031:1: ruleAMultiplicativeExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17060:1: ( ruleAMultiplicativeExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17061:1: ruleAMultiplicativeExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAAdditiveExpressionAccess().getRightAMultiplicativeExpressionParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_rule__AAdditiveExpression__RightAssignment_1_134165);
+            pushFollow(FOLLOW_ruleAMultiplicativeExpression_in_rule__AAdditiveExpression__RightAssignment_1_134225);
             ruleAMultiplicativeExpression();
 
             state._fsp--;
@@ -48143,22 +48238,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17040:1: rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_1 : ( ruleOpMulti ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17070:1: rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_1 : ( ruleOpMulti ) ;
     public final void rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17044:1: ( ( ruleOpMulti ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17045:1: ( ruleOpMulti )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17074:1: ( ( ruleOpMulti ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17075:1: ( ruleOpMulti )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17045:1: ( ruleOpMulti )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17046:1: ruleOpMulti
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17075:1: ( ruleOpMulti )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17076:1: ruleOpMulti
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAMultiplicativeExpressionAccess().getOperatorOpMultiParserRuleCall_1_0_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpMulti_in_rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_134196);
+            pushFollow(FOLLOW_ruleOpMulti_in_rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_134256);
             ruleOpMulti();
 
             state._fsp--;
@@ -48188,22 +48283,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AMultiplicativeExpression__RightAssignment_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17055:1: rule__AMultiplicativeExpression__RightAssignment_1_1 : ( ruleAUnaryOperation ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17085:1: rule__AMultiplicativeExpression__RightAssignment_1_1 : ( ruleAUnaryOperation ) ;
     public final void rule__AMultiplicativeExpression__RightAssignment_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17059:1: ( ( ruleAUnaryOperation ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17060:1: ( ruleAUnaryOperation )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17089:1: ( ( ruleAUnaryOperation ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17090:1: ( ruleAUnaryOperation )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17060:1: ( ruleAUnaryOperation )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17061:1: ruleAUnaryOperation
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17090:1: ( ruleAUnaryOperation )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17091:1: ruleAUnaryOperation
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAMultiplicativeExpressionAccess().getRightAUnaryOperationParserRuleCall_1_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAUnaryOperation_in_rule__AMultiplicativeExpression__RightAssignment_1_134227);
+            pushFollow(FOLLOW_ruleAUnaryOperation_in_rule__AMultiplicativeExpression__RightAssignment_1_134287);
             ruleAUnaryOperation();
 
             state._fsp--;
@@ -48233,22 +48328,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AUnaryOperation__OperatorAssignment_0_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17070:1: rule__AUnaryOperation__OperatorAssignment_0_1 : ( ruleOpUnary ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17100:1: rule__AUnaryOperation__OperatorAssignment_0_1 : ( ruleOpUnary ) ;
     public final void rule__AUnaryOperation__OperatorAssignment_0_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17074:1: ( ( ruleOpUnary ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17075:1: ( ruleOpUnary )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17104:1: ( ( ruleOpUnary ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17105:1: ( ruleOpUnary )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17075:1: ( ruleOpUnary )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17076:1: ruleOpUnary
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17105:1: ( ruleOpUnary )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17106:1: ruleOpUnary
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAUnaryOperationAccess().getOperatorOpUnaryParserRuleCall_0_1_0()); 
             }
-            pushFollow(FOLLOW_ruleOpUnary_in_rule__AUnaryOperation__OperatorAssignment_0_134258);
+            pushFollow(FOLLOW_ruleOpUnary_in_rule__AUnaryOperation__OperatorAssignment_0_134318);
             ruleOpUnary();
 
             state._fsp--;
@@ -48278,22 +48373,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AUnaryOperation__OperandAssignment_0_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17085:1: rule__AUnaryOperation__OperandAssignment_0_2 : ( ruleAUnaryOperation ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17115:1: rule__AUnaryOperation__OperandAssignment_0_2 : ( ruleAUnaryOperation ) ;
     public final void rule__AUnaryOperation__OperandAssignment_0_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17089:1: ( ( ruleAUnaryOperation ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17090:1: ( ruleAUnaryOperation )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17119:1: ( ( ruleAUnaryOperation ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17120:1: ( ruleAUnaryOperation )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17090:1: ( ruleAUnaryOperation )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17091:1: ruleAUnaryOperation
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17120:1: ( ruleAUnaryOperation )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17121:1: ruleAUnaryOperation
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAUnaryOperationAccess().getOperandAUnaryOperationParserRuleCall_0_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAUnaryOperation_in_rule__AUnaryOperation__OperandAssignment_0_234289);
+            pushFollow(FOLLOW_ruleAUnaryOperation_in_rule__AUnaryOperation__OperandAssignment_0_234349);
             ruleAUnaryOperation();
 
             state._fsp--;
@@ -48323,28 +48418,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AUnitExpression__ConvertAssignment_1_1_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17100:1: rule__AUnitExpression__ConvertAssignment_1_1_0 : ( ( '%' ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17130:1: rule__AUnitExpression__ConvertAssignment_1_1_0 : ( ( '%' ) ) ;
     public final void rule__AUnitExpression__ConvertAssignment_1_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17104:1: ( ( ( '%' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17105:1: ( ( '%' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17134:1: ( ( ( '%' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17135:1: ( ( '%' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17105:1: ( ( '%' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17106:1: ( '%' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17107:1: ( '%' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17108:1: '%'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17135:1: ( ( '%' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17136:1: ( '%' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); 
             }
-            match(input,18,FOLLOW_18_in_rule__AUnitExpression__ConvertAssignment_1_1_034325); if (state.failed) return ;
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17137:1: ( '%' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17138:1: '%'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); 
+            }
+            match(input,18,FOLLOW_18_in_rule__AUnitExpression__ConvertAssignment_1_1_034385); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAUnitExpressionAccess().getConvertPercentSignKeyword_1_1_0_0()); 
             }
@@ -48376,28 +48471,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AUnitExpression__DropAssignment_1_1_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17123:1: rule__AUnitExpression__DropAssignment_1_1_1 : ( ( 'in' ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17153:1: rule__AUnitExpression__DropAssignment_1_1_1 : ( ( 'in' ) ) ;
     public final void rule__AUnitExpression__DropAssignment_1_1_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17127:1: ( ( ( 'in' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17128:1: ( ( 'in' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17157:1: ( ( ( 'in' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17158:1: ( ( 'in' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17128:1: ( ( 'in' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17129:1: ( 'in' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17130:1: ( 'in' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17131:1: 'in'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17158:1: ( ( 'in' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17159:1: ( 'in' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); 
             }
-            match(input,102,FOLLOW_102_in_rule__AUnitExpression__DropAssignment_1_1_134369); if (state.failed) return ;
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17160:1: ( 'in' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17161:1: 'in'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); 
+            }
+            match(input,102,FOLLOW_102_in_rule__AUnitExpression__DropAssignment_1_1_134429); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAUnitExpressionAccess().getDropInKeyword_1_1_1_0()); 
             }
@@ -48429,28 +48524,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AUnitExpression__UnitAssignment_1_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17146:1: rule__AUnitExpression__UnitAssignment_1_2 : ( ( RULE_ID ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17176:1: rule__AUnitExpression__UnitAssignment_1_2 : ( ( RULE_ID ) ) ;
     public final void rule__AUnitExpression__UnitAssignment_1_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17150:1: ( ( ( RULE_ID ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17151:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17180:1: ( ( ( RULE_ID ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17181:1: ( ( RULE_ID ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17151:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17152:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17181:1: ( ( RULE_ID ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17182:1: ( RULE_ID )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralCrossReference_1_2_0()); 
             }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17153:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17154:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17183:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17184:1: RULE_ID
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_2_0_1()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AUnitExpression__UnitAssignment_1_234412); if (state.failed) return ;
+            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AUnitExpression__UnitAssignment_1_234472); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getAUnitExpressionAccess().getUnitUnitLiteralIDTerminalRuleCall_1_2_0_1()); 
             }
@@ -48482,24 +48577,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AFunctionCall__FunctionAssignment_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17165:1: rule__AFunctionCall__FunctionAssignment_1 : ( RULE_ID ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17195:1: rule__AFunctionCall__FunctionAssignment_1 : ( ruleQualifiedName ) ;
     public final void rule__AFunctionCall__FunctionAssignment_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17169:1: ( ( RULE_ID ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17170:1: ( RULE_ID )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17199:1: ( ( ruleQualifiedName ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17200:1: ( ruleQualifiedName )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17170:1: ( RULE_ID )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17171:1: RULE_ID
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17200:1: ( ruleQualifiedName )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17201:1: ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getFunctionIDTerminalRuleCall_1_0()); 
+               before(grammarAccess.getAFunctionCallAccess().getFunctionQualifiedNameParserRuleCall_1_0()); 
             }
-            match(input,RULE_ID,FOLLOW_RULE_ID_in_rule__AFunctionCall__FunctionAssignment_134447); if (state.failed) return ;
+            pushFollow(FOLLOW_ruleQualifiedName_in_rule__AFunctionCall__FunctionAssignment_134507);
+            ruleQualifiedName();
+
+            state._fsp--;
+            if (state.failed) return ;
             if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getFunctionIDTerminalRuleCall_1_0()); 
+               after(grammarAccess.getAFunctionCallAccess().getFunctionQualifiedNameParserRuleCall_1_0()); 
             }
 
             }
@@ -48522,99 +48621,9 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     // $ANTLR end "rule__AFunctionCall__FunctionAssignment_1"
 
 
-    // $ANTLR start "rule__AFunctionCall__ArgumentsAssignment_3"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17180:1: rule__AFunctionCall__ArgumentsAssignment_3 : ( ruleAExpression ) ;
-    public final void rule__AFunctionCall__ArgumentsAssignment_3() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17184:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17185:1: ( ruleAExpression )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17185:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17186:1: ruleAExpression
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0()); 
-            }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_334478);
-            ruleAExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__AFunctionCall__ArgumentsAssignment_3"
-
-
-    // $ANTLR start "rule__AFunctionCall__ArgumentsAssignment_4_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17195:1: rule__AFunctionCall__ArgumentsAssignment_4_1 : ( ruleAExpression ) ;
-    public final void rule__AFunctionCall__ArgumentsAssignment_4_1() throws RecognitionException {
-
-        		int stackSize = keepStackSize();
-            
-        try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17199:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17200:1: ( ruleAExpression )
-            {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17200:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17201:1: ruleAExpression
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_4_1_0()); 
-            }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_4_134509);
-            ruleAExpression();
-
-            state._fsp--;
-            if (state.failed) return ;
-            if ( state.backtracking==0 ) {
-               after(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_4_1_0()); 
-            }
-
-            }
-
-
-            }
-
-        }
-        catch (RecognitionException re) {
-            reportError(re);
-            recover(input,re);
-        }
-        finally {
-
-            	restoreStackSize(stackSize);
-
-        }
-        return ;
-    }
-    // $ANTLR end "rule__AFunctionCall__ArgumentsAssignment_4_1"
-
-
-    // $ANTLR start "rule__ARangeExpression__MinimumAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17210:1: rule__ARangeExpression__MinimumAssignment_2 : ( ruleAExpression ) ;
-    public final void rule__ARangeExpression__MinimumAssignment_2() throws RecognitionException {
+    // $ANTLR start "rule__AFunctionCall__ArgumentsAssignment_3_0"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17210:1: rule__AFunctionCall__ArgumentsAssignment_3_0 : ( ruleAExpression ) ;
+    public final void rule__AFunctionCall__ArgumentsAssignment_3_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
@@ -48626,9 +48635,99 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
             // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17216:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
+               before(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0_0()); 
+            }
+            pushFollow(FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_3_034538);
+            ruleAExpression();
+
+            state._fsp--;
+            if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AFunctionCall__ArgumentsAssignment_3_0"
+
+
+    // $ANTLR start "rule__AFunctionCall__ArgumentsAssignment_3_1_1"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17225:1: rule__AFunctionCall__ArgumentsAssignment_3_1_1 : ( ruleAExpression ) ;
+    public final void rule__AFunctionCall__ArgumentsAssignment_3_1_1() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17229:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17230:1: ( ruleAExpression )
+            {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17230:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17231:1: ruleAExpression
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_1_1_0()); 
+            }
+            pushFollow(FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_3_1_134569);
+            ruleAExpression();
+
+            state._fsp--;
+            if (state.failed) return ;
+            if ( state.backtracking==0 ) {
+               after(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_1_1_0()); 
+            }
+
+            }
+
+
+            }
+
+        }
+        catch (RecognitionException re) {
+            reportError(re);
+            recover(input,re);
+        }
+        finally {
+
+            	restoreStackSize(stackSize);
+
+        }
+        return ;
+    }
+    // $ANTLR end "rule__AFunctionCall__ArgumentsAssignment_3_1_1"
+
+
+    // $ANTLR start "rule__ARangeExpression__MinimumAssignment_2"
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17240:1: rule__ARangeExpression__MinimumAssignment_2 : ( ruleAExpression ) ;
+    public final void rule__ARangeExpression__MinimumAssignment_2() throws RecognitionException {
+
+        		int stackSize = keepStackSize();
+            
+        try {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17244:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17245:1: ( ruleAExpression )
+            {
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17245:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17246:1: ruleAExpression
+            {
+            if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getMinimumAExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__ARangeExpression__MinimumAssignment_234540);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__ARangeExpression__MinimumAssignment_234600);
             ruleAExpression();
 
             state._fsp--;
@@ -48658,22 +48757,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__MaximumAssignment_4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17225:1: rule__ARangeExpression__MaximumAssignment_4 : ( ruleAExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17255:1: rule__ARangeExpression__MaximumAssignment_4 : ( ruleAExpression ) ;
     public final void rule__ARangeExpression__MaximumAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17229:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17230:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17259:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17260:1: ( ruleAExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17230:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17231:1: ruleAExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17260:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17261:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getMaximumAExpressionParserRuleCall_4_0()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__ARangeExpression__MaximumAssignment_434571);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__ARangeExpression__MaximumAssignment_434631);
             ruleAExpression();
 
             state._fsp--;
@@ -48703,22 +48802,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARangeExpression__DeltaAssignment_5_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17240:1: rule__ARangeExpression__DeltaAssignment_5_1 : ( ruleAExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17270:1: rule__ARangeExpression__DeltaAssignment_5_1 : ( ruleAExpression ) ;
     public final void rule__ARangeExpression__DeltaAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17244:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17245:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17274:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17275:1: ( ruleAExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17245:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17246:1: ruleAExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17275:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17276:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARangeExpressionAccess().getDeltaAExpressionParserRuleCall_5_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__ARangeExpression__DeltaAssignment_5_134602);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__ARangeExpression__DeltaAssignment_5_134662);
             ruleAExpression();
 
             state._fsp--;
@@ -48748,22 +48847,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__IfAssignment_2"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17255:1: rule__AIfExpression__IfAssignment_2 : ( ruleAExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17285:1: rule__AIfExpression__IfAssignment_2 : ( ruleAExpression ) ;
     public final void rule__AIfExpression__IfAssignment_2() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17259:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17260:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17289:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17290:1: ( ruleAExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17260:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17261:1: ruleAExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17290:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17291:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getIfAExpressionParserRuleCall_2_0()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__AIfExpression__IfAssignment_234633);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__AIfExpression__IfAssignment_234693);
             ruleAExpression();
 
             state._fsp--;
@@ -48793,22 +48892,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__ThenAssignment_4"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17270:1: rule__AIfExpression__ThenAssignment_4 : ( ruleAExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17300:1: rule__AIfExpression__ThenAssignment_4 : ( ruleAExpression ) ;
     public final void rule__AIfExpression__ThenAssignment_4() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17274:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17275:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17304:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17305:1: ( ruleAExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17275:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17276:1: ruleAExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17305:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17306:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getThenAExpressionParserRuleCall_4_0()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__AIfExpression__ThenAssignment_434664);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__AIfExpression__ThenAssignment_434724);
             ruleAExpression();
 
             state._fsp--;
@@ -48838,22 +48937,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIfExpression__ElseAssignment_5_1"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17285:1: rule__AIfExpression__ElseAssignment_5_1 : ( ruleAExpression ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17315:1: rule__AIfExpression__ElseAssignment_5_1 : ( ruleAExpression ) ;
     public final void rule__AIfExpression__ElseAssignment_5_1() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17289:1: ( ( ruleAExpression ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17290:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17319:1: ( ( ruleAExpression ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17320:1: ( ruleAExpression )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17290:1: ( ruleAExpression )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17291:1: ruleAExpression
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17320:1: ( ruleAExpression )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17321:1: ruleAExpression
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIfExpressionAccess().getElseAExpressionParserRuleCall_5_1_0()); 
             }
-            pushFollow(FOLLOW_ruleAExpression_in_rule__AIfExpression__ElseAssignment_5_134695);
+            pushFollow(FOLLOW_ruleAExpression_in_rule__AIfExpression__ElseAssignment_5_134755);
             ruleAExpression();
 
             state._fsp--;
@@ -48883,22 +48982,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__AIntegerTerm__ValueAssignment"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17300:1: rule__AIntegerTerm__ValueAssignment : ( ruleAInt ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17330:1: rule__AIntegerTerm__ValueAssignment : ( ruleAInt ) ;
     public final void rule__AIntegerTerm__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17304:1: ( ( ruleAInt ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17305:1: ( ruleAInt )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17334:1: ( ( ruleAInt ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17335:1: ( ruleAInt )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17305:1: ( ruleAInt )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17306:1: ruleAInt
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17335:1: ( ruleAInt )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17336:1: ruleAInt
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getAIntegerTermAccess().getValueAIntParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleAInt_in_rule__AIntegerTerm__ValueAssignment34726);
+            pushFollow(FOLLOW_ruleAInt_in_rule__AIntegerTerm__ValueAssignment34786);
             ruleAInt();
 
             state._fsp--;
@@ -48928,22 +49027,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ARealTerm__ValueAssignment"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17315:1: rule__ARealTerm__ValueAssignment : ( ruleAReal ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17345:1: rule__ARealTerm__ValueAssignment : ( ruleAReal ) ;
     public final void rule__ARealTerm__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17319:1: ( ( ruleAReal ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17320:1: ( ruleAReal )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17349:1: ( ( ruleAReal ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17350:1: ( ruleAReal )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17320:1: ( ruleAReal )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17321:1: ruleAReal
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17350:1: ( ruleAReal )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17351:1: ruleAReal
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getARealTermAccess().getValueARealParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleAReal_in_rule__ARealTerm__ValueAssignment34757);
+            pushFollow(FOLLOW_ruleAReal_in_rule__ARealTerm__ValueAssignment34817);
             ruleAReal();
 
             state._fsp--;
@@ -48973,28 +49072,28 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__ABooleanLiteral__ValueAssignment_1_0"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17330:1: rule__ABooleanLiteral__ValueAssignment_1_0 : ( ( 'true' ) ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17360:1: rule__ABooleanLiteral__ValueAssignment_1_0 : ( ( 'true' ) ) ;
     public final void rule__ABooleanLiteral__ValueAssignment_1_0() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17334:1: ( ( ( 'true' ) ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17335:1: ( ( 'true' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17364:1: ( ( ( 'true' ) ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17365:1: ( ( 'true' ) )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17335:1: ( ( 'true' ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17336:1: ( 'true' )
-            {
-            if ( state.backtracking==0 ) {
-               before(grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0()); 
-            }
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17337:1: ( 'true' )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17338:1: 'true'
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17365:1: ( ( 'true' ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17366:1: ( 'true' )
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0()); 
             }
-            match(input,113,FOLLOW_113_in_rule__ABooleanLiteral__ValueAssignment_1_034793); if (state.failed) return ;
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17367:1: ( 'true' )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17368:1: 'true'
+            {
+            if ( state.backtracking==0 ) {
+               before(grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0()); 
+            }
+            match(input,113,FOLLOW_113_in_rule__ABooleanLiteral__ValueAssignment_1_034853); if (state.failed) return ;
             if ( state.backtracking==0 ) {
                after(grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0()); 
             }
@@ -49026,22 +49125,22 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
 
 
     // $ANTLR start "rule__StringTerm__ValueAssignment"
-    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17353:1: rule__StringTerm__ValueAssignment : ( ruleNoQuoteString ) ;
+    // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17383:1: rule__StringTerm__ValueAssignment : ( ruleNoQuoteString ) ;
     public final void rule__StringTerm__ValueAssignment() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17357:1: ( ( ruleNoQuoteString ) )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17358:1: ( ruleNoQuoteString )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17387:1: ( ( ruleNoQuoteString ) )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17388:1: ( ruleNoQuoteString )
             {
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17358:1: ( ruleNoQuoteString )
-            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17359:1: ruleNoQuoteString
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17388:1: ( ruleNoQuoteString )
+            // ../org.osate.assure.ui/src-gen/org/osate/assure/ui/contentassist/antlr/internal/InternalAssure.g:17389:1: ruleNoQuoteString
             {
             if ( state.backtracking==0 ) {
                before(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0()); 
             }
-            pushFollow(FOLLOW_ruleNoQuoteString_in_rule__StringTerm__ValueAssignment34832);
+            pushFollow(FOLLOW_ruleNoQuoteString_in_rule__StringTerm__ValueAssignment34892);
             ruleNoQuoteString();
 
             state._fsp--;
@@ -50250,264 +50349,266 @@ public class InternalAssureParser extends AbstractInternalContentAssistParser {
     public static final BitSet FOLLOW_rule__AFunctionCall__Group__1__Impl_in_rule__AFunctionCall__Group__127289 = new BitSet(new long[]{0x0000000000000000L,0x0000010000000000L});
     public static final BitSet FOLLOW_rule__AFunctionCall__Group__2_in_rule__AFunctionCall__Group__127292 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_rule__AFunctionCall__FunctionAssignment_1_in_rule__AFunctionCall__Group__1__Impl27319 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group__2__Impl_in_rule__AFunctionCall__Group__227349 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group__2__Impl_in_rule__AFunctionCall__Group__227349 = new BitSet(new long[]{0x00080030C00200F0L,0x0002230008000000L});
     public static final BitSet FOLLOW_rule__AFunctionCall__Group__3_in_rule__AFunctionCall__Group__227352 = new BitSet(new long[]{0x0000000000000002L});
     public static final BitSet FOLLOW_104_in_rule__AFunctionCall__Group__2__Impl27380 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group__3__Impl_in_rule__AFunctionCall__Group__327411 = new BitSet(new long[]{0x0000000000000000L,0x0000060000000000L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group__3__Impl_in_rule__AFunctionCall__Group__327411 = new BitSet(new long[]{0x00080030C00200F0L,0x0002230008000000L});
     public static final BitSet FOLLOW_rule__AFunctionCall__Group__4_in_rule__AFunctionCall__Group__327414 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__ArgumentsAssignment_3_in_rule__AFunctionCall__Group__3__Impl27441 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group__4__Impl_in_rule__AFunctionCall__Group__427471 = new BitSet(new long[]{0x0000000000000000L,0x0000060000000000L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group__5_in_rule__AFunctionCall__Group__427474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group_4__0_in_rule__AFunctionCall__Group__4__Impl27501 = new BitSet(new long[]{0x0000000000000002L,0x0000040000000000L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group__5__Impl_in_rule__AFunctionCall__Group__527532 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_105_in_rule__AFunctionCall__Group__5__Impl27560 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group_4__0__Impl_in_rule__AFunctionCall__Group_4__027603 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group_4__1_in_rule__AFunctionCall__Group_4__027606 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_106_in_rule__AFunctionCall__Group_4__0__Impl27634 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__Group_4__1__Impl_in_rule__AFunctionCall__Group_4__127665 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AFunctionCall__ArgumentsAssignment_4_1_in_rule__AFunctionCall__Group_4__1__Impl27692 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__0__Impl_in_rule__ARangeExpression__Group__027726 = new BitSet(new long[]{0x0008000000000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__1_in_rule__ARangeExpression__Group__027729 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__1__Impl_in_rule__ARangeExpression__Group__127787 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__2_in_rule__ARangeExpression__Group__127790 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_51_in_rule__ARangeExpression__Group__1__Impl27818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__2__Impl_in_rule__ARangeExpression__Group__227849 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__3_in_rule__ARangeExpression__Group__227852 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__MinimumAssignment_2_in_rule__ARangeExpression__Group__2__Impl27879 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__3__Impl_in_rule__ARangeExpression__Group__327909 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__4_in_rule__ARangeExpression__Group__327912 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_107_in_rule__ARangeExpression__Group__3__Impl27940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__4__Impl_in_rule__ARangeExpression__Group__427971 = new BitSet(new long[]{0x0010000000000000L,0x0000100000000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__5_in_rule__ARangeExpression__Group__427974 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__MaximumAssignment_4_in_rule__ARangeExpression__Group__4__Impl28001 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__5__Impl_in_rule__ARangeExpression__Group__528031 = new BitSet(new long[]{0x0010000000000000L,0x0000100000000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__6_in_rule__ARangeExpression__Group__528034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__0_in_rule__ARangeExpression__Group__5__Impl28061 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group__6__Impl_in_rule__ARangeExpression__Group__628092 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_52_in_rule__ARangeExpression__Group__6__Impl28120 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__0__Impl_in_rule__ARangeExpression__Group_5__028165 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__1_in_rule__ARangeExpression__Group_5__028168 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_108_in_rule__ARangeExpression__Group_5__0__Impl28197 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__1__Impl_in_rule__ARangeExpression__Group_5__128229 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ARangeExpression__DeltaAssignment_5_1_in_rule__ARangeExpression__Group_5__1__Impl28256 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__0__Impl_in_rule__AIfExpression__Group__028290 = new BitSet(new long[]{0x0000000000000000L,0x0000200000000000L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__1_in_rule__AIfExpression__Group__028293 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__1__Impl_in_rule__AIfExpression__Group__128351 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__2_in_rule__AIfExpression__Group__128354 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_109_in_rule__AIfExpression__Group__1__Impl28382 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__2__Impl_in_rule__AIfExpression__Group__228413 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__3_in_rule__AIfExpression__Group__228416 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__IfAssignment_2_in_rule__AIfExpression__Group__2__Impl28443 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__3__Impl_in_rule__AIfExpression__Group__328473 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__4_in_rule__AIfExpression__Group__328476 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_67_in_rule__AIfExpression__Group__3__Impl28504 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__4__Impl_in_rule__AIfExpression__Group__428535 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000004L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__5_in_rule__AIfExpression__Group__428538 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__ThenAssignment_4_in_rule__AIfExpression__Group__4__Impl28565 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__5__Impl_in_rule__AIfExpression__Group__528595 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000004L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__6_in_rule__AIfExpression__Group__528598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__0_in_rule__AIfExpression__Group__5__Impl28625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group__6__Impl_in_rule__AIfExpression__Group__628656 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_110_in_rule__AIfExpression__Group__6__Impl28684 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__0__Impl_in_rule__AIfExpression__Group_5__028729 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__1_in_rule__AIfExpression__Group_5__028732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_66_in_rule__AIfExpression__Group_5__0__Impl28760 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__1__Impl_in_rule__AIfExpression__Group_5__128791 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AIfExpression__ElseAssignment_5_1_in_rule__AIfExpression__Group_5__1__Impl28818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ABooleanLiteral__Group__0__Impl_in_rule__ABooleanLiteral__Group__028852 = new BitSet(new long[]{0x0000002000000000L,0x0002000000000000L});
-    public static final BitSet FOLLOW_rule__ABooleanLiteral__Group__1_in_rule__ABooleanLiteral__Group__028855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ABooleanLiteral__Group__1__Impl_in_rule__ABooleanLiteral__Group__128913 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__ABooleanLiteral__Alternatives_1_in_rule__ABooleanLiteral__Group__1__Impl28940 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__0__Impl_in_rule__AParenthesizedExpression__Group__028974 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
-    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__1_in_rule__AParenthesizedExpression__Group__028977 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_104_in_rule__AParenthesizedExpression__Group__0__Impl29005 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__1__Impl_in_rule__AParenthesizedExpression__Group__129036 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
-    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__2_in_rule__AParenthesizedExpression__Group__129039 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__AParenthesizedExpression__Group__1__Impl29066 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__2__Impl_in_rule__AParenthesizedExpression__Group__229095 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_105_in_rule__AParenthesizedExpression__Group__2__Impl29123 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__029164 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__029167 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl29194 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__129223 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__129226 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29255 = new BitSet(new long[]{0x0000000000000002L,0x0000800000000000L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29267 = new BitSet(new long[]{0x0000000000000002L,0x0000800000000000L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__229300 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__0_in_rule__AadlClassifierReference__Group__2__Impl29327 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__0__Impl_in_rule__AadlClassifierReference__Group_1__029364 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__1_in_rule__AadlClassifierReference__Group_1__029367 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_111_in_rule__AadlClassifierReference__Group_1__0__Impl29395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__1__Impl_in_rule__AadlClassifierReference__Group_1__129426 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_1__1__Impl29453 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__0__Impl_in_rule__AadlClassifierReference__Group_2__029486 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__1_in_rule__AadlClassifierReference__Group_2__029489 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_92_in_rule__AadlClassifierReference__Group_2__0__Impl29517 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__1__Impl_in_rule__AadlClassifierReference__Group_2__129548 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_2__1__Impl29575 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group__029608 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1_in_rule__AADLPROPERTYREFERENCE__Group__029611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl29638 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group__129667 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0_in_rule__AADLPROPERTYREFERENCE__Group__1__Impl29694 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__029729 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1_in_rule__AADLPROPERTYREFERENCE__Group_1__029732 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_111_in_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl29760 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__129791 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl29818 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__029851 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__029854 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl29881 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__129910 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl29937 = new BitSet(new long[]{0x0000000000000002L,0x0000000010000000L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__029972 = new BitSet(new long[]{0x0000000000000080L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__029975 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_92_in_rule__QualifiedName__Group_1__0__Impl30003 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__130034 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl30061 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__AssuranceCaseResult__NameAssignment_130100 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__AssuranceCaseResult__MetricsAssignment_330131 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__AssuranceCaseResult__MessageAssignment_4_130162 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleModelResult_in_rule__AssuranceCaseResult__ModelResultAssignment_530193 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ModelResult__PlanAssignment_130228 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__ModelResult__TargetAssignment_330267 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__ModelResult__MetricsAssignment_530302 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ModelResult__MessageAssignment_6_130333 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleClaimResult_in_rule__ModelResult__ClaimResultAssignment_730364 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSubsystemResult_in_rule__ModelResult__SubsystemResultAssignment_8_030395 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAssuranceCaseResult_in_rule__ModelResult__SubAssuranceCaseAssignment_8_130426 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__SubsystemResult__TargetSystemAssignment_130461 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__SubsystemResult__MetricsAssignment_330496 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__SubsystemResult__MessageAssignment_4_130527 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleClaimResult_in_rule__SubsystemResult__ClaimResultAssignment_530558 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleSubsystemResult_in_rule__SubsystemResult__SubsystemResultAssignment_630589 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedClaimReference_in_rule__ClaimResult__TargetReferenceAssignment_130620 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__ClaimResult__MetricsAssignment_330651 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ClaimResult__ModelElementAssignment_4_130686 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ClaimResult__MessageAssignment_5_130721 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleClaimResult_in_rule__ClaimResult__SubClaimResultAssignment_630752 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ClaimResult__VerificationActivityResultAssignment_730783 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePredicateResult_in_rule__ClaimResult__PredicateResultAssignment_830814 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__TargetAssignment_230849 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__PreconditionResult__ExecutionStateAssignment_530884 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__PreconditionResult__ResultStateAssignment_730915 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__PreconditionResult__IssuesAssignment_8_230946 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__ResultReportAssignment_9_130981 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__PreconditionResult__MetricsAssignment_1031016 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__PreconditionResult__MessageAssignment_11_131047 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ValidationResult__TargetAssignment_231082 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__ValidationResult__ExecutionStateAssignment_531117 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__ValidationResult__ResultStateAssignment_731148 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ValidationResult__IssuesAssignment_8_231179 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ValidationResult__ResultReportAssignment_9_131214 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__ValidationResult__MetricsAssignment_1031249 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ValidationResult__MessageAssignment_11_131280 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedVAReference_in_rule__VerificationActivityResult__TargetReferenceAssignment_231311 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__VerificationActivityResult__ExecutionStateAssignment_531342 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__VerificationActivityResult__ResultStateAssignment_731373 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__VerificationActivityResult__IssuesAssignment_8_231404 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationActivityResult__ResultReportAssignment_9_131439 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__VerificationActivityResult__MetricsAssignment_1031474 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__VerificationActivityResult__MessageAssignment_11_131505 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_rulePreconditionResult_in_rule__VerificationActivityResult__PreconditionResultAssignment_1231536 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleValidationResult_in_rule__VerificationActivityResult__ValidationResultAssignment_1331567 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedClaimReference_in_rule__PredicateResult__TargetReferenceAssignment_231598 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__PredicateResult__ExecutionStateAssignment_531629 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__PredicateResult__ResultStateAssignment_731660 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__PredicateResult__IssuesAssignment_8_231691 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PredicateResult__ResultReportAssignment_9_131726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__PredicateResult__MetricsAssignment_1031761 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__PredicateResult__MessageAssignment_11_131792 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FirstAssignment_131823 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__ErrorAssignment_2_131854 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FailAssignment_3_131885 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__TimeoutAssignment_4_131916 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleElseType_in_rule__ElseResult__DidFailAssignment_631947 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__ElseResult__MetricsAssignment_731978 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ThenResult__FirstAssignment_132009 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ThenResult__SecondAssignment_332040 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_112_in_rule__ThenResult__DidThenFailAssignment_532076 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleMetrics_in_rule__ThenResult__MetricsAssignment_632115 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__TbdCountAssignment_1_132146 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__SuccessCountAssignment_2_132177 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FailCountAssignment_3_132208 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__TimeoutCountAssignment_4_132239 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ErrorCountAssignment_5_132270 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__DidelseCountAssignment_6_132301 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ThenskipCountAssignment_7_132332 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__PreconditionfailCountAssignment_8_132363 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ValidationfailCountAssignment_9_132394 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesCountAssignment_10_132425 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequirementsCountAssignment_11_132456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__QualityCategoryRequirementsCountAssignment_12_132487 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__TotalQualityCategoryCountAssignment_13_132518 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_132549 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__NoVerificationPlansCountAssignment_15_132580 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__RequirementsCountAssignment_16_132611 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ExceptionsCountAssignment_17_132642 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_132673 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_132704 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_132735 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__WeightAssignment_21_132766 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAInt_in_rule__Metrics__ExecutionTimeAssignment_22_132797 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedClaimReference__VerificationPlanAssignment_032832 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNestedClaimReference_in_rule__QualifiedClaimReference__RequirementAssignment_232867 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedVAReference__VerificationPlanAssignment_032902 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNestedClaimReference_in_rule__QualifiedVAReference__RequirementAssignment_232937 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedVAReference__VerificationActivityAssignment_432972 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__NestedClaimReference__RequirementAssignment_033011 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNestedClaimReference_in_rule__NestedClaimReference__SubAssignment_1_133046 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_033078 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleShowValue_in_rule__DescriptionElement__ShowValueAssignment_133109 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_17_in_rule__DescriptionElement__ThisTargetAssignment_233145 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleImageReference_in_rule__DescriptionElement__ImageAssignment_333184 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_033219 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_133250 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNoQuoteString_in_rule__ResultIssue__TargetAssignment_2_133285 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_3_133320 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__DiagnosticIdAssignment_4_133351 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_133382 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_133417 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_133456 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__RefAssignment_5_133495 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__PropertyRef__RefAssignment_133534 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__AModelOrPropertyReference__PropertyAssignment_0_1_133586 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleThisKeyword_in_rule__AModelReference__ModelElementAssignment_033625 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AModelReference__ModelElementAssignment_1_233664 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__APropertyReference__PropertyAssignment_233703 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AVariableReference__VariableAssignment_133742 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ShowValue__RefAssignment_033781 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__ShowValue__UnitAssignment_1_1_133820 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleIMGREF_in_rule__ImageReference__ImgfileAssignment_133855 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpOr_in_rule__AOrExpression__OperatorAssignment_1_0_0_133886 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAndExpression_in_rule__AOrExpression__RightAssignment_1_133917 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpAnd_in_rule__AAndExpression__OperatorAssignment_1_0_0_133948 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAEqualityExpression_in_rule__AAndExpression__RightAssignment_1_133979 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpEquality_in_rule__AEqualityExpression__OperatorAssignment_1_0_0_134010 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleARelationalExpression_in_rule__AEqualityExpression__RightAssignment_1_134041 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpCompare_in_rule__ARelationalExpression__OperatorAssignment_1_0_0_134072 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_rule__ARelationalExpression__RightAssignment_1_134103 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpAdd_in_rule__AAdditiveExpression__OperatorAssignment_1_0_0_134134 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_rule__AAdditiveExpression__RightAssignment_1_134165 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpMulti_in_rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_134196 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_rule__AMultiplicativeExpression__RightAssignment_1_134227 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleOpUnary_in_rule__AUnaryOperation__OperatorAssignment_0_134258 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAUnaryOperation_in_rule__AUnaryOperation__OperandAssignment_0_234289 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_18_in_rule__AUnitExpression__ConvertAssignment_1_1_034325 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_102_in_rule__AUnitExpression__DropAssignment_1_1_134369 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AUnitExpression__UnitAssignment_1_234412 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_rule__AFunctionCall__FunctionAssignment_134447 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_334478 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_4_134509 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__ARangeExpression__MinimumAssignment_234540 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__ARangeExpression__MaximumAssignment_434571 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__ARangeExpression__DeltaAssignment_5_134602 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__AIfExpression__IfAssignment_234633 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__AIfExpression__ThenAssignment_434664 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAExpression_in_rule__AIfExpression__ElseAssignment_5_134695 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAInt_in_rule__AIntegerTerm__ValueAssignment34726 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleAReal_in_rule__ARealTerm__ValueAssignment34757 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_113_in_rule__ABooleanLiteral__ValueAssignment_1_034793 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_ruleNoQuoteString_in_rule__StringTerm__ValueAssignment34832 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3__0_in_rule__AFunctionCall__Group__3__Impl27441 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group__4__Impl_in_rule__AFunctionCall__Group__427472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_rule__AFunctionCall__Group__4__Impl27500 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3__0__Impl_in_rule__AFunctionCall__Group_3__027541 = new BitSet(new long[]{0x0000000000000000L,0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3__1_in_rule__AFunctionCall__Group_3__027544 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__ArgumentsAssignment_3_0_in_rule__AFunctionCall__Group_3__0__Impl27571 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3__1__Impl_in_rule__AFunctionCall__Group_3__127601 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3_1__0_in_rule__AFunctionCall__Group_3__1__Impl27628 = new BitSet(new long[]{0x0000000000000002L,0x0000040000000000L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3_1__0__Impl_in_rule__AFunctionCall__Group_3_1__027663 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3_1__1_in_rule__AFunctionCall__Group_3_1__027666 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_106_in_rule__AFunctionCall__Group_3_1__0__Impl27694 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__Group_3_1__1__Impl_in_rule__AFunctionCall__Group_3_1__127725 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AFunctionCall__ArgumentsAssignment_3_1_1_in_rule__AFunctionCall__Group_3_1__1__Impl27752 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__0__Impl_in_rule__ARangeExpression__Group__027786 = new BitSet(new long[]{0x0008000000000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__1_in_rule__ARangeExpression__Group__027789 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__1__Impl_in_rule__ARangeExpression__Group__127847 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__2_in_rule__ARangeExpression__Group__127850 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_51_in_rule__ARangeExpression__Group__1__Impl27878 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__2__Impl_in_rule__ARangeExpression__Group__227909 = new BitSet(new long[]{0x0000000000000000L,0x0000080000000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__3_in_rule__ARangeExpression__Group__227912 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__MinimumAssignment_2_in_rule__ARangeExpression__Group__2__Impl27939 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__3__Impl_in_rule__ARangeExpression__Group__327969 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__4_in_rule__ARangeExpression__Group__327972 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_107_in_rule__ARangeExpression__Group__3__Impl28000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__4__Impl_in_rule__ARangeExpression__Group__428031 = new BitSet(new long[]{0x0010000000000000L,0x0000100000000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__5_in_rule__ARangeExpression__Group__428034 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__MaximumAssignment_4_in_rule__ARangeExpression__Group__4__Impl28061 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__5__Impl_in_rule__ARangeExpression__Group__528091 = new BitSet(new long[]{0x0010000000000000L,0x0000100000000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__6_in_rule__ARangeExpression__Group__528094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__0_in_rule__ARangeExpression__Group__5__Impl28121 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group__6__Impl_in_rule__ARangeExpression__Group__628152 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_52_in_rule__ARangeExpression__Group__6__Impl28180 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__0__Impl_in_rule__ARangeExpression__Group_5__028225 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__1_in_rule__ARangeExpression__Group_5__028228 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_108_in_rule__ARangeExpression__Group_5__0__Impl28257 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__Group_5__1__Impl_in_rule__ARangeExpression__Group_5__128289 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ARangeExpression__DeltaAssignment_5_1_in_rule__ARangeExpression__Group_5__1__Impl28316 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__0__Impl_in_rule__AIfExpression__Group__028350 = new BitSet(new long[]{0x0000000000000000L,0x0000200000000000L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__1_in_rule__AIfExpression__Group__028353 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__1__Impl_in_rule__AIfExpression__Group__128411 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__2_in_rule__AIfExpression__Group__128414 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_109_in_rule__AIfExpression__Group__1__Impl28442 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__2__Impl_in_rule__AIfExpression__Group__228473 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000008L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__3_in_rule__AIfExpression__Group__228476 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__IfAssignment_2_in_rule__AIfExpression__Group__2__Impl28503 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__3__Impl_in_rule__AIfExpression__Group__328533 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__4_in_rule__AIfExpression__Group__328536 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_67_in_rule__AIfExpression__Group__3__Impl28564 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__4__Impl_in_rule__AIfExpression__Group__428595 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000004L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__5_in_rule__AIfExpression__Group__428598 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__ThenAssignment_4_in_rule__AIfExpression__Group__4__Impl28625 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__5__Impl_in_rule__AIfExpression__Group__528655 = new BitSet(new long[]{0x0000000000000000L,0x0000400000000004L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__6_in_rule__AIfExpression__Group__528658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__0_in_rule__AIfExpression__Group__5__Impl28685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group__6__Impl_in_rule__AIfExpression__Group__628716 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_110_in_rule__AIfExpression__Group__6__Impl28744 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__0__Impl_in_rule__AIfExpression__Group_5__028789 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__1_in_rule__AIfExpression__Group_5__028792 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_66_in_rule__AIfExpression__Group_5__0__Impl28820 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__Group_5__1__Impl_in_rule__AIfExpression__Group_5__128851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AIfExpression__ElseAssignment_5_1_in_rule__AIfExpression__Group_5__1__Impl28878 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ABooleanLiteral__Group__0__Impl_in_rule__ABooleanLiteral__Group__028912 = new BitSet(new long[]{0x0000002000000000L,0x0002000000000000L});
+    public static final BitSet FOLLOW_rule__ABooleanLiteral__Group__1_in_rule__ABooleanLiteral__Group__028915 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ABooleanLiteral__Group__1__Impl_in_rule__ABooleanLiteral__Group__128973 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__ABooleanLiteral__Alternatives_1_in_rule__ABooleanLiteral__Group__1__Impl29000 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__0__Impl_in_rule__AParenthesizedExpression__Group__029034 = new BitSet(new long[]{0x00080030C00200F0L,0x0002210008000000L});
+    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__1_in_rule__AParenthesizedExpression__Group__029037 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_104_in_rule__AParenthesizedExpression__Group__0__Impl29065 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__1__Impl_in_rule__AParenthesizedExpression__Group__129096 = new BitSet(new long[]{0x0000000000000000L,0x0000020000000000L});
+    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__2_in_rule__AParenthesizedExpression__Group__129099 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__AParenthesizedExpression__Group__1__Impl29126 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AParenthesizedExpression__Group__2__Impl_in_rule__AParenthesizedExpression__Group__229155 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_105_in_rule__AParenthesizedExpression__Group__2__Impl29183 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__0__Impl_in_rule__AadlClassifierReference__Group__029224 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1_in_rule__AadlClassifierReference__Group__029227 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group__0__Impl29254 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__1__Impl_in_rule__AadlClassifierReference__Group__129283 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2_in_rule__AadlClassifierReference__Group__129286 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29315 = new BitSet(new long[]{0x0000000000000002L,0x0000800000000000L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__0_in_rule__AadlClassifierReference__Group__1__Impl29327 = new BitSet(new long[]{0x0000000000000002L,0x0000800000000000L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group__2__Impl_in_rule__AadlClassifierReference__Group__229360 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__0_in_rule__AadlClassifierReference__Group__2__Impl29387 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__0__Impl_in_rule__AadlClassifierReference__Group_1__029424 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__1_in_rule__AadlClassifierReference__Group_1__029427 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_111_in_rule__AadlClassifierReference__Group_1__0__Impl29455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_1__1__Impl_in_rule__AadlClassifierReference__Group_1__129486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_1__1__Impl29513 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__0__Impl_in_rule__AadlClassifierReference__Group_2__029546 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__1_in_rule__AadlClassifierReference__Group_2__029549 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_92_in_rule__AadlClassifierReference__Group_2__0__Impl29577 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AadlClassifierReference__Group_2__1__Impl_in_rule__AadlClassifierReference__Group_2__129608 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AadlClassifierReference__Group_2__1__Impl29635 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group__029668 = new BitSet(new long[]{0x0000000000000000L,0x0000800000000000L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1_in_rule__AADLPROPERTYREFERENCE__Group__029671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group__0__Impl29698 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group__129727 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0_in_rule__AADLPROPERTYREFERENCE__Group__1__Impl29754 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__029789 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1_in_rule__AADLPROPERTYREFERENCE__Group_1__029792 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_111_in_rule__AADLPROPERTYREFERENCE__Group_1__0__Impl29820 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl_in_rule__AADLPROPERTYREFERENCE__Group_1__129851 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AADLPROPERTYREFERENCE__Group_1__1__Impl29878 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__0__Impl_in_rule__QualifiedName__Group__029911 = new BitSet(new long[]{0x0000000000000000L,0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1_in_rule__QualifiedName__Group__029914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group__0__Impl29941 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group__1__Impl_in_rule__QualifiedName__Group__129970 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0_in_rule__QualifiedName__Group__1__Impl29997 = new BitSet(new long[]{0x0000000000000002L,0x0000000010000000L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__0__Impl_in_rule__QualifiedName__Group_1__030032 = new BitSet(new long[]{0x0000000000000080L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1_in_rule__QualifiedName__Group_1__030035 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_92_in_rule__QualifiedName__Group_1__0__Impl30063 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rule__QualifiedName__Group_1__1__Impl_in_rule__QualifiedName__Group_1__130094 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedName__Group_1__1__Impl30121 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__AssuranceCaseResult__NameAssignment_130160 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__AssuranceCaseResult__MetricsAssignment_330191 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__AssuranceCaseResult__MessageAssignment_4_130222 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleModelResult_in_rule__AssuranceCaseResult__ModelResultAssignment_530253 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ModelResult__PlanAssignment_130288 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAadlClassifierReference_in_rule__ModelResult__TargetAssignment_330327 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__ModelResult__MetricsAssignment_530362 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ModelResult__MessageAssignment_6_130393 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleClaimResult_in_rule__ModelResult__ClaimResultAssignment_730424 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSubsystemResult_in_rule__ModelResult__SubsystemResultAssignment_8_030455 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAssuranceCaseResult_in_rule__ModelResult__SubAssuranceCaseAssignment_8_130486 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__SubsystemResult__TargetSystemAssignment_130521 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__SubsystemResult__MetricsAssignment_330556 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__SubsystemResult__MessageAssignment_4_130587 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleClaimResult_in_rule__SubsystemResult__ClaimResultAssignment_530618 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleSubsystemResult_in_rule__SubsystemResult__SubsystemResultAssignment_630649 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedClaimReference_in_rule__ClaimResult__TargetReferenceAssignment_130680 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__ClaimResult__MetricsAssignment_330711 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ClaimResult__ModelElementAssignment_4_130746 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ClaimResult__MessageAssignment_5_130781 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleClaimResult_in_rule__ClaimResult__SubClaimResultAssignment_630812 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ClaimResult__VerificationActivityResultAssignment_730843 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePredicateResult_in_rule__ClaimResult__PredicateResultAssignment_830874 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__TargetAssignment_230909 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__PreconditionResult__ExecutionStateAssignment_530944 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__PreconditionResult__ResultStateAssignment_730975 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__PreconditionResult__IssuesAssignment_8_231006 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PreconditionResult__ResultReportAssignment_9_131041 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__PreconditionResult__MetricsAssignment_1031076 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__PreconditionResult__MessageAssignment_11_131107 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ValidationResult__TargetAssignment_231142 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__ValidationResult__ExecutionStateAssignment_531177 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__ValidationResult__ResultStateAssignment_731208 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ValidationResult__IssuesAssignment_8_231239 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__ValidationResult__ResultReportAssignment_9_131274 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__ValidationResult__MetricsAssignment_1031309 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ValidationResult__MessageAssignment_11_131340 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedVAReference_in_rule__VerificationActivityResult__TargetReferenceAssignment_231371 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__VerificationActivityResult__ExecutionStateAssignment_531402 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__VerificationActivityResult__ResultStateAssignment_731433 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__VerificationActivityResult__IssuesAssignment_8_231464 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__VerificationActivityResult__ResultReportAssignment_9_131499 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__VerificationActivityResult__MetricsAssignment_1031534 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__VerificationActivityResult__MessageAssignment_11_131565 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_rulePreconditionResult_in_rule__VerificationActivityResult__PreconditionResultAssignment_1231596 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleValidationResult_in_rule__VerificationActivityResult__ValidationResultAssignment_1331627 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedClaimReference_in_rule__PredicateResult__TargetReferenceAssignment_231658 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExecutionState_in_rule__PredicateResult__ExecutionStateAssignment_531689 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationResultState_in_rule__PredicateResult__ResultStateAssignment_731720 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__PredicateResult__IssuesAssignment_8_231751 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__PredicateResult__ResultReportAssignment_9_131786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__PredicateResult__MetricsAssignment_1031821 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__PredicateResult__MessageAssignment_11_131852 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FirstAssignment_131883 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__ErrorAssignment_2_131914 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__FailAssignment_3_131945 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ElseResult__TimeoutAssignment_4_131976 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleElseType_in_rule__ElseResult__DidFailAssignment_632007 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__ElseResult__MetricsAssignment_732038 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ThenResult__FirstAssignment_132069 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleVerificationExpr_in_rule__ThenResult__SecondAssignment_332100 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_112_in_rule__ThenResult__DidThenFailAssignment_532136 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleMetrics_in_rule__ThenResult__MetricsAssignment_632175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__TbdCountAssignment_1_132206 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__SuccessCountAssignment_2_132237 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FailCountAssignment_3_132268 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__TimeoutCountAssignment_4_132299 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ErrorCountAssignment_5_132330 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__DidelseCountAssignment_6_132361 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ThenskipCountAssignment_7_132392 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__PreconditionfailCountAssignment_8_132423 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ValidationfailCountAssignment_9_132454 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesCountAssignment_10_132485 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequirementsCountAssignment_11_132516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__QualityCategoryRequirementsCountAssignment_12_132547 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__TotalQualityCategoryCountAssignment_13_132578 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__RequirementsWithoutPlanClaimCountAssignment_14_132609 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__NoVerificationPlansCountAssignment_15_132640 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__RequirementsCountAssignment_16_132671 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ExceptionsCountAssignment_17_132702 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__ReqTargetHasEMV2SubclauseCountAssignment_18_132733 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesRequiringClassifierCountAssignment_19_132764 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__FeaturesWithRequiredClassifierCountAssignment_20_132795 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_INT_in_rule__Metrics__WeightAssignment_21_132826 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAInt_in_rule__Metrics__ExecutionTimeAssignment_22_132857 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedClaimReference__VerificationPlanAssignment_032892 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNestedClaimReference_in_rule__QualifiedClaimReference__RequirementAssignment_232927 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__QualifiedVAReference__VerificationPlanAssignment_032962 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNestedClaimReference_in_rule__QualifiedVAReference__RequirementAssignment_232997 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__QualifiedVAReference__VerificationActivityAssignment_433032 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__NestedClaimReference__RequirementAssignment_033071 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNestedClaimReference_in_rule__NestedClaimReference__SubAssignment_1_133106 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__DescriptionElement__TextAssignment_033138 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleShowValue_in_rule__DescriptionElement__ShowValueAssignment_133169 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_17_in_rule__DescriptionElement__ThisTargetAssignment_233205 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleImageReference_in_rule__DescriptionElement__ImageAssignment_333244 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssueType_in_rule__ResultIssue__IssueTypeAssignment_033279 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__MessageAssignment_133310 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNoQuoteString_in_rule__ResultIssue__TargetAssignment_2_133345 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__ExceptionTypeAssignment_3_133380 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_STRING_in_rule__ResultIssue__DiagnosticIdAssignment_4_133411 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleResultIssue_in_rule__ResultIssue__IssuesAssignment_5_133442 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_1_2_133477 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__ReferencedUnitsTypeAssignment_2_2_133516 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__TypeRef__RefAssignment_5_133555 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__PropertyRef__RefAssignment_133594 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__AModelOrPropertyReference__PropertyAssignment_0_1_133646 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleThisKeyword_in_rule__AModelReference__ModelElementAssignment_033685 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AModelReference__ModelElementAssignment_1_233724 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_rule__APropertyReference__PropertyAssignment_233763 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AVariableReference__VariableAssignment_133802 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ShowValue__RefAssignment_033841 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__ShowValue__UnitAssignment_1_1_133880 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleIMGREF_in_rule__ImageReference__ImgfileAssignment_133915 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpOr_in_rule__AOrExpression__OperatorAssignment_1_0_0_133946 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAAndExpression_in_rule__AOrExpression__RightAssignment_1_133977 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpAnd_in_rule__AAndExpression__OperatorAssignment_1_0_0_134008 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAEqualityExpression_in_rule__AAndExpression__RightAssignment_1_134039 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpEquality_in_rule__AEqualityExpression__OperatorAssignment_1_0_0_134070 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleARelationalExpression_in_rule__AEqualityExpression__RightAssignment_1_134101 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpCompare_in_rule__ARelationalExpression__OperatorAssignment_1_0_0_134132 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAAdditiveExpression_in_rule__ARelationalExpression__RightAssignment_1_134163 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpAdd_in_rule__AAdditiveExpression__OperatorAssignment_1_0_0_134194 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAMultiplicativeExpression_in_rule__AAdditiveExpression__RightAssignment_1_134225 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpMulti_in_rule__AMultiplicativeExpression__OperatorAssignment_1_0_0_134256 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_rule__AMultiplicativeExpression__RightAssignment_1_134287 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleOpUnary_in_rule__AUnaryOperation__OperatorAssignment_0_134318 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAUnaryOperation_in_rule__AUnaryOperation__OperandAssignment_0_234349 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_18_in_rule__AUnitExpression__ConvertAssignment_1_1_034385 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_102_in_rule__AUnitExpression__DropAssignment_1_1_134429 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_RULE_ID_in_rule__AUnitExpression__UnitAssignment_1_234472 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleQualifiedName_in_rule__AFunctionCall__FunctionAssignment_134507 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_3_034538 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__AFunctionCall__ArgumentsAssignment_3_1_134569 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__ARangeExpression__MinimumAssignment_234600 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__ARangeExpression__MaximumAssignment_434631 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__ARangeExpression__DeltaAssignment_5_134662 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__AIfExpression__IfAssignment_234693 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__AIfExpression__ThenAssignment_434724 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAExpression_in_rule__AIfExpression__ElseAssignment_5_134755 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAInt_in_rule__AIntegerTerm__ValueAssignment34786 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleAReal_in_rule__ARealTerm__ValueAssignment34817 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_113_in_rule__ABooleanLiteral__ValueAssignment_1_034853 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_ruleNoQuoteString_in_rule__StringTerm__ValueAssignment34892 = new BitSet(new long[]{0x0000000000000002L});
 
 }

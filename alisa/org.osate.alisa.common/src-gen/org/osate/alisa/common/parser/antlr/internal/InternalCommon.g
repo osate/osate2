@@ -1953,19 +1953,19 @@ ruleAFunctionCall returns [EObject current=null]
     }
 )(
 (
-		lv_function_1_0=RULE_ID
-		{
-			newLeafNode(lv_function_1_0, grammarAccess.getAFunctionCallAccess().getFunctionIDTerminalRuleCall_1_0()); 
-		}
-		{
+		{ 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getFunctionQualifiedNameParserRuleCall_1_0()); 
+	    }
+		lv_function_1_0=ruleQualifiedName		{
 	        if ($current==null) {
-	            $current = createModelElement(grammarAccess.getAFunctionCallRule());
+	            $current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
 	        }
-       		setWithLastConsumed(
+       		set(
        			$current, 
        			"function",
         		lv_function_1_0, 
-        		"ID");
+        		"QualifiedName");
+	        afterParserOrEnumRuleCall();
 	    }
 
 )
@@ -1973,10 +1973,10 @@ ruleAFunctionCall returns [EObject current=null]
     {
     	newLeafNode(otherlv_2, grammarAccess.getAFunctionCallAccess().getLeftParenthesisKeyword_2());
     }
-(
+((
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0_0()); 
 	    }
 		lv_arguments_3_0=ruleAExpression		{
 	        if ($current==null) {
@@ -1993,12 +1993,12 @@ ruleAFunctionCall returns [EObject current=null]
 )
 )(	otherlv_4=',' 
     {
-    	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_4_0());
+    	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_3_1_0());
     }
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_1_1_0()); 
 	    }
 		lv_arguments_5_0=ruleAExpression		{
 	        if ($current==null) {
@@ -2013,9 +2013,9 @@ ruleAFunctionCall returns [EObject current=null]
 	    }
 
 )
-))*	otherlv_6=')' 
+))*)?	otherlv_6=')' 
     {
-    	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_4());
     }
 )
 ;
@@ -2609,6 +2609,45 @@ ruleAADLPROPERTYREFERENCE returns [AntlrDatatypeRuleToken current=new AntlrDatat
 
 
 
+
+
+
+// Entry rule entryRuleQualifiedName
+entryRuleQualifiedName returns [String current=null] 
+	:
+	{ newCompositeNode(grammarAccess.getQualifiedNameRule()); } 
+	 iv_ruleQualifiedName=ruleQualifiedName 
+	 { $current=$iv_ruleQualifiedName.current.getText(); }  
+	 EOF 
+;
+
+// Rule QualifiedName
+ruleQualifiedName returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(    this_ID_0=RULE_ID    {
+		$current.merge(this_ID_0);
+    }
+
+    { 
+    newLeafNode(this_ID_0, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_0()); 
+    }
+(
+	kw='.' 
+    {
+        $current.merge(kw);
+        newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
+    }
+    this_ID_2=RULE_ID    {
+		$current.merge(this_ID_2);
+    }
+
+    { 
+    newLeafNode(this_ID_2, grammarAccess.getQualifiedNameAccess().getIDTerminalRuleCall_1_1()); 
+    }
+)*)
+    ;
 
 
 

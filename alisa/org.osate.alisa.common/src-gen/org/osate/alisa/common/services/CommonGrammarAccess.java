@@ -1607,55 +1607,59 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Action cAFunctionCallAction_0 = (Action)cGroup.eContents().get(0);
 		private final Assignment cFunctionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cFunctionIDTerminalRuleCall_1_0 = (RuleCall)cFunctionAssignment_1.eContents().get(0);
+		private final RuleCall cFunctionQualifiedNameParserRuleCall_1_0 = (RuleCall)cFunctionAssignment_1.eContents().get(0);
 		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
-		private final Assignment cArgumentsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cArgumentsAExpressionParserRuleCall_3_0 = (RuleCall)cArgumentsAssignment_3.eContents().get(0);
-		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
-		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
-		private final Assignment cArgumentsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cArgumentsAExpressionParserRuleCall_4_1_0 = (RuleCall)cArgumentsAssignment_4_1.eContents().get(0);
-		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final Assignment cArgumentsAssignment_3_0 = (Assignment)cGroup_3.eContents().get(0);
+		private final RuleCall cArgumentsAExpressionParserRuleCall_3_0_0 = (RuleCall)cArgumentsAssignment_3_0.eContents().get(0);
+		private final Group cGroup_3_1 = (Group)cGroup_3.eContents().get(1);
+		private final Keyword cCommaKeyword_3_1_0 = (Keyword)cGroup_3_1.eContents().get(0);
+		private final Assignment cArgumentsAssignment_3_1_1 = (Assignment)cGroup_3_1.eContents().get(1);
+		private final RuleCall cArgumentsAExpressionParserRuleCall_3_1_1_0 = (RuleCall)cArgumentsAssignment_3_1_1.eContents().get(0);
+		private final Keyword cRightParenthesisKeyword_4 = (Keyword)cGroup.eContents().get(4);
 		
 		//AFunctionCall returns aadl2::PropertyExpression:
-		//	{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")";
+		//	{AFunctionCall} function=QualifiedName "(" (arguments+=AExpression ("," arguments+=AExpression)*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
-		//{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")"
+		//{AFunctionCall} function=QualifiedName "(" (arguments+=AExpression ("," arguments+=AExpression)*)? ")"
 		public Group getGroup() { return cGroup; }
 
 		//{AFunctionCall}
 		public Action getAFunctionCallAction_0() { return cAFunctionCallAction_0; }
 
-		//function=ID
+		//function=QualifiedName
 		public Assignment getFunctionAssignment_1() { return cFunctionAssignment_1; }
 
-		//ID
-		public RuleCall getFunctionIDTerminalRuleCall_1_0() { return cFunctionIDTerminalRuleCall_1_0; }
+		//QualifiedName
+		public RuleCall getFunctionQualifiedNameParserRuleCall_1_0() { return cFunctionQualifiedNameParserRuleCall_1_0; }
 
 		//"("
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
+		//(arguments+=AExpression ("," arguments+=AExpression)*)?
+		public Group getGroup_3() { return cGroup_3; }
+
 		//arguments+=AExpression
-		public Assignment getArgumentsAssignment_3() { return cArgumentsAssignment_3; }
+		public Assignment getArgumentsAssignment_3_0() { return cArgumentsAssignment_3_0; }
 
 		//AExpression
-		public RuleCall getArgumentsAExpressionParserRuleCall_3_0() { return cArgumentsAExpressionParserRuleCall_3_0; }
+		public RuleCall getArgumentsAExpressionParserRuleCall_3_0_0() { return cArgumentsAExpressionParserRuleCall_3_0_0; }
 
 		//("," arguments+=AExpression)*
-		public Group getGroup_4() { return cGroup_4; }
+		public Group getGroup_3_1() { return cGroup_3_1; }
 
 		//","
-		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
+		public Keyword getCommaKeyword_3_1_0() { return cCommaKeyword_3_1_0; }
 
 		//arguments+=AExpression
-		public Assignment getArgumentsAssignment_4_1() { return cArgumentsAssignment_4_1; }
+		public Assignment getArgumentsAssignment_3_1_1() { return cArgumentsAssignment_3_1_1; }
 
 		//AExpression
-		public RuleCall getArgumentsAExpressionParserRuleCall_4_1_0() { return cArgumentsAExpressionParserRuleCall_4_1_0; }
+		public RuleCall getArgumentsAExpressionParserRuleCall_3_1_1_0() { return cArgumentsAExpressionParserRuleCall_3_1_1_0; }
 
 		//")"
-		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
+		public Keyword getRightParenthesisKeyword_4() { return cRightParenthesisKeyword_4; }
 	}
 
 	public class ARangeExpressionElements extends AbstractParserRuleElementFinder {
@@ -2936,7 +2940,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AFunctionCall returns aadl2::PropertyExpression:
-	//	{AFunctionCall} function=ID "(" arguments+=AExpression ("," arguments+=AExpression)* ")";
+	//	{AFunctionCall} function=QualifiedName "(" (arguments+=AExpression ("," arguments+=AExpression)*)? ")";
 	public AFunctionCallElements getAFunctionCallAccess() {
 		return pAFunctionCall;
 	}

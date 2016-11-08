@@ -23432,11 +23432,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 {
                 int LA174_2 = input.LA(2);
 
-                if ( (LA174_2==LeftParenthesis) ) {
-                    alt174=4;
-                }
-                else if ( (LA174_2==EOF||(LA174_2>=Description && LA174_2<=Decomposes)||LA174_2==Conflicts||LA174_2==Mitigates||LA174_2==Rationale||LA174_2==Category||(LA174_2>=Informal && LA174_2<=Inherits)||(LA174_2>=Compute && LA174_2<=Dropped)||(LA174_2>=Evolves && LA174_2<=Include)||LA174_2==Refines||LA174_2==Issues||(LA174_2>=Delta && LA174_2<=Endif)||LA174_2==Value||LA174_2==Else||LA174_2==Goal||LA174_2==Then||(LA174_2>=When && LA174_2<=And)||LA174_2==Div||LA174_2==Mod||LA174_2==See||(LA174_2>=Val && LA174_2<=FullStopFullStop)||(LA174_2>=LessThanSignEqualsSign && LA174_2<=As)||(LA174_2>=In && LA174_2<=VerticalLineVerticalLine)||LA174_2==PercentSign||(LA174_2>=RightParenthesis && LA174_2<=HyphenMinus)||LA174_2==Solidus||LA174_2==LessThanSign||LA174_2==GreaterThanSign||LA174_2==RightSquareBracket||LA174_2==RULE_ID) ) {
+                if ( (LA174_2==EOF||(LA174_2>=Description && LA174_2<=Decomposes)||LA174_2==Conflicts||LA174_2==Mitigates||LA174_2==Rationale||LA174_2==Category||(LA174_2>=Informal && LA174_2<=Inherits)||(LA174_2>=Compute && LA174_2<=Dropped)||(LA174_2>=Evolves && LA174_2<=Include)||LA174_2==Refines||LA174_2==Issues||(LA174_2>=Delta && LA174_2<=Endif)||LA174_2==Value||LA174_2==Else||LA174_2==Goal||LA174_2==Then||(LA174_2>=When && LA174_2<=And)||LA174_2==Div||LA174_2==Mod||LA174_2==See||(LA174_2>=Val && LA174_2<=FullStopFullStop)||(LA174_2>=LessThanSignEqualsSign && LA174_2<=As)||(LA174_2>=In && LA174_2<=VerticalLineVerticalLine)||LA174_2==PercentSign||(LA174_2>=RightParenthesis && LA174_2<=HyphenMinus)||LA174_2==Solidus||LA174_2==LessThanSign||LA174_2==GreaterThanSign||LA174_2==RightSquareBracket||LA174_2==RULE_ID) ) {
                     alt174=2;
+                }
+                else if ( (LA174_2==LeftParenthesis||LA174_2==FullStop) ) {
+                    alt174=4;
                 }
                 else {
                     if (state.backtracking>0) {state.failed=true; return current;}
@@ -23694,14 +23694,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleAFunctionCall"
-    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8278:1: ruleAFunctionCall returns [EObject current=null] : ( () ( (lv_function_1_0= RULE_ID ) ) otherlv_2= LeftParenthesis ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* otherlv_6= RightParenthesis ) ;
+    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8278:1: ruleAFunctionCall returns [EObject current=null] : ( () ( (lv_function_1_0= ruleQualifiedName ) ) otherlv_2= LeftParenthesis ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )? otherlv_6= RightParenthesis ) ;
     public final EObject ruleAFunctionCall() throws RecognitionException {
         EObject current = null;
 
-        Token lv_function_1_0=null;
         Token otherlv_2=null;
         Token otherlv_4=null;
         Token otherlv_6=null;
+        AntlrDatatypeRuleToken lv_function_1_0 = null;
+
         EObject lv_arguments_3_0 = null;
 
         EObject lv_arguments_5_0 = null;
@@ -23710,11 +23711,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8281:28: ( ( () ( (lv_function_1_0= RULE_ID ) ) otherlv_2= LeftParenthesis ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* otherlv_6= RightParenthesis ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:1: ( () ( (lv_function_1_0= RULE_ID ) ) otherlv_2= LeftParenthesis ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* otherlv_6= RightParenthesis )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8281:28: ( ( () ( (lv_function_1_0= ruleQualifiedName ) ) otherlv_2= LeftParenthesis ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )? otherlv_6= RightParenthesis ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:1: ( () ( (lv_function_1_0= ruleQualifiedName ) ) otherlv_2= LeftParenthesis ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )? otherlv_6= RightParenthesis )
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:1: ( () ( (lv_function_1_0= RULE_ID ) ) otherlv_2= LeftParenthesis ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* otherlv_6= RightParenthesis )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:2: () ( (lv_function_1_0= RULE_ID ) ) otherlv_2= LeftParenthesis ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* otherlv_6= RightParenthesis
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:1: ( () ( (lv_function_1_0= ruleQualifiedName ) ) otherlv_2= LeftParenthesis ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )? otherlv_6= RightParenthesis )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:2: () ( (lv_function_1_0= ruleQualifiedName ) ) otherlv_2= LeftParenthesis ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )? otherlv_6= RightParenthesis
             {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8282:2: ()
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8283:5: 
@@ -23729,55 +23730,19 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8288:2: ( (lv_function_1_0= RULE_ID ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8289:1: (lv_function_1_0= RULE_ID )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8288:2: ( (lv_function_1_0= ruleQualifiedName ) )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8289:1: (lv_function_1_0= ruleQualifiedName )
             {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8289:1: (lv_function_1_0= RULE_ID )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8290:3: lv_function_1_0= RULE_ID
-            {
-            lv_function_1_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAFunctionCall19715); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-              			newLeafNode(lv_function_1_0, grammarAccess.getAFunctionCallAccess().getFunctionIDTerminalRuleCall_1_0()); 
-              		
-            }
-            if ( state.backtracking==0 ) {
-
-              	        if (current==null) {
-              	            current = createModelElement(grammarAccess.getAFunctionCallRule());
-              	        }
-                     		setWithLastConsumed(
-                     			current, 
-                     			"function",
-                      		lv_function_1_0, 
-                      		"ID");
-              	    
-            }
-
-            }
-
-
-            }
-
-            otherlv_2=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_LeftParenthesis_in_ruleAFunctionCall19733); if (state.failed) return current;
-            if ( state.backtracking==0 ) {
-
-                  	newLeafNode(otherlv_2, grammarAccess.getAFunctionCallAccess().getLeftParenthesisKeyword_2());
-                  
-            }
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8311:1: ( (lv_arguments_3_0= ruleAExpression ) )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8312:1: (lv_arguments_3_0= ruleAExpression )
-            {
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8312:1: (lv_arguments_3_0= ruleAExpression )
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8313:3: lv_arguments_3_0= ruleAExpression
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8289:1: (lv_function_1_0= ruleQualifiedName )
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8290:3: lv_function_1_0= ruleQualifiedName
             {
             if ( state.backtracking==0 ) {
                
-              	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0()); 
+              	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getFunctionQualifiedNameParserRuleCall_1_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAFunctionCall19753);
-            lv_arguments_3_0=ruleAExpression();
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedName_in_ruleAFunctionCall19719);
+            lv_function_1_0=ruleQualifiedName();
 
             state._fsp--;
             if (state.failed) return current;
@@ -23786,11 +23751,11 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        if (current==null) {
               	            current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
               	        }
-                     		add(
+                     		set(
                      			current, 
-                     			"arguments",
-                      		lv_arguments_3_0, 
-                      		"AExpression");
+                     			"function",
+                      		lv_function_1_0, 
+                      		"QualifiedName");
               	        afterParserOrEnumRuleCall();
               	    
             }
@@ -23800,75 +23765,133 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8329:2: (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )*
-            loop175:
-            do {
-                int alt175=2;
-                int LA175_0 = input.LA(1);
-
-                if ( (LA175_0==Comma) ) {
-                    alt175=1;
-                }
-
-
-                switch (alt175) {
-            	case 1 :
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8330:2: otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) )
-            	    {
-            	    otherlv_4=(Token)match(input,Comma,FollowSets000.FOLLOW_Comma_in_ruleAFunctionCall19767); if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	          	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_4_0());
-            	          
-            	    }
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8334:1: ( (lv_arguments_5_0= ruleAExpression ) )
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8335:1: (lv_arguments_5_0= ruleAExpression )
-            	    {
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8335:1: (lv_arguments_5_0= ruleAExpression )
-            	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8336:3: lv_arguments_5_0= ruleAExpression
-            	    {
-            	    if ( state.backtracking==0 ) {
-            	       
-            	      	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_4_1_0()); 
-            	      	    
-            	    }
-            	    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAFunctionCall19787);
-            	    lv_arguments_5_0=ruleAExpression();
-
-            	    state._fsp--;
-            	    if (state.failed) return current;
-            	    if ( state.backtracking==0 ) {
-
-            	      	        if (current==null) {
-            	      	            current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
-            	      	        }
-            	             		add(
-            	             			current, 
-            	             			"arguments",
-            	              		lv_arguments_5_0, 
-            	              		"AExpression");
-            	      	        afterParserOrEnumRuleCall();
-            	      	    
-            	    }
-
-            	    }
-
-
-            	    }
-
-
-            	    }
-            	    break;
-
-            	default :
-            	    break loop175;
-                }
-            } while (true);
-
-            otherlv_6=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_RightParenthesis_in_ruleAFunctionCall19802); if (state.failed) return current;
+            otherlv_2=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_LeftParenthesis_in_ruleAFunctionCall19732); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
-                  	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_5());
+                  	newLeafNode(otherlv_2, grammarAccess.getAFunctionCallAccess().getLeftParenthesisKeyword_2());
+                  
+            }
+            // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8311:1: ( ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )* )?
+            int alt176=2;
+            int LA176_0 = input.LA(1);
+
+            if ( (LA176_0==False||(LA176_0>=This && LA176_0<=True)||LA176_0==Not||LA176_0==If||LA176_0==NumberSign||LA176_0==LeftParenthesis||LA176_0==PlusSign||LA176_0==HyphenMinus||LA176_0==LeftSquareBracket||LA176_0==RULE_REAL_LIT||(LA176_0>=RULE_ID && LA176_0<=RULE_STRING)) ) {
+                alt176=1;
+            }
+            switch (alt176) {
+                case 1 :
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8311:2: ( (lv_arguments_3_0= ruleAExpression ) ) (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )*
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8311:2: ( (lv_arguments_3_0= ruleAExpression ) )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8312:1: (lv_arguments_3_0= ruleAExpression )
+                    {
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8312:1: (lv_arguments_3_0= ruleAExpression )
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8313:3: lv_arguments_3_0= ruleAExpression
+                    {
+                    if ( state.backtracking==0 ) {
+                       
+                      	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_0_0()); 
+                      	    
+                    }
+                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAFunctionCall19753);
+                    lv_arguments_3_0=ruleAExpression();
+
+                    state._fsp--;
+                    if (state.failed) return current;
+                    if ( state.backtracking==0 ) {
+
+                      	        if (current==null) {
+                      	            current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
+                      	        }
+                             		add(
+                             			current, 
+                             			"arguments",
+                              		lv_arguments_3_0, 
+                              		"AExpression");
+                      	        afterParserOrEnumRuleCall();
+                      	    
+                    }
+
+                    }
+
+
+                    }
+
+                    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8329:2: (otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) ) )*
+                    loop175:
+                    do {
+                        int alt175=2;
+                        int LA175_0 = input.LA(1);
+
+                        if ( (LA175_0==Comma) ) {
+                            alt175=1;
+                        }
+
+
+                        switch (alt175) {
+                    	case 1 :
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8330:2: otherlv_4= Comma ( (lv_arguments_5_0= ruleAExpression ) )
+                    	    {
+                    	    otherlv_4=(Token)match(input,Comma,FollowSets000.FOLLOW_Comma_in_ruleAFunctionCall19767); if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	          	newLeafNode(otherlv_4, grammarAccess.getAFunctionCallAccess().getCommaKeyword_3_1_0());
+                    	          
+                    	    }
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8334:1: ( (lv_arguments_5_0= ruleAExpression ) )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8335:1: (lv_arguments_5_0= ruleAExpression )
+                    	    {
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8335:1: (lv_arguments_5_0= ruleAExpression )
+                    	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8336:3: lv_arguments_5_0= ruleAExpression
+                    	    {
+                    	    if ( state.backtracking==0 ) {
+                    	       
+                    	      	        newCompositeNode(grammarAccess.getAFunctionCallAccess().getArgumentsAExpressionParserRuleCall_3_1_1_0()); 
+                    	      	    
+                    	    }
+                    	    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAFunctionCall19787);
+                    	    lv_arguments_5_0=ruleAExpression();
+
+                    	    state._fsp--;
+                    	    if (state.failed) return current;
+                    	    if ( state.backtracking==0 ) {
+
+                    	      	        if (current==null) {
+                    	      	            current = createModelElementForParent(grammarAccess.getAFunctionCallRule());
+                    	      	        }
+                    	             		add(
+                    	             			current, 
+                    	             			"arguments",
+                    	              		lv_arguments_5_0, 
+                    	              		"AExpression");
+                    	      	        afterParserOrEnumRuleCall();
+                    	      	    
+                    	    }
+
+                    	    }
+
+
+                    	    }
+
+
+                    	    }
+                    	    break;
+
+                    	default :
+                    	    break loop175;
+                        }
+                    } while (true);
+
+
+                    }
+                    break;
+
+            }
+
+            otherlv_6=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_RightParenthesis_in_ruleAFunctionCall19804); if (state.failed) return current;
+            if ( state.backtracking==0 ) {
+
+                  	newLeafNode(otherlv_6, grammarAccess.getAFunctionCallAccess().getRightParenthesisKeyword_4());
                   
             }
 
@@ -23908,7 +23931,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getARangeExpressionRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleARangeExpression_in_entryRuleARangeExpression19836);
+            pushFollow(FollowSets000.FOLLOW_ruleARangeExpression_in_entryRuleARangeExpression19838);
             iv_ruleARangeExpression=ruleARangeExpression();
 
             state._fsp--;
@@ -23916,7 +23939,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleARangeExpression; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleARangeExpression19846); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleARangeExpression19848); if (state.failed) return current;
 
             }
 
@@ -23971,7 +23994,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_LeftSquareBracket_in_ruleARangeExpression19893); if (state.failed) return current;
+            otherlv_1=(Token)match(input,LeftSquareBracket,FollowSets000.FOLLOW_LeftSquareBracket_in_ruleARangeExpression19895); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getARangeExpressionAccess().getLeftSquareBracketKeyword_1());
@@ -23988,7 +24011,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getARangeExpressionAccess().getMinimumAExpressionParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleARangeExpression19913);
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleARangeExpression19915);
             lv_minimum_2_0=ruleAExpression();
 
             state._fsp--;
@@ -24012,7 +24035,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_FullStopFullStop_in_ruleARangeExpression19926); if (state.failed) return current;
+            otherlv_3=(Token)match(input,FullStopFullStop,FollowSets000.FOLLOW_FullStopFullStop_in_ruleARangeExpression19928); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getARangeExpressionAccess().getFullStopFullStopKeyword_3());
@@ -24029,7 +24052,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getARangeExpressionAccess().getMaximumAExpressionParserRuleCall_4_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleARangeExpression19946);
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleARangeExpression19948);
             lv_maximum_4_0=ruleAExpression();
 
             state._fsp--;
@@ -24054,20 +24077,20 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8430:2: ( ( ( Delta )=>otherlv_5= Delta ) ( (lv_delta_6_0= ruleAExpression ) ) )?
-            int alt176=2;
-            int LA176_0 = input.LA(1);
+            int alt177=2;
+            int LA177_0 = input.LA(1);
 
-            if ( (LA176_0==Delta) && (synpred9_InternalReqSpecParser())) {
-                alt176=1;
+            if ( (LA177_0==Delta) && (synpred9_InternalReqSpecParser())) {
+                alt177=1;
             }
-            switch (alt176) {
+            switch (alt177) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8430:3: ( ( Delta )=>otherlv_5= Delta ) ( (lv_delta_6_0= ruleAExpression ) )
                     {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8430:3: ( ( Delta )=>otherlv_5= Delta )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8430:4: ( Delta )=>otherlv_5= Delta
                     {
-                    otherlv_5=(Token)match(input,Delta,FollowSets000.FOLLOW_Delta_in_ruleARangeExpression19967); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,Delta,FollowSets000.FOLLOW_Delta_in_ruleARangeExpression19969); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getARangeExpressionAccess().getDeltaKeyword_5_0());
@@ -24087,7 +24110,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getARangeExpressionAccess().getDeltaAExpressionParserRuleCall_5_1_0()); 
                       	    
                     }
-                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleARangeExpression19988);
+                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleARangeExpression19990);
                     lv_delta_6_0=ruleAExpression();
 
                     state._fsp--;
@@ -24117,7 +24140,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,RightSquareBracket,FollowSets000.FOLLOW_RightSquareBracket_in_ruleARangeExpression20003); if (state.failed) return current;
+            otherlv_7=(Token)match(input,RightSquareBracket,FollowSets000.FOLLOW_RightSquareBracket_in_ruleARangeExpression20005); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_7, grammarAccess.getARangeExpressionAccess().getRightSquareBracketKeyword_6());
@@ -24160,7 +24183,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAIfExpressionRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAIfExpression_in_entryRuleAIfExpression20037);
+            pushFollow(FollowSets000.FOLLOW_ruleAIfExpression_in_entryRuleAIfExpression20039);
             iv_ruleAIfExpression=ruleAIfExpression();
 
             state._fsp--;
@@ -24168,7 +24191,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAIfExpression; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAIfExpression20047); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAIfExpression20049); if (state.failed) return current;
 
             }
 
@@ -24223,7 +24246,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_1=(Token)match(input,If,FollowSets000.FOLLOW_If_in_ruleAIfExpression20094); if (state.failed) return current;
+            otherlv_1=(Token)match(input,If,FollowSets000.FOLLOW_If_in_ruleAIfExpression20096); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_1, grammarAccess.getAIfExpressionAccess().getIfKeyword_1());
@@ -24240,7 +24263,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getAIfExpressionAccess().getIfAExpressionParserRuleCall_2_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAIfExpression20114);
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAIfExpression20116);
             lv_if_2_0=ruleAExpression();
 
             state._fsp--;
@@ -24264,7 +24287,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_3=(Token)match(input,Then,FollowSets000.FOLLOW_Then_in_ruleAIfExpression20127); if (state.failed) return current;
+            otherlv_3=(Token)match(input,Then,FollowSets000.FOLLOW_Then_in_ruleAIfExpression20129); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_3, grammarAccess.getAIfExpressionAccess().getThenKeyword_3());
@@ -24281,7 +24304,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getAIfExpressionAccess().getThenAExpressionParserRuleCall_4_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAIfExpression20147);
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAIfExpression20149);
             lv_then_4_0=ruleAExpression();
 
             state._fsp--;
@@ -24306,17 +24329,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8533:2: (otherlv_5= Else ( (lv_else_6_0= ruleAExpression ) ) )?
-            int alt177=2;
-            int LA177_0 = input.LA(1);
+            int alt178=2;
+            int LA178_0 = input.LA(1);
 
-            if ( (LA177_0==Else) ) {
-                alt177=1;
+            if ( (LA178_0==Else) ) {
+                alt178=1;
             }
-            switch (alt177) {
+            switch (alt178) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8534:2: otherlv_5= Else ( (lv_else_6_0= ruleAExpression ) )
                     {
-                    otherlv_5=(Token)match(input,Else,FollowSets000.FOLLOW_Else_in_ruleAIfExpression20161); if (state.failed) return current;
+                    otherlv_5=(Token)match(input,Else,FollowSets000.FOLLOW_Else_in_ruleAIfExpression20163); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_5, grammarAccess.getAIfExpressionAccess().getElseKeyword_5_0());
@@ -24333,7 +24356,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                       	        newCompositeNode(grammarAccess.getAIfExpressionAccess().getElseAExpressionParserRuleCall_5_1_0()); 
                       	    
                     }
-                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAIfExpression20181);
+                    pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAIfExpression20183);
                     lv_else_6_0=ruleAExpression();
 
                     state._fsp--;
@@ -24363,7 +24386,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
 
             }
 
-            otherlv_7=(Token)match(input,Endif,FollowSets000.FOLLOW_Endif_in_ruleAIfExpression20196); if (state.failed) return current;
+            otherlv_7=(Token)match(input,Endif,FollowSets000.FOLLOW_Endif_in_ruleAIfExpression20198); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_7, grammarAccess.getAIfExpressionAccess().getEndifKeyword_6());
@@ -24406,7 +24429,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getALiteralRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleALiteral_in_entryRuleALiteral20230);
+            pushFollow(FollowSets000.FOLLOW_ruleALiteral_in_entryRuleALiteral20232);
             iv_ruleALiteral=ruleALiteral();
 
             state._fsp--;
@@ -24414,7 +24437,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleALiteral; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleALiteral20240); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleALiteral20242); if (state.failed) return current;
 
             }
 
@@ -24452,38 +24475,38 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8582:1: (this_ABooleanLiteral_0= ruleABooleanLiteral | this_ARealTerm_1= ruleARealTerm | this_AIntegerTerm_2= ruleAIntegerTerm | this_StringTerm_3= ruleStringTerm )
             {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8582:1: (this_ABooleanLiteral_0= ruleABooleanLiteral | this_ARealTerm_1= ruleARealTerm | this_AIntegerTerm_2= ruleAIntegerTerm | this_StringTerm_3= ruleStringTerm )
-            int alt178=4;
+            int alt179=4;
             switch ( input.LA(1) ) {
             case False:
             case True:
                 {
-                alt178=1;
+                alt179=1;
                 }
                 break;
             case RULE_REAL_LIT:
                 {
-                alt178=2;
+                alt179=2;
                 }
                 break;
             case RULE_INT:
                 {
-                alt178=3;
+                alt179=3;
                 }
                 break;
             case RULE_STRING:
                 {
-                alt178=4;
+                alt179=4;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 178, 0, input);
+                    new NoViableAltException("", 179, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt178) {
+            switch (alt179) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8583:5: this_ABooleanLiteral_0= ruleABooleanLiteral
                     {
@@ -24492,7 +24515,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getALiteralAccess().getABooleanLiteralParserRuleCall_0()); 
                           
                     }
-                    pushFollow(FollowSets000.FOLLOW_ruleABooleanLiteral_in_ruleALiteral20287);
+                    pushFollow(FollowSets000.FOLLOW_ruleABooleanLiteral_in_ruleALiteral20289);
                     this_ABooleanLiteral_0=ruleABooleanLiteral();
 
                     state._fsp--;
@@ -24514,7 +24537,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getALiteralAccess().getARealTermParserRuleCall_1()); 
                           
                     }
-                    pushFollow(FollowSets000.FOLLOW_ruleARealTerm_in_ruleALiteral20314);
+                    pushFollow(FollowSets000.FOLLOW_ruleARealTerm_in_ruleALiteral20316);
                     this_ARealTerm_1=ruleARealTerm();
 
                     state._fsp--;
@@ -24536,7 +24559,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getALiteralAccess().getAIntegerTermParserRuleCall_2()); 
                           
                     }
-                    pushFollow(FollowSets000.FOLLOW_ruleAIntegerTerm_in_ruleALiteral20341);
+                    pushFollow(FollowSets000.FOLLOW_ruleAIntegerTerm_in_ruleALiteral20343);
                     this_AIntegerTerm_2=ruleAIntegerTerm();
 
                     state._fsp--;
@@ -24558,7 +24581,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                               newCompositeNode(grammarAccess.getALiteralAccess().getStringTermParserRuleCall_3()); 
                           
                     }
-                    pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_ruleALiteral20368);
+                    pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_ruleALiteral20370);
                     this_StringTerm_3=ruleStringTerm();
 
                     state._fsp--;
@@ -24609,7 +24632,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAIntegerTermRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm20402);
+            pushFollow(FollowSets000.FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm20404);
             iv_ruleAIntegerTerm=ruleAIntegerTerm();
 
             state._fsp--;
@@ -24617,7 +24640,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAIntegerTerm; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAIntegerTerm20412); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAIntegerTerm20414); if (state.failed) return current;
 
             }
 
@@ -24659,7 +24682,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getAIntegerTermAccess().getValueAIntParserRuleCall_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAInt_in_ruleAIntegerTerm20457);
+            pushFollow(FollowSets000.FOLLOW_ruleAInt_in_ruleAIntegerTerm20459);
             lv_value_0_0=ruleAInt();
 
             state._fsp--;
@@ -24717,7 +24740,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAIntRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAInt_in_entryRuleAInt20492);
+            pushFollow(FollowSets000.FOLLOW_ruleAInt_in_entryRuleAInt20494);
             iv_ruleAInt=ruleAInt();
 
             state._fsp--;
@@ -24725,7 +24748,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAInt.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAInt20503); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAInt20505); if (state.failed) return current;
 
             }
 
@@ -24755,7 +24778,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8681:6: (this_INT_0= RULE_INT )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8682:5: this_INT_0= RULE_INT
             {
-            this_INT_0=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_RULE_INT_in_ruleAInt20542); if (state.failed) return current;
+            this_INT_0=(Token)match(input,RULE_INT,FollowSets000.FOLLOW_RULE_INT_in_ruleAInt20544); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_INT_0);
@@ -24801,7 +24824,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getARealTermRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleARealTerm_in_entryRuleARealTerm20585);
+            pushFollow(FollowSets000.FOLLOW_ruleARealTerm_in_entryRuleARealTerm20587);
             iv_ruleARealTerm=ruleARealTerm();
 
             state._fsp--;
@@ -24809,7 +24832,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleARealTerm; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleARealTerm20595); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleARealTerm20597); if (state.failed) return current;
 
             }
 
@@ -24851,7 +24874,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getARealTermAccess().getValueARealParserRuleCall_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAReal_in_ruleARealTerm20640);
+            pushFollow(FollowSets000.FOLLOW_ruleAReal_in_ruleARealTerm20642);
             lv_value_0_0=ruleAReal();
 
             state._fsp--;
@@ -24909,7 +24932,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getARealRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAReal_in_entryRuleAReal20675);
+            pushFollow(FollowSets000.FOLLOW_ruleAReal_in_entryRuleAReal20677);
             iv_ruleAReal=ruleAReal();
 
             state._fsp--;
@@ -24917,7 +24940,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAReal.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAReal20686); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAReal20688); if (state.failed) return current;
 
             }
 
@@ -24947,7 +24970,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8749:6: (this_REAL_LIT_0= RULE_REAL_LIT )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8750:5: this_REAL_LIT_0= RULE_REAL_LIT
             {
-            this_REAL_LIT_0=(Token)match(input,RULE_REAL_LIT,FollowSets000.FOLLOW_RULE_REAL_LIT_in_ruleAReal20725); if (state.failed) return current;
+            this_REAL_LIT_0=(Token)match(input,RULE_REAL_LIT,FollowSets000.FOLLOW_RULE_REAL_LIT_in_ruleAReal20727); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_REAL_LIT_0);
@@ -24993,7 +25016,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getABooleanLiteralRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral20768);
+            pushFollow(FollowSets000.FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral20770);
             iv_ruleABooleanLiteral=ruleABooleanLiteral();
 
             state._fsp--;
@@ -25001,7 +25024,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleABooleanLiteral; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleABooleanLiteral20778); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleABooleanLiteral20780); if (state.failed) return current;
 
             }
 
@@ -25049,23 +25072,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             }
 
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8784:2: ( ( (lv_value_1_0= True ) ) | otherlv_2= False )
-            int alt179=2;
-            int LA179_0 = input.LA(1);
+            int alt180=2;
+            int LA180_0 = input.LA(1);
 
-            if ( (LA179_0==True) ) {
-                alt179=1;
+            if ( (LA180_0==True) ) {
+                alt180=1;
             }
-            else if ( (LA179_0==False) ) {
-                alt179=2;
+            else if ( (LA180_0==False) ) {
+                alt180=2;
             }
             else {
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 179, 0, input);
+                    new NoViableAltException("", 180, 0, input);
 
                 throw nvae;
             }
-            switch (alt179) {
+            switch (alt180) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8784:3: ( (lv_value_1_0= True ) )
                     {
@@ -25075,7 +25098,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8785:1: (lv_value_1_0= True )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8786:3: lv_value_1_0= True
                     {
-                    lv_value_1_0=(Token)match(input,True,FollowSets000.FOLLOW_True_in_ruleABooleanLiteral20832); if (state.failed) return current;
+                    lv_value_1_0=(Token)match(input,True,FollowSets000.FOLLOW_True_in_ruleABooleanLiteral20834); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               newLeafNode(lv_value_1_0, grammarAccess.getABooleanLiteralAccess().getValueTrueKeyword_1_0_0());
@@ -25101,7 +25124,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8802:2: otherlv_2= False
                     {
-                    otherlv_2=(Token)match(input,False,FollowSets000.FOLLOW_False_in_ruleABooleanLiteral20862); if (state.failed) return current;
+                    otherlv_2=(Token)match(input,False,FollowSets000.FOLLOW_False_in_ruleABooleanLiteral20864); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                           	newLeafNode(otherlv_2, grammarAccess.getABooleanLiteralAccess().getFalseKeyword_1_1());
@@ -25150,7 +25173,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getStringTermRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_entryRuleStringTerm20897);
+            pushFollow(FollowSets000.FOLLOW_ruleStringTerm_in_entryRuleStringTerm20899);
             iv_ruleStringTerm=ruleStringTerm();
 
             state._fsp--;
@@ -25158,7 +25181,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleStringTerm; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleStringTerm20907); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleStringTerm20909); if (state.failed) return current;
 
             }
 
@@ -25200,7 +25223,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
               	        newCompositeNode(grammarAccess.getStringTermAccess().getValueNoQuoteStringParserRuleCall_0()); 
               	    
             }
-            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_ruleStringTerm20952);
+            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_ruleStringTerm20954);
             lv_value_0_0=ruleNoQuoteString();
 
             state._fsp--;
@@ -25258,7 +25281,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getNoQuoteStringRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString20987);
+            pushFollow(FollowSets000.FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString20989);
             iv_ruleNoQuoteString=ruleNoQuoteString();
 
             state._fsp--;
@@ -25266,7 +25289,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleNoQuoteString.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNoQuoteString20998); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleNoQuoteString21000); if (state.failed) return current;
 
             }
 
@@ -25296,7 +25319,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8866:6: (this_STRING_0= RULE_STRING )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8867:5: this_STRING_0= RULE_STRING
             {
-            this_STRING_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleNoQuoteString21037); if (state.failed) return current;
+            this_STRING_0=(Token)match(input,RULE_STRING,FollowSets000.FOLLOW_RULE_STRING_in_ruleNoQuoteString21039); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_STRING_0);
@@ -25342,7 +25365,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAParenthesizedExpressionRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression21080);
+            pushFollow(FollowSets000.FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression21082);
             iv_ruleAParenthesizedExpression=ruleAParenthesizedExpression();
 
             state._fsp--;
@@ -25350,7 +25373,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAParenthesizedExpression; 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAParenthesizedExpression21090); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAParenthesizedExpression21092); if (state.failed) return current;
 
             }
 
@@ -25386,7 +25409,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8895:1: (otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8896:2: otherlv_0= LeftParenthesis this_AExpression_1= ruleAExpression otherlv_2= RightParenthesis
             {
-            otherlv_0=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression21128); if (state.failed) return current;
+            otherlv_0=(Token)match(input,LeftParenthesis,FollowSets000.FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression21130); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_0, grammarAccess.getAParenthesizedExpressionAccess().getLeftParenthesisKeyword_0());
@@ -25397,7 +25420,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                       newCompositeNode(grammarAccess.getAParenthesizedExpressionAccess().getAExpressionParserRuleCall_1()); 
                   
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression21149);
+            pushFollow(FollowSets000.FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression21151);
             this_AExpression_1=ruleAExpression();
 
             state._fsp--;
@@ -25408,7 +25431,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                       afterParserOrEnumRuleCall();
                   
             }
-            otherlv_2=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression21161); if (state.failed) return current;
+            otherlv_2=(Token)match(input,RightParenthesis,FollowSets000.FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression21163); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                   	newLeafNode(otherlv_2, grammarAccess.getAParenthesizedExpressionAccess().getRightParenthesisKeyword_2());
@@ -25451,7 +25474,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getComponentCategoryRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory21196);
+            pushFollow(FollowSets000.FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory21198);
             iv_ruleComponentCategory=ruleComponentCategory();
 
             state._fsp--;
@@ -25459,7 +25482,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleComponentCategory.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComponentCategory21207); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleComponentCategory21209); if (state.failed) return current;
 
             }
 
@@ -25490,13 +25513,13 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8936:1: (kw= Abstract | kw= Bus | kw= Data | kw= Device | kw= Memory | kw= Process | kw= Processor | kw= Subprogram | (kw= Subprogram kw= Group ) | kw= KW_System | (kw= Thread kw= Group ) | kw= Thread | (kw= Virtual kw= Bus ) | (kw= Virtual kw= Processor ) )
             {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8936:1: (kw= Abstract | kw= Bus | kw= Data | kw= Device | kw= Memory | kw= Process | kw= Processor | kw= Subprogram | (kw= Subprogram kw= Group ) | kw= KW_System | (kw= Thread kw= Group ) | kw= Thread | (kw= Virtual kw= Bus ) | (kw= Virtual kw= Processor ) )
-            int alt180=14;
-            alt180 = dfa180.predict(input);
-            switch (alt180) {
+            int alt181=14;
+            alt181 = dfa181.predict(input);
+            switch (alt181) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8937:2: kw= Abstract
                     {
-                    kw=(Token)match(input,Abstract,FollowSets000.FOLLOW_Abstract_in_ruleComponentCategory21245); if (state.failed) return current;
+                    kw=(Token)match(input,Abstract,FollowSets000.FOLLOW_Abstract_in_ruleComponentCategory21247); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25509,7 +25532,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 2 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8944:2: kw= Bus
                     {
-                    kw=(Token)match(input,Bus,FollowSets000.FOLLOW_Bus_in_ruleComponentCategory21264); if (state.failed) return current;
+                    kw=(Token)match(input,Bus,FollowSets000.FOLLOW_Bus_in_ruleComponentCategory21266); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25522,7 +25545,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 3 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8951:2: kw= Data
                     {
-                    kw=(Token)match(input,Data,FollowSets000.FOLLOW_Data_in_ruleComponentCategory21283); if (state.failed) return current;
+                    kw=(Token)match(input,Data,FollowSets000.FOLLOW_Data_in_ruleComponentCategory21285); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25535,7 +25558,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 4 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8958:2: kw= Device
                     {
-                    kw=(Token)match(input,Device,FollowSets000.FOLLOW_Device_in_ruleComponentCategory21302); if (state.failed) return current;
+                    kw=(Token)match(input,Device,FollowSets000.FOLLOW_Device_in_ruleComponentCategory21304); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25548,7 +25571,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 5 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8965:2: kw= Memory
                     {
-                    kw=(Token)match(input,Memory,FollowSets000.FOLLOW_Memory_in_ruleComponentCategory21321); if (state.failed) return current;
+                    kw=(Token)match(input,Memory,FollowSets000.FOLLOW_Memory_in_ruleComponentCategory21323); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25561,7 +25584,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 6 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8972:2: kw= Process
                     {
-                    kw=(Token)match(input,Process,FollowSets000.FOLLOW_Process_in_ruleComponentCategory21340); if (state.failed) return current;
+                    kw=(Token)match(input,Process,FollowSets000.FOLLOW_Process_in_ruleComponentCategory21342); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25574,7 +25597,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 7 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8979:2: kw= Processor
                     {
-                    kw=(Token)match(input,Processor,FollowSets000.FOLLOW_Processor_in_ruleComponentCategory21359); if (state.failed) return current;
+                    kw=(Token)match(input,Processor,FollowSets000.FOLLOW_Processor_in_ruleComponentCategory21361); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25587,7 +25610,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 8 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8986:2: kw= Subprogram
                     {
-                    kw=(Token)match(input,Subprogram,FollowSets000.FOLLOW_Subprogram_in_ruleComponentCategory21378); if (state.failed) return current;
+                    kw=(Token)match(input,Subprogram,FollowSets000.FOLLOW_Subprogram_in_ruleComponentCategory21380); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25603,14 +25626,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8992:6: (kw= Subprogram kw= Group )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8993:2: kw= Subprogram kw= Group
                     {
-                    kw=(Token)match(input,Subprogram,FollowSets000.FOLLOW_Subprogram_in_ruleComponentCategory21398); if (state.failed) return current;
+                    kw=(Token)match(input,Subprogram,FollowSets000.FOLLOW_Subprogram_in_ruleComponentCategory21400); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getSubprogramKeyword_8_0()); 
                           
                     }
-                    kw=(Token)match(input,Group,FollowSets000.FOLLOW_Group_in_ruleComponentCategory21411); if (state.failed) return current;
+                    kw=(Token)match(input,Group,FollowSets000.FOLLOW_Group_in_ruleComponentCategory21413); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25626,7 +25649,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 10 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9006:2: kw= KW_System
                     {
-                    kw=(Token)match(input,KW_System,FollowSets000.FOLLOW_KW_System_in_ruleComponentCategory21431); if (state.failed) return current;
+                    kw=(Token)match(input,KW_System,FollowSets000.FOLLOW_KW_System_in_ruleComponentCategory21433); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25642,14 +25665,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9012:6: (kw= Thread kw= Group )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9013:2: kw= Thread kw= Group
                     {
-                    kw=(Token)match(input,Thread,FollowSets000.FOLLOW_Thread_in_ruleComponentCategory21451); if (state.failed) return current;
+                    kw=(Token)match(input,Thread,FollowSets000.FOLLOW_Thread_in_ruleComponentCategory21453); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getThreadKeyword_10_0()); 
                           
                     }
-                    kw=(Token)match(input,Group,FollowSets000.FOLLOW_Group_in_ruleComponentCategory21464); if (state.failed) return current;
+                    kw=(Token)match(input,Group,FollowSets000.FOLLOW_Group_in_ruleComponentCategory21466); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25665,7 +25688,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                 case 12 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9026:2: kw= Thread
                     {
-                    kw=(Token)match(input,Thread,FollowSets000.FOLLOW_Thread_in_ruleComponentCategory21484); if (state.failed) return current;
+                    kw=(Token)match(input,Thread,FollowSets000.FOLLOW_Thread_in_ruleComponentCategory21486); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25681,14 +25704,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9032:6: (kw= Virtual kw= Bus )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9033:2: kw= Virtual kw= Bus
                     {
-                    kw=(Token)match(input,Virtual,FollowSets000.FOLLOW_Virtual_in_ruleComponentCategory21504); if (state.failed) return current;
+                    kw=(Token)match(input,Virtual,FollowSets000.FOLLOW_Virtual_in_ruleComponentCategory21506); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_12_0()); 
                           
                     }
-                    kw=(Token)match(input,Bus,FollowSets000.FOLLOW_Bus_in_ruleComponentCategory21517); if (state.failed) return current;
+                    kw=(Token)match(input,Bus,FollowSets000.FOLLOW_Bus_in_ruleComponentCategory21519); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25707,14 +25730,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9045:6: (kw= Virtual kw= Processor )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9046:2: kw= Virtual kw= Processor
                     {
-                    kw=(Token)match(input,Virtual,FollowSets000.FOLLOW_Virtual_in_ruleComponentCategory21538); if (state.failed) return current;
+                    kw=(Token)match(input,Virtual,FollowSets000.FOLLOW_Virtual_in_ruleComponentCategory21540); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getComponentCategoryAccess().getVirtualKeyword_13_0()); 
                           
                     }
-                    kw=(Token)match(input,Processor,FollowSets000.FOLLOW_Processor_in_ruleComponentCategory21551); if (state.failed) return current;
+                    kw=(Token)match(input,Processor,FollowSets000.FOLLOW_Processor_in_ruleComponentCategory21553); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
@@ -25765,7 +25788,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAadlClassifierReferenceRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference21592);
+            pushFollow(FollowSets000.FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference21594);
             iv_ruleAadlClassifierReference=ruleAadlClassifierReference();
 
             state._fsp--;
@@ -25773,7 +25796,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAadlClassifierReference.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAadlClassifierReference21603); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAadlClassifierReference21605); if (state.failed) return current;
 
             }
 
@@ -25809,7 +25832,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9079:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )? )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9079:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )+ (kw= FullStop this_ID_4= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference21643); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference21645); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -25821,29 +25844,29 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9086:1: (kw= ColonColon this_ID_2= RULE_ID )+
-            int cnt181=0;
-            loop181:
+            int cnt182=0;
+            loop182:
             do {
-                int alt181=2;
-                int LA181_0 = input.LA(1);
+                int alt182=2;
+                int LA182_0 = input.LA(1);
 
-                if ( (LA181_0==ColonColon) ) {
-                    alt181=1;
+                if ( (LA182_0==ColonColon) ) {
+                    alt182=1;
                 }
 
 
-                switch (alt181) {
+                switch (alt182) {
             	case 1 :
             	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9087:2: kw= ColonColon this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAadlClassifierReference21662); if (state.failed) return current;
+            	    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAadlClassifierReference21664); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
             	              newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getColonColonKeyword_1_0()); 
             	          
             	    }
-            	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference21677); if (state.failed) return current;
+            	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference21679); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -25859,34 +25882,34 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    if ( cnt181 >= 1 ) break loop181;
+            	    if ( cnt182 >= 1 ) break loop182;
             	    if (state.backtracking>0) {state.failed=true; return current;}
                         EarlyExitException eee =
-                            new EarlyExitException(181, input);
+                            new EarlyExitException(182, input);
                         throw eee;
                 }
-                cnt181++;
+                cnt182++;
             } while (true);
 
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9099:3: (kw= FullStop this_ID_4= RULE_ID )?
-            int alt182=2;
-            int LA182_0 = input.LA(1);
+            int alt183=2;
+            int LA183_0 = input.LA(1);
 
-            if ( (LA182_0==FullStop) ) {
-                alt182=1;
+            if ( (LA183_0==FullStop) ) {
+                alt183=1;
             }
-            switch (alt182) {
+            switch (alt183) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9100:2: kw= FullStop this_ID_4= RULE_ID
                     {
-                    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleAadlClassifierReference21698); if (state.failed) return current;
+                    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleAadlClassifierReference21700); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getAadlClassifierReferenceAccess().getFullStopKeyword_2_0()); 
                           
                     }
-                    this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference21713); if (state.failed) return current;
+                    this_ID_4=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAadlClassifierReference21715); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_ID_4);
@@ -25941,7 +25964,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getAADLPROPERTYREFERENCERule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE21760);
+            pushFollow(FollowSets000.FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE21762);
             iv_ruleAADLPROPERTYREFERENCE=ruleAADLPROPERTYREFERENCE();
 
             state._fsp--;
@@ -25949,7 +25972,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleAADLPROPERTYREFERENCE.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE21771); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE21773); if (state.failed) return current;
 
             }
 
@@ -25984,7 +26007,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9134:1: (this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )? )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9134:6: this_ID_0= RULE_ID (kw= ColonColon this_ID_2= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21811); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21813); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -25996,24 +26019,24 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9141:1: (kw= ColonColon this_ID_2= RULE_ID )?
-            int alt183=2;
-            int LA183_0 = input.LA(1);
+            int alt184=2;
+            int LA184_0 = input.LA(1);
 
-            if ( (LA183_0==ColonColon) ) {
-                alt183=1;
+            if ( (LA184_0==ColonColon) ) {
+                alt184=1;
             }
-            switch (alt183) {
+            switch (alt184) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9142:2: kw= ColonColon this_ID_2= RULE_ID
                     {
-                    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE21830); if (state.failed) return current;
+                    kw=(Token)match(input,ColonColon,FollowSets000.FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE21832); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current.merge(kw);
                               newLeafNode(kw, grammarAccess.getAADLPROPERTYREFERENCEAccess().getColonColonKeyword_1_0()); 
                           
                     }
-                    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21845); if (state.failed) return current;
+                    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21847); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                       		current.merge(this_ID_2);
@@ -26068,7 +26091,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getQualifiedNameRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21894);
+            pushFollow(FollowSets000.FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21896);
             iv_ruleQualifiedName=ruleQualifiedName();
 
             state._fsp--;
@@ -26076,7 +26099,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleQualifiedName.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedName21905); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleQualifiedName21907); if (state.failed) return current;
 
             }
 
@@ -26111,7 +26134,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9178:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )* )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9178:6: this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )*
             {
-            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName21945); if (state.failed) return current;
+            this_ID_0=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName21947); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
               		current.merge(this_ID_0);
@@ -26123,28 +26146,28 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                   
             }
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9185:1: (kw= FullStop this_ID_2= RULE_ID )*
-            loop184:
+            loop185:
             do {
-                int alt184=2;
-                int LA184_0 = input.LA(1);
+                int alt185=2;
+                int LA185_0 = input.LA(1);
 
-                if ( (LA184_0==FullStop) ) {
-                    alt184=1;
+                if ( (LA185_0==FullStop) ) {
+                    alt185=1;
                 }
 
 
-                switch (alt184) {
+                switch (alt185) {
             	case 1 :
             	    // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9186:2: kw= FullStop this_ID_2= RULE_ID
             	    {
-            	    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleQualifiedName21964); if (state.failed) return current;
+            	    kw=(Token)match(input,FullStop,FollowSets000.FOLLOW_FullStop_in_ruleQualifiedName21966); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	              current.merge(kw);
             	              newLeafNode(kw, grammarAccess.getQualifiedNameAccess().getFullStopKeyword_1_0()); 
             	          
             	    }
-            	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName21979); if (state.failed) return current;
+            	    this_ID_2=(Token)match(input,RULE_ID,FollowSets000.FOLLOW_RULE_ID_in_ruleQualifiedName21981); if (state.failed) return current;
             	    if ( state.backtracking==0 ) {
 
             	      		current.merge(this_ID_2);
@@ -26160,7 +26183,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             	    break;
 
             	default :
-            	    break loop184;
+            	    break loop185;
                 }
             } while (true);
 
@@ -26202,7 +26225,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                newCompositeNode(grammarAccess.getThisKeywordRule()); 
             }
-            pushFollow(FollowSets000.FOLLOW_ruleThisKeyword_in_entryRuleThisKeyword22026);
+            pushFollow(FollowSets000.FOLLOW_ruleThisKeyword_in_entryRuleThisKeyword22028);
             iv_ruleThisKeyword=ruleThisKeyword();
 
             state._fsp--;
@@ -26210,7 +26233,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             if ( state.backtracking==0 ) {
                current =iv_ruleThisKeyword.getText(); 
             }
-            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleThisKeyword22037); if (state.failed) return current;
+            match(input,EOF,FollowSets000.FOLLOW_EOF_in_entryRuleThisKeyword22039); if (state.failed) return current;
 
             }
 
@@ -26240,7 +26263,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9219:6: (kw= This )
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9221:2: kw= This
             {
-            kw=(Token)match(input,This,FollowSets000.FOLLOW_This_in_ruleThisKeyword22074); if (state.failed) return current;
+            kw=(Token)match(input,This,FollowSets000.FOLLOW_This_in_ruleThisKeyword22076); if (state.failed) return current;
             if ( state.backtracking==0 ) {
 
                       current.merge(kw);
@@ -26285,54 +26308,54 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9237:1: ( (enumLiteral_0= Tbd ) | (enumLiteral_1= Error ) | (enumLiteral_2= Warning ) | (enumLiteral_3= Info ) | (enumLiteral_4= Success ) | (enumLiteral_5= Fail ) )
             {
             // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9237:1: ( (enumLiteral_0= Tbd ) | (enumLiteral_1= Error ) | (enumLiteral_2= Warning ) | (enumLiteral_3= Info ) | (enumLiteral_4= Success ) | (enumLiteral_5= Fail ) )
-            int alt185=6;
+            int alt186=6;
             switch ( input.LA(1) ) {
             case Tbd:
                 {
-                alt185=1;
+                alt186=1;
                 }
                 break;
             case Error:
                 {
-                alt185=2;
+                alt186=2;
                 }
                 break;
             case Warning:
                 {
-                alt185=3;
+                alt186=3;
                 }
                 break;
             case Info:
                 {
-                alt185=4;
+                alt186=4;
                 }
                 break;
             case Success:
                 {
-                alt185=5;
+                alt186=5;
                 }
                 break;
             case Fail:
                 {
-                alt185=6;
+                alt186=6;
                 }
                 break;
             default:
                 if (state.backtracking>0) {state.failed=true; return current;}
                 NoViableAltException nvae =
-                    new NoViableAltException("", 185, 0, input);
+                    new NoViableAltException("", 186, 0, input);
 
                 throw nvae;
             }
 
-            switch (alt185) {
+            switch (alt186) {
                 case 1 :
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9237:2: (enumLiteral_0= Tbd )
                     {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9237:2: (enumLiteral_0= Tbd )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9237:7: enumLiteral_0= Tbd
                     {
-                    enumLiteral_0=(Token)match(input,Tbd,FollowSets000.FOLLOW_Tbd_in_ruleResultIssueType22130); if (state.failed) return current;
+                    enumLiteral_0=(Token)match(input,Tbd,FollowSets000.FOLLOW_Tbd_in_ruleResultIssueType22132); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getTBDEnumLiteralDeclaration_0().getEnumLiteral().getInstance();
@@ -26351,7 +26374,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9243:6: (enumLiteral_1= Error )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9243:11: enumLiteral_1= Error
                     {
-                    enumLiteral_1=(Token)match(input,Error,FollowSets000.FOLLOW_Error_in_ruleResultIssueType22152); if (state.failed) return current;
+                    enumLiteral_1=(Token)match(input,Error,FollowSets000.FOLLOW_Error_in_ruleResultIssueType22154); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getERROREnumLiteralDeclaration_1().getEnumLiteral().getInstance();
@@ -26370,7 +26393,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9249:6: (enumLiteral_2= Warning )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9249:11: enumLiteral_2= Warning
                     {
-                    enumLiteral_2=(Token)match(input,Warning,FollowSets000.FOLLOW_Warning_in_ruleResultIssueType22174); if (state.failed) return current;
+                    enumLiteral_2=(Token)match(input,Warning,FollowSets000.FOLLOW_Warning_in_ruleResultIssueType22176); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getWARNINGEnumLiteralDeclaration_2().getEnumLiteral().getInstance();
@@ -26389,7 +26412,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9255:6: (enumLiteral_3= Info )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9255:11: enumLiteral_3= Info
                     {
-                    enumLiteral_3=(Token)match(input,Info,FollowSets000.FOLLOW_Info_in_ruleResultIssueType22196); if (state.failed) return current;
+                    enumLiteral_3=(Token)match(input,Info,FollowSets000.FOLLOW_Info_in_ruleResultIssueType22198); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getINFOEnumLiteralDeclaration_3().getEnumLiteral().getInstance();
@@ -26408,7 +26431,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9261:6: (enumLiteral_4= Success )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9261:11: enumLiteral_4= Success
                     {
-                    enumLiteral_4=(Token)match(input,Success,FollowSets000.FOLLOW_Success_in_ruleResultIssueType22218); if (state.failed) return current;
+                    enumLiteral_4=(Token)match(input,Success,FollowSets000.FOLLOW_Success_in_ruleResultIssueType22220); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getSUCCESSEnumLiteralDeclaration_4().getEnumLiteral().getInstance();
@@ -26427,7 +26450,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9267:6: (enumLiteral_5= Fail )
                     // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:9267:11: enumLiteral_5= Fail
                     {
-                    enumLiteral_5=(Token)match(input,Fail,FollowSets000.FOLLOW_Fail_in_ruleResultIssueType22240); if (state.failed) return current;
+                    enumLiteral_5=(Token)match(input,Fail,FollowSets000.FOLLOW_Fail_in_ruleResultIssueType22242); if (state.failed) return current;
                     if ( state.backtracking==0 ) {
 
                               current = grammarAccess.getResultIssueTypeAccess().getFAILEnumLiteralDeclaration_5().getEnumLiteral().getInstance();
@@ -26716,7 +26739,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8430:4: ( Delta )
         // ../org.osate.reqspec/src-gen/org/osate/reqspec/parser/antlr/internal/InternalReqSpecParser.g:8431:1: Delta
         {
-        match(input,Delta,FollowSets000.FOLLOW_Delta_in_synpred9_InternalReqSpecParser19959); if (state.failed) return ;
+        match(input,Delta,FollowSets000.FOLLOW_Delta_in_synpred9_InternalReqSpecParser19961); if (state.failed) return ;
 
         }
     }
@@ -26845,7 +26868,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     protected DFA87 dfa87 = new DFA87(this);
     protected DFA105 dfa105 = new DFA105(this);
     protected DFA123 dfa123 = new DFA123(this);
-    protected DFA180 dfa180 = new DFA180(this);
+    protected DFA181 dfa181 = new DFA181(this);
     static final String DFA34_eotS =
         "\13\uffff";
     static final String DFA34_eofS =
@@ -26859,7 +26882,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA34_specialS =
         "\1\0\6\uffff\1\1\3\uffff}>";
     static final String[] DFA34_transitionS = {
-            "\1\2\1\uffff\1\5\23\uffff\1\4\3\uffff\1\6\13\uffff\1\10\45\uffff\1\7\2\uffff\1\3\34\uffff\1\1",
+            "\1\2\1\uffff\1\5\23\uffff\1\4\3\uffff\1\6\13\uffff\1\10\45"+
+            "\uffff\1\7\2\uffff\1\3\34\uffff\1\1",
             "",
             "",
             "",
@@ -26971,7 +26995,8 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA44_specialS =
         "\1\1\5\uffff\1\0\3\uffff}>";
     static final String[] DFA44_transitionS = {
-            "\1\2\1\uffff\1\5\23\uffff\1\4\17\uffff\1\7\45\uffff\1\6\2\uffff\1\3\34\uffff\1\1",
+            "\1\2\1\uffff\1\5\23\uffff\1\4\17\uffff\1\7\45\uffff\1\6\2\uffff"+
+            "\1\3\34\uffff\1\1",
             "",
             "",
             "",
@@ -27076,11 +27101,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA58_maxS =
         "\1\163\16\uffff";
     static final String DFA58_acceptS =
-        "\1\uffff\1\16\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15";
+        "\1\uffff\1\16\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
+        "\14\1\15";
     static final String DFA58_specialS =
         "\1\0\16\uffff}>";
     static final String[] DFA58_transitionS = {
-            "\1\3\2\uffff\1\14\1\7\4\uffff\1\11\5\uffff\1\6\1\uffff\1\2\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff\1\5\10\uffff\1\15\2\uffff\1\4\34\uffff\1\1",
+            "\1\3\2\uffff\1\14\1\7\4\uffff\1\11\5\uffff\1\6\1\uffff\1\2"+
+            "\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff"+
+            "\1\5\10\uffff\1\15\2\uffff\1\4\34\uffff\1\1",
             "",
             "",
             "",
@@ -27189,11 +27217,14 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA71_maxS =
         "\1\163\14\uffff\1\101\3\uffff";
     static final String DFA71_acceptS =
-        "\1\uffff\1\17\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\uffff\1\16\1\14\1\15";
+        "\1\uffff\1\17\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
+        "\uffff\1\16\1\14\1\15";
     static final String DFA71_specialS =
         "\1\0\14\uffff\1\1\3\uffff}>";
     static final String[] DFA71_transitionS = {
-            "\1\3\2\uffff\1\14\1\7\4\uffff\1\11\5\uffff\1\6\1\uffff\1\2\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff\1\5\10\uffff\1\15\2\uffff\1\4\34\uffff\1\1",
+            "\1\3\2\uffff\1\14\1\7\4\uffff\1\11\5\uffff\1\6\1\uffff\1\2"+
+            "\5\uffff\1\13\1\uffff\1\12\3\uffff\1\10\10\uffff\1\16\34\uffff"+
+            "\1\5\10\uffff\1\15\2\uffff\1\4\34\uffff\1\1",
             "",
             "",
             "",
@@ -27319,11 +27350,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA87_maxS =
         "\1\163\20\uffff\1\101\4\uffff";
     static final String DFA87_acceptS =
-        "\1\uffff\1\24\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\uffff\1\23\1\22\1\20\1\21";
+        "\1\uffff\1\24\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
+        "\14\1\15\1\16\1\17\1\uffff\1\23\1\22\1\20\1\21";
     static final String DFA87_specialS =
         "\1\1\20\uffff\1\0\4\uffff}>";
     static final String[] DFA87_transitionS = {
-            "\1\3\1\20\2\uffff\1\11\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3\uffff\1\13\10\uffff\1\22\17\uffff\1\7\14\uffff\1\6\10\uffff\1\21\2\uffff\1\4\34\uffff\1\1",
+            "\1\3\1\20\2\uffff\1\11\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff"+
+            "\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3\uffff"+
+            "\1\13\10\uffff\1\22\17\uffff\1\7\14\uffff\1\6\10\uffff\1\21"+
+            "\2\uffff\1\4\34\uffff\1\1",
             "",
             "",
             "",
@@ -27464,11 +27499,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA105_maxS =
         "\1\163\17\uffff\1\101\4\uffff";
     static final String DFA105_acceptS =
-        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\uffff\1\22\1\17\1\20\1\21";
+        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
+        "\14\1\15\1\16\1\uffff\1\22\1\17\1\20\1\21";
     static final String DFA105_specialS =
         "\1\0\17\uffff\1\1\4\uffff}>";
     static final String[] DFA105_transitionS = {
-            "\1\3\1\17\2\uffff\1\11\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff\1\2\1\uffff\1\7\2\uffff\1\5\1\16\1\uffff\1\15\3\uffff\1\13\10\uffff\1\21\17\uffff\1\7\14\uffff\1\6\10\uffff\1\20\2\uffff\1\4\34\uffff\1\1",
+            "\1\3\1\17\2\uffff\1\11\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff"+
+            "\1\2\1\uffff\1\7\2\uffff\1\5\1\16\1\uffff\1\15\3\uffff\1\13"+
+            "\10\uffff\1\21\17\uffff\1\7\14\uffff\1\6\10\uffff\1\20\2\uffff"+
+            "\1\4\34\uffff\1\1",
             "",
             "",
             "",
@@ -27606,11 +27645,15 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
     static final String DFA123_maxS =
         "\1\163\20\uffff\1\101\3\uffff";
     static final String DFA123_acceptS =
-        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1\14\1\15\1\16\1\17\1\uffff\1\22\1\20\1\21";
+        "\1\uffff\1\23\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12\1\13\1"+
+        "\14\1\15\1\16\1\17\1\uffff\1\22\1\20\1\21";
     static final String DFA123_specialS =
         "\1\1\20\uffff\1\0\3\uffff}>";
     static final String[] DFA123_transitionS = {
-            "\1\3\1\20\2\uffff\1\11\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3\uffff\1\13\10\uffff\1\22\17\uffff\1\7\14\uffff\1\6\10\uffff\1\21\2\uffff\1\4\34\uffff\1\1",
+            "\1\3\1\20\2\uffff\1\11\1\14\6\uffff\1\12\2\uffff\1\10\1\uffff"+
+            "\1\2\1\uffff\1\7\1\15\1\uffff\1\5\1\17\1\uffff\1\16\3\uffff"+
+            "\1\13\10\uffff\1\22\17\uffff\1\7\14\uffff\1\6\10\uffff\1\21"+
+            "\2\uffff\1\4\34\uffff\1\1",
             "",
             "",
             "",
@@ -27739,20 +27782,23 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             throw nvae;
         }
     }
-    static final String DFA180_eotS =
+    static final String DFA181_eotS =
         "\22\uffff";
-    static final String DFA180_eofS =
+    static final String DFA181_eofS =
         "\10\uffff\1\14\1\uffff\1\16\7\uffff";
-    static final String DFA180_minS =
+    static final String DFA181_minS =
         "\1\16\7\uffff\1\7\1\uffff\1\7\1\25\6\uffff";
-    static final String DFA180_maxS =
+    static final String DFA181_maxS =
         "\1\115\7\uffff\1\163\1\uffff\1\163\1\115\6\uffff";
-    static final String DFA180_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10\1\11\1\14\1\13\1\16\1\15";
-    static final String DFA180_specialS =
+    static final String DFA181_acceptS =
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\uffff\1\12\2\uffff\1\10"+
+        "\1\11\1\14\1\13\1\16\1\15";
+    static final String DFA181_specialS =
         "\22\uffff}>";
-    static final String[] DFA180_transitionS = {
-            "\1\10\6\uffff\1\7\1\uffff\1\1\13\uffff\1\6\3\uffff\1\13\1\uffff\1\4\4\uffff\1\5\1\uffff\1\11\1\uffff\1\12\13\uffff\1\3\16\uffff\1\2",
+    static final String[] DFA181_transitionS = {
+            "\1\10\6\uffff\1\7\1\uffff\1\1\13\uffff\1\6\3\uffff\1\13\1\uffff"+
+            "\1\4\4\uffff\1\5\1\uffff\1\11\1\uffff\1\12\13\uffff\1\3\16\uffff"+
+            "\1\2",
             "",
             "",
             "",
@@ -27760,9 +27806,17 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             "",
             "",
             "",
-            "\1\14\1\uffff\1\14\4\uffff\1\14\6\uffff\1\14\1\uffff\1\14\5\uffff\1\14\3\uffff\1\14\1\uffff\1\14\3\uffff\1\14\1\uffff\1\14\3\uffff\2\14\1\uffff\1\14\1\uffff\1\14\6\uffff\1\15\4\uffff\1\14\16\uffff\1\14\5\uffff\1\14\1\uffff\2\14\33\uffff\2\14",
+            "\1\14\1\uffff\1\14\4\uffff\1\14\6\uffff\1\14\1\uffff\1\14"+
+            "\5\uffff\1\14\3\uffff\1\14\1\uffff\1\14\3\uffff\1\14\1\uffff"+
+            "\1\14\3\uffff\2\14\1\uffff\1\14\1\uffff\1\14\6\uffff\1\15\4"+
+            "\uffff\1\14\16\uffff\1\14\5\uffff\1\14\1\uffff\2\14\33\uffff"+
+            "\2\14",
             "",
-            "\1\16\1\uffff\1\16\4\uffff\1\16\6\uffff\1\16\1\uffff\1\16\5\uffff\1\16\3\uffff\1\16\1\uffff\1\16\3\uffff\1\16\1\uffff\1\16\3\uffff\2\16\1\uffff\1\16\1\uffff\1\16\6\uffff\1\17\4\uffff\1\16\16\uffff\1\16\5\uffff\1\16\1\uffff\2\16\33\uffff\2\16",
+            "\1\16\1\uffff\1\16\4\uffff\1\16\6\uffff\1\16\1\uffff\1\16"+
+            "\5\uffff\1\16\3\uffff\1\16\1\uffff\1\16\3\uffff\1\16\1\uffff"+
+            "\1\16\3\uffff\2\16\1\uffff\1\16\1\uffff\1\16\6\uffff\1\17\4"+
+            "\uffff\1\16\16\uffff\1\16\5\uffff\1\16\1\uffff\2\16\33\uffff"+
+            "\2\16",
             "\1\20\67\uffff\1\21",
             "",
             "",
@@ -27772,34 +27826,34 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
             ""
     };
 
-    static final short[] DFA180_eot = DFA.unpackEncodedString(DFA180_eotS);
-    static final short[] DFA180_eof = DFA.unpackEncodedString(DFA180_eofS);
-    static final char[] DFA180_min = DFA.unpackEncodedStringToUnsignedChars(DFA180_minS);
-    static final char[] DFA180_max = DFA.unpackEncodedStringToUnsignedChars(DFA180_maxS);
-    static final short[] DFA180_accept = DFA.unpackEncodedString(DFA180_acceptS);
-    static final short[] DFA180_special = DFA.unpackEncodedString(DFA180_specialS);
-    static final short[][] DFA180_transition;
+    static final short[] DFA181_eot = DFA.unpackEncodedString(DFA181_eotS);
+    static final short[] DFA181_eof = DFA.unpackEncodedString(DFA181_eofS);
+    static final char[] DFA181_min = DFA.unpackEncodedStringToUnsignedChars(DFA181_minS);
+    static final char[] DFA181_max = DFA.unpackEncodedStringToUnsignedChars(DFA181_maxS);
+    static final short[] DFA181_accept = DFA.unpackEncodedString(DFA181_acceptS);
+    static final short[] DFA181_special = DFA.unpackEncodedString(DFA181_specialS);
+    static final short[][] DFA181_transition;
 
     static {
-        int numStates = DFA180_transitionS.length;
-        DFA180_transition = new short[numStates][];
+        int numStates = DFA181_transitionS.length;
+        DFA181_transition = new short[numStates][];
         for (int i=0; i<numStates; i++) {
-            DFA180_transition[i] = DFA.unpackEncodedString(DFA180_transitionS[i]);
+            DFA181_transition[i] = DFA.unpackEncodedString(DFA181_transitionS[i]);
         }
     }
 
-    class DFA180 extends DFA {
+    class DFA181 extends DFA {
 
-        public DFA180(BaseRecognizer recognizer) {
+        public DFA181(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 180;
-            this.eot = DFA180_eot;
-            this.eof = DFA180_eof;
-            this.min = DFA180_min;
-            this.max = DFA180_max;
-            this.accept = DFA180_accept;
-            this.special = DFA180_special;
-            this.transition = DFA180_transition;
+            this.decisionNumber = 181;
+            this.eot = DFA181_eot;
+            this.eof = DFA181_eof;
+            this.min = DFA181_min;
+            this.max = DFA181_max;
+            this.accept = DFA181_accept;
+            this.special = DFA181_special;
+            this.transition = DFA181_transition;
         }
         public String getDescription() {
             return "8936:1: (kw= Abstract | kw= Bus | kw= Data | kw= Device | kw= Memory | kw= Process | kw= Processor | kw= Subprogram | (kw= Subprogram kw= Group ) | kw= KW_System | (kw= Thread kw= Group ) | kw= Thread | (kw= Virtual kw= Bus ) | (kw= Virtual kw= Processor ) )";
@@ -28398,109 +28452,109 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_ruleAPrimaryExpression19620 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleAFunctionCall_in_entryRuleAFunctionCall19654 = new BitSet(new long[]{0x0000000000000000L});
         public static final BitSet FOLLOW_EOF_in_entryRuleAFunctionCall19664 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleAFunctionCall19715 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
-        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAFunctionCall19733 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_ruleAFunctionCall19719 = new BitSet(new long[]{0x0000000000000000L,0x0000004000000000L});
+        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAFunctionCall19732 = new BitSet(new long[]{0x0080000000000000L,0x1C840AD300040180L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall19753 = new BitSet(new long[]{0x0000000000000000L,0x0000048000000000L});
         public static final BitSet FOLLOW_Comma_in_ruleAFunctionCall19767 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
         public static final BitSet FOLLOW_ruleAExpression_in_ruleAFunctionCall19787 = new BitSet(new long[]{0x0000000000000000L,0x0000048000000000L});
-        public static final BitSet FOLLOW_RightParenthesis_in_ruleAFunctionCall19802 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleARangeExpression_in_entryRuleARangeExpression19836 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleARangeExpression19846 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleARangeExpression19893 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression19913 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
-        public static final BitSet FOLLOW_FullStopFullStop_in_ruleARangeExpression19926 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression19946 = new BitSet(new long[]{0x0010000000000000L,0x0008000000000000L});
-        public static final BitSet FOLLOW_Delta_in_ruleARangeExpression19967 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression19988 = new BitSet(new long[]{0x0000000000000000L,0x0008000000000000L});
-        public static final BitSet FOLLOW_RightSquareBracket_in_ruleARangeExpression20003 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAIfExpression_in_entryRuleAIfExpression20037 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAIfExpression20047 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_If_in_ruleAIfExpression20094 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20114 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
-        public static final BitSet FOLLOW_Then_in_ruleAIfExpression20127 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20147 = new BitSet(new long[]{0x8020000000000000L});
-        public static final BitSet FOLLOW_Else_in_ruleAIfExpression20161 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20181 = new BitSet(new long[]{0x0020000000000000L});
-        public static final BitSet FOLLOW_Endif_in_ruleAIfExpression20196 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral20230 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleALiteral20240 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleABooleanLiteral_in_ruleALiteral20287 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleARealTerm_in_ruleALiteral20314 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleALiteral20341 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleStringTerm_in_ruleALiteral20368 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm20402 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAIntegerTerm20412 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAInt_in_ruleAIntegerTerm20457 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAInt_in_entryRuleAInt20492 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAInt20503 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_INT_in_ruleAInt20542 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleARealTerm_in_entryRuleARealTerm20585 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleARealTerm20595 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAReal_in_ruleARealTerm20640 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAReal_in_entryRuleAReal20675 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAReal20686 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleAReal20725 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral20768 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral20778 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_True_in_ruleABooleanLiteral20832 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_False_in_ruleABooleanLiteral20862 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm20897 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm20907 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm20952 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString20987 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleNoQuoteString20998 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString21037 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression21080 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression21090 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression21128 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
-        public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression21149 = new BitSet(new long[]{0x0000000000000000L,0x0000008000000000L});
-        public static final BitSet FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression21161 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory21196 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleComponentCategory21207 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Abstract_in_ruleComponentCategory21245 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Bus_in_ruleComponentCategory21264 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Data_in_ruleComponentCategory21283 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Device_in_ruleComponentCategory21302 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Memory_in_ruleComponentCategory21321 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Process_in_ruleComponentCategory21340 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Processor_in_ruleComponentCategory21359 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Subprogram_in_ruleComponentCategory21378 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Subprogram_in_ruleComponentCategory21398 = new BitSet(new long[]{0x0200000000000000L});
-        public static final BitSet FOLLOW_Group_in_ruleComponentCategory21411 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_KW_System_in_ruleComponentCategory21431 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Thread_in_ruleComponentCategory21451 = new BitSet(new long[]{0x0200000000000000L});
-        public static final BitSet FOLLOW_Group_in_ruleComponentCategory21464 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Thread_in_ruleComponentCategory21484 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Virtual_in_ruleComponentCategory21504 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
-        public static final BitSet FOLLOW_Bus_in_ruleComponentCategory21517 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Virtual_in_ruleComponentCategory21538 = new BitSet(new long[]{0x0000000000200000L});
-        public static final BitSet FOLLOW_Processor_in_ruleComponentCategory21551 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference21592 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAadlClassifierReference21603 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference21643 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
-        public static final BitSet FOLLOW_ColonColon_in_ruleAadlClassifierReference21662 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference21677 = new BitSet(new long[]{0x0000000000000002L,0x0000100004000000L});
-        public static final BitSet FOLLOW_FullStop_in_ruleAadlClassifierReference21698 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference21713 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE21760 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE21771 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21811 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
-        public static final BitSet FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE21830 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21845 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21894 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName21905 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName21945 = new BitSet(new long[]{0x0000000000000002L,0x0000100000000000L});
-        public static final BitSet FOLLOW_FullStop_in_ruleQualifiedName21964 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
-        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName21979 = new BitSet(new long[]{0x0000000000000002L,0x0000100000000000L});
-        public static final BitSet FOLLOW_ruleThisKeyword_in_entryRuleThisKeyword22026 = new BitSet(new long[]{0x0000000000000000L});
-        public static final BitSet FOLLOW_EOF_in_entryRuleThisKeyword22037 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_This_in_ruleThisKeyword22074 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Tbd_in_ruleResultIssueType22130 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Error_in_ruleResultIssueType22152 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Warning_in_ruleResultIssueType22174 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Info_in_ruleResultIssueType22196 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Success_in_ruleResultIssueType22218 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Fail_in_ruleResultIssueType22240 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RightParenthesis_in_ruleAFunctionCall19804 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleARangeExpression_in_entryRuleARangeExpression19838 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleARangeExpression19848 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LeftSquareBracket_in_ruleARangeExpression19895 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression19915 = new BitSet(new long[]{0x0000000000000000L,0x0000000002000000L});
+        public static final BitSet FOLLOW_FullStopFullStop_in_ruleARangeExpression19928 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression19948 = new BitSet(new long[]{0x0010000000000000L,0x0008000000000000L});
+        public static final BitSet FOLLOW_Delta_in_ruleARangeExpression19969 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleARangeExpression19990 = new BitSet(new long[]{0x0000000000000000L,0x0008000000000000L});
+        public static final BitSet FOLLOW_RightSquareBracket_in_ruleARangeExpression20005 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAIfExpression_in_entryRuleAIfExpression20039 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAIfExpression20049 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_If_in_ruleAIfExpression20096 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20116 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000040L});
+        public static final BitSet FOLLOW_Then_in_ruleAIfExpression20129 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20149 = new BitSet(new long[]{0x8020000000000000L});
+        public static final BitSet FOLLOW_Else_in_ruleAIfExpression20163 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAIfExpression20183 = new BitSet(new long[]{0x0020000000000000L});
+        public static final BitSet FOLLOW_Endif_in_ruleAIfExpression20198 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleALiteral_in_entryRuleALiteral20232 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleALiteral20242 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleABooleanLiteral_in_ruleALiteral20289 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleARealTerm_in_ruleALiteral20316 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAIntegerTerm_in_ruleALiteral20343 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleStringTerm_in_ruleALiteral20370 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAIntegerTerm_in_entryRuleAIntegerTerm20404 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAIntegerTerm20414 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAInt_in_ruleAIntegerTerm20459 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAInt_in_entryRuleAInt20494 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAInt20505 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_INT_in_ruleAInt20544 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleARealTerm_in_entryRuleARealTerm20587 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleARealTerm20597 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAReal_in_ruleARealTerm20642 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAReal_in_entryRuleAReal20677 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAReal20688 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_REAL_LIT_in_ruleAReal20727 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleABooleanLiteral_in_entryRuleABooleanLiteral20770 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleABooleanLiteral20780 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_True_in_ruleABooleanLiteral20834 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_False_in_ruleABooleanLiteral20864 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleStringTerm_in_entryRuleStringTerm20899 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleStringTerm20909 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNoQuoteString_in_ruleStringTerm20954 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleNoQuoteString_in_entryRuleNoQuoteString20989 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleNoQuoteString21000 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_STRING_in_ruleNoQuoteString21039 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAParenthesizedExpression_in_entryRuleAParenthesizedExpression21082 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAParenthesizedExpression21092 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_LeftParenthesis_in_ruleAParenthesizedExpression21130 = new BitSet(new long[]{0x0080000000000000L,0x1C840A5300040180L});
+        public static final BitSet FOLLOW_ruleAExpression_in_ruleAParenthesizedExpression21151 = new BitSet(new long[]{0x0000000000000000L,0x0000008000000000L});
+        public static final BitSet FOLLOW_RightParenthesis_in_ruleAParenthesizedExpression21163 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleComponentCategory_in_entryRuleComponentCategory21198 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleComponentCategory21209 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Abstract_in_ruleComponentCategory21247 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Bus_in_ruleComponentCategory21266 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Data_in_ruleComponentCategory21285 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Device_in_ruleComponentCategory21304 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Memory_in_ruleComponentCategory21323 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Process_in_ruleComponentCategory21342 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Processor_in_ruleComponentCategory21361 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Subprogram_in_ruleComponentCategory21380 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Subprogram_in_ruleComponentCategory21400 = new BitSet(new long[]{0x0200000000000000L});
+        public static final BitSet FOLLOW_Group_in_ruleComponentCategory21413 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_KW_System_in_ruleComponentCategory21433 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Thread_in_ruleComponentCategory21453 = new BitSet(new long[]{0x0200000000000000L});
+        public static final BitSet FOLLOW_Group_in_ruleComponentCategory21466 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Thread_in_ruleComponentCategory21486 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Virtual_in_ruleComponentCategory21506 = new BitSet(new long[]{0x0000000000000000L,0x0000000000002000L});
+        public static final BitSet FOLLOW_Bus_in_ruleComponentCategory21519 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Virtual_in_ruleComponentCategory21540 = new BitSet(new long[]{0x0000000000200000L});
+        public static final BitSet FOLLOW_Processor_in_ruleComponentCategory21553 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAadlClassifierReference_in_entryRuleAadlClassifierReference21594 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAadlClassifierReference21605 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference21645 = new BitSet(new long[]{0x0000000000000000L,0x0000000004000000L});
+        public static final BitSet FOLLOW_ColonColon_in_ruleAadlClassifierReference21664 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference21679 = new BitSet(new long[]{0x0000000000000002L,0x0000100004000000L});
+        public static final BitSet FOLLOW_FullStop_in_ruleAadlClassifierReference21700 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAadlClassifierReference21715 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleAADLPROPERTYREFERENCE_in_entryRuleAADLPROPERTYREFERENCE21762 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleAADLPROPERTYREFERENCE21773 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21813 = new BitSet(new long[]{0x0000000000000002L,0x0000000004000000L});
+        public static final BitSet FOLLOW_ColonColon_in_ruleAADLPROPERTYREFERENCE21832 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleAADLPROPERTYREFERENCE21847 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_ruleQualifiedName_in_entryRuleQualifiedName21896 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleQualifiedName21907 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName21947 = new BitSet(new long[]{0x0000000000000002L,0x0000100000000000L});
+        public static final BitSet FOLLOW_FullStop_in_ruleQualifiedName21966 = new BitSet(new long[]{0x0000000000000000L,0x0400000000000000L});
+        public static final BitSet FOLLOW_RULE_ID_in_ruleQualifiedName21981 = new BitSet(new long[]{0x0000000000000002L,0x0000100000000000L});
+        public static final BitSet FOLLOW_ruleThisKeyword_in_entryRuleThisKeyword22028 = new BitSet(new long[]{0x0000000000000000L});
+        public static final BitSet FOLLOW_EOF_in_entryRuleThisKeyword22039 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_This_in_ruleThisKeyword22076 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Tbd_in_ruleResultIssueType22132 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Error_in_ruleResultIssueType22154 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Warning_in_ruleResultIssueType22176 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Info_in_ruleResultIssueType22198 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Success_in_ruleResultIssueType22220 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Fail_in_ruleResultIssueType22242 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_NumberSign_in_synpred1_InternalReqSpecParser16223 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpOr_in_synpred2_InternalReqSpecParser17259 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpAnd_in_synpred3_InternalReqSpecParser17533 = new BitSet(new long[]{0x0000000000000002L});
@@ -28508,7 +28562,7 @@ public class InternalReqSpecParser extends AbstractInternalAntlrParser {
         public static final BitSet FOLLOW_ruleOpCompare_in_synpred5_InternalReqSpecParser18081 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpAdd_in_synpred6_InternalReqSpecParser18412 = new BitSet(new long[]{0x0000000000000002L});
         public static final BitSet FOLLOW_ruleOpMulti_in_synpred7_InternalReqSpecParser18686 = new BitSet(new long[]{0x0000000000000002L});
-        public static final BitSet FOLLOW_Delta_in_synpred9_InternalReqSpecParser19959 = new BitSet(new long[]{0x0000000000000002L});
+        public static final BitSet FOLLOW_Delta_in_synpred9_InternalReqSpecParser19961 = new BitSet(new long[]{0x0000000000000002L});
     }
 
 

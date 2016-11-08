@@ -82,6 +82,9 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.eclipse.emf.common.util.EList
+import org.osate.alisa.common.common.ResultIssue
+import java.util.Collection
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -539,7 +542,7 @@ class AssureProcessor implements IAssureProcessor {
 		val methodtype = method.methodKind as JavaMethod
 		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
 		if (returned != null) {
-			if (method.isPredicate && returned instanceof Boolean) {
+			if ( returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 				if (returned != true) {
 					setToFail(verificationResult, "", target);
 				} else {
@@ -555,12 +558,17 @@ class AssureProcessor implements IAssureProcessor {
 				}
 				returned
 			} else if (returned instanceof ResultReport) {
-				verificationResult.resultReport = returned
-				setToSuccess(verificationResult)
+//				verificationResult.resultReport = returned
+				if (returned.issues.empty){
+				setToSuccess(verificationResult,"",target)
+				} else {
+					verificationResult.issues.addAll(returned.issues)
+					setToFail(verificationResult,"",target)
+				}
 				new HashMap
 			} else if (method.results.size == 1 ){
-				setToSuccess(verificationResult)
 				val resparam = method.results.head
+				setToSuccess(verificationResult)
 				val res = new HashMap
 				// TODO some type checking of expected type against actual
 				res.put(resparam.name, returned)

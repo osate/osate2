@@ -15,13 +15,6 @@
  */
 package org.osate.alisa.common.validation;
 
-import java.util.Collections;
-import java.util.List;
-
-import org.eclipse.xtext.validation.Check;
-import org.eclipse.xtext.xbase.lib.CollectionLiterals;
-import org.osate.alisa.common.common.AFunctionCall;
-import org.osate.alisa.common.common.CommonPackage;
 import org.osate.alisa.common.typing.validation.CommonTypeSystemValidator;
 
 /**
@@ -33,15 +26,4 @@ import org.osate.alisa.common.typing.validation.CommonTypeSystemValidator;
 public class CommonValidator extends CommonTypeSystemValidator {
 	public final static String UNSUPPORTED_FUNCTION = "UnSupportedFunction";
 
-	public final static List<String> SupportedFunctions = Collections.<String> unmodifiableList(
-			CollectionLiterals.<String> newArrayList("max", "min", "abs", "floor", "ceil", "round", "atTime", "prev"));
-
-	@Check
-	public void checkAFeatureCall(final AFunctionCall call) {
-		String function = call.getFunction();
-		if (!CommonValidator.SupportedFunctions.contains(function)) {
-			this.warning("Unsupported function " + function, CommonPackage.Literals.AFUNCTION_CALL__FUNCTION,
-					CommonValidator.UNSUPPORTED_FUNCTION);
-		}
-	}
 }

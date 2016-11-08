@@ -187,7 +187,7 @@ APrimaryExpression returns aadl2::PropertyExpression:
 ;
 
 AFunctionCall returns aadl2::PropertyExpression:
-	{AFunctionCall} function=ID '(' arguments+=AExpression (',' arguments+=AExpression)* ')'
+	{AFunctionCall} function=QualifiedName '(' (arguments+=AExpression (',' arguments+=AExpression)*)? ')'
 ;
 
 ARangeExpression returns aadl2::PropertyExpression:

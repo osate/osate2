@@ -25,6 +25,7 @@ import org.osate.results.results.ResultDataReport
 import org.osate.alisa.common.common.ResultIssue
 import org.osate.alisa.common.common.ResultIssueType
 import org.osate.alisa.common.common.CommonFactory
+import org.eclipse.emf.common.util.EList
 
 class ResultsUtilExtension {
 	def static String getResultValue(ResultDataReport report, String resultName){
@@ -40,6 +41,7 @@ class ResultsUtilExtension {
 		0
 	} 
 	
+	// addition as subissue to an issue
 	def static void addError(ResultIssue holder, String msg, EObject target, String diagnosticId){
 		holder.addIssue(msg, target,  ResultIssueType.ERROR, diagnosticId)
 	} 
@@ -65,12 +67,45 @@ class ResultsUtilExtension {
 	} 
 	
 	def static void addIssue (ResultIssue holder, String msg, EObject target,  ResultIssueType rit, String diagnosticId){
+		holder.issues.add(createIssue(msg,target,rit,diagnosticId))
+	} 
+	
+	// addition to issues list
+	def static void addError(EList<ResultIssue> holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.ERROR, diagnosticId)
+	} 
+	
+	def static void addWarning(EList<ResultIssue> holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.WARNING, diagnosticId)
+	} 
+	
+	def static void addInfo(EList<ResultIssue> holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.INFO, diagnosticId)
+	} 
+	
+	def static void addSuccess(EList<ResultIssue> holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.SUCCESS, diagnosticId)
+	} 
+	
+	def static void addFail(EList<ResultIssue> holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.FAIL, diagnosticId)
+	} 
+	
+	def static void addTBD(EList<ResultIssue> holder, String msg, EObject target, String diagnosticId){
+		holder.addIssue(msg, target,  ResultIssueType.TBD, diagnosticId)
+	} 
+	
+	def static void addIssue (EList<ResultIssue> holder, String msg, EObject target,  ResultIssueType rit, String diagnosticId){
+		holder.add(createIssue(msg,target,rit,diagnosticId))
+	} 
+	
+	def static ResultIssue createIssue (String msg, EObject target,  ResultIssueType rit, String diagnosticId){
 		val issue = CommonFactory.eINSTANCE.createResultIssue
 		issue.target = target
 		issue.message = msg
 		issue.issueType = rit
 		issue.diagnosticId = diagnosticId
-		holder.issues.add(issue)
+		issue
 	} 
 	
 	def static ResultReportCollection createReportCollection(String name, EObject target){
