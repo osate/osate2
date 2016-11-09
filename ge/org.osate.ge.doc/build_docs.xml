@@ -6,9 +6,12 @@
   </description>
 
   <!-- Define base properties -->
-  <property name="user_guide.dir" value="user_guide" />
+  <property name="input.dir" value="input" />
+  <property name="output.dir" value="output" />
   <property name="dev_guide_output.dir" value="dev_guide_output" />
-  <property name="user_guide_output.dir" value="user_guide_output" />
+  <property name="docbook.xsl.dir" value="docbook-xsl-1.76.1" />
+  <property name="html.stylesheet" value="${docbook.xsl.dir}/html/docbook.xsl" />
+  <property name="eclipse.stylesheet" value="${docbook.xsl.dir}/eclipse/eclipse3.xsl" />
 
   <!-- Making saxon available -->
   <path id="saxon.class.path">
@@ -22,22 +25,41 @@
 
   <!-- - target: clean -->
   <target name="clean" description="Cleans up generated files.">
-  <delete dir="${dev_guide_output.dir}" />
-  <delete dir="${user_guide_output.dir}" />
+<delete dir="${output.dir}" />
+<delete dir="${dev_guide_output.dir}" />
   </target>
 
-  <target name="build-help" depends="clean, build_dev_guide, build_user_guide"
+  <!-- - target: depends -->
+  <target name="createtargetdir" description="Generate targetdir.">
+<mkdir dir="${output.dir}" />
+<mkdir dir="${output.dir}/images" />
+  </target>
+
+  <target name="build-help" depends="clean, createtargetdir, build_dev_guide"
 description="Generates eclipse help files">
 <echo message="Building output" />
 
 <!-- Copy the images to the same directory as the HTML files -->
-<copy todir="${user_guide.dir}\images">
-  <fileset dir="${user_guide_output.dir}\images">
+<copy todir="${output.dir}\images">
+  <fileset dir="${input.dir}\images">
 <include name="*" />
   </fileset>
 </copy>
-  	
 <!-- Transfer to eclipse help format -->
+<xslt style="${eclipse.stylesheet}" extension=".html" basedir="${input.dir}" includes="*.xml"
+  destdir="${output.dir}">
+
+  <param name="create.plugin.xml" expression="0" />
+  <param name="eclipse.manifest" expression="0" />
+  <param name="base.dir" expression="${output.dir}/" />	
+  <param name="eclipse.plugin.name" expression="AADL Graphical Editor"/>
+  <param name="ulink.target" expression="_blank"/>
+
+  <param name="section.autolabel" expression="1" />
+  <param name="make.clean.html" expression="1" />
+  <outputproperty name="indent" value="yes" />
+  <classpath refid="saxon.class.path" />
+</xslt>
   </target>
 	
    <target name="build_dev_guide" description="Build the developer guide">
@@ -57,31 +79,4 @@ description="Generates eclipse help files">
    		<mapper type="glob" from="*.md" to="*.html"/>
     </apply>
    </target>
-	
-	<target name="build_user_guide" description="Build the user guide">
-		<mkdir dir="${user_guide_output.dir}" />
-		<mkdir dir="${user_guide_output.dir}/images" />
-		
-		<!-- Copy the images to the same directory as the HTML files -->
-		<copy todir="${user_guide_output.dir}\images">
-		  <fileset dir="${user_guide.dir}\images">
-		<include name="*" />
-		  </fileset>
-		</copy>
-		
-		<apply executable="pandoc" dest="./user_guide_output/" parallel="false">
-			 <srcfile/>
-	    	<arg value="-s"/>
-	   		<arg value="-f"/>
-	   	    <arg value="markdown"/>
-	   		<arg value="-t"/>
-	   		<arg value="html5"/>
-	   		<arg value="-o"/>
-	   		<targetfile/>	
-	        <fileset dir="./user_guide" includes="*.md"/>
-	   		<mapper type="glob" from="*.md" to="*.html"/>
-		</apply>
-	</target>
-
-
 </project> 

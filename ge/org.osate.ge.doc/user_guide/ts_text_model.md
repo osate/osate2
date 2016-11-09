@@ -1,2 +1,0 @@
-## Unable to Set Properties Unless Text Model is Open
-The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.
