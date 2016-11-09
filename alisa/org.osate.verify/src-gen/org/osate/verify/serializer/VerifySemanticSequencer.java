@@ -535,8 +535,11 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 	 *     (
 	 *         name=ID 
 	 *         (
-	 *             targetType=TargetType? 
-	 *             (formals+=FormalParameter formals+=FormalParameter*)? 
+	 *             (
+	 *                 targetType=TargetType? | 
+	 *                 (formals+=FormalParameter formals+=FormalParameter*) | 
+	 *                 (targetType=TargetType formals+=FormalParameter formals+=FormalParameter*)
+	 *             ) 
 	 *             (properties+=[Property|AADLPROPERTYREFERENCE] properties+=[Property|AADLPROPERTYREFERENCE]*)? 
 	 *             (results+=FormalParameter results+=FormalParameter*)? 
 	 *             (isPredicate?='boolean' | isResultReport?='report')?
