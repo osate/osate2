@@ -282,7 +282,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							].flatten
 							val featureGroups = parentOfTransition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
 							val propagations = parentOfTransition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-								featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+								featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 							]
 							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
 							(events + featureGroups).scopeFor(propagationsScope)
@@ -299,7 +299,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 						].flatten
 						val featureGroups = parentOfCondition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
 						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-							featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
 						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
 						(events + featureGroups).scopeFor(propagationsScope)
@@ -316,7 +316,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 						val featureGroups = parentOfCondition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
 						val List<Subcomponent> subcomponents = parentOfCondition.getContainerOfType(ComponentImplementation)?.allSubcomponents ?: emptyList
 						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-							featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
 						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
 						(events + featureGroups + subcomponents).scopeFor(propagationsScope)
@@ -331,7 +331,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			QualifiedErrorPropagation: {
 				val featureGroups = parent.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
 				val propagations = parent.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-					featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+					featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 				]
 				val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
 				featureGroups.scopeFor(propagationsScope)
@@ -369,7 +369,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							behaviorElements + localElements
 						].flatten
 						val propagations = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-							featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
 						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
 						(featureGroups + subclauseElements).scopeFor(propagationsScope)
@@ -400,7 +400,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 									behaviorElements + localElements
 								].flatten
 								val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
-									featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+									featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 								]
 								val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
 								(featureGroups + subclauseElements).scopeFor(propagationsScope)
