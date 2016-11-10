@@ -512,6 +512,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}
 		containers
 	}
+	
+	def scope_EMV2PathElement_errorType(EMV2PathElement context, EReference reference) {
+		context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[kind == context.emv2PropagationKind].map[typeSet.typeTokens].flatten.filter[type.size == 1].map[type.head].filter(ErrorType).scopeFor
+	}
 
 	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
 		scopeForErrorTypes(context.useTypes, Optional.of(context), [allErrorTypes])

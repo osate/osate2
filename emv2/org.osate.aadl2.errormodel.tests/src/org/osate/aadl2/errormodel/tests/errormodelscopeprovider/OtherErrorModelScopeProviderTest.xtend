@@ -10,6 +10,7 @@ import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
+import org.osate.aadl2.IntegerLiteral
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -926,6 +927,60 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 							]
 						]
 					]
+				]
+			]
+		]
+	}
+	
+	//Tests scope_EMV2PathElement_errorType
+	@Test
+	def void testEMV2PathElement_errorType() {
+		val ps1FileName = "ps1.aadl"
+		val pkg1FileName = "pkg1.aadl"
+		createFiles(ps1FileName -> '''
+			property set ps1 is
+				def1: aadlinteger applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				abstract a1
+					annex EMV2 {**
+						use types pkg1;
+						
+						error propagations
+							memory: in propagation {t1};
+							memory: not in propagation {t2};
+							memory: out propagation {t3};
+							memory: not out propagation {t4};
+						end propagations;
+						
+						properties
+							ps1::def1 => 1 applies to memory.t1;
+					**};
+				end a1;
+				
+				annex EMV2 {**
+					error types
+						t1: type;
+						t2: type;
+						t3: type;
+						t4: type;
+					end types;
+				**};
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			publicSection.ownedClassifiers.head => [
+				"a1".assertEquals(name)
+				((ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause).properties.head => [
+					1.assertEquals((ownedValues.head.ownedValue as IntegerLiteral).value)
+					//Tests scope_EMV2PathElement_errorType
+					emv2Path.head.emv2Target.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_ErrorType, #["t1", "t2", "t3", "t4"])
 				]
 			]
 		]
