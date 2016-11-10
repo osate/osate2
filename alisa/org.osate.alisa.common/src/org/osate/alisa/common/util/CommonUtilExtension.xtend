@@ -48,6 +48,7 @@ import org.eclipse.jdt.core.JavaCore
 import org.eclipse.jdt.core.IClasspathEntry
 import java.lang.reflect.InvocationTargetException
 import java.net.URL
+import org.osate.aadl2.FlowSpecification
 
 class CommonUtilExtension {
 
@@ -176,6 +177,7 @@ class CommonUtilExtension {
 			EndToEndFlow: return findElementInstanceInList(io.endToEndFlows, n)
 			Subcomponent: return findElementInstanceInList(io.componentInstances, n)
 			Feature: return findElementInstanceInList(io.featureInstances, n)
+			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
 		}
 		return null
 	}
