@@ -32,15 +32,15 @@ class ErrorModelSerializerScopeProvider extends ErrorModelScopeProvider {
 //		}
 //	}
 	
-	override scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState context, EReference reference) {
-		val parent = context.eContainer
-		if (parent instanceof QualifiedErrorBehaviorState) {
-			super.scope_SubcomponentElement_subcomponent(parent, reference)
-		} else {
-			val containingImplementation = parent.getContainerOfType(ComponentImplementation)
-			if (containingImplementation != null) {
-				scope_SubcomponentElement_subcomponent(containingImplementation, reference)
-			}
-		}
-	}
+//	override scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState context, EReference reference) {
+//		val parent = context.eContainer
+//		if (parent instanceof QualifiedErrorBehaviorState) {
+//			super.scope_SubcomponentElement_subcomponent(parent, reference)
+//		} else {
+//			val containingImplementation = parent.getContainerOfType(ComponentImplementation)
+//			if (containingImplementation != null) {
+//				scope_SubcomponentElement_subcomponent(containingImplementation, reference)
+//			}
+//		}
+//	}
 }
