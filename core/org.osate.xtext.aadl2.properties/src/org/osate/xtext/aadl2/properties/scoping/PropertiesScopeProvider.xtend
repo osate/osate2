@@ -311,7 +311,7 @@ public class PropertiesScopeProvider extends AbstractDeclarativeScopeProvider {
 		allMembers
 	}
 	
-	def static private createUnitLiteralsScopeFromPropertyType(PropertyType type) {
+	def static protected createUnitLiteralsScopeFromPropertyType(PropertyType type) {
 		switch baseType : type.basePropertyType {
 			NumberType:
 				baseType.unitsType
