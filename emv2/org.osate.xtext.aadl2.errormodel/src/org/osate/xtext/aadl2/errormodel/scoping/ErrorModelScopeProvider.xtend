@@ -272,7 +272,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							val propagations = parentOfTransition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 								featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 							]
-							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 							(events + featureGroups).scopeFor(propagationsScope)
 						}
 					}
@@ -289,7 +289,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
-						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 						(events + featureGroups).scopeFor(propagationsScope)
 					}
 					/*
@@ -306,7 +306,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
-						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 						(events + featureGroups + subcomponents).scopeFor(propagationsScope)
 					}
 				}
@@ -321,7 +321,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				val propagations = parent.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 					featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 				]
-				val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+				val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 				featureGroups.scopeFor(propagationsScope)
 			}
 			EMV2Path: {
@@ -359,7 +359,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 						val propagations = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
-						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 						(featureGroups + subclauseElements).scopeFor(propagationsScope)
 					}
 					/*
@@ -390,7 +390,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 								val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 									featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 								]
-								val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+								val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 								(featureGroups + subclauseElements).scopeFor(propagationsScope)
 							} else {
 								IScope.NULLSCOPE
@@ -439,7 +439,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 								!not && direction == DirectionType.OUT && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 							]
-							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)])
+							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
 							(subcomponents + featureGroups).scopeFor(propagationsScope)
 						} else {
 							IScope.NULLSCOPE
@@ -484,7 +484,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 								false
 							}
 						]
-						val propagationsScope = new SimpleScope(filteredPropagations.map[EObjectDescription.create(propagationName.split("\\.").last, it)])
+						val propagationsScope = new SimpleScope(filteredPropagations.map[EObjectDescription.create(propagationName.split("\\.").last, it)], true)
 						featureGroups.scopeFor(propagationsScope)
 					}
 				}
@@ -726,7 +726,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
 			!not && direction == requiredDirection
 		]
-		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)])
+		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)], true)
 	}
 
 	def public static getEventandIncomingPropagationDescriptions(Classifier classifier) {
