@@ -5,12 +5,14 @@ import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
 import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RecordValue
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
@@ -981,6 +983,112 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 					1.assertEquals((ownedValues.head.ownedValue as IntegerLiteral).value)
 					//Tests scope_EMV2PathElement_errorType
 					emv2Path.head.emv2Target.assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_ErrorType, #["t1", "t2", "t3", "t4"])
+				]
+			]
+		]
+	}
+	
+	//Tests scope_BasicPropertyAssociation_property
+	@Test
+	def void testRecordFieldNameReference() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles("ps1.aadl" -> '''
+			property set ps1 is
+				def1: record (
+					field1: aadlinteger;
+					field2: aadlinteger;
+					field3: record (
+						field4: aadlinteger;
+						field5: aadlinteger;
+						field6: record (
+							field7: aadlinteger;
+							field8: aadlinteger;
+							field9: aadlinteger;
+						);
+					);
+				) applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				annex EMV2 {**
+					error types
+						t1: type;
+					properties
+						ps1::def1 => [
+							field1 => 1;
+							field2 => 2;
+							field3 => [
+								field4 => 4;
+								field5 => 5;
+								field6 => [
+									field7 => 7;
+									field8 => 8;
+									field9 => 9;
+								];
+							];
+						] applies to t1;
+					end types;
+				**};
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).properties.head.ownedValues.head.ownedValue as RecordValue => [
+				val firstLevelScope = #["field1", "field2", "field3"]
+				val secondLevelScope = #["field4", "field5", "field6"]
+				val thirdLevelScope = #["field7", "field8", "field9"]
+				ownedFieldValues.get(0) => [
+					"field1".assertEquals(property.name)
+					//Tests scope_BasicPropertyAssociation_property
+					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
+				]
+				ownedFieldValues.get(1) => [
+					"field2".assertEquals(property.name)
+					//Tests scope_BasicPropertyAssociation_property
+					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
+				]
+				ownedFieldValues.get(2) => [
+					"field3".assertEquals(property.name)
+					//Tests scope_BasicPropertyAssociation_property
+					assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, firstLevelScope)
+					ownedValue as RecordValue => [
+						ownedFieldValues.get(0) => [
+							"field4".assertEquals(property.name)
+							//Tests scope_BasicPropertyAssociation_property
+							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
+						]
+						ownedFieldValues.get(1) => [
+							"field5".assertEquals(property.name)
+							//Tests scope_BasicPropertyAssociation_property
+							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
+						]
+						ownedFieldValues.get(2) => [
+							"field6".assertEquals(property.name)
+							//Tests scope_BasicPropertyAssociation_property
+							assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, secondLevelScope)
+							ownedValue as RecordValue => [
+								ownedFieldValues.get(0) => [
+									"field7".assertEquals(property.name)
+									//Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+								ownedFieldValues.get(1) => [
+									"field8".assertEquals(property.name)
+									//Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+								ownedFieldValues.get(2) => [
+									"field9".assertEquals(property.name)
+									//Tests scope_BasicPropertyAssociation_property
+									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+							]
+						]
+					]
 				]
 			]
 		]

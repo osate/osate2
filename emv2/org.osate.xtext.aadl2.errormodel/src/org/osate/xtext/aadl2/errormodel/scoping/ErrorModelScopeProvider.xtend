@@ -88,27 +88,15 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	override scope_BasicPropertyAssociation_property(Element context, EReference reference) {
-		var parent = switch context {
-			BasicPropertyAssociation case context.property.propertyType == null:
-				context.owner
-			default:
-				context
-		}
-		while (parent != null && !(parent instanceof BasicPropertyAssociation || parent instanceof EMV2PropertyAssociation)) {
-			parent = parent.owner
-		}
-		var PropertyType propertyType = null
-		switch parent {
-			BasicPropertyAssociation:
-				propertyType = parent.property?.propertyType
-			EMV2PropertyAssociation:
-				propertyType = parent.property?.propertyType
-		}
-		propertyType = propertyType.basePropertyType
-		if (propertyType instanceof RecordType) {
-			propertyType.ownedFields.scopeFor
+		val parentBpa = context.eContainer.getContainerOfType(BasicPropertyAssociation)
+		val property = if (parentBpa != null) {
+			parentBpa.property
 		} else {
-			IScope::NULLSCOPE
+			context.getContainerOfType(EMV2PropertyAssociation).property
+		}
+		switch baseType : property.propertyType?.basePropertyType {
+			RecordType: baseType.ownedFields.scopeFor
+			default: IScope.NULLSCOPE
 		}
 	}
 	
@@ -514,7 +502,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	def scope_EMV2PathElement_errorType(EMV2PathElement context, EReference reference) {
-		context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[kind == context.emv2PropagationKind].map[typeSet.typeTokens].flatten.filter[type.size == 1].map[type.head].filter(ErrorType).scopeFor
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten
+		val filteredPropagations = propagations.filter[kind == context.emv2PropagationKind]
+		val typeTokens = filteredPropagations.map[typeSet.typeTokens].flatten
+		typeTokens.filter[type.size == 1].map[type.head].filter(ErrorType).scopeFor
 	}
 
 	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
