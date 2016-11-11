@@ -100,6 +100,16 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 	
+	def scope_NumberValue_unit(EObject context, EReference reference) {
+		val parentBpa = context.getContainerOfType(BasicPropertyAssociation)
+		val property = if (parentBpa != null) {
+			parentBpa.property
+		} else {
+			context.getContainerOfType(EMV2PropertyAssociation).property
+		}
+		createUnitLiteralsScopeFromPropertyType(property.propertyType)
+	}
+	
 	//TODO Implement test case after talking with Peter
 	def scope_ContainmentPathElement_namedElement(ContainmentPathElement context, EReference reference) {
 		switch parent : context.eContainer {

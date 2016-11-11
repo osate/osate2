@@ -12,6 +12,7 @@ import org.osate.aadl2.AbstractType
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.RangeValue
 import org.osate.aadl2.RecordValue
 import org.osate.aadl2.errormodel.tests.ErrorModelUiInjectorProvider
 import org.osate.core.test.OsateTest
@@ -1085,6 +1086,98 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 									"field9".assertEquals(property.name)
 									//Tests scope_BasicPropertyAssociation_property
 									assertScope(Aadl2Package.eINSTANCE.basicPropertyAssociation_Property, thirdLevelScope)
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	}
+	
+	//Tests scope_ContainmentPathElement_namedElement
+	@Test
+	def void testUnitLiteralReference() {
+		val pkg1FileName = "pkg1.aadl"
+		createFiles("ps1.aadl" -> '''
+			property set ps1 is
+				def1: aadlinteger units Time_Units applies to (all);
+				def2: record (
+					field1: aadlreal units Data_Rate_Units;
+					field2: record (
+						field3: range of aadlinteger units Processor_Speed_Units;
+						field4: record (
+							field5: range of aadlreal units Size_Units;
+						);
+					);
+				) applies to (all);
+			end ps1;
+		''', pkg1FileName -> '''
+			package pkg1
+			public
+				with ps1;
+				
+				system s
+				end s;
+				
+				annex EMV2 {**
+					error types
+						t1: type;
+					properties
+						ps1::def1 => 1 ms applies to t1;
+						ps1::def2 => [
+							field1 => 2.2 Bytesps;
+							field2 => [
+								field3 => 3 KIPS .. 4 GIPS;
+								field4 => [
+									field5 => 5.5 bits .. 6.6 TByte;
+								];
+							];
+						] applies to t1;
+					end types;
+				**};
+			end pkg1;
+		''')
+		suppressSerialization
+		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
+			"pkg1".assertEquals(name)
+			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
+				properties.get(0) => [
+					"def1".assertEquals(property.name)
+					//Tests scope_ContainmentPathElement_namedElement
+					ownedValues.head.ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["ps", "ns", "us", "ms", "sec", "min", "hr"])
+				]
+				properties.get(1) => [
+					"def2".assertEquals(property.name)
+					ownedValues.head.ownedValue as RecordValue => [
+						ownedFieldValues.get(0) => [
+							"field1".assertEquals(property.name)
+							//Tests scope_ContainmentPathElement_namedElement
+							ownedValue.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bitsps", "Bytesps", "KBytesps", "MBytesps", "GBytesps"])
+						]
+						ownedFieldValues.get(1) => [
+							"field2".assertEquals(property.name)
+							ownedValue as RecordValue => [
+								ownedFieldValues.get(0) => [
+									"field3".assertEquals(property.name)
+									ownedValue as RangeValue => [
+										//Tests scope_ContainmentPathElement_namedElement
+										minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["KIPS", "MIPS", "GIPS"])
+										//Tests scope_ContainmentPathElement_namedElement
+										maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["KIPS", "MIPS", "GIPS"])
+									]
+								]
+								ownedFieldValues.get(1) => [
+									"field4".assertEquals(property.name)
+									(ownedValue as RecordValue).ownedFieldValues.head => [
+										"field5".assertEquals(property.name)
+										ownedValue as RangeValue => [
+											//Tests scope_ContainmentPathElement_namedElement
+											minimum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+											//Tests scope_ContainmentPathElement_namedElement
+											maximum.assertScope(Aadl2Package.eINSTANCE.numberValue_Unit, #["bits", "Bytes", "KByte", "MByte", "GByte", "TByte"])
+										]
+									]
 								]
 							]
 						]
