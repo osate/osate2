@@ -71,7 +71,7 @@ class PropertyReferenceTest extends OsateTest {
 				end a;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		
 		val expectedScope = #["Acceptable_Array_Size", "Access_Right", "Access_Time", "Activate_Deadline",
 			"Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
@@ -275,7 +275,7 @@ class PropertyReferenceTest extends OsateTest {
 				end a;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val expectedScope = #["Acceptable_Array_Size", "Access_Right", "Access_Time", "Activate_Deadline",
 			"Activate_Entrypoint", "Activate_Entrypoint_Call_Sequence", "Activate_Entrypoint_Source_Text",
 			"Activate_Execution_Time", "Active_Thread_Handling_Protocol", "Active_Thread_Queue_Handling_Protocol",

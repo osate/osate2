@@ -135,7 +135,7 @@ class SubcomponentReferenceTest extends OsateTest {
 				end a5;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [

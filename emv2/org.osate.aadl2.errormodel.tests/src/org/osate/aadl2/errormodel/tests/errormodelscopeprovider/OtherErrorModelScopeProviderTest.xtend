@@ -86,7 +86,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a;
 			end pkg;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val testFileResult = testFile("pkg.aadl")
 		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
 		testFileResult.resource.contents.head as AadlPackage => [
@@ -190,7 +190,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end fgt2;
 			end pkg;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
@@ -275,7 +275,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end fgt2;
 			end pkg;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile("pkg.aadl").resource.contents.head as AadlPackage => [
 			"pkg".assertEquals(name)
 			publicSection.ownedClassifiers.head as AbstractType => [
@@ -347,7 +347,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a1;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
@@ -433,7 +433,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a5.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(9) => [
@@ -554,7 +554,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val lib1TestResult = testFile(lib1FileName)
 		val subclause1TestResult = testFile(subclause1FileName)
 		val expectedScope = #["bvr_state1", "bvr_state2"]
@@ -659,7 +659,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a2.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
@@ -726,7 +726,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a2.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(3) => [
@@ -795,7 +795,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a2;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -888,7 +888,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				end a4;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(subclause1FileName).resource.contents.head as AadlPackage => [
 			"subclause1".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -975,7 +975,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 			end pkg1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
 			"pkg1".assertEquals(name)
 			publicSection.ownedClassifiers.head => [
@@ -1035,7 +1035,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 			end pkg1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
 			"pkg1".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).properties.head.ownedValues.head.ownedValue as RecordValue => [
@@ -1138,7 +1138,7 @@ class OtherErrorModelScopeProviderTest extends OsateTest {
 				**};
 			end pkg1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(pkg1FileName).resource.contents.head as AadlPackage => [
 			"pkg1".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [

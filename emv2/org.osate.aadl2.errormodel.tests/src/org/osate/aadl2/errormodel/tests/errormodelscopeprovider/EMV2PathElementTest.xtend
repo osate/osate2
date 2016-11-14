@@ -50,7 +50,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end ErrorBehaviorTransition_in_ErrorBehaviorStateMachine;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(errorBehaviorTransitionInErrorBehaviorStateMachineFileName).resource.contents.head as AadlPackage => [
 			"ErrorBehaviorTransition_in_ErrorBehaviorStateMachine".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
@@ -149,7 +149,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end ErrorBehaviorTransition_in_ErrorModelSubclause;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(errorBehaviorTransitionInErrorModelSubclauseFileName).resource.contents.head as AadlPackage => [
 			"ErrorBehaviorTransition_in_ErrorModelSubclause".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -335,7 +335,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end OutgoingPropagationCondition;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(outgoingPropagationConditionFileName).resource.contents.head as AadlPackage => [
 			"OutgoingPropagationCondition".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -568,7 +568,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end ErrorDetection;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(errorDetectionFileName).resource.contents.head as AadlPackage => [
 			"ErrorDetection".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -816,7 +816,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end CompositeState;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(compositeStateFileName).resource.contents.head as AadlPackage => [
 			"CompositeState".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [
@@ -930,7 +930,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end BasicEMV2PropertyAssociation_in_ErrorModelLibrary;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(basicEMV2PropertyAssociationInErrorModelLibraryFileName).resource.contents.head as AadlPackage => [
 			"BasicEMV2PropertyAssociation_in_ErrorModelLibrary".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
@@ -1003,7 +1003,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(basicEMV2PropertyAssociationInErrorBehaviorStateMachineFileName).resource.contents.head as AadlPackage => [
 			"BasicEMV2PropertyAssociation_in_ErrorBehaviorStateMachine".assertEquals(name)
 			((publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary).behaviors.head => [
@@ -1298,7 +1298,7 @@ class EMV2PathElementTest extends OsateTest {
 						t4: type;
 					end types;
 					
-					error behavior bvr1
+					error behavior bvr1 use types EMV2PropertyAssociation;
 					events
 						errorEvent3: error event {t1};
 						repairEvent3: repair event;
@@ -1311,7 +1311,7 @@ class EMV2PathElementTest extends OsateTest {
 				**};
 			end EMV2PropertyAssociation;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		testFile(emv2PropertyAssociationFileName).resource.contents.head as AadlPackage => [
 			"EMV2PropertyAssociation".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) => [

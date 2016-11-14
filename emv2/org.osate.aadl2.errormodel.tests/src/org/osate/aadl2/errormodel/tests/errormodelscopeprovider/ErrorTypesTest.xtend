@@ -191,7 +191,7 @@ class ErrorTypesTest extends OsateTest {
 				end a2.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val lib1TestResult = testFile(lib1FileName)
 		val lib2TestResult = testFile(lib2FileName)
 		val lib3TestResult = testFile(lib3FileName)
