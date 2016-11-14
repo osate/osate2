@@ -250,7 +250,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 * 		ErrorDetection |
 	 * 		CompositeState |
 	 * 		ConnectionErrorSource ('.' ErrorType)? |
-	 * 		PropagationPoint |
 	 * 		PropagationPath |
 	 * 		ErrorSource ('.' ErrorType)? |
 	 * 		ErrorSink ('.' ErrorType)? |
@@ -363,7 +362,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 								emptyList
 							}
 							val localElements = flows + events + transitions + outgoingPropagationConditions +
-								errorDetections + states + connectionErrorSources + points + paths
+								errorDetections + states + connectionErrorSources + paths
 							behaviorElements + localElements
 						].flatten
 						val propagations = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
@@ -394,7 +393,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 										emptyList
 									}
 									val localElements = flows + events + transitions + outgoingPropagationConditions +
-										errorDetections + states + connectionErrorSources + points + paths
+										errorDetections + states + connectionErrorSources + paths
 									behaviorElements + localElements
 								].flatten
 								val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[

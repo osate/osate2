@@ -1102,10 +1102,6 @@ class EMV2PathElementTest extends OsateTest {
 						connection error
 							connectionErrorSource1: error source all {t1};
 						end connection;
-						
-						propagation paths
-							propagationPoint1: propagation point;
-						end paths;
 					**};
 				end a1;
 				
@@ -1114,8 +1110,8 @@ class EMV2PathElementTest extends OsateTest {
 						asub1: abstract a2.i;
 					annex EMV2 {**
 						propagation paths
-							propagationPath1: asub1.asub2.asub3.propagationPoint2 -> asub1.asub2.asub3.propagationPoint2;
-							asub1.asub2.asub3.propagationPoint2 -> asub1.asub2.asub3.propagationPoint2;
+							propagationPath1: asub1.asub2.asub3.propagationPoint1 -> asub1.asub2.asub3.propagationPoint1;
+							asub1.asub2.asub3.propagationPoint1 -> asub1.asub2.asub3.propagationPoint1;
 						end paths;
 						
 						properties
@@ -1179,14 +1175,12 @@ class EMV2PathElementTest extends OsateTest {
 							EMV2::ExposurePeriod => 58.58 applies to connectionErrorSource1.t1;
 							ps1::real1 => 59.59 applies to ^asub1.asub2.asub3@connectionErrorSource2;
 							EMV2::ExposurePeriod => 60.60 applies to ^asub1.asub2.asub3@connectionErrorSource2.t1;
-							EMV2::ExposurePeriod => 61.61 applies to propagationPoint1;
-							ps1::real1 => 62.62 applies to ^asub1.asub2.asub3@propagationPoint2;
-							EMV2::ExposurePeriod => 63.63 applies to propagationPath1;
-							ps1::real1 => 64.64 applies to ^asub1.asub2.asub3@propagationPath2;
-							EMV2::ExposurePeriod => 65.65 applies to state1;
-							EMV2::ExposurePeriod => 66.66 applies to state1.t1;
-							EMV2::ExposurePeriod => 67.67 applies to ^asub1.asub2.asub3@state1;
-							EMV2::ExposurePeriod => 68.68 applies to ^asub1.asub2.asub3@state1.t1;
+							EMV2::ExposurePeriod => 61.61 applies to propagationPath1;
+							ps1::real1 => 62.62 applies to ^asub1.asub2.asub3@propagationPath2;
+							EMV2::ExposurePeriod => 63.63 applies to state1;
+							EMV2::ExposurePeriod => 64.64 applies to state1.t1;
+							EMV2::ExposurePeriod => 65.65 applies to ^asub1.asub2.asub3@state1;
+							EMV2::ExposurePeriod => 66.66 applies to ^asub1.asub2.asub3@state1.t1;
 					**};
 				end a1.i;
 				
@@ -1267,7 +1261,7 @@ class EMV2PathElementTest extends OsateTest {
 						end connection;
 						
 						propagation paths
-							propagationPoint2: propagation point;
+							propagationPoint1: propagation point;
 						end paths;
 					**};
 				end a4;
@@ -1277,7 +1271,7 @@ class EMV2PathElementTest extends OsateTest {
 						asub4: abstract a5;
 					annex EMV2 {**
 						propagation paths
-							propagationPath2: asub4.propagationPoint3 -> asub4.propagationPoint3;
+							propagationPath2: asub4.propagationPoint2 -> asub4.propagationPoint2;
 						end paths;
 					**};
 				end a4.i;
@@ -1285,7 +1279,7 @@ class EMV2PathElementTest extends OsateTest {
 				abstract a5
 					annex EMV2 {**
 						propagation paths
-							propagationPoint3: propagation point;
+							propagationPoint2: propagation point;
 						end paths;
 					**};
 				end a5;
@@ -1320,14 +1314,14 @@ class EMV2PathElementTest extends OsateTest {
 					val firstElementScope = #["compositeState1", "connectionErrorSource1", "detection1", "errorEvent1",
 						"errorEvent3", "errorPath1", "errorSink1", "errorSource1", "fg1",
 						"outgoingPropagationCondition1", "port1", "port1", "port1", "port1", "propagationPath1",
-						"propagationPoint1", "recoverEvent1", "recoverEvent3", "repairEvent1", "repairEvent3", "state1",
-						"transition1", "transition3"
+						"recoverEvent1", "recoverEvent3", "repairEvent1", "repairEvent3", "state1", "transition1",
+						"transition3"
 					]
 					val postSubcomponentScope = #["compositeState2", "connectionErrorSource2", "detection2", 
 						"errorEvent2", "errorEvent3", "errorPath2", "errorSink2", "errorSource2", "fg4",
 						"outgoingPropagationCondition2", "port3", "port3", "port3", "port3", "propagationPath2",
-						"propagationPoint2", "recoverEvent2", "recoverEvent3", "repairEvent2", "repairEvent3", "state1",
-						"transition2", "transition3"
+						"recoverEvent2", "recoverEvent3", "repairEvent2", "repairEvent3", "state1", "transition2",
+						"transition3"
 					]
 					properties.get(0) => [
 						1.1.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
@@ -2152,7 +2146,7 @@ class EMV2PathElementTest extends OsateTest {
 					properties.get(60) => [
 						61.61.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
-							"propagationPoint1".assertEquals(namedElement.name)
+							"propagationPath1".assertEquals(namedElement.name)
 							//Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
@@ -2161,7 +2155,7 @@ class EMV2PathElementTest extends OsateTest {
 					properties.get(61) => [
 						62.62.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
-							"propagationPoint2".assertEquals(namedElement.name)
+							"propagationPath2".assertEquals(namedElement.name)
 							//Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
 							path.assertNull
@@ -2170,7 +2164,7 @@ class EMV2PathElementTest extends OsateTest {
 					properties.get(62) => [
 						63.63.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
-							"propagationPath1".assertEquals(namedElement.name)
+							"state1".assertEquals(namedElement.name)
 							//Tests scope_EMV2PathElement_namedElement
 							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
 							path.assertNull
@@ -2178,24 +2172,6 @@ class EMV2PathElementTest extends OsateTest {
 					]
 					properties.get(63) => [
 						64.64.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
-						emv2Path.head.emv2Target => [
-							"propagationPath2".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
-							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, postSubcomponentScope)
-							path.assertNull
-						]
-					]
-					properties.get(64) => [
-						65.65.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
-						emv2Path.head.emv2Target => [
-							"state1".assertEquals(namedElement.name)
-							//Tests scope_EMV2PathElement_namedElement
-							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
-							path.assertNull
-						]
-					]
-					properties.get(65) => [
-						66.66.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
 							//Tests scope_EMV2PathElement_namedElement
@@ -2208,8 +2184,8 @@ class EMV2PathElementTest extends OsateTest {
 							]
 						]
 					]
-					properties.get(66) => [
-						67.67.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
+					properties.get(64) => [
+						65.65.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
 							//Tests scope_EMV2PathElement_namedElement
@@ -2217,8 +2193,8 @@ class EMV2PathElementTest extends OsateTest {
 							path.assertNull
 						]
 					]
-					properties.get(67) => [
-						68.68.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
+					properties.get(65) => [
+						66.66.assertEquals((ownedValues.head.ownedValue as RealLiteral).value, 0)
 						emv2Path.head.emv2Target => [
 							"state1".assertEquals(namedElement.name)
 							//Tests scope_EMV2PathElement_namedElement
