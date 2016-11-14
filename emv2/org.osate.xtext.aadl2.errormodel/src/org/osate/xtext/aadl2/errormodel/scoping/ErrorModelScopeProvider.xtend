@@ -278,11 +278,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 								events + (useBehavior?.events ?: emptyList)
 							].flatten
 							val featureGroups = parentOfTransition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+							val List<Subcomponent> subcomponents = parentOfTransition.getContainerOfType(ComponentImplementation)?.allSubcomponents ?: emptyList
 							val propagations = parentOfTransition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 								featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 							]
 							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
-							(events + featureGroups).scopeFor(propagationsScope)
+							(events + featureGroups + subcomponents).scopeFor(propagationsScope)
 						}
 					}
 					/*
@@ -463,7 +464,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							currentPathElement = currentPathElement.eContainer
 						}
 						val previousPath = previousFeatureGroups.map[it.name].join(".") + "."
-						val previousSubcomponent = if (currentPathElement.getContainerOfType(ErrorDetection) != null) {
+						val lookForSubcomponentInEMV2PathElement = currentPathElement.getContainerOfType(ErrorBehaviorTransition) != null ||
+							currentPathElement.getContainerOfType(OutgoingPropagationCondition) != null ||
+							currentPathElement.getContainerOfType(ErrorDetection) != null
+						val previousSubcomponent = if (lookForSubcomponentInEMV2PathElement) {
 							if (currentPathElement instanceof EMV2PathElement) {
 								currentPathElement.namedElement as Subcomponent
 							}

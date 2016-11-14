@@ -100,6 +100,8 @@ class EMV2PathElementTest extends OsateTest {
 				end a1;
 				
 				abstract implementation a1.i
+					subcomponents
+						asub1: abstract a2.i;
 					annex EMV2 {**
 						error propagations
 							port2: in propagation {t1};
@@ -117,6 +119,9 @@ class EMV2PathElementTest extends OsateTest {
 							trans5: all -[ port2 ]-> same state;
 							trans6: all -[ fg1.fg2.fg3.port3 ]-> same state;
 							trans7: all -[ fg1.fg2.fg3.port4 ]-> same state;
+							trans8: all -[ asub1.port5 ]-> same state;
+							trans9: all -[ asub1.fg4.port3 ]-> same state;
+							trans10: all -[ asub1.asub2.asub3.fg5.fg2.fg3.port3 ]-> same state;
 						end component;
 					**};
 				end a1.i;
@@ -133,9 +138,51 @@ class EMV2PathElementTest extends OsateTest {
 				
 				feature group fgt3
 					features
-						port3: in event port;
+						port3: in out event port;
 						port4: in event port;
 				end fgt3;
+				
+				abstract a2
+					features
+						port5: out event port;
+						fg4: feature group fgt3;
+				end a2;
+				
+				abstract implementation a2.i
+					subcomponents
+						asub2: abstract a3.i;
+					annex EMV2 {**
+						use types ErrorBehaviorTransition_in_ErrorModelSubclause;
+						
+						error propagations
+							port5: out propagation {t1};
+							fg4.port3: out propagation {t1};
+						end propagations;
+					**};
+				end a2.i;
+				
+				abstract a3
+				end a3;
+				
+				abstract implementation a3.i
+					subcomponents
+						asub3: abstract a4.i;
+				end a3.i;
+				
+				abstract a4
+					features
+						fg5: feature group fgt1;
+				end a4;
+				
+				abstract implementation a4.i
+					annex EMV2 {**
+						use types ErrorBehaviorTransition_in_ErrorModelSubclause;
+						
+						error propagations
+							fg5.fg2.fg3.port3: in propagation {t1};
+						end propagations;
+					**};
+				end a4.i;
 				
 				annex EMV2 {**
 					error types
@@ -155,7 +202,7 @@ class EMV2PathElementTest extends OsateTest {
 			publicSection.ownedClassifiers.get(1) => [
 				"a1.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					val firstElementScope = #["evt1", "evt2", "evt3", "port1", "port2", "fg1"]
+					val firstElementScope = #["evt1", "evt2", "evt3", "port1", "port2", "fg1", "asub1"]
 					transitions.get(0) => [
 						"trans1".assertEquals(name)
 						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
@@ -244,6 +291,78 @@ class EMV2PathElementTest extends OsateTest {
 										//Tests scope_EMV2PathElement_namedElement
 										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3", "port4"])
 										path.assertNull
+									]
+								]
+							]
+						]
+					]
+					transitions.get(7) => [
+						"trans8".assertEquals(name)
+						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
+							"asub1".assertEquals(namedElement.name)
+							//Tests scope_EMV2PathElement_namedElement
+							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
+							path => [
+								"port5".assertEquals((namedElement as ErrorPropagation).propagationName)
+								//Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								path.assertNull
+							]
+						]
+					]
+					transitions.get(8) => [
+						"trans9".assertEquals(name)
+						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
+							"asub1".assertEquals(namedElement.name)
+							//Tests scope_EMV2PathElement_namedElement
+							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
+							path => [
+								"fg4".assertEquals(namedElement.name)
+								//Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								path => [
+									"fg4.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
+									//Tests scope_EMV2PathElement_namedElement
+									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
+									path.assertNull
+								]
+							]
+						]
+					]
+					transitions.get(9) => [
+						"trans10".assertEquals(name)
+						(condition as ConditionElement).qualifiedErrorPropagationReference.emv2Target => [
+							"asub1".assertEquals(namedElement.name)
+							//Tests scope_EMV2PathElement_namedElement
+							assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, firstElementScope)
+							path => [
+								"asub2".assertEquals(namedElement.name)
+								//Tests scope_EMV2PathElement_namedElement
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub2", "fg4", "port5"])
+								path => [
+									"asub3".assertEquals(namedElement.name)
+									//Tests scope_EMV2PathElement_namedElement
+									assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["asub3"])
+									path => [
+										"fg5".assertEquals(namedElement.name)
+										//Tests scope_EMV2PathElement_namedElement
+										assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg5"])
+										path => [
+											"fg2".assertEquals(namedElement.name)
+											//Tests scope_EMV2PathElement_namedElement
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg2"])
+											path => [
+												"fg3".assertEquals(namedElement.name)
+												//Tests scope_EMV2PathElement_namedElement
+												assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["fg3"])
+												path => [
+													"fg5.fg2.fg3.port3".assertEquals((namedElement as ErrorPropagation).propagationName)
+													//Tests scope_EMV2PathElement_namedElement
+													assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["port3"])
+													path.assertNull
+												]
+											]
+										]
 									]
 								]
 							]
