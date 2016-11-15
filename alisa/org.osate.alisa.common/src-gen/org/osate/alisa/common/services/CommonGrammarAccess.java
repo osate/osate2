@@ -59,18 +59,18 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
 		private final Assignment cTextAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
 		private final RuleCall cTextSTRINGTerminalRuleCall_0_0 = (RuleCall)cTextAssignment_0.eContents().get(0);
-		private final Assignment cShowValueAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
-		private final RuleCall cShowValueShowValueParserRuleCall_1_0 = (RuleCall)cShowValueAssignment_1.eContents().get(0);
-		private final Assignment cThisTargetAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
-		private final Keyword cThisTargetThisKeyword_2_0 = (Keyword)cThisTargetAssignment_2.eContents().get(0);
-		private final Assignment cImageAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
-		private final RuleCall cImageImageReferenceParserRuleCall_3_0 = (RuleCall)cImageAssignment_3.eContents().get(0);
+		private final Assignment cThisTargetAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final Keyword cThisTargetThisKeyword_1_0 = (Keyword)cThisTargetAssignment_1.eContents().get(0);
+		private final Assignment cImageAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cImageImageReferenceParserRuleCall_2_0 = (RuleCall)cImageAssignment_2.eContents().get(0);
+		private final Assignment cShowValueAssignment_3 = (Assignment)cAlternatives.eContents().get(3);
+		private final RuleCall cShowValueShowValueParserRuleCall_3_0 = (RuleCall)cShowValueAssignment_3.eContents().get(0);
 		
 		//DescriptionElement:
-		//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
+		//	text=STRING | => thisTarget?="this" | => image=ImageReference | showValue=ShowValue;
 		@Override public ParserRule getRule() { return rule; }
 
-		//text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference
+		//text=STRING | => thisTarget?="this" | => image=ImageReference | showValue=ShowValue
 		public Alternatives getAlternatives() { return cAlternatives; }
 
 		//text=STRING
@@ -79,23 +79,23 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTextSTRINGTerminalRuleCall_0_0() { return cTextSTRINGTerminalRuleCall_0_0; }
 
-		//showValue=ShowValue
-		public Assignment getShowValueAssignment_1() { return cShowValueAssignment_1; }
-
-		//ShowValue
-		public RuleCall getShowValueShowValueParserRuleCall_1_0() { return cShowValueShowValueParserRuleCall_1_0; }
-
-		//thisTarget?="this"
-		public Assignment getThisTargetAssignment_2() { return cThisTargetAssignment_2; }
+		//=> thisTarget?="this"
+		public Assignment getThisTargetAssignment_1() { return cThisTargetAssignment_1; }
 
 		//"this"
-		public Keyword getThisTargetThisKeyword_2_0() { return cThisTargetThisKeyword_2_0; }
+		public Keyword getThisTargetThisKeyword_1_0() { return cThisTargetThisKeyword_1_0; }
 
-		//image=ImageReference
-		public Assignment getImageAssignment_3() { return cImageAssignment_3; }
+		//=> image=ImageReference
+		public Assignment getImageAssignment_2() { return cImageAssignment_2; }
 
 		//ImageReference
-		public RuleCall getImageImageReferenceParserRuleCall_3_0() { return cImageImageReferenceParserRuleCall_3_0; }
+		public RuleCall getImageImageReferenceParserRuleCall_2_0() { return cImageImageReferenceParserRuleCall_2_0; }
+
+		//showValue=ShowValue
+		public Assignment getShowValueAssignment_3() { return cShowValueAssignment_3; }
+
+		//ShowValue
+		public RuleCall getShowValueShowValueParserRuleCall_3_0() { return cShowValueShowValueParserRuleCall_3_0; }
 	}
 
 	public class RationaleElements extends AbstractParserRuleElementFinder {
@@ -872,53 +872,58 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	public class ShowValueElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "ShowValue");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cRefAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final CrossReference cRefAVariableDeclarationCrossReference_0_0 = (CrossReference)cRefAssignment_0.eContents().get(0);
-		private final RuleCall cRefAVariableDeclarationIDTerminalRuleCall_0_0_1 = (RuleCall)cRefAVariableDeclarationCrossReference_0_0.eContents().get(1);
-		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
-		private final Keyword cPercentSignKeyword_1_0 = (Keyword)cAlternatives_1.eContents().get(0);
-		private final Group cGroup_1_1 = (Group)cAlternatives_1.eContents().get(1);
-		private final Keyword cInKeyword_1_1_0 = (Keyword)cGroup_1_1.eContents().get(0);
-		private final Assignment cUnitAssignment_1_1_1 = (Assignment)cGroup_1_1.eContents().get(1);
-		private final CrossReference cUnitUnitLiteralCrossReference_1_1_1_0 = (CrossReference)cUnitAssignment_1_1_1.eContents().get(0);
-		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_1_1_0.eContents().get(1);
+		private final Assignment cExpressionAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cExpressionAVariableReferenceParserRuleCall_0_0 = (RuleCall)cExpressionAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Alternatives cAlternatives_1_0 = (Alternatives)cGroup_1.eContents().get(0);
+		private final Assignment cConvertAssignment_1_0_0 = (Assignment)cAlternatives_1_0.eContents().get(0);
+		private final Keyword cConvertPercentSignKeyword_1_0_0_0 = (Keyword)cConvertAssignment_1_0_0.eContents().get(0);
+		private final Assignment cDropAssignment_1_0_1 = (Assignment)cAlternatives_1_0.eContents().get(1);
+		private final Keyword cDropInKeyword_1_0_1_0 = (Keyword)cDropAssignment_1_0_1.eContents().get(0);
+		private final Assignment cUnitAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final CrossReference cUnitUnitLiteralCrossReference_1_1_0 = (CrossReference)cUnitAssignment_1_1.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_1_0.eContents().get(1);
 		
-		//ShowValue:
-		//	ref=[AVariableDeclaration] ("%" | "in" unit=[aadl2::UnitLiteral])?;
+		////ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+		//ShowValue returns AUnitExpression:
+		//	expression=AVariableReference ((convert?="%" | drop?="in") unit=[aadl2::UnitLiteral])?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ref=[AVariableDeclaration] ("%" | "in" unit=[aadl2::UnitLiteral])?
+		//expression=AVariableReference ((convert?="%" | drop?="in") unit=[aadl2::UnitLiteral])?
 		public Group getGroup() { return cGroup; }
 
-		//ref=[AVariableDeclaration]
-		public Assignment getRefAssignment_0() { return cRefAssignment_0; }
+		//expression=AVariableReference
+		public Assignment getExpressionAssignment_0() { return cExpressionAssignment_0; }
 
-		//[AVariableDeclaration]
-		public CrossReference getRefAVariableDeclarationCrossReference_0_0() { return cRefAVariableDeclarationCrossReference_0_0; }
+		//AVariableReference
+		public RuleCall getExpressionAVariableReferenceParserRuleCall_0_0() { return cExpressionAVariableReferenceParserRuleCall_0_0; }
 
-		//ID
-		public RuleCall getRefAVariableDeclarationIDTerminalRuleCall_0_0_1() { return cRefAVariableDeclarationIDTerminalRuleCall_0_0_1; }
+		//((convert?="%" | drop?="in") unit=[aadl2::UnitLiteral])?
+		public Group getGroup_1() { return cGroup_1; }
 
-		//("%" | "in" unit=[aadl2::UnitLiteral])?
-		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+		//convert?="%" | drop?="in"
+		public Alternatives getAlternatives_1_0() { return cAlternatives_1_0; }
+
+		//convert?="%"
+		public Assignment getConvertAssignment_1_0_0() { return cConvertAssignment_1_0_0; }
 
 		//"%"
-		public Keyword getPercentSignKeyword_1_0() { return cPercentSignKeyword_1_0; }
+		public Keyword getConvertPercentSignKeyword_1_0_0_0() { return cConvertPercentSignKeyword_1_0_0_0; }
 
-		//"in" unit=[aadl2::UnitLiteral]
-		public Group getGroup_1_1() { return cGroup_1_1; }
+		//drop?="in"
+		public Assignment getDropAssignment_1_0_1() { return cDropAssignment_1_0_1; }
 
 		//"in"
-		public Keyword getInKeyword_1_1_0() { return cInKeyword_1_1_0; }
+		public Keyword getDropInKeyword_1_0_1_0() { return cDropInKeyword_1_0_1_0; }
 
 		//unit=[aadl2::UnitLiteral]
-		public Assignment getUnitAssignment_1_1_1() { return cUnitAssignment_1_1_1; }
+		public Assignment getUnitAssignment_1_1() { return cUnitAssignment_1_1; }
 
 		//[aadl2::UnitLiteral]
-		public CrossReference getUnitUnitLiteralCrossReference_1_1_1_0() { return cUnitUnitLiteralCrossReference_1_1_1_0; }
+		public CrossReference getUnitUnitLiteralCrossReference_1_1_0() { return cUnitUnitLiteralCrossReference_1_1_0; }
 
 		//ID
-		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_1_1_0_1; }
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_1_0_1; }
 	}
 
 	public class ImageReferenceElements extends AbstractParserRuleElementFinder {
@@ -2572,7 +2577,7 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
+	//	text=STRING | => thisTarget?="this" | => image=ImageReference | showValue=ShowValue;
 	public DescriptionElementElements getDescriptionElementAccess() {
 		return pDescriptionElement;
 	}
@@ -2711,8 +2716,9 @@ public class CommonGrammarAccess extends AbstractGrammarElementFinder {
 		return getAVariableReferenceAccess().getRule();
 	}
 
-	//ShowValue:
-	//	ref=[AVariableDeclaration] ("%" | "in" unit=[aadl2::UnitLiteral])?;
+	////ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+	//ShowValue returns AUnitExpression:
+	//	expression=AVariableReference ((convert?="%" | drop?="in") unit=[aadl2::UnitLiteral])?;
 	public ShowValueElements getShowValueAccess() {
 		return pShowValue;
 	}

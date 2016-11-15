@@ -1296,11 +1296,11 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//validationfailCount=INT)? ("featurescount" featuresCount=INT)? ("featuresrequirementscount"
 		//featuresRequirementsCount=INT)? ("qualitycategoryrequirementscount" qualityCategoryRequirementsCount=INT)?
 		//("totalqualitycategorycount" totalQualityCategoryCount=INT)? ("requirementswithoutplanclaimcount"
-		//requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)?
-		//("requirementscount" requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)?
-		//("reqtargethasemv2subclausecount" reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount"
-		//featuresRequiringClassifierCount=INT)? ("featureswithrequiredclassifiercount"
-		//featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time" executionTime=AInt)?
+		//requirementsWithoutPlanClaimCount=INT)? ("noverificationplanscount" noVerificationPlansCount=INT)? ("requirementscount"
+		//requirementsCount=INT)? ("exceptionscount" exceptionsCount=INT)? ("reqtargethasemv2subclausecount"
+		//reqTargetHasEMV2SubclauseCount=INT)? ("featuresrequiringclassifiercount" featuresRequiringClassifierCount=INT)?
+		//("featureswithrequiredclassifiercount" featuresWithRequiredClassifierCount=INT)? ("weight" weight=INT)? ("time"
+		//executionTime=AInt)?
 		public Group getGroup() { return cGroup; }
 
 		//{Metrics}
@@ -2206,7 +2206,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | showValue=ShowValue | thisTarget?="this" | image=ImageReference;
+	//	text=STRING | => thisTarget?="this" | => image=ImageReference | showValue=ShowValue;
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
 		return gaCommon.getDescriptionElementAccess();
 	}
@@ -2345,8 +2345,9 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		return getAVariableReferenceAccess().getRule();
 	}
 
-	//ShowValue:
-	//	ref=[AVariableDeclaration] ("%" | "in" unit=[aadl2::UnitLiteral])?;
+	////ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+	//ShowValue returns AUnitExpression:
+	//	expression=AVariableReference ((convert?="%" | drop?="in") unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}

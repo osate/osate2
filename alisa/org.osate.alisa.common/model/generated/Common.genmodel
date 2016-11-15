@@ -41,9 +41,9 @@
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//DescriptionElement">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/text"/>
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/showValue"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//DescriptionElement/thisTarget"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/image"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//DescriptionElement/showValue"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//Rationale">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//Rationale/text"/>
@@ -75,9 +75,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/modelElementReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//APropertyReference/property"/>
     </genClasses>
-    <genClasses ecoreClass="Common.ecore#//ShowValue">
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ShowValue/ref"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//ShowValue/unit"/>
+    <genClasses ecoreClass="Common.ecore#//AUnitExpression">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/expression"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/convert"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/drop"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//ImageReference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//ImageReference/imgfile"/>
@@ -104,12 +106,6 @@
     <genClasses ecoreClass="Common.ecore#//AUnaryOperation">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnaryOperation/operator"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnaryOperation/operand"/>
-    </genClasses>
-    <genClasses ecoreClass="Common.ecore#//AUnitExpression">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/expression"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/convert"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AUnitExpression/drop"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference Common.ecore#//AUnitExpression/unit"/>
     </genClasses>
     <genClasses ecoreClass="Common.ecore#//AFunctionCall">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Common.ecore#//AFunctionCall/function"/>

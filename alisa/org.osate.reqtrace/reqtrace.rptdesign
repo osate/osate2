@@ -2,12 +2,7 @@
 <report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
     <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
     <property name="units">in</property>
-    <property name="iconFile">/templates/blank_report.gif</property>
-    <property name="bidiLayoutOrientation">ltr</property>
-    <property name="imageDPI">96</property>
-    <data-sources>
-        <script-data-source name="requirements" id="4">
-            <method name="open"><![CDATA[/*
+    <method name="initialize"><![CDATA[/*
  * <copyright>
  * Copyright 2016 by Carnegie Mellon University, all rights reserved.
  *
@@ -213,12 +208,14 @@ with (Alisa) {
 		}
 	}
 }
+reportContext.setGlobalVariable('req2goals', requirement2goals)
+reportContext.setGlobalVariable('goal2stake', goal2stakeholders)
 ]]></method>
-            <method name="close"><![CDATA[resource.unload()
-resourceSet = null
-requirement2goals = null
-goal2stakeholders = null]]></method>
-        </script-data-source>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <data-sources>
+        <script-data-source name="requirements" id="4"/>
     </data-sources>
     <data-sets>
         <script-data-set name="sysreqtrace" id="5">
@@ -321,6 +318,7 @@ goal2stakeholders = null]]></method>
                     </structure>
                 </list-property>
             </structure>
+            <property name="needsCache">false</property>
             <property name="dataSource">requirements</property>
             <method name="open"><![CDATA[if (report == 'requirement2goals') {
 	currentR2G = requirement2goals.firstEntry()
@@ -343,7 +341,7 @@ goal2stakeholders = null]]></method>
 		return container.getName() + '.' + ne.getName()
 }
 
-with (Alisa) {
+//with (Alisa) {
 	if (report == 'requirement2goals') {
 		if (currentR2G == null) {
 			return false
@@ -415,7 +413,7 @@ with (Alisa) {
 		}
 		return true
 	}
-}
+//}
 ]]></method>
         </script-data-set>
     </data-sets>

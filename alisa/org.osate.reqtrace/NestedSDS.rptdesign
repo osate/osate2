@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="comments">Copyright (c) 2006 &lt;&lt;Your Company Name here>></property>
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[importPackage( Packages.java.util );
+importPackage( Packages.java.lang );
+
+var outerMap = new Hashtable();
+var innerMap = new Hashtable();
+
+for ( i=0; i<10; i++ ){
+    var mystring = "Outerrow_" + i;
+    var myinnerstring = "Innerrow_" + i;
+	outerMap.put(i, mystring);
+	innerMap.put( mystring, myinnerstring );
+}
+reportContext.setPersistentGlobalVariable("outerMap", outerMap);
+reportContext.setPersistentGlobalVariable("innerMap", innerMap);]]></method>
+    <property name="layoutPreference">auto layout</property>
+    <data-sources>
+        <script-data-source name="Data Source" id="4"/>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="outer" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">outtercol</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">outtercol</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">outtercol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[hMap = reportContext.getPersistentGlobalVariable("outerMap");
+iter = hMap.entrySet().iterator();]]></method>
+            <method name="fetch"><![CDATA[if( iter.hasNext() ){
+myObject = iter.next();
+row["outtercol"] = myObject.getValue().toString(); 
+return true;
+
+}else{
+
+return false;
+
+}]]></method>
+        </script-data-set>
+        <script-data-set name="inner" id="6">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">0</property>
+                    <property name="name">innercol</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">innercol</property>
+                </structure>
+            </list-property>
+            <list-property name="parameters">
+                <structure>
+                    <property name="name">innerparm</property>
+                    <property name="dataType">string</property>
+                    <property name="position">1</property>
+                    <expression name="defaultValue">testkey</expression>
+                    <property name="isInput">true</property>
+                    <property name="isOutput">true</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">innercol</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="dataSource">Data Source</property>
+            <method name="open"><![CDATA[i = 0;
+jj  = inputParams["innerparm"];]]></method>
+            <method name="fetch"><![CDATA[iMap = reportContext.getPersistentGlobalVariable("innerMap");
+inObj = iMap.get(jj);
+if( i > 0 )return false;
+
+if( inObj != null ){
+row["innercol"] = inObj.toString();
+
+}
+//row["innercol"] = jj;
+i++
+return true;]]></method>
+        </script-data-set>
+    </data-sets>
+    <styles>
+        <style name="detail" id="54">
+            <property name="backgroundColor">#BACAE2</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="paddingTop">0px</property>
+            <property name="paddingLeft">0px</property>
+            <property name="paddingBottom">0px</property>
+            <property name="paddingRight">0px</property>
+        </style>
+        <style name="headerfooter" id="55">
+            <property name="backgroundColor">#004080</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+        <style name="groupheader" id="56">
+            <property name="backgroundColor">#0080FF</property>
+            <property name="fontFamily">"Arial"</property>
+            <property name="fontSize">small</property>
+            <property name="fontWeight">bold</property>
+            <property name="color">#FFFFFF</property>
+        </style>
+    </styles>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <property name="topMargin">1in</property>
+            <property name="leftMargin">1.25in</property>
+            <property name="bottomMargin">1in</property>
+            <property name="rightMargin">1.25in</property>
+            <page-footer>
+                <text id="3">
+                    <property name="contentType">html</property>
+                    <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                </text>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <table id="7">
+            <property name="width">100%</property>
+            <property name="dataSet">outer</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">outtercol</property>
+                    <expression name="expression">dataSetRow["outtercol"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <property name="pageBreakInterval">50</property>
+            <column id="16"/>
+            <column id="20"/>
+            <header>
+                <row id="8">
+                    <property name="style">headerfooter</property>
+                    <cell id="9">
+                        <label id="10">
+                            <text-property name="text">OuterDSCol</text-property>
+                        </label>
+                    </cell>
+                    <cell id="17"/>
+                </row>
+            </header>
+            <detail>
+                <row id="11">
+                    <property name="style">detail</property>
+                    <cell id="12">
+                        <data id="13">
+                            <property name="resultSetColumn">outtercol</property>
+                        </data>
+                    </cell>
+                    <cell id="18">
+                        <table id="21">
+                            <property name="width">100%</property>
+                            <property name="dataSet">inner</property>
+                            <list-property name="paramBindings">
+                                <structure>
+                                    <property name="paramName">innerparm</property>
+                                    <simple-property-list name="expression">
+                                        <value>row["outtercol"]</value>
+                                    </simple-property-list>
+                                </structure>
+                            </list-property>
+                            <list-property name="boundDataColumns">
+                                <structure>
+                                    <property name="name">innercol</property>
+                                    <expression name="expression">dataSetRow["innercol"]</expression>
+                                    <property name="dataType">string</property>
+                                </structure>
+                            </list-property>
+                            <property name="pageBreakInterval">50</property>
+                            <column id="30"/>
+                            <header>
+                                <row id="22">
+                                    <cell id="23">
+                                        <label id="24">
+                                            <text-property name="text">InnerDataSetCol</text-property>
+                                        </label>
+                                    </cell>
+                                </row>
+                            </header>
+                            <detail>
+                                <row id="25">
+                                    <property name="style">groupheader</property>
+                                    <cell id="26">
+                                        <data id="27">
+                                            <property name="resultSetColumn">innercol</property>
+                                        </data>
+                                    </cell>
+                                </row>
+                            </detail>
+                        </table>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="14">
+                    <property name="style">headerfooter</property>
+                    <cell id="15"/>
+                    <cell id="19"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

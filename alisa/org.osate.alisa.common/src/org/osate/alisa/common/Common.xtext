@@ -10,7 +10,7 @@ Description :
 ;
 
 DescriptionElement :
- 	text = STRING | showValue = ShowValue |thisTarget?='this'| image=ImageReference
+ 	text = STRING | =>thisTarget?='this'| =>image=ImageReference | showValue= ShowValue
  ;
 
 Rationale: 'rationale' text=STRING ;
@@ -84,7 +84,9 @@ AVariableReference returns AExpression:
 
 
  
-ShowValue returns ShowValue: ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+ShowValue returns AUnitExpression: //ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+	expression=AVariableReference ((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral|ID])?
+;
 
 ImageReference : 'img' imgfile=IMGREF;
 
