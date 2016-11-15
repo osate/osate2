@@ -180,7 +180,7 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String toString() {
@@ -189,9 +189,9 @@ public class StringLiteralImpl extends PropertyValueImpl implements StringLitera
 		}
 
 		StringBuffer result = new StringBuffer(super.toString());
-		result.append(" (value: ");
+		result.append('"');
 		result.append(value);
-		result.append(')');
+		result.append('"');
 		return result.toString();
 	}
 
