@@ -706,16 +706,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (upFi.eContainer() == dstFi) {
 					dstFi = upFi;
 				} else {
-					FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature())
-							.getFeatureGroupType();
-					FeatureGroupType downfgt = ((FeatureGroup) dstFi.getFeature()).getFeatureGroupType();
+					FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature());
+					FeatureGroup downfg = ((FeatureGroup) dstFi.getFeature());
+					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
+					FeatureGroupType downfgt = downfg.getAllFeatureGroupType();
 					if (downfgt == null) {
 						warning(dstFi.getContainingComponentInstance(),
 								"In " + dstFi.getContainingComponentInstance().getName() + " (classifier "
 										+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
 										+ ") feature group " + dstFi.getName() + " has no type");
 					}
-					if (upfgt != null && downfgt != null && upfgt.isInverseOf(downfgt)
+					if (upfgt != null && downfgt != null && AadlUtil.isInverseOf(upfg, downfg)
 							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
@@ -881,20 +882,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			for (int count = upFeature.size() - 1; count >= 0; count--) {
 				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
 				FeatureInstance upFi = upFeature.get(count);
-				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
-				if (resFi == null) { // do index only if we have inverse feature
+				FeatureInstance dstFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
+				if (dstFi == null) { // do index only if we have inverse feature
 										// groups and they have their own
 										// element names
-					FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature())
-							.getFeatureGroupType();
-					FeatureGroupType downfgt = ((FeatureGroup) ((FeatureInstance) dstEnd).getFeature())
-							.getFeatureGroupType();
-					if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
-							&& !downfgt.getAllFeatures().isEmpty()) {
+					FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature());
+					FeatureGroup downfg = ((FeatureGroup) dstFi.getFeature());
+					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
+					FeatureGroupType downfgt = downfg.getAllFeatureGroupType();
+					if (upfgt != null && downfgt != null && AadlUtil.isInverseOf(upfg, downfg)
+							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
 				} else {
-					dstEnd = resFi;
+					dstEnd = dstFi;
 				}
 			}
 		} else if (!downFeature.isEmpty()) {
@@ -906,12 +907,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			for (int count = 0; count < downFeature.size(); count++) {
 				FeatureInstance downFi = downFeature.get(count);
 				EList<FeatureInstance> flist = ((FeatureInstance) srcEnd).getFeatureInstances();
-				FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) downFi.getOwner()).getFeature())
-						.getFeatureGroupType();
-				FeatureGroupType downfgt = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature())
-						.getFeatureGroupType();
-				if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
-						&& !downfgt.getAllFeatures().isEmpty()) {
+				FeatureGroup downfg = ((FeatureGroup) ((FeatureInstance) downFi.getOwner()).getFeature());
+				FeatureGroupType downfgt = downfg.getFeatureGroupType();
+				FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature());
+				FeatureGroupType upfgt = upfg.getFeatureGroupType();
+				if (upfgt != null && downfgt != null && AadlUtil.isInverseOf(upfg, downfg)
+						&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 					srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
 				}
 			}
