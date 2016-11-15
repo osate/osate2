@@ -566,4 +566,23 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		if (eIsProxy()) {
+			return super.toString();
+		}
+
+		StringBuffer result = new StringBuffer();
+		result.append('[');
+		result.append(minimum.toString());
+		result.append(" .. ");
+		result.append(maximum.toString());
+		result.append(']');
+		if (delta != null) {
+			result.append(" delta ");
+			result.append(delta.toString());
+		}
+		return result.toString();
+	}
+
 } // RangeValueImpl
