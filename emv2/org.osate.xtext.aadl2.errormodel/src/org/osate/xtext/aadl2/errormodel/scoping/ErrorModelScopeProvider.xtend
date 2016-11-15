@@ -100,6 +100,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		}
 	}
 	
+	override scope_ModalElement_inMode(Element context, EReference reference) {
+		IScope.NULLSCOPE
+	}
+	
 	def scope_NumberValue_unit(EObject context, EReference reference) {
 		val parentBpa = context.getContainerOfType(BasicPropertyAssociation)
 		val property = if (parentBpa != null) {
