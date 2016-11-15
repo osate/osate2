@@ -215,12 +215,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	 * Scope elements for grammar path: ErrorModelSubclause -> ErrorBehaviorTransition -> ConditionExpression -> ... ->
 	 * 			QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
 	 * 		ErrorBehaviorEvent |
-	 * 		(FeatureGroup '.')* ErrorPropagation
+	 * 		(Subcomponent '.')* (FeatureGroup '.')* ErrorPropagation
 	 * 
 	 * Scope elements for grammar path: ErrorModelSubclause -> OutgoingPropagationCondition -> ConditionExpression ->
 	 * 			... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
 	 * 		ErrorBehaviorEvent |
-	 * 		(FeatureGroup '.')* ErrorPropagation
+	 * 		(Subcomponent '.')* (FeatureGroup '.')* ErrorPropagation
 	 * 
 	 * Scope elements for grammar path: ErrorModelSubclause -> ErrorDetection -> ConditionExpression -> ... ->
 	 * 			QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
@@ -296,11 +296,12 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 							events + (useBehavior?.events ?: emptyList)
 						].flatten
 						val featureGroups = parentOfCondition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+						val List<Subcomponent> subcomponents = parentOfCondition.getContainerOfType(ComponentImplementation)?.allSubcomponents ?: emptyList
 						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
 							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
 						]
 						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
-						(events + featureGroups).scopeFor(propagationsScope)
+						(events + featureGroups + subcomponents).scopeFor(propagationsScope)
 					}
 					/*
 					 * First element in chain.
