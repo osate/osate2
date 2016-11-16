@@ -35,6 +35,7 @@
 package org.osate.reqtrace
 
 import java.io.File
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.dialogs.TitleAreaDialog
@@ -60,6 +61,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 	val static REPORT_TYPE_SETTING = "REPORT_TYPE_SETTING"
 	
 	val List<String> formats
+	val List<String> formatDescriptions
 	val String fileType
 	Button g2sButton
 	Button r2gButton
@@ -73,6 +75,17 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 	new(Shell parent, List<String> formats, String fileType) {
 		super(parent)
 		this.formats = formats
+		formatDescriptions = new ArrayList(formats.map[switch it {
+			case "docx": "Word Document"
+			case "pptx": "PowerPoint Presentation"
+			case "xlsx": "Excel Workbook"
+			case "odt": "ODF Text Document"
+			case "odp": "ODF Presentation"
+			case "ods": "ODF Spreadsheet"
+			case "html": "Web Page"
+			case "pdf": "PDF"
+			default: it
+		}])
 		this.fileType = fileType
 	}
 	
@@ -155,6 +168,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 						override widgetSelected(SelectionEvent e) {
 							val dialog = new FileDialog(shell, SWT.SAVE.bitwiseOr(SWT.SHEET))
 							dialog.filterExtensions = formats.map["*." + it]
+							dialog.filterNames = formatDescriptions
 							dialog.text = "Output File"
 							val selectedFileName = dialog.open
 							if (selectedFileName != null) {
