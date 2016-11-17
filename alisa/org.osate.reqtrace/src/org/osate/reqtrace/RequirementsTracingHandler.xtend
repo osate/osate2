@@ -43,13 +43,17 @@ import org.eclipse.birt.report.engine.api.RenderOption
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
+import org.eclipse.core.filesystem.EFS
 import org.eclipse.core.resources.IFile
+import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.window.Window
+import org.eclipse.ui.ide.IDE
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
+import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveWorkbenchWindow
 import static extension org.eclipse.ui.handlers.HandlerUtil.getCurrentSelection
 
 class RequirementsTracingHandler extends AbstractHandler {
@@ -98,6 +102,12 @@ class RequirementsTracingHandler extends AbstractHandler {
 					]
 					destroy
 				]
+				if (!canceled && dialog.openFileAutomatically) {
+					val fileStore = EFS.localFileSystem.getStore(new Path(dialog.outputFile))
+					event.activeShell.display.asyncExec[
+						IDE.openEditorOnFileStore(event.activeWorkbenchWindow.activePage, fileStore)
+					]
+				}
 				if (canceled) {
 					Status.CANCEL_STATUS
 				} else {
