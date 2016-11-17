@@ -78,9 +78,7 @@ class RequirementsTracingHandler extends AbstractHandler {
 				val factory = Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY) as IReportEngineFactory
 				val config = new EngineConfig => [appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.class.classLoader)]
 				factory.createReportEngine(config) => [
-					//val url = '''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign'''
-					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/req2goals.rptdesign'''
-					//val url = '''platform:/plugin/«Activator.PLUGIN_ID»/requirements.rptdesign'''
+					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign'''
 					val report = openReportDesign(new URL(url).openConnection.inputStream)
 					createRunAndRenderTask(report) => [
 						setParameterValue("ProjectName", selectionPath.segments.head)
