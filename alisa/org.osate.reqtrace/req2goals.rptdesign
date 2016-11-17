@@ -618,20 +618,47 @@ return true
             </list-property>
             <text-property name="text">Stakeholder Goal to Stakeholders Report</text-property>
         </label>
-        <data id="101">
+        <data id="250">
             <property name="fontSize">9pt</property>
             <property name="fontStyle">italic</property>
-            <property name="marginBottom">15pt</property>
-            <property name="textAlign">center</property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">File Name</property>
-                    <expression name="expression" type="javascript">'Created from: ' + reportContext.getParameterValue('AADLFile')</expression>
+                    <property name="name">Column Binding</property>
+                    <text-property name="displayName">Project Name</text-property>
+                    <expression name="expression" type="javascript">'Project: ' + reportContext.getParameterValue('ProjectName')</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
-            <property name="resultSetColumn">File Name</property>
+            <property name="resultSetColumn">Column Binding</property>
+        </data>
+        <data id="251">
+            <property name="fontSize">9pt</property>
+            <property name="fontStyle">italic</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <text-property name="displayName">Directories</text-property>
+                    <expression name="expression" type="javascript">'Folder: ' + reportContext.getParameterValue('Directories')</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="resultSetColumn">Column Binding</property>
+        </data>
+        <data id="253">
+            <property name="fontSize">9pt</property>
+            <property name="fontStyle">italic</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">Column Binding</property>
+                    <text-property name="displayName">File Name</text-property>
+                    <expression name="expression" type="javascript">'File: ' + reportContext.getParameterValue('FileName')</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="resultSetColumn">Column Binding</property>
         </data>
         <table name="requirement2goals" id="6">
             <property name="borderBottomStyle">solid</property>
