@@ -40,7 +40,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -243,7 +242,6 @@ public class ComponentInstancePattern extends AgePattern {
 		final int y = shape.getGraphicsAlgorithm().getY();
 
 		final IGaService gaService = Graphiti.getGaService();
-		final Classifier classifier = Objects.requireNonNull(ci.getComponentClassifier(), "Unable to retrieve classifier");
 		final Shape nameShape = Objects.requireNonNull(getNameShape(shape), "unable to retrieve name shape");
 		
 		// Group feature shapes based on docking area
@@ -260,7 +258,7 @@ public class ComponentInstancePattern extends AgePattern {
 		newSize[1] = Math.max(Math.max(newSize[1], layoutService.getMinimumHeight()), nameShape.getGraphicsAlgorithm().getHeight() + 30);
 				
 		// Create new graphics algorithm
-		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createClassifierGraphicsAlgorithm(shape, classifier, newSize[0], newSize[1]);
+		final GraphicsAlgorithm ga = graphicsAlgorithmCreator.createComponentGraphicsAlgorithm(shape, ci.getCategory(), false, newSize[0], newSize[1]);
 		ga.setFilled(false);
 		gaService.setLocation(ga, x, y);
 		

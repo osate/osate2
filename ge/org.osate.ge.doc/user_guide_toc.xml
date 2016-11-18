@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc label="User Guide" topic="user_guide_output/user_guide.html">
+   <topic href="user_guide_output/gs.html" label="Getting Started">
+      <topic href="user_guide_output/gs_creating.html" label="Creating a new AADL Package">
+      </topic>
+      <topic href="user_guide_output/gs_opening.html" label="Opening an Existing AADL Model">
+      </topic>
+   </topic>
+   <topic href="user_guide_output/nbd.html" label="Navigating Between Diagrams">
+      <topic href="user_guide_output/nbd_associated_diagram.html" label="Opening an Associated Diagram">
+      </topic>
+      <topic href="user_guide_output/nbd_package_diagram.html" label="Opening an Element&apos;s Package Diagram">
+      </topic>
+      <topic href="user_guide_output/nbd_type_diagram.html" label="Opening the Type Diagram for a Component Implementation">
+      </topic>
+      <topic href="user_guide_output/nbd_instance_model.html" label="Opening an AADL Instance Model">
+      </topic>
+   </topic>
+   <topic href="user_guide_output/eam.html" label="Editing AADL Models">
+      <topic href="user_guide_output/eam_basics.html" label="Basics">
+         <topic href="user_guide_output/eam_basics.html#deleting" label="Deleting">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#renaming" label="Renaming">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#refining" label="Refining">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#instantiating" label="Instantiating">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#editing-property-associations" label="Editing Property Associations">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#moving-shapes-using-arrow-keys" label="Moving Shapes Using Arrow Keys">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#selecting-a-diagram-elements-container" label="Selecting a Diagram Element's Container">
+         </topic>
+         <topic href="user_guide_output/eam_basics.html#performing-diagram-layout" label="Performing Diagram Layout">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_connections.html" label="Connections">
+         <topic href="user_guide_output/eam_connections.html#creating-connections" label="Creating Connections">
+         </topic>
+         <topic href="user_guide_output/eam_connections.html#editing-connections" label="Editing Connections">
+            <topic href="user_guide_output/eam_connections.html#connection_pattern-property-visualization" label="Using the Context Menu to Edit Connections">
+            </topic>
+            <topic href="user_guide_output/eam_connections.html#using-the-properties-diagram-view-to-edit-connections" label="Using the Properties Diagram View to Edit Connections">
+            </topic>
+         </topic>
+         <topic href="user_guide_output/eam_connections.html#connection_pattern-property-visualization" label="Connection_Pattern Property Visualization">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_classifiers.html" label="Classifiers">
+         <topic href="user_guide_output/eam_classifiers.html#creating" label="Creating">
+         </topic>
+         <topic href="user_guide_output/eam_classifiers.html#extending" label="Extending">
+         </topic>
+         <topic href="user_guide_output/eam_classifiers.html#performing-update-layout-from-classifier-diagram" label="Performing Update Layout from Classifier Diagram">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_features.html" label="Features">
+         <topic href="user_guide_output/eam_features.html#creating" label="Creating">
+         </topic>
+         <topic href="user_guide_output/eam_features.html#setting-the-feature-classifier" label="Setting the Feature Classifier">
+         </topic>
+         <topic href="user_guide_output/eam_features.html#setting-the-feature-direction-(directional-features-only)" label="Setting the Feature Direction (Directional Features Only)">
+         </topic>
+         <topic href="user_guide_output/eam_features.html#setting-access-kind-(access-features-only)" label="Setting Access Kind (Access Features Only)">
+         </topic>
+         <topic href="user_guide_output/eam_features.html#setting-a-feature-group-as-inverse" label="Setting a Feature Group as Inverse">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_subcomponents.html" label="Subcomponents">
+         <topic href="user_guide_output/eam_subcomponents.html#creating" label="Creating">
+         </topic>
+         <topic href="user_guide_output/eam_subcomponents.html#setting-the-classifier" label="Setting the Classifier">
+         </topic>
+         <topic href="user_guide_output/eam_subcomponents.html#setting-modes" label="Setting Modes">
+         </topic>
+         <topic href="user_guide_output/eam_subcomponents.html#displaying-details" label="Displaying Details">
+            <topic href="user_guide_output/eam_subcomponents.html#using-the-increase-and-decrease-nesting-depth-buttons-to-select-a-nesting-depth" label="Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth">
+            </topic>
+            <topic href="user_guide_output/eam_subcomponents.html#using-the-depth-selector-drop-down-to-select-a-nesting-depth" label="Using the Depth Selector Drop-Down to Select a Nesting Depth">
+            </topic>
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_flows.html" label="Flows">
+         <topic href="user_guide_output/eam_flows.html#creating-flow-specifications" label="Creating Flow Specifications">
+            <topic href="user_guide_output/eam_flows.html#creating-flow-paths" label="Creating Flow Paths">
+            </topic>
+            <topic href="user_guide_output/eam_flows.html#creating-flow-sinks" label="Creating Flow Sinks">
+            </topic>
+            <topic href="user_guide_output/eam_flows.html#creating-flow-sources" label="Creating Flow Sources">
+            </topic>
+         </topic>
+         <topic href="user_guide_output/eam_flows.html#creating-flow-implementations-and-end-to-end-flow-specifications" label="Creating Flow Implementations and End-To-End Flow Specifications">
+            <topic href="user_guide_output/eam_flows.html#creating-flow-implementations" label="Creating Flow Implementations">
+               <topic href="user_guide_output/eam_flows.html#creating-source-flow-implementations" label="Creating Source Flow Implementations">
+               </topic>
+               <topic href="user_guide_output/eam_flows.html#creating-sink-flow-implementations" label="Creating Sink Flow Implementations">
+               </topic>
+               <topic href="user_guide_output/eam_flows.html#creating-path-flow-implementations" label="Creating Path Flow Implementations">
+               </topic>
+            </topic>
+            <topic href="user_guide_output/eam_flows.html#creating-end-to-end-flow-specifications" label="Creating End-To-End Flow Specifications">
+            </topic>
+         </topic>
+         <topic href="user_guide_output/eam_flows.html#editing-flow-implementations-and-end-to-end-flows" label="Editing Flow Implementations and End-to-End Flows">
+         </topic>
+         <topic href="user_guide_output/eam_flows.html#highlighting-flow-implementations-and-end-to-end-flow-specifications" label="Highlighting Flow Implementations and End-to-End Flow Specifications">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_modes.html" label="Modes">
+         <topic href="user_guide_output/eam_modes.html#creating-modes" label="Creating Modes">
+         </topic>
+         <topic href="user_guide_output/eam_modes.html#setting-the-initial-mode" label="Setting the Initial Mode">
+         </topic>
+         <topic href="user_guide_output/eam_modes.html#creating-mode-transitions" label="Creating Mode Transitions">
+         </topic>
+         <topic href="user_guide_output/eam_modes.html#setting-mode-transition-triggers" label="Setting Mode Transition Triggers">
+         </topic>
+         <topic href="user_guide_output/eam_modes.html#switching-between-derived-and-non-derived-modes" label="Switching Between Derived and Non-derived Modes">
+         </topic>
+         <topic href="user_guide_output/eam_modes.html#highlighting" label="Highlighting">
+         </topic>
+         <topic href="user_guide_output/eam_modes.html#selecting-active-components" label="Selecting Active Components">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_bindings.html" label="Bindings">
+         <topic href="user_guide_output/eam_bindings.html#creating-bindings" label="Creating Bindings">
+         </topic>
+         <topic href="user_guide_output/eam_bindings.html#setting-bindings" label="Setting Bindings">
+            <topic href="user_guide_output/eam_bindings.html#using-the-toolbar-to-set-bindings" label="Using the Toolbar to Set Bindings">
+            </topic>
+            <topic href="user_guide_output/eam_bindings.html#using-the-context-menu-to-set-bindings" label="Using the Context Menu to Set Bindings">
+            </topic>
+         </topic>
+         <topic href="user_guide_output/eam_bindings.html#bindings-diagram-properties" label="Bindings Diagram Properties">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_arrays.html" label="Arrays">
+         <topic href="user_guide_output/eam_arrays.html#creating-arrays" label="Creating Arrays">
+         </topic>
+         <topic href="user_guide_output/eam_arrays.html#editing-arrays" label="Editing Arrays">
+            <topic href="user_guide_output/eam_arrays.html#add-dimension" label="Add Dimension">
+            </topic>
+            <topic href="user_guide_output/eam_arrays.html#change-dimension-order" label="Change Dimension Order">
+            </topic>
+            <topic href="user_guide_output/eam_arrays.html#delete-dimension" label="Delete Dimension">
+            </topic>
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_scs.html#subprogram-call-sequences" label="Subprogram Call Sequences">
+         <topic href="user_guide_output/eam_scs.html#creating-subprogram-call-sequences" label="Creating Subprogram Call Sequences">
+            <topic href="user_guide_output/eam_scs.html#adding-subprogram-calls" label="Adding Subprogram Calls">
+            </topic>
+         </topic>
+         <topic href="user_guide_output/eam_scs.html#editing-subprogram-call-sequences" label="Editing Subprogram Call Sequences">
+         </topic>
+      </topic>
+      <topic href="user_guide_output/eam_annexes.html" label="Annexes">
+         <topic href="user_guide_output/eam_annexes.html#creating-annex-libraries-and-annex-subclauses" label="Creating Annex Libraries and Annex Subclauses">
+         </topic>
+      </topic>
+   </topic>
+   <topic href="user_guide_output/ts.html" label="Troubleshooting">
+      <topic href="user_guide_output/ts_build.html" label="Build Automatically">
+      </topic>
+      <topic href="user_guide_output/ts_font.html" label="Inconsistent Font Sizes Across Machines">
+      </topic>
+      <topic href="user_guide_output/ts_exception.html" label="Out of Handles Exception">
+      </topic>
+      <topic href="user_guide_output/ts_txtmodel.html" label="Unable to Set Properties Unless Text Model is Open">
+      </topic>
+      <topic href="user_guide_output/ts_updating.html" label="Updating a Diagram">
+      </topic>
+      <topic href="user_guide_output/ts_reporting.html" label="Reporting Bugs">
+      </topic>
+   </topic>
+</toc>
