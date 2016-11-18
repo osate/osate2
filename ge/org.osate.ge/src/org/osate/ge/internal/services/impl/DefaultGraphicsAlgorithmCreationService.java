@@ -147,40 +147,48 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 				throw new RuntimeException("Unexpected element type: " + element.getClass());			
 			}
 			     
-	        if(category == ComponentCategory.SYSTEM) {
-	        	ga = createSystemGraphicsAlgorithm(shape, getSystemStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.PROCESS) {
-	        	ga = createProcessGraphicsAlgorithm(shape, getProcessStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.THREAD_GROUP) {
-	        	ga = createThreadGroupGraphicsAlgorithm(shape, getThreadGroupStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.THREAD) {
-	        	ga = createThreadGraphicsAlgorithm(shape, getThreadStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.SUBPROGRAM) {
-	        	ga = createSubprogramGraphicsAlgorithm(shape, getSubprogramStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.SUBPROGRAM_GROUP) {
-	        	ga = createSubprogramGroupGraphicsAlgorithm(shape, getSubprogramGroupStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.DATA) {
-	        	ga = createDataGraphicsAlgorithm(shape, getDataStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.ABSTRACT) {
-	        	ga = createAbstractGraphicsAlgorithm(shape, getAbstractStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.VIRTUAL_BUS) {
-	        	ga = createBusGraphicsAlgorithm(shape, getVirtualBusStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.VIRTUAL_PROCESSOR) {
-	        	ga = createProcessorGraphicsAlgorithm(shape, getVirtualProcessorStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.BUS) {
-	        	ga = createBusGraphicsAlgorithm(shape, getBusStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.PROCESSOR) {
-	        	ga = createProcessorGraphicsAlgorithm(shape, getProcessorStyle(isImplementation), width, height);
-	        } else if(category == ComponentCategory.DEVICE) {     	
-	        	ga = createDeviceGraphicsAlgorithm(shape, getDeviceStyle(isImplementation), getShadedStyle(), width, height);
-	        } else if(category == ComponentCategory.MEMORY) {
-	        	ga = createMemoryGraphicsAlgorithm(shape, getMemoryStyle(isImplementation), width, height);
-	        } else {
-	        	// Create a generic shape
-	        	ga = createDummyGraphicsAlgorithm(shape, width, height);
-	        }
+	        ga = createComponentGraphicsAlgorithm(shape, category, isImplementation, width, height);
 		}
 
+		return ga;
+	}
+	
+	@Override
+	public GraphicsAlgorithm createComponentGraphicsAlgorithm(final Shape shape, final ComponentCategory category, final boolean isImplementation, final int width, final int height) {
+		final GraphicsAlgorithm ga;
+		if(category == ComponentCategory.SYSTEM) {
+        	ga = createSystemGraphicsAlgorithm(shape, getSystemStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.PROCESS) {
+        	ga = createProcessGraphicsAlgorithm(shape, getProcessStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.THREAD_GROUP) {
+        	ga = createThreadGroupGraphicsAlgorithm(shape, getThreadGroupStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.THREAD) {
+        	ga = createThreadGraphicsAlgorithm(shape, getThreadStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.SUBPROGRAM) {
+        	ga = createSubprogramGraphicsAlgorithm(shape, getSubprogramStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.SUBPROGRAM_GROUP) {
+        	ga = createSubprogramGroupGraphicsAlgorithm(shape, getSubprogramGroupStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.DATA) {
+        	ga = createDataGraphicsAlgorithm(shape, getDataStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.ABSTRACT) {
+        	ga = createAbstractGraphicsAlgorithm(shape, getAbstractStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.VIRTUAL_BUS) {
+        	ga = createBusGraphicsAlgorithm(shape, getVirtualBusStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.VIRTUAL_PROCESSOR) {
+        	ga = createProcessorGraphicsAlgorithm(shape, getVirtualProcessorStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.BUS) {
+        	ga = createBusGraphicsAlgorithm(shape, getBusStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.PROCESSOR) {
+        	ga = createProcessorGraphicsAlgorithm(shape, getProcessorStyle(isImplementation), width, height);
+        } else if(category == ComponentCategory.DEVICE) {     	
+        	ga = createDeviceGraphicsAlgorithm(shape, getDeviceStyle(isImplementation), getShadedStyle(), width, height);
+        } else if(category == ComponentCategory.MEMORY) {
+        	ga = createMemoryGraphicsAlgorithm(shape, getMemoryStyle(isImplementation), width, height);
+        } else {
+        	// Create a generic shape
+        	ga = createDummyGraphicsAlgorithm(shape, width, height);
+        }
+		
 		return ga;
 	}
 	
