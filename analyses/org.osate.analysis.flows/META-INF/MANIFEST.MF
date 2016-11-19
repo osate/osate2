@@ -9,6 +9,7 @@ Bundle-Localization: plugin
 Bundle-ClassPath: ., lib/jxl.jar
 Export-Package: org.osate.analysis.flows,
  org.osate.analysis.flows.actions,
+ org.osate.analysis.flows.model,
  org.osate.analysis.flows.preferences,
  org.osate.analysis.flows.reporting.exporters,
  org.osate.analysis.flows.reporting.model

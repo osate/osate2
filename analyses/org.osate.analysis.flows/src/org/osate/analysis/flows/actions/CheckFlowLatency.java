@@ -129,4 +129,23 @@ public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelRe
 		analyzeInstanceModel(monitor, this.errManager, root, som);
 		finalizeAnalysis();
 	}
+
+	/**
+	 * Invoke the analysis but return the report object rather than writing it to disk.
+	 * 
+	 * @param monitor The progress monitor to use
+	 * @param errManager [Optional] The error manager to use, or null if one should be created 
+	 * @param root The root system instance
+	 * @param som The mode to run the analysis in
+	 * @return A populated report.
+	 */
+	public LatencyReport invokeAndGetReport(IProgressMonitor monitor, AnalysisErrorReporterManager errManager, SystemInstance root,
+			SystemOperationMode som) {
+		this.errManager = errManager != null ? errManager
+				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
+		summaryReport = new StringBuffer();
+		initializeAnalysis(root);
+		analyzeInstanceModel(monitor, this.errManager, root, som);
+		return latreport;
+	}
 }
