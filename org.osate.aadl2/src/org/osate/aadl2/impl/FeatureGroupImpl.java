@@ -416,4 +416,23 @@ public class FeatureGroupImpl extends DirectedFeatureImpl implements FeatureGrou
 		}
 	}
 
+	/**
+	 * check for inverseof between two features. 
+	 * If they are feature groups then we check both the inverse of on the feature group and whether the feature group type is inverseof.
+	 * @param f1
+	 * @param f2
+	 * @return boolean
+	 */
+	public boolean isInverseOf(FeatureGroup fg2) {
+		FeatureGroupType fgt1 = this.getAllFeatureGroupType();
+		FeatureGroupType fgt2 = fg2.getAllFeatureGroupType();
+		if (fgt1.isInverseOf(fgt2) && (this.isInverse() == fg2.isInverse())) {
+			return true;
+		}
+		if (fgt1 == fgt2 && (this.isInverse() != fg2.isInverse())) {
+			return true;
+		}
+		return false;
+	}
+
 } // FeatureGroupImpl

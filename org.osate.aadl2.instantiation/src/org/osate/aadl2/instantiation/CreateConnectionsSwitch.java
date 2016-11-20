@@ -716,7 +716,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 										+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
 										+ ") feature group " + dstFi.getName() + " has no type");
 					}
-					if (upfgt != null && downfgt != null && AadlUtil.isInverseOf(upfg, downfg)
+					if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg)
 							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
@@ -890,7 +890,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					FeatureGroup downfg = ((FeatureGroup) dstFi.getFeature());
 					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
 					FeatureGroupType downfgt = downfg.getAllFeatureGroupType();
-					if (upfgt != null && downfgt != null && AadlUtil.isInverseOf(upfg, downfg)
+					if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg)
 							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
@@ -911,8 +911,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				FeatureGroupType downfgt = downfg.getFeatureGroupType();
 				FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature());
 				FeatureGroupType upfgt = upfg.getFeatureGroupType();
-				if (upfgt != null && downfgt != null && AadlUtil.isInverseOf(upfg, downfg)
-						&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
+				if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg) && !upfgt.getAllFeatures().isEmpty()
+						&& !downfgt.getAllFeatures().isEmpty()) {
 					srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
 				}
 			}

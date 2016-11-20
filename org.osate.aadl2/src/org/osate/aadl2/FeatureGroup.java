@@ -197,4 +197,13 @@ public interface FeatureGroup extends DirectedFeature, Context, FeatureGroupConn
 	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	int getIndexOf(Feature feature);
 
+	/**
+	 * check for inverseof between two features. 
+	 * If they are feature groups then we check both the inverse of on the feature group and whether the feature group type is inverseof.
+	 * @param f1
+	 * @param f2
+	 * @return boolean
+	 */
+	boolean isInverseOf(FeatureGroup fg2);
+
 } // FeatureGroup
