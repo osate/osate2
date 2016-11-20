@@ -103,17 +103,12 @@ public class GetProperties {
 
 	}
 
-
-	public static String getPlatform (final NamedElement ne)
-	{
+	public static String getPlatform(final NamedElement ne) {
 		try {
-			Property sn = lookupPropertyDefinition(ne, SEI._NAME,
-					SEI.PLATFORM);
-
+			Property sn = lookupPropertyDefinition(ne, SEI._NAME, SEI.PLATFORM);
 
 			PropertyAcc pacc = ne.getPropertyValue(sn);
-			if (pacc.getAssociations().size()>0)
-			{
+			if (pacc.getAssociations().size() > 0) {
 				ModalPropertyValue mdv = pacc.getAssociations().get(0).getOwnedValues().get(0);
 				PropertyExpression pe = mdv.getOwnedValue();
 				StringLiteral sl = (StringLiteral) pe;
@@ -126,16 +121,12 @@ public class GetProperties {
 		}
 	}
 
-	public static String getSourceName (final NamedElement ne)
-	{
+	public static String getSourceName(final NamedElement ne) {
 		try {
-			Property sn = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
-					ProgrammingProperties.SOURCE_NAME);
-
+			Property sn = lookupPropertyDefinition(ne, ProgrammingProperties._NAME, ProgrammingProperties.SOURCE_NAME);
 
 			PropertyAcc pacc = ne.getPropertyValue(sn);
-			if (pacc.getAssociations().size()>0)
-			{
+			if (pacc.getAssociations().size() > 0) {
 				ModalPropertyValue mdv = pacc.getAssociations().get(0).getOwnedValues().get(0);
 				PropertyExpression pe = mdv.getOwnedValue();
 //				System.out.println("pe=" + pe);
@@ -150,13 +141,11 @@ public class GetProperties {
 		}
 	}
 
-	public static List<String> getDataEnumerators (final NamedElement ne)
-	{
+	public static List<String> getDataEnumerators(final NamedElement ne) {
 		List<String> res;
 		res = new ArrayList<String>();
 		try {
-			Property st = lookupPropertyDefinition(ne, DataModel._NAME,
-					DataModel.Enumerators);
+			Property st = lookupPropertyDefinition(ne, DataModel._NAME, DataModel.Enumerators);
 
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(st);
 			for (PropertyExpression propertyExpression : propertyValues) {
@@ -171,13 +160,11 @@ public class GetProperties {
 		}
 	}
 
-	public static List<String> getSourceText (final NamedElement ne)
-	{
+	public static List<String> getSourceText(final NamedElement ne) {
 		List<String> res;
 		res = new ArrayList<String>();
 		try {
-			Property st = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
-					ProgrammingProperties.SOURCE_TEXT);
+			Property st = lookupPropertyDefinition(ne, ProgrammingProperties._NAME, ProgrammingProperties.SOURCE_TEXT);
 
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(st);
 			for (PropertyExpression propertyExpression : propertyValues) {
@@ -592,6 +579,21 @@ public class GetProperties {
 			PropertyExpression pv = ne.getSimplePropertyValue(referenceProcessor);
 			if (pv != null) {
 				return (ComponentClassifier) ((ClassifierValue) pv).getClassifier();
+			}
+		} catch (Exception e) {
+		}
+		return null;
+	}
+
+	public static ComponentInstance getReferenceTime(final ComponentInstance ci) {
+		Property referenceTime = lookupPropertyDefinition(ci, TimingProperties._NAME, TimingProperties.REFERENCE_TIME);
+		if (referenceTime == null) {
+			return null;
+		}
+		try {
+			PropertyExpression pv = ci.getSimplePropertyValue(referenceTime);
+			if (pv != null) {
+				return (ComponentInstance) ((InstanceReferenceValue) pv).getReferencedInstanceObject();
 			}
 		} catch (Exception e) {
 		}
@@ -1108,12 +1110,12 @@ public class GetProperties {
 		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
 	}
-	
+
 	public static double getExecutionTimeInMS(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.EXECUTION_TIME);
 		UnitLiteral milliSecond = findUnitLiteral(period, AadlProject.MS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, period, milliSecond, 0.0);
-	}	
+	}
 
 	public static double getPeriodinMicroSec(final NamedElement ne) {
 		Property period = lookupPropertyDefinition(ne, TimingProperties._NAME, TimingProperties.PERIOD);
@@ -1210,16 +1212,16 @@ public class GetProperties {
 			return null;
 		}
 	}
-	
+
 	public static List<String> getSourceLanguage(final NamedElement ne) {
 		try {
-			List<String> res = new ArrayList<String> ();
+			List<String> res = new ArrayList<String>();
 			Property sourceLanguage = lookupPropertyDefinition(ne, ProgrammingProperties._NAME,
 					ProgrammingProperties.SOURCE_LANGUAGE);
 			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(sourceLanguage);
 			for (PropertyExpression propertyExpression : propertyValues) {
 				String v = ((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue()).getName();
-				res.add (v);
+				res.add(v);
 			}
 			return res;
 		} catch (PropertyLookupException e) {
