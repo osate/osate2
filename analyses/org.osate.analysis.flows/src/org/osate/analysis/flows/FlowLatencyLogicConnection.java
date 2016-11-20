@@ -85,10 +85,18 @@ public class FlowLatencyLogicConnection {
 		// set synchronous if on same processor
 		if (srcHW != null && dstHW != null) {
 			// we have two hardware components. One or both could be a device
+			ComponentInstance srcTime = GetProperties.getReferenceTime(srcHW);
+			ComponentInstance dstTime = GetProperties.getReferenceTime(dstHW);
 			if (srcHW == dstHW) {
 				latencyContributor.setSynchronous();
+			} else if (srcTime != null && dstTime != null) {
+				if (srcTime == dstTime) {
+					latencyContributor.setSynchronous();
+				} else {
+					latencyContributor.setAsynchronous();
+				}
 			} else {
-				latencyContributor.setAsynchronous();
+				latencyContributor.setSyncUnknown();
 			}
 		} else {
 			// at least one end is not bound to a hardware component

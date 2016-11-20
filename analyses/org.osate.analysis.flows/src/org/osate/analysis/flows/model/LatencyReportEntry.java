@@ -211,6 +211,7 @@ public class LatencyReportEntry {
 						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 					}
 				} else {
+					// we have the asynchronous case
 					if (doMaximum) {
 						res = res + lc.getSamplingPeriod();
 						lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
