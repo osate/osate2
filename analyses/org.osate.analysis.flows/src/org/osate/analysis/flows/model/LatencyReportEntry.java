@@ -211,6 +211,7 @@ public class LatencyReportEntry {
 						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 					}
 				} else {
+					// we have the asynchronous case
 					if (doMaximum) {
 						res = res + lc.getSamplingPeriod();
 						lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
@@ -637,10 +638,10 @@ public class LatencyReportEntry {
 	 * Get the name associated with the related end-to-end flow
 	 * @return The related end-to-end flow's name
 	 */
-	public String getRelatedEndToEndFlowName(){
+	public String getRelatedEndToEndFlowName() {
 		return this.relatedEndToEndFlow.getName();
 	}
-	
+
 	private String getRelatedObjectLabel() {
 		return this.relatedEndToEndFlow.getComponentInstancePath() + ": ";
 	}
