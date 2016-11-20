@@ -62,8 +62,9 @@ public class FlowLatencyLogicConnection {
 		// now we deal with communication latency
 		LatencyContributor latencyContributor = new LatencyContributorConnection(connectionInstance);
 
-		processActualConnectionBindingsSampling(connectionInstance, relatedConnectionData, latencyContributor);
-		processActualConnectionBindingsTransmission(connectionInstance, relatedConnectionData, latencyContributor);
+		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
+		processActualConnectionBindingsTransmission(connectionInstance,
+				GetProperties.getDataSizeInBytes(relatedConnectionData), latencyContributor);
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
 		 * In this case we use the latency from the connection itself
@@ -157,26 +158,39 @@ public class FlowLatencyLogicConnection {
 		// TODO also compare major frame from schedule against major frame from property of processor
 	}
 
-	public static void processTransmissionTime(NamedElement boundBus, Classifier relatedConnectionData,
+	/**
+	 * add latency sub-contribution due to transmission by bus (or virtual bus)
+	 * works for an instance object and for a classifier.
+	 * We determine the transmission latency from the data size and transmission time property.
+	 * If not present we get it from the latency property.
+	 * If neither is present and we are a connection or virtual bus we do not add a latency.
+	 * If we are HW component, we add unknown latency.
+	 * targetMedium: a connection instance, or the binding target (virtual bus or bus)
+	 * transmissionDataSize: the size of data to be transmitted.
+	 * latencyContributor: the place where we add a subcontributor.
+	 */
+	public static void processTransmissionTime(NamedElement targetMedium, double datasizeinbyte,
 			LatencyContributor latencyContributor) {
-		/**
-		 * we add the bus/VB transmission time as a subcontributor.
-		 */
 
-		if (boundBus != null) {
+		if (targetMedium != null) {
 
-			LatencyContributor subContributor = new LatencyContributorComponent(boundBus);
-
-			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(boundBus);
-			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(boundBus);
-			subContributor.setExpectedMaximum(maxBusLatency);
-			subContributor.setExpectedMinimum(minBusLatency);
+			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(targetMedium);
+			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(targetMedium);
 			double maxBusTransferTime = 0.0;
 			double minBusTransferTime = 0.0;
-			if (relatedConnectionData != null) {
-				maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(boundBus, relatedConnectionData);
-				minBusTransferTime = GetProperties.getMinimumTimeToTransferData(boundBus, relatedConnectionData);
+			if (datasizeinbyte > 0) {
+				maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(targetMedium, datasizeinbyte);
+				minBusTransferTime = GetProperties.getMinimumTimeToTransferData(targetMedium, datasizeinbyte);
 			}
+			if (maxBusLatency == 0 && maxBusTransferTime == 0 && targetMedium instanceof ConnectionInstance
+					|| (targetMedium instanceof ComponentInstance && ((ComponentInstance) targetMedium).getCategory()
+							.equals(ComponentCategory.VIRTUAL_BUS))) {
+				// connection or protocol has nothing to contribute
+				return;
+			}
+			LatencyContributor subContributor = new LatencyContributorComponent(targetMedium);
+			subContributor.setExpectedMaximum(maxBusLatency);
+			subContributor.setExpectedMinimum(minBusLatency);
 			if (maxBusTransferTime > 0) {
 				subContributor.setMaximum(maxBusTransferTime);
 				subContributor.reportInfo("Using data transfer time");
@@ -199,69 +213,77 @@ public class FlowLatencyLogicConnection {
 			} else {
 				subContributor.setBestCaseMethod(LatencyContributorMethod.UNKNOWN);
 			}
-
 			latencyContributor.addSubContributor(subContributor);
 		}
 	}
 
-	public static void processActualConnectionBindingsTransmission(NamedElement connorvb,
-			Classifier relatedConnectionData, LatencyContributor latencyContributor) {
+	public static void processActualConnectionBindingsTransmission(InstanceObject connorvb, double transmissionDataSize,
+			LatencyContributor latencyContributor) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
-		if (connorvb instanceof InstanceObject) {
-			// look for actual binding if we have a connection instance or virtual bus instance
-			List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
-			for (ComponentInstance componentInstance : bindings) {
-				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-					willDoVirtualBuses = true;
-				} else {
-					willDoBuses = true;
-				}
+		// look for actual binding if we have a connection instance or virtual bus instance
+		List<ComponentInstance> bindings = GetProperties.getActualConnectionBinding((InstanceObject) connorvb);
+		if (bindings.isEmpty()) {
+			// add specified latency if present
+			processTransmissionTime(connorvb, 0, latencyContributor);
+			return;
+		}
+		for (ComponentInstance componentInstance : bindings) {
+			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+				willDoVirtualBuses = true;
+			} else {
+				willDoBuses = true;
 			}
+		}
+		if (!willDoVirtualBuses) {
 			/**
 			 * required virtual bus class indicates protocols the connection intends to use.
 			 * We also can have an actual connection binding to a virtual bus
 			 * If we have that we want to use that virtual bus overhead
 			 */
-			if (!willDoVirtualBuses) {
-				List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
-				if ((protocols != null) && (protocols.size() > 0)) {
-					if (willDoBuses) {
-						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
-					}
-					for (ComponentClassifier cc : protocols) {
-						processTransmissionTime(cc, relatedConnectionData, latencyContributor);
-						processActualConnectionBindingsTransmission(cc, relatedConnectionData, latencyContributor);
-					}
+			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
+			if ((protocols != null) && (protocols.size() > 0)) {
+				if (willDoBuses) {
+					latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 				}
+				transmissionDataSize = computeTotalDataSize(protocols, transmissionDataSize, latencyContributor);
 			}
 
-			for (ComponentInstance componentInstance : bindings) {
-				processTransmissionTime(componentInstance, relatedConnectionData, latencyContributor);
-				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-					processActualConnectionBindingsTransmission(componentInstance, relatedConnectionData,
-							latencyContributor);
-				}
-			}
 		}
 
-//		/**
-//		 * required virtual bus class indicates protocols the connection intends to use.
-//		 * We also can have an actual connection binding to a virtual bus
-//		 * If we have that we want to use that virtual bus overhead
-//		 */
-//		if (!didVirtualBuses) {
-//			List<ComponentClassifier> protocols = GetProperties.getRequiredVirtualBusClass(connorvb);
-//			if ((protocols != null) && (protocols.size() > 0)) {
-//				for (ComponentClassifier cc : protocols) {
-//					processTransmissionTime(cc, relatedConnectionData, latencyContributor);
-//					processActualConnectionBindingsTransmission(cc, relatedConnectionData, latencyContributor);
-//				}
-//			}
-//		}
+		for (ComponentInstance componentInstance : bindings) {
+			double wrappedDataSize = transmissionDataSize + GetProperties.getDataSizeInBytes(componentInstance);
+			processTransmissionTime(componentInstance, wrappedDataSize, latencyContributor);
+			if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
+				processActualConnectionBindingsTransmission(componentInstance, wrappedDataSize, latencyContributor);
+			}
+		}
 	}
 
-	public static void processActualConnectionBindingsSampling(NamedElement connorvb, Classifier relatedConnectionData,
+	/**
+	 * calculate the protocol data size contributions.
+	 * Do so for any RequiredVirtualBusClass of each protocol recursively.
+	 * @param protocols
+	 * @return
+	 */
+	public static double computeTotalDataSize(List<ComponentClassifier> protocols, double transmissionDataSize,
+			LatencyContributor latencyContributor) {
+		double total = transmissionDataSize;
+		for (ComponentClassifier cc : protocols) {
+			double contribution = GetProperties.getDataSizeInBytes(cc);
+			double wrapped = transmissionDataSize + contribution;
+			processTransmissionTime(cc, wrapped, latencyContributor);
+			total = total + contribution;
+			List<ComponentClassifier> reqprotocols = GetProperties.getRequiredVirtualBusClass(cc);
+			if (!reqprotocols.isEmpty()) {
+				total = total + computeTotalDataSize(reqprotocols, wrapped, latencyContributor);
+			}
+		}
+		return total;
+
+	}
+
+	public static void processActualConnectionBindingsSampling(NamedElement connorvb,
 			LatencyContributor latencyContributor) {
 		boolean willDoVirtualBuses = false;
 		boolean willDoBuses = false;
@@ -287,25 +309,23 @@ public class FlowLatencyLogicConnection {
 						latencyContributor.reportInfo("Adding required virtual bus contributions to bound bus");
 					}
 					for (ComponentClassifier cc : protocols) {
-						processSamplingTime(cc, relatedConnectionData, latencyContributor);
-						processActualConnectionBindingsSampling(cc, relatedConnectionData, latencyContributor);
+						processSamplingTime(cc, latencyContributor);
+						processActualConnectionBindingsSampling(cc, latencyContributor);
 					}
 				}
 			}
 
 			for (ComponentInstance componentInstance : bindings) {
-				processSamplingTime(componentInstance, relatedConnectionData, latencyContributor);
+				processSamplingTime(componentInstance, latencyContributor);
 				if (componentInstance.getCategory().equals(ComponentCategory.VIRTUAL_BUS)) {
-					processActualConnectionBindingsSampling(componentInstance, relatedConnectionData,
-							latencyContributor);
+					processActualConnectionBindingsSampling(componentInstance, latencyContributor);
 				}
 			}
 		}
 
 	}
 
-	public static void processSamplingTime(NamedElement boundBus, Classifier relatedConnectionData,
-			LatencyContributor latencyContributor) {
+	public static void processSamplingTime(NamedElement boundBus, LatencyContributor latencyContributor) {
 		/**
 		 * we add the bus/VB sampling time as a subcontributor.
 		 */
