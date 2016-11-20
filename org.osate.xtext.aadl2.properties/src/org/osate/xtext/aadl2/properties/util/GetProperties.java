@@ -720,32 +720,41 @@ public class GetProperties {
 		return 0;
 	}
 
+	public static double getMaximumTimeToTransferData(final NamedElement bus, double datasizeinbyte) {
+		double speed = getMaximumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
+
+		double acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+
+		return dataTransferTime + acquisitionTime;
+	}
+
 	public static double getMaximumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
-		double dataSize;
-		double speed;
-		double dataTransferTime;
-		double acquisitionTime;
+		double datasizeinbyte = getDataSizeInBytes(dataClassifier);
+		double speed = getMaximumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
 
-		dataSize = getDataSizeInBytes(dataClassifier);
-		speed = getMaximumTransmissionTimePerByte(bus);
-		dataTransferTime = speed * dataSize;
+		double acquisitionTime = getMaximumTransmissionTimeFixed(bus);
 
-		acquisitionTime = getMaximumTransmissionTimeFixed(bus);
+		return dataTransferTime + acquisitionTime;
+	}
+
+	public static double getMinimumTimeToTransferData(final NamedElement bus, double datasizeinbyte) {
+
+		double speed = getMinimumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
+
+		double acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
 	}
 
 	public static double getMinimumTimeToTransferData(final NamedElement bus, Classifier dataClassifier) {
-		double dataSize;
-		double speed;
-		double dataTransferTime;
-		double acquisitionTime;
+		double datasizeinbyte = getDataSizeInBytes(dataClassifier);
+		double speed = getMinimumTransmissionTimePerByte(bus);
+		double dataTransferTime = speed * datasizeinbyte;
 
-		dataSize = getDataSizeInBytes(dataClassifier);
-		speed = getMinimumTransmissionTimePerByte(bus);
-		dataTransferTime = speed * dataSize;
-
-		acquisitionTime = getMinimumTransmissionTimeFixed(bus);
+		double acquisitionTime = getMinimumTransmissionTimeFixed(bus);
 
 		return dataTransferTime + acquisitionTime;
 	}
