@@ -19,14 +19,16 @@ in the instance model and the result are recorded in a report.
 
 An end-to-end flow is a path through an alternating sequence of
 components with flow specifications and of connections. Users can
-architecture models with various levels of hierarchical nesting with
+define architecture models with various levels of hierarchical nesting with
 latency property values on component flow specifications and
-connections. Users can add periodic sampling characteristics, add queue
+connections. 
+
+Users can add periodic sampling characteristics, add queue
 size properties, size of data types communicated through ports,
 execution times and deadlines for threads and devices, partitions with a
 major frame period and detailed partition schedules, protocols and
 networks with transmission latency based on a latency property value or
-based on the size of data being transmitted.
+based on the size of data being transmitted. If those are present their contributions are added instead of a latency value of the flow specification.
 
 The latency analysis takes into account the following latency
 contributions:
@@ -41,7 +43,7 @@ contributions:
     connection is bound to.
 
 **Note**: An end to end flow may include components without a flow
-specification.
+specification. In this case the actual component latency contribution, if the appropriate properties are set, is added. 
 
 The Preference Settings
 -----------------------
@@ -53,12 +55,7 @@ can be found under the menu *Window/Preferences* then *OSATE
 Preferences/Flow Analysis*. The latency analysis supports the following
 settings:
 
--   **Treat as synchronous or asynchronous system**. Used to assess the
-    latency of component not inherently synchronous or asynchronous as
-    one or the other. Different hardware components are
-    considered asynchronous. Software components bound to the same
-    processor are considered synchronous. This is relevant when sampled
-    processing occurs.
+-   **Treat as synchronous or asynchronous system**. Used to assess the latency of connections between components not inherently synchronous or explicitly determined by the *Reference_Time* property as synchronous (same reference value) or asynchronous (different reference value).  Software components or partitions (virtual processors) bound to the same processor are considered inherently synchronous. This is relevant when sampled processing occurs.
     -   **Asynchronous system (AS) \[default\]**: The components are not
         time synchronized, i.e., dispatches may have time shift.
     -   **Synchronous system (SS)**: The components are time
