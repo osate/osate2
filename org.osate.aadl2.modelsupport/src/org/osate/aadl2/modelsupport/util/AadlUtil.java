@@ -2394,28 +2394,4 @@ public final class AadlUtil {
 				&& (conn.getAllDestinationContext() instanceof Subcomponent);
 	}
 
-	/**
-	 * check for inverseof between two features. 
-	 * If they are feature groups then we check both the inverse of on the feature group and whether the feature group type is inverseof.
-	 * @param f1
-	 * @param f2
-	 * @return boolean
-	 */
-	public static boolean isInverseOf(Feature f1, Feature f2) {
-		if (f1 instanceof FeatureGroup && f2 instanceof FeatureGroup) {
-			FeatureGroup fg1 = (FeatureGroup) f1;
-			FeatureGroup fg2 = (FeatureGroup) f2;
-			FeatureGroupType fgt1 = fg1.getAllFeatureGroupType();
-			FeatureGroupType fgt2 = fg2.getAllFeatureGroupType();
-			if (fgt1.isInverseOf(fgt2) && (fg1.isInverse() == fg2.isInverse())) {
-				return true;
-			}
-			if (fgt1 == fgt2 && (fg1.isInverse() != fg2.isInverse())) {
-				return true;
-			}
-
-		}
-		return false;
-	}
-
 }
