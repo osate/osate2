@@ -64,7 +64,8 @@ public class FlowLatencyLogicConnection {
 
 		processActualConnectionBindingsSampling(connectionInstance, latencyContributor);
 		processActualConnectionBindingsTransmission(connectionInstance,
-				GetProperties.getDataSizeInBytes(relatedConnectionData), latencyContributor);
+				relatedConnectionData == null ? 0.0 : GetProperties.getDataSizeInBytes(relatedConnectionData),
+				latencyContributor);
 		/**
 		 * handle the case when there is no binding to virtual bus or bus.
 		 * In this case we use the latency from the connection itself
