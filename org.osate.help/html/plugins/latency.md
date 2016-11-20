@@ -404,16 +404,20 @@ value. If the virtual bus or connection does not have a specified
 *Required\_Virtual\_Bus\_Class* property values are interpreted as
 latency contributors.
 
-The *Latency* property value of these components becomes the latency
-contribution.
+A bus or virtual bus can have a *Transmission_Time* property value. It specifies a fixed time and a per byte time latency contribution. If this property is present and the sending port has a data type with a *Data_Size* property value, then the communication latency contribution is calculated from these values. 
+
 
 A bus or virtual bus can have a *Transmission\_Time* property value. It
 specifies a fixed time and a per byte time latency contribution. If this
 property is present and the sending port has a data type with a
 *Data\_Size* property value, then the communication latency contribution
-is calculated from these values instead using the *Latency* property
-value associated with the virtual bus, bus, or other component the
-connection is bound to.
+is calculated from these values.
+
+A virtual bus or bus may add protocol wrapper data to be transmitted, which is specified by a *Data_Size* property on the virtual bus or bus. This will be added to the size of the application data.
+
+If *Transmission_Time* is not present, the *Latency* property value associated with the virtual bus, bus, or other component the connection is bound to, is used.
+
+If the *Latency property* value is absent then no latency contribution is recorded. 
 
 More than one protocol may be involved in the connection communication,
 e.g., one protocol may use a second protocol to perform its transfer.
@@ -430,6 +434,10 @@ endpoints.
 **Note**: If the connection has no connection binding or required
 virtual bus, or those contributions are zero, then the *Latency*
 property value attached to a connection is used as latency contribution.
+
+**Note**: The *Transmission_Time* property on a hardware component indicates the actual transfer time. For a virtual bus the transmission time represents any computational latency by the protocol, which may be dependent on the size of the data being processed.
+
+**Note**: The protocol overhead can be captured by the fixed portion of the *Transmission_Time* property of a bus. Alternatively, it can be explicitly specified in a virtual bus (protocol) with Data_Size to account for the extra transmission cost. In addition, computational overhead of the protocol can be reflected as described above. 
 
 Periodically Sampling Buses and protocols (virtual buses)
 ---------------------------------------------------------
