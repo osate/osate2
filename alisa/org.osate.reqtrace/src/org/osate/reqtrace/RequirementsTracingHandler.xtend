@@ -43,13 +43,17 @@ import org.eclipse.birt.report.engine.api.RenderOption
 import org.eclipse.core.commands.AbstractHandler
 import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
+import org.eclipse.core.filesystem.EFS
 import org.eclipse.core.resources.IFile
+import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.window.Window
+import org.eclipse.ui.ide.IDE
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
+import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveWorkbenchWindow
 import static extension org.eclipse.ui.handlers.HandlerUtil.getCurrentSelection
 
 class RequirementsTracingHandler extends AbstractHandler {
@@ -78,8 +82,13 @@ class RequirementsTracingHandler extends AbstractHandler {
 				val factory = Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY) as IReportEngineFactory
 				val config = new EngineConfig => [appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.class.classLoader)]
 				factory.createReportEngine(config) => [
-					val report = openReportDesign(new URL('''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign''').openConnection.inputStream)
+					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/reqtrace.rptdesign'''
+					val report = openReportDesign(new URL(url).openConnection.inputStream)
 					createRunAndRenderTask(report) => [
+						setParameterValue("ProjectName", selectionPath.segments.head)
+						setParameterValue("Directories", selectionPath.removeFirstSegments(1).removeLastSegments(1).toString)
+						setParameterValue("FileName", selectionPath.lastSegment)
+						
 						setParameterValue("AADLFile", selectionPath.toString)
 						setParameterValue("FileType", fileType)
 						setParameterValue("ReportType", dialog.reportType)
@@ -93,6 +102,12 @@ class RequirementsTracingHandler extends AbstractHandler {
 					]
 					destroy
 				]
+				if (!canceled && dialog.openFileAutomatically) {
+					val fileStore = EFS.localFileSystem.getStore(new Path(dialog.outputFile))
+					event.activeShell.display.asyncExec[
+						IDE.openEditorOnFileStore(event.activeWorkbenchWindow.activePage, fileStore)
+					]
+				}
 				if (canceled) {
 					Status.CANCEL_STATUS
 				} else {

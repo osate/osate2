@@ -182,7 +182,7 @@ class AssureProcessor implements IAssureProcessor {
 	def dispatch void process(VerificationActivityResult vaResult) {
 
 		if (vaResult.targetReference.verificationActivity.evaluateVerificationActivityFilter(filter) &&
-			vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)) {
+				vaResult.targetReference.verificationActivity.evaluateVerificationMethodFilter(filter)) {
 			startSubTask(vaResult)
 			if (vaResult.executionState != VerificationExecutionState.TODO) {
 				doneSubTask(vaResult)
@@ -378,6 +378,10 @@ class AssureProcessor implements IAssureProcessor {
 								setToError(verificationResult, 'No computed value for ' + variable.name)
 							}
 						]
+						if (verificationResult.success) {
+							// execute value predicate
+							
+						}
 					}
 					verificationResult.eResource.save(null)
 					updateProgress(verificationResult)

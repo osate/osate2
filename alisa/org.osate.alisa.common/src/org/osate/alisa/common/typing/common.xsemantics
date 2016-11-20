@@ -55,7 +55,6 @@ import org.osate.alisa.common.common.ModelRef
 import org.osate.alisa.common.common.PropertyRef
 import org.osate.alisa.common.common.TypeRef
 import org.osate.alisa.common.common.ValDeclaration
-import org.osate.alisa.common.util.CommonUtilExtension
 import org.osate.alisa.common.validation.AbstractCommonValidator
 
 system org.osate.alisa.common.typing.CommonTypeSystem
@@ -570,7 +569,7 @@ from {
 			
 		}
 		default: {
-			if (CommonUtilExtension.eInstance.methodExists(call.function)!=null){
+			if (InterpreterUtil.instance.methodExists(call.function)!=null){
 			fail
 				error 'unsupported function: ' + call.function
 				source call

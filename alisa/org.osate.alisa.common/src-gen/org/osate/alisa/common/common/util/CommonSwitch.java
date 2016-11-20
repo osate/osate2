@@ -162,10 +162,12 @@ public class CommonSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
-      case CommonPackage.SHOW_VALUE:
+      case CommonPackage.AUNIT_EXPRESSION:
       {
-        ShowValue showValue = (ShowValue)theEObject;
-        T result = caseShowValue(showValue);
+        AUnitExpression aUnitExpression = (AUnitExpression)theEObject;
+        T result = caseAUnitExpression(aUnitExpression);
+        if (result == null) result = casePropertyExpression(aUnitExpression);
+        if (result == null) result = caseElement(aUnitExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -250,15 +252,6 @@ public class CommonSwitch<T> extends Switch<T>
         T result = caseAUnaryOperation(aUnaryOperation);
         if (result == null) result = casePropertyExpression(aUnaryOperation);
         if (result == null) result = caseElement(aUnaryOperation);
-        if (result == null) result = defaultCase(theEObject);
-        return result;
-      }
-      case CommonPackage.AUNIT_EXPRESSION:
-      {
-        AUnitExpression aUnitExpression = (AUnitExpression)theEObject;
-        T result = caseAUnitExpression(aUnitExpression);
-        if (result == null) result = casePropertyExpression(aUnitExpression);
-        if (result == null) result = caseElement(aUnitExpression);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -438,17 +431,17 @@ public class CommonSwitch<T> extends Switch<T>
   }
 
   /**
-   * Returns the result of interpreting the object as an instance of '<em>Show Value</em>'.
+   * Returns the result of interpreting the object as an instance of '<em>AUnit Expression</em>'.
    * <!-- begin-user-doc -->
    * This implementation returns null;
    * returning a non-null result will terminate the switch.
    * <!-- end-user-doc -->
    * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>Show Value</em>'.
+   * @return the result of interpreting the object as an instance of '<em>AUnit Expression</em>'.
    * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
    * @generated
    */
-  public T caseShowValue(ShowValue object)
+  public T caseAUnitExpression(AUnitExpression object)
   {
     return null;
   }
@@ -593,22 +586,6 @@ public class CommonSwitch<T> extends Switch<T>
    * @generated
    */
   public T caseAUnaryOperation(AUnaryOperation object)
-  {
-    return null;
-  }
-
-  /**
-   * Returns the result of interpreting the object as an instance of '<em>AUnit Expression</em>'.
-   * <!-- begin-user-doc -->
-   * This implementation returns null;
-   * returning a non-null result will terminate the switch.
-   * <!-- end-user-doc -->
-   * @param object the target of the switch.
-   * @return the result of interpreting the object as an instance of '<em>AUnit Expression</em>'.
-   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
-   * @generated
-   */
-  public T caseAUnitExpression(AUnitExpression object)
   {
     return null;
   }

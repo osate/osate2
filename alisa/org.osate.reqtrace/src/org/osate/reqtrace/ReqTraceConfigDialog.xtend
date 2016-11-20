@@ -35,6 +35,7 @@
 package org.osate.reqtrace
 
 import java.io.File
+import java.util.ArrayList
 import java.util.List
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.dialogs.TitleAreaDialog
@@ -58,21 +59,37 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 	val package static String R2G = "requirement2goals"
 	val static OUTPUT_FILE_SETTING = "OUTPUT_FILE_SETTING"
 	val static REPORT_TYPE_SETTING = "REPORT_TYPE_SETTING"
+	val static OPEN_FILE_SETTING = "OPEN_FILE_SETTING"
 	
 	val List<String> formats
+	val List<String> formatDescriptions
 	val String fileType
 	Button g2sButton
 	Button r2gButton
 	Text outputFileText
+	Button openFileButton
 	
 	@Accessors(PACKAGE_GETTER)
 	String outputFile
 	@Accessors(PACKAGE_GETTER)
 	String reportType
+	@Accessors(PACKAGE_GETTER)
+	boolean openFileAutomatically
 	
 	new(Shell parent, List<String> formats, String fileType) {
 		super(parent)
 		this.formats = formats
+		formatDescriptions = new ArrayList(formats.map[switch it {
+			case "docx": "Word Document"
+			case "pptx": "PowerPoint Presentation"
+			case "xlsx": "Excel Workbook"
+			case "odt": "ODF Text Document"
+			case "odp": "ODF Presentation"
+			case "ods": "ODF Spreadsheet"
+			case "html": "Web Page"
+			case "pdf": "PDF"
+			default: it
+		}])
 		this.fileType = fileType
 	}
 	
@@ -155,6 +172,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 						override widgetSelected(SelectionEvent e) {
 							val dialog = new FileDialog(shell, SWT.SAVE.bitwiseOr(SWT.SHEET))
 							dialog.filterExtensions = formats.map["*." + it]
+							dialog.filterNames = formatDescriptions
 							dialog.text = "Output File"
 							val selectedFileName = dialog.open
 							if (selectedFileName != null) {
@@ -164,6 +182,12 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 						}
 					})
 				]
+			]
+			openFileButton = new Button(it, SWT.CHECK) => [
+				text = "Open Generated Report"
+				layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false)
+				val preference = Activator.^default.dialogSettings.get(OPEN_FILE_SETTING)
+				selection = preference == null || Boolean.parseBoolean(preference)
 			]
 		]
 	}
@@ -175,9 +199,11 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 		} else if (r2gButton.selection) {
 			R2G
 		}
+		openFileAutomatically = openFileButton.selection
 		Activator.^default.dialogSettings => [
 			put(OUTPUT_FILE_SETTING, outputFile)
 			put(REPORT_TYPE_SETTING, reportType)
+			put(OPEN_FILE_SETTING, openFileAutomatically)
 		]
 		super.okPressed
 	}

@@ -225,7 +225,7 @@ rule InterpretUnitExpression
 from {
 	G |- unit.expression ~> var PropertyValue propval
 	number = (propval as NumberValue)
-	
+	val unit_add = !unit.drop && !unit.convert && unit.unit != null
 	if (unit.drop || unit.convert) {
 		switch (number) {
 			IntegerLiteral:
@@ -239,7 +239,7 @@ from {
 	}	
 	if (unit.drop) {
 		number.unit = null
-	} else {
+	} else if (unit.convert || unit_add) {
 		number.unit = unit.unit
 	}
 }

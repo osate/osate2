@@ -27,9 +27,9 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getText <em>Text</em>}</li>
- *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#isThisTarget <em>This Target</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getImage <em>Image</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}</li>
  * </ul>
  *
  * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement()
@@ -63,32 +63,6 @@ public interface DescriptionElement extends EObject
    * @generated
    */
   void setText(String value);
-
-  /**
-   * Returns the value of the '<em><b>Show Value</b></em>' containment reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Show Value</em>' containment reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Show Value</em>' containment reference.
-   * @see #setShowValue(ShowValue)
-   * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement_ShowValue()
-   * @model containment="true"
-   * @generated
-   */
-  ShowValue getShowValue();
-
-  /**
-   * Sets the value of the '{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}' containment reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Show Value</em>' containment reference.
-   * @see #getShowValue()
-   * @generated
-   */
-  void setShowValue(ShowValue value);
 
   /**
    * Returns the value of the '<em><b>This Target</b></em>' attribute.
@@ -141,5 +115,31 @@ public interface DescriptionElement extends EObject
    * @generated
    */
   void setImage(ImageReference value);
+
+  /**
+   * Returns the value of the '<em><b>Show Value</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Show Value</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Show Value</em>' containment reference.
+   * @see #setShowValue(AUnitExpression)
+   * @see org.osate.alisa.common.common.CommonPackage#getDescriptionElement_ShowValue()
+   * @model containment="true"
+   * @generated
+   */
+  AUnitExpression getShowValue();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.DescriptionElement#getShowValue <em>Show Value</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Show Value</em>' containment reference.
+   * @see #getShowValue()
+   * @generated
+   */
+  void setShowValue(AUnitExpression value);
 
 } // DescriptionElement
