@@ -71,10 +71,9 @@ class RequirementsTracingHandler extends AbstractHandler {
 		val selectionPath = ((event.currentSelection as IStructuredSelection).firstElement as IFile).fullPath
 		val fileType = switch selectionPath.fileExtension {
 			case "aadl": "package"
-			case "reqspec": "reqspec"
-			case "goals": "goals"
 			case "aaxl2",
 			case "aail2": "instance"
+			default: selectionPath.fileExtension
 		}
 		val dialog = new ReqTraceConfigDialog(event.activeShell, EMITTERS.keySet.sort, fileType)
 		if (dialog.open == Window.OK) {
