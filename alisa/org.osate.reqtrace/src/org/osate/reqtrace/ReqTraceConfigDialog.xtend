@@ -37,6 +37,7 @@ package org.osate.reqtrace
 import java.io.File
 import java.util.ArrayList
 import java.util.List
+import org.eclipse.jface.dialogs.DialogSettings
 import org.eclipse.jface.dialogs.IDialogConstants
 import org.eclipse.jface.dialogs.TitleAreaDialog
 import org.eclipse.swt.SWT
@@ -54,6 +55,8 @@ import org.eclipse.swt.widgets.Shell
 import org.eclipse.swt.widgets.Text
 import org.eclipse.xtend.lib.annotations.Accessors
 
+import static org.osate.reqtrace.ReqTraceConfigDialog.*
+
 package class ReqTraceConfigDialog extends TitleAreaDialog {
 	val package static String G2S = "goal2stakeholders"
 	val package static String R2G = "requirement2goals"
@@ -61,6 +64,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 	val static REPORT_TYPE_SETTING = "REPORT_TYPE_SETTING"
 	val static OPEN_FILE_SETTING = "OPEN_FILE_SETTING"
 	
+	val dialogSettings = DialogSettings.getOrCreateSection(Activator.^default.dialogSettings, class.name)
 	val List<String> formats
 	val List<String> formatDescriptions
 	val String fileType
@@ -106,7 +110,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 	}
 	
 	override protected getDialogBoundsSettings() {
-		Activator.^default.dialogSettings
+		dialogSettings
 	}
 	
 	override protected configureShell(Shell newShell) {
@@ -146,7 +150,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 						g2sButton.enabled = false
 						r2gButton.enabled = false
 					}
-					default: switch Activator.^default.dialogSettings.get(REPORT_TYPE_SETTING) {
+					default: switch dialogSettings.get(REPORT_TYPE_SETTING) {
 						case null,
 						case G2S: g2sButton.selection = true
 						case R2G: r2gButton.selection = true
@@ -161,7 +165,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 					layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false)
 				]
 				outputFileText = new Text(it, SWT.SINGLE.bitwiseOr(SWT.LEFT).bitwiseOr(SWT.BORDER)) => [
-					text = Activator.^default.dialogSettings.get(OUTPUT_FILE_SETTING) ?: ""
+					text = dialogSettings.get(OUTPUT_FILE_SETTING) ?: ""
 					layoutData = new GridData(SWT.FILL, SWT.CENTER, true, false)
 					addModifyListener[validateOutputFile]
 				]
@@ -186,7 +190,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 			openFileButton = new Button(it, SWT.CHECK) => [
 				text = "Open Generated Report"
 				layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false)
-				val preference = Activator.^default.dialogSettings.get(OPEN_FILE_SETTING)
+				val preference = dialogSettings.get(OPEN_FILE_SETTING)
 				selection = preference == null || Boolean.parseBoolean(preference)
 			]
 		]
@@ -200,11 +204,9 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 			R2G
 		}
 		openFileAutomatically = openFileButton.selection
-		Activator.^default.dialogSettings => [
-			put(OUTPUT_FILE_SETTING, outputFile)
-			put(REPORT_TYPE_SETTING, reportType)
-			put(OPEN_FILE_SETTING, openFileAutomatically)
-		]
+		dialogSettings.put(OUTPUT_FILE_SETTING, outputFile)
+		dialogSettings.put(REPORT_TYPE_SETTING, reportType)
+		dialogSettings.put(OPEN_FILE_SETTING, openFileAutomatically)
 		super.okPressed
 	}
 	
