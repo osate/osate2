@@ -7,6 +7,10 @@
             id="org.osate.reqtrace.requirementsTracing"
             name="Tracability">
       </command>
+      <command
+            id="org.osate.reqtrace.requirementsReport"
+            name="Requirements Report">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -17,6 +21,10 @@
                label="Report Generation">
             <command
                   commandId="org.osate.reqtrace.requirementsTracing"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.osate.reqtrace.requirementsReport"
                   style="push">
             </command>
          </menu>
@@ -67,6 +75,34 @@
                   </and>
                </with>
             </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.reqtrace.RequirementsReportHandler"
+            commandId="org.osate.reqtrace.requirementsReport">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <or>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="reqspec">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="reqdoc">
+                        </test>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
          </enabledWhen>
       </handler>
    </extension>
