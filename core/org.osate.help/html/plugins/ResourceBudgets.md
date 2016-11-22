@@ -5,7 +5,7 @@ The application system in terms of major subsystems that may or may not be execu
 
 The SEI has provided a plug-in that supports resource budgeting and resource allocation analysis for computing resources, i.e., processors, memory, and buses (networks).
 * Processor: a processor has a capacity in terms of MIPS. This is specified with the predeclared standard property **Processor_Capacity** (or the property **SEI::MIPSCapacity**). It takes real values with units of *KIPS, MIPS, GIPS*.  Application components specify their processor resource demand through the property **SEI::MIPSBudget**.  Systems, processes, thread groups, threads, and abstract components can have a MIPS budget.
-> Note: A virtual processor is both a MIPS provider and a MIPS consumer. We use the **SEI::MIPSBudget** property to indicate the MIPS demand it has on the processor it is allocated to and the MIPS capacity it makes available to application componments bound to it.
+> Note: A virtual processor is both a MIPS provider and a MIPS consumer. We use the **SEI::MIPSBudget** property to indicate the MIPS demand it has on the processor it is allocated to and the MIPS capacity it makes available to application components bound to it.
 
 * Memory: we recognize both RAM and ROM as memory.  We have introduced the properties **SEI::RAMCapacity**, **SEI::ROMCapacity**, **SEI::RAMBudget**, and **SEI::ROMBudget** for that purpose.  These properties take real values using *Size_Units* as unit (*B, KB, MB, GB*). The capacity is associated with memory components.  Typically, a memory component will have either RAM capacity or ROM capacity.  RAM and ROM budgets can be associated with application components such as system, process, thread group, thread.
 
@@ -16,7 +16,7 @@ The first resource budget analysis does not assume allocation of resources. It s
 
 The **Resource Budget Analysis** is invoked on an instance model through a toolbar command, or through the *Analysis* menu and the *Architecture* submenu, or through the green spreadsheet icon in the toolbar.
 
-The results are reported in teh *reports/ResourceBudgets* folder. The analysis reports on how many components that are expected to have capacity or budget actually have the appropriate property value assigned.
+The results are reported in the *reports/ResourceBudgets* folder. The analysis reports on how many components that are expected to have capacity or budget actually have the appropriate property value assigned.
 
 As the application architecture of a system is refined we may have components with resource budgets that contain subcomponents with resource budgets. In this case the resource budget analysis tool will add up the budgets of the subcomponents and compare them to the budget of the enclosing component. It will use this number as the resource demand of the enclosing component to total up the demand. It will also compare this number against the specified budget of the enclosing component and report any difference (under- and over-allocation of the budget to subcomponents).
 
@@ -30,7 +30,7 @@ Both the processor allocation and memory allocation analysis are invoked through
 ###Processor Allocation Analysis###
 For each *processor* and *virtual processor* instance the analysis identifies the components that are bound to it. 
 For each of these bound components the analysis examines the budget specification (**SEI::MIPSBudget**). In addition, if specified as properties of threads, the period (**Period**) and execution time (**Compute_Execution_Time**) are converted into MIPS and compared to the budget.  
-> Note: For conversion to MIPS execution time is multiplied by the number of times a thread can execute per second (1 sec / period in sec). This time is then converted into MIPS by multiplying it with the *Processor_Capacity* or *SEI::MIPSCapacity* of the processor the thread is bound to. If more than one processor type with different MIPS capacity exists, then the thread may have a **Reference_Proessor** property to indicate the processor used to specify the execution time. In this case the time is adjusted to the allocated processor according to the MIPS ratio between the reference and the allocted processor.
+> Note: For conversion to MIPS execution time is multiplied by the number of times a thread can execute per second (1 sec / period in sec). This time is then converted into MIPS by multiplying it with the *Processor_Capacity* or *SEI::MIPSCapacity* of the processor the thread is bound to. If more than one processor type with different MIPS capacity exists, then the thread may have a **Reference_Proessor** property to indicate the processor used to specify the execution time. In this case the time is adjusted to the allocated processor according to the MIPS ratio between the reference and the allocated processor.
 
 The actual values, or the budget if the actual does not exist, are totaled up and compared against the capacity of the processor to which the components are bound.
 
@@ -45,7 +45,7 @@ For each of the memory components with a RAM or ROM capacity, we sum up the RAM 
 > In case of nested application components with RAMActual or ROMActual property values, the actual value accounts for memory demands of that component only. In other words, contrary to the memory budget figures, the actual value does not represent a cumulative memory demand.
 
 ##Analyze Bound Bus Load##
-This analysis takes each bu instance and compares its bandwidth cpacity against the demands placed on the bus by connections that are bound directly to the bus, or indirectly via virtual bus bindings. The binding is exspressed by the **Actual_Connection_Binding** property.
+This analysis takes each bus instance and compares its bandwidth capacity against the demands placed on the bus by connections that are bound directly to the bus, or indirectly via virtual bus bindings. The binding is expressed by the **Actual_Connection_Binding** property.
 
 Both the processor allocation and memory allocation analysis are invoked through the **Analyze Bus Load** command, available through the toolbar or through the *Analysis* menu and the *Architecture* submenu. The results are reported in the *reports/Bandwidth* folder and as Eclipse Problem Markers that can be examined through the *Problems* view.
 
@@ -66,7 +66,5 @@ One example is available on [Github/Osate](https://github.com/osate/examples) an
 
 A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the aircraft.
 The project AircraftSpecified represents *Tier1*, i.e., a single layer. AircraftIntegrated represents variants of *Tier2*, which includes the Integrated Modular Avionics (IMA) at one level of detail. For resource budget analysis we can instantiate the IMA, i.e., the **FlightGuidanceImplementation**. 
-> Note: The example also includes a requirement and verificaiotn plan specification for automated incremental life cycle assurance under hte ALISA plug-ins (see ALISA help for details).
-icraft.
-The project AircraftSpecified represents *Tier1*, i.e., a single layer. AircraftIntegrated represents variants of *Tier2*, which includes the Integrated Modular Avionics (IMA) at one level of detail. For resource budget analysis we can instantiate the IMA, i.e., the **FlightGuidanceImplementation**. 
-> Note: The example also includes a requirement and verificaiotn plan specification for automated incremental life cycle assurance under hte ALISA plug-ins (see ALISA help for details).
+> Note: The example also includes a requirement and verification plan specification for automated incremental life cycle assurance under the ALISA plug-ins (see ALISA help for details).
+
