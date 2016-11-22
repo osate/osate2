@@ -58,3 +58,15 @@ The bandwidth demand is determined as follows:
 > Note: If the bus has a **Broadcast_Protocol** property value of **true**, then the transfer of data from the same source port to multiple destination ports is counted only once.
 
 > Note: If a connection does not have an Actual_Connection_Binding property, the tool tries to infer a connection binding from the processor bindings of the connection source and destination by looking for a bus that connects the hardware components of the source and destination, i.e., the hardware component the software component is bound to, or the device that is connected.
+> ##Examples##
+One example is available on [Github/Osate](https://github.com/osate/examples) and is called *ResourceBudgets*. You instantiate the top level system called *MySystem* as a tier0 model or as a tier2 model. It has a single transmission system.
+
+A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the ar> ##Examples##
+One example is available on [Github/Osate](https://github.com/osate/examples) and is called *ResourceBudgets*. You instantiate the top level system called *MySystem* as a tier0 model or as a tier2 model. It has a single transmission system.
+
+A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the aircraft.
+The project AircraftSpecified represents *Tier1*, i.e., a single layer. AircraftIntegrated represents variants of *Tier2*, which includes the Integrated Modular Avionics (IMA) at one level of detail. For resource budget analysis we can instantiate the IMA, i.e., the **FlightGuidanceImplementation**. 
+> Note: The example also includes a requirement and verificaiotn plan specification for automated incremental life cycle assurance under hte ALISA plug-ins (see ALISA help for details).
+icraft.
+The project AircraftSpecified represents *Tier1*, i.e., a single layer. AircraftIntegrated represents variants of *Tier2*, which includes the Integrated Modular Avionics (IMA) at one level of detail. For resource budget analysis we can instantiate the IMA, i.e., the **FlightGuidanceImplementation**. 
+> Note: The example also includes a requirement and verificaiotn plan specification for automated incremental life cycle assurance under hte ALISA plug-ins (see ALISA help for details).
