@@ -37,4 +37,10 @@ The report has messages with markings of three types, in addition to being tagge
 * **[L]** for reported items regarding the weight limit.
 * **[C]** for reported items regarding consistency between gross and net weights.
 
+> ##Examples##
+One example is available on [Github/Osate](https://github.com/osate/examples) and is called *ResourceBudgets*. You instantiate the top level system called *MySystem* as a tier0 model or as a tier2 model. It has a single transmission system.
+
+A second example is available on [Github/Osate](https://github.com/osate/alisa-examples) and is called *MutliTierAircraftExample*. You will find a set of project under *MultiTierAircraft* with the AADL model. The example is from the System Architecture Virtual Integration (SAVI) initiative. It has a backbone transmission system as well as a subsystem within the IMA of the aircraft.
+
+> Note: The example also includes a requirement and verificaiotn plan specification for automated incremental life cycle assurance under hte ALISA plug-ins (see ALISA help for details).
 
