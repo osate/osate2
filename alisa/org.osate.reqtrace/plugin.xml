@@ -5,7 +5,11 @@
          point="org.eclipse.ui.commands">
       <command
             id="org.osate.reqtrace.requirementsTracing"
-            name="Requirements Tracing">
+            name="Tracability">
+      </command>
+      <command
+            id="org.osate.reqtrace.requirementsReport"
+            name="Requirements Report">
       </command>
    </extension>
    <extension
@@ -13,10 +17,17 @@
       <menuContribution
             allPopups="false"
             locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
-         <command
-               commandId="org.osate.reqtrace.requirementsTracing"
-               style="push">
-         </command>
+         <menu
+               label="Report Generation">
+            <command
+                  commandId="org.osate.reqtrace.requirementsTracing"
+                  style="push">
+            </command>
+            <command
+                  commandId="org.osate.reqtrace.requirementsReport"
+                  style="push">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
@@ -48,6 +59,14 @@
                                  value="goals">
                            </test>
                            <test
+                                 property="org.eclipse.core.resources.extension"
+                                 value="reqdoc">
+                           </test>
+                           <test
+                                 property="org.eclipse.core.resources.extension"
+                                 value="goaldoc">
+                           </test>
+                           <test
                                  forcePluginActivation="true"
                                  property="org.osate.reqtrace.isAadlPackage">
                            </test>
@@ -56,6 +75,34 @@
                   </and>
                </with>
             </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.reqtrace.RequirementsReportHandler"
+            commandId="org.osate.reqtrace.requirementsReport">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <or>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="reqspec">
+                        </test>
+                        <test
+                              property="org.eclipse.core.resources.extension"
+                              value="reqdoc">
+                        </test>
+                     </or>
+                  </iterate>
+               </and>
+            </with>
          </enabledWhen>
       </handler>
    </extension>
