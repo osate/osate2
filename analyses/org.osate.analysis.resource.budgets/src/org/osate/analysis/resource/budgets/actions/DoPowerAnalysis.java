@@ -80,18 +80,6 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 	protected void initPropertyReferences() {
 	}
 
-//	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-//		//Get the system instance (if any)
-//		if (obj instanceof InstanceObject) {
-//			SystemInstance si = ((InstanceObject) obj).getSystemInstance();
-//			if (si != null) {
-//				monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-//				new DoPowerAnalysisLogic(getErrorManager()).analyzePowerBudget(si);
-//				monitor.done();
-//			}
-//		}
-//	}
-
 	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
@@ -113,7 +101,7 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
-			powerReport = new Report(object, "power", "power", ReportType.TABLE);
+			powerReport = new Report(object, "Power", "Power", ReportType.TABLE);
 			return true;
 		}
 		return false;
@@ -127,24 +115,6 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		excelExport.save();
 		return true;
 	};
-
-	@Override
-	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("ResourceBudgets", obj);
-		return true;
-	}
-
-	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
-	}
-
-	public void setSummaryReport() {
-		this.summaryReport = new StringBuffer();
-	}
-
-	public void saveReport() {
-		this.getCSVLog().saveToFile();
-	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
