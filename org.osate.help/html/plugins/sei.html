@@ -23,9 +23,8 @@ plugins.
 
 
 <p>
-Most of the plugins report errors and information in the Eclipse <em>Problems</em>
-view. For this reason, this is always worth to activate this view when
-using the validation plug-ins. You can activate this view by selecting
+Most of the plugins report errors and information as reports in a reports folder in your workspace as well as Eclipse Markers shown in the Eclipse <em>Problems</em>
+view. You can activate the <em>Problems</em> view by selecting
 the following menus: <em>Window</em>, <em>Show View</em> and then <em>Problems</em>, as
 shown in the following picture.
 </p>
@@ -43,10 +42,10 @@ You can change the default setting by following the instructions at
 
 <h3>Statistics plug-in</h3>
 <p>
-This analysis is applicable to AADL specifications and system instances.  It is invoked using �Analyses > Architecture > Model statistics� in the menu bar or the button in the toolbar.
+This analysis is applicable to AADL specifications and system instances.  It is invoked using ?Analyses > Architecture > Model statistics? in the menu bar or the button in the toolbar.
 </p>
 <p>
-This analysis collects model statistics of two kinds and can be invoked on both declarative AADL models and AADL instance models.  In both cases it keeps track of the number of declarations of different kinds in all declarative model files in the workspace.  When invoked on an AADL instance model it also keeps track of components of different categories, connections, flows, etc. of the instance model. Figure 27 illustrates how the model statistics plug-in reports its results both through a dialog box and as information markers in the �Problems� view.
+This analysis collects model statistics of two kinds and can be invoked on both declarative AADL models and AADL instance models.  In both cases it keeps track of the number of declarations of different kinds in all declarative model files in the workspace.  When invoked on an AADL instance model it also keeps track of components of different categories, connections, flows, etc. of the instance model. Figure 27 illustrates how the model statistics plug-in reports its results both through a dialog box and as information markers in the ?Problems? view.
 </p>
 <p>
 This plug-in aims at making statistics on your model: number of components,
@@ -55,405 +54,6 @@ for new plug-in developer and start with an established code base
 they can re-use.
 </p>
 
-
-<h3>Weight Plug-In</h3>
-<p>
-Once the analysis is done, a report is generated in the <em>reports/</em>
-directory, in the root directory of the AADL project. On completion,
-the plug-in also a dialog that summarizes the result of the analysis (as shown below).
-</p>
-<img src="weight-dialog.png"/>
-<p>
-When the system is being analyzed, the following properties are analyzed:
-</p>
-<ul>
-<li>SEI::NetWeight</li>
-<li>SEI::GrossWeight</li>
-<li>SEI::WeightLimit</li>
-</ul>
-<p>
-These properties are associated to the following elements:
-</p>
-<ul>
-	<li><strong>connection</strong></li>
-	<li><strong>components</strong>, except for process, virtual bus and virtual processor</li>
-</ul>
-
-
-<h3>Check Miss Rates</h3>
-<p>
-This analysis checks whether the miss rates in streams communicated through ports are consistent, i.e., the miss rate of an out port does not exceed the miss rate of an in port. The miss rate of an out port represents the maximum miss rate of the generated stream through this port.  The miss rate in an in port represents the maximum miss rate that a component is willing to handle.
- 
-This analysis is invoked using Analyses > Architecture > Check Miss Rates in the menu bar or the button in the toolbar.  It may only be applied to AADL Specifications.
- 
-Miss rates are specified on ports using the property SEI::StreamMissRate, a aadlreal- valued property defined in the SEI property set, i.e.,
-</p>
-<pre>
-Property set SEI is
- 
-  StreamMissRate: aadlreal applies to (port);
- 
-End SEI;
-</pre>
-<p>
-The analysis performs this check for all connections if either or both the source or destination ports have a value for this property.  The check can be invoked on an AADL XML file, or on any of the AADL model objects in the AADL Object Editor. In both cases it is applied to all connections in the AADL model.  A connection is reported if the miss rate of the destination port is lower than the miss rate of the source port of any connection.
- 
-You can use this analysis on any AADL model that has property values for this property associated with some of its ports.
-</p>
-<p>
-A code snippet from the SunseekerDemo example:
-</p>
-<pre>
-process Sunseekerplant_Type
- 
-   features
- 
-      Controllerinput : in  data port Beacon_Standard::Single_Float;
- 
-      Outputfeedback  : out data port Beacon_Standard::Single_Float
- 
-      { SEI::StreamMissRate => 0.06;};
-</pre>
-
-
-<h3>Analyze Bound Bus Load</h3>
-<p>
-This function extracts the property <strong>SEI::BandWidthCapacity</strong> on each bus.
-Then, the function retrieves the bandwidth required by each connection bound to this
-bus and check that the bandwidth capacity of the bus is enough to provide enough
-capacity for its bound connections (port connections).
-</p>
-<p>
-To do so, the function process each connection bound to the bus and computes
-the bandwidth budget for this connection:
-</p>
-<ul>
-	<li>By retrieving the budget value associated to this connection
-	    specified with the <strong>SEI::BandWidthBudget</strong>
-	    property on the connection.
-	 </li>
-	 <li>By computing the budget value of the connection
-	     using the size of the data type used on the connection
-	     and the thread period (using the <strong>Period</strong> property),
-	     assuming the thread
-	     output one data instance per period.
-	  </li>
-</ul>
-
-<p>
-Upon successful analysis, the plugin reports metrics
-in a dialog box, as shown in the following picture.
-</p>
-<img src="bound-bus-bandwidth-analysis.png"/>
-
-<h3>Analyze Bus Load</h3>
-<p>
-This function extracts the property <strong>SEI::BandWidthCapacity</strong> on each bus.
-Then, the function retrieves the bandwidth required by each connection bound to this
-bus and check that the bandwidth capacity of the bus is enough to provide enough
-capacity for its bound connections. It process connections between system, including
-<strong>port connection</strong> and <strong>bus access</strong> connections.
-</p>
-<p>
-To do so, the function process each connection bound to the bus and computes
-the bandwidth budget for this connection:
-</p>
-<ul>
-	<li>By retrieving the budget value associated to this connection
-	    specified with the <strong>SEI::BandWidthBudget</strong>
-	    property on the connection.
-	 </li>
-	 <li>By computing the budget value of the connection
-	     using the size of the data type used on the connection
-	     and the thread period (using the <strong>Period</strong> property),
-	     assuming the thread
-	     output one data instance per period. This is also
-	     the way it computes the size of the data being transmitted
-	     on the bus.
-	  </li>
-</ul>
-<p>
-The policy to get the data being transmitted on the bus is the following:
-<ul>
-	<li>It retrieves the value of the <strong>SEI::BandWidthBudget</strong>
-	    on the connection <strong>AND</strong> computes the actual size
-	    being transmitted over the bus.
-	</li>
-	<li>If the value of the actual value being transmitted (the one computed
-		from the port data size and the thread period) is bigger than the value
-		from the property associated to the connection, we use it. Otherwise,
-		the function uses the one from the property.
-	</li>
-	<li>
-		It checks that the involved components (both source and destination) are active in the current mode. If yes,
-		it adds to the total bandwidth use the usage of the component.
-	</li>
-</ul>
-</p>
-<p>
-The functions also provides the ability to make an analysis on
-a per-mode basis: if a component that communicates
-is not active in a mode, then, the data it sends/receives
-is not taken into account.
-</p>
-<p>
-Upon successful analysis, the plugin reports metrics
-in a dialog box, as shown in the following picture. It also produces
-reports in a CSV file format in a new <strong>report</strong>
-directory.
-</p>
-<img src="bus-bandwidth-analysis.png"/>
-
-<h3>Analyze Bus Power Draw</h3>
-<p>
-There are two forms of power related analyses. The first form utilizes classifier type
-checking on connections to identify mismatch in supplied and required power
-characteristics. In this case a bus models the power supply. It is defined with several
-implementations, each representing a different (set of) power characteristics. For
-example, we may have two implementations representing different voltages. Power
-consumers define requires bus access features choosing as classifier the desired power
-characteristics by naming the appropriate implementation. Once the bus access
-connection is established the AADL semantic checker will detect mismatching classifier
-names.
-</p>
-<p>
-The second form of power related analysis models the power capacity of a physical
-system entity that is modeled by a bus. Power is drawn from this entity by components
-that are connected to it via bus access connection. The power supply scenario is one
-example. A second example is a bus such as USB that provides power to connected
-devices.
-</p>
-<p>
-We have introduced two properties, PowerCapacity and PowerBudget, for that purpose.
-Its values are real with units of mW, W, KW for wattage (an equivalent measure could
-have been impedance). The PowerCapacity can be associated with Bus components,
-while PowerBudget is associated with the requires bus access feature of the consuming
-component. As before, the property value can be specified with the component type, the
-component implementation, the subcompone nt, or even component instances in the
-instance model.
-</p>
-<p>
-The power consumption analysis is invoked through a toolbar command, or through the
-Analysis menu and the Architecture submenu.
-</p>
-<p>
-The power consumption analysis totals up the drawn power on each of the bus instances
-that have a power capacity and compares it to the power capacity of that bus. The results
-are reported via dialog and Resource Analysis Markers.
-</p>
-<p>
-This plug-in analyzes the system, using buses
-as a power cable with components providing
-or consuming power.
-When the system is being analyzed, the following properties are processed:
-</p>
-<ul>
-	<li><strong>SEI::PowerCapacity</strong></li>
-	<li><strong>SEI::PowerBudget</strong></li>
-	<li><strong>SEI::PowerSupply</strong></li>
-</ul>
-
-
-<h3>Analyze Resource Allocation</h3>
-<p>
-The intent of the resource allocation analysis is to take into cons ideration allocation
-decisions of application components to processors and to memory. The allocations are
-specified through the Actual_Processor_Binding and Actual_Memory_Binding
-properties. In addition, this analysis takes into account any specification of actual
-resource usage � if present, such as execution time of threads, or actual memory
-requirements of application source code.
-Both the processor allocation and memory allocation analysis are invoked through the
-Analyze Resource Allocation command, available through the toolbar or through the
-Analysis menu and the Architecture submenu.
-</p>
-
-<h4>Actual Bindings</h4>
-<p>
-Binding properties are specified in the properties section of the system implementation
-that contains both the execution platform and the application system. It is specified as a
-�contained� property association with its reference value being the path to the processor
-or memory and the applies to clause specifying the component in the containment
-hierarchy for which the property value is specified � also a path in the containment
-hierarchy. In other words, all binding information is kept in this property section and
-effectively represents a binding configuration. For example:
-</p>
-<pre>
-Actual_Processor_Binding => reference platform.MissionProcessor1
-applies to App.FlightManager;
-</pre>
-
-<h4>Processor allocation</h4>\
-<p>
-The Actual_Processor_Binding property can be associated with threads, thread groups,
-processes, or systems. In an architecture model of major subsystems represented by
-system subcomponents or process subcomponents the whole subsystem is allocated to a
-specific processor. If specified for a component with subcomponents, the property value
-applies to all subcomponents unless they have their own property association. This is due
-to the fact that Actual_Processor_Binding is defined as inherit.
-</p>
-<p>
-For processor bindings the Resource Allocation Analysis works as follows. For each
-processor instance it identifies the application components that are bound to this
-processor. For each of these application components the analysis examines the budget
-specification (MIPSBudget) and the actual resource consumption specification in terms
-of a period (Period) and execution time (Compute_Execution_Time). If the latter are
-specified their values are converted into MIPS and compared to the budget.
-Discrepancies are reported. The actual values, or the budget if the actual does not exist,
-are totaled up and compared against the capacity of the processor to which the
-components are bound.
-</p>
-<p>
-This allows the user to make allocation decisions by reflecting them in the actual
-processor binding property. Early in the development those decisions are validated in
-terms of MIPS budget specifications. Later in the development, when timing information
-about components is available it can be added into the model. This may be done for the
-whole model or for some of the application components. The actuals are compared
-against the budgets and are used in the totaling of the resource demand on a processor.
-</p>
-<p>
-Note: The application system may have been defined as a nested set of components, each
-with a budget. As mentioned above the processor binding is inherited, i.e., both the
-parent and its children may have a processor binding value. In that case only the actual
-or budget MIPS of the children are totaled in order to avoid double counting of bound
-application component budgets.
-</p>
-
-<h4>Memory Allocation</h4>
-<p>
-For memory allocation analysis we have introduced a RAMActual and a ROMActual
-property. These properties allow users to specify the actual memory demands of
-application components. In case of nested application components with RAMActual or
-ROMActual property values, the actual value accounts for memory demands of that
-component only. In other words, contrary to the memory budget figures, the actual value
-does not represent a cumulative memory demand.
-</p>
-<p>
-These two properties have been provided such that users can reflect actual memory
-usage, e.g., as reported by a compiler, without having to provide details. In the future the
-actual RAM and ROM values can be calculated automatically from more detailed
-specifications such as the Source_Code_Size and Source_Data_Size values on processes,
-threads, ports, data, and subcomponents. Similarly, the memory capacity can
-automatically be calculated from detailed memory specifications in terms of Word_Count
-and Word_Size.
-</p>
-<p>
-The memory allocation analysis compares the actuals, if specified, against the budgets
-and compares the total actuals or budgets against the capacity of the memory to which
-they are bound.
-</p>
-
-<h4>Network Bandwidth Analysis</h4>
-<p>
-Network bandwidth analysis is supported in two variants: analysis based on inferred
-binding of connections to buses; and analysis based on explicit binding of connections to
-buses. Each of the two variants supports taking into consideration loopback
-communication of connections within the same processor. In case of loopback
-communication, intra-processor communication is also routed through the network. This
-technique allows application components to be relocated to different processors without
-impacting the load on the network.
-</p>
-
-<h4>Properties</h4>
-<p>
-This analysis check the processor load (using MIPS budget and capacity), 
-and the memory load (with the memory bound to the processes and using
-the RAM and ROM budget/capacities). It also check the bus load
-according to the bus bandwidth and its bound connections.
-When the system is being analyzed, the following properties are processed:
-</p>
-<ul>
-	<li><strong>ReferenceProcessor</strong>: thread has to be associated
-	with a reference processor.</li>
-	<li><strong>SEI::BandWidthCapacity</strong></li>
-	<li><strong>Actual_Connection_Binding</strong></li>
-	<li><strong>Actual_Processor_Binding</strong></li>
-	<li><strong>SEI::BandWidthBudget</strong></li>
-	<li><strong>SEI::Data_Rate</strong></li>
-	<li><strong>SEI::ROMActual</strong></li>
-	<li><strong>SEI::RAMActual</strong></li>
-	<li><strong>Source_Data_Size</strong>: used on feature (computation of the rate)</li>
-	<li><strong>Period</strong>: used on features (rate computation)</li>
-</ul>
-
-
-<h3>Analyze Resources Budgets</h3>
-<p>
-The intent of the resource budget analysis is to provide resource budgeting support early
-in the development life cycle. Users may have defined a system model that essentially is
-a high level parts list, i.e., defines the execution platform in terms of a collection of
-processors, memory, buses, and the application system in terms of major subsystems that
-may or may not be executed as separate partitions.
-The components may not yet have features, nor do their implementations have
-connections. The application components may not have been elaborated beyond the first
-level of application subsystems, which may be represented as AADL systems, or as
-AADL processes if we know that they represent partitions with protected address space
-boundaries. The capacities and budgets can be associated with these components � with
-the type, implementation, or each subcomponent declaration.
-</p>
-<p>
-The resource budget analysis works on system instance models. In other words you will
-first instantiate your model by selecting the root system implementation. Typically this
-system implementation contains two system components, one representing the execution
-platform, the other the application system.
-The resource budget analysis is invoked through a toolbar command, or through the
-Analysis menu and the Architecture submenu.
-The resource budget analysis totals up all the processor capacities and all the MIPS
-budgets of application systems and processes and comparing the totals. The same is done
-for RAM, ROM, and Bandwidth. Note that these totals represent the total system
-capacity in terms of MIPS, memory, and bus bandwidth and the total system demand in
-terms of those measures.
-</p>
-<p>
-As the application architecture of a system is refined we may have components with
-resource budgets that contain subcomponents with resource budgets. This applies to
-MIPS, RAM, and ROM resources. In this case the resource budget analysis tool will add
-up the budgets of the subcomponents and compare them to the budget of the enclosing
-component. It will use this number as the resource demand of the enclosing component to
-total up the demand. It will also compare this number against the specified budget of the
-enclosing component and report any difference (under- and over-allocation of the budget
-to subcomponents).
-</p>
-<p>
-Bandwidth budget specification requires connections to be declared in the architecture
-model as they are associated with connections. This can be done by specifying the
-BandWidthBudget for a connection declaration in the component library (declarative
-AADL model) or for port connection instances in the instance model.
-The resource budget analysis also keeps track of the number of components for which no
-capacity or budget has been specified.
-The results of the analysis are reported in two ways:
-</p>
-<ol>
-<li>As a summary in a dialog box</li>
-<li>As a collection of markers on the instance model resource</li>
-</ol>
-<p>
-In addition to recording the results shown in the dialog box as markers, each component
-without a capacity or budget is tagged with a marker. The results can be viewed through
-the Problem view. The Problem view can be filtered to show only the resource analysis
-results. This is done by selecting the Resource Analysis Marker in the Problem view
-filter. The marker results can also be turned into a report in HTML format. This is done
-through the Generate Report command in the OSATE menu.
-</p>
-<p>
-When the system is being analyzed, the following properties are processed:
-</p>
-<ul>
-<li><strong>ReferenceProcessor</strong> for thread, indicate on which
-processor the metrics are valid (such as execution time, etc.)</li>
-<li><strong>SEI::RAMCapacity</strong></li>
-<li><strong>SEI::ROMBudget</strong></li>
-<li><strong>SEI::RAMCapacity</strong></li>
-<li><strong>SEI::ROMBudget</strong></li>
-<li><strong>SEI::MIPSCapacity</strong></li>
-<li><strong>SEI::MIPSBudget</strong></li>
-</ul>
-
-<p>
-Upon successful analysis, the plugin reports metrics
-in a dialog box, as shown in the following picture.
-</p>
-
-<img src="budget-statistics.png"/>
 
 <h3>ARINC429 Consistency Checking</h3>
 <p>
@@ -511,7 +111,7 @@ Data_Model::Measurement_Unit: (string); must be equal. This check is performed i
 These properties are associated with the ports, with data component types that are the port classifiers, or with the port features of feature group types.
 </p>
 <p>
-If a property value is missing for one or both ports no comparison is made and a message is reported.  
+If a property value is missing for one or both ports no comparison is made and a message is reported.
 </p>
 <p>
 For all port connection instances the source and destination port property values are recorded in a CSV file for processing by MS Excel. The resulting file can be found in the reports folder.
@@ -522,52 +122,70 @@ For all port connection instances the source and destination port property value
 
 <h4>Security</h4>
 <p>
-This analysis checks whether the security level of a component with an outgoing connection does not exceed the security level of the component this connection leads to. This analysis can be performed on declarative AADL models and on AADL instance models.  The analysis is invoked on a declarative model or on an instance model using �Analyses > Security > Check Security Levels� or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed.  When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
- 
+This analysis checks whether the security level of a component with an outgoing connection does not exceed the security level of the component this connection leads to. This analysis can be performed on declarative AADL models and on AADL instance models.  The analysis is invoked on a declarative model or on an instance model using ?Analyses > Security > Check Security Levels? or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed.  When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
+
 The security level is specified on components, i.e., on component type, component implementation, or subcomponent declarations. The check can be invoked on an AADL XML file, or on any of the AADL model objects in the AADL Object Editor. The analysis plug-in performs this check for all connections if either or both ports have a value for this property. The analysis plug-in expects the property SEI::SecurityLevel, an aadlinteger-valued property to be defined in the SEI property set, i.e.,
 </p>
 <pre>
-Property set SEI is 
+Property set SEI is
   SecurityLevel:
     aadlinteger applies to (system, process, thread group, thread);
 End SEI;
 </pre>
 <p>
 For declarative AADL models this analysis performs two functions.  First, it ensures that a component has a security level that is the maximum of the security levels of its subcomponents. Second, it checks all connections to determine whether the source component of a connection declaration has a security level that is the same or lower than that of the destination component.  If a component does not have a SecurityLevel property declared its value is assumed to be zero, i.e., the lowest security level.
- 
-The first check is performed for every component implementation that is part of the system hierarchy of the root component implementation.  If the component implementation does not have this property, but at least one of its subcomponents does, then the property value will be set to the maximum value for the component implementation.  If the enclosing component implementation already has a SecurityLevel value and it is less than the maximum of the subcomponent security levels, its value will be updated to the maximum.
- 
-The analysis propagates the security level value up the system hierarchy in one of two ways.  If the analysis is invoked on an Aadl model instance (either the corresponding aaxl resource or any model object of the model instance), then the component hierarchy of the system instance is traversed in postfix order (bottom up) to evaluate each component implementation that is a classifier for the subcomponent that is represented by a component instance object in the instance model.  If the analysis is invoked on an AadlSpec (either the corresponding aaxl resource or any model object of an AadlSpec), then the analysis works bottom up through the component classifier library.  This means it starts with component implementations with out subcomponents, and then recursively processes component implementations, whose subcomponents have the already processed component implementations as classifiers. 
 
-The second check is performed after the security level values have been propagated up the system hierarchy.  This check compares the security levels of the source and destination components in connection declarations.  
+The first check is performed for every component implementation that is part of the system hierarchy of the root component implementation.  If the component implementation does not have this property, but at least one of its subcomponents does, then the property value will be set to the maximum value for the component implementation.  If the enclosing component implementation already has a SecurityLevel value and it is less than the maximum of the subcomponent security levels, its value will be updated to the maximum.
+
+The analysis propagates the security level value up the system hierarchy in one of two ways.  If the analysis is invoked on an Aadl model instance (either the corresponding aaxl resource or any model object of the model instance), then the component hierarchy of the system instance is traversed in postfix order (bottom up) to evaluate each component implementation that is a classifier for the subcomponent that is represented by a component instance object in the instance model.  If the analysis is invoked on an AadlSpec (either the corresponding aaxl resource or any model object of an AadlSpec), then the analysis works bottom up through the component classifier library.  This means it starts with component implementations with out subcomponents, and then recursively processes component implementations, whose subcomponents have the already processed component implementations as classifiers.
+
+The second check is performed after the security level values have been propagated up the system hierarchy.  This check compares the security levels of the source and destination components in connection declarations.
 </p>
 <p>
-For instance models the analysis examines each semantic connection for ports and compares the security level of the source and destination. 
+For instance models the analysis examines each semantic connection for ports and compares the security level of the source and destination.
 </p>
 
 <h4>Check Safety Levels</h4>
 <p>
 This analysis checks whether the safety criticality level of a component with an outgoing connection is higher or equal to the safety criticality level of the component at the destination end of the connection. The idea is that a component with lower safety criticality should not drive the operation of a component with a higher safety criticality.
- 
-The analysis is invoked on a declarative model or on an instance model using �Analyses > Security > Check Safety Levels� or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed. When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
- 
+
+The analysis is invoked on a declarative model or on an instance model using ?Analyses > Security > Check Safety Levels? or the button.  When invoked on an AADL specification, all declarative model files in the workspace are analyzed.  When invoked on a component implementation, all component declarations that are part of its system hierarchy are analyzed. When invoked on an instance model, only the instance model is checked.  This analyses is more complete when analyzing system instances; when analyzing declarative models it does not understand modes.
+
 The safety criticality level is specified on components, i.e., on component type, component implementation, or subcomponent declarations using the property SEI::SafetyCriticality, an aadlinteger valued property defined in the SEI property set, i.e.,
-</p> 
+</p>
 <pre>
 Property set SEI is
- 
+
   SafetyCriticality:
- 
+
     aadlinteger applies to (system, process, thread group, thread);
- 
+
 End SEI;
-</pre> 
+</pre>
 <p>
 For declarative AADL models this analysis checks all connections to determine whether the source component of a connection declaration has a safety criticality level that is the same or higher than that of the destination component.  If a component does not have a SafetyCriticality property declared its value is assumed to be zero, i.e., the lowest safety level.
- </p> 
+ </p>
  <p>
-For instance models the analysis examines each semantic connection for ports and compares the security level of the source and destination. 
-</p> 
+For instance models the analysis examines each semantic connection for ports and compares the security level of the source and destination.
+</p>
+
+<h3>Weight Analysis Plug-In</h3>
+<p>
+The Weight Analysis sums up the weight of different components in terms of net and gross weight and compares the results against
+specified weight limits. For details see <strong><a href="MassAnalysis.html">here.</a></strong>
+</p>
+
+<h3>Analyze Electrical Power Consumption</h3>
+<p>
+The Weight Analysis sums up the weight of different components in terms of net and gross weight and compares the results against
+specified weight limits. For details see <strong><a href="ElectricalPower.html">here.</a></strong>
+</p>
+
+<h3>MIPS, RAM, ROM, and Network Bandwidth Budget Analysis</h3>
+<p>
+The Budget Analysis sums up the budgets of components with resource demand and compares the total against the resource capacity - in case of bindings the budgets of those components bound to the resource. For details see <strong><a href="ResourceBudgets.html">here.</a></strong>
+</p>
+
 
 </body>
 </html>
