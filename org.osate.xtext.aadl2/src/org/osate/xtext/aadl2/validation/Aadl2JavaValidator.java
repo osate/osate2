@@ -7474,8 +7474,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					// + " must not be " + notDir.getName() + " due to the
 					// direction of the connection", conn,
 					// structuralFeature);
-					error("Feature " + feature.getName() + " in the referenced feature group " + sub == null ? ""
-							: (sub.getName() + ".") + featureGroup.getName() + " must not be " + notDir.getName()
+					error("Feature " + feature.getName() + " in the referenced feature group " + (sub == null ? ""
+							: (sub.getName() + ".")) + featureGroup.getName() + " must not be " + notDir.getName()
 									+ " due to the direction of the connection",
 							conn, structuralFeature, MAKE_CONNECTION_BIDIRECTIONAL);
 

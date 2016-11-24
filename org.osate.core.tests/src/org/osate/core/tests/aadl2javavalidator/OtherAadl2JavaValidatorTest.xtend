@@ -1211,7 +1211,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				ownedConnections.get(1) => [
 					"c2".assertEquals(name)
 						assertError(testFileResult.issues, issueCollection, 
-										"Feature o1 in the referenced feature group fg1 must not be in due to the direction of the connection")
+										"Feature o1 in the referenced feature group inner.fg1 must not be in due to the direction of the connection"
+										, "Feature o1 in the referenced feature group fg1 must not be in due to the direction of the connection")
 				]
 			]
 		]
