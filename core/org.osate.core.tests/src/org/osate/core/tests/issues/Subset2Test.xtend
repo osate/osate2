@@ -41,7 +41,7 @@ class Subset2Test extends OsateTest {
 	}
 
 	val aadlText = '''
-package subset1
+package subset2
 
 public
 
