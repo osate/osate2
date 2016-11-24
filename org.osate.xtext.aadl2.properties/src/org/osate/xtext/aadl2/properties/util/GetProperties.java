@@ -78,6 +78,7 @@ import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.aadl2.properties.PropertyLookupException;
+import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.contribution.sei.names.DataModel;
 import org.osate.contribution.sei.names.SEI;
 import org.osate.xtext.aadl2.properties.linking.PropertiesLinkingService;
@@ -1914,6 +1915,30 @@ public class GetProperties {
 		}
 		res = 1 / period;
 		return res;
+	}
+
+	public static String getClassifierMatchingRuleProperty(NamedElement ne) {
+		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(ne, ModelingProperties._NAME,
+				ModelingProperties.CLASSIFIER_MATCHING_RULE);
+		EnumerationLiteral classifierMatchingRuleValue;
+		try {
+			classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(ne, classifierMatchingRuleProperty);
+		} catch (PropertyNotPresentException e) {
+			return ModelingProperties.CLASSIFIER_MATCH;
+		}
+		return classifierMatchingRuleValue.getName();
+	}
+
+	public static String getClassifierSubstitutionRuleProperty(NamedElement ne) {
+		Property classifierMatchingRuleProperty = GetProperties.lookupPropertyDefinition(ne, ModelingProperties._NAME,
+				ModelingProperties.CLASSIFIER_SUBSTITUTION_RULE);
+		EnumerationLiteral classifierMatchingRuleValue;
+		try {
+			classifierMatchingRuleValue = PropertyUtils.getEnumLiteral(ne, classifierMatchingRuleProperty);
+		} catch (PropertyNotPresentException e) {
+			return ModelingProperties.CLASSIFIER_MATCH;
+		}
+		return classifierMatchingRuleValue.getName();
 	}
 
 }
