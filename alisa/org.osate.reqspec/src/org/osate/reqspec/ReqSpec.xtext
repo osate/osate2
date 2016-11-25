@@ -46,7 +46,7 @@ ReqDocument: 'document' name=QualifiedName (':' title=STRING)?
 	 ']'
 ;
 DocumentSection returns DocumentSection:
-	'section' label =ID (':' title=STRING)?
+	'section' ((label =ID (':' title=STRING)?)| title=STRING)
 	'[' (
 	 (  description=Description)? 
 	

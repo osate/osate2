@@ -54,7 +54,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqRootAccess().getAlternatives(), "rule__ReqRoot__Alternatives");
 					put(grammarAccess.getStakeholderGoalsAccess().getAlternatives_4_1(), "rule__StakeholderGoals__Alternatives_4_1");
 					put(grammarAccess.getReqDocumentAccess().getContentAlternatives_4_1_0(), "rule__ReqDocument__ContentAlternatives_4_1_0");
-					put(grammarAccess.getDocumentSectionAccess().getContentAlternatives_4_1_0(), "rule__DocumentSection__ContentAlternatives_4_1_0");
+					put(grammarAccess.getDocumentSectionAccess().getAlternatives_1(), "rule__DocumentSection__Alternatives_1");
+					put(grammarAccess.getDocumentSectionAccess().getContentAlternatives_3_1_0(), "rule__DocumentSection__ContentAlternatives_3_1_0");
 					put(grammarAccess.getDocGoalAccess().getAlternatives_3_1(), "rule__DocGoal__Alternatives_3_1");
 					put(grammarAccess.getSystemRequirementAccess().getAlternatives_5_8_1(), "rule__SystemRequirement__Alternatives_5_8_1");
 					put(grammarAccess.getGlobalRequirementAccess().getAlternatives_3_1(), "rule__GlobalRequirement__Alternatives_3_1");
@@ -100,7 +101,8 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqDocumentAccess().getGroup_4_2(), "rule__ReqDocument__Group_4_2__0");
 					put(grammarAccess.getReqDocumentAccess().getGroup_4_3(), "rule__ReqDocument__Group_4_3__0");
 					put(grammarAccess.getDocumentSectionAccess().getGroup(), "rule__DocumentSection__Group__0");
-					put(grammarAccess.getDocumentSectionAccess().getGroup_2(), "rule__DocumentSection__Group_2__0");
+					put(grammarAccess.getDocumentSectionAccess().getGroup_1_0(), "rule__DocumentSection__Group_1_0__0");
+					put(grammarAccess.getDocumentSectionAccess().getGroup_1_0_1(), "rule__DocumentSection__Group_1_0_1__0");
 					put(grammarAccess.getSystemRequirementSetAccess().getGroup(), "rule__SystemRequirementSet__Group__0");
 					put(grammarAccess.getSystemRequirementSetAccess().getGroup_4(), "rule__SystemRequirementSet__Group_4__0");
 					put(grammarAccess.getSystemRequirementSetAccess().getGroup_7(), "rule__SystemRequirementSet__Group_7__0");
@@ -305,10 +307,11 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getReqDocumentAccess().getContentAssignment_4_1(), "rule__ReqDocument__ContentAssignment_4_1");
 					put(grammarAccess.getReqDocumentAccess().getDocReferenceAssignment_4_2_2(), "rule__ReqDocument__DocReferenceAssignment_4_2_2");
 					put(grammarAccess.getReqDocumentAccess().getIssuesAssignment_4_3_1(), "rule__ReqDocument__IssuesAssignment_4_3_1");
-					put(grammarAccess.getDocumentSectionAccess().getLabelAssignment_1(), "rule__DocumentSection__LabelAssignment_1");
-					put(grammarAccess.getDocumentSectionAccess().getTitleAssignment_2_1(), "rule__DocumentSection__TitleAssignment_2_1");
-					put(grammarAccess.getDocumentSectionAccess().getDescriptionAssignment_4_0(), "rule__DocumentSection__DescriptionAssignment_4_0");
-					put(grammarAccess.getDocumentSectionAccess().getContentAssignment_4_1(), "rule__DocumentSection__ContentAssignment_4_1");
+					put(grammarAccess.getDocumentSectionAccess().getLabelAssignment_1_0_0(), "rule__DocumentSection__LabelAssignment_1_0_0");
+					put(grammarAccess.getDocumentSectionAccess().getTitleAssignment_1_0_1_1(), "rule__DocumentSection__TitleAssignment_1_0_1_1");
+					put(grammarAccess.getDocumentSectionAccess().getTitleAssignment_1_1(), "rule__DocumentSection__TitleAssignment_1_1");
+					put(grammarAccess.getDocumentSectionAccess().getDescriptionAssignment_3_0(), "rule__DocumentSection__DescriptionAssignment_3_0");
+					put(grammarAccess.getDocumentSectionAccess().getContentAssignment_3_1(), "rule__DocumentSection__ContentAssignment_3_1");
 					put(grammarAccess.getSystemRequirementSetAccess().getNameAssignment_3(), "rule__SystemRequirementSet__NameAssignment_3");
 					put(grammarAccess.getSystemRequirementSetAccess().getTitleAssignment_4_1(), "rule__SystemRequirementSet__TitleAssignment_4_1");
 					put(grammarAccess.getSystemRequirementSetAccess().getTargetAssignment_6(), "rule__SystemRequirementSet__TargetAssignment_6");
@@ -533,7 +536,7 @@ public class ReqSpecParser extends AbstractContentAssistParser {
 					put(grammarAccess.getStringTermAccess().getValueAssignment(), "rule__StringTerm__ValueAssignment");
 					put(grammarAccess.getStakeholderGoalsAccess().getUnorderedGroup_7(), "rule__StakeholderGoals__UnorderedGroup_7");
 					put(grammarAccess.getReqDocumentAccess().getUnorderedGroup_4(), "rule__ReqDocument__UnorderedGroup_4");
-					put(grammarAccess.getDocumentSectionAccess().getUnorderedGroup_4(), "rule__DocumentSection__UnorderedGroup_4");
+					put(grammarAccess.getDocumentSectionAccess().getUnorderedGroup_3(), "rule__DocumentSection__UnorderedGroup_3");
 					put(grammarAccess.getSystemRequirementSetAccess().getUnorderedGroup_9(), "rule__SystemRequirementSet__UnorderedGroup_9");
 					put(grammarAccess.getGlobalRequirementSetAccess().getUnorderedGroup_7(), "rule__GlobalRequirementSet__UnorderedGroup_7");
 					put(grammarAccess.getDocGoalAccess().getUnorderedGroup_5(), "rule__DocGoal__UnorderedGroup_5");

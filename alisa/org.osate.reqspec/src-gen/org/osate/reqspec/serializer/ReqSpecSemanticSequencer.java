@@ -363,7 +363,7 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Constraint:
-	 *     (label=ID title=STRING? description=Description? (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)*)
+	 *     (((label=ID title=STRING?) | title=STRING) description=Description? (content+=DocGoal | content+=DocRequirement | content+=DocumentSection)*)
 	 */
 	protected void sequence_DocumentSection(EObject context, DocumentSection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
