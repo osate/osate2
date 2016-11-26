@@ -82,7 +82,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
 			}
 			if (targetClassifier instanceof ComponentImplementation) {
-				new SimpleScope(IScope::NULLSCOPE,
+				return new SimpleScope(IScope::NULLSCOPE,
 					Scopes::scopedElementsFor(targetClassifier.getAllFeatures + targetClassifier.type.allFlowSpecifications +
 						targetClassifier.allModes+targetClassifier.allSubcomponents + targetClassifier.allEndToEndFlows
 						+ targetClassifier.allConnections,
