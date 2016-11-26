@@ -5,11 +5,13 @@
 	<title></title>
 	<meta name="generator" content="LibreOffice 5.0.3.2 (Windows)"/>
 	<meta name="created" content="00:00:00"/>
-	<meta name="changed" content="2016-11-01T23:08:42.842000000"/>
+	<meta name="changed" content="2016-11-26T16:14:19.370000000"/>
 	<meta name="Info 1" content=""/>
 	<meta name="Info 2" content=""/>
 	<meta name="Info 3" content=""/>
 	<meta name="Info 4" content=""/>
+	<meta name="created" content="00:00:00">
+	<meta name="changed" content="2016-11-01T23:08:42.842000000">
 	<meta name="created" content="00:00:00">
 	<meta name="changed" content="2016-09-21T23:39:06.953000000">
 	<meta name="created" content="00:00:00">
@@ -63,7 +65,7 @@ cases get automatically instantiated as </span></span><i>assurance
 case</i> <i>result instances</i><span style="font-variant: normal"><span style="font-style: normal">.
 Assurance case</span></span><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">result
-instances are then executed to verify AADL instane models for the
+instances are then executed to verify AADL instance models for the
 root system implementation specified in each assurance plan and the
 results are recorded. Assurance case result instances are represented
 by the </span></span><i>Assure </i><span style="font-variant: normal"><span style="font-style: normal">notation
@@ -101,8 +103,8 @@ to generate the assurance case result instance:</p>
 	plan and those of all component classifiers that this classifier
 	inherits from &ndash; according to the same inheritance rules as for
 	features and properties in core AADL. This includes all component
-	implementations that this classifier extends, and all componen types
-	and their extension ancestors. </span></span>
+	implementations that this classifier extends, and all component
+	types and their extension ancestors. </span></span>
 	</p>
 	<li/>
 <p lang="zxx" class="list-western"><span style="font-variant: normal"><span style="font-style: normal">Verification
@@ -165,7 +167,7 @@ The assurance case consists of:</p>
 	<li/>
 <p lang="zxx" class="list-western"><i>For: </i><span style="font-variant: normal"><span style="font-style: normal">component
 	type reference that identifies the system to be assured by its type.
-	The component implementations specified in the assurnace plans must
+	The component implementations specified in the assurance plans must
 	be an implementation of this type according to the extends
 	hierarchy. </span></span>
 	</p>
@@ -243,10 +245,8 @@ Assurance Task</h2>
 <p lang="zxx"><i>Assurance tasks </i><span style="font-variant: normal"><span style="font-style: normal">specify
 a set of filter criteria for a focused verification of a subset of
 requirements, verification activities, and methods according to
-</span></span><span style="font-variant: normal"><span style="font-style: normal"><b>phase</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">,
-</span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>quality</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">,</span></span></span>
-<span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">and
-selection </span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>category
+</span></span><span style="font-variant: normal"><span style="font-style: normal">specified
+category</span></span><span style="font-variant: normal"><span style="font-style: normal"><b>
 </b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">labels</span></span></span><span style="font-variant: normal"><span style="font-style: normal">.
 The assurance tasks apply to the assurance case they are contained
 in.</span></span></p>
@@ -347,7 +347,7 @@ objects are maintained: </span>
 	activity result:</span></em><span lang="zxx"> the result of
 	executing a verification activity. A verification activity may have
 	preconditions that must be satisfied to be executed. The
-	verificationa ctivity result validity may be determined by a
+	verification activity result validity may be determined by a
 	</span><em><span lang="zxx">validation activity</span></em><span lang="zxx">.
 	</span>
 	</p>
@@ -491,11 +491,11 @@ Case</h2>
 <p lang="zxx" style="margin-bottom: 0in">Users execute assurance
 cases through the <i>Alisa </i><span style="font-variant: normal"><span style="font-style: normal">View
 (see Figure 1). It shows assurance cases in the workspace and allows
-users to select an appropriate filter to be applied. Veri</span></span><i>fy
+users to select an appropriate filter to be applied. </span></span><i>Verify
 All </i><span style="font-variant: normal"><span style="font-style: normal">executes
 all verification activities present in the filter independent if
 whether they have been previously verified. </span></span><i>Verify
-</i><i>TBD</i><i> </i><span style="font-variant: normal"><span style="font-style: normal">execute
+TBD</i> <span style="font-variant: normal"><span style="font-style: normal">execute
 only those verification activities that have not been verified yet
 (are in</span></span> <span style="font-variant: normal"><span style="font-style: normal">the
 state</span></span> <i>TBD</i><span style="font-variant: normal"><span style="font-style: normal">).</span></span>
@@ -551,18 +551,14 @@ red shows </span></span><span style="font-variant: normal"><i>Fail</i></span><sp
 light blue shows </span></span><span style="font-variant: normal"><i>Error</i></span><span style="font-variant: normal"><span style="font-style: normal">,
 and dark blue shows </span></span><span style="font-variant: normal"><i><span style="font-weight: normal">TBD.
 </span></i></span><span style="font-variant: normal"><span style="font-style: normal">The
-results are aggregated in counts shown on the right (Success </span></span><span style="font-variant: normal"><span style="font-style: normal">(S)</span></span><span style="font-variant: normal"><span style="font-style: normal">,
-Fail </span></span><span style="font-variant: normal"><span style="font-style: normal">(F)</span></span><span style="font-variant: normal"><span style="font-style: normal">,
-Timeout </span></span><span style="font-variant: normal"><span style="font-style: normal">(T)</span></span><span style="font-variant: normal"><span style="font-style: normal">,
-</span></span><span style="font-variant: normal"><span style="font-style: normal">fail
-to complete, i.e., </span></span><span style="font-variant: normal"><i>error</i></span><span style="font-variant: normal"><span style="font-style: normal">
-(E), </span></span><span style="font-variant: normal"><span style="font-style: normal">TBD,
-backup verifications, </span></span><span style="font-variant: normal"><span style="font-style: normal">i.e.,
-execution of the right hand sice of </span></span><span style="font-variant: normal"><i>else</i></span><span style="font-variant: normal"><span style="font-style: normal">
-</span></span><span style="font-variant: normal"><span style="font-style: normal">(EL)</span></span><span style="font-variant: normal"><span style="font-style: normal">,
-and aborted sequences, </span></span><span style="font-variant: normal"><span style="font-style: normal">i.e.,
-skipping the right hand side of a </span></span><span style="font-variant: normal"><i>then</i></span><span style="font-variant: normal"><span style="font-style: normal">
-</span></span><span style="font-variant: normal"><span style="font-style: normal">(TS)</span></span><span style="font-variant: normal"><span style="font-style: normal">.
+results are aggregated in counts shown on the right (Success (S),
+Fail (F), Timeout (T), fail to complete, i.e., </span></span><span style="font-variant: normal"><i>error</i></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">(E),
+TBD, backup verifications, i.e., execution of the right hand sice of
+</span></span><span style="font-variant: normal"><i>else</i></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">(EL),
+and aborted sequences, i.e., skipping the right hand side of a </span></span><span style="font-variant: normal"><i>then</i></span><span style="font-variant: normal">
+</span><span style="font-variant: normal"><span style="font-style: normal">(TS).
 </span></span>
 </p>
 <p lang="zxx"><br/>
