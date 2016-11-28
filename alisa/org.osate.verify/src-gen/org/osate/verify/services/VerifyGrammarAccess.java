@@ -213,8 +213,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		@Override public ParserRule getRule() { return rule; }
 
 		//{Claim} "claim" requirement=[ReqSpec::Requirement|QualifiedName]? (":" title=STRING)? "[" (("activities"
-		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & ("weight" weight=INT)? &
-		//subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
+		//activities+=VerificationActivity*)? & ("assert" assert=ArgumentExpr)? & rationale=Rationale? & ("weight" weight=INT)?
+		//& subclaim+=Claim* & ("issues" issues+=STRING+)?) "]"
 		public Group getGroup() { return cGroup; }
 
 		//{Claim}
@@ -758,8 +758,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
 		//	method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
 		//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "(" (propertyValues+=AExpression (","
-		//	propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? & ("timeout"
-		//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
+		//	propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? &
+		//	("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 		@Override public ParserRule getRule() { return rule; }
 
 		//name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
@@ -1040,8 +1040,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//VerificationPrecondition returns VerificationCondition:
-		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
-		//	("," parameters+=[FormalParameter])*)? ")";
+		//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
+		//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
@@ -1336,16 +1336,16 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		//	targetType=TargetType "," formals+=FormalParameter ("," formals+=FormalParameter)*) ")" ("properties" "("
 		//	(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
 		//	")")? ("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
-		//	isResultReport?="report")?)? (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
-		//	componentCategory+=ComponentCategory+))? "[" (methodKind=MethodKind & description=Description? &
+		//	isResultReport?="report")?)? (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference]
+		//	| componentCategory+=ComponentCategory+))? "[" (methodKind=MethodKind & description=Description? &
 		//	precondition=VerificationPrecondition? & validation=VerificationValidation? & ("category"
 		//	category+=[categories::Category|QualifiedName]+)?) "]";
 		@Override public ParserRule getRule() { return rule; }
 
 		//"method" name=ID ("(" (targetType=TargetType? | formals+=FormalParameter ("," formals+=FormalParameter)* |
 		//targetType=TargetType "," formals+=FormalParameter ("," formals+=FormalParameter)*) ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
-		//("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
+		//")")? ("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
 		//isResultReport?="report")?)? (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
 		//componentCategory+=ComponentCategory+))? "[" (methodKind=MethodKind & description=Description? &
 		//precondition=VerificationPrecondition? & validation=VerificationValidation? & ("category"
@@ -1363,8 +1363,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 
 		//("(" (targetType=TargetType? | formals+=FormalParameter ("," formals+=FormalParameter)* | targetType=TargetType ","
 		//formals+=FormalParameter ("," formals+=FormalParameter)*) ")" ("properties" "("
-		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? ")")?
-		//("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
+		//(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
+		//")")? ("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
 		//isResultReport?="report")?)?
 		public Group getGroup_2() { return cGroup_2; }
 
@@ -1857,6 +1857,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_1_0 = (RuleCall)cNameAssignment_1.eContents().get(0);
 		
+		////PropertyReference returns common::APropertyReference:
+		////	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+		////;
 		////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 		////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 		//JavaParameter:
@@ -2164,8 +2167,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	name=ID (":" title=STRING)? ":" (computes+=ComputeRef ("," computes+=ComputeRef)* "=")?
 	//	method=[VerificationMethod|QualifiedName] //	'(' (parameters+=[common::ValDeclaration|ID] (',' parameters+=[common::ValDeclaration|ID])*)? ')' 
 	//	"(" (actuals+=AExpression ("," actuals+=AExpression)*)? ")" ("property" "values" "(" (propertyValues+=AExpression (","
-	//	propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? & ("timeout"
-	//	timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
+	//	propertyValues+=AExpression)*)? ")")? ("[" (("category" category+=[categories::Category|QualifiedName]+)? &
+	//	("timeout" timeout=AIntegerTerm)? & ("weight" weight=INT)?) "]")?;
 	public VerificationActivityElements getVerificationActivityAccess() {
 		return pVerificationActivity;
 	}
@@ -2186,8 +2189,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//VerificationPrecondition returns VerificationCondition:
-	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "(" (parameters+=[FormalParameter]
-	//	("," parameters+=[FormalParameter])*)? ")";
+	//	"precondition" {VerificationPrecondition} method=[VerificationMethod|QualifiedName] "("
+	//	(parameters+=[FormalParameter] ("," parameters+=[FormalParameter])*)? ")";
 	public VerificationPreconditionElements getVerificationPreconditionAccess() {
 		return pVerificationPrecondition;
 	}
@@ -2232,8 +2235,8 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 	//	targetType=TargetType "," formals+=FormalParameter ("," formals+=FormalParameter)*) ")" ("properties" "("
 	//	(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] ("," properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)?
 	//	")")? ("returns" "(" (results+=FormalParameter ("," results+=FormalParameter)*)? ")")? (isPredicate?="boolean" |
-	//	isResultReport?="report")?)? (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference] |
-	//	componentCategory+=ComponentCategory+))? "[" (methodKind=MethodKind & description=Description? &
+	//	isResultReport?="report")?)? (":" title=STRING)? ("for" (target=[aadl2::ComponentClassifier|AadlClassifierReference]
+	//	| componentCategory+=ComponentCategory+))? "[" (methodKind=MethodKind & description=Description? &
 	//	precondition=VerificationPrecondition? & validation=VerificationValidation? & ("category"
 	//	category+=[categories::Category|QualifiedName]+)?) "]";
 	public VerificationMethodElements getVerificationMethodAccess() {
@@ -2314,6 +2317,9 @@ public class VerifyGrammarAccess extends AbstractGrammarElementFinder {
 		return getJUnit4MethodAccess().getRule();
 	}
 
+	////PropertyReference returns common::APropertyReference:
+	////	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+	////;
 	////enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 	////enum SupportedReporting: MARKER='marker' |ERRORMARKER='errormarker' | DIAGNOSTICS='diagnostics'| ASSERTEXCEPTION='assertexception'|RESULTREPORT='resultreport' ;
 	//JavaParameter:

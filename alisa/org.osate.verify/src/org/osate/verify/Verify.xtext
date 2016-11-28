@@ -192,6 +192,10 @@ MethodKind:
 JavaParameter returns JavaParameter:
 	parameterType=ID name=ID ;
 
+
+//PropertyReference returns common::APropertyReference:
+//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+//;
 	
 //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 
