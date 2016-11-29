@@ -9,6 +9,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.di.GetGraphic;
@@ -39,6 +40,21 @@ public class BoHandlerResizeShapeFeature extends DefaultResizeShapeFeature {
 		int y = context.getY();
 		int width = context.getWidth();
 		int height = context.getHeight();
+		
+		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+		final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(shape);
+		final int dw, dh;
+		if(shapeGa != null && innerGa != null) {
+			dw = shapeGa.getWidth() - innerGa.getWidth();
+			dh = shapeGa.getHeight() - innerGa.getHeight();
+		} else {
+			dw = dh = 0;
+		}
+		
+		final int newInnerWidth = width - dw;
+		final int newInnerHeight = height - dh;
+		
+		// TODO: How to adjust x and y...
 	
 		// Handle rebuild the graphics algorithm as appropriate
 		if (shape.getGraphicsAlgorithm() != null) {			
@@ -49,7 +65,8 @@ public class BoHandlerResizeShapeFeature extends DefaultResizeShapeFeature {
 					eclipseCtx.set(Names.BUSINESS_OBJECT, bo);			
 					eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
 					final Object gr = (Graphic)ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
-					AgeGraphitiGraphicsUtil.resizeGraphicsAlgorithm(getDiagram(), shape, gr, width, height);
+					//AgeGraphitiGraphicsUtil.resizeGraphicsAlgorithm(getDiagram(), shape, gr, width, height);
+					AgeGraphitiGraphicsUtil.resizeGraphicsAlgorithm(getDiagram(), shape, gr, newInnerWidth, newInnerHeight);
 				} finally {
 					eclipseCtx.dispose();
 				}

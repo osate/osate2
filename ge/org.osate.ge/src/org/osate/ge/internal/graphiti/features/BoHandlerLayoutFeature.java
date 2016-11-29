@@ -21,6 +21,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.GetNameLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -68,16 +69,17 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 					
 					final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-					if(ga.getGraphicsAlgorithmChildren().size() == 0) {
+					final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(shape);
+					if(innerGa == null) {
 						// TODO
-						System.err.println("NO CHILDREN");
+						System.err.println("NULL");
 						return false;
 					}
 					
-					final GraphicsAlgorithm innerGa = ga.getGraphicsAlgorithmChildren().get(0);// TODO
 					final GraphicsAlgorithm nameGa = nameShape.getGraphicsAlgorithm();
-					int innerGaX = 0;
-					int innerGaY = 0;
+					final int innerGaX;
+					
+					// TODO: Review usage of innerGa and Ga
 					
 					// Set X value based on the label configuration
 					switch(labelConfiguration.horizontalPosition) {
@@ -89,27 +91,39 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 						
 					case GRAPHIC_BEGINNING:
 						nameGa.setX(0);
+						innerGaX = 0;
 						break;
 						
 					case DEFAULT:
 					case GRAPHIC_CENTER:
-						nameGa.setX((ga.getWidth() - nameGa.getWidth()) / 2);
+						if(innerGa.getWidth() >= nameGa.getWidth()) {
+							nameGa.setX((innerGa.getWidth() - nameGa.getWidth()) / 2);
+							innerGaX = 0; // TODO
+						} else {
+							nameGa.setX(0);
+							innerGaX = (nameGa.getWidth() - innerGa.getWidth()) / 2;
+						}
 						break;
 						
 					case GRAPHIC_END:
 						nameGa.setX(ga.getWidth() - nameGa.getWidth());
+						// TODO: How to enforce a minimum width for inner ga... Part of resize? Or should layout be where shapes are recreated?
+						innerGaX = 0;
 						break;
 						
 					case AFTER_GRAPHIC:
 						nameGa.setX(innerGa.getWidth());
+						innerGaX = 0;
 						break;
 						
 					default:
 						nameGa.setX(0);
+						innerGaX = 0;
 						break;					
 					}					
 					
 					// Set Y value based on the label configuration
+					final int innerGaY;
 					switch(labelConfiguration.verticalPosition) {
 					case BEFORE_GRAPHIC:
 						// TODO: Need a container for the overall shape?
@@ -120,22 +134,27 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					case DEFAULT:					
 					case GRAPHIC_BEGINNING:
 						nameGa.setY(0);
+						innerGaY = 0;
 						break;
 						
 					case GRAPHIC_CENTER:
 						nameGa.setY((ga.getHeight() - nameGa.getHeight()) / 2);
+						innerGaY = 0; // TODO
 						break;
 						
 					case GRAPHIC_END:
 						nameGa.setY(ga.getHeight() - nameGa.getHeight());
+						innerGaY = 0;
 						break;
 						
 					case AFTER_GRAPHIC:
 						// TODO
+						innerGaY = 0;
 						break;
 						
 					default:
 						nameGa.setY(0);
+						innerGaY = 0;
 						break;					
 					}
 					
@@ -145,6 +164,8 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					// TODO: Calculate another way? More efficient
 					ga.setHeight(Math.max(innerGa.getY() + innerGa.getHeight(), nameGa.getY() + nameGa.getHeight()));
 					ga.setWidth(Math.max(innerGa.getX() + innerGa.getWidth(), nameGa.getX() + nameGa.getWidth()));
+					
+					System.err.println("NAME WIDTH: " + nameGa.getWidth() + " : "  + nameGa.getX() + " : " + ga.getWidth());
 					
 				} finally {
 					eclipseCtx.dispose();

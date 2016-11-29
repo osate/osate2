@@ -303,10 +303,10 @@ public class BoHandlerRefreshHelper {
 	}
 	
 	private void refreshShapeGraphicsFromRepresentation(final Shape shape, final Object gr) {		
-		final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
+		final GraphicsAlgorithm oldGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(shape);
 		final int width = Math.max(50, oldGa == null ? 0 : oldGa.getWidth());
 		final int height = Math.max(50, oldGa == null ? 50 : oldGa.getHeight());
-		AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shape, gr, width, height);		
+		AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shape, gr, width, height);	
 	}
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {

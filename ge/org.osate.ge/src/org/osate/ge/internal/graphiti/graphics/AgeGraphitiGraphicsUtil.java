@@ -42,22 +42,16 @@ public class AgeGraphitiGraphicsUtil {
 			return null;
 		}
 		
-		// TODO: Create invisible container. Rename
-		// TODO: Decide what to do.. A second wrapper seems to break chop box anchors.
-		final GraphicsAlgorithm topGraphicsAlgorithm = gaService.createInvisibleRectangle(shape);
-		final GraphicsAlgorithm wrapperGraphicsAlgorithm = topGraphicsAlgorithm;//gaService.createPlainRectangle(topGraphicsAlgorithm);//gaService.createInvisibleRectangle(topGraphicsAlgorithm);
-		wrapperGraphicsAlgorithm.setFilled(false);
-		wrapperGraphicsAlgorithm.setLineVisible(false);
+		final GraphicsAlgorithm shapeGa = gaService.createInvisibleRectangle(shape);	
 		
-		final GraphicsAlgorithm innerGa;
-		
+		final GraphicsAlgorithm innerGa;		
 		final Class<?> graphicClass = graphic.getClass();
 		if(graphicClass == Rectangle.class) {
 			final Rectangle r = (Rectangle)graphic;
 			if(r.rounded) {
-				innerGa = gaService.createPlainRoundedRectangle(wrapperGraphicsAlgorithm, 25, 25);
+				innerGa = gaService.createPlainRoundedRectangle(shapeGa, 25, 25);
 			} else {
-				innerGa = gaService.createPlainRectangle(wrapperGraphicsAlgorithm);
+				innerGa = gaService.createPlainRectangle(shapeGa);
 			}
 			innerGa.setLineWidth(((Rectangle)graphic).lineWidth);
 			innerGa.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((Rectangle)graphic).lineStyle));
@@ -65,36 +59,37 @@ public class AgeGraphitiGraphicsUtil {
 	        innerGa.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
 	        gaService.setSize(innerGa, width, height);
 		} else if(graphicClass == Ellipse.class) {
-	        innerGa = gaService.createPlainEllipse(wrapperGraphicsAlgorithm);
+	        innerGa = gaService.createPlainEllipse(shapeGa);
 	        innerGa.setLineWidth(((Ellipse)graphic).lineWidth);
 	        innerGa.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((Ellipse)graphic).lineStyle));
 			innerGa.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
 	        innerGa.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
 	        gaService.setSize(innerGa, width, height);
 		} else if(graphicClass == Polygon.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (Polygon)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (Polygon)graphic, width, height);
 		} else if(graphicClass == Parallelogram.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (Parallelogram)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (Parallelogram)graphic, width, height);
 		} else if(graphicClass == DeviceGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (DeviceGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (DeviceGraphic)graphic, width, height);
 		} else if(graphicClass == BusGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (BusGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (BusGraphic)graphic, width, height);
 		} else if(graphicClass == ProcessorGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (ProcessorGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (ProcessorGraphic)graphic, width, height);
 		} else if(graphicClass == MemoryGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (MemoryGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (MemoryGraphic)graphic, width, height);
 		} else if(graphicClass == FeatureGroupTypeGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (FeatureGroupTypeGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGroupTypeGraphic)graphic, width, height);
 		} else {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
 		
-		wrapperGraphicsAlgorithm.setWidth(innerGa.getWidth());
-		wrapperGraphicsAlgorithm.setHeight(innerGa.getHeight());
-		topGraphicsAlgorithm.setWidth(width);
-		topGraphicsAlgorithm.setHeight(height);
+		// TODO: Sort out what the size should be...
+		shapeGa.setWidth(innerGa.getWidth());
+		shapeGa.setHeight(innerGa.getHeight());
+		//shapeGa.setWidth(width);
+		//shapeGa.setHeight(height);
         
-		return wrapperGraphicsAlgorithm;
+		return shapeGa;
 	}
 	
 	public static void resizeGraphicsAlgorithm(final Diagram diagram, final Shape shape, final Object graphic, final int width, final int height) {
@@ -433,5 +428,15 @@ public class AgeGraphitiGraphicsUtil {
 		
 		gaService.setSize(ga, innerCircle.getX() + innerCircle.getWidth(), size);
 		return ga;
+	}
+	
+	public static GraphicsAlgorithm getInnerGraphicsAlgorithm(final Shape shape) {
+		GraphicsAlgorithm innerGa = shape.getGraphicsAlgorithm();
+		// TODO: Check that it is invisible, etc..
+		if(innerGa != null && innerGa.getGraphicsAlgorithmChildren().size() == 1) {
+			innerGa = innerGa.getGraphicsAlgorithmChildren().get(0);
+		}
+		
+		return innerGa;
 	}
 }
