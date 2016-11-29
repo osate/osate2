@@ -79,12 +79,15 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case containmentPathElement_NamedElement: target.getContainerOfType(Classifier).getQualifiedName + ":" + (target as NamedElement).name
 			
 			case componentInstance_InMode,
+			case connectionInstance_InSystemOperationMode,
 			case flowSpecificationInstance_InMode,
+			case endToEndFlowInstance_InSystemOperationMode,
 			case modeInstance_Parent,
 			case modeTransitionInstance_Source,
 			case modeTransitionInstance_Destination,
 			case numberValue_Unit,
-			case basicPropertyAssociation_Property: (target as NamedElement).name
+			case basicPropertyAssociation_Property,
+			case modalElement_InMode: (target as NamedElement).name
 			
 			case connectionInstance_Source,
 			case connectionInstance_Destination,
@@ -94,10 +97,6 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 			case flowSpecificationInstance_Destination,
 			case endToEndFlowInstance_FlowElement,
 			case systemOperationMode_CurrentMode: target.serializeChainedInstanceReference(semanticObject.getContainerOfType(ComponentInstance))
-			
-			case connectionInstance_InSystemOperationMode,
-			case endToEndFlowInstance_InSystemOperationMode,
-			case modalElement_InMode: "som#" + target.getContainerOfType(SystemInstance).systemOperationModes.indexOf(target)
 			
 			case connectionInstance_InModeTransition,
 			case flowSpecificationInstance_InModeTransition: "transition#" + target.getContainerOfType(ComponentInstance).modeTransitionInstances.indexOf(target)

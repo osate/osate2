@@ -107,7 +107,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 				case systemOperationMode_CurrentMode: context.getInstanceObject(qName, ref)
 				case connectionInstance_InSystemOperationMode,
 				case endToEndFlowInstance_InSystemOperationMode,
-				case modalElement_InMode: context.getContainerOfType(SystemInstance).systemOperationModes.guardedGet(qName.firstSegment.toIndex)
+				case modalElement_InMode: context.getContainerOfType(SystemInstance).systemOperationModes.findFirst[name == qName.firstSegment]
 				case connectionInstance_InModeTransition,
 				case flowSpecificationInstance_InModeTransition: context.getContainerOfType(ComponentInstance).modeTransitionInstances.guardedGet(qName.firstSegment.toIndex)
 				case connectionReference_Connection: context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedConnections])
