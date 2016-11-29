@@ -957,12 +957,10 @@ ruleConnectionInstance returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getConnectionInstanceRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_7_3_0()); 
-	    }
-		ruleSomRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_11=RULE_ID
+	{
+		newLeafNode(otherlv_11, grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_7_3_0()); 
+	}
 
 )
 )(	otherlv_12=',' 
@@ -976,12 +974,10 @@ ruleConnectionInstance returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getConnectionInstanceRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_7_4_1_0()); 
-	    }
-		ruleSomRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_13=RULE_ID
+	{
+		newLeafNode(otherlv_13, grammarAccess.getConnectionInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_7_4_1_0()); 
+	}
 
 )
 ))*	otherlv_14=')' 
@@ -1510,12 +1506,10 @@ ruleEndToEndFlowInstance returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getEndToEndFlowInstanceRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getEndToEndFlowInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_6_3_0()); 
-	    }
-		ruleSomRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_11=RULE_ID
+	{
+		newLeafNode(otherlv_11, grammarAccess.getEndToEndFlowInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_6_3_0()); 
+	}
 
 )
 )(	otherlv_12=',' 
@@ -1529,12 +1523,10 @@ ruleEndToEndFlowInstance returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getEndToEndFlowInstanceRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getEndToEndFlowInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_6_4_1_0()); 
-	    }
-		ruleSomRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_13=RULE_ID
+	{
+		newLeafNode(otherlv_13, grammarAccess.getEndToEndFlowInstanceAccess().getInSystemOperationModeSystemOperationModeCrossReference_6_4_1_0()); 
+	}
 
 )
 ))*	otherlv_14=')' 
@@ -2116,12 +2108,10 @@ ruleOptionalModalPropertyValue returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0()); 
-	    }
-		ruleSomRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_4=RULE_ID
+	{
+		newLeafNode(otherlv_4, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_3_0()); 
+	}
 
 )
 )(	otherlv_5=',' 
@@ -2135,12 +2125,10 @@ ruleOptionalModalPropertyValue returns [EObject current=null]
 	            $current = createModelElement(grammarAccess.getOptionalModalPropertyValueRule());
 	        }
         }
-		{ 
-	        newCompositeNode(grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0()); 
-	    }
-		ruleSomRef		{ 
-	        afterParserOrEnumRuleCall();
-	    }
+	otherlv_6=RULE_ID
+	{
+		newLeafNode(otherlv_6, grammarAccess.getOptionalModalPropertyValueAccess().getInModeModeCrossReference_1_4_1_0()); 
+	}
 
 )
 ))*	otherlv_7=')' 
@@ -2993,46 +2981,6 @@ ruleInstanceRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleTok
         newLeafNode(kw, grammarAccess.getInstanceRefAccess().getRightSquareBracketKeyword_1_1_1_1_2()); 
     }
 )*))))
-    ;
-
-
-
-
-
-// Entry rule entryRuleSomRef
-entryRuleSomRef returns [String current=null] 
-	:
-	{ newCompositeNode(grammarAccess.getSomRefRule()); } 
-	 iv_ruleSomRef=ruleSomRef 
-	 { $current=$iv_ruleSomRef.current.getText(); }  
-	 EOF 
-;
-
-// Rule SomRef
-ruleSomRef returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule(); }:
-(
-	kw='som' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getSomRefAccess().getSomKeyword_0()); 
-    }
-
-	kw='#' 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getSomRefAccess().getNumberSignKeyword_1()); 
-    }
-    this_INTEGER_LIT_2=RULE_INTEGER_LIT    {
-		$current.merge(this_INTEGER_LIT_2);
-    }
-
-    { 
-    newLeafNode(this_INTEGER_LIT_2, grammarAccess.getSomRefAccess().getINTEGER_LITTerminalRuleCall_2()); 
-    }
-)
     ;
 
 

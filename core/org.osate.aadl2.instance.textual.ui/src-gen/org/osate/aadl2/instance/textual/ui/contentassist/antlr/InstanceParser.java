@@ -151,7 +151,6 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_0(), "rule__InstanceRef__Group_1_1_0__0");
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_1(), "rule__InstanceRef__Group_1_1_1__0");
 					put(grammarAccess.getInstanceRefAccess().getGroup_1_1_1_1(), "rule__InstanceRef__Group_1_1_1_1__0");
-					put(grammarAccess.getSomRefAccess().getGroup(), "rule__SomRef__Group__0");
 					put(grammarAccess.getTransitionRefAccess().getGroup(), "rule__TransitionRef__Group__0");
 					put(grammarAccess.getModeTransitionNameAccess().getGroup(), "rule__ModeTransitionName__Group__0");
 					put(grammarAccess.getPropertyAssociationRefAccess().getGroup(), "rule__PropertyAssociationRef__Group__0");
