@@ -99,8 +99,9 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 
 		// Remove the EObject from the model
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		
+		// TODO: Implement/rework propagating changes to other diagrams and packages.
 
-		// Otherwise.
 		if(bo instanceof EObject) {
 			final EObject boEObj = (EObject)bo;
 			aadlModService.modify(boEObj, new AbstractModifier<EObject, Object>() {

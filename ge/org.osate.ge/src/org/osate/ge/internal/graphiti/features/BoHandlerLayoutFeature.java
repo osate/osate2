@@ -101,7 +101,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case GRAPHIC_CENTER:
 				case GRAPHIC_END:
 				default:
-					innerWidth = Math.max(innerWidth, nameGa.getWidth());
+					innerWidth = Math.max(innerWidth, nameGa.getWidth() + 4); // Add additional padding to avoid label background from overlapping shape border for simple shapes
 					break;
 
 				case AFTER_GRAPHIC:

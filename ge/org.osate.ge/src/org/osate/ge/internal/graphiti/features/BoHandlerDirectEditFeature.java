@@ -148,6 +148,8 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
      			// Resolving allows the name change to propagate when editing without an Xtext document
      			EcoreUtil.resolveAll(resource.getResourceSet());
      			
+     			// TODO: Implement/rework propagating changes to other diagrams and packages.
+     			
      			// Start the diagram modification
      			diagramMod = diagramModService.startModification();
 
