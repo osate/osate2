@@ -64,7 +64,6 @@ import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ContainedNamedElement;
 import org.osate.aadl2.ContainmentPathElement;
-import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
@@ -459,7 +458,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			final NamedElement parsedSubclause = ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
 			
 			// Don't return subclauses which inherit from DefaultAnnexSubclause
-			if(parsedSubclause instanceof DefaultAnnexLibrary) {
+			if(parsedSubclause instanceof DefaultAnnexSubclause) {
 				return null;
 			}
 			
