@@ -9,8 +9,10 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.GroupExtension;
@@ -32,6 +34,7 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
+import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -57,25 +60,52 @@ public class PackageHandler {
 	}
 	
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final ExtensionService extService, final QueryService queryService) {
 		final boolean showObjectsOutsideOfPackage = queryService.getFirstBusinessObject(parentQuery, diagramElement) == null;
 
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
 		final Set<Object> connectionChildren = new HashSet<>();
-		populateChildren(pkg, pkg.getPublicSection(), children, connectionChildren, showObjectsOutsideOfPackage);
-		populateChildren(pkg, pkg.getPrivateSection(), children, connectionChildren, showObjectsOutsideOfPackage);	
+		populateChildren(pkg, pkg.getPublicSection(), children, connectionChildren, showObjectsOutsideOfPackage, extService);
+		populateChildren(pkg, pkg.getPrivateSection(), children, connectionChildren, showObjectsOutsideOfPackage, extService);	
 		
 		return Stream.concat(children.stream(), connectionChildren.stream());
 	}
 	
-	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final Set<Object> connectionChildren, final boolean showObjectsOutsideOfPackage) {
+	private NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
+		if(annexLibrary instanceof DefaultAnnexLibrary) {
+			final NamedElement parsedLib = ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
+			
+			// Don't return libraries which inherit from DefaultAnnexLibrary
+			if(parsedLib instanceof DefaultAnnexLibrary) {
+				return null;
+			}
+			
+			return parsedLib;
+		}
+		
+		return null;
+	}
+	
+	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final Set<Object> connectionChildren, final boolean showObjectsOutsideOfPackage, final ExtensionService extService) {
 		if(ps == null) {
 			return;
 		}
 		
 		children.addAll(ps.getOwnedClassifiers());
-		children.addAll(ps.getOwnedAnnexLibraries());
+		
+		for(final AnnexLibrary annexLibrary : ps.getOwnedAnnexLibraries()) {
+			//children.addAll(ps.getOwnedAnnexLibraries());
+			final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(annexLibrary);
+			final boolean specializedHandling = parsedAnnexLibrary != null && extService.getApplicableBusinessObjectHandler(parsedAnnexLibrary) != null;
+
+			// Create the generic shape if specialized handling wasn't used
+			if(specializedHandling) {
+				children.add(parsedAnnexLibrary);
+			} else {
+				children.add(annexLibrary);
+			}
+		}
 		
 		for(final NamedElement el : ps.getOwnedClassifiers()) {
 			if(el instanceof ComponentType) {

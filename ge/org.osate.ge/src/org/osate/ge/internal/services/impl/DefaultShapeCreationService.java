@@ -104,7 +104,7 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 		} else {				
 			final UpdateContext updateContext = new UpdateContext(pictogramElement);
 			final IUpdateFeature updateFeature = fp.getUpdateFeature(updateContext);
-			
+
 			// Update the classifier regardless of whether it is "needed" or not.
 			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 				updateFeature.update(updateContext);

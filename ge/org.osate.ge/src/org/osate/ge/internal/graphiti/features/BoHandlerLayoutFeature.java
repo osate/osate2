@@ -58,167 +58,170 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 	@Override
 	public boolean layout(final ILayoutContext context) {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();
-		if(shape.getGraphicsAlgorithm() != null) {
+		if(shape.getGraphicsAlgorithm() == null) {
+			return false;
+		}
+			
+		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final Object handler = extService.getApplicableBusinessObjectHandler(bo);
+		
+		final IEclipseContext eclipseCtx = extService.createChildContext();
+		try {
+			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
+			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
+			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
+			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
+			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+
+			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
+			if(gr == null) {	
+				return false;
+			}
+
+			// Determine the space needed for each area
+			int innerWidth = 50;
+			int innerHeight = 50;
+			int leftOuterPadding = 0;
+			int rightOuterPadding = 0;
+			int topOuterPadding = 0;
+			int bottomOuterPadding = 0;
+
 			final Shape nameShape = shapeService.getChildShapeByName(shape, BoHandlerFeatureHelper.nameShapeName);
-			if(nameShape != null && nameShape.getGraphicsAlgorithm() != null) {
-				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-				final Object handler = extService.getApplicableBusinessObjectHandler(bo);
+			final GraphicsAlgorithm nameGa = nameShape == null ? null : nameShape.getGraphicsAlgorithm();
+			
+			// Handle label configuration
+			if(nameGa != null) {
+				switch(labelConfiguration.horizontalPosition) {
+				case BEFORE_GRAPHIC:
+					leftOuterPadding = Math.max(leftOuterPadding, nameGa.getWidth());
+					break;	
+
+				case DEFAULT:
+				case GRAPHIC_BEGINNING:
+				case GRAPHIC_CENTER:
+				case GRAPHIC_END:
+				default:
+					innerWidth = Math.max(innerWidth, nameGa.getWidth());
+					break;
+
+				case AFTER_GRAPHIC:
+					rightOuterPadding = Math.max(rightOuterPadding, nameGa.getWidth());
+					break;			
+				}					
 				
-				final IEclipseContext eclipseCtx = extService.createChildContext();
-				try {
-					eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-					eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
-					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
-					final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
-					final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-
-					final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
-					if(shapeGa == null || gr == null) {	
-						return false;
-					}
-
-					final GraphicsAlgorithm nameGa = nameShape.getGraphicsAlgorithm();
-
-					// Determine the space needed for each area
-					int innerWidth = 50;
-					int innerHeight = 50;
-					int leftOuterPadding = 0;
-					int rightOuterPadding = 0;
-					int topOuterPadding = 0;
-					int bottomOuterPadding = 0;
+				// Set Y value based on the label configuration
+				switch(labelConfiguration.verticalPosition) {
+				case BEFORE_GRAPHIC:
+					topOuterPadding = Math.max(topOuterPadding, nameGa.getHeight());
+					break;	
 					
-					// Handle label configuration
-					switch(labelConfiguration.horizontalPosition) {
-					case BEFORE_GRAPHIC:
-						leftOuterPadding = Math.max(leftOuterPadding, nameGa.getWidth());
-						break;	
-
-					case DEFAULT:
-					case GRAPHIC_BEGINNING:
-					case GRAPHIC_CENTER:
-					case GRAPHIC_END:
-					default:
-						innerWidth = Math.max(innerWidth, nameGa.getWidth());
-						break;
-
-					case AFTER_GRAPHIC:
-						rightOuterPadding = Math.max(rightOuterPadding, nameGa.getWidth());
-						break;			
-					}					
+				case DEFAULT:					
+				case GRAPHIC_BEGINNING:
+				case GRAPHIC_CENTER:
+				case GRAPHIC_END:
+				default:
+					innerHeight = Math.max(innerHeight, nameGa.getHeight());
+					break;
 					
-					// Set Y value based on the label configuration
-					switch(labelConfiguration.verticalPosition) {
-					case BEFORE_GRAPHIC:
-						topOuterPadding = Math.max(topOuterPadding, nameGa.getHeight());
-						break;	
+				case AFTER_GRAPHIC:
+					bottomOuterPadding = Math.max(bottomOuterPadding, nameGa.getHeight());
+					break;			
+				}
+			}
+			
+			// Adjust inner width and height based on padding and current size
+			innerWidth = Math.max(innerWidth, shapeGa.getWidth() - leftOuterPadding - rightOuterPadding);
+			innerHeight = Math.max(innerHeight, shapeGa.getHeight() - topOuterPadding - bottomOuterPadding);
+			
+			// Prevent children from being positioned with negative coordinates
+			for(final Shape childShape : shape.getChildren()) {
+				if(!propertyService.isManuallyPositioned(childShape)) {
+					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+					if(childGa != null) {
+						if(childGa.getX() < 0) {
+							childGa.setX(0);
+						}
 						
-					case DEFAULT:					
-					case GRAPHIC_BEGINNING:
-					case GRAPHIC_CENTER:
-					case GRAPHIC_END:
-					default:
-						innerHeight = Math.max(innerHeight, nameGa.getHeight());
-						break;
-						
-					case AFTER_GRAPHIC:
-						bottomOuterPadding = Math.max(bottomOuterPadding, nameGa.getHeight());
-						break;			
-					}
-					
-					// Adjust inner width and height based on padding and current size
-					innerWidth = Math.max(innerWidth, shapeGa.getWidth() - leftOuterPadding - rightOuterPadding);
-					innerHeight = Math.max(innerHeight, shapeGa.getHeight() - topOuterPadding - bottomOuterPadding);
-					
-					// Prevent children from being positioned with negative coordinates
-					for(final Shape childShape : shape.getChildren()) {
-						if(!propertyService.isManuallyPositioned(childShape)) {
-							final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-							if(childGa != null) {
-								if(childGa.getX() < 0) {
-									childGa.setX(0);
-								}
-								
-								if(childGa.getY() < 0) {
-									childGa.setY(0);
-								}
-							}
+						if(childGa.getY() < 0) {
+							childGa.setY(0);
 						}
 					}
-					// TODO: Handle children
-					//     Ignore shapes that are automatically positioned. (Labels)
-					//     TODO: Docking					
-
-					// Create the graphics algorithm					
-					shapeGa.getGraphicsAlgorithmChildren().clear();
-					final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight);
-					
-					// Update variables using actual size of inner graphics algorithm
-					innerWidth = innerGa.getWidth();
-					innerHeight = innerGa.getHeight();
-					
-					// Update the shape's graphics algorithm based on required size
-					shapeGa.setWidth(leftOuterPadding + innerWidth + rightOuterPadding);
-					shapeGa.setHeight(topOuterPadding + innerHeight + bottomOuterPadding);
-					
-					// Position the inner graphics algorithm
-					innerGa.setX(leftOuterPadding);
-					innerGa.setY(topOuterPadding);
-
-					// Position the labels
-					switch(labelConfiguration.horizontalPosition) {
-					case BEFORE_GRAPHIC:
-						nameGa.setX(0);
-						break;	
-
-					case DEFAULT:
-					case GRAPHIC_BEGINNING:
-					default:
-						nameGa.setX(innerGa.getX());
-						break;
-						
-					case GRAPHIC_CENTER:
-						nameGa.setX(innerGa.getX() + (innerWidth - nameGa.getWidth())/2);
-						break;
-						
-					case GRAPHIC_END:						
-						nameGa.setX(innerGa.getX() + innerWidth - nameGa.getWidth());
-						break;
-
-					case AFTER_GRAPHIC:
-						nameGa.setX(innerGa.getX() + innerWidth);
-						break;			
-					}					
-					
-					// Set Y value based on the label configuration
-					switch(labelConfiguration.verticalPosition) {
-					case BEFORE_GRAPHIC:
-						nameGa.setY(0);
-						break;	
-
-					case DEFAULT:
-					case GRAPHIC_BEGINNING:
-					default:
-						nameGa.setY(innerGa.getY());
-						break;
-						
-					case GRAPHIC_CENTER:
-						nameGa.setY(innerGa.getY() + (innerHeight - nameGa.getHeight())/2);
-						break;
-						
-					case GRAPHIC_END:						
-						nameGa.setY(innerGa.getY() + innerHeight - nameGa.getHeight());
-						break;
-
-					case AFTER_GRAPHIC:
-						nameGa.setY(innerGa.getY() + innerHeight);
-						break;			
-					}					
-				} finally {
-					eclipseCtx.dispose();
-				}		
-	
+				}
 			}
-		}
+			// TODO: Handle children
+			//     Ignore shapes that are automatically positioned. (Labels)
+			//     TODO: Docking					
+
+			// Create the graphics algorithm					
+			shapeGa.getGraphicsAlgorithmChildren().clear();
+			final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight);
+			
+			// Update variables using actual size of inner graphics algorithm
+			innerWidth = innerGa.getWidth();
+			innerHeight = innerGa.getHeight();
+			
+			// Update the shape's graphics algorithm based on required size
+			shapeGa.setWidth(leftOuterPadding + innerWidth + rightOuterPadding);
+			shapeGa.setHeight(topOuterPadding + innerHeight + bottomOuterPadding);
+			
+			// Position the inner graphics algorithm
+			innerGa.setX(leftOuterPadding);
+			innerGa.setY(topOuterPadding);
+
+			if(nameGa != null) {
+				// Position the labels
+				switch(labelConfiguration.horizontalPosition) {
+				case BEFORE_GRAPHIC:
+					nameGa.setX(0);
+					break;	
+
+				case DEFAULT:
+				case GRAPHIC_BEGINNING:
+				default:
+					nameGa.setX(innerGa.getX());
+					break;
+					
+				case GRAPHIC_CENTER:
+					nameGa.setX(innerGa.getX() + (innerWidth - nameGa.getWidth())/2);
+					break;
+					
+				case GRAPHIC_END:						
+					nameGa.setX(innerGa.getX() + innerWidth - nameGa.getWidth());
+					break;
+
+				case AFTER_GRAPHIC:
+					nameGa.setX(innerGa.getX() + innerWidth);
+					break;			
+				}					
+				
+				// Set Y value based on the label configuration
+				switch(labelConfiguration.verticalPosition) {
+				case BEFORE_GRAPHIC:
+					nameGa.setY(0);
+					break;	
+
+				case DEFAULT:
+				case GRAPHIC_BEGINNING:
+				default:
+					nameGa.setY(innerGa.getY());
+					break;
+					
+				case GRAPHIC_CENTER:
+					nameGa.setY(innerGa.getY() + (innerHeight - nameGa.getHeight())/2);
+					break;
+					
+				case GRAPHIC_END:						
+					nameGa.setY(innerGa.getY() + innerHeight - nameGa.getHeight());
+					break;
+
+				case AFTER_GRAPHIC:
+					nameGa.setY(innerGa.getY() + innerHeight);
+					break;			
+				}
+			}
+		} finally {
+			eclipseCtx.dispose();
+		}		
 				
 		return false;
 	}

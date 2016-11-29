@@ -85,7 +85,6 @@ import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
@@ -125,7 +124,6 @@ import org.osate.ge.internal.features.SetInitialModeFeature;
 import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.internal.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
-import org.osate.ge.internal.patterns.AnnexPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ComponentInstancePattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
@@ -231,9 +229,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Classifiers
 		// TODO: Remove. Disabled as part of business object handler migration
 		//addPattern(createClassifierPattern(null)); 
-		//addSubcomponentPatterns();
-		
-		addAnnexPatterns();
+		//addSubcomponentPatterns();		
 		
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
@@ -728,25 +724,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			childCtx.dispose();
 		}
 	}
-	
-	private void addAnnexPatterns() {
-		EClass annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexLibrary();
-		this.addPattern(createAnnexPattern(annexType));
-		
-		annexType = Aadl2Factory.eINSTANCE.getAadl2Package().getDefaultAnnexSubclause();
-		this.addPattern(createAnnexPattern(annexType));
-	}
-	
-	private IPattern createAnnexPattern(final EClass annexType) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Annex Type", annexType);
-			return ContextInjectionFactory.make(AnnexPattern.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-		
+
 	/**
 	 * Creates and adds patterns related to AADL Features
 	 */

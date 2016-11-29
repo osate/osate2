@@ -88,8 +88,7 @@ public class DefaultStyleService implements StyleService {
 	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, "mode-initial");
 	 	createStyleFactory(org.osate.ge.internal.styles.DashedLineStyleFactory.class, "mode_transition_trigger");
 	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallSequenceStyleFactory.class, "subprogram_call_sequence");
-	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallStyleFactory.class, "subprogram_call"); 	
-	 	createStyleFactory(org.osate.ge.internal.styles.DefaultAnnexStyleFactory.class, "default_annex");	 	
+	 	createStyleFactory(org.osate.ge.internal.styles.SubprogramCallStyleFactory.class, "subprogram_call"); 		
 	 	createStyleFactory(org.osate.ge.internal.styles.SolidLineStyleFactory.class, StyleConstants.SOLID_CONNECTION_STYLE);
 	 	createStyleFactory(org.osate.ge.internal.styles.DashedLineStyleFactory.class, StyleConstants.DASHED_CONNECTION_STYLE);
 	}

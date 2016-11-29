@@ -774,5 +774,8 @@
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.ConnectionReferenceHandler">
        </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.AnnexHandler">
+       </handler>
     </extension>
 </plugin>

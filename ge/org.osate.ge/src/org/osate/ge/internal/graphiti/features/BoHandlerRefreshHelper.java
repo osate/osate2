@@ -309,12 +309,12 @@ public class BoHandlerRefreshHelper {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
 			final Object gr = ContextInjectionFactory.invoke(childBoHandler, GetGraphic.class, eclipseCtx, null);
-			if(gr instanceof AgeShape) {
+			if(gr instanceof AgeShape || gr == null) { // Handle null graphic to allow for business object handlers which are just containers but have no graphical representation.
 				shapeCreationService.createUpdateShape(containerShape, childBo);
 			} else if(gr instanceof AgeConnection) {
 				connectionCreationService.createUpdateConnection(containerShape, childBo);
 			} else {
-				throw new RuntimeException("Unsupported graphical representation: " + gr);
+				throw new RuntimeException("Unsupported graphical representation: " + gr + " for " + childBo);
 			}
 		}
 	}

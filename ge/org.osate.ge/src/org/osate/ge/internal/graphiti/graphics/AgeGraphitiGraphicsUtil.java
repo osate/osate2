@@ -13,6 +13,7 @@ import org.osate.ge.internal.graphics.BusGraphic;
 import org.osate.ge.internal.graphics.DeviceGraphic;
 import org.osate.ge.internal.graphics.Ellipse;
 import org.osate.ge.internal.graphics.FeatureGroupTypeGraphic;
+import org.osate.ge.internal.graphics.FolderGraphic;
 import org.osate.ge.internal.graphics.LineStyle;
 import org.osate.ge.internal.graphics.MemoryGraphic;
 import org.osate.ge.internal.graphics.Parallelogram;
@@ -21,6 +22,11 @@ import org.osate.ge.internal.graphics.ProcessorGraphic;
 import org.osate.ge.internal.graphics.Rectangle;
 
 public class AgeGraphitiGraphicsUtil {
+	private final static int folderTabHeight = 9;
+	private final static int folderMaxTabWidth = 100;
+	private final static double folderTabOffsetAngle = 30.0;
+	private final static double folderTopOfTabOffset = 0.3;
+	
 	public static org.eclipse.graphiti.mm.algorithms.styles.LineStyle toGraphitiLineStyle(final LineStyle lineStyle) {
 	    switch(lineStyle) {
 		case DASHED:
@@ -77,6 +83,8 @@ public class AgeGraphitiGraphicsUtil {
 			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (MemoryGraphic)graphic, width, height);
 		} else if(graphicClass == FeatureGroupTypeGraphic.class) {
 			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGroupTypeGraphic)graphic, width, height);
+		} else if(graphicClass == FolderGraphic.class) {
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FolderGraphic)graphic, width, height);
 		} else {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
@@ -362,6 +370,31 @@ public class AgeGraphitiGraphicsUtil {
 		innerCircle.setForeground(black);
 		
 		gaService.setSize(ga, innerCircle.getX() + innerCircle.getWidth(), size);
+		return ga;
+	}
+	
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FolderGraphic folderGraphic, final int width, final int height) {
+		final IGaService gaService = Graphiti.getGaService();
+
+		//Width of tab
+		int widthOfTab = Math.min(folderMaxTabWidth, (int)(width*folderTopOfTabOffset));
+		//The tab start and end slope 
+		int tabOffset = (int)(Math.ceil(Math.tan(Math.toRadians(folderTabOffsetAngle))*folderTabHeight));
+		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerGa, 
+				new int[] {
+				0, height,
+				0, folderTabHeight,
+				tabOffset, 0,
+				widthOfTab, 0,
+				widthOfTab+tabOffset, folderTabHeight,
+				width, folderTabHeight,
+				width, height});
+		
+		ga.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
+        ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+        ga.setLineWidth(folderGraphic.lineWidth);
+        gaService.setSize(ga, width, height);
+        
 		return ga;
 	}
 }
