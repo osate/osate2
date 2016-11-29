@@ -239,14 +239,15 @@ public class BoHandlerRefreshHelper {
 					// Refresh Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of GraphicsAlgorithm
 					// and because there are issues when recreating the graphics algorithm of connections. Upon update, the connecitons may disappear.
 					if(pe instanceof Shape) {
-						refreshShapeGraphicsFromRepresentation((Shape)pe, gr);
-						
+						final Shape shape = (Shape)pe;
+						final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
+						final int width = Math.max(50, oldGa == null ? 0 : oldGa.getWidth());
+						final int height = Math.max(50, oldGa == null ? 50 : oldGa.getHeight());
+	
 						// Set the position of the refreshed graphics algorithm
-						final GraphicsAlgorithm ga = pe.getGraphicsAlgorithm();
-						if(ga != null) {
-							ga.setX(x);
-							ga.setY(y);
-						}
+						final IGaService gaService = Graphiti.getGaService();
+						final GraphicsAlgorithm newGa = gaService.createInvisibleRectangle(shape);
+						gaService.setLocationAndSize(newGa, x, y, width, height);
 					}
 					
 					// Layout the shape
@@ -300,13 +301,6 @@ public class BoHandlerRefreshHelper {
 	    		2, 0, 
 	    		-14, -8});
 	    return ga;
-	}
-	
-	private void refreshShapeGraphicsFromRepresentation(final Shape shape, final Object gr) {		
-		final GraphicsAlgorithm oldGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(shape);
-		final int width = Math.max(50, oldGa == null ? 0 : oldGa.getWidth());
-		final int height = Math.max(50, oldGa == null ? 50 : oldGa.getHeight());
-		AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shape, gr, width, height);	
 	}
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {

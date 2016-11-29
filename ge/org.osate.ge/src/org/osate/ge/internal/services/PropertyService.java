@@ -78,7 +78,7 @@ public interface PropertyService {
 	void setIsLayedOut(PictogramElement pe, boolean value);
 	
 	/**
-	 * Being manually positioned indicates the the pictogram is manually positioned by the editor or by the user. Manually positions shapes should not
+	 * Being manually positioned indicates the the pictogram is manually positioned by the editor. Manually positions shapes should not
 	 * be moved by automatic diagram layout or adjustment algorithms An example of such a pictogram is a label shape.
 	 * @param pe
 	 * @return

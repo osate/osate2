@@ -98,7 +98,7 @@ public class LabelConfigurationBuilder {
 	 * @return this builder to allow method chaining.
 	 */
 	public LabelConfigurationBuilder belowBottom() {
-		this.verticalPosition = LabelPosition.BEFORE_GRAPHIC;
+		this.verticalPosition = LabelPosition.AFTER_GRAPHIC;
 		return this;
 	}
 		

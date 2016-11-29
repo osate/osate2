@@ -69,7 +69,7 @@ import org.osate.ge.internal.util.StringUtil;
 
 public class ClassifierHandler {
 	private static final LabelConfiguration classifierDiagramNameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
-	private static final LabelConfiguration ccNameLabelConfiguration = LabelConfigurationBuilder.create().aboveTop().horizontalCenter().build(); // TODO: Adjust. For testing//LabelConfigurationBuilder.create().center().build();
+	private static final LabelConfiguration ccNameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
 	private static final LabelConfiguration fgtNameLabelConfiguration = LabelConfigurationBuilder.create().afterRight().verticalCenter().build();
 	private static final StandaloneDiagramElementQuery packageQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
 	private static final Graphic featureGroupTypeClassifierDiagramGraphic = RectangleBuilder.create().lineWidth(2).build(); // Graphic to use for feature group types when they are not contained in a package diagram element.

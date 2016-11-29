@@ -6,7 +6,6 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
@@ -35,15 +34,14 @@ public class AgeGraphitiGraphicsUtil {
 	    }
 	}
 	
-	public static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final Shape shape, final Object graphic, final int width, final int height) {
+	// Returns the new graphics algorithm
+	public static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm shapeGa, final Object graphic, final int width, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
 
 		if(graphic == null) {
 			return null;
 		}
-		
-		final GraphicsAlgorithm shapeGa = gaService.createInvisibleRectangle(shape);	
-		
+
 		final GraphicsAlgorithm innerGa;		
 		final Class<?> graphicClass = graphic.getClass();
 		if(graphicClass == Rectangle.class) {
@@ -83,71 +81,8 @@ public class AgeGraphitiGraphicsUtil {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
 		
-		// TODO: Sort out what the size should be...
-		shapeGa.setWidth(innerGa.getWidth());
-		shapeGa.setHeight(innerGa.getHeight());
-		//shapeGa.setWidth(width);
-		//shapeGa.setHeight(height);
-        
-		return shapeGa;
-	}
-	
-	public static void resizeGraphicsAlgorithm(final Diagram diagram, final Shape shape, final Object graphic, final int width, final int height) {
-		// TODO: Problem 
-		if(shape.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().size() == 0) {
-			return;
-		}
-		
-		final GraphicsAlgorithm topGraphicsAlgorithm = shape.getGraphicsAlgorithm();
-		final GraphicsAlgorithm wrapperGraphicsAlgorithm = topGraphicsAlgorithm;//topGraphicsAlgorithm.getGraphicsAlgorithmChildren().get(0);
-
-		// TODO: Problem 
-		// TODO: Remove if top = wrapper
-		if(wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().size() == 0) {
-			return;
-		}
-		
-		// Remove child graphics algorithms 
-		if(graphic != null) {
-			final Class<?> graphicClass = graphic.getClass();
-			boolean createdNewGraphicsAlgorithm = true;
-			// TODO: Cleanup
-			if(graphicClass == org.osate.ge.internal.graphics.Polygon.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (org.osate.ge.internal.graphics.Polygon)graphic, width, height);
-			} else if(graphicClass == Parallelogram.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (Parallelogram)graphic, width, height);
-			} else if(graphicClass == BusGraphic.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (BusGraphic)graphic, width, height);
-			} else if(graphicClass == DeviceGraphic.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (DeviceGraphic)graphic, width, height);
-			} else if(graphicClass == ProcessorGraphic.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (ProcessorGraphic)graphic, width, height);
-			} else if(graphicClass == MemoryGraphic.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (MemoryGraphic)graphic, width, height);
-			} else if(graphicClass == FeatureGroupTypeGraphic.class) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().remove(0);
-				createGraphicsAlgorithm(diagram, wrapperGraphicsAlgorithm, (FeatureGroupTypeGraphic)graphic, width, height);
-			} else {
-				Graphiti.getGaService().setSize(wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().get(0), width, height);
-				createdNewGraphicsAlgorithm = false;
-			}
-			
-			if(createdNewGraphicsAlgorithm) {
-				wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().move(wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().size()-1, 0);
-			}
-			
-			final GraphicsAlgorithm innerGa = wrapperGraphicsAlgorithm.getGraphicsAlgorithmChildren().get(0);
-			Graphiti.getGaService().setSize(wrapperGraphicsAlgorithm, innerGa.getWidth(), innerGa.getHeight());
-		}
-		
-		Graphiti.getGaService().setSize(wrapperGraphicsAlgorithm, wrapperGraphicsAlgorithm.getWidth(), wrapperGraphicsAlgorithm.getHeight());
-	}
+		return innerGa;
+	}	
 	
 	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Polygon poly, final int width, final int height) {
 		final int[] coords = new int[poly.getPoints().length * 2];
@@ -428,15 +363,5 @@ public class AgeGraphitiGraphicsUtil {
 		
 		gaService.setSize(ga, innerCircle.getX() + innerCircle.getWidth(), size);
 		return ga;
-	}
-	
-	public static GraphicsAlgorithm getInnerGraphicsAlgorithm(final Shape shape) {
-		GraphicsAlgorithm innerGa = shape.getGraphicsAlgorithm();
-		// TODO: Check that it is invisible, etc..
-		if(innerGa != null && innerGa.getGraphicsAlgorithmChildren().size() == 1) {
-			innerGa = innerGa.getGraphicsAlgorithmChildren().get(0);
-		}
-		
-		return innerGa;
 	}
 }

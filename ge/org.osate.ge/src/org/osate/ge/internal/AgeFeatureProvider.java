@@ -117,7 +117,6 @@ import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
-import org.osate.ge.internal.graphiti.features.BoHandlerResizeShapeFeature;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
@@ -837,11 +836,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			return null;
 		}
 		
-		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
-		if(boHandler != null) {
-			return new BoHandlerResizeShapeFeature(bor, extService, this, boHandler);
-		}
-
 		return super.getResizeShapeFeatureAdditional(context);
 	}
 	
