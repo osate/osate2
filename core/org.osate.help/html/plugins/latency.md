@@ -205,8 +205,7 @@ specification on a component) is interpreted as a latency value of zero
 unless the model includes additional information from which to derive
 the latency contributions (see next sections).
 
-**Note**: This simple end-to-end flow latency model does not take into
-account any sampling, queuing, or partition latency contributions.
+**Note**: If the model only includes flow latency values then the analysis does not take into account any sampling, queuing, or partition latency contributions. Once partition information, thread periods and periodic process, queue sizes are added to the model those latency contributions are accounted for as well.
 
 Latency Contributions by Periodic Sampling Processing
 =====================================================
@@ -314,9 +313,9 @@ case scenario of a thread executing first, without preemption, and
 without executing a recovery handler, in other words a best case lower
 bound.
 
-**Note**: The latency analysis tool only considers explicitly set
-Deadline values. By default the Deadline is set to be the Period value -
-the latency analysis interprets this as if the deadline is not set.
+**Note**: The latency analysis tool only considers explicitly set Deadline values. The default value of the Deadline is that of the Period value. The latency analysis does not include the default value.
+
+**Note**: The flow specification latency is used as processing latency contribution if the execution time (in ET) or deadline (in DL) is not set.
 
 **Preference note**: The preference setting lets the user choose between
 using maximum execution time and deadline as the worst-case processing latency
