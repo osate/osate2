@@ -76,11 +76,8 @@ settings:
         partition B is executed after partition A.
 -   **Worst-case processing time**: Users can choose between deadline
     and worst-case execution time as worst case processing time.
-    -   **Maximum Compute Execution Time (ET) \[default\]**: Maximum
-        compute execution time represents the completion time on the
-        assumption that the task has immediate access to the processor
-        and is not preempted. Useful when tasks execute on a static
-        time line.
+    -   **Maximum Compute Execution Time (ET) \[default\]**: Maximum compute execution time. 
+    This assumes the task executes as highest priority task and is not preempted.
     -   **Deadline (DL)**: Deadline represents the worst-case completion
         time assuming the tasks are schedulable.
 -   **Queuing latency on incoming ports**: Affects how the best case
@@ -322,7 +319,7 @@ Deadline values. By default the Deadline is set to be the Period value -
 the latency analysis interprets this as if the deadline is not set.
 
 **Preference note**: The preference setting lets the user choose between
-using maximum execution time and deadline as the worst-case latency
+using maximum execution time and deadline as the worst-case processing latency
 contribution.
 
 Mid-frame and Frame-delayed Communication
