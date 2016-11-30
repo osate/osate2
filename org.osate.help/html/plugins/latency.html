@@ -37,7 +37,7 @@
 </ul></li>
 <li><strong>Worst-case processing time</strong>: Users can choose between deadline and worst-case execution time as worst case processing time.
 <ul>
-<li><strong>Maximum Compute Execution Time (ET) [default]</strong>: Maximum compute execution time represents the completion time on the assumption that the task has immediate access to the processor and is not preempted. Useful when tasks execute on a static time line.</li>
+<li><strong>Maximum Compute Execution Time (ET) [default]</strong>: Maximum compute execution time. This assumes the task executes as highest priority task and is not preempted.</li>
 <li><strong>Deadline (DL)</strong>: Deadline represents the worst-case completion time assuming the tasks are schedulable.</li>
 </ul></li>
 <li><strong>Queuing latency on incoming ports</strong>: Affects how the best case queuing delay is determined.
@@ -106,7 +106,7 @@
 <p>Users can specify <em>Compute_Execution_Time</em> property values for threads and devices. The maximum value is used if the preference setting is set accordingly (see below). The minimum value is used for best-case latency analysis.</p>
 <p><strong>Note</strong>: The compute execution time value does not necessarily represent the best/worst-case completion time. It represents the best case scenario of a thread executing first, without preemption, and without executing a recovery handler, in other words a best case lower bound.</p>
 <p><strong>Note</strong>: The latency analysis tool only considers explicitly set Deadline values. By default the Deadline is set to be the Period value - the latency analysis interprets this as if the deadline is not set.</p>
-<p><strong>Preference note</strong>: The preference setting lets the user choose between using maximum execution time and deadline as the worst-case latency contribution.</p>
+<p><strong>Preference note</strong>: The preference setting lets the user choose between using maximum execution time and deadline as the worst-case processing latency contribution.</p>
 <h1 id="mid-frame-and-frame-delayed-communication">Mid-frame and Frame-delayed Communication</h1>
 <p>The AADL thread model supports specification of immediate, and delayed connections between sampling units (periodic threads and devices).</p>
 <ul>
