@@ -31,6 +31,7 @@ import org.osate.ge.internal.services.ShapeService;
 
 // ILayoutFeature implementation for shapes associated with a BO with a business object handler
 public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICustomUndoRedoFeature {
+	private static final int labelPadding = 2;
 	private final static LabelConfiguration defaultLabelConfiguration = LabelConfigurationBuilder.create().build();
 	private final BusinessObjectResolutionService bor;
 	private final ExtensionService extService;
@@ -67,8 +68,9 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
+			final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
-			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
+			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, diagramBo);
 			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
 			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
@@ -101,7 +103,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case GRAPHIC_CENTER:
 				case GRAPHIC_END:
 				default:
-					innerWidth = Math.max(innerWidth, nameGa.getWidth() + 4); // Add additional padding to avoid label background from overlapping shape border for simple shapes
+					innerWidth = Math.max(innerWidth, nameGa.getWidth() + labelPadding); // Add additional padding to avoid label background from overlapping shape border for simple shapes
 					break;
 
 				case AFTER_GRAPHIC:
@@ -120,7 +122,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case GRAPHIC_CENTER:
 				case GRAPHIC_END:
 				default:
-					innerHeight = Math.max(innerHeight, nameGa.getHeight());
+					innerHeight = Math.max(innerHeight, nameGa.getHeight() + labelPadding);
 					break;
 					
 				case AFTER_GRAPHIC:
@@ -154,7 +156,8 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 
 			// Create the graphics algorithm					
 			shapeGa.getGraphicsAlgorithmChildren().clear();
-			final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight);
+			final boolean filled = diagramBo != bo;
+			final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight, filled);
 			
 			// Update variables using actual size of inner graphics algorithm
 			innerWidth = innerGa.getWidth();
@@ -203,7 +206,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case DEFAULT:
 				case GRAPHIC_BEGINNING:
 				default:
-					nameGa.setY(innerGa.getY());
+					nameGa.setY(innerGa.getY() + labelPadding);
 					break;
 					
 				case GRAPHIC_CENTER:

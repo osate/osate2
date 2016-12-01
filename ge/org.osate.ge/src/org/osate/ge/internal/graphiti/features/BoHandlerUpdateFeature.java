@@ -1,6 +1,7 @@
 package org.osate.ge.internal.graphiti.features;
 
 import java.util.Objects;
+
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IReason;
@@ -80,7 +81,7 @@ public class BoHandlerUpdateFeature extends AbstractUpdateFeature implements ICu
 			srcAnchor = null;
 			dstAnchor = null;
 		}
-		
+
 		refreshHelper.refresh(bo, handler, pe, x, y, null, srcAnchor, dstAnchor);
 		
 		// Special handling for diagrams

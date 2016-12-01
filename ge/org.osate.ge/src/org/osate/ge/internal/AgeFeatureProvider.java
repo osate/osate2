@@ -93,7 +93,6 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.internal.features.CommandCustomFeature;
@@ -102,7 +101,6 @@ import org.osate.ge.internal.features.GoToPackageDiagramFeature;
 import org.osate.ge.internal.features.ConfigureInModesFeature;
 import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
-import org.osate.ge.internal.features.InstanceUpdateDiagramFeature;
 import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.features.SelectAncestorFeature;
@@ -114,6 +112,7 @@ import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
@@ -125,7 +124,6 @@ import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.internal.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
-import org.osate.ge.internal.patterns.ComponentInstancePattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.patterns.FeatureInstancePattern;
 import org.osate.ge.internal.patterns.FeaturePattern;
@@ -236,7 +234,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallPattern.class));
 		
 		// Instance Model
-		addPattern(make(ComponentInstancePattern.class));
 		addPattern(make(FeatureInstancePattern.class));
 
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
@@ -441,8 +438,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 				if(bo instanceof Classifier) {
 					return make(UpdateClassifierDiagramFeature.class);
-				} else if(bo instanceof SystemInstance) {
-					return make(InstanceUpdateDiagramFeature.class);
 				}
 			}
 		}
@@ -802,6 +797,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	protected IMoveShapeFeature getMoveShapeFeatureAdditional(final IMoveShapeContext context) {
 		if(propertyService.isTransient(context.getShape())) {
 			return null;
+		}
+		
+		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
+		if(boHandler != null) {
+			return new BoHandlerMoveShapeFeature(boHandler, bor, this);
 		}
 		
 		return super.getMoveShapeFeatureAdditional(context);

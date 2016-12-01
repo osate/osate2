@@ -22,15 +22,12 @@ import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.di.GetChildren;
-import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
@@ -42,8 +39,7 @@ import org.osate.ge.services.GraphicalEditorService;
 
 public class PackageHandler {
 	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
-	private static final Graphic packageGraphic = RectangleBuilder.create().lineWidth(2).build();
-	
+
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
 		return true;
@@ -53,12 +49,7 @@ public class PackageHandler {
 	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final GraphicalEditorService editorService) {
 		editorService.openBusinessObject(pkg);
 	}
-	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return packageGraphic;
-	}
-	
+		
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final ExtensionService extService, final QueryService queryService) {
 		final boolean showObjectsOutsideOfPackage = queryService.getFirstBusinessObject(parentQuery, diagramElement) == null;

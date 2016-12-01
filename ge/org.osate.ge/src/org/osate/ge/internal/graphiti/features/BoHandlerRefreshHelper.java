@@ -96,6 +96,19 @@ public class BoHandlerRefreshHelper {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));			
 			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
+			
+			// Special handling for diagram
+			if(pe instanceof Diagram && gr != null) {
+				featureProvider.link(pe, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+				ghostingService.setIsGhost(pe, false);
+				propertyService.setIsLogicalTreeNode(pe, false);
+				ghostingService.ghostChildren((Diagram)pe);
+				createContextAndUpdateChild((Diagram)pe, bo);
+				
+				// TODO: Child should be unfilled...
+				return pe;
+			}
+			
 			final ContainerShape childContainer; // Container for any children
 			
 			// Source and destination anchors must be set for connections
@@ -301,6 +314,15 @@ public class BoHandlerRefreshHelper {
 	    		2, 0, 
 	    		-14, -8});
 	    return ga;
+	}
+	
+	public void createContextAndUpdateChild(final ContainerShape containerShape, final Object childBo) {
+		final IEclipseContext eclipseCtx = extService.createChildContext();
+		try {			
+			createUpdateChild(eclipseCtx, containerShape, childBo);
+		} finally {
+			eclipseCtx.dispose();
+		}
 	}
 	
 	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {

@@ -39,9 +39,9 @@ public class AgeGraphitiGraphicsUtil {
 			return  org.eclipse.graphiti.mm.algorithms.styles.LineStyle.SOLID;	        
 	    }
 	}
-	
+
 	// Returns the new graphics algorithm
-	public static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm shapeGa, final Object graphic, final int width, final int height) {
+	public static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm shapeGa, final Object graphic, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 
 		if(graphic == null) {
@@ -59,32 +59,34 @@ public class AgeGraphitiGraphicsUtil {
 			}
 			innerGa.setLineWidth(((Rectangle)graphic).lineWidth);
 			innerGa.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((Rectangle)graphic).lineStyle));
-			innerGa.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-	        innerGa.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+			innerGa.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));			
+			innerGa.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+			innerGa.setFilled(fillBackground);
 	        gaService.setSize(innerGa, width, height);
 		} else if(graphicClass == Ellipse.class) {
 	        innerGa = gaService.createPlainEllipse(shapeGa);
 	        innerGa.setLineWidth(((Ellipse)graphic).lineWidth);
 	        innerGa.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((Ellipse)graphic).lineStyle));
 			innerGa.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-	        innerGa.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+			innerGa.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+			innerGa.setFilled(fillBackground);
 	        gaService.setSize(innerGa, width, height);
 		} else if(graphicClass == Polygon.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (Polygon)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (Polygon)graphic, width, height, fillBackground);
 		} else if(graphicClass == Parallelogram.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (Parallelogram)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (Parallelogram)graphic, width, height, fillBackground);
 		} else if(graphicClass == DeviceGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (DeviceGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (DeviceGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == BusGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (BusGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (BusGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == ProcessorGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (ProcessorGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (ProcessorGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == MemoryGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (MemoryGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (MemoryGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == FeatureGroupTypeGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGroupTypeGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGroupTypeGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == FolderGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FolderGraphic)graphic, width, height);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FolderGraphic)graphic, width, height, fillBackground);
 		} else {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
@@ -92,7 +94,7 @@ public class AgeGraphitiGraphicsUtil {
 		return innerGa;
 	}	
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Polygon poly, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Polygon poly, final int width, final int height, boolean fillBackground) {
 		final int[] coords = new int[poly.getPoints().length * 2];
 		int i = 0;
 
@@ -106,11 +108,12 @@ public class AgeGraphitiGraphicsUtil {
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerGa, coords);
 		ga.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
         ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+        ga.setFilled(fillBackground);
         gaService.setSize(ga, width, height);
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Parallelogram parallelogram, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Parallelogram parallelogram, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerGa, 
     			new int[] {
@@ -122,13 +125,14 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setLineWidth(parallelogram.lineWidth);
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(parallelogram.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
-        ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));	  
+        ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+        ga.setFilled(fillBackground);
         gaService.setSize(ga, width, height);
         
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final DeviceGraphic dg, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final DeviceGraphic dg, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 
 		final int padding = 4;
@@ -142,6 +146,7 @@ public class AgeGraphitiGraphicsUtil {
 		outline.setLineWidth(dg.lineWidth);
 		outline.setBackground(white);
 		outline.setForeground(black);
+		outline.setFilled(fillBackground);
 
 		// Create shading
 		GraphicsAlgorithm ga;
@@ -200,7 +205,7 @@ public class AgeGraphitiGraphicsUtil {
 		return outline;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final BusGraphic bg, final int width, final int height) {		
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final BusGraphic bg, final int width, final int height, boolean fillBackground) {		
 		final IGaService gaService = Graphiti.getGaService();
 		
 		final int arrowHeadWidth = Math.max(Math.min(width, height)/4, 20);
@@ -222,11 +227,12 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(bg.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
         ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
+        ga.setFilled(fillBackground);
         gaService.setSize(ga, width, height);
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final ProcessorGraphic pg, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final ProcessorGraphic pg, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 		
 		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
@@ -249,6 +255,7 @@ public class AgeGraphitiGraphicsUtil {
 		outlinePolygon.setLineStyle(lineStyle);
 		outlinePolygon.setBackground(white);
 		outlinePolygon.setForeground(black);
+		outlinePolygon.setFilled(fillBackground);
 		
 		// Create child shapes for extra lines and shading
 		GraphicsAlgorithm ga;
@@ -272,7 +279,7 @@ public class AgeGraphitiGraphicsUtil {
 		return outlinePolygon;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final MemoryGraphic mg, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final MemoryGraphic mg, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 		
 		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
@@ -283,6 +290,7 @@ public class AgeGraphitiGraphicsUtil {
 		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
 		ga.setLineVisible(false);
 		ga.setBackground(white);
+		ga.setFilled(fillBackground);
 		
 		// Top ellipse
 		final GraphicsAlgorithm topEllipse = gaService.createPlainEllipse(ga);
@@ -325,7 +333,7 @@ public class AgeGraphitiGraphicsUtil {
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FeatureGroupTypeGraphic fgtg, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FeatureGroupTypeGraphic fgtg, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 
 		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
@@ -337,7 +345,7 @@ public class AgeGraphitiGraphicsUtil {
 		final int paddingCircleSize = (int)(halfSize + 1 + halfSize *.2);
 		final int innerCircleSize = size/2;
 		ga.setLineVisible(false);
-		ga.setFilled(false);	
+		ga.setFilled(fillBackground);
 
 		// Draw a half circle
 		int pointCount = 16;
@@ -373,7 +381,7 @@ public class AgeGraphitiGraphicsUtil {
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FolderGraphic folderGraphic, final int width, final int height) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FolderGraphic folderGraphic, final int width, final int height, boolean fillBackground) {
 		final IGaService gaService = Graphiti.getGaService();
 
 		//Width of tab
@@ -393,6 +401,7 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
         ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
         ga.setLineWidth(folderGraphic.lineWidth);
+        ga.setFilled(fillBackground);
         gaService.setSize(ga, width, height);
         
 		return ga;
