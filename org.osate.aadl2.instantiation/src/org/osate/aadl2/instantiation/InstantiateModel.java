@@ -145,6 +145,7 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
+	private static final int SOM_LIMIT = 1000;
 	private final AnalysisErrorReporterManager errManager;
 	private final IProgressMonitor monitor;
 
@@ -2072,6 +2073,9 @@ public class InstantiateModel {
 				if (monitor.isCanceled()) {
 					throw new InterruptedException();
 				}
+				if (somIndex == -1) {
+					break;
+				}
 				if (!mi.isDerived()) {
 					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
 
@@ -2088,6 +2092,9 @@ public class InstantiateModel {
 					}
 					somIndex = enumerateSystemOperationModes(root, instances, 1, skipped, nextModes, somIndex);
 				}
+			}
+			if (somIndex == -1) {
+				errManager.error(root, "List of System Operation Modes is incomplete.");
 			}
 		} else {
 			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes, 0);
@@ -2118,6 +2125,9 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+		if (somIndex >= SOM_LIMIT) {
+			return -1;
+		}
 		if (currentInstance == instances.length) {
 			// Completed an SOM
 			root.getSystemOperationModes().add(createSOM(modeState, somIndex));
@@ -2139,6 +2149,9 @@ public class InstantiateModel {
 					for (ModeInstance mi : modes) {
 						if (monitor.isCanceled()) {
 							throw new InterruptedException();
+						}
+						if (somIndex == -1) {
+							break;
 						}
 						List<ModeInstance> nextModes = new ArrayList<ModeInstance>(modeState);
 
