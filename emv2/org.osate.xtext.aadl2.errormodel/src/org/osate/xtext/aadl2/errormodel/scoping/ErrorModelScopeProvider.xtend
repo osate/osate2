@@ -23,6 +23,7 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RecordType
+import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression
@@ -114,11 +115,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		createUnitLiteralsScopeFromPropertyType(property.propertyType)
 	}
 	
-	//TODO Implement test case after talking with Peter
+	//TODO This method is incomplete. Need to consider all possibilities for reference value
 	def scope_ContainmentPathElement_namedElement(ContainmentPathElement context, EReference reference) {
 		switch parent : context.eContainer {
 			EMV2Path: parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.filterRefined?.scopeFor ?: IScope.NULLSCOPE
-			//TODO: This could change after talking with Peter about reference values
 			ContainmentPathElement: switch previous : parent.namedElement {
 				Subcomponent case !previous.eIsProxy: switch classifier : previous.allClassifier {
 					ComponentImplementation: classifier.allSubcomponents.filterRefined.scopeFor
@@ -126,8 +126,11 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				}
 				default: IScope.NULLSCOPE
 			}
-			//TODO: Ask Peter about reference values
-			default: IScope.NULLSCOPE
+			ReferenceValue: {
+				val subcomponents = parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.filterRefined ?: emptyList
+				val types = parent.getContainerOfType(ErrorModelSubclause)?.useTypes?.map[types]?.flatten ?: emptyList;
+				(subcomponents + types).scopeFor
+			}
 		}
 	}
 	
