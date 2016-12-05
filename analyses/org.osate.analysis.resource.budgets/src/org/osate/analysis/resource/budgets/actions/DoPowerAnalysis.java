@@ -115,6 +115,18 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		excelExport.save();
 		return true;
 	};
+	
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
+	}
+	
+	public void setSummaryReport() {
+		this.summaryReport = new StringBuffer();
+	}
+	
+	public void saveReport() {
+		this.getCSVLog().saveToFile();
+	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
