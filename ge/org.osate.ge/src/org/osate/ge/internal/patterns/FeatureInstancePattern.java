@@ -149,7 +149,7 @@ public class FeatureInstancePattern extends AgePattern{
         
 		// Update the dock area
         final DockArea dockArea = getDockArea(shape.getContainer(), context.getX(), 0);
-        layoutService.setDockArea(shape, dockArea);
+        propertyService.setDockArea(shape, dockArea.id);
 
         // Layout the shape
         layoutPictogramElement(shape);
@@ -189,7 +189,7 @@ public class FeatureInstancePattern extends AgePattern{
         
         // Set the initial state of the is left property
         final DockArea dockArea = getDockArea(shape.getContainer(), ga.getX(), ga.getY());
-        layoutService.setDockArea(shape, dockArea);
+        propertyService.setDockArea(shape, dockArea.id);
 
         // Finish creating
         refresh(shape);
@@ -313,7 +313,7 @@ public class FeatureInstancePattern extends AgePattern{
 		gaService.setLocationAndSize(shape.getGraphicsAlgorithm(), x, y, width, height);
 
 		// Since the size of the shape has been finalized, finish adjusting positions of docked shapes
-		final boolean isRootFeatureLeft = getRootFeatureDockArea(shape) == layoutService.getDockArea(LayoutService.DOCK_AREA_ID_LEFT);
+		final boolean isRootFeatureLeft = getRootFeatureDockArea(shape) == LayoutService.DockArea.LEFT;
 		
 		if(!isRootFeatureLeft) {
 			gaManipService.mirror(symbolGa);
@@ -321,7 +321,7 @@ public class FeatureInstancePattern extends AgePattern{
 		}
 		
 		for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
-			if(dockAreaToShapesEntry.getKey() == layoutService.getDockArea(LayoutService.DOCK_AREA_ID_FEATURE_GROUP)) {
+			if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.FEATURE_GROUP) {
 				for(final Shape childShape : dockAreaToShapesEntry.getValue()) {
 					if(isRootFeatureLeft) {
 						childShape.getGraphicsAlgorithm().setX(symbolGa.getWidth()-1);
@@ -363,9 +363,9 @@ public class FeatureInstancePattern extends AgePattern{
 			 final GraphicsAlgorithm containerGa = container.getGraphicsAlgorithm();	
 			 final int centerX = positionX + width/2;
 			 final boolean isLeft = containerGa == null ? true : centerX < containerGa.getWidth()/2;
-			 return isLeft ? layoutService.getDockArea(LayoutService.DOCK_AREA_ID_LEFT) : layoutService.getDockArea(LayoutService.DOCK_AREA_ID_RIGHT);
+			 return isLeft ? LayoutService.DockArea.LEFT : LayoutService.DockArea.RIGHT;
 		} else if(containerBo instanceof FeatureInstance) {
-			return layoutService.getDockArea(LayoutService.DOCK_AREA_ID_FEATURE_GROUP);
+			return LayoutService.DockArea.FEATURE_GROUP;
 		}
 
 		return null;		

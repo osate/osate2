@@ -106,13 +106,14 @@ import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.features.SelectAncestorFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
+import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerAddFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerMoveShapeFeature;
+import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
 import org.osate.ge.internal.features.RenameModeTransitionFeature;
@@ -125,7 +126,6 @@ import org.osate.ge.internal.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
-import org.osate.ge.internal.patterns.FeatureInstancePattern;
 import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
 import org.osate.ge.internal.patterns.ModePattern;
@@ -182,6 +182,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private BoHandlerLayoutFeature defaultLayoutFeature;
 	private BoHandlerRefreshHelper pictogramRefreshHelper;
+	private AgeMoveShapeFeature defaultMoveShapeFeature;
+	private AgeResizeShapeFeature defaultResizeShapeFeature;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -233,13 +235,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		addPattern(make(SubprogramCallSequencePattern.class));
 		addPattern(make(SubprogramCallPattern.class));
 		
-		// Instance Model
-		addPattern(make(FeatureInstancePattern.class));
-
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
 		defaultLayoutFeature = make(BoHandlerLayoutFeature.class);
+		defaultMoveShapeFeature = make(AgeMoveShapeFeature.class);
+		defaultResizeShapeFeature = make(AgeResizeShapeFeature.class);
 	}
 
 	@Override
@@ -795,26 +796,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	// Don't allow moving transient shapes
 	@Override
 	protected IMoveShapeFeature getMoveShapeFeatureAdditional(final IMoveShapeContext context) {
-		if(propertyService.isTransient(context.getShape())) {
-			return null;
-		}
-		
-		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(context.getPictogramElement()));
-		if(boHandler != null) {
-			return new BoHandlerMoveShapeFeature(boHandler, bor, this);
-		}
-		
-		return super.getMoveShapeFeatureAdditional(context);
+		return defaultMoveShapeFeature;
 	}
 	
-	// Don't allow resizing transient shapes
 	@Override
 	protected IResizeShapeFeature getResizeShapeFeatureAdditional(final IResizeShapeContext context) {
-		if(propertyService.isTransient(context.getShape())) {
-			return null;
-		}
-		
-		return super.getResizeShapeFeatureAdditional(context);
+		return defaultResizeShapeFeature;
 	}
 	
 	@Override

@@ -167,41 +167,14 @@ public class DefaultLayoutService implements LayoutService {
 
 		return new int[] { maxWidth, maxHeight };
 	}
-	
-	private enum SimpleDockArea implements DockArea {
-		LEFT(DOCK_AREA_ID_LEFT),
-		RIGHT(DOCK_AREA_ID_RIGHT),
-		FEATURE_GROUP(DOCK_AREA_ID_FEATURE_GROUP);
-
-		public static final Map<String, SimpleDockArea> idToDockAreaMap;
-		static {
-			final Map<String, SimpleDockArea> modifiableMap = new HashMap<String, SimpleDockArea>();
-			for(final SimpleDockArea area : SimpleDockArea.values()) {
-				modifiableMap.put(area.id, area);
-			}
-			idToDockAreaMap = Collections.unmodifiableMap(modifiableMap);
-		}
 		
-		public final String id;
-		
-		SimpleDockArea(final String id) {
-			this.id = id;
-		}
+	public DockArea getDockArea(final String dockAreaId) {
+		return DockArea.idToDockAreaMap.get(dockAreaId);
 	}
 	
 	@Override
-	public SimpleDockArea getDockArea(final String dockAreaId) {
-		return SimpleDockArea.idToDockAreaMap.get(dockAreaId);
-	}
-	
-	@Override
-	public SimpleDockArea getDockArea(final Shape shape) {
+	public DockArea getDockArea(final Shape shape) {
 		return getDockArea(propertyService.getDockArea(shape));
-	}
-	
-	@Override
-	public void setDockArea(final Shape shape, final DockArea dockArea) {
-		propertyService.setDockArea(shape, ((SimpleDockArea)dockArea).id);
 	}
 	
 	@Override
@@ -228,6 +201,8 @@ public class DefaultLayoutService implements LayoutService {
 	
 	@Override
 	public void cleanupOverlappingDockedShapes(final Map<DockArea, List<Shape>> dockAreaToShapesMap, final int yStartOffset) {
+		// TODO Is there a generic way to get the appropriate offset?		
+		
 		for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
 			if(dockAreaToShapesEntry.getKey() != null) {
 				// TODO: When non-vertical dock areas are implemented, support will need to be added to this method
@@ -235,12 +210,34 @@ public class DefaultLayoutService implements LayoutService {
 				final List<Shape> sortedShapes = new ArrayList<Shape>(dockAreaToShapesEntry.getValue());
 				Collections.sort(sortedShapes, yComparator);
 				
-				int minY = yStartOffset;
-				for(Shape shape : sortedShapes) {
-					if(shape.getGraphicsAlgorithm() != null) {
-						final int newY = Math.max(shape.getGraphicsAlgorithm().getY(), minY);
-						shape.getGraphicsAlgorithm().setY(newY);
-						minY = newY + shape.getGraphicsAlgorithm().getHeight() + 5;
+				final DockArea dockArea = dockAreaToShapesEntry.getKey();
+				final boolean vertical;
+				if(dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT) {
+					vertical = true;
+				} else if(dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM) {
+					vertical = false;
+				} else {
+					// TODO: Get parent
+					vertical = true;
+				}
+				
+				if(vertical) {
+					int minY = yStartOffset;
+					for(Shape shape : sortedShapes) {
+						if(shape.getGraphicsAlgorithm() != null) {
+							final int newY = Math.max(shape.getGraphicsAlgorithm().getY(), minY);
+							shape.getGraphicsAlgorithm().setY(newY);
+							minY = newY + shape.getGraphicsAlgorithm().getHeight() + 5;
+						}
+					}
+				} else {
+					int minX = yStartOffset; // TODO: Different variable
+					for(Shape shape : sortedShapes) {
+						if(shape.getGraphicsAlgorithm() != null) {
+							final int newX = Math.max(shape.getGraphicsAlgorithm().getX(), minX);
+							shape.getGraphicsAlgorithm().setX(newX);
+							minX = newX + shape.getGraphicsAlgorithm().getWidth() + 5;
+						}
 					}
 				}
 			}

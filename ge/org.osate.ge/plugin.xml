@@ -780,5 +780,8 @@
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.ComponentInstanceHandler">
        </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FeatureInstanceHandler">
+       </handler>
     </extension>
 </plugin>

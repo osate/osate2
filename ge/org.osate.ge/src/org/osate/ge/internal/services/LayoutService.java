@@ -29,6 +29,8 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +42,29 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
  *
  */
 public interface LayoutService {		
-	final static String DOCK_AREA_ID_LEFT = "left";
-	final static String DOCK_AREA_ID_RIGHT = "right";
-	final static String DOCK_AREA_ID_FEATURE_GROUP = "feature_group";
+	enum DockArea {
+		LEFT("left"),
+		RIGHT("right"),
+		TOP("top"),
+		BOTTOM("bottom"),
+		FEATURE_GROUP("feature_group"); // String is "feature_group" for backwards compatibility purposes
+		
+		// TODO: Is this still needed?
+		public static final Map<String, DockArea> idToDockAreaMap;
+		static {
+			final Map<String, DockArea> modifiableMap = new HashMap<String, DockArea>();
+			for(final DockArea area : DockArea.values()) {
+				modifiableMap.put(area.id, area);
+			}
+			idToDockAreaMap = Collections.unmodifiableMap(modifiableMap);
+		}
+		
+		public final String id;
+		
+		DockArea(final String id) {
+			this.id = id;
+		}
+	}
 
 	/**
 	 * Checks that the shape fits in its container.  If it does not, the container's layout feature is called and the ancestor is checked as well.
@@ -69,13 +91,8 @@ public interface LayoutService {
 	int getMinimumWidth();
 	int getMinimumHeight();
 	
-	interface DockArea {
-	}
-
-	DockArea getDockArea(String dockAreaId);
 	DockArea getDockArea(Shape shape);
-	void setDockArea(Shape shape, DockArea dockArea);
-	
+
 	/**
 	 * Builds a mapping between DockArea as returned by getDockArea(String) and a list of child shapes.
 	 * @param shape

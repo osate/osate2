@@ -24,6 +24,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
@@ -43,6 +44,7 @@ import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
+import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
@@ -149,6 +151,11 @@ public class BoHandlerRefreshHelper {
 				if(pe instanceof Shape) {
 					if(!(pe instanceof Diagram)) {
 						anchorService.createOrUpdateChopboxAnchor((Shape)pe, AgePattern.chopboxAnchorName);
+						
+						// TODO: Remove.. Just for testing
+						if(bo instanceof FeatureInstance && propertyService.getDockArea(pe) == null) {
+							propertyService.setDockArea(pe, LayoutService.DockArea.TOP.id);
+						}
 					}
 				} else if(pe instanceof Connection) {
 					final Connection connection = (Connection)pe;
@@ -254,8 +261,8 @@ public class BoHandlerRefreshHelper {
 					if(pe instanceof Shape) {
 						final Shape shape = (Shape)pe;
 						final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
-						final int width = Math.max(50, oldGa == null ? 0 : oldGa.getWidth());
-						final int height = Math.max(50, oldGa == null ? 50 : oldGa.getHeight());
+						final int width = Math.max(10, oldGa == null ? 0 : oldGa.getWidth());
+						final int height = Math.max(10, oldGa == null ? 10 : oldGa.getHeight());
 	
 						// Set the position of the refreshed graphics algorithm
 						final IGaService gaService = Graphiti.getGaService();
