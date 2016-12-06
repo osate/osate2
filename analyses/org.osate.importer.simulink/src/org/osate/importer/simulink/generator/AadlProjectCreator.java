@@ -434,7 +434,7 @@ public class AadlProjectCreator {
 			}
 
 			int connectionId = 0;
-
+			connectionPreamble = false;
 			/**
 			 * Here, we try to catch all connections with our external features.
 			 */
