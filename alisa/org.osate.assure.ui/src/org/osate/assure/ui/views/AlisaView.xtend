@@ -676,7 +676,7 @@ class AlisaView extends ViewPart {
 				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
 				assuranceCaseResult.resetToTBD(null)
 				assuranceCaseResult.recomputeAllCounts(null)
-				val resource = resourceSetForProcessing.getResource(assureURI, true)
+				val resource = resourceSetForProcessing.getResource(assureURI, false) ?: resourceSetForProcessing.createResource(assureURI)
 				resource.contents.clear
 				resource.contents += assuranceCaseResult
 				try {
