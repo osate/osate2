@@ -128,15 +128,12 @@ class AlisaView extends ViewPart {
 		delta.accept[
 			if (resource.fileExtension == ALISA_EXTENSION) {
 				alisaFileChanged.set(true)
-				val resourceURI = URI.createPlatformResourceURI(resource.fullPath.toString, false)
-				resourceSetForUI.getResource(resourceURI, false)?.unload
 			} else if (resource.fileExtension == ASSURE_EXTENSION) {
 				assureFileChanged.set(true)
-				val resourceURI = URI.createPlatformResourceURI(resource.fullPath.toString, false)
-				resourceSetForUI.getResource(resourceURI, false)?.unload
 			}
 			true
 		]
+		resourceSetForUI.resources.forEach[unload]
 		if (alisaFileChanged.get) {
 			viewSite.workbenchWindow.workbench.display.asyncExec[
 				val toRemove = selectedFilters.filter[assuranceCase, filter |
