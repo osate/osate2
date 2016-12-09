@@ -58,44 +58,9 @@ Alisa = new JavaImporter(
 	org.osate.aadl2,
 	org.osate.aadl2.instance,
 	org.osate.reqspec,
+	org.osate.reqspec.reqSpec,
 	org.osate.reqspec.util)
 
-
-function goalsForRequirement(requirement, comp) {
-	var result = new java.util.TreeSet(comp)
-
-	result.addAll(requirement.getGoalReference())
-	if (result.isEmpty()) {
-		for (var req in Iterator(requirement.getRefinesReference())) {
-			addNonDropped(result, goalsForRequirement(req, comp))
-		}
-		for (var req in Iterator(requirement.getDecomposesReference())) {
-			addNonDropped(result, goalsForRequirement(req, comp))
-		}
-		for (var req in Iterator(requirement.getEvolvesReference())) {
-			addNonDropped(result, goalsForRequirement(req, comp))
-		}
-	}
-	return result
-}
-
-function stakeholdersForGoal(goal, comp) {
-	var result = new java.util.TreeSet(comp)
-
-	result.addAll(goal.getStakeholderReference())
-	if (result.isEmpty()) {
-		for (var goal in Iterator(goal.getGoalReference())) {
-			addNonDropped(result, stakeholdersForGoal(goal, comp))
-		}
-		for (var goal in Iterator(goal.getRefinesReference())) {
-			addNonDropped(result, stakeholdersForGoal(goal, comp))
-		}
-		for (var req in Iterator(requirement.getEvolvesReference())) {
-			addNonDropped(result, stakeholdersForGoal(goal, comp))
-		}
-	}
-	return result
-}
 
 function addNonDropped(set, elements) {
 	for (var e in Iterator(elements)) {
@@ -110,23 +75,6 @@ with (Alisa) {
 	file = reportContext.getParameterValue('AADLFile')
 	report = reportContext.getParameterValue('ReportType')
 
-	// get reqspec reference finder from guice
-	
-	var registry = org.eclipse.xtext.resource.IResourceServiceProvider$Registry.INSTANCE
-	var uri = org.eclipse.emf.common.util.URI.createPlatformResourceURI(file)
-	var provider
-	if (type =='instance') {
-		resourceSet = new org.eclipse.emf.ecore.resource.impl.ResourceSetImpl()
-		resource = resourceSet.getResource(uri, true)
-		var si = resource.getContents().get(0)
-		uri1 = si.getComponentImplementation().eResource().getURI()
-		provider = registry.getResourceServiceProvider(uri1)
-		resource.unload()
-	} else {
-		provider = registry.getResourceServiceProvider(uri)
-	}
-	var finder = provider.get(IReqspecGlobalReferenceFinder)
-
 	// load the file
 
 	resourceSet = provider.get(org.eclipse.xtext.resource.XtextResourceSet)
@@ -134,69 +82,38 @@ with (Alisa) {
 	resource = resourceSet.createResource(uri)
 	resource.load(resourceSet.getLoadOptions())
 	
-	var sysreqs = new java.util.HashSet()
-	
-	if (type =='instance') {
-		// get requirements used in instance model
-		
-		var componentInstances = new java.util.ArrayList()
-		si = resource.contents.get(0)
-		componentInstances.add(si)
-		componentInstances.addAll(EcoreUtil2.getAllContentsOfType(si, ComponentInstance))
-		
-		for(var ci in Iterator(componentInstances)) {
-			var srss = finder.getSystemRequirementSets(ci)
-			if (srss != null) {
-				for (var iter = srss.iterator(); iter.hasNext();) {
-					sysreqs.add(iter.next())
-				}
-			}
-		}
-	} else 	if (type == 'package') {
-		// get requirements used in package
-	
-		var pack = resource.getContents().get(0)
-		var classifiers = EcoreUtil2.getAllContentsOfType(pack, ComponentClassifier)
-		for(var c in Iterator(classifiers)) {
-			var srss = finder.getSystemRequirementSets(c)
-			if (srss != null) {
-				for (var iter = srss.iterator(); iter.hasNext();) {
-					sysreqs.add(iter.next())
-				}
-			}
-		}		
-	} else if (type == 'reqspec') {
-		// get requirements from reqspec file
-		 
-		var reqspec = resource.getContents().get(0)
-		for (var part in Iterator(reqspec.getParts())) {
-			if (part instanceof org.osate.reqspec.reqSpec.SystemRequirementSet) {
-				sysreqs.add(part)
-			}
-		}
-	} else if (type == 'goals') {
-		// get goals from goals file
-		
-		var goals = new java.util.ArrayList()
-		var reqspec = resource.getContents().get(0)
-		for (var part in Iterator(reqspec.getParts())) {
-			if (part instanceof org.osate.reqspec.reqSpec.StakeholderGoals) {
-				goals.addAll(part.getGoals())
-			}
-		}
-	}
-	
 	// sort requirements/goals by qualified name
-	
 	var qncomp = JavaAdapter(java.util.Comparator, {
 		compare: function (ne1, ne2) {
 			return qualifiedName(ne1).localeCompare(qualifiedName(ne2))
 		}
 	})
 	
+	var sysreqs = new java.util.HashSet()
 	requirements = new java.util.TreeSet(qncomp)
-	for (var srs in Iterator(sysreqs)) {
-		requirements.addAll(srs.getRequirements())
+
+	if (type == 'reqspec') {
+		// get requirements from reqspec file
+		var reqspec = resource.getContents().get(0)
+		for (var part in Iterator(reqspec.getParts())) {
+			if (part instanceof SystemRequirementSet) {
+				sysreqs.add(part)
+			}
+		}
+	} else if (type == 'reqdoc') {
+		// get requirements from reqdoc file
+		var reqspec = resource.getContents().get(0)
+		for (var part in Iterator(reqspec.getParts())) {
+			if (part instanceof ReqDocument) {
+				addNonDropped(requirements, EcoreUtil2.getAllContentsOfType(part, Requirement))
+			}
+		}
+	}
+
+	if (type != 'reqdoc') {
+		for (var srs in Iterator(sysreqs)) {
+			requirements.addAll(srs.getRequirements())
+		}
 	}
 
 }
