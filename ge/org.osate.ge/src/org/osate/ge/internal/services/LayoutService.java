@@ -36,6 +36,7 @@ import java.util.Map;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.services.LayoutService.DockArea;
 
 /**
  * Contains methods for aiding in laying out shapes
@@ -47,23 +48,26 @@ public interface LayoutService {
 		RIGHT("right"),
 		TOP("top"),
 		BOTTOM("bottom"),
-		FEATURE_GROUP("feature_group"); // String is "feature_group" for backwards compatibility purposes
+		GROUP("feature_group"); // Container is a group of docked shapes. String "feature_group" is for backwards compatibility purposes
 		
-		// TODO: Is this still needed?
-		public static final Map<String, DockArea> idToDockAreaMap;
+		private static final Map<String, DockArea> idToDockAreaMap;
 		static {
 			final Map<String, DockArea> modifiableMap = new HashMap<String, DockArea>();
 			for(final DockArea area : DockArea.values()) {
 				modifiableMap.put(area.id, area);
 			}
 			idToDockAreaMap = Collections.unmodifiableMap(modifiableMap);
+		}		
+		
+		public static DockArea getById(final String dockAreaId) {
+			return idToDockAreaMap.get(dockAreaId);
 		}
 		
 		public final String id;
 		
 		DockArea(final String id) {
 			this.id = id;
-		}
+		}		
 	}
 
 	/**

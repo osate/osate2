@@ -30,6 +30,8 @@ import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
@@ -107,7 +109,6 @@ public class BoHandlerRefreshHelper {
 				ghostingService.ghostChildren((Diagram)pe);
 				createContextAndUpdateChild((Diagram)pe, bo);
 				
-				// TODO: Child should be unfilled...
 				return pe;
 			}
 			
@@ -152,9 +153,19 @@ public class BoHandlerRefreshHelper {
 					if(!(pe instanceof Diagram)) {
 						anchorService.createOrUpdateChopboxAnchor((Shape)pe, AgePattern.chopboxAnchorName);
 						
-						// TODO: Remove.. Just for testing
-						if(bo instanceof FeatureInstance && propertyService.getDockArea(pe) == null) {
-							propertyService.setDockArea(pe, LayoutService.DockArea.TOP.id);
+						// Set the dock area as appropriate
+						final DockingPosition dockingPosition = (DockingPosition)ContextInjectionFactory.invoke(handler, GetDefaultDockingPosition.class, eclipseCtx, DockingPosition.NOT_DOCKED);
+						if(dockingPosition == null) {
+							throw new RuntimeException("Method annotated with " + GetDefaultDockingPosition.class.getName() + " must return a value of type " + DockingPosition.class + ".");
+						} if(dockingPosition == DockingPosition.NOT_DOCKED) {
+							propertyService.setDockArea(pe, null);
+						} else {
+							// TODO: If parent is docked.. the child should use the group type...
+							
+							// Only set the dock area if it has not been set.
+							if(propertyService.getDockArea(pe) == null) {
+								propertyService.setDockArea(pe, dockingPosition.getDockArea().id);
+							}
 						}
 					}
 				} else if(pe instanceof Connection) {

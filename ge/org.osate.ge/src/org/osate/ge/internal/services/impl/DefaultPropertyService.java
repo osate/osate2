@@ -74,7 +74,11 @@ public class DefaultPropertyService implements PropertyService {
 	
 	@Override
 	public void setDockArea(final PictogramElement pe, final String value) {
-		Graphiti.getPeService().setPropertyValue(pe, SIDE_KEY, value);
+		if(value == null) {
+			Graphiti.getPeService().removeProperty(pe, SIDE_KEY);
+		} else {
+			Graphiti.getPeService().setPropertyValue(pe, SIDE_KEY, value);
+		}
 	}
 	
 	// Is on the left side of the container. Defaults to true if there isn't a value assigned to the property

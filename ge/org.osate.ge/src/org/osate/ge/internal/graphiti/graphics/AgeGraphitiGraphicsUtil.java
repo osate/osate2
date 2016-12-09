@@ -5,13 +5,16 @@ import java.awt.geom.Point2D;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Polyline;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
 import org.osate.ge.internal.graphics.BusGraphic;
 import org.osate.ge.internal.graphics.DeviceGraphic;
+import org.osate.ge.internal.graphics.Direction;
 import org.osate.ge.internal.graphics.Ellipse;
+import org.osate.ge.internal.graphics.FeatureGraphic;
 import org.osate.ge.internal.graphics.FeatureGroupTypeGraphic;
 import org.osate.ge.internal.graphics.FolderGraphic;
 import org.osate.ge.internal.graphics.LineStyle;
@@ -87,6 +90,8 @@ public class AgeGraphitiGraphicsUtil {
 			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGroupTypeGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == FolderGraphic.class) {
 			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FolderGraphic)graphic, width, height, fillBackground);
+		} else if(graphicClass == FeatureGraphic.class) {
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGraphic)graphic);
 		} else {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
@@ -405,5 +410,317 @@ public class AgeGraphitiGraphicsUtil {
         gaService.setSize(ga, width, height);
         
 		return ga;
+	}
+	
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FeatureGraphic featureGraphic) {
+		final IGaService gaService = Graphiti.getGaService();
+
+		switch(featureGraphic.featureType) {
+		case ABSTRACT:
+			return createAbstractFeatureGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction);
+
+		case BUS_ACCESS:
+		case DATA_ACCESS:
+			return createDataOrBusAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction);
+			
+		case DATA_PORT:
+			return createPortGraphicsAlgorithm(diagram,  containerGa, true, false, featureGraphic.direction);
+			
+		case EVENT_DATA_PORT:
+			return createPortGraphicsAlgorithm(diagram,  containerGa, true, true, featureGraphic.direction);
+
+		case EVENT_PORT:
+			return createPortGraphicsAlgorithm(diagram,  containerGa, false, true, featureGraphic.direction);			
+
+		case SUBPROGRAM_ACCESS:
+			return createSubprogramAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction, false);
+			
+		case SUBPROGRAM_GROUP_ACCESS:
+			return createSubprogramAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction, true);
+			
+		default:
+			return gaService.createRectangle(containerGa);		
+		}
+	}
+	
+	private static GraphicsAlgorithm createAbstractFeatureGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Direction direction) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
+		
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
+		ga.setFilled(false);
+		ga.setLineVisible(false);
+    	gaService.setSize(ga,  25,  20);
+    	
+    	final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
+    	circleGa.setBackground(black);
+    	circleGa.setForeground(black);
+    	gaService.setLocation(circleGa, 0, 5);
+        gaService.setSize(circleGa, 10, 10);        
+ 			
+        // In Abstract Feature
+        if(direction == Direction.IN) {
+        	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
+        			0, 0, 
+        			25, 10,
+        			0, 20});
+        	directionGa.setBackground(black);
+        	directionGa.setForeground(black);	
+        } else if(direction == Direction.OUT) { // Out Abstract Feature
+        	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
+        			25, 0, 
+        			0, 10,
+        			25, 20});
+        	gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
+        	directionGa.setForeground(black); 	
+        }
+        
+        shrink(ga);
+        return ga;
+	}
+	
+	private static GraphicsAlgorithm createPortGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final boolean hasData, final boolean hasEvent, final Direction direction) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
+		
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
+		ga.setFilled(false);
+		ga.setLineVisible(false);
+		
+    	int width = 25;
+    	final int height = 20;
+    	final int dataSymbolXPadding = 10;
+    	final int dataSymbolYPadding = 5;
+
+    	GraphicsAlgorithm dataGa = null;
+    	GraphicsAlgorithm eventGa = null;        	
+    	
+    	switch(direction) {
+    	// In Port
+    	case IN:
+    		if(hasData) {
+        		dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			0, dataSymbolYPadding, 
+            			width-dataSymbolXPadding, height/2,
+            			0, height-dataSymbolYPadding});
+    		}
+    		
+    		if(hasEvent) {
+        		eventGa = gaService.createPlainPolyline(ga, new int[] {
+            			0, 0, 
+            			width, height/2,
+            			0, height});
+    		}
+    		break;
+    		
+   		// Out Port
+    	case OUT:
+    		if(hasData) {
+    			dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			width, dataSymbolYPadding, 
+            			dataSymbolXPadding, height/2,
+            			width, height-dataSymbolYPadding});
+    		}
+    		
+    		if(hasEvent) {
+				eventGa = gaService.createPlainPolyline(ga, new int[] {
+        			width, 0, 
+        			0, height/2,
+        			width, height});
+    		}
+    		break;
+    		
+    	// In Out Port
+    	case IN_OUT:
+    		width *= 2;
+    		if(hasData) {
+        		dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			width/2, dataSymbolYPadding, 
+            			width-dataSymbolXPadding, height/2,
+            			width/2, height-dataSymbolYPadding,
+            			dataSymbolXPadding, height/2});
+    		}
+    		
+    		if(hasEvent) {
+        		eventGa = gaService.createPlainPolyline(ga, new int[] {
+            			width/2, 0, 
+            			width, height/2,
+            			width/2, height,
+            			0, height/2,
+            			width/2, 0});
+    		}
+    		break;
+    	}
+    	
+    	if(dataGa != null) {
+    		dataGa.setBackground(black);
+        	dataGa.setForeground(black);
+    	}
+    	
+    	if(eventGa != null) {
+    		eventGa.setBackground(black);
+        	eventGa.setForeground(black);
+    	}
+
+        gaService.setSize(ga,  width, height);
+        shrink(ga);
+
+        return ga;
+	}
+		
+	private static GraphicsAlgorithm createDataOrBusAccessGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Direction direction) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
+		final Color white = gaService.manageColor(diagram, ColorConstant.WHITE);
+		
+    	final int width = 20;
+		final int height = 20;        		
+		final int slopeWidth = 5;
+
+		final GraphicsAlgorithm ga;
+		if(direction == Direction.OUT) {
+			ga = gaService.createPlainPolyline(containerGa, new int[] {
+        			width, 0, 
+        			slopeWidth, 0,
+        			0, height/2,
+        			slopeWidth, height,
+        			width, height,
+        			width, 0});
+		} else if(direction == Direction.IN) {
+			ga = gaService.createPlainPolyline(containerGa, new int[] {
+        			0, 0, 
+        			width-slopeWidth, 0,
+        			width, height/2,
+        			width-slopeWidth, height,
+        			0, height,
+        			0, 0});
+		} else {
+			throw new RuntimeException("Access graphic is not an input or an output.");
+		}
+		
+		ga.setBackground(white);
+		ga.setForeground(black);
+		
+    	gaService.setSize(ga, width, height);
+		return ga;
+	}
+	
+	private static GraphicsAlgorithm createSubprogramAccessGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Direction direction, final boolean blackBackground) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
+		final Color white = gaService.manageColor(diagram, ColorConstant.WHITE);
+		final Color background = blackBackground ? black : white;
+		final Color foreground = blackBackground ? white : black;
+		    	 
+		final int width = 35;
+		final int height = 20;
+		final int vPadding = 5;
+		
+		final GraphicsAlgorithm ga = gaService.createPlainEllipse(containerGa);
+		gaService.setSize(ga, width, height);
+		ga.setBackground(background);
+		ga.setForeground(foreground);
+		
+		final int arrowWidth = 10;
+		final int left = width/2 - arrowWidth/2;
+		final int right = width/2 + arrowWidth/2;
+		if(direction == Direction.OUT) {
+			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
+        			left, vPadding, 
+        			right, height/2,
+        			left, height-vPadding});
+			arrowGa.setBackground(background);
+			arrowGa.setForeground(foreground);
+		} else if(direction == Direction.IN) {
+			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
+					right, vPadding, 
+					left, height/2,
+					right, height-vPadding});
+			arrowGa.setBackground(background);
+			arrowGa.setForeground(foreground);
+		} else {
+			throw new RuntimeException("Access graphic is not an input or an output.");
+		}
+
+		return ga;
+	}
+	
+	public static void mirror(final GraphicsAlgorithm ga) {
+		mirror(ga, ga);
+	}
+	
+	/**
+	 * Mirrors graphics algorithm in the x axis
+	 * @param rootGa the graphics algorithm that will be treated at the top level graphics algorithm. The top level graphics algorithm will not be moved.
+	 * @param ga the graphics algorithm to mirror
+	 */
+	private static void mirror(final GraphicsAlgorithm rootGa, final GraphicsAlgorithm ga) {
+		if(rootGa != ga) {
+			ga.setX(ga.getParentGraphicsAlgorithm().getWidth() - ga.getX() - ga.getWidth());
+		}
+		
+		if(ga instanceof Polyline) {
+			// Mirror every point in the polyline
+			final Polyline polyline = (Polyline)ga;
+			for(final Point p : polyline.getPoints()) {
+				p.setX(ga.getWidth()-p.getX());
+			}
+		}
+		
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			mirror(rootGa, childGa);
+		}
+	}
+	
+	public static void shrink(final GraphicsAlgorithm ga) {
+		int minX = Integer.MAX_VALUE;
+		int maxX = Integer.MIN_VALUE;
+		int minY = Integer.MAX_VALUE;
+		int maxY = Integer.MIN_VALUE;
+	
+		// Determine the min/max x/y of all children.
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			if(childGa instanceof Polyline) {
+				shrinkPolyline((Polyline)childGa);
+			}
+			
+			minX = Math.min(minX, childGa.getX());
+			maxX = Math.max(maxX, childGa.getX()+childGa.getWidth());
+			minY = Math.min(minY, childGa.getY());
+			maxY = Math.max(maxY, childGa.getY()+childGa.getHeight());
+		}
+		
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			childGa.setX(childGa.getX() - minX);
+			childGa.setY(childGa.getY() - minY);
+		}
+		
+		ga.setX(ga.getX() + minX);
+		ga.setY(ga.getY() + minY);
+		ga.setWidth(maxX - minX);
+		ga.setHeight(maxY - minY);
+	}
+
+	private static void shrinkPolyline(final Polyline polyline) {
+		int minX = Integer.MAX_VALUE;
+		int maxX = Integer.MIN_VALUE;
+		int minY = Integer.MAX_VALUE;
+		int maxY = Integer.MIN_VALUE;
+		for(final Point p : polyline.getPoints()) {
+			minX = Math.min(minX, p.getX());
+			maxX = Math.max(maxX, p.getX());
+			minY = Math.min(minY, p.getY());
+			maxY = Math.max(maxY, p.getY());
+		}
+		
+		for(final Point p : polyline.getPoints()) {
+			p.setX(p.getX()-minX);
+			p.setY(p.getY()-minY);
+		}
+		
+		polyline.setX(polyline.getX() + minX);
+		polyline.setY(polyline.getY() + minY);
+		polyline.setWidth(maxX-minX);
+		polyline.setHeight(maxY-minY);
 	}
 }

@@ -62,7 +62,7 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 		}
 		
 		// Don't allow moving of nested docked shapes..
-		if(LayoutService.DockArea.FEATURE_GROUP.id.equals(dockArea)) {
+		if(LayoutService.DockArea.GROUP.id.equals(dockArea)) {
 			return false;
 		}
 		

@@ -1,9 +1,13 @@
 package org.osate.ge.internal.graphics;
 
+import org.eclipse.emf.ecore.EClass;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
@@ -56,6 +60,48 @@ public class AadlGraphics {
 		}
 		
 		return defaultGraphic;
+	}
+	
+	public static Graphic getGraphic(final EClass featureClass, DirectionType direction) {
+		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
+		
+		// Configure the feature type
+		final Aadl2Package aadl2Pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
+		if(featureClass == aadl2Pkg.getAbstractFeature()) {
+			builder.abstractFeature();
+		} else if(featureClass == aadl2Pkg.getEventPort()) {
+			builder.eventPort();
+		} else if(featureClass == aadl2Pkg.getDataPort()) {
+			builder.dataPort();
+		} else if(featureClass == aadl2Pkg.getEventDataPort()) {
+			builder.eventDataPort();
+		} else if(featureClass == aadl2Pkg.getSubprogramAccess()) {
+			builder.subprogramAccess();
+		} else if(featureClass == aadl2Pkg.getSubprogramGroupAccess()) {
+			builder.subprogramGroupAccess();
+		} else if(featureClass == aadl2Pkg.getDataAccess()) {
+			builder.dataAccess();
+		} else if(featureClass == aadl2Pkg.getBusAccess()) {
+			builder.busAccess();
+		} else {
+			return defaultGraphic;
+		}
+		
+		switch(direction) {
+		case IN:
+			builder.input();
+			break;
+			
+		case OUT:
+			builder.output();
+			break;			
+			
+		case IN_OUT:
+			builder.bidirectional();
+			break;
+		}
+		 
+		return builder.build();
 	}
 	
 	private static Graphic getGraphic(final ComponentClassifier cc) {

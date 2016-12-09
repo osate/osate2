@@ -54,13 +54,13 @@ import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ColoringService;
@@ -74,7 +74,6 @@ import org.osate.ge.internal.util.ImageHelper;
 
 public class FlowSpecificationPattern extends AgeConnectionPattern implements Categorized {
 	private final StyleService styleUtil;
-	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final ShapeService shapeService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
@@ -84,13 +83,12 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public FlowSpecificationPattern(final GhostingService ghostingService, final StyleService styleUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil, 
+	public FlowSpecificationPattern(final GhostingService ghostingService, final StyleService styleUtil, 
 			final ColoringService coloringService, final ConnectionService connectionHelper, final ShapeService shapeService, AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final AadlFeatureService featureService, 
 			final NamingService namingService, final PropertyService propertyService, final BusinessObjectResolutionService bor) {
 		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.styleUtil = styleUtil;
-		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.shapeService = shapeService;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
@@ -160,7 +158,7 @@ public class FlowSpecificationPattern extends AgeConnectionPattern implements Ca
 		case SINK:
 			{
 				final ConnectionDecorator arrowConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.0, true);
-				graphicsAlgorithmUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE)));
+				AgeGraphitiGraphicsUtil.mirror(createArrow(arrowConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE)));
 				final ConnectionDecorator vbarConnectionDecorator = peCreateService.createConnectionDecorator(connection, false, 1.0, true);
 				createVbar(vbarConnectionDecorator, styleUtil.getStyle(StyleConstants.DECORATOR_STYLE));	
 				break;

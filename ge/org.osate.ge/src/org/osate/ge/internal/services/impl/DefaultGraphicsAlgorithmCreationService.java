@@ -62,9 +62,9 @@ import org.osate.aadl2.PortProxy;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
-import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.styles.StyleConstants;
@@ -74,13 +74,11 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
 	private final StyleService styleService;
 	private final AadlFeatureService featureService;
 	private final SubcomponentService subcomponentService;
-	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	
-	public DefaultGraphicsAlgorithmCreationService(final StyleService styleUtil, final AadlFeatureService featureService, final SubcomponentService subcomponentService, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil) {
+	public DefaultGraphicsAlgorithmCreationService(final StyleService styleUtil, final AadlFeatureService featureService, final SubcomponentService subcomponentService) {
 		this.styleService = styleUtil;
 		this.featureService = featureService;
 		this.subcomponentService = subcomponentService;
-		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 	}
 	
 	/* (non-Javadoc)
@@ -354,7 +352,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
     	
         ga.setStyle(style);
         gaService.setSize(ga,  width, height);
-        graphicsAlgorithmUtil.shrink(ga);
+        AgeGraphitiGraphicsUtil.shrink(ga);
 
         return ga;
 	}
@@ -393,7 +391,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
             directionGa.setStyle(style);   	
         }
         
-        graphicsAlgorithmUtil.shrink(ga);
+        AgeGraphitiGraphicsUtil.shrink(ga);
         return ga;
 	}
 	
@@ -436,7 +434,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
             			0, 0});
         		symbolGa.setStyle(style); 
     		}        		
-    		graphicsAlgorithmUtil.shrink(ga);
+    		AgeGraphitiGraphicsUtil.shrink(ga);
     	} else if(category == AccessCategory.SUBPROGRAM || category == AccessCategory.SUBPROGRAM_GROUP) {
     		final Style style = category == AccessCategory.SUBPROGRAM ? getSubprogramAccessStyle() : getSubprogramGroupAccessStyle();
     		width = 35;
@@ -466,7 +464,7 @@ public class DefaultGraphicsAlgorithmCreationService implements GraphicsAlgorith
     	}
     	
     	gaService.setSize(ga,  width, height);
-    	graphicsAlgorithmUtil.shrink(ga);
+    	AgeGraphitiGraphicsUtil.shrink(ga);
 		return ga;
 	}
 	

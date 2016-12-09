@@ -168,13 +168,9 @@ public class DefaultLayoutService implements LayoutService {
 		return new int[] { maxWidth, maxHeight };
 	}
 		
-	public DockArea getDockArea(final String dockAreaId) {
-		return DockArea.idToDockAreaMap.get(dockAreaId);
-	}
-	
 	@Override
 	public DockArea getDockArea(final Shape shape) {
-		return getDockArea(propertyService.getDockArea(shape));
+		return DockArea.getById(propertyService.getDockArea(shape));
 	}
 	
 	@Override

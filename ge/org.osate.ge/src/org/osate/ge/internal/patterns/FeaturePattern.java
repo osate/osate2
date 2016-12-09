@@ -97,6 +97,7 @@ import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.AadlArrayService;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -107,7 +108,6 @@ import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
-import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.NamingService;
@@ -141,7 +141,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private final AnchorService anchorUtil;
 	private final GhostingService ghostingService;
 	private final PropertyService propertyUtil;
-	private final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil;
 	private final ShapeService shapeService;
 	private final GraphicsAlgorithmCreationService graphicsAlgorithmCreator;
 	private final AadlFeatureService featureService;
@@ -193,7 +192,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final GhostingService ghostingService, 
-			final PropertyService propertyUtil, final GraphicsAlgorithmManipulationService graphicsAlgorithmUtil,
+			final PropertyService propertyUtil,
 			final ShapeService shapeService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final AadlFeatureService featureService, final PrototypeService prototypeService, final UserInputService userInputService, 
 			final LayoutService layoutService, final AadlModificationService modificationService, final NamingService namingService,
@@ -204,7 +203,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		this.anchorUtil = anchorUtil;
 		this.ghostingService = ghostingService;
 		this.propertyUtil = propertyUtil;
-		this.graphicsAlgorithmUtil = graphicsAlgorithmUtil;
 		this.shapeService = shapeService;
 		this.graphicsAlgorithmCreator = graphicsAlgorithmCreator;
 		this.featureService = featureService;
@@ -327,7 +325,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		// Feature groups
 		if(feature instanceof FeatureGroup) {
 			if(isLeftLayout != wasLeftLayout) {
-				graphicsAlgorithmUtil.mirror(featureGa);
+				AgeGraphitiGraphicsUtil.mirror(featureGa);
 			}
 			
 			if(isLeftLayout) {
@@ -348,7 +346,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		} else {
 			// Features
 	        if(isLeftLayout != wasLeftLayout) {
-	    		graphicsAlgorithmUtil.mirror(featureGa);
+	        	AgeGraphitiGraphicsUtil.mirror(featureGa);
 	        }
 		}
 		
@@ -513,7 +511,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 			
 			// Create the feature group graphics algorithm
 			final GraphicsAlgorithm fgGa = graphicsAlgorithmCreator.createFeatureGroupGraphicsAlgorithm(featureShape, featureGroupSymbolWidth, childY + 25);
-			graphicsAlgorithmUtil.shrink(fgGa);
+			AgeGraphitiGraphicsUtil.shrink(fgGa);
 			final int fgWidth = maxChildWidth+featureGroupSymbolWidth;	     	
 
 			featureShape.getGraphicsAlgorithm().setWidth(fgWidth);

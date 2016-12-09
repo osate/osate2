@@ -47,12 +47,12 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
-import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.LayoutService.DockArea;
@@ -72,14 +72,13 @@ public class FeatureInstancePattern extends AgePattern{
 	private final ShapeCreationService shapeCreationService;
 	private final LabelService labelService;
 	private final PropertyService propertyService;
-	private final GraphicsAlgorithmManipulationService gaManipService;
 	private final AnchorService anchorService;
 	
 	@Inject
 	public FeatureInstancePattern(final BusinessObjectResolutionService bor, final ConnectionService connectionService,
 			final LayoutService layoutService, final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, 
 			final GhostingService ghostingService, final ShapeService shapeService, final ShapeCreationService shapeCreationService, final LabelService labelService,
-			final PropertyService propertyService, final GraphicsAlgorithmManipulationService gaManipService, final AnchorService anchorService) {
+			final PropertyService propertyService, final AnchorService anchorService) {
 		this.bor = bor;
 		this.connectionService = connectionService;
 		this.layoutService = layoutService;
@@ -89,7 +88,6 @@ public class FeatureInstancePattern extends AgePattern{
 		this.shapeCreationService = shapeCreationService;
 		this.labelService = labelService;
 		this.propertyService = propertyService;
-		this.gaManipService = gaManipService;
 		this.anchorService = anchorService;
 	}
 	
@@ -316,12 +314,12 @@ public class FeatureInstancePattern extends AgePattern{
 		final boolean isRootFeatureLeft = getRootFeatureDockArea(shape) == LayoutService.DockArea.LEFT;
 		
 		if(!isRootFeatureLeft) {
-			gaManipService.mirror(symbolGa);
+			AgeGraphitiGraphicsUtil.mirror(symbolGa);
 			symbolGa.setX(shape.getGraphicsAlgorithm().getWidth() - symbolGa.getWidth());			
 		}
 		
 		for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
-			if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.FEATURE_GROUP) {
+			if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.GROUP) {
 				for(final Shape childShape : dockAreaToShapesEntry.getValue()) {
 					if(isRootFeatureLeft) {
 						childShape.getGraphicsAlgorithm().setX(symbolGa.getWidth()-1);
@@ -365,7 +363,7 @@ public class FeatureInstancePattern extends AgePattern{
 			 final boolean isLeft = containerGa == null ? true : centerX < containerGa.getWidth()/2;
 			 return isLeft ? LayoutService.DockArea.LEFT : LayoutService.DockArea.RIGHT;
 		} else if(containerBo instanceof FeatureInstance) {
-			return LayoutService.DockArea.FEATURE_GROUP;
+			return LayoutService.DockArea.GROUP;
 		}
 
 		return null;		
