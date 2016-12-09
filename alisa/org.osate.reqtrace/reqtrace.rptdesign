@@ -58,6 +58,7 @@ Alisa = new JavaImporter(
 	org.osate.aadl2,
 	org.osate.aadl2.instance,
 	org.osate.reqspec,
+	org.osate.reqspec.reqSpec,
 	org.osate.reqspec.util)
 
 
@@ -85,13 +86,13 @@ function stakeholdersForGoal(goal, comp) {
 	result.addAll(goal.getStakeholderReference())
 	if (result.isEmpty()) {
 		for (var goal in Iterator(goal.getGoalReference())) {
-			addNonDropped(result, stakeholdersForGoal(goal, comp))
+			result.addAll(stakeholdersForGoal(goal, comp))
 		}
 		for (var goal in Iterator(goal.getRefinesReference())) {
-			addNonDropped(result, stakeholdersForGoal(goal, comp))
+			result.addAll(stakeholdersForGoal(goal, comp))
 		}
-		for (var req in Iterator(requirement.getEvolvesReference())) {
-			addNonDropped(result, stakeholdersForGoal(goal, comp))
+		for (var req in Iterator(goal.getEvolvesReference())) {
+			result.addAll(stakeholdersForGoal(goal, comp))
 		}
 	}
 	return result
@@ -135,10 +136,11 @@ with (Alisa) {
 	resource.load(resourceSet.getLoadOptions())
 	
 	var sysreqs = new java.util.HashSet()
+	var requirements = new java.util.ArrayList()
+	var goals = new java.util.ArrayList()
 	
 	if (type =='instance') {
 		// get requirements used in instance model
-		
 		var componentInstances = new java.util.ArrayList()
 		si = resource.contents.get(0)
 		componentInstances.add(si)
@@ -154,7 +156,6 @@ with (Alisa) {
 		}
 	} else 	if (type == 'package') {
 		// get requirements used in package
-	
 		var pack = resource.getContents().get(0)
 		var classifiers = EcoreUtil2.getAllContentsOfType(pack, ComponentClassifier)
 		for(var c in Iterator(classifiers)) {
@@ -167,27 +168,39 @@ with (Alisa) {
 		}		
 	} else if (type == 'reqspec') {
 		// get requirements from reqspec file
-		 
 		var reqspec = resource.getContents().get(0)
 		for (var part in Iterator(reqspec.getParts())) {
-			if (part instanceof org.osate.reqspec.reqSpec.SystemRequirementSet) {
+			if (part instanceof SystemRequirementSet) {
 				sysreqs.add(part)
+			}
+		}
+	} else if (type == 'reqdoc') {
+		// get requirements from reqdoc file
+		var reqspec = resource.getContents().get(0)
+		for (var part in Iterator(reqspec.getParts())) {
+			if (part instanceof ReqDocument) {
+				addNonDropped(requirements, EcoreUtil2.getAllContentsOfType(part, Requirement))
 			}
 		}
 	} else if (type == 'goals') {
 		// get goals from goals file
-		
-		var goals = new java.util.ArrayList()
 		var reqspec = resource.getContents().get(0)
 		for (var part in Iterator(reqspec.getParts())) {
-			if (part instanceof org.osate.reqspec.reqSpec.StakeholderGoals) {
+			if (part instanceof StakeholderGoals) {
 				//goals.addAll(part.getGoals())
 				addNonDropped(goals, part.getGoals())
 			}
 		}
+	} else if (type == 'goaldoc') {
+		// get goals from goaldoc file
+		var reqspec = resource.getContents().get(0)
+		for (var part in Iterator(reqspec.getParts())) {
+			if (part instanceof ReqDocument) {
+				addNonDropped(goals, EcoreUtil2.getAllContentsOfType(part, Goal))
+			}
+		}
 	}
 	
-	var requirements = new java.util.ArrayList()
 	for (var srs in Iterator(sysreqs)) {
 		//requirements.addAll(srs.getRequirements())
 		addNonDropped(requirements, srs.getRequirements())
@@ -206,7 +219,7 @@ with (Alisa) {
 	nogoals = new java.util.TreeSet(qncomp)
 	nostakeholders = new java.util.TreeSet(qncomp)
 
-	if (type != 'goals') {	
+	if (type != 'goals' &amp;&amp; type != 'goaldoc') {	
 		goals = new java.util.HashSet()
 		for (var req in Iterator(requirements)) {
 			if (!req.isDropped()) {
