@@ -6,12 +6,12 @@ import java.util.List;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
 import org.eclipse.xtext.linking.ILinkingService;
+import org.eclipse.xtext.linking.impl.DefaultLinkingService;
 import org.eclipse.xtext.naming.IQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.annexsupport.AnnexLinkingService;
 import org.osate.core.OsateCorePlugin;
-import org.osate.xtext.aadl2.errormodel.linking.EMLinkingService;
 import org.osate.xtext.aadl2.errormodel.naming.ErrorModelQualifiedNameProvider;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
@@ -28,7 +28,7 @@ public class EMV2AnnexLinkingService implements AnnexLinkingService {
 
 	protected ILinkingService getLinkingService() {
 		if (linkingService == null) {
-			linkingService = injector.getInstance(EMLinkingService.class);
+			linkingService = injector.getInstance(DefaultLinkingService.class);
 		}
 		return linkingService;
 	}
