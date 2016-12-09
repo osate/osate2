@@ -141,12 +141,12 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 					layoutData = new GridData(SWT.FILL, SWT.TOP, true, false)
 				]
 				switch fileType {
-					case "reqspec": {
+					case "reqspec", case "reqdoc": {
 						g2sButton.enabled = false
 						r2gButton.selection = true
 						r2gButton.enabled = false
 					}
-					case "goals": {
+					case "goals", case "goaldoc": {
 						g2sButton.selection = true
 						g2sButton.enabled = false
 						r2gButton.enabled = false
