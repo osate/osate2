@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.eclipse.org/birt/2005/design" version="3.2.23" id="1">
+    <property name="createdBy">Eclipse BIRT Designer Version 4.5.0.v201506092134 Build &lt;@BUILD@></property>
+    <property name="units">in</property>
+    <method name="initialize"><![CDATA[function qualifiedName(ne) {
+	var name = ne.getName()
+	var container = ne.eContainer()
+	while (container != null) {
+		if (!(typeof container.name === 'undefined')) {
+			name = container.getName() + '.' + name
+		}
+		container = container.eContainer()
+	}
+	return name
+}
+
+reportContext.setPersistentGlobalVariable("qualifiedName", qualifiedName)]]></method>
+    <property name="iconFile">/templates/blank_report.gif</property>
+    <property name="bidiLayoutOrientation">ltr</property>
+    <property name="imageDPI">96</property>
+    <data-sources>
+        <script-data-source name="requirements" id="4">
+            <method name="open"><![CDATA[/*
+ * <copyright>
+ * Copyright 2016 by Carnegie Mellon University, all rights reserved.
+ *
+ * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
+ * at http://www.eclipse.org/legal/epl-v10.html.
+ *
+ * NO WARRANTY
+ *
+ * ANY INFORMATION, MATERIALS, SERVICES, INTELLECTUAL PROPERTY OR OTHER PROPERTY OR RIGHTS GRANTED OR PROVIDED BY
+ * CARNEGIE MELLON UNIVERSITY PURSUANT TO THIS LICENSE (HEREINAFTER THE "DELIVERABLES") ARE ON AN "AS-IS" BASIS.
+ * CARNEGIE MELLON UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESS OR IMPLIED AS TO ANY MATTER INCLUDING,
+ * BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR A PARTICULAR PURPOSE, MERCHANTABILITY, INFORMATIONAL CONTENT,
+ * NONINFRINGEMENT, OR ERROR-FREE OPERATION. CARNEGIE MELLON UNIVERSITY SHALL NOT BE LIABLE FOR INDIRECT, SPECIAL OR
+ * CONSEQUENTIAL DAMAGES, SUCH AS LOSS OF PROFITS OR INABILITY TO USE SAID INTELLECTUAL PROPERTY, UNDER THIS LICENSE,
+ * REGARDLESS OF WHETHER SUCH PARTY WAS AWARE OF THE POSSIBILITY OF SUCH DAMAGES. LICENSEE AGREES THAT IT WILL NOT
+ * MAKE ANY WARRANTY ON BEHALF OF CARNEGIE MELLON UNIVERSITY, EXPRESS OR IMPLIED, TO ANY PERSON CONCERNING THE
+ * APPLICATION OF OR THE RESULTS TO BE OBTAINED WITH THE DELIVERABLES UNDER THIS LICENSE.
+ *
+ * Licensee hereby agrees to defend, indemnify, and hold harmless Carnegie Mellon University, its trustees, officers,
+ * employees, and agents from all claims or demands made against them (and any related losses, expenses, or
+ * attorney's fees) arising out of, or relating to Licensee's and/or its sub licensees' negligent use or willful
+ * misuse of or negligent conduct or willful misconduct regarding the Software, facilities, or other rights or
+ * assistance granted by Carnegie Mellon University under this License, including, but not limited to, any claims of
+ * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
+ *
+ * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
+ * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
+ * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
+ * under the contract clause at 252.227.7013.
+ * </copyright>
+ */
+Alisa = new JavaImporter(
+	org.eclipse.xtext,
+	org.osate.aadl2,
+	org.osate.aadl2.instance,
+	org.osate.reqspec,
+	org.osate.reqspec.reqSpec,
+	org.osate.reqspec.util)
+
+
+function addNonDropped(set, elements) {
+	for (var e in Iterator(elements)) {
+		if (!e.isDropped()) {
+			set.add(e)
+		}
+	}
+}
+
+with (Alisa) {
+	type = reportContext.getParameterValue('FileType')
+	file = reportContext.getParameterValue('AADLFile')
+	report = reportContext.getParameterValue('ReportType')
+
+	// load the file
+
+	resourceSet = provider.get(org.eclipse.xtext.resource.XtextResourceSet)
+	resourceSet.addLoadOption(org.eclipse.xtext.resource.XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE)
+	resource = resourceSet.createResource(uri)
+	resource.load(resourceSet.getLoadOptions())
+	
+	// sort requirements/goals by qualified name
+	var qncomp = JavaAdapter(java.util.Comparator, {
+		compare: function (ne1, ne2) {
+			return qualifiedName(ne1).localeCompare(qualifiedName(ne2))
+		}
+	})
+	
+	var sysreqs = new java.util.HashSet()
+	requirements = new java.util.TreeSet(qncomp)
+
+	if (type == 'reqspec') {
+		// get requirements from reqspec file
+		var reqspec = resource.getContents().get(0)
+		for (var part in Iterator(reqspec.getParts())) {
+			if (part instanceof SystemRequirementSet) {
+				sysreqs.add(part)
+			}
+		}
+	} else if (type == 'reqdoc') {
+		// get requirements from reqdoc file
+		var reqspec = resource.getContents().get(0)
+		for (var part in Iterator(reqspec.getParts())) {
+			if (part instanceof ReqDocument) {
+				addNonDropped(requirements, EcoreUtil2.getAllContentsOfType(part, Requirement))
+			}
+		}
+	}
+
+	if (type != 'reqdoc') {
+		for (var srs in Iterator(sysreqs)) {
+			requirements.addAll(srs.getRequirements())
+		}
+	}
+
+}
+]]></method>
+        </script-data-source>
+    </data-sources>
+    <data-sets>
+        <script-data-set name="reqs" id="5">
+            <list-property name="resultSetHints">
+                <structure>
+                    <property name="position">1</property>
+                    <property name="name">name</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">2</property>
+                    <property name="name">title</property>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="position">3</property>
+                    <property name="name">description</property>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <list-property name="columnHints">
+                <structure>
+                    <property name="columnName">name</property>
+                </structure>
+                <structure>
+                    <property name="columnName">title</property>
+                </structure>
+                <structure>
+                    <property name="columnName">description</property>
+                </structure>
+            </list-property>
+            <structure name="cachedMetaData">
+                <list-property name="resultSet">
+                    <structure>
+                        <property name="position">1</property>
+                        <property name="name">name</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">2</property>
+                        <property name="name">title</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                    <structure>
+                        <property name="position">3</property>
+                        <property name="name">description</property>
+                        <property name="dataType">string</property>
+                    </structure>
+                </list-property>
+            </structure>
+            <property name="needsCache">false</property>
+            <property name="dataSource">requirements</property>
+            <method name="open"><![CDATA[iter = requirements.iterator()
+]]></method>
+            <method name="fetch"><![CDATA[if (!iter.hasNext()) {
+	return false
+}
+
+r = iter.next()
+
+row['name'] = qualifiedName(r)
+row['title'] = r.getTitle()
+
+if (r.description == null) {
+	row['description'] = ""
+} else {
+	target = r.getTargetElement()
+	if (target == null) {
+		target = r.eContainer().getTarget()
+	}
+	row['description'] = org.osate.alisa.common.util.CommonUtilExtension.toText(r.getDescription(), target)
+}
+
+return true
+]]></method>
+        </script-data-set>
+    </data-sets>
+    <page-setup>
+        <simple-master-page name="Simple MasterPage" id="2">
+            <page-footer>
+                <grid id="80">
+                    <column id="81"/>
+                    <column id="82"/>
+                    <row id="83">
+                        <cell id="84">
+                            <text id="100">
+                                <property name="contentType">html</property>
+                                <text-property name="content"><![CDATA[<value-of>new Date()</value-of>]]></text-property>
+                            </text>
+                        </cell>
+                        <cell id="85">
+                            <auto-text id="98">
+                                <property name="textAlign">right</property>
+                                <property name="type">page-number</property>
+                            </auto-text>
+                        </cell>
+                    </row>
+                </grid>
+            </page-footer>
+        </simple-master-page>
+    </page-setup>
+    <body>
+        <label id="102">
+            <property name="fontSize">14pt</property>
+            <property name="textAlign">center</property>
+            <text-property name="text">System Requirements Report</text-property>
+        </label>
+        <data id="101">
+            <property name="fontSize">9pt</property>
+            <property name="fontStyle">italic</property>
+            <property name="marginBottom">15pt</property>
+            <property name="textAlign">center</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">File Name</property>
+                    <expression name="expression" type="javascript">'Created from: ' + reportContext.getParameterValue('AADLFile')</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+            </list-property>
+            <property name="resultSetColumn">File Name</property>
+        </data>
+        <table id="134">
+            <property name="borderBottomStyle">solid</property>
+            <property name="borderBottomWidth">medium</property>
+            <property name="borderLeftStyle">solid</property>
+            <property name="borderLeftWidth">medium</property>
+            <property name="borderRightStyle">solid</property>
+            <property name="borderRightWidth">medium</property>
+            <property name="borderTopStyle">solid</property>
+            <property name="borderTopWidth">medium</property>
+            <property name="marginTop">auto</property>
+            <property name="pageBreakBefore">always</property>
+            <property name="dataSet">reqs</property>
+            <list-property name="boundDataColumns">
+                <structure>
+                    <property name="name">name</property>
+                    <text-property name="displayName">name</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["name"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">title</property>
+                    <text-property name="displayName">title</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["title"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+                <structure>
+                    <property name="name">description</property>
+                    <text-property name="displayName">description</text-property>
+                    <expression name="expression" type="javascript">dataSetRow["description"]</expression>
+                    <property name="dataType">string</property>
+                </structure>
+            </list-property>
+            <column id="143"/>
+            <header>
+                <row id="135">
+                    <property name="borderBottomStyle">solid</property>
+                    <property name="borderBottomWidth">medium</property>
+                    <cell id="136">
+                        <label id="144">
+                            <property name="fontSize">12pt</property>
+                            <property name="fontWeight">bold</property>
+                            <text-property name="text">Requirements</text-property>
+                        </label>
+                    </cell>
+                </row>
+            </header>
+            <detail>
+                <row id="137">
+                    <property name="borderTopStyle">solid</property>
+                    <property name="borderTopWidth">1px</property>
+                    <cell id="138">
+                        <grid id="145">
+                            <property name="height">0.59375in</property>
+                            <column id="146"/>
+                            <row id="147">
+                                <cell id="148">
+                                    <data id="149">
+                                        <property name="fontStyle">italic</property>
+                                        <property name="resultSetColumn">name</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="150">
+                                <property name="height">0.2916666666666667in</property>
+                                <cell id="151">
+                                    <data id="152">
+                                        <property name="resultSetColumn">title</property>
+                                    </data>
+                                </cell>
+                            </row>
+                            <row id="153">
+                                <property name="height">0.2916666666666667in</property>
+                                <cell id="154">
+                                    <data id="155">
+                                        <property name="resultSetColumn">description</property>
+                                    </data>
+                                </cell>
+                            </row>
+                        </grid>
+                    </cell>
+                </row>
+            </detail>
+            <footer>
+                <row id="141">
+                    <cell id="142"/>
+                </row>
+            </footer>
+        </table>
+    </body>
+</report>

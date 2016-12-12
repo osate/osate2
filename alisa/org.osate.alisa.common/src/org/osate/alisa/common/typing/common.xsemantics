@@ -569,9 +569,11 @@ from {
 			
 		}
 		default: {
+			if (InterpreterUtil.instance.methodExists(call.function)!=null){
 			fail
 				error 'unsupported function: ' + call.function
 				source call
+			}
 		}
 	}
 }

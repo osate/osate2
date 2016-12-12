@@ -91,7 +91,7 @@ VerificationActivity:
 	'(' (actuals+=AExpression (',' actuals+=AExpression)*)? ')' 
 	(
 		'property' 'values' '(' 
-		(propertyValues+=[common::ValDeclaration|ID] (',' propertyValues+=[common::ValDeclaration|ID])*)? 
+		(propertyValues+=AExpression (',' propertyValues+=AExpression)*)? 
 		')'
 	)?
 	('['(
@@ -132,7 +132,9 @@ enum TargetType: COMPONENT='component'|FEATURE='feature'|CONNECTION='connection'
 VerificationMethod:
 	'method' name=ID 
 	(
-		'(' (targetType=TargetType ',')? (formals+=FormalParameter (',' formals+=FormalParameter)*)? ')'
+		'(' ((targetType=TargetType)? | (formals+=FormalParameter (',' formals+=FormalParameter)*)
+			| (targetType=TargetType ','formals+=FormalParameter (',' formals+=FormalParameter)*))
+		')'
 		(
 			'properties' '('
 			(properties+=[aadl2::Property|AADLPROPERTYREFERENCE] (',' properties+=[aadl2::Property|AADLPROPERTYREFERENCE])*)? 
@@ -190,6 +192,10 @@ MethodKind:
 JavaParameter returns JavaParameter:
 	parameterType=ID name=ID ;
 
+
+//PropertyReference returns common::APropertyReference:
+//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE]
+//;
 	
 //enum SupportedScopes: SELF='self' | PARTS='parts' | ALL='all';
 

@@ -225,7 +225,7 @@ rule InterpretUnitExpression
 from {
 	G |- unit.expression ~> var PropertyValue propval
 	number = (propval as NumberValue)
-	
+	val unit_add = !unit.drop && !unit.convert && unit.unit != null
 	if (unit.drop || unit.convert) {
 		switch (number) {
 			IntegerLiteral:
@@ -239,7 +239,7 @@ from {
 	}	
 	if (unit.drop) {
 		number.unit = null
-	} else {
+	} else if (unit.convert || unit_add) {
 		number.unit = unit.unit
 	}
 }
@@ -322,18 +322,22 @@ from {
 		io = chooseRoot(prop, G)
 	}
 	val namedVal = prop.property // property or constant
-	{
-		val pexp = switch (namedVal) {
-				Property: 
+	val pexp = switch (namedVal) {
+			Property:
+				try {
 					io.getSimplePropertyValue(namedVal)
+				} catch (Exception e) {
+					null
+				}
 //				PropertyConstant:
 //					namedVal.constantValue
-				default: 
-					null
-		}
-		propVal = if (pexp instanceof PropertyValue) pexp else null
-		propVal != null
-	} or {
+			default: 
+				null
+	}
+	propVal = if (pexp instanceof PropertyValue) pexp else null
+
+	propVal != null
+  or {
 		fail
 			error 'cannot retrieve property value ' + 
 					NodeModelUtils.findActualNodeFor(prop).text + errorPosition(prop)
@@ -438,9 +442,11 @@ from {
 rule Equal
 	G |= PropertyValue left : PropertyValue right
 from {
-	fail
-		error 'interpreter: comparison not implemented'
-		source left
+	left.sameAs(right)
+	or
+		fail
+			error 'interpreter: property values are not equal'
+			source left
 }
 
 rule CompareNumbers

@@ -16,42 +16,47 @@
 
 package org.osate.alisa.common.util
 
-import java.util.ArrayList
+import it.xsemantics.runtime.RuleEnvironment
+import java.lang.reflect.InvocationTargetException
+import java.net.URL
+import java.net.URLClassLoader
+import java.util.HashMap
 import java.util.List
+import org.eclipse.core.resources.ResourcesPlugin
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.util.EcoreUtil
 import org.eclipse.internal.xtend.expression.ast.NullLiteral
+import org.eclipse.jdt.core.IClasspathEntry
+import org.eclipse.jdt.core.JavaCore
+import org.eclipse.xtext.resource.IResourceServiceProvider
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.ComponentType
 import org.osate.aadl2.EndToEndFlow
 import org.osate.aadl2.Feature
+import org.osate.aadl2.FlowSpecification
 import org.osate.aadl2.NamedElement
-import org.osate.aadl2.Property
-import org.osate.aadl2.PropertyConstant
+import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.instance.ComponentInstance
 import org.osate.aadl2.instance.ConnectionInstance
 import org.osate.aadl2.instance.InstanceObject
-import org.osate.aadl2.properties.PropertyLookupException
 import org.osate.aadl2.util.Aadl2Util
-import org.osate.alisa.common.common.AModelReference
-import org.osate.alisa.common.common.APropertyReference
+import org.osate.alisa.common.common.AVariableReference
 import org.osate.alisa.common.common.ComputeDeclaration
 import org.osate.alisa.common.common.Description
 import org.osate.alisa.common.common.DescriptionElement
 import org.osate.alisa.common.common.ValDeclaration
+import org.osate.alisa.common.typing.CommonInterpreter
 
 class CommonUtilExtension {
 
+	static var CommonInterpreter interpreter = IResourceServiceProvider.Registry.INSTANCE.getResourceServiceProvider(
+		URI.createFileURI("dummy.___common___")).get(CommonInterpreter)
+
 	def static String toText(Description desc, NamedElement target) {
-		var String res = "";
-		for (de : desc.description) {
-			res = res + de.toText(target)
-		}
-		return res
-//		desc.description.map[de|de.toText(target)].reduce[a, b|a + b]
+		desc.description.map[it.toText(target)].join
 	}
 
 	private def static stripNewlineTab(String s) {
@@ -64,58 +69,39 @@ class CommonUtilExtension {
 
 	def static String toText(DescriptionElement de, NamedElement target) {
 		if (de.text != null) {
-			return de.text.stripNewlineTab
-		}
-		if (de.showValue != null) {
-			val decl = de.showValue?.ref
-			if (decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration) {
-				return decl.name
-			} else if (decl instanceof ValDeclaration) {
-				val x = decl?.value
-				if (x == null || x instanceof NullLiteral) return "TBD"
-				if (x instanceof APropertyReference) {
-					val pd = x.property
-					if (pd instanceof Property) {
-						try {
-							val pval = target.getSimplePropertyValue(pd)
-							return pval.toString
-						} catch (PropertyLookupException e) {
-							return pd.qualifiedName()
-						}
-					} else if (pd instanceof PropertyConstant) {
-						val actual = pd.constantValue
-						return actual.toString
-					}
+			de.text.stripNewlineTab
+		} else if (de.thisTarget && target != null) {
+			target.getQualifiedName()
+		} else if (de.showValue != null) {
+			val decl = de.showValue
+			if (decl.eIsProxy) {
+				"TBD"
+			} else {
+				val variable = (decl.expression as AVariableReference).variable
+				switch (variable) {
+					ComputeDeclaration:
+						variable.name
+					ValDeclaration: {
+						val RuleEnvironment env = new RuleEnvironment
+						env.add('vals', new HashMap<String, PropertyExpression>)
+						env.add('computes', new HashMap<String, Object>)
+						val result = interpreter.interpretExpression(env, decl)
 
-				}
-			}
-			if (decl.eIsProxy) return "TBD"
-			if (decl instanceof ComputeDeclaration) {
-				return decl.name
-			} else if (decl instanceof ValDeclaration) {
-				val x = decl?.value
-				if (x == null || x instanceof NullLiteral) return "TBD"
-				if (x instanceof APropertyReference) {
-					val pd = x.property
-					if (pd instanceof Property) {
-						try {
-							val pval = target.getSimplePropertyValue(pd)
-							return pval.toString
-						} catch (PropertyLookupException e) {
-							return pd.qualifiedName()
+						if (result.failed) {
+							return "Could not evaluate expression for " + variable.name + ": " +
+								result.ruleFailedException
 						}
+						var x = result.value
+						if (x == null || x instanceof NullLiteral)
+							"TBD"
+						else
+							x.toString
 					}
 				}
-				return x?.toString ?: ""
 			}
+		} else {
+			""
 		}
-		if (de.thisTarget && target != null) {
-			var nm = target.name
-			if (nm.endsWith("_Instance")) nm = nm.substring(0, nm.length - 9)
-			return nm
-		}
-		""
 	}
 
 // from GetProperties: May need to use it for actual values from compute
@@ -170,6 +156,7 @@ class CommonUtilExtension {
 			EndToEndFlow: return findElementInstanceInList(io.endToEndFlows, n)
 			Subcomponent: return findElementInstanceInList(io.componentInstances, n)
 			Feature: return findElementInstanceInList(io.featureInstances, n)
+			FlowSpecification: return findElementInstanceInList(io.flowSpecifications, n)
 		}
 		return null
 	}
@@ -205,6 +192,62 @@ class CommonUtilExtension {
 		if (res == null) res = findElementInstanceInList(io.componentInstances, n)
 		if (res == null) res = findElementInstanceInList(io.featureInstances, n)
 		return res
+	}
+
+	public static val eInstance = new CommonUtilExtension
+
+	// Method returns null if Java class was found.
+	// Otherwise it returns an error message
+	def String methodExists(String javaMethod) {
+		val i = javaMethod.lastIndexOf('.')
+		if (i == -1) {
+			throw new IllegalArgumentException("Java method '" + javaMethod + "' is missing Class")
+		}
+		val className = javaMethod.substring(0, i)
+		val methodName = javaMethod.substring(i + 1)
+		try {
+			val workspaceRoot = ResourcesPlugin.workspace.root
+			val model = JavaCore.create(workspaceRoot)
+
+			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			if (projects.isEmpty) {
+				throw new IllegalArgumentException('No such method: ' + javaMethod)
+			} else if (projects.size > 1) {
+				throw new IllegalArgumentException('Multiple methods found for ' + javaMethod)
+			}
+			var changed = true
+			while (changed) {
+				val referenced = projects.map [ p |
+					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
+					val paths = cpes.map[it.path]
+					paths.map[model.getJavaProject(it.toString)]
+				].flatten
+				changed = projects += referenced
+			}
+			val urls = projects.map [ p |
+				val file = workspaceRoot.getFile(p.outputLocation)
+				new URL(file.locationURI + "/")
+			]
+
+			val parent = class.classLoader
+			val loader = new URLClassLoader(urls, parent);
+			val clazz = Class.forName(className, true, loader);
+			val newClasses = newArrayList()
+			newClasses.add(NamedElement)
+
+			var method = clazz.getMethod(methodName, newClasses)
+			if (method == null) {
+				val altClasses = newArrayList()
+				altClasses.add(InstanceObject)
+				method = clazz.getMethod(methodName, newClasses)
+			}
+		} catch (Exception e) {
+			if (e instanceof InvocationTargetException) {
+				return e.targetException.toString
+			}
+			return e.toString
+		}
+		return null
 	}
 
 }

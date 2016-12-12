@@ -82,6 +82,7 @@ Workflow {
 
 			// Xtend-based API for validation
 			fragment = validation.ValidatorFragment auto-inject {
+				generateStub = false
 			//    composedCheck = "org.eclipse.xtext.validation.ImportUriValidator"
 			//    composedCheck = "org.eclipse.xtext.validation.NamesAreUniqueValidator"
 			}

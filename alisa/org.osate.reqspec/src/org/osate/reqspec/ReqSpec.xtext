@@ -4,8 +4,8 @@ generate reqSpec "http://www.osate.org/reqspec/ReqSpec"
 
 import "http://aadl.info/AADL/2.0" as aadl2
 import "http://www.aadl.info/EMV2" as emv2
-import  "http://www.osate.org/categories/Categories" as categories
-import  "http://www.osate.org/organization/Organization" as org
+import "http://www.osate.org/categories/Categories" as categories
+import "http://www.osate.org/organization/Organization" as org
 import "http://www.osate.org/alisa/common/Common" as common
 import "http://www.eclipse.org/emf/2002/Ecore" as ecore
 
@@ -46,7 +46,7 @@ ReqDocument: 'document' name=QualifiedName (':' title=STRING)?
 	 ']'
 ;
 DocumentSection returns DocumentSection:
-	'section' label =ID (':' title=STRING)?
+	'section' ((label =ID (':' title=STRING)?)| title=STRING)
 	'[' (
 	 (  description=Description)? 
 	

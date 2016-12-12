@@ -28,6 +28,24 @@
 					</sourceRoots>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<version>${xtext.version}</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<!-- <goal>testCompile</goal> -->
+						</goals>
+						<!--  force after xtext-maven-plugin -->
+						<phase>process-sources</phase>
+						<configuration>
+							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

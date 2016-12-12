@@ -138,6 +138,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	private void updateProgress(VerificationResult result) {
 		if (progressTreeViewer != null) {
 			Display.getDefault().asyncExec(new Runnable() {
+				@Override
 				public void run() {
 					progressTreeViewer.update(result, null);
 				}
@@ -199,6 +200,7 @@ public class AgreeVerifySingleHandler extends VerifySingleHandler {
 	private IStatus doAnalysis(final Element root, final IProgressMonitor globalMonitor) {
 
 		Thread analysisThread = new Thread() {
+			@Override
 			public void run() {
 				// activateTerminateHandlers(globalMonitor);
 

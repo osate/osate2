@@ -117,13 +117,13 @@ public interface CommonFactory extends EFactory
   APropertyReference createAPropertyReference();
 
   /**
-   * Returns a new object of class '<em>Show Value</em>'.
+   * Returns a new object of class '<em>AUnit Expression</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
-   * @return a new object of class '<em>Show Value</em>'.
+   * @return a new object of class '<em>AUnit Expression</em>'.
    * @generated
    */
-  ShowValue createShowValue();
+  AUnitExpression createAUnitExpression();
 
   /**
    * Returns a new object of class '<em>Image Reference</em>'.
@@ -205,15 +205,6 @@ public interface CommonFactory extends EFactory
    * @generated
    */
   AUnaryOperation createAUnaryOperation();
-
-  /**
-   * Returns a new object of class '<em>AUnit Expression</em>'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return a new object of class '<em>AUnit Expression</em>'.
-   * @generated
-   */
-  AUnitExpression createAUnitExpression();
 
   /**
    * Returns a new object of class '<em>AFunction Call</em>'.

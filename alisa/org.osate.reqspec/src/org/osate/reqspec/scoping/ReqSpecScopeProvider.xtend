@@ -76,21 +76,20 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 	def scope_ContractualElement_targetElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
 		if (targetClassifier != null) {
-//			targetClassifier.getAllFeatures.scopeFor
-			val thescope = new SimpleScope(IScope::NULLSCOPE,
-				Scopes::scopedElementsFor(targetClassifier.getAllFeatures + targetClassifier.allModes,
+			if (targetClassifier instanceof ComponentType){
+			return new SimpleScope(IScope::NULLSCOPE,
+				Scopes::scopedElementsFor(targetClassifier.getAllFeatures + targetClassifier.allFlowSpecifications + targetClassifier.allModes,
 					QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
+			}
 			if (targetClassifier instanceof ComponentImplementation) {
-				new SimpleScope(thescope,
-					Scopes::scopedElementsFor(targetClassifier.allSubcomponents + targetClassifier.allEndToEndFlows
+				return new SimpleScope(IScope::NULLSCOPE,
+					Scopes::scopedElementsFor(targetClassifier.getAllFeatures + targetClassifier.type.allFlowSpecifications +
+						targetClassifier.allModes+targetClassifier.allSubcomponents + targetClassifier.allEndToEndFlows
 						+ targetClassifier.allConnections,
 						QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
-			} else {
-				return thescope
-			}
-		} else {
-			IScope.NULLSCOPE
+			} 
 		}
+		return IScope.NULLSCOPE
 	}
 
 	def scope_Mode(WhenCondition context, EReference reference) {

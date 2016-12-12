@@ -91,7 +91,7 @@ that evaluates the artifact to determine if it meets the requirement
 a compute method that computes values (referenced by </span></span><i>computed
 variables</i><span style="font-variant: normal"><span style="font-style: normal">)
 that can be used to evaluate the predicate specified as part of the
-requirement or used as input parameter for a suceeding verification
+requirement or used as input parameter for a succeeding verification
 activity.</span></span></p>
 <p lang="zxx">A verification method registry allows users to specify
 the type and signature of a verification method as well as a
@@ -110,7 +110,7 @@ supports two file extensions: </span></span><i>verify</i><span style="font-varia
 verification plans, and </span></span><i>methodregistry</i><span style="font-variant: normal">
 </span><span style="font-variant: normal"><span style="font-style: normal">for
 verification method specifications.</span></span></p>
-<h2 lang="zxx" class="western">Verification Plan</h2>
+<h2 lang="zxx" class="western"><a name="VerificationPlan"></a>Verification Plan</h2>
 <p lang="zxx"><span lang="zxx">Users define one verification plan for
 each </span><span lang="zxx"><i>system requirement set</i></span><span lang="zxx">
 </span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">or
@@ -218,7 +218,7 @@ related </span></span></span><span style="font-variant: normal"><i><span style="
 plan </span></i></span><span style="font-variant: normal"><span style="font-style: normal"><span style="background: transparent">by
 qualified name of</span></span></span><span style="font-variant: normal"><span style="background: transparent">
 </span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="background: transparent">the
-component classifier, whose requirements and verificaiton plans are
+component classifier, whose requirements and verification plans are
 specified.</span></span></span></p>
 <h2 lang="zxx" class="western"><a name="Claim"></a>Claim</h2>
 <p lang="zxx">A claim represents the set of verification activities
@@ -370,7 +370,7 @@ A claim declaration consists of the following:
 	and</span></span></span><span style="font-variant: normal"><span lang="zxx">
 	computed variables (</span></span><span style="font-variant: normal"><span lang="zxx"><b>compute</b></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-weight: normal">)</span></span></span><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal"><span style="font-weight: normal">,
 	integers and reals with or without measurement unit, strings,
-	booleans, AADL properties and proparty constants. For details of the
+	booleans, AADL properties and property constants. For details of the
 	expression language see <a href="TypesExpressions.html#Expression%20Notation%7Coutline">Expression
 	Notation</a>.</span></span></span></span></p>
 	<li/>
@@ -378,7 +378,7 @@ A claim declaration consists of the following:
 	value list:</span></i><span style="font-variant: normal"> </span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">optional
 	comma separated list of values to be made available to the
 	verification method via an AADL property. The expected set of
-	properties with specifiec value are specified as part of the
+	properties with specific value are specified as part of the
 	verification method in the method registry. Currently the values are
 	limited to references to constant variables (</span></span></span><span style="font-variant: normal"><span style="font-style: normal"><b>val</b></span></span><span style="font-variant: normal"><span style="font-style: normal"><span style="font-weight: normal">).</span></span></span></p>
 	<li/>
@@ -408,7 +408,7 @@ A claim declaration consists of the following:
 intent of result parameters is to provide access to computed results
 from the execution of a verification method. These results can then
 be evaluated by the predicate specified as part of the requirement
-declaration or passed as input to suceeding verificaiton activities. 
+declaration or passed as input to succeeding verification activities. 
 </p>
 <p lang="zxx" style="font-variant: normal; font-style: normal">Actual
 parameter and property value expressions may refer to constants and
@@ -418,15 +418,15 @@ those of requirements and their containing requirement sets inherited
 through the component classifier extends hierarchy.</p>
 <h2 lang="zxx" class="western"><a name="Argument"></a>Argument
 Expression</h2>
-<p lang="zxx">Without an argument expression all verfication
-expressions must be successful for the claim to be met. The arugment
+<p lang="zxx">Without an argument expression all verification
+expressions must be successful for the claim to be met. The argument
 expression allows users to specify condition under which verification
 activities are performed: one verification has to be successful for
 another one to be executed (<b>then</b><span style="font-weight: normal">)</span>,
 and a verification activity acts as backup if the original one fails
 to complete successfully (<b>else</b><span style="font-weight: normal">)</span>.
-In the case of backup verificaiton activity, users can specify a
-single verificaiton activity executed if the original one is not
+In the case of backup verification activity, users can specify a
+single verification activity executed if the original one is not
 successful, or users can specify separately whether they intend to
 have a backup verification activity for the original activity return
 <i>Fail</i><span style="font-variant: normal"><span style="font-style: normal">,
@@ -487,7 +487,7 @@ expression takes the following form:</span></span></span></em></p>
 	activity.</span></span></span></em></p>
 	<li/>
 <p lang="zxx"><em><span lang="zxx">All: </span></em><em><span style="font-variant: normal"><span lang="zxx"><span style="font-style: normal">lets
-	users specify that all of a set of veriifcation activities must be
+	users specify that all of a set of verification activities must be
 	successful. </span></span></span></em><span lang="zxx">All
 	verification activities will be executed independent of whether they
 	are successful or not. The result of the </span><em><span lang="zxx">all</span></em><span lang="zxx">
@@ -531,14 +531,14 @@ The verification method registry consists of:</p>
 <p lang="zxx" style="margin-bottom: 0in"><i>Description: </i><span style="font-variant: normal"><span style="font-style: normal">a
 	description of the verification method.</span></span></p>
 </ul>
-<h2 lang="zxx" class="western">Verification Method Specification</h2>
+<h2 lang="zxx" class="western"><a name="VerificationMethod">Verification Method Specification</h2>
 <p lang="zxx">A verification method is invoked when a verification
 activity is executed. The method analyzes, simulates, or executes an
 AADL model, or a detailed design model, or source code associated
 with a component in the AADL model. 
 </p>
 <p lang="zxx">The verification method may evaluate a predicate to
-indicate whether the veriifcaiton is successful or failed to be
+indicate whether the verification is successful or failed to be
 successful, or the verification method may compute one or more values
 that are turned. In the latter case a predicate defined for the
 requirement may refer to the computed variable holding the result
@@ -562,7 +562,7 @@ by the list of typed formal parameters or through a property
 associated with the model element being passed as first parameter.</p>
 <p lang="zxx" style="font-variant: normal; font-style: normal">Return
 values are assigned to <i>Computed Variables</i>, whose names match
-the formal parameter spcification of the <font color="#800000"><b>returns</b></font>
+the formal parameter specification of the <font color="#800000"><b>returns</b></font>
 clause.</p>
 <p lang="zxx" style="font-variant: normal; font-style: normal">For
 further details see the description below.</p>

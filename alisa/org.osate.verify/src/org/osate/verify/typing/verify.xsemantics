@@ -1,6 +1,7 @@
 import java.util.List
 import org.eclipse.emf.common.util.EList
 import org.osate.aadl2.NumberType
+import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.UnitsType
@@ -20,6 +21,7 @@ judgments {
 	assignReturn |- FormalParameter ret --> ComputeRef compute
 	assignArguments |- VerificationActivity owner ~> List<FormalParameter> formals << List<PropertyExpression> actuals
 	assignReturns |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computes
+	assignProperties ||- VerificationActivity owner ~> List<Property> properties << List<PropertyExpression> values
 }
 
 rule TypeFormalParameter
@@ -105,6 +107,7 @@ from {
 rule Return
   G |- FormalParameter ret --> ComputeRef computeRef
 from {
+	if (computeRef.compute != null) {
 	G |- computeRef.compute : var PropertyType computeType
 	var PropertyType retType
 	G |- ret : retType
@@ -115,6 +118,32 @@ from {
     	fail
 	  		error 'typing: ' + stringRep(retType) + 'cannot be assigned to ' + stringRep(computeType)
 	  		source computeRef
+  }
+  }
+}
+
+rule PropertyValues
+	G ||- VerificationActivity owner ~> List<Property> properties << List<PropertyExpression> values
+from {
+  properties.size == values.size
+  or
+  	fail
+    	error 'expected ' + properties.size + ' property values, but got ' + values.size
+    	feature VerifyPackage.eINSTANCE.verificationActivity_PropertyValues
+    	source owner 
+    
+  val pIter = properties.iterator
+  val vIter = values.iterator
+  while (pIter.hasNext && vIter.hasNext) {
+  	val property = pIter.next
+  	val value = vIter.next
+  	val left = property.propertyType
+  	G |- value : var PropertyType right
+		G |- left <: right
+	 	or
+  	 	fail
+  			error 'typing: ' + stringRep(right) + 'cannot be assigned to ' + stringRep(left)
+  			source value
   }
 }
 
@@ -136,4 +165,11 @@ checkrule CheckActivityReturns for
 from {
 	val method = activity.method
 	empty |- activity ~> method.results >> activity.computes
+}
+
+checkrule CheckPropertyTypes for
+	VerificationActivity activity
+from {
+	val method = activity.method
+	empty ||- activity ~> method.properties << activity.propertyValues
 }
