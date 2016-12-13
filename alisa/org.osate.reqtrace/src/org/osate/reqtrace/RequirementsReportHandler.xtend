@@ -17,6 +17,7 @@ import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.window.Window
 import org.eclipse.ui.ide.IDE
+import org.osate.aadl2.ComponentClassifier
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveWorkbenchWindow
@@ -34,7 +35,10 @@ class RequirementsReportHandler extends AbstractHandler {
 	].flatten.filter[!EMITTERS_TO_IGNORE.contains(value)])
 	
 	override execute(ExecutionEvent event) throws ExecutionException {
-		val selectionPath = ((event.currentSelection as IStructuredSelection).firstElement as IFile).fullPath
+		val selectedObjectAndType = switch selectedObject : (event.currentSelection as IStructuredSelection).firstElement {
+			IFile: selectedObject.fullPath -> selectedObject.fileExtension
+			ComponentClassifier: selectedObject -> "Classifier"
+		}
 		val dialog = new RequirementsReportConfigDialog(event.activeShell, EMITTERS.keySet.sort)
 		if (dialog.open == Window.OK) {
 			Job.create("Generating Report", [
@@ -44,8 +48,8 @@ class RequirementsReportHandler extends AbstractHandler {
 					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/requirements.rptdesign'''
 					val report = openReportDesign(new URL(url).openConnection.inputStream)
 					createRunAndRenderTask(report) => [
-						setParameterValue("AADLFile", selectionPath.toString)
-						setParameterValue("FileType", selectionPath.fileExtension)
+						setParameterValue("AADLFile", selectedObjectAndType.key)
+						setParameterValue("FileType", selectedObjectAndType.value)
 						renderOption = new RenderOption => [
 							val file = dialog.outputFile
 							emitterID = EMITTERS.get(file.substring(file.lastIndexOf(".") + 1))
