@@ -864,7 +864,7 @@
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_6Y9FlsnmEeW9N7cxkaeotw" type="PapyrusUMLClassDiagram" name="Component Realization" measurementUnit="Pixel">
-    <children xmi:type="notation:Shape" xmi:id="_6ONOIMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6ONOIMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6d86VcnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6d86VsnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -875,7 +875,7 @@
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentType"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6ONOJMnmEeW9N7cxkaeotw" x="47" y="110" width="155" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6OPqYMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6OPqYMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6d9hYcnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6d9hYsnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -886,7 +886,7 @@
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentImplementation"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6OPqZMnmEeW9N7cxkaeotw" x="-1" y="250" width="241" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6OSGoMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6OSGoMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6d9haMnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6d9hacnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -897,7 +897,7 @@
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Components-Realization"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6OSGpMnmEeW9N7cxkaeotw" x="354" y="110" width="102" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6OUi4MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6OUi4MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6d-IdcnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6d-IdsnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -925,7 +925,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_6OUi48nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_6d-IdMnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLInfrastructure.uml#Generalization"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6OUi5MnmEeW9N7cxkaeotw" x="353" y="2" width="125" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6OUi5MnmEeW9N7cxkaeotw" x="342" y="25" width="125" height="30"/>
     </children>
     <styles xmi:type="notation:StringValueStyle" xmi:id="_gpHmYLsBEeaLdqiwwK0oFA" name="diagram_compatibility_version" stringValue="1.2.0"/>
     <element xmi:type="uml:Package" href="AADLConstructs.uml#Components"/>
@@ -970,9 +970,9 @@
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_iRqvWtGjEeWfqJAiA5QXkw" fontName="Arial"/>
       <element xmi:type="uml:Association" href="AADLConstructs.uml#Components-A_componentImplementation_ComponentType"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6bjGl8nmEeW9N7cxkaeotw" points="[116, 250, -643984, -643984]$[116, 140, -643984, -643984]$[125, 140, -643984, -643984]$[116, 140, -643984, -643984]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6bjGmMnmEeW9N7cxkaeotw" id="(0.4936708860759494,0.0)"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6bjGmcnmEeW9N7cxkaeotw" id="(0.44516129032258067,1.0)"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6bjGl8nmEeW9N7cxkaeotw" points="[117, 250, -643984, -643984]$[116, 140, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6bjGmMnmEeW9N7cxkaeotw" id="(0.4896265560165975,0.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6bjGmcnmEeW9N7cxkaeotw" id="(0.45161290322580644,1.0)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_6Yz7qMnmEeW9N7cxkaeotw" type="Generalization_Edge" source="_6OSGoMnmEeW9N7cxkaeotw" target="_6OUi4MnmEeW9N7cxkaeotw" routing="Tree" lineColor="0">
       <children xmi:type="notation:DecorationNode" xmi:id="_6dXEdMnmEeW9N7cxkaeotw" type="Generalization_StereotypeLabel">
@@ -980,9 +980,9 @@
         <layoutConstraint xmi:type="notation:Location" xmi:id="_6dXEc8nmEeW9N7cxkaeotw"/>
       </children>
       <element xmi:type="uml:Generalization" href="AADLConstructs.uml#Components-Realization-_generalization.0"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6dXEcMnmEeW9N7cxkaeotw" points="[405, 110, -643984, -643984]$[405, 45, -643984, -643984]$[406, 45, -643984, -643984]$[406, 32, -643984, -643984]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6dXEcMnmEeW9N7cxkaeotw" points="[405, 110, -643984, -643984]$[405, 58, -643984, -643984]$[404, 58, -643984, -643984]$[404, 55, -643984, -643984]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6dXEccnmEeW9N7cxkaeotw" id="(0.5,0.0)"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6dXEcsnmEeW9N7cxkaeotw" id="(0.432,1.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6dXEcsnmEeW9N7cxkaeotw" id="(0.496,1.0)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_6Yz7qcnmEeW9N7cxkaeotw" type="Association_Edge" source="_6OPqYMnmEeW9N7cxkaeotw" target="_6OSGoMnmEeW9N7cxkaeotw" lineColor="0">
       <children xmi:type="notation:DecorationNode" xmi:id="_6bkUtMnmEeW9N7cxkaeotw" type="Association_StereotypeLabel">
@@ -1025,7 +1025,7 @@
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_iRqvW9GjEeWfqJAiA5QXkw" fontName="Arial"/>
       <element xmi:type="uml:Association" href="AADLConstructs.uml#Components-A_componentImplementation_ownedRealization"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6bkUsMnmEeW9N7cxkaeotw" points="[236, 265, -643984, -643984]$[406, 267, -643984, -643984]$[406, 140, -643984, -643984]"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_6bkUsMnmEeW9N7cxkaeotw" points="[240, 265, -643984, -643984]$[406, 265, -643984, -643984]$[406, 140, -643984, -643984]"/>
       <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6bkUscnmEeW9N7cxkaeotw" id="(1.0,0.5)"/>
       <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_6bkUssnmEeW9N7cxkaeotw" id="(0.5098039215686274,1.0)"/>
     </edges>
