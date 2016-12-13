@@ -7160,7 +7160,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_6VrIE8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_6elzhsnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6VrIFMnmEeW9N7cxkaeotw" x="163" y="296" width="61" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6VrIFMnmEeW9N7cxkaeotw" x="163" y="296" width="103" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_6Vs9QMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6emakcnmEeW9N7cxkaeotw" source="QualifiedName">
@@ -7193,7 +7193,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_6VxOs8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_6enBoMnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Connections-ConnectionEnd"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6VxOtMnmEeW9N7cxkaeotw" x="29" y="296" width="113" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6VxOtMnmEeW9N7cxkaeotw" x="29" y="296" width="121" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_6VzD4MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6enBqMnmEeW9N7cxkaeotw" source="QualifiedName">
