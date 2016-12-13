@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Bundle-ManifestVersion: 2
-Bundle-Name: org.osate.workbench.help
-Bundle-SymbolicName: org.osate.workbench.help;singleton:=true
-Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: SEI
-Require-Bundle: org.eclipse.help
