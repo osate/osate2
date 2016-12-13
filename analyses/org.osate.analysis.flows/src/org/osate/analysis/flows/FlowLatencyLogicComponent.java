@@ -154,6 +154,10 @@ public class FlowLatencyLogicComponent {
 			// use flow latency if neither deadline nor execution time
 			worstCaseValue = expectedMax;
 			worstmethod = LatencyContributorMethod.SPECIFIED;
+		} else if (worstCaseValue == 0.0 && deadline != 0.0) {
+			// if no flow spec value then use default deadline == period
+			worstCaseValue = deadline;
+			worstmethod = LatencyContributorMethod.DEADLINE;
 		}
 
 		/**
