@@ -1296,7 +1296,7 @@
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_6Y9so8nmEeW9N7cxkaeotw" type="PapyrusUMLClassDiagram" name="Templates" measurementUnit="Pixel">
-    <children xmi:type="notation:Shape" xmi:id="_6OtkcMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6OtkcMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6d_9oMnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6d_9ocnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -1307,7 +1307,7 @@
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Templates-Prototype"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6OtkdMnmEeW9N7cxkaeotw" x="20" y="108" width="145" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6OwAsMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6OwAsMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6d_9p8nmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6d_9qMnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -1318,7 +1318,7 @@
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Templates-PrototypeBinding"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6OwAtMnmEeW9N7cxkaeotw" x="489" y="108" width="149" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6Oyc8MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6Oyc8MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6eAksMnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6eAkscnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -1333,7 +1333,7 @@
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Templates-Classifier"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6Oyc9MnmEeW9N7cxkaeotw" x="298" y="11" width="103" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6O05MMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6O05MMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6eAkt8nmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6eAkuMnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -1344,7 +1344,7 @@
       <element xmi:type="uml:Class" href="AADLInfrastructure.uml#StructuralFeature"/>
       <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6O05NMnmEeW9N7cxkaeotw" x="39" y="11" width="176" height="30"/>
     </children>
-    <children xmi:type="notation:Shape" xmi:id="_6O_RQMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="8" bold="true" lineColor="0">
+    <children xmi:type="notation:Shape" xmi:id="_6O_RQMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6eBLwMnmEeW9N7cxkaeotw" source="QualifiedName">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6eBLwcnmEeW9N7cxkaeotw" key="QualifiedNameDepth" value="1000"/>
       </eAnnotations>
@@ -1410,7 +1410,7 @@
           <stringListValue>name</stringListValue>
           <stringListValue>derived</stringListValue>
         </styles>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bn_EsnmEeW9N7cxkaeotw" x="20" y="-5"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bn_EsnmEeW9N7cxkaeotw" x="9" y="-7"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_6bn_F8nmEeW9N7cxkaeotw" type="Association_SourceRoleLabel">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6bn_GMnmEeW9N7cxkaeotw" source="CustomAppearance_Annotation">
@@ -1420,10 +1420,10 @@
           <stringListValue>name</stringListValue>
           <stringListValue>derived</stringListValue>
         </styles>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bn_FsnmEeW9N7cxkaeotw" y="-5"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bn_FsnmEeW9N7cxkaeotw" x="14" y="-7"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_Ye0npMxFEeWe8q5Ldg4h5Q" type="Association_SourceMultiplicityLabel">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye0npcxFEeWe8q5Ldg4h5Q" x="20" y="7"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye0npcxFEeWe8q5Ldg4h5Q" y="16"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_Ye1OoMxFEeWe8q5Ldg4h5Q" type="Association_TargetMultiplicityLabel">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1OocxFEeWe8q5Ldg4h5Q" x="15" y="7"/>
@@ -1459,13 +1459,13 @@
           <stringListValue>name</stringListValue>
           <stringListValue>derived</stringListValue>
         </styles>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bpNNMnmEeW9N7cxkaeotw" x="-21" y="1"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bpNNMnmEeW9N7cxkaeotw" x="-22" y="2"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_Ye1OpMxFEeWe8q5Ldg4h5Q" type="Association_SourceMultiplicityLabel">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1OpcxFEeWe8q5Ldg4h5Q" x="9" y="-13"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_Ye1OpsxFEeWe8q5Ldg4h5Q" type="Association_TargetMultiplicityLabel">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1Op8xFEeWe8q5Ldg4h5Q" x="-29" y="20"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1Op8xFEeWe8q5Ldg4h5Q" x="-8" y="7"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_iRqva9GjEeWfqJAiA5QXkw" fontName="Arial"/>
       <element xmi:type="uml:Association" href="AADLConstructs.uml#Templates-A_classifier_ownedPrototype"/>
@@ -1498,13 +1498,13 @@
           <stringListValue>name</stringListValue>
           <stringListValue>derived</stringListValue>
         </styles>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bp0ScnmEeW9N7cxkaeotw" x="-15" y="-5"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6bp0ScnmEeW9N7cxkaeotw" x="13" y="-17"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_Ye1OqsxFEeWe8q5Ldg4h5Q" type="Association_SourceMultiplicityLabel">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1Oq8xFEeWe8q5Ldg4h5Q" x="20" y="-21"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_Ye1OrMxFEeWe8q5Ldg4h5Q" type="Association_TargetMultiplicityLabel">
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1OrcxFEeWe8q5Ldg4h5Q" y="-20"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Ye1OrcxFEeWe8q5Ldg4h5Q" x="-5" y="-9"/>
       </children>
       <styles xmi:type="notation:FontStyle" xmi:id="_iRqvbNGjEeWfqJAiA5QXkw" fontName="Arial"/>
       <element xmi:type="uml:Association" href="AADLConstructs.uml#Templates-A_classifier_prototypeBinding"/>
