@@ -1,0 +1,31 @@
+<h1 id="report-generation">Report Generation</h1>
+<p>ALISA provides the ability to generate report documents with information related to the requirements for an AADL model. These reports can be produced in a variety of formats including Word Document, Excel Spreadsheet, PowerPoint Presentation, PDF, HTML, and others. Currently, there are two types of reports: <strong>Requirements Tracing</strong> and <strong>Requirements Report</strong>.</p>
+<h2 id="selecting-the-report-type">Selecting the Report Type</h2>
+<p>The report type can be chosen by right clicking on an appropriate file or object in the <strong>AADL Navigator</strong>, then selecting the <strong>Report Generation</strong> sub-menu. <strong>Requirements Tracing</strong> will be enabled if the selection in the <strong>AADL Navigator</strong> is an <em>Instance File</em>, a <em>ReqSpec File</em>, a <em>Goals File</em>, a <em>ReqDoc File</em>, a <em>GoalDoc File</em>, or an <em>AADL Package File</em>. <strong>Requirements Report</strong> will be enabled if the selection in the <strong>AADL Navigator</strong> is a <em>ReqSpec File</em>, a <em>ReqDoc File</em>, or a <em>Component Classifier</em> within an <em>AADL Package File</em>.</p>
+<div class="figure">
+<img src="images/ReportGenerationMenu.png" />
+
+</div>
+<h2 id="requirements-tracing">Requirements Tracing</h2>
+<p>When selecting <strong>Requirements Tracing</strong>, a dialog opens which allows for some customization of the report. Depending on the selection in the <strong>AADL Navigator</strong>, you may be able to select which information is presented in the report. The first option shows all of the <em>Stakeholder Goals</em> with their corresponding <em>Stakeholders</em>. The second option shows all of the <em>System Requirements</em> with their corresponding <em>Stakeholder Goals</em>. If a <em>Goals File</em> or a <em>GoalDoc File</em> was selected in the <strong>AADL Navigator</strong>, then the report will only show all <em>Stakeholder Goals</em> with their corresponding <em>Stakeholders</em>. If a <em>ReqSpec File</em> or a <em>ReqDoc File</em> was selected in the <strong>AADL Navigator</strong>, then the report will only show all <em>System Requirements</em> with their corresponding <em>Stakeholder Goals</em>.</p>
+<div class="figure">
+<img src="images/RequirementsTracingDialog.png" />
+
+</div>
+<p>The dialog also requires that an output file is specified. Click the <strong>Browse...</strong> button to choose where to save the report and what its format should be.</p>
+<div class="figure">
+<img src="images/OutputFileDialog.png" />
+
+</div>
+<p>If <strong>Open Generated Report</strong> is selected, then the generated report will be opened for viewing either within OSATE or by an external application.</p>
+<p>The following is an example of a <strong>Requirements Tracing</strong> report:</p>
+<div class="figure">
+<img src="images/RequirementsTracingReport.png" />
+
+</div>
+<h2 id="requirements-report">Requirements Report</h2>
+<p>The <strong>Requirements Report</strong> will list all of the requirements associated with the selected object from the <strong>AADL Navigator</strong>. The customization dialog is similar to the one for <strong>Requirements Tracing</strong>. The following is an example of a <strong>Requirements Report</strong>:</p>
+<div class="figure">
+<img src="images/RequirementsReport.png" />
+
+</div>
