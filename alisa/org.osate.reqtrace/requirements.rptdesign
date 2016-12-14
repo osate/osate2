@@ -71,16 +71,22 @@ function addNonDropped(set, elements) {
 }
 
 with (Alisa) {
-	type = reportContext.getParameterValue('FileType')
-	file = reportContext.getParameterValue('AADLFile')
-	report = reportContext.getParameterValue('ReportType')
+	type = reportContext.getParameterValue('selectionType')
+	selected = reportContext.getParameterValue('selectedObject')
 
-	// load the file
+	var registry = org.eclipse.xtext.resource.IResourceServiceProvider$Registry.INSTANCE
+	var uri = (type != 'Classifier') ? org.eclipse.emf.common.util.URI.createPlatformResourceURI(selected)
+			: selected.eResource().getURI()
+	var provider = registry.getResourceServiceProvider(uri)
+	var finder = provider.get(IReqspecGlobalReferenceFinder)
 
-	resourceSet = provider.get(org.eclipse.xtext.resource.XtextResourceSet)
-	resourceSet.addLoadOption(org.eclipse.xtext.resource.XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE)
-	resource = resourceSet.createResource(uri)
-	resource.load(resourceSet.getLoadOptions())
+	if (type != 'Classifier') {
+		// load the file
+		resourceSet = provider.get(org.eclipse.xtext.resource.XtextResourceSet)
+		resourceSet.addLoadOption(org.eclipse.xtext.resource.XtextResource.OPTION_RESOLVE_ALL, Boolean.TRUE)
+		resource = resourceSet.createResource(uri)
+		resource.load(resourceSet.getLoadOptions())
+	}
 	
 	// sort requirements/goals by qualified name
 	var qncomp = JavaAdapter(java.util.Comparator, {
@@ -108,9 +114,17 @@ with (Alisa) {
 				addNonDropped(requirements, EcoreUtil2.getAllContentsOfType(part, Requirement))
 			}
 		}
+	} else 	if (type == 'Classifier') {
+		// get requirements for selected classifier
+		var srss = finder.getSystemRequirementSets(selected)
+		if (srss != null) {
+			for (var iter = srss.iterator(); iter.hasNext();) {
+				sysreqs.add(iter.next())
+			}
+		}
 	}
 
-	if (type != 'reqdoc') {
+	if (!sysreqs.isEmpty()) {
 		for (var srs in Iterator(sysreqs)) {
 			requirements.addAll(srs.getRequirements())
 		}
@@ -226,21 +240,131 @@ return true
             <property name="textAlign">center</property>
             <text-property name="text">System Requirements Report</text-property>
         </label>
-        <data id="101">
-            <property name="fontSize">9pt</property>
-            <property name="fontStyle">italic</property>
-            <property name="marginBottom">15pt</property>
-            <property name="textAlign">center</property>
+        <grid id="254">
+            <property name="width">7.930555555555555in</property>
+            <list-property name="visibility">
+                <structure>
+                    <property name="format">all</property>
+                    <expression name="valueExpr" type="javascript">reportContext.getParameterValue('selectionType') == 'Classifier'</expression>
+                </structure>
+            </list-property>
             <list-property name="boundDataColumns">
                 <structure>
-                    <property name="name">File Name</property>
-                    <expression name="expression" type="javascript">'Created from: ' + reportContext.getParameterValue('AADLFile')</expression>
+                    <property name="name">Column Binding</property>
+                    <text-property name="displayName">Project</text-property>
+                    <expression name="expression" type="javascript">reportContext.getParameterValue('ProjectName')</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_1</property>
+                    <text-property name="displayName">Folders</text-property>
+                    <expression name="expression" type="javascript">reportContext.getParameterValue('Directories')</expression>
+                    <property name="dataType">string</property>
+                    <property name="allowExport">true</property>
+                </structure>
+                <structure>
+                    <property name="name">Column Binding_2</property>
+                    <text-property name="displayName">File</text-property>
+                    <expression name="expression" type="javascript">reportContext.getParameterValue('FileName')</expression>
                     <property name="dataType">string</property>
                     <property name="allowExport">true</property>
                 </structure>
             </list-property>
-            <property name="resultSetColumn">File Name</property>
-        </data>
+            <column id="255">
+                <property name="width">0.5555555555555556in</property>
+            </column>
+            <column id="256">
+                <property name="width">7.375in</property>
+            </column>
+            <row id="257">
+                <cell id="258">
+                    <label id="266">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">Project:</text-property>
+                    </label>
+                </cell>
+                <cell id="259">
+                    <data id="269">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontStyle">italic</property>
+                        <property name="resultSetColumn">Column Binding</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="260">
+                <cell id="261">
+                    <label id="267">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">Folder:</text-property>
+                    </label>
+                </cell>
+                <cell id="262">
+                    <data id="270">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontStyle">italic</property>
+                        <property name="resultSetColumn">Column Binding_1</property>
+                    </data>
+                </cell>
+            </row>
+            <row id="263">
+                <cell id="264">
+                    <label id="268">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">File:</text-property>
+                    </label>
+                </cell>
+                <cell id="265">
+                    <data id="271">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontStyle">italic</property>
+                        <property name="resultSetColumn">Column Binding_2</property>
+                    </data>
+                </cell>
+            </row>
+        </grid>
+        <grid id="272">
+            <property name="width">7.927083333333333in</property>
+            <list-property name="visibility">
+                <structure>
+                    <property name="format">all</property>
+                    <expression name="valueExpr" type="javascript">reportContext.getParameterValue('selectionType') != 'Classifier'</expression>
+                </structure>
+            </list-property>
+            <column id="273">
+                <property name="width">0.8645833333333334in</property>
+            </column>
+            <column id="274">
+                <property name="width">7.0625in</property>
+            </column>
+            <row id="275">
+                <cell id="276">
+                    <label id="277">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontWeight">bold</property>
+                        <text-property name="text">Classifier:</text-property>
+                    </label>
+                </cell>
+                <cell id="278">
+                    <data id="279">
+                        <property name="fontSize">9pt</property>
+                        <property name="fontStyle">italic</property>
+                        <list-property name="boundDataColumns">
+                            <structure>
+                                <property name="name">Classifier</property>
+                                <expression name="expression" type="javascript">if (reportContext.getParameterValue('selectionType') == 'Classifier') reportContext.getParameterValue('selectedObject').getQualifiedName()</expression>
+                                <property name="dataType">string</property>
+                                <property name="allowExport">true</property>
+                            </structure>
+                        </list-property>
+                        <property name="resultSetColumn">Classifier</property>
+                    </data>
+                </cell>
+            </row>
+        </grid>
         <table id="134">
             <property name="borderBottomStyle">solid</property>
             <property name="borderBottomWidth">medium</property>

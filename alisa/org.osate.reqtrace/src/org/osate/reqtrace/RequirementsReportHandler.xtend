@@ -11,12 +11,14 @@ import org.eclipse.core.commands.ExecutionEvent
 import org.eclipse.core.commands.ExecutionException
 import org.eclipse.core.filesystem.EFS
 import org.eclipse.core.resources.IFile
+import org.eclipse.core.runtime.IPath
 import org.eclipse.core.runtime.Path
 import org.eclipse.core.runtime.Status
 import org.eclipse.core.runtime.jobs.Job
 import org.eclipse.jface.viewers.IStructuredSelection
 import org.eclipse.jface.window.Window
 import org.eclipse.ui.ide.IDE
+import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 
 import static extension org.eclipse.ui.handlers.HandlerUtil.getActiveShell
@@ -35,12 +37,18 @@ class RequirementsReportHandler extends AbstractHandler {
 	].flatten.filter[!EMITTERS_TO_IGNORE.contains(value)])
 	
 	override execute(ExecutionEvent event) throws ExecutionException {
+		var IPath path = null
 		val selectedObjectAndType = switch selectedObject : (event.currentSelection as IStructuredSelection).firstElement {
-			IFile: selectedObject.fullPath -> selectedObject.fileExtension
+			IFile: {
+					path = selectedObject.fullPath;
+					selectedObject.fullPath -> selectedObject.fileExtension
+				}
 			ComponentClassifier: selectedObject -> "Classifier"
 		}
+		
 		val dialog = new RequirementsReportConfigDialog(event.activeShell, EMITTERS.keySet.sort)
 		if (dialog.open == Window.OK) {
+			val selectionPath = path
 			Job.create("Generating Report", [
 				val factory = Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY) as IReportEngineFactory
 				val config = new EngineConfig => [appContext.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.class.classLoader)]
@@ -48,8 +56,13 @@ class RequirementsReportHandler extends AbstractHandler {
 					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/requirements.rptdesign'''
 					val report = openReportDesign(new URL(url).openConnection.inputStream)
 					createRunAndRenderTask(report) => [
-						setParameterValue("AADLFile", selectedObjectAndType.key)
-						setParameterValue("FileType", selectedObjectAndType.value)
+						if (selectionPath != null) {
+							setParameterValue("ProjectName", selectionPath.segments.head)
+							setParameterValue("Directories", selectionPath.removeFirstSegments(1).removeLastSegments(1).toString)
+							setParameterValue("FileName", selectionPath.lastSegment)
+						}
+						setParameterValue("selectedObject", selectedObjectAndType.key)
+						setParameterValue("selectionType", selectedObjectAndType.value)
 						renderOption = new RenderOption => [
 							val file = dialog.outputFile
 							emitterID = EMITTERS.get(file.substring(file.lastIndexOf(".") + 1))
