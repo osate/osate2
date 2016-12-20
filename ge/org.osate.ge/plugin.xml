@@ -744,6 +744,11 @@
              path="/icons/full/obj16/DefaultAnnexSubclause.gif"
              plugin="org.osate.aadl2.edit">
        </image>
+       <image
+       		id="org.osate.ge.FlowSpecification"
+       		path="/icons/full/obj16/FlowSpecification.gif"
+       		plugin="org.osate.aadl2.edit">
+       	</image>
     </extension>
     <extension
           point="org.osate.ge.references">
