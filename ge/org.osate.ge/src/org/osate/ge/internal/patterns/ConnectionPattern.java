@@ -355,7 +355,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	}
 
 	private ConnectedElement getConnectedElementForShape(PictogramElement pe) {
-		if(!(pe instanceof Shape)) {
+		if(!(pe instanceof Shape) || propertyService.isTransient(pe)) {
 			return null;
 		}
 		
@@ -363,7 +363,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
 		for(; shape != null; shape = shape.getContainer()) {
-			if(!propertyService.isInnerShape(shape)) {
+			if(!propertyService.isInnerShape(shape) && !propertyService.isTransient(pe)) {
 				final Object bo = bor.getBusinessObjectForPictogramElement(shape);
 				if(bo instanceof ConnectionEnd) {
 					ce.setConnectionEnd((ConnectionEnd)bo);
@@ -375,7 +375,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		if(ce.getConnectionEnd() == null) {
 			return null;
 		}
-		
+
 		for(shape = shape.getContainer(); shape != null; shape = shape.getContainer()) {
 			final Object bo = bor.getBusinessObjectForPictogramElement(shape);
 			if(bo instanceof Context) {
@@ -383,7 +383,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 				break;
 			}			
 		}
-		
+
 		return ce;
 	}
 	
@@ -461,10 +461,6 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	
 	@Override
 	public boolean canStartConnection(final ICreateConnectionContext context) {
-		if(getConnectedElementForShape(context.getSourcePictogramElement()) == null) {
-			return false;
-		}
-		
 		// Get the connection elements for the source and destination
 		final ConnectedElement srcConnectedElement = getConnectedElementForShape(context.getSourcePictogramElement());
 		if(srcConnectedElement == null) {
@@ -581,7 +577,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 				newAadlConnection.setSource(src);
 				final ConnectedElement dst = getConnectedElementForShape(context.getTargetPictogramElement());
 				newAadlConnection.setDestination(dst);
-
+				
 				// Set type of access connection
 				if(newAadlConnection instanceof AccessConnection) {
 					final AccessConnection ac = (AccessConnection)newAadlConnection;

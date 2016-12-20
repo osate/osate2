@@ -37,6 +37,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.Style;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessType;
+import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
@@ -72,6 +73,8 @@ public interface GraphicsAlgorithmCreationService {
 	 * @return
 	 */
 	GraphicsAlgorithm createClassifierGraphicsAlgorithm(Shape shape, Element element, int width, int height);
+	
+	GraphicsAlgorithm createComponentGraphicsAlgorithm(Shape shape, ComponentCategory category, boolean isImplementation, int width, int height);
 
 	/**
 	 * Works for regular, internal, and processor features
