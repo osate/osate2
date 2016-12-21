@@ -16,24 +16,3 @@ Select the subcomponent classifier by right-clicking on the subcomponent and sel
 ### Setting Modes
 To set the modes in which subcomponents are active, see [Section 7.7, "Selecting Active Components"](eam_m.html#selecting-active-components)
 
-
-
-### Displaying Details
-Internal details of subcomponents such as inner connections and subcomponents can be displayed within a diagram. The number of subcomponent levels to display is determined by the nesting depth. The nesting depth can be set to customize how many subcomponent levels to show. Anything beyond the specified nesting depth is hidden from the diagram.
-
-
-
-#### Using the Increase and Decrease Nesting Depth Buttons to Select a Nesting Depth
-Nesting depth can be set using the Increase and Decrease Nesting Depth buttons on the toolbar. 
-
-![](images/NestingButtonsToolbar.png)
-
-#### Using the Depth Selector Drop-Down to Select a Nesting Depth
-The nesting depth can be set using the depth selector on the toolbar.
-
-![](images/NestingDropdownToolbar.png)
-
-1. Select the depth selector drop-down.
-
-2. Select the preferred nesting depth.
-
