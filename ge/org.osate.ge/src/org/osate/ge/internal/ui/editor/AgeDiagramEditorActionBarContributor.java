@@ -33,21 +33,18 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	final ModeContributionItem selectedModeItem;
 	final FlowContributionItem selectedFlowItem;
 	DummyContributionItem dummyItem;
-	final NestingDepthSelectorContributionItem nestingDepthSelectorItem;
 	
 	public AgeDiagramEditorActionBarContributor() {
 		final PropertyService propService = new DefaultPropertyService();
 		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode", propService);
 		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow", propService);
 		dummyItem = new DummyContributionItem("org.osate.ge.ui.editor.items.dummy");
-		nestingDepthSelectorItem = new NestingDepthSelectorContributionItem("org.osate.ge.ui.editor.items.nesting_depth", propService);
 	}
 	
 	@Override
 	public void dispose() {
 		selectedModeItem.setActiveEditor(null);
 		selectedFlowItem.setActiveEditor(null);
-		nestingDepthSelectorItem.setActiveEditor(null);
 		super.dispose();
 	}
 	@Override
@@ -56,8 +53,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new MatchSizeRetargetAction(MatchSizeAction.MATCH_SIZE));
 		addRetargetAction(new DistributeHorizontallyRetargetAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
 		addRetargetAction(new DistributeVerticallyRetargetAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
-		addRetargetAction(new DecreaseNestingDepthRetargetAction());
-		addRetargetAction(new IncreaseNestingDepthRetargetAction());
 
 		// Create retarget actions of each tool
 		for(final Object tool : getExtensionRegistryService().getTools()) {
@@ -81,9 +76,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		
 		// Add nesting depth control actions
 		final String nestingControlInsertionPoint = MatchSizeAction.MATCH_SIZE;
-		tbm.insertAfter(nestingControlInsertionPoint, nestingDepthSelectorItem);
-		tbm.insertAfter(nestingControlInsertionPoint, getAction(IncreaseNestingDepthAction.ID));
-		tbm.insertAfter(nestingControlInsertionPoint, getAction(DecreaseNestingDepthAction.ID));
 		tbm.insertAfter(nestingControlInsertionPoint, new Separator());
 		
 		final String bindingInsertionPoint = MatchSizeAction.MATCH_SIZE;
@@ -100,31 +92,10 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	}
 	
 	@Override
-	public void contributeToMenu(final IMenuManager menubar) {
-		super.contributeToMenu(menubar);		
-		
-		// Add actions for increase and decrease the nesting depth to the view menu.
-		for(final IContributionItem item : menubar.getItems()) {
-			if(item instanceof SubContributionItem) {
-				final IContributionItem innerItem = ((SubContributionItem) item).getInnerItem();
-				if(innerItem instanceof MenuManager) {
-					final MenuManager menuManager = (MenuManager)innerItem;
-					if(MENU_ID_VIEW.equals(menuManager.getId())) {
-						menuManager.add(new Separator());
-						menuManager.add(getAction(IncreaseNestingDepthAction.ID));
-						menuManager.add(getAction(DecreaseNestingDepthAction.ID));
-					}
-				}
-			}
-		}
-	}
-	
-	@Override
 	public final void setActiveEditor(final IEditorPart editor) {
 		super.setActiveEditor(editor);
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
-		nestingDepthSelectorItem.setActiveEditor(editor);
 		
 		// Update the visibility of contribution items
 		if(editor instanceof AgeDiagramEditor) {

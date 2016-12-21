@@ -59,11 +59,6 @@ public interface PropertyService {
 	boolean getIsLeftLayout(PictogramElement pe);
 
 	void setIsLeftLayout(PictogramElement pe, boolean value);
-
-	// Nesting depth determines the maximum number of levels for the diagram. Must be greater than or equal to 0. A level of 0 indicates that only the top level should be shown.
-	int getNestingDepth(Diagram diagram);
-	void setNestingDepth(Diagram diagram, int depth);
-	String getNestingDepthKey();
 	
 	String getSelectedMode(Diagram diagram);
 

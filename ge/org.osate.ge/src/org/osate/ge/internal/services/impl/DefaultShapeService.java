@@ -216,20 +216,6 @@ public class DefaultShapeService implements ShapeService {
 		return null;
 	}
 	
-	// Determines the shapes depth level
-	@Override
-	public int getDepthLevel(Shape shape) {
-		int depthLevel = 0;
-		while(shape != null && !(shape instanceof Diagram)) {
-			if(bor.getBusinessObjectForPictogramElement(shape) != null) {
-				depthLevel++;
-			}
-			shape = shape.getContainer();
-		}
-
-		return depthLevel;
-	}	
-
 	@Override
 	public Shape findDescendantShapeByReference(final ContainerShape shape, final Object bo) {
 		final String searchRef = refService.getReference(bo);

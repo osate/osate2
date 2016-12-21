@@ -338,8 +338,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		anchorService.removeAnchorsWithoutConnections(shape);
 		
 		// Determine whether the subcomponent/classifier should be shown based on the the depth level setting
-		final int depthLevel = shapeService.getDepthLevel(shape) - 1; // Subtract 1 because of the container shape that contains all other shapes
-		final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
+		final boolean showContents = true;
 		
 		// Ghost children
 		ghostingService.ghostChildren(shape);

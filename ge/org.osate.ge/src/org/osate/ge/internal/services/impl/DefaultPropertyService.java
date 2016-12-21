@@ -40,7 +40,6 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String NAME_KEY = "name";
 	private static final String CONNECTION_TYPE_KEY = "connection_type";
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
-	private static final String NESTING_DEPTH_KEY = "nesting_depth";
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	private static final String SELECTED_FLOW_KEY = "selected_flow"; // The name of the flow the user has selected in the UI
@@ -113,22 +112,6 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public final void setIsLeftLayout(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, LAYOUT_SIDE_KEY, value ? "left" : "right");
-	}
-	
-	@Override
-	public final int getNestingDepth(Diagram diagram) {
-		final String nestingDepth = Graphiti.getPeService().getPropertyValue(diagram, NESTING_DEPTH_KEY);
-		return (nestingDepth == null) ? 0 : Integer.parseInt(nestingDepth);
-	}
-	
-	@Override
-	public final void setNestingDepth(Diagram diagram, int depth) {
-		Graphiti.getPeService().setPropertyValue(diagram, NESTING_DEPTH_KEY, Integer.toString(depth));
-	}
-	
-	@Override
-	public final String getNestingDepthKey() {
-		return NESTING_DEPTH_KEY;
 	}
 	
 	/* (non-Javadoc)

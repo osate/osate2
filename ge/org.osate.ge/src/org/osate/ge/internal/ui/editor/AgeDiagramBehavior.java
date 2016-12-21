@@ -188,9 +188,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
 			
-			registerAction(new IncreaseNestingDepthAction(editor, propertyService));
-	 		registerAction(new DecreaseNestingDepthAction(editor, propertyService));
-
 			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
 	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
 

@@ -193,29 +193,25 @@ public class BoHandlerRefreshHelper {
 					ghostingService.ghostChildren(childContainer);
 				}
 				
-				// Determine whether children should be shown
-				final int depthLevel = shapeService.getDepthLevel(childContainer);
-				final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
-				
-				if(showContents) {
-					// Refresh Children
-					// It is up to the business object handler to provide children in an appropriate order(objects represented by connections should be last)
-					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(childContainer));
-					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
-					final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(handler, GetChildren.class, eclipseCtx, null);
-					if(childBos != null) {
-						final Iterator<?> childIt = childBos.iterator();
-					    if (childIt.hasNext()) {
-					    	final IEclipseContext childEclipseCtx = extService.createChildContext();
-							try {
-								while(childIt.hasNext()) {
-									createUpdateChild(childEclipseCtx, childContainer, childIt.next());
-								}
-							} finally {
-								childEclipseCtx.dispose();
-							}					    	
-					    }					    
-					}
+				// Show all children.
+				// TODO: Replace this with a user controllable mechanism for determining what children should be shown.
+				// Refresh Children
+				// It is up to the business object handler to provide children in an appropriate order(objects represented by connections should be last)
+				eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(childContainer));
+				eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
+				final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(handler, GetChildren.class, eclipseCtx, null);
+				if(childBos != null) {
+					final Iterator<?> childIt = childBos.iterator();
+				    if (childIt.hasNext()) {
+				    	final IEclipseContext childEclipseCtx = extService.createChildContext();
+						try {
+							while(childIt.hasNext()) {
+								createUpdateChild(childEclipseCtx, childContainer, childIt.next());
+							}
+						} finally {
+							childEclipseCtx.dispose();
+						}					    	
+				    }					    
 				}
 			}
 			
