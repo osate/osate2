@@ -683,7 +683,7 @@ return true
                     <label id="267">
                         <property name="fontSize">9pt</property>
                         <property name="fontWeight">bold</property>
-                        <text-property name="text">Folders:</text-property>
+                        <text-property name="text">Folder:</text-property>
                     </label>
                 </cell>
                 <cell id="262">
