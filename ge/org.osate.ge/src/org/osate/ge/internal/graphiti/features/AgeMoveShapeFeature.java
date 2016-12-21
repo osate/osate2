@@ -11,6 +11,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
@@ -50,8 +52,7 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 			}
 		} else {
 			if(dockArea == null) {
-				// TODO: Error checking
-				final GraphicsAlgorithm containerInnerGa = container.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0);
+				final GraphicsAlgorithm containerInnerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(container.getGraphicsAlgorithm());
 				if(ctx.getX() < containerInnerGa.getX() || 
 						ctx.getY() < containerInnerGa.getY() ||
 						ctx.getX() >= containerInnerGa.getX() + containerInnerGa.getWidth() ||
@@ -59,11 +60,6 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 					return false;
 				}
 			}
-		}
-		
-		// Don't allow moving of nested docked shapes..
-		if(LayoutService.DockArea.GROUP.id.equals(dockArea)) {
-			return false;
 		}
 		
 		return super.canMoveShape(ctx);
@@ -76,44 +72,64 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 		final ContainerShape shape = (ContainerShape)context.getShape();
 		final String currentDockArea = propertyService.getDockArea(shape);
 		if(currentDockArea != null && shape.getContainer() != null) {
-	        propertyService.setDockArea(shape, getDockArea(shape).id);
+			if(!DockArea.GROUP.id.equals(currentDockArea)) {
+				final String newDockArea = getDockArea(shape).id;
+				propertyService.setDockArea(shape, newDockArea);
 	        
-	        // Layout the shape
-	        layoutPictogramElement(shape);
-	        
-	        // Layout Parent
-        	layoutPictogramElement(shape.getContainer());
-		}		
+				// Relayout if the dock area has changed
+				if(!currentDockArea.equals(newDockArea)) {
+					// Layout the shapes and its descendants. Depth first.
+					layoutDepthFirst(shape);
+				}
+			}
+			
+	        // Relayout ancestors
+			if(!layoutService.checkShapeBoundsWithAncestors(shape)) {
+				// If the ancestor was not relayed out, relayout ancestors until one is found which is not docked. 
+				// This is needed to allow docked shapes which are automatically sized to shrink.
+				ContainerShape tmpShape = shape.getContainer();
+				do {
+					layoutPictogramElement(tmpShape);
+					tmpShape = tmpShape.getContainer();					
+				} while(tmpShape != null && propertyService.getDockArea(tmpShape) != null);
+			}
+		} else {
+			layoutService.checkShapeBoundsWithAncestors(shape);
+		}
 				
-		layoutService.checkShapeBoundsWithAncestors(shape);
-
         // TODO: Update connection anchors when they are supported in business object handlers
 		//connectionService.updateConnectionAnchors(shape);
 	}
 	
-	private LayoutService.DockArea getDockArea(final ContainerShape shape) {
-		// TODO: Cleanup. Error checking, etc..
+	private void layoutDepthFirst(final Shape shape) {
+		if(shape instanceof ContainerShape) {
+			for(final Shape child : ((ContainerShape)shape).getChildren()) {
+				layoutDepthFirst(child);				
+			}
+		}
+		
+		layoutPictogramElement(shape);
+	}
+	
+	private DockArea getDockArea(final ContainerShape shape) {
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
 		final ContainerShape container = shape.getContainer();
-		final GraphicsAlgorithm containerInnerGa = container.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0); // TODO
+		final GraphicsAlgorithm containerInnerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(container.getGraphicsAlgorithm());
 		
-		// Relative to the inner area of the container
-		final int centerX = Math.min(Math.max(0, ga.getX() + ga.getWidth()/2 - containerInnerGa.getX()), containerInnerGa.getWidth());
-		final int centerY = Math.min(Math.max(0, ga.getY() + ga.getHeight()/2 - containerInnerGa.getY()), containerInnerGa.getHeight());
-		final int distanceToLeft = centerX;
-		final int distanceToRight = containerInnerGa.getWidth()-centerX;
-		final int distanceToTop = centerY;
-		final int distanceToBottom = containerInnerGa.getHeight()-centerY;
-		
+		final int distanceToLeft = Math.max(0, ga.getX() - containerInnerGa.getX());
+		final int distanceToRight = containerInnerGa.getWidth() - Math.min(ga.getX() + ga.getWidth() - containerInnerGa.getX(), containerInnerGa.getWidth());
+		final int distanceToTop = Math.max(0, ga.getY() - containerInnerGa.getY());
+		final int distanceToBottom = containerInnerGa.getHeight() - Math.min(ga.getY() + ga.getHeight() - containerInnerGa.getY(), containerInnerGa.getHeight());
+
 		// Find the closest dock area while giving priority to the left, right, top, and bottom.
 		if(distanceToLeft <= distanceToRight && distanceToLeft <= distanceToTop && distanceToLeft <= distanceToBottom) {
-			return LayoutService.DockArea.LEFT;
+			return DockArea.LEFT;
 		} else if(distanceToRight <= distanceToTop && distanceToRight <= distanceToBottom) {
-			return LayoutService.DockArea.RIGHT;
+			return DockArea.RIGHT;
 		} else if(distanceToTop <= distanceToBottom) {
-			return LayoutService.DockArea.TOP;
+			return DockArea.TOP;
 		} else {
-			return LayoutService.DockArea.BOTTOM;
+			return DockArea.BOTTOM;
 		}
 	}
 }

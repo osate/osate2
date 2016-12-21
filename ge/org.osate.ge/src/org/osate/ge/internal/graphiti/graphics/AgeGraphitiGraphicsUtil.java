@@ -10,6 +10,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
+import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.graphics.BusGraphic;
 import org.osate.ge.internal.graphics.DeviceGraphic;
 import org.osate.ge.internal.graphics.Direction;
@@ -29,6 +30,8 @@ public class AgeGraphitiGraphicsUtil {
 	private final static int folderMaxTabWidth = 100;
 	private final static double folderTabOffsetAngle = 30.0;
 	private final static double folderTopOfTabOffset = 0.3;
+	private final static int featureLineWidth = 2;
+	public static final int featureGroupDefaultSymbolWidth = 30;
 	
 	public static org.eclipse.graphiti.mm.algorithms.styles.LineStyle toGraphitiLineStyle(final LineStyle lineStyle) {
 	    switch(lineStyle) {
@@ -91,13 +94,21 @@ public class AgeGraphitiGraphicsUtil {
 		} else if(graphicClass == FolderGraphic.class) {
 			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FolderGraphic)graphic, width, height, fillBackground);
 		} else if(graphicClass == FeatureGraphic.class) {
-			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGraphic)graphic);
+			innerGa = createGraphicsAlgorithm(diagram, shapeGa, (FeatureGraphic)graphic, height);
 		} else {
 			throw new RuntimeException("Unsupported object: " + graphic);
 		}
 		
 		return innerGa;
 	}	
+	
+	/**
+	 * Helper method for returning the inner graphics algorithm for a top level graphics algorithm. The inner graphics algorithm contains the actual
+	 * symbol for the shape.
+	 */
+	public static GraphicsAlgorithm getInnerGraphicsAlgorithm(final GraphicsAlgorithm ga) {
+		return ga.getGraphicsAlgorithmChildren().get(0);
+	}
 	
 	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Polygon poly, final int width, final int height, boolean fillBackground) {
 		final int[] coords = new int[poly.getPoints().length * 2];
@@ -412,7 +423,7 @@ public class AgeGraphitiGraphicsUtil {
 		return ga;
 	}
 	
-	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FeatureGraphic featureGraphic) {
+	private static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final FeatureGraphic featureGraphic, final int height) {
 		final IGaService gaService = Graphiti.getGaService();
 
 		switch(featureGraphic.featureType) {
@@ -438,6 +449,9 @@ public class AgeGraphitiGraphicsUtil {
 		case SUBPROGRAM_GROUP_ACCESS:
 			return createSubprogramAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction, true);
 			
+		case FEATURE_GROUP:
+			return createFeatureGroupGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction, height);
+			
 		default:
 			return gaService.createRectangle(containerGa);		
 		}
@@ -455,8 +469,9 @@ public class AgeGraphitiGraphicsUtil {
     	final GraphicsAlgorithm circleGa = gaService.createPlainEllipse(ga);
     	circleGa.setBackground(black);
     	circleGa.setForeground(black);
+    	circleGa.setLineWidth(featureLineWidth);
     	gaService.setLocation(circleGa, 0, 5);
-        gaService.setSize(circleGa, 10, 10);        
+        gaService.setSize(circleGa, 10, 10);
  			
         // In Abstract Feature
         if(direction == Direction.IN) {
@@ -465,14 +480,16 @@ public class AgeGraphitiGraphicsUtil {
         			25, 10,
         			0, 20});
         	directionGa.setBackground(black);
-        	directionGa.setForeground(black);	
+        	directionGa.setForeground(black);
+        	directionGa.setLineWidth(featureLineWidth);	
         } else if(direction == Direction.OUT) { // Out Abstract Feature
         	final GraphicsAlgorithm directionGa = gaService.createPlainPolyline(ga, new int[] {
         			25, 0, 
         			0, 10,
         			25, 20});
         	gaService.setLocation(circleGa, ga.getWidth()-circleGa.getWidth(), 5);
-        	directionGa.setForeground(black); 	
+        	directionGa.setForeground(black);
+        	directionGa.setLineWidth(featureLineWidth);
         }
         
         shrink(ga);
@@ -498,6 +515,13 @@ public class AgeGraphitiGraphicsUtil {
     	switch(direction) {
     	// In Port
     	case IN:
+    		if(hasEvent) {
+        		eventGa = gaService.createPlainPolyline(ga, new int[] {
+            			0, 0, 
+            			width, height/2,
+            			0, height});
+    		}
+    		
     		if(hasData) {
         		dataGa = gaService.createPlainPolygon(ga, new int[] {
             			0, dataSymbolYPadding, 
@@ -505,16 +529,17 @@ public class AgeGraphitiGraphicsUtil {
             			0, height-dataSymbolYPadding});
     		}
     		
-    		if(hasEvent) {
-        		eventGa = gaService.createPlainPolyline(ga, new int[] {
-            			0, 0, 
-            			width, height/2,
-            			0, height});
-    		}
     		break;
     		
    		// Out Port
     	case OUT:
+    		if(hasEvent) {
+				eventGa = gaService.createPlainPolyline(ga, new int[] {
+        			width, 0, 
+        			0, height/2,
+        			width, height});
+    		}
+    		
     		if(hasData) {
     			dataGa = gaService.createPlainPolygon(ga, new int[] {
             			width, dataSymbolYPadding, 
@@ -522,25 +547,11 @@ public class AgeGraphitiGraphicsUtil {
             			width, height-dataSymbolYPadding});
     		}
     		
-    		if(hasEvent) {
-				eventGa = gaService.createPlainPolyline(ga, new int[] {
-        			width, 0, 
-        			0, height/2,
-        			width, height});
-    		}
     		break;
     		
     	// In Out Port
     	case IN_OUT:
     		width *= 2;
-    		if(hasData) {
-        		dataGa = gaService.createPlainPolygon(ga, new int[] {
-            			width/2, dataSymbolYPadding, 
-            			width-dataSymbolXPadding, height/2,
-            			width/2, height-dataSymbolYPadding,
-            			dataSymbolXPadding, height/2});
-    		}
-    		
     		if(hasEvent) {
         		eventGa = gaService.createPlainPolyline(ga, new int[] {
             			width/2, 0, 
@@ -549,17 +560,28 @@ public class AgeGraphitiGraphicsUtil {
             			0, height/2,
             			width/2, 0});
     		}
+    		
+    		if(hasData) {
+        		dataGa = gaService.createPlainPolygon(ga, new int[] {
+            			width/2, dataSymbolYPadding, 
+            			width-dataSymbolXPadding, height/2,
+            			width/2, height-dataSymbolYPadding,
+            			dataSymbolXPadding, height/2});
+    		}
+    		
     		break;
     	}
     	
     	if(dataGa != null) {
     		dataGa.setBackground(black);
         	dataGa.setForeground(black);
+        	dataGa.setLineWidth(featureLineWidth);
     	}
     	
     	if(eventGa != null) {
     		eventGa.setBackground(black);
         	eventGa.setForeground(black);
+        	eventGa.setLineWidth(featureLineWidth);
     	}
 
         gaService.setSize(ga,  width, height);
@@ -600,6 +622,7 @@ public class AgeGraphitiGraphicsUtil {
 		
 		ga.setBackground(white);
 		ga.setForeground(black);
+		ga.setLineWidth(featureLineWidth);
 		
     	gaService.setSize(ga, width, height);
 		return ga;
@@ -620,24 +643,35 @@ public class AgeGraphitiGraphicsUtil {
 		gaService.setSize(ga, width, height);
 		ga.setBackground(background);
 		ga.setForeground(foreground);
+		ga.setLineWidth(featureLineWidth);
 		
 		final int arrowWidth = 10;
+		final int arrowHeight = height - 2*vPadding;
 		final int left = width/2 - arrowWidth/2;
-		final int right = width/2 + arrowWidth/2;
 		if(direction == Direction.OUT) {
 			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
-        			left, vPadding, 
-        			right, height/2,
-        			left, height-vPadding});
+        			0, 0, 
+        			arrowWidth, arrowHeight/2,
+        			0, arrowHeight});
 			arrowGa.setBackground(background);
 			arrowGa.setForeground(foreground);
+			arrowGa.setLineWidth(featureLineWidth);
+			arrowGa.setX(left);
+			arrowGa.setY(vPadding);
+			arrowGa.setWidth(arrowWidth);
+			arrowGa.setHeight(arrowHeight);
 		} else if(direction == Direction.IN) {
 			final GraphicsAlgorithm arrowGa = gaService.createPlainPolyline(ga, new int[] {
-					right, vPadding, 
-					left, height/2,
-					right, height-vPadding});
+					arrowWidth, 0, 
+					0, arrowHeight/2,
+					arrowWidth, arrowHeight});
 			arrowGa.setBackground(background);
 			arrowGa.setForeground(foreground);
+			arrowGa.setLineWidth(featureLineWidth);
+			arrowGa.setX(left);
+			arrowGa.setY(vPadding);
+			arrowGa.setWidth(arrowWidth);
+			arrowGa.setHeight(arrowHeight);
 		} else {
 			throw new RuntimeException("Access graphic is not an input or an output.");
 		}
@@ -645,16 +679,121 @@ public class AgeGraphitiGraphicsUtil {
 		return ga;
 	}
 	
-	public static void mirror(final GraphicsAlgorithm ga) {
-		mirror(ga, ga);
+	private static GraphicsAlgorithm createFeatureGroupGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm containerGa, final Direction direction, int height) {
+		final IGaService gaService = Graphiti.getGaService();
+		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
+		
+		final GraphicsAlgorithm ga = gaService.createRectangle(containerGa);
+		final int width = featureGroupDefaultSymbolWidth;
+		final int circleSize = width*2/3;
+		final int barWidth = width - circleSize;
+		height = Math.max(height, circleSize);
+		gaService.setSize(ga, width, height);
+		ga.setLineVisible(false);
+		ga.setFilled(false);		
+		
+		// Circle
+		final GraphicsAlgorithm circle = gaService.createPlainEllipse(ga);
+		gaService.setLocationAndSize(circle, 0, height/2-circleSize/2, circleSize, circleSize);
+		circle.setBackground(black);
+		circle.setForeground(black);
+		
+		// Bar
+		final GraphicsAlgorithm bar = gaService.createPlainRectangle(ga);
+		gaService.setLocationAndSize(bar, circleSize, 0, barWidth, height);
+		bar.setBackground(black);
+		bar.setForeground(black);
+
+		return ga;
+	}
+		
+	public static void rotate(final GraphicsAlgorithm ga, final DockArea dockArea) {
+		switch(dockArea) {	
+		case GROUP:
+			throw new RuntimeException("Unsupported dock area: " + dockArea);
+		case LEFT:
+			break;
+		case RIGHT:
+			mirrorX(ga, ga);
+			break;
+		case TOP:
+			rotate90(ga, ga);
+			break;
+		case BOTTOM:
+			rotate270(ga, ga);			
+			break;
+		default:
+			break;	
+		}
+	}
+
+	// Clockwise 90
+	private static void rotate90(final GraphicsAlgorithm rootGa, final GraphicsAlgorithm ga) {
+		if(rootGa != ga) {
+			final int newY = ga.getX();
+			ga.setX(ga.getParentGraphicsAlgorithm().getHeight() - (ga.getY() + ga.getHeight()));
+			ga.setY(newY);
+		}
+		
+		if(ga instanceof Polyline) {
+			// Rotate every point in the polyline
+			final Polyline polyline = (Polyline)ga;
+			for(final Point p : polyline.getPoints()) {
+				final int newX = p.getY();
+				final int newY = p.getX();
+				p.setX(newX);
+				p.setY(newY);
+			}
+		}
+		
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			rotate90(rootGa, childGa);
+		}
+		
+		// Adjust size
+		final int newWidth = ga.getHeight();
+		final int newHeight = ga.getWidth();
+		ga.setWidth(newWidth);
+		ga.setHeight(newHeight);
 	}
 	
+	// Clockwise 270
+	private static void rotate270(final GraphicsAlgorithm rootGa, final GraphicsAlgorithm ga) {
+		if(rootGa != ga) {
+			final int newY = ga.getParentGraphicsAlgorithm().getWidth() - (ga.getX() + ga.getWidth());
+			ga.setX(ga.getParentGraphicsAlgorithm().getHeight() - (ga.getY() + ga.getHeight()));
+			ga.setY(newY);
+		}
+		
+		if(ga instanceof Polyline) {
+			// Mirror every point in the polyline
+			final Polyline polyline = (Polyline)ga;
+			for(final Point p : polyline.getPoints()) {
+				final int newX = p.getY();
+				final int newY = -p.getX() + ga.getWidth();
+
+				p.setX(newX);
+				p.setY(newY);
+			}
+		}
+		
+		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
+			rotate270(rootGa, childGa);
+		}
+		
+		// Adjust size
+		final int newWidth = ga.getHeight();
+		final int newHeight = ga.getWidth();
+		ga.setWidth(newWidth);
+		ga.setHeight(newHeight);
+	}
+		
 	/**
 	 * Mirrors graphics algorithm in the x axis
 	 * @param rootGa the graphics algorithm that will be treated at the top level graphics algorithm. The top level graphics algorithm will not be moved.
 	 * @param ga the graphics algorithm to mirror
 	 */
-	private static void mirror(final GraphicsAlgorithm rootGa, final GraphicsAlgorithm ga) {
+	private static void mirrorX(final GraphicsAlgorithm rootGa, final GraphicsAlgorithm ga) {
 		if(rootGa != ga) {
 			ga.setX(ga.getParentGraphicsAlgorithm().getWidth() - ga.getX() - ga.getWidth());
 		}
@@ -668,8 +807,12 @@ public class AgeGraphitiGraphicsUtil {
 		}
 		
 		for(final GraphicsAlgorithm childGa : ga.getGraphicsAlgorithmChildren()) {
-			mirror(rootGa, childGa);
+			mirrorX(rootGa, childGa);
 		}
+	}
+	
+	public static void mirror(final GraphicsAlgorithm ga) {
+		mirrorX(ga, ga);
 	}
 	
 	public static void shrink(final GraphicsAlgorithm ga) {

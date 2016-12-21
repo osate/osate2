@@ -29,14 +29,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
@@ -55,18 +47,6 @@ public class DefaultLayoutService implements LayoutService {
 	private final IFeatureProvider fp;
 	private final static int minimumWidth = 150;
 	private final static int minimumHeight = 50;
-	private final Comparator<Shape> yComparator = new Comparator<Shape>() {
-		@Override
-		public int compare(final Shape s1, final Shape s2) {
-			if(s1.getGraphicsAlgorithm() == null) {
-				return -1;
-			} else if(s2.getGraphicsAlgorithm() == null) {
-				return 1;
-			}
-			
-			return Integer.compare(s1.getGraphicsAlgorithm().getY(), s2.getGraphicsAlgorithm().getY());
-		}		
-	};
 
 	public DefaultLayoutService(final PropertyService propertyService, final ShapeService shapeService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		this.propertyService = propertyService;
@@ -166,78 +146,5 @@ public class DefaultLayoutService implements LayoutService {
 		}
 
 		return new int[] { maxWidth, maxHeight };
-	}
-		
-	@Override
-	public DockArea getDockArea(final Shape shape) {
-		return DockArea.getById(propertyService.getDockArea(shape));
-	}
-	
-	@Override
-	public Map<DockArea, List<Shape>> buildDockAreaToChildrenMap(final ContainerShape shape, boolean includeUndockedShapes) {
-		// Build mapping from dock area to shapes
-		final Map<DockArea, List<Shape>> result = new HashMap<DockArea, List<Shape>>();
-		for(final Shape child : shapeService.getNonGhostChildren(shape)) {
-			final DockArea dockArea = getDockArea(child);
-			if(includeUndockedShapes || dockArea != null) {
-				List<Shape> dockAreaShapes = result.get(dockArea);
-				
-				// Create a new list if the shape is the first shape in the dock area
-				if(dockAreaShapes == null) {
-					dockAreaShapes = new ArrayList<Shape>();
-					result.put(dockArea, dockAreaShapes);
-				}
-				
-				dockAreaShapes.add(child);
-			}
-		}
-		
-		return result;
-	}
-	
-	@Override
-	public void cleanupOverlappingDockedShapes(final Map<DockArea, List<Shape>> dockAreaToShapesMap, final int yStartOffset) {
-		// TODO Is there a generic way to get the appropriate offset?		
-		
-		for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
-			if(dockAreaToShapesEntry.getKey() != null) {
-				// TODO: When non-vertical dock areas are implemented, support will need to be added to this method
-				// Sort shapes by order
-				final List<Shape> sortedShapes = new ArrayList<Shape>(dockAreaToShapesEntry.getValue());
-				Collections.sort(sortedShapes, yComparator);
-				
-				final DockArea dockArea = dockAreaToShapesEntry.getKey();
-				final boolean vertical;
-				if(dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT) {
-					vertical = true;
-				} else if(dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM) {
-					vertical = false;
-				} else {
-					// TODO: Get parent
-					vertical = true;
-				}
-				
-				if(vertical) {
-					int minY = yStartOffset;
-					for(Shape shape : sortedShapes) {
-						if(shape.getGraphicsAlgorithm() != null) {
-							final int newY = Math.max(shape.getGraphicsAlgorithm().getY(), minY);
-							shape.getGraphicsAlgorithm().setY(newY);
-							minY = newY + shape.getGraphicsAlgorithm().getHeight() + 5;
-						}
-					}
-				} else {
-					int minX = yStartOffset; // TODO: Different variable
-					for(Shape shape : sortedShapes) {
-						if(shape.getGraphicsAlgorithm() != null) {
-							final int newX = Math.max(shape.getGraphicsAlgorithm().getX(), minX);
-							shape.getGraphicsAlgorithm().setX(newX);
-							minX = newX + shape.getGraphicsAlgorithm().getWidth() + 5;
-						}
-					}
-				}
-			}
-		}
-		
 	}
 }

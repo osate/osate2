@@ -1,5 +1,9 @@
 package org.osate.ge.internal.graphiti.features;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -22,6 +26,7 @@ import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.GetNameLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphics.FeatureGraphic;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
@@ -30,26 +35,23 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.labels.LabelPosition;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.services.LayoutService.DockArea;
+import org.osate.ge.internal.DockArea;
 
 // ILayoutFeature implementation for shapes associated with a BO with a business object handler
 public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICustomUndoRedoFeature {
 	private static final int labelPadding = 2;
 	private final static LabelConfiguration defaultLabelConfiguration = LabelConfigurationBuilder.create().build();
-	private final LayoutService layoutService;
 	private final BusinessObjectResolutionService bor;
 	private final ExtensionService extService;
 	private final ShapeService shapeService;
 	private final PropertyService propertyService;
 	
 	@Inject
-	public BoHandlerLayoutFeature(final IFeatureProvider fp, final LayoutService layoutService, final BusinessObjectResolutionService bor, 
+	public BoHandlerLayoutFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor, 
 			final ExtensionService extService, final ShapeService shapeService, final PropertyService propertyService) {
 		super(fp);
-		this.layoutService = Objects.requireNonNull(layoutService, "bor must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.shapeService = Objects.requireNonNull(shapeService, "shapeService must not be null");
@@ -89,6 +91,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			}
 
 			// Determine the space needed for each area
+			final int dockedShapeOffset = AgeGraphitiGraphicsUtil.featureGroupDefaultSymbolWidth; // For now, only graphics which represent feature groups may have shape docked at the GROUP dock area.
 			int innerWidth = 10;
 			int innerHeight = 10;
 			int leftOuterPadding = 0;
@@ -98,29 +101,17 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 
 			final Shape nameShape = shapeService.getChildShapeByName(shape, BoHandlerFeatureHelper.nameShapeName);
 			final GraphicsAlgorithm nameGa = nameShape == null ? null : nameShape.getGraphicsAlgorithm();
+			final DockArea shapeDockArea = getNonGroupDockArea(shape);
 			
 			// Adjust label position if the shape is docked
-			LabelPosition nameHorizontalPosition = labelConfiguration.horizontalPosition;
-			LabelPosition nameVerticalPosition = labelConfiguration.verticalPosition;
+			LabelPosition nameHorizontalPosition = getHorizontalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
+			LabelPosition nameVerticalPosition = getVerticalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 			
-			final DockArea shapeDockArea = layoutService.getDockArea(shape);
-			if(shapeDockArea == LayoutService.DockArea.LEFT) {
-				if(nameHorizontalPosition == LabelPosition.BEFORE_GRAPHIC) {
-					nameHorizontalPosition = LabelPosition.AFTER_GRAPHIC;
-				}
-			} else if(shapeDockArea == LayoutService.DockArea.RIGHT) {
-				if(nameHorizontalPosition == LabelPosition.AFTER_GRAPHIC) {
-					nameHorizontalPosition = LabelPosition.BEFORE_GRAPHIC;
-				}
-			} else if(shapeDockArea == LayoutService.DockArea.TOP) {
-				if(nameVerticalPosition == LabelPosition.BEFORE_GRAPHIC) {
-					nameVerticalPosition = LabelPosition.AFTER_GRAPHIC;
-				}
-			} else if(shapeDockArea == LayoutService.DockArea.BOTTOM) {
-				if(nameVerticalPosition == LabelPosition.AFTER_GRAPHIC) {
-					nameVerticalPosition = LabelPosition.BEFORE_GRAPHIC;
-				}
-			}
+			// The minimum inner width and height are the minimum size for the graphics algorithm for the inner area.
+			// In the case of fixed size graphics algorithms such as features, the actual size of the inner graphics algorithm's symbol will be less than
+			// the minimum after creation. In that case, these values are used to adjust the bounds of the inner graphics algorithm after creation.
+			int minInnerWidth = 0;
+			int minInnerHeight = 0;
 			
 			// Handle label configuration
 			if(nameGa != null) {
@@ -134,7 +125,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case GRAPHIC_CENTER:
 				case GRAPHIC_END:
 				default:
-					innerWidth = Math.max(innerWidth, nameGa.getWidth() + labelPadding); // Add additional padding to avoid label background from overlapping shape border for simple shapes
+					minInnerWidth = Math.max(minInnerWidth, nameGa.getWidth() + labelPadding); // Add additional padding to avoid label background from overlapping shape border for simple shapes
 					break;
 
 				case AFTER_GRAPHIC:
@@ -153,7 +144,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case GRAPHIC_CENTER:
 				case GRAPHIC_END:
 				default:
-					innerHeight = Math.max(innerHeight, nameGa.getHeight() + labelPadding);
+					minInnerHeight = Math.max(minInnerHeight, nameGa.getHeight() + labelPadding);
 					break;
 					
 				case AFTER_GRAPHIC:
@@ -161,13 +152,16 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					break;			
 				}
 			}
-			
-			// Adjust inner width and height based on padding and current size
-			innerWidth = Math.max(innerWidth, shapeGa.getWidth() - leftOuterPadding - rightOuterPadding);
-			innerHeight = Math.max(innerHeight, shapeGa.getHeight() - topOuterPadding - bottomOuterPadding);
+					
+			// Shrink features to the smallest required size
+			if(!(gr instanceof FeatureGraphic)) {
+				// Adjust inner width and height based on padding and current size
+				innerWidth = Math.max(innerWidth, shapeGa.getWidth() - leftOuterPadding - rightOuterPadding);
+				innerHeight = Math.max(innerHeight, shapeGa.getHeight() - topOuterPadding - bottomOuterPadding);
+			}
 			
 			// Prevent children from being positioned outside of the inner area
-			for(final Shape childShape : shape.getChildren()) {
+			for(final Shape childShape : shapeService.getNonGhostChildren(shape)) {
 				if(!propertyService.isManuallyPositioned(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 					if(childGa != null) {
@@ -183,10 +177,34 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			}			
 			
 			// Group feature shapes based on docking area
-			final Map<DockArea, List<Shape>> dockAreaToShapesMap = layoutService.buildDockAreaToChildrenMap(shape, false);
+			final Map<DockArea, List<Shape>> dockAreaToShapesMap = buildDockAreaToChildrenMap(shape);
 			
 			// Adjust shapes so they do not overlap
-			layoutService.cleanupOverlappingDockedShapes(dockAreaToShapesMap, 0);
+			cleanupOverlappingDockedShapes(shapeDockArea, dockAreaToShapesMap);
+			
+			// Handle positioning of group docked shapes
+			for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
+				for(final Shape childShape : dockAreaToShapesEntry.getValue()) {
+					if(dockAreaToShapesEntry.getKey() == DockArea.GROUP) {
+						switch(shapeDockArea) {
+						case LEFT:
+						case RIGHT:
+							minInnerWidth = Math.max(minInnerWidth, childShape.getGraphicsAlgorithm().getWidth() + dockedShapeOffset);
+							break;
+							
+						case TOP:
+						case BOTTOM:
+							minInnerHeight = Math.max(minInnerHeight, childShape.getGraphicsAlgorithm().getHeight() + dockedShapeOffset);
+							break;
+							
+						default:
+							break;						
+						}						
+					}
+				}
+			}
+			innerWidth = Math.max(innerWidth, minInnerWidth);
+			innerHeight = Math.max(innerHeight, minInnerHeight);
 			
 			// Consider children when determining size
 			final int[] minSizeForChildren = getMinimumSizeForChildren(shape, leftOuterPadding, topOuterPadding);
@@ -196,37 +214,78 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			// Create the graphics algorithm					
 			shapeGa.getGraphicsAlgorithmChildren().clear();
 			final boolean filled = diagramBo != bo;
-			final GraphicsAlgorithm innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight, filled);
 			
+			final GraphicsAlgorithm innerGa;
+			// Adjust the size of the graphics algorithm based on the rotation implied by the dock area
+			if(shapeDockArea == DockArea.TOP || shapeDockArea == DockArea.BOTTOM) {
+				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerHeight, innerWidth, filled);	
+			} else {
+				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight, filled);
+			}
+
+			// Rotate shape
+			if(shapeDockArea != null) {
+				AgeGraphitiGraphicsUtil.rotate(innerGa, shapeDockArea);
+			}
+
 			// Update variables using actual size of inner graphics algorithm
-			innerWidth = innerGa.getWidth();
-			innerHeight = innerGa.getHeight();
-			
+			innerWidth = Math.max(innerGa.getWidth(), minInnerWidth);
+			innerHeight = Math.max(innerGa.getHeight(), minInnerHeight);
+
 			// Update the shape's graphics algorithm based on required size
 			final int innerRight = leftOuterPadding + innerWidth;
 			final int innerBottom = topOuterPadding + innerHeight;
 			shapeGa.setWidth(innerRight + rightOuterPadding);
 			shapeGa.setHeight(innerBottom + bottomOuterPadding);			
-			
+
 			// Position docked shapes
 			for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
 				for(final Shape childShape : dockAreaToShapesEntry.getValue()) {
-					if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.LEFT) {
+					if(dockAreaToShapesEntry.getKey() == DockArea.LEFT) {
 						childShape.getGraphicsAlgorithm().setX(leftOuterPadding);
-					} else if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.RIGHT) {
+					} else if(dockAreaToShapesEntry.getKey() == DockArea.RIGHT) {
 						childShape.getGraphicsAlgorithm().setX(innerRight-childShape.getGraphicsAlgorithm().getWidth());
-					} else if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.TOP) {
+					} else if(dockAreaToShapesEntry.getKey() == DockArea.TOP) {
 						childShape.getGraphicsAlgorithm().setY(topOuterPadding);
-					} else if(dockAreaToShapesEntry.getKey() == LayoutService.DockArea.BOTTOM) {
+					} else if(dockAreaToShapesEntry.getKey() == DockArea.BOTTOM) {
 						childShape.getGraphicsAlgorithm().setY(innerBottom-childShape.getGraphicsAlgorithm().getHeight());
+					} else if(dockAreaToShapesEntry.getKey() == DockArea.GROUP) {
+						final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
+						switch(shapeDockArea) {
+						case LEFT:
+						default:
+							childGa.setX(dockedShapeOffset);
+							break;
+							
+						case RIGHT:
+							childGa.setX(innerWidth - dockedShapeOffset - childGa.getWidth());
+							break;
+
+						case TOP:
+							childGa.setY(dockedShapeOffset);
+							break;
+							
+						case BOTTOM:
+							childGa.setY(innerBottom - dockedShapeOffset - childGa.getHeight());
+							break;
+						}
+						
 					}
 				}
 			}
 			
 			// Position the inner graphics algorithm
-			innerGa.setX(leftOuterPadding);
-			innerGa.setY(topOuterPadding);
-
+			if(shapeDockArea == DockArea.RIGHT) {
+				innerGa.setX(innerRight-innerGa.getWidth());
+				innerGa.setY(topOuterPadding);
+			} else if(shapeDockArea == DockArea.BOTTOM) {
+				innerGa.setX(leftOuterPadding);
+				innerGa.setY(innerBottom-innerGa.getHeight());
+			} else {
+				innerGa.setX(leftOuterPadding);
+				innerGa.setY(topOuterPadding);
+			}
+			
 			if(nameGa != null) {
 				// Position the labels
 				switch(nameHorizontalPosition) {
@@ -237,19 +296,19 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case DEFAULT:
 				case GRAPHIC_BEGINNING:
 				default:
-					nameGa.setX(innerGa.getX());
+					nameGa.setX(leftOuterPadding);
 					break;
 					
 				case GRAPHIC_CENTER:
-					nameGa.setX(innerGa.getX() + (innerWidth - nameGa.getWidth())/2);
+					nameGa.setX(leftOuterPadding + (innerWidth - nameGa.getWidth())/2);
 					break;
 					
 				case GRAPHIC_END:						
-					nameGa.setX(innerGa.getX() + innerWidth - nameGa.getWidth());
+					nameGa.setX(innerRight - nameGa.getWidth());
 					break;
 
 				case AFTER_GRAPHIC:
-					nameGa.setX(innerGa.getX() + innerWidth);
+					nameGa.setX(innerRight);
 					break;			
 				}					
 				
@@ -262,19 +321,19 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case DEFAULT:
 				case GRAPHIC_BEGINNING:
 				default:
-					nameGa.setY(innerGa.getY() + labelPadding);
+					nameGa.setY(topOuterPadding + labelPadding);
 					break;
 					
 				case GRAPHIC_CENTER:
-					nameGa.setY(innerGa.getY() + (innerHeight - nameGa.getHeight())/2);
+					nameGa.setY(topOuterPadding + (innerHeight - nameGa.getHeight())/2);
 					break;
 					
 				case GRAPHIC_END:						
-					nameGa.setY(innerGa.getY() + innerHeight - nameGa.getHeight());
+					nameGa.setY(innerBottom - nameGa.getHeight());
 					break;
 
 				case AFTER_GRAPHIC:
-					nameGa.setY(innerGa.getY() + innerHeight);
+					nameGa.setY(innerBottom);
 					break;			
 				}
 			}
@@ -285,7 +344,54 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 		return false;
 	}
 	
-	// TODO: Deprecate version in layout service?
+	// Determines the horizontal label position. Transforms the positions specified by the business object handler based on the dock area.
+	private LabelPosition getHorizontalLabelPosition(final LabelPosition horizontalPosition, final LabelPosition verticalPosition, final DockArea shapeDockArea) {
+		if(shapeDockArea == null) {
+			return horizontalPosition;			
+		}
+		
+		switch(shapeDockArea) {
+		case LEFT:
+			return horizontalPosition;
+
+		case RIGHT:
+			return horizontalPosition.mirror();
+			
+		case TOP:
+			return verticalPosition;
+			
+		case BOTTOM:
+			return verticalPosition;
+			
+		default:
+			return horizontalPosition;		
+		}
+	}
+
+	// Determines the vertical label position. Transforms the positions specified by the business object handler based on the dock area.
+	private LabelPosition getVerticalLabelPosition(final LabelPosition horizontalPosition, final LabelPosition verticalPosition, final DockArea shapeDockArea) {
+		if(shapeDockArea == null) {
+			return verticalPosition;			
+		}
+		
+		switch(shapeDockArea) {
+		case LEFT:
+			return verticalPosition;
+
+		case RIGHT:
+			return verticalPosition;
+			
+		case TOP:
+			return horizontalPosition;
+			
+		case BOTTOM:
+			return horizontalPosition.mirror();
+			
+		default:
+			return verticalPosition;		
+		}
+	}
+	
 	private int[] getMinimumSizeForChildren(final ContainerShape shape, final int innerLeftX, final int innerTopY) {
 		// Calculate max right and bottom
 		int maxRight = 0;
@@ -294,13 +400,141 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			if(childShape.isVisible()) {
 				if(!propertyService.isManuallyPositioned(childShape) && propertyService.isLayedOut(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
-					maxRight = Math.max(maxRight, childGa.getX() + childGa.getWidth());
-					maxBottom = Math.max(maxBottom, childGa.getY() + childGa.getHeight());					
+					final DockArea childDockArea = getDockArea(childShape);
+					if(childDockArea == null || childDockArea == DockArea.GROUP) {	
+						maxRight = Math.max(maxRight, childGa.getX() + childGa.getWidth());
+						maxBottom = Math.max(maxBottom, childGa.getY() + childGa.getHeight());
+					} else {
+						switch(childDockArea) {
+						case LEFT:
+						case RIGHT:
+							maxRight = Math.max(maxRight, innerLeftX + childGa.getWidth());
+							maxBottom = Math.max(maxBottom, childGa.getY() + childGa.getHeight());						
+							break;
+						case TOP:
+						case BOTTOM:
+							maxRight = Math.max(maxRight, childGa.getX() + childGa.getWidth());
+							maxBottom = Math.max(maxBottom, innerTopY + childGa.getHeight());
+							break;
+						default:
+							break;						
+						}
+					}
 				}
 			}
 		}
 
 		return new int[] { maxRight - innerLeftX, maxBottom - innerTopY};
+	}
+	
+	private DockArea getNonGroupDockArea(ContainerShape shape) {
+		DockArea result = null;
+		do {
+			result = getDockArea(shape);
+			shape = shape.getContainer();
+		} while(result != null && result == DockArea.GROUP);
+
+		return result;
+	}
+	
+	private final Comparator<Shape> xComparator = new Comparator<Shape>() {
+		@Override
+		public int compare(final Shape s1, final Shape s2) {
+			if(s1.getGraphicsAlgorithm() == null) {
+				return -1;
+			} else if(s2.getGraphicsAlgorithm() == null) {
+				return 1;
+			}
+			
+			return Integer.compare(s1.getGraphicsAlgorithm().getX(), s2.getGraphicsAlgorithm().getX());
+		}		
+	};
+	private final Comparator<Shape> yComparator = new Comparator<Shape>() {
+		@Override
+		public int compare(final Shape s1, final Shape s2) {
+			if(s1.getGraphicsAlgorithm() == null) {
+				return -1;
+			} else if(s2.getGraphicsAlgorithm() == null) {
+				return 1;
+			}
+			
+			return Integer.compare(s1.getGraphicsAlgorithm().getY(), s2.getGraphicsAlgorithm().getY());
+		}		
+	};
+	private void cleanupOverlappingDockedShapes(final DockArea parentNonGroupDockArea, final Map<DockArea, List<Shape>> dockAreaToShapesMap) {
+		for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
+			if(dockAreaToShapesEntry.getKey() != null) {
+				// Determine the orientation of the docked shapes
+				DockArea dockArea = dockAreaToShapesEntry.getKey();
+				if(dockArea == DockArea.GROUP) {
+					dockArea = parentNonGroupDockArea;
+				}
+				
+				final boolean vertical;
+				if(dockArea == DockArea.LEFT || dockArea == DockArea.RIGHT) {
+					vertical = true;
+				} else if(dockArea == DockArea.TOP || dockArea == DockArea.BOTTOM) {
+					vertical = false;
+				} else {
+					vertical = true;
+				}
+				
+				// Sort shapes by order
+				final List<Shape> sortedShapes = new ArrayList<Shape>(dockAreaToShapesEntry.getValue());
+				
+				if(vertical) {
+					Collections.sort(sortedShapes, yComparator);
+					int minY = 0;
+					for(Shape shape : sortedShapes) {
+						if(shape.getGraphicsAlgorithm() != null) {
+							final int newY = Math.max(shape.getGraphicsAlgorithm().getY(), minY);
+							shape.getGraphicsAlgorithm().setY(newY);
+							minY = newY + shape.getGraphicsAlgorithm().getHeight() + 5;
+						}
+					}
+				} else {
+					Collections.sort(sortedShapes, xComparator);
+					int minX = 0;
+					for(Shape shape : sortedShapes) {
+						if(shape.getGraphicsAlgorithm() != null) {
+							final int newX = Math.max(shape.getGraphicsAlgorithm().getX(), minX);
+							shape.getGraphicsAlgorithm().setX(newX);
+							minX = newX + shape.getGraphicsAlgorithm().getWidth() + 5;
+						}
+					}
+				}
+			}
+		}		
+	}
+	
+	private DockArea getDockArea(final Shape shape) {
+		return DockArea.getById(propertyService.getDockArea(shape));
+	}
+	
+	/**
+	 * Builds a mapping between DockArea as returned by getDockArea(String) and a list of child shapes.
+	 * @param shape
+	 * @return
+	 */
+	private Map<DockArea, List<Shape>> buildDockAreaToChildrenMap(final ContainerShape shape) {
+		// Build mapping from dock area to shapes
+		final Map<DockArea, List<Shape>> result = new HashMap<DockArea, List<Shape>>();
+		for(final Shape child : shapeService.getNonGhostChildren(shape)) {
+			final DockArea dockArea = getDockArea(child);
+			if(dockArea != null) {
+				List<Shape> dockAreaShapes = result.get(dockArea);
+				
+				// Create a new list if the shape is the first shape in the dock area
+				if(dockAreaShapes == null) {
+					dockAreaShapes = new ArrayList<Shape>();
+					result.put(dockArea, dockAreaShapes);
+				}
+				
+				dockAreaShapes.add(child);
+			}
+		}
+		
+		return result;
 	}
 	
 	// ICustomUndoRedoFeature

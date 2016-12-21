@@ -289,14 +289,14 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	}
 	
 	/**
-	 * Overrides the mechanism to get the graphics algorithm used to determine the chop box location so that it uses the first graphics algorithm that isn't invisible or has multiple children.
+	 * Overrides the mechanism to get the graphics algorithm used to determine the chop box location so that it uses the first graphics algorithm that isn't invisible.
 	 * @param pe
 	 * @return
 	 */
 	@Override
 	public GraphicsAlgorithm getChopboxAnchorArea(final PictogramElement pe) {
 		GraphicsAlgorithm ga = super.getChopboxAnchorArea(pe);
-		while(!ga.getFilled() && !ga.getLineVisible() && ga.getGraphicsAlgorithmChildren().size() == 1) {
+		while(!ga.getFilled() && !ga.getLineVisible() && ga.getGraphicsAlgorithmChildren().size() >= 1) {
 			ga = ga.getGraphicsAlgorithmChildren().get(0);
 		}
 

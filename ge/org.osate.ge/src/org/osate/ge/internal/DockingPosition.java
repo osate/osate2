@@ -1,22 +1,24 @@
 package org.osate.ge.internal;
 
-import org.osate.ge.internal.services.LayoutService;
-
+/**
+ * Describes a docking position. Intended to be part of the public API once stabilized. 
+ *
+ */
 public enum DockingPosition {
-	ANY(LayoutService.DockArea.LEFT),
+	ANY(DockArea.LEFT),
 	NOT_DOCKED(null),
-	LEFT(LayoutService.DockArea.LEFT),
-	RIGHT(LayoutService.DockArea.RIGHT),
-	TOP(LayoutService.DockArea.TOP),
-	BOTTOM(LayoutService.DockArea.BOTTOM);
+	LEFT(DockArea.LEFT),
+	RIGHT(DockArea.RIGHT),
+	TOP(DockArea.TOP),
+	BOTTOM(DockArea.BOTTOM);
 	
-	private final LayoutService.DockArea dockArea;
+	private final DockArea dockArea;
 	
-	DockingPosition(LayoutService.DockArea dockArea) {
+	DockingPosition(DockArea dockArea) {
 		this.dockArea = dockArea;
 	}
 	
-	public LayoutService.DockArea getDockArea() {
+	public DockArea getDockArea() {
 		return dockArea;
 	}
 }

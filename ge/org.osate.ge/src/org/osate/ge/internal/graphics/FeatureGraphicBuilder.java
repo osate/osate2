@@ -101,6 +101,15 @@ public class FeatureGraphicBuilder {
 	}
 	
 	/**
+	 * Sets the type of feature graphic to create.
+	 * @return this builder to allow method chaining.
+	 */
+	public FeatureGraphicBuilder featureGroup() {
+		this.featureType = FeatureType.FEATURE_GROUP;
+		return this;
+	}
+	
+	/**
 	 * Sets the builder to build an input port.
 	 * @return this builder to allow method chaining.
 	 */

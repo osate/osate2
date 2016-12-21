@@ -62,7 +62,7 @@ public class AadlGraphics {
 		return defaultGraphic;
 	}
 	
-	public static Graphic getGraphic(final EClass featureClass, DirectionType direction) {
+	public static Graphic getFeatureGraphic(final EClass featureClass, DirectionType direction) {
 		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
 		
 		// Configure the feature type
@@ -83,6 +83,8 @@ public class AadlGraphics {
 			builder.dataAccess();
 		} else if(featureClass == aadl2Pkg.getBusAccess()) {
 			builder.busAccess();
+		} else if(featureClass == aadl2Pkg.getFeatureGroup()) {
+			builder.featureGroup();
 		} else {
 			return defaultGraphic;
 		}

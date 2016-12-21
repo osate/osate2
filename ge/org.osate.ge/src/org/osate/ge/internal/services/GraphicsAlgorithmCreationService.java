@@ -48,7 +48,6 @@ import org.osate.aadl2.instance.FeatureInstance;
  * Contains methods to create graphics algorithms.
  *
  */
-// TODO: Move architecture in a direction so that this interface will only provide generic functionality
 public interface GraphicsAlgorithmCreationService {
 
 	Text createLabelGraphicsAlgorithm(GraphicsAlgorithmContainer container, String labelTxt);

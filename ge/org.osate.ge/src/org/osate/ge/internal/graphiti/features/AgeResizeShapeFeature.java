@@ -43,7 +43,6 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 			return false;
 		}
 		
-		// TODO: Error checking
 		final Shape container = shape.getContainer();
 		if(!(container instanceof Diagram) && ctx.getDirection() != IResizeShapeContext.DIRECTION_UNSPECIFIED) {
 			final GraphicsAlgorithm containerInnerGa = container.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0);

@@ -29,47 +29,13 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.ge.internal.services.LayoutService.DockArea;
 
 /**
  * Contains methods for aiding in laying out shapes
  *
  */
 public interface LayoutService {		
-	enum DockArea {
-		LEFT("left"),
-		RIGHT("right"),
-		TOP("top"),
-		BOTTOM("bottom"),
-		GROUP("feature_group"); // Container is a group of docked shapes. String "feature_group" is for backwards compatibility purposes
-		
-		private static final Map<String, DockArea> idToDockAreaMap;
-		static {
-			final Map<String, DockArea> modifiableMap = new HashMap<String, DockArea>();
-			for(final DockArea area : DockArea.values()) {
-				modifiableMap.put(area.id, area);
-			}
-			idToDockAreaMap = Collections.unmodifiableMap(modifiableMap);
-		}		
-		
-		public static DockArea getById(final String dockAreaId) {
-			return idToDockAreaMap.get(dockAreaId);
-		}
-		
-		public final String id;
-		
-		DockArea(final String id) {
-			this.id = id;
-		}		
-	}
-
 	/**
 	 * Checks that the shape fits in its container.  If it does not, the container's layout feature is called and the ancestor is checked as well.
 	 * @param shape
@@ -80,6 +46,7 @@ public interface LayoutService {
 	
 	void layoutChildren(ContainerShape shape);
 
+	// TODO: Remove after conversion to business object handler. It will be unused at that point
 	/**
 	 * Gets the minimum size of the shape. Taken into account child shapes. Never returns a size smaller than the current size.
 	 * The first element is the x-coordinate, the second element is the y-coordinate.
@@ -94,15 +61,4 @@ public interface LayoutService {
 	 */
 	int getMinimumWidth();
 	int getMinimumHeight();
-	
-	DockArea getDockArea(Shape shape);
-
-	/**
-	 * Builds a mapping between DockArea as returned by getDockArea(String) and a list of child shapes.
-	 * @param shape
-	 * @return
-	 */
-	Map<DockArea, List<Shape>> buildDockAreaToChildrenMap(ContainerShape shape, boolean includeUndockedShapes);
-	
-	void cleanupOverlappingDockedShapes(Map<DockArea, List<Shape>> dockAreaToShapesMap, int yStartOffset);	
 }

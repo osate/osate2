@@ -24,12 +24,12 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.InternalNames;
@@ -46,7 +46,6 @@ import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
-import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
@@ -160,10 +159,10 @@ public class BoHandlerRefreshHelper {
 						} if(dockingPosition == DockingPosition.NOT_DOCKED) {
 							propertyService.setDockArea(pe, null);
 						} else {
-							// TODO: If parent is docked.. the child should use the group type...
-							
-							// Only set the dock area if it has not been set.
-							if(propertyService.getDockArea(pe) == null) {
+							final String parentDockArea = propertyService.getDockArea(((Shape)pe).getContainer());
+							if(parentDockArea != null) { // If parent is docked.. the child should use the group docking area								 
+								propertyService.setDockArea(pe, DockArea.GROUP.id);
+							} else if(propertyService.getDockArea(pe) == null) { // Only set the dock area if it has not been set.
 								propertyService.setDockArea(pe, dockingPosition.getDockArea().id);
 							}
 						}
@@ -197,7 +196,7 @@ public class BoHandlerRefreshHelper {
 				// Determine whether children should be shown
 				final int depthLevel = shapeService.getDepthLevel(childContainer);
 				final boolean showContents = depthLevel <= propertyService.getNestingDepth(getDiagram());
-
+				
 				if(showContents) {
 					// Refresh Children
 					// It is up to the business object handler to provide children in an appropriate order(objects represented by connections should be last)
