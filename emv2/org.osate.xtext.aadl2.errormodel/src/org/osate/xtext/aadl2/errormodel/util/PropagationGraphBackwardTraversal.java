@@ -97,8 +97,15 @@ public class PropagationGraphBackwardTraversal {
 		for (ErrorFlow ef : EMV2Util.getAllErrorFlows(component)) {
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
-				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation)
-						&& EM2TypeSetUtil.contains(type, ep.getTargetToken())) {
+//				boolean typeContained = EM2TypeSetUtil.contains(type, ep.getTargetToken());
+				
+				/**
+				 * Make sure that the error type we are looking for is contained
+				 * in the error types for the out propagation.
+				 * This is a fix for the JMR/SAVI WBS model.
+				 */
+				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(),type);
+				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) && typeContained) {
 					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
 							getTargetType(ep.getTypeTokenConstraint(), type));
 					if (newEvent != null) {

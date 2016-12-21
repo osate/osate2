@@ -2,7 +2,9 @@ package org.osate.xtext.aadl2.errormodel.scoping
 
 import com.google.inject.Inject
 import java.util.List
+import java.util.Map
 import java.util.Optional
+import java.util.Set
 import java.util.stream.Collectors
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
@@ -23,6 +25,7 @@ import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.FeatureGroup
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RecordType
+import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.TriggerPort
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression
@@ -36,6 +39,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
@@ -54,6 +58,7 @@ import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSeria
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
@@ -114,11 +119,10 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		createUnitLiteralsScopeFromPropertyType(property.propertyType)
 	}
 	
-	//TODO Implement test case after talking with Peter
+	//TODO This method is incomplete. Need to consider all possibilities for reference value
 	def scope_ContainmentPathElement_namedElement(ContainmentPathElement context, EReference reference) {
 		switch parent : context.eContainer {
 			EMV2Path: parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.filterRefined?.scopeFor ?: IScope.NULLSCOPE
-			//TODO: This could change after talking with Peter about reference values
 			ContainmentPathElement: switch previous : parent.namedElement {
 				Subcomponent case !previous.eIsProxy: switch classifier : previous.allClassifier {
 					ComponentImplementation: classifier.allSubcomponents.filterRefined.scopeFor
@@ -126,8 +130,11 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 				}
 				default: IScope.NULLSCOPE
 			}
-			//TODO: Ask Peter about reference values
-			default: IScope.NULLSCOPE
+			ReferenceValue: {
+				val subcomponents = parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.filterRefined ?: emptyList
+				val types = parent.getContainerOfType(ErrorModelSubclause)?.useTypes?.map[types]?.flatten ?: emptyList;
+				(subcomponents + types).scopeFor
+			}
 		}
 	}
 	
@@ -527,31 +534,31 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 
 	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.of(context), [allErrorTypes])
+		scopeForErrorTypes(context, context.useTypes, Optional.of(context), [allErrorTypes])
 	}
 
 	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.of(context), [allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.of(context), [allTypesets])
 	}
 
 	def scope_TypeToken_type(ErrorModelLibrary context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.of(context), [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.of(context), [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(ErrorBehaviorStateMachine context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(TypeMappingSet context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(TypeTransformationSet context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(ErrorModelSubclause context, EReference reference) {
-		scopeForErrorTypes(EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_FeatureorPPReference_featureorPP(FeatureorPPReference context, EReference reference) {
@@ -689,48 +696,46 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		], true)
 	}
 
-	/*
-	 * The general rule of this scope is that ErrorTypes must be referred to by their simple name, not a qualified name.
-	 * A qualified name is only legal if it is used to disambiguate two different ErrorTypes with the same name coming
-	 * from different ErrorModelLibraries in the useTypes.  In the event of a naming conflict, a reference to an ErrorTypes
-	 * is qualified with the name of the appropriate library listed in the useTypes.  This may not be the same as the
-	 * library which contains the ErrorTypes definition.
-	 * 
-	 * This probably needs to be redesigned.  It may be better to include all simple names and all qualified names in the
-	 * scope and then have the validator place errors on ambiguous simple names and warnings on unnecessary qualified names.
-	 */
-	def private static scopeForErrorTypes(Iterable<ErrorModelLibrary> useTypes,
-		Optional<ErrorModelLibrary> parentLibrary, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter) {
-		val useTypesPerLib = newHashMap(useTypes.map[libraryName -> elementGetter.apply(it).toSet])
-
-		val contextErrorTypes = parentLibrary.map[elementGetter.apply(it).toSet]
-		val partitionResult = (useTypesPerLib.values.flatten + contextErrorTypes.orElse(emptySet)).toSet.groupBy [
-			name.toLowerCase
-		].values.stream.collect(Collectors.partitioningBy[size == 1])
-
-		// Add simple names to the scope for all ErrorTypes that do not have a naming conflict.
-		val noConflictsDescriptions = partitionResult.get(true).flatten.map [
+	def private scopeForErrorTypes(EObject context, Iterable<ErrorModelLibrary> useTypes,
+		Optional<ErrorModelLibrary> parentLibrary, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter
+	) {
+		//Gets all of the ErrorTypes contributed by the libraries listed in the useTypes.
+		val Iterable<ErrorTypes> fromUseTypes = useTypes.map[elementGetter.apply(it)].flatten
+		
+		//Gets all of the ErrorTypes contributed by the containing ErrorModelLibrary, if any.
+		val Optional<Set<? extends ErrorTypes>> contextErrorTypes = parentLibrary.map[elementGetter.apply(it).toSet]
+		//Combines all of the contributed ErrorTypes from the useTypes and the parentLibrary.
+		val Set<ErrorTypes> allErrorTypes = (fromUseTypes + contextErrorTypes.orElse(emptySet)).toSet
+		//Groups all ErrorTypes by their simple name. For example, "lib1::type1" and "lib2::type1" will be grouped together.
+		val Map<String, List<ErrorTypes>> groupedTypes = allErrorTypes.groupBy[name.toLowerCase]
+		/*
+		 * Partitions the grouped ErrorTypes by which ones have conflicting simple names and which ones do not.
+		 * The true values are not conflicts and the false values are conflicts.
+		 */
+		val Map<Boolean, Iterable<ErrorTypes>> partitionResult = groupedTypes.values.stream.collect(Collectors.partitioningBy[size == 1]).mapValues[flatten]
+		
+		//Add simple names to the scope for all ErrorTypes that do not have a naming conflict.
+		val Iterable<IEObjectDescription> noConflictsDescriptions = partitionResult.get(true).map[
 			EObjectDescription.create(QualifiedName.create(name), it)
 		]
-
-		val conflictsDescriptions = partitionResult.get(false).map [
-			map[
-				if (contextErrorTypes.present && contextErrorTypes.get.contains(it)) {
-					// For ErrorTypes that are locally contained in parentLibrary or are in the extends hierarchy, they are referred to by their simple name.
-					#[EObjectDescription.create(QualifiedName.create(name), it)]
-				} else {
-					/*
-					 * For conflicting ErrorTypes that are contributed by the useTypes, they are qualified by the library names
-					 * listed in the useTypes which contributes this ErrorTypes.
-					 */
-					useTypesPerLib.filter[libraryName, visibleErrorTypes|visibleErrorTypes.contains(it)].keySet.map [ libraryName |
-						EObjectDescription.create(QualifiedName.create(libraryName, name), it)
-					]
-				}
+		
+		//Add simple names to the scope for conflicting ErrorTypes that are from the parentLibrary or extends hierarchy.
+		val Iterable<IEObjectDescription> conflictsDescriptions = partitionResult.get(false).filter[
+			contextErrorTypes.present && contextErrorTypes.get.contains(it)
+		].map[
+			EObjectDescription.create(QualifiedName.create(name), it)
+		]
+		
+		//Add qualified names to the scope.
+		val IScope librariesScope = scope_ErrorModelLibrary(context, ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__USE_TYPES)
+		val Iterable<ErrorModelLibrary> allLibraries = librariesScope.allElements.map[EObjectOrProxy.resolve(context) as ErrorModelLibrary]
+		val Iterable<IEObjectDescription> qualifiedDescriptions = allLibraries.map[library |
+			elementGetter.apply(library).map[errorTypes |
+				EObjectDescription.create(QualifiedName.create(library.libraryName, errorTypes.name), errorTypes)
 			]
-		].flatten.flatten
-
-		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
+		].flatten
+		
+		new SimpleScope(noConflictsDescriptions + conflictsDescriptions + qualifiedDescriptions, true)
 	}
 
 	def public static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {

@@ -301,6 +301,7 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 	public void caseOutgoingPropagationCondition(OutgoingPropagationCondition opc) {
 		checkOutgoingConditionSourceTypes(opc);
 		checkOutgoingTypes(opc);
+		checkHasConditionOrTypeToken(opc);
 	}
 
 	@Check(CheckType.NORMAL)
@@ -825,6 +826,12 @@ public class ErrorModelJavaValidator extends AbstractErrorModelJavaValidator {
 					}
 				}
 			}
+		}
+	}
+	
+	private void checkHasConditionOrTypeToken(OutgoingPropagationCondition opc) {
+		if (opc.getCondition() == null && opc.getTypeToken() == null) {
+			error(opc, "Propagation condition must have at least a condition within brackets or a type set for the outgoing propagation");
 		}
 	}
 
