@@ -82,7 +82,7 @@ public class ProcessorCheck extends AbstractCheck {
 								&& (PokProperties.getSlotsAllocation(cpu).contains(comp) == false)))
 						.collect(Collectors.toList());
 				for (ComponentInstance vp : unreferencedVirtualProcessors) {
-					addError(new ErrorReport(cpu, "Need to be referenced in the processor slots"));
+					addError(new ErrorReport(vp, "Need to be referenced in the processor slots"));
 				}
 
 				if (PokProperties.getSlotsAllocation(cpu).size() != PokProperties.getTimeSlotInMs(cpu).size()) {
