@@ -2,9 +2,7 @@ package org.osate.codegen.checker.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale.Category;
 import java.util.function.Consumer;
-import java.util.stream.Collectors;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -18,30 +16,31 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
-import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.codegen.checker.checks.*;
+import org.osate.codegen.checker.checks.AbstractCheck;
+import org.osate.codegen.checker.checks.DataCheck;
+import org.osate.codegen.checker.checks.MemoryCheck;
+import org.osate.codegen.checker.checks.ProcessCheck;
+import org.osate.codegen.checker.checks.ProcessorCheck;
+import org.osate.codegen.checker.checks.ThreadCheck;
 import org.osate.codegen.checker.report.ErrorReport;
 import org.osate.ui.utils.SelectionHelper;
-import org.eclipse.jface.dialogs.MessageDialog;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
 
-
-class  CheckProcessor implements Consumer<ComponentInstance>
-{
+class CheckProcessor implements Consumer<ComponentInstance> {
 
 	@Override
 	public void accept(ComponentInstance t) {
 		OsateDebug.osateDebug("plop" + t);
-		
+
 	}
-	
+
 }
 
 /**
@@ -51,13 +50,11 @@ class  CheckProcessor implements Consumer<ComponentInstance>
  */
 public class CheckerHandler extends AbstractHandler {
 
-
-
 	protected final String MARKER_TYPE = "org.osate.codegen.codegen.marker";
-	
+
 	public CheckerHandler() {
 	}
-	
+
 	protected static IResource getIResource(Resource r) {
 		final URI uri = r.getURI();
 		final IPath path = new Path(uri.toPlatformString(true));
@@ -67,24 +64,20 @@ public class CheckerHandler extends AbstractHandler {
 		}
 		return resource;
 	}
-	
-	public static List<ErrorReport> executeCheck (SystemInstance si, Class<? extends AbstractCheck> myCheck, int kind)
-	{
-		
-		try
-		{
+
+	public static List<ErrorReport> executeCheck(SystemInstance si, Class<? extends AbstractCheck> myCheck, int kind) {
+
+		try {
 			AbstractCheck checkInstance = myCheck.newInstance();
-			checkInstance.setKind (kind);
+			checkInstance.setKind(kind);
 			checkInstance.perform(si);
 			return (checkInstance.getErrors());
-		}
-		catch (InstantiationException | IllegalAccessException e)
-		{
+		} catch (InstantiationException | IllegalAccessException e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
-		
+
 	}
 
 	/**
@@ -98,7 +91,7 @@ public class CheckerHandler extends AbstractHandler {
 		EObject selectedObject;
 		SystemInstance selectedSystemInstance;
 		List<ErrorReport> errors;
-		
+
 		checkerkind = AbstractCheck.CHECKER_KIND_UNKNOWN;
 		checkKind = event.getParameter("org.osate.codegen.checker.kind");
 
@@ -106,59 +99,52 @@ public class CheckerHandler extends AbstractHandler {
 		 * Get the type of check we will do. And then, pass it to the checker
 		 * object.
 		 */
-		if (checkKind.equalsIgnoreCase("pok"))
-		{
+		if (checkKind.equalsIgnoreCase("pok")) {
 			checkerkind = AbstractCheck.CHECKER_KIND_POK;
 		}
-		if (checkKind.equalsIgnoreCase("vxworks"))
-		{
+		if (checkKind.equalsIgnoreCase("vxworks")) {
 			checkerkind = AbstractCheck.CHECKER_KIND_VXWORKS;
 		}
-		if (checkKind.equalsIgnoreCase("deos"))
-		{
+		if (checkKind.equalsIgnoreCase("deos")) {
 			checkerkind = AbstractCheck.CHECKER_KIND_DEOS;
 		}
-		
+
 		window = HandlerUtil.getActiveWorkbenchWindowChecked(event);
-		
-		errors = new ArrayList<ErrorReport> ();
+
+		errors = new ArrayList<ErrorReport>();
 		selectedSystemInstance = null;
-		
+
 		selectedObject = SelectionHelper.getSelectedObjectinOutline();
-		
-		if (selectedObject instanceof SystemInstance)
-		{
+
+		if (selectedObject instanceof SystemInstance) {
 			selectedSystemInstance = (SystemInstance) selectedObject;
 		}
-		
-		if (selectedObject instanceof SystemImplementation)
-		{
+
+		if (selectedObject instanceof SystemImplementation) {
 			try {
-				selectedSystemInstance = InstantiateModel.buildInstanceModelFile((SystemImplementation)selectedObject);
+				selectedSystemInstance = InstantiateModel.buildInstanceModelFile((SystemImplementation) selectedObject);
 			} catch (Exception e) {
 				e.printStackTrace();
 				selectedSystemInstance = null;
 			}
 		}
-		
-		if (selectedSystemInstance == null)
-		{
-			MessageDialog.openError(window.getShell(), "Code Generation Checker", "Please select a system instance of system implementation");
+
+		if (selectedSystemInstance == null) {
+			MessageDialog.openError(window.getShell(), "Code Generation Checker",
+					"Please select a system instance of system implementation");
 			return null;
 		}
-		
-		errors.addAll(executeCheck (selectedSystemInstance, MemoryCheck.class, checkerkind));
-		errors.addAll(executeCheck (selectedSystemInstance, ProcessorCheck.class, checkerkind));
-		errors.addAll(executeCheck (selectedSystemInstance, ProcessCheck.class, checkerkind));
-		errors.addAll(executeCheck (selectedSystemInstance, ThreadCheck.class , checkerkind));
-		errors.addAll(executeCheck (selectedSystemInstance, DataCheck.class, checkerkind));
 
-		
+		errors.addAll(executeCheck(selectedSystemInstance, MemoryCheck.class, checkerkind));
+		errors.addAll(executeCheck(selectedSystemInstance, ProcessorCheck.class, checkerkind));
+		errors.addAll(executeCheck(selectedSystemInstance, ProcessCheck.class, checkerkind));
+		errors.addAll(executeCheck(selectedSystemInstance, ThreadCheck.class, checkerkind));
+		errors.addAll(executeCheck(selectedSystemInstance, DataCheck.class, checkerkind));
+
 		/**
 		 * For now, we print the errors.
 		 */
-		for (ErrorReport e : errors)
-		{
+		for (ErrorReport e : errors) {
 			OsateDebug.osateDebug("error " + e.getMessage() + " on " + e.getComponent().getName());
 			try {
 				IMarker marker = getIResource(e.getComponent().eResource()).createMarker(MARKER_TYPE);
@@ -172,6 +158,5 @@ public class CheckerHandler extends AbstractHandler {
 
 		return null;
 	}
-	
 
 }
