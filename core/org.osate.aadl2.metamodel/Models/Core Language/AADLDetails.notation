@@ -20481,7 +20481,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PWiE8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X9EfcnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLDetails.uml#Calls-SubprogramCall"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PWiFMnmEeW9N7cxkaeotw" x="120" y="125" width="122" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PWiFMnmEeW9N7cxkaeotw" x="120" y="125" width="156" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_7PYXQMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7X9rgcnmEeW9N7cxkaeotw" source="QualifiedName">
@@ -20492,18 +20492,19 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PYXQ8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X9rgMnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Connections-Context"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PYXRMnmEeW9N7cxkaeotw" x="120" y="22" width="122" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PYXRMnmEeW9N7cxkaeotw" x="120" y="22" width="154" height="30"/>
     </children>
     <styles xmi:type="notation:StringValueStyle" xmi:id="_ANtUsNNPEeajmKJF5Y28gQ" name="diagram_compatibility_version" stringValue="1.2.0"/>
     <element xmi:type="uml:Package" href="AADLDetails.uml#Calls"/>
     <edges xmi:type="notation:Connector" xmi:id="_7QDs0cnmEeW9N7cxkaeotw" type="Generalization_Edge" source="_7PWiEMnmEeW9N7cxkaeotw" target="_7PYXQMnmEeW9N7cxkaeotw" routing="Tree" lineColor="0">
       <children xmi:type="notation:DecorationNode" xmi:id="_7WGqXcnmEeW9N7cxkaeotw" type="Generalization_StereotypeLabel">
+        <styles xmi:type="notation:BooleanValueStyle" xmi:id="_u6-MUNN0EeajmKJF5Y28gQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
         <layoutConstraint xmi:type="notation:Location" xmi:id="_7WGqXMnmEeW9N7cxkaeotw"/>
       </children>
       <element xmi:type="uml:Generalization" href="AADLDetails.uml#Calls-SubprogramCall-_generalization.1"/>
-      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7WGqWcnmEeW9N7cxkaeotw" points="[0, 0, 0, 0]$[0, 0, 0, 0]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7WGqWsnmEeW9N7cxkaeotw"/>
-      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7WGqW8nmEeW9N7cxkaeotw"/>
+      <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_7WGqWcnmEeW9N7cxkaeotw" points="[200, 125, -643984, -643984]$[200, 84, -643984, -643984]$[200, 84, -643984, -643984]$[200, 52, -643984, -643984]"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7WGqWsnmEeW9N7cxkaeotw" id="(0.5128205128205128,0.0)"/>
+      <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_7WGqW8nmEeW9N7cxkaeotw" id="(0.5194805194805194,1.0)"/>
     </edges>
   </notation:Diagram>
   <notation:Diagram xmi:id="_7QKac8nmEeW9N7cxkaeotw" type="PapyrusUMLClassDiagram" name="None Support" measurementUnit="Pixel">
