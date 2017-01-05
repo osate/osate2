@@ -20195,7 +20195,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PMxE8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X7PT8nmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLDetails.uml#Calls-CallContext"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PMxFMnmEeW9N7cxkaeotw" x="207" y="1" width="88" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PMxFMnmEeW9N7cxkaeotw" x="207" y="1" width="126" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_7PNYIMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7X72V8nmEeW9N7cxkaeotw" source="QualifiedName">
@@ -20321,7 +20321,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PSQo8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X8dYsnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLDetails.uml#Components-SubprogramGroup-SubprogramGroupSubcomponent"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PSQpMnmEeW9N7cxkaeotw" x="192" y="175" width="228" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PSQpMnmEeW9N7cxkaeotw" x="192" y="175" width="235" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_7PS3sMnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7X8dasnmEeW9N7cxkaeotw" source="QualifiedName">
@@ -20351,7 +20351,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PS3s8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X8dacnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLDetails.uml#Components-SubprogramGroup-SubprogramGroupType"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PS3tMnmEeW9N7cxkaeotw" x="312" y="97" width="163" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PS3tMnmEeW9N7cxkaeotw" x="312" y="97" width="182" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_7PUs4MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7X9EcMnmEeW9N7cxkaeotw" source="QualifiedName">
@@ -20372,7 +20372,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PUs48nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X8dcMnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLDetails.uml#Features-SubprogramGroupAccess"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PUs5MnmEeW9N7cxkaeotw" x="7" y="175" width="175" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PUs5MnmEeW9N7cxkaeotw" x="7" y="175" width="187" height="30"/>
     </children>
     <children xmi:type="notation:Shape" xmi:id="_7PVT8MnmEeW9N7cxkaeotw" type="Class_Shape" fontName="Arial" fontHeight="10" bold="true" lineColor="0">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7X9Ed8nmEeW9N7cxkaeotw" source="QualifiedName">
@@ -20393,7 +20393,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_7PVT88nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_7X9EdsnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Features-FeatureGroup"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PVT9MnmEeW9N7cxkaeotw" x="426" y="175" width="104" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_7PVT9MnmEeW9N7cxkaeotw" x="426" y="175" width="112" height="30"/>
     </children>
     <styles xmi:type="notation:StringValueStyle" xmi:id="_AOc7kNNPEeajmKJF5Y28gQ" name="diagram_compatibility_version" stringValue="1.2.0"/>
     <element xmi:type="uml:Package" href="AADLDetails.uml#Calls"/>
