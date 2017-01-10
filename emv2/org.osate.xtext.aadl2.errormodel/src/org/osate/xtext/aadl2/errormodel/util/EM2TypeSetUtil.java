@@ -296,8 +296,13 @@ public class EM2TypeSetUtil {
 		if (!token.isNoError() && isNoError(ts)) {
 			return true;
 		}
-		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (contains(tselement, token)) {
+//		for (TypeToken tselement : ts.getTypeTokens()) {
+//			if (contains(tselement, token)) {
+//				return true;
+//			}
+//		}
+		for (ErrorTypes tp : token.getType()) {
+			if (contains(ts, tp)) {
 				return true;
 			}
 		}
