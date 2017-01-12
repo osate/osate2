@@ -216,9 +216,11 @@ public class DeclarativeReferenceResolver {
 		
 		private void addReferencedProjects(final IProject project, final Set<IProject> results) throws CoreException {
 			for(final IProject rp : project.getReferencedProjects()) {
-				if(!results.contains(rp)) {
-					results.add(rp);
-					addReferencedProjects(rp, results);
+				if(rp.isAccessible()) {
+					if(!results.contains(rp)) {
+						results.add(rp);
+						addReferencedProjects(rp, results);
+					}
 				}
 			}
 		}
