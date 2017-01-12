@@ -37,6 +37,7 @@
  */
 package org.osate.aadl2.instance.util;
 
+import java.util.Collection;
 import java.util.HashMap;
 
 import org.eclipse.emf.common.util.BasicEList;
@@ -64,6 +65,7 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
+import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 
@@ -452,6 +454,25 @@ public class InstanceUtil {
 
 	public static boolean isNoMode(SystemOperationMode som) {
 		return som.getName().equalsIgnoreCase(NORMAL_SOM_NAME) || som.getName().equalsIgnoreCase("NoModes");
+	}
+
+	public static boolean isInMode(ComponentInstance ci, SystemOperationMode som) {
+		ComponentInstance modal = ci;
+		if (som == null || isNoMode(som))
+			return true;
+		Collection<ModeInstance> inModes = ci.getInModes();
+		while (inModes.isEmpty() && modal.getContainingComponentInstance() != null) {
+			modal = modal.getContainingComponentInstance();
+			inModes = modal.getInModes();
+		}
+		if (inModes.isEmpty())
+			return true;
+		for (ModeInstance mi : som.getCurrentModes()) {
+			if (inModes.contains(mi)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }
