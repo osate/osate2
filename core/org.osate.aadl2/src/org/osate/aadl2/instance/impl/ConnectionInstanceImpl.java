@@ -924,10 +924,10 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 	@Override
 	public boolean isActive(SystemOperationMode som) {
 		if (getInSystemOperationModes().isEmpty() || getInSystemOperationModes().contains(som)) {
-			return getContainingComponentInstance().isActive(som);
-		}
-		if (getSource().getComponentInstance().isActive(som) && getDestination().getComponentInstance().isActive(som)) {
-			return true;
+			if (getSource().getComponentInstance().isActive(som)
+					&& getDestination().getComponentInstance().isActive(som)) {
+				return getContainingComponentInstance().isActive(som);
+			}
 		}
 		return false;
 	}
