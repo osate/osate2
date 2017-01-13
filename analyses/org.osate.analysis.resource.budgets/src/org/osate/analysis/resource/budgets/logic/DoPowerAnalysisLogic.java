@@ -66,9 +66,8 @@ public class DoPowerAnalysisLogic {
 		hasPower = 0;
 		final String somName = Aadl2Util.getPrintableSOMName(som);
 		String systemName = si.getComponentClassifier().getName();
-		String inMode = Aadl2Util.isPrintableSOMName(som) ? " in mode " + som.getName() : "";
 
-		final Section section = new Section(systemName + inMode);
+		final Section section = new Section(systemName + somName);
 		powerReport.addSection(section);
 		msg = new StringBuffer();
 		ForAllElement DoCapacity = new ForAllElement() {
@@ -213,12 +212,12 @@ public class DoPowerAnalysisLogic {
 			if (budget > capacity) {
 				modelExceeds = "** " + resourceName + " budget total " + toString(budget) + " exceeds capacity "
 						+ toString(capacity);
-				errManager.error(ci, somName + modelExceeds);
+				errManager.error(ci, somName + ": " + modelExceeds);
 				powerComponentError(section, modelExceeds);
 			} else {
 				modelExceeds = resourceName + " budget total " + toString(budget) + " within capacity "
 						+ toString(capacity);
-				errManager.info(ci, somName + modelStats);
+				errManager.info(ci, somName + ": " + modelStats);
 				powerComponentSuccess(section, modelStats);
 			}
 		}
@@ -235,10 +234,10 @@ public class DoPowerAnalysisLogic {
 		if (budget > available) {
 			modelStats = "** " + "budget total " + toString(budget) + " exceeds" + suppliedmsg + toString(available);
 			powerComponentError(section, modelStats);
-			errManager.error(ci, somName + modelStats);
+			errManager.error(ci, somName + ": " + modelStats);
 		} else {
 			modelStats = "budget total " + toString(budget) + " within" + suppliedmsg + toString(available);
-			errManager.info(ci, somName + modelStats);
+			errManager.info(ci, somName + ": " + modelStats);
 			powerComponentSuccess(section, modelStats);
 		}
 		Line l = new Line();
