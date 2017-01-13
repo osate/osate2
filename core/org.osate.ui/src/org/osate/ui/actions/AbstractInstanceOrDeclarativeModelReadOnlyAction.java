@@ -141,7 +141,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 
 	private void analyzeInstanceModelInMode(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager, final SystemInstance si, final SystemOperationMode som) {
-		errManager.addPrefix(Aadl2Util.getPrintableSOMName(som));
+		errManager.addPrefix(Aadl2Util.getPrintableSOMName(som) + ": ");
 		analyzeInstanceModel(monitor, errManager, si, som);
 		si.clearCurrentSystemOperationMode();
 		errManager.removePrefix();

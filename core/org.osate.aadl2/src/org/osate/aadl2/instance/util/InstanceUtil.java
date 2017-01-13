@@ -453,5 +453,4 @@ public class InstanceUtil {
 	public static boolean isNoMode(SystemOperationMode som) {
 		return som.getName().equalsIgnoreCase(NORMAL_SOM_NAME) || som.getName().equalsIgnoreCase("NoModes");
 	}
-
 }

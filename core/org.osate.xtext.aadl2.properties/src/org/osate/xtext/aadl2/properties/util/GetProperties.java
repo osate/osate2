@@ -340,6 +340,10 @@ public class GetProperties {
 		return findUnitLiteral(context, AadlProject.DATA_RATE_UNITS, AadlProject.KBYTESPS_LITERAL);
 	}
 
+	public static UnitLiteral getKbitspsUnitLiteral(NamedElement context) {
+		return findUnitLiteral(context, AadlProject.DATA_RATE_UNITS, AadlProject.KBITSPS_LITERAL);
+	}
+
 	public static UnitLiteral getKBUnitLiteral(NamedElement context) {
 		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
@@ -549,15 +553,27 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, ROMActual, kb, defaultValue);
 	}
 
-	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
+	public static double getBandWidthCapacityInKBytesps(final NamedElement ne, final double defaultValue) {
 		Property BandWidthCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_CAPACITY);
 		UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBYTESPS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
 	}
 
-	public static double getBandWidthBudgetInKbps(final NamedElement ne, final double defaultValue) {
+	public static double getBandWidthBudgetInKBytesps(final NamedElement ne, final double defaultValue) {
 		Property BandWidthBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_BUDGET);
 		UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBYTESPS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
+	}
+
+	public static double getBandWidthCapacityInKbitsps(final NamedElement ne, final double defaultValue) {
+		Property BandWidthCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_CAPACITY);
+		UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBITSPS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
+	}
+
+	public static double getBandWidthBudgetInKbitsps(final NamedElement ne, final double defaultValue) {
+		Property BandWidthBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_BUDGET);
+		UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBITSPS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 
