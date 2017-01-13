@@ -317,6 +317,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid subcomponent flow.")
 					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'dp1.af3'")
+					]
 				]
 				ownedEndToEndFlows.get(15) => [
 					"etef16".assertEquals(name)
@@ -325,6 +330,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						"asub3".assertEquals(flowElement.name)
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'data port' is not a valid subcomponent flow.")
+					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'asub3'")
 					]
 				]
 				ownedEndToEndFlows.get(16) => [
@@ -362,6 +372,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid subcomponent flow.")
 					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'edp1.af3'")
+					]
 				]
 				ownedEndToEndFlows.get(20) => [
 					"etef21".assertEquals(name)
@@ -370,6 +385,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						"asub3".assertEquals(flowElement.name)
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in an 'event data port' is not a valid subcomponent flow.")
+					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'asub3'")
 					]
 				]
 				ownedEndToEndFlows.get(21) => [
@@ -416,6 +436,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "An 'abstract subcomponent' in an 'abstract subcomponent' is not a valid subcomponent flow.")
 					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'asub2'")
+					]
 				]
 				ownedEndToEndFlows.get(27) => [
 					"etef28".assertEquals(name)
@@ -452,6 +477,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
 					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'call1.af4'")
+					]
 				]
 				ownedEndToEndFlows.get(31) => [
 					"etef32".assertEquals(name)
@@ -460,6 +490,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						"asub4".assertEquals(flowElement.name)
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'subprogram call' is not a valid subcomponent flow.")
+					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn1".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn1' does not match the preceding subcomponent or out flow spec feature 'asub4'")
 					]
 				]
 			]
@@ -508,6 +543,11 @@ class EndToEndFlowSegmentTypesTest extends OsateTest {
 						"asub3".assertEquals(flowElement.name)
 						//Tests typeCheckEndToEndFlowSegments
 						assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid subcomponent flow.")
+					]
+					ownedEndToEndFlowSegments.get(1) => [
+						"fconn4".assertEquals(flowElement.name)
+						//connection end does not match
+						assertError(testFileResult.issues, issueCollection, "The source of connection 'fconn4' does not match the preceding subcomponent or out flow spec feature 'asub3'")
 					]
 				]
 			]
