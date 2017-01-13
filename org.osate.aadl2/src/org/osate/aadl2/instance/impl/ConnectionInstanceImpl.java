@@ -926,6 +926,9 @@ public class ConnectionInstanceImpl extends FlowElementInstanceImpl implements C
 		if (getInSystemOperationModes().isEmpty() || getInSystemOperationModes().contains(som)) {
 			return getContainingComponentInstance().isActive(som);
 		}
+		if (getSource().getComponentInstance().isActive(som) && getDestination().getComponentInstance().isActive(som)) {
+			return true;
+		}
 		return false;
 	}
 
