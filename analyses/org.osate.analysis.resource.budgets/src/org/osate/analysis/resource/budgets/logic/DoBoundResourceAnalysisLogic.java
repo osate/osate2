@@ -42,7 +42,6 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Mode;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
@@ -57,7 +56,6 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.ConnectionGroupIterator;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
@@ -72,6 +70,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	 */
 	private boolean doDetailedLog = true;
 
+	private int count = 0;
+
 	public DoBoundResourceAnalysisLogic(final String actionName, final AbstractAaxlAction errManager) {
 		super(errManager);
 		this.actionName = actionName;
@@ -84,33 +84,35 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			final SOMIterator soms = new SOMIterator(root);
 			while (soms.hasNext()) {
 				final SystemOperationMode som = soms.nextSOM();
-				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Analyze mode " + som.getName());
 
-//				final String somName = Aadl2Util.getPrintableSOMName(som);
-
-				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check Processor");
-				errManager.infoSummaryReportOnly(root, som, "Processor Report");
 				checkProcessorLoads(root, som);
 
-				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check Virtual Processor");
-				errManager.infoSummaryReportOnly(root, som, "\nVirtual Processor Report");
 				checkVirtualProcessorLoads(root, som);
 
-				OsateDebug.osateDebug("[DoBoundResourceAnalysisLogic] Check RAM/ROM");
-				errManager.infoSummaryReportOnly(root, som, "\nRAM/ROM Report");
 				checkMemoryLoads(root, som);
 			}
 			monitor.done();
 
-//			if (root.getSystemOperationModes().size() == 1) {
-//				// Also report the results using a message dialog
-//				Dialog.showInfo("Resource Budget Statistics", errManager.getResultsMessages());
-//			}
 		} else
 			Dialog.showError("Bound Resource Analysis Error", "Can only check system instances");
 	}
 
 	protected void checkProcessorLoads(SystemInstance si, final SystemOperationMode som) {
+		count = 0;
+		ForAllElement countme = new ForAllElement() {
+			@Override
+			protected void process(Element obj) {
+				count = count + 1;
+			}
+		};
+		countme.processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
+		if (count > 0) {
+			errManager.infoSummaryReportOnly(si, null,
+					"\nProcessor Summary Report: " + Aadl2Util.getPrintableSOMName(som));
+		} else {
+			errManager.infoSummaryReportOnly(si, null,
+					"\nProcessor Summary Report: " + Aadl2Util.getPrintableSOMName(som) + "\n  ** No processors");
+		}
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
@@ -121,6 +123,18 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	}
 
 	protected void checkVirtualProcessorLoads(SystemInstance si, final SystemOperationMode som) {
+		count = 0;
+		ForAllElement countme = new ForAllElement() {
+			@Override
+			protected void process(Element obj) {
+				count = count + 1;
+			}
+		};
+		countme.processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
+		if (count > 0) {
+			errManager.infoSummaryReportOnly(si, null,
+					"\nVirtual Processor Summary Report: " + Aadl2Util.getPrintableSOMName(som));
+		}
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
@@ -137,23 +151,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	 * @param curProcessor Component Instance of processor
 	 */
 	protected void checkProcessorLoad(ComponentInstance curProcessor, final SystemOperationMode som) {
-		boolean isCPUActive;
 
-		if (curProcessor.getSubcomponent().getAllInModes().size() == 0) {
-			isCPUActive = true;
-		} else {
-			isCPUActive = false;
-
-			for (Mode mi : curProcessor.getSubcomponent().getAllInModes()) {
-				// OsateDebug.osateDebug("somName=" + somName + " mi=" + mi);
-				if (som.getName().equalsIgnoreCase(mi.getName())) {
-					// OsateDebug.osateDebug("cpu " + curProcessor.getName() + "is active for mode" + somName);
-					isCPUActive = true;
-				}
-			}
-		}
-
-		if (isCPUActive == false) {
+		if (!curProcessor.isActive(som)) {
 			return;
 		}
 
@@ -162,13 +161,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		if (MIPScapacity == 0 && InstanceModelUtil.isVirtualProcessor(curProcessor)) {
 			MIPScapacity = GetProperties.getMIPSBudgetInMIPS(curProcessor);
 		}
-		long timeBefore = System.currentTimeMillis();
-		OsateDebug.osateDebug("[CPU] before get sw comps (CPU=" + curProcessor.getName() + ",cat="
-				+ curProcessor.getComponentClassifier().getCategory().getName() + ")");
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curProcessor);
-		long timeAfter = System.currentTimeMillis();
-		long period = timeAfter - timeBefore;
-		OsateDebug.osateDebug("[CPU] after get sw comps, time taken=" + period + "ms");
 
 		if (boundComponents.size() == 0 && MIPScapacity > 0) {
 			errManager.infoSummary(curProcessor, som.getName(),
@@ -186,58 +179,61 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 					+ " has no MIPS capacity but has bound components.");
 		}
 		if (InstanceModelUtil.isVirtualProcessor(curProcessor)) {
-			logHeader("\n\nDetailed Workload Report for Virtual Processor " + curProcessor.getComponentInstancePath()
-					+ " with Capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral)
-					+ "\n\nComponent,Budget,Actual");
+			logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for Virtual Processor "
+					+ curProcessor.getComponentInstancePath() + " with Capacity "
+					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + "\n\nComponent,Budget,Actual");
 		} else {
-			logHeader("\n\nDetailed Workload Report for Processor " + curProcessor.getComponentInstancePath()
-					+ " with Capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral)
-					+ "\n\nComponent,Budget,Actual");
+			logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for Processor "
+					+ curProcessor.getComponentInstancePath() + " with Capacity "
+					+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + "\n\nComponent,Budget,Actual");
 		}
 		double totalMIPS = 0.0;
 		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
 			ComponentInstance bci = (ComponentInstance) it.next();
-			boolean isComponentActive;
 
-			if ((som == null) || (bci.getSubcomponent().getAllInModes().size() == 0)) {
-				isComponentActive = true;
-			} else {
-				isComponentActive = false;
-				for (Mode mi : bci.getSubcomponent().getAllInModes()) {
-					// OsateDebug.osateDebug("somName=" + somName + " mi=" + mi);
-					if (som.getName().equalsIgnoreCase(mi.getName())) {
-						// OsateDebug.osateDebug("cpu " + curProcessor.getName() + "is active for mode" + somName);
-						isComponentActive = true;
-					}
-				}
+			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, som, "");
+			if (actualmips > 0) {
+				totalMIPS += actualmips;
 			}
-
-			if (isComponentActive == true) {
-				double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, som, "");
-				if (actualmips > 0) {
-					totalMIPS += actualmips;
-				}
-			}
-
 		}
 		logHeader("Total,," + GetProperties.toStringScaled(totalMIPS, mipsliteral));
 		if (totalMIPS > MIPScapacity) {
-			errManager.errorSummary(curProcessor, som.getName(),
-					"Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral)
+			errManager.errorSummary(curProcessor, null,
+					"  Processor " + curProcessor.getComponentInstancePath() + ": Total MIPS "
+							+ GetProperties.toStringScaled(totalMIPS, mipsliteral)
 							+ " of bound tasks exceeds MIPS capacity "
-							+ GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of "
-							+ curProcessor.getComponentInstancePath());
+							+ GetProperties.toStringScaled(MIPScapacity, mipsliteral));
 		} else if (totalMIPS == 0.0) {
-			errManager.warningSummary(curProcessor, som.getName(), "Bound app's have no MIPS budget.");
+			errManager.warningSummary(curProcessor, null,
+					"  Processor " + curProcessor.getComponentInstancePath() + ": Bound app's have no MIPS budget.");
 		} else {
-			errManager.infoSummary(curProcessor, som.getName(),
-					"Total MIPS " + GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks within "
+			errManager.infoSummary(curProcessor, null,
+					"  Processor " + curProcessor.getComponentInstancePath() + ": Total MIPS "
+							+ GetProperties.toStringScaled(totalMIPS, mipsliteral) + " of bound tasks within "
 							+ "MIPS capacity " + GetProperties.toStringScaled(MIPScapacity, mipsliteral) + " of "
 							+ curProcessor.getComponentInstancePath());
 		}
 	}
 
 	protected void checkMemoryLoads(SystemInstance si, final SystemOperationMode som) {
+		count = 0;
+		ForAllElement countme = new ForAllElement() {
+			@Override
+			protected void process(Element obj) {
+				if (GetProperties.getROMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
+						|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0) {
+					count = count + 1;
+				}
+			}
+		};
+		countme.processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
+		if (count > 0) {
+			errManager.infoSummaryReportOnly(si, null,
+					"\nRAM/ROM Summary Report: " + Aadl2Util.getPrintableSOMName(som));
+		} else {
+			errManager.infoSummaryReportOnly(si, null, "\nRAM/ROM Summary Report: " + Aadl2Util.getPrintableSOMName(som)
+					+ "\n  No Memory with RAM or ROM capacity");
+		}
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
@@ -255,21 +251,14 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	 */
 	protected void checkMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som) {
 		SystemInstance root = curMemory.getSystemInstance();
-		final ComponentInstance currentMemory = curMemory;
-		final String somName = som.getName();
 
-		long timeBefore = System.currentTimeMillis();
-		OsateDebug.osateDebug("[Memory] before get sw comps (memory=" + curMemory.getName() + ")");
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curMemory);
-		long timeAfter = System.currentTimeMillis();
-		long period = timeAfter - timeBefore;
-		OsateDebug.osateDebug("[CPU] after get sw comps, time taken=" + period + "ms");
 
 		if (GetProperties.getROMCapacityInKB(curMemory, 0.0) > 0.0) {
-			doMemoryLoad(curMemory, somName, boundComponents, true); // ROM
+			doMemoryLoad(curMemory, som, boundComponents, true); // ROM
 		}
 		if (GetProperties.getRAMCapacityInKB(curMemory, 0.0) > 0.0) {
-			doMemoryLoad(curMemory, somName, boundComponents, false); // RAM
+			doMemoryLoad(curMemory, som, boundComponents, false); // RAM
 		}
 	}
 
@@ -279,23 +268,26 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	 * 
 	 * @param curMemory Component Instance of memory
 	 */
-	protected void doMemoryLoad(ComponentInstance curMemory, String somName, EList boundComponents, boolean isROM) {
+	protected void doMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som, EList boundComponents,
+			boolean isROM) {
 		double totalMemory = 0.0;
+		String somName = null;
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		String resourceName = isROM ? "ROM" : "RAM";
 		double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0)
 				: GetProperties.getRAMCapacityInKB(curMemory, 0.0);
 		if (boundComponents.size() == 0 && Memorycapacity > 0) {
 			errManager.infoSummary(curMemory, somName,
-					"No application components bound to " + curMemory.getComponentInstancePath() + " with "
+					"  No application components bound to " + curMemory.getComponentInstancePath() + " with "
 							+ resourceName + " capacity " + GetProperties.toStringScaled(Memorycapacity, kbliteral));
 			return;
 		}
 		if (Memorycapacity == 0) {
-			errManager.errorSummary(curMemory, somName, "Memory " + curMemory.getComponentInstancePath() + " has no "
+			errManager.errorSummary(curMemory, somName, "  Memory " + curMemory.getComponentInstancePath() + " has no "
 					+ resourceName + " capacity but has bound components.");
 		}
-		logHeader("\n\nDetailed Workload Report for memory " + curMemory.getComponentInstancePath() + " with Capacity "
+		logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for memory "
+				+ curMemory.getComponentInstancePath() + " with Capacity "
 				+ GetProperties.toStringScaled(Memorycapacity, kbliteral) + "\n\nComponent,Budget,Actual");
 		Set budgeted = new HashSet();
 		for (Iterator it = boundComponents.iterator(); it.hasNext();) {
@@ -318,7 +310,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 				if (budget > 0 && !budgeted.contains(bci)) {
 					// only add it if no children budget numbers have been added
 					totalMemory += budget;
-					detailedLog(bci, budget, kbliteral);
+					detailedLogTotal2(bci, budget, kbliteral);
 					// add ancestors to budgeted list so their budget does not get added later
 					while ((bci = bci.getContainingComponentInstance()) != null) {
 						budgeted.add(bci);
@@ -328,23 +320,23 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 				// add only the current actual; the children actual have been added before
 				double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0)
 						: GetProperties.getRAMActualInKB(bci, 0.0);
-				detailedLog(bci, budget, kbliteral);
+				detailedLogTotal2(bci, budget, kbliteral);
 				totalMemory += currentActual;
 			}
 		}
 		if (Memorycapacity == 0)
-			errManager.errorSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
+			errManager.errorSummary(curMemory, somName, "  " + (isROM ? "ROM" : "RAM") + " memory "
 					+ curMemory.getComponentInstancePath() + " has no memory capacity specified");
 		if (totalMemory > Memorycapacity) {
 			errManager.errorSummary(curMemory, somName,
-					"Total Memory " + totalMemory + " KB of bounds tasks exceeds Memory capacity " + Memorycapacity
+					"  Total Memory " + totalMemory + " KB of bounds tasks exceeds Memory capacity " + Memorycapacity
 							+ " KB of " + curMemory.getComponentInstancePath());
 		} else if (totalMemory == 0.0 && Memorycapacity == 0.0) {
-			errManager.warningSummary(curMemory, somName, "" + (isROM ? "ROM" : "RAM") + " memory "
+			errManager.warningSummary(curMemory, somName, "  " + (isROM ? "ROM" : "RAM") + " memory "
 					+ curMemory.getComponentInstancePath() + " has no capacity. Bound app's have no memory budget.");
 		} else {
 			errManager.infoSummary(curMemory, somName,
-					"Total " + (isROM ? "ROM" : "RAM") + " memory " + totalMemory
+					"  Total " + (isROM ? "ROM" : "RAM") + " memory " + totalMemory
 							+ " KB of bound tasks within Memory capacity " + Memorycapacity + " KB of "
 							+ curMemory.getComponentInstancePath());
 		}
@@ -374,6 +366,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	}
 
 	protected void checkBusLoads(SystemInstance si, final SystemOperationMode som) {
+		errManager.infoSummaryReportOnly(si, null, "\nBus Summary Report: " + Aadl2Util.getPrintableSOMName(som));
 		ForAllElement mal = new ForAllElement() {
 			@Override
 			protected void process(Element obj) {
@@ -407,26 +400,18 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			if ((connectionInstance.getSource().getContainingComponentInstance() != null)
 					&& (!connectionInstance.getSource().getContainingComponentInstance().isActive(som))) {
 
-				OsateDebug.osateDebug("[DoBoundResourceAnalysis] source not active in mode=" + som);
 				continue;
 			}
 
 			if ((connectionInstance.getDestination().getContainingComponentInstance() != null)
 					&& (!connectionInstance.getDestination().getContainingComponentInstance().isActive(som))) {
-				OsateDebug.osateDebug("[DoBoundResourceAnalysis] destination not active in mode=" + som);
 
 				continue;
 			}
 
-			OsateDebug.osateDebug("[DoBoundResourceAnalysis] source="
-					+ connectionInstance.getSource().getContainingComponentInstance());
-
 			double budget = GetProperties.getBandWidthBudgetInKbps(connectionInstance, 0.0);
 			double actual = calcBandwidthKBytesps(connectionInstance.getSource());
 			String note = "";
-			OsateDebug.osateDebug("[DoBoundResourceAnalysis] total=" + totalBandWidth);
-			OsateDebug.osateDebug("[DoBoundResourceAnalysis] actual=" + actual);
-			OsateDebug.osateDebug("[DoBoundResourceAnalysis] budget=" + budget);
 			if (budget > 0) {
 				if ((actual > 0) && (actual > budget)) {
 					totalBandWidth += actual;
@@ -447,7 +432,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			detailedLog(connectionInstance, budget, actual, note);
 
 		}
-		OsateDebug.osateDebug("[DoBoundResourceAnalysis] res=" + totalBandWidth);
 		return totalBandWidth;
 	}
 
@@ -470,41 +454,22 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		// filters out to use only Port connections or feature group connections
 		// it also tries to be smart about not double accounting for budgets on FG that now show for every port instance inside.
 
-		/*
-		 * ConnectionGroupIterator cgi = new ConnectionGroupIterator(connections);
-		 * while (cgi.hasNext())
-		 * {
-		 * ConnectionInstance obj = cgi.next();
-		 * if (obj != null)
-		 * {
-		 * if (InstanceModelUtil.isBoundToBus(obj, curBus)||
-		 * // we derived a bus connection from the connection end bindings
-		 * (!InstanceModelUtil.hasBusBinding(obj)&&InstanceModelUtil.connectedByBus(obj, curBus)) )
-		 * {
-		 * if ((obj.getSource().isActive(som)) && (obj.getDestination().isActive(som)))
-		 * {
-		 * budgetedConnections.add(obj);
-		 * }
-		 * }
-		 * }
-		 * }
-		 */
 		if (doBroadcast) {
 			budgetedConnections = filterSameSourceConnections(budgetedConnections);
 		}
 		if (Buscapacity == 0) {
 			if (!budgetedConnections.isEmpty()) {
-				errManager.errorSummary(curBus, som.getName(),
+				errManager.errorSummary(curBus, null,
 						curBus.getComponentInstancePath() + " has no capacity but bound connections");
 			} else {
-				errManager.warningSummary(curBus, som.getName(),
+				errManager.warningSummary(curBus, null,
 						curBus.getComponentInstancePath() + " has no capacity and no demand");
 			}
 			return;
 		}
 		if (budgetedConnections.isEmpty()) {
-			errManager.infoSummary(curBus, som.getName(), curBus.getComponentInstancePath()
-					+ " with bandwidth capacity " + Buscapacity + "KBytesps has no bound connections");
+			errManager.infoSummary(curBus, null, curBus.getComponentInstancePath() + " with bandwidth capacity "
+					+ Buscapacity + "KBytesps has no bound connections");
 			return;
 		}
 		if (Aadl2Util.isNoModes(som)) {
@@ -547,7 +512,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			}
 			detailedLog(connectionInstance, budget, actual, note);
 		}
-		detailedLog(null, totalBandWidth, kbspsliteral);
+		detailedLogTotal2(null, totalBandWidth, kbspsliteral);
 		if (totalBandWidth > Buscapacity) {
 			errManager.errorSummary(curBus, som.getName(),
 					curBus.getComponentInstancePath() + " bandwidth capacity " + Buscapacity
@@ -662,4 +627,16 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		return false;
 
 	}
+
+	protected EList<ConnectionInstance> filterInModeConnections(EList<ConnectionInstance> connections,
+			SystemOperationMode som) {
+		EList<ConnectionInstance> result = new BasicEList<ConnectionInstance>();
+		for (ConnectionInstance conni : connections) {
+			if (conni.isActive(som)) {
+				result.add(conni);
+			}
+		}
+		return result;
+	}
+
 }

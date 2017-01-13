@@ -45,6 +45,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
@@ -106,9 +107,10 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 //			actionBody(monitor, si);
 
 			logic = new DoResourceBudgetLogic(this);
-
-			logic.analyzeResourceBudget(si, null);
-
+			final SOMIterator soms = new SOMIterator(si);
+			while (soms.hasNext()) {
+				logic.analyzeResourceBudget(si, soms.next());
+			}
 			monitor.done();
 
 //			if (si.getSystemOperationModes().size() == 1) {
