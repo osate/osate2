@@ -76,9 +76,9 @@ property set AADL_Project is
 	
 	Time_Units: type units (ps, ns => ps * 1000, us => ns * 1000, ms => us * 1000, sec => ms * 1000, min => sec * 60, hr => min * 60);
 
-	Data_Rate_Units: type units (bitsps, Bytesps => bitsps * 8, Kbitsps => Bytesps * 125,KBytesps => Kbitsps * 8, Mbitsps => KBytesps * 125,MBytesps => Mbitsps * 8, Gbitsps => MBytesps * 125,GBytesps => Gbitsps * 8);
+	Data_Rate_Units: type	units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
 
-	Data_Volume_Units: type units (bitsps, Bytesps => bitsps * 8, Kbitsps => Bytesps * 125,KBytesps => Kbitsps * 8, Mbitsps => KBytesps * 125,MBytesps => Mbitsps * 8, Gbitsps => MBytesps * 125,GBytesps => Gbitsps * 8);
+	Data_Volume_Units: type	units (bitsps, Bytesps => bitsps * 8, KBytesps => Bytesps * 1000, MBytesps => KBytesps * 1000, GBytesps => MBytesps * 1000);
 	Max_Volume: constant Data_Volume => 1000 GBytesps;
 
 	Data_Volume: type aadlinteger 0 bitsps .. Max_Volume units Data_Volume_Units;
