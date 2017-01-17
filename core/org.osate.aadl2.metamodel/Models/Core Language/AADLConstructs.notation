@@ -6793,7 +6793,7 @@
       <children xmi:type="notation:BasicCompartment" xmi:id="_6VbQc8nmEeW9N7cxkaeotw" visible="false" type="Class_NestedClassifierCompartment"/>
       <children xmi:type="notation:DecorationNode" xmi:id="_6ejXTcnmEeW9N7cxkaeotw" type="Class_NameLabel"/>
       <element xmi:type="uml:Class" href="AADLConstructs.uml#Components-ComponentImplementation"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6VbQdMnmEeW9N7cxkaeotw" x="11" y="12" width="185" height="30"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6VbQdMnmEeW9N7cxkaeotw" x="11" y="12" width="204" height="30"/>
     </children>
     <styles xmi:type="notation:StringValueStyle" xmi:id="_lDMlALsBEeaLdqiwwK0oFA" name="diagram_compatibility_version" stringValue="1.2.0"/>
     <element xmi:type="uml:Package" href="AADLConstructs.uml#Connections"/>
