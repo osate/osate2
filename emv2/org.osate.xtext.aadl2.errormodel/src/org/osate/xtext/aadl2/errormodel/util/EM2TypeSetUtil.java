@@ -102,7 +102,23 @@ public class EM2TypeSetUtil {
 			return contains((ErrorType) constraint, type);
 		}
 		if (constraint instanceof TypeSet) {
-			return contains((TypeSet) constraint, type);
+			ErrorModelLibrary el = EMV2Util.getContainingErrorModelLibrary(type);
+			EList<ErrorType> subtypes = null;
+			if (el != null) {
+				subtypes = getAllLeafSubTypes(type, el);
+			} else {
+				subtypes = getAllLeafSubTypes(type, EMV2Util.getUseTypes(type));
+			}
+			if (subtypes.isEmpty()) {
+				return contains((TypeSet) constraint, type);
+			} else {
+				for (ErrorType st : subtypes) {
+					if (!contains((TypeSet) constraint, st)) {
+						return false;
+					}
+				}
+				return true;
+			}
 		}
 		return false;
 	}
@@ -296,8 +312,13 @@ public class EM2TypeSetUtil {
 		if (!token.isNoError() && isNoError(ts)) {
 			return true;
 		}
-		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (contains(tselement, token)) {
+//		for (TypeToken tselement : ts.getTypeTokens()) {
+//			if (contains(tselement, token)) {
+//				return true;
+//			}
+//		}
+		for (ErrorTypes tp : token.getType()) {
+			if (contains(ts, tp)) {
 				return true;
 			}
 		}
@@ -595,6 +616,23 @@ public class EM2TypeSetUtil {
 				if (set.getSuperType() != null) {
 					removeMe.add(set.getSuperType());
 				}
+			}
+		}
+		result.removeAll(removeMe);
+		return result;
+	}
+
+	public static EList<ErrorType> getAllLeafSubTypes(ErrorType et, ErrorModelLibrary el) {
+		EList<ErrorType> result = new UniqueEList<ErrorType>();
+		EList<ErrorType> removeMe = new UniqueEList<ErrorType>();
+		Iterable<ErrorType> typeslist = ErrorModelUtil.getAllErrorTypes(el);
+		for (ErrorType errorType : typeslist) {
+			ErrorType set = EMV2Util.resolveAlias(errorType);
+			if (contains(et, set) && (et != set)) {
+				result.add(set);
+			}
+			if (set.getSuperType() != null) {
+				removeMe.add(set.getSuperType());
 			}
 		}
 		result.removeAll(removeMe);

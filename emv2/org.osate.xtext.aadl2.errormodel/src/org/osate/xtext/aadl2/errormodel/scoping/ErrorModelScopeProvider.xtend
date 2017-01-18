@@ -426,18 +426,17 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 			//Subsequent elements in chain
 			EMV2PathElement case !parent.namedElement.eIsProxy: {
 				switch previous : parent.namedElement {
-					ErrorSource: previous.typeTokenConstraint?.typeTokens?.filter[type.size == 1]?.map[type.head]?.filter(ErrorType)?.scopeFor ?: IScope.NULLSCOPE
-					ErrorSink: previous.typeTokenConstraint?.typeTokens?.filter[type.size == 1]?.map[type.head]?.filter(ErrorType)?.scopeFor ?: IScope.NULLSCOPE
-					ConnectionErrorSource: previous.typeTokenConstraint?.typeTokens?.filter[type.size == 1]?.map[type.head]?.filter(ErrorType)?.scopeFor ?: IScope.NULLSCOPE
-					ErrorBehaviorState: previous.typeSet?.typeTokens?.filter[type.size == 1]?.map[type.head]?.filter(ErrorType)?.scopeFor ?: IScope.NULLSCOPE
+					ErrorSource,
+					ErrorSink,
+					ConnectionErrorSource,
+					ErrorBehaviorState,
 					/*
 					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path ->
 					 * 		EMV2PathElementOrKind -> EMV2PathElement
 					 */
 					ErrorEvent case
 						parent.eContainer instanceof EMV2Path &&
-						parent.eContainer.eContainer.eContainer instanceof ErrorModelSubclause:
-							previous.typeSet?.typeTokens?.filter[type.size == 1]?.map[type.head]?.filter(ErrorType)?.scopeFor ?: IScope.NULLSCOPE
+						parent.eContainer.eContainer.eContainer instanceof ErrorModelSubclause,
 					/*
 					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path ->
 					 * 		EMV2PathElementOrKind -> EMV2PathElement
@@ -445,9 +444,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 					ErrorPropagation case
 						parent.getContainerOfType(EMV2Path) != null &&
 						parent.getContainerOfType(ErrorModelSubclause) != null: {
-							val name = previous.propagationName
-							val propagations = previous.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[propagationName == name]
-							propagations.map[typeSet.typeTokens].flatten.filter[type.size == 1].map[type.head].filter(ErrorType).scopeFor
+							scopeForErrorTypes(context, EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes])
 						}
 					Subcomponent: {
 						val classifier = previous.allClassifier
