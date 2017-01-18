@@ -65,6 +65,21 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				!(context.getPictogramElement() instanceof Diagram) && 
 				extService.getApplicableBusinessObjectHandler(bo) != null;
 	}
+	
+	public static class LayoutMetrics {
+		int innerWidth = 10;
+		int innerHeight = 10;
+		int leftOuterPadding = 0;
+		int rightOuterPadding = 0;
+		int topOuterPadding = 0;
+		int bottomOuterPadding = 0;
+		
+		// The minimum inner width and height are the minimum size for the graphics algorithm for the inner area.
+		// In the case of fixed size graphics algorithms such as features, the actual size of the inner graphics algorithm's symbol will be less than
+		// the minimum after creation. In that case, these values are used to adjust the bounds of the inner graphics algorithm after creation.
+		int minInnerWidth = 0;
+		int minInnerHeight = 0;
+	}
 
 	@Override
 	public boolean layout(final ILayoutContext context) {
@@ -92,13 +107,9 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 
 			// Determine the space needed for each area
 			final int dockedShapeOffset = AgeGraphitiGraphicsUtil.featureGroupDefaultSymbolWidth; // For now, only graphics which represent feature groups may have shape docked at the GROUP dock area.
-			int innerWidth = 10;
-			int innerHeight = 10;
-			int leftOuterPadding = 0;
-			int rightOuterPadding = 0;
-			int topOuterPadding = 0;
-			int bottomOuterPadding = 0;
-
+			
+			final LayoutMetrics lm = new LayoutMetrics();
+			
 			final Shape nameShape = shapeService.getChildShapeByName(shape, BoHandlerFeatureHelper.nameShapeName);
 			final GraphicsAlgorithm nameGa = nameShape == null ? null : nameShape.getGraphicsAlgorithm();
 			final DockArea shapeDockArea = getNonGroupDockArea(shape);
@@ -107,57 +118,13 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			LabelPosition nameHorizontalPosition = getHorizontalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 			LabelPosition nameVerticalPosition = getVerticalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 			
-			// The minimum inner width and height are the minimum size for the graphics algorithm for the inner area.
-			// In the case of fixed size graphics algorithms such as features, the actual size of the inner graphics algorithm's symbol will be less than
-			// the minimum after creation. In that case, these values are used to adjust the bounds of the inner graphics algorithm after creation.
-			int minInnerWidth = 0;
-			int minInnerHeight = 0;
-			
-			// Handle label configuration
-			if(nameGa != null) {
-				switch(nameHorizontalPosition) {
-				case BEFORE_GRAPHIC:
-					leftOuterPadding = Math.max(leftOuterPadding, nameGa.getWidth());
-					break;	
-
-				case DEFAULT:
-				case GRAPHIC_BEGINNING:
-				case GRAPHIC_CENTER:
-				case GRAPHIC_END:
-				default:
-					minInnerWidth = Math.max(minInnerWidth, nameGa.getWidth() + labelPadding); // Add additional padding to avoid label background from overlapping shape border for simple shapes
-					break;
-
-				case AFTER_GRAPHIC:
-					rightOuterPadding = Math.max(rightOuterPadding, nameGa.getWidth());
-					break;			
-				}					
-				
-				// Set Y value based on the label configuration
-				switch(nameVerticalPosition) {
-				case BEFORE_GRAPHIC:
-					topOuterPadding = Math.max(topOuterPadding, nameGa.getHeight());
-					break;	
-					
-				case DEFAULT:					
-				case GRAPHIC_BEGINNING:
-				case GRAPHIC_CENTER:
-				case GRAPHIC_END:
-				default:
-					minInnerHeight = Math.max(minInnerHeight, nameGa.getHeight() + labelPadding);
-					break;
-					
-				case AFTER_GRAPHIC:
-					bottomOuterPadding = Math.max(bottomOuterPadding, nameGa.getHeight());
-					break;			
-				}
-			}
+			updateLayoutMetricsForLabelPositions(lm, nameGa, nameHorizontalPosition, nameVerticalPosition);
 					
 			// Shrink features to the smallest required size
 			if(!(gr instanceof FeatureGraphic)) {
 				// Adjust inner width and height based on padding and current size
-				innerWidth = Math.max(innerWidth, shapeGa.getWidth() - leftOuterPadding - rightOuterPadding);
-				innerHeight = Math.max(innerHeight, shapeGa.getHeight() - topOuterPadding - bottomOuterPadding);
+				lm.innerWidth = Math.max(lm.innerWidth, shapeGa.getWidth() - lm.leftOuterPadding - lm.rightOuterPadding);
+				lm.innerHeight = Math.max(lm.innerHeight, shapeGa.getHeight() - lm.topOuterPadding - lm.bottomOuterPadding);
 			}
 			
 			// Prevent children from being positioned outside of the inner area
@@ -165,12 +132,12 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				if(!propertyService.isManuallyPositioned(childShape)) {
 					final GraphicsAlgorithm childGa = childShape.getGraphicsAlgorithm();
 					if(childGa != null) {
-						if(childGa.getX() < leftOuterPadding) {
-							childGa.setX(leftOuterPadding);
+						if(childGa.getX() < lm.leftOuterPadding) {
+							childGa.setX(lm.leftOuterPadding);
 						}
 						
-						if(childGa.getY() < topOuterPadding) {
-							childGa.setY(topOuterPadding);
+						if(childGa.getY() < lm.topOuterPadding) {
+							childGa.setY(lm.topOuterPadding);
 						}
 					}
 				}
@@ -189,12 +156,12 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 						switch(shapeDockArea) {
 						case LEFT:
 						case RIGHT:
-							minInnerWidth = Math.max(minInnerWidth, childShape.getGraphicsAlgorithm().getWidth() + dockedShapeOffset);
+							lm.minInnerWidth = Math.max(lm.minInnerWidth, childShape.getGraphicsAlgorithm().getWidth() + dockedShapeOffset);
 							break;
 							
 						case TOP:
 						case BOTTOM:
-							minInnerHeight = Math.max(minInnerHeight, childShape.getGraphicsAlgorithm().getHeight() + dockedShapeOffset);
+							lm.minInnerHeight = Math.max(lm.minInnerHeight, childShape.getGraphicsAlgorithm().getHeight() + dockedShapeOffset);
 							break;
 							
 						default:
@@ -203,13 +170,13 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 					}
 				}
 			}
-			innerWidth = Math.max(innerWidth, minInnerWidth);
-			innerHeight = Math.max(innerHeight, minInnerHeight);
+			lm.innerWidth = Math.max(lm.innerWidth, lm.minInnerWidth);
+			lm.innerHeight = Math.max(lm.innerHeight, lm.minInnerHeight);
 			
 			// Consider children when determining size
-			final int[] minSizeForChildren = getMinimumSizeForChildren(shape, leftOuterPadding, topOuterPadding);
-			innerWidth = Math.max(innerWidth, minSizeForChildren[0]);
-			innerHeight = Math.max(innerHeight, minSizeForChildren[1]);
+			final int[] minSizeForChildren = getMinimumSizeForChildren(shape, lm.leftOuterPadding, lm.topOuterPadding);
+			lm.innerWidth = Math.max(lm.innerWidth, minSizeForChildren[0]);
+			lm.innerHeight = Math.max(lm.innerHeight, minSizeForChildren[1]);
 
 			// Create the graphics algorithm					
 			shapeGa.getGraphicsAlgorithmChildren().clear();
@@ -218,9 +185,9 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			final GraphicsAlgorithm innerGa;
 			// Adjust the size of the graphics algorithm based on the rotation implied by the dock area
 			if(shapeDockArea == DockArea.TOP || shapeDockArea == DockArea.BOTTOM) {
-				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerHeight, innerWidth, filled);	
+				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, lm.innerHeight, lm.innerWidth, filled);	
 			} else {
-				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, innerWidth, innerHeight, filled);
+				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, lm.innerWidth, lm.innerHeight, filled);
 			}
 
 			// Rotate shape
@@ -229,24 +196,24 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			}
 
 			// Update variables using actual size of inner graphics algorithm
-			innerWidth = Math.max(innerGa.getWidth(), minInnerWidth);
-			innerHeight = Math.max(innerGa.getHeight(), minInnerHeight);
+			lm.innerWidth = Math.max(innerGa.getWidth(), lm.minInnerWidth);
+			lm.innerHeight = Math.max(innerGa.getHeight(), lm.minInnerHeight);
 
 			// Update the shape's graphics algorithm based on required size
-			final int innerRight = leftOuterPadding + innerWidth;
-			final int innerBottom = topOuterPadding + innerHeight;
-			shapeGa.setWidth(innerRight + rightOuterPadding);
-			shapeGa.setHeight(innerBottom + bottomOuterPadding);			
+			final int innerRight = lm.leftOuterPadding + lm.innerWidth;
+			final int innerBottom = lm.topOuterPadding + lm.innerHeight;
+			shapeGa.setWidth(innerRight + lm.rightOuterPadding);
+			shapeGa.setHeight(innerBottom + lm.bottomOuterPadding);			
 
 			// Position docked shapes
 			for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {
 				for(final Shape childShape : dockAreaToShapesEntry.getValue()) {
 					if(dockAreaToShapesEntry.getKey() == DockArea.LEFT) {
-						childShape.getGraphicsAlgorithm().setX(leftOuterPadding);
+						childShape.getGraphicsAlgorithm().setX(lm.leftOuterPadding);
 					} else if(dockAreaToShapesEntry.getKey() == DockArea.RIGHT) {
 						childShape.getGraphicsAlgorithm().setX(innerRight-childShape.getGraphicsAlgorithm().getWidth());
 					} else if(dockAreaToShapesEntry.getKey() == DockArea.TOP) {
-						childShape.getGraphicsAlgorithm().setY(topOuterPadding);
+						childShape.getGraphicsAlgorithm().setY(lm.topOuterPadding);
 					} else if(dockAreaToShapesEntry.getKey() == DockArea.BOTTOM) {
 						childShape.getGraphicsAlgorithm().setY(innerBottom-childShape.getGraphicsAlgorithm().getHeight());
 					} else if(dockAreaToShapesEntry.getKey() == DockArea.GROUP) {
@@ -258,7 +225,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 							break;
 							
 						case RIGHT:
-							childGa.setX(innerWidth - dockedShapeOffset - childGa.getWidth());
+							childGa.setX(lm.innerWidth - dockedShapeOffset - childGa.getWidth());
 							break;
 
 						case TOP:
@@ -277,13 +244,13 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			// Position the inner graphics algorithm
 			if(shapeDockArea == DockArea.RIGHT) {
 				innerGa.setX(innerRight-innerGa.getWidth());
-				innerGa.setY(topOuterPadding);
+				innerGa.setY(lm.topOuterPadding);
 			} else if(shapeDockArea == DockArea.BOTTOM) {
-				innerGa.setX(leftOuterPadding);
+				innerGa.setX(lm.leftOuterPadding);
 				innerGa.setY(innerBottom-innerGa.getHeight());
 			} else {
-				innerGa.setX(leftOuterPadding);
-				innerGa.setY(topOuterPadding);
+				innerGa.setX(lm.leftOuterPadding);
+				innerGa.setY(lm.topOuterPadding);
 			}
 			
 			if(nameGa != null) {
@@ -296,11 +263,11 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case DEFAULT:
 				case GRAPHIC_BEGINNING:
 				default:
-					nameGa.setX(leftOuterPadding);
+					nameGa.setX(lm.leftOuterPadding);
 					break;
 					
 				case GRAPHIC_CENTER:
-					nameGa.setX(leftOuterPadding + (innerWidth - nameGa.getWidth())/2);
+					nameGa.setX(lm.leftOuterPadding + (lm.innerWidth - nameGa.getWidth())/2);
 					break;
 					
 				case GRAPHIC_END:						
@@ -321,11 +288,11 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				case DEFAULT:
 				case GRAPHIC_BEGINNING:
 				default:
-					nameGa.setY(topOuterPadding + labelPadding);
+					nameGa.setY(lm.topOuterPadding + labelPadding);
 					break;
 					
 				case GRAPHIC_CENTER:
-					nameGa.setY(topOuterPadding + (innerHeight - nameGa.getHeight())/2);
+					nameGa.setY(lm.topOuterPadding + (lm.innerHeight - nameGa.getHeight())/2);
 					break;
 					
 				case GRAPHIC_END:						
@@ -342,6 +309,48 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 		}		
 				
 		return false;
+	}
+	
+	private void updateLayoutMetricsForLabelPositions(final LayoutMetrics lm, final GraphicsAlgorithm nameGa, final LabelPosition nameHorizontalPosition, final LabelPosition nameVerticalPosition) {
+		// Handle label configuration
+		if(nameGa != null) {
+			switch(nameHorizontalPosition) {
+			case BEFORE_GRAPHIC:
+				lm.leftOuterPadding = Math.max(lm.leftOuterPadding, nameGa.getWidth());
+				break;	
+
+			case DEFAULT:
+			case GRAPHIC_BEGINNING:
+			case GRAPHIC_CENTER:
+			case GRAPHIC_END:
+			default:
+				lm.minInnerWidth = Math.max(lm.minInnerWidth, nameGa.getWidth() + labelPadding); // Add additional padding to avoid label background from overlapping shape border for simple shapes
+				break;
+
+			case AFTER_GRAPHIC:
+				lm.rightOuterPadding = Math.max(lm.rightOuterPadding, nameGa.getWidth());
+				break;			
+			}					
+			
+			// Set Y value based on the label configuration
+			switch(nameVerticalPosition) {
+			case BEFORE_GRAPHIC:
+				lm.topOuterPadding = Math.max(lm.topOuterPadding, nameGa.getHeight());
+				break;	
+				
+			case DEFAULT:					
+			case GRAPHIC_BEGINNING:
+			case GRAPHIC_CENTER:
+			case GRAPHIC_END:
+			default:
+				lm.minInnerHeight = Math.max(lm.minInnerHeight, nameGa.getHeight() + labelPadding);
+				break;
+				
+			case AFTER_GRAPHIC:
+				lm.bottomOuterPadding = Math.max(lm.bottomOuterPadding, nameGa.getHeight());
+				break;			
+			}
+		}
 	}
 	
 	// Determines the horizontal label position. Transforms the positions specified by the business object handler based on the dock area.
