@@ -38,7 +38,7 @@ public class AgeGraphitiGraphicsUtil {
 	private static final Map<Object, GraphicsAlgorithmCreator<?>> graphicToCreatorMap;
 	
 	@FunctionalInterface
-	interface GraphicsAlgorithmCreator<G> {
+	static interface GraphicsAlgorithmCreator<G> {
 		GraphicsAlgorithm createGraphicsAlgorithm(Diagram diagram, GraphicsAlgorithm containerGa, G graphic, int width, int height, boolean fillBackground);
 	}
 		
