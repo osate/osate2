@@ -12,6 +12,7 @@ import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -31,6 +32,11 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.decorations.Decoration;
+import org.osate.ge.internal.decorations.DelayedDecoration;
+import org.osate.ge.internal.decorations.DirectionDecoration;
+import org.osate.ge.internal.decorations.ImmediateDecoration;
+import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AgeConnection;
@@ -53,6 +59,11 @@ import org.osate.ge.internal.styles.StyleConstants;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 
 public class BoHandlerRefreshHelper {
+	private static final int directionDecorationWidth = 8;
+	private static final int connectionDecorationWidth = 2;
+	private static final int delayedDecorationWidth = 6;
+	private static final int immediateDecorationWidth = 10;
+	
 	private final ExtensionService extService;
 	private final GhostingService ghostingService;
 	private final LabelService labelService;
@@ -260,6 +271,12 @@ public class BoHandlerRefreshHelper {
 					    final AgeConnection ageConnection = (AgeConnection)gr;
 					    createDecorator(connection, ageConnection.getSourceTerminator(), 0.0);
 					    createDecorator(connection, ageConnection.getDestinationTerminator(), 1.0);
+					    
+					    // Create Graphiti decorators based on decorations
+					    final Decoration[] decorations = (Decoration[])ContextInjectionFactory.invoke(handler, GetDecorations.class, eclipseCtx, null);
+					    if(decorations != null) {
+					    	createConnectionDecorators(connection, decorations);
+					    }
 					}
 					
 					// Refresh Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of GraphicsAlgorithm
@@ -290,6 +307,77 @@ public class BoHandlerRefreshHelper {
 	
 		return pe;
 	}	
+	
+	private void createConnectionDecorators(final Connection connection, final Decoration[] decorations) {
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		
+		// Determine width of all the connection decorations
+		int totalDecorationsWidth = 0;
+		for(final Decoration decoration : decorations) {
+    		final Class<?> decorationClass = decoration.getClass();
+    		if(decorationClass == DelayedDecoration.class) {
+    			totalDecorationsWidth += delayedDecorationWidth + connectionDecorationWidth;
+    		} else if(decorationClass == ImmediateDecoration.class) {
+    			totalDecorationsWidth += immediateDecorationWidth + directionDecorationWidth + connectionDecorationWidth;
+    		} else if(decorationClass == DirectionDecoration.class) {
+    	        totalDecorationsWidth += directionDecorationWidth + connectionDecorationWidth;
+    		}
+    	}
+		
+		// Center decorations
+		int decoratorX = -totalDecorationsWidth/2;
+    	for(final Decoration decoration : decorations) {
+    		final Class<?> decorationClass = decoration.getClass();
+    		if(decorationClass == DelayedDecoration.class) {
+    			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
+    			createDelayedIndicator(timingDecorator1, connection.getParent(), decoratorX);
+    			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
+    			createDelayedIndicator(timingDecorator2, connection.getParent(), decoratorX + delayedDecorationWidth);
+    			decoratorX += delayedDecorationWidth + connectionDecorationWidth;
+    		} else if(decorationClass == ImmediateDecoration.class) {
+    			final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
+    			createDirectionIndicator(timingDecorator1, connection.getParent(), decoratorX);
+    			final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
+    			createDirectionIndicator(timingDecorator2, connection.getParent(), decoratorX + immediateDecorationWidth);
+    			decoratorX += immediateDecorationWidth + directionDecorationWidth + connectionDecorationWidth;
+    		} else if(decorationClass == DirectionDecoration.class) {
+    	        final ConnectionDecorator directionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.5, true);    
+    	        createDirectionIndicator(directionDecorator, connection.getParent(), decoratorX);
+     	        decoratorX += directionDecorationWidth + connectionDecorationWidth;
+    		}
+    	}
+	}
+
+	private GraphicsAlgorithm createDelayedIndicator(final GraphicsAlgorithmContainer gaContainer, final Diagram diagram, final int x) {
+	    final IGaService gaService = Graphiti.getGaService();
+		final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
+			x, -10, 
+			x, 10});
+		
+		ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        ga.setBackground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        ga.setLineStyle(LineStyle.SOLID);
+        ga.setLineVisible(true);
+        ga.setLineWidth(2);
+        
+		return ga;
+	}
+	
+	private GraphicsAlgorithm createDirectionIndicator(final GraphicsAlgorithmContainer gaContainer, final Diagram diagram, final int x) {
+	    final IGaService gaService = Graphiti.getGaService();
+	    final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
+	    		x+directionDecorationWidth, 6, 
+	    		x, 0, 
+	    		x+directionDecorationWidth, -6});
+	    
+	    ga.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        ga.setBackground(gaService.manageColor(diagram, IColorConstant.BLACK));
+        ga.setLineStyle(LineStyle.SOLID);
+        ga.setLineVisible(true);
+        ga.setLineWidth(2);
+        
+	    return ga;
+	}
 	
 	private void createDecorator(final Connection connection, final AgeConnectionTerminator terminator, final double position) {
 		if(terminator != null) {

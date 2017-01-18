@@ -25,7 +25,7 @@ public class PolygonBuilder {
 	
 	/**
 	 * Creates a polygon builder.
-	 * @return a new polygon builder
+	 * @return a polygon builder
 	 */
 	public static PolygonBuilder create() {
 		return new PolygonBuilder();

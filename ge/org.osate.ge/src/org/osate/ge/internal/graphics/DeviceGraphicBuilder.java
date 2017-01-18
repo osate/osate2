@@ -22,7 +22,7 @@ public class DeviceGraphicBuilder {
 	
 	/**
 	 * Creates a device graphic builder.
-	 * @return a new device graphic builder
+	 * @return a device graphic builder
 	 */
 	public static DeviceGraphicBuilder create() {
 		return new DeviceGraphicBuilder();

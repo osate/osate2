@@ -33,7 +33,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;

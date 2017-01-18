@@ -20,7 +20,7 @@ public class FeatureGroupTypeGraphicBuilder {
 	
 	/**
 	 * Creates a feature group type graphic builder.
-	 * @return a new feature group type graphic builder
+	 * @return a feature group type graphic builder
 	 */
 	public static FeatureGroupTypeGraphicBuilder create() {
 		return new FeatureGroupTypeGraphicBuilder();

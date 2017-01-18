@@ -98,7 +98,6 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
@@ -113,7 +112,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
-	private final PropertyService propertyService;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
@@ -161,11 +159,10 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}		
 	};
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService, final PropertyService propertyService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
 		super(diagramContainer);
 		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
-		this.propertyService = propertyService;
 	}	
 	
 	@Override

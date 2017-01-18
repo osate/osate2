@@ -24,7 +24,7 @@ public class EllipseBuilder {
 	
 	/**
 	 * Creates an ellipse builder.
-	 * @return a new ellipse builder
+	 * @return an ellipse builder
 	 */
 	public static EllipseBuilder create() {
 		return new EllipseBuilder();

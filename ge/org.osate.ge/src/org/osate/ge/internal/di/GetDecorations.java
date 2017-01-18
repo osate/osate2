@@ -16,22 +16,22 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
- * This annotation must not be applied to more than one method per class. Optional.
+ * This annotation must not be applied to more than one method per class.
  * </p>
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Business Object Handler</td><td>Returns a value which determines docking settings.</td><td>boolean</td></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns an array of {@link org.osate.ge.internal.decorations.Decoration} objects which will be used decorate the representation of the specified business object. Only connections are supported.</td><td>{@link org.osate.ge.internal.decorations.Decoration}[]</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
- *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to return the docking settings.</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to return the decorators.</td></tr>
  * </table>
+ * @see org.osate.ge.internal.decorations.Decoration
  */
-// TODO: Need to describe return values better. Data type(s), etc.
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GetDefaultDockingPosition {
+public @interface GetDecorations {
 }

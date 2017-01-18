@@ -25,7 +25,7 @@ public class ParallelogramBuilder {
 	
 	/**
 	 * Creates a parallelogram builder.
-	 * @return a new parallelogram builder
+	 * @return a parallelogram builder
 	 */
 	public static ParallelogramBuilder create() {
 		return new ParallelogramBuilder();

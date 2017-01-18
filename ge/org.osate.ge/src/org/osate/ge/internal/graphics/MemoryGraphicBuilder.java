@@ -22,7 +22,7 @@ public class MemoryGraphicBuilder {
 	
 	/**
 	 * Creates a memory graphic builder.
-	 * @return a new memory graphic builder
+	 * @return a memory graphic builder
 	 */
 	public static MemoryGraphicBuilder create() {
 		return new MemoryGraphicBuilder();

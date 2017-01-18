@@ -24,7 +24,7 @@ public class ProcessorGraphicBuilder {
 	
 	/**
 	 * Creates a processor graphic builder.
-	 * @return a new processor graphic builder
+	 * @return a processor graphic builder
 	 */
 	public static ProcessorGraphicBuilder create() {
 		return new ProcessorGraphicBuilder();

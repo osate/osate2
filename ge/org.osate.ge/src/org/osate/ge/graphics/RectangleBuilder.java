@@ -25,7 +25,7 @@ public class RectangleBuilder {
 	
 	/**
 	 * Creates a rectangle builder.
-	 * @return a new rectangle builder
+	 * @return a rectangle builder
 	 */
 	public static RectangleBuilder create() {
 		return new RectangleBuilder();

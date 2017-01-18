@@ -22,7 +22,7 @@ public class FolderGraphicBuilder {
 	
 	/**
 	 * Creates a folder graphic builder.
-	 * @return a new folder graphic builder
+	 * @return a folder graphic builder
 	 */
 	public static FolderGraphicBuilder create() {
 		return new FolderGraphicBuilder();

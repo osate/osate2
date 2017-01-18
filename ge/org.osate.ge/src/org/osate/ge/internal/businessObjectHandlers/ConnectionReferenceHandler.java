@@ -1,7 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.ArrayList;
 import javax.inject.Named;
-
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.PortConnection;
@@ -14,33 +14,47 @@ import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.decorations.Decoration;
+import org.osate.ge.internal.decorations.DelayedDecorationBuilder;
+import org.osate.ge.internal.decorations.DirectionDecorationBuilder;
+import org.osate.ge.internal.decorations.ImmediateDecorationBuilder;
+import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.query.DiagramElementQuery;
+import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ConnectionReferenceHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
+	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
+	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
+	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
 		return true;
 	}
-	
+		
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
-		// Create decorators
-		//
+		return graphic;
+	}
+	
+	@GetDecorations
+	public Decoration[] getDecorations(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
+		final ArrayList<Decoration> decorations = new ArrayList<Decoration>(3);
+		
 		// Determine which indicators should be shown
 		final boolean showImmediateDecoration;
 		final boolean showDelayedDecoration;
 		if(cr.getConnection() instanceof PortConnection) {
 			final EnumerationLiteral connectionTiming = GetProperties.getConnectionTiming(cr);
-			if(connectionTiming.equals(GetProperties.getDelayedUnitLiteral(cr))) {
+			final String connectionTimingName = connectionTiming == null ? null : connectionTiming.getName();
+			if(CommunicationProperties.DELAYED.equals(connectionTimingName)) {
 				showDelayedDecoration = true;
 				showImmediateDecoration = false;
-			} else if(connectionTiming.equals(GetProperties.getImmediateUnitLiteral(cr))) {
+			} else if(CommunicationProperties.IMMEDIATE.equals(connectionTimingName)) {
 				showDelayedDecoration = false;
 				showImmediateDecoration = true;
 			} else {			
@@ -69,36 +83,18 @@ public class ConnectionReferenceHandler {
 			showDirectionDecoration = false;
 		}
 		
-		/*
-		// Create decorators
-		// Determine how much to shift the decorators in case multiple decorators will be displayed
-		final int decoratorXShift = (showDelayedDecoration && showDirectionDecoration) ? 10 : 0;
-
-		// TODO
+		// Create decorations
 		if(showDelayedDecoration) {
-			// TODO
-			//final int delayedSpacing = 3;
-			//final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			//gaCreationService.createDelayedIndicator(timingDecorator1, -delayedSpacing - decoratorXShift, styleService.getStyle(StyleConstants.DECORATOR_STYLE));
-			//final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			//gaCreationService.createDelayedIndicator(timingDecorator2, delayedSpacing - decoratorXShift, styleService.getStyle(StyleConstants.DECORATOR_STYLE));
+			decorations.add(delayedDecoration);
 		} else if(showImmediateDecoration) {
-			// TODO
-			//final int immediateSpacing = 5;
-			//final ConnectionDecorator timingDecorator1 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			//gaCreationService.createDirectionIndicator(timingDecorator1, -immediateSpacing, styleService.getStyle(StyleConstants.DECORATOR_STYLE));
-			//final ConnectionDecorator timingDecorator2 = peCreateService.createConnectionDecorator(connection, false, 0.5, true);
-			//gaCreationService.createDirectionIndicator(timingDecorator2, immediateSpacing, styleService.getStyle(StyleConstants.DECORATOR_STYLE));
+			decorations.add(immediateDecoration);
 		}
 
-		// Draw a direction indicator
 		if(showDirectionDecoration) {
-			// TODO
-	        //final ConnectionDecorator directionDecorator = peCreateService.createConnectionDecorator(connection, false, 0.5, true);    
-	       // gaCreationService.createDirectionIndicator(directionDecorator, decoratorXShift, styleService.getStyle(StyleConstants.DECORATOR_STYLE));
-		}
-		*/
-		return graphic;
+			decorations.add(directionDecoration);
+		}		
+		
+		return decorations.toArray(new Decoration[decorations.size()]);
 	}
 	
 	@CreateParentQuery

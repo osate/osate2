@@ -23,7 +23,7 @@ public class FeatureGraphicBuilder {
 	
 	/**
 	 * Creates a port graphic builder.
-	 * @return a new port graphic builder
+	 * @return a port graphic builder
 	 */
 	public static FeatureGraphicBuilder create() {
 		return new FeatureGraphicBuilder();

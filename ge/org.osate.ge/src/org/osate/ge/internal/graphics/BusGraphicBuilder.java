@@ -24,7 +24,7 @@ public class BusGraphicBuilder {
 	
 	/**
 	 * Creates a bus graphic builder.
-	 * @return a new bus graphic builder
+	 * @return a bus graphic builder
 	 */
 	public static BusGraphicBuilder create() {
 		return new BusGraphicBuilder();

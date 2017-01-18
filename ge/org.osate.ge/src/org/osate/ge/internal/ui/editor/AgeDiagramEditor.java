@@ -50,7 +50,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	protected DiagramBehavior createDiagramBehavior() {
 		final PropertyService propertyService = new DefaultPropertyService();
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		return new AgeDiagramBehavior(this, new DefaultGhostPurger(propertyService), diagramService, propertyService);
+		return new AgeDiagramBehavior(this, new DefaultGhostPurger(propertyService), diagramService);
 	}
 	
 	/*

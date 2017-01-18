@@ -26,7 +26,7 @@ public class ConnectionBuilder {
 	
 	/**
 	 * Creates a connection builder.
-	 * @return a new connection builder
+	 * @return a connection builder
 	 */
 	public static ConnectionBuilder create() {
 		return new ConnectionBuilder();

@@ -22,7 +22,7 @@ public class ArrowBuilder {
 	
 	/**
 	 * Creates an arrow builder.
-	 * @return a new arrow builder
+	 * @return a arrow builder
 	 */
 	public static ArrowBuilder create() {
 		return new ArrowBuilder();
