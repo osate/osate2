@@ -214,28 +214,22 @@ public class BoHandlerRefreshHelper {
 			if(pe != null) {
 				// Don't create labels and graphics for diagrams
 				if(!(pe instanceof Diagram)) {
-					if(pe instanceof Connection) {
-						final Connection connection = (Connection)pe;
-						connection.getConnectionDecorators().clear();
-						
-					    final AgeConnection ageConnection = (AgeConnection)gr;
-					    createDecorator(connection, ageConnection.getSourceTerminator(), 0.0);
-					    createDecorator(connection, ageConnection.getDestinationTerminator(), 1.0);
-					}
-
-					// Create name label
+					// Get the name
 					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(pe));
-					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);				
-					if(name != null) {
-						if(pe instanceof ContainerShape) {
+					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);	
+
+					if(pe instanceof ContainerShape) {
+						if(name != null) {
 							final Shape labelShape = labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name, true);
 							labelShape.setActive(false);
-						} else if(pe instanceof Connection) {
-							final Connection connection = (Connection)pe;
-							
+						}
+					} else if(pe instanceof Connection) {
+						final Connection connection = (Connection)pe;
+
+						int labelX = 0;
+						int labelY = 0;
+						if(name != null) {
 							// Before removing all the decorators, get position of the label(if one exists)
-							int labelX = 0;
-							int labelY = 0;
 							for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
 								if(BoHandlerFeatureHelper.nameShapeName.equals(propertyService.getName(d))) {
 									if(d.getGraphicsAlgorithm() != null) {
@@ -245,8 +239,13 @@ public class BoHandlerRefreshHelper {
 									}
 								}
 							}
+						}
+						
+						// Clear decorators
+						connection.getConnectionDecorators().clear();
 
-							// Create label
+						// Create label decorator
+						if(name != null) {
 					        final IGaService gaService = Graphiti.getGaService();
 							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
@@ -254,8 +253,13 @@ public class BoHandlerRefreshHelper {
 							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);
 							gaService.setLocation(text, labelX, labelY);					 		
 						    text.setValue(name);
-						    featureProvider.link(textDecorator, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);			    
+						    featureProvider.link(textDecorator, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 						}
+						
+						// Create Graphiti decorators for connection terminators
+					    final AgeConnection ageConnection = (AgeConnection)gr;
+					    createDecorator(connection, ageConnection.getSourceTerminator(), 0.0);
+					    createDecorator(connection, ageConnection.getDestinationTerminator(), 1.0);
 					}
 					
 					// Refresh Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of GraphicsAlgorithm
