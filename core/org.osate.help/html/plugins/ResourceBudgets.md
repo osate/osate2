@@ -7,7 +7,7 @@ The SEI has provided a plug-in that supports resource budgeting and resource all
 * Processor: a processor has a capacity in terms of MIPS. This is specified with the predeclared standard property **Processor_Capacity** (or the property **SEI::MIPSCapacity**). It takes real values with units of *KIPS, MIPS, GIPS*.  Application components specify their processor resource demand through the property **SEI::MIPSBudget**.  Systems, processes, thread groups, threads, and abstract components can have a MIPS budget.
 > Note: A virtual processor is both a MIPS provider and a MIPS consumer. We use the **SEI::MIPSBudget** property to indicate the MIPS demand it has on the processor it is allocated to and the MIPS capacity it makes available to application components bound to it.
 
-* Memory: we recognize both RAM and ROM as memory.  We have introduced the properties **SEI::RAMCapacity**, **SEI::ROMCapacity**, **SEI::RAMBudget**, and **SEI::ROMBudget** for that purpose.  These properties take real values using *Size_Units* as unit (*B, KB, MB, GB*). The capacity is associated with memory components.  Typically, a memory component will have either RAM capacity or ROM capacity.  RAM and ROM budgets can be associated with application components such as system, process, thread group, thread.
+* Memory: we recognize both RAM and ROM as memory.  We have introduced the properties **SEI::RAMCapacity**, **SEI::ROMCapacity**, **SEI::RAMBudget**, and **SEI::ROMBudget** for that purpose.  These properties take real values using *Size_Units* as unit (*B, KB, MB, GB*). The capacity is associated with memory components.  Typically, a memory component will have either RAM capacity or ROM capacity.  RAM and ROM budgets can be associated with application components such as system, process, thread group, thread. We also look for **Memory_Size** as available capacity of a memory and **Data_Size**, **Code_Size**, **Heap_Size**, **Stack_Size** as actual demand for memory.
 
 * Bus: we recognize bandWidth as a resource. Buses have **SEI::BandwidthCapacity** and connections have **SEI::BandwidthBudget**.
 
@@ -16,7 +16,12 @@ The first resource budget analysis does not assume allocation of resources. It s
 
 The **Resource Budget Analysis** is invoked on an instance model through a toolbar command, or through the *Analysis* menu and the *Architecture* submenu, or through the green spreadsheet icon in the toolbar.
 
-The results are reported in the *reports/ResourceBudgets* folder. The analysis reports on how many components that are expected to have capacity or budget actually have the appropriate property value assigned.
+The analysis adds up the memory capacity expressed in terms of **Memory_Size**, **SEI::RAMCapacity**, **SEI::ROMCapacity**. A memory component may have only the **Memory_Size**, only **SEI::RAMCapacity** and/or **SEI::ROMCapacity**, or all three. 
+The analysis also adds up the memory budgets expressed as **SEI::RAMBudget**, **SEI::ROMBudget**, and actual memory demand expressed by **Data_Size**, **Code_Size**, **Heap_Size**, and **Stack_Size**.
+
+The results are reported in the *reports/ResourceBudgets* folder. 
+
+The analysis keeps track of how many components that are expected to have capacity or budget property values and how many actually have the appropriate property value assigned.
 
 As the application architecture of a system is refined we may have components with resource budgets that contain subcomponents with resource budgets. In this case the resource budget analysis tool will add up the budgets of the subcomponents and compare them to the budget of the enclosing component. It will use this number as the resource demand of the enclosing component to total up the demand. It will also compare this number against the specified budget of the enclosing component and report any difference (under- and over-allocation of the budget to subcomponents).
 
@@ -39,7 +44,7 @@ This allows the user to make allocation decisions by reflecting them in the actu
 > Note: The application system may have been defined as a nested set of components, each with a budget. As mentioned above the processor binding is inherited, i.e., both the parent and its children may have a processor binding value. In that case only the actual or budget MIPS of the children are totaled in order to avoid double counting of bound application component budgets.
 
 ###Memory Allocation Analysis###
-For each of the memory components with a RAM or ROM capacity, we sum up the RAM and ROM budgetds for all component bound to the memory and compare the result with the capacity.
+For each of the memory components with a RAM or ROM capacity or **Memory_Size**, we sum up actual memory demand expressed by **Data_Size**, **Code_Size**, **Heap_Size**, and **Stack_Size**, or the RAM and ROM budgets for all component bound to the memory and compare the result with the memory size, and RAM/ROM capacity. For comparison against RAM or ROM capacity we assume code resides in ROM and the others in RAM. 
 
 > In addition the **SEI::RAMActual** and SEI::**ROMActual** properties are added up and compared to the budgets. These two properties have been provided such that users can reflect actual memory usage of individual components, e.g., as reported by a compiler for threads, data components, and ports within threads.
 > In case of nested application components with RAMActual or ROMActual property values, the actual value accounts for memory demands of that component only. In other words, contrary to the memory budget figures, the actual value does not represent a cumulative memory demand.
