@@ -48,7 +48,6 @@ import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeCreationService;
-import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.styles.StyleConstants;
 import org.osate.ge.internal.ui.util.SelectionHelper;
@@ -60,7 +59,6 @@ public class BoHandlerRefreshHelper {
 	private final ShapeCreationService shapeCreationService;
 	private final ConnectionCreationService connectionCreationService;
 	private final AnchorService anchorService;
-	private final ShapeService shapeService;
 	private final PropertyService propertyService;
 	private final StyleService styleService;
 	private final BusinessObjectResolutionService bor;
@@ -72,7 +70,6 @@ public class BoHandlerRefreshHelper {
 		final ShapeCreationService shapeCreationService,
 		final ConnectionCreationService connectionCreationService,
 		final AnchorService anchorService,
-		final ShapeService shapeService,
 		final PropertyService propertyService,
 		final StyleService styleService,
 		final BusinessObjectResolutionService bor,
@@ -83,7 +80,6 @@ public class BoHandlerRefreshHelper {
 		this.shapeCreationService = Objects.requireNonNull(shapeCreationService, "shapeCreationService must not be null");
 		this.connectionCreationService = Objects.requireNonNull(connectionCreationService, "connectionCreationService must not be null");
 		this.anchorService = Objects.requireNonNull(anchorService, "anchorService must not be null");
-		this.shapeService = Objects.requireNonNull(shapeService, "shapeService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 		this.styleService = Objects.requireNonNull(styleService, "styleService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
@@ -263,7 +259,7 @@ public class BoHandlerRefreshHelper {
 					}
 					
 					// Refresh Graphics Algorithm. Connections do not have their graphics algorithms recreated because they all have the same type of GraphicsAlgorithm
-					// and because there are issues when recreating the graphics algorithm of connections. Upon update, the connecitons may disappear.
+					// and because there are issues when recreating the graphics algorithm of connections. Upon update, the connections may disappear.
 					if(pe instanceof Shape) {
 						final Shape shape = (Shape)pe;
 						final GraphicsAlgorithm oldGa = shape.getGraphicsAlgorithm();
