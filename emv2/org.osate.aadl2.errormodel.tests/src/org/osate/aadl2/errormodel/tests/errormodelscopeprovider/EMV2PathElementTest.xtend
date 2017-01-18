@@ -1579,7 +1579,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1593,7 +1596,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t2".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1607,7 +1613,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t3".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1621,7 +1630,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t4".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1671,7 +1683,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t1".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1700,7 +1716,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t2".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1729,7 +1749,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t3".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1758,7 +1782,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t4".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1784,7 +1812,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1798,7 +1829,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t2".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1812,7 +1846,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t3".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1826,7 +1863,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t4".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -1876,7 +1916,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t1".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1905,7 +1949,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t2".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1934,7 +1982,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t3".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1963,7 +2015,11 @@ class EMV2PathElementTest extends OsateTest {
 										path => [
 											"t4".assertEquals(namedElement.name)
 											//Tests scope_EMV2PathElement_namedElement
-											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2", "t3", "t4"])
+											assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #[
+												"t1", "t2", "t3", "t4", "EMV2PropertyAssociation::t1",
+												"EMV2PropertyAssociation::t2", "EMV2PropertyAssociation::t3",
+												"EMV2PropertyAssociation::t4"
+											])
 											path.assertNull
 										]
 									]
@@ -1989,7 +2045,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t3".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t3"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2012,7 +2071,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t3".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t3"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2035,7 +2097,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2058,7 +2123,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2099,7 +2167,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2122,7 +2193,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2145,7 +2219,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2168,7 +2245,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2353,7 +2433,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2376,7 +2459,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2417,7 +2503,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
@@ -2440,7 +2529,10 @@ class EMV2PathElementTest extends OsateTest {
 							path => [
 								"t1".assertEquals(namedElement.name)
 								//Tests scope_EMV2PathElement_namedElement
-								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1"])
+								assertScope(ErrorModelPackage.eINSTANCE.EMV2PathElement_NamedElement, #["t1", "t2",
+									"t3", "t4", "EMV2PropertyAssociation::t1", "EMV2PropertyAssociation::t2",
+									"EMV2PropertyAssociation::t3", "EMV2PropertyAssociation::t4"
+								])
 								path.assertNull
 							]
 						]
