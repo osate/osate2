@@ -21,13 +21,8 @@ import org.osate.ge.query.DiagramElementQuery;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class ConnectionReferenceHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().build();//.destinationTerminator(ArrowBuilder.create().open().build()).build();
+	private static final Graphic graphic = ConnectionBuilder.create().build();
 	
-	/*
-	private static final Graphic graphic = ConnectionBuilder.create().
-			sourceTerminator(ArrowBuilder.create().open().build()).
-			destinationTerminator(ArrowBuilder.create().filled().build()).build();
-	*/
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
 		return true;
@@ -35,7 +30,6 @@ public class ConnectionReferenceHandler {
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
-		/*
 		// Create decorators
 		//
 		// Determine which indicators should be shown
@@ -59,13 +53,13 @@ public class ConnectionReferenceHandler {
 		// Show the direction indicator If:
 		// Connection is not bidirectional
 		// Immediate Decoration is not being shown
-		// One of the ports is not directional
+		// Both of the ports are not directional
 		// Not Feature Group...
 		final boolean showDirectionDecoration;
 		if(!showImmediateDecoration) {
 			final ConnectionInstanceEnd src = cr.getSource();
 			final ConnectionInstanceEnd dst = cr.getDestination();
-			if((src != null && src instanceof FeatureInstance && (((FeatureInstance)src).getDirection() == null || ((FeatureInstance)src).getDirection() == DirectionType.IN_OUT)) ||
+			if((src != null && src instanceof FeatureInstance && (((FeatureInstance)src).getDirection() == null || ((FeatureInstance)src).getDirection() == DirectionType.IN_OUT)) &&
 			 (dst != null && dst instanceof FeatureInstance && (((FeatureInstance)dst).getDirection() == null || ((FeatureInstance)dst).getDirection() == DirectionType.IN_OUT))) {
 				showDirectionDecoration = true;
 			} else {
@@ -75,6 +69,7 @@ public class ConnectionReferenceHandler {
 			showDirectionDecoration = false;
 		}
 		
+		/*
 		// Create decorators
 		// Determine how much to shift the decorators in case multiple decorators will be displayed
 		final int decoratorXShift = (showDelayedDecoration && showDirectionDecoration) ? 10 : 0;
