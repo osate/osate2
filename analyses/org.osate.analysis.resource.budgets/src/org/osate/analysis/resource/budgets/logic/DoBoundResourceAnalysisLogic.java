@@ -221,7 +221,8 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			@Override
 			protected void process(Element obj) {
 				if (GetProperties.getROMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
-						|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0) {
+						|| GetProperties.getRAMCapacityInKB((InstanceObject) obj, 0.0) > 0.0
+						|| GetProperties.getMemorySizeInKB((InstanceObject) obj) > 0.0) {
 					count = count + 1;
 				}
 			}
@@ -229,10 +230,10 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		countme.processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
 		if (count > 0) {
 			errManager.infoSummaryReportOnly(si, null,
-					"\nRAM/ROM Summary Report: " + Aadl2Util.getPrintableSOMName(som));
+					"\nMemory Summary Report: " + Aadl2Util.getPrintableSOMName(som));
 		} else {
-			errManager.infoSummaryReportOnly(si, null, "\nRAM/ROM Summary Report: " + Aadl2Util.getPrintableSOMName(som)
-					+ "\n  No Memory with RAM or ROM capacity");
+			errManager.infoSummaryReportOnly(si, null, "\nMemory Summary Report: " + Aadl2Util.getPrintableSOMName(som)
+					+ "\n  No Memory with Memory_Size or RAMCapacity or ROMCapacity");
 		}
 		ForAllElement mal = new ForAllElement() {
 			@Override
@@ -252,13 +253,20 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	protected void checkMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som) {
 		SystemInstance root = curMemory.getSystemInstance();
 
+		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curMemory);
+		double MemoryCapacity = GetProperties.getMemorySize(curMemory, kbliteral);
+		double ROMCapacity = GetProperties.getROMCapacityInKB(curMemory, 0.0);
+		double RAMCapacity = GetProperties.getRAMCapacityInKB(curMemory, 0.0);
 
-		if (GetProperties.getROMCapacityInKB(curMemory, 0.0) > 0.0) {
-			doMemoryLoad(curMemory, som, boundComponents, true); // ROM
+		if (MemoryCapacity > 0.0) {
+			doMemoryLoad(curMemory, som, MemoryCapacity, boundComponents, ResourceKind.Memory); // Memory
 		}
-		if (GetProperties.getRAMCapacityInKB(curMemory, 0.0) > 0.0) {
-			doMemoryLoad(curMemory, som, boundComponents, false); // RAM
+		if (RAMCapacity > 0.0) {
+			doMemoryLoad(curMemory, som, RAMCapacity, boundComponents, ResourceKind.RAM); // RAM
+		}
+		if (ROMCapacity > 0.0) {
+			doMemoryLoad(curMemory, som, ROMCapacity, boundComponents, ResourceKind.ROM); // ROM
 		}
 	}
 
@@ -268,14 +276,13 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	 * 
 	 * @param curMemory Component Instance of memory
 	 */
-	protected void doMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som, EList boundComponents,
-			boolean isROM) {
+	protected void doMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som, double Memorycapacity,
+			EList<ComponentInstance> boundComponents, ResourceKind rk) {
 		double totalMemory = 0.0;
 		String somName = null;
+		String resourceName = rk.name();
+		boolean isROM = rk.equals(ResourceKind.ROM);
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
-		String resourceName = isROM ? "ROM" : "RAM";
-		double Memorycapacity = isROM ? GetProperties.getROMCapacityInKB(curMemory, 0.0)
-				: GetProperties.getRAMCapacityInKB(curMemory, 0.0);
 		if (boundComponents.size() == 0 && Memorycapacity > 0) {
 			errManager.infoSummary(curMemory, somName,
 					"  No application components bound to " + curMemory.getComponentInstancePath() + " with "
@@ -290,14 +297,26 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 				+ curMemory.getComponentInstancePath() + " with Capacity "
 				+ GetProperties.toStringScaled(Memorycapacity, kbliteral) + "\n\nComponent,Budget,Actual");
 		Set budgeted = new HashSet();
-		for (Iterator it = boundComponents.iterator(); it.hasNext();) {
+		for (ComponentInstance bci : boundComponents) {
 			String notes = "";
-			ComponentInstance bci = (ComponentInstance) it.next();
-			double totalactual = sumMemoryActuals(bci, isROM);
+			double totalactual = sumMemoryActualPropertyValue(bci, isROM);
 			double budget = isROM ? GetProperties.getROMBudgetInKB(bci, 0.0) : GetProperties.getRAMBudgetInKB(bci, 0.0);
+			double actualsize = getMemoryUseActual(bci, resourceName, kbliteral);
+
+			if (actualsize > 0) {
+				// only compare if there were actuals
+				if (budget > 0 && actualsize > budget) {
+					notes = ",Error: " + resourceName + " subtotal exceeds budget by " + (actualsize - budget) + " KB";
+				} else if (actualsize < budget) {
+					notes = ",Warning: " + resourceName + " Subtotal under budget by " + (budget - actualsize) + " KB";
+				}
+				if (totalactual > 0 && totalactual != actualsize) {
+					notes = notes + ",Warning: " + resourceName + " Data_Size differs from RAM/ROMActual";
+				}
+			}
 			if (totalactual > 0) {
 				// only compare if there were actuals
-				if (totalactual > budget) {
+				if (budget > 0 && totalactual > budget) {
 					notes = notes + ",Error: " + resourceName + " subtotal exceeds budget by " + (totalactual - budget)
 							+ " KB";
 				} else if (totalactual < budget) {
@@ -305,40 +324,45 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 							+ " KB";
 				}
 			}
-			if (totalactual == 0.0) {
+			if (totalactual == 0.0 && actualsize == 0.0) {
 				// we use a budget number as there are no actuals
 				if (budget > 0 && !budgeted.contains(bci)) {
 					// only add it if no children budget numbers have been added
 					totalMemory += budget;
-					detailedLogTotal2(bci, budget, kbliteral);
+					detailedLog(bci, budget, budget, "No actual. Added budget to total.");
 					// add ancestors to budgeted list so their budget does not get added later
 					while ((bci = bci.getContainingComponentInstance()) != null) {
 						budgeted.add(bci);
 					}
 				}
 			} else {
-				// add only the current actual; the children actual have been added before
-				double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0)
-						: GetProperties.getRAMActualInKB(bci, 0.0);
-				detailedLogTotal2(bci, budget, kbliteral);
-				totalMemory += currentActual;
+				if (actualsize > 0) {
+					detailedLog(bci, budget, actualsize, notes);
+					totalMemory += actualsize;
+				} else {
+					// add only the current actual; the children actual have been added before
+					double currentActual = isROM ? GetProperties.getROMActualInKB(bci, 0.0)
+							: GetProperties.getRAMActualInKB(bci, 0.0);
+					detailedLog(bci, budget, currentActual, notes);
+					totalMemory += currentActual;
+				}
 			}
 		}
+		detailedLogTotal2(null, totalMemory, kbliteral);
 		if (Memorycapacity == 0)
-			errManager.errorSummary(curMemory, somName, "  " + (isROM ? "ROM" : "RAM") + " memory "
-					+ curMemory.getComponentInstancePath() + " has no memory capacity specified");
+			errManager.errorSummary(curMemory, somName,
+					"  " + resourceName + curMemory.getComponentInstancePath() + " has no memory capacity specified");
 		if (totalMemory > Memorycapacity) {
 			errManager.errorSummary(curMemory, somName,
 					"  Total Memory " + totalMemory + " KB of bounds tasks exceeds Memory capacity " + Memorycapacity
 							+ " KB of " + curMemory.getComponentInstancePath());
 		} else if (totalMemory == 0.0 && Memorycapacity == 0.0) {
-			errManager.warningSummary(curMemory, somName, "  " + (isROM ? "ROM" : "RAM") + " memory "
-					+ curMemory.getComponentInstancePath() + " has no capacity. Bound app's have no memory budget.");
+			errManager.warningSummary(curMemory, somName, "  " + resourceName + curMemory.getComponentInstancePath()
+					+ " has no capacity. Bound app's have no memory budget.");
 		} else {
 			errManager.infoSummary(curMemory, somName,
-					"  Total " + (isROM ? "ROM" : "RAM") + " memory " + totalMemory
-							+ " KB of bound tasks within Memory capacity " + Memorycapacity + " KB of "
-							+ curMemory.getComponentInstancePath());
+					"  Total " + resourceName + " " + totalMemory + " KB of bound tasks within Memory capacity "
+							+ Memorycapacity + " KB of " + curMemory.getComponentInstancePath());
 		}
 	}
 
@@ -581,13 +605,13 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		return false;
 	}
 
-	protected double sumMemoryActuals(ComponentInstance ci, boolean isROM) {
+	protected double sumMemoryActualPropertyValue(ComponentInstance ci, boolean isROM) {
 		try {
 			double total = isROM ? GetProperties.getROMActualInKB(ci, 0.0) : GetProperties.getRAMActualInKB(ci, 0.0);
 			EList subcis = ci.getComponentInstances();
 			for (Iterator it = subcis.iterator(); it.hasNext();) {
 				ComponentInstance subci = (ComponentInstance) it.next();
-				total += sumMemoryActuals(subci, isROM);
+				total += sumMemoryActualPropertyValue(subci, isROM);
 			}
 			return total;
 		} catch (PropertyDoesNotApplyToHolderException e) {
