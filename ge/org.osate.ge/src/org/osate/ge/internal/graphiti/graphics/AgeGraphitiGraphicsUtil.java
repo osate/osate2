@@ -13,6 +13,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.util.ColorConstant;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.graphics.BusGraphic;
 import org.osate.ge.internal.graphics.DeviceGraphic;
@@ -35,19 +36,19 @@ public class AgeGraphitiGraphicsUtil {
 	private final static double folderTopOfTabOffset = 0.3;
 	private final static int featureLineWidth = 2;
 	public static final int featureGroupDefaultSymbolWidth = 30;
-	private static final Map<Object, GraphicsAlgorithmCreator<?>> graphicToCreatorMap;
+	private static final Map<Class<? extends Graphic>, GraphicsAlgorithmCreator<?>> graphicToCreatorMap;
 	
 	@FunctionalInterface
 	static interface GraphicsAlgorithmCreator<G> {
 		GraphicsAlgorithm createGraphicsAlgorithm(Diagram diagram, GraphicsAlgorithm containerGa, G graphic, int width, int height, boolean fillBackground);
 	}
 		
-	static <G> void addGraphicsAlgorithmCreator(final Map<Object, GraphicsAlgorithmCreator<?>> map, Class<G> c, final GraphicsAlgorithmCreator<G> a) {
-		map.put(c, a);
+	static <G extends Graphic> void addGraphicsAlgorithmCreator(final Map<Class<? extends Graphic>, GraphicsAlgorithmCreator<?>> map, Class<G> graphicClass, final GraphicsAlgorithmCreator<G> creator) {
+		map.put(graphicClass, creator);
 	}
 	
 	static {
-		final Map<Object, GraphicsAlgorithmCreator<?>> map = new HashMap<>();
+		final Map<Class<? extends Graphic>, GraphicsAlgorithmCreator<?>> map = new HashMap<>();
 		addGraphicsAlgorithmCreator(map, Rectangle.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForRectangle);		
 		addGraphicsAlgorithmCreator(map, Ellipse.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForEllipse);
 		addGraphicsAlgorithmCreator(map, Polygon.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForPolygon);
