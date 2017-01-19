@@ -33,7 +33,7 @@ public class PolygonBuilder {
 	
 	/**
 	 * Configures the polygon builder to build a polygon composed of the specified points.
-	 * @param points the points to use when creating the polygon
+	 * @param points the points to use when creating the polygon. All coordinates must be in the range of [0.0, 1.0]. Polygons are scaled by the editor.
 	 * @return this builder to allow method chaining.
 	 */
 	public PolygonBuilder points(final Point2D.Double... points) {
