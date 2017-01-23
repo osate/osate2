@@ -7548,7 +7548,7 @@
           <stringListValue>name</stringListValue>
           <stringListValue>derived</stringListValue>
         </styles>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_6c6YhcnmEeW9N7cxkaeotw" x="10" y="10"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6c6YhcnmEeW9N7cxkaeotw" x="46" y="20"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_6c6_kcnmEeW9N7cxkaeotw" type="Association_SourceRoleLabel">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6c6_ksnmEeW9N7cxkaeotw" source="CustomAppearance_Annotation">
@@ -7597,7 +7597,7 @@
           <stringListValue>name</stringListValue>
           <stringListValue>derived</stringListValue>
         </styles>
-        <layoutConstraint xmi:type="notation:Location" xmi:id="_6c7mpsnmEeW9N7cxkaeotw" x="67" y="16"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_6c7mpsnmEeW9N7cxkaeotw" x="22" y="-12"/>
       </children>
       <children xmi:type="notation:DecorationNode" xmi:id="_YfGUZMxFEeWe8q5Ldg4h5Q" type="Association_SourceMultiplicityLabel">
         <layoutConstraint xmi:type="notation:Location" xmi:id="_YfGUZcxFEeWe8q5Ldg4h5Q" x="65" y="-19"/>
