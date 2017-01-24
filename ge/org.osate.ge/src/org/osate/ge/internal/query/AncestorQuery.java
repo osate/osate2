@@ -28,7 +28,7 @@ class AncestorQuery<A> extends PictogramQuery<A> {
 		}
 		
 		for(int i = 0; i < depth && pe != null; i++) {
-			pe = AncestorUtil.getAncestor(pe, state);
+			pe = AncestorUtil.getParent(pe, state);
 		}
 		
 		// Process the value. If any

@@ -46,13 +46,17 @@ import org.osate.ge.internal.graphics.FreeFormConnection;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.patterns.AgePattern;
+import org.osate.ge.internal.query.AncestorUtil;
+import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionCreationService;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.styles.StyleConstants;
@@ -72,6 +76,7 @@ public class BoHandlerRefreshHelper {
 	private final AnchorService anchorService;
 	private final PropertyService propertyService;
 	private final StyleService styleService;
+	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider featureProvider;
 	
@@ -83,6 +88,8 @@ public class BoHandlerRefreshHelper {
 		final AnchorService anchorService,
 		final PropertyService propertyService,
 		final StyleService styleService,
+		final ConnectionService connectionService,
+		final QueryService queryService,
 		final BusinessObjectResolutionService bor,
 		final IFeatureProvider featureProvider) {
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
@@ -93,6 +100,7 @@ public class BoHandlerRefreshHelper {
 		this.anchorService = Objects.requireNonNull(anchorService, "anchorService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 		this.styleService = Objects.requireNonNull(styleService, "styleService must not be null");
+		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.featureProvider = Objects.requireNonNull(featureProvider, "featureProvider must not be null");
 	}
@@ -101,10 +109,23 @@ public class BoHandlerRefreshHelper {
 			final ContainerShape addTargetContainer, final Anchor srcAnchor, final Anchor dstAnchor) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
+		if(pe == null && addTargetContainer == null) {
+			throw new RuntimeException("pe and addTargetContainer must not both be null");
+		}
+		
+		// Determine the logical parent
+		final PictogramElement logicalParent;
+		if(pe == null) {
+			logicalParent = AgeFeatureUtil.getLogicalPictogramElement(addTargetContainer, propertyService);
+		} else {
+			logicalParent = AncestorUtil.getParent(pe, propertyService, connectionService);
+		}		
+		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
-			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));			
+			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));		
+			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, logicalParent);
 			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			
 			// Special handling for diagram
@@ -119,7 +140,6 @@ public class BoHandlerRefreshHelper {
 			}
 			
 			final ContainerShape childContainer; // Container for any children
-			
 			// Source and destination anchors must be set for connections
 			if(gr instanceof FreeFormConnection && (srcAnchor == null || dstAnchor == null)) {
 				return null;
@@ -434,6 +454,7 @@ public class BoHandlerRefreshHelper {
 		if(childBoHandler != null) {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
+			//eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, containerShape); // TODO
 			final Object gr = ContextInjectionFactory.invoke(childBoHandler, GetGraphic.class, eclipseCtx, null);
 			if(gr instanceof AgeShape || gr == null) { // Handle null graphic to allow for business object handlers which are just containers but have no graphical representation.
 				shapeCreationService.createUpdateShape(containerShape, childBo);

@@ -3,25 +3,34 @@ package org.osate.ge.internal.query;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.services.ConnectionService;
+import org.osate.ge.internal.services.PropertyService;
 
-class AncestorUtil {
+public class AncestorUtil {
 	/**
 	 * Returns the first ancestor which is also a member of the logical tree.
 	 * @param pe
-	 * @param propertyService
 	 * @return
 	 */
-	public static <A> PictogramElement getAncestor(PictogramElement pe, QueryExecutionState<A> state) {
+	public static <A> PictogramElement getParent(PictogramElement pe, QueryExecutionState<A> state) {
+		return getParent(pe, state.propertyService, state.connectionService);
+	}
+	
+	/**
+	 * Returns the first ancestor which is also a member of the logical tree.
+	 * @return
+	 */
+	public static PictogramElement getParent(PictogramElement pe, final PropertyService propertyService, final ConnectionService connectionService) {
 		while(pe != null) {
 			if(pe instanceof Shape) {
 				pe = ((Shape) pe).getContainer();
 			} else if(pe instanceof Connection) {
-				pe = state.connectionService.getOwnerShape((Connection)pe);
+				pe = connectionService.getOwnerShape((Connection)pe);
 			} else {
 				throw new RuntimeException("Unhandled pictoram element: " + pe);
 			}
 
-			if(pe != null && state.propertyService.isLogicalTreeNode(pe)) {
+			if(pe != null && propertyService.isLogicalTreeNode(pe)) {
 				return pe;
 			}
 		}

@@ -33,8 +33,8 @@ class CommonAncestorsQuery<A> extends PictogramQuery<A> {
 			throw new RuntimeException("q2 returns more than one element");
 		}
 		
-		final PictogramElement pe1 = AncestorUtil.getAncestor(q1Result.get(0), state);
-		final PictogramElement pe2 = AncestorUtil.getAncestor(q2Result.get(0), state);
+		final PictogramElement pe1 = AncestorUtil.getParent(q1Result.get(0), state);
+		final PictogramElement pe2 = AncestorUtil.getParent(q2Result.get(0), state);
 
 		// Get all common ancestors common ancestor
 		PictogramElement temp1 = pe1;
@@ -46,7 +46,7 @@ class CommonAncestorsQuery<A> extends PictogramQuery<A> {
 
 					// Return all other ancestors
 					while(!result.done) {
-						temp1 = AncestorUtil.getAncestor(temp1, state);
+						temp1 = AncestorUtil.getParent(temp1, state);
 
 						if(temp1 == null) {
 							break;
@@ -56,10 +56,10 @@ class CommonAncestorsQuery<A> extends PictogramQuery<A> {
 					}
 					return;
 				}
-				temp2 = AncestorUtil.getAncestor(temp2, state);
+				temp2 = AncestorUtil.getParent(temp2, state);
 			}
 			
-			temp1 = AncestorUtil.getAncestor(temp1, state);
+			temp1 = AncestorUtil.getParent(temp1, state);
 		}		
 	}
 }

@@ -21,7 +21,7 @@ class AncestorsQuery<A> extends PictogramQuery<A> {
 		}
 
 		while(pe != null && !result.done) {		
-			pe = AncestorUtil.getAncestor(pe, state);
+			pe = AncestorUtil.getParent(pe, state);
 			if(pe != null) {
 				processResultValue(remainingQueries, pe, state, result);
 			}
