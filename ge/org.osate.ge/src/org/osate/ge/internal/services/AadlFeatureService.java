@@ -16,6 +16,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.ge.internal.DiagramElementProxy;
 
 /**
  * Contains methods for getting and working with AADL Features and Feature Group Types
@@ -41,8 +42,12 @@ public interface AadlFeatureService {
 	 * @return
 	 */
 	boolean isFeatureInverted(Shape featureShape);
+	
+	boolean isFeatureInverted(DiagramElementProxy featureDiagramElement);
 
 	FeatureGroupType getFeatureGroupType(Shape shape, FeatureGroup fg);
+	
+	FeatureGroupType getFeatureGroupType(DiagramElementProxy diagramElement, FeatureGroup fg);
 	
 	/**
 	 * Returns the actual direction of a feature. Take into account inverted feature groups, etc

@@ -12,6 +12,8 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
+
 import javax.inject.Named;
 
 import org.eclipse.core.resources.IProject;
@@ -35,12 +37,16 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
+import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
+import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
@@ -59,6 +65,7 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
+import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
@@ -442,5 +449,33 @@ public class ClassifierHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(Names.NAME) String value) {
 		bo.setName(value);
+	}	
+	
+	@GetChildren
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final AadlFeatureService featureService) {
+		/*
+		 * 	All : featureService.getAllDeclaredFeatures(classifier)	
+	CI : componentImplementationService.getAllInternalFeatures(ci)
+	CI : componentImplementationService.getAllProcessorFeatures(ci)
+	CI : ci.getAllSubcomponents()	
+	BehavioredImplementation : componentImplementationService.getAllSubprogramCallSequences(bi)	
+	CC : Modes		
+	ALL : getAllDefaultAnnexSubclauses((Classifier)classifier))	
+	CC : cc.getAllModeTransitions()
+	CI : ci.getAllConnections()
+	CT : componentType.getAllFlowSpecifications()
+	CI or CC? : Binding Indicators
+		 */
+		/*Stream.Builder<Object> connectionReferenceStreamBuilder = Stream.builder();
+		for(final ConnectionInstance connectionInstance : ci.getConnectionInstances()) {
+			for(final ConnectionReference cr : connectionInstance.getConnectionReferences()) {
+				connectionReferenceStreamBuilder.add(cr);
+			}
+		}	
+*/
+		//Stream.concat(Stream.concat(ci.getComponentInstances().stream(), 
+			//	ci.getFeatureInstances().stream()),
+				//connectionReferenceStreamBuilder.build());
+		return featureService.getAllDeclaredFeatures(classifier).stream();
 	}
 }

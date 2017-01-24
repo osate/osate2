@@ -97,6 +97,7 @@ import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.Categories;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.AadlArrayService;
 import org.osate.ge.internal.services.AadlFeatureService;
@@ -134,7 +135,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	public static final String innerConnectorAnchorName = "innerConnector";
 	public static final String outerConnectorAnchorName = "outerConnector";
 	public static final String flowSpecificationAnchorName = "flowSpecification";
-	private static LinkedHashMap<EClass, String> featureTypeToMethodNameMap = new LinkedHashMap<EClass, String>();
 	private static final int featureGroupSymbolWidth = 30;
 	private static final int labelPadding = 5;
 	private static final int annotationPadding = 5;
@@ -158,38 +158,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	private final ConnectionService connectionService;
 	private final LabelService labelService;
 	private final EClass featureType;
-	
-	/**
-	 * Populate the map that contains the feature type to create method name mapping
-	 */
-	static {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		
-		// Regular Features
-		featureTypeToMethodNameMap.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
-		featureTypeToMethodNameMap.put(p.getBusAccess(), "createOwnedBusAccess");
-		featureTypeToMethodNameMap.put(p.getDataAccess(), "createOwnedDataAccess");
-		featureTypeToMethodNameMap.put(p.getDataPort(), "createOwnedDataPort");
-		featureTypeToMethodNameMap.put(p.getEventDataPort(), "createOwnedEventDataPort");
-		featureTypeToMethodNameMap.put(p.getEventPort(), "createOwnedEventPort");
-		featureTypeToMethodNameMap.put(p.getFeatureGroup(), "createOwnedFeatureGroup");
-		featureTypeToMethodNameMap.put(p.getParameter(), "createOwnedParameter");
-		featureTypeToMethodNameMap.put(p.getSubprogramAccess(), "createOwnedSubprogramAccess");
-		featureTypeToMethodNameMap.put(p.getSubprogramGroupAccess(), "createOwnedSubprogramGroupAccess");
-		
-		// Internal Features
-		featureTypeToMethodNameMap.put(p.getEventSource(), "createOwnedEventSource");
-		featureTypeToMethodNameMap.put(p.getEventDataSource(), "createOwnedEventDataSource");
-		
-		// Processor Features
-		featureTypeToMethodNameMap.put(p.getSubprogramProxy(), "createOwnedSubprogramProxy");
-		featureTypeToMethodNameMap.put(p.getPortProxy(), "createOwnedPortProxy");
-	}
-	
-	public static Collection<EClass> getFeatureTypes() {
-		return featureTypeToMethodNameMap.keySet();
-	}
-	
+			
 	@Inject
 	public FeaturePattern(final AnchorService anchorUtil, final GhostingService ghostingService, 
 			final PropertyService propertyUtil,
@@ -713,7 +682,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 	@Override
 	public boolean isPaletteApplicable() {
 		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
-		return isClassifierDiagram() && canOwnFeatureType((Classifier)diagramBo, featureType);
+		return isClassifierDiagram() && AadlFeatureUtil.canOwnFeatureType((Classifier)diagramBo, featureType);
 	}
 
 	@Override
@@ -725,7 +694,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 				(containerBo instanceof FeatureGroupType || 
 						containerBo instanceof ComponentType || 
 						containerBo instanceof ComponentImplementation) && 
-				canOwnFeatureType((Classifier)containerBo, featureType);
+				AadlFeatureUtil.canOwnFeatureType((Classifier)containerBo, featureType);
 	}
 	
 	@Override
@@ -758,7 +727,7 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		 			diagramMod = diagramModService.startModification();
 		 			diagramMod.markOpenRelatedDiagramsAsDirty(classifier);
 		 			
-					final NamedElement newFeature = createFeature(classifier, featureType);
+					final NamedElement newFeature = AadlFeatureUtil.createFeature(classifier, featureType);
 					newFeature.setName(newFeatureName);
 					
 					final boolean isLeft = calculateIsLeft(context.getTargetContainer(), context.getX(), 0);
@@ -800,49 +769,6 @@ public class FeaturePattern extends AgeLeafShapePattern implements Categorized {
 		return newFeature == null ? EMPTY : new Object[] {newFeature};		
 	}
 
-	private static Method getFeatureCreateMethod(final Classifier featureOwner, final EClass featureType) {
-		// Determine the method name for the type of feature
-		final String methodName = featureTypeToMethodNameMap.get(featureType);
-		if(methodName == null) {
-			return null;
-		}
-		
-		// Get the method
-		try {
-			final Method method = featureOwner.getClass().getMethod(methodName);
-			return method;
-		} catch(final Exception ex) {
-			return null;
-		}
-	}
-	
-	public static NamedElement createFeature(final Classifier featureOwner, final EClass featureClass) {
-		try {
-			return (NamedElement)getFeatureCreateMethod(featureOwner, featureClass).invoke(featureOwner);
-		} catch (final Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-	
-	public static boolean canOwnFeatureType(final Classifier featureOwner, final EClass featureType) {
-		return getFeatureCreateMethod(featureOwner, featureType) != null &&
-				(!isProcessorFeatureType(featureType) || canOwnProcessorFeatures(featureOwner));
-	}
-	
-	private static boolean canOwnProcessorFeatures(final Object bo) {
-		return bo instanceof SystemImplementation || 
-				bo instanceof ProcessImplementation || 
-				bo instanceof ThreadGroupImplementation || 
-				bo instanceof ThreadImplementation || 
-				bo instanceof DeviceImplementation || 
-				bo instanceof VirtualProcessorImplementation;
-	}
-	
-	private static boolean isProcessorFeatureType(final EClass t) {
-		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		return p.getProcessorFeature().isSuperTypeOf(t);
-	}
-	
 	@Override
 	public boolean stretchFieldToFitText() {
 		return true;

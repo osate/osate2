@@ -15,6 +15,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -71,7 +72,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		boolean canRename = true;
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));
+			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService)));
 			canRename = (boolean)ContextInjectionFactory.invoke(handler, CanRename.class, childCtx, true);
 			if(!canRename) {
 				return false;
@@ -120,11 +121,11 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 	public String getInitialValue(final IDirectEditingContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
 		final Object handler = extService.getApplicableBusinessObjectHandler(bo);
-		
 		final IEclipseContext childCtx = extService.createChildContext();
+		
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));
+			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService)));
 			
 			// Get the name of the business object from the handler
 			final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, childCtx, null);

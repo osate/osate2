@@ -18,4 +18,5 @@ public class InternalNames {
 	public static final String PROJECT = "project";
 	public static final String DIAGRAM_ELEMENT_PROXY = "dep";
 	public static final String INTERNAL_DIAGRAM_BO = "internal_dbo";
+	public static final String DOCKING_POSITION = "docking_position"; 
 }

@@ -12,6 +12,7 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.LayoutService;
@@ -113,23 +114,30 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 	
 	private DockArea getDockArea(final ContainerShape shape) {
 		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		final ContainerShape container = shape.getContainer();
+		return determineDockingPosition(shape.getContainer(), ga.getX(), ga.getY(), ga.getWidth(), ga.getHeight()).getDockArea();
+	}
+	
+	public static DockingPosition determineDockingPosition(final ContainerShape container, final int x, final int y, final int width, final int height) {
+		if(container instanceof Diagram) {
+			return DockingPosition.ANY;
+		}
+		
 		final GraphicsAlgorithm containerInnerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(container.getGraphicsAlgorithm());
 		
-		final int distanceToLeft = Math.max(0, ga.getX() - containerInnerGa.getX());
-		final int distanceToRight = containerInnerGa.getWidth() - Math.min(ga.getX() + ga.getWidth() - containerInnerGa.getX(), containerInnerGa.getWidth());
-		final int distanceToTop = Math.max(0, ga.getY() - containerInnerGa.getY());
-		final int distanceToBottom = containerInnerGa.getHeight() - Math.min(ga.getY() + ga.getHeight() - containerInnerGa.getY(), containerInnerGa.getHeight());
+		final int distanceToLeft = Math.max(0, x - containerInnerGa.getX());
+		final int distanceToRight = containerInnerGa.getWidth() - Math.min(x + width - containerInnerGa.getX(), containerInnerGa.getWidth());
+		final int distanceToTop = Math.max(0, y - containerInnerGa.getY());
+		final int distanceToBottom = containerInnerGa.getHeight() - Math.min(y + height - containerInnerGa.getY(), containerInnerGa.getHeight());
 
 		// Find the closest dock area while giving priority to the left, right, top, and bottom.
 		if(distanceToLeft <= distanceToRight && distanceToLeft <= distanceToTop && distanceToLeft <= distanceToBottom) {
-			return DockArea.LEFT;
+			return DockingPosition.LEFT;
 		} else if(distanceToRight <= distanceToTop && distanceToRight <= distanceToBottom) {
-			return DockArea.RIGHT;
+			return DockingPosition.RIGHT;
 		} else if(distanceToTop <= distanceToBottom) {
-			return DockArea.TOP;
+			return DockingPosition.TOP;
 		} else {
-			return DockArea.BOTTOM;
+			return DockingPosition.BOTTOM;
 		}
 	}
 }

@@ -24,7 +24,7 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
 
 public class DefaultPrototypeService implements PrototypeService {
-	private BusinessObjectResolutionService bor;
+	private final BusinessObjectResolutionService bor;
 	
 	public DefaultPrototypeService(final BusinessObjectResolutionService bor) {
 		this.bor = bor;
@@ -104,7 +104,7 @@ public class DefaultPrototypeService implements PrototypeService {
 			}
 		}
 	}
-
+	
 	private FeatureGroupPrototypeActual resolveFeatureGroupPrototypeToActual(Prototype proto, Element context) {
 		FeatureGroupPrototypeBinding fgpb = (FeatureGroupPrototypeBinding)ResolvePrototypeUtil.resolvePrototype(proto, context);
 

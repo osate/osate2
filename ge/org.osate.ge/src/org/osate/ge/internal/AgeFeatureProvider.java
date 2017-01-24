@@ -93,6 +93,8 @@ import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.instance.ConnectionReference;
+import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
+import org.osate.ge.internal.businessObjectHandlers.FeatureHandler;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.internal.features.CommandCustomFeature;
@@ -219,17 +221,11 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 		
 		// Add patterns
-		addAadlFeaturePatterns();
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addPattern(make(ModePattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
 
 		addAadlConnectionPatterns();
-		
-		// Classifiers
-		// TODO: Remove. Disabled as part of business object handler migration
-		//addPattern(createClassifierPattern(null)); 
-		//addSubcomponentPatterns();		
 		
 		// Subprogram Calls
 		addPattern(make(SubprogramCallSequencePattern.class));
@@ -351,7 +347,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(SetFeatureClassifierFeature.class));
 		features.add(make(SetDimensionsFeature.class));
 		
-		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
+		for(final EClass featureType : AadlFeatureUtil.getFeatureTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			try {
 				try {
@@ -477,26 +473,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		return super.getAllPictogramElementsForBusinessObject(businessObject);
 	}
-	
-	private IPattern createFeaturePattern(final EClass featureType) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Feature Type", featureType);
-			return ContextInjectionFactory.make(FeaturePattern.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
-	/**
-	 * Creates and adds patterns related to AADL Features
-	 */
-	protected final void addAadlFeaturePatterns() {
-		// Create the feature patterns
-		for(final EClass featureType : FeaturePattern.getFeatureTypes()) {
-			this.addPattern(createFeaturePattern(featureType));	
-		}
-	}
 
 	@Override
 	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
@@ -527,7 +503,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, this, simpleEntry, boHandler));
+							features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, propertyService, this, simpleEntry, boHandler));
 						}
 					}
 				}

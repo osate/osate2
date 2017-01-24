@@ -14,6 +14,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.internal.DiagramElementProxy;
 
 /**
  * Contains methods for working with AADL prototypes

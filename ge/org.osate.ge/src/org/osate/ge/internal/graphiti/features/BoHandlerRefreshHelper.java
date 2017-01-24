@@ -172,6 +172,9 @@ public class BoHandlerRefreshHelper {
 							} else if(propertyService.getDockArea(pe) == null) { // Only set the dock area if it has not been set.
 								propertyService.setDockArea(pe, dockingPosition.getDockArea().id);
 							}
+							
+							// Marked docked shapes as layed out so that the layout algorithm won't change the docked side.
+							propertyService.setIsLayedOut(pe, true);
 						}
 					}
 				} else if(pe instanceof Connection) {
@@ -201,7 +204,7 @@ public class BoHandlerRefreshHelper {
 				}
 				
 				// Show all children.
-				// TODO: Replace this with a user controllable mechanism for determining what children should be shown.
+				// TODO: Replace this with a user controllable mechanism for determining which children should be shown.
 				// Refresh Children
 				// It is up to the business object handler to provide children in an appropriate order(objects represented by connections should be last)
 				eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(childContainer));

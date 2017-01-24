@@ -67,7 +67,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 	}
 	
 	public static class LayoutMetrics {
-		int innerWidth = 10;
+		int innerWidth = 30;
 		int innerHeight = 10;
 		int leftOuterPadding = 0;
 		int rightOuterPadding = 0;
@@ -89,17 +89,17 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 		}
 			
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-		final Object handler = extService.getApplicableBusinessObjectHandler(bo);
-		
+		final Object handler = extService.getApplicableBusinessObjectHandler(bo);		
+
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, diagramBo);
-			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
+			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService)));	
 			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
-
+			
 			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			if(gr == null) {	
 				return false;

@@ -16,13 +16,17 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.impl.AbstractFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
@@ -32,15 +36,17 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final UserInputService userInputService;
+	private final PropertyService propertyService;
 
 	@Inject
 	public BoHandlerDeleteFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final AadlModificationService aadlModService, 
-			final UserInputService userInputService, final IFeatureProvider fp) {
+			final UserInputService userInputService, final PropertyService propertyService, final IFeatureProvider fp) {
 		super(fp);
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.userInputService = Objects.requireNonNull(userInputService, "userInputService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
+		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 	}
 
 	@Override
@@ -83,7 +89,8 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 		
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
-			childCtx.set(Names.BUSINESS_OBJECT, bo);
+			childCtx.set(Names.BUSINESS_OBJECT, bo);	
+			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService)));
 			final Object boHandler = extService.getApplicableBusinessObjectHandler(bo);
 			return boHandler == null ? false : (boolean)ContextInjectionFactory.invoke(boHandler, CanDelete.class, childCtx, false);
 		} finally {

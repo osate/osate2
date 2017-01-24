@@ -25,6 +25,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -95,7 +96,7 @@ public class RefineFeatureFeature extends AbstractCustomFeature {
      			diagramMod = diagramModService.startModification();
      			
 				// Refine the feature
-				final NamedElement newFeatureEl = FeaturePattern.createFeature(featureOwner, feature.eClass());
+				final NamedElement newFeatureEl = AadlFeatureUtil.createFeature(featureOwner, feature.eClass());
 				if(newFeatureEl instanceof Feature) {
 					final Feature newFeature = (Feature)newFeatureEl;
 					newFeature.setRefined(feature);

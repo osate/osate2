@@ -11,6 +11,7 @@ package org.osate.ge.internal.services.impl;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectedFeature;
@@ -19,6 +20,8 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.util.Aadl2Util;
+import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
@@ -59,37 +62,7 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 
 		return features;
 	}
-	
-	/**
-	 * Returns all the features owned by the feature group type or the type it extends. It does not return features from the inverse and in the case of refined features, 
-	 * only returns the refined feature.
-	 * @param fgt
-	 * @return
-	 */
-	/*
-	private EList<Feature> getAllOwnedFeatures(final ComponentType ct) {
-		final EList<Feature> features = new BasicEList<Feature>();
-		ComponentType temp = ct;
-		while(temp != null) {
-			boolean wasRefined = false;
-			for(final Feature newFeature : temp.getOwnedFeatures()) {
-				for(final Feature existingFeature : features) {
-					if(existingFeature.getRefined() == newFeature) {
-						wasRefined = true;
-					}
-				}
-				
-				if(!wasRefined) {
-					features.add(newFeature);
-				}
-			}
-			temp = temp.getExtended();
-		}
-
-		return features;
-	}
-	*/
-	
+		
 	@Override
 	public EList<Feature> getAllDeclaredFeatures(final Classifier classifier) {
 		if(classifier instanceof FeatureGroupType) {
@@ -138,11 +111,20 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 		return isInverted;
 	}
 	
+	@Override
+	public boolean isFeatureInverted(DiagramElementProxy featureDiagramElement) {
+		// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level.
+		if(featureDiagramElement instanceof PictogramElementProxy) {
+			final PictogramElement pe = ((PictogramElementProxy)featureDiagramElement).getPictogramElement();
+			if(pe instanceof Shape) {
+				return isFeatureInverted((Shape)pe);
+			}
+		}
+		
+		return false;		
+	}
+	
 	// Prototype Related Methods
-	// CLEAN-UP: Consider moving to another class
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ClassifierService#getFeatureGroupType(org.eclipse.graphiti.mm.pictograms.Shape, org.osate.aadl2.FeatureGroup)
-	 */
 	@Override
 	public FeatureGroupType getFeatureGroupType(final Shape shape, final FeatureGroup fg) {
 		if(fg.getFeatureGroupPrototype() == null) {
@@ -150,6 +132,23 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 		} else {
 			return prototypeService.getFeatureGroupType(prototypeService.getPrototypeBindingContext(shape), fg);		
 		}
+	}
+	
+	@Override
+	public FeatureGroupType getFeatureGroupType(final DiagramElementProxy diagramElement, final FeatureGroup fg) {
+		if(fg.getFeatureGroupPrototype() == null) {
+			return fg.getAllFeatureGroupType();
+		} else {
+			// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level.
+			if(diagramElement instanceof PictogramElementProxy) {
+				final PictogramElement pe = ((PictogramElementProxy)diagramElement).getPictogramElement();
+				if(pe instanceof Shape) {
+					return prototypeService.getFeatureGroupType(prototypeService.getPrototypeBindingContext((Shape)pe), fg);
+				}
+			}
+		}
+
+		return null;
 	}
 	
 	@Override

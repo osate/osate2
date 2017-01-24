@@ -33,7 +33,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.ge.internal.patterns.FeaturePattern;
+import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -78,7 +78,7 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 		
 		final NamedElement feature = (NamedElement)bo;	
 		return feature.getContainingClassifier() == containerBo && 
-				FeaturePattern.canOwnFeatureType(feature.getContainingClassifier(), featureType) &&
+				AadlFeatureUtil.canOwnFeatureType(feature.getContainingClassifier(), featureType) &&
 				(!(feature instanceof Feature) || (((Feature)feature).getRefined() == null || ((Feature)feature).getRefined() instanceof AbstractFeature));
 	}   	
     
@@ -105,7 +105,7 @@ public class ChangeFeatureTypeFeature extends AbstractCustomFeature {
 			@Override
 			public Object modify(final Resource resource, final NamedElement featurec) {
 				final Classifier featureOwner = feature.getContainingClassifier();
-				final NamedElement replacementFeature = FeaturePattern.createFeature(featureOwner, featureType);
+				final NamedElement replacementFeature = AadlFeatureUtil.createFeature(featureOwner, featureType);
 				
 				// Copy structural feature values to the replacement object.
 				transferStructuralFeatureValues(feature, replacementFeature);
