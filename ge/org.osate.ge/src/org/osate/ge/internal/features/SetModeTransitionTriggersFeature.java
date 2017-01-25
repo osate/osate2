@@ -24,7 +24,6 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -39,17 +38,15 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final ShapeService shapeService;
-	private final ComponentImplementationService componentImplementationService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
 	public SetModeTransitionTriggersFeature(final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ShapeService shapeService, 
-			final ComponentImplementationService componentImplementationService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+			final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
 		super(fp);
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.shapeService = shapeService;
-		this.componentImplementationService = componentImplementationService;
 		this.bor = bor;
 	}
 	
@@ -111,7 +108,7 @@ public class SetModeTransitionTriggersFeature extends AbstractCustomFeature {
 		}
 		
 		final ModeTransition mt = (ModeTransition)bor.getBusinessObjectForPictogramElement(pe);
-		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, mt, componentImplementationService);
+		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, mt);
 		if(selectedTriggers != null) {
 			// Make the modification to the mode	
 			aadlModService.modify(mt, new AbstractModifier<ModeTransition, Object>() {

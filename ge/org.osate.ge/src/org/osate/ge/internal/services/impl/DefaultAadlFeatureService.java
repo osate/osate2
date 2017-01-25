@@ -88,9 +88,13 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	 */
 	@Override
 	public boolean isFeatureInverted(final Shape featureShape) {
+		return isFeatureInvertedByParent(featureShape.getContainer());
+	}
+	
+	private boolean isFeatureInvertedByParent(final Shape parentShape) {
 		boolean isInverted = false;
 		
-		Shape container = featureShape.getContainer();
+		Shape container = parentShape;
 		while(!(container instanceof Diagram)) {
 			final Object containerBo = bor.getBusinessObjectForPictogramElement(container);
 			if(containerBo instanceof FeatureGroup) {
@@ -112,12 +116,12 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	}
 	
 	@Override
-	public boolean isFeatureInverted(DiagramElementProxy featureDiagramElement) {
+	public boolean isFeatureInvertedByParent(final DiagramElementProxy parentFeatureDiagramElement) {
 		// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level.
-		if(featureDiagramElement instanceof PictogramElementProxy) {
-			final PictogramElement pe = ((PictogramElementProxy)featureDiagramElement).getPictogramElement();
+		if( parentFeatureDiagramElement instanceof PictogramElementProxy) {
+			final PictogramElement pe = ((PictogramElementProxy) parentFeatureDiagramElement).getPictogramElement();
 			if(pe instanceof Shape) {
-				return isFeatureInverted((Shape)pe);
+				return isFeatureInvertedByParent((Shape)pe);
 			}
 		}
 		

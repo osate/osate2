@@ -30,4 +30,6 @@ public interface PrototypeService {
 	 * @return
 	 */
 	Element getPrototypeBindingContext(Shape shape);
+	
+	Element getPrototypeBindingContextByParent(DiagramElementProxy parentDiagramElement);
 }

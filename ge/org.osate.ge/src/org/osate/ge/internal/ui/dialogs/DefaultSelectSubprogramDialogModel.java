@@ -37,7 +37,7 @@ import org.osate.aadl2.SubprogramPrototype;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.SubprogramSubcomponent;
 import org.osate.ge.internal.services.AadlFeatureService;
-import org.osate.ge.internal.services.ComponentImplementationService;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 /**
@@ -49,13 +49,11 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 	private static final Object processorContext = new Object();
 	private static final Object nullContext = new Object();
 	private final AadlFeatureService featureService;
-	private final ComponentImplementationService componentImplementationService;
 	private final BehavioredImplementation bi;
 	private final List<Object> contexts;
 	
-	public DefaultSelectSubprogramDialogModel(final AadlFeatureService featureService, final ComponentImplementationService componentImplementationService, final BehavioredImplementation bi) {
+	public DefaultSelectSubprogramDialogModel(final AadlFeatureService featureService, final BehavioredImplementation bi) {
 		this.featureService = featureService;
-		this.componentImplementationService = componentImplementationService;
 		this.bi = bi;
 		
 		// Build a list of contexts
@@ -150,7 +148,7 @@ public class DefaultSelectSubprogramDialogModel implements SelectSubprogramDialo
 			addProvidesSubprogramAccessesForComponentClassifier(((SubprogramGroupSubcomponent) context).getAllClassifier(), subprograms);
 		} else if(context == processorContext) { // Processor Context
 			// Subprogram Proxy
-			for(final ProcessorFeature processorFeature : componentImplementationService.getAllProcessorFeatures(bi)) {
+			for(final ProcessorFeature processorFeature : AadlHelper.getAllProcessorFeatures(bi)) {
 				if(processorFeature instanceof SubprogramProxy) {
 					subprograms.add(processorFeature);
 				}

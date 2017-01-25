@@ -37,9 +37,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
-import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -69,6 +66,7 @@ import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -183,13 +181,13 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {
 			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
 			// target business object is contained.
-			return (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
+			return (AadlPackage)queryService.getFirstBusinessObject(packageQuery, targetDiagramElement);
 		}
 
 		return null;
@@ -454,9 +452,9 @@ public class ClassifierHandler {
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final AadlFeatureService featureService) {
 		/*
-		 * 	All : featureService.getAllDeclaredFeatures(classifier)	
-	CI : componentImplementationService.getAllInternalFeatures(ci)
-	CI : componentImplementationService.getAllProcessorFeatures(ci)
+	In progress : All : featureService.getAllDeclaredFeatures(classifier)	
+	In progress : CI : componentImplementationService.getAllInternalFeatures(ci)
+	In progress : CI : componentImplementationService.getAllProcessorFeatures(ci)
 	CI : ci.getAllSubcomponents()	
 	BehavioredImplementation : componentImplementationService.getAllSubprogramCallSequences(bi)	
 	CC : Modes		
@@ -476,6 +474,17 @@ public class ClassifierHandler {
 		//Stream.concat(Stream.concat(ci.getComponentInstances().stream(), 
 			//	ci.getFeatureInstances().stream()),
 				//connectionReferenceStreamBuilder.build());
-		return featureService.getAllDeclaredFeatures(classifier).stream();
+		
+		Stream<?> children = Stream.empty();
+		
+		children = Stream.concat(children, featureService.getAllDeclaredFeatures(classifier).stream());
+		
+		if(classifier instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation)classifier;
+			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
+			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());			
+		}
+		
+		return children;
 	}
 }

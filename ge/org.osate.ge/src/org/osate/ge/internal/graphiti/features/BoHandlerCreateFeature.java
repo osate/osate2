@@ -137,7 +137,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetBo);
-			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;

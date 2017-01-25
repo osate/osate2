@@ -3,12 +3,14 @@ package org.osate.ge.internal.graphics;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.PortCategory;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -67,15 +69,15 @@ public class AadlGraphics {
 		
 		// Configure the feature type
 		final Aadl2Package aadl2Pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
-		if(featureClass == aadl2Pkg.getAbstractFeature()) {
+		if(featureClass == aadl2Pkg.getAbstractFeature() || featureClass == aadl2Pkg.getPortProxy()) {
 			builder.abstractFeature();
-		} else if(featureClass == aadl2Pkg.getEventPort()) {
+		} else if(featureClass == aadl2Pkg.getEventPort() || featureClass == aadl2Pkg.getEventSource()) {
 			builder.eventPort();
-		} else if(featureClass == aadl2Pkg.getDataPort()) {
+		} else if(featureClass == aadl2Pkg.getDataPort() || featureClass == aadl2Pkg.getParameter()) {
 			builder.dataPort();
-		} else if(featureClass == aadl2Pkg.getEventDataPort()) {
+		} else if(featureClass == aadl2Pkg.getEventDataPort() || featureClass == aadl2Pkg.getEventDataSource()) {
 			builder.eventDataPort();
-		} else if(featureClass == aadl2Pkg.getSubprogramAccess()) {
+		} else if(featureClass == aadl2Pkg.getSubprogramAccess() || featureClass == aadl2Pkg.getSubprogramProxy()) {
 			builder.subprogramAccess();
 		} else if(featureClass == aadl2Pkg.getSubprogramGroupAccess()) {
 			builder.subprogramGroupAccess();
@@ -86,6 +88,84 @@ public class AadlGraphics {
 		} else if(featureClass == aadl2Pkg.getFeatureGroup()) {
 			builder.featureGroup();
 		} else {
+			return defaultGraphic;
+		}
+				
+		switch(direction) {
+		case IN:
+			builder.input();
+			break;
+			
+		case OUT:
+			builder.output();
+			break;			
+			
+		case IN_OUT:
+			builder.bidirectional();
+			break;
+		}
+		 
+		return builder.build();
+	}
+	
+	public static Graphic getFeatureGraphic(final PortCategory portCategory, final DirectionType direction) {
+		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
+		
+		switch(portCategory) {
+		case DATA:
+			builder.dataPort();
+			break;
+			
+		case EVENT:
+			builder.eventPort();
+			break;
+			
+		case EVENT_DATA:
+			builder.eventDataPort();
+			break;
+			
+		default:
+			return defaultGraphic;		
+		}
+		
+		switch(direction) {
+		case IN:
+			builder.input();
+			break;
+			
+		case OUT:
+			builder.output();
+			break;			
+			
+		case IN_OUT:
+			builder.bidirectional();
+			break;
+		}
+		 
+		return builder.build();
+	}
+	
+	public static Graphic getFeatureGraphic(final AccessCategory accessCategory, final DirectionType direction) {
+		final FeatureGraphicBuilder builder = FeatureGraphicBuilder.create();
+		
+		switch(accessCategory) {
+		case BUS:
+			builder.busAccess();
+			break;
+			
+		case DATA:
+			builder.dataAccess();
+			break;
+			
+		case SUBPROGRAM:
+			builder.subprogramAccess();
+			break;
+			
+		case SUBPROGRAM_GROUP:
+			builder.subprogramGroupAccess();
+			break;
+			
+		default:
 			return defaultGraphic;
 		}
 		

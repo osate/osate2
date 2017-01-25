@@ -58,7 +58,6 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.PropertyService;
@@ -86,13 +85,12 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
 	private final SubcomponentService subcomponentService;
-	private final ComponentImplementationService componentImplementationService;
 	
 	@Inject
 	public ModeTransitionPattern(final ColoringService coloringService, final GhostingService ghostingService, final StyleService styleUtil, final AnchorService anchorUtil, final NamingService namingService,
 			final ConnectionService connectionHelper, final ShapeService shapeHelper, AadlModificationService aadlModService, final DiagramModificationService diagramModService,
 			final UserInputService userInputService, final SerializableReferenceService referenceService, final BusinessObjectResolutionService bor, final PropertyService propertyService,
-			final SubcomponentService subcomponentService, final ComponentImplementationService componentImplementationService) {
+			final SubcomponentService subcomponentService) {
 		super(coloringService, ghostingService, connectionHelper, propertyService, bor);
 		this.styleService = styleUtil;
 		this.anchorService = anchorUtil;
@@ -105,7 +103,6 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		this.bor = bor;
 		this.propertyService = propertyService;
 		this.subcomponentService = subcomponentService;
-		this.componentImplementationService = componentImplementationService;		
 	}
 
 	@Override
@@ -440,7 +437,9 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		}
 		
 		// Get appropriate anchor depending on whether the port belongs to the component classifier or a subcomponent
-		return anchorService.getAnchorByName(portShape, shapeService.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		//return anchorService.getAnchorByName(portShape, shapeService.doesShapeContain(portShape.getContainer(), modeShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		// TODO: Changed as part of migration
+		return Graphiti.getPeService().getChopboxAnchor(portShape);
 	}
 	
 	@Override
@@ -508,7 +507,7 @@ public class ModeTransitionPattern extends AgeConnectionPattern implements Categ
 		// Determine the name for the new mode transition
 		final String newElementName = namingService.buildUniqueIdentifier(cc, "new_transition");
 
-		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, null, componentImplementationService);
+		final ModeTransitionTriggerInfo[] selectedTriggers = ModeTransitionTriggerSelectionDialog.promptForTriggers(cc, null);
 		if(selectedTriggers != null) {
 			// Make the modification
 			aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, ModeTransition>() {

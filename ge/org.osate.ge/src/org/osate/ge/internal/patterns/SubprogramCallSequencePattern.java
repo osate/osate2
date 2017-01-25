@@ -55,7 +55,6 @@ import org.osate.ge.Categories;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.LabelService;
@@ -79,7 +78,6 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final AadlFeatureService featureService;
-	private final ComponentImplementationService componentImplementationService;
 	private final GhostingService ghostingService;
 	private final StyleService styleService;
 	private final LayoutService layoutService;
@@ -93,7 +91,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 	
 	@Inject
 	public SubprogramCallSequencePattern(final NamingService namingService, final ShapeCreationService shapeCreationService, final AadlModificationService aadlModService,
-			final DiagramModificationService diagramModService, final AadlFeatureService featureService, final ComponentImplementationService componentImplementationService,
+			final DiagramModificationService diagramModService, final AadlFeatureService featureService,
 			final GhostingService ghostingService, final StyleService styleService, final LayoutService layoutService, 
 			final ShapeService shapeService, final LabelService labelService, final ConnectionCreationService connectionCreationService, 
 			final PropertyService propertyService, final RefactoringService refactoringService, final UserInputService userInputService, final BusinessObjectResolutionService bor) {
@@ -102,7 +100,6 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.featureService = featureService;
-		this.componentImplementationService = componentImplementationService;
 		this.ghostingService = ghostingService;
 		this.styleService = styleService;
 		this.shapeService = shapeService;
@@ -315,7 +312,7 @@ public class SubprogramCallSequencePattern extends AgePattern implements Categor
 			return EMPTY;
 		}
 		
-		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, componentImplementationService, bi);
+		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, bi);
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {
 			return EMPTY;

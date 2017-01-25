@@ -164,6 +164,17 @@ public class DefaultShapeService implements ShapeService {
 		return null;
 	}
 	
+	@Override
+	public List<Shape> getChildShapesByName(ContainerShape shape, String name) {
+		final List<Shape> results = new ArrayList<Shape>();
+		for(final Shape child : getNonGhostChildren(shape)) {
+			if(name.equals(propertyUtil.getName(child))) {
+				results.add(child);
+			}
+		}
+		
+		return results;
+	}
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.ShapeService#doesShapeContain(org.eclipse.graphiti.mm.pictograms.Shape, org.eclipse.graphiti.mm.pictograms.Shape)
 	 */

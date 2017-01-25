@@ -42,8 +42,8 @@ public interface AadlFeatureService {
 	 * @return
 	 */
 	boolean isFeatureInverted(Shape featureShape);
-	
-	boolean isFeatureInverted(DiagramElementProxy featureDiagramElement);
+
+	boolean isFeatureInvertedByParent(DiagramElementProxy featureParentDiagramElement);
 
 	FeatureGroupType getFeatureGroupType(Shape shape, FeatureGroup fg);
 	

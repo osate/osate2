@@ -84,7 +84,6 @@ import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
@@ -103,6 +102,7 @@ import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
@@ -139,7 +139,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
 	private final RefactoringService refactoringService;
-	private final ComponentImplementationService componentImplementationService;
 	private final LabelService labelService;
 	private final BusinessObjectResolutionService bor;
 	private final EClass subcomponentType; // The subcomponent the pattern is responsible for handling. null if the pattern is for handling a classifier.
@@ -175,8 +174,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			final GraphicsAlgorithmCreationService graphicsAlgorithmCreator, final PropertyService propertyService, final AadlArrayService arrayService,
 			final ColoringService highlightingService, final AnchorService anchorService, final AadlModificationService aadlModService, final NamingService namingService, 
 			final DiagramModificationService diagramModService, final UserInputService userInputService, final RefactoringService refactoringService, 
-			final ConnectionService connectionService, final ComponentImplementationService componentImplementationService, 
-			final LabelService labelService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
+			final ConnectionService connectionService, final LabelService labelService, final BusinessObjectResolutionService bor, final @Named("Subcomponent Type") EClass subcomponentType) {
 		this.ghostingService = ghostingService;
 		this.layoutService = layoutService;
 		this.shapeService = shapeService;
@@ -196,7 +194,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		this.userInputService = userInputService;
 		this.refactoringService = refactoringService;
 		this.connectionService = connectionService;
-		this.componentImplementationService = componentImplementationService;
 		this.labelService = labelService;
 		this.bor = bor;
 		this.subcomponentType = subcomponentType;
@@ -357,14 +354,14 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			// Create component implementation specific shapes
 			if(classifier instanceof ComponentImplementation) {
 				final ComponentImplementation ci = (ComponentImplementation)classifier;
-				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllInternalFeatures(ci));
-				shapeCreationService.createUpdateFeatureShapes(shape, componentImplementationService.getAllProcessorFeatures(ci));
+				shapeCreationService.createUpdateFeatureShapes(shape, AadlHelper.getAllInternalFeatures(ci));
+				shapeCreationService.createUpdateFeatureShapes(shape, AadlHelper.getAllProcessorFeatures(ci));
 				shapeCreationService.createUpdateShapes(shape, ci.getAllSubcomponents(), 25, true, 30, 25, true, 20);		
 			}
 			
 			if(classifier instanceof BehavioredImplementation) {
 				final BehavioredImplementation bi = (BehavioredImplementation)classifier;
-				shapeCreationService.createUpdateShapes(shape, componentImplementationService.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
+				shapeCreationService.createUpdateShapes(shape, AadlHelper.getAllSubprogramCallSequences(bi), 25, true, 30, 25, true, 20);
 			}
 			
 			// Create/Update Modes and Mode Transitions

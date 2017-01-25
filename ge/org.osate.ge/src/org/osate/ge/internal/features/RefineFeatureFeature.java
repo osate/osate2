@@ -26,7 +26,6 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
-import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;

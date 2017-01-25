@@ -1,26 +1,13 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import javax.inject.Named;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.algorithms.Text;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.Aadl2Factory;
-import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
@@ -28,10 +15,11 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
-import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EventDataSource;
+import org.osate.aadl2.EventSource;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
@@ -40,14 +28,9 @@ import org.osate.aadl2.FeaturePrototypeBinding;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PortSpecification;
-import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.PrototypeBinding;
-import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.ThreadGroupImplementation;
-import org.osate.aadl2.ThreadImplementation;
-import org.osate.aadl2.VirtualProcessorImplementation;
-import org.osate.aadl2.instance.FeatureInstance;
+import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
@@ -66,7 +49,10 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.annotations.Annotation;
+import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.GetNameLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -76,13 +62,17 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.QueryService;
+import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 
 public class FeatureHandler {
 	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first());
 	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
+	private final static Annotation processorFeatureAnnotation = AnnotationBuilder.create().text("<processor>").build();
+	private final static Annotation internalFeatureAnnotation = AnnotationBuilder.create().text("<internal>").build();
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -154,70 +144,87 @@ public class FeatureHandler {
 	}
 	
 	@GetDefaultDockingPosition
-	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
-		return getDirection(feature) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy parentDiagramElement, final AadlFeatureService featureService) {
+		return getDirection(feature, parentDiagramElement, featureService) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
 	}
 		
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
-		final DirectionType direction = getDirection(feature);//, diagramElement, featureService);
-		
-		/*
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy parentDiagramElement, final AadlFeatureService featureService, final PrototypeService prototypeService) {
 		// Check to see if it is a prototype feature
 		if(feature instanceof AbstractFeature) {
 			final AbstractFeature af = (AbstractFeature)feature;
 			if(af.getFeaturePrototype() != null) {
 				// Lookup the binding
 				// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-				final Element bindingContext = prototypeService.getPrototypeBindingContext(shape);
+				final Element bindingContext = prototypeService.getPrototypeBindingContextByParent(parentDiagramElement);
 				if(bindingContext != null) {
 					final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 					if(binding instanceof FeaturePrototypeBinding) {
 						FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 						if(actual instanceof PortSpecification) {
-							graphicsAlgorithmCreator.createPortGraphicsAlgorithm(featureShape, ((PortSpecification) actual).getCategory(), ((PortSpecification) actual).getDirection());
-							featureGaCreated = true;
+							final DirectionType direction = getDirection(actual, parentDiagramElement, featureService);
+							return AadlGraphics.getFeatureGraphic(((PortSpecification)actual).getCategory(), direction);
 						} else if(actual instanceof AccessSpecification) {
-							graphicsAlgorithmCreator.createAccessGraphicsAlgorithm(featureShape, ((AccessSpecification) actual).getCategory(), ((AccessSpecification) actual).getKind());
-							featureGaCreated = true;
+							final DirectionType direction = getDirection(actual, parentDiagramElement, featureService);
+							return AadlGraphics.getFeatureGraphic(((AccessSpecification)actual).getCategory(), direction);
 						}
 					}
 				}
 			}
 		}
-		*/
+		
+		final DirectionType direction = getDirection(feature, parentDiagramElement, featureService);
 		return AadlGraphics.getFeatureGraphic(feature.eClass(), direction); 
 	}	
 	
-	//private DirectionType getDirection(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final AadlFeatureService featureService) {
-	private DirectionType getDirection(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
+	/**
+	 * 
+	 * @param feature a feature or feature specification
+	 * @param parentDiagramElement
+	 * @param featureService
+	 * @return
+	 */
+	private DirectionType getDirection(final Element feature, final DiagramElementProxy parentDiagramElement, final AadlFeatureService featureService) {
 		DirectionType direction;
-		// TODO: Handle Inverse, prototypes, etc.
 		if(feature instanceof DirectedFeature) {
 			direction = ((DirectedFeature) feature).getDirection();
+		} else if(feature instanceof PortSpecification) {
+			direction = ((PortSpecification) feature).getDirection();
 		} else if(feature instanceof Access) {
 			direction = ((Access)feature).getKind() == AccessType.PROVIDES ? DirectionType.OUT : DirectionType.IN;
+		} else if(feature instanceof AccessSpecification) {
+			direction = ((AccessSpecification)feature).getKind() == AccessType.PROVIDES ? DirectionType.OUT : DirectionType.IN;
+		} else if(feature instanceof EventSource || feature instanceof EventDataSource || feature instanceof SubprogramProxy) {
+			direction = DirectionType.IN;
 		} else {
 			direction = DirectionType.IN_OUT;
 		}
 		
 		// Invert the feature as appropriate
-		// TODO
-		/*
-		if(featureService.isFeatureInverted(diagramElement)) {
+		if(featureService.isFeatureInvertedByParent(parentDiagramElement)) {
 			if(direction == DirectionType.IN) {
 				direction = DirectionType.OUT;
 			} else if(direction == DirectionType.OUT) {
 				direction = DirectionType.IN;
 			}
 		}		
-		*/
 		
 		return direction;
 	}
 	
+	@GetAnnotations
+	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
+		if(feature instanceof ProcessorFeature) {
+			return new Annotation[] {processorFeatureAnnotation};
+		} else if(feature instanceof InternalFeature) {
+			return new Annotation[] {internalFeatureAnnotation};
+		}
+		
+		return null;
+	}	
+	
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Feature feature) {
+	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
 		return feature.getName() == null ? "" : feature.getName(); 
 	}
 	
@@ -232,8 +239,8 @@ public class FeatureHandler {
 	}
 	
 	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.NAME) String value) {
-		feature.setName(value);
+	public void setName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
+		refactoringService.renameElement(feature, value);
 	}
 	
 	@GetChildren

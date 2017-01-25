@@ -8,12 +8,21 @@
  *******************************************************************************/
 package org.osate.ge.internal.util;
 
+import java.util.List;
+
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.ProcessorFeature;
+import org.osate.aadl2.SubprogramCallSequence;
 
 /**
  * Stand-alone static methods for working with AADL models
@@ -64,5 +73,41 @@ public class AadlHelper {
 		final String n1 = ne1.getName();
 		final String n2 = ne2.getName();
 		return n1 != null && n1.equalsIgnoreCase(n2);
+	}
+	
+	public static List<InternalFeature> getAllInternalFeatures(final ComponentImplementation ci) {
+		EList<InternalFeature> returnList = new BasicEList<InternalFeature>();
+		ComponentImplementation tmpCi = ci;
+		while(tmpCi != null) {
+			returnList.addAll(tmpCi.getOwnedInternalFeatures());
+			tmpCi = tmpCi.getExtended();
+		}
+
+		return returnList;
+	}
+	
+	public static List<ProcessorFeature> getAllProcessorFeatures(final ComponentImplementation ci) {
+		EList<ProcessorFeature> returnList = new BasicEList<ProcessorFeature>();
+		ComponentImplementation tmpCi = ci;
+		while(tmpCi != null) {
+			returnList.addAll(tmpCi.getOwnedProcessorFeatures());
+			tmpCi = tmpCi.getExtended();
+		}
+		
+		return returnList;
+	}
+
+	public static List<SubprogramCallSequence> getAllSubprogramCallSequences(final BehavioredImplementation bi) {
+		EList<SubprogramCallSequence> returnList = new BasicEList<SubprogramCallSequence>();
+		ComponentImplementation tmpCi = bi;
+		while(tmpCi != null) {
+			if(tmpCi instanceof BehavioredImplementation) {
+				final BehavioredImplementation tmpBi = (BehavioredImplementation)tmpCi;
+				returnList.addAll(tmpBi.getOwnedSubprogramCallSequences());
+			}
+			tmpCi = tmpCi.getExtended();
+		}
+		
+		return returnList;
 	}
 }

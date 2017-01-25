@@ -80,6 +80,8 @@ public interface ShapeService {
 			NamedElement el);
 
 	Shape getChildShapeByName(ContainerShape shape, String name);
+	
+	List<Shape> getChildShapesByName(ContainerShape shape, String name);
 
 	
 	/**

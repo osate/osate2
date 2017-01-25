@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -20,6 +20,8 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
+import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
 
@@ -67,7 +69,11 @@ public class DefaultPrototypeService implements PrototypeService {
 	
 	@Override
 	public Element getPrototypeBindingContext(final Shape shape) {
-		ContainerShape temp = shape.getContainer();
+		return getPrototypeBindingContextByParent(shape.getContainer());
+	}
+	
+	private Element getPrototypeBindingContextByParent(final Shape parentShape) {
+		Shape temp = parentShape;
 		
 		while(temp != null) {
 			Object bo = bor.getBusinessObjectForPictogramElement(temp);
@@ -81,6 +87,19 @@ public class DefaultPrototypeService implements PrototypeService {
 
 			temp = temp.getContainer();
 		}
+		return null;
+	}
+	
+	@Override
+	public Element getPrototypeBindingContextByParent(DiagramElementProxy parentDiagramElement) {
+		// TODO: Rewrite to use queries.
+		if(parentDiagramElement instanceof PictogramElementProxy) {
+			final PictogramElement pe = ((PictogramElementProxy) parentDiagramElement).getPictogramElement();
+			if(pe instanceof Shape){
+				return getPrototypeBindingContextByParent((Shape)pe);
+			}
+		}
+					
 		return null;
 	}
 	

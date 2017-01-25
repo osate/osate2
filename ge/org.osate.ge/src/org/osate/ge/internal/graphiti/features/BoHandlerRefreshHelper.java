@@ -30,12 +30,16 @@ import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.annotations.AgeAnnotation;
+import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.decorations.Decoration;
 import org.osate.ge.internal.decorations.DelayedDecoration;
 import org.osate.ge.internal.decorations.DirectionDecoration;
 import org.osate.ge.internal.decorations.ImmediateDecoration;
+import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.InternalNames;
@@ -47,7 +51,6 @@ import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.patterns.AgePattern;
 import org.osate.ge.internal.query.AncestorUtil;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionCreationService;
@@ -119,13 +122,13 @@ public class BoHandlerRefreshHelper {
 			logicalParent = AgeFeatureUtil.getLogicalPictogramElement(addTargetContainer, propertyService);
 		} else {
 			logicalParent = AncestorUtil.getParent(pe, propertyService, connectionService);
-		}		
+		}
 		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));		
-			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, logicalParent);
+			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(logicalParent));
 			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			
 			// Special handling for diagram
@@ -134,7 +137,7 @@ public class BoHandlerRefreshHelper {
 				ghostingService.setIsGhost(pe, false);
 				propertyService.setIsLogicalTreeNode(pe, false);
 				ghostingService.ghostChildren((Diagram)pe);
-				createContextAndUpdateChild((Diagram)pe, bo);
+				createContextAndUpdateChild((Diagram)pe, new PictogramElementProxy(null), bo);
 				
 				return pe;
 			}
@@ -231,12 +234,14 @@ public class BoHandlerRefreshHelper {
 				eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
 				final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(handler, GetChildren.class, eclipseCtx, null);
 				if(childBos != null) {
+					final DiagramElementProxy logicalContainerProxy = new PictogramElementProxy(childContainer);
 					final Iterator<?> childIt = childBos.iterator();
 				    if (childIt.hasNext()) {
 				    	final IEclipseContext childEclipseCtx = extService.createChildContext();
+				    	childEclipseCtx.remove(InternalNames.DIAGRAM_ELEMENT_PROXY);
 						try {
 							while(childIt.hasNext()) {
-								createUpdateChild(childEclipseCtx, childContainer, childIt.next());
+								createUpdateChild(childEclipseCtx, childContainer, logicalContainerProxy, childIt.next());
 							}
 						} finally {
 							childEclipseCtx.dispose();
@@ -250,12 +255,21 @@ public class BoHandlerRefreshHelper {
 				if(!(pe instanceof Diagram)) {
 					// Get the name
 					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(pe));
-					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);	
-
+					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);
+								
 					if(pe instanceof ContainerShape) {
 						if(name != null) {
 							final Shape labelShape = labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.nameShapeName, bo, name, true);
 							labelShape.setActive(false);
+						}
+			
+						final Annotation[] annotations = (Annotation[])ContextInjectionFactory.invoke(handler, GetAnnotations.class, eclipseCtx, null);
+						if(annotations != null) {
+							for(final Annotation annotation : annotations) {
+								final AgeAnnotation ageAnnotation = (AgeAnnotation)annotation;
+								final Shape annotationShape = labelService.createLabelShape((ContainerShape)pe, BoHandlerFeatureHelper.annotationsShapeName, bo, ageAnnotation.text, true);
+								annotationShape.setActive(false);
+							}
 						}
 					} else if(pe instanceof Connection) {
 						final Connection connection = (Connection)pe;
@@ -440,21 +454,21 @@ public class BoHandlerRefreshHelper {
 	    return ga;
 	}
 	
-	public void createContextAndUpdateChild(final ContainerShape containerShape, final Object childBo) {
+	private void createContextAndUpdateChild(final ContainerShape containerShape, final DiagramElementProxy logicalContainer, final Object childBo) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
-			createUpdateChild(eclipseCtx, containerShape, childBo);
+			createUpdateChild(eclipseCtx, containerShape, logicalContainer, childBo);
 		} finally {
 			eclipseCtx.dispose();
 		}
 	}
 	
-	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final Object childBo) {
+	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final DiagramElementProxy logicalContainer, final Object childBo) {
 		final Object childBoHandler = extService.getApplicableBusinessObjectHandler(childBo);
 		if(childBoHandler != null) {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));
-			//eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, containerShape); // TODO
+			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, logicalContainer);
 			final Object gr = ContextInjectionFactory.invoke(childBoHandler, GetGraphic.class, eclipseCtx, null);
 			if(gr instanceof AgeShape || gr == null) { // Handle null graphic to allow for business object handlers which are just containers but have no graphical representation.
 				shapeCreationService.createUpdateShape(containerShape, childBo);

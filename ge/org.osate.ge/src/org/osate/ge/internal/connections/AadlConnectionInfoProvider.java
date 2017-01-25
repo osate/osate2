@@ -25,7 +25,6 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ShapeService;
@@ -101,13 +100,15 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 
 		// Get the appropriate anchors
 		final Shape srcComponentShape = shapeService.getClosestAncestorWithBusinessObjectType(sourceShape, ComponentImplementation.class, Subcomponent.class);
-		a1 = anchorUtil.getAnchorByName(sourcePe, shapeService.doesShapeContain(srcComponentShape, destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		// TODO: Resource or remove if no longer needed
+		//a1 = anchorUtil.getAnchorByName(sourcePe, shapeService.doesShapeContain(srcComponentShape, destShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
 		if(a1 == null) {
 			a1 = peService.getChopboxAnchor((AnchorContainer)sourcePe);
 		}
 
 		final Shape dstComponentShape = shapeService.getClosestAncestorWithBusinessObjectType(destShape, ComponentImplementation.class, Subcomponent.class);
-		a2 = anchorUtil.getAnchorByName(destPe, shapeService.doesShapeContain(dstComponentShape, sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		//a2 = anchorUtil.getAnchorByName(destPe, shapeService.doesShapeContain(dstComponentShape, sourceShape) ? FeaturePattern.innerConnectorAnchorName : FeaturePattern.outerConnectorAnchorName);
+		// TODO: Resource or remove if no longer needed
 		if(a2 == null) {
 			a2 = peService.getChopboxAnchor((AnchorContainer)destPe);
 		}

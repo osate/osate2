@@ -62,7 +62,6 @@ import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GhostingService;
@@ -95,7 +94,6 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	private final AnchorService anchorService;
 	private final NamingService namingService;
 	private final RefactoringService refactoringService;
-	private final ComponentImplementationService componentImplementationService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
@@ -106,7 +104,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	public SubprogramCallPattern(final GhostingService ghostingService, final LayoutService layoutService, final StyleService styleService, 
 			final ShapeService shapeService, final LabelService labelService, final ShapeCreationService shapeCreationService, final PropertyService propertyService,
 			final AadlFeatureService featureService, final AnchorService anchorService, final NamingService namingService,
-			final RefactoringService refactoringService, final ComponentImplementationService componentImplementationService, 
+			final RefactoringService refactoringService,
 			final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final UserInputService userInputService,
 			final ConnectionCreationService connectionCreationService, final BusinessObjectResolutionService bor) {
 		this.ghostingService = ghostingService;
@@ -120,7 +118,6 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 		this.anchorService = anchorService;
 		this.namingService = namingService;
 		this.refactoringService = refactoringService;
-		this.componentImplementationService = componentImplementationService;
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
@@ -386,7 +383,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 			throw new RuntimeException("Unexpected case. Unable to find BehavioredImplementation");
 		}
 		
-		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, componentImplementationService, bi);
+		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, bi);
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {
 			return EMPTY;

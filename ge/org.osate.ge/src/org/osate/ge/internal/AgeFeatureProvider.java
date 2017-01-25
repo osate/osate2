@@ -128,7 +128,6 @@ import org.osate.ge.internal.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
-import org.osate.ge.internal.patterns.FeaturePattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
 import org.osate.ge.internal.patterns.ModePattern;
 import org.osate.ge.internal.patterns.ModeTransitionPattern;
