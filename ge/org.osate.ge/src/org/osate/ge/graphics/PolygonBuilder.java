@@ -11,6 +11,7 @@ package org.osate.ge.graphics;
 import java.awt.geom.Point2D;
 import java.util.Objects;
 
+import org.osate.ge.internal.graphics.LineStyle;
 import org.osate.ge.internal.graphics.Polygon;
 
 /**
@@ -20,6 +21,8 @@ import org.osate.ge.internal.graphics.Polygon;
  */
 public class PolygonBuilder {
 	private Point2D.Double[] points;
+	private int lineWidth = 1;
+	private LineStyle lineStyle = LineStyle.SOLID;
 	
 	private PolygonBuilder() {}
 	
@@ -42,10 +45,29 @@ public class PolygonBuilder {
 	}
 	
 	/**
+	 * Sets the line width to use to create the polygon
+	 * @param value the new value for the line width.
+	 * @return this builder to allow method chaining.
+	 */
+	public PolygonBuilder lineWidth(int value) {
+		this.lineWidth = value;
+		return this;
+	}
+	
+	/**
+	 * Configures the polygon builder to use dashed lines.
+	 * @return this builder to allow method chaining.
+	 */
+	public PolygonBuilder dashed() {
+		this.lineStyle = LineStyle.DASHED;
+		return this;
+	}
+	
+	/**
 	 * Creates a polygon graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Polygon(points);
+		return new Polygon(points, lineWidth, lineStyle);
 	}
 }

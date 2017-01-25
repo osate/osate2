@@ -139,6 +139,8 @@ public class AgeGraphitiGraphicsUtil {
 		
 		final IGaService gaService = Graphiti.getGaService();
 		final GraphicsAlgorithm ga = gaService.createPlainPolygon(containerGa, coords);
+		ga.setLineWidth(poly.lineWidth);
+		ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(poly.lineStyle));
 		ga.setForeground(gaService.manageColor(diagram, ColorConstant.BLACK));
         ga.setBackground(gaService.manageColor(diagram, ColorConstant.WHITE));
         ga.setFilled(fillBackground);
