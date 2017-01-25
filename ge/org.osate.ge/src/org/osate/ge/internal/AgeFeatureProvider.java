@@ -94,7 +94,6 @@ import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
-import org.osate.ge.internal.businessObjectHandlers.FeatureHandler;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.internal.features.CommandCustomFeature;
@@ -129,7 +128,6 @@ import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
-import org.osate.ge.internal.patterns.ModePattern;
 import org.osate.ge.internal.patterns.ModeTransitionPattern;
 import org.osate.ge.internal.features.EditFlowsFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallDownFeature;
@@ -223,7 +221,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Add patterns
 		addConnectionPattern(make(FlowSpecificationPattern.class));
-		addPattern(make(ModePattern.class));
 		addConnectionPattern(make(ModeTransitionPattern.class));
 
 		addAadlConnectionPatterns();

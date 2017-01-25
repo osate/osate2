@@ -27,6 +27,7 @@ import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
@@ -447,19 +448,19 @@ public class ClassifierHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(Names.NAME) String value) {
 		bo.setName(value);
-	}	
+	}
 	
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final AadlFeatureService featureService) {
 		/*
-	In progress : All : featureService.getAllDeclaredFeatures(classifier)	
-	In progress : CI : componentImplementationService.getAllInternalFeatures(ci)
-	In progress : CI : componentImplementationService.getAllProcessorFeatures(ci)
+	DONE : All : featureService.getAllDeclaredFeatures(classifier)	
+	DONE : CI : componentImplementationService.getAllInternalFeatures(ci)
+	DONE : CI : componentImplementationService.getAllProcessorFeatures(ci)
 	CI : ci.getAllSubcomponents()	
 	BehavioredImplementation : componentImplementationService.getAllSubprogramCallSequences(bi)	
-	CC : Modes		
+	DONE : cc.getAllModes()
 	ALL : getAllDefaultAnnexSubclauses((Classifier)classifier))	
-	CC : cc.getAllModeTransitions()
+	In Progress : CC : cc.getAllModeTransitions()
 	CI : ci.getAllConnections()
 	CT : componentType.getAllFlowSpecifications()
 	CI or CC? : Binding Indicators
@@ -483,6 +484,14 @@ public class ClassifierHandler {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
 			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());			
+		}
+		
+		if(classifier instanceof ComponentClassifier) {
+			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModes().stream());
+		}
+		
+		if(classifier instanceof ComponentClassifier) {
+			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModeTransitions().stream());
 		}
 		
 		return children;

@@ -14,23 +14,20 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IPeService;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.internal.patterns.AgePattern;
-import org.osate.ge.internal.patterns.ModePattern;
-import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ShapeService;
 
 public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
-	private final AnchorService anchorUtil;
 	private final ShapeService shapeHelper;
 	
 	@Inject
-	public ModeTransitionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
+	public ModeTransitionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final ShapeService shapeHelper) {
 		super(bor, diagram);
-		this.anchorUtil = anchorUtil;
 		this.shapeHelper = shapeHelper;
 	}
 
@@ -66,8 +63,9 @@ public class ModeTransitionInfoProvider extends AbstractConnectionInfoProvider {
 			return null;
 		}				
 
-		final Anchor a1 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(srcShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);
-		final Anchor a2 = anchorUtil.getAnchorByName(shapeHelper.getChildShapeByName(dstShape, ModePattern.innerModeShapeName), AgePattern.chopboxAnchorName);	
+		final IPeService peService = Graphiti.getPeService();
+		final Anchor a1 = peService.getChopboxAnchor(srcShape);
+		final Anchor a2 = peService.getChopboxAnchor(dstShape);	
 		if(a1 == null || a2 == null) {
 			return null;
 		}

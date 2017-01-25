@@ -786,5 +786,8 @@
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.FeatureHandler">
        </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ModeHandler">
+       </handler>
     </extension>
 </plugin>

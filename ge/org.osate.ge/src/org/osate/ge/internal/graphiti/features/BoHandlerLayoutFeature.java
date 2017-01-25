@@ -24,7 +24,7 @@ import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.GetAnnotations;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.GetNameLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FeatureGraphic;
@@ -117,7 +117,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 			
-			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
+			final Graphic gr = (Graphic)ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			if(gr == null) {	
 				return false;
 			}
@@ -145,16 +145,12 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				totalLabelsHeight += labelShape.getGraphicsAlgorithm().getHeight();
 			}	
 			
-			 // Add additional padding to avoid label background from overlapping shape border for simple shapes
-			totalLabelsWidth += labelPadding;
-			totalLabelsHeight += labelPadding;
-			
 			// Adjust label position if the shape is docked
 			LabelPosition nameHorizontalPosition = getHorizontalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 			LabelPosition nameVerticalPosition = getVerticalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 			
 			// Update the layout metrics to ensure there is room for all the labels
-			updateLayoutMetricsForLabelPositions(lm, nameHorizontalPosition, nameVerticalPosition, totalLabelsWidth, totalLabelsHeight);
+			updateLayoutMetricsForLabelPositions(lm, nameHorizontalPosition, nameVerticalPosition, totalLabelsWidth + labelPadding, totalLabelsHeight + labelPadding);
 			
 			// Shrink features to the smallest required size
 			if(!(gr instanceof FeatureGraphic)) {
@@ -303,7 +299,8 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				break;
 				
 			case GRAPHIC_CENTER:
-				labelsY = lm.topOuterPadding + (lm.innerHeight - totalLabelsHeight)/2;
+				final int centeringOffsetY = AgeGraphitiGraphicsUtil.getCenteringOffsetY(gr); // Adjustment for cases such as initial modes to make labels centered around the inner shape.
+				labelsY = lm.topOuterPadding + centeringOffsetY + ((lm.innerHeight - centeringOffsetY) - totalLabelsHeight)/2;
 				break;
 				
 			case GRAPHIC_END:						

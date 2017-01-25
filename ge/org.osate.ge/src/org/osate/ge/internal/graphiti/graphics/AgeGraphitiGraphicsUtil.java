@@ -24,12 +24,16 @@ import org.osate.ge.internal.graphics.FeatureGroupTypeGraphic;
 import org.osate.ge.internal.graphics.FolderGraphic;
 import org.osate.ge.internal.graphics.LineStyle;
 import org.osate.ge.internal.graphics.MemoryGraphic;
+import org.osate.ge.internal.graphics.ModeGraphic;
 import org.osate.ge.internal.graphics.Parallelogram;
 import org.osate.ge.internal.graphics.Polygon;
 import org.osate.ge.internal.graphics.ProcessorGraphic;
 import org.osate.ge.internal.graphics.Rectangle;
 
 public class AgeGraphitiGraphicsUtil {
+	private final static int initialModeEllipseSize = 10;
+	private final static int spacingBetweenInitialModeEllipseAndMode = 10;
+	private final static int initialModeAreaHeight = initialModeEllipseSize + spacingBetweenInitialModeEllipseAndMode;
 	private final static int folderTabHeight = 9;
 	private final static int folderMaxTabWidth = 100;
 	private final static double folderTabOffsetAngle = 30.0;
@@ -59,6 +63,7 @@ public class AgeGraphitiGraphicsUtil {
 		addGraphicsAlgorithmCreator(map, MemoryGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForMemory);
 		addGraphicsAlgorithmCreator(map, FeatureGroupTypeGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForFeatureGroupType);
 		addGraphicsAlgorithmCreator(map, FolderGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForFolder);
+		addGraphicsAlgorithmCreator(map, ModeGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForMode);
 		addGraphicsAlgorithmCreator(map, FeatureGraphic.class, AgeGraphitiGraphicsUtil::createGraphicsAlgorithmForFeature);
 		graphicToCreatorMap = Collections.unmodifiableMap(map);
 	}	
@@ -78,7 +83,6 @@ public class AgeGraphitiGraphicsUtil {
 	
 	// Returns the new graphics algorithm
 	public static GraphicsAlgorithm createGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithm shapeGa, final Object graphic, final int width, final int height, boolean fillBackground) {
-		// TODO: Rename
 		@SuppressWarnings("unchecked")
 		final GraphicsAlgorithmCreator<Object> c = (GraphicsAlgorithmCreator<Object>) graphicToCreatorMap.get(graphic.getClass());
 		if(c == null) {
@@ -441,6 +445,104 @@ public class AgeGraphitiGraphicsUtil {
         gaService.setSize(ga, width, height);
         
 		return ga;
+	}
+	
+	private static GraphicsAlgorithm createGraphicsAlgorithmForMode(final Diagram diagram, final GraphicsAlgorithm containerGa, final ModeGraphic mg, final int requestedWidth, final int requestedHeight, boolean fillBackground) {
+		final IGaService gaService = Graphiti.getGaService();
+
+		final Color black = gaService.manageColor(diagram, ColorConstant.BLACK);
+		final Color white = gaService.manageColor(diagram, ColorConstant.WHITE);
+ 
+		final GraphicsAlgorithm ga = gaService.createPlainRectangle(containerGa);
+		ga.setLineVisible(false);
+		ga.setFilled(false);
+
+		// Determine the size of the overall shape
+		int width = requestedWidth;
+		int height = requestedHeight;
+		int modeHeight = height;
+		if(mg.isInitialMode) {
+			// Reduce the size of the mode symbol to accommodate the initial mode indicator.
+			modeHeight -= initialModeAreaHeight;
+			width = Math.max(width, initialModeEllipseSize);
+		}
+		gaService.setSize(ga, width, height);
+
+		// Create mode graphics algorithm.
+		// Create the mode graphics algorithms first because it should be used for the chopbox anchor.
+		final GraphicsAlgorithm modeGa = gaService.createPlainPolygon(ga, new int[] {
+				(int)(requestedWidth * 0.0),  (int)(modeHeight * 0.5),
+				(int)(requestedWidth * 0.25), (int)(modeHeight * 0.0),
+				(int)(requestedWidth * 0.75), (int)(modeHeight * 0.0),
+				(int)(requestedWidth * 1.0),  (int)(modeHeight * 0.5),
+				(int)(requestedWidth * 0.75), (int)(modeHeight * 1.0),
+				(int)(requestedWidth * 0.25), (int)(modeHeight * 1.0)});
+		modeGa.setLineWidth(mg.lineWidth);
+		modeGa.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(mg.lineStyle));
+		modeGa.setBackground(white);
+		modeGa.setForeground(black);
+		modeGa.setFilled(fillBackground);
+		
+		// Set size and position
+		modeGa.setY(mg.isInitialMode ? initialModeAreaHeight : 0);
+		modeGa.setWidth(requestedWidth);
+		modeGa.setHeight(requestedHeight);
+
+		
+		
+		if(mg.isInitialMode) {
+			// Create ellipse for the initial mode indicator
+			final GraphicsAlgorithm initialModeEllipse = gaService.createEllipse(ga);
+			initialModeEllipse.setWidth(initialModeEllipseSize);
+			initialModeEllipse.setHeight(initialModeEllipseSize);
+			initialModeEllipse.setBackground(black);
+			initialModeEllipse.setForeground(black);
+			initialModeEllipse.setX(Math.max(0, requestedWidth/2 - initialModeEllipseSize*3));
+			initialModeEllipse.setY(0);
+			
+			// Create polyline which connects the initial mode indicator and the mode
+			final int lineStartX = initialModeEllipse.getX() + initialModeEllipseSize/2;
+			final int lineStartY = initialModeEllipseSize/2;
+			final int lineEndX = requestedWidth/2;
+			final int lineEndY = initialModeAreaHeight;
+			final int lineDx = lineEndX - lineStartX;
+			final int lineDy = lineEndY - lineStartY;
+			final Polyline polyline = gaService.createPolyline(ga, new int[] {
+				lineStartX, lineStartY,
+				(int)(lineStartX + lineDx*0.5), (int)(lineStartY + lineDy*0.1),
+				(int)(lineStartX + lineDx*0.8), (int)(lineStartY + lineDy*0.2),
+				(int)(lineStartX + lineDx*0.9), (int)(lineStartY + lineDy*0.3),
+				(int)(lineStartX + lineDx), (int)(lineStartY + lineDy*0.5),
+				lineEndX, (int)(lineEndY*0.9)
+			});
+			
+			polyline.setBackground(black);
+			polyline.setForeground(black);
+			polyline.setLineWidth(mg.lineWidth);
+			
+			final int arrowWidth = 6;
+			final Polyline arrow = gaService.createPolygon(ga, new int[] {
+				lineEndX - arrowWidth/2, lineEndY - arrowWidth,
+				lineEndX + arrowWidth/2, lineEndY - arrowWidth,
+				lineEndX, lineEndY});				
+			arrow.setBackground(black);
+			arrow.setForeground(black);
+			arrow.setLineWidth(0);
+		}		
+		return ga;
+	}
+	
+	/**
+	 * Returns the amount of top padding that should be ignored when centering labels, etc in teh shape 
+	 * @param graphic
+	 * @return
+	 */
+	public static int getCenteringOffsetY(final Graphic graphic) {
+		if(graphic instanceof ModeGraphic && ((ModeGraphic) graphic).isInitialMode) {
+			return initialModeAreaHeight;
+		}
+		
+		return 0;
 	}
 	
 	// width and fillBackground are ignored for feature

@@ -1,0 +1,102 @@
+package org.osate.ge.internal.businessObjectHandlers;
+
+import javax.inject.Named;
+import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.ComponentClassifier;
+import org.osate.aadl2.Mode;
+import org.osate.aadl2.Subcomponent;
+import org.osate.ge.Categories;
+import org.osate.ge.PaletteEntry;
+import org.osate.ge.PaletteEntryBuilder;
+import org.osate.ge.di.CanCreate;
+import org.osate.ge.di.CanDelete;
+import org.osate.ge.di.Create;
+import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetName;
+import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.IsApplicable;
+import org.osate.ge.di.Names;
+import org.osate.ge.di.SetName;
+import org.osate.ge.di.ValidateName;
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphics.ModeGraphicBuilder;
+import org.osate.ge.internal.labels.LabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
+import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.QueryService;
+import org.osate.ge.internal.services.RefactoringService;
+import org.osate.ge.internal.util.ImageHelper;
+
+public class ModeHandler {
+	private static final StandaloneDiagramElementQuery containingComponentClassifierOrSubcomponentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier || fa.getBusinessObject() instanceof Subcomponent).first());
+	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().lineWidth(2).build();
+	private Graphic modeGraphic = ModeGraphicBuilder.create().lineWidth(2).build();	
+	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
+		
+	@IsApplicable
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
+		return true;
+	}
+	
+	@GetPaletteEntries
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentClassifier classifier) {				
+		return new PaletteEntry[] {
+			PaletteEntryBuilder.create().label("Mode").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getMode())).category(Categories.MODES).build()
+		};
+	}
+	
+	@GetGraphic
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
+		return mode.isInitial() ? initialModeGraphic : modeGraphic;
+	}
+	
+	@GetName
+	public String getName(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
+		return mode.getName();
+	}
+	@GetNameLabelConfiguration
+	public LabelConfiguration getNameLabelConfiguration() {
+		return nameLabelConfiguration;
+	}
+	
+	@CanCreate
+	public boolean canCreate(final @Named(Names.TARGET_BO) ComponentClassifier classifier) {		
+		return true;
+	}
+	
+	@Create
+	public Mode createBusinessObject(@Named(Names.OWNER_BO) final ComponentClassifier classifier, final NamingService namingService) {
+		final String newModeName = namingService.buildUniqueIdentifier(classifier, "new_mode");
+		
+		final Mode newMode = classifier.createOwnedMode();
+		newMode.setInitial(false);
+		newMode.setName(newModeName);
+		
+		// Clear the no modes flag
+		classifier.setNoModes(false);
+		
+		return newMode;
+	}
+
+	@ValidateName
+    public String validateName(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(Names.NAME) String value, final NamingService namingService) {
+    	return namingService.checkNameValidity(mode, value);
+    }
+	
+	@CanRename
+	@CanDelete
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		final Object containerBo = queryService.getFirstBusinessObject(containingComponentClassifierOrSubcomponentQuery, diagramElement);
+		return mode.getContainingClassifier() == containerBo;
+    }
+    
+	@SetName
+	public void setName(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
+		refactoringService.renameElement(mode, value);
+	}
+}
