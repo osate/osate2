@@ -1092,8 +1092,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		if (children.isEmpty()) {
 			result.add(fi);
 		}
-		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
-			doAddFeatureInstances(result, fi);
+		for(FeatureInstance child : children){
+			doAddFeatureInstances(result, child);
 		}
 	}
 
