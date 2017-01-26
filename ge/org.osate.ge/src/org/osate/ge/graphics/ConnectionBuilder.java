@@ -9,8 +9,8 @@
 package org.osate.ge.graphics;
 
 import org.osate.ge.internal.graphics.LineStyle;
+import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
-import org.osate.ge.internal.graphics.FreeFormConnection;
 
 /**
  * Builder for creating connection graphics. Currently all connections are straight line connections which do not support bend-points.
@@ -20,7 +20,8 @@ import org.osate.ge.internal.graphics.FreeFormConnection;
 public class ConnectionBuilder {
 	private AgeConnectionTerminator srcTerminator = null;
 	private AgeConnectionTerminator dstTerminator = null;
-	private LineStyle connectionStyle = LineStyle.SOLID;
+	private LineStyle lineStyle = LineStyle.SOLID;
+	private boolean isCurved = false;
 	
 	private ConnectionBuilder() {}
 	
@@ -57,15 +58,25 @@ public class ConnectionBuilder {
 	 * @return this builder to allow method chaining.
 	 */
 	public ConnectionBuilder dashed() {
-		this.connectionStyle = LineStyle.DASHED;
+		this.lineStyle = LineStyle.DASHED;
 		return this;
 	}
+	
+	/**
+	 * Configures the connection builder to create a curved connection.
+	 * @return this builder to allow method chaining.
+	 */
+	public ConnectionBuilder curved() {
+		this.isCurved = true;
+		return this;
+	}
+	
 	
 	/**
 	 * Creates a connection based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new FreeFormConnection(connectionStyle, srcTerminator, dstTerminator);
+		return new AgeConnection(lineStyle, srcTerminator, dstTerminator, isCurved);
 	}
 }

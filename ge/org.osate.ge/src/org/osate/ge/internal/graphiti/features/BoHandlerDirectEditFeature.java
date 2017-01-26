@@ -15,6 +15,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
@@ -67,12 +68,19 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		if(handler == null) {
 			return false;
 		}
-		
+				
 		final IEclipseContext childCtx = extService.createChildContext();
 		boolean canRename = true;
 		try {
+			PictogramElement pe = context.getPictogramElement();
+			
+			// Use the connection instead of the connection decorator when calling the business object handler
+			if(pe instanceof ConnectionDecorator) {
+				pe = ((ConnectionDecorator) pe).getConnection();
+			}
+			
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService)));
+			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(pe, propertyService)));
 			canRename = (boolean)ContextInjectionFactory.invoke(handler, CanRename.class, childCtx, true);
 			if(!canRename) {
 				return false;

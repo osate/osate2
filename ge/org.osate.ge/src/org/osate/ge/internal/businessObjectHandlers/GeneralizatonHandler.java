@@ -67,7 +67,7 @@ public class GeneralizatonHandler {
 	}
 	
 	@CreateParentQuery
-	public <T> DiagramElementQuery<T> createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<T> srcRootQuery, final @Named(Names.DESTINATION_ROOT_QUERY) DiagramElementQuery<T> dstRootQuery) {
+	public <T> DiagramElementQuery<T> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<T> srcRootQuery, final @Named(Names.DESTINATION_ROOT_QUERY) DiagramElementQuery<T> dstRootQuery) {
 		// Owner will be the common ancestor for the shapes. Works for both overview and generalization diagram?
 		return srcRootQuery.commonAncestors(dstRootQuery);
 	}

@@ -53,7 +53,7 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 		try {
 			childCtx.set(Names.SOURCE_ROOT_QUERY, srcRootQuery);
 			childCtx.set(Names.DESTINATION_ROOT_QUERY, dstRootQuery);
-			ownerDiagramElementQuery = QueryUtil.ensureFirst(Objects.requireNonNull((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateParentQuery.class, childCtx), "unable to create owner diagram element query"));
+			ownerDiagramElementQuery = QueryUtil.ensureFirst(Objects.requireNonNull((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateParentQuery.class, childCtx), "unable to create parent diagram element query"));
 			childCtx.remove(Names.SOURCE_ROOT_QUERY);
 			childCtx.remove(Names.DESTINATION_ROOT_QUERY);
 			

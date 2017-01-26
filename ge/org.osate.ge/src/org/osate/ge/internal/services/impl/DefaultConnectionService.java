@@ -51,11 +51,8 @@ import org.osate.ge.internal.connections.AadlConnectionInfoProvider;
 import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
 import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
-import org.osate.ge.internal.connections.ModeTransitionInfoProvider;
-import org.osate.ge.internal.connections.ModeTransitionTriggerInfoProvider;
 import org.osate.ge.internal.connections.BusinessObjectHandlerConnectionInfoProvider;
 import org.osate.ge.internal.connections.SubprogramCallOrderInfoProvider;
-import org.osate.ge.internal.patterns.ModeTransitionPattern;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -98,8 +95,6 @@ public class DefaultConnectionService implements ConnectionService {
 
 		infoProviders.add(new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
-		infoProviders.add(new ModeTransitionInfoProvider(bor, diagram, shapeHelper));
-		infoProviders.add(new ModeTransitionTriggerInfoProvider(bor, diagram, propertyService));
 		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
 		infoProviders.add(new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper));
 
@@ -240,11 +235,15 @@ public class DefaultConnectionService implements ConnectionService {
 		}
 		
 		// TODO: Need to expand the abstraction for midpoint anchors and connection anchors to incorporate curved connections.
+		// TODO: Disabled as part of migration to business object handlers.
+		// TODO: REMOVE
+		/*
 		final Object connectionBo = bor.getBusinessObjectForPictogramElement(connection);
 		if(connectionBo instanceof ModeTransition) {
 			ModeTransitionPattern.updateControlPoints(connection);
 			ModeTransitionPattern.updateAnchors(referenceService, connection, (ModeTransition)connectionBo, anchorService);
 		}
+		*/
 	}
 
 	private boolean allowMidpointAnchor(final Connection connection) {

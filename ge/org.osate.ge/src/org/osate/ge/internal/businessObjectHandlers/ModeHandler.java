@@ -4,7 +4,6 @@ import javax.inject.Named;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.Subcomponent;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -33,7 +32,7 @@ import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.ImageHelper;
 
 public class ModeHandler {
-	private static final StandaloneDiagramElementQuery containingComponentClassifierOrSubcomponentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier || fa.getBusinessObject() instanceof Subcomponent).first());
+	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1).first());
 	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().lineWidth(2).build();
 	private Graphic modeGraphic = ModeGraphicBuilder.create().lineWidth(2).build();	
 	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
@@ -59,6 +58,7 @@ public class ModeHandler {
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
 		return mode.getName();
 	}
+	
 	@GetNameLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
@@ -91,7 +91,7 @@ public class ModeHandler {
 	@CanRename
 	@CanDelete
     public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
-		final Object containerBo = queryService.getFirstBusinessObject(containingComponentClassifierOrSubcomponentQuery, diagramElement);
+		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return mode.getContainingClassifier() == containerBo;
     }
     

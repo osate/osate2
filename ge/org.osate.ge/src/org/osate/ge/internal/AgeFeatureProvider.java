@@ -91,7 +91,6 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
@@ -117,7 +116,6 @@ import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
-import org.osate.ge.internal.features.RenameModeTransitionFeature;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
 import org.osate.ge.internal.features.SetFeatureClassifierFeature;
@@ -128,7 +126,6 @@ import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
-import org.osate.ge.internal.patterns.ModeTransitionPattern;
 import org.osate.ge.internal.features.EditFlowsFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallDownFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallUpFeature;
@@ -221,8 +218,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Add patterns
 		addConnectionPattern(make(FlowSpecificationPattern.class));
-		addConnectionPattern(make(ModeTransitionPattern.class));
-
 		addAadlConnectionPatterns();
 		
 		// Subprogram Calls
@@ -477,8 +472,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
 		if(bo instanceof org.osate.aadl2.Connection) {
 			return make(RenameConnectionFeature.class);
-		} else if(bo instanceof ModeTransition) {
-			return make(RenameModeTransitionFeature.class);
 		} else if(bo instanceof FlowSpecification) {
 			return make(RenameFlowSpecificationFeature.class);
 		} else {	
@@ -571,7 +564,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, this, simpleEntry, boHandler));
+							retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, propertyService, this, simpleEntry, boHandler));
 						}
 					}
 				}

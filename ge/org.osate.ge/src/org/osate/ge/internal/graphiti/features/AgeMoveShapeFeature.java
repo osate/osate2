@@ -51,7 +51,7 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 			if(bor.getBusinessObjectForPictogramElement(shape) == bor.getBusinessObjectForPictogramElement(shape.getContainer())) {
 				return false;
 			}
-		} else {
+		} else if(container != null) {
 			if(dockArea == null) {
 				final GraphicsAlgorithm containerInnerGa = AgeGraphitiGraphicsUtil.getInnerGraphicsAlgorithm(container.getGraphicsAlgorithm());
 				if(ctx.getX() < containerInnerGa.getX() || 

@@ -46,7 +46,7 @@ public class QueryRunner {
 		for(Query<A> q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
-		
+
 		final Query<A> initialQuery = queryStack.pop();
 		final QueryExecutionState<A> state = new QueryExecutionState<>(this, propertyService, connectionService, bor, refBuilder, arg);
 		final QueryResult result = new QueryResult();

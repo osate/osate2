@@ -6,6 +6,8 @@ import java.util.stream.Stream;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
@@ -17,12 +19,15 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.aadl2.Element;
 import org.osate.ge.di.GetChildren;
@@ -46,7 +51,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
-import org.osate.ge.internal.graphics.FreeFormConnection;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.patterns.AgePattern;
@@ -144,12 +148,35 @@ public class BoHandlerRefreshHelper {
 			
 			final ContainerShape childContainer; // Container for any children
 			// Source and destination anchors must be set for connections
-			if(gr instanceof FreeFormConnection && (srcAnchor == null || dstAnchor == null)) {
+			if(gr instanceof AgeConnection && (srcAnchor == null || dstAnchor == null)) {
 				return null;
 			}
 				
 			// Create PE if it doesn't exist
-			if(pe == null) {
+			if(gr instanceof AgeConnection) {
+				final AgeConnection ac = (AgeConnection)gr;
+				
+				// Remove the PE If it is of the wrong type...
+				if(pe != null) {
+					if((ac.isCurved && !(pe instanceof CurvedConnection)) || (!ac.isCurved && !(pe instanceof FreeFormConnection))) {
+						EcoreUtil.delete(pe, true);
+						pe = null;
+					}
+				}
+				
+				if(pe == null) {
+			        // Create the connection
+					if(ac.isCurved) {
+						pe = peCreateService.createCurvedConnection(new double[] {0.0, 0.0}, getDiagram());
+					} else {
+						pe = peCreateService.createFreeFormConnection(getDiagram());
+					}
+					
+					Graphiti.getGaService().createPlainPolyline(pe);
+				}
+				childContainer = null;				
+				
+			} else if(pe == null) {
 				if(gr == null) {
 					pe = null;
 					childContainer = addTargetContainer;
@@ -157,11 +184,6 @@ public class BoHandlerRefreshHelper {
 					if(gr instanceof AgeShape) {
 				        // Create the container shape
 						pe = childContainer = peCreateService.createContainerShape(addTargetContainer, true);
-					} else if(gr instanceof FreeFormConnection) {						
-				        // Create the connection
-						pe = peCreateService.createFreeFormConnection(getDiagram());
-						Graphiti.getGaService().createPlainPolyline(pe);
-						childContainer = null;
 					} else {
 						throw new RuntimeException("Unsupported object: " + gr);
 					}
@@ -213,7 +235,7 @@ public class BoHandlerRefreshHelper {
 			        			        
 			        final GraphicsAlgorithm ga = connection.getGraphicsAlgorithm();
 			        ga.setStyle(null);
-			        ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((AgeConnection)gr).getLineStyle()));
+			        ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((AgeConnection)gr).lineStyle));
 			        ga.setLineWidth(2);
 			        ga.setForeground(Graphiti.getGaService().manageColor(getDiagram(), IColorConstant.BLACK));
 				}
@@ -274,8 +296,8 @@ public class BoHandlerRefreshHelper {
 					} else if(pe instanceof Connection) {
 						final Connection connection = (Connection)pe;
 
-						int labelX = 0;
-						int labelY = 0;
+						Integer labelX = null;
+						Integer labelY = null;
 						if(name != null) {
 							// Before removing all the decorators, get position of the label(if one exists)
 							for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
@@ -298,16 +320,24 @@ public class BoHandlerRefreshHelper {
 							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 							text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
-							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);
-							gaService.setLocation(text, labelX, labelY);					 		
+							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);						
 						    text.setValue(name);
+
+						    // Center default location
+						    if(labelX == null || labelY == null) {
+						    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getStyle().getFont());
+						    	labelX = -labelTextSize.getWidth()/2;
+						    	labelY = -labelTextSize.getHeight()/2;
+						    }
+						    gaService.setLocation(text, labelX, labelY);
+							
 						    featureProvider.link(textDecorator, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 						}
 						
 						// Create Graphiti decorators for connection terminators
 					    final AgeConnection ageConnection = (AgeConnection)gr;
-					    createDecorator(connection, ageConnection.getSourceTerminator(), 0.0);
-					    createDecorator(connection, ageConnection.getDestinationTerminator(), 1.0);
+					    createDecorator(connection, ageConnection.srcTerminator, 0.0);
+					    createDecorator(connection, ageConnection.dstTerminator, 1.0);
 					    
 					    // Create Graphiti decorators based on decorations
 					    final Decoration[] decorations = (Decoration[])ContextInjectionFactory.invoke(handler, GetDecorations.class, eclipseCtx, null);

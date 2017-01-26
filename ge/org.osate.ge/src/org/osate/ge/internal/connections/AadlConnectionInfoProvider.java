@@ -30,13 +30,11 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ShapeService;
 
 public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
-	private final AnchorService anchorUtil;
 	private final ShapeService shapeService;
 	
 	@Inject
 	public AadlConnectionInfoProvider(final BusinessObjectResolutionService bor, final Diagram diagram, final AnchorService anchorUtil, final ShapeService shapeHelper) {
 		super(bor, diagram);
-		this.anchorUtil = anchorUtil;
 		this.shapeService = shapeHelper;
 	}
 
