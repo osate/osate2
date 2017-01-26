@@ -65,18 +65,22 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		currentInstance = this;
 	}
 
+	@Override
 	protected Bundle getBundle() {
 		return ResourceBudgetPlugin.getDefault().getBundle();
 	}
 
+	@Override
 	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Analyze power consumption";
 	}
 
+	@Override
 	protected void initPropertyReferences() {
 	}
 
@@ -115,15 +119,15 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		excelExport.save();
 		return true;
 	};
-	
+
 	public void setErrManager() {
 		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
-	
+
 	public void setSummaryReport() {
 		this.summaryReport = new StringBuffer();
 	}
-	
+
 	public void saveReport() {
 		this.getCSVLog().saveToFile();
 	}
@@ -132,4 +136,8 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		actionBody(monitor, root);
 	}
 
+	public Report invokeAndGetReport(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+		return powerReport;
+	}
 }
