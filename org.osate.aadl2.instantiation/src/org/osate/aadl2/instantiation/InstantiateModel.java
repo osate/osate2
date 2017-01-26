@@ -156,7 +156,7 @@ public class InstantiateModel {
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
 	private SCProperties scProps = new SCProperties();
 	/**

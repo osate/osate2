@@ -89,7 +89,7 @@ public class InstanceUtil {
 		InstantiatedClassifier() {
 		}
 
-		InstantiatedClassifier(Classifier classifier, EList<PrototypeBinding> bindings) {
+		public InstantiatedClassifier(Classifier classifier, EList<PrototypeBinding> bindings) {
 			this.classifier = classifier;
 			this.bindings = bindings;
 		}
