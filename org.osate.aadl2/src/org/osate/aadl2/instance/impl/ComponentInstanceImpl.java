@@ -1082,18 +1082,18 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	public EList<FeatureInstance> getAllFeatureInstances() {
 		EList<FeatureInstance> result = new BasicEList<FeatureInstance>();
 		for (FeatureInstance fi : getFeatureInstances()) {
-			doAddFeatureInstances(result, fi);
+			addLeafFeatures(result, fi);
 		}
 		return result;
 	}
 
-	private void doAddFeatureInstances(EList<FeatureInstance> result, FeatureInstance fi) {
-		EList<FeatureInstance> children = fi.getFeatureInstances();
+	private void addLeafFeatures(List<FeatureInstance> result, FeatureInstance fi) {
+		List<FeatureInstance> children = fi.getFeatureInstances();
 		if (children.isEmpty()) {
 			result.add(fi);
 		}
-		for (Iterator<FeatureInstance> it = children.iterator(); it.hasNext();) {
-			doAddFeatureInstances(result, fi);
+		for (FeatureInstance child : children) {
+			addLeafFeatures(result, child);
 		}
 	}
 
