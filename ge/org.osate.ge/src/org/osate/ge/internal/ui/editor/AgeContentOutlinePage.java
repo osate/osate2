@@ -109,7 +109,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						return getChildren(editor.getDiagramTypeProvider().getDiagram());					
 					}
 				}
-
+				
 				return new Object[0];
 			}
 
@@ -117,8 +117,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public Object[] getChildren(final Object parentElement) {
 				if(parentElement instanceof PictogramElement) {
 					rootPictogramElement = (PictogramElement)parentElement;
+					
 					return queryRunner.getPictogramElements(childrenQuery, null).toArray();
 				}
+				
 				return new Object[0];
 			}
 
@@ -129,7 +131,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					final Object parent = queryRunner.getFirstResult(parentQuery, null);
 					return parent;
 				}
-
+				
 				return false;
 			}
 
@@ -139,7 +141,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					rootPictogramElement = (PictogramElement)element;
 					return queryRunner.getFirstResult(childrenQuery, null) != null;
 				}
-
+				
 				return false;
 			}		
 		});
@@ -195,8 +197,6 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 				return super.getImage(element);
 			}
-
-
 
 			private String getFlowKind(final NamedElement ne) {
 				return ((FlowSpecification)ne).getKind().toString();
@@ -294,12 +294,12 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		editor.addPropertyListener(new IPropertyListener() {
 			@Override
 			public void propertyChanged(Object source, int propId) {
-				if(getTreeViewer() != null) {
+				if(!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
 					getTreeViewer().refresh();
 				}
 			}
 		});
-
+		
 		viewer.addSelectionChangedListener(this);
 		viewer.setInput(editor);
 	}
