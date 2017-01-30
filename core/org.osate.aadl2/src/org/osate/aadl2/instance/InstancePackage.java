@@ -1436,13 +1436,22 @@ public interface InstancePackage extends EPackage {
 	int COMPONENT_INSTANCE__INDEX = CONNECTION_INSTANCE_END_FEATURE_COUNT + 10;
 
 	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int COMPONENT_INSTANCE__CLASSIFIER = CONNECTION_INSTANCE_END_FEATURE_COUNT + 11;
+
+	/**
 	 * The number of structural features of the '<em>Component Instance</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int COMPONENT_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 11;
+	int COMPONENT_INSTANCE_FEATURE_COUNT = CONNECTION_INSTANCE_END_FEATURE_COUNT + 12;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl <em>Flow Specification Instance</em>}' class.
@@ -1851,6 +1860,15 @@ public interface InstancePackage extends EPackage {
 	 * @ordered
 	 */
 	int SYSTEM_INSTANCE__INDEX = COMPONENT_INSTANCE__INDEX;
+
+	/**
+	 * The feature id for the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int SYSTEM_INSTANCE__CLASSIFIER = COMPONENT_INSTANCE__CLASSIFIER;
 
 	/**
 	 * The feature id for the '<em><b>System Operation Mode</b></em>' containment reference list.
@@ -2482,6 +2500,17 @@ public interface InstancePackage extends EPackage {
 	 * @generated
 	 */
 	EAttribute getComponentInstance_Index();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.instance.ComponentInstance#getClassifier <em>Classifier</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Classifier</em>'.
+	 * @see org.osate.aadl2.instance.ComponentInstance#getClassifier()
+	 * @see #getComponentInstance()
+	 * @generated
+	 */
+	EReference getComponentInstance_Classifier();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.FlowSpecificationInstance <em>Flow Specification Instance</em>}'.
@@ -3201,6 +3230,14 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EAttribute COMPONENT_INSTANCE__INDEX = eINSTANCE.getComponentInstance_Index();
+
+		/**
+		 * The meta object literal for the '<em><b>Classifier</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference COMPONENT_INSTANCE__CLASSIFIER = eINSTANCE.getComponentInstance_Classifier();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.FlowSpecificationInstanceImpl <em>Flow Specification Instance</em>}' class.
