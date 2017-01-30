@@ -1205,11 +1205,14 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	@Override
 	public ComponentClassifier getComponentClassifier() {
-		Subcomponent sub = getSubcomponent();
-		if (sub == null) {
-			return null;
+		ComponentClassifier classifier = getClassifier();
+		if (classifier == null) {
+			Subcomponent sub = getSubcomponent();
+			if (sub != null) {
+				classifier = sub.getClassifier();
+			}
 		}
-		return sub.getClassifier();
+		return classifier;
 	}
 
 	/*
