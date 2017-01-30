@@ -711,6 +711,7 @@ public class InstantiateModel {
 //					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
 //				}
 //			}
+			newInstance.setClassifier(cc);
 			newInstance.setCategory(cc.getCategory());
 		}
 
