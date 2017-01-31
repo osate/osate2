@@ -24,3 +24,4 @@ Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
 Bundle-Vendor: CMU-SEI
 Eclipse-BundleShape: dir
+Export-Package: org.osate.reqtrace

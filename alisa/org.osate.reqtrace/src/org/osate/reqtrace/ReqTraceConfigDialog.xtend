@@ -58,9 +58,9 @@ import static org.osate.reqtrace.ReqTraceConfigDialog.*
 
 import static extension org.eclipse.jface.dialogs.DialogSettings.getOrCreateSection
 
-package class ReqTraceConfigDialog extends TitleAreaDialog {
-	val package static String G2S = "goal2stakeholders"
-	val package static String R2G = "requirement2goals"
+class ReqTraceConfigDialog extends TitleAreaDialog {
+	val public static String G2S = "goal2stakeholders"
+	val public static String R2G = "requirement2goals"
 	val static OUTPUT_FILE_SETTING = "OUTPUT_FILE_SETTING"
 	val static REPORT_TYPE_SETTING = "REPORT_TYPE_SETTING"
 	val static OPEN_FILE_SETTING = "OPEN_FILE_SETTING"

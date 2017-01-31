@@ -237,7 +237,7 @@ with (Alisa) {
 		if (!goal.isDropped()) {
 			var ss = stakeholdersForGoal(goal, qncomp)
 			if (ss.isEmpty()) {
-				noStakeholders.add(goal)
+				nostakeholders.add(goal)
 			} else {
 				goal2stakeholders.put(goal, ss)
 			}
