@@ -19,6 +19,7 @@ import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
+import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
@@ -205,7 +206,16 @@ public class BoHandlerRefreshHelper {
 				ghostingService.setIsGhost(pe, false);
 				propertyService.setIsLogicalTreeNode(pe, true);
 				
-				if(pe instanceof Shape) {
+				if(pe instanceof Shape) {					
+					// Remove all non-chopbox anchors that do not have an incoming or outgoing connection
+					final Iterator<Anchor> it = ((Shape) pe).getAnchors().iterator();
+					while(it.hasNext()) {
+						final Anchor anchor = it.next();
+						if(!(anchor instanceof ChopboxAnchor) && anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size() == 0) {
+							it.remove();
+						}
+					}
+					
 					if(!(pe instanceof Diagram)) {
 						anchorService.createOrUpdateChopboxAnchor((Shape)pe, AgePattern.chopboxAnchorName);
 						
