@@ -25,3 +25,4 @@ Bundle-ActivationPolicy: lazy
 Bundle-Vendor: CMU-SEI
 Eclipse-BundleShape: dir
 Export-Package: org.osate.reqtrace
+Bundle-ClassPath: reqtrace.jar
