@@ -51,13 +51,13 @@ import org.osate.aadl2.instance.textual.services.InstanceGrammarAccess;
 public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected InstanceGrammarAccess grammarAccess;
-	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q;
+	protected AbstractElementAlias match_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q;
 	protected AbstractElementAlias match_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (InstanceGrammarAccess) access;
-		match_ComponentInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getLeftCurlyBracketKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_6_2()));
+		match_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getLeftCurlyBracketKeyword_8_0()), new TokenAlias(false, false, grammarAccess.getComponentInstanceAccess().getRightCurlyBracketKeyword_8_2()));
 		match_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getFeatureInstanceAccess().getLeftCurlyBracketKeyword_6_0()), new TokenAlias(false, false, grammarAccess.getFeatureInstanceAccess().getRightCurlyBracketKeyword_6_2()));
 	}
 	
@@ -73,8 +73,8 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ComponentInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q.equals(syntax))
-				emit_ComponentInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
+			if(match_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q.equals(syntax))
+				emit_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if(match_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q.equals(syntax))
 				emit_FeatureInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
@@ -88,7 +88,7 @@ public class InstanceSyntacticSequencer extends AbstractSyntacticSequencer {
 	 * This ambiguous syntax occurs at:
 	 *     subcomponent=[Subcomponent|DeclarativeRef] (ambiguity) (rule end)
 	 */
-	protected void emit_ComponentInstance___LeftCurlyBracketKeyword_6_0_RightCurlyBracketKeyword_6_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+	protected void emit_ComponentInstance___LeftCurlyBracketKeyword_8_0_RightCurlyBracketKeyword_8_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
