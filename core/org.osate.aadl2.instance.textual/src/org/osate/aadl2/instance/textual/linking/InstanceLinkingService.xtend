@@ -103,6 +103,8 @@ class InstanceLinkingService extends DefaultLinkingService {
 						context.eContainer.getContainerOfType(ComponentInstance)?.modeInstances?.findFirst [
 							name == qName.firstSegment
 						]
+					case componentInstance_Classifier:
+						context.getExportedObject(classifier, qName.firstSegment)
 					case componentInstance_Subcomponent:
 						context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [
 							ownedSubcomponents

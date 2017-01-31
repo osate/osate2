@@ -68,6 +68,7 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 		Acceptor errors) {
 		switch crossref.getReference(semanticObject.eClass) {
 			case systemInstance_ComponentImplementation,
+			case componentInstance_Classifier,
 			case propertyAssociation_Property,
 			case classifierValue_Classifier:
 				(target as NamedElement).getQualifiedName
