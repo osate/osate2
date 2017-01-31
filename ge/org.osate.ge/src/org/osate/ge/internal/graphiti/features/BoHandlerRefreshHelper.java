@@ -206,17 +206,18 @@ public class BoHandlerRefreshHelper {
 				ghostingService.setIsGhost(pe, false);
 				propertyService.setIsLogicalTreeNode(pe, true);
 				
-				if(pe instanceof Shape) {					
-					// Remove all non-chopbox anchors that do not have an incoming or outgoing connection
-					final Iterator<Anchor> it = ((Shape) pe).getAnchors().iterator();
-					while(it.hasNext()) {
-						final Anchor anchor = it.next();
-						if(!(anchor instanceof ChopboxAnchor) && anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size() == 0) {
-							it.remove();
-						}
-					}
-					
+				if(pe instanceof Shape) {										
 					if(!(pe instanceof Diagram)) {
+						// Remove all non-chopbox anchors that do not have an incoming or outgoing connection
+						final Iterator<Anchor> it = ((Shape) pe).getAnchors().iterator();
+						while(it.hasNext()) {
+							final Anchor anchor = it.next();
+							if(!(anchor instanceof ChopboxAnchor) && anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size() == 0) {
+								it.remove();
+							}
+						}
+						
+						// Create/update the chopbox anchor
 						anchorService.createOrUpdateChopboxAnchor((Shape)pe, AgePattern.chopboxAnchorName);
 						
 						// Set the dock area as appropriate
