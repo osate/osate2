@@ -8,6 +8,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.graphiti.datatypes.IDimension;
+import org.eclipse.graphiti.datatypes.ILocation;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.LayoutContext;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
@@ -15,6 +16,8 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
+import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
+import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -26,6 +29,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
@@ -50,6 +54,7 @@ import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
+import org.osate.ge.internal.graphics.ConnectionTerminatorSize;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -238,6 +243,10 @@ public class BoHandlerRefreshHelper {
 			        ga.setLineStyle(AgeGraphitiGraphicsUtil.toGraphitiLineStyle(((AgeConnection)gr).lineStyle));
 			        ga.setLineWidth(2);
 			        ga.setForeground(Graphiti.getGaService().manageColor(getDiagram(), IColorConstant.BLACK));
+			        
+			        if(pe instanceof CurvedConnection) {
+						updateControlPoints((CurvedConnection)pe);
+					}
 				}
 			}
 
@@ -375,6 +384,45 @@ public class BoHandlerRefreshHelper {
 		return pe;
 	}	
 	
+	private static void updateControlPoints(final CurvedConnection connection) {
+		final ILayoutService layoutService = Graphiti.getLayoutService();			
+
+		// Decide a sign for the control point
+		final ILocation startLocation = layoutService.getLocationRelativeToDiagram(connection.getStart());
+		final ILocation endLocation = layoutService.getLocationRelativeToDiagram(connection.getEnd());
+		final int sign = (startLocation.getX() - endLocation.getX()) > 0 ? -1 : 1; 
+		
+		final int magnitude = 30;
+
+		// Determine a reasonable control point
+		int y = sign * magnitude;
+		boolean unique = false;
+		while(!unique) {
+			unique = true;
+			for(final Connection tempConnection : connection.getParent().getConnections()) {
+				if(tempConnection != connection) {
+					if(tempConnection instanceof CurvedConnection) {
+						final CurvedConnection tempCC = (CurvedConnection)tempConnection;
+						if(connection.getStart() == tempCC.getStart() && connection.getEnd() == tempCC.getEnd()) {
+							if(tempCC.getControlPoints().get(0).getY() == y) {
+								unique = false;
+								y += sign * magnitude;
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		// Set the control point
+		connection.getControlPoints().clear();
+		final PrecisionPoint pp = StylesFactory.eINSTANCE.createPrecisionPoint();
+		pp.setX(1.0);
+		pp.setY(y);
+		connection.getControlPoints().add(pp);
+	}
+	
 	private void createConnectionDecorators(final Connection connection, final Decoration[] decorations) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
@@ -454,16 +502,16 @@ public class BoHandlerRefreshHelper {
 			final Color black = Graphiti.getGaService().manageColor(diagram, IColorConstant.BLACK);
 			final Color white = Graphiti.getGaService().manageColor(diagram, IColorConstant.WHITE);
 
-			switch(terminator) {
+			switch(terminator.type) {
 			case FILLED_ARROW: {
-				final GraphicsAlgorithm ga = createPolygonArrow(cd);
+				final GraphicsAlgorithm ga = createPolygonArrow(cd, terminator.size);
 			    ga.setForeground(black);
 			    ga.setBackground(black);
 				break;
 			}
 				
 			case OPEN_ARROW: {
-				final GraphicsAlgorithm ga = createPolygonArrow(cd);
+				final GraphicsAlgorithm ga = createPolygonArrow(cd, terminator.size);
 			    ga.setForeground(black);
 			    ga.setBackground(white);
 				break;
@@ -475,13 +523,22 @@ public class BoHandlerRefreshHelper {
 		}
 	}
 	
-	private GraphicsAlgorithm createPolygonArrow(final GraphicsAlgorithmContainer gaContainer) {
-	    final IGaService gaService = Graphiti.getGaService();
-	    final GraphicsAlgorithm ga = gaService.createPlainPolygon(gaContainer, new int[] {
-	    		-14, 8, 
-	    		2, 0, 
-	    		-14, -8});
-	    return ga;
+	private GraphicsAlgorithm createPolygonArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {
+		final IGaService gaService = Graphiti.getGaService();
+		switch(size) {
+		case REGULAR:
+			return gaService.createPlainPolygon(gaContainer, new int[] {
+		    		-14, 8, 
+		    		2, 0, 
+		    		-14, -8});
+		case SMALL:
+			return gaService.createPlainPolygon(gaContainer, new int[] {
+		    		-6, 4, 
+		    		2, 0, 
+		    		-6, -4});	
+		}		
+		
+		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 	
 	private void createContextAndUpdateChild(final ContainerShape containerShape, final DiagramElementProxy logicalContainer, final Object childBo) {

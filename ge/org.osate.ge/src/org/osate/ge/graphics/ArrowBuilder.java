@@ -9,6 +9,8 @@
 package org.osate.ge.graphics;
 
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
+import org.osate.ge.internal.graphics.ConnectionTerminatorSize;
+import org.osate.ge.internal.graphics.ConnectionTerminatorType;
 
 /**
  * Builder for creating arrow connection terminators. 
@@ -16,7 +18,8 @@ import org.osate.ge.internal.graphics.AgeConnectionTerminator;
  * @see ConnectionTerminator
  */
 public class ArrowBuilder {
-	private AgeConnectionTerminator terminator = AgeConnectionTerminator.FILLED_ARROW;
+	private ConnectionTerminatorType terminatorType = ConnectionTerminatorType.FILLED_ARROW;
+	private ConnectionTerminatorSize terminatorSize = ConnectionTerminatorSize.REGULAR;
 	
 	private ArrowBuilder() {} 
 	
@@ -33,7 +36,7 @@ public class ArrowBuilder {
 	 * @return this builder to allow method chaining.
 	 */
 	public ArrowBuilder filled() {
-		terminator = AgeConnectionTerminator.FILLED_ARROW;
+		terminatorType = ConnectionTerminatorType.FILLED_ARROW;
 		return this;
 	}
 	
@@ -42,7 +45,16 @@ public class ArrowBuilder {
 	 * @return the arrow builder on which the method was invoked to allow method chaining
 	 */
 	public ArrowBuilder open() {
-		terminator = AgeConnectionTerminator.OPEN_ARROW;
+		terminatorType = ConnectionTerminatorType.OPEN_ARROW;
+		return this;
+	}
+	
+	/**
+	 * Configures the arrow builder to create a small arrow.
+	 * @return the arrow builder on which the method was invoked to allow method chaining
+	 */
+	public ArrowBuilder small() {
+		terminatorSize = ConnectionTerminatorSize.SMALL;
 		return this;
 	}
 	
@@ -51,6 +63,6 @@ public class ArrowBuilder {
 	 * @return the newly created connection terminator
 	 */
 	public ConnectionTerminator build() {
-		return terminator;
+		return new AgeConnectionTerminator(terminatorType, terminatorSize);
 	}
 }
