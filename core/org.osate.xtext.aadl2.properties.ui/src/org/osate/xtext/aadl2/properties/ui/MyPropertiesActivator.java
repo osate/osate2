@@ -39,7 +39,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.aadl2.util.IPropertyService;
 import org.osate.core.OsateCorePlugin;
@@ -51,14 +50,7 @@ import org.osgi.framework.BundleContext;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 
-public class MyPropertiesActivator extends PropertiesActivator implements org.eclipse.ui.IStartup {
-
-	@Override
-	public void earlyStartup() {
-		new org.osate.xtext.aadl2.properties.PropertiesRuntimeModule();
-		PredeclaredProperties.initPluginContributedAadl();
-	};
-
+public class MyPropertiesActivator extends PropertiesActivator {
 	@Inject
 	private ResourceDescriptionsProvider rdp;
 

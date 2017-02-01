@@ -964,11 +964,13 @@ public abstract class SubcomponentImpl extends StructuralFeatureImpl implements 
 		}
 
 		// get values from classifier
-		final ComponentClassifier cc = getClassifier();
-		if (cc != null) {
-			cc.getPropertyValueInternal(prop, pas, true);
-		} else if (cl != null) {
+		if (cl != null) {
 			cl.getPropertyValueInternal(prop, pas, true);
+		} else {
+			final ComponentClassifier cc = getClassifier();
+			if (cc != null) {
+				cc.getPropertyValueInternal(prop, pas, true);
+			}
 		}
 	}
 

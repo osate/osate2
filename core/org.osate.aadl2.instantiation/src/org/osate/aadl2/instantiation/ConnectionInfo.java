@@ -37,9 +37,9 @@ class ConnectionInfo {
 	private ConnectionKind kind;
 	final List<Connection> connections;
 	final List<Boolean> opposites;
-	private final List<ComponentInstance> contexts;
-	private final List<ConnectionInstanceEnd> sources;
-	private final List<ConnectionInstanceEnd> destinations;
+	final List<ComponentInstance> contexts;
+	final List<ConnectionInstanceEnd> sources;
+	final List<ConnectionInstanceEnd> destinations;
 	ConnectionInstanceEnd src;
 	private boolean bidirectional = true;
 	boolean complete = false;
@@ -100,8 +100,10 @@ class ConnectionInfo {
 		final Context dstCtx = opposite ? newSeg.getAllSourceContext() : newSeg.getAllDestinationContext();
 		final ConnectionEnd source = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
 		final ConnectionEnd dest = opposite ? newSeg.getAllSource() : newSeg.getAllDestination();
-		final boolean goingUp = !(dstCtx instanceof Subcomponent);
-		final boolean goingDown = !(srcCtx instanceof Subcomponent);
+		final boolean goingUp = !(dstCtx instanceof Subcomponent)
+				&& (source instanceof Subcomponent || srcCtx instanceof Subcomponent);
+		final boolean goingDown = !(srcCtx instanceof Subcomponent)
+				&& (dest instanceof Subcomponent || dstCtx instanceof Subcomponent);
 		// TODO can we do these checks on the instance information
 
 		if (srcFi != null) {

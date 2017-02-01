@@ -158,7 +158,7 @@ public class Aadl2Util {
 		if (som == null || InstanceUtil.isNoMode(som)) {
 			return "";
 		}
-		return "In SystemMode " + som.getName() + ": ";
+		return "In SystemMode " + som.getName();
 	}
 
 	public static boolean isPrintableSOMName(SystemOperationMode som) {

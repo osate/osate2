@@ -36,10 +36,10 @@ property set Memory_Properties is
 		applies to (memory);
 	
 	Code_Size: Size
-		applies to (data, thread, thread group, process, system, subprogram, processor, virtual processor, device);
+		applies to (data, thread, thread group, process, system, subprogram, processor, virtual processor, virtual bus, device);
 	
 	Data_Size: Size
-		applies to (data, feature, subprogram, thread, thread group, process, system, processor, virtual processor, device);
+		applies to (data, feature, subprogram, thread, thread group, process, system, processor, virtual processor, virtual bus, bus, device);
 	
 	Heap_Size: Size
 		applies to (thread, subprogram,thread group, process, system, processor, virtual processor, device);
