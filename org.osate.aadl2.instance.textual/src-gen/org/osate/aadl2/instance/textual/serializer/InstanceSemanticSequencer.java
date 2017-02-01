@@ -226,10 +226,10 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 * Constraint:
 	 *     (
 	 *         category=ComponentCategory 
+	 *         classifier=[ComponentClassifier|ClassifierRef]? 
 	 *         name=ID 
 	 *         index+=Long* 
 	 *         (inMode+=[ModeInstance|ID] inMode+=[ModeInstance|ID]*)? 
-	 *         classifier=[ComponentClassifier|ClassifierRef] 
 	 *         subcomponent=[Subcomponent|DeclarativeRef] 
 	 *         (
 	 *             featureInstance+=FeatureInstance | 

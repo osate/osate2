@@ -60,9 +60,9 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=Long ']')*
+	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')*
 	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
-	':' classifier=[aadl2::ComponentClassifier|ClassifierRef] ',' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (
+	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (
 		featureInstance+=FeatureInstance |
 		componentInstance+=ComponentInstance |
 		connectionInstance+=ConnectionInstance |
