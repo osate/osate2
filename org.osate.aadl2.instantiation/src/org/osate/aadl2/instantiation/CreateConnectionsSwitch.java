@@ -57,10 +57,11 @@ import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
+import org.eclipse.emf.common.util.TreeIterator;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
@@ -706,16 +707,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (upFi.eContainer() == dstFi) {
 					dstFi = upFi;
 				} else {
-					FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature())
-							.getFeatureGroupType();
-					FeatureGroupType downfgt = ((FeatureGroup) dstFi.getFeature()).getFeatureGroupType();
+					FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature());
+					FeatureGroup downfg = ((FeatureGroup) dstFi.getFeature());
+					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
+					FeatureGroupType downfgt = downfg.getAllFeatureGroupType();
 					if (downfgt == null) {
 						warning(dstFi.getContainingComponentInstance(),
 								"In " + dstFi.getContainingComponentInstance().getName() + " (classifier "
 										+ dstFi.getContainingComponentInstance().getComponentClassifier().getName()
 										+ ") feature group " + dstFi.getName() + " has no type");
 					}
-					if (upfgt != null && downfgt != null && upfgt.isInverseOf(downfgt)
+					if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg)
 							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstFi = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
@@ -881,20 +883,20 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			for (int count = upFeature.size() - 1; count >= 0; count--) {
 				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
 				FeatureInstance upFi = upFeature.get(count);
-				FeatureInstance resFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
-				if (resFi == null) { // do index only if we have inverse feature
+				FeatureInstance dstFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
+				if (dstFi == null) { // do index only if we have inverse feature
 										// groups and they have their own
 										// element names
-					FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature())
-							.getFeatureGroupType();
-					FeatureGroupType downfgt = ((FeatureGroup) ((FeatureInstance) dstEnd).getFeature())
-							.getFeatureGroupType();
-					if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
-							&& !downfgt.getAllFeatures().isEmpty()) {
+					FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature());
+					FeatureGroup downfg = ((FeatureGroup) dstFi.getFeature());
+					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
+					FeatureGroupType downfgt = downfg.getAllFeatureGroupType();
+					if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg)
+							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
 						dstEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(upFi));
 					}
 				} else {
-					dstEnd = resFi;
+					dstEnd = dstFi;
 				}
 			}
 		} else if (!downFeature.isEmpty()) {
@@ -906,11 +908,11 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			for (int count = 0; count < downFeature.size(); count++) {
 				FeatureInstance downFi = downFeature.get(count);
 				EList<FeatureInstance> flist = ((FeatureInstance) srcEnd).getFeatureInstances();
-				FeatureGroupType upfgt = ((FeatureGroup) ((FeatureInstance) downFi.getOwner()).getFeature())
-						.getFeatureGroupType();
-				FeatureGroupType downfgt = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature())
-						.getFeatureGroupType();
-				if (upfgt.isInverseOf(downfgt) && !upfgt.getAllFeatures().isEmpty()
+				FeatureGroup downfg = ((FeatureGroup) ((FeatureInstance) downFi.getOwner()).getFeature());
+				FeatureGroupType downfgt = downfg.getFeatureGroupType();
+				FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature());
+				FeatureGroupType upfgt = upfg.getFeatureGroupType();
+				if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg) && !upfgt.getAllFeatures().isEmpty()
 						&& !downfgt.getAllFeatures().isEmpty()) {
 					srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
 				}
@@ -977,9 +979,14 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
 						}
 					}
+				} else {
+					// create the unexpanded connection instance
+					connInfo.src = srcFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
 			} else if (isLeafFeature(dstFi)) {
 				FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
+				// we need to deal with outgoing/incoming only and check the direction correctly
 				if (target != null && ((connInfo.isAcross() && target.getDirection().outgoing())
 						|| target.getDirection().incoming())) {
 					expandFeatureGroupConnection(parentci, connInfo, target, dstFi);
@@ -991,6 +998,10 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 							expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
 						}
 					}
+				} else {
+					// create the unexpanded connection instance
+					connInfo.src = srcFi;
+					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
 			} else {
 				boolean isSubset = subsetMatch(connInfo.connections);
@@ -1010,7 +1021,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					// subset matching features by name
 					for (FeatureInstance dst : dstFi.getFeatureInstances()) {
 						if ((connInfo.isAcross() && dst.getDirection().incoming()) || dst.getDirection().outgoing()) {
-							FeatureInstance src = findFeatureInstance(srcFi.getFeatureInstances(), dst.getName());
+							FeatureInstance src = findFeatureInstance(srcFi, dst.getName());
 							if (src != null) {
 								expandFeatureGroupConnection(parentci, connInfo, src, dst);
 							}
@@ -1022,9 +1033,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		connInfo.src = oldSrc;
 	}
 
-	FeatureInstance findFeatureInstance(EList<FeatureInstance> fiList, String name) {
-		for (FeatureInstance fi : fiList) {
-			if (fi.getName().equalsIgnoreCase(name)) {
+	/**
+	 * find feature instance with matching name that is a leaf under fgfi
+	 * @param fgfi
+	 * @param name
+	 * @return FeatureInstance
+	 */
+	FeatureInstance findFeatureInstance(FeatureInstance fgfi, String name) {
+		TreeIterator<EObject> fiall = fgfi.eAllContents();
+		while (fiall.hasNext()) {
+			FeatureInstance fi = (FeatureInstance) fiall.next();
+			if (isLeafFeature(fi) && fi.getName().equalsIgnoreCase(name)) {
 				return fi;
 			}
 		}
@@ -1036,47 +1055,79 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		return fi.getFeatureInstances().isEmpty();
 	}
 
+	/**
+	 * Find the feature instance under FGI, whose name matches the the Feature at the other end
+	 * We do this by finding the connection declaration that goes down at the other end
+	 * It is found by matching the FGT name and then retrieving the feature instance matching the name
+	 * @param connInfo
+	 * @param fgi
+	 * @return FeatureInstance
+	 */
+
 	FeatureInstance findSourceFeatureInstance(ConnectionInfo connInfo, FeatureInstance fgi) {
-		Classifier fgt = fgi.getFeature().getAllClassifier();
-		String fgname = fgi.getName();
-		List<Connection> connlist = connInfo.connections;
-		for (Connection connection : connlist) {
-			Context cxt = connection.getAllSourceContext();
-			if (cxt instanceof FeatureGroup) {
-				FeatureGroup fg = (FeatureGroup) cxt;
-				if (fgname.equalsIgnoreCase(fg.getName()) && fgt != null && fg.getFeatureGroupType() != null
-//						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())
-				) {
-					// we found the connection reaching into the feature group
-					ConnectionEnd src = connection.getAllSource();
-					FeatureInstance fgeFI = findFeatureInstance(fgi.getFeatureInstances(), src.getName());
-					if (fgeFI != null) {
-						return fgeFI;
+		List<ConnectionInstanceEnd> srclist = connInfo.sources;
+		List<ConnectionInstanceEnd> dstlist = connInfo.destinations;
+		ConnectionInstanceEnd target = null;
+		for (int i = srclist.size() - 1; i >= 0; i--) {
+			ConnectionInstanceEnd src = srclist.get(i);
+			ConnectionInstanceEnd dst = dstlist.get(i);
+			if (target != null && target != dst) {
+				if (dst == target.eContainer()) {
+					// we have a feature in a FG
+					FeatureInstance targetFI = findFeatureInstance(fgi, target.getName());
+					if (targetFI == null) {
+						// name does not match. We may have an inverse of feature group type with its own set of feature names
+						// In this case it is an index based match
+						int idx = dst.eContents().indexOf(target);
+						if (idx >= 0) {
+							targetFI = fgi.getFeatureInstances().get(idx);
+						}
 					}
+					return targetFI;
+				} else {
+					target = src;
 				}
+			} else {
+				target = src;
 			}
 		}
 		return null;
+
 	}
 
+	/**
+	 * Find the feature instance under FGI, whose name matches the the Feature at the other end
+	 * We do this by finding the connection declaration that goes down at the other end
+	 * It is found by matching the FGT name and then retrieving the feature instance matching the name
+	 * @param connInfo
+	 * @param fgi
+	 * @return FeatureInstance
+	 */
 	FeatureInstance findDestinationFeatureInstance(ConnectionInfo connInfo, FeatureInstance fgi) {
-		Classifier fgt = fgi.getFeature().getAllClassifier();
-		String fgname = fgi.getName();
-		List<Connection> connlist = connInfo.connections;
-		for (Connection connection : connlist) {
-			Context cxt = connection.getAllDestinationContext();
-			if (cxt instanceof FeatureGroup) {
-				FeatureGroup fg = (FeatureGroup) cxt;
-				if (fgname.equalsIgnoreCase(fg.getName()) && fgt != null && fg.getFeatureGroupType() != null
-//						&& fg.getFeatureGroupType().getName().equalsIgnoreCase(fgt.getName())
-				) {
-					// we found the connection reaching into the feature group
-					ConnectionEnd src = connection.getAllDestination();
-					FeatureInstance fgeFI = findFeatureInstance(fgi.getFeatureInstances(), src.getName());
-					if (fgeFI != null) {
-						return fgeFI;
+		List<ConnectionInstanceEnd> srclist = connInfo.sources;
+		List<ConnectionInstanceEnd> dstlist = connInfo.destinations;
+		ConnectionInstanceEnd target = null;
+		for (int i = 0; i < srclist.size(); i++) {
+			ConnectionInstanceEnd src = srclist.get(i);
+			ConnectionInstanceEnd dst = dstlist.get(i);
+			if (target != null && target != src) {
+				if (src == target.eContainer()) {
+					// we have a feature in a FG
+					FeatureInstance targetFI = findFeatureInstance(fgi, target.getName());
+					if (targetFI == null) {
+						// name does not match. We may have an inverse of feature group type with its own set of feature names
+						// In this case it is an index based match
+						int idx = dst.eContents().indexOf(target);
+						if (idx >= 0) {
+							targetFI = fgi.getFeatureInstances().get(idx);
+						}
 					}
+					return targetFI;
+				} else {
+					target = dst;
 				}
+			} else {
+				target = dst;
 			}
 		}
 		return null;

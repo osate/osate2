@@ -89,7 +89,7 @@ public class InstanceUtil {
 		InstantiatedClassifier() {
 		}
 
-		InstantiatedClassifier(Classifier classifier, EList<PrototypeBinding> bindings) {
+		public InstantiatedClassifier(Classifier classifier, EList<PrototypeBinding> bindings) {
 			this.classifier = classifier;
 			this.bindings = bindings;
 		}
@@ -453,5 +453,4 @@ public class InstanceUtil {
 	public static boolean isNoMode(SystemOperationMode som) {
 		return som.getName().equalsIgnoreCase(NORMAL_SOM_NAME) || som.getName().equalsIgnoreCase("NoModes");
 	}
-
 }

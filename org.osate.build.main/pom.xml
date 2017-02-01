@@ -214,8 +214,6 @@
 							<goal>compile</goal>
 							<!-- <goal>testCompile</goal> -->
 						</goals>
-						<!--  force after xtext-maven-plugin -->
-						<phase>process-sources</phase>
 						<configuration>
 							<outputDirectory>${basedir}/xtend-gen</outputDirectory>
 						</configuration>

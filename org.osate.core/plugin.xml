@@ -76,10 +76,13 @@
                <iterate
                      ifEmpty="false"
                      operator="and">
-                  <test
-                        property="org.eclipse.core.resources.contentTypeId"
-                        value="org.osate.core.instanceModelFile">
-                  </test>
+                  <adapt
+                        type="org.eclipse.core.resources.IFile">
+                     <test
+                           property="org.eclipse.core.resources.contentTypeId"
+                           value="org.osate.core.instanceModelFile">
+                     </test>
+                  </adapt>
                </iterate>
             </and>
          </with>
