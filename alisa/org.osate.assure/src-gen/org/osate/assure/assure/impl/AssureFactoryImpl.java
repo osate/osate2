@@ -95,6 +95,7 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
       case AssurePackage.PRECONDITION_RESULT: return createPreconditionResult();
       case AssurePackage.VALIDATION_RESULT: return createValidationResult();
       case AssurePackage.VERIFICATION_ACTIVITY_RESULT: return createVerificationActivityResult();
+      case AssurePackage.PREDICATE_RESULT: return createPredicateResult();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
@@ -327,6 +328,17 @@ public class AssureFactoryImpl extends EFactoryImpl implements AssureFactory
   {
     VerificationActivityResultImpl verificationActivityResult = new VerificationActivityResultImpl();
     return verificationActivityResult;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public PredicateResult createPredicateResult()
+  {
+    PredicateResultImpl predicateResult = new PredicateResultImpl();
+    return predicateResult;
   }
 
   /**

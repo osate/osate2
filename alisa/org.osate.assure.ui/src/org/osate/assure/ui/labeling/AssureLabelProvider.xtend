@@ -53,7 +53,7 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(VerificationActivityResult ele) {
-		"Evidence "+ele.name + " "+ele.assureExecutionTime+": " + ele.constructMessage 
+		"Evidence "+ele.name + ": "+ ele.constructMessage 
 		
 
 	}
@@ -67,29 +67,29 @@ class AssureLabelProvider extends org.eclipse.xtext.ui.label.DefaultEObjectLabel
 	}
 	
 	def text(AssuranceCaseResult ele) {
-		"System case "+ele.name +": "+ele.constructMessage		
+		"Assurance case "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
 	def text(ModelResult ele) {
-		"Model "+ele.name +": "+ele.constructMessage		
+		"Assurance plan "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
 	def text(SubsystemResult ele) {
-		"Subsystem "+ele.name +": "+ele.constructMessage		
+		"Subsystem verification "+ele.name +": "+ele.constructMessage		
 		+ ele.assureResultCounts
 	}
 	
 	def text(ResultIssue ele) {
-		return (ele.target?.constructLabel?:"")+ ele.constructMessage
+		return "Issue "+(ele.target?.constructLabel?:"")+ ele.constructMessage
 	}
 	
 	def text(ElseResult ele) {
-		'else'
+		'else: '+ ele.assureResultCounts
 	}
 	def text(ThenResult ele) {
-		'then'
+		'then: '+ ele.assureResultCounts
 	}
 
 	def image(ResultIssue ele) {

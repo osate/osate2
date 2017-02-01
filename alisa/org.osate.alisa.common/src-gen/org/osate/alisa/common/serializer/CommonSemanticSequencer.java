@@ -53,7 +53,6 @@ import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
-import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -147,8 +146,32 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
 				return; 
 			case CommonPackage.AUNIT_EXPRESSION:
-				sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.AVARIABLE_REFERENCE:
 				sequence_AVariableReference(context, (AVariableReference) semanticObject); 
 				return; 
@@ -175,9 +198,6 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				return; 
 			case CommonPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
-			case CommonPackage.SHOW_VALUE:
-				sequence_ShowValue(context, (ShowValue) semanticObject); 
 				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 
@@ -283,7 +303,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     AParenthesizedExpression returns AFunctionCall
 	 *
 	 * Constraint:
-	 *     (function=ID arguments+=AExpression arguments+=AExpression*)
+	 *     (function=QualifiedName (arguments+=AExpression arguments+=AExpression*)?)
 	 */
 	protected void sequence_AFunctionCall(ISerializationContext context, AFunctionCall semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -628,7 +648,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     DescriptionElement returns DescriptionElement
 	 *
 	 * Constraint:
-	 *     (text=STRING | showValue=ShowValue | thisTarget?='this' | image=ImageReference)
+	 *     (text=STRING | thisTarget?='this' | image=ImageReference | showValue=ShowValue)
 	 */
 	protected void sequence_DescriptionElement(ISerializationContext context, DescriptionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -709,7 +729,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     (
 	 *         issueType=ResultIssueType 
 	 *         message=STRING 
-	 *         target=[EObject|URIID]? 
+	 *         target=[EObject|NoQuoteString]? 
 	 *         exceptionType=STRING? 
 	 *         diagnosticId=STRING? 
 	 *         issues+=ResultIssue*
@@ -722,12 +742,12 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	
 	/**
 	 * Contexts:
-	 *     ShowValue returns ShowValue
+	 *     ShowValue returns AUnitExpression
 	 *
 	 * Constraint:
-	 *     (ref=[AVariableDeclaration|ID] unit=[UnitLiteral|ID]?)
+	 *     (expression=AVariableReference ((convert?='%' | drop?='in') unit=[UnitLiteral|ID])?)
 	 */
-	protected void sequence_ShowValue(ISerializationContext context, ShowValue semanticObject) {
+	protected void sequence_ShowValue(ISerializationContext context, AUnitExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -852,7 +872,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 	 *     Uncertainty returns Uncertainty
 	 *
 	 * Constraint:
-	 *     (volatility=INT | impact=INT)+
+	 *     (volatility=INT | precedence=INT | impact=INT)+
 	 */
 	protected void sequence_Uncertainty(ISerializationContext context, Uncertainty semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

@@ -52,7 +52,6 @@ import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
-import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -65,6 +64,7 @@ import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.PredicateResult;
 import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.SubsystemResult;
@@ -135,6 +135,9 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 			case AssurePackage.PRECONDITION_RESULT:
 				sequence_PreconditionResult(context, (PreconditionResult) semanticObject); 
 				return; 
+			case AssurePackage.PREDICATE_RESULT:
+				sequence_PredicateResult(context, (PredicateResult) semanticObject); 
+				return; 
 			case AssurePackage.QUALIFIED_CLAIM_REFERENCE:
 				sequence_QualifiedClaimReference(context, (QualifiedClaimReference) semanticObject); 
 				return; 
@@ -203,8 +206,32 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
 				return; 
 			case CommonPackage.AUNIT_EXPRESSION:
-				sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.AVARIABLE_REFERENCE:
 				sequence_AVariableReference(context, (AVariableReference) semanticObject); 
 				return; 
@@ -231,9 +258,6 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
-			case CommonPackage.SHOW_VALUE:
-				sequence_ShowValue(context, (ShowValue) semanticObject); 
 				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 
@@ -274,7 +298,8 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *         modelElement=[NamedElement|ID]? 
 	 *         message=STRING? 
 	 *         subClaimResult+=ClaimResult* 
-	 *         verificationActivityResult+=VerificationExpr*
+	 *         verificationActivityResult+=VerificationExpr* 
+	 *         predicateResult=PredicateResult?
 	 *     )
 	 */
 	protected void sequence_ClaimResult(ISerializationContext context, ClaimResult semanticObject) {
@@ -387,6 +412,27 @@ public class AssureSemanticSequencer extends CommonSemanticSequencer {
 	 *     )
 	 */
 	protected void sequence_PreconditionResult(ISerializationContext context, PreconditionResult semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     PredicateResult returns PredicateResult
+	 *     AssureResult returns PredicateResult
+	 *
+	 * Constraint:
+	 *     (
+	 *         targetReference=QualifiedClaimReference 
+	 *         executionState=VerificationExecutionState 
+	 *         resultState=VerificationResultState 
+	 *         issues+=ResultIssue* 
+	 *         resultReport=[ResultReport|QualifiedName]? 
+	 *         metrics=Metrics 
+	 *         message=STRING?
+	 *     )
+	 */
+	protected void sequence_PredicateResult(ISerializationContext context, PredicateResult semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	

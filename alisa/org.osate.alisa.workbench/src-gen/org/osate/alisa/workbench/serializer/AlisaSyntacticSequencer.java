@@ -43,7 +43,6 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	protected AbstractElementAlias match_AssuranceTask_CategoryKeyword_6_1_0_q;
 	protected AbstractElementAlias match_AssuranceTask_IssuesKeyword_6_2_0_q;
 	protected AbstractElementAlias match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q;
-	protected AbstractElementAlias match_ShowValue_PercentSignKeyword_1_0_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
@@ -58,7 +57,6 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 		match_AssuranceTask_CategoryKeyword_6_1_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getCategoryKeyword_6_1_0());
 		match_AssuranceTask_IssuesKeyword_6_2_0_q = new TokenAlias(false, true, grammarAccess.getAssuranceTaskAccess().getIssuesKeyword_6_2_0());
 		match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q = new GroupAlias(false, true, new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getLeftSquareBracketKeyword_5_0()), new TokenAlias(false, false, grammarAccess.getResultIssueAccess().getRightSquareBracketKeyword_5_2()));
-		match_ShowValue_PercentSignKeyword_1_0_q = new TokenAlias(false, true, grammarAccess.getShowValueAccess().getPercentSignKeyword_1_0());
 	}
 	
 	@Override
@@ -93,8 +91,6 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 				emit_AssuranceTask_IssuesKeyword_6_2_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if (match_ShowValue_PercentSignKeyword_1_0_q.equals(syntax))
-				emit_ShowValue_PercentSignKeyword_1_0_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
@@ -108,7 +104,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) function=QualifiedName
 	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
@@ -134,7 +130,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     (rule start) (ambiguity) '[' minimum=AExpression
 	 *     (rule start) (ambiguity) 'false' ')' (rule start)
 	 *     (rule start) (ambiguity) 'if' if=AExpression
-	 *     (rule start) (ambiguity) function=ID
+	 *     (rule start) (ambiguity) function=QualifiedName
 	 *     (rule start) (ambiguity) modelElement=[NamedElement|ThisKeyword]
 	 *     (rule start) (ambiguity) operator=OpUnary
 	 *     (rule start) (ambiguity) value=AInt
@@ -211,7 +207,7 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     'category'?
 	 *
 	 * This ambiguous syntax occurs at:
-	 *     category+=[Category|CatRef] (ambiguity) category+=[Category|CatRef]
+	 *     category+=[Category|QualifiedName] (ambiguity) category+=[Category|QualifiedName]
 	 */
 	protected void emit_AssuranceTask_CategoryKeyword_6_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
@@ -236,20 +232,9 @@ public class AlisaSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     diagnosticId=STRING (ambiguity) (rule end)
 	 *     exceptionType=STRING (ambiguity) (rule end)
 	 *     message=STRING (ambiguity) (rule end)
-	 *     target=[EObject|URIID] (ambiguity) (rule end)
+	 *     target=[EObject|NoQuoteString] (ambiguity) (rule end)
 	 */
 	protected void emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
-		acceptNodes(transition, nodes);
-	}
-	
-	/**
-	 * Ambiguous syntax:
-	 *     '%'?
-	 *
-	 * This ambiguous syntax occurs at:
-	 *     ref=[AVariableDeclaration|ID] (ambiguity) (rule end)
-	 */
-	protected void emit_ShowValue_PercentSignKeyword_1_0_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

@@ -33,6 +33,7 @@ import org.osate.aadl2.NamedElement;
  *   <li>{@link org.osate.assure.assure.ClaimResult#getMessage <em>Message</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getSubClaimResult <em>Sub Claim Result</em>}</li>
  *   <li>{@link org.osate.assure.assure.ClaimResult#getVerificationActivityResult <em>Verification Activity Result</em>}</li>
+ *   <li>{@link org.osate.assure.assure.ClaimResult#getPredicateResult <em>Predicate Result</em>}</li>
  * </ul>
  *
  * @see org.osate.assure.assure.AssurePackage#getClaimResult()
@@ -150,5 +151,31 @@ public interface ClaimResult extends AssureResult
    * @generated
    */
   EList<VerificationExpr> getVerificationActivityResult();
+
+  /**
+   * Returns the value of the '<em><b>Predicate Result</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Predicate Result</em>' containment reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Predicate Result</em>' containment reference.
+   * @see #setPredicateResult(VerificationResult)
+   * @see org.osate.assure.assure.AssurePackage#getClaimResult_PredicateResult()
+   * @model containment="true"
+   * @generated
+   */
+  VerificationResult getPredicateResult();
+
+  /**
+   * Sets the value of the '{@link org.osate.assure.assure.ClaimResult#getPredicateResult <em>Predicate Result</em>}' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Predicate Result</em>' containment reference.
+   * @see #getPredicateResult()
+   * @generated
+   */
+  void setPredicateResult(VerificationResult value);
 
 } // ClaimResult

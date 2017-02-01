@@ -34,6 +34,7 @@ import org.osate.alisa.common.common.Uncertainty;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getVolatility <em>Volatility</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getPrecedence <em>Precedence</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.impl.UncertaintyImpl#getImpact <em>Impact</em>}</li>
  * </ul>
  *
@@ -60,6 +61,26 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * @ordered
    */
   protected int volatility = VOLATILITY_EDEFAULT;
+
+  /**
+   * The default value of the '{@link #getPrecedence() <em>Precedence</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrecedence()
+   * @generated
+   * @ordered
+   */
+  protected static final int PRECEDENCE_EDEFAULT = 0;
+
+  /**
+   * The cached value of the '{@link #getPrecedence() <em>Precedence</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see #getPrecedence()
+   * @generated
+   * @ordered
+   */
+  protected int precedence = PRECEDENCE_EDEFAULT;
 
   /**
    * The default value of the '{@link #getImpact() <em>Impact</em>}' attribute.
@@ -130,6 +151,29 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
    * <!-- end-user-doc -->
    * @generated
    */
+  public int getPrecedence()
+  {
+    return precedence;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public void setPrecedence(int newPrecedence)
+  {
+    int oldPrecedence = precedence;
+    precedence = newPrecedence;
+    if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, CommonPackage.UNCERTAINTY__PRECEDENCE, oldPrecedence, precedence));
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public int getImpact()
   {
     return impact;
@@ -160,6 +204,8 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     {
       case CommonPackage.UNCERTAINTY__VOLATILITY:
         return getVolatility();
+      case CommonPackage.UNCERTAINTY__PRECEDENCE:
+        return getPrecedence();
       case CommonPackage.UNCERTAINTY__IMPACT:
         return getImpact();
     }
@@ -178,6 +224,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     {
       case CommonPackage.UNCERTAINTY__VOLATILITY:
         setVolatility((Integer)newValue);
+        return;
+      case CommonPackage.UNCERTAINTY__PRECEDENCE:
+        setPrecedence((Integer)newValue);
         return;
       case CommonPackage.UNCERTAINTY__IMPACT:
         setImpact((Integer)newValue);
@@ -199,6 +248,9 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
       case CommonPackage.UNCERTAINTY__VOLATILITY:
         setVolatility(VOLATILITY_EDEFAULT);
         return;
+      case CommonPackage.UNCERTAINTY__PRECEDENCE:
+        setPrecedence(PRECEDENCE_EDEFAULT);
+        return;
       case CommonPackage.UNCERTAINTY__IMPACT:
         setImpact(IMPACT_EDEFAULT);
         return;
@@ -218,6 +270,8 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     {
       case CommonPackage.UNCERTAINTY__VOLATILITY:
         return volatility != VOLATILITY_EDEFAULT;
+      case CommonPackage.UNCERTAINTY__PRECEDENCE:
+        return precedence != PRECEDENCE_EDEFAULT;
       case CommonPackage.UNCERTAINTY__IMPACT:
         return impact != IMPACT_EDEFAULT;
     }
@@ -237,6 +291,8 @@ public class UncertaintyImpl extends MinimalEObjectImpl.Container implements Unc
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (volatility: ");
     result.append(volatility);
+    result.append(", precedence: ");
+    result.append(precedence);
     result.append(", impact: ");
     result.append(impact);
     result.append(')');

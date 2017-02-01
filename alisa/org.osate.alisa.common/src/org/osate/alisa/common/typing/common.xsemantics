@@ -14,7 +14,6 @@
  * See COPYRIGHT file for full details.
  */
 
-import it.xsemantics.runtime.RuleFailedException
 import org.eclipse.emf.common.util.EList
 import org.eclipse.emf.ecore.EObject
 import org.osate.aadl2.Aadl2Factory
@@ -182,9 +181,8 @@ from {
 			type = Aadl2Factory.eINSTANCE.createAadlBoolean
 		}
 		case EQ, case NEQ: {
-			try {
-				G |- leftType ~~ rightType
-			} catch (RuleFailedException e) {
+			G |- leftType ~~ rightType
+			or {
 				fail
 					error 'typing: cannot compare ' + stringRep(leftType) + ' and ' + stringRep(rightType)
 					source binary
@@ -219,7 +217,7 @@ from {
 							error 'typing: operand must be a range'
 							source binary.right
 					}
-				default:
+				case DIV, case MINUS:
 					if (!(leftType instanceof NumberType)) {
 						fail
 							error 'typing: operand must be numeric'
@@ -229,15 +227,17 @@ from {
 							error 'typing: operand must be numeric'
 							source binary.right
 					}
+				default: {
+					//nothing
+				}
 			}
 			// check for correct units types
 			val leftNum = if (leftType instanceof RangeType) leftType.numberType else leftType as NumberType
 			val rightNum = if (rightType instanceof RangeType) rightType.numberType else rightType as NumberType
 			switch (op) {
 				case LT, case LEQ, case GT, case GEQ, case IN: {
-					try {
-						G |- leftNum ~~ rightNum
-					} catch (RuleFailedException e) {
+					G |- leftNum ~~ rightNum
+					or {
 						fail
 							error 'typing: arguments have different unit types'
 							source binary
@@ -245,9 +245,8 @@ from {
 					type = Aadl2Factory.eINSTANCE.createAadlBoolean
 				}
 				case PLUS, case MINUS: {
-					try {
-						G |- leftNum ~~ rightNum
-					} catch (RuleFailedException e) {
+					G |- leftNum ~~ rightNum
+					or {
 						fail
 							error 'typing: arguments have different unit types'
 							source binary
@@ -265,9 +264,8 @@ from {
 				case DIV: {
 					val t = Aadl2Factory.eINSTANCE.createAadlReal
 					if (leftNum.unitsType != null && rightNum.unitsType != null) {
-						try {
-							G |- leftNum ~~ rightNum
-						} catch (RuleFailedException e) {
+						G |- leftNum ~~ rightNum
+						or {
 							fail
 								error 'typing: arguments have different unit types'
 								source binary
@@ -294,7 +292,7 @@ from {
 				fail
 					error 'typing: argument must be an integer'
 					source binary.left
-			} else
+			}
 			if (!(rightType instanceof AadlInteger)) {
 				fail
 					error 'typing: argument must be an integer'
@@ -305,9 +303,8 @@ from {
 			val t = Aadl2Factory.eINSTANCE.createAadlInteger
 
 			if (leftNum.unitsType != null && rightNum.unitsType != null) {
-				try {
-					G |- leftNum ~~ rightNum
-				} catch (RuleFailedException e) {
+				G |- leftNum ~~ rightNum
+				or {
 					fail
 						error 'typing: arguments have different unit types'
 						source binary
@@ -382,9 +379,8 @@ from {
 			source rangeExp.maximum
 	}
 	
-	try {
-		G |- minType ~~ maxType
-	} catch (RuleFailedException e) {
+	G |- minType ~~ maxType
+	or {
 		fail
 			error "typing: lower and upper bound have different units"
 			source rangeExp
@@ -413,9 +409,8 @@ from {
 			source ifExp.^if
 	}
 	
-	try {
-		G |- thenType ~~ elseType
-	} catch (RuleFailedException e) {
+	G |- thenType ~~ elseType
+	or {
 		fail
 			error 'typing: then and else part must have the same type'
 			source ifExp
@@ -434,8 +429,7 @@ from {
 	switch (call.function) {
 		case 'min', case 'max': {
 			call.arguments.size >= 1 
-			or 
-			{
+			or {
 				fail
 					error call.function + ' must have at least one argument'
 					source call
@@ -494,8 +488,7 @@ from {
 		}
 		case 'abs': {
 			call.arguments.size == 1 
-			or 
-			{
+			or {
 				fail
 					error 'abs must have one argument'
 					source call
@@ -511,8 +504,7 @@ from {
 		}
 		case 'floor', case 'ceil', case 'round': {
 			call.arguments.size == 1 
-			or 
-			{
+			or {
 				fail
 					error 'abs must have one argument'
 					source call
@@ -528,10 +520,60 @@ from {
 			  	source arg
 			}
 		}
+		case 'prev': {
+			call.arguments.size == 1 
+			or {
+				fail
+					error 'abs must have one argument'
+					source call
+			}
+			val arg = call.arguments.get(0)
+			G |- arg : var PropertyType argType
+			if (argType instanceof NumberType) {
+				type = argType
+			} else {
+				fail
+			  	error 'typing: argument must be numeric'
+			  	source arg
+			}
+		}
+		case 'atTime': {
+			call.arguments.size == 2 
+			or {
+				fail
+					error 'abs must have two arguments'
+					source call
+			}
+			val arg = call.arguments.get(0)
+			G |- arg : var PropertyType argType
+			val time = call.arguments.get(1)
+			G |- time : var PropertyType timeType
+			if (argType instanceof NumberType) {
+				type = argType
+			} else {
+				fail
+			  	error 'typing: first argument must be numeric'
+			  	source arg
+			}
+			if (timeType instanceof NumberType) {
+				if ( timeType.unitsType.name != 'Time_Units') {
+				fail
+			  	error 'typing: second argument must have Time units'
+			  	source arg
+			}
+			} else {
+				fail
+			  	error 'typing: second argument must be numeric'
+			  	source arg
+			}
+			
+		}
 		default: {
+			if (InterpreterUtil.instance.methodExists(call.function)!=null){
 			fail
 				error 'unsupported function: ' + call.function
 				source call
+			}
 		}
 	}
 }
@@ -551,9 +593,9 @@ from {
 					error 'typing: expression has no unit'
 					source unitExp.expression
 			}
-			try {
-				G |- expType.unitsType ~~ targetType
-			} catch (RuleFailedException e) {
+			G |- expType.unitsType ~~ targetType
+			or
+			{
 				fail
 					error 'typing: cannot convert ' + stringRep(expType) + ' to ' + stringRep(targetType)
 					source CommonPackage.eINSTANCE.AUnitExpression_Convert
@@ -693,11 +735,10 @@ rule ExpressionAssignableToType
 from {
 	var PropertyType expType
 	G |- exp : expType
-	try {
-		G |- expType <: type
-	} catch (RuleFailedException e) {
+	G |- expType <: type
+	or {
 		fail
-			error e.issue
+			error previousFailure.issue
 			source exp
 	}
 }
@@ -741,9 +782,8 @@ from {
  	empty |- valDecl.value : var PropertyType valueType
 	if (valDecl.getType() != null) {
 	  empty |- valDecl : var PropertyType valType
-	  try {
-  		empty |- valueType <: valType
-  	} catch (RuleFailedException e) {
+ 		empty |- valueType <: valType
+  	or {
   		fail
   			error 'types not compatible: cannot assign ' + stringRep(valueType) + ' to ' + stringRep(valType)
   			source valDecl

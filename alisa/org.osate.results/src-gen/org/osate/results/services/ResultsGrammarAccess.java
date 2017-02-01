@@ -662,7 +662,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//DescriptionElement:
-	//	text=STRING | showValue=ShowValue | thisTarget?='this' | image=ImageReference;
+	//	text=STRING | => thisTarget?='this' | => image=ImageReference | showValue=ShowValue;
 	public CommonGrammarAccess.DescriptionElementElements getDescriptionElementAccess() {
 		return gaCommon.getDescriptionElementAccess();
 	}
@@ -683,7 +683,9 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 
 	//Uncertainty:
 	//	'uncertainty'
-	//	'[' ('volatility' volatility=INT & 'impact' impact=INT)
+	//	'[' (('volatility' volatility=INT)?
+	//	& ('precedence' precedence=INT)?
+	//	& ('impact' impact=INT)?)
 	//	']';
 	public CommonGrammarAccess.UncertaintyElements getUncertaintyAccess() {
 		return gaCommon.getUncertaintyAccess();
@@ -696,7 +698,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// This is similar to diagnostics
 	//ResultIssue:
 	//	issueType=ResultIssueType
-	//	message=STRING ('target' target=[ecore::EObject|URIID])? ('exception' exceptionType=STRING)? ('diagnosticId'
+	//	message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception' exceptionType=STRING)? ('diagnosticId'
 	//	diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
@@ -808,8 +810,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		return getAVariableReferenceAccess().getRule();
 	}
 
-	//ShowValue:
-	//	ref=[AVariableDeclaration] ('%' | 'in' unit=[aadl2::UnitLiteral])?;
+	//ShowValue AUnitExpression:
+	//	expression=AVariableReference ((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral])?
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}
@@ -1040,7 +1042,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AFunctionCall aadl2::PropertyExpression:
-	//	{AFunctionCall} function=ID '(' arguments+=AExpression (',' arguments+=AExpression)* ')'
+	//	{AFunctionCall} function=QualifiedName '(' (arguments+=AExpression (',' arguments+=AExpression)*)? ')'
 	public CommonGrammarAccess.AFunctionCallElements getAFunctionCallAccess() {
 		return gaCommon.getAFunctionCallAccess();
 	}

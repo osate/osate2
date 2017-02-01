@@ -36,7 +36,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 
-import org.osate.alisa.common.common.AVariableDeclaration;
+import org.osate.alisa.common.common.ValDeclaration;
 
 import org.osate.reqspec.reqSpec.GlobalConstants;
 import org.osate.reqspec.reqSpec.Goal;
@@ -100,7 +100,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * @generated
    * @ordered
    */
-  protected EList<AVariableDeclaration> constants;
+  protected EList<ValDeclaration> constants;
 
   /**
    * The cached value of the '{@link #getGoals() <em>Goals</em>}' containment reference list.
@@ -209,11 +209,11 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<AVariableDeclaration> getConstants()
+  public EList<ValDeclaration> getConstants()
   {
     if (constants == null)
     {
-      constants = new EObjectContainmentEList<AVariableDeclaration>(AVariableDeclaration.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS);
+      constants = new EObjectContainmentEList<ValDeclaration>(ValDeclaration.class, this, ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS);
     }
     return constants;
   }
@@ -299,7 +299,7 @@ public class StakeholderGoalsImpl extends ReqRootImpl implements StakeholderGoal
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__CONSTANTS:
         getConstants().clear();
-        getConstants().addAll((Collection<? extends AVariableDeclaration>)newValue);
+        getConstants().addAll((Collection<? extends ValDeclaration>)newValue);
         return;
       case ReqSpecPackage.STAKEHOLDER_GOALS__GOALS:
         getGoals().clear();

@@ -10,7 +10,7 @@ Description :
 ;
 
 DescriptionElement :
- 	text = STRING | showValue = ShowValue |thisTarget?='this'| image=ImageReference
+ 	text = STRING | =>thisTarget?='this'| =>image=ImageReference | showValue= ShowValue
  ;
 
 Rationale: 'rationale' text=STRING ;
@@ -20,8 +20,9 @@ Uncertainty:
 	'uncertainty' 
 	'['
 	(
-		('volatility' volatility=INT)
-		&('impact' impact=INT)
+		('volatility' volatility=INT)?
+		&('precedence' precedence=INT)?
+		&('impact' impact=INT)?
 	)
 	']'
 ;
@@ -30,7 +31,7 @@ Uncertainty:
 ResultIssue returns ResultIssue:
 	issueType=ResultIssueType
 	message=STRING
-	('target' target=[ecore::EObject|URIID])?
+	('target' target=[ecore::EObject|NoQuoteString])?
 	('exception' exceptionType = STRING)?
 	('diagnosticId' diagnosticId = STRING)?
 	('[' issues+=ResultIssue*']')?
@@ -83,7 +84,9 @@ AVariableReference returns AExpression:
 
 
  
-ShowValue returns ShowValue: ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+ShowValue returns AUnitExpression: //ref=[AVariableDeclaration|ID] ('%'|'in' unit=[aadl2::UnitLiteral|ID])?;	
+	expression=AVariableReference ((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral|ID])?
+;
 
 ImageReference : 'img' imgfile=IMGREF;
 
@@ -186,7 +189,7 @@ APrimaryExpression returns aadl2::PropertyExpression:
 ;
 
 AFunctionCall returns aadl2::PropertyExpression:
-	{AFunctionCall} function=ID '(' arguments+=AExpression (',' arguments+=AExpression)* ')'
+	{AFunctionCall} function=QualifiedName '(' (arguments+=AExpression (',' arguments+=AExpression)*)? ')'
 ;
 
 ARangeExpression returns aadl2::PropertyExpression:

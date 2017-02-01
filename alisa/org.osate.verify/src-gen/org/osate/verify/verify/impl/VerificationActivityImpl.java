@@ -35,8 +35,6 @@ import org.eclipse.emf.ecore.util.InternalEList;
 import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.PropertyExpression;
 
-import org.osate.alisa.common.common.ValDeclaration;
-
 import org.osate.categories.categories.Category;
 
 import org.osate.verify.verify.ComputeRef;
@@ -138,14 +136,14 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
   protected EList<PropertyExpression> actuals;
 
   /**
-   * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' reference list.
+   * The cached value of the '{@link #getPropertyValues() <em>Property Values</em>}' containment reference list.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getPropertyValues()
    * @generated
    * @ordered
    */
-  protected EList<ValDeclaration> propertyValues;
+  protected EList<PropertyExpression> propertyValues;
 
   /**
    * The cached value of the '{@link #getCategory() <em>Category</em>}' reference list.
@@ -330,11 +328,11 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ValDeclaration> getPropertyValues()
+  public EList<PropertyExpression> getPropertyValues()
   {
     if (propertyValues == null)
     {
-      propertyValues = new EObjectResolvingEList<ValDeclaration>(ValDeclaration.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
+      propertyValues = new EObjectContainmentEList<PropertyExpression>(PropertyExpression.class, this, VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES);
     }
     return propertyValues;
   }
@@ -438,6 +436,8 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return ((InternalEList<?>)getComputes()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_ACTIVITY__ACTUALS:
         return ((InternalEList<?>)getActuals()).basicRemove(otherEnd, msgs);
+      case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
+        return ((InternalEList<?>)getPropertyValues()).basicRemove(otherEnd, msgs);
       case VerifyPackage.VERIFICATION_ACTIVITY__TIMEOUT:
         return basicSetTimeout(null, msgs);
     }
@@ -507,7 +507,7 @@ public class VerificationActivityImpl extends MinimalEObjectImpl.Container imple
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__PROPERTY_VALUES:
         getPropertyValues().clear();
-        getPropertyValues().addAll((Collection<? extends ValDeclaration>)newValue);
+        getPropertyValues().addAll((Collection<? extends PropertyExpression>)newValue);
         return;
       case VerifyPackage.VERIFICATION_ACTIVITY__CATEGORY:
         getCategory().clear();

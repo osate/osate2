@@ -1,7 +1,10 @@
 import java.util.List
 import org.eclipse.emf.common.util.EList
+import org.osate.aadl2.NumberType
+import org.osate.aadl2.Property
 import org.osate.aadl2.PropertyExpression
 import org.osate.aadl2.PropertyType
+import org.osate.aadl2.UnitsType
 import org.osate.alisa.common.typing.CommonTypeSystem
 import org.osate.verify.verify.ComputeRef
 import org.osate.verify.verify.FormalParameter
@@ -16,16 +19,36 @@ system org.osate.verify.typing.VerifyTypeSystem extends CommonTypeSystem
 judgments {
 	assignArgument |- FormalParameter formal <- PropertyExpression actual
 	assignReturn |- FormalParameter ret --> ComputeRef compute
-	assignarguments |- VerificationActivity owner ~> List<FormalParameter> formals << List<PropertyExpression> actuals
-	assignreturns |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computes
+	assignArguments |- VerificationActivity owner ~> List<FormalParameter> formals << List<PropertyExpression> actuals
+	assignReturns |- VerificationActivity owner ~> List<FormalParameter> returns >> List<ComputeRef> computes
+	assignProperties ||- VerificationActivity owner ~> List<Property> properties << List<PropertyExpression> values
 }
 
 rule TypeFormalParameter
-	G |- FormalParameter param : PropertyType type
+	G |- FormalParameter param : PropertyType expType
 from {
 	val declared = param.getType
 	declared != null
-	G |- declared : type
+	G |- declared : expType
+	if (param.unit != null) {
+		val targetType = param.unit.eContainer as UnitsType
+		expType instanceof NumberType
+		or
+			fail
+				error 'typing: can only convert unit of a numeric type'
+				source param
+		val numType = expType as NumberType
+		numType.unitsType != null
+		or
+			fail
+				error 'typing: parameter type has no unit'
+				source param
+		G |- numType.unitsType ~~ targetType
+		or
+			fail
+				error 'typing: cannot convert ' + stringRep(numType) + ' to ' + stringRep(targetType)
+				source param
+	}
 }
 
 rule ArgumentSequence
@@ -33,9 +56,9 @@ rule ArgumentSequence
 from {
   actuals.size == formals.size
   or
-  fail
-    error 'expected ' + formals.size + ' arguments, but got ' + actuals.size
-    source owner 
+  	fail
+    	error 'expected ' + formals.size + ' arguments, but got ' + actuals.size
+    	source owner 
     
   val aIter = actuals.iterator
   val fIter = formals.iterator
@@ -49,14 +72,17 @@ from {
 rule Argument
   G |- FormalParameter formal <- PropertyExpression actual
 from {
-	G |- formal : var PropertyType formalType
 	G |- actual : var PropertyType actualType
-	
-	G |- formalType <: actualType
-  or
-    fail
-	  	error 'typing: ' + stringRep(actualType) + 'cannot be assigned to ' + stringRep(formalType)
-	  	source actual
+	var PropertyType formalType
+	G |- formal : formalType
+	or {/* ignore */}
+	if (formalType != null) {
+		G |- formalType <: actualType
+  	or
+    	fail
+	  		error 'typing: ' + stringRep(actualType) + 'cannot be assigned to ' + stringRep(formalType)
+	  		source actual
+	}
 }
 
 rule ReturnSequence
@@ -64,10 +90,10 @@ rule ReturnSequence
 from {
   computeRefs.size == returns.size
   or
-  fail
-    error 'expected ' + returns.size + ' return values, but got ' + computeRefs.size
-    feature VerifyPackage.eINSTANCE.verificationActivity_Computes
-    source owner 
+  	fail
+    	error 'expected ' + returns.size + ' return values, but got ' + computeRefs.size
+    	feature VerifyPackage.eINSTANCE.verificationActivity_Computes
+    	source owner 
     
   val cIter = computeRefs.iterator
   val rIter = returns.iterator
@@ -81,14 +107,50 @@ from {
 rule Return
   G |- FormalParameter ret --> ComputeRef computeRef
 from {
-	G |- ret : var PropertyType retType
+	if (computeRef.compute != null) {
 	G |- computeRef.compute : var PropertyType computeType
-	
-	G |- computeType <: retType
+	var PropertyType retType
+	G |- ret : retType
+	or {/* ignore */}
+	if (retType != null) {
+		G |- computeType <: retType
+  	or
+    	fail
+	  		error 'typing: ' + stringRep(retType) + 'cannot be assigned to ' + stringRep(computeType)
+	  		source computeRef
+  }
+  }
+}
+
+rule PropertyValues
+	G ||- VerificationActivity owner ~> List<Property> properties << List<PropertyExpression> values
+from {
+  properties.size == values.size
   or
-    fail
-	  	error 'typing: ' + stringRep(retType) + 'cannot be assigned to ' + stringRep(computeType)
-	  	source computeRef
+  	fail
+    	error 'expected ' + properties.size + ' property values, but got ' + values.size
+    	feature VerifyPackage.eINSTANCE.verificationActivity_PropertyValues
+    	source owner 
+    
+  val pIter = properties.iterator
+  val vIter = values.iterator
+  while (pIter.hasNext && vIter.hasNext) {
+  	val property = pIter.next
+  	val value = vIter.next
+  	val left = property.propertyType
+  	G |- value : var PropertyType right
+		G |- left <: right
+	 	or
+  	 	fail
+  			error 'typing: ' + stringRep(right) + 'cannot be assigned to ' + stringRep(left)
+  			source value
+  }
+}
+
+checkrule CheckVerificationMethodParams for
+	FormalParameter formal
+from {
+	empty |-formal : var PropertyType type
 }
 
 checkrule CheckActivityArguments for 
@@ -103,4 +165,11 @@ checkrule CheckActivityReturns for
 from {
 	val method = activity.method
 	empty |- activity ~> method.results >> activity.computes
+}
+
+checkrule CheckPropertyTypes for
+	VerificationActivity activity
+from {
+	val method = activity.method
+	empty ||- activity ~> method.properties << activity.propertyValues
 }

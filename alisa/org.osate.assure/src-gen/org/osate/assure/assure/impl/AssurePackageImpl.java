@@ -41,6 +41,7 @@ import org.osate.assure.assure.Metrics;
 import org.osate.assure.assure.ModelResult;
 import org.osate.assure.assure.NestedClaimReference;
 import org.osate.assure.assure.PreconditionResult;
+import org.osate.assure.assure.PredicateResult;
 import org.osate.assure.assure.QualifiedClaimReference;
 import org.osate.assure.assure.QualifiedVAReference;
 import org.osate.assure.assure.QualifiedVerificationPlanElementReference;
@@ -185,6 +186,13 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * @generated
    */
   private EClass verificationActivityResultEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass predicateResultEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -492,6 +500,16 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
   public EReference getClaimResult_VerificationActivityResult()
   {
     return (EReference)claimResultEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getClaimResult_PredicateResult()
+  {
+    return (EReference)claimResultEClass.getEStructuralFeatures().get(5);
   }
 
   /**
@@ -1089,6 +1107,26 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getPredicateResult()
+  {
+    return predicateResultEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getPredicateResult_TargetReference()
+  {
+    return (EReference)predicateResultEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EEnum getElseType()
   {
     return elseTypeEEnum;
@@ -1169,6 +1207,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEAttribute(claimResultEClass, CLAIM_RESULT__MESSAGE);
     createEReference(claimResultEClass, CLAIM_RESULT__SUB_CLAIM_RESULT);
     createEReference(claimResultEClass, CLAIM_RESULT__VERIFICATION_ACTIVITY_RESULT);
+    createEReference(claimResultEClass, CLAIM_RESULT__PREDICATE_RESULT);
 
     verificationResultEClass = createEClass(VERIFICATION_RESULT);
     createEAttribute(verificationResultEClass, VERIFICATION_RESULT__EXECUTION_STATE);
@@ -1242,6 +1281,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__PRECONDITION_RESULT);
     createEReference(verificationActivityResultEClass, VERIFICATION_ACTIVITY_RESULT__VALIDATION_RESULT);
 
+    predicateResultEClass = createEClass(PREDICATE_RESULT);
+    createEReference(predicateResultEClass, PREDICATE_RESULT__TARGET_REFERENCE);
+
     // Create enums
     elseTypeEEnum = createEEnum(ELSE_TYPE);
     verificationResultStateEEnum = createEEnum(VERIFICATION_RESULT_STATE);
@@ -1300,6 +1342,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     preconditionResultEClass.getESuperTypes().add(this.getVerificationResult());
     validationResultEClass.getESuperTypes().add(this.getVerificationResult());
     verificationActivityResultEClass.getESuperTypes().add(this.getVerificationResult());
+    predicateResultEClass.getESuperTypes().add(this.getVerificationResult());
 
     // Initialize classes and features; add operations and parameters
     initEClass(assuranceCaseResultEClass, AssuranceCaseResult.class, "AssuranceCaseResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
@@ -1327,6 +1370,7 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEAttribute(getClaimResult_Message(), theEcorePackage.getEString(), "message", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_SubClaimResult(), this.getClaimResult(), null, "subClaimResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getClaimResult_VerificationActivityResult(), this.getVerificationExpr(), null, "verificationActivityResult", null, 0, -1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getClaimResult_PredicateResult(), this.getVerificationResult(), null, "predicateResult", null, 0, 1, ClaimResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(verificationResultEClass, VerificationResult.class, "VerificationResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getVerificationResult_ExecutionState(), this.getVerificationExecutionState(), "executionState", null, 0, 1, VerificationResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1399,6 +1443,9 @@ public class AssurePackageImpl extends EPackageImpl implements AssurePackage
     initEReference(getVerificationActivityResult_TargetReference(), this.getQualifiedVAReference(), null, "targetReference", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivityResult_PreconditionResult(), this.getVerificationResult(), null, "preconditionResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getVerificationActivityResult_ValidationResult(), this.getVerificationResult(), null, "validationResult", null, 0, 1, VerificationActivityResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(predicateResultEClass, PredicateResult.class, "PredicateResult", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getPredicateResult_TargetReference(), this.getQualifiedClaimReference(), null, "targetReference", null, 0, 1, PredicateResult.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Initialize enums and add enum literals
     initEEnum(elseTypeEEnum, ElseType.class, "ElseType");

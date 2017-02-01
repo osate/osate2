@@ -189,6 +189,15 @@ public interface AssureFactory extends EFactory
   VerificationActivityResult createVerificationActivityResult();
 
   /**
+   * Returns a new object of class '<em>Predicate Result</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Predicate Result</em>'.
+   * @generated
+   */
+  PredicateResult createPredicateResult();
+
+  /**
    * Returns the package supported by this factory.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

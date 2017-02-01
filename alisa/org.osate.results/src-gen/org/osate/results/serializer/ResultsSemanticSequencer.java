@@ -50,7 +50,6 @@ import org.osate.alisa.common.common.ModelRef;
 import org.osate.alisa.common.common.PropertyRef;
 import org.osate.alisa.common.common.Rationale;
 import org.osate.alisa.common.common.ResultIssue;
-import org.osate.alisa.common.common.ShowValue;
 import org.osate.alisa.common.common.TypeRef;
 import org.osate.alisa.common.common.Uncertainty;
 import org.osate.alisa.common.common.ValDeclaration;
@@ -151,8 +150,32 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
 				return; 
 			case CommonPackage.AUNIT_EXPRESSION:
-				sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getShowValueRule()) {
+					sequence_ShowValue(context, (AUnitExpression) semanticObject); 
+					return; 
+				}
+				else break;
 			case CommonPackage.AVARIABLE_REFERENCE:
 				sequence_AVariableReference(context, (AVariableReference) semanticObject); 
 				return; 
@@ -179,9 +202,6 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 				return; 
 			case CommonPackage.RESULT_ISSUE:
 				sequence_ResultIssue(context, (ResultIssue) semanticObject); 
-				return; 
-			case CommonPackage.SHOW_VALUE:
-				sequence_ShowValue(context, (ShowValue) semanticObject); 
 				return; 
 			case CommonPackage.TYPE_REF:
 				sequence_TypeRef(context, (TypeRef) semanticObject); 

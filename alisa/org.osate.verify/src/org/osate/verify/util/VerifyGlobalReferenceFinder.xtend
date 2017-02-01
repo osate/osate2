@@ -28,6 +28,7 @@ import org.osate.verify.verify.VerifyPackage
 
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import org.osate.reqspec.reqSpec.RequirementSet
+import org.osate.verify.verify.VerificationMethod
 
 @ImplementedBy(VerifyGlobalReferenceFinder)
 interface IVerifyGlobalReferenceFinder {
@@ -43,6 +44,9 @@ interface IVerifyGlobalReferenceFinder {
 	 */
 	
 	def Iterable<VerificationPlan> getAllVerificationPlansForRequirements(RequirementSet reqs, EObject context);
+	
+	def Iterable<VerificationMethod> getVerificationMethod(String methodName, EObject context);
+	
 }
 
 class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
@@ -54,12 +58,15 @@ class VerifyGlobalReferenceFinder implements IVerifyGlobalReferenceFinder{
 			return refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[svp|val reqs = svp.requirementSet; reqs instanceof SystemRequirementSet && cc.isSameorExtends((reqs as SystemRequirementSet).target)]
 	}
-		
-
 
 		override Iterable<VerificationPlan> getAllVerificationPlansForRequirements(RequirementSet reqs, EObject context){
 			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_PLAN, "verify").map [ eod |
 			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationPlan].filter[vp|vp.requirementSet === reqs]
+		}
+
+		override Iterable<VerificationMethod> getVerificationMethod(String methodName, EObject context){
+			 refFinder.getEObjectDescriptions(context, VerifyPackage.Literals.VERIFICATION_METHOD, "verify").map [ eod |
+			EcoreUtil.resolve(eod.EObjectOrProxy, context) as VerificationMethod].filter[vm|methodName.equalsIgnoreCase(vm.name)]
 		}
 
 }

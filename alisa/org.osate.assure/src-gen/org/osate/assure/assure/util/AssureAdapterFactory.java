@@ -173,6 +173,11 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
         return createVerificationActivityResultAdapter();
       }
       @Override
+      public Adapter casePredicateResult(PredicateResult object)
+      {
+        return createPredicateResultAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -445,6 +450,21 @@ public class AssureAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createVerificationActivityResultAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.osate.assure.assure.PredicateResult <em>Predicate Result</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.osate.assure.assure.PredicateResult
+   * @generated
+   */
+  public Adapter createPredicateResultAdapter()
   {
     return null;
   }

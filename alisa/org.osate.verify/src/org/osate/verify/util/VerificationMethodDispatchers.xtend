@@ -54,6 +54,7 @@ import org.osate.aadl2.instance.InstancePackage
 import org.osate.verify.verify.JavaParameter
 import javax.xml.bind.PropertyException
 import java.util.Iterator
+import org.osate.aadl2.NamedElement
 
 class VerificationMethodDispatchers {
 
@@ -161,6 +162,63 @@ class VerificationMethodDispatchers {
 		}
 	}
 
+	// invoke method in workspace project
+	def Object workspaceInvoke(String javaMethod, NamedElement target) {
+		val i = javaMethod.lastIndexOf('.')
+		if (i == -1)
+			return null;
+		val className = javaMethod.substring(0, i)
+		val methodName = javaMethod.substring(i + 1)
+		try {
+			val workspaceRoot = ResourcesPlugin.workspace.root
+			val model = JavaCore.create(workspaceRoot)
+
+			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			if (projects.isEmpty) {
+				throw new IllegalArgumentException('No such method: ' + javaMethod)
+			} else if (projects.size > 1) {
+				throw new IllegalArgumentException('Multiple methods found for ' + javaMethod)
+			}
+			var changed = true
+			while (changed) {
+				val referenced = projects.map [ p |
+					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
+					val paths = cpes.map[it.path]
+					paths.map[model.getJavaProject(it.toString)]
+				].flatten
+				changed = projects += referenced
+			}
+			val urls = projects.map [ p |
+				val file = workspaceRoot.getFile(p.outputLocation)
+				new URL(file.locationURI + "/")
+			]
+
+			val parent = class.classLoader
+			val loader = new URLClassLoader(urls, parent);
+			val clazz = Class.forName(className, true, loader);
+			val instance = clazz.newInstance
+
+			val newClasses = newArrayList()
+//			if (target instanceof ComponentInstance){
+//				newClasses.add(ComponentInstance)
+//			} else if (target instanceof InstanceObject){
+//				newClasses.add(InstanceObject)
+//			} else {
+//				newClasses.add(NamedElement)
+//			}
+			newClasses.add(NamedElement)
+			val method = clazz.getMethod(methodName, newClasses)
+			val objects = new ArrayList()
+			objects.add(target)
+			method.invoke(instance, objects.toArray)
+		} catch (Exception e) {
+			if (e instanceof InvocationTargetException) {
+				throw e.targetException
+			}
+			throw e
+		}
+	}
+
 	// Method returns null if Java class was found.
 	// Otherwise it returns an error message
 	def String methodExists(JavaMethod vm) {
@@ -208,6 +266,62 @@ class VerificationMethodDispatchers {
 			val method = clazz.getMethod(methodName, newClasses)
 			if (method == null)
 				throw new IllegalArgumentException("Method " + methodName + " not found in class instance")
+		} catch (Exception e) {
+			if (e instanceof InvocationTargetException) {
+				return e.targetException.toString
+			}
+			return e.toString
+		}
+		return null
+	}
+
+	// Method returns null if Java class was found.
+	// Otherwise it returns an error message
+	def String methodExists(String javaMethod) {
+		val i = javaMethod.lastIndexOf('.')
+		if (i == -1) {
+			throw new IllegalArgumentException("Java method '" + javaMethod + "' is missing Class")
+		}
+		val className = javaMethod.substring(0, i)
+		val methodName = javaMethod.substring(i + 1)
+		try {
+			val workspaceRoot = ResourcesPlugin.workspace.root
+			val model = JavaCore.create(workspaceRoot)
+
+			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			if (projects.isEmpty) {
+				throw new IllegalArgumentException('No such method: ' + javaMethod)
+			} else if (projects.size > 1) {
+				throw new IllegalArgumentException('Multiple methods found for ' + javaMethod)
+			}
+			var changed = true
+			while (changed) {
+				val referenced = projects.map [ p |
+					val cpes = p.getResolvedClasspath(true).filter[entryKind == IClasspathEntry.CPE_PROJECT]
+					val paths = cpes.map[it.path]
+					paths.map[model.getJavaProject(it.toString)]
+				].flatten
+				changed = projects += referenced
+			}
+			val urls = projects.map [ p |
+				val file = workspaceRoot.getFile(p.outputLocation)
+				new URL(file.locationURI + "/")
+			]
+
+			val parent = class.classLoader
+			val loader = new URLClassLoader(urls, parent);
+			val clazz = Class.forName(className, true, loader);
+			val newClasses = newArrayList()
+				newClasses.add(ComponentInstance)
+
+			var method = clazz.getMethod(methodName, newClasses)
+			if (method == null){
+				val altClasses= newArrayList()
+				altClasses.add(InstanceObject)
+				method = clazz.getMethod(methodName, newClasses)			}
+			if (method == null){
+				throw new IllegalArgumentException("Method " + methodName + " not found in class instance")
+			}
 		} catch (Exception e) {
 			if (e instanceof InvocationTargetException) {
 				return e.targetException.toString
@@ -301,8 +415,13 @@ class VerificationMethodDispatchers {
 		switch (actual) {
 			RealLiteral: if (formalParam.parameterType.equalsIgnoreCase("double") ||
 				formalParam.parameterType.equalsIgnoreCase("real")) result = actual.value
-			IntegerLiteral: if (formalParam.parameterType.equalsIgnoreCase("long") ||
-				formalParam.parameterType.equalsIgnoreCase("int")) result = actual.value
+			IntegerLiteral: {
+				if (formalParam.parameterType.equalsIgnoreCase("long")) {
+					result = actual.value
+				} else if (formalParam.parameterType.equalsIgnoreCase("int")) {
+					result = actual.value.intValue
+				}
+			}
 			StringLiteral: if (formalParam.parameterType.equalsIgnoreCase("string")) result = actual.value
 			BooleanLiteral: if (formalParam.parameterType.equalsIgnoreCase("boolean")) result = actual.isValue
 		}

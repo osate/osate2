@@ -27,6 +27,7 @@ import org.eclipse.emf.ecore.EObject;
  * </p>
  * <ul>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getVolatility <em>Volatility</em>}</li>
+ *   <li>{@link org.osate.alisa.common.common.Uncertainty#getPrecedence <em>Precedence</em>}</li>
  *   <li>{@link org.osate.alisa.common.common.Uncertainty#getImpact <em>Impact</em>}</li>
  * </ul>
  *
@@ -61,6 +62,32 @@ public interface Uncertainty extends EObject
    * @generated
    */
   void setVolatility(int value);
+
+  /**
+   * Returns the value of the '<em><b>Precedence</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Precedence</em>' attribute isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Precedence</em>' attribute.
+   * @see #setPrecedence(int)
+   * @see org.osate.alisa.common.common.CommonPackage#getUncertainty_Precedence()
+   * @model
+   * @generated
+   */
+  int getPrecedence();
+
+  /**
+   * Sets the value of the '{@link org.osate.alisa.common.common.Uncertainty#getPrecedence <em>Precedence</em>}' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Precedence</em>' attribute.
+   * @see #getPrecedence()
+   * @generated
+   */
+  void setPrecedence(int value);
 
   /**
    * Returns the value of the '<em><b>Impact</b></em>' attribute.

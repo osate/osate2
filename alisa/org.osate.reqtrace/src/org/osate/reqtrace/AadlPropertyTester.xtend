@@ -25,7 +25,7 @@
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
  *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * of Defense under Contract FA8721-05-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
@@ -55,8 +55,13 @@ class AadlPropertyTester extends PropertyTester {
 		switch receiver {
 			IFile case property == "isAadlPackage" && receiver.fullPath.fileExtension == "aadl": {
 				val uri = URI.createPlatformResourceURI(receiver.fullPath.toString, false)
-				val resource = resourceSetProvider.get.getResource(uri, true)
-				resource?.contents?.head instanceof AadlPackage
+				try {
+					val resource = resourceSetProvider.get.getResource(uri, true)
+					resource?.contents?.head instanceof AadlPackage
+				} catch (Exception e) {
+					//If we could not load the resource, then the test simply fails.
+					false
+				}
 			}
 			default: false
 		}

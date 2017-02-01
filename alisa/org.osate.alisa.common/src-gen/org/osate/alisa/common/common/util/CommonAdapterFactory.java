@@ -139,9 +139,9 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
         return createAPropertyReferenceAdapter();
       }
       @Override
-      public Adapter caseShowValue(ShowValue object)
+      public Adapter caseAUnitExpression(AUnitExpression object)
       {
-        return createShowValueAdapter();
+        return createAUnitExpressionAdapter();
       }
       @Override
       public Adapter caseImageReference(ImageReference object)
@@ -187,11 +187,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
       public Adapter caseAUnaryOperation(AUnaryOperation object)
       {
         return createAUnaryOperationAdapter();
-      }
-      @Override
-      public Adapter caseAUnitExpression(AUnitExpression object)
-      {
-        return createAUnitExpressionAdapter();
       }
       @Override
       public Adapter caseAFunctionCall(AFunctionCall object)
@@ -391,16 +386,16 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
   }
 
   /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.ShowValue <em>Show Value</em>}'.
+   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AUnitExpression <em>AUnit Expression</em>}'.
    * <!-- begin-user-doc -->
    * This default implementation returns null so that we can easily ignore cases;
    * it's useful to ignore a case when inheritance will catch all the cases anyway.
    * <!-- end-user-doc -->
    * @return the new adapter.
-   * @see org.osate.alisa.common.common.ShowValue
+   * @see org.osate.alisa.common.common.AUnitExpression
    * @generated
    */
-  public Adapter createShowValueAdapter()
+  public Adapter createAUnitExpressionAdapter()
   {
     return null;
   }
@@ -536,21 +531,6 @@ public class CommonAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createAUnaryOperationAdapter()
-  {
-    return null;
-  }
-
-  /**
-   * Creates a new adapter for an object of class '{@link org.osate.alisa.common.common.AUnitExpression <em>AUnit Expression</em>}'.
-   * <!-- begin-user-doc -->
-   * This default implementation returns null so that we can easily ignore cases;
-   * it's useful to ignore a case when inheritance will catch all the cases anyway.
-   * <!-- end-user-doc -->
-   * @return the new adapter.
-   * @see org.osate.alisa.common.common.AUnitExpression
-   * @generated
-   */
-  public Adapter createAUnitExpressionAdapter()
   {
     return null;
   }

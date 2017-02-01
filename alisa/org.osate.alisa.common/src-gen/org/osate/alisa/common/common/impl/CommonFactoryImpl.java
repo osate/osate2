@@ -87,7 +87,7 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.AEXPRESSION: return createAExpression();
       case CommonPackage.AMODEL_REFERENCE: return createAModelReference();
       case CommonPackage.APROPERTY_REFERENCE: return createAPropertyReference();
-      case CommonPackage.SHOW_VALUE: return createShowValue();
+      case CommonPackage.AUNIT_EXPRESSION: return createAUnitExpression();
       case CommonPackage.IMAGE_REFERENCE: return createImageReference();
       case CommonPackage.MODEL_REF: return createModelRef();
       case CommonPackage.TYPE_REF: return createTypeRef();
@@ -97,7 +97,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
       case CommonPackage.AVARIABLE_REFERENCE: return createAVariableReference();
       case CommonPackage.ABINARY_OPERATION: return createABinaryOperation();
       case CommonPackage.AUNARY_OPERATION: return createAUnaryOperation();
-      case CommonPackage.AUNIT_EXPRESSION: return createAUnitExpression();
       case CommonPackage.AFUNCTION_CALL: return createAFunctionCall();
       case CommonPackage.ARANGE: return createARange();
       case CommonPackage.ACONDITIONAL: return createAConditional();
@@ -248,10 +247,10 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
    * <!-- end-user-doc -->
    * @generated
    */
-  public ShowValue createShowValue()
+  public AUnitExpression createAUnitExpression()
   {
-    ShowValueImpl showValue = new ShowValueImpl();
-    return showValue;
+    AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
+    return aUnitExpression;
   }
 
   /**
@@ -351,17 +350,6 @@ public class CommonFactoryImpl extends EFactoryImpl implements CommonFactory
   {
     AUnaryOperationImpl aUnaryOperation = new AUnaryOperationImpl();
     return aUnaryOperation;
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public AUnitExpression createAUnitExpression()
-  {
-    AUnitExpressionImpl aUnitExpression = new AUnitExpressionImpl();
-    return aUnitExpression;
   }
 
   /**
