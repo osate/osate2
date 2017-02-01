@@ -80,7 +80,7 @@ public class Values {
 	}
 
 	public static String getWorstCaseDeadlineLabel() {
-		return Values.doSynchronousSystem() ? "DL" : "ET";
+		return Values.doWorstCaseDeadline() ? "DL" : "ET";
 	}
 
 	public static String getWorstCaseDeadlineName() {

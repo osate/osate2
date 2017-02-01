@@ -65,32 +65,24 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		currentInstance = this;
 	}
 
+	@Override
 	protected Bundle getBundle() {
 		return ResourceBudgetPlugin.getDefault().getBundle();
 	}
 
+	@Override
 	public String getMarkerType() {
 		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Analyze power consumption";
 	}
 
+	@Override
 	protected void initPropertyReferences() {
 	}
-
-//	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-//		//Get the system instance (if any)
-//		if (obj instanceof InstanceObject) {
-//			SystemInstance si = ((InstanceObject) obj).getSystemInstance();
-//			if (si != null) {
-//				monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-//				new DoPowerAnalysisLogic(getErrorManager()).analyzePowerBudget(si);
-//				monitor.done();
-//			}
-//		}
-//	}
 
 	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
@@ -113,7 +105,7 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 	@Override
 	protected boolean initializeAnalysis(NamedElement object) {
 		if (object instanceof SystemInstance) {
-			powerReport = new Report(object, "power", "power", ReportType.TABLE);
+			powerReport = new Report(object, "Power", "Power", ReportType.TABLE);
 			return true;
 		}
 		return false;
@@ -127,12 +119,6 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		excelExport.save();
 		return true;
 	};
-
-	@Override
-	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("ResourceBudgets", obj);
-		return true;
-	}
 
 	public void setErrManager() {
 		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
@@ -150,4 +136,8 @@ public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelRea
 		actionBody(monitor, root);
 	}
 
+	public Report invokeAndGetReport(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+		return powerReport;
+	}
 }

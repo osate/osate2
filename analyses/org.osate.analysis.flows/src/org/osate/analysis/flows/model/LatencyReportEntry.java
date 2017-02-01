@@ -211,6 +211,7 @@ public class LatencyReportEntry {
 						lc.reportInfoOnce(doMaximum, "Assume synchronous communication");
 					}
 				} else {
+					// we have the asynchronous case
 					if (doMaximum) {
 						res = res + lc.getSamplingPeriod();
 						lc.setActualValue(lc.getSamplingPeriod(), doMaximum);
@@ -487,7 +488,7 @@ public class LatencyReportEntry {
 		String dspostfix = Values.getDataSetProcessingLabel();
 		line = new Line();
 		line.addHeaderContent("Latency analysis for end-to-end flow '" + sectionName + "' of system '" + systemName
-				+ "'" + inMode + " with latency preference stettings " + Values.getSynchronousSystemLabel() + "-"
+				+ "'" + inMode + " with preference settings " + Values.getSynchronousSystemLabel() + "-"
 				+ Values.getMajorFrameDelayLabel() + "-" + Values.getWorstCaseDeadlineLabel() + "-"
 				+ Values.getBestcaseEmptyQueueLabel() + (dspostfix.isEmpty() ? "" : "-" + dspostfix));
 		section.addLine(line);
@@ -560,7 +561,7 @@ public class LatencyReportEntry {
 						+ "ms exceeds expected maximum latency " + BestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minSpecifiedValue < expectedMinLatency) {
 				reportSummaryWarning("Minimum specified flow latency total " + BestDecPoint(minSpecifiedValue)
-						+ "ms less then expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+						+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
 						+ "ms (better response time)");
 			}
 
@@ -569,7 +570,7 @@ public class LatencyReportEntry {
 						+ "ms exceeds expected maximum end to end latency " + BestDecPoint(expectedMaxLatency) + "ms");
 			} else if (minValue < expectedMinLatency) {
 				reportSummaryWarning("Minimum actual latency total " + BestDecPoint(minValue)
-						+ "ms less then expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
+						+ "ms less than expected minimum end to end latency " + BestDecPoint(expectedMinLatency)
 						+ "ms (faster actual minimum response time)");
 			} else {
 				reportSummarySuccess("Minimum actual latency total " + BestDecPoint(minValue)
@@ -631,6 +632,14 @@ public class LatencyReportEntry {
 		}
 
 		return section;
+	}
+
+	/**
+	 * Get the name associated with the related end-to-end flow
+	 * @return The related end-to-end flow's name
+	 */
+	public String getRelatedEndToEndFlowName() {
+		return this.relatedEndToEndFlow.getName();
 	}
 
 	private String getRelatedObjectLabel() {

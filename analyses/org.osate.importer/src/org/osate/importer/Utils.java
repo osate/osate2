@@ -69,6 +69,9 @@ public class Utils {
 		}
 
 		result = result.replace('\n', '_');
+		result = result.replace('(', '_');
+		result = result.replace(')', '_');
+		result = result.replace('%', '_');
 		result = result.replace('$', ' ');
 		result = result.replace('.', ' ');
 		result = result.replace("__", "_");
@@ -76,7 +79,7 @@ public class Utils {
 		result = result.replaceAll("/", "_");
 		result = result.toLowerCase();
 
-		if (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_")) {
+		while (result.substring(result.length() - 1, result.length()).equalsIgnoreCase("_")) {
 			result = result.substring(0, result.length() - 1);
 		}
 

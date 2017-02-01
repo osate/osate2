@@ -1,5 +1,7 @@
 package org.osate.importer.simulink;
 
+import java.util.HashMap;
+
 import org.osate.importer.model.Component;
 import org.osate.importer.model.Component.ComponentType;
 import org.osate.importer.model.Connection;
@@ -9,6 +11,10 @@ import org.w3c.dom.NodeList;
 
 public class ImportModel {
 
+//	public static void processComponents(Node node, Model model, Component currentComponent) {
+//		processComponents(node, model, currentComponent, new HashMap<String,Component> ());
+//	}
+//	
 	public static void processComponents(Node node, Model model, Component currentComponent) {
 		Node attrName;
 		String blockName;
@@ -58,6 +64,13 @@ public class ImportModel {
 				}
 
 				blockName = attrName.getNodeValue().toString();
+				
+				Component parent = currentComponent;
+				while (parent != null)
+				{
+					blockName = parent.getName() + "_" + blockName;
+					parent = parent.getParent();
+				}
 
 				/**
 				 * Get its type - means if this is a port, a subsystem, etc.
