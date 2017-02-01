@@ -88,7 +88,7 @@ public class EMV2Properties {
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getOccurrenceDistributionProperty(ci, ne, ts);
 		double prob = 0;
 		for (EMV2PropertyAssociation emv2PropertyAssociation : PA) {
-			prob += EMV2Properties.getOccurenceValue(emv2PropertyAssociation);
+			prob += EMV2Properties.getOccurrenceValue(emv2PropertyAssociation);
 		}
 		return prob;
 	}
@@ -256,7 +256,7 @@ public class EMV2Properties {
 	 *
 	 * @param PAContainmentPath string value describing the distribution get from getOccurenceDistributionProperty
 	 */
-	public static String getOccurenceType(final EMV2PropertyAssociation PA) {
+	public static String getOccurrenceType(final EMV2PropertyAssociation PA) {
 		if (PA == null) {
 			return "unknown_distribution";
 		}
@@ -290,7 +290,7 @@ public class EMV2Properties {
 	 *
 	 * @param PA value get from getOccurenceDistributionProperty
 	 */
-	public static double getOccurenceValue(final EMV2PropertyAssociation PA) {
+	public static double getOccurrenceValue(final EMV2PropertyAssociation PA) {
 		double result;
 		result = 0;
 		if (PA == null) {
@@ -542,7 +542,7 @@ public class EMV2Properties {
 					ErrorTypes typeelement = EMV2Util.getErrorType(emv2Path);
 					if (typeelement != null && ts != null) {
 						// check to see if the desired ts is contained in the PA containment path
-						if (EM2TypeSetUtil.contains(typeelement, ts)) {
+						if (EM2TypeSetUtil.contains(ts, typeelement) || EM2TypeSetUtil.contains(typeelement, ts)) {
 							return propertyAssociation;
 						}
 					} else {

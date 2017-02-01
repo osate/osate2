@@ -1743,6 +1743,12 @@ public class EMV2Util {
 		return result;
 	}
 
+	public static Collection<ConditionElement> getAllConditionElementsFromConditionExpression(ConditionExpression ce) {
+		EList<ConditionElement> result = new BasicEList<ConditionElement>();
+		getAllConditionElementsFromConditionExpression(result, ce);
+		return result;
+	}
+
 	/**
 	 * return list of ErrorBehaviorTransition including those inherited from classifiers being extended
 	 * @param cl Classifier
@@ -2720,6 +2726,16 @@ public class EMV2Util {
 		return false;
 	}
 
+	public static boolean hasOutgoingPropagations(ComponentInstance ci) {
+		Collection<ErrorPropagation> ceb = getAllOutgoingErrorPropagations(ci.getComponentClassifier());
+		return !ceb.isEmpty();
+	}
+
+	public static boolean hasErrorBehaviorStates(ComponentInstance ci) {
+		Collection<ErrorBehaviorState> ceb = getAllErrorBehaviorStates(ci);
+		return !ceb.isEmpty();
+	}
+
 	public static boolean hasOutgoingPropagationCondition(ComponentInstance ci) {
 		return hasOutgoingPropagationCondition(ci.getComponentClassifier());
 	}
@@ -2988,8 +3004,13 @@ public class EMV2Util {
 		return (ep != null) && (ep.getKind() != null) && (ep.getKind().equalsIgnoreCase("processor"));
 	}
 
-	public static boolean isNoError(TypeSet type) {
-		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
-	}
+	// XXX moved to EM2TypeSetUtil
+//	public static boolean isNoError(ErrorTypes type) {
+//		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
+//	}
+//
+//	public static boolean isNoError(TypeSet type) {
+//		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
+//	}
 
 }

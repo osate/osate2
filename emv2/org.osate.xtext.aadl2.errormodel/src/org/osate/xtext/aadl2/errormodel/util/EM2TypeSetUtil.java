@@ -73,6 +73,7 @@ public class EM2TypeSetUtil {
 	/**
 	 * true if super type contains type as subtype
 	 * aliases are resolved before the error types are compared
+	 * if either is null return false
 	 * @param supertype
 	 * @param type
 	 * @return boolean
@@ -93,12 +94,31 @@ public class EM2TypeSetUtil {
 		return false;
 	}
 
+	/**
+	 * Dispatch on ErrorTypes
+	 */
 	public static boolean contains(ErrorTypes constraint, ErrorType type) {
 		if (constraint instanceof ErrorType) {
 			return contains((ErrorType) constraint, type);
 		}
 		if (constraint instanceof TypeSet) {
-			return contains((TypeSet) constraint, type);
+			ErrorModelLibrary el = EMV2Util.getContainingErrorModelLibrary(type);
+			EList<ErrorType> subtypes = null;
+			if (el != null) {
+				subtypes = getAllLeafSubTypes(type, el);
+			} else {
+				subtypes = getAllLeafSubTypes(type, EMV2Util.getUseTypes(type));
+			}
+			if (subtypes.isEmpty()) {
+				return contains((TypeSet) constraint, type);
+			} else {
+				for (ErrorType st : subtypes) {
+					if (!contains((TypeSet) constraint, st)) {
+						return false;
+					}
+				}
+				return true;
+			}
 		}
 		return false;
 	}
@@ -109,32 +129,6 @@ public class EM2TypeSetUtil {
 		}
 		if (constraint instanceof TypeSet) {
 			return contains((TypeSet) constraint, type);
-		}
-		return false;
-	}
-
-	public static boolean contains(ErrorType constraint, TypeSet ts) {
-		ts = EMV2Util.resolveAlias(ts);
-		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (!contains(constraint, tselement)) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public static boolean contains(ErrorType constraint, TypeToken token) {
-		if (constraint == null || token == null) {
-			return false;
-		}
-		if (token.isNoError()) {
-			return false;
-		}
-		EList<ErrorTypes> tsetype = token.getType();
-		for (ErrorTypes errorType : tsetype) {
-			if (contains(constraint, errorType)) {
-				return true;
-			}
 		}
 		return false;
 	}
@@ -172,7 +166,49 @@ public class EM2TypeSetUtil {
 	}
 
 	/**
-	 * true if TypeToken constraint contains ErrorType type as one of its product elements
+	 * the constraint contains every element of the type set
+	 * If typeset is empty return true
+	 * @param constraint
+	 * @param ts
+	 * @return
+	 */
+	public static boolean contains(ErrorType constraint, TypeSet ts) {
+		ts = EMV2Util.resolveAlias(ts);
+		for (TypeToken tselement : ts.getTypeTokens()) {
+			if (!contains(constraint, tselement)) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	/**
+	 * typetoken could be a type product, while constraint is a single error type.
+	 * In this case we do not have a match unless the token has only one element and it is contained.
+	 * @param constraint ErrorType
+	 * @param token TypeToken
+	 * @return
+	 */
+	public static boolean contains(ErrorType constraint, TypeToken token) {
+		if (constraint == null || token == null) {
+			return false;
+		}
+		if (token.isNoError()) {
+			return false;
+		}
+		EList<ErrorTypes> tsetype = token.getType();
+		if (tsetype.size() == 1) {
+			ErrorTypes errorType = tsetype.get(0);
+			if (contains(constraint, errorType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * true if TypeToken constraint has single element and it contains ErrorType type
+	 * NoError constraint returns false
 	 * aliases are resolved before the error types are compared
 	 * @param constraint TypeToken
 	 * @param type ErrorType
@@ -186,7 +222,8 @@ public class EM2TypeSetUtil {
 			return false;
 		}
 		EList<ErrorTypes> tsetype = constraint.getType();
-		for (ErrorTypes errorType : tsetype) {
+		if (tsetype.size() == 1) {
+			ErrorTypes errorType = tsetype.get(0);
 			if (contains(errorType, type)) {
 				return true;
 			}
@@ -205,16 +242,17 @@ public class EM2TypeSetUtil {
 		if (constraint == null || token == null) {
 			return false;
 		}
-		if (token.isNoError()) {
+		if (token.isNoError() && constraint.isNoError()) {
 			return true;
 		}
-		if (constraint.isNoError()) {
-			if (token.isNoError()) {
-				return true;
-			}
+		if (constraint.isNoError() && !token.isNoError()) {
 			return false;
 		}
+		if (!constraint.isNoError() && token.isNoError()) {
+			return true;
+		}
 		if (constraint.getType().size() != token.getType().size()) {
+			// they are of different size
 			if (constraint.getType().size() == 1) {
 				// the constraint is a single type set
 				ErrorTypes ts = constraint.getType().get(0);
@@ -226,9 +264,26 @@ public class EM2TypeSetUtil {
 			} else {
 				return false;
 			}
+		} else {
+			// both type products have the same size
+			for (ErrorTypes errorType : token.getType()) {
+				if (!containsElement(constraint, errorType)) {
+					return false;
+				}
+			}
 		}
-		for (ErrorTypes errorType : token.getType()) {
-			if (!contains(constraint, errorType)) {
+		return true;
+	}
+
+	/**
+	 * type product contains typeelement as one of its elements
+	 * @param typeProduct
+	 * @param typeElement
+	 * @return
+	 */
+	public static boolean containsElement(TypeToken typeProduct, ErrorTypes typeElement) {
+		for (ErrorTypes errorType : typeProduct.getType()) {
+			if (!contains(errorType, typeElement)) {
 				return false;
 			}
 		}
@@ -247,16 +302,24 @@ public class EM2TypeSetUtil {
 		if (ts == null || token == null) {
 			return false;
 		}
-		if (token.isNoError()) {
+		ts = EMV2Util.resolveAlias(ts);
+		if (token.isNoError() && isNoError(ts)) {
 			return true;
 		}
-		ts = EMV2Util.resolveAlias(ts);
-		int toksize = token.getType().size();
-		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (tselement.getType().size() == toksize) { // || tselement.getType().get(0) instanceof TypeSet) {
-				if (contains(tselement, token)) {
-					return true;
-				}
+		if (token.isNoError() && !isNoError(ts)) {
+			return false;
+		}
+		if (!token.isNoError() && isNoError(ts)) {
+			return true;
+		}
+//		for (TypeToken tselement : ts.getTypeTokens()) {
+//			if (contains(tselement, token)) {
+//				return true;
+//			}
+//		}
+		for (ErrorTypes tp : token.getType()) {
+			if (contains(ts, tp)) {
+				return true;
 			}
 		}
 		return false;
@@ -274,24 +337,28 @@ public class EM2TypeSetUtil {
 		if (ts == null || token == null) {
 			return false;
 		}
-		if (token.isNoError()) {
+		ts = EMV2Util.resolveAlias(ts);
+		if (token.isNoError() && isNoError(ts)) {
+			return true;
+		}
+		if (token.isNoError() && !isNoError(ts)) {
 			return false;
 		}
-		ts = EMV2Util.resolveAlias(ts);
-		int toksize = token.getType().size();
+		if (!token.isNoError() && isNoError(ts)) {
+			return true;
+		}
 		for (TypeToken tselement : ts.getTypeTokens()) {
-			if (tselement.getType().size() == toksize) {
-				if (contains(token, tselement)) {
-					return true;
-				}
+			if (!contains(token, tselement)) {
+				return false;
 			}
 		}
-		return false;
+		return true;
 	}
 
 	/**
 	 * true if TypeSet ts contains ErrorType et
 	 * The type set can represent a constraint
+	 * EMpty type set returns false
 	 * aliases are resolved before the error types are compared
 	 * @param ts TypeSet
 	 * @param et ErrorType
@@ -312,7 +379,7 @@ public class EM2TypeSetUtil {
 
 	/**
 	 * true if TypeSet ts contains TypeSet subts
-	 * The type set can represent a constraint, i.e., product types, and Type matching are taken into account
+	 * NoError is handled both NoError or subTS NoError returns true
 	 * aliases are resolved before the error types are compared
 	 * @param ts TypeSet
 	 * @param subts TypeSet
@@ -324,6 +391,17 @@ public class EM2TypeSetUtil {
 		}
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
+		if (ts == subts)
+			return true;
+		if (isNoError(subts) && isNoError(ts)) {
+			return true;
+		}
+		if (isNoError(subts) && !isNoError(ts)) {
+			return false;
+		}
+		if (!isNoError(subts) && isNoError(ts)) {
+			return true;
+		}
 		EList<TypeToken> subelements = subts.getTypeTokens();
 		for (TypeToken typeToken : subelements) {
 			if (!contains(ts, typeToken)) {
@@ -347,6 +425,10 @@ public class EM2TypeSetUtil {
 		}
 		ts1 = EMV2Util.resolveAlias(ts1);
 		ts2 = EMV2Util.resolveAlias(ts2);
+		if (ts1 == ts2) {
+			result.addAll(ts1.getTypeTokens());
+			return result;
+		}
 		for (TypeToken tselement1 : ts1.getTypeTokens()) {
 			int toksize = tselement1.getType().size();
 			for (TypeToken tselement2 : ts2.getTypeTokens()) {
@@ -464,6 +546,9 @@ public class EM2TypeSetUtil {
 						// product type: add other type elements from the product type
 						newitems = addItemSet(newitems, etlist);
 					}
+				} else {
+					EList<TypeToken> etlist = generateAllLeafTypeTokens((TypeSet) errorType, usetypes);
+					newitems.addAll(etlist);
 				}
 			}
 			result.addAll(newitems);
@@ -531,6 +616,23 @@ public class EM2TypeSetUtil {
 				if (set.getSuperType() != null) {
 					removeMe.add(set.getSuperType());
 				}
+			}
+		}
+		result.removeAll(removeMe);
+		return result;
+	}
+
+	public static EList<ErrorType> getAllLeafSubTypes(ErrorType et, ErrorModelLibrary el) {
+		EList<ErrorType> result = new UniqueEList<ErrorType>();
+		EList<ErrorType> removeMe = new UniqueEList<ErrorType>();
+		Iterable<ErrorType> typeslist = ErrorModelUtil.getAllErrorTypes(el);
+		for (ErrorType errorType : typeslist) {
+			ErrorType set = EMV2Util.resolveAlias(errorType);
+			if (contains(et, set) && (et != set)) {
+				result.add(set);
+			}
+			if (set.getSuperType() != null) {
+				removeMe.add(set.getSuperType());
 			}
 		}
 		result.removeAll(removeMe);
@@ -627,4 +729,13 @@ public class EM2TypeSetUtil {
 		return null;
 	}
 
+	public static boolean isNoError(ErrorTypes type) {
+		return type instanceof TypeSet ? isNoError((TypeSet) type) : false;
+	}
+
+	public static boolean isNoError(TypeSet type) {
+		if (type == null)
+			return false;
+		return type.getTypeTokens().size() == 1 && type.getTypeTokens().get(0).isNoError();
+	}
 }

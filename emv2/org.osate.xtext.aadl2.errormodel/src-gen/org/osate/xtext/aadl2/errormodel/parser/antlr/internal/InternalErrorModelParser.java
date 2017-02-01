@@ -16529,7 +16529,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOrmoreExpression"
-    // InternalErrorModelParser.g:6601:1: ruleOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis ) ;
+    // InternalErrorModelParser.g:6601:1: ruleOrmoreExpression returns [EObject current=null] : ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) ;
     public final EObject ruleOrmoreExpression() throws RecognitionException {
         EObject current = null;
 
@@ -16547,11 +16547,11 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // InternalErrorModelParser.g:6604:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis ) )
-            // InternalErrorModelParser.g:6605:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:6604:28: ( ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis ) )
+            // InternalErrorModelParser.g:6605:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
             {
-            // InternalErrorModelParser.g:6605:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis )
-            // InternalErrorModelParser.g:6605:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionElement ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )* otherlv_6= RightParenthesis
+            // InternalErrorModelParser.g:6605:1: ( ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis )
+            // InternalErrorModelParser.g:6605:2: ( (lv_count_0_0= ruleINTVALUE ) ) otherlv_1= Ormore otherlv_2= LeftParenthesis ( (lv_operands_3_0= ruleConditionExpression ) ) (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )* otherlv_6= RightParenthesis
             {
             // InternalErrorModelParser.g:6605:2: ( (lv_count_0_0= ruleINTVALUE ) )
             // InternalErrorModelParser.g:6606:1: (lv_count_0_0= ruleINTVALUE )
@@ -16588,21 +16588,21 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 	newLeafNode(otherlv_1, grammarAccess.getOrmoreExpressionAccess().getOrmoreKeyword_1());
                 
-            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_86); 
+            otherlv_2=(Token)match(input,LeftParenthesis,FOLLOW_115); 
 
                 	newLeafNode(otherlv_2, grammarAccess.getOrmoreExpressionAccess().getLeftParenthesisKeyword_2());
                 
-            // InternalErrorModelParser.g:6633:1: ( (lv_operands_3_0= ruleConditionElement ) )
-            // InternalErrorModelParser.g:6634:1: (lv_operands_3_0= ruleConditionElement )
+            // InternalErrorModelParser.g:6633:1: ( (lv_operands_3_0= ruleConditionExpression ) )
+            // InternalErrorModelParser.g:6634:1: (lv_operands_3_0= ruleConditionExpression )
             {
-            // InternalErrorModelParser.g:6634:1: (lv_operands_3_0= ruleConditionElement )
-            // InternalErrorModelParser.g:6635:3: lv_operands_3_0= ruleConditionElement
+            // InternalErrorModelParser.g:6634:1: (lv_operands_3_0= ruleConditionExpression )
+            // InternalErrorModelParser.g:6635:3: lv_operands_3_0= ruleConditionExpression
             {
              
-            	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
+            	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); 
             	    
             pushFollow(FOLLOW_119);
-            lv_operands_3_0=ruleConditionElement();
+            lv_operands_3_0=ruleConditionExpression();
 
             state._fsp--;
 
@@ -16614,7 +16614,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
                    			current, 
                    			"operands",
                     		lv_operands_3_0, 
-                    		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionElement");
+                    		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionExpression");
             	        afterParserOrEnumRuleCall();
             	    
 
@@ -16623,7 +16623,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalErrorModelParser.g:6651:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) ) )*
+            // InternalErrorModelParser.g:6651:2: (otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) ) )*
             loop189:
             do {
                 int alt189=2;
@@ -16636,23 +16636,23 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
 
                 switch (alt189) {
             	case 1 :
-            	    // InternalErrorModelParser.g:6652:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionElement ) )
+            	    // InternalErrorModelParser.g:6652:2: otherlv_4= Comma ( (lv_operands_5_0= ruleConditionExpression ) )
             	    {
-            	    otherlv_4=(Token)match(input,Comma,FOLLOW_86); 
+            	    otherlv_4=(Token)match(input,Comma,FOLLOW_115); 
 
             	        	newLeafNode(otherlv_4, grammarAccess.getOrmoreExpressionAccess().getCommaKeyword_4_0());
             	        
-            	    // InternalErrorModelParser.g:6656:1: ( (lv_operands_5_0= ruleConditionElement ) )
-            	    // InternalErrorModelParser.g:6657:1: (lv_operands_5_0= ruleConditionElement )
+            	    // InternalErrorModelParser.g:6656:1: ( (lv_operands_5_0= ruleConditionExpression ) )
+            	    // InternalErrorModelParser.g:6657:1: (lv_operands_5_0= ruleConditionExpression )
             	    {
-            	    // InternalErrorModelParser.g:6657:1: (lv_operands_5_0= ruleConditionElement )
-            	    // InternalErrorModelParser.g:6658:3: lv_operands_5_0= ruleConditionElement
+            	    // InternalErrorModelParser.g:6657:1: (lv_operands_5_0= ruleConditionExpression )
+            	    // InternalErrorModelParser.g:6658:3: lv_operands_5_0= ruleConditionExpression
             	    {
             	     
-            	    	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
+            	    	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); 
             	    	    
             	    pushFollow(FOLLOW_119);
-            	    lv_operands_5_0=ruleConditionElement();
+            	    lv_operands_5_0=ruleConditionExpression();
 
             	    state._fsp--;
 
@@ -16664,7 +16664,7 @@ public class InternalErrorModelParser extends AbstractInternalAntlrParser {
             	           			current, 
             	           			"operands",
             	            		lv_operands_5_0, 
-            	            		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionElement");
+            	            		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionExpression");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 

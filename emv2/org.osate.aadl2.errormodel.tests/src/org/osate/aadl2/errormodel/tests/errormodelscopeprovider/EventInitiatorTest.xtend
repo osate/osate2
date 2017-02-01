@@ -147,7 +147,7 @@ class EventInitiatorTest extends OsateTest {
 				end subp1;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val lib1TestResult = testFile(lib1FileName)
 		val subclause1TestResult = testFile(subclause1FileName)
 		lib1TestResult.resource.contents.head as AadlPackage => [

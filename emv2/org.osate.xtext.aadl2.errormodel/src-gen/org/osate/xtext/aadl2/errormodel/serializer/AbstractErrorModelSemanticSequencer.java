@@ -1120,7 +1120,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     ConditionTerm returns OrmoreExpression
 	 *
 	 * Constraint:
-	 *     (count=INTVALUE operands+=ConditionElement operands+=ConditionElement*)
+	 *     (count=INTVALUE operands+=ConditionExpression operands+=ConditionExpression*)
 	 */
 	protected void sequence_OrmoreExpression(ISerializationContext context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

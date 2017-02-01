@@ -6633,9 +6633,9 @@ ruleOrmoreExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_3_0()); 
+	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_3_0()); 
 	    }
-		lv_operands_3_0=ruleConditionElement		{
+		lv_operands_3_0=ruleConditionExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOrmoreExpressionRule());
 	        }
@@ -6643,7 +6643,7 @@ ruleOrmoreExpression returns [EObject current=null]
        			$current, 
        			"operands",
         		lv_operands_3_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionElement");
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -6656,9 +6656,9 @@ ruleOrmoreExpression returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionElementParserRuleCall_4_1_0()); 
+	        newCompositeNode(grammarAccess.getOrmoreExpressionAccess().getOperandsConditionExpressionParserRuleCall_4_1_0()); 
 	    }
-		lv_operands_5_0=ruleConditionElement		{
+		lv_operands_5_0=ruleConditionExpression		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getOrmoreExpressionRule());
 	        }
@@ -6666,7 +6666,7 @@ ruleOrmoreExpression returns [EObject current=null]
        			$current, 
        			"operands",
         		lv_operands_5_0, 
-        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionElement");
+        		"org.osate.xtext.aadl2.errormodel.ErrorModel.ConditionExpression");
 	        afterParserOrEnumRuleCall();
 	    }
 

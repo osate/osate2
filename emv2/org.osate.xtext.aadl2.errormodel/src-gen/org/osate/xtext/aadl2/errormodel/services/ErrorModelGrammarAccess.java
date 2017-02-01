@@ -5016,18 +5016,18 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cOrmoreKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final Keyword cLeftParenthesisKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cOperandsAssignment_3 = (Assignment)cGroup.eContents().get(3);
-		private final RuleCall cOperandsConditionElementParserRuleCall_3_0 = (RuleCall)cOperandsAssignment_3.eContents().get(0);
+		private final RuleCall cOperandsConditionExpressionParserRuleCall_3_0 = (RuleCall)cOperandsAssignment_3.eContents().get(0);
 		private final Group cGroup_4 = (Group)cGroup.eContents().get(4);
 		private final Keyword cCommaKeyword_4_0 = (Keyword)cGroup_4.eContents().get(0);
 		private final Assignment cOperandsAssignment_4_1 = (Assignment)cGroup_4.eContents().get(1);
-		private final RuleCall cOperandsConditionElementParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
+		private final RuleCall cOperandsConditionExpressionParserRuleCall_4_1_0 = (RuleCall)cOperandsAssignment_4_1.eContents().get(0);
 		private final Keyword cRightParenthesisKeyword_5 = (Keyword)cGroup.eContents().get(5);
 		
 		//OrmoreExpression:
-		//	count=INTVALUE 'ormore' '(' operands+=ConditionElement (',' operands+=ConditionElement)* ')';
+		//	count=INTVALUE 'ormore' '(' operands+=ConditionExpression (',' operands+=ConditionExpression)* ')';
 		@Override public ParserRule getRule() { return rule; }
 
-		//count=INTVALUE 'ormore' '(' operands+=ConditionElement (',' operands+=ConditionElement)* ')'
+		//count=INTVALUE 'ormore' '(' operands+=ConditionExpression (',' operands+=ConditionExpression)* ')'
 		public Group getGroup() { return cGroup; }
 
 		//count=INTVALUE
@@ -5042,23 +5042,23 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 		//'('
 		public Keyword getLeftParenthesisKeyword_2() { return cLeftParenthesisKeyword_2; }
 
-		//operands+=ConditionElement
+		//operands+=ConditionExpression
 		public Assignment getOperandsAssignment_3() { return cOperandsAssignment_3; }
 
-		//ConditionElement
-		public RuleCall getOperandsConditionElementParserRuleCall_3_0() { return cOperandsConditionElementParserRuleCall_3_0; }
+		//ConditionExpression
+		public RuleCall getOperandsConditionExpressionParserRuleCall_3_0() { return cOperandsConditionExpressionParserRuleCall_3_0; }
 
-		//(',' operands+=ConditionElement)*
+		//(',' operands+=ConditionExpression)*
 		public Group getGroup_4() { return cGroup_4; }
 
 		//','
 		public Keyword getCommaKeyword_4_0() { return cCommaKeyword_4_0; }
 
-		//operands+=ConditionElement
+		//operands+=ConditionExpression
 		public Assignment getOperandsAssignment_4_1() { return cOperandsAssignment_4_1; }
 
-		//ConditionElement
-		public RuleCall getOperandsConditionElementParserRuleCall_4_1_0() { return cOperandsConditionElementParserRuleCall_4_1_0; }
+		//ConditionExpression
+		public RuleCall getOperandsConditionExpressionParserRuleCall_4_1_0() { return cOperandsConditionExpressionParserRuleCall_4_1_0; }
 
 		//')'
 		public Keyword getRightParenthesisKeyword_5() { return cRightParenthesisKeyword_5; }
@@ -7216,7 +7216,7 @@ public class ErrorModelGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OrmoreExpression:
-	//	count=INTVALUE 'ormore' '(' operands+=ConditionElement (',' operands+=ConditionElement)* ')';
+	//	count=INTVALUE 'ormore' '(' operands+=ConditionExpression (',' operands+=ConditionExpression)* ')';
 	public OrmoreExpressionElements getOrmoreExpressionAccess() {
 		return pOrmoreExpression;
 	}

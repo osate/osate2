@@ -1,7 +1,10 @@
 package org.osate.xtext.aadl2.errormodel.scoping
 
 import com.google.inject.Inject
+import java.util.List
+import java.util.Map
 import java.util.Optional
+import java.util.Set
 import java.util.stream.Collectors
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EReference
@@ -15,25 +18,39 @@ import org.osate.aadl2.BasicPropertyAssociation
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ContainmentPathElement
 import org.osate.aadl2.DirectionType
 import org.osate.aadl2.Element
 import org.osate.aadl2.EnumerationType
 import org.osate.aadl2.FeatureGroup
-import org.osate.aadl2.FeatureGroupType
 import org.osate.aadl2.PropertyType
 import org.osate.aadl2.RecordType
+import org.osate.aadl2.ReferenceValue
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.TriggerPort
-import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorTransition
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorDetection
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes
 import org.osate.xtext.aadl2.errormodel.errorModel.FeatureorPPReference
+import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorBehaviorState
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorEventOrPropagation
+import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedErrorPropagation
 import org.osate.xtext.aadl2.errormodel.errorModel.QualifiedPropagationPoint
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet
@@ -41,6 +58,7 @@ import org.osate.xtext.aadl2.errormodel.serializer.ErrorModelCrossReferenceSeria
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util
 import org.osate.xtext.aadl2.properties.scoping.PropertiesScopeProvider
 
+import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.aadl2.modelsupport.util.AadlUtil.getBasePropertyType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.*
@@ -75,41 +93,51 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	}
 	
 	override scope_BasicPropertyAssociation_property(Element context, EReference reference) {
-		var parent = switch context {
-			BasicPropertyAssociation case context.property.propertyType == null:
-				context.owner
-			default:
-				context
-		}
-		while (parent != null && !(parent instanceof BasicPropertyAssociation || parent instanceof EMV2PropertyAssociation)) {
-			parent = parent.owner
-		}
-		var PropertyType propertyType = null
-		switch parent {
-			BasicPropertyAssociation:
-				propertyType = parent.property?.propertyType
-			EMV2PropertyAssociation:
-				propertyType = parent.property?.propertyType
-		}
-		propertyType = propertyType.basePropertyType
-		if (propertyType instanceof RecordType) {
-			propertyType.ownedFields.scopeFor
+		val parentBpa = context.eContainer.getContainerOfType(BasicPropertyAssociation)
+		val property = if (parentBpa != null) {
+			parentBpa.property
 		} else {
-			IScope::NULLSCOPE
+			context.getContainerOfType(EMV2PropertyAssociation).property
+		}
+		switch baseType : property.propertyType?.basePropertyType {
+			RecordType: baseType.ownedFields.scopeFor
+			default: IScope.NULLSCOPE
 		}
 	}
 	
-	/*
-	 * TODO: FINISH THIS!
-	 * This method should be much more complicated.  It should mimic the behavior found in the method
-	 * EMLinkingService.getLinkedObjects where the requiredType is NamedElement and the context is a
-	 * ContainmentPathElement.  Right now, this method only includes ErrorFlows in the scope.  I did this just so that
-	 * I could serialize models that contain properties applied to ErrorSources.
-	 */
-	override scope_ContainmentPathElement_namedElement(Element context, EReference reference) {
-		context.associatedClassifier.allErrorFlows.scopeFor
+	override scope_ModalElement_inMode(Element context, EReference reference) {
+		IScope.NULLSCOPE
 	}
-
+	
+	def scope_NumberValue_unit(EObject context, EReference reference) {
+		val parentBpa = context.getContainerOfType(BasicPropertyAssociation)
+		val property = if (parentBpa != null) {
+			parentBpa.property
+		} else {
+			context.getContainerOfType(EMV2PropertyAssociation).property
+		}
+		createUnitLiteralsScopeFromPropertyType(property.propertyType)
+	}
+	
+	//TODO This method is incomplete. Need to consider all possibilities for reference value
+	def scope_ContainmentPathElement_namedElement(ContainmentPathElement context, EReference reference) {
+		switch parent : context.eContainer {
+			EMV2Path: parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.filterRefined?.scopeFor ?: IScope.NULLSCOPE
+			ContainmentPathElement: switch previous : parent.namedElement {
+				Subcomponent case !previous.eIsProxy: switch classifier : previous.allClassifier {
+					ComponentImplementation: classifier.allSubcomponents.filterRefined.scopeFor
+					default: IScope.NULLSCOPE
+				}
+				default: IScope.NULLSCOPE
+			}
+			ReferenceValue: {
+				val subcomponents = parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.filterRefined ?: emptyList
+				val types = parent.getContainerOfType(ErrorModelSubclause)?.useTypes?.map[types]?.flatten ?: emptyList;
+				(subcomponents + types).scopeFor
+			}
+		}
+	}
+	
 	def scope_ErrorModelLibrary(EObject context, EReference reference) {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
@@ -125,47 +153,425 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 	def scope_TypeTransformationSet(EObject context, EReference reference) {
 		scopeWithoutEMV2Prefix(context, reference)
 	}
+	
+	/*
+	 * This is a very complicated scoping rule. First of all, EMV2PathElement can be chained (e.g. "name1.name2.name3")
+	 * and the contents of the scope are different for the first element than for subsequent elements. More importantly,
+	 * the contents of the scope depend on which grammar rules were used to create the EMV2PathElement. In other words,
+	 * the scope for an EMV2PathElement in the condition of an ErrorDetection is different from the scope for an
+	 * EMV2PathElement in the "applies to" of an EMV2PropertyAssociation in an ErrorBehaviorStateMachine. To better
+	 * understand this scoping rule, please use Graphviz on the following diagram:
+	 * 
+		digraph EMV2PathElement {
+			ErrorModelLibrary [fontcolor=blue, fontsize=20]
+			ErrorModelSubclause [fontcolor=blue, fontsize=20]
+			EMV2PathElementOrKind [fontcolor=red, fontsize=20]
+			EMV2PathElement [fontcolor=red, fontsize=20]
+			EMV2ErrorPropagationPath [fontcolor=red, fontsize=20]
+			BasicEMV2Path -> EMV2PathElementOrKind
+			EMV2Path -> EMV2PathElementOrKind
+			EMV2PathElementOrKind -> EMV2PathElement
+			EMV2PathElement -> EMV2PathElement
+			EMV2ErrorPropagationPath -> EMV2ErrorPropagationPath
+			QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+			QualifiedErrorPropagation -> EMV2ErrorPropagationPath
+			BasicEMV2PropertyAssociation -> BasicEMV2Path
+			EMV2PropertyAssociation -> EMV2Path
+			ErrorModelSubclause -> EMV2PropertyAssociation
+			ErrorBehaviorStateMachine -> BasicEMV2PropertyAssociation
+			ErrorModelLibrary -> BasicEMV2PropertyAssociation
+			ErrorModelLibrary -> ErrorBehaviorStateMachine
+			ConditionElement -> QualifiedErrorEventOrPropagation
+			AllExpression -> ConditionElement
+			ConditionTerm -> ConditionElement
+			OrlessExpression -> ConditionElement
+			ConditionTerm -> AllExpression
+			ConditionTerm -> OrlessExpression
+			AndExpression -> ConditionTerm
+			ConditionExpression -> AndExpression
+			ConditionTerm -> ConditionExpression
+			ErrorBehaviorTransition -> ConditionExpression
+			ErrorDetection -> ConditionExpression
+			OrmoreExpression -> ConditionExpression
+			OutgoingPropagationCondition -> ConditionExpression
+			ErrorBehaviorStateMachine -> ErrorBehaviorTransition
+			ErrorModelSubclause -> ErrorBehaviorTransition
+			ErrorModelSubclause -> ErrorDetection
+			ConditionTerm -> OrmoreExpression
+			ErrorModelSubclause -> OutgoingPropagationCondition
+			SConditionElement -> QualifiedErrorPropagation
+			SAllExpression -> SConditionElement
+			SConditionTerm -> SConditionElement
+			SOrlessExpression -> SConditionElement
+			SOrmoreExpression -> SConditionElement
+			SConditionTerm -> SAllExpression
+			SConditionTerm -> SOrlessExpression
+			SConditionTerm -> SOrmoreExpression
+			SAndExpression -> SConditionTerm
+			SConditionExpression -> SAndExpression
+			CompositeState -> SConditionExpression
+			SConditionTerm -> SConditionExpression
+			ErrorModelSubclause -> CompositeState
+		}
+	 * 
+	 * EMV2PathElement objects are created in the grammar rules EMV2PathElementOrKind, EMV2PathElement, and
+	 * EMV2ErrorPropagationPath. The graph shows all of the possible ways to get to one of these grammar rules from
+	 * the rules ErrorModelLibrary and ErrorModelSubclause. Throughout this method, there are comments which state which
+	 * grammar path in the graph is being tested for. 
+	 * 
+	 * Scope elements for grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine -> ErrorBehaviorTransition ->
+	 * 			ConditionExpression -> ... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+	 * 		ErrorBehaviorEvent
+	 * 
+	 * Scope elements for grammar path: ErrorModelSubclause -> ErrorBehaviorTransition -> ConditionExpression -> ... ->
+	 * 			QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+	 * 		ErrorBehaviorEvent |
+	 * 		(Subcomponent '.')* (FeatureGroup '.')* ErrorPropagation
+	 * 
+	 * Scope elements for grammar path: ErrorModelSubclause -> OutgoingPropagationCondition -> ConditionExpression ->
+	 * 			... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+	 * 		ErrorBehaviorEvent |
+	 * 		(Subcomponent '.')* (FeatureGroup '.')* ErrorPropagation
+	 * 
+	 * Scope elements for grammar path: ErrorModelSubclause -> ErrorDetection -> ConditionExpression -> ... ->
+	 * 			QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+	 * 		ErrorBehaviorEvent |
+	 * 		(Subcomponent '.')* (FeatureGroup '.')* ErrorPropagation
+	 * 
+	 * Scope elements for grammar path: ErrorModelSubclause -> CompositeState -> SConditionExpression -> ... ->
+	 * 			QualifiedErrorPropagation -> EMV2ErrorPropagationPath
+	 * 		(FeatureGroup '.')* ErrorPropagation
+	 * 
+	 * Scope elements for grammar path: ErrorModelLibrary -> BasicEMV2PropertyAssociation -> BasicEMV2Path ->
+	 * 			EMV2PathElementOrKind
+	 * 		ErrorTypes
+	 * 
+	 * Scope elements for grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine ->
+	 * 			BasicEMV2PropartyAssociation -> BasicEMV2Path -> EMV2PathElementOrKind
+	 * 		ErrorBehaviorEvent |
+	 * 		ErrorBehaviorState |
+	 * 		ErrorBehaviorTransition
+	 * 
+	 * Scope elements for grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path ->
+	 * 			EMV2PathElementOrKind
+	 * 		(FeatureGroup '.')* ErrorPropagation ('.' ErrorType)? |
+	 * 		ErrorBehaviorEvent ('.' ErrorType)? |
+	 * 		ErrorBehaviorTransition |
+	 * 		OutgoingPropagationConditoin |
+	 * 		ErrorDetection |
+	 * 		CompositeState |
+	 * 		ConnectionErrorSource ('.' ErrorType)? |
+	 * 		PropagationPath |
+	 * 		ErrorSource ('.' ErrorType)? |
+	 * 		ErrorSink ('.' ErrorType)? |
+	 * 		ErrorPath |
+	 * 		ErrorBehaviorState ('.' ErrorType)?
+	 */
+	def scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
+		switch parent : context.eContainer {
+			QualifiedErrorEventOrPropagation: {
+				val topConditionExpression = parent.allContainers.filter(ConditionExpression).last
+				switch parentOfCondition : topConditionExpression.eContainer {
+					ErrorBehaviorTransition: switch parentOfTransition : parentOfCondition.eContainer {
+						/*
+						 * First element in chain.
+						 * Grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine -> ErrorBehaviorTransition ->
+						 * 		ConditionExpression -> ... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+						 */
+						ErrorBehaviorStateMachine: parentOfTransition.events.scopeFor
+						/*
+						 * First element in chain.
+						 * Grammar path: ErrorModelSubclause -> ErrorBehaviorTransition -> ConditionExpression ->
+						 * 		... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+						 */
+						ErrorModelSubclause: {
+							val events = parentOfTransition.allContainingClassifierEMV2Subclauses.map[
+								events + (useBehavior?.events ?: emptyList)
+							].flatten
+							val featureGroups = parentOfTransition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+							val List<Subcomponent> subcomponents = parentOfTransition.getContainerOfType(ComponentImplementation)?.allSubcomponents ?: emptyList
+							val propagations = parentOfTransition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+								featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+							]
+							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+							(events + featureGroups + subcomponents).scopeFor(propagationsScope)
+						}
+					}
+					/*
+					 * First element in chain.
+					 * Grammar path: ErrorModelSubclause -> OutgoingPropagationCondition -> ConditionExpression ->
+					 * 		... -> QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+					 */
+					OutgoingPropagationCondition: {
+						val events = parentOfCondition.allContainingClassifierEMV2Subclauses.map[
+							events + (useBehavior?.events ?: emptyList)
+						].flatten
+						val featureGroups = parentOfCondition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+						val List<Subcomponent> subcomponents = parentOfCondition.getContainerOfType(ComponentImplementation)?.allSubcomponents ?: emptyList
+						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+						]
+						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+						(events + featureGroups + subcomponents).scopeFor(propagationsScope)
+					}
+					/*
+					 * First element in chain.
+					 * Grammar path: ErrorModelSubclause -> ErrorDetection -> ConditionExpression -> ... ->
+					 * 		QualifiedErrorEventOrPropagation -> EMV2ErrorPropagationPath
+					 */
+					ErrorDetection: {
+						val events = parentOfCondition.allContainingClassifierEMV2Subclauses.map[
+							events + (useBehavior?.events ?: emptyList)
+						].flatten
+						val featureGroups = parentOfCondition.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+						val List<Subcomponent> subcomponents = parentOfCondition.getContainerOfType(ComponentImplementation)?.allSubcomponents ?: emptyList
+						val propagations = parentOfCondition.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+						]
+						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+						(events + featureGroups + subcomponents).scopeFor(propagationsScope)
+					}
+				}
+			}
+			/*
+			 * First element in chain.
+			 * Grammar path: ErrorModelSubclause -> CompositeState -> SConditionExpression -> ... ->
+			 * 		QualifiedErrorPropagation -> EMV2ErrorPropagationPath
+			 */
+			QualifiedErrorPropagation: {
+				val featureGroups = parent.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+				val propagations = parent.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+					featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+				]
+				val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+				featureGroups.scopeFor(propagationsScope)
+			}
+			EMV2Path: {
+				val parentOfAssociation = parent.eContainer.eContainer
+				switch parentOfAssociation {
+					/*
+					 * First element in chain.
+					 * Grammar path: ErrorModelLibrary -> BasicEMV2PropertyAssociation -> BasicEMV2Path ->
+					 * 		EMV2PathElementOrKind
+					 */
+					ErrorModelLibrary: (parentOfAssociation.allErrorTypes + parentOfAssociation.allTypesets).scopeFor
+					/*
+					 * First element in chain.
+					 * Grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine -> BasicEMV2PropartyAssociation ->
+					 * 		BasicEMV2Path -> EMV2PathElementOrKind
+					 */
+					ErrorBehaviorStateMachine: (parentOfAssociation.events + parentOfAssociation.states + parentOfAssociation.transitions).scopeFor
+					/*
+					 * First element in chain.
+					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path -> EMV2PathElementOrKind
+					 * No containment path in applies to. Example: "property => value applies to name1"
+					 */
+					ErrorModelSubclause case parent.containmentPath == null: {
+						val featureGroups = parentOfAssociation.getContainerOfType(Classifier).allFeatures.filter(FeatureGroup)
+						val subclauseElements = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[
+							val behaviorElements = if (useBehavior != null) {
+								useBehavior.events + useBehavior.states + useBehavior.transitions
+							} else {
+								emptyList
+							}
+							val localElements = flows + events + transitions + outgoingPropagationConditions +
+								errorDetections + states + connectionErrorSources + paths
+							behaviorElements + localElements
+						].flatten
+						val propagations = parentOfAssociation.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+							featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+						]
+						val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+						(featureGroups + subclauseElements).scopeFor(propagationsScope)
+					}
+					/*
+					 * First element in chain.
+					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path -> EMV2PathElementOrKind
+					 * Containment path in applies to. Example: "property => value applies to ^name1.name2@.name3"
+					 */
+					ErrorModelSubclause: {
+						var lastContainmentPath = parent.containmentPath
+						while (lastContainmentPath.path != null) {
+							lastContainmentPath = lastContainmentPath.path
+						}
+						val lastSubcomponent = lastContainmentPath.namedElement
+						if (lastSubcomponent instanceof Subcomponent) {
+							val classifier = lastSubcomponent.allClassifier
+							if (classifier != null) {
+								val featureGroups = classifier.allFeatures.filter(FeatureGroup)
+								val subclauseElements = classifier.allContainingClassifierEMV2Subclauses.map[
+									val behaviorElements = if (useBehavior != null) {
+										useBehavior.events + useBehavior.states + useBehavior.transitions
+									} else {
+										emptyList
+									}
+									val localElements = flows + events + transitions + outgoingPropagationConditions +
+										errorDetections + states + connectionErrorSources + paths
+									behaviorElements + localElements
+								].flatten
+								val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+									featureorPPRef != null && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+								]
+								val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+								(featureGroups + subclauseElements).scopeFor(propagationsScope)
+							} else {
+								IScope.NULLSCOPE
+							}
+						} else {
+							IScope.NULLSCOPE
+						}
+					}
+				}
+			}
+			//Subsequent elements in chain
+			EMV2PathElement case !parent.namedElement.eIsProxy: {
+				switch previous : parent.namedElement {
+					ErrorSource,
+					ErrorSink,
+					ConnectionErrorSource,
+					ErrorBehaviorState,
+					/*
+					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path ->
+					 * 		EMV2PathElementOrKind -> EMV2PathElement
+					 */
+					ErrorEvent case
+						parent.eContainer instanceof EMV2Path &&
+						parent.eContainer.eContainer.eContainer instanceof ErrorModelSubclause,
+					/*
+					 * Grammar path: ErrorModelSubclause -> EMV2PropertyAssociation -> EMV2Path ->
+					 * 		EMV2PathElementOrKind -> EMV2PathElement
+					 */
+					ErrorPropagation case
+						parent.getContainerOfType(EMV2Path) != null &&
+						parent.getContainerOfType(ErrorModelSubclause) != null: {
+							scopeForErrorTypes(context, EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes])
+						}
+					Subcomponent: {
+						val classifier = previous.allClassifier
+						if (classifier != null) {
+							val List<Subcomponent> subcomponents = if (classifier instanceof ComponentImplementation) {
+								classifier.allSubcomponents
+							} else {
+								emptyList
+							}
+							val featureGroups = classifier.allFeatures.filter(FeatureGroup)
+							val propagations = classifier.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter[
+								!not && direction == DirectionType.OUT && featureorPPRef.next == null && featureorPPRef.featureorPP.name != null
+							]
+							val propagationsScope = new SimpleScope(propagations.map[EObjectDescription.create(featureorPPRef.featureorPP.name, it)], true)
+							(subcomponents + featureGroups).scopeFor(propagationsScope)
+						} else {
+							IScope.NULLSCOPE
+						}
+					}
+					FeatureGroup: {
+						val featureGroups = previous.allFeatureGroupType?.allFeatures?.filter(FeatureGroup) ?: emptyList
+						val previousFeatureGroups = newArrayList(previous)
+						var currentPathElement = parent.eContainer
+						while (currentPathElement instanceof EMV2PathElement && (currentPathElement as EMV2PathElement).namedElement instanceof FeatureGroup) {
+							previousFeatureGroups.add(0, (currentPathElement as EMV2PathElement).namedElement as FeatureGroup)
+							currentPathElement = currentPathElement.eContainer
+						}
+						val previousPath = previousFeatureGroups.map[it.name].join(".") + "."
+						val lookForSubcomponentInEMV2PathElement = currentPathElement.getContainerOfType(ErrorBehaviorTransition) != null ||
+							currentPathElement.getContainerOfType(OutgoingPropagationCondition) != null ||
+							currentPathElement.getContainerOfType(ErrorDetection) != null
+						val previousSubcomponent = if (lookForSubcomponentInEMV2PathElement) {
+							if (currentPathElement instanceof EMV2PathElement) {
+								currentPathElement.namedElement as Subcomponent
+							}
+						} else {
+							val emv2Path = currentPathElement.getContainerOfType(EMV2Path)
+							if (emv2Path?.containmentPath != null) {
+								var lastContainmentPath = emv2Path.containmentPath
+								while (lastContainmentPath.path != null) {
+									lastContainmentPath = lastContainmentPath.path
+								}
+								if (lastContainmentPath.namedElement instanceof Subcomponent) {
+									lastContainmentPath.namedElement as Subcomponent
+								}
+							}
+						}
+						val propagations = if (previousSubcomponent == null) {
+							parent.allContainingClassifierEMV2Subclauses.map[propagations].flatten
+						} else {
+							previousSubcomponent.allClassifier?.allContainingClassifierEMV2Subclauses?.map[propagations]?.flatten ?: emptyList
+						}
+						val filteredPropagations = propagations.filter[
+							val name = propagationName
+							if (name.startsWith(previousPath)) {
+								val remainingName = name.substring(previousPath.length)
+								!remainingName.empty && !remainingName.contains(".")
+							} else {
+								false
+							}
+						]
+						val propagationsScope = new SimpleScope(filteredPropagations.map[EObjectDescription.create(propagationName.split("\\.").last, it)], true)
+						featureGroups.scopeFor(propagationsScope)
+					}
+				}
+			}
+			default: IScope.NULLSCOPE
+		}
+	}
+	
+	def private static getAllContainers(EObject object) {
+		val containers = newArrayList
+		for (var current = object.eContainer; current != null; current = current.eContainer) {
+			containers += current
+		}
+		containers
+	}
+	
+	def scope_EMV2PathElement_errorType(EMV2PathElement context, EReference reference) {
+		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten
+		val filteredPropagations = propagations.filter[kind == context.emv2PropagationKind]
+		val typeTokens = filteredPropagations.map[typeSet.typeTokens].flatten
+		typeTokens.filter[type.size == 1].map[type.head].filter(ErrorType).scopeFor
+	}
 
 	def scope_ErrorType(ErrorModelLibrary context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.of(context), [allErrorTypes])
+		scopeForErrorTypes(context, context.useTypes, Optional.of(context), [allErrorTypes])
 	}
 
 	def scope_TypeSet_aliasedType(ErrorModelLibrary context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.of(context), [allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.of(context), [allTypesets])
 	}
 
 	def scope_TypeToken_type(ErrorModelLibrary context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.of(context), [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.of(context), [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(ErrorBehaviorStateMachine context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(TypeMappingSet context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(TypeTransformationSet context, EReference reference) {
-		scopeForErrorTypes(context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
+		scopeForErrorTypes(context, context.useTypes, Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_TypeToken_type(ErrorModelSubclause context, EReference reference) {
-		scopeForErrorTypes(EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes + allTypesets])
-	}
-
-	def scope_FeatureorPPReference_featureorPP(Classifier context, EReference reference) {
-		(context.getAllFeatures + context.allPropagationPoints + if (context instanceof ComponentImplementation) {
-			context.allInternalFeatures
-		} else {
-			emptyList
-		}).scopeFor
+		scopeForErrorTypes(context, EMV2Util.getUseTypes(context), Optional.empty, [allErrorTypes + allTypesets])
 	}
 
 	def scope_FeatureorPPReference_featureorPP(FeatureorPPReference context, EReference reference) {
-		switch fg : context.featureorPP {
-			FeatureGroup: fg.featureGroupType.getAllFeatures.scopeFor
-			default: IScope.NULLSCOPE
+		switch parent : context.eContainer {
+			ErrorPropagation: {
+				val classifier = parent.getContainerOfType(Classifier)
+				(classifier.getAllFeatures + classifier.allPropagationPoints + if (classifier instanceof ComponentImplementation) {
+					classifier.allInternalFeatures
+				} else {
+					emptyList
+				}).scopeFor
+			}
+			FeatureorPPReference: switch previous : parent.featureorPP {
+				FeatureGroup: previous.featureGroupType.getAllFeatures.scopeFor
+				default: IScope.NULLSCOPE
+			}
 		}
 	}
 
@@ -230,90 +636,6 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		context.allConnections.scopeFor
 	}
 
-	/**
-	 * Scope for elements of EMV2Path in transition conditions in state machine declarations
-	 */
-	def scope_EMV2PathElement_namedElement(ErrorBehaviorStateMachine context, EReference reference) {
-		context.events.scopeFor
-	}
-
-	/**
-	 * Scope for incoming propagations as SConditionElements in a CompositeStetate declaration
-	 */
-	def scope_EMV2PathElement_namedElement(CompositeState context, EReference reference) {
-		val cl = context.associatedClassifier
-		cl.scopeForErrorPropagation(DirectionType.IN)
-	}
-
-	/**
-	 * Scope for the first element of a EMV2Path in ErrorBehaviorTransition, OutPropagationCondition, and ErrorDetection conditions
-	 */
-	def scope_EMV2PathElement_namedElement(ErrorModelSubclause context, EReference reference) {
-		val classifier = context.associatedClassifier
-		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
-				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else if (classifier instanceof FeatureGroupType) {
-				classifier.getAllFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else {
-				emptySet
-			}
-		new SimpleScope(
-			classifier.eventandIncomingPropagationDescriptions + subCoreElementDescriptions,
-			true
-		)
-	}
-
-	/**
-	 * Scope for EMV2Path in a property association
-	 * It can start with subcomponents if there is no explicit core path (^ @)
-	 */
-	def scope_EMV2PathElement_namedElement(EMV2PropertyAssociation context, EReference reference) {
-		val classifier = context.associatedClassifier
-		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
-			val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-			validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
-		} else if (classifier instanceof FeatureGroupType) {
-			classifier.getAllFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
-		} else {
-			emptySet
-		}
-		// XXX all error model elements 
-		new SimpleScope(classifier.eventandIncomingPropagationDescriptions + subCoreElementDescriptions
-			, true
-		)
-	}
-	
-	/**
-	 * Scope for EMV2PathElements that are not the first. The previous one determines the scope content.
-	 * We return Subcomponents, and out ErrorPropagations of subcomponents, as well as Features in Feature Groups.
-	 */
-	def scope_EMV2PathElement_namedElement(EMV2PathElement context, EReference reference) {
-		val ne = context.namedElement
-		val classifier = 
-				if (ne instanceof Subcomponent) {
-					ne.allClassifier
-				} else if (ne instanceof FeatureGroup) {
-					ne.allClassifier
-				} else {
-					null
-				}
-		val subCoreElementDescriptions = if (classifier instanceof ComponentImplementation) {
-				val validSubcomponents = classifier.allSubcomponents.filter[allClassifier != null]
-				validSubcomponents.map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else if (classifier instanceof FeatureGroupType) {
-				classifier.getAllFeatures().map[EObjectDescription.create(QualifiedName.create(name), it)]
-			} else {
-				emptySet
-			}
-		val outProps = if (classifier instanceof ComponentClassifier) {
-				classifier.eDescriptionsForErrorPropagation(DirectionType.OUT)
-			} else {
-				emptySet
-			}
-		new SimpleScope(outProps + subCoreElementDescriptions,true)
-	}
-
 	def scope_OutgoingPropagationCondition_outgoing(Classifier context, EReference reference) {
 		context.scopeForErrorPropagation(DirectionType.OUT)
 	}
@@ -339,21 +661,23 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		stateMachine?.states?.scopeFor ?: IScope.NULLSCOPE
 	}
 
-	def scope_SubcomponentElement_subcomponent(ComponentImplementation context, EReference reference) {
-		context.allSubcomponents.scopeFor
-	}
-
 	def scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState context, EReference reference) {
-		switch subcomponentClassifier : context.subcomponent.subcomponent.allClassifier {
-			ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
-			default: IScope.NULLSCOPE
+		switch parent : context.eContainer {
+			QualifiedErrorBehaviorState: switch subcomponentClassifier : parent.subcomponent.subcomponent.allClassifier {
+				ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
+				default: IScope.NULLSCOPE
+			}
+			default: parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.scopeFor ?: IScope.NULLSCOPE
 		}
 	}
-
+	
 	def scope_SubcomponentElement_subcomponent(QualifiedPropagationPoint context, EReference reference) {
-		switch subcomponentClassifier : context.subcomponent.subcomponent.allClassifier {
-			ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
-			default: IScope.NULLSCOPE
+		switch parent : context.eContainer {
+			QualifiedPropagationPoint: switch subcomponentClassifier : parent.subcomponent.subcomponent.allClassifier {
+				ComponentImplementation: subcomponentClassifier.allSubcomponents.scopeFor
+				default: IScope.NULLSCOPE
+			}
+			default: parent.getContainerOfType(ComponentImplementation)?.allSubcomponents?.scopeFor ?: IScope.NULLSCOPE
 		}
 	}
 
@@ -369,48 +693,46 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		], true)
 	}
 
-	/*
-	 * The general rule of this scope is that ErrorTypes must be referred to by their simple name, not a qualified name.
-	 * A qualified name is only legal if it is used to disambiguate two different ErrorTypes with the same name coming
-	 * from different ErrorModelLibraries in the useTypes.  In the event of a naming conflict, a reference to an ErrorTypes
-	 * is qualified with the name of the appropriate library listed in the useTypes.  This may not be the same as the
-	 * library which contains the ErrorTypes definition.
-	 * 
-	 * This probably needs to be redesigned.  It may be better to include all simple names and all qualified names in the
-	 * scope and then have the validator place errors on ambiguous simple names and warnings on unnecessary qualified names.
-	 */
-	def private static scopeForErrorTypes(Iterable<ErrorModelLibrary> useTypes,
-		Optional<ErrorModelLibrary> parentLibrary, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter) {
-		val useTypesPerLib = newHashMap(useTypes.map[libraryName -> elementGetter.apply(it).toSet])
-
-		val contextErrorTypes = parentLibrary.map[elementGetter.apply(it).toSet]
-		val partitionResult = (useTypesPerLib.values.flatten + contextErrorTypes.orElse(emptySet)).toSet.groupBy [
-			name.toLowerCase
-		].values.stream.collect(Collectors.partitioningBy[size == 1])
-
-		// Add simple names to the scope for all ErrorTypes that do not have a naming conflict.
-		val noConflictsDescriptions = partitionResult.get(true).flatten.map [
+	def private scopeForErrorTypes(EObject context, Iterable<ErrorModelLibrary> useTypes,
+		Optional<ErrorModelLibrary> parentLibrary, (ErrorModelLibrary)=>Iterable<? extends ErrorTypes> elementGetter
+	) {
+		//Gets all of the ErrorTypes contributed by the libraries listed in the useTypes.
+		val Iterable<ErrorTypes> fromUseTypes = useTypes.map[elementGetter.apply(it)].flatten
+		
+		//Gets all of the ErrorTypes contributed by the containing ErrorModelLibrary, if any.
+		val Optional<Set<? extends ErrorTypes>> contextErrorTypes = parentLibrary.map[elementGetter.apply(it).toSet]
+		//Combines all of the contributed ErrorTypes from the useTypes and the parentLibrary.
+		val Set<ErrorTypes> allErrorTypes = (fromUseTypes + contextErrorTypes.orElse(emptySet)).toSet
+		//Groups all ErrorTypes by their simple name. For example, "lib1::type1" and "lib2::type1" will be grouped together.
+		val Map<String, List<ErrorTypes>> groupedTypes = allErrorTypes.groupBy[name.toLowerCase]
+		/*
+		 * Partitions the grouped ErrorTypes by which ones have conflicting simple names and which ones do not.
+		 * The true values are not conflicts and the false values are conflicts.
+		 */
+		val Map<Boolean, Iterable<ErrorTypes>> partitionResult = groupedTypes.values.stream.collect(Collectors.partitioningBy[size == 1]).mapValues[flatten]
+		
+		//Add simple names to the scope for all ErrorTypes that do not have a naming conflict.
+		val Iterable<IEObjectDescription> noConflictsDescriptions = partitionResult.get(true).map[
 			EObjectDescription.create(QualifiedName.create(name), it)
 		]
-
-		val conflictsDescriptions = partitionResult.get(false).map [
-			map[
-				if (contextErrorTypes.present && contextErrorTypes.get.contains(it)) {
-					// For ErrorTypes that are locally contained in parentLibrary or are in the extends hierarchy, they are referred to by their simple name.
-					#[EObjectDescription.create(QualifiedName.create(name), it)]
-				} else {
-					/*
-					 * For conflicting ErrorTypes that are contributed by the useTypes, they are qualified by the library names
-					 * listed in the useTypes which contributes this ErrorTypes.
-					 */
-					useTypesPerLib.filter[libraryName, visibleErrorTypes|visibleErrorTypes.contains(it)].keySet.map [ libraryName |
-						EObjectDescription.create(QualifiedName.create(libraryName, name), it)
-					]
-				}
+		
+		//Add simple names to the scope for conflicting ErrorTypes that are from the parentLibrary or extends hierarchy.
+		val Iterable<IEObjectDescription> conflictsDescriptions = partitionResult.get(false).filter[
+			contextErrorTypes.present && contextErrorTypes.get.contains(it)
+		].map[
+			EObjectDescription.create(QualifiedName.create(name), it)
+		]
+		
+		//Add qualified names to the scope.
+		val IScope librariesScope = scope_ErrorModelLibrary(context, ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__USE_TYPES)
+		val Iterable<ErrorModelLibrary> allLibraries = librariesScope.allElements.map[EObjectOrProxy.resolve(context) as ErrorModelLibrary]
+		val Iterable<IEObjectDescription> qualifiedDescriptions = allLibraries.map[library |
+			elementGetter.apply(library).map[errorTypes |
+				EObjectDescription.create(QualifiedName.create(library.libraryName, errorTypes.name), errorTypes)
 			]
-		].flatten.flatten
-
-		new SimpleScope(noConflictsDescriptions + conflictsDescriptions, true)
+		].flatten
+		
+		new SimpleScope(noConflictsDescriptions + conflictsDescriptions + qualifiedDescriptions, true)
 	}
 
 	def public static eDescriptionsForErrorPropagation(Classifier context, DirectionType requiredDirection) {
@@ -424,7 +746,7 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val propagations = context.allContainingClassifierEMV2Subclauses.map[propagations].flatten.filter [
 			!not && direction == requiredDirection
 		]
-		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)])
+		new SimpleScope(propagations.map[EObjectDescription.create(propagationName, it)], true)
 	}
 
 	def public static getEventandIncomingPropagationDescriptions(Classifier classifier) {

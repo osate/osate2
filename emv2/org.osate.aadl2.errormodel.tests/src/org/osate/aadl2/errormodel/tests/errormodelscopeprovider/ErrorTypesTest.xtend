@@ -191,7 +191,7 @@ class ErrorTypesTest extends OsateTest {
 				end a2.i;
 			end subclause1;
 		''')
-		suppressSerialization
+		ignoreSerializationDifferences
 		val lib1TestResult = testFile(lib1FileName)
 		val lib2TestResult = testFile(lib2FileName)
 		val lib3TestResult = testFile(lib3FileName)
@@ -201,7 +201,11 @@ class ErrorTypesTest extends OsateTest {
 		lib1TestResult.resource.contents.head as AadlPackage => [
 			"lib1".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				val expectedTypeScope = #["t1", "conflict1", "conflict2"]
+				val expectedTypeScope = #["conflict1", "conflict2", "t1", "lib1::conflict1", "lib1::conflict2",
+					"lib1::t1", "lib2::conflict1", "lib2::conflict2", "lib2::t1", "lib2::t2", "lib3::conflict1",
+					"lib3::t3", "lib4::conflict1", "lib4::t3", "lib4::t4", "lib5::conflict1", "lib5::conflict2",
+					"lib5::t1", "lib6::conflict1", "lib6::conflict2", "lib6::t3", "lib6::t4", "lib6::t6"
+				]
 				types.get(0) => [
 					"t1".assertEquals(name)
 					//Tests scope_ErrorType
@@ -224,7 +228,12 @@ class ErrorTypesTest extends OsateTest {
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
 				
-				val expectedTypeSetScope = #["ts1", "conflict_ts1", "conflict_ts2"]
+				val expectedTypeSetScope = #["conflict_ts1", "conflict_ts2", "ts1", "lib1::conflict_ts1",
+					"lib1::conflict_ts2", "lib1::ts1", "lib2::conflict_ts1", "lib2::conflict_ts2", "lib2::ts1",
+					"lib2::ts2", "lib3::conflict_ts1", "lib3::ts3", "lib4::conflict_ts1", "lib4::ts3", "lib4::ts4",
+					"lib5::conflict_ts1", "lib5::conflict_ts2", "lib5::ts1", "lib6::conflict_ts1", "lib6::conflict_ts2",
+					"lib6::ts3", "lib6::ts4", "lib6::ts6"
+				]
 				typesets.get(0) => [
 					"ts1".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
@@ -253,7 +262,12 @@ class ErrorTypesTest extends OsateTest {
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				types.head => [
 					"t2".assertEquals(name)
-					val expectedTypeScope = #["t1", "conflict1", "conflict2", "t2"]
+					val expectedTypeScope = #["conflict1", "conflict2", "t1", "t2", "lib1::conflict1",
+						"lib1::conflict2", "lib1::t1", "lib2::conflict1", "lib2::conflict2", "lib2::t1", "lib2::t2",
+						"lib3::conflict1", "lib3::t3", "lib4::conflict1", "lib4::t3", "lib4::t4", "lib5::conflict1",
+						"lib5::conflict2", "lib5::t1", "lib6::conflict1", "lib6::conflict2", "lib6::t3", "lib6::t4",
+						"lib6::t6"
+					]
 					//Tests scope_ErrorType
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
 					//Tests scope_ErrorType
@@ -262,16 +276,34 @@ class ErrorTypesTest extends OsateTest {
 				typesets.head => [
 					"ts2".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
-					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts1", "conflict_ts1", "conflict_ts2", "ts2"])
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["conflict_ts1", "conflict_ts2",
+						"ts1", "ts2", "lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::ts1", "lib2::conflict_ts1",
+						"lib2::conflict_ts2", "lib2::ts1", "lib2::ts2", "lib3::conflict_ts1", "lib3::ts3",
+						"lib4::conflict_ts1", "lib4::ts3", "lib4::ts4", "lib5::conflict_ts1", "lib5::conflict_ts2",
+						"lib5::ts1", "lib6::conflict_ts1", "lib6::conflict_ts2", "lib6::ts3", "lib6::ts4", "lib6::ts6"
+					])
 					//scope_TypeToken_type(ErrorModelLibrary, EReference)
-					typeTokens.head.assertScope(ErrorModelPackage.eINSTANCE.typeToken_Type, #["t1", "conflict1", "conflict2", "ts1", "conflict_ts1", "conflict_ts2", "t2", "ts2"])
+					typeTokens.head.assertScope(ErrorModelPackage.eINSTANCE.typeToken_Type, #["conflict1", "conflict2",
+						"conflict_ts1", "conflict_ts2", "t1", "t2", "ts1", "ts2", "lib1::conflict1", "lib1::conflict2",
+						"lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::t1", "lib1::ts1", "lib2::conflict1",
+						"lib2::conflict2", "lib2::conflict_ts1", "lib2::conflict_ts2", "lib2::t1", "lib2::t2",
+						"lib2::ts1", "lib2::ts2", "lib3::conflict1", "lib3::conflict_ts1", "lib3::t3", "lib3::ts3",
+						"lib4::conflict1", "lib4::conflict_ts1", "lib4::t3", "lib4::t4", "lib4::ts3", "lib4::ts4",
+						"lib5::conflict1", "lib5::conflict2", "lib5::conflict_ts1", "lib5::conflict_ts2", "lib5::t1",
+						"lib5::ts1", "lib6::conflict1", "lib6::conflict2", "lib6::conflict_ts1", "lib6::conflict_ts2",
+						"lib6::t3", "lib6::t4", "lib6::t6", "lib6::ts3", "lib6::ts4", "lib6::ts6"
+					])
 				]
 			]
 		]
 		lib3TestResult.resource.contents.head as AadlPackage => [
 			"lib3".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				val expectedTypeScope = #["t3", "conflict1"]
+				val expectedTypeScope = #["conflict1", "t3", "lib1::conflict1", "lib1::conflict2", "lib1::t1",
+					"lib2::conflict1", "lib2::conflict2", "lib2::t1", "lib2::t2", "lib3::conflict1", "lib3::t3",
+					"lib4::conflict1", "lib4::t3", "lib4::t4", "lib5::conflict1", "lib5::conflict2", "lib5::t1",
+					"lib6::conflict1", "lib6::conflict2", "lib6::t3", "lib6::t4", "lib6::t6"
+				]
 				types.get(0) => [
 					"t3".assertEquals(name)
 					//Tests scope_ErrorType
@@ -287,7 +319,12 @@ class ErrorTypesTest extends OsateTest {
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
 				
-				val expectedTypeSetScope = #["ts3", "conflict_ts1"]
+				val expectedTypeSetScope = #["conflict_ts1", "ts3", "lib1::conflict_ts1", "lib1::conflict_ts2",
+					"lib1::ts1", "lib2::conflict_ts1", "lib2::conflict_ts2", "lib2::ts1", "lib2::ts2",
+					"lib3::conflict_ts1", "lib3::ts3", "lib4::conflict_ts1", "lib4::ts3", "lib4::ts4",
+					"lib5::conflict_ts1", "lib5::conflict_ts2", "lib5::ts1", "lib6::conflict_ts1", "lib6::conflict_ts2",
+					"lib6::ts3", "lib6::ts4", "lib6::ts6"
+				]
 				typesets.get(0) => [
 					"ts3".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
@@ -309,7 +346,11 @@ class ErrorTypesTest extends OsateTest {
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
 				types.head => [
 					"t4".assertEquals(name)
-					val expectedTypeScope = #["t3", "conflict1", "t4"]
+					val expectedTypeScope = #["conflict1", "t3", "t4", "lib1::conflict1", "lib1::conflict2", "lib1::t1",
+						"lib2::conflict1", "lib2::conflict2", "lib2::t1", "lib2::t2", "lib3::conflict1", "lib3::t3",
+						"lib4::conflict1", "lib4::t3", "lib4::t4", "lib5::conflict1", "lib5::conflict2", "lib5::t1",
+						"lib6::conflict1", "lib6::conflict2", "lib6::t3", "lib6::t4", "lib6::t6"
+					]
 					//Tests scope_ErrorType
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_SuperType, expectedTypeScope)
 					//Tests scope_ErrorType
@@ -318,16 +359,35 @@ class ErrorTypesTest extends OsateTest {
 				typesets.head => [
 					"ts4".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
-					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["ts3", "conflict_ts1", "ts4"])
+					assertScope(ErrorModelPackage.eINSTANCE.typeSet_AliasedType, #["conflict_ts1", "ts3", "ts4",
+						"lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::ts1", "lib2::conflict_ts1",
+						"lib2::conflict_ts2", "lib2::ts1", "lib2::ts2", "lib3::conflict_ts1", "lib3::ts3",
+						"lib4::conflict_ts1", "lib4::ts3", "lib4::ts4", "lib5::conflict_ts1", "lib5::conflict_ts2",
+						"lib5::ts1", "lib6::conflict_ts1", "lib6::conflict_ts2", "lib6::ts3", "lib6::ts4", "lib6::ts6"
+					])
 					//Tests scope_TypeToken_type(ErrorModelLibrary, EReference)
-					typeTokens.head.assertScope(ErrorModelPackage.eINSTANCE.typeToken_Type, #["t3", "conflict1", "ts3", "conflict_ts1", "t4", "ts4"])
+					typeTokens.head.assertScope(ErrorModelPackage.eINSTANCE.typeToken_Type, #["conflict1",
+						"conflict_ts1", "t3", "t4", "ts3", "ts4", "lib1::conflict1", "lib1::conflict2",
+						"lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::t1", "lib1::ts1", "lib2::conflict1",
+						"lib2::conflict2", "lib2::conflict_ts1", "lib2::conflict_ts2", "lib2::t1", "lib2::t2",
+						"lib2::ts1", "lib2::ts2", "lib3::conflict1", "lib3::conflict_ts1", "lib3::t3", "lib3::ts3",
+						"lib4::conflict1", "lib4::conflict_ts1", "lib4::t3", "lib4::t4", "lib4::ts3", "lib4::ts4",
+						"lib5::conflict1", "lib5::conflict2", "lib5::conflict_ts1", "lib5::conflict_ts2", "lib5::t1",
+						"lib5::ts1", "lib6::conflict1", "lib6::conflict2", "lib6::conflict_ts1", "lib6::conflict_ts2",
+						"lib6::t3", "lib6::t4", "lib6::t6", "lib6::ts3", "lib6::ts4", "lib6::ts6"
+					])
 				]
 			]
 		]
 		lib6TestResult.resource.contents.head as AadlPackage => [
 			"lib6".assertEquals(name)
 			(publicSection.ownedAnnexLibraries.head as DefaultAnnexLibrary).parsedAnnexLibrary as ErrorModelLibrary => [
-				val expectedTypeScope = #["t1", "lib2::conflict1", "lib2::conflict2", "t2", "lib5::conflict1", "lib5::conflict2", "t3", "conflict1", "t4", "conflict2", "t6"]
+				val expectedTypeScope = #["conflict1", "conflict2", "t1", "t2", "t3", "t4", "t6", "lib1::conflict1",
+					"lib1::conflict2", "lib1::t1", "lib2::conflict1", "lib2::conflict2", "lib2::t1", "lib2::t2",
+					"lib3::conflict1", "lib3::t3", "lib4::conflict1", "lib4::t3", "lib4::t4", "lib5::conflict1",
+					"lib5::conflict2", "lib5::t1", "lib6::conflict1", "lib6::conflict2", "lib6::t3", "lib6::t4",
+					"lib6::t6"
+				]
 				types.get(0) => [
 					"conflict2".assertEquals(name)
 					//Tests scope_ErrorType
@@ -343,7 +403,12 @@ class ErrorTypesTest extends OsateTest {
 					assertScope(ErrorModelPackage.eINSTANCE.errorType_AliasedType, expectedTypeScope)
 				]
 				
-				val expectedTypeSetScope = #["ts1", "lib2::conflict_ts1", "lib2::conflict_ts2", "ts2", "lib5::conflict_ts1", "lib5::conflict_ts2", "ts3", "conflict_ts1", "ts4", "conflict_ts2", "ts6"]
+				val expectedTypeSetScope = #["conflict_ts1", "conflict_ts2", "ts1", "ts2", "ts3", "ts4", "ts6",
+					"lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::ts1", "lib2::conflict_ts1", "lib2::conflict_ts2",
+					"lib2::ts1", "lib2::ts2", "lib3::conflict_ts1", "lib3::ts3", "lib4::conflict_ts1", "lib4::ts3",
+					"lib4::ts4", "lib5::conflict_ts1", "lib5::conflict_ts2", "lib5::ts1", "lib6::conflict_ts1",
+					"lib6::conflict_ts2", "lib6::ts3", "lib6::ts4", "lib6::ts6"
+				]
 				typesets.get(0) => [
 					"conflict_ts2".assertEquals(name)
 					//Tests scope_TypeSet_aliasedType
@@ -359,9 +424,15 @@ class ErrorTypesTest extends OsateTest {
 					typeTokens.head.assertScope(ErrorModelPackage.eINSTANCE.typeToken_Type, expectedTypeScope + expectedTypeSetScope)
 				]
 				
-				val expectedTypeTokenScope = #["t1", "lib2::conflict1", "lib5::conflict1", "lib2::conflict2", "lib5::conflict2", "ts1",
-					"lib2::conflict_ts1", "lib5::conflict_ts1", "lib2::conflict_ts2", "lib5::conflict_ts2", "t2", "ts2", "t3",
-					"lib6::conflict1", "ts3", "lib6::conflict_ts1", "t4", "ts4", "lib6::conflict2", "t6", "lib6::conflict_ts2", "ts6"
+				val expectedTypeTokenScope = #["t1", "t2", "t3", "t4", "t6", "ts1", "ts2", "ts3", "ts4", "ts6",
+					"lib1::conflict1", "lib1::conflict2", "lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::t1",
+					"lib1::ts1", "lib2::conflict1", "lib2::conflict2", "lib2::conflict_ts1", "lib2::conflict_ts2",
+					"lib2::t1", "lib2::t2", "lib2::ts1", "lib2::ts2", "lib3::conflict1", "lib3::conflict_ts1",
+					"lib3::t3", "lib3::ts3", "lib4::conflict1", "lib4::conflict_ts1", "lib4::t3", "lib4::t4",
+					"lib4::ts3", "lib4::ts4", "lib5::conflict1", "lib5::conflict2", "lib5::conflict_ts1",
+					"lib5::conflict_ts2", "lib5::t1", "lib5::ts1", "lib6::conflict1", "lib6::conflict2",
+					"lib6::conflict_ts1", "lib6::conflict_ts2", "lib6::t3", "lib6::t4", "lib6::t6", "lib6::ts3",
+					"lib6::ts4", "lib6::ts6"
 				]
 				behaviors.head => [
 					"bvr1".assertEquals(name)
@@ -424,9 +495,15 @@ class ErrorTypesTest extends OsateTest {
 			publicSection.ownedClassifiers.get(2) => [
 				"a2.i".assertEquals(name)
 				(ownedAnnexSubclauses.head as DefaultAnnexSubclause).parsedAnnexSubclause as ErrorModelSubclause => [
-					val expectedScope = #["t1", "lib2::conflict1", "lib5::conflict1", "lib2::conflict2", "lib5::conflict2", "ts1",
-						"lib2::conflict_ts1", "lib5::conflict_ts1", "lib2::conflict_ts2", "lib5::conflict_ts2", "t2", "ts2", "t3",
-						"lib6::conflict1", "ts3", "lib6::conflict_ts1", "t4", "ts4", "lib6::conflict2", "t6", "lib6::conflict_ts2", "ts6"
+					val expectedScope = #["t1", "t2", "t3", "t4", "t6", "ts1", "ts2", "ts3", "ts4", "ts6",
+						"lib1::conflict1", "lib1::conflict2", "lib1::conflict_ts1", "lib1::conflict_ts2", "lib1::t1",
+						"lib1::ts1", "lib2::conflict1", "lib2::conflict2", "lib2::conflict_ts1", "lib2::conflict_ts2",
+						"lib2::t1", "lib2::t2", "lib2::ts1", "lib2::ts2", "lib3::conflict1", "lib3::conflict_ts1",
+						"lib3::t3", "lib3::ts3", "lib4::conflict1", "lib4::conflict_ts1", "lib4::t3", "lib4::t4",
+						"lib4::ts3", "lib4::ts4", "lib5::conflict1", "lib5::conflict2", "lib5::conflict_ts1",
+						"lib5::conflict_ts2", "lib5::t1", "lib5::ts1", "lib6::conflict1", "lib6::conflict2",
+						"lib6::conflict_ts1", "lib6::conflict_ts2", "lib6::t3", "lib6::t4", "lib6::t6", "lib6::ts3",
+						"lib6::ts4", "lib6::ts6"
 					]
 					propagations.head => [
 						"processor".assertEquals(kind)
