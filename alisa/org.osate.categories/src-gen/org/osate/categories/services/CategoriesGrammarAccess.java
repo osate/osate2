@@ -101,9 +101,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		/// **
+		///**
 		// * user selection  indicates a user defined selection categories  
-		// * / Category:
+		// */ Category:
 		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -271,9 +271,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoriesAccess().getRule();
 	}
 
-	/// **
+	///**
 	// * user selection  indicates a user defined selection categories  
-	// * / Category:
+	// */ Category:
 	//	name=ID;
 	public CategoryElements getCategoryAccess() {
 		return pCategory;
@@ -332,7 +332,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal ML_COMMENT:
-	//	'/ *'->'* /';
+	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
 	} 

@@ -388,7 +388,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.COMPUTE_REF__COMPUTE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getComputeRefAccess().getComputeComputeDeclarationIDTerminalRuleCall_0_1(), semanticObject.getCompute());
+		feeder.accept(grammarAccess.getComputeRefAccess().getComputeComputeDeclarationIDTerminalRuleCall_0_1(), semanticObject.eGet(VerifyPackage.Literals.COMPUTE_REF__COMPUTE, false));
 		feeder.finish();
 	}
 	
@@ -529,7 +529,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1(), semanticObject.getMethodReference());
+		feeder.accept(grammarAccess.getResoluteMethodAccess().getMethodReferenceFunctionDefinitionIDTerminalRuleCall_1_0_1(), semanticObject.eGet(VerifyPackage.Literals.RESOLUTE_METHOD__METHOD_REFERENCE, false));
 		feeder.finish();
 	}
 	
@@ -599,7 +599,7 @@ public class VerifySemanticSequencer extends CommonSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, VerifyPackage.Literals.REF_EXPR__VERIFICATION));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityIDTerminalRuleCall_1_0_1(), semanticObject.getVerification());
+		feeder.accept(grammarAccess.getVAReferenceAccess().getVerificationVerificationActivityIDTerminalRuleCall_1_0_1(), semanticObject.eGet(VerifyPackage.Literals.REF_EXPR__VERIFICATION, false));
 		feeder.finish();
 	}
 	

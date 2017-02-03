@@ -448,7 +448,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	issues+=ResultIssue*
 		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	metrics=Metrics ('message' message=STRING)?
-		//	']'
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'precondition' {PreconditionResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
@@ -591,7 +591,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	issues+=ResultIssue*
 		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 		//	metrics=Metrics ('message' message=STRING)?
-		//	']'
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'validation' {ValidationResult} target=[Verify::VerificationMethod|QualifiedName] '[' 'executionstate'
@@ -740,7 +740,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	metrics=Metrics ('message' message=STRING)?
 		//	preconditionResult=PreconditionResult?
 		//	validationResult=ValidationResult?
-		//	']'
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//'verification' {VerificationActivityResult} targetReference=QualifiedVAReference //target=[Verify::VerificationActivity|QualifiedName]
@@ -892,7 +892,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 		//	issues+=ResultIssue*
 		//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])?
 		//	metrics=Metrics ('message' message=STRING)?
-		//	']'
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
 		//{PredicateResult} 'predicate' targetReference=QualifiedClaimReference '[' 'executionstate'
@@ -2067,7 +2067,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	issues+=ResultIssue*
 	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	metrics=Metrics ('message' message=STRING)?
-	//	']'
+	//	']';
 	public PreconditionResultElements getPreconditionResultAccess() {
 		return pPreconditionResult;
 	}
@@ -2084,7 +2084,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	issues+=ResultIssue*
 	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])? // pointer to separate report
 	//	metrics=Metrics ('message' message=STRING)?
-	//	']'
+	//	']';
 	public ValidationResultElements getValidationResultAccess() {
 		return pValidationResult;
 	}
@@ -2104,7 +2104,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	metrics=Metrics ('message' message=STRING)?
 	//	preconditionResult=PreconditionResult?
 	//	validationResult=ValidationResult?
-	//	']'
+	//	']';
 	public VerificationActivityResultElements getVerificationActivityResultAccess() {
 		return pVerificationActivityResult;
 	}
@@ -2122,7 +2122,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	issues+=ResultIssue*
 	//	']')? ('report' resultReport=[results::ResultReport|QualifiedName])?
 	//	metrics=Metrics ('message' message=STRING)?
-	//	']'
+	//	']';
 	public PredicateResultElements getPredicateResultAccess() {
 		return pPredicateResult;
 	}
@@ -2348,7 +2348,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	| {aadl2::AadlReal} 'real' ('units' referencedUnitsType=[aadl2::UnitsType|AADLPROPERTYREFERENCE])?
 	//	| {aadl2::AadlString} 'string'
 	//	| {ModelRef} 'model' 'element'
-	//	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE]
+	//	| {TypeRef} ref=[aadl2::PropertyType|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.TypeRefElements getTypeRefAccess() {
 		return gaCommon.getTypeRefAccess();
 	}
@@ -2358,7 +2358,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//PropertyRef aadl2::PropertyType:
-	//	{PropertyRef} ref=[aadl2::Property|AADLPROPERTYREFERENCE]
+	//	{PropertyRef} ref=[aadl2::Property|AADLPROPERTYREFERENCE];
 	public CommonGrammarAccess.PropertyRefElements getPropertyRefAccess() {
 		return gaCommon.getPropertyRefAccess();
 	}
@@ -2369,7 +2369,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//ValDeclaration AVariableDeclaration:
 	//	{ValDeclaration} 'val' name=ID (':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-	//	type=PropertyRef) ']'))? '=' value=AExpression
+	//	type=PropertyRef) ']'))? '=' value=AExpression;
 	public CommonGrammarAccess.ValDeclarationElements getValDeclarationAccess() {
 		return gaCommon.getValDeclarationAccess();
 	}
@@ -2381,7 +2381,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//ComputeDeclaration AVariableDeclaration:
 	//	{ComputeDeclaration}
 	//	'compute' name=ID ':' (type=TypeRef | 'typeof' type=PropertyRef | range?='[' (type=TypeRef | 'typeof'
-	//	type=PropertyRef) ']')
+	//	type=PropertyRef) ']');
 	public CommonGrammarAccess.ComputeDeclarationElements getComputeDeclarationAccess() {
 		return gaCommon.getComputeDeclarationAccess();
 	}
@@ -2394,7 +2394,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//AModelOrPropertyReference AExpression:
 	//	AModelReference (=> ({APropertyReference.modelElementReference=current} '#')
 	//	property=[aadl2::AbstractNamedValue|AADLPROPERTYREFERENCE])?
-	//	| APropertyReference
+	//	| APropertyReference;
 	public CommonGrammarAccess.AModelOrPropertyReferenceElements getAModelOrPropertyReferenceAccess() {
 		return gaCommon.getAModelOrPropertyReferenceAccess();
 	}
@@ -2425,7 +2425,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AVariableReference AExpression:
-	//	{AVariableReference} variable=[AVariableDeclaration]
+	//	{AVariableReference} variable=[AVariableDeclaration];
 	public CommonGrammarAccess.AVariableReferenceElements getAVariableReferenceAccess() {
 		return gaCommon.getAVariableReferenceAccess();
 	}
@@ -2435,7 +2435,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ShowValue AUnitExpression:
-	//	expression=AVariableReference ((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral])?
+	//	expression=AVariableReference ((convert?='%' | drop?='in') unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.ShowValueElements getShowValueAccess() {
 		return gaCommon.getShowValueAccess();
 	}
@@ -2481,7 +2481,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AExpression aadl2::PropertyExpression:
-	//	AOrExpression
+	//	AOrExpression;
 	public CommonGrammarAccess.AExpressionElements getAExpressionAccess() {
 		return gaCommon.getAExpressionAccess();
 	}
@@ -2491,7 +2491,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AOrExpression aadl2::PropertyExpression:
-	//	AAndExpression (=> ({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*
+	//	AAndExpression (=> ({ABinaryOperation.left=current} operator=OpOr) right=AAndExpression)*;
 	public CommonGrammarAccess.AOrExpressionElements getAOrExpressionAccess() {
 		return gaCommon.getAOrExpressionAccess();
 	}
@@ -2501,7 +2501,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpOr Operation:
-	//	'or' | '||'
+	//	'or' | '||';
 	public CommonGrammarAccess.OpOrElements getOpOrAccess() {
 		return gaCommon.getOpOrAccess();
 	}
@@ -2511,7 +2511,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AAndExpression aadl2::PropertyExpression:
-	//	AEqualityExpression (=> ({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*
+	//	AEqualityExpression (=> ({ABinaryOperation.left=current} operator=OpAnd) right=AEqualityExpression)*;
 	public CommonGrammarAccess.AAndExpressionElements getAAndExpressionAccess() {
 		return gaCommon.getAAndExpressionAccess();
 	}
@@ -2521,7 +2521,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpAnd Operation:
-	//	'and' | '&&'
+	//	'and' | '&&';
 	public CommonGrammarAccess.OpAndElements getOpAndAccess() {
 		return gaCommon.getOpAndAccess();
 	}
@@ -2531,7 +2531,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AEqualityExpression aadl2::PropertyExpression:
-	//	ARelationalExpression (=> ({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*
+	//	ARelationalExpression (=> ({ABinaryOperation.left=current} operator=OpEquality) right=ARelationalExpression)*;
 	public CommonGrammarAccess.AEqualityExpressionElements getAEqualityExpressionAccess() {
 		return gaCommon.getAEqualityExpressionAccess();
 	}
@@ -2541,7 +2541,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpEquality Operation:
-	//	'==' | '!='
+	//	'==' | '!=';
 	public CommonGrammarAccess.OpEqualityElements getOpEqualityAccess() {
 		return gaCommon.getOpEqualityAccess();
 	}
@@ -2551,7 +2551,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ARelationalExpression aadl2::PropertyExpression:
-	//	AAdditiveExpression (=> ({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*
+	//	AAdditiveExpression (=> ({ABinaryOperation.left=current} operator=OpCompare) right=AAdditiveExpression)*;
 	public CommonGrammarAccess.ARelationalExpressionElements getARelationalExpressionAccess() {
 		return gaCommon.getARelationalExpressionAccess();
 	}
@@ -2561,7 +2561,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpCompare Operation:
-	//	'>=' | '<=' | '>' | '<' | '><'
+	//	'>=' | '<=' | '>' | '<' | '><';
 	public CommonGrammarAccess.OpCompareElements getOpCompareAccess() {
 		return gaCommon.getOpCompareAccess();
 	}
@@ -2585,7 +2585,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	////	| '<>'
 	////	| '?:';
 	//AAdditiveExpression aadl2::PropertyExpression:
-	//	AMultiplicativeExpression (=> ({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*
+	//	AMultiplicativeExpression (=> ({ABinaryOperation.left=current} operator=OpAdd) right=AMultiplicativeExpression)*;
 	public CommonGrammarAccess.AAdditiveExpressionElements getAAdditiveExpressionAccess() {
 		return gaCommon.getAAdditiveExpressionAccess();
 	}
@@ -2595,7 +2595,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpAdd Operation:
-	//	'+' | '-'
+	//	'+' | '-';
 	public CommonGrammarAccess.OpAddElements getOpAddAccess() {
 		return gaCommon.getOpAddAccess();
 	}
@@ -2605,7 +2605,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AMultiplicativeExpression aadl2::PropertyExpression:
-	//	AUnaryOperation (=> ({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*
+	//	AUnaryOperation (=> ({ABinaryOperation.left=current} operator=OpMulti) right=AUnaryOperation)*;
 	public CommonGrammarAccess.AMultiplicativeExpressionElements getAMultiplicativeExpressionAccess() {
 		return gaCommon.getAMultiplicativeExpressionAccess();
 	}
@@ -2615,7 +2615,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpMulti Operation:
-	//	'*' | '/' | 'div' | 'mod'
+	//	'*' | '/' | 'div' | 'mod';
 	public CommonGrammarAccess.OpMultiElements getOpMultiAccess() {
 		return gaCommon.getOpMultiAccess();
 	}
@@ -2625,7 +2625,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnaryOperation aadl2::PropertyExpression:
-	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | AUnitExpression
+	//	{AUnaryOperation} => operator=OpUnary operand=AUnaryOperation | AUnitExpression;
 	public CommonGrammarAccess.AUnaryOperationElements getAUnaryOperationAccess() {
 		return gaCommon.getAUnaryOperationAccess();
 	}
@@ -2635,7 +2635,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//OpUnary Operation:
-	//	"not" | "-" | "+"
+	//	"not" | "-" | "+";
 	public CommonGrammarAccess.OpUnaryElements getOpUnaryAccess() {
 		return gaCommon.getOpUnaryAccess();
 	}
@@ -2645,7 +2645,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AUnitExpression aadl2::PropertyExpression:
-	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?
+	//	APrimaryExpression ({AUnitExpression.expression=current} (convert?='%' | drop?='in')? unit=[aadl2::UnitLiteral])?;
 	public CommonGrammarAccess.AUnitExpressionElements getAUnitExpressionAccess() {
 		return gaCommon.getAUnitExpressionAccess();
 	}
@@ -2656,7 +2656,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 
 	//APrimaryExpression aadl2::PropertyExpression:
 	//	ALiteral | AVariableReference | AModelOrPropertyReference | AFunctionCall | ARangeExpression | AIfExpression
-	//	| AParenthesizedExpression
+	//	| AParenthesizedExpression;
 	public CommonGrammarAccess.APrimaryExpressionElements getAPrimaryExpressionAccess() {
 		return gaCommon.getAPrimaryExpressionAccess();
 	}
@@ -2666,7 +2666,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AFunctionCall aadl2::PropertyExpression:
-	//	{AFunctionCall} function=QualifiedName '(' (arguments+=AExpression (',' arguments+=AExpression)*)? ')'
+	//	{AFunctionCall} function=QualifiedName '(' (arguments+=AExpression (',' arguments+=AExpression)*)? ')';
 	public CommonGrammarAccess.AFunctionCallElements getAFunctionCallAccess() {
 		return gaCommon.getAFunctionCallAccess();
 	}
@@ -2676,7 +2676,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ARangeExpression aadl2::PropertyExpression:
-	//	{ARange} '[' minimum=AExpression '..' maximum=AExpression (=> 'delta' delta=AExpression)? ']'
+	//	{ARange} '[' minimum=AExpression '..' maximum=AExpression (=> 'delta' delta=AExpression)? ']';
 	public CommonGrammarAccess.ARangeExpressionElements getARangeExpressionAccess() {
 		return gaCommon.getARangeExpressionAccess();
 	}
@@ -2686,7 +2686,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AIfExpression aadl2::PropertyExpression:
-	//	{AConditional} 'if' if=AExpression 'then' then=AExpression ('else' else=AExpression)? 'endif'
+	//	{AConditional} 'if' if=AExpression 'then' then=AExpression ('else' else=AExpression)? 'endif';
 	public CommonGrammarAccess.AIfExpressionElements getAIfExpressionAccess() {
 		return gaCommon.getAIfExpressionAccess();
 	}
@@ -2696,7 +2696,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ALiteral aadl2::PropertyExpression:
-	//	ABooleanLiteral | ARealTerm | AIntegerTerm | StringTerm
+	//	ABooleanLiteral | ARealTerm | AIntegerTerm | StringTerm;
 	public CommonGrammarAccess.ALiteralElements getALiteralAccess() {
 		return gaCommon.getALiteralAccess();
 	}
@@ -2706,7 +2706,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AIntegerTerm aadl2::IntegerLiteral:
-	//	value=AInt
+	//	value=AInt;
 	public CommonGrammarAccess.AIntegerTermElements getAIntegerTermAccess() {
 		return gaCommon.getAIntegerTermAccess();
 	}
@@ -2716,7 +2716,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AInt aadl2::Integer:
-	//	INT
+	//	INT;
 	public CommonGrammarAccess.AIntElements getAIntAccess() {
 		return gaCommon.getAIntAccess();
 	}
@@ -2726,7 +2726,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//ARealTerm aadl2::RealLiteral:
-	//	value=AReal
+	//	value=AReal;
 	public CommonGrammarAccess.ARealTermElements getARealTermAccess() {
 		return gaCommon.getARealTermAccess();
 	}
@@ -2736,7 +2736,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AReal aadl2::Real:
-	//	REAL_LIT
+	//	REAL_LIT;
 	public CommonGrammarAccess.ARealElements getARealAccess() {
 		return gaCommon.getARealAccess();
 	}
@@ -2753,7 +2753,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	////	{AListTerm} '[' (elements+=AExpression (',' elements+=AExpression )*)? ']'
 	////;
 	//ABooleanLiteral aadl2::PropertyExpression:
-	//	{aadl2::BooleanLiteral} (value?='true' | 'false')
+	//	{aadl2::BooleanLiteral} (value?='true' | 'false');
 	public CommonGrammarAccess.ABooleanLiteralElements getABooleanLiteralAccess() {
 		return gaCommon.getABooleanLiteralAccess();
 	}
@@ -2763,7 +2763,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StringTerm aadl2::StringLiteral:
-	//	value=NoQuoteString
+	//	value=NoQuoteString;
 	public CommonGrammarAccess.StringTermElements getStringTermAccess() {
 		return gaCommon.getStringTermAccess();
 	}
@@ -2783,7 +2783,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//AParenthesizedExpression aadl2::PropertyExpression:
-	//	'(' AExpression ')'
+	//	'(' AExpression ')';
 	public CommonGrammarAccess.AParenthesizedExpressionElements getAParenthesizedExpressionAccess() {
 		return gaCommon.getAParenthesizedExpressionAccess();
 	}
@@ -2796,7 +2796,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	//	'abstract' | 'bus' | 'data'
 	//	| 'device' | 'memory' | 'process' | 'processor' | 'subprogram'
 	//	| 'subprogram' 'group' | 'system' | 'thread' 'group'
-	//	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor'
+	//	| 'thread' | 'virtual' 'bus' | 'virtual' 'processor';
 	public CommonGrammarAccess.ComponentCategoryElements getComponentCategoryAccess() {
 		return gaCommon.getComponentCategoryAccess();
 	}
@@ -2913,7 +2913,7 @@ public class AssureGrammarAccess extends AbstractGrammarElementFinder {
 	} 
 
 	//terminal ML_COMMENT:
-	//	'/ *'->'* /';
+	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
 	} 

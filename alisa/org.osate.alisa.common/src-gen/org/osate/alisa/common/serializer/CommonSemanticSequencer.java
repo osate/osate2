@@ -456,7 +456,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.APROPERTY_REFERENCE__PROPERTY));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAPropertyReferenceAccess().getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1(), semanticObject.getProperty());
+		feeder.accept(grammarAccess.getAPropertyReferenceAccess().getPropertyAbstractNamedValueAADLPROPERTYREFERENCEParserRuleCall_2_0_1(), semanticObject.eGet(CommonPackage.Literals.APROPERTY_REFERENCE__PROPERTY, false));
 		feeder.finish();
 	}
 	
@@ -626,7 +626,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.AVARIABLE_REFERENCE__VARIABLE));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationIDTerminalRuleCall_1_0_1(), semanticObject.getVariable());
+		feeder.accept(grammarAccess.getAVariableReferenceAccess().getVariableAVariableDeclarationIDTerminalRuleCall_1_0_1(), semanticObject.eGet(CommonPackage.Literals.AVARIABLE_REFERENCE__VARIABLE, false));
 		feeder.finish();
 	}
 	
@@ -698,7 +698,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.PROPERTY_REF__REF));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getPropertyRefAccess().getRefPropertyAADLPROPERTYREFERENCEParserRuleCall_1_0_1(), semanticObject.getRef());
+		feeder.accept(grammarAccess.getPropertyRefAccess().getRefPropertyAADLPROPERTYREFERENCEParserRuleCall_1_0_1(), semanticObject.eGet(CommonPackage.Literals.PROPERTY_REF__REF, false));
 		feeder.finish();
 	}
 	
@@ -862,7 +862,7 @@ public class CommonSemanticSequencer extends AbstractDelegatingSemanticSequencer
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, CommonPackage.Literals.TYPE_REF__REF));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getTypeRefAccess().getRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1(), semanticObject.getRef());
+		feeder.accept(grammarAccess.getTypeRefAccess().getRefPropertyTypeAADLPROPERTYREFERENCEParserRuleCall_5_1_0_1(), semanticObject.eGet(CommonPackage.Literals.TYPE_REF__REF, false));
 		feeder.finish();
 	}
 	
