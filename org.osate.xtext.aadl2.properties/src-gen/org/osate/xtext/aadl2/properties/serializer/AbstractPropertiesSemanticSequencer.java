@@ -199,7 +199,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getClassifierValue_Classifier()));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getComponentClassifierTermAccess().getClassifierComponentClassifierQCREFParserRuleCall_2_0_1(), semanticObject.getClassifier());
+		feeder.accept(grammarAccess.getComponentClassifierTermAccess().getClassifierComponentClassifierQCREFParserRuleCall_2_0_1(), semanticObject.eGet(Aadl2Package.eINSTANCE.getClassifierValue_Classifier(), false));
 		feeder.finish();
 	}
 	
@@ -237,7 +237,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedValue_NamedValue()));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getConstantValueAccess().getNamedValuePropertyConstantQPREFParserRuleCall_0_1(), semanticObject.getNamedValue());
+		feeder.accept(grammarAccess.getConstantValueAccess().getNamedValuePropertyConstantQPREFParserRuleCall_0_1(), semanticObject.eGet(Aadl2Package.eINSTANCE.getNamedValue_NamedValue(), false));
 		feeder.finish();
 	}
 	
@@ -308,7 +308,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getBasicPropertyAssociation_OwnedValue()));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyIDTerminalRuleCall_0_0_1(), semanticObject.getProperty());
+		feeder.accept(grammarAccess.getFieldPropertyAssociationAccess().getPropertyBasicPropertyIDTerminalRuleCall_0_0_1(), semanticObject.eGet(Aadl2Package.eINSTANCE.getBasicPropertyAssociation_Property(), false));
 		feeder.accept(grammarAccess.getFieldPropertyAssociationAccess().getOwnedValuePropertyExpressionParserRuleCall_2_0(), semanticObject.getOwnedValue());
 		feeder.finish();
 	}
@@ -355,7 +355,7 @@ public abstract class AbstractPropertiesSemanticSequencer extends AbstractDelega
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getNamedValue_NamedValue()));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
-		feeder.accept(grammarAccess.getLiteralorReferenceTermAccess().getNamedValueAbstractNamedValueQPREFParserRuleCall_0_1(), semanticObject.getNamedValue());
+		feeder.accept(grammarAccess.getLiteralorReferenceTermAccess().getNamedValueAbstractNamedValueQPREFParserRuleCall_0_1(), semanticObject.eGet(Aadl2Package.eINSTANCE.getNamedValue_NamedValue(), false));
 		feeder.finish();
 	}
 	
