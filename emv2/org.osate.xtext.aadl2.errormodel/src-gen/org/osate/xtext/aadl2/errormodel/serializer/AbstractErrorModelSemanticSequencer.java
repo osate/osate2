@@ -1387,7 +1387,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getSubcomponentElementAccess().getSubcomponentSubcomponentIDTerminalRuleCall_0_1(), semanticObject.getSubcomponent());
+		feeder.accept(grammarAccess.getSubcomponentElementAccess().getSubcomponentSubcomponentIDTerminalRuleCall_0_1(), semanticObject.eGet(ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT, false));
 		feeder.finish();
 	}
 	
