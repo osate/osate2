@@ -44,7 +44,7 @@ public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvide
 	}
 
 	@Override
-	public ContainerShape getOwnerShape(final Connection connection) {		
+	public ContainerShape getOwner(final Connection connection) {		
 		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape) {
 			ContainerShape temp = (ContainerShape)connection.getStart().getParent();
 			while(temp != null) {
@@ -61,7 +61,12 @@ public class FlowSpecificationInfoProvider extends AbstractConnectionInfoProvide
 	}	
 	
 	@Override
-	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {		
+	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {	
+		if(!(owner instanceof ContainerShape)) {
+			return null;
+		}
+		
+		final ContainerShape ownerShape = (ContainerShape)owner;
 		final FlowSpecification fs = (FlowSpecification)bo;
 		Anchor a1 = null;
 		Anchor a2 = null;

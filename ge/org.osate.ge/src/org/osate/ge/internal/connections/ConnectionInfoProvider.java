@@ -10,7 +10,7 @@ package org.osate.ge.internal.connections;
 
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
  * Should not be implemented. Implement AbstractConnectionInfoProvider instead
@@ -29,19 +29,13 @@ public interface ConnectionInfoProvider {
 	 * @return
 	 */
 	boolean isApplicable(final Connection connection);
-	
+
 	/**
-	 * Returns true if the connection should have a midpoint anchor.
-	 * @return
-	 */
-	boolean allowMidpointAnchor();
-	
-	/**
-	 * Returns the "owner" shape. That is, the shape that is responsible for updating the connection. Should be the same class that created the connection.
+	 * Returns the "owner" pictogram element. That is, the pictogram element that is responsible for updating the connection. Should be the same pictogram element that created the connection.
 	 * @param connection a fully created connection. It must have a business object associated with it and anchors should be set
 	 * @return
 	 */
-	ContainerShape getOwnerShape(final Connection connection);
+	PictogramElement getOwner(final Connection connection);
 
 	/**
 	 * Returns the anchors for the connection based on the specified owner shape
@@ -49,5 +43,5 @@ public interface ConnectionInfoProvider {
 	 * @param bo
 	 * @return an array containing the anchors or null if both anchors could not be found. The first element should be the start anchor and the second should be the end anchor.
 	 */
-	Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo);
+	Anchor[] getAnchors(final PictogramElement owner, final Object bo);
 }

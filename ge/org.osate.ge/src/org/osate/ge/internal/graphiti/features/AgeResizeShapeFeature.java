@@ -11,6 +11,7 @@ import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
 
@@ -21,12 +22,17 @@ import org.osate.ge.internal.services.PropertyService;
 public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 	private final PropertyService propertyService;
 	private final LayoutService layoutService;
+	private final ConnectionService connectionService;
 	
 	@Inject
-	public AgeResizeShapeFeature(final PropertyService propertyService, final LayoutService layoutService, final IFeatureProvider fp) {
+	public AgeResizeShapeFeature(final PropertyService propertyService, 
+			final LayoutService layoutService, 
+			final ConnectionService connectionService,
+			final IFeatureProvider fp) {
 		super(fp);
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");		
 		this.layoutService = Objects.requireNonNull(layoutService, "layoutService must not be null");
+		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 	}
 	
 	@Override
@@ -63,7 +69,6 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 		super.resizeShape(context);
 		layoutService.checkShapeBoundsWithAncestors(shape);
 		
-		// TODO: Update Connection Anchors
-		//updateConnectionAnchors(shape);	
+		connectionService.updateConnectionAnchors(shape);	
 	}
 }

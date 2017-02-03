@@ -12,7 +12,7 @@ public abstract class Query<A> {
 		this.prev = prev;
 	}
 	
-	final Query<A> getPrev() {
+	public final Query<A> getPrev() {
 		return prev;
 	}
 	

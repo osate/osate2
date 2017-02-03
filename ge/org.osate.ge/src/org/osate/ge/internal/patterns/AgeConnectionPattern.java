@@ -22,7 +22,6 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.AbstractConnectionPattern;
@@ -95,8 +94,8 @@ public abstract class AgeConnectionPattern extends AbstractConnectionPattern imp
 	
 	protected Anchor[] getAnchors(Connection connection) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-		final ContainerShape ownerShape = connectionService.getOwnerShape(connection);
-		return (ownerShape == null) ? null : connectionService.getAnchors(ownerShape, bo);	
+		final PictogramElement owner = connectionService.getOwner(connection);
+		return (owner == null) ? null : connectionService.getAnchors(owner, bo);	
 	}
 	
 	protected abstract boolean isMainBusinessObjectApplicable(final Object mainBusinessObject);

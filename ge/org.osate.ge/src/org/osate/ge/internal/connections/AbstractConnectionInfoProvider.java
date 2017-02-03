@@ -31,11 +31,6 @@ public abstract class AbstractConnectionInfoProvider implements ConnectionInfoPr
 		return this.bor;
 	}
 	
-	@Override
-	public boolean allowMidpointAnchor() {
-		return false;
-	}
-	
 	/**
 	 * Returns all connections in the diagram
 	 * @return

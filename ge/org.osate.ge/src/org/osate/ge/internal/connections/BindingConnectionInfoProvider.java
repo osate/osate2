@@ -15,6 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -47,7 +48,7 @@ public class BindingConnectionInfoProvider extends AbstractConnectionInfoProvide
 	}
 	
 	@Override
-	public ContainerShape getOwnerShape(final Connection connection) {
+	public ContainerShape getOwner(final Connection connection) {
 		if(connection.getStart() == null) {
 			return null;
 		}
@@ -61,7 +62,7 @@ public class BindingConnectionInfoProvider extends AbstractConnectionInfoProvide
 	}
 
 	@Override
-	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {
+	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {
 		// Not supported. The classifier will recreate the binding connection on every update.
 		return null;
 	}

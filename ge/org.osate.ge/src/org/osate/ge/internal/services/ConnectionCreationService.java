@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
 /**
  * Contains methods for creating Graphiti connections
@@ -20,5 +21,5 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 public interface ConnectionCreationService {
 	void createUpdateConnections(ContainerShape ownerShape,	List<?> businessObjects);
 
-	Connection createUpdateConnection(ContainerShape ownerShape, Object bo);
+	Connection createUpdateConnection(PictogramElement owner, Object bo);
 }

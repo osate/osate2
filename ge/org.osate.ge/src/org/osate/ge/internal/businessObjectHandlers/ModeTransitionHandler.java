@@ -1,5 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.stream.Stream;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.Aadl2Factory;
@@ -18,6 +20,7 @@ import org.osate.ge.di.Create;
 import org.osate.ge.di.CreateDestinationQuery;
 import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.CreateSourceQuery;
+import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
@@ -163,5 +166,10 @@ public class ModeTransitionHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
 		refactoringService.renameElement(mt, value);
+	}
+	
+	@GetChildren
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt) {
+		return mt.getOwnedTriggers().stream();
 	}
 }

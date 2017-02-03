@@ -12,7 +12,7 @@ import java.util.Collection;
 
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 /**
@@ -22,36 +22,35 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 public interface ConnectionService {
 	/**
 	 *
-	 * @param ownerShape
-	 * @return all connections owned by the specified shape
+	 * @param owner
+	 * @return all connections owned by the specified pictogram element
 	 */
-	Collection<Connection> getConnections(ContainerShape ownerShape);
+	Collection<Connection> getConnections(PictogramElement owner);
 	
-	Connection getConnection(ContainerShape ownerShape, Object bo);
+	Connection getConnection(PictogramElement owner, Object bo);
 
-	Anchor[] getAnchors(ContainerShape ownerShape, Object bo);
+	Anchor[] getAnchors(PictogramElement owner, Object bo);
 
-	ContainerShape getOwnerShape(Connection connection);
-	
+	PictogramElement getOwner(Connection connection);
+		
 	/**
-	 * Used to retrieve an anchor for the connection's midpoint.
-	 * @param connection
-	 * @return the anchor or null if the anchor does not exist
-	 */
-	Anchor getMidpointAnchor(Connection connection);
-	
-	/**
-	 * Helper for creating and updating a connection's midpoint anchor.
+	 * Updates a connection's midpoint anchor. Does not create an anchor if it doesn't exist.
 	 * @param connection
 	 */
-	void createUpdateMidpointAnchor(Connection connection);
+	void updateConnectionAnchor(Connection connection);
 	
 	/**
-	 * Updates connections that are connecting to anchors owned by the shape
+	 * Creates/Updates a connection's midpoint anchor. Creates the anchor if it doesn't exist.
+	 * @param connection
+	 */
+	Anchor createUpdateConnectionAnchor(Connection connection);
+	
+	/**
+	 * Updates connection anchors for all connections that are connected to the shape.
 	 * @param shape
 	 */
 	void updateConnectionAnchors(Shape shape);
 
 	// Called to notify the connection service of a new connection. Must be called to ensure cache contains all connections
-	void onConnectionCreated(final Shape ownerShape, final Object bo, final Connection c);
+	void onConnectionCreated(final PictogramElement owner, final Object bo, final Connection c);
 }

@@ -119,7 +119,7 @@ public class BoHandlerRefreshHelper {
 	}
 	
 	public PictogramElement refresh(final Object bo, final Object handler, PictogramElement pe, final int x, final int y, 
-			final ContainerShape addTargetContainer, final Anchor srcAnchor, final Anchor dstAnchor) {
+			final PictogramElement addTargetContainer, final Anchor srcAnchor, final Anchor dstAnchor) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		
 		if(pe == null && addTargetContainer == null) {
@@ -129,7 +129,7 @@ public class BoHandlerRefreshHelper {
 		// Determine the logical parent
 		final PictogramElement logicalParent;
 		if(pe == null) {
-			logicalParent = AgeFeatureUtil.getLogicalPictogramElement(addTargetContainer, propertyService);
+			logicalParent = AgeFeatureUtil.getLogicalPictogramElement(addTargetContainer, propertyService, connectionService);
 		} else {
 			logicalParent = AncestorUtil.getParent(pe, propertyService, connectionService);
 		}
@@ -152,7 +152,7 @@ public class BoHandlerRefreshHelper {
 				return pe;
 			}
 			
-			final ContainerShape childContainer; // Container for any children
+			final PictogramElement childContainer; // Container for any children
 			// Source and destination anchors must be set for connections
 			if(gr instanceof AgeConnection && (srcAnchor == null || dstAnchor == null)) {
 				return null;
@@ -180,16 +180,18 @@ public class BoHandlerRefreshHelper {
 					
 					Graphiti.getGaService().createPlainPolyline(pe);
 				}
-				childContainer = null;				
-				
+				childContainer = pe;				
 			} else if(pe == null) {
 				if(gr == null) {
 					pe = null;
 					childContainer = addTargetContainer;
 				} else {
 					if(gr instanceof AgeShape) {
+						if(!(addTargetContainer instanceof ContainerShape)) {
+							throw new RuntimeException("The container of a shape must be a shape");
+						}
 				        // Create the container shape
-						pe = childContainer = peCreateService.createContainerShape(addTargetContainer, true);
+						pe = childContainer = peCreateService.createContainerShape((ContainerShape)addTargetContainer, true);
 					} else {
 						throw new RuntimeException("Unsupported object: " + gr);
 					}
@@ -561,7 +563,7 @@ public class BoHandlerRefreshHelper {
 		}
 	}
 	
-	private void createUpdateChild(final IEclipseContext eclipseCtx, final ContainerShape containerShape, final DiagramElementProxy logicalContainer, final Object childBo) {
+	private void createUpdateChild(final IEclipseContext eclipseCtx, final PictogramElement container, final DiagramElementProxy logicalContainer, final Object childBo) {
 		final Object childBoHandler = extService.getApplicableBusinessObjectHandler(childBo);
 		if(childBoHandler != null) {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			
@@ -569,9 +571,12 @@ public class BoHandlerRefreshHelper {
 			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, logicalContainer);
 			final Object gr = ContextInjectionFactory.invoke(childBoHandler, GetGraphic.class, eclipseCtx, null);
 			if(gr instanceof AgeShape || gr == null) { // Handle null graphic to allow for business object handlers which are just containers but have no graphical representation.
-				shapeCreationService.createUpdateShape(containerShape, childBo);
+				if(!(container instanceof ContainerShape)) {
+					throw new RuntimeException("Container of shape must be a container shape");
+				}
+				shapeCreationService.createUpdateShape((ContainerShape)container, childBo);
 			} else if(gr instanceof AgeConnection) {
-				connectionCreationService.createUpdateConnection(containerShape, childBo);
+				connectionCreationService.createUpdateConnection(container, childBo);
 			} else {
 				throw new RuntimeException("Unsupported graphical representation: " + gr + " for " + childBo);
 			}

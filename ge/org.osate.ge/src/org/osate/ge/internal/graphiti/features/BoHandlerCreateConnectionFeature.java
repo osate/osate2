@@ -25,6 +25,7 @@ import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -35,17 +36,19 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 	private final AadlModificationService aadlModService;
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
+	private final ConnectionService connectionService;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
 	public BoHandlerCreateConnectionFeature(final ExtensionService extService, final AadlModificationService aadlModService, 
-			final BusinessObjectResolutionService bor, final PropertyService propertyService, final IFeatureProvider fp, 
+			final BusinessObjectResolutionService bor, final PropertyService propertyService, final ConnectionService connectionService, final IFeatureProvider fp, 
 			final SimplePaletteEntry paletteEntry, final Object boHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
+		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.paletteEntry = Objects.requireNonNull(paletteEntry, "paletteEntry must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 	}
@@ -71,7 +74,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
-			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService)));
+			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
 			
 			return (boolean)ContextInjectionFactory.invoke(handler, CanStartConnection.class, eclipseCtx, false);			
 		} finally {
@@ -97,9 +100,9 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
-			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService)));
+			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
-			eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService)));
+			eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService, connectionService)));
 			
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);			
 		} finally {
@@ -126,9 +129,9 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
-			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService)));
+			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
-			eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService)));					
+			eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService, connectionService)));					
 			
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
 			if(ownerBo == null) {

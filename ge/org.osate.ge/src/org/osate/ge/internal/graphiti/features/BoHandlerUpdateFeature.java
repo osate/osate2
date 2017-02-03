@@ -13,7 +13,6 @@ import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
@@ -73,8 +72,8 @@ public class BoHandlerUpdateFeature extends AbstractUpdateFeature implements ICu
 		// Determine the source and destination anchors for connections
 		final Anchor srcAnchor, dstAnchor;
 		if(pe instanceof Connection) {
-			final ContainerShape ownerShape = connectionService.getOwnerShape((Connection)pe);
-			final Anchor[] anchors = ownerShape == null ? null : connectionService.getAnchors(ownerShape, bo);	
+			final PictogramElement owner = connectionService.getOwner((Connection)pe);
+			final Anchor[] anchors = owner == null ? null : connectionService.getAnchors(owner, bo);	
 			srcAnchor = anchors == null ? null : anchors[0];
 			dstAnchor = anchors == null ? null : anchors[1];
 		} else {

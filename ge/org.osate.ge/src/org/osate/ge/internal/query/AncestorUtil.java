@@ -25,7 +25,7 @@ public class AncestorUtil {
 			if(pe instanceof Shape) {
 				pe = ((Shape) pe).getContainer();
 			} else if(pe instanceof Connection) {
-				pe = connectionService.getOwnerShape((Connection)pe);
+				pe = connectionService.getOwner((Connection)pe);
 			} else {
 				throw new RuntimeException("Unhandled pictoram element: " + pe);
 			}

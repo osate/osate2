@@ -25,6 +25,7 @@ import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
@@ -38,11 +39,12 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	private final AadlModificationService aadlModService;
 	private final ShapeService shapeService;
 	private final PropertyService propertyService;
+	private final ConnectionService connectionService;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
 	public BoHandlerCreateFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final AadlModificationService aadlModService, 
-			final ShapeService shapeService, final PropertyService propertyService, final IFeatureProvider fp, final SimplePaletteEntry paletteEntry, 
+			final ShapeService shapeService, final PropertyService propertyService, final ConnectionService connectionService, final IFeatureProvider fp, final SimplePaletteEntry paletteEntry, 
 			final Object boHandler) {
 		super(fp, paletteEntry.getLabel(), "");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
@@ -50,6 +52,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.shapeService = Objects.requireNonNull(shapeService, "shapeService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
+		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.paletteEntry = Objects.requireNonNull(paletteEntry, "paletteEntry must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 	}
@@ -128,7 +131,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	}
 	
 	private EObject getOwnerBo(final Object targetBo, PictogramElement targetPe) {
-		targetPe = AgeFeatureUtil.getLogicalPictogramElement(targetPe, propertyService);
+		targetPe = AgeFeatureUtil.getLogicalPictogramElement(targetPe, propertyService, connectionService);
 		if(targetPe == null) {
 			return null;
 		}

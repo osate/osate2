@@ -151,14 +151,17 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
 	private Map<Shape, List<Connection>> buildShapeToConnectionMap(final Diagram diagram) {
 		final Map<Shape, List<Connection>> results = new HashMap<Shape, List<Connection>>();
 		for(final Connection c : diagram.getConnections()) {
-			final Shape ownerShape = connectionService.getOwnerShape(c);
-			List<Connection> shapeConnections = results.get(ownerShape);
-			if(shapeConnections == null) {
-				shapeConnections = new ArrayList<Connection>();
-				results.put(ownerShape, shapeConnections);
+			final PictogramElement owner = connectionService.getOwner(c);
+			if(owner instanceof Shape) {
+				final Shape ownerShape = (Shape)owner;
+				List<Connection> shapeConnections = results.get(ownerShape);
+				if(shapeConnections == null) {
+					shapeConnections = new ArrayList<Connection>();
+					results.put(ownerShape, shapeConnections);
+				}
+				
+				shapeConnections.add(c);			
 			}
-			
-			shapeConnections.add(c);			
 		}
 		
 		return results;

@@ -180,7 +180,7 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 	}
 	
 	private void updateAnchors(final Connection connection) {
-		connectionService.createUpdateMidpointAnchor(connection);
+		connectionService.updateConnectionAnchor(connection);
 	}
 	
 	@Override

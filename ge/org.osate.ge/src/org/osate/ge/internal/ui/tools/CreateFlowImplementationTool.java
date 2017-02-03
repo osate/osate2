@@ -201,42 +201,46 @@ public class CreateFlowImplementationTool {
 								} else if(selectedPes.length == 1) {
 									// Get the selected pictogram
 									PictogramElement pe = selectedPes[0];
-									Shape shape = null;
+									PictogramElement owner = null;
 									if (pe instanceof Connection) {
-										shape = connectionService.getOwnerShape((Connection)pe);
+										owner = connectionService.getOwner((Connection)pe);
 									} else if (pe instanceof ConnectionDecorator) {
 										final ConnectionDecorator cd = ((ConnectionDecorator)pe);
 										pe = cd.getConnection();
-										shape = connectionService.getOwnerShape((Connection)pe);
-									} else if (shape == null && pe instanceof Shape) {
-										shape = (Shape)pe;
+										owner = connectionService.getOwner((Connection)pe);
+									} else if (pe instanceof Shape) {
+										owner = (Shape)pe;
 									}
-	
-									// Get the business object
-									final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-									final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-									String error = null;
-									if (pe != null && !(pe instanceof Diagram)) {
-										if(dlg.addSelectedElement(bo, context)) {
-											if ( areEquivalent(bo, dlg.getFlow().getSpecification())) {
-												coloring.setForeground(pe, Color.ORANGE.darker());
-											} else if (bo instanceof ModeFeature) {
-												coloring.setForeground(pe, Color.MAGENTA.brighter());
-											} else {
-												coloring.setForeground(pe, Color.MAGENTA.darker());
-											}
-											previouslySelectedPes.add(pe);
-										} else {
-											error = "Invalid element selected. ";							
-										}
-									} 
 									
-									if(error == null) {
-										dlg.setErrorMessage(null);
-										dlg.setMessage(getDialogMessage());
-									} else {
-										dlg.setErrorMessage(error + " " + getDialogMessage());
-									}
+									if(owner instanceof Shape) {
+										final Shape ownerShape = (Shape)owner;	
+										
+										// Get the business object
+										final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+										final Context context = shapeService.getClosestBusinessObjectOfType(ownerShape, Context.class);
+										String error = null;
+										if (pe != null && !(pe instanceof Diagram)) {
+											if(dlg.addSelectedElement(bo, context)) {
+												if ( areEquivalent(bo, dlg.getFlow().getSpecification())) {
+													coloring.setForeground(pe, Color.ORANGE.darker());
+												} else if (bo instanceof ModeFeature) {
+													coloring.setForeground(pe, Color.MAGENTA.brighter());
+												} else {
+													coloring.setForeground(pe, Color.MAGENTA.darker());
+												}
+												previouslySelectedPes.add(pe);
+											} else {
+												error = "Invalid element selected. ";							
+											}
+										} 
+										
+										if(error == null) {
+											dlg.setErrorMessage(null);
+											dlg.setMessage(getDialogMessage());
+										} else {
+											dlg.setErrorMessage(error + " " + getDialogMessage());
+										}
+									}									
 								}
 							}
 						}

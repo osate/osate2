@@ -494,7 +494,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, propertyService, this, simpleEntry, boHandler));
+							features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, propertyService, connectionService, this, simpleEntry, boHandler));
 						}
 					}
 				}
@@ -564,7 +564,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, propertyService, this, simpleEntry, boHandler));
+							retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, propertyService, connectionService, this, simpleEntry, boHandler));
 						}
 					}
 				}
@@ -606,7 +606,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		@Override
 		public boolean moveBendpoint(final IMoveBendpointContext ctx) {
 			boolean result = super.moveBendpoint(ctx);			
-			connectionService.createUpdateMidpointAnchor(ctx.getConnection());						
+			connectionService.updateConnectionAnchor(ctx.getConnection());						
 			return result;
 		}
 	};
@@ -625,7 +625,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		@Override
 		public void addBendpoint(final IAddBendpointContext ctx) {
 			super.addBendpoint(ctx);			
-			connectionService.createUpdateMidpointAnchor(ctx.getConnection());						
+			connectionService.updateConnectionAnchor(ctx.getConnection());						
 		}
 	};
 	
@@ -643,7 +643,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		@Override
 		public void removeBendpoint(final IRemoveBendpointContext ctx) {
 			super.removeBendpoint(ctx);			
-			connectionService.createUpdateMidpointAnchor(ctx.getConnection());						
+			connectionService.updateConnectionAnchor(ctx.getConnection());						
 		}
 	};
 	

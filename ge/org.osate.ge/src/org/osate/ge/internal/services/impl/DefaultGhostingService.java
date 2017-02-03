@@ -54,8 +54,10 @@ public class DefaultGhostingService implements GhostingService {
 	}	
 	
 	@Override
-	public void ghostChildren(final ContainerShape container) {
-		ghostChildShapes(container);
+	public void ghostChildren(PictogramElement container) {
+		if(container instanceof ContainerShape) {
+			ghostChildShapes((ContainerShape)container);
+		}
 		ghostOwnedConnections(container);
 	}
 	
@@ -77,12 +79,12 @@ public class DefaultGhostingService implements GhostingService {
 	}
 	
 	@Override
-	public final void ghostOwnedConnections(final ContainerShape shape) {
+	public final void ghostOwnedConnections(final PictogramElement pe) {
 		// Populate the list with connections that are owned by the specified shape
 		final List<Connection> connectionsToDelete = new ArrayList<Connection>();
 		for(final Connection c : getDiagram().getConnections()) {
-			final ContainerShape owner = connectionService.getOwnerShape(c);
-			if(owner == shape || owner == null) {
+			final PictogramElement owner = connectionService.getOwner(c);
+			if(owner == pe || owner == null) {
 				// Remove transient connections instead of ghosting because they are never resurrected and will otherwise result in a large number of ghosted connections.
 				if(propertyService.isTransient(c)) {
 					connectionsToDelete.add(c);

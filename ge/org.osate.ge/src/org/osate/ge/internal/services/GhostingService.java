@@ -22,9 +22,9 @@ public interface GhostingService {
 	void setIsGhost(PictogramElement pe, boolean isGhost);
 	
 	/**
-	 * Helper method which combines ghostChildShapes() and ghostOwnedConnections()
+	 * Helper method which combines ghostChildShapes() and ghostOwnedConnections() as applicable
 	 */
-	void ghostChildren(ContainerShape container);
+	void ghostChildren(PictogramElement container);
 	
 	/**
 	 * Ghosts all child shapes and deletes transient shapes.
@@ -34,5 +34,5 @@ public interface GhostingService {
 	/**
 	 * Ghosts all connections owned by the shape and any connections for which an owner cannot be determined. Deletes transient connections
 	 */
-	void ghostOwnedConnections(final ContainerShape shape);
+	void ghostOwnedConnections(final PictogramElement pe);
 }

@@ -9,7 +9,7 @@
 package org.osate.ge.query;
 
 /**
- * Provides access to the arguments used by filter query results using {@link DiagramElementQuery#filter(java.util.function.Predicate)}. 
+ * Provides access to the arguments used to filter query results using {@link DiagramElementQuery#filter(java.util.function.Predicate)}. 
  * @param <A> the type of the query argument
  * @noextend
  * @noimplement

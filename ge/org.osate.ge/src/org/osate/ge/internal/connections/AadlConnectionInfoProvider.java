@@ -44,12 +44,7 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	}
 	
 	@Override
-	public boolean allowMidpointAnchor() {
-		return true;
-	}		
-
-	@Override
-	public ContainerShape getOwnerShape(final Connection connection) {
+	public ContainerShape getOwner(final Connection connection) {
 		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape && 
 			connection.getEnd() != null && connection.getEnd().getParent() instanceof ContainerShape) {
 			
@@ -78,7 +73,12 @@ public class AadlConnectionInfoProvider extends AbstractConnectionInfoProvider {
 	}
 	
 	@Override
-	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {
+	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {
+		if(!(owner instanceof ContainerShape)) {
+			return null;
+		}
+		
+		final ContainerShape ownerShape = (ContainerShape)owner;
 		final org.osate.aadl2.Connection connection = (org.osate.aadl2.Connection)bo;
 		Anchor a1 = null;
 		Anchor a2 = null;

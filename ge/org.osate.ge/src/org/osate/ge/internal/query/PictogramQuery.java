@@ -54,4 +54,10 @@ public abstract class PictogramQuery<A> extends Query<A> implements DiagramEleme
 		
 		return new CommonAncestorsQuery<A>(this, (PictogramQuery<A>)q2);
 	}
+	
+	public PictogramQuery<A> ifElse(Supplier<ConditionArguments<A>, Boolean> cond, 
+			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> trueQuerySupplier,
+			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> falseQuerySupplier) {
+		return new IfElseQuery<A>(this, cond, trueQuerySupplier, falseQuerySupplier);
+	}
 }

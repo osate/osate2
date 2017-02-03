@@ -34,6 +34,7 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.internal.businessObjectHandlers.ProjectOverview;
 import org.osate.ge.internal.patterns.SubprogramCallOrder;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
 
@@ -53,7 +54,9 @@ public class DeclarativeReferenceBuilder {
 	public final static String TYPE_FLOW_SPECIFICATION = "flow_specification";
 	public final static String TYPE_CONNECTION = "connection";
 	public final static String TYPE_MODE = "mode";
-	public final static String TYPE_MODE_TRANSITION = "mode_transition";
+	public final static String TYPE_MODE_TRANSITION_UNNAMED = "mode_transition";
+	public final static String TYPE_MODE_TRANSITION_NAMED = "mt";
+	public final static String TYPE_MODE_TRANSITION_TRIGGER = "mtt";
 	public final static String TYPE_SUBPROGRAM_CALL_SEQUENCE = "subprogram_call_sequence";
 	public final static String TYPE_SUBPROGRAM_CALL = "subprogram_call";
 	public final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
@@ -61,7 +64,7 @@ public class DeclarativeReferenceBuilder {
 	public final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 
 	@BuildReference
-	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
 		if(bo instanceof AadlPackage) {
 			return new String[] {TYPE_PACKAGE, ((AadlPackage)bo).getQualifiedName()};				
 		} else if(bo instanceof Classifier) {
@@ -89,7 +92,16 @@ public class DeclarativeReferenceBuilder {
 		} else if(bo instanceof Mode) {
 			return new String[] {TYPE_MODE, ((Mode)bo).getQualifiedName()};
 		} else if(bo instanceof ModeTransition) {
-			return buildModeTransitionKey((ModeTransition)bo);
+			final ModeTransition mt = (ModeTransition)bo;
+			final String name = mt.getName();
+			if(name == null) {
+				return buildUnnamedModeTransitionKey((ModeTransition)bo);
+			} else {
+				return new String[] {TYPE_MODE_TRANSITION_NAMED, refBuilder.getReference(mt.eContainer()), getNameForSerialization(mt)};
+			}
+		} else if(bo instanceof ModeTransitionTrigger) {
+			final ModeTransitionTrigger mtt = (ModeTransitionTrigger)bo;
+			return new String[] {TYPE_MODE_TRANSITION_TRIGGER, refBuilder.getReference(mtt.eContainer()), getNameForSerialization(mtt.getContext()), getNameForSerialization(mtt.getTriggerPort())};
 		} else if(bo instanceof SubprogramCallSequence) {
 			return new String[] {TYPE_SUBPROGRAM_CALL_SEQUENCE, ((SubprogramCallSequence)bo).getQualifiedName()};
 		} else if(bo instanceof SubprogramCall) {
@@ -122,15 +134,15 @@ public class DeclarativeReferenceBuilder {
 		}
 	}
 
-	private static String getNameForSerialization(final NamedElement ne) {
+	public static String getNameForSerialization(final NamedElement ne) {
 		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}
 	
-	static String[] buildModeTransitionKey(final ModeTransition mt) {
+	static String[] buildUnnamedModeTransitionKey(final ModeTransition mt) {
 		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
 		final String[] key = new String[5 + (triggers.size() * 2)];
 		int index = 0;
-		key[index++] = TYPE_MODE_TRANSITION;
+		key[index++] = TYPE_MODE_TRANSITION_UNNAMED;
 		key[index++] = mt.getContainingClassifier().getQualifiedName();
 		key[index++] = getNameForSerialization(mt);
 		key[index++] = getNameForSerialization(mt.getSource());
@@ -142,7 +154,7 @@ public class DeclarativeReferenceBuilder {
 
 		return key;
 	}
-			
+	
 	/**
 	 * Get the package in which the annex library is contained.
 	 * @param annex

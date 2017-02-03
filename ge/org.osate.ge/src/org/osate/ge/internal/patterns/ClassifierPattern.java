@@ -340,11 +340,6 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		// Ghost children
 		ghostingService.ghostChildren(shape);
 		
-		// Ghost descendant connections if contents should not be shown. Flow specs will be unghosted when they are updated.
-		if(!showContents) {
-			ghostDescendantConnections(shape);
-		}
-		
 		final Classifier classifier = getClassifier(shape);
 		if(classifier != null) {
 			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(classifier));
@@ -659,7 +654,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 			if(pe.getNamedElement() instanceof org.osate.aadl2.Connection) {
 				if(pe.getNamedElement().getName() != null) {
 					for(Connection c : getDiagram().getConnections()) {
-						if(shape == connectionService.getOwnerShape(c)) {
+						if(shape == connectionService.getOwner(c)) {
 							final Object connectionBo = bor.getBusinessObjectForPictogramElement(c);
 							if(connectionBo instanceof org.osate.aadl2.Connection && 
 									pe.getNamedElement().getName().equalsIgnoreCase(((org.osate.aadl2.Connection)connectionBo).getName()) && 
@@ -688,7 +683,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 		if(pe instanceof Shape) {
 			return Graphiti.getPeService().getChopboxAnchor((Shape)pe);
 		} else if(pe instanceof Connection) {
-			return connectionService.getMidpointAnchor((Connection)pe);
+			return null;//connectionService.getMidpointAnchor((Connection)pe); // TODO: Disabled because of rework
 		} else {
 			return null;
 		}
@@ -711,30 +706,7 @@ public class ClassifierPattern extends AgePattern implements Categorized {
 	    return ga;
 	}	
 	
-	// End Binding Handling
-
-	// Ghost all connections that are owned by the shape or descendants
-	private void ghostDescendantConnections(final Shape shape) {
-		for(final Connection c : getDiagram().getConnections()) {
-			final Shape ownerShape = connectionService.getOwnerShape(c);
-			if(isDescendantOrSame(shape, ownerShape)) {
-				ghostingService.setIsGhost(c,  true);
-			}
-		}
-	}
-	
-	private boolean isDescendantOrSame(final Shape container, Shape shapeToCheck) {
-		while(shapeToCheck != null) {
-			if(shapeToCheck == container) {
-				return true;
-			}
-			
-			shapeToCheck = shapeToCheck.getContainer();
-		}
-
-		return false;
-	}
-	
+	// End Binding Handling	
 	private Shape getLabelShape(final ContainerShape shape) {
 		return shapeService.getChildShapeByName(shape, labelShapeName);
 	}

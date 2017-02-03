@@ -25,7 +25,7 @@ public interface AnchorService {
 
 	ChopboxAnchor createOrUpdateChopboxAnchor(AnchorContainer container, String name);
 
-	FixPointAnchor createOrUpdateFixPointAnchor(AnchorContainer shape, String name, int x, int y);
+	FixPointAnchor createOrUpdateFixPointAnchor(AnchorContainer shape, String name, int x, int y, boolean updateOnly);
 
 	/**
 	 * Removes anchors from a shape if they do not have connections. Not recursive.

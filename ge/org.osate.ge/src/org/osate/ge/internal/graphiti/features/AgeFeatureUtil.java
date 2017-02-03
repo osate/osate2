@@ -1,19 +1,20 @@
 package org.osate.ge.internal.graphiti.features;
 
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.query.AncestorUtil;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.PropertyService;
 
 class AgeFeatureUtil {
-	public static PictogramElement getLogicalPictogramElement(PictogramElement pe, final PropertyService propertyService){
-		while(pe instanceof Shape) {
-			if(propertyService.isLogicalTreeNode(pe)) {
-				break;
-			}
-			
-			pe = ((Shape)pe).getContainer();
+	public static PictogramElement getLogicalPictogramElement(PictogramElement pe, final PropertyService propertyService, final ConnectionService connectionService){
+		if(pe == null) {
+			return null;
 		}
 		
-		return pe;
+		if(propertyService.isLogicalTreeNode(pe)) {
+			return pe;
+		}
+		
+		return AncestorUtil.getParent(pe, propertyService, connectionService);
 	}
 }

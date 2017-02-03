@@ -13,6 +13,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IPeService;
@@ -36,7 +37,7 @@ public class SubprogramCallOrderInfoProvider extends AbstractConnectionInfoProvi
 	}
 
 	@Override
-	public ContainerShape getOwnerShape(final Connection connection) {
+	public ContainerShape getOwner(final Connection connection) {
 		if(connection.getStart() != null && connection.getStart().getParent() instanceof ContainerShape) {
 			// The anchor's parent should be the subprogram call shape
 			final ContainerShape callShape = (ContainerShape)connection.getStart().getParent();
@@ -56,7 +57,12 @@ public class SubprogramCallOrderInfoProvider extends AbstractConnectionInfoProvi
 	}	
 	
 	@Override
-	public Anchor[] getAnchors(final ContainerShape ownerShape, final Object bo) {	
+	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {
+		if(!(owner instanceof ContainerShape)) {
+			return null;
+		}
+		
+		final ContainerShape ownerShape = (ContainerShape)owner;
 		final SubprogramCallOrder sco = (SubprogramCallOrder)bo;
 		
 		Anchor a1 = null;

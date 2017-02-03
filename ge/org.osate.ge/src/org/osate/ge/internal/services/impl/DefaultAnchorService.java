@@ -74,7 +74,7 @@ public class DefaultAnchorService implements AnchorService {
 	 * @see org.osate.ge.diagrams.common.util.AnchorService#createOrUpdateFixPointAnchor(org.eclipse.graphiti.mm.pictograms.AnchorContainer, java.lang.String, int, int)
 	 */
 	@Override
-	public FixPointAnchor createOrUpdateFixPointAnchor(final AnchorContainer shape, final String name, final int x, final int y) {
+	public FixPointAnchor createOrUpdateFixPointAnchor(final AnchorContainer shape, final String name, final int x, final int y, boolean updateOnly) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 		final IGaService gaService = Graphiti.getGaService();
 		
@@ -82,6 +82,10 @@ public class DefaultAnchorService implements AnchorService {
 		final Anchor retrievedAnchor = getAnchorByName(shape, name);
 		final FixPointAnchor anchor;
 		if(retrievedAnchor == null) {
+			if(updateOnly) {
+				return null;
+			}
+			
 			anchor = peCreateService.createFixPointAnchor(shape);
 			propertyUtil.setName(anchor, name);
 			// Theoretically this could be done for the retrieved anchor as well to ensure it has the proper graphical algorithm. Practically it causes problem for Graphiti

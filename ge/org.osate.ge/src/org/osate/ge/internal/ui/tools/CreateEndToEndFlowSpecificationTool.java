@@ -196,38 +196,41 @@ public class CreateEndToEndFlowSpecificationTool {
 								} else if(selectedPes.length == 1) {
 									// Get the selected pictogram
 									PictogramElement pe = selectedPes[0];
-									Shape shape = null;
+									PictogramElement owner = null;
 									if (pe instanceof Connection) {
-										shape = connectionService.getOwnerShape((Connection)pe);
+										owner = connectionService.getOwner((Connection)pe);
 									} else if (pe instanceof ConnectionDecorator) {
 										final ConnectionDecorator cd = ((ConnectionDecorator)pe);
 										pe = cd.getConnection();
-										shape = connectionService.getOwnerShape((Connection)pe);
+										owner = connectionService.getOwner((Connection)pe);
 									}
 				
-									final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-									final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-				
-									if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
-										String error = null;
-										if (dlg.addSelectedElement((Element)bo, context)) {
-											if (bo instanceof ModeFeature) {
-												coloring.setForeground(pe, Color.MAGENTA.brighter());
-											} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
-												coloring.setForeground(pe, Color.ORANGE.darker());
+									if(owner instanceof Shape) {
+										Shape ownerShape = (Shape)owner;
+										final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+										final Context context = shapeService.getClosestBusinessObjectOfType(ownerShape, Context.class);
+					
+										if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
+											String error = null;
+											if (dlg.addSelectedElement((Element)bo, context)) {
+												if (bo instanceof ModeFeature) {
+													coloring.setForeground(pe, Color.MAGENTA.brighter());
+												} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
+													coloring.setForeground(pe, Color.ORANGE.darker());
+												} else {
+													coloring.setForeground(pe, Color.MAGENTA.darker());
+												}
+												previouslySelectedPes.add(pe);
 											} else {
-												coloring.setForeground(pe, Color.MAGENTA.darker());
+												error = "Invalid element selected. ";
 											}
-											previouslySelectedPes.add(pe);
-										} else {
-											error = "Invalid element selected. ";
-										}
-										
-										if(error == null) {
-											dlg.setErrorMessage(null);
-											dlg.setMessage(getDialogMessage());
-										} else {
-											dlg.setErrorMessage(error + " " + getDialogMessage());
+											
+											if(error == null) {
+												dlg.setErrorMessage(null);
+												dlg.setMessage(getDialogMessage());
+											} else {
+												dlg.setErrorMessage(error + " " + getDialogMessage());
+											}
 										}
 									}
 								}

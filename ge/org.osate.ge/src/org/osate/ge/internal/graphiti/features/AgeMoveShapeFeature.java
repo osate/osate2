@@ -15,6 +15,7 @@ import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
 
@@ -22,13 +23,19 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
 	private final LayoutService layoutService;
+	private final ConnectionService connectionService;
 	
 	@Inject
-	public AgeMoveShapeFeature(final BusinessObjectResolutionService bor, final PropertyService propertyService, final LayoutService layoutService, final IFeatureProvider fp) {
+	public AgeMoveShapeFeature(final BusinessObjectResolutionService bor, 
+			final PropertyService propertyService, 
+			final LayoutService layoutService, 
+			final ConnectionService connectionService,
+			final IFeatureProvider fp) {
 		super(fp);
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");		
 		this.layoutService = Objects.requireNonNull(layoutService, "layoutService must not be null");
+		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 	}
 	
 	@Override
@@ -97,9 +104,9 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 		} else {
 			layoutService.checkShapeBoundsWithAncestors(shape);
 		}
-				
-        // TODO: Update connection anchors when they are supported in business object handlers
-		//connectionService.updateConnectionAnchors(shape);
+		
+        // Update connection anchors
+		connectionService.updateConnectionAnchors(shape);
 	}
 	
 	private void layoutDepthFirst(final Shape shape) {

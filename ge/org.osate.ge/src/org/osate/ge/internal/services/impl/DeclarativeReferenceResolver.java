@@ -70,6 +70,7 @@ import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.services.ReferenceResolutionService;
 
 // Handles resolving references related to the AADL declarative model
 public class DeclarativeReferenceResolver {
@@ -241,7 +242,7 @@ public class DeclarativeReferenceResolver {
 	}
 	
 	@ResolveReference
-	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs) {
+	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");
 		if(refSegs.length < 1) {
 			return null;
@@ -289,16 +290,40 @@ public class DeclarativeReferenceResolver {
 					referencedObject = getNamedElementByQualifiedName(qualifiedName, SubprogramCallSequence.class);
 				} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL)) {
 					referencedObject = getNamedElementByQualifiedName(qualifiedName, SubprogramCall.class);
-				} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION)) {
+				} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_NAMED)) {
+					if(refSegs.length == 3) {
+						final Object referencedClassifier = refService.getReferencedObject(refSegs[1]);
+						if(referencedClassifier instanceof ComponentClassifier) {
+							final ComponentClassifier cc = (ComponentClassifier)referencedClassifier;
+							final String name = refSegs[2];
+							referencedObject = cc.getOwnedModeTransitions().stream().
+									filter(mt -> name.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mt))). // Filter objects by name
+									findAny().orElse(null);
+						}
+					}
+				} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_UNNAMED)) {
 					final ComponentClassifier cc = getNamedElementByQualifiedName(qualifiedName, ComponentClassifier.class);
 					if(cc != null) {
 						for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
-							if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildModeTransitionKey(mt))) { 
+							if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildUnnamedModeTransitionKey(mt))) { 
 								referencedObject = mt;
 								break;
 							}
 						}
 					}			
+				} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_TRIGGER)) {
+					if(refSegs.length == 4) {
+						final Object referencedModeTransition = refService.getReferencedObject(refSegs[1]);
+						if(referencedModeTransition instanceof ModeTransition) {
+							final ModeTransition mt = (ModeTransition)referencedModeTransition;
+							final String contextName = refSegs[2];
+							final String triggerPortName = refSegs[3];
+							referencedObject = mt.getOwnedTriggers().stream().
+									filter(mtt -> contextName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getContext())) &&
+											triggerPortName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getTriggerPort()))).
+									findAny().orElse(null);
+						}
+					}
 				} else if(type.equals(DeclarativeReferenceBuilder.TYPE_REALIZATION)) {
 					final ComponentImplementation ci = getNamedElementByQualifiedName(qualifiedName, ComponentImplementation.class);
 					if(ci != null) {

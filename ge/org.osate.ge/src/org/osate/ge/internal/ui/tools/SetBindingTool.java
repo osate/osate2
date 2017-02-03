@@ -519,17 +519,17 @@ public class SetBindingTool {
 		}
 
 		// Get the container/owner
-		final Shape container;
+		final PictogramElement container;
 		if (pe instanceof Connection) {
-			container = connectionService.getOwnerShape((Connection) pe);
+			container = connectionService.getOwner((Connection) pe);
 		} else if (pe instanceof Shape) {
 			container = ((Shape) pe).getContainer();
 		} else {
 			container = null;
 		}
 
-		if (container == null) {
-			throw new RuntimeException("Unable to get container for pictogram element type: " + pe.getClass());
+		if(!(container instanceof Shape)) {
+			throw new RuntimeException("Unable to get container shape for pictogram element type: " + pe.getClass() + " : " + container);
 		}
 
 		// Create the path element for the container
