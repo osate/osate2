@@ -8,6 +8,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
@@ -105,6 +106,12 @@ public class AgeMoveShapeFeature extends DefaultMoveShapeFeature {
 			layoutService.checkShapeBoundsWithAncestors(shape);
 		}
 		
+		// Update control points of curved connections which are connected to the shape.
+		for(final Anchor anchor : shape.getAnchors()) {
+			BoHandlerRefreshHelper.updateControlPoints(anchor.getIncomingConnections());
+			BoHandlerRefreshHelper.updateControlPoints(anchor.getOutgoingConnections());
+		}
+
         // Update connection anchors
 		connectionService.updateConnectionAnchors(shape);
 	}

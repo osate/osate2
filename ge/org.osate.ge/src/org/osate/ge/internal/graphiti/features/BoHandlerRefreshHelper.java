@@ -1,6 +1,7 @@
 package org.osate.ge.internal.graphiti.features;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 
@@ -133,7 +134,7 @@ public class BoHandlerRefreshHelper {
 		} else {
 			logicalParent = AncestorUtil.getParent(pe, propertyService, connectionService);
 		}
-		
+
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
@@ -178,6 +179,7 @@ public class BoHandlerRefreshHelper {
 						pe = peCreateService.createFreeFormConnection(getDiagram());
 					}
 					
+			        connectionService.onConnectionCreated(logicalParent, bo, (Connection)pe);
 					Graphiti.getGaService().createPlainPolyline(pe);
 				}
 				childContainer = pe;				
@@ -269,7 +271,7 @@ public class BoHandlerRefreshHelper {
 				if(childContainer == pe) {
 					ghostingService.ghostChildren(childContainer);
 				}
-				
+
 				// Show all children.
 				// TODO: Replace this with a user controllable mechanism for determining which children should be shown.
 				// Refresh Children
@@ -396,6 +398,18 @@ public class BoHandlerRefreshHelper {
 	
 		return pe;
 	}	
+	
+	/**
+	 * Updates the control points of all curved connections in the specified list.
+	 * @param connections
+	 */
+	public static void updateControlPoints(final List<Connection> connections) {
+		for(final Connection c : connections) {
+			if(c instanceof CurvedConnection) {
+				updateControlPoints((CurvedConnection)c);
+			}
+		}
+	}
 	
 	private static void updateControlPoints(final CurvedConnection connection) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();			

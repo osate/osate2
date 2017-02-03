@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -43,9 +44,11 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
  */
 public interface PropertyService {
 	String getName(PropertyContainer pc);
-
 	void setName(PropertyContainer pc, String typeName);
 
+	boolean isConnectionAnchor(Anchor anchor);
+	void setIsConnectionAnchor(Anchor anchor, boolean value);
+	
 	String getDockArea(PictogramElement pe);
 	void setDockArea(PictogramElement pe, String value);
 	

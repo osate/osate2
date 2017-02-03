@@ -44,7 +44,6 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 	public Connection createUpdateConnection(final PictogramElement owner, final Object bo) {
 		Connection connection = connectionService.getConnection(owner, bo);
 		if(connection == null) {
-			System.err.println("UNABLE TO GET CONNECTION FOR " + owner + " : " + bo);
 			final Anchor[] anchors = connectionService.getAnchors(owner, bo);
 			if(anchors != null) {
 				final AgeAddConnectionContext addContext = new AgeAddConnectionContext(owner, anchors[0], anchors[1]);
@@ -53,6 +52,9 @@ public class DefaultConnectionCreationService implements ConnectionCreationServi
 				final IAddFeature addFeature = fp.getAddFeature(addContext);
 				if(addFeature != null && addFeature.canAdd(addContext)) {
 					connection = (Connection)addFeature.add(addContext);
+					
+					// TODO: Remove after everything goes through the business object handlers. Business object handlers call this method during the create process to ensure that the 
+					// connection is available for queries
 					if(connection != null) {
 						connectionService.onConnectionCreated(owner, bo, connection);
 					}

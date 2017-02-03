@@ -76,7 +76,6 @@ import org.eclipse.graphiti.func.IDelete;
 import org.eclipse.graphiti.func.IReconnection;
 import org.eclipse.graphiti.func.IUpdate;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
@@ -86,7 +85,6 @@ import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
 import org.osate.aadl2.AccessType;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
@@ -105,7 +103,6 @@ import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.features.SelectAncestorFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
-import org.osate.ge.internal.features.UpdateLayoutFromClassifierDiagramFeature;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerAddFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
@@ -121,7 +118,6 @@ import org.osate.ge.internal.features.SetDimensionsFeature;
 import org.osate.ge.internal.features.SetFeatureClassifierFeature;
 import org.osate.ge.internal.features.SetInitialModeFeature;
 import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
-import org.osate.ge.internal.features.UpdateClassifierDiagramFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
 import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
@@ -330,7 +326,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(InstantiateComponentImplementationFeature.class));
 		features.add(make(SwitchDirectionOfConnectionFeature.class));
-		features.add(make(UpdateLayoutFromClassifierDiagramFeature.class));
 		features.add(make(ConfigureInModesFeature.class));
 		features.add(createSetInitialModeFeature(true));
 		features.add(createSetInitialModeFeature(false));
@@ -422,16 +417,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	public IUpdateFeature getUpdateFeature(IUpdateContext context) {	
 		PictogramElement pictogramElement = context.getPictogramElement();
 		
-		if(pictogramElement instanceof Diagram) {
-			final BusinessObjectResolutionService bor = getContext().get(BusinessObjectResolutionService.class);
-			if(bor != null) {
-				final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
-				if(bo instanceof Classifier) {
-					return make(UpdateClassifierDiagramFeature.class);
-				}
-			}
-		}
-		   
+		// TODO: Remove when all conncetion patterns are removed
 		// As of 2013-07-08 Graphiti doesn't support connection patterns handling updates so check if the pattern implements IUpdate and return a feature based on the pattern
 		if(pictogramElement instanceof Connection) {
 			for(final IConnectionPattern conPattern : getConnectionPatterns()) {

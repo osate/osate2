@@ -44,7 +44,10 @@ public class ModeTransitionTriggerHandler {
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<ModeTransitionTrigger> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<ModeTransitionTrigger> srcRootQuery) {
-		return srcRootQuery;
+	public DiagramElementQuery<ModeTransitionTrigger> createParentDiagramElementQuery(final @Named(Names.DESTINATION_ROOT_QUERY) PictogramQuery<ModeTransitionTrigger> dstRootQuery) {
+		return dstRootQuery.ifElse((ca) -> ca.getQueryArgument().getContext() == null, 
+				(innerRoot) -> innerRoot.ancestor(1), 
+				(innerRoot) -> innerRoot.ancestor(2)).
+					children().filterByBusinessObject((mtt) -> mtt.eContainer()).first();
 	}
 }

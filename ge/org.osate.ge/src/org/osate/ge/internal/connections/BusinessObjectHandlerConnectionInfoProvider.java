@@ -21,9 +21,11 @@ import org.osate.ge.internal.query.RootPictogramQuery;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.PropertyService;
 
 public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionInfoProvider {
 	private final ConnectionService connectionService;
+	private final PropertyService propertyService;
 	private final ExtensionService extService;
 	private final BusinessObjectResolutionService bor;
 	private final Object handler;
@@ -42,11 +44,13 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 
 	@SuppressWarnings("unchecked")
 	public BusinessObjectHandlerConnectionInfoProvider(final ConnectionService connectionService,
+			final PropertyService propertyService,
 			final ExtensionService extService, 
 			final BusinessObjectResolutionService bor,
 			final Object boHandler, 
 			final QueryRunner queryRunner) {
 		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
+		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
@@ -91,16 +95,18 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 	
 	@Override
 	public PictogramElement getOwner(final Connection connection) {
-		try {
-			if(connection.getStart() == null || connection.getStart().getParent() == null || connection.getEnd() == null || connection.getEnd().getParent() == null) {
+		try {			
+			final Anchor srcAnchor = connection.getStart();
+			final Anchor dstAnchor = connection.getEnd();
+			
+			if(srcAnchor == null || srcAnchor.getParent() == null || dstAnchor == null || dstAnchor.getParent() == null) {
 				return null;
 			}
 			
-			this.srcRootValue = connection.getStart().getParent();
-			this.dstRootValue = connection.getEnd().getParent();
+			this.srcRootValue = propertyService.isConnectionAnchor(srcAnchor) ? null : srcAnchor.getParent();
+			this.dstRootValue = propertyService.isConnectionAnchor(dstAnchor) ? null : dstAnchor.getParent();
 			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 			final PictogramElement result = queryRunner.getFirstPictogramElement(ownerDiagramElementQuery, bo);
-			System.err.println("OWNER: " + result + " : " + connection);
 			return result;
 		} finally {
 			this.srcRootValue = null;
@@ -116,13 +122,11 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 
 			// Get the anchors
 			final Anchor a1 = getAnchor(queryRunner.getFirstPictogramElement(srcQuery, bo));
-			System.err.println("A1: " + a1);
 			if(a1 == null) {
 				return null;
 			}
 			
 			final Anchor a2 = getAnchor(queryRunner.getFirstPictogramElement(dstQuery, bo));
-			System.err.println("A2: " + a2);
 			if(a2 == null) {
 				return null;
 			}

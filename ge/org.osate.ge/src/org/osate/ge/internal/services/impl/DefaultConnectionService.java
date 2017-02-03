@@ -35,6 +35,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
@@ -73,6 +74,7 @@ import org.osate.ge.internal.services.ShapeService;
 
 public class DefaultConnectionService implements ConnectionService {
 	private final AnchorService anchorService;
+	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
 	private final ReferenceBuilderService refBuilder;
 	private final IFeatureProvider fp;
@@ -83,7 +85,6 @@ public class DefaultConnectionService implements ConnectionService {
 	private final Cache cache = new Cache() {
 		@Override
 		public void invalidate() {
-			System.err.println("INVALIDATE");
 			ownerToBusinessObjectToConnectionMap.clear();
 			connectionToProviderMap.clear();
 		}			
@@ -93,10 +94,16 @@ public class DefaultConnectionService implements ConnectionService {
 	private PictogramElement ancestorsRootValue;
 	private final QueryRunner queryRunner;
 	
-	public DefaultConnectionService(final AnchorService anchorUtil, final ShapeService shapeHelper, 
-			final PropertyService propertyService, final BusinessObjectResolutionService bor, final CachingService cachingService, 
-			final ExtensionService extService, final InternalReferenceBuilderService refBuilder, final IFeatureProvider fp) {
+	public DefaultConnectionService(final AnchorService anchorUtil, 
+			final ShapeService shapeHelper, 
+			final PropertyService propertyService,
+			final BusinessObjectResolutionService bor,
+			final CachingService cachingService, 
+			final ExtensionService extService, 
+			final InternalReferenceBuilderService refBuilder, 
+			final IFeatureProvider fp) {
 		this.anchorService = anchorUtil;
+		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 		this.bor = bor;
 		this.refBuilder = refBuilder;
 		this.fp = fp;
@@ -117,7 +124,7 @@ public class DefaultConnectionService implements ConnectionService {
 			// Look for a method which is used if and only if the business object handler handles connections
 			for(final Method m : handler.getClass().getMethods()) {
 				if(m.isAnnotationPresent(CreateParentQuery.class)) {
-					infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, extService, bor, handler, queryRunner));
+					infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, bor, handler, queryRunner));
 					break;
 				}
 			}
@@ -246,12 +253,10 @@ public class DefaultConnectionService implements ConnectionService {
 	private void populateCache() {
 		final Diagram diagram = getDiagram();
 		for(final Connection c : diagram.getConnections()) {
-			System.err.println("C: " + c);
 			final Object bo = bor.getBusinessObjectForPictogramElement(c);
 			if(bo != null) {
 				final PictogramElement owner = getOwner(c);
 				if(owner != null) {		
-					System.err.println("ADD: " + owner + " : " + bo + " : " + c);
 					addToCache(owner, bo, c);
 				}
 			}
@@ -302,7 +307,15 @@ public class DefaultConnectionService implements ConnectionService {
 		
 		final int anchorX = connectionMidpoint.x - ownerLocation.getX();
 		final int anchorY = connectionMidpoint.y - ownerLocation.getY();	
-		return anchorService.createOrUpdateFixPointAnchor(ownerShape, midpointAnchorName, anchorX, anchorY, updateOnly);
+		final Anchor anchor = anchorService.createOrUpdateFixPointAnchor(ownerShape, midpointAnchorName, anchorX, anchorY, updateOnly);
+		if(anchor == null) {
+			return null;			
+		}
+		
+		// Make the anchor as a connection anchor
+		propertyService.setIsConnectionAnchor(anchor, true);
+		
+		return anchor;
 	}
 	
 	private String getUniqueReference(final Connection connection) {

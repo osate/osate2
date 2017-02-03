@@ -30,6 +30,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.services.impl;
 
 import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -38,6 +39,7 @@ import org.osate.ge.internal.services.PropertyService;
 
 public class DefaultPropertyService implements PropertyService {
 	private static final String NAME_KEY = "name";
+	private static final String IS_CONNECTION_ANCHOR_KEY = "is_connection_anchor";
 	private static final String CONNECTION_TYPE_KEY = "connection_type";
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
 	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
@@ -64,6 +66,16 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public final void setName(final PropertyContainer pc, final String typeName) {
 		Graphiti.getPeService().setPropertyValue(pc, NAME_KEY, typeName);
+	}
+	
+	@Override
+	public final boolean isConnectionAnchor(final Anchor anchor) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(anchor, IS_CONNECTION_ANCHOR_KEY));
+	}
+	
+	@Override
+	public final void setIsConnectionAnchor(final Anchor anchor, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(anchor, IS_CONNECTION_ANCHOR_KEY, value ? "true" : "false");
 	}
 	
 	@Override
