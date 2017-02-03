@@ -304,10 +304,10 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getSourceConnectionInstanceEndInstanceRefParserRuleCall_0_0_1(), semanticObject.getSource());
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getDestinationConnectionInstanceEndInstanceRefParserRuleCall_2_0_1(), semanticObject.getDestination());
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionDeclarativeRefParserRuleCall_4_0_1(), semanticObject.getConnection());
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceInstanceRefParserRuleCall_6_0_1(), semanticObject.getContext());
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getSourceConnectionInstanceEndInstanceRefParserRuleCall_0_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE, false));
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getDestinationConnectionInstanceEndInstanceRefParserRuleCall_2_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, false));
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionDeclarativeRefParserRuleCall_4_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, false));
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceInstanceRefParserRuleCall_6_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT, false));
 		feeder.finish();
 	}
 	
@@ -395,7 +395,7 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT));
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getInstanceReferenceValueAccess().getReferencedInstanceObjectInstanceObjectInstanceRefParserRuleCall_2_0_1(), semanticObject.getReferencedInstanceObject());
+		feeder.accept(grammarAccess.getInstanceReferenceValueAccess().getReferencedInstanceObjectInstanceObjectInstanceRefParserRuleCall_2_0_1(), semanticObject.eGet(InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT, false));
 		feeder.finish();
 	}
 	
