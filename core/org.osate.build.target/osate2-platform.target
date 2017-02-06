@@ -32,16 +32,17 @@
 <repository location="http://download.eclipse.org/releases/mars/201602261000"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.xtext.redist.feature.group" version="2.10.0.v201605250459"/>
-<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.10.0/"/>
+<unit id="org.eclipse.xtext.redist.feature.group" version="2.11.0.v20170201-0242"/>
+<unit id="org.eclipse.xtext.junit4" version="2.11.0.v20170130-0818"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.11.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="2.9.0.v201605261103"/>
 <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="it.xsemantics.runtime.feature.feature.group" version="1.10.0.v20160527-0805"/>
-<repository location="https://dl.bintray.com/lorenzobettini/xsemantics/updates/1.10/"/>
+<unit id="it.xsemantics.runtime.feature.feature.group" version="1.11.0.v20170202-1734"/>
+<repository location="https://dl.bintray.com/lorenzobettini/xsemantics/updates/1.11/"/>
 </location>
 <!-- certware and dependencies -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
