@@ -4,14 +4,15 @@
 package org.osate.xtext.aadl2.errormodel.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -88,8 +89,13 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	private ErrorModelGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == Aadl2Package.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.ARRAY_RANGE:
 				sequence_ArrayRange(context, (ArrayRange) semanticObject); 
 				return; 
@@ -118,27 +124,27 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_ListTerm(context, (ListValue) semanticObject); 
 				return; 
 			case Aadl2Package.MODAL_PROPERTY_VALUE:
-				if(context == grammarAccess.getModalPropertyValueRule()) {
+				if (rule == grammarAccess.getModalPropertyValueRule()) {
 					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getOptionalModalPropertyValueRule()) {
+				else if (rule == grammarAccess.getOptionalModalPropertyValueRule()) {
 					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyValueRule()) {
+				else if (rule == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.NAMED_VALUE:
-				if(context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getNumAltRule()) {
+				if (rule == grammarAccess.getConstantValueRule()
+						|| rule == grammarAccess.getNumAltRule()) {
 					sequence_ConstantValue(context, (NamedValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getLiteralorReferenceTermRule() ||
-				   context == grammarAccess.getPropertyExpressionRule()) {
+				else if (rule == grammarAccess.getPropertyExpressionRule()
+						|| rule == grammarAccess.getLiteralorReferenceTermRule()) {
 					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
 					return; 
 				}
@@ -147,16 +153,16 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_SignedConstant(context, (Operation) semanticObject); 
 				return; 
 			case Aadl2Package.PROPERTY_ASSOCIATION:
-				if(context == grammarAccess.getBasicPropertyAssociationRule()) {
+				if (rule == grammarAccess.getBasicPropertyAssociationRule()) {
 					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContainedPropertyAssociationRule() ||
-				   context == grammarAccess.getPModelRule()) {
+				else if (rule == grammarAccess.getPModelRule()
+						|| rule == grammarAccess.getContainedPropertyAssociationRule()) {
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyAssociationRule()) {
+				else if (rule == grammarAccess.getPropertyAssociationRule()) {
 					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
@@ -168,12 +174,12 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_RealTerm(context, (RealLiteral) semanticObject); 
 				return; 
 			case Aadl2Package.RECORD_VALUE:
-				if(context == grammarAccess.getOldRecordTermRule()) {
+				if (rule == grammarAccess.getOldRecordTermRule()) {
 					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyExpressionRule() ||
-				   context == grammarAccess.getRecordTermRule()) {
+				else if (rule == grammarAccess.getPropertyExpressionRule()
+						|| rule == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
@@ -185,43 +191,44 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_StringTerm(context, (StringLiteral) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == ErrorModelPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == ErrorModelPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case ErrorModelPackage.ALL_EXPRESSION:
-				if(context == grammarAccess.getAllExpressionRule() ||
-				   context == grammarAccess.getAndExpressionRule() ||
-				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionExpressionRule() ||
-				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionTermRule() ||
-				   context == grammarAccess.getElementRule()) {
+				if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getConditionExpressionRule()
+						|| action == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getAndExpressionRule()
+						|| action == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getAllExpressionRule()
+						|| rule == grammarAccess.getConditionTermRule()) {
 					sequence_AllExpression(context, (AllExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSAllExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionTermRule()) {
+				else if (rule == grammarAccess.getSConditionExpressionRule()
+						|| action == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSAndExpressionRule()
+						|| action == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSAllExpressionRule()
+						|| rule == grammarAccess.getSConditionTermRule()) {
 					sequence_SAllExpression(context, (AllExpression) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.AND_EXPRESSION:
-				if(context == grammarAccess.getAndExpressionRule() ||
-				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionExpressionRule() ||
-				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionTermRule() ||
-				   context == grammarAccess.getElementRule()) {
+				if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getConditionExpressionRule()
+						|| action == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getAndExpressionRule()
+						|| action == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getConditionTermRule()) {
 					sequence_AndExpression(context, (AndExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionTermRule()) {
+				else if (rule == grammarAccess.getSConditionExpressionRule()
+						|| action == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSAndExpressionRule()
+						|| action == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSConditionTermRule()) {
 					sequence_SAndExpression(context, (AndExpression) semanticObject); 
 					return; 
 				}
@@ -239,38 +246,38 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_ConnectionErrorSource(context, (ConnectionErrorSource) semanticObject); 
 				return; 
 			case ErrorModelPackage.EMV2_PATH:
-				if(context == grammarAccess.getBasicEMV2PathRule()) {
+				if (rule == grammarAccess.getBasicEMV2PathRule()) {
 					sequence_BasicEMV2Path(context, (EMV2Path) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getEMV2PathRule() ||
-				   context == grammarAccess.getElementRule()) {
+				else if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getEMV2PathRule()) {
 					sequence_EMV2Path(context, (EMV2Path) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.EMV2_PATH_ELEMENT:
-				if(context == grammarAccess.getEMV2ErrorPropagationPathRule()) {
+				if (rule == grammarAccess.getEMV2ErrorPropagationPathRule()) {
 					sequence_EMV2ErrorPropagationPath(context, (EMV2PathElement) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getEMV2PathElementOrKindRule()) {
+				else if (rule == grammarAccess.getEMV2PathElementOrKindRule()) {
 					sequence_EMV2PathElementOrKind(context, (EMV2PathElement) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getEMV2PathElementRule() ||
-				   context == grammarAccess.getElementRule()) {
+				else if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getEMV2PathElementRule()) {
 					sequence_EMV2PathElement(context, (EMV2PathElement) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.EMV2_PROPERTY_ASSOCIATION:
-				if(context == grammarAccess.getBasicEMV2PropertyAssociationRule()) {
+				if (rule == grammarAccess.getBasicEMV2PropertyAssociationRule()) {
 					sequence_BasicEMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getEMV2PropertyAssociationRule() ||
-				   context == grammarAccess.getElementRule()) {
+				else if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getEMV2PropertyAssociationRule()) {
 					sequence_EMV2PropertyAssociation(context, (EMV2PropertyAssociation) semanticObject); 
 					return; 
 				}
@@ -297,25 +304,25 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_ErrorEvent(context, (ErrorEvent) semanticObject); 
 				return; 
 			case ErrorModelPackage.ERROR_MODEL_LIBRARY:
-				if(context == grammarAccess.getEMV2LibraryRule()) {
+				if (rule == grammarAccess.getEMV2LibraryRule()) {
 					sequence_EMV2Library(context, (ErrorModelLibrary) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAnnexLibraryRule() ||
-				   context == grammarAccess.getErrorModelLibraryRule() ||
-				   context == grammarAccess.getNamedElementRule()) {
+				else if (rule == grammarAccess.getAnnexLibraryRule()
+						|| rule == grammarAccess.getNamedElementRule()
+						|| rule == grammarAccess.getErrorModelLibraryRule()) {
 					sequence_ErrorModelLibrary(context, (ErrorModelLibrary) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.ERROR_MODEL_SUBCLAUSE:
-				if(context == grammarAccess.getEMV2SubclauseRule()) {
+				if (rule == grammarAccess.getEMV2SubclauseRule()) {
 					sequence_EMV2Subclause(context, (ErrorModelSubclause) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAnnexSubclauseRule() ||
-				   context == grammarAccess.getErrorModelSubclauseRule() ||
-				   context == grammarAccess.getModalElementRule()) {
+				else if (rule == grammarAccess.getAnnexSubclauseRule()
+						|| rule == grammarAccess.getModalElementRule()
+						|| rule == grammarAccess.getErrorModelSubclauseRule()) {
 					sequence_ErrorModelSubclause(context, (ErrorModelSubclause) semanticObject); 
 					return; 
 				}
@@ -342,62 +349,62 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_FeatureorPPReference(context, (FeatureorPPReference) semanticObject); 
 				return; 
 			case ErrorModelPackage.OR_EXPRESSION:
-				if(context == grammarAccess.getAndExpressionRule() ||
-				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionExpressionRule() ||
-				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionTermRule() ||
-				   context == grammarAccess.getElementRule()) {
+				if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getConditionExpressionRule()
+						|| action == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getAndExpressionRule()
+						|| action == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getConditionTermRule()) {
 					sequence_ConditionExpression(context, (OrExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionTermRule()) {
+				else if (rule == grammarAccess.getSConditionExpressionRule()
+						|| action == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSAndExpressionRule()
+						|| action == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSConditionTermRule()) {
 					sequence_SConditionExpression(context, (OrExpression) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.ORLESS_EXPRESSION:
-				if(context == grammarAccess.getAndExpressionRule() ||
-				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionExpressionRule() ||
-				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionTermRule() ||
-				   context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getOrlessExpressionRule()) {
+				if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getConditionExpressionRule()
+						|| action == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getAndExpressionRule()
+						|| action == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getOrlessExpressionRule()
+						|| rule == grammarAccess.getConditionTermRule()) {
 					sequence_OrlessExpression(context, (OrlessExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionTermRule() ||
-				   context == grammarAccess.getSOrlessExpressionRule()) {
+				else if (rule == grammarAccess.getSConditionExpressionRule()
+						|| action == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSAndExpressionRule()
+						|| action == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSOrlessExpressionRule()
+						|| rule == grammarAccess.getSConditionTermRule()) {
 					sequence_SOrlessExpression(context, (OrlessExpression) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.ORMORE_EXPRESSION:
-				if(context == grammarAccess.getAndExpressionRule() ||
-				   context == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionExpressionRule() ||
-				   context == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getConditionTermRule() ||
-				   context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getOrmoreExpressionRule()) {
+				if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getConditionExpressionRule()
+						|| action == grammarAccess.getConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getAndExpressionRule()
+						|| action == grammarAccess.getAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getOrmoreExpressionRule()
+						|| rule == grammarAccess.getConditionTermRule()) {
 					sequence_OrmoreExpression(context, (OrmoreExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getSAndExpressionRule() ||
-				   context == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionExpressionRule() ||
-				   context == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0() ||
-				   context == grammarAccess.getSConditionTermRule() ||
-				   context == grammarAccess.getSOrmoreExpressionRule()) {
+				else if (rule == grammarAccess.getSConditionExpressionRule()
+						|| action == grammarAccess.getSConditionExpressionAccess().getOrExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSAndExpressionRule()
+						|| action == grammarAccess.getSAndExpressionAccess().getAndExpressionOperandsAction_1_0()
+						|| rule == grammarAccess.getSOrmoreExpressionRule()
+						|| rule == grammarAccess.getSConditionTermRule()) {
 					sequence_SOrmoreExpression(context, (OrmoreExpression) semanticObject); 
 					return; 
 				}
@@ -445,36 +452,36 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_TypeMappingSet(context, (TypeMappingSet) semanticObject); 
 				return; 
 			case ErrorModelPackage.TYPE_SET:
-				if(context == grammarAccess.getNoErrorTypeSetRule()) {
+				if (rule == grammarAccess.getNoErrorTypeSetRule()) {
 					sequence_NoErrorTypeSet(context, (TypeSet) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getTypeTokenConstraintNoErrorRule() ||
-				   context == grammarAccess.getTypeTokenOrNoErrorRule()) {
-					sequence_NoErrorTypeSet_TypeSetConstructor_TypeTokenOrNoError(context, (TypeSet) semanticObject); 
+				else if (rule == grammarAccess.getTypeTokenOrNoErrorRule()
+						|| rule == grammarAccess.getTypeTokenConstraintNoErrorRule()) {
+					sequence_NoErrorTypeSet_TypeSetConstructor(context, (TypeSet) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getTypeSetConstructorRule() ||
-				   context == grammarAccess.getTypeSetReferenceRule() ||
-				   context == grammarAccess.getTypeTokenRule() ||
-				   context == grammarAccess.getTypeTokenConstraintRule()) {
+				else if (rule == grammarAccess.getTypeSetConstructorRule()
+						|| rule == grammarAccess.getTypeSetReferenceRule()
+						|| rule == grammarAccess.getTypeTokenRule()
+						|| rule == grammarAccess.getTypeTokenConstraintRule()) {
 					sequence_TypeSetConstructor(context, (TypeSet) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getErrorTypesRule() ||
-				   context == grammarAccess.getNamedElementRule() ||
-				   context == grammarAccess.getTypeSetDefinitionRule()) {
+				else if (rule == grammarAccess.getNamedElementRule()
+						|| rule == grammarAccess.getErrorTypesRule()
+						|| rule == grammarAccess.getTypeSetDefinitionRule()) {
 					sequence_TypeSetDefinition(context, (TypeSet) semanticObject); 
 					return; 
 				}
 				else break;
 			case ErrorModelPackage.TYPE_TOKEN:
-				if(context == grammarAccess.getNoErrorTypeTokenRule()) {
+				if (rule == grammarAccess.getNoErrorTypeTokenRule()) {
 					sequence_NoErrorTypeToken(context, (TypeToken) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getElementRule() ||
-				   context == grammarAccess.getTypeSetElementRule()) {
+				else if (rule == grammarAccess.getElementRule()
+						|| rule == grammarAccess.getTypeSetElementRule()) {
 					sequence_TypeSetElement(context, (TypeToken) semanticObject); 
 					return; 
 				}
@@ -486,37 +493,67 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 				sequence_TypeTransformationSet(context, (TypeTransformationSet) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     Element returns AllExpression
+	 *     ConditionExpression returns AllExpression
+	 *     ConditionExpression.OrExpression_1_0 returns AllExpression
+	 *     AndExpression returns AllExpression
+	 *     AndExpression.AndExpression_1_0 returns AllExpression
+	 *     AllExpression returns AllExpression
+	 *     ConditionTerm returns AllExpression
+	 *
 	 * Constraint:
 	 *     (count=INTVALUE? operands+=ConditionElement operands+=ConditionElement*)
 	 */
-	protected void sequence_AllExpression(EObject context, AllExpression semanticObject) {
+	protected void sequence_AllExpression(ISerializationContext context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns AndExpression
+	 *     ConditionExpression returns AndExpression
+	 *     ConditionExpression.OrExpression_1_0 returns AndExpression
+	 *     AndExpression returns AndExpression
+	 *     AndExpression.AndExpression_1_0 returns AndExpression
+	 *     ConditionTerm returns AndExpression
+	 *
 	 * Constraint:
 	 *     (operands+=AndExpression_AndExpression_1_0 operands+=ConditionTerm)
 	 */
-	protected void sequence_AndExpression(EObject context, AndExpression semanticObject) {
+	protected void sequence_AndExpression(ISerializationContext context, AndExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     BasicEMV2Path returns EMV2Path
+	 *
 	 * Constraint:
 	 *     emv2Target=EMV2PathElementOrKind
 	 */
-	protected void sequence_BasicEMV2Path(EObject context, EMV2Path semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_BasicEMV2Path(ISerializationContext context, EMV2Path semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.EMV2_PATH__EMV2_TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.EMV2_PATH__EMV2_TARGET));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getBasicEMV2PathAccess().getEmv2TargetEMV2PathElementOrKindParserRuleCall_0(), semanticObject.getEmv2Target());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     BasicEMV2PropertyAssociation returns EMV2PropertyAssociation
+	 *
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
@@ -525,48 +562,77 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (emv2Path+=BasicEMV2Path emv2Path+=BasicEMV2Path*)?
 	 *     )
 	 */
-	protected void sequence_BasicEMV2PropertyAssociation(EObject context, EMV2PropertyAssociation semanticObject) {
+	protected void sequence_BasicEMV2PropertyAssociation(ISerializationContext context, EMV2PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns BranchValue
+	 *     BranchValue returns BranchValue
+	 *
 	 * Constraint:
 	 *     (realvalue=REAL_LIT | symboliclabel=[Property|QEMREF] | others?='others')
 	 */
-	protected void sequence_BranchValue(EObject context, BranchValue semanticObject) {
+	protected void sequence_BranchValue(ISerializationContext context, BranchValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns CompositeState
+	 *     CompositeState returns CompositeState
+	 *
 	 * Constraint:
 	 *     (name=ID? (condition=SConditionExpression | others?='others') state=[ErrorBehaviorState|ID] typedToken=TypeToken?)
 	 */
-	protected void sequence_CompositeState(EObject context, CompositeState semanticObject) {
+	protected void sequence_CompositeState(ISerializationContext context, CompositeState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns ConditionElement
+	 *     ConditionExpression returns ConditionElement
+	 *     ConditionExpression.OrExpression_1_0 returns ConditionElement
+	 *     AndExpression returns ConditionElement
+	 *     AndExpression.AndExpression_1_0 returns ConditionElement
+	 *     ConditionTerm returns ConditionElement
+	 *     ConditionElement returns ConditionElement
+	 *
 	 * Constraint:
 	 *     (qualifiedErrorPropagationReference=QualifiedErrorEventOrPropagation constraint=TypeTokenConstraintNoError?)
 	 */
-	protected void sequence_ConditionElement(EObject context, ConditionElement semanticObject) {
+	protected void sequence_ConditionElement(ISerializationContext context, ConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns OrExpression
+	 *     ConditionExpression returns OrExpression
+	 *     ConditionExpression.OrExpression_1_0 returns OrExpression
+	 *     AndExpression returns OrExpression
+	 *     AndExpression.AndExpression_1_0 returns OrExpression
+	 *     ConditionTerm returns OrExpression
+	 *
 	 * Constraint:
 	 *     (operands+=ConditionExpression_OrExpression_1_0 operands+=AndExpression)
 	 */
-	protected void sequence_ConditionExpression(EObject context, OrExpression semanticObject) {
+	protected void sequence_ConditionExpression(ISerializationContext context, OrExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ConnectionErrorSource
+	 *     ConnectionErrorSource returns ConnectionErrorSource
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -576,68 +642,99 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         condition=CONDITION?
 	 *     )
 	 */
-	protected void sequence_ConnectionErrorSource(EObject context, ConnectionErrorSource semanticObject) {
+	protected void sequence_ConnectionErrorSource(ISerializationContext context, ConnectionErrorSource semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMV2ErrorPropagationPath returns EMV2PathElement
+	 *
 	 * Constraint:
 	 *     (emv2PropagationKind=PropagationKind | (namedElement=[NamedElement|ID] path=EMV2ErrorPropagationPath?))
 	 */
-	protected void sequence_EMV2ErrorPropagationPath(EObject context, EMV2PathElement semanticObject) {
+	protected void sequence_EMV2ErrorPropagationPath(ISerializationContext context, EMV2PathElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMV2Library returns ErrorModelLibrary
+	 *
 	 * Constraint:
 	 *     (
-	 *         name=QEMREF 
 	 *         (
+	 *             name=QEMREF 
 	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
 	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
-	 *             properties+=BasicEMV2PropertyAssociation*
-	 *         )? 
-	 *         behaviors+=ErrorBehaviorStateMachine* 
-	 *         mappings+=TypeMappingSet* 
-	 *         transformations+=TypeTransformationSet*
+	 *             properties+=BasicEMV2PropertyAssociation* 
+	 *             behaviors+=ErrorBehaviorStateMachine* 
+	 *             mappings+=TypeMappingSet* 
+	 *             transformations+=TypeTransformationSet*
+	 *         ) | 
+	 *         (
+	 *             name=QEMREF 
+	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
+	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
+	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
+	 *             properties+=BasicEMV2PropertyAssociation* 
+	 *             behaviors+=ErrorBehaviorStateMachine* 
+	 *             mappings+=TypeMappingSet* 
+	 *             transformations+=TypeTransformationSet*
+	 *         )
 	 *     )
 	 */
-	protected void sequence_EMV2Library(EObject context, ErrorModelLibrary semanticObject) {
+	protected void sequence_EMV2Library(ISerializationContext context, ErrorModelLibrary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMV2PathElementOrKind returns EMV2PathElement
+	 *
 	 * Constraint:
 	 *     ((emv2PropagationKind=PropagationKind errorType=[ErrorTypes|ID]?) | (namedElement=[NamedElement|ID] path=EMV2PathElement?))
 	 */
-	protected void sequence_EMV2PathElementOrKind(EObject context, EMV2PathElement semanticObject) {
+	protected void sequence_EMV2PathElementOrKind(ISerializationContext context, EMV2PathElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns EMV2PathElement
+	 *     EMV2PathElement returns EMV2PathElement
+	 *
 	 * Constraint:
 	 *     (namedElement=[NamedElement|ID] path=EMV2PathElement?)
 	 */
-	protected void sequence_EMV2PathElement(EObject context, EMV2PathElement semanticObject) {
+	protected void sequence_EMV2PathElement(ISerializationContext context, EMV2PathElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns EMV2Path
+	 *     EMV2Path returns EMV2Path
+	 *
 	 * Constraint:
 	 *     (containmentPath=ContainmentPathElement? emv2Target=EMV2PathElementOrKind)
 	 */
-	protected void sequence_EMV2Path(EObject context, EMV2Path semanticObject) {
+	protected void sequence_EMV2Path(ISerializationContext context, EMV2Path semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns EMV2PropertyAssociation
+	 *     EMV2PropertyAssociation returns EMV2PropertyAssociation
+	 *
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
@@ -646,21 +743,27 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (emv2Path+=EMV2Path emv2Path+=EMV2Path*)?
 	 *     )
 	 */
-	protected void sequence_EMV2PropertyAssociation(EObject context, EMV2PropertyAssociation semanticObject) {
+	protected void sequence_EMV2PropertyAssociation(ISerializationContext context, EMV2PropertyAssociation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMV2Root returns EMV2Root
+	 *
 	 * Constraint:
-	 *     (library=EMV2Library | subclauses+=EMV2Subclause*)
+	 *     (library=EMV2Library | subclauses+=EMV2Subclause+)?
 	 */
-	protected void sequence_EMV2Root(EObject context, EMV2Root semanticObject) {
+	protected void sequence_EMV2Root(ISerializationContext context, EMV2Root semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EMV2Subclause returns ErrorModelSubclause
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=QCREF 
@@ -668,27 +771,32 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         typeEquivalence=[TypeMappingSet|QEMREF]? 
 	 *         typeMappingSet=[TypeMappingSet|QEMREF]? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         (propagations+=ErrorPropagation* flows+=ErrorFlow*)? 
-	 *         (
-	 *             useTransformation=[TypeTransformationSet|QEMREF]? 
-	 *             events+=ErrorBehaviorEvent* 
-	 *             transitions+=ErrorBehaviorTransition* 
-	 *             outgoingPropagationConditions+=OutgoingPropagationCondition* 
-	 *             errorDetections+=ErrorDetection* 
-	 *             errorStateToModeMappings+=ErrorStateToModeMapping*
-	 *         )? 
+	 *         propagations+=ErrorPropagation* 
+	 *         flows+=ErrorFlow* 
+	 *         useTransformation=[TypeTransformationSet|QEMREF]? 
+	 *         events+=ErrorBehaviorEvent* 
+	 *         transitions+=ErrorBehaviorTransition* 
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition* 
+	 *         errorDetections+=ErrorDetection* 
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
 	 *         states+=CompositeState* 
-	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
-	 *         (points+=PropagationPoint* paths+=PropagationPath*)? 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]? 
+	 *         connectionErrorSources+=ConnectionErrorSource* 
+	 *         points+=PropagationPoint* 
+	 *         paths+=PropagationPath* 
 	 *         properties+=EMV2PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_EMV2Subclause(EObject context, ErrorModelSubclause semanticObject) {
+	protected void sequence_EMV2Subclause(ISerializationContext context, ErrorModelSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorBehaviorStateMachine
+	 *     ErrorBehaviorStateMachine returns ErrorBehaviorStateMachine
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -700,21 +808,29 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         properties+=BasicEMV2PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_ErrorBehaviorStateMachine(EObject context, ErrorBehaviorStateMachine semanticObject) {
+	protected void sequence_ErrorBehaviorStateMachine(ISerializationContext context, ErrorBehaviorStateMachine semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorBehaviorState
+	 *     ErrorBehaviorState returns ErrorBehaviorState
+	 *
 	 * Constraint:
 	 *     (name=ID intial?='initial'? typeSet=TypeSetReference?)
 	 */
-	protected void sequence_ErrorBehaviorState(EObject context, ErrorBehaviorState semanticObject) {
+	protected void sequence_ErrorBehaviorState(ISerializationContext context, ErrorBehaviorState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorBehaviorTransition
+	 *     ErrorBehaviorTransition returns ErrorBehaviorTransition
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
@@ -727,21 +843,29 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         )
 	 *     )
 	 */
-	protected void sequence_ErrorBehaviorTransition(EObject context, ErrorBehaviorTransition semanticObject) {
+	protected void sequence_ErrorBehaviorTransition(ISerializationContext context, ErrorBehaviorTransition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns ErrorCodeValue
+	 *     ErrorCodeValue returns ErrorCodeValue
+	 *
 	 * Constraint:
 	 *     (intValue=INTEGER_LIT | constant=[PropertyConstant|QPREF] | enumLiteral=STRING)
 	 */
-	protected void sequence_ErrorCodeValue(EObject context, ErrorCodeValue semanticObject) {
+	protected void sequence_ErrorCodeValue(ISerializationContext context, ErrorCodeValue semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorDetection
+	 *     ErrorDetection returns ErrorDetection
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
@@ -751,67 +875,87 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         errorCode=ErrorCodeValue?
 	 *     )
 	 */
-	protected void sequence_ErrorDetection(EObject context, ErrorDetection semanticObject) {
+	protected void sequence_ErrorDetection(ISerializationContext context, ErrorDetection semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorEvent
+	 *     ErrorBehaviorEvent returns ErrorEvent
+	 *     ErrorEvent returns ErrorEvent
+	 *     EventOrPropagation returns ErrorEvent
+	 *
 	 * Constraint:
 	 *     (name=ID typeSet=TypeSetReference? condition=CONDITION?)
 	 */
-	protected void sequence_ErrorEvent(EObject context, ErrorEvent semanticObject) {
+	protected void sequence_ErrorEvent(ISerializationContext context, ErrorEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AnnexLibrary returns ErrorModelLibrary
+	 *     NamedElement returns ErrorModelLibrary
+	 *     ErrorModelLibrary returns ErrorModelLibrary
+	 *
 	 * Constraint:
 	 *     (
-	 *         (
-	 *             (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
-	 *             (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
-	 *             (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
-	 *             properties+=BasicEMV2PropertyAssociation*
-	 *         )? 
+	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
+	 *         (extends+=[ErrorModelLibrary|QEMREF] extends+=[ErrorModelLibrary|QEMREF]*)? 
+	 *         (types+=TypeDefinition | typesets+=TypeSetDefinition)* 
+	 *         properties+=BasicEMV2PropertyAssociation* 
 	 *         behaviors+=ErrorBehaviorStateMachine* 
 	 *         mappings+=TypeMappingSet* 
 	 *         transformations+=TypeTransformationSet*
 	 *     )
 	 */
-	protected void sequence_ErrorModelLibrary(EObject context, ErrorModelLibrary semanticObject) {
+	protected void sequence_ErrorModelLibrary(ISerializationContext context, ErrorModelLibrary semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AnnexSubclause returns ErrorModelSubclause
+	 *     ModalElement returns ErrorModelSubclause
+	 *     ErrorModelSubclause returns ErrorModelSubclause
+	 *
 	 * Constraint:
 	 *     (
 	 *         (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? 
 	 *         typeEquivalence=[TypeMappingSet|QEMREF]? 
 	 *         typeMappingSet=[TypeMappingSet|QEMREF]? 
 	 *         useBehavior=[ErrorBehaviorStateMachine|QEMREF]? 
-	 *         (propagations+=ErrorPropagation* flows+=ErrorFlow*)? 
-	 *         (
-	 *             useTransformation=[TypeTransformationSet|QEMREF]? 
-	 *             events+=ErrorBehaviorEvent* 
-	 *             transitions+=ErrorBehaviorTransition* 
-	 *             outgoingPropagationConditions+=OutgoingPropagationCondition* 
-	 *             errorDetections+=ErrorDetection* 
-	 *             errorStateToModeMappings+=ErrorStateToModeMapping*
-	 *         )? 
+	 *         propagations+=ErrorPropagation* 
+	 *         flows+=ErrorFlow* 
+	 *         useTransformation=[TypeTransformationSet|QEMREF]? 
+	 *         events+=ErrorBehaviorEvent* 
+	 *         transitions+=ErrorBehaviorTransition* 
+	 *         outgoingPropagationConditions+=OutgoingPropagationCondition* 
+	 *         errorDetections+=ErrorDetection* 
+	 *         errorStateToModeMappings+=ErrorStateToModeMapping* 
 	 *         states+=CompositeState* 
-	 *         (typeTransformationSet=[TypeTransformationSet|QEMREF]? connectionErrorSources+=ConnectionErrorSource*)? 
-	 *         (points+=PropagationPoint* paths+=PropagationPath*)? 
+	 *         typeTransformationSet=[TypeTransformationSet|QEMREF]? 
+	 *         connectionErrorSources+=ConnectionErrorSource* 
+	 *         points+=PropagationPoint* 
+	 *         paths+=PropagationPath* 
 	 *         properties+=EMV2PropertyAssociation*
 	 *     )
 	 */
-	protected void sequence_ErrorModelSubclause(EObject context, ErrorModelSubclause semanticObject) {
+	protected void sequence_ErrorModelSubclause(ISerializationContext context, ErrorModelSubclause semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorPath
+	 *     ErrorFlow returns ErrorPath
+	 *     ErrorPath returns ErrorPath
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -821,30 +965,45 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         (targetToken=TypeToken | typeMappingSet=[TypeMappingSet|QEMREF])?
 	 *     )
 	 */
-	protected void sequence_ErrorPath(EObject context, ErrorPath semanticObject) {
+	protected void sequence_ErrorPath(ISerializationContext context, ErrorPath semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorPropagation
+	 *     ErrorPropagation returns ErrorPropagation
+	 *     EventOrPropagation returns ErrorPropagation
+	 *
 	 * Constraint:
 	 *     ((kind=PropagationKind | featureorPPRef=FeatureorPPReference) not?='not'? direction=PropagationDirection typeSet=TypeSetReference)
 	 */
-	protected void sequence_ErrorPropagation(EObject context, ErrorPropagation semanticObject) {
+	protected void sequence_ErrorPropagation(ISerializationContext context, ErrorPropagation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorSink
+	 *     ErrorFlow returns ErrorSink
+	 *     ErrorSink returns ErrorSink
+	 *
 	 * Constraint:
 	 *     (name=ID (incoming=[ErrorPropagation|ErrorPropagationPoint] | allIncoming?='all') typeTokenConstraint=TypeTokenConstraint?)
 	 */
-	protected void sequence_ErrorSink(EObject context, ErrorSink semanticObject) {
+	protected void sequence_ErrorSink(ISerializationContext context, ErrorSink semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorSource
+	 *     ErrorFlow returns ErrorSource
+	 *     ErrorSource returns ErrorSource
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -858,75 +1017,121 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         condition=CONDITION?
 	 *     )
 	 */
-	protected void sequence_ErrorSource(EObject context, ErrorSource semanticObject) {
+	protected void sequence_ErrorSource(ISerializationContext context, ErrorSource semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns ErrorStateToModeMapping
+	 *     ErrorStateToModeMapping returns ErrorStateToModeMapping
+	 *
 	 * Constraint:
 	 *     (errorState=[ErrorBehaviorState|ID] typeToken=TypeToken? mappedModes+=[Mode|ID] mappedModes+=[Mode|ID]*)
 	 */
-	protected void sequence_ErrorStateToModeMapping(EObject context, ErrorStateToModeMapping semanticObject) {
+	protected void sequence_ErrorStateToModeMapping(ISerializationContext context, ErrorStateToModeMapping semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns FeatureorPPReference
+	 *     FeatureorPPReference returns FeatureorPPReference
+	 *
 	 * Constraint:
 	 *     (featureorPP=[NamedElement|ID] next=FeatureorPPReference?)
 	 */
-	protected void sequence_FeatureorPPReference(EObject context, FeatureorPPReference semanticObject) {
+	protected void sequence_FeatureorPPReference(ISerializationContext context, FeatureorPPReference semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NoErrorTypeSet returns TypeSet
+	 *
 	 * Constraint:
 	 *     typeTokens+=NoErrorTypeToken
 	 */
-	protected void sequence_NoErrorTypeSet(EObject context, TypeSet semanticObject) {
+	protected void sequence_NoErrorTypeSet(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     TypeTokenOrNoError returns TypeSet
+	 *     TypeTokenConstraintNoError returns TypeSet
+	 *
 	 * Constraint:
 	 *     ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | typeTokens+=NoErrorTypeToken)
 	 */
-	protected void sequence_NoErrorTypeSet_TypeSetConstructor_TypeTokenOrNoError(EObject context, TypeSet semanticObject) {
+	protected void sequence_NoErrorTypeSet_TypeSetConstructor(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NoErrorTypeToken returns TypeToken
+	 *
 	 * Constraint:
 	 *     noError?='noerror'
 	 */
-	protected void sequence_NoErrorTypeToken(EObject context, TypeToken semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_NoErrorTypeToken(ISerializationContext context, TypeToken semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.TYPE_TOKEN__NO_ERROR) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.TYPE_TOKEN__NO_ERROR));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getNoErrorTypeTokenAccess().getNoErrorNoerrorKeyword_1_0(), semanticObject.isNoError());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns OrlessExpression
+	 *     ConditionExpression returns OrlessExpression
+	 *     ConditionExpression.OrExpression_1_0 returns OrlessExpression
+	 *     AndExpression returns OrlessExpression
+	 *     AndExpression.AndExpression_1_0 returns OrlessExpression
+	 *     OrlessExpression returns OrlessExpression
+	 *     ConditionTerm returns OrlessExpression
+	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=ConditionElement operands+=ConditionElement*)
 	 */
-	protected void sequence_OrlessExpression(EObject context, OrlessExpression semanticObject) {
+	protected void sequence_OrlessExpression(ISerializationContext context, OrlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns OrmoreExpression
+	 *     ConditionExpression returns OrmoreExpression
+	 *     ConditionExpression.OrExpression_1_0 returns OrmoreExpression
+	 *     AndExpression returns OrmoreExpression
+	 *     AndExpression.AndExpression_1_0 returns OrmoreExpression
+	 *     OrmoreExpression returns OrmoreExpression
+	 *     ConditionTerm returns OrmoreExpression
+	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=ConditionExpression operands+=ConditionExpression*)
 	 */
-	protected void sequence_OrmoreExpression(EObject context, OrmoreExpression semanticObject) {
+	protected void sequence_OrmoreExpression(ISerializationContext context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns OutgoingPropagationCondition
+	 *     OutgoingPropagationCondition returns OutgoingPropagationCondition
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID? 
@@ -936,226 +1141,385 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *         typeToken=TypeTokenOrNoError?
 	 *     )
 	 */
-	protected void sequence_OutgoingPropagationCondition(EObject context, OutgoingPropagationCondition semanticObject) {
+	protected void sequence_OutgoingPropagationCondition(ISerializationContext context, OutgoingPropagationCondition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns PropagationPath
+	 *     PropagationPath returns PropagationPath
+	 *
 	 * Constraint:
 	 *     (name=ID? source=QualifiedPropagationPoint target=QualifiedPropagationPoint)
 	 */
-	protected void sequence_PropagationPath(EObject context, PropagationPath semanticObject) {
+	protected void sequence_PropagationPath(ISerializationContext context, PropagationPath semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns PropagationPoint
+	 *     PropagationPoint returns PropagationPoint
+	 *
 	 * Constraint:
 	 *     name=ID
 	 */
-	protected void sequence_PropagationPoint(EObject context, PropagationPoint semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_PropagationPoint(ISerializationContext context, PropagationPoint semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, Aadl2Package.eINSTANCE.getNamedElement_Name()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getPropagationPointAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns QualifiedErrorBehaviorState
+	 *     QualifiedErrorBehaviorState returns QualifiedErrorBehaviorState
+	 *
 	 * Constraint:
 	 *     (subcomponent=SubcomponentElement (next=QualifiedErrorBehaviorState | state=[ErrorBehaviorState|ID]))
 	 */
-	protected void sequence_QualifiedErrorBehaviorState(EObject context, QualifiedErrorBehaviorState semanticObject) {
+	protected void sequence_QualifiedErrorBehaviorState(ISerializationContext context, QualifiedErrorBehaviorState semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     QualifiedErrorEventOrPropagation returns QualifiedErrorEventOrPropagation
+	 *
 	 * Constraint:
 	 *     emv2Target=EMV2ErrorPropagationPath
 	 */
-	protected void sequence_QualifiedErrorEventOrPropagation(EObject context, QualifiedErrorEventOrPropagation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_QualifiedErrorEventOrPropagation(ISerializationContext context, QualifiedErrorEventOrPropagation semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.EMV2_PATH__EMV2_TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.EMV2_PATH__EMV2_TARGET));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getQualifiedErrorEventOrPropagationAccess().getEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0(), semanticObject.getEmv2Target());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     QualifiedErrorPropagation returns QualifiedErrorPropagation
+	 *
 	 * Constraint:
 	 *     emv2Target=EMV2ErrorPropagationPath
 	 */
-	protected void sequence_QualifiedErrorPropagation(EObject context, QualifiedErrorPropagation semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_QualifiedErrorPropagation(ISerializationContext context, QualifiedErrorPropagation semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.EMV2_PATH__EMV2_TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.EMV2_PATH__EMV2_TARGET));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getQualifiedErrorPropagationAccess().getEmv2TargetEMV2ErrorPropagationPathParserRuleCall_1_0(), semanticObject.getEmv2Target());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns QualifiedPropagationPoint
+	 *     QualifiedPropagationPoint returns QualifiedPropagationPoint
+	 *
 	 * Constraint:
 	 *     (subcomponent=SubcomponentElement (next=QualifiedPropagationPoint | propagationPoint=[PropagationPoint|ID]))
 	 */
-	protected void sequence_QualifiedPropagationPoint(EObject context, QualifiedPropagationPoint semanticObject) {
+	protected void sequence_QualifiedPropagationPoint(ISerializationContext context, QualifiedPropagationPoint semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns RecoverEvent
+	 *     ErrorBehaviorEvent returns RecoverEvent
+	 *     RecoverEvent returns RecoverEvent
+	 *     EventOrPropagation returns RecoverEvent
+	 *
 	 * Constraint:
 	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)? condition=CONDITION?)
 	 */
-	protected void sequence_RecoverEvent(EObject context, RecoverEvent semanticObject) {
+	protected void sequence_RecoverEvent(ISerializationContext context, RecoverEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns RepairEvent
+	 *     ErrorBehaviorEvent returns RepairEvent
+	 *     RepairEvent returns RepairEvent
+	 *     EventOrPropagation returns RepairEvent
+	 *
 	 * Constraint:
 	 *     (name=ID (eventInitiator+=[NamedElement|ID] eventInitiator+=[NamedElement|ID]*)?)
 	 */
-	protected void sequence_RepairEvent(EObject context, RepairEvent semanticObject) {
+	protected void sequence_RepairEvent(ISerializationContext context, RepairEvent semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SConditionExpression returns AllExpression
+	 *     SConditionExpression.OrExpression_1_0 returns AllExpression
+	 *     SAndExpression returns AllExpression
+	 *     SAndExpression.AndExpression_1_0 returns AllExpression
+	 *     SAllExpression returns AllExpression
+	 *     SConditionTerm returns AllExpression
+	 *
 	 * Constraint:
 	 *     (count=INTVALUE? operands+=SConditionElement operands+=SConditionElement*)
 	 */
-	protected void sequence_SAllExpression(EObject context, AllExpression semanticObject) {
+	protected void sequence_SAllExpression(ISerializationContext context, AllExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SConditionExpression returns AndExpression
+	 *     SConditionExpression.OrExpression_1_0 returns AndExpression
+	 *     SAndExpression returns AndExpression
+	 *     SAndExpression.AndExpression_1_0 returns AndExpression
+	 *     SConditionTerm returns AndExpression
+	 *
 	 * Constraint:
 	 *     (operands+=SAndExpression_AndExpression_1_0 operands+=SConditionTerm)
 	 */
-	protected void sequence_SAndExpression(EObject context, AndExpression semanticObject) {
+	protected void sequence_SAndExpression(ISerializationContext context, AndExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SConditionExpression returns SConditionElement
+	 *     SConditionExpression.OrExpression_1_0 returns SConditionElement
+	 *     SAndExpression returns SConditionElement
+	 *     SAndExpression.AndExpression_1_0 returns SConditionElement
+	 *     SConditionTerm returns SConditionElement
+	 *     SConditionElement returns SConditionElement
+	 *
 	 * Constraint:
 	 *     (
 	 *         (qualifiedState=QualifiedErrorBehaviorState constraint=TypeTokenConstraint?) | 
 	 *         (qualifiedErrorPropagationReference=QualifiedErrorPropagation constraint=TypeTokenConstraintNoError?)
 	 *     )
 	 */
-	protected void sequence_SConditionElement(EObject context, SConditionElement semanticObject) {
+	protected void sequence_SConditionElement(ISerializationContext context, SConditionElement semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SConditionExpression returns OrExpression
+	 *     SConditionExpression.OrExpression_1_0 returns OrExpression
+	 *     SAndExpression returns OrExpression
+	 *     SAndExpression.AndExpression_1_0 returns OrExpression
+	 *     SConditionTerm returns OrExpression
+	 *
 	 * Constraint:
 	 *     (operands+=SConditionExpression_OrExpression_1_0 operands+=SAndExpression)
 	 */
-	protected void sequence_SConditionExpression(EObject context, OrExpression semanticObject) {
+	protected void sequence_SConditionExpression(ISerializationContext context, OrExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SConditionExpression returns OrlessExpression
+	 *     SConditionExpression.OrExpression_1_0 returns OrlessExpression
+	 *     SAndExpression returns OrlessExpression
+	 *     SAndExpression.AndExpression_1_0 returns OrlessExpression
+	 *     SOrlessExpression returns OrlessExpression
+	 *     SConditionTerm returns OrlessExpression
+	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=SConditionElement operands+=SConditionElement*)
 	 */
-	protected void sequence_SOrlessExpression(EObject context, OrlessExpression semanticObject) {
+	protected void sequence_SOrlessExpression(ISerializationContext context, OrlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SConditionExpression returns OrmoreExpression
+	 *     SConditionExpression.OrExpression_1_0 returns OrmoreExpression
+	 *     SAndExpression returns OrmoreExpression
+	 *     SAndExpression.AndExpression_1_0 returns OrmoreExpression
+	 *     SOrmoreExpression returns OrmoreExpression
+	 *     SConditionTerm returns OrmoreExpression
+	 *
 	 * Constraint:
 	 *     (count=INTVALUE operands+=SConditionElement operands+=SConditionElement*)
 	 */
-	protected void sequence_SOrmoreExpression(EObject context, OrmoreExpression semanticObject) {
+	protected void sequence_SOrmoreExpression(ISerializationContext context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns SubcomponentElement
+	 *     SubcomponentElement returns SubcomponentElement
+	 *
 	 * Constraint:
 	 *     subcomponent=[Subcomponent|ID]
 	 */
-	protected void sequence_SubcomponentElement(EObject context, SubcomponentElement semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_SubcomponentElement(ISerializationContext context, SubcomponentElement semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getSubcomponentElementAccess().getSubcomponentSubcomponentIDTerminalRuleCall_0_1(), semanticObject.eGet(ErrorModelPackage.Literals.SUBCOMPONENT_ELEMENT__SUBCOMPONENT, false));
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns TransitionBranch
+	 *     TransitionBranch returns TransitionBranch
+	 *
 	 * Constraint:
 	 *     (((target=[ErrorBehaviorState|ID] targetToken=TypeToken?) | steadyState?='same') value=BranchValue)
 	 */
-	protected void sequence_TransitionBranch(EObject context, TransitionBranch semanticObject) {
+	protected void sequence_TransitionBranch(ISerializationContext context, TransitionBranch semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns ErrorType
+	 *     ErrorTypes returns ErrorType
+	 *     TypeDefinition returns ErrorType
+	 *
 	 * Constraint:
 	 *     (name=ID (superType=[ErrorType|QEMREF] | aliasedType=[ErrorType|QEMREF])?)
 	 */
-	protected void sequence_TypeDefinition(EObject context, ErrorType semanticObject) {
+	protected void sequence_TypeDefinition(ISerializationContext context, ErrorType semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns TypeMappingSet
+	 *     TypeMappingSet returns TypeMappingSet
+	 *
 	 * Constraint:
 	 *     (name=ID (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? mapping+=TypeMapping+)
 	 */
-	protected void sequence_TypeMappingSet(EObject context, TypeMappingSet semanticObject) {
+	protected void sequence_TypeMappingSet(ISerializationContext context, TypeMappingSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns TypeMapping
+	 *     TypeMapping returns TypeMapping
+	 *
 	 * Constraint:
 	 *     (source=TypeTokenConstraint target=TypeToken)
 	 */
-	protected void sequence_TypeMapping(EObject context, TypeMapping semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_TypeMapping(ISerializationContext context, TypeMapping semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.TYPE_MAPPING__SOURCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.TYPE_MAPPING__SOURCE));
+			if (transientValues.isValueTransient(semanticObject, ErrorModelPackage.Literals.TYPE_MAPPING__TARGET) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ErrorModelPackage.Literals.TYPE_MAPPING__TARGET));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTypeMappingAccess().getSourceTypeTokenConstraintParserRuleCall_0_0(), semanticObject.getSource());
+		feeder.accept(grammarAccess.getTypeMappingAccess().getTargetTypeTokenParserRuleCall_2_0(), semanticObject.getTarget());
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     TypeSetConstructor returns TypeSet
+	 *     TypeSetReference returns TypeSet
+	 *     TypeToken returns TypeSet
+	 *     TypeTokenConstraint returns TypeSet
+	 *
 	 * Constraint:
 	 *     (typeTokens+=TypeSetElement typeTokens+=TypeSetElement*)
 	 */
-	protected void sequence_TypeSetConstructor(EObject context, TypeSet semanticObject) {
+	protected void sequence_TypeSetConstructor(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns TypeSet
+	 *     ErrorTypes returns TypeSet
+	 *     TypeSetDefinition returns TypeSet
+	 *
 	 * Constraint:
 	 *     (name=ID ((typeTokens+=TypeSetElement typeTokens+=TypeSetElement*) | aliasedType=[TypeSet|QEMREF]))
 	 */
-	protected void sequence_TypeSetDefinition(EObject context, TypeSet semanticObject) {
+	protected void sequence_TypeSetDefinition(ISerializationContext context, TypeSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns TypeToken
+	 *     TypeSetElement returns TypeToken
+	 *
 	 * Constraint:
 	 *     (type+=[ErrorTypes|QEMREF] type+=[ErrorTypes|QEMREF]*)
 	 */
-	protected void sequence_TypeSetElement(EObject context, TypeToken semanticObject) {
+	protected void sequence_TypeSetElement(ISerializationContext context, TypeToken semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     NamedElement returns TypeTransformationSet
+	 *     TypeTransformationSet returns TypeTransformationSet
+	 *
 	 * Constraint:
 	 *     (name=ID (useTypes+=[ErrorModelLibrary|QEMREF] useTypes+=[ErrorModelLibrary|QEMREF]*)? transformation+=TypeTransformation+)
 	 */
-	protected void sequence_TypeTransformationSet(EObject context, TypeTransformationSet semanticObject) {
+	protected void sequence_TypeTransformationSet(ISerializationContext context, TypeTransformationSet semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     Element returns TypeTransformation
+	 *     TypeTransformation returns TypeTransformation
+	 *
 	 * Constraint:
 	 *     ((source=TypeTokenConstraintNoError | allSources?='all') contributor=TypeTokenConstraintNoError? target=TypeToken)
 	 */
-	protected void sequence_TypeTransformation(EObject context, TypeTransformation semanticObject) {
+	protected void sequence_TypeTransformation(ISerializationContext context, TypeTransformation semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
+	
+	
 }

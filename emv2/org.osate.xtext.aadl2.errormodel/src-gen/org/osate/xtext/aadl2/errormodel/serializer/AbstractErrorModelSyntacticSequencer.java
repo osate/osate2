@@ -63,9 +63,9 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getIDRule())
+		if (ruleCall.getRule() == grammarAccess.getIDRule())
 			return getIDToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getQEMREFRule())
+		else if (ruleCall.getRule() == grammarAccess.getQEMREFRule())
 			return getQEMREFToken(semanticObject, ruleCall, node);
 		return "";
 	}
@@ -99,39 +99,39 @@ public abstract class AbstractErrorModelSyntacticSequencer extends AbstractSynta
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_ConditionTerm_LeftParenthesisKeyword_4_0_a.equals(syntax))
+			if (match_ConditionTerm_LeftParenthesisKeyword_4_0_a.equals(syntax))
 				emit_ConditionTerm_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
+			else if (match_ConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_ConditionTerm_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q.equals(syntax))
+			else if (match_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q.equals(syntax))
 				emit_EMV2Library___ErrorKeyword_0_1_2_0_TypesKeyword_0_1_2_1_EndKeyword_0_1_2_6_TypesKeyword_0_1_2_7_SemicolonKeyword_0_1_2_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q.equals(syntax))
+			else if (match_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q.equals(syntax))
 				emit_EMV2Library___ErrorKeyword_1_6_0_TypesKeyword_1_6_1_EndKeyword_1_6_6_TypesKeyword_1_6_7_SemicolonKeyword_1_6_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q.equals(syntax))
+			else if (match_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q.equals(syntax))
 				emit_EMV2Subclause___ComponentKeyword_8_0_ErrorKeyword_8_1_BehaviorKeyword_8_2_EndKeyword_8_9_ComponentKeyword_8_10_SemicolonKeyword_8_11__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
+			else if (match_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
 				emit_EMV2Subclause___CompositeKeyword_9_0_ErrorKeyword_9_1_BehaviorKeyword_9_2_EndKeyword_9_4_CompositeKeyword_9_5_SemicolonKeyword_9_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q.equals(syntax))
+			else if (match_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q.equals(syntax))
 				emit_EMV2Subclause___ConnectionKeyword_10_0_ErrorKeyword_10_1_EndKeyword_10_4_ConnectionKeyword_10_5_SemicolonKeyword_10_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
+			else if (match_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
 				emit_EMV2Subclause___ErrorKeyword_7_0_PropagationsKeyword_7_1_EndKeyword_7_4_PropagationsKeyword_7_5_SemicolonKeyword_7_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q.equals(syntax))
+			else if (match_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q.equals(syntax))
 				emit_EMV2Subclause___PropagationKeyword_11_0_PathsKeyword_11_1_EndKeyword_11_4_PathsKeyword_11_5_SemicolonKeyword_11_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q.equals(syntax))
+			else if (match_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q.equals(syntax))
 				emit_ErrorModelLibrary___ErrorKeyword_1_0_TypesKeyword_1_1_EndKeyword_1_6_TypesKeyword_1_7_SemicolonKeyword_1_8__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q.equals(syntax))
+			else if (match_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q.equals(syntax))
 				emit_ErrorModelSubclause___ComponentKeyword_6_0_ErrorKeyword_6_1_BehaviorKeyword_6_2_EndKeyword_6_9_ComponentKeyword_6_10_SemicolonKeyword_6_11__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
+			else if (match_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q.equals(syntax))
 				emit_ErrorModelSubclause___CompositeKeyword_7_0_ErrorKeyword_7_1_BehaviorKeyword_7_2_EndKeyword_7_4_CompositeKeyword_7_5_SemicolonKeyword_7_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q.equals(syntax))
+			else if (match_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q.equals(syntax))
 				emit_ErrorModelSubclause___ConnectionKeyword_8_0_ErrorKeyword_8_1_EndKeyword_8_4_ConnectionKeyword_8_5_SemicolonKeyword_8_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q.equals(syntax))
+			else if (match_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q.equals(syntax))
 				emit_ErrorModelSubclause___ErrorKeyword_5_0_PropagationsKeyword_5_1_EndKeyword_5_4_PropagationsKeyword_5_5_SemicolonKeyword_5_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
+			else if (match_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q.equals(syntax))
 				emit_ErrorModelSubclause___PropagationKeyword_9_0_PathsKeyword_9_1_EndKeyword_9_4_PathsKeyword_9_5_SemicolonKeyword_9_6__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SConditionTerm_LeftParenthesisKeyword_4_0_a.equals(syntax))
+			else if (match_SConditionTerm_LeftParenthesisKeyword_4_0_a.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_4_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_SConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
+			else if (match_SConditionTerm_LeftParenthesisKeyword_4_0_p.equals(syntax))
 				emit_SConditionTerm_LeftParenthesisKeyword_4_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
