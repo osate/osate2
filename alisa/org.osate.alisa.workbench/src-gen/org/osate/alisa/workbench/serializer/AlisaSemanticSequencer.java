@@ -16,14 +16,13 @@
 package org.osate.alisa.workbench.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
@@ -68,8 +67,13 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	private AlisaGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == Aadl2Package.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.AADL_BOOLEAN:
 				sequence_TypeRef(context, (AadlBoolean) semanticObject); 
 				return; 
@@ -95,7 +99,8 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				sequence_StringTerm(context, (StringLiteral) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == AlisaPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == AlisaPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case AlisaPackage.ASSURANCE_CASE:
 				sequence_AssuranceCase(context, (AssuranceCase) semanticObject); 
 				return; 
@@ -106,7 +111,8 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AssuranceTask(context, (AssuranceTask) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == CommonPackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == CommonPackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case CommonPackage.ABINARY_OPERATION:
 				sequence_AAdditiveExpression_AAndExpression_AEqualityExpression_AMultiplicativeExpression_AOrExpression_ARelationalExpression(context, (ABinaryOperation) semanticObject); 
 				return; 
@@ -120,29 +126,29 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AModelReference(context, (AModelReference) semanticObject); 
 				return; 
 			case CommonPackage.APROPERTY_REFERENCE:
-				if(context == grammarAccess.getAAdditiveExpressionRule() ||
-				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAAndExpressionRule() ||
-				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAEqualityExpressionRule() ||
-				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAExpressionRule() ||
-				   context == grammarAccess.getAModelOrPropertyReferenceRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAOrExpressionRule() ||
-				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAParenthesizedExpressionRule() ||
-				   context == grammarAccess.getAPrimaryExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAUnaryOperationRule() ||
-				   context == grammarAccess.getAUnitExpressionRule() ||
-				   context == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()) {
+				if (rule == grammarAccess.getAModelOrPropertyReferenceRule()
+						|| rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
 					sequence_AModelOrPropertyReference_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getAPropertyReferenceRule()) {
+				else if (rule == grammarAccess.getAPropertyReferenceRule()) {
 					sequence_APropertyReference(context, (APropertyReference) semanticObject); 
 					return; 
 				}
@@ -154,28 +160,28 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				sequence_AUnaryOperation(context, (AUnaryOperation) semanticObject); 
 				return; 
 			case CommonPackage.AUNIT_EXPRESSION:
-				if(context == grammarAccess.getAAdditiveExpressionRule() ||
-				   context == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAAndExpressionRule() ||
-				   context == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAEqualityExpressionRule() ||
-				   context == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionRule() ||
-				   context == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAOrExpressionRule() ||
-				   context == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAParenthesizedExpressionRule() ||
-				   context == grammarAccess.getAPrimaryExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionRule() ||
-				   context == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0() ||
-				   context == grammarAccess.getAUnaryOperationRule() ||
-				   context == grammarAccess.getAUnitExpressionRule() ||
-				   context == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()) {
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
 					sequence_AUnitExpression(context, (AUnitExpression) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getShowValueRule()) {
+				else if (rule == grammarAccess.getShowValueRule()) {
 					sequence_ShowValue(context, (AUnitExpression) semanticObject); 
 					return; 
 				}
@@ -217,10 +223,14 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 				sequence_ValDeclaration(context, (ValDeclaration) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     AssuranceCase returns AssuranceCase
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=QualifiedName 
@@ -231,35 +241,47 @@ public class AlisaSemanticSequencer extends CommonSemanticSequencer {
 	 *         tasks+=AssuranceTask*
 	 *     )
 	 */
-	protected void sequence_AssuranceCase(EObject context, AssuranceCase semanticObject) {
+	protected void sequence_AssuranceCase(ISerializationContext context, AssuranceCase semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AssurancePlan returns AssurancePlan
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
 	 *         title=STRING? 
 	 *         target=[ComponentImplementation|AadlClassifierReference] 
-	 *         description=Description? 
-	 *         assure+=[VerificationPlan|QualifiedName]* 
-	 *         assureGlobal+=[VerificationPlan|QualifiedName]* 
-	 *         (assureSubsystems+=[Subcomponent|ID]+ | assureAll?='all')? 
-	 *         (assumeSubsystems+=[Subcomponent|ID]+ | assumeAll?='all')? 
-	 *         issues+=STRING*
+	 *         (
+	 *             description=Description | 
+	 *             assure+=[VerificationPlan|QualifiedName] | 
+	 *             assureGlobal+=[VerificationPlan|QualifiedName] | 
+	 *             assureSubsystems+=[Subcomponent|ID] | 
+	 *             assureAll?='all' | 
+	 *             assumeSubsystems+=[Subcomponent|ID] | 
+	 *             assumeAll?='all' | 
+	 *             issues+=STRING
+	 *         )*
 	 *     )
 	 */
-	protected void sequence_AssurancePlan(EObject context, AssurancePlan semanticObject) {
+	protected void sequence_AssurancePlan(ISerializationContext context, AssurancePlan semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     AssuranceTask returns AssuranceTask
+	 *
 	 * Constraint:
-	 *     (name=ID title=STRING? description=Description? (category+=[Category|QualifiedName]+ anyCategory?='any'?)? issues+=STRING*)
+	 *     (name=ID title=STRING? ((description=Description | issues+=STRING)? (category+=[Category|QualifiedName] anyCategory?='any'?)?)+)
 	 */
-	protected void sequence_AssuranceTask(EObject context, AssuranceTask semanticObject) {
+	protected void sequence_AssuranceTask(ISerializationContext context, AssuranceTask semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
+	
+	
 }

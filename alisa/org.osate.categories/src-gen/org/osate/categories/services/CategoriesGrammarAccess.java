@@ -31,7 +31,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	public class CategoriesDefinitionsElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CategoriesDefinitions");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.categories.Categories.CategoriesDefinitions");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cCategoriesAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cCategoriesCategoriesParserRuleCall_0_0 = (RuleCall)cCategoriesAssignment_0.eContents().get(0);
@@ -59,7 +59,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	public class CategoriesElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Categories");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.categories.Categories.Categories");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
@@ -69,10 +69,12 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cRightSquareBracketKeyword_3 = (Keyword)cGroup.eContents().get(3);
 		
 		//Categories:
-		//	name=ID "[" category+=Category+ "]";
+		//	name=ID
+		//	'[' category+=Category+
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID "[" category+=Category+ "]"
+		//name=ID '[' category+=Category+ ']'
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -81,7 +83,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_0() { return cNameIDTerminalRuleCall_0_0; }
 
-		//"["
+		//'['
 		public Keyword getLeftSquareBracketKeyword_1() { return cLeftSquareBracketKeyword_1; }
 
 		//category+=Category+
@@ -90,18 +92,18 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//Category
 		public RuleCall getCategoryCategoryParserRuleCall_2_0() { return cCategoryCategoryParserRuleCall_2_0; }
 
-		//"]"
+		//']'
 		public Keyword getRightSquareBracketKeyword_3() { return cRightSquareBracketKeyword_3; }
 	}
 
 	public class CategoryElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Category");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.categories.Categories.Category");
 		private final Assignment cNameAssignment = (Assignment)rule.eContents().get(1);
 		private final RuleCall cNameIDTerminalRuleCall_0 = (RuleCall)cNameAssignment.eContents().get(0);
 		
-		/// **
+		///**
 		// * user selection  indicates a user defined selection categories  
-		// * / Category:
+		// */ Category:
 		//	name=ID;
 		@Override public ParserRule getRule() { return rule; }
 
@@ -113,7 +115,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	public class CategoryFilterElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CategoryFilter");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.categories.Categories.CategoryFilter");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cFilterKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -133,13 +135,15 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		////;
 		////
 		//CategoryFilter:
-		//	"filter" name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]";
+		//	'filter' name=ID '['
+		//	category+=[Category|CatRef]* anyCategory?='any'?
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
-		//"filter" name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]"
+		//'filter' name=ID '[' category+=[Category|CatRef]* anyCategory?='any'? ']'
 		public Group getGroup() { return cGroup; }
 
-		//"filter"
+		//'filter'
 		public Keyword getFilterKeyword_0() { return cFilterKeyword_0; }
 
 		//name=ID
@@ -148,7 +152,7 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_1_0() { return cNameIDTerminalRuleCall_1_0; }
 
-		//"["
+		//'['
 		public Keyword getLeftSquareBracketKeyword_2() { return cLeftSquareBracketKeyword_2; }
 
 		//category+=[Category|CatRef]*
@@ -160,35 +164,35 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		//CatRef
 		public RuleCall getCategoryCategoryCatRefParserRuleCall_3_0_1() { return cCategoryCategoryCatRefParserRuleCall_3_0_1; }
 
-		//anyCategory?="any"?
+		//anyCategory?='any'?
 		public Assignment getAnyCategoryAssignment_4() { return cAnyCategoryAssignment_4; }
 
-		//"any"
+		//'any'
 		public Keyword getAnyCategoryAnyKeyword_4_0() { return cAnyCategoryAnyKeyword_4_0; }
 
-		//"]"
+		//']'
 		public Keyword getRightSquareBracketKeyword_5() { return cRightSquareBracketKeyword_5; }
 	}
 
 	public class CatRefElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "CatRef");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.categories.Categories.CatRef");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Keyword cFullStopKeyword_1 = (Keyword)cGroup.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
 		
-		//// Category reference. Currently it is only a single ID
+		//// Category reference. 
 		//CatRef:
-		//	ID "." ID;
+		//	ID '.' ID;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID "." ID
+		//ID '.' ID
 		public Group getGroup() { return cGroup; }
 
 		//ID
 		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
-		//"."
+		//'.'
 		public Keyword getFullStopKeyword_1() { return cFullStopKeyword_1; }
 
 		//ID
@@ -256,7 +260,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//Categories:
-	//	name=ID "[" category+=Category+ "]";
+	//	name=ID
+	//	'[' category+=Category+
+	//	']';
 	public CategoriesElements getCategoriesAccess() {
 		return pCategories;
 	}
@@ -265,9 +271,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoriesAccess().getRule();
 	}
 
-	/// **
+	///**
 	// * user selection  indicates a user defined selection categories  
-	// * / Category:
+	// */ Category:
 	//	name=ID;
 	public CategoryElements getCategoryAccess() {
 		return pCategory;
@@ -284,7 +290,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	////;
 	////
 	//CategoryFilter:
-	//	"filter" name=ID "[" category+=[Category|CatRef]* anyCategory?="any"? "]";
+	//	'filter' name=ID '['
+	//	category+=[Category|CatRef]* anyCategory?='any'?
+	//	']';
 	public CategoryFilterElements getCategoryFilterAccess() {
 		return pCategoryFilter;
 	}
@@ -293,9 +301,9 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 		return getCategoryFilterAccess().getRule();
 	}
 
-	//// Category reference. Currently it is only a single ID
+	//// Category reference. 
 	//CatRef:
-	//	ID "." ID;
+	//	ID '.' ID;
 	public CatRefElements getCatRefAccess() {
 		return pCatRef;
 	}
@@ -305,38 +313,38 @@ public class CategoriesGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//terminal ID:
-	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
+	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 	public TerminalRule getIDRule() {
 		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
-	//	"0".."9"+;
+	//	'0'..'9'+;
 	public TerminalRule getINTRule() {
 		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
-	//	"\"" ("\\" . / * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\""))* "\"" | "\'" ("\\" .
-	//	/ * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\'"))* "\'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
-	//	"/ *"->"* /";
+	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
-	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
+	//	'//' !('\n' | '\r')* ('\r'? '\n')?;
 	public TerminalRule getSL_COMMENTRule() {
 		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
-	//	(" " | "\t" | "\r" | "\n")+;
+	//	' ' | '\t' | '\r' | '\n'+;
 	public TerminalRule getWSRule() {
 		return gaTerminals.getWSRule();
 	} 

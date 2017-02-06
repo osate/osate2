@@ -59,13 +59,13 @@ public class ResultsSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+			if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+			else if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q.equals(syntax))
+			else if (match_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q.equals(syntax))
 				emit_IssuesReport___LeftSquareBracketKeyword_3_0_RightSquareBracketKeyword_3_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+			else if (match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

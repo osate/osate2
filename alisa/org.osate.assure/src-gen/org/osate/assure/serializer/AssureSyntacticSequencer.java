@@ -65,19 +65,19 @@ public class AssureSyntacticSequencer extends AbstractSyntacticSequencer {
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
+			if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_a.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_a(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
+			else if (match_AParenthesizedExpression_LeftParenthesisKeyword_0_p.equals(syntax))
 				emit_AParenthesizedExpression_LeftParenthesisKeyword_0_p(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+			else if (match_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
 				emit_PreconditionResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_PredicateResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+			else if (match_PredicateResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
 				emit_PredicateResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
+			else if (match_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q.equals(syntax))
 				emit_ResultIssue___LeftSquareBracketKeyword_5_0_RightSquareBracketKeyword_5_2__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+			else if (match_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
 				emit_ValidationResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
+			else if (match_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q.equals(syntax))
 				emit_VerificationActivityResult___IssuesKeyword_8_0_LeftSquareBracketKeyword_8_1_RightSquareBracketKeyword_8_3__q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

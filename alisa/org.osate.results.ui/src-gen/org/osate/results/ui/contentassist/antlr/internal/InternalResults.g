@@ -2382,7 +2382,7 @@ rule__ResultReportCollection__Group__8__Impl
 :
 (
 { before(grammarAccess.getResultReportCollectionAccess().getIssuesAssignment_8()); }
-(rule__ResultReportCollection__IssuesAssignment_8)?
+(rule__ResultReportCollection__IssuesAssignment_8)*
 { after(grammarAccess.getResultReportCollectionAccess().getIssuesAssignment_8()); }
 )
 

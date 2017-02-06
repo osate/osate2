@@ -1100,9 +1100,6 @@ rule__Stakeholder__UnorderedGroup__Impl
 						(rule__Stakeholder__Group_0__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup());
-	 				}
  				)
 			)  |
 
@@ -1120,9 +1117,6 @@ rule__Stakeholder__UnorderedGroup__Impl
 						(rule__Stakeholder__Group_1__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_1()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup());
-	 				}
  				)
 			)  
 
@@ -1202,9 +1196,6 @@ rule__Stakeholder__UnorderedGroup_0_3__Impl
 						(rule__Stakeholder__Group_0_3_0__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0_3_0()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
-	 				}
  				)
 			)  |
 
@@ -1222,9 +1213,6 @@ rule__Stakeholder__UnorderedGroup_0_3__Impl
 						(rule__Stakeholder__Group_0_3_1__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0_3_1()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
-	 				}
  				)
 			)  |
 
@@ -1242,9 +1230,6 @@ rule__Stakeholder__UnorderedGroup_0_3__Impl
 						(rule__Stakeholder__Group_0_3_2__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0_3_2()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
-	 				}
  				)
 			)  |
 
@@ -1262,9 +1247,6 @@ rule__Stakeholder__UnorderedGroup_0_3__Impl
 						(rule__Stakeholder__Group_0_3_3__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0_3_3()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
-	 				}
  				)
 			)  |
 
@@ -1282,9 +1264,6 @@ rule__Stakeholder__UnorderedGroup_0_3__Impl
 						(rule__Stakeholder__Group_0_3_4__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0_3_4()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
-	 				}
  				)
 			)  |
 
@@ -1302,9 +1281,6 @@ rule__Stakeholder__UnorderedGroup_0_3__Impl
 						(rule__Stakeholder__Group_0_3_5__0)
 						{ after(grammarAccess.getStakeholderAccess().getGroup_0_3_5()); }
 					)
-					{ 
-	 				  getUnorderedGroupHelper().returnFromSelection(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
-	 				}
  				)
 			)  
 

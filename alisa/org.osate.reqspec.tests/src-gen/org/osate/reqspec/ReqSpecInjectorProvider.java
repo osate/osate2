@@ -15,16 +15,16 @@
  */
 package org.osate.reqspec;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
 import org.eclipse.xtext.junit4.GlobalRegistries;
 import org.eclipse.xtext.junit4.GlobalRegistries.GlobalStateMemento;
 import org.eclipse.xtext.junit4.IInjectorProvider;
 import org.eclipse.xtext.junit4.IRegistryConfigurator;
 
-import com.google.inject.Injector;
-
 public class ReqSpecInjectorProvider implements IInjectorProvider, IRegistryConfigurator {
-	
-    protected GlobalStateMemento stateBeforeInjectorCreation;
+
+	protected GlobalStateMemento stateBeforeInjectorCreation;
 	protected GlobalStateMemento stateAfterInjectorCreation;
 	protected Injector injector;
 
@@ -42,9 +42,26 @@ public class ReqSpecInjectorProvider implements IInjectorProvider, IRegistryConf
 		}
 		return injector;
 	}
-	
+
 	protected Injector internalCreateInjector() {
-	    return new ReqSpecStandaloneSetup().createInjectorAndDoEMFRegistration();
+		return new ReqSpecStandaloneSetup() {
+			@Override
+			public Injector createInjector() {
+				return Guice.createInjector(createRuntimeModule());
+			}
+		}.createInjectorAndDoEMFRegistration();
+	}
+
+	protected ReqSpecRuntimeModule createRuntimeModule() {
+		// make it work also with Maven/Tycho and OSGI
+		// see https://bugs.eclipse.org/bugs/show_bug.cgi?id=493672
+		return new ReqSpecRuntimeModule() {
+			@Override
+			public ClassLoader bindClassLoaderToInstance() {
+				return ReqSpecInjectorProvider.class
+						.getClassLoader();
+			}
+		};
 	}
 
 	@Override

@@ -31,7 +31,7 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	
 	
 	public class OrganizationElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Organization");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.organization.Organization.Organization");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final Keyword cOrganizationKeyword_0 = (Keyword)cGroup.eContents().get(0);
 		private final Assignment cNameAssignment_1 = (Assignment)cGroup.eContents().get(1);
@@ -40,13 +40,14 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cStakeholderStakeholderParserRuleCall_2_0 = (RuleCall)cStakeholderAssignment_2.eContents().get(0);
 		
 		//Organization:
-		//	"organization" name=ID stakeholder+=Stakeholder+;
+		//	'organization' name=ID
+		//	stakeholder+=Stakeholder+;
 		@Override public ParserRule getRule() { return rule; }
 
-		//"organization" name=ID stakeholder+=Stakeholder+
+		//'organization' name=ID stakeholder+=Stakeholder+
 		public Group getGroup() { return cGroup; }
 
-		//"organization"
+		//'organization'
 		public Keyword getOrganizationKeyword_0() { return cOrganizationKeyword_0; }
 
 		//name=ID
@@ -63,7 +64,7 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	public class StakeholderElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "Stakeholder");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.organization.Organization.Stakeholder");
 		private final UnorderedGroup cUnorderedGroup = (UnorderedGroup)rule.eContents().get(1);
 		private final Group cGroup_0 = (Group)cUnorderedGroup.eContents().get(0);
 		private final Keyword cStakeholderKeyword_0_0 = (Keyword)cGroup_0.eContents().get(0);
@@ -104,24 +105,29 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cSupervisorStakeholderQIDParserRuleCall_1_0_1_0_1 = (RuleCall)cSupervisorStakeholderCrossReference_1_0_1_0.eContents().get(1);
 		private final Keyword cRightSquareBracketKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
 		
-		/// *
+		///*
 		// * Stakeholder
-		// * / Stakeholder:
-		//	"stakeholder" name=ID "[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
-		//	description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) & ("supervisor"
-		//	supervisor=[Stakeholder|QID])? "]";
+		// */ Stakeholder:
+		//	'stakeholder' name=ID
+		//	'[' (('full' 'name' fullname=STRING)?
+		//	& ('title' title=STRING)?
+		//	& ('description' description=STRING)?
+		//	& ('role' role=STRING)?
+		//	& ('email' email=STRING)?
+		//	& ('phone' phone=STRING)?) & ('supervisor' supervisor=[Stakeholder|QID])?
+		//	']';
 		@Override public ParserRule getRule() { return rule; }
 
-		//"stakeholder" name=ID "[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
-		//description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) & ("supervisor"
-		//supervisor=[Stakeholder|QID])? "]"
+		//'stakeholder' name=ID '[' (('full' 'name' fullname=STRING)? & ('title' title=STRING)? & ('description'
+		//description=STRING)? & ('role' role=STRING)? & ('email' email=STRING)? & ('phone' phone=STRING)?) & ('supervisor'
+		//supervisor=[Stakeholder|QID])? ']'
 		public UnorderedGroup getUnorderedGroup() { return cUnorderedGroup; }
 
-		//"stakeholder" name=ID "[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
-		//description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?)
+		//'stakeholder' name=ID '[' (('full' 'name' fullname=STRING)? & ('title' title=STRING)? & ('description'
+		//description=STRING)? & ('role' role=STRING)? & ('email' email=STRING)? & ('phone' phone=STRING)?)
 		public Group getGroup_0() { return cGroup_0; }
 
-		//"stakeholder"
+		//'stakeholder'
 		public Keyword getStakeholderKeyword_0_0() { return cStakeholderKeyword_0_0; }
 
 		//name=ID
@@ -130,20 +136,20 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//ID
 		public RuleCall getNameIDTerminalRuleCall_0_1_0() { return cNameIDTerminalRuleCall_0_1_0; }
 
-		//"["
+		//'['
 		public Keyword getLeftSquareBracketKeyword_0_2() { return cLeftSquareBracketKeyword_0_2; }
 
-		//("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description" description=STRING)? & ("role" role=STRING)?
-		//& ("email" email=STRING)? & ("phone" phone=STRING)?
+		//('full' 'name' fullname=STRING)? & ('title' title=STRING)? & ('description' description=STRING)? & ('role' role=STRING)?
+		//& ('email' email=STRING)? & ('phone' phone=STRING)?
 		public UnorderedGroup getUnorderedGroup_0_3() { return cUnorderedGroup_0_3; }
 
-		//("full" "name" fullname=STRING)?
+		//('full' 'name' fullname=STRING)?
 		public Group getGroup_0_3_0() { return cGroup_0_3_0; }
 
-		//"full"
+		//'full'
 		public Keyword getFullKeyword_0_3_0_0() { return cFullKeyword_0_3_0_0; }
 
-		//"name"
+		//'name'
 		public Keyword getNameKeyword_0_3_0_1() { return cNameKeyword_0_3_0_1; }
 
 		//fullname=STRING
@@ -152,10 +158,10 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getFullnameSTRINGTerminalRuleCall_0_3_0_2_0() { return cFullnameSTRINGTerminalRuleCall_0_3_0_2_0; }
 
-		//("title" title=STRING)?
+		//('title' title=STRING)?
 		public Group getGroup_0_3_1() { return cGroup_0_3_1; }
 
-		//"title"
+		//'title'
 		public Keyword getTitleKeyword_0_3_1_0() { return cTitleKeyword_0_3_1_0; }
 
 		//title=STRING
@@ -164,10 +170,10 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getTitleSTRINGTerminalRuleCall_0_3_1_1_0() { return cTitleSTRINGTerminalRuleCall_0_3_1_1_0; }
 
-		//("description" description=STRING)?
+		//('description' description=STRING)?
 		public Group getGroup_0_3_2() { return cGroup_0_3_2; }
 
-		//"description"
+		//'description'
 		public Keyword getDescriptionKeyword_0_3_2_0() { return cDescriptionKeyword_0_3_2_0; }
 
 		//description=STRING
@@ -176,10 +182,10 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getDescriptionSTRINGTerminalRuleCall_0_3_2_1_0() { return cDescriptionSTRINGTerminalRuleCall_0_3_2_1_0; }
 
-		//("role" role=STRING)?
+		//('role' role=STRING)?
 		public Group getGroup_0_3_3() { return cGroup_0_3_3; }
 
-		//"role"
+		//'role'
 		public Keyword getRoleKeyword_0_3_3_0() { return cRoleKeyword_0_3_3_0; }
 
 		//role=STRING
@@ -188,10 +194,10 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getRoleSTRINGTerminalRuleCall_0_3_3_1_0() { return cRoleSTRINGTerminalRuleCall_0_3_3_1_0; }
 
-		//("email" email=STRING)?
+		//('email' email=STRING)?
 		public Group getGroup_0_3_4() { return cGroup_0_3_4; }
 
-		//"email"
+		//'email'
 		public Keyword getEmailKeyword_0_3_4_0() { return cEmailKeyword_0_3_4_0; }
 
 		//email=STRING
@@ -200,10 +206,10 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getEmailSTRINGTerminalRuleCall_0_3_4_1_0() { return cEmailSTRINGTerminalRuleCall_0_3_4_1_0; }
 
-		//("phone" phone=STRING)?
+		//('phone' phone=STRING)?
 		public Group getGroup_0_3_5() { return cGroup_0_3_5; }
 
-		//"phone"
+		//'phone'
 		public Keyword getPhoneKeyword_0_3_5_0() { return cPhoneKeyword_0_3_5_0; }
 
 		//phone=STRING
@@ -212,13 +218,13 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getPhoneSTRINGTerminalRuleCall_0_3_5_1_0() { return cPhoneSTRINGTerminalRuleCall_0_3_5_1_0; }
 
-		//("supervisor" supervisor=[Stakeholder|QID])? "]"
+		//('supervisor' supervisor=[Stakeholder|QID])? ']'
 		public Group getGroup_1() { return cGroup_1; }
 
-		//("supervisor" supervisor=[Stakeholder|QID])?
+		//('supervisor' supervisor=[Stakeholder|QID])?
 		public Group getGroup_1_0() { return cGroup_1_0; }
 
-		//"supervisor"
+		//'supervisor'
 		public Keyword getSupervisorKeyword_1_0_0() { return cSupervisorKeyword_1_0_0; }
 
 		//supervisor=[Stakeholder|QID]
@@ -230,12 +236,12 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		//QID
 		public RuleCall getSupervisorStakeholderQIDParserRuleCall_1_0_1_0_1() { return cSupervisorStakeholderQIDParserRuleCall_1_0_1_0_1; }
 
-		//"]"
+		//']'
 		public Keyword getRightSquareBracketKeyword_1_1() { return cRightSquareBracketKeyword_1_1; }
 	}
 
 	public class QIDElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "QID");
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.organization.Organization.QID");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cIDTerminalRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
 		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
@@ -243,19 +249,19 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		private final RuleCall cIDTerminalRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		//QID:
-		//	ID ("." ID)?;
+		//	ID ('.' ID)?;
 		@Override public ParserRule getRule() { return rule; }
 
-		//ID ("." ID)?
+		//ID ('.' ID)?
 		public Group getGroup() { return cGroup; }
 
 		//ID
 		public RuleCall getIDTerminalRuleCall_0() { return cIDTerminalRuleCall_0; }
 
-		//("." ID)?
+		//('.' ID)?
 		public Group getGroup_1() { return cGroup_1; }
 
-		//"."
+		//'.'
 		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
 
 		//ID
@@ -309,7 +315,8 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 
 	
 	//Organization:
-	//	"organization" name=ID stakeholder+=Stakeholder+;
+	//	'organization' name=ID
+	//	stakeholder+=Stakeholder+;
 	public OrganizationElements getOrganizationAccess() {
 		return pOrganization;
 	}
@@ -318,12 +325,17 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 		return getOrganizationAccess().getRule();
 	}
 
-	/// *
+	///*
 	// * Stakeholder
-	// * / Stakeholder:
-	//	"stakeholder" name=ID "[" (("full" "name" fullname=STRING)? & ("title" title=STRING)? & ("description"
-	//	description=STRING)? & ("role" role=STRING)? & ("email" email=STRING)? & ("phone" phone=STRING)?) & ("supervisor"
-	//	supervisor=[Stakeholder|QID])? "]";
+	// */ Stakeholder:
+	//	'stakeholder' name=ID
+	//	'[' (('full' 'name' fullname=STRING)?
+	//	& ('title' title=STRING)?
+	//	& ('description' description=STRING)?
+	//	& ('role' role=STRING)?
+	//	& ('email' email=STRING)?
+	//	& ('phone' phone=STRING)?) & ('supervisor' supervisor=[Stakeholder|QID])?
+	//	']';
 	public StakeholderElements getStakeholderAccess() {
 		return pStakeholder;
 	}
@@ -333,7 +345,7 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//QID:
-	//	ID ("." ID)?;
+	//	ID ('.' ID)?;
 	public QIDElements getQIDAccess() {
 		return pQID;
 	}
@@ -343,38 +355,38 @@ public class OrganizationGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//terminal ID:
-	//	"^"? ("a".."z" | "A".."Z" | "_") ("a".."z" | "A".."Z" | "_" | "0".."9")*;
+	//	'^'? ('a'..'z' | 'A'..'Z' | '_') ('a'..'z' | 'A'..'Z' | '_' | '0'..'9')*;
 	public TerminalRule getIDRule() {
 		return gaTerminals.getIDRule();
 	} 
 
 	//terminal INT returns ecore::EInt:
-	//	"0".."9"+;
+	//	'0'..'9'+;
 	public TerminalRule getINTRule() {
 		return gaTerminals.getINTRule();
 	} 
 
 	//terminal STRING:
-	//	"\"" ("\\" . / * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\""))* "\"" | "\'" ("\\" .
-	//	/ * 'b'|'t'|'n'|'f'|'r'|'u'|'"'|"'"|'\\' * / | !("\\" | "\'"))* "\'";
+	//	'"' ('\\' . | !('\\' | '"'))* '"' |
+	//	"'" ('\\' . | !('\\' | "'"))* "'";
 	public TerminalRule getSTRINGRule() {
 		return gaTerminals.getSTRINGRule();
 	} 
 
 	//terminal ML_COMMENT:
-	//	"/ *"->"* /";
+	//	'/*'->'*/';
 	public TerminalRule getML_COMMENTRule() {
 		return gaTerminals.getML_COMMENTRule();
 	} 
 
 	//terminal SL_COMMENT:
-	//	"//" !("\n" | "\r")* ("\r"? "\n")?;
+	//	'//' !('\n' | '\r')* ('\r'? '\n')?;
 	public TerminalRule getSL_COMMENTRule() {
 		return gaTerminals.getSL_COMMENTRule();
 	} 
 
 	//terminal WS:
-	//	(" " | "\t" | "\r" | "\n")+;
+	//	' ' | '\t' | '\r' | '\n'+;
 	public TerminalRule getWSRule() {
 		return gaTerminals.getWSRule();
 	} 

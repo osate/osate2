@@ -52,15 +52,15 @@ public class InternalCategoriesLexer extends Lexer {
         super(input,state);
 
     }
-    public String getGrammarFileName() { return "../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g"; }
+    public String getGrammarFileName() { return "InternalCategoriesLexer.g"; }
 
     // $ANTLR start "Filter"
     public final void mFilter() throws RecognitionException {
         try {
             int _type = Filter;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:31:8: ( 'filter' )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:31:10: 'filter'
+            // InternalCategoriesLexer.g:31:8: ( 'filter' )
+            // InternalCategoriesLexer.g:31:10: 'filter'
             {
             match("filter"); 
 
@@ -80,8 +80,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = Any;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:33:5: ( 'any' )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:33:7: 'any'
+            // InternalCategoriesLexer.g:33:5: ( 'any' )
+            // InternalCategoriesLexer.g:33:7: 'any'
             {
             match("any"); 
 
@@ -101,8 +101,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = FullStop;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:35:10: ( '.' )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:35:12: '.'
+            // InternalCategoriesLexer.g:35:10: ( '.' )
+            // InternalCategoriesLexer.g:35:12: '.'
             {
             match('.'); 
 
@@ -121,8 +121,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = LeftSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:37:19: ( '[' )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:37:21: '['
+            // InternalCategoriesLexer.g:37:19: ( '[' )
+            // InternalCategoriesLexer.g:37:21: '['
             {
             match('['); 
 
@@ -141,8 +141,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RightSquareBracket;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:39:20: ( ']' )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:39:22: ']'
+            // InternalCategoriesLexer.g:39:20: ( ']' )
+            // InternalCategoriesLexer.g:39:22: ']'
             {
             match(']'); 
 
@@ -161,10 +161,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ID;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:43:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:43:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalCategoriesLexer.g:43:9: ( ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )* )
+            // InternalCategoriesLexer.g:43:11: ( '^' )? ( 'a' .. 'z' | 'A' .. 'Z' | '_' ) ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:43:11: ( '^' )?
+            // InternalCategoriesLexer.g:43:11: ( '^' )?
             int alt1=2;
             int LA1_0 = input.LA(1);
 
@@ -173,7 +173,7 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt1) {
                 case 1 :
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:43:11: '^'
+                    // InternalCategoriesLexer.g:43:11: '^'
                     {
                     match('^'); 
 
@@ -191,7 +191,7 @@ public class InternalCategoriesLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:43:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
+            // InternalCategoriesLexer.g:43:40: ( 'a' .. 'z' | 'A' .. 'Z' | '_' | '0' .. '9' )*
             loop2:
             do {
                 int alt2=2;
@@ -204,7 +204,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt2) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:
+            	    // InternalCategoriesLexer.g:
             	    {
             	    if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
             	        input.consume();
@@ -240,10 +240,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_INT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:45:10: ( ( '0' .. '9' )+ )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:45:12: ( '0' .. '9' )+
+            // InternalCategoriesLexer.g:45:10: ( ( '0' .. '9' )+ )
+            // InternalCategoriesLexer.g:45:12: ( '0' .. '9' )+
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:45:12: ( '0' .. '9' )+
+            // InternalCategoriesLexer.g:45:12: ( '0' .. '9' )+
             int cnt3=0;
             loop3:
             do {
@@ -257,7 +257,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt3) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:45:13: '0' .. '9'
+            	    // InternalCategoriesLexer.g:45:13: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -289,10 +289,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalCategoriesLexer.g:47:13: ( ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' ) )
+            // InternalCategoriesLexer.g:47:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
+            // InternalCategoriesLexer.g:47:15: ( '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"' | '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\'' )
             int alt6=2;
             int LA6_0 = input.LA(1);
 
@@ -310,10 +310,10 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt6) {
                 case 1 :
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
+                    // InternalCategoriesLexer.g:47:16: '\"' ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )* '\"'
                     {
                     match('\"'); 
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
+                    // InternalCategoriesLexer.g:47:20: ( '\\\\' . | ~ ( ( '\\\\' | '\"' ) ) )*
                     loop4:
                     do {
                         int alt4=3;
@@ -329,7 +329,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                         switch (alt4) {
                     	case 1 :
-                    	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:21: '\\\\' .
+                    	    // InternalCategoriesLexer.g:47:21: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -337,7 +337,7 @@ public class InternalCategoriesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:28: ~ ( ( '\\\\' | '\"' ) )
+                    	    // InternalCategoriesLexer.g:47:28: ~ ( ( '\\\\' | '\"' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -362,10 +362,10 @@ public class InternalCategoriesLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
+                    // InternalCategoriesLexer.g:47:48: '\\'' ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )* '\\''
                     {
                     match('\''); 
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
+                    // InternalCategoriesLexer.g:47:53: ( '\\\\' . | ~ ( ( '\\\\' | '\\'' ) ) )*
                     loop5:
                     do {
                         int alt5=3;
@@ -381,7 +381,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                         switch (alt5) {
                     	case 1 :
-                    	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:54: '\\\\' .
+                    	    // InternalCategoriesLexer.g:47:54: '\\\\' .
                     	    {
                     	    match('\\'); 
                     	    matchAny(); 
@@ -389,7 +389,7 @@ public class InternalCategoriesLexer extends Lexer {
                     	    }
                     	    break;
                     	case 2 :
-                    	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:47:61: ~ ( ( '\\\\' | '\\'' ) )
+                    	    // InternalCategoriesLexer.g:47:61: ~ ( ( '\\\\' | '\\'' ) )
                     	    {
                     	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
                     	        input.consume();
@@ -432,12 +432,12 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ML_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:49:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:49:19: '/*' ( options {greedy=false; } : . )* '*/'
+            // InternalCategoriesLexer.g:49:17: ( '/*' ( options {greedy=false; } : . )* '*/' )
+            // InternalCategoriesLexer.g:49:19: '/*' ( options {greedy=false; } : . )* '*/'
             {
             match("/*"); 
 
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:49:24: ( options {greedy=false; } : . )*
+            // InternalCategoriesLexer.g:49:24: ( options {greedy=false; } : . )*
             loop7:
             do {
                 int alt7=2;
@@ -462,7 +462,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt7) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:49:52: .
+            	    // InternalCategoriesLexer.g:49:52: .
             	    {
             	    matchAny(); 
 
@@ -492,12 +492,12 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_SL_COMMENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
+            // InternalCategoriesLexer.g:51:17: ( '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )? )
+            // InternalCategoriesLexer.g:51:19: '//' (~ ( ( '\\n' | '\\r' ) ) )* ( ( '\\r' )? '\\n' )?
             {
             match("//"); 
 
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:24: (~ ( ( '\\n' | '\\r' ) ) )*
+            // InternalCategoriesLexer.g:51:24: (~ ( ( '\\n' | '\\r' ) ) )*
             loop8:
             do {
                 int alt8=2;
@@ -510,7 +510,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt8) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:24: ~ ( ( '\\n' | '\\r' ) )
+            	    // InternalCategoriesLexer.g:51:24: ~ ( ( '\\n' | '\\r' ) )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -530,7 +530,7 @@ public class InternalCategoriesLexer extends Lexer {
                 }
             } while (true);
 
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:40: ( ( '\\r' )? '\\n' )?
+            // InternalCategoriesLexer.g:51:40: ( ( '\\r' )? '\\n' )?
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -539,9 +539,9 @@ public class InternalCategoriesLexer extends Lexer {
             }
             switch (alt10) {
                 case 1 :
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:41: ( '\\r' )? '\\n'
+                    // InternalCategoriesLexer.g:51:41: ( '\\r' )? '\\n'
                     {
-                    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:41: ( '\\r' )?
+                    // InternalCategoriesLexer.g:51:41: ( '\\r' )?
                     int alt9=2;
                     int LA9_0 = input.LA(1);
 
@@ -550,7 +550,7 @@ public class InternalCategoriesLexer extends Lexer {
                     }
                     switch (alt9) {
                         case 1 :
-                            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:51:41: '\\r'
+                            // InternalCategoriesLexer.g:51:41: '\\r'
                             {
                             match('\r'); 
 
@@ -582,10 +582,10 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:53:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:53:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalCategoriesLexer.g:53:9: ( ( ' ' | '\\t' | '\\r' | '\\n' )+ )
+            // InternalCategoriesLexer.g:53:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             {
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:53:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
+            // InternalCategoriesLexer.g:53:11: ( ' ' | '\\t' | '\\r' | '\\n' )+
             int cnt11=0;
             loop11:
             do {
@@ -599,7 +599,7 @@ public class InternalCategoriesLexer extends Lexer {
 
                 switch (alt11) {
             	case 1 :
-            	    // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:
+            	    // InternalCategoriesLexer.g:
             	    {
             	    if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\r'||input.LA(1)==' ' ) {
             	        input.consume();
@@ -639,8 +639,8 @@ public class InternalCategoriesLexer extends Lexer {
         try {
             int _type = RULE_ANY_OTHER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:55:16: ( . )
-            // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:55:18: .
+            // InternalCategoriesLexer.g:55:16: ( . )
+            // InternalCategoriesLexer.g:55:18: .
             {
             matchAny(); 
 
@@ -655,89 +655,89 @@ public class InternalCategoriesLexer extends Lexer {
     // $ANTLR end "RULE_ANY_OTHER"
 
     public void mTokens() throws RecognitionException {
-        // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:8: ( Filter | Any | FullStop | LeftSquareBracket | RightSquareBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
+        // InternalCategoriesLexer.g:1:8: ( Filter | Any | FullStop | LeftSquareBracket | RightSquareBracket | RULE_ID | RULE_INT | RULE_STRING | RULE_ML_COMMENT | RULE_SL_COMMENT | RULE_WS | RULE_ANY_OTHER )
         int alt12=12;
         alt12 = dfa12.predict(input);
         switch (alt12) {
             case 1 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:10: Filter
+                // InternalCategoriesLexer.g:1:10: Filter
                 {
                 mFilter(); 
 
                 }
                 break;
             case 2 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:17: Any
+                // InternalCategoriesLexer.g:1:17: Any
                 {
                 mAny(); 
 
                 }
                 break;
             case 3 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:21: FullStop
+                // InternalCategoriesLexer.g:1:21: FullStop
                 {
                 mFullStop(); 
 
                 }
                 break;
             case 4 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:30: LeftSquareBracket
+                // InternalCategoriesLexer.g:1:30: LeftSquareBracket
                 {
                 mLeftSquareBracket(); 
 
                 }
                 break;
             case 5 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:48: RightSquareBracket
+                // InternalCategoriesLexer.g:1:48: RightSquareBracket
                 {
                 mRightSquareBracket(); 
 
                 }
                 break;
             case 6 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:67: RULE_ID
+                // InternalCategoriesLexer.g:1:67: RULE_ID
                 {
                 mRULE_ID(); 
 
                 }
                 break;
             case 7 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:75: RULE_INT
+                // InternalCategoriesLexer.g:1:75: RULE_INT
                 {
                 mRULE_INT(); 
 
                 }
                 break;
             case 8 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:84: RULE_STRING
+                // InternalCategoriesLexer.g:1:84: RULE_STRING
                 {
                 mRULE_STRING(); 
 
                 }
                 break;
             case 9 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:96: RULE_ML_COMMENT
+                // InternalCategoriesLexer.g:1:96: RULE_ML_COMMENT
                 {
                 mRULE_ML_COMMENT(); 
 
                 }
                 break;
             case 10 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:112: RULE_SL_COMMENT
+                // InternalCategoriesLexer.g:1:112: RULE_SL_COMMENT
                 {
                 mRULE_SL_COMMENT(); 
 
                 }
                 break;
             case 11 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:128: RULE_WS
+                // InternalCategoriesLexer.g:1:128: RULE_WS
                 {
                 mRULE_WS(); 
 
                 }
                 break;
             case 12 :
-                // ../org.osate.categories/src-gen/org/osate/categories/parser/antlr/lexer/InternalCategoriesLexer.g:1:136: RULE_ANY_OTHER
+                // InternalCategoriesLexer.g:1:136: RULE_ANY_OTHER
                 {
                 mRULE_ANY_OTHER(); 
 

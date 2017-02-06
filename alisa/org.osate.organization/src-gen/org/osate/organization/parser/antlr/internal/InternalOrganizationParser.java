@@ -74,7 +74,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
         
 
     public String[] getTokenNames() { return InternalOrganizationParser.tokenNames; }
-    public String getGrammarFileName() { return "../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g"; }
+    public String getGrammarFileName() { return "InternalOrganizationParser.g"; }
 
 
 
@@ -100,7 +100,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOrganization"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:73:1: entryRuleOrganization returns [EObject current=null] : iv_ruleOrganization= ruleOrganization EOF ;
+    // InternalOrganizationParser.g:73:1: entryRuleOrganization returns [EObject current=null] : iv_ruleOrganization= ruleOrganization EOF ;
     public final EObject entryRuleOrganization() throws RecognitionException {
         EObject current = null;
 
@@ -108,17 +108,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:74:2: (iv_ruleOrganization= ruleOrganization EOF )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:75:2: iv_ruleOrganization= ruleOrganization EOF
+            // InternalOrganizationParser.g:74:2: (iv_ruleOrganization= ruleOrganization EOF )
+            // InternalOrganizationParser.g:75:2: iv_ruleOrganization= ruleOrganization EOF
             {
              newCompositeNode(grammarAccess.getOrganizationRule()); 
-            pushFollow(FOLLOW_ruleOrganization_in_entryRuleOrganization67);
+            pushFollow(FOLLOW_1);
             iv_ruleOrganization=ruleOrganization();
 
             state._fsp--;
 
              current =iv_ruleOrganization; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleOrganization77); 
+            match(input,EOF,FOLLOW_2); 
 
             }
 
@@ -136,7 +136,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOrganization"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:82:1: ruleOrganization returns [EObject current=null] : (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ ) ;
+    // InternalOrganizationParser.g:82:1: ruleOrganization returns [EObject current=null] : (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ ) ;
     public final EObject ruleOrganization() throws RecognitionException {
         EObject current = null;
 
@@ -148,23 +148,23 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:85:28: ( (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ ) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:86:1: (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ )
+            // InternalOrganizationParser.g:85:28: ( (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ ) )
+            // InternalOrganizationParser.g:86:1: (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ )
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:86:1: (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:87:2: otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+
+            // InternalOrganizationParser.g:86:1: (otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+ )
+            // InternalOrganizationParser.g:87:2: otherlv_0= Organization ( (lv_name_1_0= RULE_ID ) ) ( (lv_stakeholder_2_0= ruleStakeholder ) )+
             {
-            otherlv_0=(Token)match(input,Organization,FOLLOW_Organization_in_ruleOrganization115); 
+            otherlv_0=(Token)match(input,Organization,FOLLOW_3); 
 
                 	newLeafNode(otherlv_0, grammarAccess.getOrganizationAccess().getOrganizationKeyword_0());
                 
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:91:1: ( (lv_name_1_0= RULE_ID ) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:92:1: (lv_name_1_0= RULE_ID )
+            // InternalOrganizationParser.g:91:1: ( (lv_name_1_0= RULE_ID ) )
+            // InternalOrganizationParser.g:92:1: (lv_name_1_0= RULE_ID )
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:92:1: (lv_name_1_0= RULE_ID )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:93:3: lv_name_1_0= RULE_ID
+            // InternalOrganizationParser.g:92:1: (lv_name_1_0= RULE_ID )
+            // InternalOrganizationParser.g:93:3: lv_name_1_0= RULE_ID
             {
-            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleOrganization131); 
+            lv_name_1_0=(Token)match(input,RULE_ID,FOLLOW_4); 
 
             			newLeafNode(lv_name_1_0, grammarAccess.getOrganizationAccess().getNameIDTerminalRuleCall_1_0()); 
             		
@@ -176,7 +176,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
                    			current, 
                    			"name",
                     		lv_name_1_0, 
-                    		"ID");
+                    		"org.eclipse.xtext.common.Terminals.ID");
             	    
 
             }
@@ -184,7 +184,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
             }
 
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:109:2: ( (lv_stakeholder_2_0= ruleStakeholder ) )+
+            // InternalOrganizationParser.g:109:2: ( (lv_stakeholder_2_0= ruleStakeholder ) )+
             int cnt1=0;
             loop1:
             do {
@@ -198,15 +198,15 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
                 switch (alt1) {
             	case 1 :
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:110:1: (lv_stakeholder_2_0= ruleStakeholder )
+            	    // InternalOrganizationParser.g:110:1: (lv_stakeholder_2_0= ruleStakeholder )
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:110:1: (lv_stakeholder_2_0= ruleStakeholder )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:111:3: lv_stakeholder_2_0= ruleStakeholder
+            	    // InternalOrganizationParser.g:110:1: (lv_stakeholder_2_0= ruleStakeholder )
+            	    // InternalOrganizationParser.g:111:3: lv_stakeholder_2_0= ruleStakeholder
             	    {
             	     
             	    	        newCompositeNode(grammarAccess.getOrganizationAccess().getStakeholderStakeholderParserRuleCall_2_0()); 
             	    	    
-            	    pushFollow(FOLLOW_ruleStakeholder_in_ruleOrganization157);
+            	    pushFollow(FOLLOW_5);
             	    lv_stakeholder_2_0=ruleStakeholder();
 
             	    state._fsp--;
@@ -219,7 +219,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	           			current, 
             	           			"stakeholder",
             	            		lv_stakeholder_2_0, 
-            	            		"Stakeholder");
+            	            		"org.osate.organization.Organization.Stakeholder");
             	    	        afterParserOrEnumRuleCall();
             	    	    
 
@@ -259,7 +259,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleStakeholder"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:135:1: entryRuleStakeholder returns [EObject current=null] : iv_ruleStakeholder= ruleStakeholder EOF ;
+    // InternalOrganizationParser.g:135:1: entryRuleStakeholder returns [EObject current=null] : iv_ruleStakeholder= ruleStakeholder EOF ;
     public final EObject entryRuleStakeholder() throws RecognitionException {
         EObject current = null;
 
@@ -267,17 +267,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:136:2: (iv_ruleStakeholder= ruleStakeholder EOF )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:137:2: iv_ruleStakeholder= ruleStakeholder EOF
+            // InternalOrganizationParser.g:136:2: (iv_ruleStakeholder= ruleStakeholder EOF )
+            // InternalOrganizationParser.g:137:2: iv_ruleStakeholder= ruleStakeholder EOF
             {
              newCompositeNode(grammarAccess.getStakeholderRule()); 
-            pushFollow(FOLLOW_ruleStakeholder_in_entryRuleStakeholder193);
+            pushFollow(FOLLOW_1);
             iv_ruleStakeholder=ruleStakeholder();
 
             state._fsp--;
 
              current =iv_ruleStakeholder; 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleStakeholder203); 
+            match(input,EOF,FOLLOW_2); 
 
             }
 
@@ -295,7 +295,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleStakeholder"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:144:1: ruleStakeholder returns [EObject current=null] : ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) ) ;
+    // InternalOrganizationParser.g:144:1: ruleStakeholder returns [EObject current=null] : ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) ) ;
     public final EObject ruleStakeholder() throws RecognitionException {
         EObject current = null;
 
@@ -321,22 +321,22 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:147:28: ( ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) ) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:148:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) )
+            // InternalOrganizationParser.g:147:28: ( ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) ) )
+            // InternalOrganizationParser.g:148:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) )
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:148:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:150:1: ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) )
+            // InternalOrganizationParser.g:148:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) ) )
+            // InternalOrganizationParser.g:150:1: ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) )
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:150:1: ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:151:2: ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?)
+            // InternalOrganizationParser.g:150:1: ( ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?) )
+            // InternalOrganizationParser.g:151:2: ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?)
             {
              
             	  getUnorderedGroupHelper().enter(grammarAccess.getStakeholderAccess().getUnorderedGroup());
             	
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:154:2: ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?)
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:155:3: ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?
+            // InternalOrganizationParser.g:154:2: ( ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?)
+            // InternalOrganizationParser.g:155:3: ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+ {...}?
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:155:3: ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+
+            // InternalOrganizationParser.g:155:3: ( ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) ) | ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) ) )+
             int cnt4=0;
             loop4:
             do {
@@ -380,40 +380,40 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
                 switch (alt4) {
             	case 1 :
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:157:4: ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) )
+            	    // InternalOrganizationParser.g:157:4: ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) )
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:157:4: ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:158:5: {...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) )
+            	    // InternalOrganizationParser.g:157:4: ({...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) ) )
+            	    // InternalOrganizationParser.g:158:5: {...}? => ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup(), 0) ) {
             	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup(), 0)");
             	    }
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:158:106: ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:159:6: ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) )
+            	    // InternalOrganizationParser.g:158:106: ( ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) ) )
+            	    // InternalOrganizationParser.g:159:6: ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) )
             	    {
             	     
             	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup(), 0);
             	    	 				
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:162:6: ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:162:7: {...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) )
+            	    // InternalOrganizationParser.g:162:6: ({...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) ) )
+            	    // InternalOrganizationParser.g:162:7: {...}? => (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    }
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:162:16: (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:163:2: otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) )
+            	    // InternalOrganizationParser.g:162:16: (otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) ) )
+            	    // InternalOrganizationParser.g:163:2: otherlv_1= Stakeholder ( (lv_name_2_0= RULE_ID ) ) otherlv_3= LeftSquareBracket ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) )
             	    {
-            	    otherlv_1=(Token)match(input,Stakeholder,FOLLOW_Stakeholder_in_ruleStakeholder286); 
+            	    otherlv_1=(Token)match(input,Stakeholder,FOLLOW_3); 
 
             	        	newLeafNode(otherlv_1, grammarAccess.getStakeholderAccess().getStakeholderKeyword_0_0());
             	        
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:167:1: ( (lv_name_2_0= RULE_ID ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:168:1: (lv_name_2_0= RULE_ID )
+            	    // InternalOrganizationParser.g:167:1: ( (lv_name_2_0= RULE_ID ) )
+            	    // InternalOrganizationParser.g:168:1: (lv_name_2_0= RULE_ID )
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:168:1: (lv_name_2_0= RULE_ID )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:169:3: lv_name_2_0= RULE_ID
+            	    // InternalOrganizationParser.g:168:1: (lv_name_2_0= RULE_ID )
+            	    // InternalOrganizationParser.g:169:3: lv_name_2_0= RULE_ID
             	    {
-            	    lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleStakeholder302); 
+            	    lv_name_2_0=(Token)match(input,RULE_ID,FOLLOW_6); 
 
             	    			newLeafNode(lv_name_2_0, grammarAccess.getStakeholderAccess().getNameIDTerminalRuleCall_0_1_0()); 
             	    		
@@ -425,7 +425,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	           			current, 
             	           			"name",
             	            		lv_name_2_0, 
-            	            		"ID");
+            	            		"org.eclipse.xtext.common.Terminals.ID");
             	    	    
 
             	    }
@@ -433,88 +433,88 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_3=(Token)match(input,LeftSquareBracket,FOLLOW_LeftSquareBracket_in_ruleStakeholder320); 
+            	    otherlv_3=(Token)match(input,LeftSquareBracket,FOLLOW_7); 
 
             	        	newLeafNode(otherlv_3, grammarAccess.getStakeholderAccess().getLeftSquareBracketKeyword_0_2());
             	        
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:190:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:192:1: ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) )
+            	    // InternalOrganizationParser.g:190:1: ( ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) ) )
+            	    // InternalOrganizationParser.g:192:1: ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) )
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:192:1: ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:193:2: ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* )
+            	    // InternalOrganizationParser.g:192:1: ( ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* ) )
+            	    // InternalOrganizationParser.g:193:2: ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* )
             	    {
             	     
             	    	  getUnorderedGroupHelper().enter(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3());
             	    	
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:196:2: ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:197:3: ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )*
+            	    // InternalOrganizationParser.g:196:2: ( ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )* )
+            	    // InternalOrganizationParser.g:197:3: ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )*
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:197:3: ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )*
+            	    // InternalOrganizationParser.g:197:3: ( ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) ) | ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) ) )*
             	    loop2:
             	    do {
             	        int alt2=7;
             	        int LA2_0 = input.LA(1);
 
-            	        if ( LA2_0 ==Full && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 0) ) {
+            	        if ( LA2_0 == Full && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 0) ) {
             	            alt2=1;
             	        }
-            	        else if ( LA2_0 ==Title && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 1) ) {
+            	        else if ( LA2_0 == Title && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 1) ) {
             	            alt2=2;
             	        }
-            	        else if ( LA2_0 ==Description && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 2) ) {
+            	        else if ( LA2_0 == Description && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 2) ) {
             	            alt2=3;
             	        }
-            	        else if ( LA2_0 ==Role && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 3) ) {
+            	        else if ( LA2_0 == Role && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 3) ) {
             	            alt2=4;
             	        }
-            	        else if ( LA2_0 ==Email && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 4) ) {
+            	        else if ( LA2_0 == Email && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 4) ) {
             	            alt2=5;
             	        }
-            	        else if ( LA2_0 ==Phone && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 5) ) {
+            	        else if ( LA2_0 == Phone && getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 5) ) {
             	            alt2=6;
             	        }
 
 
             	        switch (alt2) {
             	    	case 1 :
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:199:4: ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:199:4: ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:199:4: ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:200:5: {...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:199:4: ({...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:200:5: {...}? => ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) )
             	    	    {
             	    	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 0) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 0)");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:200:110: ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:201:6: ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:200:110: ( ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:201:6: ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) )
             	    	    {
             	    	     
             	    	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 0);
             	    	    	 				
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:204:6: ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:204:7: {...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:204:6: ({...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:204:7: {...}? => (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) )
             	    	    {
             	    	    if ( !((true)) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:204:16: (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:205:2: otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:204:16: (otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:205:2: otherlv_5= Full otherlv_6= Name ( (lv_fullname_7_0= RULE_STRING ) )
             	    	    {
-            	    	    otherlv_5=(Token)match(input,Full,FOLLOW_Full_in_ruleStakeholder378); 
+            	    	    otherlv_5=(Token)match(input,Full,FOLLOW_8); 
 
             	    	        	newLeafNode(otherlv_5, grammarAccess.getStakeholderAccess().getFullKeyword_0_3_0_0());
             	    	        
-            	    	    otherlv_6=(Token)match(input,Name,FOLLOW_Name_in_ruleStakeholder390); 
+            	    	    otherlv_6=(Token)match(input,Name,FOLLOW_9); 
 
             	    	        	newLeafNode(otherlv_6, grammarAccess.getStakeholderAccess().getNameKeyword_0_3_0_1());
             	    	        
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:214:1: ( (lv_fullname_7_0= RULE_STRING ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:215:1: (lv_fullname_7_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:214:1: ( (lv_fullname_7_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:215:1: (lv_fullname_7_0= RULE_STRING )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:215:1: (lv_fullname_7_0= RULE_STRING )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:216:3: lv_fullname_7_0= RULE_STRING
+            	    	    // InternalOrganizationParser.g:215:1: (lv_fullname_7_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:216:3: lv_fullname_7_0= RULE_STRING
             	    	    {
-            	    	    lv_fullname_7_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStakeholder406); 
+            	    	    lv_fullname_7_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             	    	    			newLeafNode(lv_fullname_7_0, grammarAccess.getStakeholderAccess().getFullnameSTRINGTerminalRuleCall_0_3_0_2_0()); 
             	    	    		
@@ -526,7 +526,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	           			current, 
             	    	           			"fullname",
             	    	            		lv_fullname_7_0, 
-            	    	            		"STRING");
+            	    	            		"org.eclipse.xtext.common.Terminals.STRING");
             	    	    	    
 
             	    	    }
@@ -553,40 +553,40 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    break;
             	    	case 2 :
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:239:4: ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:239:4: ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:239:4: ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:240:5: {...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:239:4: ({...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:240:5: {...}? => ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) )
             	    	    {
             	    	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 1) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 1)");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:240:110: ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:241:6: ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:240:110: ( ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:241:6: ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) )
             	    	    {
             	    	     
             	    	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 1);
             	    	    	 				
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:244:6: ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:244:7: {...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:244:6: ({...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:244:7: {...}? => (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) )
             	    	    {
             	    	    if ( !((true)) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:244:16: (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:245:2: otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:244:16: (otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:245:2: otherlv_8= Title ( (lv_title_9_0= RULE_STRING ) )
             	    	    {
-            	    	    otherlv_8=(Token)match(input,Title,FOLLOW_Title_in_ruleStakeholder480); 
+            	    	    otherlv_8=(Token)match(input,Title,FOLLOW_9); 
 
             	    	        	newLeafNode(otherlv_8, grammarAccess.getStakeholderAccess().getTitleKeyword_0_3_1_0());
             	    	        
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:249:1: ( (lv_title_9_0= RULE_STRING ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:250:1: (lv_title_9_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:249:1: ( (lv_title_9_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:250:1: (lv_title_9_0= RULE_STRING )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:250:1: (lv_title_9_0= RULE_STRING )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:251:3: lv_title_9_0= RULE_STRING
+            	    	    // InternalOrganizationParser.g:250:1: (lv_title_9_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:251:3: lv_title_9_0= RULE_STRING
             	    	    {
-            	    	    lv_title_9_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStakeholder496); 
+            	    	    lv_title_9_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             	    	    			newLeafNode(lv_title_9_0, grammarAccess.getStakeholderAccess().getTitleSTRINGTerminalRuleCall_0_3_1_1_0()); 
             	    	    		
@@ -598,7 +598,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	           			current, 
             	    	           			"title",
             	    	            		lv_title_9_0, 
-            	    	            		"STRING");
+            	    	            		"org.eclipse.xtext.common.Terminals.STRING");
             	    	    	    
 
             	    	    }
@@ -625,40 +625,40 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    break;
             	    	case 3 :
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:274:4: ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:274:4: ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:274:4: ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:275:5: {...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:274:4: ({...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:275:5: {...}? => ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) )
             	    	    {
             	    	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 2) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 2)");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:275:110: ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:276:6: ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:275:110: ( ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:276:6: ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) )
             	    	    {
             	    	     
             	    	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 2);
             	    	    	 				
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:279:6: ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:279:7: {...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:279:6: ({...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:279:7: {...}? => (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) )
             	    	    {
             	    	    if ( !((true)) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:279:16: (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:280:2: otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:279:16: (otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:280:2: otherlv_10= Description ( (lv_description_11_0= RULE_STRING ) )
             	    	    {
-            	    	    otherlv_10=(Token)match(input,Description,FOLLOW_Description_in_ruleStakeholder570); 
+            	    	    otherlv_10=(Token)match(input,Description,FOLLOW_9); 
 
             	    	        	newLeafNode(otherlv_10, grammarAccess.getStakeholderAccess().getDescriptionKeyword_0_3_2_0());
             	    	        
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:284:1: ( (lv_description_11_0= RULE_STRING ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:285:1: (lv_description_11_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:284:1: ( (lv_description_11_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:285:1: (lv_description_11_0= RULE_STRING )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:285:1: (lv_description_11_0= RULE_STRING )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:286:3: lv_description_11_0= RULE_STRING
+            	    	    // InternalOrganizationParser.g:285:1: (lv_description_11_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:286:3: lv_description_11_0= RULE_STRING
             	    	    {
-            	    	    lv_description_11_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStakeholder586); 
+            	    	    lv_description_11_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             	    	    			newLeafNode(lv_description_11_0, grammarAccess.getStakeholderAccess().getDescriptionSTRINGTerminalRuleCall_0_3_2_1_0()); 
             	    	    		
@@ -670,7 +670,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	           			current, 
             	    	           			"description",
             	    	            		lv_description_11_0, 
-            	    	            		"STRING");
+            	    	            		"org.eclipse.xtext.common.Terminals.STRING");
             	    	    	    
 
             	    	    }
@@ -697,40 +697,40 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    break;
             	    	case 4 :
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:309:4: ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:309:4: ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:309:4: ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:310:5: {...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:309:4: ({...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:310:5: {...}? => ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) )
             	    	    {
             	    	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 3) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 3)");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:310:110: ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:311:6: ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:310:110: ( ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:311:6: ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) )
             	    	    {
             	    	     
             	    	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 3);
             	    	    	 				
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:314:6: ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:314:7: {...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:314:6: ({...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:314:7: {...}? => (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) )
             	    	    {
             	    	    if ( !((true)) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:314:16: (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:315:2: otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:314:16: (otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:315:2: otherlv_12= Role ( (lv_role_13_0= RULE_STRING ) )
             	    	    {
-            	    	    otherlv_12=(Token)match(input,Role,FOLLOW_Role_in_ruleStakeholder660); 
+            	    	    otherlv_12=(Token)match(input,Role,FOLLOW_9); 
 
             	    	        	newLeafNode(otherlv_12, grammarAccess.getStakeholderAccess().getRoleKeyword_0_3_3_0());
             	    	        
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:319:1: ( (lv_role_13_0= RULE_STRING ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:320:1: (lv_role_13_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:319:1: ( (lv_role_13_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:320:1: (lv_role_13_0= RULE_STRING )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:320:1: (lv_role_13_0= RULE_STRING )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:321:3: lv_role_13_0= RULE_STRING
+            	    	    // InternalOrganizationParser.g:320:1: (lv_role_13_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:321:3: lv_role_13_0= RULE_STRING
             	    	    {
-            	    	    lv_role_13_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStakeholder676); 
+            	    	    lv_role_13_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             	    	    			newLeafNode(lv_role_13_0, grammarAccess.getStakeholderAccess().getRoleSTRINGTerminalRuleCall_0_3_3_1_0()); 
             	    	    		
@@ -742,7 +742,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	           			current, 
             	    	           			"role",
             	    	            		lv_role_13_0, 
-            	    	            		"STRING");
+            	    	            		"org.eclipse.xtext.common.Terminals.STRING");
             	    	    	    
 
             	    	    }
@@ -769,40 +769,40 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    break;
             	    	case 5 :
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:344:4: ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:344:4: ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:344:4: ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:345:5: {...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:344:4: ({...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:345:5: {...}? => ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) )
             	    	    {
             	    	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 4) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 4)");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:345:110: ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:346:6: ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:345:110: ( ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:346:6: ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) )
             	    	    {
             	    	     
             	    	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 4);
             	    	    	 				
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:349:6: ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:349:7: {...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:349:6: ({...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:349:7: {...}? => (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) )
             	    	    {
             	    	    if ( !((true)) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:349:16: (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:350:2: otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:349:16: (otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:350:2: otherlv_14= Email ( (lv_email_15_0= RULE_STRING ) )
             	    	    {
-            	    	    otherlv_14=(Token)match(input,Email,FOLLOW_Email_in_ruleStakeholder750); 
+            	    	    otherlv_14=(Token)match(input,Email,FOLLOW_9); 
 
             	    	        	newLeafNode(otherlv_14, grammarAccess.getStakeholderAccess().getEmailKeyword_0_3_4_0());
             	    	        
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:354:1: ( (lv_email_15_0= RULE_STRING ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:355:1: (lv_email_15_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:354:1: ( (lv_email_15_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:355:1: (lv_email_15_0= RULE_STRING )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:355:1: (lv_email_15_0= RULE_STRING )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:356:3: lv_email_15_0= RULE_STRING
+            	    	    // InternalOrganizationParser.g:355:1: (lv_email_15_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:356:3: lv_email_15_0= RULE_STRING
             	    	    {
-            	    	    lv_email_15_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStakeholder766); 
+            	    	    lv_email_15_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             	    	    			newLeafNode(lv_email_15_0, grammarAccess.getStakeholderAccess().getEmailSTRINGTerminalRuleCall_0_3_4_1_0()); 
             	    	    		
@@ -814,7 +814,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	           			current, 
             	    	           			"email",
             	    	            		lv_email_15_0, 
-            	    	            		"STRING");
+            	    	            		"org.eclipse.xtext.common.Terminals.STRING");
             	    	    	    
 
             	    	    }
@@ -841,40 +841,40 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	    }
             	    	    break;
             	    	case 6 :
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:379:4: ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:379:4: ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:379:4: ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:380:5: {...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:379:4: ({...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:380:5: {...}? => ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) )
             	    	    {
             	    	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 5) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 5)");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:380:110: ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:381:6: ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:380:110: ( ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) ) )
+            	    	    // InternalOrganizationParser.g:381:6: ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) )
             	    	    {
             	    	     
             	    	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup_0_3(), 5);
             	    	    	 				
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:384:6: ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:384:7: {...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:384:6: ({...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) ) )
+            	    	    // InternalOrganizationParser.g:384:7: {...}? => (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) )
             	    	    {
             	    	    if ( !((true)) ) {
             	    	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    	    }
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:384:16: (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:385:2: otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:384:16: (otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) ) )
+            	    	    // InternalOrganizationParser.g:385:2: otherlv_16= Phone ( (lv_phone_17_0= RULE_STRING ) )
             	    	    {
-            	    	    otherlv_16=(Token)match(input,Phone,FOLLOW_Phone_in_ruleStakeholder840); 
+            	    	    otherlv_16=(Token)match(input,Phone,FOLLOW_9); 
 
             	    	        	newLeafNode(otherlv_16, grammarAccess.getStakeholderAccess().getPhoneKeyword_0_3_5_0());
             	    	        
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:389:1: ( (lv_phone_17_0= RULE_STRING ) )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:390:1: (lv_phone_17_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:389:1: ( (lv_phone_17_0= RULE_STRING ) )
+            	    	    // InternalOrganizationParser.g:390:1: (lv_phone_17_0= RULE_STRING )
             	    	    {
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:390:1: (lv_phone_17_0= RULE_STRING )
-            	    	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:391:3: lv_phone_17_0= RULE_STRING
+            	    	    // InternalOrganizationParser.g:390:1: (lv_phone_17_0= RULE_STRING )
+            	    	    // InternalOrganizationParser.g:391:3: lv_phone_17_0= RULE_STRING
             	    	    {
-            	    	    lv_phone_17_0=(Token)match(input,RULE_STRING,FOLLOW_RULE_STRING_in_ruleStakeholder856); 
+            	    	    lv_phone_17_0=(Token)match(input,RULE_STRING,FOLLOW_7); 
 
             	    	    			newLeafNode(lv_phone_17_0, grammarAccess.getStakeholderAccess().getPhoneSTRINGTerminalRuleCall_0_3_5_1_0()); 
             	    	    		
@@ -886,7 +886,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    	           			current, 
             	    	           			"phone",
             	    	            		lv_phone_17_0, 
-            	    	            		"STRING");
+            	    	            		"org.eclipse.xtext.common.Terminals.STRING");
             	    	    	    
 
             	    	    }
@@ -949,30 +949,30 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    }
             	    break;
             	case 2 :
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:428:4: ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) )
+            	    // InternalOrganizationParser.g:428:4: ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) )
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:428:4: ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:429:5: {...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) )
+            	    // InternalOrganizationParser.g:428:4: ({...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) ) )
+            	    // InternalOrganizationParser.g:429:5: {...}? => ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) )
             	    {
             	    if ( ! getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup(), 1) ) {
             	        throw new FailedPredicateException(input, "ruleStakeholder", "getUnorderedGroupHelper().canSelect(grammarAccess.getStakeholderAccess().getUnorderedGroup(), 1)");
             	    }
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:429:106: ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:430:6: ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) )
+            	    // InternalOrganizationParser.g:429:106: ( ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) ) )
+            	    // InternalOrganizationParser.g:430:6: ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) )
             	    {
             	     
             	    	 				  getUnorderedGroupHelper().select(grammarAccess.getStakeholderAccess().getUnorderedGroup(), 1);
             	    	 				
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:433:6: ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:433:7: {...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket )
+            	    // InternalOrganizationParser.g:433:6: ({...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket ) )
+            	    // InternalOrganizationParser.g:433:7: {...}? => ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket )
             	    {
             	    if ( !((true)) ) {
             	        throw new FailedPredicateException(input, "ruleStakeholder", "true");
             	    }
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:433:16: ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket )
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:433:17: (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket
+            	    // InternalOrganizationParser.g:433:16: ( (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket )
+            	    // InternalOrganizationParser.g:433:17: (otherlv_18= Supervisor ( ( ruleQID ) ) )? otherlv_20= RightSquareBracket
             	    {
-            	    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:433:17: (otherlv_18= Supervisor ( ( ruleQID ) ) )?
+            	    // InternalOrganizationParser.g:433:17: (otherlv_18= Supervisor ( ( ruleQID ) ) )?
             	    int alt3=2;
             	    int LA3_0 = input.LA(1);
 
@@ -981,17 +981,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	    }
             	    switch (alt3) {
             	        case 1 :
-            	            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:434:2: otherlv_18= Supervisor ( ( ruleQID ) )
+            	            // InternalOrganizationParser.g:434:2: otherlv_18= Supervisor ( ( ruleQID ) )
             	            {
-            	            otherlv_18=(Token)match(input,Supervisor,FOLLOW_Supervisor_in_ruleStakeholder972); 
+            	            otherlv_18=(Token)match(input,Supervisor,FOLLOW_3); 
 
             	                	newLeafNode(otherlv_18, grammarAccess.getStakeholderAccess().getSupervisorKeyword_1_0_0());
             	                
-            	            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:438:1: ( ( ruleQID ) )
-            	            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:439:1: ( ruleQID )
+            	            // InternalOrganizationParser.g:438:1: ( ( ruleQID ) )
+            	            // InternalOrganizationParser.g:439:1: ( ruleQID )
             	            {
-            	            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:439:1: ( ruleQID )
-            	            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:440:3: ruleQID
+            	            // InternalOrganizationParser.g:439:1: ( ruleQID )
+            	            // InternalOrganizationParser.g:440:3: ruleQID
             	            {
 
             	            			if (current==null) {
@@ -1001,7 +1001,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             	             
             	            	        newCompositeNode(grammarAccess.getStakeholderAccess().getSupervisorStakeholderCrossReference_1_0_1_0()); 
             	            	    
-            	            pushFollow(FOLLOW_ruleQID_in_ruleStakeholder994);
+            	            pushFollow(FOLLOW_10);
             	            ruleQID();
 
             	            state._fsp--;
@@ -1021,7 +1021,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
             	    }
 
-            	    otherlv_20=(Token)match(input,RightSquareBracket,FOLLOW_RightSquareBracket_in_ruleStakeholder1009); 
+            	    otherlv_20=(Token)match(input,RightSquareBracket,FOLLOW_5); 
 
             	        	newLeafNode(otherlv_20, grammarAccess.getStakeholderAccess().getRightSquareBracketKeyword_1_1());
             	        
@@ -1086,7 +1086,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleQID"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:481:1: entryRuleQID returns [String current=null] : iv_ruleQID= ruleQID EOF ;
+    // InternalOrganizationParser.g:482:1: entryRuleQID returns [String current=null] : iv_ruleQID= ruleQID EOF ;
     public final String entryRuleQID() throws RecognitionException {
         String current = null;
 
@@ -1094,17 +1094,17 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:482:1: (iv_ruleQID= ruleQID EOF )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:483:2: iv_ruleQID= ruleQID EOF
+            // InternalOrganizationParser.g:483:1: (iv_ruleQID= ruleQID EOF )
+            // InternalOrganizationParser.g:484:2: iv_ruleQID= ruleQID EOF
             {
              newCompositeNode(grammarAccess.getQIDRule()); 
-            pushFollow(FOLLOW_ruleQID_in_entryRuleQID1090);
+            pushFollow(FOLLOW_1);
             iv_ruleQID=ruleQID();
 
             state._fsp--;
 
              current =iv_ruleQID.getText(); 
-            match(input,EOF,FOLLOW_EOF_in_entryRuleQID1101); 
+            match(input,EOF,FOLLOW_2); 
 
             }
 
@@ -1122,7 +1122,7 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleQID"
-    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:490:1: ruleQID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? ) ;
+    // InternalOrganizationParser.g:491:1: ruleQID returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? ) ;
     public final AntlrDatatypeRuleToken ruleQID() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -1133,20 +1133,20 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
          enterRule(); 
             
         try {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:494:6: ( (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? ) )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:495:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? )
+            // InternalOrganizationParser.g:495:6: ( (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? ) )
+            // InternalOrganizationParser.g:496:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? )
             {
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:495:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? )
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:495:6: this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )?
+            // InternalOrganizationParser.g:496:1: (this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )? )
+            // InternalOrganizationParser.g:496:6: this_ID_0= RULE_ID (kw= FullStop this_ID_2= RULE_ID )?
             {
-            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQID1141); 
+            this_ID_0=(Token)match(input,RULE_ID,FOLLOW_11); 
 
             		current.merge(this_ID_0);
                 
              
                 newLeafNode(this_ID_0, grammarAccess.getQIDAccess().getIDTerminalRuleCall_0()); 
                 
-            // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:502:1: (kw= FullStop this_ID_2= RULE_ID )?
+            // InternalOrganizationParser.g:503:1: (kw= FullStop this_ID_2= RULE_ID )?
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -1155,14 +1155,14 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
             }
             switch (alt5) {
                 case 1 :
-                    // ../org.osate.organization/src-gen/org/osate/organization/parser/antlr/internal/InternalOrganizationParser.g:503:2: kw= FullStop this_ID_2= RULE_ID
+                    // InternalOrganizationParser.g:504:2: kw= FullStop this_ID_2= RULE_ID
                     {
-                    kw=(Token)match(input,FullStop,FOLLOW_FullStop_in_ruleQID1160); 
+                    kw=(Token)match(input,FullStop,FOLLOW_3); 
 
                             current.merge(kw);
                             newLeafNode(kw, grammarAccess.getQIDAccess().getFullStopKeyword_1_0()); 
                         
-                    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_RULE_ID_in_ruleQID1175); 
+                    this_ID_2=(Token)match(input,RULE_ID,FOLLOW_2); 
 
                     		current.merge(this_ID_2);
                         
@@ -1200,36 +1200,16 @@ public class InternalOrganizationParser extends AbstractInternalAntlrParser {
 
  
 
-    public static final BitSet FOLLOW_ruleOrganization_in_entryRuleOrganization67 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleOrganization77 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Organization_in_ruleOrganization115 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleOrganization131 = new BitSet(new long[]{0x00000000000100C0L});
-    public static final BitSet FOLLOW_ruleStakeholder_in_ruleOrganization157 = new BitSet(new long[]{0x00000000000100C2L});
-    public static final BitSet FOLLOW_ruleStakeholder_in_entryRuleStakeholder193 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleStakeholder203 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_Stakeholder_in_ruleStakeholder286 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleStakeholder302 = new BitSet(new long[]{0x0000000000008000L});
-    public static final BitSet FOLLOW_LeftSquareBracket_in_ruleStakeholder320 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Full_in_ruleStakeholder378 = new BitSet(new long[]{0x0000000000001000L});
-    public static final BitSet FOLLOW_Name_in_ruleStakeholder390 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholder406 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Title_in_ruleStakeholder480 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholder496 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Description_in_ruleStakeholder570 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholder586 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Role_in_ruleStakeholder660 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholder676 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Email_in_ruleStakeholder750 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholder766 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Phone_in_ruleStakeholder840 = new BitSet(new long[]{0x0000000000080000L});
-    public static final BitSet FOLLOW_RULE_STRING_in_ruleStakeholder856 = new BitSet(new long[]{0x0000000000012FE2L});
-    public static final BitSet FOLLOW_Supervisor_in_ruleStakeholder972 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_ruleQID_in_ruleStakeholder994 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_RightSquareBracket_in_ruleStakeholder1009 = new BitSet(new long[]{0x00000000000100C2L});
-    public static final BitSet FOLLOW_ruleQID_in_entryRuleQID1090 = new BitSet(new long[]{0x0000000000000000L});
-    public static final BitSet FOLLOW_EOF_in_entryRuleQID1101 = new BitSet(new long[]{0x0000000000000002L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQID1141 = new BitSet(new long[]{0x0000000000004002L});
-    public static final BitSet FOLLOW_FullStop_in_ruleQID1160 = new BitSet(new long[]{0x0000000000020000L});
-    public static final BitSet FOLLOW_RULE_ID_in_ruleQID1175 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_1 = new BitSet(new long[]{0x0000000000000000L});
+    public static final BitSet FOLLOW_2 = new BitSet(new long[]{0x0000000000000002L});
+    public static final BitSet FOLLOW_3 = new BitSet(new long[]{0x0000000000020000L});
+    public static final BitSet FOLLOW_4 = new BitSet(new long[]{0x00000000000100C0L});
+    public static final BitSet FOLLOW_5 = new BitSet(new long[]{0x00000000000100C2L});
+    public static final BitSet FOLLOW_6 = new BitSet(new long[]{0x0000000000008000L});
+    public static final BitSet FOLLOW_7 = new BitSet(new long[]{0x0000000000012FE2L});
+    public static final BitSet FOLLOW_8 = new BitSet(new long[]{0x0000000000001000L});
+    public static final BitSet FOLLOW_9 = new BitSet(new long[]{0x0000000000080000L});
+    public static final BitSet FOLLOW_10 = new BitSet(new long[]{0x0000000000010000L});
+    public static final BitSet FOLLOW_11 = new BitSet(new long[]{0x0000000000004002L});
 
 }
