@@ -214,34 +214,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 		return super.eIsSet(featureID);
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
-			return true;
-		}
-
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		NumberValueImpl other = (NumberValueImpl) obj;
-		if (unit == null) {
-			if (other.unit != null) {
-				return false;
-			}
-		} else if (!unit.equals(other.unit)) {
-			return false;
-		}
-		return true;
-	}
-
 	/*
 	 * DB Added for OCL
 	 * (non-Javadoc)
