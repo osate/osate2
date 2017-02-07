@@ -25,4 +25,5 @@ Bundle-Activator: org.osate.aadl2.instance.textual.ui.internal.InstanceActivator
 Export-Package: org.osate.aadl2.instance.textual.ui.quickfix,
  org.osate.aadl2.instance.textual.ui.contentassist,
  org.osate.aadl2.instance.textual.ui.internal,
- org.osate.aadl2.instance.textual.ui.contentassist.antlr
+ org.osate.aadl2.instance.textual.ui.contentassist.antlr,
+ org.osate.aadl2.instance.textual.ui.contentassist.antlr.internal

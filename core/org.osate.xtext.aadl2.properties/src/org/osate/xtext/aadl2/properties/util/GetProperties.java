@@ -340,6 +340,10 @@ public class GetProperties {
 		return findUnitLiteral(context, AadlProject.DATA_RATE_UNITS, AadlProject.KBYTESPS_LITERAL);
 	}
 
+	public static UnitLiteral getKbitspsUnitLiteral(NamedElement context) {
+		return findUnitLiteral(context, AadlProject.DATA_RATE_UNITS, AadlProject.KBITSPS_LITERAL);
+	}
+
 	public static UnitLiteral getKBUnitLiteral(NamedElement context) {
 		return findUnitLiteral(context, AadlProject.SIZE_UNITS, AadlProject.KB_LITERAL);
 	}
@@ -549,15 +553,27 @@ public class GetProperties {
 		return PropertyUtils.getScaledNumberValue(ne, ROMActual, kb, defaultValue);
 	}
 
-	public static double getBandWidthCapacityInKbps(final NamedElement ne, final double defaultValue) {
+	public static double getBandWidthCapacityInKBytesps(final NamedElement ne, final double defaultValue) {
 		Property BandWidthCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_CAPACITY);
 		UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBYTESPS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
 	}
 
-	public static double getBandWidthBudgetInKbps(final NamedElement ne, final double defaultValue) {
+	public static double getBandWidthBudgetInKBytesps(final NamedElement ne, final double defaultValue) {
 		Property BandWidthBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_BUDGET);
 		UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBYTESPS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
+	}
+
+	public static double getBandWidthCapacityInKbitsps(final NamedElement ne, final double defaultValue) {
+		Property BandWidthCapacity = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_CAPACITY);
+		UnitLiteral Kbps = findUnitLiteral(BandWidthCapacity, AadlProject.KBITSPS_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, BandWidthCapacity, Kbps, defaultValue);
+	}
+
+	public static double getBandWidthBudgetInKbitsps(final NamedElement ne, final double defaultValue) {
+		Property BandWidthBudget = lookupPropertyDefinition(ne, SEI._NAME, SEI.BANDWIDTH_BUDGET);
+		UnitLiteral Kbps = findUnitLiteral(BandWidthBudget, AadlProject.KBITSPS_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, BandWidthBudget, Kbps, defaultValue);
 	}
 
@@ -1436,6 +1452,16 @@ public class GetProperties {
 		return res;
 	}
 
+	public static double getHeapSize(final NamedElement ne, UnitLiteral unit) {
+		Property SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.HEAP_SIZE);
+		double res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		if (res == 0.0) {
+			SourceStackSize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.SOURCE_HEAP_SIZE);
+			res = PropertyUtils.getScaledNumberValue(ne, SourceStackSize, unit, 0.0);
+		}
+		return res;
+	}
+
 	public static boolean getIsPartition(final NamedElement ne) {
 		try {
 			Property isPartition = lookupPropertyDefinition(ne, SEI._NAME, SEI.IS_PARTITION);
@@ -1939,6 +1965,17 @@ public class GetProperties {
 			return ModelingProperties.CLASSIFIER_MATCH;
 		}
 		return classifierMatchingRuleValue.getName();
+	}
+
+	public static double getMemorySize(final NamedElement ne, UnitLiteral unit) {
+		Property memorySize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.MEMORY_SIZE);
+		return PropertyUtils.getScaledNumberValue(ne, memorySize, unit, 0.0);
+	}
+
+	public static double getMemorySizeInKB(final NamedElement ne) {
+		Property memorySize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.MEMORY_SIZE);
+		UnitLiteral KBytes = findUnitLiteral(memorySize, AadlProject.KB_LITERAL);
+		return PropertyUtils.getScaledNumberValue(ne, memorySize, KBytes, 0.0);
 	}
 
 }

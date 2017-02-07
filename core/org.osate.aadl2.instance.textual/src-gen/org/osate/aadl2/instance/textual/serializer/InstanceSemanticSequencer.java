@@ -34,14 +34,15 @@ under the contract clause at 252.227.7013.
 package org.osate.aadl2.instance.textual.serializer;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
+import java.util.Set;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.serializer.acceptor.ISemanticSequenceAcceptor;
-import org.eclipse.xtext.serializer.diagnostic.ISemanticSequencerDiagnosticProvider;
-import org.eclipse.xtext.serializer.diagnostic.ISerializationDiagnostic.Acceptor;
-import org.eclipse.xtext.serializer.sequencer.GenericSequencer;
-import org.eclipse.xtext.serializer.sequencer.ISemanticSequencer;
-import org.eclipse.xtext.serializer.sequencer.ITransientValueService;
+import org.eclipse.emf.ecore.EPackage;
+import org.eclipse.xtext.Action;
+import org.eclipse.xtext.Parameter;
+import org.eclipse.xtext.ParserRule;
+import org.eclipse.xtext.serializer.ISerializationContext;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ArrayRange;
 import org.osate.aadl2.BasicPropertyAssociation;
@@ -84,8 +85,13 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	private InstanceGrammarAccess grammarAccess;
 	
 	@Override
-	public void createSequence(EObject context, EObject semanticObject) {
-		if(semanticObject.eClass().getEPackage() == Aadl2Package.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+	public void sequence(ISerializationContext context, EObject semanticObject) {
+		EPackage epackage = semanticObject.eClass().getEPackage();
+		ParserRule rule = context.getParserRule();
+		Action action = context.getAssignedAction();
+		Set<Parameter> parameters = context.getEnabledBooleanParameters();
+		if (epackage == Aadl2Package.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case Aadl2Package.ARRAY_RANGE:
 				sequence_ArrayRange(context, (ArrayRange) semanticObject); 
 				return; 
@@ -114,27 +120,27 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				sequence_ListTerm(context, (ListValue) semanticObject); 
 				return; 
 			case Aadl2Package.MODAL_PROPERTY_VALUE:
-				if(context == grammarAccess.getModalPropertyValueRule()) {
+				if (rule == grammarAccess.getModalPropertyValueRule()) {
 					sequence_ModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getOptionalModalPropertyValueRule()) {
+				else if (rule == grammarAccess.getOptionalModalPropertyValueRule()) {
 					sequence_OptionalModalPropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyValueRule()) {
+				else if (rule == grammarAccess.getPropertyValueRule()) {
 					sequence_PropertyValue(context, (ModalPropertyValue) semanticObject); 
 					return; 
 				}
 				else break;
 			case Aadl2Package.NAMED_VALUE:
-				if(context == grammarAccess.getConstantValueRule() ||
-				   context == grammarAccess.getNumAltRule()) {
+				if (rule == grammarAccess.getConstantValueRule()
+						|| rule == grammarAccess.getNumAltRule()) {
 					sequence_ConstantValue(context, (NamedValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getLiteralorReferenceTermRule() ||
-				   context == grammarAccess.getPropertyExpressionRule()) {
+				else if (rule == grammarAccess.getPropertyExpressionRule()
+						|| rule == grammarAccess.getLiteralorReferenceTermRule()) {
 					sequence_LiteralorReferenceTerm(context, (NamedValue) semanticObject); 
 					return; 
 				}
@@ -143,16 +149,16 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				sequence_SignedConstant(context, (Operation) semanticObject); 
 				return; 
 			case Aadl2Package.PROPERTY_ASSOCIATION:
-				if(context == grammarAccess.getBasicPropertyAssociationRule()) {
+				if (rule == grammarAccess.getBasicPropertyAssociationRule()) {
 					sequence_BasicPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getContainedPropertyAssociationRule() ||
-				   context == grammarAccess.getPModelRule()) {
+				else if (rule == grammarAccess.getPModelRule()
+						|| rule == grammarAccess.getContainedPropertyAssociationRule()) {
 					sequence_ContainedPropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyAssociationRule()) {
+				else if (rule == grammarAccess.getPropertyAssociationRule()) {
 					sequence_PropertyAssociation(context, (PropertyAssociation) semanticObject); 
 					return; 
 				}
@@ -164,12 +170,12 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				sequence_RealTerm(context, (RealLiteral) semanticObject); 
 				return; 
 			case Aadl2Package.RECORD_VALUE:
-				if(context == grammarAccess.getOldRecordTermRule()) {
+				if (rule == grammarAccess.getOldRecordTermRule()) {
 					sequence_OldRecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
-				else if(context == grammarAccess.getPropertyExpressionRule() ||
-				   context == grammarAccess.getRecordTermRule()) {
+				else if (rule == grammarAccess.getPropertyExpressionRule()
+						|| rule == grammarAccess.getRecordTermRule()) {
 					sequence_RecordTerm(context, (RecordValue) semanticObject); 
 					return; 
 				}
@@ -181,7 +187,8 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				sequence_StringTerm(context, (StringLiteral) semanticObject); 
 				return; 
 			}
-		else if(semanticObject.eClass().getEPackage() == InstancePackage.eINSTANCE) switch(semanticObject.eClass().getClassifierID()) {
+		else if (epackage == InstancePackage.eINSTANCE)
+			switch (semanticObject.eClass().getClassifierID()) {
 			case InstancePackage.COMPONENT_INSTANCE:
 				sequence_ComponentInstance(context, (ComponentInstance) semanticObject); 
 				return; 
@@ -219,10 +226,14 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 				sequence_SystemOperationMode(context, (SystemOperationMode) semanticObject); 
 				return; 
 			}
-		if (errorAcceptor != null) errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
+		if (errorAcceptor != null)
+			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
 	
 	/**
+	 * Contexts:
+	 *     ComponentInstance returns ComponentInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         category=ComponentCategory 
@@ -242,12 +253,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         )*
 	 *     )
 	 */
-	protected void sequence_ComponentInstance(EObject context, ComponentInstance semanticObject) {
+	protected void sequence_ComponentInstance(ISerializationContext context, ComponentInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ConnectionInstance returns ConnectionInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         complete?='complete'? 
@@ -261,12 +275,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         (connectionReference+=ConnectionReference | ownedPropertyAssociation+=PropertyAssociationInstance)+
 	 *     )
 	 */
-	protected void sequence_ConnectionInstance(EObject context, ConnectionInstance semanticObject) {
+	protected void sequence_ConnectionInstance(ISerializationContext context, ConnectionInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ConnectionReference returns ConnectionReference
+	 *
 	 * Constraint:
 	 *     (
 	 *         source=[ConnectionInstanceEnd|InstanceRef] 
@@ -275,21 +292,42 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         context=[ComponentInstance|InstanceRef]
 	 *     )
 	 */
-	protected void sequence_ConnectionReference(EObject context, ConnectionReference semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_ConnectionReference(ISerializationContext context, ConnectionReference semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE));
+			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION));
+			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION));
+			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getSourceConnectionInstanceEndInstanceRefParserRuleCall_0_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE, false));
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getDestinationConnectionInstanceEndInstanceRefParserRuleCall_2_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, false));
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionDeclarativeRefParserRuleCall_4_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, false));
+		feeder.accept(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceInstanceRefParserRuleCall_6_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT, false));
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ContainmentPathElement returns ContainmentPathElement
+	 *
 	 * Constraint:
 	 *     (namedElement=[NamedElement|DeclarativeRef] arrayRange+=ArrayRange? path=ContainmentPathElement?)
 	 */
-	protected void sequence_ContainmentPathElement(EObject context, ContainmentPathElement semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_ContainmentPathElement(ISerializationContext context, ContainmentPathElement semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     EndToEndFlowInstance returns EndToEndFlowInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -299,12 +337,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
 	 *     )
 	 */
-	protected void sequence_EndToEndFlowInstance(EObject context, EndToEndFlowInstance semanticObject) {
+	protected void sequence_EndToEndFlowInstance(ISerializationContext context, EndToEndFlowInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     FeatureInstance returns FeatureInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         direction=DirectionType 
@@ -315,12 +356,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         (featureInstance+=FeatureInstance | ownedPropertyAssociation+=PropertyAssociationInstance)*
 	 *     )
 	 */
-	protected void sequence_FeatureInstance(EObject context, FeatureInstance semanticObject) {
+	protected void sequence_FeatureInstance(ISerializationContext context, FeatureInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     FlowSpecificationInstance returns FlowSpecificationInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ID 
@@ -332,21 +376,34 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance*
 	 *     )
 	 */
-	protected void sequence_FlowSpecificationInstance(EObject context, FlowSpecificationInstance semanticObject) {
+	protected void sequence_FlowSpecificationInstance(ISerializationContext context, FlowSpecificationInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyExpression returns InstanceReferenceValue
+	 *     InstanceReferenceValue returns InstanceReferenceValue
+	 *
 	 * Constraint:
 	 *     referencedInstanceObject=[InstanceObject|InstanceRef]
 	 */
-	protected void sequence_InstanceReferenceValue(EObject context, InstanceReferenceValue semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+	protected void sequence_InstanceReferenceValue(ISerializationContext context, InstanceReferenceValue semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getInstanceReferenceValueAccess().getReferencedInstanceObjectInstanceObjectInstanceRefParserRuleCall_2_0_1(), semanticObject.eGet(InstancePackage.Literals.INSTANCE_REFERENCE_VALUE__REFERENCED_INSTANCE_OBJECT, false));
+		feeder.finish();
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ModeInstance returns ModeInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         initial?='initial'? 
@@ -357,12 +414,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
 	 *     )
 	 */
-	protected void sequence_ModeInstance(EObject context, ModeInstance semanticObject) {
+	protected void sequence_ModeInstance(ISerializationContext context, ModeInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     ModeTransitionInstance returns ModeTransitionInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         name=ModeTransitionName 
@@ -372,21 +432,27 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         ownedPropertyAssociation+=PropertyAssociationInstance?
 	 *     )
 	 */
-	protected void sequence_ModeTransitionInstance(EObject context, ModeTransitionInstance semanticObject) {
+	protected void sequence_ModeTransitionInstance(ISerializationContext context, ModeTransitionInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     OptionalModalPropertyValue returns ModalPropertyValue
+	 *
 	 * Constraint:
 	 *     (ownedValue=PropertyExpression (inMode+=[Mode|SomRef] inMode+=[Mode|SomRef]*)?)
 	 */
-	protected void sequence_OptionalModalPropertyValue(EObject context, ModalPropertyValue semanticObject) {
-		genericSequencer.createSequence(context, (EObject)semanticObject);
+	protected void sequence_OptionalModalPropertyValue(ISerializationContext context, ModalPropertyValue semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     PropertyAssociationInstance returns PropertyAssociationInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         property=[Property|QPREF] 
@@ -395,12 +461,15 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         propertyAssociation=[PropertyAssociation|PropertyAssociationRef]
 	 *     )
 	 */
-	protected void sequence_PropertyAssociationInstance(EObject context, PropertyAssociationInstance semanticObject) {
+	protected void sequence_PropertyAssociationInstance(ISerializationContext context, PropertyAssociationInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SystemInstance returns SystemInstance
+	 *
 	 * Constraint:
 	 *     (
 	 *         category=ComponentCategory 
@@ -419,16 +488,21 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *         )*
 	 *     )
 	 */
-	protected void sequence_SystemInstance(EObject context, SystemInstance semanticObject) {
+	protected void sequence_SystemInstance(ISerializationContext context, SystemInstance semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
 	/**
+	 * Contexts:
+	 *     SystemOperationMode returns SystemOperationMode
+	 *
 	 * Constraint:
 	 *     (name=STRING (currentMode+=[ModeInstance|InstanceRef] currentMode+=[ModeInstance|InstanceRef]*)?)
 	 */
-	protected void sequence_SystemOperationMode(EObject context, SystemOperationMode semanticObject) {
+	protected void sequence_SystemOperationMode(ISerializationContext context, SystemOperationMode semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
+	
+	
 }
