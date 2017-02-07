@@ -143,24 +143,33 @@
 			<id>macosx</id>
 			<activation>
 				<os>
-					<name>Mac OS X</name>
 					<family>mac</family>
 				</os>
 			</activation>
 			<properties>
-				<ui.test.vmargs>-XstartOnFirstThread ${test.logging}</ui.test.vmargs>
+				<ui.test.vmargs>-XstartOnFirstThread</ui.test.vmargs>
 			</properties>
 		</profile>
 		<profile>
-			<id>other-os</id>
+			<id>linux</id>
 			<activation>
 				<os>
-					<name>not-mac</name>
-					<family>!mac</family>
+					<family>linux</family>
 				</os>
 			</activation>
 			<properties>
-				<ui.test.vmargs>${test.logging}</ui.test.vmargs>
+				<ui.test.vmargs></ui.test.vmargs>
+			</properties>
+		</profile>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<ui.test.vmargs></ui.test.vmargs>
 			</properties>
 		</profile>
 	</profiles>
@@ -278,7 +287,7 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
-						<argLine>${ui.test.vmargs}</argLine>
+						<argLine>${ui.test.vmargs} ${test.logging}</argLine>
 						<useUIHarness>true</useUIHarness>
 						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
 							access <useUIThread>true</useUIThread> -->
