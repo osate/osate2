@@ -126,7 +126,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 				case modeTransitionInstance_ModeTransition: switch segments : qName.firstSegment.splitDeclarative {
 					case segments.length == 2: {
 						val classifier = context.getExportedObject(componentClassifier, segments.head)?.resolve(context) as ComponentClassifier
-						if (classifier != null) {
+						if (classifier !== null) {
 							if (segments.last.startsWith("transition#")) {
 								classifier.getUnnamedTransition(qName.lastSegment)
 							} else {
@@ -191,7 +191,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 		val segments = qName.firstSegment.splitDeclarative
 		if (segments.length == 2) {
 			val classifier = context.getExportedObject(type, segments.head)?.resolve(context) as T
-			if (classifier != null) {
+			if (classifier !== null) {
 				featureGetter.apply(classifier).findFirst[name == segments.last]
 			}
 		}
@@ -206,7 +206,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 	}
 	
 	def private static getInstanceObject(EObject context, QualifiedName qName, EReference ref) {
-		val element = qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container != null) {
+		val element = qName.firstSegment.split("\\.").fold(context.getContainerOfType(ComponentInstance), [InstanceObject container, segment | if (container !== null) {
 			val bracketIndex = segment.indexOf("[")
 			if (bracketIndex != -1) {
 				val requestedName = segment.substring(0, bracketIndex)
@@ -229,7 +229,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 				} as Iterable<InstanceObject>).findFirst[name == segment]
 			}
 		}])
-		if (element != null && ref.EReferenceType.isSuperTypeOf(element.eClass)) {
+		if (element !== null && ref.EReferenceType.isSuperTypeOf(element.eClass)) {
 			element
 		}
 	}
@@ -246,7 +246,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 	
 	def private static getUnnamedTransition(ComponentClassifier classifier, String indexString) {
 		val transition = classifier.ownedModeTransitions.guardedGet(indexString.toIndex)
-		if (transition != null && transition.name == null) {
+		if (transition !== null && transition.name === null) {
 			transition
 		}
 	}
@@ -256,7 +256,7 @@ class InstanceLinkingService extends DefaultLinkingService {
 	}
 	
 	def private static getComponentClassifierReferenceElements(ComponentClassifier classifier) {
-		classifier.ownedPrototypes + classifier.ownedModeTransitions.filter[name != null]
+		classifier.ownedPrototypes + classifier.ownedModeTransitions.filter[name !== null]
 	}
 	
 	def private static getImplReferenceElements(ComponentImplementation impl) {

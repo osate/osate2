@@ -81,7 +81,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 			// For some reason this can be called when handling Flow Sink Implementations. In that case, return the name of the in end unless there actually is
 			// an out end set.
 			if (semanticObject.kind == FlowKind.SINK) {
-				if (outend == null && inend != null) {
+				if (outend === null && inend !== null) {
 					AadlUtil.getFlowEndName(inend)
 				} else {
 					AadlUtil.getFlowEndName(outend)
