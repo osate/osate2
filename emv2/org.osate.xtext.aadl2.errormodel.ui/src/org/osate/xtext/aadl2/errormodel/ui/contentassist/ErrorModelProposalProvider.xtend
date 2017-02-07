@@ -65,31 +65,31 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 	override completeTypeSetElement_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val modelContainer = model.eContainer
 		switch modelContainer{
-			ErrorPath case modelContainer.incoming != null : {
+			ErrorPath case modelContainer.incoming !== null : {
 				filterTypeSetTokenTypes( modelContainer.incoming.typeSet, model, assignment, context, acceptor)
 			}
-			TypeSet case modelContainer.getContainerOfType(ErrorPath)?.incoming != null : {
+			TypeSet case modelContainer.getContainerOfType(ErrorPath)?.incoming !== null : {
 				filterTypeSetTokenTypes( modelContainer.getContainerOfType(ErrorPath).incoming.typeSet, model, assignment, context, acceptor)
 			}
-			TypeSet case modelContainer.getContainerOfType(ErrorSource)?.outgoing != null : {
+			TypeSet case modelContainer.getContainerOfType(ErrorSource)?.outgoing !== null : {
 				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSource).outgoing.typeSet, model, assignment, context, acceptor)
 			}
-			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming != null : {
+			TypeSet case modelContainer.getContainerOfType(ErrorSink)?.incoming !== null : {
 				filterTypeSetTokenTypes(modelContainer.getContainerOfType(ErrorSink).incoming.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorSource case modelContainer.outgoing != null && modelContainer.typeTokenConstraint == model: {
+			ErrorSource case modelContainer.outgoing !== null && modelContainer.typeTokenConstraint == model: {
 				filterTypeSetTokenTypes(modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorSource case modelContainer.failureModeReference != null && modelContainer.failureModeType == model: {
+			ErrorSource case modelContainer.failureModeReference !== null && modelContainer.failureModeType == model: {
 				filterTypeSetTokenTypes(modelContainer.failureModeReference.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorSink case modelContainer.incoming != null : {
+			ErrorSink case modelContainer.incoming !== null : {
 				filterTypeSetTokenTypes(modelContainer.incoming.typeSet, model, assignment, context, acceptor)
 			}
 			ErrorBehaviorTransition case model instanceof TypeSet: {
 				filterTypeSetTokenTypes(modelContainer.source.typeSet, model, assignment, context, acceptor)
 			}
-			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).qualifiedErrorPropagationReference != null : {
+			ErrorBehaviorTransition case model instanceof ConditionElement && (model as ConditionElement).qualifiedErrorPropagationReference !== null : {
 				val incoming = EMV2Util.getErrorEventOrPropagation(model as ConditionElement)
 				switch incoming {
 					ErrorPropagation : filterTypeSetTokenTypes(incoming.typeSet, model, assignment, context, acceptor)
@@ -103,10 +103,10 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 //	override void completeTypeToken_Type(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 //		val modelContainer = model.eContainer
 //		switch modelContainer{
-//			ErrorPath case modelContainer.outgoing != null : {
+//			ErrorPath case modelContainer.outgoing !== null : {
 //				filterTypeSetTokenTypes( modelContainer.outgoing.typeSet, model, assignment, context, acceptor)
 //			}
-//			ErrorBehaviorTransition case modelContainer.target != null: {
+//			ErrorBehaviorTransition case modelContainer.target !== null: {
 //				filterTypeSetTokenTypes( modelContainer.target.typeSet, model, assignment, context, acceptor)
 //			}
 //			default : super.completeTypeToken_Type(model, assignment, context, acceptor)
@@ -128,7 +128,7 @@ class ErrorModelProposalProvider extends AbstractErrorModelProposalProvider {
 
 	def List<ErrorTypes> getValidTypes(List<ErrorTypes> etsIn, List<ErrorTypes> validErrorTypesList){
 		etsIn?.forEach[ets | 
-			if (ets != null) {
+			if (ets !== null) {
 				if (!validErrorTypesList.contains(ets)) validErrorTypesList.add(ets)
 				if (ets instanceof TypeSet) ets.typeTokens?.forEach[token | token?.type?.getValidTypes(validErrorTypesList)]
 			}
