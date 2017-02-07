@@ -76,10 +76,10 @@ settings:
         partition B is executed after partition A.
 -   **Worst-case processing time**: Users can choose between deadline
     and worst-case execution time as worst case processing time.
-    -   **Maximum Compute Execution Time (ET) \[default\]**: Maximum compute execution time. 
-    This assumes the task executes as highest priority task and is not preempted.
-    -   **Deadline (DL)**: Deadline represents the worst-case completion
+    -   **Deadline (DL) \[default\]**: Deadline represents the worst-case completion
         time assuming the tasks are schedulable.
+    -   **Maximum Compute Execution Time (ET)**: Maximum compute execution time. 
+    This assumes the task executes as highest priority task and is not preempted.
 -   **Queuing latency on incoming ports**: Affects how the best case
     queuing delay is determined.
     -   **Assume empty queue (EQ) \[default\]**: No delay as the queue

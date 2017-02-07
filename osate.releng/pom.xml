@@ -30,19 +30,7 @@
 		<module>../../osate2-ba/org.osate.utils.feature</module>
 
 		<module>../../osate2-ocarina/osate2-ocarina.releng/modules</module>
-
-		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree</module>
-		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.analysis</module>
-		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.ui</module>
-		<module>../../smaccm/fm-workbench/agree/com.rockwellcollins.atc.agree.feature</module>
-		<module>../../smaccm/fm-workbench/z3/com.rockwellcollins.atc.z3</module>
-
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute</module>
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.analysis</module>
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ngrep</module>
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.schedule.analysis</module>
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.ui</module>
-		<module>../../smaccm/fm-workbench/resolute/com.rockwellcollins.atc.resolute.feature</module>
+		<module>../../smaccm/fm-workbench/releng/fm-workbench.build/modules</module>
 
 		<module>../org.osate.build.product</module>
 	</modules>
