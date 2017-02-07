@@ -8,7 +8,14 @@
       <protocol>http</protocol>
       <host>proxy.sei.cmu.edu</host>
       <port>8080</port>
-      <nonProxyHosts>localhost|*.sei.cmu.edu|*.aadl.info</nonProxyHosts>
+      <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
+    </proxy>
+    <proxy>
+      <active>true</active>
+      <protocol>https</protocol>
+      <host>proxy.sei.cmu.edu</host>
+      <port>8080</port>
+      <nonProxyHosts>localhost|*.sei.cmu.edu</nonProxyHosts>
     </proxy>
   </proxies>
 </settings>
