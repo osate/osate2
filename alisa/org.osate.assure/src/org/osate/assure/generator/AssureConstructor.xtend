@@ -107,7 +107,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		for (acp : acs.assurancePlans) {
 			val modelResultInstance = acp.constructModelResult
-			if (modelResultInstance != null)
+			if (modelResultInstance !== null)
 				mrs.add(modelResultInstance)
 		}
 		acr
@@ -119,7 +119,7 @@ class AssureConstructor implements IAssureConstructor {
 		var Iterable<VerificationPlan> myplans = Collections.EMPTY_LIST
 
 		var ComponentClassifier cc
-		if (acp != null) {
+		if (acp !== null) {
 			myplans = acp.assure
 			cc = acp.target
 			if (myplans.empty && !Aadl2Util.isNull(cc)) {
@@ -237,7 +237,7 @@ class AssureConstructor implements IAssureConstructor {
 
 	def void generateAllClaimResult(Claim claim, ComponentClassifier cc, EList<ClaimResult> claimResultlist) {
 		val when = claim.requirement.whencondition
-		if (when != null){
+		if (when !== null){
 			val cond = when.condition
 			if (cond instanceof AFunctionCall){
 				val fname = cond.function
@@ -266,7 +266,7 @@ class AssureConstructor implements IAssureConstructor {
 	def void generateClaimResult(Claim claim, EList<ClaimResult> claimResultlist, NamedElement forTargetElement) {
 		
 		val claimvas = doGenerateVA(claim)
-		if (claimvas.length == 0 && claim.subclaim == null && claim.assert == null) return
+		if (claimvas.length == 0 && claim.subclaim === null && claim.assert === null) return
 		val ClaimResult claimResult = factory.createClaimResult
 
 		// QualifiedClaimReference
@@ -280,19 +280,19 @@ class AssureConstructor implements IAssureConstructor {
 		claimResult.metrics = factory.createMetrics
 		claimResult.metrics.tbdCount = 0
 
-		if (forTargetElement != null) {
+		if (forTargetElement !== null) {
 			claimResult.modelElement = forTargetElement
 		}
 
-		// val subclaims = if(claim.subclaim != null) doGenerateSubclaims(claim) else ''''''
-		if (claim.subclaim != null) {
+		// val subclaims = if(claim.subclaim !== null) doGenerateSubclaims(claim) else ''''''
+		if (claim.subclaim !== null) {
 			for (subclaim : claim?.subclaim) {
 				// claimResult.subClaimResult += subclaim.construct //Does the same as next line with no targetElement
 				generateClaimResult(subclaim, claimResult.subClaimResult, claim.requirement.targetElement)
 			}
 		}
 
-		if (claim.assert != null) {
+		if (claim.assert !== null) {
 			// TODO: Need to check
 			claimResult.verificationActivityResult.construct(claim.assert)
 		} else {
@@ -332,7 +332,7 @@ class AssureConstructor implements IAssureConstructor {
 		EList<AssuranceCaseResult> subAssuranceCaseList
 	) {
 		val cc = subc.allClassifier
-		if (cc == null) {
+		if (cc === null) {
 			return
 		}
 		if (subc.isAssumeSubsystem(parentap)) {
@@ -393,7 +393,7 @@ class AssureConstructor implements IAssureConstructor {
 	}
 
 	def boolean isAssumeSubsystem(Subcomponent subc, AssurancePlan parentacp) {
-		if (parentacp == null) return false
+		if (parentacp === null) return false
 		if (parentacp.assumeAll) return true
 		val assumes = parentacp.assumeSubsystems
 		for (sub : assumes) {
@@ -432,11 +432,11 @@ class AssureConstructor implements IAssureConstructor {
 		vaResult.metrics = factory.createMetrics
 		vaResult.metrics.tbdCount = 0
 
-		if (va.method?.precondition != null) {
+		if (va.method?.precondition !== null) {
 			vaResult.preconditionResult = doConstruct(va.method.precondition, va)
 		}
 
-		if (va.method?.validation != null) {
+		if (va.method?.validation !== null) {
 			vaResult.validationResult = doConstruct(va.method.validation, va)
 		}
 
@@ -490,8 +490,8 @@ class AssureConstructor implements IAssureConstructor {
 		elseres.metrics.tbdCount = 0
 		elseres.first.construct(expr.left)
 		elseres.error.construct(expr.error)
-		if (expr.fail != null) elseres.fail.construct(expr.fail)
-		if (expr.timeout != null) elseres.timeout.construct(expr.timeout)
+		if (expr.fail !== null) elseres.fail.construct(expr.fail)
+		if (expr.timeout !== null) elseres.timeout.construct(expr.timeout)
 
 		if (elseres.first.empty) return;
 		if (elseres.error.empty && elseres.fail.empty && elseres.timeout.empty) {
@@ -505,7 +505,7 @@ class AssureConstructor implements IAssureConstructor {
 	def void doConstruct(List<VerificationExpr> arl, RefExpr expr) {
 		val va = expr.verification
 
-		if (va == null) return;
+		if (va === null) return;
 
 		// if (va.evaluateSelectionFilter(selectionFilter) && va.evaluateVerificationFilter(verificationFilter)) {
 		val vr = factory.createVerificationActivityResult
@@ -530,11 +530,11 @@ class AssureConstructor implements IAssureConstructor {
 		vr.metrics.tbdCount = 0
 		arl += vr
 
-		if (va.method?.precondition != null) {
+		if (va.method?.precondition !== null) {
 			vr.preconditionResult = doConstruct(va.method.precondition, va)
 		}
 
-		if (va.method?.validation != null) {
+		if (va.method?.validation !== null) {
 			vr.validationResult = doConstruct(va.method.validation, va)
 		}
 

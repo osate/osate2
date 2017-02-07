@@ -26,7 +26,6 @@ import java.util.List
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.EPackage
 import org.eclipse.emf.ecore.util.EcoreUtil
-import org.eclipse.xtext.nodemodel.util.NodeModelUtils
 import org.eclipse.xtext.validation.Check
 import org.eclipse.xtext.validation.CheckType
 import org.osate.aadl2.AadlBoolean
@@ -86,7 +85,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	@Check
 	def checkMethodPath(JavaMethod method) {
 		val result = VerificationMethodDispatchers.eInstance.methodExists(method)
-		if (result != null) {
+		if (result !== null) {
 			warning("Could not find method: " + result, VerifyPackage.Literals.JAVA_METHOD__METHOD_PATH,
 				INCORRECT_METHOD_PATH)
 		}
@@ -95,7 +94,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	@Check
 	def checkClassPath(JUnit4Method method) {
 		val result = VerificationMethodDispatchers.eInstance.classExists(method.classPath)
-		if (result != null) {
+		if (result !== null) {
 			warning("Could not find JUnit4 test class: " + result, VerifyPackage.Literals.JUNIT4_METHOD__CLASS_PATH,
 				INCORRECT_CLASS_PATH)
 		}
@@ -104,7 +103,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 	@Check
 	def checkMethodID(PluginMethod method) {
 		val result = VerificationMethodDispatchers.eInstance.dispatchVerificationMethod(method, null, null)
-		if (result == null) {
+		if (result === null) {
 			warning('Plugin verification method ID not found', VerifyPackage.Literals.PLUGIN_METHOD__METHOD_ID,
 				INCORRECT_METHOD_ID)
 		}
@@ -112,7 +111,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkMethodReference(VerificationCondition cond) {
-		if (cond.method == null) {
+		if (cond.method === null) {
 			warning('Verification precondition or validation should have a verification method reference',
 				VerifyPackage.Literals.VERIFICATION_CONDITION__METHOD, MISSING_METHOD_REFERENCE)
 		}
@@ -120,7 +119,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 
 	@Check
 	def checkMissingMethodReference(VerificationActivity va) {
-		if (va.method == null) {
+		if (va.method === null) {
 			warning('Verification activity should have a method reference',
 				VerifyPackage.Literals.VERIFICATION_ACTIVITY__METHOD, MISSING_METHOD_REFERENCE)
 		}
@@ -168,13 +167,13 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		val requirementsWithoutClaims = sysreqsContent.filter[!claimsRequirements.contains(it)]
 		val organizeClaims = requirementsWithoutClaims.size > 0
 
-		val claimsMissingRequirements = claims.filter[it.requirement == null]
+		val claimsMissingRequirements = claims.filter[it.requirement === null]
 		val missingReqURIs = new ArrayList<String>()
 		requirementsWithoutClaims.forEach [ req |
 			missingReqURIs.add(EcoreUtil.getURI(req).toString())
 		]
 
-		val claimsRequirementsUnresolved = claims.filter[claim|claim?.requirement != null && claim.requirement.eIsProxy]
+		val claimsRequirementsUnresolved = claims.filter[claim|claim?.requirement !== null && claim.requirement.eIsProxy]
 		val claimsWithMissingReqs = new ArrayList<Claim>()
 
 		claimsMissingRequirements.forEach [ cl |
@@ -241,7 +240,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 				val fparams = vm.formals
 				val aparams = methodKind.methodReference.args
 				val methodRefName = methodKind.methodReference.name
-				val hasComponentType = vm.targetType != null
+				val hasComponentType = vm.targetType !== null
 				val fcount = if (hasComponentType) {
 						fparams.size + 1
 					} else {

@@ -57,7 +57,7 @@ class SpotlightHandler extends AbstractHandler {
 	 */
 	override Object execute(ExecutionEvent event) throws ExecutionException {
 		val window = HandlerUtil.getActiveWorkbenchWindowChecked(event)
-		if (window != null) {
+		if (window !== null) {
 			val selection = window.getSelectionService().getSelection() as IStructuredSelection
 			val firstElement = selection.getFirstElement()
 
@@ -67,7 +67,7 @@ class SpotlightHandler extends AbstractHandler {
 					IFile case firstElement.name.endsWith(".aaxl2"): firstElement.resource.contents.head as SystemInstance
 					InstanceObject: firstElement.getContainerOfType(SystemInstance)
 				}
-				if (systemInstance == null) {
+				if (systemInstance === null) {
 					return null
 				}
 

@@ -89,7 +89,7 @@ class RequirementsReportHandler extends AbstractHandler {
 					val url = '''platform:/plugin/«Activator.PLUGIN_ID»/requirements.rptdesign'''
 					val report = openReportDesign(new URL(url).openConnection.inputStream)
 					createRunAndRenderTask(report) => [
-						if (selectionPath != null) {
+						if (selectionPath !== null) {
 							setParameterValue("ProjectName", selectionPath.segments.head)
 							setParameterValue("Directories", selectionPath.removeFirstSegments(1).removeLastSegments(1).toString)
 							setParameterValue("FileName", selectionPath.lastSegment)

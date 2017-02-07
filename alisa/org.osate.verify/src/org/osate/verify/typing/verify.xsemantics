@@ -28,9 +28,9 @@ rule TypeFormalParameter
 	G |- FormalParameter param : PropertyType expType
 from {
 	val declared = param.getType
-	declared != null
+	declared !== null
 	G |- declared : expType
-	if (param.unit != null) {
+	if (param.unit !== null) {
 		val targetType = param.unit.eContainer as UnitsType
 		expType instanceof NumberType
 		or
@@ -38,7 +38,7 @@ from {
 				error 'typing: can only convert unit of a numeric type'
 				source param
 		val numType = expType as NumberType
-		numType.unitsType != null
+		numType.unitsType !== null
 		or
 			fail
 				error 'typing: parameter type has no unit'
@@ -76,7 +76,7 @@ from {
 	var PropertyType formalType
 	G |- formal : formalType
 	or {/* ignore */}
-	if (formalType != null) {
+	if (formalType !== null) {
 		G |- formalType <: actualType
   	or
     	fail
@@ -107,12 +107,12 @@ from {
 rule Return
   G |- FormalParameter ret --> ComputeRef computeRef
 from {
-	if (computeRef.compute != null) {
+	if (computeRef.compute !== null) {
 	G |- computeRef.compute : var PropertyType computeType
 	var PropertyType retType
 	G |- ret : retType
 	or {/* ignore */}
-	if (retType != null) {
+	if (retType !== null) {
 		G |- computeType <: retType
   	or
     	fail

@@ -89,18 +89,18 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 class AssureUtilExtension {
 
 	def static SubsystemResult getEnclosingSubsystemResult(EObject assureObject) {
-		if (assureObject.eContainer == null) return null;
+		if (assureObject.eContainer === null) return null;
 		var result = assureObject.eContainer
-		while (result != null && !(result instanceof SubsystemResult)) {
+		while (result !== null && !(result instanceof SubsystemResult)) {
 			result = result.eContainer
 		}
-		if (result == null) return null
+		if (result === null) return null
 		return result as SubsystemResult
 	}
 
 	def static AssuranceCaseResult getAssuranceCaseResult(EObject assureObject) {
 		var result = assureObject
-		while (result.eContainer != null) {
+		while (result.eContainer !== null) {
 			result = result.eContainer
 		}
 		return result as AssuranceCaseResult
@@ -108,7 +108,7 @@ class AssureUtilExtension {
 
 	def static ModelResult getModelResult(EObject assureObject) {
 		var result = assureObject
-		while (result != null) {
+		while (result !== null) {
 			if (result instanceof ModelResult) return result
 			result = result.eContainer
 		}
@@ -120,14 +120,14 @@ class AssureUtilExtension {
 	 */
 	def static ComponentClassifier getCaseTargetClassifier(EObject assureObject) {
 		var ac = assureObject
-		while (ac != null) {
+		while (ac !== null) {
 			ac = ac.eContainer
 			if (ac instanceof ModelResult) {
-				if (ac.target != null) {
+				if (ac.target !== null) {
 					return ac.target
 				}
 			} else if (ac instanceof SubsystemResult) {
-				if (ac.targetSystem != null) {
+				if (ac.targetSystem !== null) {
 					return ac.targetSystem.allClassifier
 				}
 			}
@@ -140,7 +140,7 @@ class AssureUtilExtension {
 		while (!(result instanceof ClaimResult)) {
 			result = result.eContainer
 		}
-		if (result == null) return null
+		if (result === null) return null
 		return result as ClaimResult
 	}
 
@@ -161,7 +161,7 @@ class AssureUtilExtension {
 	def static Claim getReferencedClaim(NestedClaimReference cref, Iterable<Claim> claims) {
 		for (cl : claims) {
 			if (cl.requirement.name.equalsIgnoreCase(cref.requirement.name)) {
-				if (cref.sub != null && !cl.subclaim.empty) {
+				if (cref.sub !== null && !cl.subclaim.empty) {
 					return getReferencedClaim(cref.sub, cl.subclaim)
 				}
 				return cl
@@ -176,14 +176,14 @@ class AssureUtilExtension {
 
 	def static getTarget(ClaimResult cr) {
 		var qualreqref = cr.targetReference.requirement
-		while (qualreqref.sub != null)
+		while (qualreqref.sub !== null)
 			qualreqref = qualreqref.sub
 		return qualreqref.requirement
 	}
 
 	def static getPredicate(PredicateResult pr) {
 		var qualreqref = pr.targetReference.requirement
-		while (qualreqref.sub != null)
+		while (qualreqref.sub !== null)
 			qualreqref = qualreqref.sub
 		return qualreqref.requirement.predicate as ValuePredicate
 	}
@@ -205,12 +205,12 @@ class AssureUtilExtension {
 
 	def static SystemInstance getAssuranceCaseInstanceModel(VerificationResult assureObject) {
 		val rac = assureObject.modelResult?.target
-		if (rac == null || !(rac instanceof ComponentImplementation)) return null
+		if (rac === null || !(rac instanceof ComponentImplementation)) return null
 		(rac as ComponentImplementation).instanceModel
 	}
 
 	def static ComponentInstance findTargetSystemComponentInstance(SystemInstance si, SubsystemResult ac) {
-		if (ac != null && ac.targetSystem != null) {
+		if (ac !== null && ac.targetSystem !== null) {
 			val ci = findTargetSystemComponentInstance(si, ac.enclosingSubsystemResult)
 			findElementInstance(ci, ac.targetSystem) as ComponentInstance
 		} else {
@@ -583,7 +583,7 @@ class AssureUtilExtension {
 	}
 
 	def static String getNamePath(AssureResult ar) {
-		if (ar.eContainer == null) {
+		if (ar.eContainer === null) {
 			return ar.printableName
 		} else {
 			return (ar.eContainer as AssureResult).namePath + "." + ar.printableName
@@ -629,14 +629,14 @@ class AssureUtilExtension {
 	static var FeatureToConnectionsMap featToConnsMap
 
 	def static FeatureToConnectionsMap getFeatToConnsMap() {
-		if (featToConnsMap == null) {
+		if (featToConnsMap === null) {
 			populateResoluteContext
 		}
 		return featToConnsMap
 	}
 
 	def static Map<String, SortedSet<NamedElement>> getSets() {
-		if (sets == null) {
+		if (sets === null) {
 			populateResoluteContext
 		}
 		return sets
@@ -657,7 +657,7 @@ class AssureUtilExtension {
 	}
 
 	def private static void initializeSets(ComponentInstance ci, Map<String, SortedSet<NamedElement>> sets) {
-		if (ci == null) {
+		if (ci === null) {
 			return;
 		}
 
@@ -679,7 +679,7 @@ class AssureUtilExtension {
 
 	def private static void addToSet(Map<String, SortedSet<NamedElement>> sets, String name, NamedElement ne) {
 		var SortedSet<NamedElement> set = sets.get(name);
-		if (set == null) {
+		if (set === null) {
 			set = new TreeSet<NamedElement>(new NamedElementComparator());
 			sets.put(name, set);
 		}
@@ -696,7 +696,7 @@ class AssureUtilExtension {
 		val vrlist = EcoreUtil2.eAllOfType(root, VerificationResult)
 		vrlist.forEach [ vr |
 			// If there is no filter reset all.
-			if (filter == null) {
+			if (filter === null) {
 				vr.resultState = VerificationResultState.TBD
 				vr.executionState = VerificationExecutionState.TODO
 				vr.issues.clear
@@ -818,7 +818,7 @@ class AssureUtilExtension {
 	 * This method is used in the process and set result methods
 	 */
 	private def static void addTo(AssureResult subresult, AssureResult result) {
-		if (subresult == null) return
+		if (subresult === null) return
 		val counts = result.metrics
 		val subcounts = subresult.metrics
 		counts.failCount = counts.failCount + subcounts.failCount
@@ -889,9 +889,9 @@ class AssureUtilExtension {
 
 	private def static VerificationActivityResult recomputeAllCounts(VerificationActivityResult vaResult,
 		CategoryFilter filter) {
-		if (vaResult.preconditionResult != null) vaResult.preconditionResult.recomputeAllCounts(filter).addTo(vaResult)
+		if (vaResult.preconditionResult !== null) vaResult.preconditionResult.recomputeAllCounts(filter).addTo(vaResult)
 		vaResult.addOwnResultStateToCount()
-		if (vaResult.validationResult != null) vaResult.validationResult.recomputeAllCounts(filter).addTo(vaResult)
+		if (vaResult.validationResult !== null) vaResult.validationResult.recomputeAllCounts(filter).addTo(vaResult)
 		vaResult
 	}
 
@@ -985,7 +985,7 @@ class AssureUtilExtension {
 
 	def static void setToSuccess(VerificationResult verificationActivityResult, String message, EObject target,
 		String diagnosticId) {
-		if (message != null && !message.isEmpty)
+		if (message !== null && !message.isEmpty)
 			verificationActivityResult.addSuccessIssue(target, message, null, diagnosticId);
 		if (verificationActivityResult.updateOwnResultState(VerificationResultState.SUCCESS))
 			verificationActivityResult.propagateCountChangeUp
@@ -1161,7 +1161,7 @@ class AssureUtilExtension {
 	 */
 	private def static void propagateCountChangeUp(AssureResult ar) {
 		var parent = ar.eContainer
-		while (parent != null && parent instanceof AssureResult) {
+		while (parent !== null && parent instanceof AssureResult) {
 			val parentResult = (parent as AssureResult)
 			parentResult.addAllSubCounts()
 			parent = parent.eContainer
@@ -1311,38 +1311,38 @@ class AssureUtilExtension {
 	}
 
 	def static String constructMessage(VerificationActivityResult vr) {
-		if (vr.message != null) return vr.message
+		if (vr.message !== null) return vr.message
 		return vr.constructDescription
 	}
 
 	def static String constructDescription(VerificationActivityResult vr) {
 		val va = vr.target
-		if (va.title != null) return va.title
+		if (va.title !== null) return va.title
 		val vm = va.method
-		if (vm.description != null) return vm.description.toText(null) // va.target)
-		if (vm.title != null) return vm.title
+		if (vm.description !== null) return vm.description.toText(null) // va.target)
+		if (vm.title !== null) return vm.title
 		return ""
 	}
 
 	def static String constructMessage(AssuranceCaseResult ce) {
-		if (ce.message != null) return ce.message
+		if (ce.message !== null) return ce.message
 		return ""
 	}
 
 	def static String constructMessage(ModelResult ce) {
-		if (ce.message != null) return ce.message
+		if (ce.message !== null) return ce.message
 		return ""
 	}
 
 	def static String constructMessage(SubsystemResult ce) {
-		if (ce.message != null) return ce.message
+		if (ce.message !== null) return ce.message
 		return ""
 	}
 
 	def static String constructDescription(ModelResult ar) {
 		val plan = ar.plan
-		if (plan?.description != null) return plan.description.toText(plan.target)
-		if (plan.title != null) return plan.title
+		if (plan?.description !== null) return plan.description.toText(plan.target)
+		if (plan.title !== null) return plan.title
 		"Verified system implementation " + plan.target.getQualifiedName()
 	}
 
@@ -1381,7 +1381,7 @@ class AssureUtilExtension {
 
 	def static String getName(ClaimResult cr) {
 		val me = cr.caseTargetModelElement
-		val targetElementLabel = if (me != null) "(" + me.name + ")" else ""
+		val targetElementLabel = if (me !== null) "(" + me.name + ")" else ""
 		if (!Aadl2Util.isNull(cr.target)) {
 			return cr.target?.name + targetElementLabel
 		}
@@ -1390,36 +1390,36 @@ class AssureUtilExtension {
 
 	def static String constructDescription(ClaimResult cr) {
 		val r = cr.target
-		if (r.description != null) return r.description.toText(cr.caseTargetModelElement)
-		if (r.title != null) return r.title
+		if (r.description !== null) return r.description.toText(cr.caseTargetModelElement)
+		if (r.title !== null) return r.title
 		""
 	}
 
 	def static String constructMessage(ClaimResult cr) {
-		if (cr.message != null) return cr.message
+		if (cr.message !== null) return cr.message
 		constructDescription(cr)
 	}
 
 	def static String constructMessage(ValidationResult cr) {
-		if (cr.message != null) return cr.message
+		if (cr.message !== null) return cr.message
 		""
 	}
 
 	def static String constructMessage(PreconditionResult cr) {
-		if (cr.message != null) return cr.message
+		if (cr.message !== null) return cr.message
 		""
 	}
 
 	def static String constructMessage(ResultIssue ri) {
-		if (ri.message != null)
-			return ri.message + if (ri.exceptionType != null) ( " [" + ri.exceptionType + "]" ) else ""
-		if (ri.exceptionType != null) return ri.exceptionType
+		if (ri.message !== null)
+			return ri.message + if (ri.exceptionType !== null) ( " [" + ri.exceptionType + "]" ) else ""
+		if (ri.exceptionType !== null) return ri.exceptionType
 		""
 	}
 
 	def static String assureResultCounts(AssureResult ele) {
 		val elec = ele.metrics
-//		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer == null) {
+//		if (ele instanceof AssuranceCaseResult && ele.isZeroCount && ele.eContainer === null) {
 //			ele.resetCounts
 //			ele.recomputeAllCounts(null)
 //		}
@@ -1442,7 +1442,7 @@ class AssureUtilExtension {
 				val res = buildCaseModelElementPath(ar.eContainer as AssureResult)
 				if (ar.eContainer instanceof ClaimResult)
 					res
-				else if (ar.modelElement != null) res + "." + ar.modelElement.name else res
+				else if (ar.modelElement !== null) res + "." + ar.modelElement.name else res
 			}
 			VerificationResult:
 				buildCaseModelElementPath(ar.claimResult)
@@ -1465,7 +1465,7 @@ class AssureUtilExtension {
 	def static SystemInstance getInstanceModel(ComponentImplementation cimpl) {
 		if (Aadl2Util.isNull(cimpl)) return null
 		var si = instanceModelRecord.get(cimpl.name) as SystemInstance
-		if (si == null) {
+		if (si === null) {
 
 			System.out.println("\tInstantiating " + cimpl.getQualifiedName())
 
@@ -1540,7 +1540,7 @@ class AssureUtilExtension {
 	 */
 	def static NumberValue convertValueToUnit(NumberValue numberValue, UnitLiteral target) {
 		val unit = numberValue.unit
-		if (unit == null || target == null) return numberValue
+		if (unit === null || target === null) return numberValue
 		val value = getValue(numberValue)
 		val factor = unit.getAbsoluteFactor(target)
 		val result = value * factor

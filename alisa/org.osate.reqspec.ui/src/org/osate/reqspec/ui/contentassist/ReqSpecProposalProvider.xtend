@@ -138,7 +138,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		cls.add(cl);
 
 		var temp = cl
-		while (temp.getExtended() != null) {
+		while (temp.getExtended() !== null) {
 			if (cls.contains(temp.getExtended())) {
 				return cls;
 			}
@@ -150,7 +150,7 @@ class ReqSpecProposalProvider extends AbstractReqSpecProposalProvider {
 		if (cl instanceof ComponentImplementation) {
 			var temp2 = cl.type
 			cls.add(temp2);
-			while (temp2.getExtended() != null) {
+			while (temp2.getExtended() !== null) {
 				if (cls.contains(temp2.getExtended())) {
 					return cls;
 				}

@@ -48,12 +48,9 @@ import org.osate.verify.verify.TargetType
 import org.osate.verify.verify.VerificationMethod
 
 import static extension org.osate.verify.analysisplugins.AnalysisPluginInterface.*
-import javax.sound.sampled.BooleanControl.Type
 import org.osate.aadl2.Aadl2Package
 import org.osate.aadl2.instance.InstancePackage
 import org.osate.verify.verify.JavaParameter
-import javax.xml.bind.PropertyException
-import java.util.Iterator
 import org.osate.aadl2.NamedElement
 
 class VerificationMethodDispatchers {
@@ -72,29 +69,29 @@ class VerificationMethodDispatchers {
 			case "MaxFlowLatencyAnalysis",
 			case "MinFlowLatencyAnalysis",
 			case "FlowLatencyJitterAnalysis":
-				if (target == null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
+				if (target === null) true else target.flowLatencyAnalysis(parameters.map[p|(p as StringLiteral).value])
 			case "A429Consistency":
-				if (target == null) true else target.A429Consistency
+				if (target === null) true else target.A429Consistency
 			case "ConnectionBindingConsistency":
-				if (target == null) true else target.ConnectionBindingConsistency
+				if (target === null) true else target.ConnectionBindingConsistency
 			case "PortDataConsistency":
-				if (target == null) true else target.PortDataConsistency
+				if (target === null) true else target.PortDataConsistency
 			case "MassAnalysis":
-				if (target == null) true else target.MassAnalysis
+				if (target === null) true else target.MassAnalysis
 			case "BoundResourceAnalysis":
-				if (target == null) true else target.BoundResourceAnalysis
+				if (target === null) true else target.BoundResourceAnalysis
 			case "NetworkBandwidthAnalysis":
-				if (target == null) true else target.NetworkBandWidthAnalysis
+				if (target === null) true else target.NetworkBandWidthAnalysis
 			case "PowerAnalysis":
-				if (target == null) true else target.PowerAnalysis
+				if (target === null) true else target.PowerAnalysis
 			case "ResourceBudgets":
-				if (target == null) true else target.ResourceBudget
+				if (target === null) true else target.ResourceBudget
 			case "BinPack":
-				if (target == null) true else target.Binpack
+				if (target === null) true else target.Binpack
 			case "CheckSafety":
-				if (target == null) true else target.CheckSafety
+				if (target === null) true else target.CheckSafety
 			case "CheckSecurity":
-				if (target == null) true else target.CheckSecurity
+				if (target === null) true else target.CheckSecurity
 			default:
 				null
 		}
@@ -113,7 +110,7 @@ class VerificationMethodDispatchers {
 			val workspaceRoot = ResourcesPlugin.workspace.root
 			val model = JavaCore.create(workspaceRoot)
 
-			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			val projects = model.javaProjects.filter[findType(className) !== null].toSet
 			if (projects.isEmpty) {
 				throw new IllegalArgumentException('No such method: ' + vm.methodPath)
 			} else if (projects.size > 1) {
@@ -173,7 +170,7 @@ class VerificationMethodDispatchers {
 			val workspaceRoot = ResourcesPlugin.workspace.root
 			val model = JavaCore.create(workspaceRoot)
 
-			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			val projects = model.javaProjects.filter[findType(className) !== null].toSet
 			if (projects.isEmpty) {
 				throw new IllegalArgumentException('No such method: ' + javaMethod)
 			} else if (projects.size > 1) {
@@ -233,7 +230,7 @@ class VerificationMethodDispatchers {
 			val workspaceRoot = ResourcesPlugin.workspace.root
 			val model = JavaCore.create(workspaceRoot)
 
-			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			val projects = model.javaProjects.filter[findType(className) !== null].toSet
 			if (projects.isEmpty) {
 				throw new IllegalArgumentException('No such method: ' + vm.methodPath)
 			} else if (projects.size > 1) {
@@ -264,7 +261,7 @@ class VerificationMethodDispatchers {
 			}
 
 			val method = clazz.getMethod(methodName, newClasses)
-			if (method == null)
+			if (method === null)
 				throw new IllegalArgumentException("Method " + methodName + " not found in class instance")
 		} catch (Exception e) {
 			if (e instanceof InvocationTargetException) {
@@ -288,7 +285,7 @@ class VerificationMethodDispatchers {
 			val workspaceRoot = ResourcesPlugin.workspace.root
 			val model = JavaCore.create(workspaceRoot)
 
-			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			val projects = model.javaProjects.filter[findType(className) !== null].toSet
 			if (projects.isEmpty) {
 				throw new IllegalArgumentException('No such method: ' + javaMethod)
 			} else if (projects.size > 1) {
@@ -315,11 +312,11 @@ class VerificationMethodDispatchers {
 				newClasses.add(ComponentInstance)
 
 			var method = clazz.getMethod(methodName, newClasses)
-			if (method == null){
+			if (method === null){
 				val altClasses= newArrayList()
 				altClasses.add(InstanceObject)
 				method = clazz.getMethod(methodName, newClasses)			}
-			if (method == null){
+			if (method === null){
 				throw new IllegalArgumentException("Method " + methodName + " not found in class instance")
 			}
 		} catch (Exception e) {
@@ -391,10 +388,10 @@ class VerificationMethodDispatchers {
 			case AadlBoolean.name: return typeof(BooleanLiteral)
 			default: {
 				var ecl = Aadl2Package.eINSTANCE.getEClassifier(name);
-				if (ecl == null){
+				if (ecl === null){
 					InstancePackage.eINSTANCE.getEClassifier(name)
 				}
-				if (ecl != null) return ecl.instanceClass
+				if (ecl !== null) return ecl.instanceClass
 				return Class.forName(name)
 			}
 		}
@@ -430,7 +427,7 @@ class VerificationMethodDispatchers {
 
 	def String classExists(String className) {
 		try {
-			val clazz = findClass(className);
+			findClass(className);
 		} catch (Exception e) {
 			if (e instanceof InvocationTargetException) {
 				return e.targetException.toString
@@ -440,11 +437,11 @@ class VerificationMethodDispatchers {
 		return null
 	}
 
-	def Class findClass(String className) {
+	def Class<?> findClass(String className) {
 		val workspaceRoot = ResourcesPlugin.workspace.root
 		val model = JavaCore.create(workspaceRoot)
 
-		val projects = model.javaProjects.filter[findType(className) != null].toSet
+		val projects = model.javaProjects.filter[findType(className) !== null].toSet
 		if (projects.isEmpty) {
 			throw new IllegalArgumentException('No such class: ' + className)
 		} else if (projects.size > 1) {

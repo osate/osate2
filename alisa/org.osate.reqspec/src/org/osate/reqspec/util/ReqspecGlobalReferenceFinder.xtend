@@ -69,7 +69,7 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder {
 	override Iterable<SystemRequirementSet> getSystemRequirementSets(ComponentClassifier cc) {
 		val hierarchy = new ArrayList<EObject>
 		var Classifier c = cc
-		while (c != null) {
+		while (c !== null) {
 			hierarchy.add(c)
 			c = c.extended
 		}

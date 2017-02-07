@@ -24,7 +24,7 @@ class AlisaWorkbenchUtilExtension {
 		
 def static AssurancePlan getEnclosingAssurancePlan(EObject eo){
 	var result = eo
-	while (result != null){
+	while (result !== null){
 		if (result instanceof AssurancePlan) return result
 		result = result.eContainer
 	}
@@ -33,7 +33,7 @@ def static AssurancePlan getEnclosingAssurancePlan(EObject eo){
 		
 def static AssuranceCase getAssuranceCase(EObject eo){
 	var result = eo
-	while (result != null){
+	while (result !== null){
 		if (result instanceof AssuranceCase) return result
 		result = result.eContainer
 	}

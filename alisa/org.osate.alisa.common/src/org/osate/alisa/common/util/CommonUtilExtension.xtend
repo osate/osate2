@@ -68,11 +68,11 @@ class CommonUtilExtension {
 	}
 
 	def static String toText(DescriptionElement de, NamedElement target) {
-		if (de.text != null) {
+		if (de.text !== null) {
 			de.text.stripNewlineTab
-		} else if (de.thisTarget && target != null) {
+		} else if (de.thisTarget && target !== null) {
 			target.getQualifiedName()
-		} else if (de.showValue != null) {
+		} else if (de.showValue !== null) {
 			val decl = de.showValue
 			if (decl.eIsProxy) {
 				"TBD"
@@ -92,7 +92,7 @@ class CommonUtilExtension {
 								result.ruleFailedException
 						}
 						var x = result.value
-						if (x == null || x instanceof NullLiteral)
+						if (x === null || x instanceof NullLiteral)
 							"TBD"
 						else
 							x.toString
@@ -130,9 +130,9 @@ class CommonUtilExtension {
 	}
 
 	def static boolean isSameorExtendsURI(ComponentClassifier target, URI ancestorURI) {
-		if (target == null || ancestorURI == null) return false
+		if (target === null || ancestorURI === null) return false
 		var Classifier ext = target
-		while (ext != null) {
+		while (ext !== null) {
 			if (ancestorURI == EcoreUtil.getURI(ext)) {
 				return true;
 			}
@@ -140,7 +140,7 @@ class CommonUtilExtension {
 		}
 		if (target instanceof ComponentImplementation) {
 			ext = target.getType();
-			while (ext != null) {
+			while (ext !== null) {
 				if (ancestorURI == EcoreUtil.getURI(ext)) {
 					return true;
 				}
@@ -189,8 +189,8 @@ class CommonUtilExtension {
 	def static findElementInstance(ComponentInstance io, String elementName) {
 		val n = elementName
 		var res = findElementInstanceInList(io.endToEndFlows, n)
-		if (res == null) res = findElementInstanceInList(io.componentInstances, n)
-		if (res == null) res = findElementInstanceInList(io.featureInstances, n)
+		if (res === null) res = findElementInstanceInList(io.componentInstances, n)
+		if (res === null) res = findElementInstanceInList(io.featureInstances, n)
 		return res
 	}
 
@@ -209,7 +209,7 @@ class CommonUtilExtension {
 			val workspaceRoot = ResourcesPlugin.workspace.root
 			val model = JavaCore.create(workspaceRoot)
 
-			val projects = model.javaProjects.filter[findType(className) != null].toSet
+			val projects = model.javaProjects.filter[findType(className) !== null].toSet
 			if (projects.isEmpty) {
 				throw new IllegalArgumentException('No such method: ' + javaMethod)
 			} else if (projects.size > 1) {
@@ -236,7 +236,7 @@ class CommonUtilExtension {
 			newClasses.add(NamedElement)
 
 			var method = clazz.getMethod(methodName, newClasses)
-			if (method == null) {
+			if (method === null) {
 				val altClasses = newArrayList()
 				altClasses.add(InstanceObject)
 				method = clazz.getMethod(methodName, newClasses)

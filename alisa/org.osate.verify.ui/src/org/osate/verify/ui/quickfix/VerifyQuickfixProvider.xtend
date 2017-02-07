@@ -19,9 +19,9 @@
 */
 package org.osate.verify.ui.quickfix
 
-import com.rockwellcollins.atc.resolute.resolute.BaseType
 import org.eclipse.emf.common.util.URI
 import org.eclipse.emf.ecore.EObject
+import org.eclipse.xtext.ui.editor.model.edit.IModification
 import org.eclipse.xtext.ui.editor.model.edit.IModificationContext
 import org.eclipse.xtext.ui.editor.model.edit.ISemanticModification
 import org.eclipse.xtext.ui.editor.quickfix.DefaultQuickfixProvider
@@ -31,15 +31,10 @@ import org.eclipse.xtext.validation.Issue
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.verify.validation.VerifyValidator
 import org.osate.verify.verify.Claim
-import org.osate.verify.verify.ResoluteMethod
 import org.osate.verify.verify.Verification
-import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 import org.osate.verify.verify.VerifyFactory
 import org.osate.verify.verify.VerifyPackage
-import org.osate.verify.verify.FormalParameter
-import org.osate.verify.verify.impl.FormalParameterImpl
-import org.eclipse.xtext.ui.editor.model.edit.IModification
 
 //import org.eclipse.xtext.ui.editor.quickfix.Fix
 //import org.eclipse.xtext.ui.editor.quickfix.IssueResolutionAcceptor
@@ -129,8 +124,6 @@ class VerifyQuickfixProvider extends DefaultQuickfixProvider {
 				new ISemanticModification() {
 					override apply(EObject element, IModificationContext context) throws Exception {
 						val resourceSet = element.eResource().getResourceSet() 
-						val vp = element as VerificationPlan
-						val claims = vp.claim
 						issue.data.forEach[reqURI|
 							val req = resourceSet.getEObject(URI.createURI(reqURI), true) as Requirement
 							val verificationPlan = element as VerificationPlan

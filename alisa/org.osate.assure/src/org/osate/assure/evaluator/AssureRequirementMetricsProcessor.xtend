@@ -78,7 +78,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val claimReqs = verificationPlans.map[claim.map[requirement]].flatten.filter[filterRequirement(categoryFilter)].toSet
 		val targetReqs = reqSpecrefFinder.getSystemRequirementSets(targetComponent)
 		val exceptionReqCount = targetReqs.map[requirements].flatten.filter[filterRequirement(categoryFilter)].map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("exception")].toSet.size
-		val mitigatesReqCount = targetReqs.map[requirements.filter[exception != null]].flatten.filter[filterRequirement(categoryFilter)].size 
+		val mitigatesReqCount = targetReqs.map[requirements.filter[exception !== null]].flatten.filter[filterRequirement(categoryFilter)].size 
 
 		val featuresRequiringClassifiers = targetReqs.map[requirements].flatten.filter[filterRequirement(categoryFilter)].map[targetElement].filter(ClassifierFeature).filter[
 			switch it {
@@ -92,10 +92,10 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		featuresRequiringClassifiers.forEach[resolveAll]
 		val featuresWithRequiredClassifier = featuresRequiringClassifiers.filter[
 			switch it {
-				BusAccess : busFeatureClassifier != null
-				DataPort : dataFeatureClassifier != null
-				EventDataPort : dataFeatureClassifier != null
-				DataAccess : dataFeatureClassifier != null
+				BusAccess : busFeatureClassifier !== null
+				DataPort : dataFeatureClassifier !== null
+				EventDataPort : dataFeatureClassifier !== null
+				DataAccess : dataFeatureClassifier !== null
 				default: false
 			}
 		]
@@ -127,7 +127,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		val claimReqs = claimResults.map[targetReference.verificationPlan.claim].flatten.map[requirement].filter[filterRequirement(categoryFilter)].toSet
 		val sysReqs = reqSpecrefFinder.getSystemRequirementSets(targetSystem.componentType)
 		val exceptionReqCount = sysReqs.map[requirements].flatten.filter[filterRequirement(categoryFilter)].map[category].flatten.filter[getContainerOfType(Categories).name.equalsIgnoreCase("exception")].toSet.size
-		val mitigatesReqCount = sysReqs.map[requirements.filter[exception != null]].flatten.filter[filterRequirement(categoryFilter)].size 
+		val mitigatesReqCount = sysReqs.map[requirements.filter[exception !== null]].flatten.filter[filterRequirement(categoryFilter)].size 
 
 		val featuresRequiringClassifiers = sysReqs.map[requirements].flatten.filter[filterRequirement(categoryFilter)].map[targetElement].filter(ClassifierFeature).filter[
 			switch it {
@@ -141,10 +141,10 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		featuresRequiringClassifiers.forEach[resolveAll]
 		val featuresWithRequiredClassifier = featuresRequiringClassifiers.filter[
 			switch it {
-				BusAccess : busFeatureClassifier != null
-				DataPort : dataFeatureClassifier != null
-				EventDataPort : dataFeatureClassifier != null
-				DataAccess : dataFeatureClassifier != null
+				BusAccess : busFeatureClassifier !== null
+				DataPort : dataFeatureClassifier !== null
+				EventDataPort : dataFeatureClassifier !== null
+				DataAccess : dataFeatureClassifier !== null
 				default: false
 			}
 		]
@@ -164,7 +164,7 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 	}
 
 	def filterRequirement(Requirement requirement, CategoryFilter filter){
-			if (filter != null){
+			if (filter !== null){
 				if (filter.anyCategory){
 					!requirement.category.disjoint(filter.category)
 				} else {

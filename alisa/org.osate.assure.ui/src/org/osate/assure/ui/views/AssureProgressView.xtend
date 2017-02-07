@@ -90,7 +90,7 @@ class AssureProgressView extends ViewPart {
 						override getText(Object element) {
 							val vaResult = resourceSet.getEObject(element as URI, true) as VerificationActivityResult
 							val metrics = vaResult.metrics
-							if (metrics != null && metrics.executionTime > 0) {
+							if (metrics !== null && metrics.executionTime > 0) {
 								metrics.executionTime.toString
 							}
 						}

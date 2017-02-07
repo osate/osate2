@@ -188,7 +188,7 @@ class AssureProcessor implements IAssureProcessor {
 				doneSubTask(vaResult)
 				return;
 			}
-			if (vaResult.preconditionResult != null) {
+			if (vaResult.preconditionResult !== null) {
 				vaResult.preconditionResult.process
 				if (!vaResult.preconditionResult.isSuccess) {
 					doneSubTask(vaResult)
@@ -196,7 +196,7 @@ class AssureProcessor implements IAssureProcessor {
 				}
 			}
 			runVerificationMethod(vaResult)
-			if (vaResult.validationResult != null) {
+			if (vaResult.validationResult !== null) {
 				vaResult.validationResult.process
 			}
 			doneSubTask(vaResult)
@@ -255,19 +255,19 @@ class AssureProcessor implements IAssureProcessor {
 		var method = verificationResult.method;
 		// the next outer assurance case object that refers to a system implementation. 
 		var instanceroot = verificationResult.assuranceCaseInstanceModel
-		if (instanceroot == null) {
+		if (instanceroot === null) {
 			setToError(verificationResult, "Could not find instance model", null)
 			return
 		}
 		var ComponentInstance targetComponent = instanceroot
 		targetComponent = findTargetSystemComponentInstance(instanceroot, verificationResult.enclosingSubsystemResult)
-		if (targetComponent == null) {
+		if (targetComponent === null) {
 			setToError(verificationResult, "Unresolved target system for claim", null)
 			return
 		}
 		// target element is the element referred to by the requirement. This may be empty
 		val targetElement = verificationResult.caseTargetModelElement
-		var InstanceObject target = if (targetElement != null) {
+		var InstanceObject target = if (targetElement !== null) {
 				if (targetElement.eIsProxy) {
 					setToError(verificationResult, "Unresolved target element for claim", targetComponent)
 					return
@@ -343,7 +343,7 @@ class AssureProcessor implements IAssureProcessor {
 				var formalParam = method.formals.get(i)
 				i = i + 1
 				if (actual instanceof NumberValue) {
-					if (formalParam.unit != null && actual.unit != null &&
+					if (formalParam.unit !== null && actual.unit !== null &&
 						!formalParam.unit.name.equals(actual.unit.name)) {
 						actual = AssureUtilExtension.convertValueToUnit(actual, formalParam.unit)
 					}
@@ -371,7 +371,7 @@ class AssureProcessor implements IAssureProcessor {
 						val computeIter = verificationResult.targetReference.verificationActivity.computes.iterator
 						method.results.forEach [ variable |
 							val data = res.get(variable.name)
-							if (data != null) {
+							if (data !== null) {
 								val computeRef = computeIter.next
 								computes.put(computeRef.compute.name, toLiteral(data))
 							} else {
@@ -405,7 +405,7 @@ class AssureProcessor implements IAssureProcessor {
 					// check for claim function or compute function
 					val ResoluteInterpreter interpreter = new ResoluteInterpreter(context);
 					val provecall = createWrapperProveCall(methodtype, targetComponent, parameterObjects)
-					if (provecall == null) {
+					if (provecall === null) {
 						setToError(verificationResult,
 							"Could not find Resolute Function " + verificationResult.method.name)
 					} else {
@@ -474,7 +474,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def updateRequirementsCoverage() {
-		if (requirementsCoverageUpdater != null) {
+		if (requirementsCoverageUpdater !== null) {
 			requirementsCoverageUpdater.apply
 		}
 	}
@@ -507,7 +507,7 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def updateProgress(VerificationResult result) {
-		if (progressUpdater != null) {
+		if (progressUpdater !== null) {
 			progressUpdater.apply(result.URI)
 		}
 	}
@@ -545,7 +545,7 @@ class AssureProcessor implements IAssureProcessor {
 		List<PropertyExpression> parameters) {
 		val methodtype = method.methodKind as JavaMethod
 		val returned = VerificationMethodDispatchers.eInstance.workspaceInvoke(methodtype, target, parameters)
-		if (returned != null) {
+		if (returned !== null) {
 			if ( returned instanceof Boolean && (method.isPredicate || method.results.empty)) {
 				if (returned != true) {
 					setToFail(verificationResult, "", target);
@@ -555,7 +555,7 @@ class AssureProcessor implements IAssureProcessor {
 				new HashMap
 			} else if (returned instanceof HashMap<?, ?>) {
 				val report = returned.get("_result_report_") as ResultReport
-				if (report != null) {
+				if (report !== null) {
 					verificationResult.resultReport = report
 				} else {
 					setToSuccess(verificationResult, "", target)
@@ -588,7 +588,7 @@ class AssureProcessor implements IAssureProcessor {
 	
 	def isClaimFunction(ResoluteMethod rm){
 		val found = rm.methodReference
-		if(found != null && (found.body instanceof ClaimBody)){
+		if(found !== null && (found.body instanceof ClaimBody)){
 			return true
 		}
 		return false
@@ -598,7 +598,7 @@ class AssureProcessor implements IAssureProcessor {
 		List<PropertyExpression> params) {
 		val found = rm.methodReference
 		val factory = ResoluteFactory.eINSTANCE
-		if (found == null) return null
+		if (found === null) return null
 		val call = factory.createFnCallExpr
 		call.fn = found
 		call.args.add(createComponentinstanceReference(ci))

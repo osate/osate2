@@ -180,7 +180,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 							dialog.filterNames = formatDescriptions
 							dialog.text = "Output File"
 							val selectedFileName = dialog.open
-							if (selectedFileName != null) {
+							if (selectedFileName !== null) {
 								outputFileText.text = selectedFileName
 								validateOutputFile
 							}
@@ -192,7 +192,7 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 				text = "Open Generated Report"
 				layoutData = new GridData(SWT.LEFT, SWT.CENTER, false, false)
 				val preference = dialogSettings.get(OPEN_FILE_SETTING)
-				selection = preference == null || Boolean.parseBoolean(preference)
+				selection = preference === null || Boolean.parseBoolean(preference)
 			]
 		]
 	}
@@ -223,6 +223,6 @@ package class ReqTraceConfigDialog extends TitleAreaDialog {
 				}
 			}
 		}
-		getButton(IDialogConstants.OK_ID).enabled = errorMessage == null
+		getButton(IDialogConstants.OK_ID).enabled = errorMessage === null
 	}
 }

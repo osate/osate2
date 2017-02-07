@@ -75,7 +75,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 
 	def scope_ContractualElement_targetElement(ContractualElement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
-		if (targetClassifier != null) {
+		if (targetClassifier !== null) {
 			if (targetClassifier instanceof ComponentType){
 			return new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(targetClassifier.getAllFeatures + targetClassifier.allFlowSpecifications + targetClassifier.allModes,
@@ -106,7 +106,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 
 	def scope_ErrorBehaviorState(WhenCondition context, EReference reference) {
 		val targetClassifier = targetClassifier(containingRequirement(context))
-		if (targetClassifier != null) {
+		if (targetClassifier !== null) {
 			val states = EMV2Util.getAllErrorBehaviorStates(targetClassifier)
 			val thescope = new SimpleScope(IScope::NULLSCOPE,
 				Scopes::scopedElementsFor(states, QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), true)
@@ -179,7 +179,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 
 	def scope_Requirement_exception(Requirement context, EReference reference) {
 		val targetClassifier = targetClassifier(context)
-		if (targetClassifier != null) {
+		if (targetClassifier !== null) {
 			val exceptionItems = EMV2Util.getAllErrorSources(targetClassifier) +
 				EMV2Util.getAllErrorPaths(targetClassifier)
 			val propscope = ErrorModelScopeProvider.scopeForErrorPropagation(targetClassifier, DirectionType.OUT)
@@ -202,7 +202,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 	}
 	
 	def IScope scope_AModelReference_modelElement(AModelReference context, EReference reference) {
-		if (context.prev == null) {
+		if (context.prev === null) {
 			scope_AModelReference_modelElement(context.eContainer, reference)
 		} else {
 			switch prevElement : context.prev.modelElement {
@@ -234,7 +234,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		cls.add(cl);
 
 		var temp = cl
-		while (temp.getExtended() != null) {
+		while (temp.getExtended() !== null) {
 			if (cls.contains(temp.getExtended())) {
 				return cls;
 			}
@@ -246,7 +246,7 @@ class ReqSpecScopeProvider extends CommonScopeProvider {
 		if (cl instanceof ComponentImplementation) {
 			temp = cl.type
 			cls.add(temp);
-			while (temp.getExtended() != null) {
+			while (temp.getExtended() !== null) {
 				if (cls.contains(temp.getExtended())) {
 					return cls;
 				}

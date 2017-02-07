@@ -137,7 +137,7 @@ class AlisaView extends ViewPart {
 		if (alisaFileChanged.get) {
 			viewSite.workbenchWindow.workbench.display.asyncExec[
 				val toRemove = selectedFilters.filter[assuranceCase, filter |
-					resourceSetForUI.getEObject(assuranceCase, true) == null || resourceSetForUI.getEObject(filter, true) == null
+					resourceSetForUI.getEObject(assuranceCase, true) === null || resourceSetForUI.getEObject(filter, true) === null
 				].keySet
 				toRemove.forEach[selectedFilters.remove(it)]
 				
@@ -171,11 +171,11 @@ class AlisaView extends ViewPart {
 			dialogSettings.load(settingsFileName)
 			val assuranceCaseURIs = dialogSettings.getArray(ASSURANCE_CASE_URIS_KEY)
 			val filterURIs = dialogSettings.getArray(FILTER_URIS_KEY)
-			if (assuranceCaseURIs != null && filterURIs != null && assuranceCaseURIs.size == filterURIs.size) {
+			if (assuranceCaseURIs !== null && filterURIs !== null && assuranceCaseURIs.size == filterURIs.size) {
 				for (var i = 0; i < filterURIs.size; i++) {
 					val assuranceCaseURI = URI.createURI(assuranceCaseURIs.get(i))
 					val filterURI = URI.createURI(filterURIs.get(i))
-					if (resourceSetForUI.getEObject(assuranceCaseURI, true) != null && resourceSetForUI.getEObject(filterURI, true) != null) {
+					if (resourceSetForUI.getEObject(assuranceCaseURI, true) !== null && resourceSetForUI.getEObject(filterURI, true) !== null) {
 						selectedFilters.put(assuranceCaseURI, filterURI)
 					}
 				}
@@ -286,7 +286,7 @@ class AlisaView extends ViewPart {
 						val eObject = resourceSetForUI.getEObject(element as URI, true)
 						if (eObject instanceof AssuranceCase) {
 							val filter = selectedFilters.get(element)
-							if (filter != null) {
+							if (filter !== null) {
 								(resourceSetForUI.getEObject(filter, true) as CategoryFilter).name 
 							}
 						}
@@ -335,7 +335,7 @@ class AlisaView extends ViewPart {
 			manager.removeAllWhenShown = true
 			manager.addMenuListener[
 				val uri = treeViewer.structuredSelection.firstElement as URI
-				if (uri != null) {
+				if (uri !== null) {
 					val eObject = resourceSetForUI.getEObject(uri, true)
 					if (eObject instanceof AssuranceCase) {
 						add(new Action("Verify All") {
@@ -438,7 +438,7 @@ class AlisaView extends ViewPart {
 							AssureResult case eObject.zeroCount: "info.png"
 							default: "questionmark.png"
 						}
-						if (imageFileName != null) {
+						if (imageFileName !== null) {
 							ImageDescriptor.createFromFile(class, "/icons/" + imageFileName).createImage
 						}
 					}
@@ -496,7 +496,7 @@ class AlisaView extends ViewPart {
 			manager.removeAllWhenShown = true
 			manager.addMenuListener[
 				val uri = treeViewer.structuredSelection.firstElement as URI
-				if (uri != null) {
+				if (uri !== null) {
 					val eObject = resourceSetForUI.getEObject(uri, true)
 					if (eObject instanceof ClaimResult) {
 						val requirementURI = eObject.target.URI
@@ -565,7 +565,7 @@ class AlisaView extends ViewPart {
 		if (displayedCaseAndFilter != newURIs) {
 			displayedCaseAndFilter = newURIs
 			
-			val result = if (assuranceCaseURI != null) {
+			val result = if (assuranceCaseURI !== null) {
 				val selectedAlisaObject = resourceSetForUI.getEObject(assuranceCaseURI, true)
 				if (selectedAlisaObject instanceof AssuranceCase) {
 					val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
@@ -573,20 +573,20 @@ class AlisaView extends ViewPart {
 					results.findFirst[name == selectedAlisaObject.name]
 				}
 			}
-			val filter = if (result != null && displayedCaseAndFilter.value != null) {
+			val filter = if (result !== null && displayedCaseAndFilter.value !== null) {
 				resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
 			}
 			
 			val expandedElements = assureViewer.expandedElements
-			assureViewer.input = if (result != null) {
+			assureViewer.input = if (result !== null) {
 				result.recomputeAllCounts(filter)
 				#[result.URI]
 			}
 			assureViewer.expandedElements = expandedElements
 			if (updateRequirementsCoverageView) {
 				val coverageView = viewSite.page.findView(AssureRequirementsCoverageView.ID) as AssureRequirementsCoverageView
-				if (coverageView != null) {
-					if (result != null) {
+				if (coverageView !== null) {
+					if (result !== null) {
 						coverageView.setAssuranceCaseResult(result, filter)
 					} else {
 						coverageView.clear
@@ -607,7 +607,7 @@ class AlisaView extends ViewPart {
 			val resultDescriptions = rds.getExportedObjectsByType(AssurePackage.Literals.ASSURANCE_CASE_RESULT)
 			val results = resultDescriptions.map[resourceSetForProcessing.getEObject(EObjectURI, true) as AssuranceCaseResult]
 			val findResult = results.findFirst[name == assuranceCase.name]
-			if (findResult == null) {
+			if (findResult === null) {
 				createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
 			} else {
 				ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).project -> findResult
@@ -626,7 +626,7 @@ class AlisaView extends ViewPart {
 		val assureProject = assureProjectAndResult.key
 		val assuranceCaseResult = assureProjectAndResult.value
 		val filterURI = selectedFilters.get(assuranceCaseURI)
-		val filter = if (filterURI != null) {
+		val filter = if (filterURI !== null) {
 			resourceSetForProcessing.getEObject(filterURI, true) as CategoryFilter
 		}
 		val job = new WorkspaceJob("ASSURE verification") {

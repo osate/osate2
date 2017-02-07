@@ -19,8 +19,15 @@ package org.osate.verify.util
 import com.google.common.collect.HashMultimap
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.ComponentClassifier
+import org.osate.aadl2.IntegerLiteral
+import org.osate.aadl2.NumberValue
+import org.osate.aadl2.RealLiteral
+import org.osate.aadl2.UnitLiteral
 import org.osate.aadl2.util.Aadl2Util
 import org.osate.categories.categories.CategoryFilter
+import org.osate.reqspec.reqSpec.Requirement
+import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.verify.verify.Claim
 import org.osate.verify.verify.ElseExpr
 import org.osate.verify.verify.VerificationActivity
@@ -28,17 +35,8 @@ import org.osate.verify.verify.VerificationMethod
 import org.osate.verify.verify.VerificationPlan
 
 import static org.osate.categories.util.CategoriesUtil.*
-import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 
 import static extension org.eclipse.xtext.EcoreUtil2.*
-import org.osate.aadl2.NumberValue
-import org.osate.aadl2.RealLiteral
-import org.osate.aadl2.IntegerLiteral
-import org.osate.aadl2.UnitLiteral
-import org.osate.reqspec.reqSpec.Requirement
-import org.osate.aadl2.Classifier
-import org.osate.reqspec.reqSpec.SystemRequirementSet
-import org.osate.aadl2.ComponentClassifier
 
 class VerifyUtilExtension {
 
@@ -62,15 +60,15 @@ class VerifyUtilExtension {
 	}
 	
 	def static boolean hasFail(ElseExpr cee){
-		cee.fail != null 
+		cee.fail !== null 
 	}
 	
 	def static boolean hasTimeout(ElseExpr cee){
-		cee.timeout != null 
+		cee.timeout !== null 
 	}
 	
 	def static boolean hasError(ElseExpr cee){
-		cee.error != null 
+		cee.error !== null 
 	}
 	
 	
@@ -124,13 +122,13 @@ class VerifyUtilExtension {
 	}
 	
 	def static evaluateRequirementFilter(Requirement req, CategoryFilter filter) {
-		if (filter == null) return true
+		if (filter === null) return true
 		if (Aadl2Util.isNull(req)) return false
 		return  matches(req.category,filter.category,filter.anyCategory)
 	}
 
 	def static evaluateRequirementFilter(Claim claim, CategoryFilter filter) {
-		if (filter == null) return true
+		if (filter === null) return true
 		val req = claim.requirement
 		if (Aadl2Util.isNull(req)) return false
 		// for requirements always drop through to verification activities if no categories
@@ -139,14 +137,14 @@ class VerifyUtilExtension {
 	}
 
 	def static evaluateVerificationMethodFilter(VerificationActivity va, CategoryFilter filter) {
-		if (filter == null) return true
+		if (filter === null) return true
 		val vm = va.method
-		if (vm == null ) return false
+		if (vm === null ) return false
 		return  matches(vm.category,filter.category,filter.anyCategory)
 	}
 	
 	def static evaluateVerificationActivityFilter(VerificationActivity va, CategoryFilter filter) {
-		if (filter == null) return true
+		if (filter === null) return true
 		return matches(va.category,filter.category,filter.anyCategory) 
 	}
 	
@@ -175,7 +173,7 @@ class VerifyUtilExtension {
 		val value = numberValue.scaledValue;
 		val unit = numberValue.getUnit();
 		var factor = 1.0
-		if (unit != null) factor = unit.getAbsoluteFactor(target);
+		if (unit !== null) factor = unit.getAbsoluteFactor(target);
 		val result = value * factor;
 		val resultValue = numberValue.cloneNumber();
 		resultValue.setUnit(target);
