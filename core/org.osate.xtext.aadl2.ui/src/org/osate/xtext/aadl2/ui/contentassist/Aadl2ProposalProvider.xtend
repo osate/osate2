@@ -128,19 +128,19 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	var package AnnexContentAssistRegistry annexContentAssistRegistry
 
 	def protected void initAnnexContentAssistRegistry() {
-		if (annexContentAssistRegistry == null) {
+		if (annexContentAssistRegistry === null) {
 			annexContentAssistRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_CONTENT_ASSIST_EXT_ID) as AnnexContentAssistRegistry
 		}
 	}
 
 	override completeDefaultAnnexSubclause_SourceText(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		val annexName = AadlUtil.getContainingAnnex(model)?.name
-		if (annexName != null) {
-			if (annexContentAssistRegistry == null) {
+		if (annexName !== null) {
+			if (annexContentAssistRegistry === null) {
 				initAnnexContentAssistRegistry
 			}
 			val contentAssist = annexContentAssistRegistry?.getAnnexContentAssist(annexName)
-			if (contentAssist != null) {
+			if (contentAssist !== null) {
 				val results = contentAssist.annexCompletionSuggestions(model, context.offset)
 				super.completeDefaultAnnexLibrary_SourceText(model, assignment, context, acceptor)
 				val prefix = context.prefix
@@ -230,7 +230,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 
 			switch proposedObj {
 				case proposedObj == container : false
-				case proposedObj.inverse == null : true
+				case proposedObj.inverse === null : true
 				case proposedObj.allFeatures.nullOrEmpty : false 
 				default : true
 			}
@@ -240,7 +240,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	override completeFeatureGroupType_Inverse(EObject model, Assignment assignment, ContentAssistContext context, ICompletionProposalAcceptor acceptor) {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model) as FeatureGroupType 
-			if (proposedObj == model) false else proposedObj.inverse == null
+			if (proposedObj == model) false else proposedObj.inverse === null
 		])
 	}
 	
@@ -252,7 +252,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 			if (featureGroupModel.inverse) {
 				switch proposedObj {
 					FeatureGroupPrototype : true
-					FeatureGroupType : proposedObj.inverse == null
+					FeatureGroupType : proposedObj.inverse === null
 					default : false
 				}
 			} else true
@@ -649,7 +649,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 					default: null
 				}
 			if( propertyType ?: propertyType instanceof AadlInteger)
-				(propertyType as AadlInteger).unitsType == null
+				(propertyType as AadlInteger).unitsType === null
 			else false
 		])
 	}
@@ -659,7 +659,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model) as ComponentImplementation;
 			val modelSubComp = model as Subcomponent
  			modelSubComp.componentType ?: modelSubComp.componentType == proposedObj.type
-				&& modelSubComp.componentImplementation == null 
+				&& modelSubComp.componentImplementation === null 
 		])
 	}
 
@@ -795,7 +795,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 	
 	
 	def private filterTriggerPort(IEObjectDescription objDesc, ModeTransitionTrigger model){
-		if (model.context == null) true 
+		if (model.context === null) true 
 		else {
 			val proposedObj = EcoreUtil.resolve(objDesc.EObjectOrProxy, model)
 			val abstractFeatureOrPort = proposedObj instanceof AbstractFeature || proposedObj instanceof Port
@@ -994,7 +994,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 		val proposedObj = EcoreUtil.resolve(EObjectOrProxy, model)
 			switch model{
-				Flow, FlowSegment case model.context == null : proposedObj instanceof DataAccess || proposedObj instanceof Subcomponent
+				Flow, FlowSegment case model.context === null : proposedObj instanceof DataAccess || proposedObj instanceof Subcomponent
 				FlowSegment case model.context instanceof Subcomponent : proposedObj instanceof FlowSpecification
 				default: false
 			}
@@ -1020,7 +1020,7 @@ class Aadl2ProposalProvider extends AbstractAadl2ProposalProvider {
 		lookupCrossReference(assignment.terminal as CrossReference, context, acceptor, [ 
 			val proposedObj =  EcoreUtil.resolve(EObjectOrProxy, model)
 			switch model{
-				EndToEndFlow, EndToEndFlowSegment case model.context == null : {
+				EndToEndFlow, EndToEndFlowSegment case model.context === null : {
 					proposedObj instanceof DataAccess || 
 					proposedObj instanceof Subcomponent ||
 					proposedObj instanceof EndToEndFlow

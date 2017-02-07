@@ -120,7 +120,7 @@ class InstanceCrossReferenceSerializer extends CrossReferenceSerializer {
 				} else {
 					val parent = target.eContainer as NamedElement
 					switch parent {
-						ModeTransition case parent.name == null: "transition#" + (classifier as ComponentClassifier).ownedModeTransitions.indexOf(parent)
+						ModeTransition case parent.name === null: "transition#" + (classifier as ComponentClassifier).ownedModeTransitions.indexOf(parent)
 						default: parent.name
 					} +":property#" + parent.ownedPropertyAssociations.indexOf(target)
 				}

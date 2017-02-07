@@ -60,7 +60,7 @@ class ValueColumnLabelProvider extends ColumnLabelProvider {
 			URI: switch treeElementEObject : treeElement.getEObject(true) {
 				Property: {
 					val associationURI = propertyView.cachedPropertyAssociations.get(((element as TreeEntry).parent as TreeEntry).treeElement).get(treeElement)
-					if (associationURI == null) {
+					if (associationURI === null) {
 						treeElementEObject.defaultValue
 					} else {
 						val association = associationURI.getEObject(true) as PropertyAssociation

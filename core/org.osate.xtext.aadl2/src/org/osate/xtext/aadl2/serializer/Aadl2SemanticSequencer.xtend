@@ -67,7 +67,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
 				// otherwise use the original annex text
-				if (parsedLibrary != null && annexUnparser != null) {
+				if (parsedLibrary !== null && annexUnparser !== null) {
 					try {
 						val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
 						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
@@ -87,7 +87,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
 				// otherwise use the original annex text
-				if (parsedSubclause != null && annexUnparser != null) {
+				if (parsedSubclause !== null && annexUnparser !== null) {
 					try {
 						val text = '''{**«annexUnparser.unparseAnnexSubclause(parsedSubclause, "  ")»**}'''
 						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
@@ -107,7 +107,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 	}
 	
 	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(ISerializationContext context, FlowSpecification spec) {
-		if (spec.refined != null) {
+		if (spec.refined !== null) {
 			sequence_FlowSpecRefinement(new RuleContext(context, grammarAccess.flowSpecRefinementRule), spec)
 		} else {
 			switch(spec.kind) {
