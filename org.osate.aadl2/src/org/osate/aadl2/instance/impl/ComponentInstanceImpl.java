@@ -101,6 +101,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getConnectionInstances <em>Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getSubcomponent <em>Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getIndices <em>Index</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl#getClassifier <em>Classifier</em>}</li>
  * </ul>
  *
  * @generated
@@ -225,6 +226,16 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 	 * @ordered
 	 */
 	protected EList<Long> indices;
+
+	/**
+	 * The cached value of the '{@link #getClassifier() <em>Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getClassifier()
+	 * @generated
+	 * @ordered
+	 */
+	protected ComponentClassifier classifier;
 
 	/**
 	 * The current ModeInstance that this component instance has been
@@ -369,6 +380,50 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			indices = new EDataTypeEList<Long>(Long.class, this, InstancePackage.COMPONENT_INSTANCE__INDEX);
 		}
 		return indices;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public ComponentClassifier getClassifier() {
+		if (classifier != null && ((EObject) classifier).eIsProxy()) {
+			InternalEObject oldClassifier = (InternalEObject) classifier;
+			classifier = (ComponentClassifier) eResolveProxy(oldClassifier);
+			if (classifier != oldClassifier) {
+				if (eNotificationRequired()) {
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE,
+							InstancePackage.COMPONENT_INSTANCE__CLASSIFIER, oldClassifier, classifier));
+				}
+			}
+		}
+		return classifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ComponentClassifier basicGetClassifier() {
+		return classifier;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setClassifier(ComponentClassifier newClassifier) {
+		ComponentClassifier oldClassifier = classifier;
+		classifier = newClassifier;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.COMPONENT_INSTANCE__CLASSIFIER,
+					oldClassifier, classifier));
+		}
 	}
 
 	/**
@@ -603,6 +658,11 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return basicGetSubcomponent();
 		case InstancePackage.COMPONENT_INSTANCE__INDEX:
 			return getIndices();
+		case InstancePackage.COMPONENT_INSTANCE__CLASSIFIER:
+			if (resolve) {
+				return getClassifier();
+			}
+			return basicGetClassifier();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -658,6 +718,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			getIndices().clear();
 			getIndices().addAll((Collection<? extends Long>) newValue);
 			return;
+		case InstancePackage.COMPONENT_INSTANCE__CLASSIFIER:
+			setClassifier((ComponentClassifier) newValue);
+			return;
 		}
 		super.eSet(featureID, newValue);
 	}
@@ -703,6 +766,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 		case InstancePackage.COMPONENT_INSTANCE__INDEX:
 			getIndices().clear();
 			return;
+		case InstancePackage.COMPONENT_INSTANCE__CLASSIFIER:
+			setClassifier((ComponentClassifier) null);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -737,6 +803,8 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 			return subcomponent != null;
 		case InstancePackage.COMPONENT_INSTANCE__INDEX:
 			return indices != null && !indices.isEmpty();
+		case InstancePackage.COMPONENT_INSTANCE__CLASSIFIER:
+			return classifier != null;
 		}
 		return super.eIsSet(featureID);
 	}
@@ -1137,11 +1205,14 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	@Override
 	public ComponentClassifier getComponentClassifier() {
-		Subcomponent sub = getSubcomponent();
-		if (sub == null) {
-			return null;
+		ComponentClassifier classifier = getClassifier();
+		if (classifier == null) {
+			Subcomponent sub = getSubcomponent();
+			if (sub != null) {
+				classifier = sub.getClassifier();
+			}
 		}
-		return sub.getClassifier();
+		return classifier;
 	}
 
 	/*
