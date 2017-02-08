@@ -119,7 +119,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				}''')
 			assertSerialize("s.i3", '''
 				system s_i3_Instance : pkg1::s.i3 {
-					process psSub [ 0 ] : pkg1::s.i2:psSub {
+					process pkg1::ps.i psSub [ 0 ] : pkg1::s.i2:psSub {
 						thread tSub [ 0 ] : pkg1::ps.i:tSub
 					}
 					som "No Modes"
@@ -256,7 +256,7 @@ class Serializer1Test extends AbstractSerializerTest {
 					in out subprogramAccess subpa : pkg1::s1:subpa
 					out eventPort ep : pkg1::s1:ep
 					in eventDataPort edp : pkg1::s1:edp
-					abstract asub [ 0 ] : pkg1::s1.i:asub {
+					abstract pkg1::a asub [ 0 ] : pkg1::s1.i:asub {
 						in out featureGroup fg : pkg1::a:fg
 						in out abstractFeature af : pkg1::a:af
 						in out busAccess ba : pkg1::a:ba
@@ -267,7 +267,7 @@ class Serializer1Test extends AbstractSerializerTest {
 						in eventDataPort edp : pkg1::a:edp
 						in out subprogramGroupAccess subpga : pkg1::a:subpga
 					}
-					subprogram subpsub [ 0 ] : pkg1::s1.i:subpsub {
+					subprogram pkg1::subp subpsub [ 0 ] : pkg1::s1.i:subpsub {
 						in parameter p : pkg1::subp:p
 					}
 					som "No Modes"
@@ -315,10 +315,10 @@ class Serializer1Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				device sub1 [ 0 ] : pkg1::s.i:sub1 {
+				device pkg1::dev1 sub1 [ 0 ] : pkg1::s.i:sub1 {
 					out dataPort op : pkg1::dev1:op
 				}
-				device sub2 [ 0 ] : pkg1::s.i:sub2 {
+				device pkg1::dev2 sub2 [ 0 ] : pkg1::s.i:sub2 {
 					in dataPort ip : pkg1::dev2:ip
 				}
 				complete portConnection "sub1.op -> sub2.ip" : sub1[0].op -> sub2[0].ip {
@@ -358,7 +358,7 @@ class Serializer1Test extends AbstractSerializerTest {
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
 				bus b [ 0 ] : pkg1::s.i:b
-				processor psub [ 0 ] : pkg1::s.i:psub {
+				processor pkg1::p psub [ 0 ] : pkg1::s.i:psub {
 					in out busAccess ba : pkg1::p:ba
 				}
 				complete accessConnection "b <-> psub.ba" : b[0] <-> psub[0].ba {
@@ -423,15 +423,15 @@ class Serializer1Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				process p1sub [ 0 ] : pkg1::s.i:p1sub {
+				process pkg1::p1.i p1sub [ 0 ] : pkg1::s.i:p1sub {
 					out dataPort op : pkg1::p1:op
-					thread t1sub [ 0 ] : pkg1::p1.i:t1sub {
+					thread pkg1::t1 t1sub [ 0 ] : pkg1::p1.i:t1sub {
 						out dataPort op : pkg1::t1:op
 					}
 				}
-				process p2sub [ 0 ] : pkg1::s.i:p2sub {
+				process pkg1::p2.i p2sub [ 0 ] : pkg1::s.i:p2sub {
 					in dataPort ip : pkg1::p2:ip
-					thread t2sub [ 0 ] : pkg1::p2.i:t2sub {
+					thread pkg1::t2 t2sub [ 0 ] : pkg1::p2.i:t2sub {
 						in dataPort ip : pkg1::t2:ip
 					}
 				}
@@ -476,7 +476,7 @@ class Serializer1Test extends AbstractSerializerTest {
 			system s_i_Instance : pkg1::s.i {
 				in dataPort ip : pkg1::s:ip
 				out dataPort op : pkg1::s:op
-				process psub [ 0 ] : pkg1::s.i:psub {
+				process pkg1::p psub [ 0 ] : pkg1::s.i:psub {
 					in dataPort ip : pkg1::p:ip
 					out dataPort op : pkg1::p:op
 				}
@@ -529,11 +529,11 @@ class Serializer1Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				process psub [ 0 ] : pkg1::s.i:psub {
-					thread t1sub [ 0 ] : pkg1::p.i:t1sub {
+				process pkg1::p.i psub [ 0 ] : pkg1::s.i:psub {
+					thread pkg1::t1 t1sub [ 0 ] : pkg1::p.i:t1sub {
 						out dataPort op : pkg1::t1:op
 					}
-					thread t2sub [ 0 ] : pkg1::p.i:t2sub {
+					thread pkg1::t2 t2sub [ 0 ] : pkg1::p.i:t2sub {
 						in dataPort ip : pkg1::t2:ip
 					}
 					complete portConnection "t1sub.op -> t2sub.ip" : t1sub[0].op -> t2sub[0].ip {
@@ -584,13 +584,13 @@ class Serializer1Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "top.i", '''
 			abstract top_i_Instance : pkg1::top.i {
-				abstract a1sub [ 0 ] : pkg1::top.i:a1sub {
+				abstract pkg1::a1 a1sub [ 0 ] : pkg1::top.i:a1sub {
 					in out featureGroup fg1 : pkg1::a1:fg1
 					in out abstractFeature af1 : pkg1::a1:af1
 					in out busAccess ba1 : pkg1::a1:ba1
 					out eventPort ep1 : pkg1::a1:ep1
 				}
-				abstract a2sub [ 0 ] : pkg1::top.i:a2sub {
+				abstract pkg1::a2 a2sub [ 0 ] : pkg1::top.i:a2sub {
 					in out featureGroup fg2 : pkg1::a2:fg2
 					in out abstractFeature af2 : pkg1::a2:af2
 					in out busAccess ba2 : pkg1::a2:ba2
@@ -690,14 +690,14 @@ class Serializer1Test extends AbstractSerializerTest {
 		suppressSerialization
 		assertSerialize(testFile(pkg1FileName).resource.contents.head as AadlPackage, "s.i", '''
 			system s_i_Instance : pkg1::s.i {
-				process p1sub [ 0 ] : pkg1::s.i:p1sub {
+				process pkg1::p1.i p1sub [ 0 ] : pkg1::s.i:p1sub {
 					in out featureGroup fg4 : pkg1::p1:fg4 {
 						out dataPort dp1 : pkg1::fgt1:dp1
 						out eventPort ep1 : pkg1::fgt1:ep1
 					}
 					in out featureGroup fg5 : pkg1::p1:fg5
 					in out featureGroup fg6 : pkg1::p1:fg6
-					thread t1sub [ 0 ] : pkg1::p1.i:t1sub {
+					thread pkg1::t1 t1sub [ 0 ] : pkg1::p1.i:t1sub {
 						in out featureGroup fg1 : pkg1::t1:fg1 {
 							out dataPort dp1 : pkg1::fgt1:dp1
 							out eventPort ep1 : pkg1::fgt1:ep1
@@ -706,14 +706,14 @@ class Serializer1Test extends AbstractSerializerTest {
 						in out featureGroup fg3 : pkg1::t1:fg3
 					}
 				}
-				process p2sub [ 0 ] : pkg1::s.i:p2sub {
+				process pkg1::p2.i p2sub [ 0 ] : pkg1::s.i:p2sub {
 					in out featureGroup fg10 : pkg1::p2:fg10 {
 						in dataPort dp1 : pkg1::fgt1:dp1
 						in eventPort ep1 : pkg1::fgt1:ep1
 					}
 					in out featureGroup fg11 : pkg1::p2:fg11
 					in out featureGroup fg12 : pkg1::p2:fg12
-					thread t2sub [ 0 ] : pkg1::p2.i:t2sub {
+					thread pkg1::t2 t2sub [ 0 ] : pkg1::p2.i:t2sub {
 						in out featureGroup fg7 : pkg1::t2:fg7 {
 							in dataPort dp1 : pkg1::fgt1:dp1
 							in eventPort ep1 : pkg1::fgt1:ep1
@@ -813,7 +813,7 @@ class Serializer1Test extends AbstractSerializerTest {
 				out dataPort p2 : pkg1::s:p2
 				in dataPort p3 [ 1 ] : pkg1::s:p3
 				in dataPort p3 [ 2 ] : pkg1::s:p3
-				system s2_sub [ 0 ] : pkg1::s.i:s2_sub {
+				system pkg1::s2 s2_sub [ 0 ] : pkg1::s.i:s2_sub {
 					in dataPort p7 : pkg1::s2:p7
 					flow f8 ( p7 -> ) : pkg1::s2:f8
 				}
