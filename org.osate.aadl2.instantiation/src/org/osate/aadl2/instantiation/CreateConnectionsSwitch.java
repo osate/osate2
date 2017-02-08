@@ -887,8 +887,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (dstFi == null) { // do index only if we have inverse feature
 										// groups and they have their own
 										// element names
-					FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature());
-					FeatureGroup downfg = ((FeatureGroup) dstFi.getFeature());
+					FeatureGroup upfg = (FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature();
+					FeatureGroup downfg = (FeatureGroup) ((FeatureInstance) dstEnd).getFeature();
 					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
 					FeatureGroupType downfgt = downfg.getAllFeatureGroupType();
 					if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg)
