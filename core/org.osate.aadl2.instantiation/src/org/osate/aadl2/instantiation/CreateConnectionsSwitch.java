@@ -339,7 +339,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	private void processIncomingFeature(FeatureInstance featurei, SystemInstance si, List<Connection> sysConns) {
 		if (featurei.getDirection().incoming()) {
 			if (featurei.getIndex() <= 1) {
-				List<Connection> inConns = filterIngoingConnections(sysConns, featurei);
+				List<Connection> inConns = filterIngoingConnections(si, sysConns, featurei);
 				for (Connection conn : inConns) {
 					boolean opposite = isOpposite(featurei.getFeature(), conn);
 
@@ -1437,26 +1437,41 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 *            subcomponent feature that is the source of a connection
 	 * @return connections with feature as destination
 	 */
-	public List<Connection> filterIngoingConnections(List<Connection> incomingconnlist, FeatureInstance fi) {
+	public List<Connection> filterIngoingConnections(SystemInstance si, List<Connection> incomingconnlist,
+			FeatureInstance fi) {
 		List<Connection> result = new ArrayList<Connection>(incomingconnlist.size());
 		List<Feature> features = fi.getFeature().getAllFeatureRefinements();
-		List<Feature> parents = null;
+		List<Feature> parents;
 
 		for (Connection conn : incomingconnlist) {
-			if (features.contains(conn.getAllSource())
-					|| conn.isAllBidirectional() && features.contains(conn.getAllDestination())) {
-				if (fi.getOwner() instanceof FeatureInstance) {
-					if (parents == null) {
-						Feature parent = ((FeatureInstance) fi.getOwner()).getFeature();
-						parents = parent.getAllFeatureRefinements();
-					}
+			ConnectionEnd srcEnd = conn.getAllSource();
 
-					if (parents.contains(conn.getAllSourceContext())
-							|| conn.isAllBidirectional() && parents.contains(conn.getAllDestinationContext())) {
+			// a candidate end is a feature of the component or in a feature group
+			// then the feature must match the passed-in feature instance
+			if (srcEnd instanceof Feature) {
+				Context srcCtx = conn.getAllSourceContext();
+				if (srcCtx == null && features.contains(srcEnd)) {
+					result.add(conn);
+				} else if (srcCtx instanceof FeatureGroup && features.contains(srcEnd)) {
+					parents = ((FeatureInstance) fi.getOwner()).getFeature().getAllFeatureRefinements();
+					if (parents.contains(srcCtx)) {
 						result.add(conn);
 					}
-				} else {
-					result.add(conn);
+				}
+			}
+			if (conn.isAllBidirectional()) {
+				ConnectionEnd dstEnd = conn.getAllDestination();
+				// check other end
+				if (dstEnd instanceof Feature) {
+					Context dstCtx = conn.getAllDestinationContext();
+					if (dstCtx == null && features.contains(dstEnd)) {
+						result.add(conn);
+					} else if (dstCtx instanceof FeatureGroup && features.contains(dstEnd)) {
+						parents = ((FeatureInstance) fi.getOwner()).getFeature().getAllFeatureRefinements();
+						if (parents.contains(dstCtx)) {
+							result.add(conn);
+						}
+					}
 				}
 			}
 		}
