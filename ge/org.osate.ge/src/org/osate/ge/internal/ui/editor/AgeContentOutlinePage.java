@@ -34,6 +34,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -45,6 +46,7 @@ import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
 import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.widgets.Composite;
@@ -56,7 +58,6 @@ import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.query.PictogramQuery;
 import org.osate.ge.internal.query.QueryRunner;
@@ -109,7 +110,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						return getChildren(editor.getDiagramTypeProvider().getDiagram());					
 					}
 				}
-				
+
 				return new Object[0];
 			}
 
@@ -117,10 +118,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public Object[] getChildren(final Object parentElement) {
 				if(parentElement instanceof PictogramElement) {
 					rootPictogramElement = (PictogramElement)parentElement;
-					
+
 					return queryRunner.getPictogramElements(childrenQuery, null).toArray();
 				}
-				
+
 				return new Object[0];
 			}
 
@@ -131,7 +132,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					final Object parent = queryRunner.getFirstResult(parentQuery, null);
 					return parent;
 				}
-				
+
 				return false;
 			}
 
@@ -141,9 +142,21 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					rootPictogramElement = (PictogramElement)element;
 					return queryRunner.getFirstResult(childrenQuery, null) != null;
 				}
-				
+
 				return false;
 			}		
+		});
+		
+		viewer.setSorter(new ViewerSorter() {
+			@Override
+			public int compare(final Viewer viewer, final Object o1, final Object o2) {
+				final TreeViewer treeViewer = (TreeViewer)viewer;
+				final LabelProvider labelProvider = (LabelProvider)treeViewer.getLabelProvider();
+				final String s1 = labelProvider.getText(o1);
+				final String s2 = labelProvider.getText(o2);
+				
+				return s1.compareToIgnoreCase(s2);
+			}
 		});
 
 		viewer.addTreeListener(new ITreeViewerListener() {
@@ -164,42 +177,28 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				final Object bo = bor.getBusinessObjectForPictogramElement((PictogramElement)element);
 				if(bo instanceof NamedElement) {
 					final NamedElement ne = (NamedElement)bo;
-					String eClassName;
-					if(ne instanceof FlowSpecification) {
-						eClassName = StringUtil.camelCaseToUser("Flow" + getFlowKind(ne));
-					} else {
-						eClassName = StringUtil.camelCaseToUser(ne.eClass().getName());
-					}
-					
-					return eClassName + " " + ne.getName();
+
+					return StringUtil.camelCaseToUser(ne.eClass().getName()) + " " + ne.getName();
 				}
 
 				return super.getText(element);
 			}
 
-
-
 			@Override
 			public Image getImage(final Object element) {
 				final Object bo = bor.getBusinessObjectForPictogramElement((PictogramElement)element);
-
 				if(bo instanceof NamedElement) {
-					String neName;
 					final NamedElement ne = (NamedElement)bo;
-					if(ne instanceof FlowSpecification) {
-						neName = "Flow" + StringUtil.camelCaseToUser(getFlowKind(ne));
-					} else {
-						neName = ne.eClass().getInstanceClass().getSimpleName();
-					}
+					final ImageDescriptor imgDesc = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
+							ImageHelper.getImage(ne.eClass().getName()));
 					
-					return GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(), ImageHelper.getImage(neName)).createImage();
+					// Check if ImageDescriptor was created from file
+					if(imgDesc.getImageData().type >= 0) {
+						return imgDesc.createImage();
+					}
 				}
 
 				return super.getImage(element);
-			}
-
-			private String getFlowKind(final NamedElement ne) {
-				return ((FlowSpecification)ne).getKind().toString();
 			}
 		});
 
@@ -299,7 +298,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				}
 			}
 		});
-		
+
 		viewer.addSelectionChangedListener(this);
 		viewer.setInput(editor);
 	}
@@ -326,7 +325,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private void selectPictogramElements(final Object[] ss) {
 		final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
 		final ArrayList<PictogramElement> editorPes = new ArrayList<>(Arrays.asList(editor.getSelectedPictogramElements()));
-		
+
 		if(!editorPes.contains(treePes[0]) || editorPes.size() != ss.length) {
 			editor.selectPictogramElements(treePes);
 		}
@@ -343,7 +342,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					}
 				}
 			}
-			
+
 			viewer.setSelection(new TreeSelection(list.toArray(new TreePath[list.size()])));
 		}
 	}
@@ -364,11 +363,11 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				treeElements.addAll(findAndSelectTreeElements(childOb, selectedPe));
 			}
 		}
-		
+
 		if(ob == selectedPe) {
 			treeElements.add(new TreePath(new Object[] { ob } ));
 		}
-		
+
 		return treeElements;
 	}
 
