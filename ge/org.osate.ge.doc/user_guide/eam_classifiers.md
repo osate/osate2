@@ -40,7 +40,3 @@ Specifying an extension using the context menu allows extending classifiers in o
 
 3. Select *OK*. The appropriate arrow indicating the extension will appear.
 
-
-
-### Performing Update Layout from Classifier Diagram
-When extending a classifier, the editor lays out the extending classifier diagram automatically. The layout of the extending classifier diagram can be redone to match the extended classifier diagram by right-clicking the extending claissifier diagram and selecting *Perform Update Layout from Classifier Diagram* from the context menu. Doing so will change the height, width, and layout of elements of the extending classifier to match the extended classifier.
