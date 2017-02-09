@@ -69,15 +69,20 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
-		final Object containerBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		if(containerBo == null) {
+		final PictogramElement targetPe = AgeFeatureUtil.getLogicalPictogramElement(context.getTargetContainer(), propertyService, connectionService);
+		if(targetPe == null) {
+			return false;
+		}		
+		final Object targetBo = bor.getBusinessObjectForPictogramElement(targetPe);
+		if(targetBo == null) {
 			return false;
 		}
 		
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.TARGET_BO, containerBo);
+			eclipseCtx.set(Names.TARGET_BO, targetBo);
+			eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);
 		} finally {
 			eclipseCtx.dispose();
@@ -85,13 +90,18 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	}
 	
 	@Override
-	public Object[] create(final ICreateContext context) {		
-		final Object targetBo = bor.getBusinessObjectForPictogramElement(context.getTargetContainer());
-		final EObject ownerBo = getOwnerBo(targetBo, context.getTargetContainer());
+	public Object[] create(final ICreateContext context) {
+		final PictogramElement targetPe = AgeFeatureUtil.getLogicalPictogramElement(context.getTargetContainer(), propertyService, connectionService);
+		if(targetPe == null) {
+			return EMPTY;
+		}
+		
+		final Object targetBo = bor.getBusinessObjectForPictogramElement(targetPe);
+		final EObject ownerBo = getOwnerBo(targetBo, targetPe);
 		if(ownerBo == null) {
 			return EMPTY;
 		}
-
+		
 		final DockingPosition targetDockingPosition = AgeMoveShapeFeature.determineDockingPosition(context.getTargetContainer(), context.getX(), context.getY(), 0, 0);
 
 		// Modify the AADL model
@@ -105,6 +115,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					eclipseCtx.set(Names.TARGET_BO, targetBo);
 					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
 					eclipseCtx.set(InternalNames.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
+					eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
 					return newBo == null ? EMPTY : newBo;
 				} finally {
@@ -130,17 +141,12 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		return newBo == null ? EMPTY : new Object[] {newBo};
 	}
 	
-	private EObject getOwnerBo(final Object targetBo, PictogramElement targetPe) {
-		targetPe = AgeFeatureUtil.getLogicalPictogramElement(targetPe, propertyService, connectionService);
-		if(targetPe == null) {
-			return null;
-		}
-		
+	private EObject getOwnerBo(final Object targetBo, final PictogramElement targetPe) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetBo);
-			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+			eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;

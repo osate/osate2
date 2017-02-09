@@ -26,6 +26,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -62,6 +63,7 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
@@ -182,7 +184,7 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
+	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {
@@ -451,16 +453,17 @@ public class ClassifierHandler {
 	}
 	
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final AadlFeatureService featureService) {
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, 
+			final AadlFeatureService featureService) {
 		/*
 	DONE : All : featureService.getAllDeclaredFeatures(classifier)	
 	DONE : CI : componentImplementationService.getAllInternalFeatures(ci)
 	DONE : CI : componentImplementationService.getAllProcessorFeatures(ci)
 	CI : ci.getAllSubcomponents()	
-	BehavioredImplementation : componentImplementationService.getAllSubprogramCallSequences(bi)	
+	BehavioredImplementation : AadlHelper.getAllSubprogramCallSequences(bi)	
 	DONE : cc.getAllModes()
 	ALL : getAllDefaultAnnexSubclauses((Classifier)classifier))	
-	In Progress : CC : cc.getAllModeTransitions()
+	DONE : CC : cc.getAllModeTransitions()
 	CI : ci.getAllConnections()
 	CT : componentType.getAllFlowSpecifications()
 	CI or CC? : Binding Indicators
@@ -484,6 +487,10 @@ public class ClassifierHandler {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
 			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());			
+		}
+		
+		if(classifier instanceof BehavioredImplementation) {
+			children = Stream.concat(children, AadlHelper.getAllSubprogramCallSequences((BehavioredImplementation)classifier).stream());
 		}
 		
 		if(classifier instanceof ComponentClassifier) {

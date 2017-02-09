@@ -39,7 +39,6 @@ class CachingIndependenceProvider implements IIndependenceSolver, Cache {
 		// Retrieve the value and add it to the cache
 		bo = solver.getBusinessObjectForKey(key);
 		keyToBusinessObjectMap.put(key, bo);
-		
 		return bo;
 	}
 	

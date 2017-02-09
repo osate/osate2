@@ -766,9 +766,6 @@
              class="org.osate.ge.internal.businessObjectHandlers.GeneralizatonHandler">
        </handler>
        <handler
-             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallOrderHandler">
-       </handler>
-       <handler
              class="org.osate.ge.internal.businessObjectHandlers.PackageHandler">
        </handler>
        <handler
@@ -794,6 +791,15 @@
        </handler>
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallSequenceHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallOrderHandler">
        </handler>
     </extension>
 </plugin>

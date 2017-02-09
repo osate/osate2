@@ -1,4 +1,4 @@
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.internal.model;
 
 /**
  * Used as the root business object for project overview diagrams.

@@ -32,7 +32,7 @@ public class ArrowBuilder {
 	}
 	
 	/**
-	 * Configures the arrow builder to create a filled arrow.
+	 * Configures the arrow builder to create a filled polygon arrow.
 	 * @return this builder to allow method chaining.
 	 */
 	public ArrowBuilder filled() {
@@ -41,11 +41,20 @@ public class ArrowBuilder {
 	}
 	
 	/**
-	 * Configures the arrow builder to create an open arrow.
+	 * Configures the arrow builder to create an unfilled polygon arrow.
 	 * @return the arrow builder on which the method was invoked to allow method chaining
 	 */
 	public ArrowBuilder open() {
 		terminatorType = ConnectionTerminatorType.OPEN_ARROW;
+		return this;
+	}
+	
+	/**
+	 * Configures the arrow builder to create a line arrow.
+	 * @return the arrow builder on which the method was invoked to allow method chaining
+	 */
+	public ArrowBuilder line() {
+		terminatorType = ConnectionTerminatorType.LINE_ARROW;
 		return this;
 	}
 	

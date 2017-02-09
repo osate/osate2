@@ -112,6 +112,7 @@ import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
+import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
@@ -130,9 +131,6 @@ import org.osate.ge.internal.features.RefineSubcomponentFeature;
 import org.osate.ge.internal.features.RenameConnectionFeature;
 import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
-import org.osate.ge.internal.patterns.SubprogramCallOrder;
-import org.osate.ge.internal.patterns.SubprogramCallPattern;
-import org.osate.ge.internal.patterns.SubprogramCallSequencePattern;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.internal.features.CreateSimpleFlowSpecificationFeature;
 import org.osate.ge.internal.features.RefineFeatureFeature;
@@ -215,10 +213,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		// Add patterns
 		addConnectionPattern(make(FlowSpecificationPattern.class));
 		addAadlConnectionPatterns();
-		
-		// Subprogram Calls
-		addPattern(make(SubprogramCallSequencePattern.class));
-		addPattern(make(SubprogramCallPattern.class));
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
@@ -782,10 +776,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 				return;
 			}
 			
-			// Check if the resource is valid.
-			final EObject eobj = (EObject)bo;
-			if(eobj.eResource() == null) {
-				return;
+			if(bo instanceof EObject) {
+				// Check if the resource is valid.
+				final EObject eobj = (EObject)bo;
+				if(eobj.eResource() == null) {
+					return;
+				}
 			}
 		}
 		

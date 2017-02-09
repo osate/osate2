@@ -57,7 +57,6 @@ import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
 import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
 import org.osate.ge.internal.connections.BusinessObjectHandlerConnectionInfoProvider;
-import org.osate.ge.internal.connections.SubprogramCallOrderInfoProvider;
 import org.osate.ge.internal.query.Query;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.RootPictogramQuery;
@@ -114,7 +113,6 @@ public class DefaultConnectionService implements ConnectionService {
 		infoProviders.add(new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
-		infoProviders.add(new SubprogramCallOrderInfoProvider(bor, diagram, shapeHelper));
 
 		// Create a query runner for use internally and by connection info providers
 		queryRunner = new QueryRunner(propertyService, this, bor, refBuilder);

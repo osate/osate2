@@ -22,6 +22,7 @@ import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 

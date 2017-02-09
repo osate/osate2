@@ -11,11 +11,11 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.patterns.SubprogramCallOrder;
+import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.query.DiagramElementQuery;
 
 public class SubprogramCallOrderHandler {
-	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().filled().build()).build();
+	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().line().build()).build();
 	
 	@IsApplicable	
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo) {

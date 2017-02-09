@@ -543,11 +543,36 @@ public class BoHandlerRefreshHelper {
 			    ga.setBackground(white);
 				break;
 			}
+			
+			case LINE_ARROW: {
+				final GraphicsAlgorithm ga = createLineArrow(cd, terminator.size);
+			    ga.setForeground(black);
+			    ga.setBackground(white);
+				break;
+			}
 				
 			default:
 				throw new RuntimeException("Unhandled case: " + terminator);
 			}
 		}
+	}
+	
+	private GraphicsAlgorithm createLineArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {
+		final IGaService gaService = Graphiti.getGaService();
+		switch(size) {
+		case REGULAR:
+			return gaService.createPlainPolyline(gaContainer, new int[] {
+	    		-14, 8, 
+	    		2, 0, 
+	    		-14, -8});
+		case SMALL:
+	    	return gaService.createPlainPolyline(gaContainer, new int[] {
+	    		-6, 5, 
+	    		2, 0, 
+	    		-6, -5});
+		}		
+	
+		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 	
 	private GraphicsAlgorithm createPolygonArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {

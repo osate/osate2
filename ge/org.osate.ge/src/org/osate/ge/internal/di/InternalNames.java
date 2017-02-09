@@ -19,7 +19,8 @@ public class InternalNames {
 	public static final String INTERNAL_DIAGRAM_BO = "internal_dbo";
 	public static final String DOCKING_POSITION = "docking_position";
 	public static final String DIAGRAM_ELEMENT_PROXY = "dep";
-	public static final String PARENT_DIAGRAM_ELEMENT_PROXY = "pdep"; 
+	public static final String PARENT_DIAGRAM_ELEMENT_PROXY = "pdep";
+	public static final String TARGET_DIAGRAM_ELEMENT_PROXY = "tdep"; 
 	public static final String SOURCE_DIAGRAM_ELEMENT_PROXY = "src_dep";
 	public static final String DESTINATION_DIAGRAM_ELEMENT_PROXY = "dst_dep";
 }

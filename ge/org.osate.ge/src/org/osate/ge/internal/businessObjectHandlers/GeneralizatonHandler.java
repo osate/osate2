@@ -33,6 +33,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.DiagramElementQuery;
 
