@@ -41,7 +41,6 @@ import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.FlowKind
 import org.osate.aadl2.modelsupport.util.AadlUtil
 
 public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
@@ -76,24 +75,7 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 	override def protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (semanticObject instanceof FlowImplementation) {
 			val outend = semanticObject.specification.outEnd
-			val inend = semanticObject.specification.inEnd
-
-			// For some reason this can be called when handling Flow Sink Implementations. In that case, return the name of the in end unless there actually is
-			// an out end set.
-			if (semanticObject.kind == FlowKind.SINK) {
-				if (outend === null && inend !== null) {
-					AadlUtil.getFlowEndName(inend)
-				} else {
-					AadlUtil.getFlowEndName(outend)
-				}
-			} else {
-				val head = if (semanticObject.kind == FlowKind.PATH &&
-						semanticObject.ownedFlowSegments.empty)
-						AadlUtil.getFlowEndName(inend) + " -> "
-					else
-						""
-				head + AadlUtil.getFlowEndName(outend)
-			}
+			AadlUtil.getFlowEndName(outend)
 		} else {
 			super.getFLOWOUTToken(semanticObject, ruleCall, node);
 		}
