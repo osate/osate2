@@ -20,10 +20,10 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.util.SubcomponentUtil;
 
 public class RefineSubcomponentFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;
@@ -64,7 +64,7 @@ public class RefineSubcomponentFeature extends AbstractCustomFeature {
 		
 		final Subcomponent sc = (Subcomponent)bo;
 		final ComponentImplementation ci = (ComponentImplementation)containerBo;		
-		return sc.getContainingClassifier() != ci && ClassifierPattern.canContainSubcomponentType(ci, sc.eClass());
+		return sc.getContainingClassifier() != ci && SubcomponentUtil.canContainSubcomponentType(ci, sc.eClass());
 	}
     
     @Override
@@ -83,7 +83,7 @@ public class RefineSubcomponentFeature extends AbstractCustomFeature {
 			@Override
 			public Subcomponent modify(final Resource resource, final Subcomponent sc) {
 				// Refine the subcomponent
-				final Subcomponent newSc = ClassifierPattern.createSubcomponent(containerComponentImplementation, sc.eClass());
+				final Subcomponent newSc = SubcomponentUtil.createSubcomponent(containerComponentImplementation, sc.eClass());
 				newSc.setRefined(sc);
 				
 				return newSc;

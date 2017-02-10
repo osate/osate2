@@ -65,6 +65,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 

@@ -78,8 +78,7 @@ public class SubprogramCallHandler {
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
 		return graphic;
-	}
-	
+	}	
 
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {

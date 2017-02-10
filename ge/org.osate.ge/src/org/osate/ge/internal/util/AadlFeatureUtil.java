@@ -1,4 +1,4 @@
-package org.osate.ge.internal.businessObjectHandlers;
+package org.osate.ge.internal.util;
 
 import java.lang.reflect.Method;
 import java.util.Collection;

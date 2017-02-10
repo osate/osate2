@@ -17,6 +17,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
+import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.SubcomponentService;
 
@@ -26,6 +27,19 @@ public class DefaultSubcomponentService implements SubcomponentService {
 	public DefaultSubcomponentService(final PrototypeService prototypeService) {
 		this.prototypeService = prototypeService;
 	}
+	
+	@Override
+	public ComponentClassifier getComponentClassifier(final DiagramElementProxy parentDiagramElement, final Subcomponent sc) {
+		if(sc.getPrototype() == null) {
+			if(sc.getClassifier() == null && sc.getRefined() != null) {
+				return getComponentClassifier(parentDiagramElement, sc.getRefined());
+			} else {
+				return sc.getClassifier();
+			}
+		} else {
+			return prototypeService.getComponentClassifier(prototypeService.getPrototypeBindingContextByParent(parentDiagramElement), sc);	
+		}
+	}	
 	
 	@Override
 	public ComponentClassifier getComponentClassifier(final Shape shape, final Subcomponent sc) {

@@ -16,12 +16,15 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
+import org.osate.ge.internal.DiagramElementProxy;
 
 /**
  * Contains methods for working with AADL Subcomponents
  *
  */
 public interface SubcomponentService {
+	ComponentClassifier getComponentClassifier(DiagramElementProxy parentDiagramElement, Subcomponent sc);
+	
 	/**
 	 * Resolves the component classifier for the subcomponent
 	 * @param shape

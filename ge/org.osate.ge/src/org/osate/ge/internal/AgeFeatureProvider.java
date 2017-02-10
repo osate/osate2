@@ -80,7 +80,6 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
 import org.eclipse.graphiti.pattern.IConnectionPattern;
-import org.eclipse.graphiti.pattern.IPattern;
 import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
 import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
@@ -90,7 +89,6 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.internal.features.CommandCustomFeature;
@@ -120,7 +118,6 @@ import org.osate.ge.internal.features.SetFeatureClassifierFeature;
 import org.osate.ge.internal.features.SetInitialModeFeature;
 import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
-import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
 import org.osate.ge.internal.features.EditFlowsFeature;
@@ -158,6 +155,8 @@ import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
+import org.osate.ge.internal.util.AadlFeatureUtil;
+import org.osate.ge.internal.util.SubcomponentUtil;
 
 public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	private final boolean enableIndependenceProviderCaching = true;
@@ -349,7 +348,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(make(RefineSubcomponentFeature.class));
 		features.add(make(RefineConnectionFeature.class));
 		
-		for(final EClass subcomponentType : ClassifierPattern.getSubcomponentTypes()) {
+		for(final EClass subcomponentType : SubcomponentUtil.getSubcomponentTypes()) {
 			final IEclipseContext childCtx = getContext().createChild();
 			try {
 				childCtx.set("Subcomponent Type", subcomponentType);
@@ -655,26 +654,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
 		} finally {
 			childCtx.dispose();
-		}
-	}
-	
-	private IPattern createClassifierPattern(final EClass scType) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Subcomponent Type", scType);
-			return ContextInjectionFactory.make(ClassifierPattern.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-
-	/**
-	 * Creates and adds patterns related to AADL Features
-	 */
-	protected final void addSubcomponentPatterns() {
-		// Create the subcomponent patterns
-		for(final EClass scType : ClassifierPattern.getSubcomponentTypes()) {
-			this.addPattern(createClassifierPattern(scType));
 		}
 	}
 	

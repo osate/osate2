@@ -25,11 +25,11 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 
 public class RefineFeatureFeature extends AbstractCustomFeature {
 	private final AadlModificationService aadlModService;

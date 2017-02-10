@@ -33,10 +33,10 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
-import org.osate.ge.internal.businessObjectHandlers.AadlFeatureUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.StringUtil;
 
 public class ChangeFeatureTypeFeature extends AbstractCustomFeature {

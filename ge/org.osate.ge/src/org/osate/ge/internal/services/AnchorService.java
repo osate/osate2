@@ -23,7 +23,7 @@ public interface AnchorService {
 
 	Anchor getAnchorByName(PictogramElement pe, String name);
 
-	ChopboxAnchor createOrUpdateChopboxAnchor(AnchorContainer container, String name);
+	ChopboxAnchor createOrUpdateChopboxAnchor(AnchorContainer container);
 
 	FixPointAnchor createOrUpdateFixPointAnchor(AnchorContainer shape, String name, int x, int y, boolean updateOnly);
 

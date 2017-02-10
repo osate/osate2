@@ -19,6 +19,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
+import org.eclipse.graphiti.services.IPeService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.PropertyService;
 
@@ -49,25 +50,16 @@ public class DefaultAnchorService implements AnchorService {
 		return null;
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.AnchorService#createOrUpdateChopboxAnchor(org.eclipse.graphiti.mm.pictograms.AnchorContainer, java.lang.String)
-	 */
 	@Override
-	public ChopboxAnchor createOrUpdateChopboxAnchor(final AnchorContainer container, final String name) {
-		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
-		final Anchor retrievedAnchor = getAnchorByName(container, name);
+	public ChopboxAnchor createOrUpdateChopboxAnchor(final AnchorContainer container) {
+		final IPeService peService = Graphiti.getPeService();
+		final Anchor retrievedAnchor = peService.getChopboxAnchor(container);
 
-		if(retrievedAnchor == null) {
-			final ChopboxAnchor anchor = peCreateService.createChopboxAnchor(container);
-	        propertyUtil.setName(anchor, name);
-	        return anchor;
-		}
-		else if(retrievedAnchor instanceof ChopboxAnchor) {
+		if(retrievedAnchor != null) {
 			return (ChopboxAnchor)retrievedAnchor;
 		}
-		else {
-			throw new RuntimeException("Retrieved anchor is of invalid type: " + retrievedAnchor.getClass().getName());	
-		}        
+		
+		return peService.createChopboxAnchor(container);
 	}
 	
 	/* (non-Javadoc)

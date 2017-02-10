@@ -132,7 +132,6 @@ public class SubprogramCallSequenceHandler {
 			
 		return newScs;
 	}
-
 	
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs) {

@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 import javax.inject.Named;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -26,6 +28,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -220,7 +223,7 @@ public class ClassifierHandler {
 	}
 
 	@Create
-	public Object createBusinessObject(@Named(Names.OWNER_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, 
+	public Classifier createBusinessObject(@Named(Names.OWNER_BO) final AadlPackage pkg, @Named(Names.TARGET_BO) final EObject targetBo, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass classifierType, final @Named(InternalNames.PROJECT) IProject project,
 			final NamingService namingService) {
 		final EObject baseClassifier = determineBaseClassifier(targetBo, classifierType, project);
@@ -455,38 +458,22 @@ public class ClassifierHandler {
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, 
 			final AadlFeatureService featureService) {
-		/*
-	DONE : All : featureService.getAllDeclaredFeatures(classifier)	
-	DONE : CI : componentImplementationService.getAllInternalFeatures(ci)
-	DONE : CI : componentImplementationService.getAllProcessorFeatures(ci)
-	CI : ci.getAllSubcomponents()	
-	BehavioredImplementation : AadlHelper.getAllSubprogramCallSequences(bi)	
-	DONE : cc.getAllModes()
-	ALL : getAllDefaultAnnexSubclauses((Classifier)classifier))	
-	DONE : CC : cc.getAllModeTransitions()
-	CI : ci.getAllConnections()
-	CT : componentType.getAllFlowSpecifications()
-	CI or CC? : Binding Indicators
-		 */
-		/*Stream.Builder<Object> connectionReferenceStreamBuilder = Stream.builder();
-		for(final ConnectionInstance connectionInstance : ci.getConnectionInstances()) {
-			for(final ConnectionReference cr : connectionInstance.getConnectionReferences()) {
-				connectionReferenceStreamBuilder.add(cr);
-			}
-		}	
-*/
-		//Stream.concat(Stream.concat(ci.getComponentInstances().stream(), 
-			//	ci.getFeatureInstances().stream()),
-				//connectionReferenceStreamBuilder.build());
-		
+		return getChildren(classifier, featureService, true);
+	}
+	
+	static Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, 
+			final AadlFeatureService featureService,
+			boolean includeBindings) {
 		Stream<?> children = Stream.empty();
 		
+		// Shapes
 		children = Stream.concat(children, featureService.getAllDeclaredFeatures(classifier).stream());
 		
 		if(classifier instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
 			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
-			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());			
+			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());
+			children = Stream.concat(children, ci.getAllSubcomponents().stream());
 		}
 		
 		if(classifier instanceof BehavioredImplementation) {
@@ -497,10 +484,52 @@ public class ClassifierHandler {
 			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModes().stream());
 		}
 		
+		children = Stream.concat(children, getAllDefaultAnnexSubclauses(classifier).stream());
+
+		// Connections
 		if(classifier instanceof ComponentClassifier) {
 			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModeTransitions().stream());
 		}
 		
+		if(classifier instanceof ComponentImplementation) {
+			children = Stream.concat(children, ((ComponentImplementation)classifier).getAllConnections().stream());
+		}
+		
+		if(classifier instanceof ComponentType) {			
+			children = Stream.concat(children, ((ComponentType)classifier).getAllFlowSpecifications().stream());
+		}
+
+		//CI or CC? : Binding Indicators
+		if(includeBindings) {
+			if(classifier instanceof ComponentImplementation) {
+				// TODO: Bindings
+			}
+		}		
+		
 		return children;
+	}
+	
+	/**
+	 * Returns all the default annex subclauses owned by a classifier or any extended or implemented classifiers.
+	 * @param topClassifier
+	 * @return
+	 */
+	private static EList<AnnexSubclause> getAllDefaultAnnexSubclauses(final Classifier topClassifier) {
+		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
+		if(topClassifier == null) {
+			return result;
+		}
+		
+		final EList<Classifier> classifiers = topClassifier.getSelfPlusAllExtended();
+		if (topClassifier instanceof ComponentImplementation) {
+			ComponentType ct = ((ComponentImplementation) topClassifier).getType();
+			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
+			classifiers.addAll(tclassifiers);
+		}
+		
+		for (Classifier classifier : classifiers) {
+			result.addAll(classifier.getOwnedAnnexSubclauses());
+		}
+		return result;
 	}
 }

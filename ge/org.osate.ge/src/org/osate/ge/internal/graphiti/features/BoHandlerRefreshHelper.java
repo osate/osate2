@@ -60,7 +60,6 @@ import org.osate.ge.internal.graphics.ConnectionTerminatorSize;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
-import org.osate.ge.internal.patterns.AgePattern;
 import org.osate.ge.internal.query.AncestorUtil;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -222,7 +221,7 @@ public class BoHandlerRefreshHelper {
 						}
 						
 						// Create/update the chopbox anchor
-						anchorService.createOrUpdateChopboxAnchor((Shape)pe, AgePattern.chopboxAnchorName);
+						anchorService.createOrUpdateChopboxAnchor((Shape)pe);
 						
 						// Set the dock area as appropriate
 						final DockingPosition dockingPosition = (DockingPosition)ContextInjectionFactory.invoke(handler, GetDefaultDockingPosition.class, eclipseCtx, DockingPosition.NOT_DOCKED);

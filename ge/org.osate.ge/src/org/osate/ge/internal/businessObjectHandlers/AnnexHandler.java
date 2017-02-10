@@ -30,14 +30,19 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
 
-public class AnnexHandler {	
+public class AnnexHandler {
+	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first());
 	private static final Graphic graphic = FolderGraphicBuilder.create().lineWidth(2).build();
 	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
 	
@@ -48,10 +53,14 @@ public class AnnexHandler {
 	}
 	
 	@IsApplicable
-	@CanDelete
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo) {
 		return true;
 	}
+	
+	@CanDelete
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement);
+    }
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation() {

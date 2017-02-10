@@ -17,7 +17,6 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
-import org.osate.ge.internal.patterns.ClassifierPattern;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
@@ -44,7 +43,7 @@ public class BindingConnectionInfoProvider extends AbstractConnectionInfoProvide
 
 	@Override
 	public boolean isApplicable(final Connection connection) {
-		return ClassifierPattern.BINDING_CONNECTION_TYPE.equals(propertyService.getConnectionType(connection));
+		return false;//ClassifierPattern.BINDING_CONNECTION_TYPE.equals(propertyService.getConnectionType(connection));
 	}
 	
 	@Override

@@ -190,7 +190,7 @@ public class AadlGraphics {
 		return getGraphic(cc.getCategory(), cc instanceof ComponentImplementation);
 	}
 	
-	private static Graphic getGraphic(final ComponentCategory cc, final boolean isImplementation) {
+	public static Graphic getGraphic(final ComponentCategory cc, final boolean isImplementation) {
 		switch(cc) {
 		case ABSTRACT:
 			return isImplementation ? abstractImplGraphic : abstractGraphic;
