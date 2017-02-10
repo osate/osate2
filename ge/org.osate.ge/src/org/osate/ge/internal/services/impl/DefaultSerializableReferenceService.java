@@ -33,7 +33,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	private static final String REFERENCE_RESOLVER_ELEMENT_NAME = "referenceResolver";
 	private final InternalReferenceBuilderService referenceBuilderService;
 	private final IEclipseContext ctx;
-	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
+	//private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private List<Object> referenceResolvers = null;
 	private DeclarativeReferenceResolver declarativeReferenceResolver;
 	
@@ -45,7 +45,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	public void dispose() {
 		// Disposing of the context will dispose of reference resolvers
 		ctx.dispose();
-		argCtx.dispose();
+		//argCtx.dispose();
 	}
 	
 	/**
@@ -103,7 +103,8 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			ReferenceEncoder.decodeSegment(sb, ref[i]);
 			ref[i] = sb.toString();
 		}
-		
+
+		final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 		try {
 			// Set context fields
 			argCtx.set(Names.REFERENCE, ref);	
@@ -115,7 +116,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 				}
 			}
 		} finally {
-			argCtx.remove(Names.REFERENCE);
+			argCtx.dispose();
 		}
 		
 		return null;

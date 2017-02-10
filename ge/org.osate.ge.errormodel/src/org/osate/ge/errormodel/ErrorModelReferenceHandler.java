@@ -31,6 +31,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorModelReferenceHandler {
+	private final static String EMV2_REFERENCE_PREFIX = "emv2.";
 	private final static String TYPE_BEHAVIOR_STATE_MACHINE = "emv2.behavior";
 	private final static String TYPE_BEHAVIOR_EVENT = "emv2.be";
 	private final static String TYPE_BEHAVIOR_STATE = "emv2.bs";
@@ -86,10 +87,15 @@ public class ErrorModelReferenceHandler {
 		if(ref.length < 2) {
 			return null;
 		}
-		
+
+		// Check that the type is an EMV2 type
 		final String type = ref[0];
-		final Object ref1 = refService.getReferencedObject(ref[1]);
+		if(!type.startsWith(EMV2_REFERENCE_PREFIX)) {
+			return null;
+		}
 		
+		// Retrieve the referenced object
+		final Object ref1 = refService.getReferencedObject(ref[1]);		
 		if(ref1 == null) {
 			return null;
 		}

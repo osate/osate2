@@ -459,27 +459,30 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	@Override
-	protected ICreateFeature[] getCreateFeaturesAdditional() {
+	protected ICreateFeature[] getCreateFeaturesAdditional() {			
 		final IContext ctx = new CreateContext();
 		final List<ICreateFeature> features = new ArrayList<>();
-		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
-		addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
 		
-		final IEclipseContext childCtx = createGetPaletteEntriesContext();
-		try {
-			for(final Object boHandler : extService.getBusinessObjectHandlers()) {
-				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(boHandler, GetPaletteEntries.class, childCtx, null);
-				if(extPaletteEntries != null) {
-					for(final PaletteEntry entry : extPaletteEntries) {
-						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
-						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, propertyService, connectionService, this, simpleEntry, boHandler));
+		if(getDiagramBusinessObject() != null) {
+			addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
+			addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
+			
+			final IEclipseContext childCtx = createGetPaletteEntriesContext();
+			try {
+				for(final Object boHandler : extService.getBusinessObjectHandlers()) {
+					final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(boHandler, GetPaletteEntries.class, childCtx, null);
+					if(extPaletteEntries != null) {
+						for(final PaletteEntry entry : extPaletteEntries) {
+							final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
+							if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
+								features.add(new BoHandlerCreateFeature(bor, extService, aadlModService, shapeService, propertyService, connectionService, this, simpleEntry, boHandler));
+							}
 						}
 					}
-				}
-			}		
-		} finally {
-			childCtx.dispose();
+				}		
+			} finally {
+				childCtx.dispose();
+			}
 		}
 		
 		return features.toArray(new ICreateFeature[0]);
@@ -498,7 +501,12 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	protected IUpdateFeature getUpdateFeatureAdditional(final IUpdateContext updateCtx) {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
-		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(pe));
+		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		if(bo == null) {
+			return null;
+		}
+		
+		final Object boHandler = extService.getApplicableBusinessObjectHandler(bo);
 		if(boHandler != null) {
 			return new BoHandlerUpdateFeature(diagramService, bor, connectionService, pictogramRefreshHelper, this, boHandler);
 		}
@@ -518,41 +526,41 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	 */
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
-		final ICreateConnectionFeature[] ret = new ICreateConnectionFeature[0];
 		final List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
-
-		for (IConnectionPattern conPattern : getConnectionPatterns()) {
-			if(conPattern instanceof AgeConnectionPattern) {
-				if(((AgeConnectionPattern) conPattern).isPaletteApplicable()) {
-					retList.add(new CreateConnectionFeatureForPattern(this, conPattern));					
-				}
-			}
-		}
-		
-		final ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
-		for (ICreateConnectionFeature element : a) {
-			retList.add(element);
-		}
-		
-		// Add extension create connection features		
-		final IEclipseContext childCtx = createGetPaletteEntriesContext();
-		try {
-			for(final Object boHandler : extService.getBusinessObjectHandlers()) {
-				final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(boHandler, GetPaletteEntries.class, childCtx, null);
-				if(extPaletteEntries != null) {
-					for(final PaletteEntry entry : extPaletteEntries) {
-						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
-						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, propertyService, connectionService, this, simpleEntry, boHandler));
-						}
+		if(getDiagramBusinessObject() != null) {
+			for (IConnectionPattern conPattern : getConnectionPatterns()) {
+				if(conPattern instanceof AgeConnectionPattern) {
+					if(((AgeConnectionPattern) conPattern).isPaletteApplicable()) {
+						retList.add(new CreateConnectionFeatureForPattern(this, conPattern));					
 					}
 				}
-			}		
-		} finally {
-			childCtx.dispose();
+			}
+			
+			final ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
+			for (ICreateConnectionFeature element : a) {
+				retList.add(element);
+			}
+			
+			// Add extension create connection features		
+			final IEclipseContext childCtx = createGetPaletteEntriesContext();
+			try {
+				for(final Object boHandler : extService.getBusinessObjectHandlers()) {
+					final PaletteEntry[] extPaletteEntries = (PaletteEntry[])ContextInjectionFactory.invoke(boHandler, GetPaletteEntries.class, childCtx, null);
+					if(extPaletteEntries != null) {
+						for(final PaletteEntry entry : extPaletteEntries) {
+							final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
+							if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
+								retList.add(new BoHandlerCreateConnectionFeature(extService, aadlModService, bor, propertyService, connectionService, this, simpleEntry, boHandler));
+							}
+						}
+					}
+				}		
+			} finally {
+				childCtx.dispose();
+			}
 		}
 
-		return retList.toArray(ret);
+		return retList.toArray(new ICreateConnectionFeature[0]);
 	}
 	
 	@Override
@@ -713,10 +721,14 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	private IEclipseContext createGetPaletteEntriesContext() {
-		final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
+		final Object diagramBo = getDiagramBusinessObject();
 		final IEclipseContext childCtx = extService.createChildContext();
 		childCtx.set(Names.DIAGRAM_BO, diagramBo);
 		return childCtx;
+	}
+	
+	final Object getDiagramBusinessObject() {
+		return bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
 	}
 	
 	// Don't allow moving transient shapes
