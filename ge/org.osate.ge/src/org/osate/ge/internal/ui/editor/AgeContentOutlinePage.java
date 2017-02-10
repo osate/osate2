@@ -3,6 +3,7 @@ package org.osate.ge.internal.ui.editor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -22,6 +23,7 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -49,6 +51,7 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -78,11 +81,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final PictogramQuery<Object> parentQuery = rootPictogramQuery.ancestor(1);
 	private final PictogramQuery<Object> childrenQuery = rootPictogramQuery.children().filter((fa) -> fa.getBusinessObject() instanceof NamedElement);
 	private final BusinessObjectResolutionService bor;
+	private final PropertyService propertyService;
 
 	public AgeContentOutlinePage(final AgeDiagramEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
-		this.bor = (BusinessObjectResolutionService)editor.getAdapter(BusinessObjectResolutionService.class);
-		this.queryRunner = new QueryRunner((PropertyService)editor.getAdapter(PropertyService.class),
+		this.bor = Objects.requireNonNull((BusinessObjectResolutionService)editor.getAdapter(BusinessObjectResolutionService.class), "Unable to retrieve business object resolution service");
+		this.propertyService = Objects.requireNonNull((PropertyService)editor.getAdapter(PropertyService.class), "Unable to retrieve property service");
+		this.queryRunner = new QueryRunner(propertyService,
 				(ConnectionService)editor.getAdapter(ConnectionService.class), 
 				bor, 
 				(InternalReferenceBuilderService)editor.getAdapter(InternalReferenceBuilderService.class));
@@ -107,7 +112,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				if(inputElement instanceof AgeDiagramEditor) {
 					final AgeDiagramEditor editor = (AgeDiagramEditor)inputElement;
 					if(editor.getDiagramTypeProvider() != null) {
-						return getChildren(editor.getDiagramTypeProvider().getDiagram());					
+						final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
+						if(diagram != null) {
+							if(propertyService.isLogicalTreeNode(diagram)) {
+								return new Object[] { diagram };
+							}
+							return getChildren(editor.getDiagramTypeProvider().getDiagram());	
+						}		
 					}
 				}
 
@@ -192,8 +203,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					final ImageDescriptor imgDesc = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
 							ImageHelper.getImage(ne.eClass().getName()));
 					
-					// Check if ImageDescriptor was created from file
-					if(imgDesc.getImageData().type >= 0) {
+					// Check if ImageDescriptor has a valid type.
+					final ImageData imageData = imgDesc.getImageData();
+					if(imageData != null && imageData.type >= 0) {
 						return imgDesc.createImage();
 					}
 				}
@@ -211,41 +223,53 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				final ICustomContext context = new CustomContext(editor.getSelectedPictogramElements());
 				final ICustomFeature[] customFeatures = diagramTypeProvider.getFeatureProvider().getCustomFeatures(context);				
 
-				for(int i = 0; i < customFeatures.length; i++) {
-					final ICustomFeature customFeature = customFeatures[i];
-					if(customFeature.isAvailable(context)) {
-						final Action customFeatAction = new Action(customFeature.getName()) {
-							public void run() { customFeature.execute(context); };
-						};
-
-						customFeatAction.setEnabled(customFeature.canExecute(context));
-						contextMenu.add(customFeatAction);
+				// Renaming
+				if(context.getPictogramElements().length > 0) {
+					final PictogramElement pe = context.getPictogramElements()[0];
+					final DirectEditingContext directEditingContext = getDirectEditingContext(pe);
+					if(directEditingContext != null) {
+						final IDirectEditingFeature directEditingFeature = editor.getDiagramTypeProvider().getFeatureProvider().getDirectEditingFeature(directEditingContext);
+						if(context.getPictogramElements().length == 1 && directEditingFeature.canDirectEdit(directEditingContext)) {
+							menuMgr.add(new Action("Rename...") {
+								@Override
+								public void run() {
+									final RenameDialog nameDialog = new RenameDialog(Display.getCurrent().getActiveShell(), directEditingFeature, directEditingContext);
+									if(nameDialog.open() == Dialog.CANCEL || nameDialog.getValue() == null) {
+										return;
+									}
+	
+									directEditingFeature.setValue(nameDialog.getValue(), directEditingContext);
+									directEditingFeature.execute(directEditingContext);
+								}
+							});
+						}
 					}
 				}
-
-				final HashMap<IDeleteFeature, DeleteContext> iDelete = new HashMap<>();
+				
+				// Delete
+				final HashMap<DeleteContext, IDeleteFeature> deleteContextToFeatureMap = new LinkedHashMap<>();
 				for(final PictogramElement pe : context.getPictogramElements()) {
 					final DeleteContext deleteContext = new DeleteContext(pe);
 					final IDeleteFeature deleteFeature = diagramTypeProvider.getFeatureProvider().getDeleteFeature(deleteContext);
 
 					deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, editor.getSelectedPictogramElements().length));
 					if(!deleteFeature.canDelete(deleteContext)) {
-						iDelete.clear();
+						deleteContextToFeatureMap.clear();
 						break;
 					} else {
-						iDelete.put(deleteFeature, deleteContext);
+						deleteContextToFeatureMap.put(deleteContext, deleteFeature);
 					}
 				}
 
-				if(!iDelete.isEmpty()) {
-					final Map.Entry<IDeleteFeature, DeleteContext> firstEntry = iDelete.entrySet().iterator().next();
-					firstEntry.getValue().getMultiDeleteInfo().setShowDialog(true);
-					contextMenu.add(new Action(firstEntry.getKey().getName()) {
+				if(!deleteContextToFeatureMap.isEmpty()) {
+					final Map.Entry<DeleteContext, IDeleteFeature> firstEntry = deleteContextToFeatureMap.entrySet().iterator().next();
+					firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
+					contextMenu.add(new Action(firstEntry.getValue().getName()) {
 						@Override
 						public void run() {
-							for(final IDeleteFeature deleteFeature : iDelete.keySet()) {
-								final DeleteContext deleteContext = iDelete.get(deleteFeature);
-								deleteFeature.delete(deleteContext);
+							for(final DeleteContext deleteContext : deleteContextToFeatureMap.keySet()) {
+								final IDeleteFeature deleteFeature = deleteContextToFeatureMap.get(deleteContext);
+								editor.getDiagramBehavior().executeFeature(deleteFeature, deleteContext);
 								if(deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
 									break;
 								}
@@ -253,25 +277,19 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						}
 					});
 				}
+				
+				// Custom Features
+				for(int i = 0; i < customFeatures.length; i++) {
+					final ICustomFeature customFeature = customFeatures[i];
+					if(customFeature.isAvailable(context)) {
+						final Action customFeatAction = new Action(customFeature.getName()) {
+							public void run() { 
+								editor.getDiagramBehavior().executeFeature(customFeature, context);
+							};
+						};
 
-				final PictogramElement pe = context.getPictogramElements()[0];
-				final DirectEditingContext directEditingContext = getDirectEditingContext(pe);
-
-				if(directEditingContext != null) {
-					final IDirectEditingFeature directEditingFeature = editor.getDiagramTypeProvider().getFeatureProvider().getDirectEditingFeature(directEditingContext);
-					if(context.getPictogramElements().length == 1 && directEditingFeature.canDirectEdit(directEditingContext)) {
-						menuMgr.add(new Action("Rename") {
-							@Override
-							public void run() {
-								final RenameDialog nameDialog = new RenameDialog(Display.getCurrent().getActiveShell(), directEditingFeature, directEditingContext);
-								if(nameDialog.open() == Dialog.CANCEL || nameDialog.getValue() == null) {
-									return;
-								}
-
-								directEditingFeature.setValue(nameDialog.getValue(), directEditingContext);
-								directEditingFeature.execute(directEditingContext);
-							}
-						});
+						customFeatAction.setEnabled(customFeature.canExecute(context));
+						contextMenu.add(customFeatAction);
 					}
 				}
 			}
@@ -407,7 +425,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	// Rename Dialog
 	private static class RenameDialog extends InputDialog {
 		public RenameDialog(final Shell parentShell, final IDirectEditingFeature directEditingFeature, final DirectEditingContext directEditingContext) {
-			super(parentShell, "Rename", "Rename the element", directEditingFeature.getInitialValue(directEditingContext), new IInputValidator() {
+			super(parentShell, "Rename", "Enter Name", directEditingFeature.getInitialValue(directEditingContext), new IInputValidator() {
 				@Override
 				public String isValid(final String newName) {
 					return directEditingFeature.checkValueValid(newName, directEditingContext);
