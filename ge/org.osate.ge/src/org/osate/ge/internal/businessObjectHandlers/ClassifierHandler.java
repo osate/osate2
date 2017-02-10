@@ -413,7 +413,7 @@ public class ClassifierHandler {
     		// Check that the name specified both a type and implementation name
     		final String[] segs = value.split("\\.");
     		if(segs.length != 2) {
-    			return "The name is not a valid name for a component implementaiton";
+    			return "The name is not a valid name for a component implementation";
     		}
     		
     		// Ensure both segments are valid identifiers
