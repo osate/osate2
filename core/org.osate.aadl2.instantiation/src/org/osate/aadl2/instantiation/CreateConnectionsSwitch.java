@@ -71,7 +71,6 @@ import org.osate.aadl2.DataAccess;
 import org.osate.aadl2.DataSubcomponent;
 import org.osate.aadl2.DeviceImplementation;
 import org.osate.aadl2.DeviceSubcomponent;
-import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.Feature;
@@ -955,14 +954,18 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 			if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
 				// both ends are empty
-				if ((connInfo.isAcross() && srcFi.getDirection() != DirectionType.IN
-						&& dstFi.getDirection() != DirectionType.OUT)
-						|| (!connInfo.isAcross() && srcFi.getDirection() != DirectionType.IN
-								&& dstFi.getDirection() != DirectionType.IN)
-						|| (!connInfo.isAcross() && srcFi.getDirection() != DirectionType.OUT
-								&& dstFi.getDirection() != DirectionType.OUT)) {
-					connInfo.src = srcFi;
-					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+				if (connInfo.isAcross()) {
+					if (srcFi.getDirection().outgoing() && dstFi.getDirection().incoming()) {
+						connInfo.src = srcFi;
+						addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+					}
+				} else {
+					boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
+					if (upOnly && srcFi.getDirection().outgoing() && dstFi.getDirection().outgoing()
+							|| !upOnly && srcFi.getDirection().incoming() && dstFi.getDirection().incoming()) {
+						connInfo.src = srcFi;
+						addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+					}
 				}
 			} else if (isLeafFeature(srcFi)) {
 				// first find the feature instance as an element of the other end
@@ -973,9 +976,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
 				} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					// we may have a feature group with no FGT or an empty FGT
+					boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
 					for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
-						if ((connInfo.isAcross() && dstelem.getDirection().incoming())
-								|| dstelem.getDirection().outgoing()) {
+						if (upOnly) {
+							if (dstelem.getDirection().outgoing()) {
+								expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
+							}
+						} else if (dstelem.getDirection().incoming()) {
 							expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
 						}
 					}
@@ -992,9 +999,13 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					expandFeatureGroupConnection(parentci, connInfo, target, dstFi);
 				} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
 					// we may have a feature group with no FGT or an empty FGT
+					boolean downOnly = !connInfo.isAcross() && !isUpOnly(connInfo, srcFi, dstFi);
 					for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
-						if ((connInfo.isAcross() && srcelem.getDirection().outgoing())
-								|| srcelem.getDirection().incoming()) {
+						if (downOnly) {
+							if (srcelem.getDirection().incoming()) {
+								expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
+							}
+						} else if (srcelem.getDirection().outgoing()) {
 							expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
 						}
 					}
@@ -1011,9 +1022,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					while (srcIter.hasNext() && dstIter.hasNext()) {
 						FeatureInstance src = srcIter.next();
 						FeatureInstance dst = dstIter.next();
-						if ((connInfo.isAcross() && src.getDirection().outgoing()) || src.getDirection().incoming()) {
-							expandFeatureGroupConnection(parentci, connInfo, src, dst);
-						}
+						expandFeatureGroupConnection(parentci, connInfo, src, dst);
 					}
 					Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
 							"Connected feature groups do not have the same number of features");
@@ -1031,6 +1040,31 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		connInfo.src = oldSrc;
+
+	}
+
+	/**
+	 * Does the connection go only up in the hierarchy?
+	 * @param connInfo
+	 * @param srcFi
+	 * @param dstFi
+	 * @param upOnly
+	 * @return
+	 */
+	private boolean isUpOnly(ConnectionInfo connInfo, FeatureInstance srcFi, FeatureInstance dstFi) {
+		if (!connInfo.isAcross()) {
+			// if src contained in dst we're going up only
+			ComponentInstance dstComponent = dstFi.getContainingComponentInstance();
+			Element srcComponent = srcFi.getContainingComponentInstance();
+
+			while (srcComponent != null) {
+				if (srcComponent == dstComponent) {
+					return true;
+				}
+				srcComponent = srcComponent.getOwner();
+			}
+		}
+		return false;
 	}
 
 	/**
