@@ -4,6 +4,7 @@ import java.util.Deque;
 
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
+import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
 class DescendantsQuery<A> extends PictogramQuery<A> {
@@ -33,16 +34,21 @@ class DescendantsQuery<A> extends PictogramQuery<A> {
 					}
 				}
 			}
+		}
 			
+		if(ctx instanceof ContainerShape || ctx instanceof Connection) {
+			final PictogramElement pe = (PictogramElement)ctx;
 			// Owned Connections
-			for(final Connection c : state.connectionService.getConnections(shape)) {
-				if(!state.propertyService.isGhost(shape)) {
+			for(final Connection c : state.connectionService.getConnections(pe)) {
+				if(!state.propertyService.isGhost(c)) {
 					if(state.propertyService.isLogicalTreeNode(c)) {
 						processResultValue(remainingQueries, c, state, result);						
 						if(result.done) {
 							return;
 						}
 					}
+					
+					run(remainingQueries, c, state, result);
 				}
 			}
 		}

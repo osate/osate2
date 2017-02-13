@@ -8,6 +8,7 @@ import org.osate.ge.query.Supplier;
 
 class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
 	private final Supplier<A, Object> boSupplier;
+	private String nullBoRef = "<null>";
 	
 	public FilterByBusinessObjectQuery(final Query<A> prev, final Supplier<A, Object> boSupplier) {
 		super(prev);
@@ -42,6 +43,4 @@ class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
 			processResultValue(remainingQueries, pe, state, result);
 		}
 	}
-	
-	private String nullBoRef = "<null>";
 }
