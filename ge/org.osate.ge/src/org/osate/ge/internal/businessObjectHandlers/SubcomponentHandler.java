@@ -30,7 +30,7 @@ import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
@@ -77,7 +77,7 @@ public class SubcomponentHandler {
 		return sc.getName() == null ? "" : sc.getName();
 	}
 		
-	@GetNameLabelConfiguration
+	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
 	}

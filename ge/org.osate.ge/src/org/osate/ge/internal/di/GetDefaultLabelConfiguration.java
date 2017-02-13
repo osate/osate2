@@ -21,7 +21,7 @@ import java.lang.annotation.Target;
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Business Object Handler</td><td>Returns a LabelConfiguration for the shape's name label.</td><td>{@link org.ostate.ge.internal.labels.LabelConfiguration}</td></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns a LabelConfiguration which determines the default configuration of labels associated with the business object.</td><td>{@link org.ostate.ge.internal.labels.LabelConfiguration}</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">
@@ -32,5 +32,5 @@ import java.lang.annotation.Target;
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface GetNameLabelConfiguration {
+public @interface GetDefaultLabelConfiguration {
 }

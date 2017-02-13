@@ -16,7 +16,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -54,7 +54,7 @@ public class FeatureInstanceHandler {
 		return fi.getName();
 	}
 	
-	@GetNameLabelConfiguration
+	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
 	}

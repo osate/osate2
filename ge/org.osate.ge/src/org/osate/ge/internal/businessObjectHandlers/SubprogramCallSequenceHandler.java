@@ -30,7 +30,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -72,7 +72,7 @@ public class SubprogramCallSequenceHandler {
 		return cs.getName();
 	}
 	
-	@GetNameLabelConfiguration
+	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
 	}

@@ -20,7 +20,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.ModeGraphicBuilder;
 import org.osate.ge.internal.labels.LabelConfiguration;
@@ -59,7 +59,7 @@ public class ModeHandler {
 		return mode.getName();
 	}
 	
-	@GetNameLabelConfiguration
+	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
 	}

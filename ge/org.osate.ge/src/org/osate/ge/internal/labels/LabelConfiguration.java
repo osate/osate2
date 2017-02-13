@@ -6,7 +6,7 @@ package org.osate.ge.internal.labels;
  * @noextend
  * @noimplement
  * @see LabelConfigurationBuilder
- * @see org.osate.ge.internal.di.GetNameLabelConfiguration
+ * @see org.osate.ge.internal.di.GetDefaultLabelConfiguration
  */
 public interface LabelConfiguration {
 

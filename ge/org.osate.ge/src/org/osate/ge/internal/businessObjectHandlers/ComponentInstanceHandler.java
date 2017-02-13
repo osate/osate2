@@ -13,7 +13,7 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -36,7 +36,7 @@ public class ComponentInstanceHandler {
 		return ci.getFullName();
 	}
 	
-	@GetNameLabelConfiguration
+	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
 	}

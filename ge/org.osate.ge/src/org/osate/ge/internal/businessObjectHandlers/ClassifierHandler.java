@@ -61,7 +61,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
@@ -365,7 +365,7 @@ public class ClassifierHandler {
 		return AadlGraphics.getGraphic(bo);
 	}
 	
-	@GetNameLabelConfiguration
+	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
 		// Is the diagram element contained inside a package diagram element
 		if(queryService.getFirstBusinessObject(packageQuery, diagramElement) == null) {
@@ -388,7 +388,7 @@ public class ClassifierHandler {
 	
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
-		return classifierIsOwnedByPackage(classifier, diagramElement, queryService) ? classifier.getName() : classifier.getQualifiedName(); 
+		return isContainerNonOwningPackage(classifier, diagramElement, queryService) ? classifier.getQualifiedName() : classifier.getName(); 
 	}
 	
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
@@ -399,6 +399,17 @@ public class ClassifierHandler {
 		}
 		
 		return containingAadlPackage.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? true : false;
+	}
+	
+	// Returns whether the classifier's diagram element is contained in a diagram element which represents a package which does not own the classifier. 
+	// Returns false if the classifier's diagram element is not contained in a package diagram element.
+	private boolean isContainerNonOwningPackage(final Classifier classifier, final DiagramElementProxy diagramElement, final QueryService queryService) {
+		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
+		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
+			return false;
+		}
+		
+		return containingAadlPackage.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? false : true;
 	}
 	
 	@ValidateName

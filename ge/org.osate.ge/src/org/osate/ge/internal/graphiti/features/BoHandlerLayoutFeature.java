@@ -25,7 +25,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.di.GetNameLabelConfiguration;
+import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FeatureGraphic;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
@@ -114,7 +114,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
 			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AncestorUtil.getParent(context.getPictogramElement(), propertyService, connectionService)));
 
-			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetNameLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
+			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetDefaultLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 			
 			final Graphic gr = (Graphic)ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
