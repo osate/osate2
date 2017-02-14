@@ -10298,13 +10298,22 @@ public interface Aadl2Package extends EPackage {
 	int CONNECTED_ELEMENT__CONNECTION_END = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Next</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTED_ELEMENT__NEXT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Connected Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int CONNECTED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38634,6 +38643,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getConnectedElement_ConnectionEnd();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ConnectedElement#getNext <em>Next</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Next</em>'.
+	 * @see org.osate.aadl2.ConnectedElement#getNext()
+	 * @see #getConnectedElement()
+	 * @generated
+	 */
+	EReference getConnectedElement_Next();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ImplementationExtension <em>Implementation Extension</em>}'.
