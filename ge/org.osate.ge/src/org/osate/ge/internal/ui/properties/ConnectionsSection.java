@@ -11,6 +11,7 @@ package org.osate.ge.internal.ui.properties;
 import java.util.ArrayList;
 
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.impl.CustomContext;
 import org.eclipse.graphiti.features.context.impl.DirectEditingContext;
@@ -42,7 +43,6 @@ import org.osate.aadl2.Connection;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.features.ConfigureInModesFeature;
 import org.osate.ge.internal.features.RefineConnectionFeature;
-import org.osate.ge.internal.features.RenameConnectionFeature;
 import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -73,7 +73,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	private ConfigureInModesFeature configureInModesFeature;
 	private SwitchDirectionOfConnectionFeature switchDirectionOfConnectionFeature;
 	private SetConnectionBidirectionalityFeature setConnectionBidirectionalityFeature;
-	private RenameConnectionFeature renameConnectionFeature;
+	private IDirectEditingFeature renameConnectionFeature;
 	private IAction setBindingTool;
 
 	private PictogramElement pe;
@@ -306,7 +306,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 				final org.osate.aadl2.Connection aadlConnection = ((Connection)((Object) AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe))));
 				nameConnectionText.setText(aadlConnection.getName());
 				directEditingCxt = new DirectEditingContext(pe, pe.getGraphicsAlgorithm());
-				renameConnectionFeature = (RenameConnectionFeature) getFeatureProvider().getDirectEditingFeature(directEditingCxt);
+				renameConnectionFeature = getFeatureProvider().getDirectEditingFeature(directEditingCxt);
 				nameConnectionText.setEnabled(renameConnectionFeature.canDirectEdit(directEditingCxt));
 				nameConnectionText.setEditable(renameConnectionFeature.canDirectEdit(directEditingCxt));
 				final PictogramElement[] pes = new PictogramElement[1];

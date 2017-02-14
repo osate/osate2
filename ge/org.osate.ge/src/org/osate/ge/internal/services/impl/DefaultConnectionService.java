@@ -52,7 +52,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.internal.connections.AadlConnectionInfoProvider;
 import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
 import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
@@ -110,7 +109,6 @@ public class DefaultConnectionService implements ConnectionService {
 		
 		final Diagram diagram = getDiagram();
 
-		infoProviders.add(new AadlConnectionInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
 		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
 

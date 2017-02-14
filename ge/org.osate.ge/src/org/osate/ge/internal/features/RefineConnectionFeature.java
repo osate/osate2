@@ -21,10 +21,10 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ShapeService;
+import org.osate.ge.internal.util.AadlConnectionUtil;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 public class RefineConnectionFeature extends AbstractCustomFeature {
@@ -94,7 +94,7 @@ public class RefineConnectionFeature extends AbstractCustomFeature {
 		aadlModService.modify(aadlConnection, new AbstractModifier<org.osate.aadl2.Connection, org.osate.aadl2.Connection>() {
 			@Override
 			public org.osate.aadl2.Connection modify(final Resource resource, final org.osate.aadl2.Connection aadlConnection) {
-				final org.osate.aadl2.Connection newAadlConnection = ConnectionPattern.createConnection(containerComponentImplementation, aadlConnection.eClass());
+				final org.osate.aadl2.Connection newAadlConnection = AadlConnectionUtil.createConnection(containerComponentImplementation, aadlConnection.eClass());
 				if(newAadlConnection != null) {
 					newAadlConnection.setRefined(aadlConnection);
 				}

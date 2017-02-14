@@ -1,10 +1,13 @@
 package org.osate.ge.internal.graphiti.features;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Stream;
 
+import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -16,6 +19,7 @@ import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.algorithms.styles.Color;
+import org.eclipse.graphiti.mm.algorithms.styles.Font;
 import org.eclipse.graphiti.mm.algorithms.styles.LineStyle;
 import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
@@ -319,6 +323,8 @@ public class BoHandlerRefreshHelper {
 					} else if(pe instanceof Connection) {
 						final Connection connection = (Connection)pe;
 
+						// TODO: Remove
+						/*
 						Integer labelX = null;
 						Integer labelY = null;
 						if(name != null) {
@@ -333,28 +339,84 @@ public class BoHandlerRefreshHelper {
 								}
 							}
 						}
+						*/
+						
+						// Store position of all decorators which have ID's
+						final Map<String, Point> decoratorNameToLocation = new HashMap<>();
+						
+						for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
+							if(d.getGraphicsAlgorithm() instanceof Text) {
+								final String id = propertyService.getName(d);
+								if(id != null) {
+									final Text text = (Text)d.getGraphicsAlgorithm();
+									decoratorNameToLocation.put(id, new Point(text.getX(), text.getY()));
+								}
+							}
+						}
 						
 						// Clear decorators
 						connection.getConnectionDecorators().clear();
 
+						final IGaService gaService = Graphiti.getGaService();
+						
 						// Create label decorator
+						int labelX = 0;
+						int labelY = 0;
 						if(name != null) {
-					        final IGaService gaService = Graphiti.getGaService();
 							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 							text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
 							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);						
 						    text.setValue(name);
 
-						    // Center default location
-						    if(labelX == null || labelY == null) {
+						    final Point labelPosition = decoratorNameToLocation.get(BoHandlerFeatureHelper.nameShapeName);
+						    if(labelPosition == null) {
+						    	// Set default position
 						    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getStyle().getFont());
 						    	labelX = -labelTextSize.getWidth()/2;
 						    	labelY = -labelTextSize.getHeight()/2;
+						    } else {
+						    	labelX = labelPosition.x;
+						    	labelY = labelPosition.y;
 						    }
 						    gaService.setLocation(text, labelX, labelY);
 							
 						    featureProvider.link(textDecorator, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+						}
+						
+						// Create Graphiti decorators for annotations
+						final Annotation[] annotations = (Annotation[])ContextInjectionFactory.invoke(handler, GetAnnotations.class, eclipseCtx, null);
+						if(annotations != null) {
+							final Font decoratorFont = GraphitiUi.getGaService().manageDefaultFont(getDiagram());
+							int annotationY = labelY;
+							for(final Annotation annotation : annotations) {
+								annotationY += 30;
+								final AgeAnnotation ageAnnotation = (AgeAnnotation)annotation;
+								
+								final ConnectionDecorator annotationDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+								final Text annotationTxt = gaService.createDefaultText(getDiagram(), annotationDecorator);								
+								annotationTxt.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
+								annotationTxt.setValue(ageAnnotation.text);
+
+								if(ageAnnotation.name != null) {
+									propertyService.setName(annotationDecorator, ageAnnotation.name);
+								} 
+								
+								// Set the annotation position
+								final Point annotationPosition = ageAnnotation.name == null ? null : decoratorNameToLocation.get(ageAnnotation.name);
+								final int annotationX;
+								if(annotationPosition == null) {
+									int annotationWidth = GraphitiUi.getUiLayoutService().calculateTextSize(ageAnnotation.text, decoratorFont).getWidth();
+									annotationX = -annotationWidth/2;									
+								} else {
+									annotationX = annotationPosition.x;
+									annotationY = annotationPosition.y;
+								}
+								
+								gaService.setLocation(annotationTxt, annotationX, annotationY);	
+
+								featureProvider.link(annotationDecorator, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+							}
 						}
 						
 						// Create Graphiti decorators for connection terminators

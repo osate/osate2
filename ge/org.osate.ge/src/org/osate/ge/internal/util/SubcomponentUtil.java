@@ -2,7 +2,9 @@ package org.osate.ge.internal.util;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Factory;
@@ -11,27 +13,30 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Subcomponent;
 
 public class SubcomponentUtil {
-	private static final LinkedHashMap<EClass, String> subcomponentTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
+	private static final Map<EClass, String> subcomponentTypeToCreateMethodNameMap = createConnectionTypeToMethodMap();
 	
 	/**
-	 * Populate the map that contains the subcomponent type to create method name mapping
+	 * Returns an unmodifiable map that contains the subcomponent type to create method name mapping
 	 */
-	static {
+	private static Map<EClass,String> createConnectionTypeToMethodMap() {
+		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
-		subcomponentTypeToCreateMethodNameMap.put(p.getAbstractSubcomponent(), "createOwnedAbstractSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getBusSubcomponent(), "createOwnedBusSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getDataSubcomponent(), "createOwnedDataSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getDeviceSubcomponent(), "createOwnedDeviceSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getMemorySubcomponent(), "createOwnedMemorySubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getProcessSubcomponent(), "createOwnedProcessSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getProcessorSubcomponent(), "createOwnedProcessorSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getSubprogramSubcomponent(), "createOwnedSubprogramSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getSubprogramGroupSubcomponent(), "createOwnedSubprogramGroupSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getSystemSubcomponent(), "createOwnedSystemSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getThreadSubcomponent(), "createOwnedThreadSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getThreadGroupSubcomponent(), "createOwnedThreadGroupSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getVirtualBusSubcomponent(), "createOwnedVirtualBusSubcomponent");
-		subcomponentTypeToCreateMethodNameMap.put(p.getVirtualProcessorSubcomponent(), "createOwnedVirtualProcessorSubcomponent");
+		map.put(p.getAbstractSubcomponent(), "createOwnedAbstractSubcomponent");
+		map.put(p.getBusSubcomponent(), "createOwnedBusSubcomponent");
+		map.put(p.getDataSubcomponent(), "createOwnedDataSubcomponent");
+		map.put(p.getDeviceSubcomponent(), "createOwnedDeviceSubcomponent");
+		map.put(p.getMemorySubcomponent(), "createOwnedMemorySubcomponent");
+		map.put(p.getProcessSubcomponent(), "createOwnedProcessSubcomponent");
+		map.put(p.getProcessorSubcomponent(), "createOwnedProcessorSubcomponent");
+		map.put(p.getSubprogramSubcomponent(), "createOwnedSubprogramSubcomponent");
+		map.put(p.getSubprogramGroupSubcomponent(), "createOwnedSubprogramGroupSubcomponent");
+		map.put(p.getSystemSubcomponent(), "createOwnedSystemSubcomponent");
+		map.put(p.getThreadSubcomponent(), "createOwnedThreadSubcomponent");
+		map.put(p.getThreadGroupSubcomponent(), "createOwnedThreadGroupSubcomponent");
+		map.put(p.getVirtualBusSubcomponent(), "createOwnedVirtualBusSubcomponent");
+		map.put(p.getVirtualProcessorSubcomponent(), "createOwnedVirtualProcessorSubcomponent");
+
+		return Collections.unmodifiableMap(map);
 	}
 	
 	public static Collection<EClass> getSubcomponentTypes() {

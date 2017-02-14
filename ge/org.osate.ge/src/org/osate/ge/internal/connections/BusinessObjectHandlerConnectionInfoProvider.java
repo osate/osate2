@@ -107,6 +107,7 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 			this.dstRootValue = propertyService.isConnectionAnchor(dstAnchor) ? null : dstAnchor.getParent();
 			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
 			final PictogramElement result = queryRunner.getFirstPictogramElement(ownerDiagramElementQuery, bo);
+			
 			return result;
 		} finally {
 			this.srcRootValue = null;

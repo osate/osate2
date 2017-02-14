@@ -47,6 +47,7 @@ import org.eclipse.graphiti.features.IDirectEditingFeature;
 import org.eclipse.graphiti.features.ILayoutFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
+import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
@@ -61,6 +62,7 @@ import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
+import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
@@ -118,14 +120,12 @@ import org.osate.ge.internal.features.SetFeatureClassifierFeature;
 import org.osate.ge.internal.features.SetInitialModeFeature;
 import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
-import org.osate.ge.internal.patterns.ConnectionPattern;
 import org.osate.ge.internal.patterns.FlowSpecificationPattern;
 import org.osate.ge.internal.features.EditFlowsFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallDownFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallUpFeature;
 import org.osate.ge.internal.features.RefineConnectionFeature;
 import org.osate.ge.internal.features.RefineSubcomponentFeature;
-import org.osate.ge.internal.features.RenameConnectionFeature;
 import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
@@ -211,7 +211,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Add patterns
 		addConnectionPattern(make(FlowSpecificationPattern.class));
-		addAadlConnectionPatterns();
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
@@ -449,9 +448,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	@Override
 	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
-		if(bo instanceof org.osate.aadl2.Connection) {
-			return make(RenameConnectionFeature.class);
-		} else if(bo instanceof FlowSpecification) {
+		if(bo instanceof FlowSpecification) {
 			return make(RenameFlowSpecificationFeature.class);
 		} else {	
 			return defaultDirectEditFeature;
@@ -644,27 +641,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference;
 	}
 	
-	// ComponentImplementation
-	/**
-	 * Creates and adds patterns related to AADL Connections
-	 */
-	private void addAadlConnectionPatterns() {
-		// Create the connection patterns
-		for(final EClass connectionType : ConnectionPattern.getConnectionTypes()) {
-			addConnectionPattern(createConnectionPattern(connectionType));
-		}
-	}
-	
-	private IConnectionPattern createConnectionPattern(final EClass connectionType) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Connection Type", connectionType);
-			return ContextInjectionFactory.make(ConnectionPattern.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
 	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {
 		final IEclipseContext childCtx = getContext().createChild();
 		try {
@@ -731,7 +707,16 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return bor.getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
 	}
 	
-	// Don't allow moving transient shapes
+	@Override
+	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
+		// Don't allow moving connection decorators which do not have names
+		if(context.getConnectionDecorator() == null || propertyService.getName(context.getConnectionDecorator()) == null) {
+			return null;
+		}
+		
+		return super.getMoveConnectionDecoratorFeature(context);
+	}
+	
 	@Override
 	protected IMoveShapeFeature getMoveShapeFeatureAdditional(final IMoveShapeContext context) {
 		return defaultMoveShapeFeature;

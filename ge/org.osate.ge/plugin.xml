@@ -804,5 +804,8 @@
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.SubcomponentHandler">
        </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ConnectionHandler">
+       </handler>
     </extension>
 </plugin>

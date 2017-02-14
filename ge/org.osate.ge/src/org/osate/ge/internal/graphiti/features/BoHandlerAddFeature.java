@@ -42,7 +42,7 @@ public class BoHandlerAddFeature extends AbstractAddFeature implements ICustomUn
 			final AgeAddConnectionContext addConContext = (AgeAddConnectionContext)context;
 			targetContainer = addConContext.getOwner();
 			srcAnchor = addConContext.getSourceAnchor();
-			dstAnchor = addConContext.getTargetAnchor();			
+			dstAnchor = addConContext.getTargetAnchor();
 		} else {
 			targetContainer = context.getTargetContainer();
 			srcAnchor = null;

@@ -178,7 +178,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
      			} finally {
      				childCtx.dispose();
      			}
-    			
+
     			return null;
     		}	
      		

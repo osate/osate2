@@ -2,7 +2,9 @@ package org.osate.ge.internal.util;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Factory;
@@ -17,32 +19,37 @@ import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.VirtualProcessorImplementation;
 
 public class AadlFeatureUtil {
-	private static LinkedHashMap<EClass, String> featureTypeToCreateMethodNameMap = new LinkedHashMap<EClass, String>();
+	private final static Map<EClass, String> featureTypeToCreateMethodNameMap = createFeatureTypeToCreateMethodMap();
+
 	/**
-	 * Populate the map that contains the feature type to create method name mapping
+	 * Returns an unmodifiable map that contains the feature type to create method name mapping
 	 */
-	static {
+	private static Map<EClass, String> createFeatureTypeToCreateMethodMap() {
+		final LinkedHashMap<EClass, String> map = new LinkedHashMap<EClass, String>();
+		
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		
 		// Regular Features
-		featureTypeToCreateMethodNameMap.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
-		featureTypeToCreateMethodNameMap.put(p.getBusAccess(), "createOwnedBusAccess");
-		featureTypeToCreateMethodNameMap.put(p.getDataAccess(), "createOwnedDataAccess");
-		featureTypeToCreateMethodNameMap.put(p.getDataPort(), "createOwnedDataPort");
-		featureTypeToCreateMethodNameMap.put(p.getEventDataPort(), "createOwnedEventDataPort");
-		featureTypeToCreateMethodNameMap.put(p.getEventPort(), "createOwnedEventPort");
-		featureTypeToCreateMethodNameMap.put(p.getFeatureGroup(), "createOwnedFeatureGroup");
-		featureTypeToCreateMethodNameMap.put(p.getParameter(), "createOwnedParameter");
-		featureTypeToCreateMethodNameMap.put(p.getSubprogramAccess(), "createOwnedSubprogramAccess");
-		featureTypeToCreateMethodNameMap.put(p.getSubprogramGroupAccess(), "createOwnedSubprogramGroupAccess");
+		map.put(p.getAbstractFeature(), "createOwnedAbstractFeature");
+		map.put(p.getBusAccess(), "createOwnedBusAccess");
+		map.put(p.getDataAccess(), "createOwnedDataAccess");
+		map.put(p.getDataPort(), "createOwnedDataPort");
+		map.put(p.getEventDataPort(), "createOwnedEventDataPort");
+		map.put(p.getEventPort(), "createOwnedEventPort");
+		map.put(p.getFeatureGroup(), "createOwnedFeatureGroup");
+		map.put(p.getParameter(), "createOwnedParameter");
+		map.put(p.getSubprogramAccess(), "createOwnedSubprogramAccess");
+		map.put(p.getSubprogramGroupAccess(), "createOwnedSubprogramGroupAccess");
 		
 		// Internal Features
-		featureTypeToCreateMethodNameMap.put(p.getEventSource(), "createOwnedEventSource");
-		featureTypeToCreateMethodNameMap.put(p.getEventDataSource(), "createOwnedEventDataSource");
+		map.put(p.getEventSource(), "createOwnedEventSource");
+		map.put(p.getEventDataSource(), "createOwnedEventDataSource");
 		
 		// Processor Features
-		featureTypeToCreateMethodNameMap.put(p.getSubprogramProxy(), "createOwnedSubprogramProxy");
-		featureTypeToCreateMethodNameMap.put(p.getPortProxy(), "createOwnedPortProxy");
+		map.put(p.getSubprogramProxy(), "createOwnedSubprogramProxy");
+		map.put(p.getPortProxy(), "createOwnedPortProxy");
+		
+		return Collections.unmodifiableMap(map);
 	}
 	
 	public static Collection<EClass> getFeatureTypes() {

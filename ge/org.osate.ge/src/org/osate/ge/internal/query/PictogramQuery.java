@@ -60,4 +60,8 @@ public abstract class PictogramQuery<A> extends Query<A> implements DiagramEleme
 			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> falseQuerySupplier) {
 		return new IfElseQuery<A>(this, cond, trueQuerySupplier, falseQuerySupplier);
 	}
+	
+	public PictogramQuery<A> descendantsByBusinessObjects(final Supplier<A, Object[]> bosSupplier) {
+		return new DescendantsByBusinessObjectsQuery<A>(this, bosSupplier);
+	}
 }
