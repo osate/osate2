@@ -12,6 +12,7 @@ import org.osate.aadl2.AbstractFeature;
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.AccessType;
+import org.osate.aadl2.ArrayableElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
@@ -60,6 +61,7 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
+import org.osate.ge.internal.services.AadlArrayService;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PrototypeService;
@@ -225,8 +227,14 @@ public class FeatureHandler {
 	}	
 	
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
-		return feature.getName() == null ? "" : feature.getName(); 
+	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final AadlArrayService arrayService) {
+		String name = feature.getName() == null ? "" : feature.getName();
+		
+		if(feature instanceof ArrayableElement) {
+			name += arrayService.getDimensionUserString((ArrayableElement) feature);
+		}
+		
+		return name;
 	}
 	
 	@GetDefaultLabelConfiguration
