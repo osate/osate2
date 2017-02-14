@@ -5,7 +5,7 @@ import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
+import org.osate.aadl2.AbstractImplementation
 import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
@@ -31,7 +31,7 @@ class Issue766Test extends OsateTest {
 		assertTrue('Abstract implementation "a.impl" not found', cls.exists[name == 'a.impl'])
 
 		// instantiate
-		val sysImpl = cls.findFirst[name == 'a.impl'] as SystemImplementation
+		val sysImpl = cls.findFirst[name == 'a.impl'] as AbstractImplementation
 		val instance = InstantiateModel::buildInstanceModelFile(sysImpl)
 		assertEquals('a_impl_Instance', instance.name)
 
