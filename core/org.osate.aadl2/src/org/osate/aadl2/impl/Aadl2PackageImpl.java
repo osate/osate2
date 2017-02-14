@@ -4773,6 +4773,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getConnectedElement_Next() {
+		return (EReference) connectedElementEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getImplementationExtension() {
 		return implementationExtensionEClass;
 	}
@@ -9491,6 +9501,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		connectedElementEClass = createEClass(CONNECTED_ELEMENT);
 		createEReference(connectedElementEClass, CONNECTED_ELEMENT__CONTEXT);
 		createEReference(connectedElementEClass, CONNECTED_ELEMENT__CONNECTION_END);
+		createEReference(connectedElementEClass, CONNECTED_ELEMENT__NEXT);
 
 		implementationExtensionEClass = createEClass(IMPLEMENTATION_EXTENSION);
 		createEReference(implementationExtensionEClass, IMPLEMENTATION_EXTENSION__EXTENDED);
@@ -11408,6 +11419,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectedElement_ConnectionEnd(), getConnectionEnd(), null, "connectionEnd", null, 1, 1,
 				ConnectedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConnectedElement_Next(), getConnectedElement(), null, "next", null, 0, 1,
+				ConnectedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(implementationExtensionEClass, ImplementationExtension.class, "ImplementationExtension",
