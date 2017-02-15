@@ -8,7 +8,7 @@ property set Modeling_Properties is
 		
 	Array_Size_Range : type range of aadlinteger;
 	
-	Classifier_Matching_Rule: inherit enumeration (Classifier_Match, Type_Extension, Equivalence, Subset, Conversion)
+	Classifier_Matching_Rule: inherit enumeration (Classifier_Match, Equivalence, Subset, Conversion)
 		applies to (connection, component implementation);
 	
 	Classifier_Substitution_Rule: inherit enumeration (Classifier_Match, Type_Extension, Signature_Match)

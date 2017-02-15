@@ -5058,12 +5058,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 								+ "' have incompatible classifiers.");
 					}
-				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
-					if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier, sourceClassifier)) {
-						warning("Source classifier " + sourceClassifier.getName()
-								+ " is not a 'Type Extension' of destination " + destinationClassifier.getName(),
-								connection, Aadl2Package.eINSTANCE.getConnection_Source());
-					}
 				} else if (ModelingProperties.EQUIVALENCE.equalsIgnoreCase(classifierMatchingRuleValue)) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -5605,12 +5599,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 								+ "' have incompatible classifiers.");
 					}
-				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
-					if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier, sourceClassifier)) {
-						warning("Source classifier " + sourceClassifier.getName()
-								+ " is not a 'Type Extension' of destination " + destinationClassifier.getName(),
-								connection, Aadl2Package.eINSTANCE.getConnection_Source());
-					}
 				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
 							destinationClassifier)
@@ -6081,40 +6069,6 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							destinationClassifier)) {
 						error(connection, '\'' + source.getName() + "' and '" + destination.getName()
 								+ "' have incompatible classifiers.");
-					}
-				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.TYPE_EXTENSION)) {
-					// first figure out which way to check for type extension
-					// the shared component has to be a type extension of the
-					// required access type.
-					// from provides to requires between subcomponents, provides
-					// sub to enclosing provides, from enclosing requires to sub
-					// requires
-					// either can be source or destination.
-					if (AccessType.PROVIDES == srckind && dstkind == AccessType.PROVIDES
-							&& dstCxt instanceof Subcomponent) {
-						invert = true;
-					}
-					if (srckind == (AccessType.REQUIRES) && dstkind == (AccessType.REQUIRES)
-							&& srcCxt instanceof Subcomponent) {
-						invert = true;
-					}
-					if (srckind == (AccessType.REQUIRES) && dstkind == (AccessType.PROVIDES)) {
-						invert = true;
-					}
-					if (invert) {
-						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(destinationClassifier,
-								sourceClassifier)) {
-							warning("Destination classifier " + destinationClassifier.getName() + " connected to "
-									+ sourceClassifier.getName() + " does not satisfy 'Type Extension'", connection,
-									Aadl2Package.eINSTANCE.getConnection_Destination());
-						}
-					} else {
-						if (!AadlUtil.isokClassifierSubstitutionTypeExtension(sourceClassifier,
-								destinationClassifier)) {
-							warning("Source classifier " + sourceClassifier.getName() + " connected to "
-									+ destinationClassifier.getName() + " does not satisfy 'Type Extension'",
-									connection, Aadl2Package.eINSTANCE.getConnection_Source());
-						}
 					}
 				} else if (classifierMatchingRuleValue.equalsIgnoreCase(ModelingProperties.EQUIVALENCE)) {
 					if (!testClassifierMatchRule(connection, source, sourceClassifier, destination,
