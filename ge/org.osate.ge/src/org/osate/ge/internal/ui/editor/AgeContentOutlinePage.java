@@ -238,7 +238,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					final DeleteContext deleteContext = new DeleteContext(pe);
 					final IDeleteFeature deleteFeature = diagramTypeProvider.getFeatureProvider().getDeleteFeature(deleteContext);
 
-					deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, editor.getSelectedPictogramElements().length));
+					if(context.getPictogramElements().length > 1) {
+						deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, editor.getSelectedPictogramElements().length));
+					}
+					
 					if(!deleteFeature.canDelete(deleteContext)) {
 						deleteContextToFeatureMap.clear();
 						break;
@@ -249,14 +252,18 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 				if(!deleteContextToFeatureMap.isEmpty()) {
 					final Map.Entry<DeleteContext, IDeleteFeature> firstEntry = deleteContextToFeatureMap.entrySet().iterator().next();
-					firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
-					contextMenu.add(new Action(firstEntry.getValue().getName()) {
+
+					if(firstEntry.getKey().getMultiDeleteInfo() != null) {
+						firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
+					}
+					
+					contextMenu.add(new Action("Delete") {
 						@Override
 						public void run() {
 							for(final DeleteContext deleteContext : deleteContextToFeatureMap.keySet()) {
 								final IDeleteFeature deleteFeature = deleteContextToFeatureMap.get(deleteContext);
 								editor.getDiagramBehavior().executeFeature(deleteFeature, deleteContext);
-								if(deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
+								if(deleteContext.getMultiDeleteInfo() != null && deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
 									break;
 								}
 							}
