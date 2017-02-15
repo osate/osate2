@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -37,13 +36,12 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
-import org.eclipse.jface.viewers.ITreeViewerListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
-import org.eclipse.jface.viewers.TreeExpansionEvent;
 import org.eclipse.jface.viewers.TreePath;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.jface.viewers.TreeViewer;
@@ -73,7 +71,6 @@ import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
-	private boolean linkWithEditor;
 	private AgeDiagramEditor editor;
 	private QueryRunner queryRunner;
 	private PictogramElement rootPictogramElement;
@@ -82,14 +79,14 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	private final PictogramQuery<Object> childrenQuery = rootPictogramQuery.children().filter((fa) -> fa.getBusinessObject() instanceof NamedElement);
 	private final BusinessObjectResolutionService bor;
 	private final PropertyService propertyService;
-
+	
 	public AgeContentOutlinePage(final AgeDiagramEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		this.bor = Objects.requireNonNull((BusinessObjectResolutionService)editor.getAdapter(BusinessObjectResolutionService.class), "Unable to retrieve business object resolution service");
 		this.propertyService = Objects.requireNonNull((PropertyService)editor.getAdapter(PropertyService.class), "Unable to retrieve property service");
 		this.queryRunner = new QueryRunner(propertyService,
 				(ConnectionService)editor.getAdapter(ConnectionService.class), 
-				bor, 
+				bor,
 				(InternalReferenceBuilderService)editor.getAdapter(InternalReferenceBuilderService.class));
 	}
 
@@ -117,6 +114,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 							if(propertyService.isLogicalTreeNode(diagram)) {
 								return new Object[] { diagram };
 							}
+							
 							return getChildren(editor.getDiagramTypeProvider().getDiagram());	
 						}		
 					}
@@ -155,9 +153,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				}
 
 				return false;
-			}		
+			}
 		});
-		
+
 		viewer.setSorter(new ViewerSorter() {
 			@Override
 			public int compare(final Viewer viewer, final Object o1, final Object o2) {
@@ -165,21 +163,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				final LabelProvider labelProvider = (LabelProvider)treeViewer.getLabelProvider();
 				final String s1 = labelProvider.getText(o1);
 				final String s2 = labelProvider.getText(o2);
-				
+
 				return s1.compareToIgnoreCase(s2);
 			}
-		});
-
-		viewer.addTreeListener(new ITreeViewerListener() {
-			@Override
-			public void treeExpanded(final TreeExpansionEvent event) {
-				if(linkWithEditor) {
-					setSelection(viewer);
-				}
-			}
-
-			@Override
-			public void treeCollapsed(final TreeExpansionEvent event) {}
 		});
 
 		viewer.setLabelProvider(new LabelProvider() {
@@ -202,7 +188,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					final NamedElement ne = (NamedElement)bo;
 					final ImageDescriptor imgDesc = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
 							ImageHelper.getImage(ne.eClass().getName()));
-					
+
 					// Check if ImageDescriptor has a valid type.
 					final ImageData imageData = imgDesc.getImageData();
 					if(imageData != null && imageData.type >= 0) {
@@ -237,7 +223,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 									if(nameDialog.open() == Dialog.CANCEL || nameDialog.getValue() == null) {
 										return;
 									}
-	
+
 									directEditingFeature.setValue(nameDialog.getValue(), directEditingContext);
 									directEditingFeature.execute(directEditingContext);
 								}
@@ -245,7 +231,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						}
 					}
 				}
-				
+
 				// Delete
 				final HashMap<DeleteContext, IDeleteFeature> deleteContextToFeatureMap = new LinkedHashMap<>();
 				for(final PictogramElement pe : context.getPictogramElements()) {
@@ -277,13 +263,13 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 						}
 					});
 				}
-				
+
 				// Custom Features
 				for(int i = 0; i < customFeatures.length; i++) {
 					final ICustomFeature customFeature = customFeatures[i];
 					if(customFeature.isAvailable(context)) {
 						final Action customFeatAction = new Action(customFeature.getName()) {
-							public void run() { 
+							public void run() {
 								editor.getDiagramBehavior().executeFeature(customFeature, context);
 							};
 						};
@@ -302,9 +288,29 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		editor.getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
 			@Override
 			public void selectionChanged(final SelectionChangedEvent event) {
-				if(linkWithEditor) {
-					setSelection(viewer);
+				if(linkWithEditorAction.isChecked()) {
+					final TreeViewer treeViewer = getTreeViewer();
+					final Object[] ss = ((IStructuredSelection)getSelection()).toArray();
+					final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
+					
+					if(treeViewer != null && treeViewer.getContentProvider() != null && updateLinkWithEditor(treePes, editor.getSelectedPictogramElements())) {
+						treeViewer.setSelection(getTreeSelection());
+					}
 				}
+			}
+
+			private ISelection getTreeSelection() {
+				final ArrayList<TreePath> treePathList = new ArrayList<>();
+				final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
+				for(final PictogramElement selectedPe : selectedPes) {
+					if(selectedPe == null || (selectedPe instanceof ConnectionDecorator)) {
+						return TreeSelection.EMPTY;
+					}
+
+					treePathList.add(new TreePath(new Object[] { selectedPe } ));
+				}
+
+				return new TreeSelection(treePathList.toArray(new TreePath[treePathList.size()]));
 			}
 		});
 
@@ -321,73 +327,37 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		viewer.setInput(editor);
 	}
 
+	// Link With Editor action added to Outline menu
 	@Override
 	public void makeContributions(final IMenuManager menuManager, final IToolBarManager toolBarManager,
-			final IStatusLineManager statusLineManager) {		
-		final Action action = new Action("Link With Editor", SWT.TOGGLE) {
-			@Override
-			public void run() {
-				linkWithEditor = isChecked();
-				if(linkWithEditor && !getSelection().isEmpty()) {
-					selectPictogramElements(((IStructuredSelection)getSelection()).toArray());
-				}
-			}
-		};
-
-		linkWithEditor = true;
-		action.setChecked(true);
-		action.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
-		toolBarManager.add(action);
+			final IStatusLineManager statusLineManager) {
+		// Default Link With Editor enabled
+		linkWithEditorAction.setChecked(true);
+		linkWithEditorAction.setImageDescriptor(PlatformUI.getWorkbench().getSharedImages().getImageDescriptor(ISharedImages.IMG_ELCL_SYNCED));
+		toolBarManager.add(linkWithEditorAction);
 	}
 
-	private void selectPictogramElements(final Object[] ss) {
+	private void selectEditorPictogramElements() {
+		final Object[] ss = ((IStructuredSelection)getSelection()).toArray();
 		final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
-		final ArrayList<PictogramElement> editorPes = new ArrayList<>(Arrays.asList(editor.getSelectedPictogramElements()));
-
-		if(!editorPes.contains(treePes[0]) || editorPes.size() != ss.length) {
+		final PictogramElement[] editorPes = editor.getSelectedPictogramElements();
+		if(getTreeViewer() != null && getTreeViewer().getContentProvider() != null && updateLinkWithEditor(treePes, editorPes)) {
 			editor.selectPictogramElements(treePes);
 		}
 	}
 
-	private void setSelection(final TreeViewer viewer) {
-		final ITreeContentProvider treeContentProvider = (ITreeContentProvider)viewer.getContentProvider();
-		if(treeContentProvider != null) {
-			final ArrayList<TreePath> list = new ArrayList<TreePath>();
-			for(final PictogramElement selectedPe : editor.getSelectedPictogramElements()) {
-				if(selectedPe != null && !(selectedPe instanceof ConnectionDecorator)) {
-					for(final Object ob : treeContentProvider.getElements(editor)) {
-						list.addAll(findAndSelectTreeElements(ob, selectedPe));
-					}
-				}
-			}
-
-			viewer.setSelection(new TreeSelection(list.toArray(new TreePath[list.size()])));
-		}
+	// Check if Link With Editor elements needs updated
+	private boolean updateLinkWithEditor(final PictogramElement[] treePes, final PictogramElement[] editorPes) {
+		return !Arrays.equals(treePes, editorPes);
 	}
 
 	@Override
 	public void selectionChanged(final SelectionChangedEvent event) {
-		if(linkWithEditor && !getSelection().isEmpty()) {
-			selectPictogramElements(((IStructuredSelection)getSelection()).toArray());
+		if(linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
+			// Select TreeItems on editor
+			selectEditorPictogramElements();
 		}
 	};
-
-	private List<TreePath> findAndSelectTreeElements(final Object ob, final PictogramElement selectedPe) {
-		final ArrayList<TreePath> treeElements = new ArrayList<>();
-		final ITreeContentProvider treeContentProvider = (ITreeContentProvider)getTreeViewer().getContentProvider();
-
-		if(treeContentProvider.hasChildren(ob)) {
-			for(final Object childOb : treeContentProvider.getChildren(ob)) {
-				treeElements.addAll(findAndSelectTreeElements(childOb, selectedPe));
-			}
-		}
-
-		if(ob == selectedPe) {
-			treeElements.add(new TreePath(new Object[] { ob } ));
-		}
-
-		return treeElements;
-	}
 
 	/**
 	 * Get DirectEditingContext
@@ -421,6 +391,16 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 		return null;
 	}
+	
+	private final Action linkWithEditorAction = new Action("Link With Editor", SWT.TOGGLE) {
+		@Override
+		public void run() {
+			// Select elements in editor if TreeItems are selected
+			if(linkWithEditorAction.isChecked() && !getSelection().isEmpty()) {
+				selectEditorPictogramElements();
+			}
+		}
+	};
 
 	// Rename Dialog
 	private static class RenameDialog extends InputDialog {
