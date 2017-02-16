@@ -100,7 +100,6 @@ import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
 import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
 import org.osate.ge.internal.features.LayoutDiagramFeature;
-import org.osate.ge.internal.features.SelectAncestorFeature;
 import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerAddFeature;
@@ -112,11 +111,11 @@ import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
+import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
-import org.osate.ge.internal.features.SetFeatureClassifierFeature;
 import org.osate.ge.internal.features.SetInitialModeFeature;
 import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
 import org.osate.ge.internal.patterns.AgeConnectionPattern;
@@ -324,7 +323,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		features.add(createSetDerivedModesFeature(true));
 		features.add(createSetDerivedModesFeature(false));
 		features.add(make(SetModeTransitionTriggersFeature.class));		
-		features.add(make(SetFeatureClassifierFeature.class));
+	//	features.add(make(SetFeatureClassifierFeature.class));
 		features.add(make(SetDimensionsFeature.class));
 		
 		for(final EClass featureType : AadlFeatureUtil.getFeatureTypes()) {
@@ -381,7 +380,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		
 		// Commands
 		for(final Object cmd : extService.getCommands()) {
-			features.add(new CommandCustomFeature(cmd, extService, bor, this)); 		
+			features.add(new CommandCustomFeature(cmd, extService, bor, aadlModService, propertyService, connectionService, this)); 		
 		}
 	}
 	

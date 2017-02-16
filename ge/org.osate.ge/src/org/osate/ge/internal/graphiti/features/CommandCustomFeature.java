@@ -21,9 +21,13 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.graphiti.features;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Method;
+import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
@@ -35,8 +39,16 @@ import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
+import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
+import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.PropertyService;
+import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 /**
  * Custom feature for wrapping AADL Graphical Editor commands registered with the command service as a graphiti custom feature.
@@ -46,33 +58,114 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	private final Object cmd;
 	private final ExtensionService extService;
 	private final BusinessObjectResolutionService bor;
+	private final AadlModificationService aadlModificationService;
+	private final PropertyService propertyService;
+	private final ConnectionService connectionService;
+	private final boolean modifiesBusinessObjects;
+	private boolean hasMadeChanges = false;
 	
-	public CommandCustomFeature(final Object cmd, final ExtensionService extService, final BusinessObjectResolutionService bor, final IFeatureProvider fp) {
+	public CommandCustomFeature(final Object cmd, 
+			final ExtensionService extService,
+			final BusinessObjectResolutionService bor, 
+			final AadlModificationService aadlModificationService,
+			final PropertyService propertyService,
+			final ConnectionService connectionService,
+			final IFeatureProvider fp) {
 		super(fp);
-		this.cmd = cmd;
-		this.bor = bor;
-		this.extService = extService;
+		this.extService = Objects.requireNonNull(extService, "extService must not be null");
+		this.cmd = Objects.requireNonNull(cmd, "cmd must not be null");
+		this.bor = Objects.requireNonNull(bor, "bor must not be null");
+		this.aadlModificationService = Objects.requireNonNull(aadlModificationService, "aadlModificationService must not be null");
+		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
+		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
+		this.modifiesBusinessObjects = cmd.getClass().getAnnotation(ModifiesBusinessObjects.class) != null;
 	}
 
 	@Override
     public String getName() {
-		return (String)invokeAndDisposeContext(cmd, GetLabel.class, createEclipseContext(null));
+		final IEclipseContext eclipseContext = extService.createChildContext();
+		try {
+			return (String)ContextInjectionFactory.invoke(cmd, GetLabel.class, eclipseContext);
+		} finally {
+			eclipseContext.dispose();
+		}
 	}
-	
+		
 	@Override
 	public boolean isAvailable(final IContext context) {
+		// Return true if the command doesn't have a method with the annotation
+		if(!hasMethodWithAnnotation(IsAvailable.class)) {
+			return true;
+		}
+
 		final ICustomContext customCtx = (ICustomContext)context;
-		return (Boolean)invokeAndDisposeContext(cmd, IsAvailable.class, createEclipseContext(customCtx), Boolean.TRUE);
+		final IEclipseContext eclipseContext = extService.createChildContext();
+		try {
+			final Object[] bos = getBusinessObjects(customCtx.getPictogramElements());
+			if(bos == null) {
+				return false;
+			}
+			
+			final DiagramElementProxy[] diagramElements = getDiagramElements(customCtx.getPictogramElements());
+			if(diagramElements == null) {
+				return false;
+			}
+			
+			populateEclipseContext(eclipseContext, diagramElements, bos);
+			return (Boolean)ContextInjectionFactory.invoke(cmd, IsAvailable.class, eclipseContext, Boolean.FALSE);
+		} finally {
+			eclipseContext.dispose();
+		}
 	}
 	
 	@Override
     public boolean canExecute(final ICustomContext context) {
-		return (Boolean)invokeAndDisposeContext(cmd, CanActivate.class, createEclipseContext(context), Boolean.TRUE);
+		// Return true if the command doesn't have a method with the annotation
+		if(!hasMethodWithAnnotation(CanActivate.class)) {
+			return true;
+		}
+		
+		if(modifiesBusinessObjects) {
+			final Object[] businessObjects = getBusinessObjects(context.getPictogramElements());
+			if(businessObjects.length != 1 || !(businessObjects[0] instanceof EObject)) {
+				return false;
+			}			
+		}
+
+		final IEclipseContext eclipseContext = extService.createChildContext();
+		try {
+			populateEclipseContext(eclipseContext, getDiagramElements(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
+			return (Boolean)ContextInjectionFactory.invoke(cmd, CanActivate.class, eclipseContext, Boolean.FALSE);
+		} finally {
+			eclipseContext.dispose();
+		}
 	}
 	
 	@Override
 	public void execute(final ICustomContext context) {
-		invokeAndDisposeContext(cmd, Activate.class, createEclipseContext(context));
+		final Object[] businessObjects = getBusinessObjects(context.getPictogramElements());
+		if(modifiesBusinessObjects) {
+			final EObject bo = (EObject)businessObjects[0];
+			aadlModificationService.modify(bo, new AbstractModifier<EObject, Object>() {
+				@Override
+				public Object modify(final Resource resource, final EObject bo) {
+					hasMadeChanges = activate(getDiagramElements(context.getPictogramElements()), new Object[] { bo });
+					return null;
+				}				
+			});
+		} else {		
+			hasMadeChanges = activate(getDiagramElements(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
+		}
+	}
+	
+	private boolean activate(final DiagramElementProxy[] diagramElements, final Object[] businessObjects) {
+		final IEclipseContext eclipseContext = extService.createChildContext();
+		try {
+			populateEclipseContext(eclipseContext, diagramElements, businessObjects);
+			return (Boolean)ContextInjectionFactory.invoke(cmd, Activate.class, eclipseContext, modifiesBusinessObjects);
+		} finally {
+			eclipseContext.dispose();
+		}
 	}
 	
 	@Override
@@ -82,17 +175,42 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	
 	@Override
 	public boolean hasDoneChanges() {
-		return (Boolean)invokeAndDisposeContext(cmd, HasDoneChanges.class, createEclipseContext(null), Boolean.TRUE);
+		final IEclipseContext eclipseContext = extService.createChildContext();
+		try {
+			return (Boolean)ContextInjectionFactory.invoke(cmd, HasDoneChanges.class, eclipseContext, hasMadeChanges);
+		} finally {
+			eclipseContext.dispose();
+		}
 	}
 	
-	private IEclipseContext createEclipseContext(final ICustomContext ctx) {
-		final IEclipseContext context = extService.createChildContext();
-
-		if(ctx != null) {
-			context.set(Names.BUSINESS_OBJECTS, getBusinessObjects(ctx.getPictogramElements()));
+	private void populateEclipseContext(final IEclipseContext context, final DiagramElementProxy[] diagramElements, final Object[] businessObjects) {
+		// Diagram Elements
+		if(diagramElements.length == 1) {
+			context.set(InternalNames.DIAGRAM_ELEMENT_PROXY, diagramElements[0]);	
+		}
+		context.set(InternalNames.DIAGRAM_ELEMENT_PROXIES, diagramElements);
+		
+		// Business Objects
+		if(businessObjects.length == 1) {
+			context.set(Names.BUSINESS_OBJECT, businessObjects[0]);	
+		}
+		context.set(Names.BUSINESS_OBJECTS, businessObjects);
+	}
+	
+	private DiagramElementProxy[] getDiagramElements(final PictogramElement[] pes) {
+		final DiagramElementProxy[] diagramElements = new DiagramElementProxy[pes.length];
+		for(int i = 0; i < pes.length; i++) {
+			final PictogramElement pe = AgeFeatureUtil.getLogicalPictogramElement(pes[i], propertyService, connectionService);
+			
+			// Return null if we are unable to get the logical pictogram element for any passed in pictogram element
+			if(pe == null) {
+				return null;
+			}
+			
+			diagramElements[i] = new PictogramElementProxy(pe);
 		}
 		
-		return context;
+		return diagramElements;
 	}
 	
 	private Object[] getBusinessObjects(final PictogramElement[] pes) {
@@ -103,24 +221,22 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		final Object[] bos = new Object[pes.length];
 		for(int i = 0; i < pes.length; i++) {
 			bos[i] = bor.getBusinessObjectForPictogramElement(pes[i]);
+			
+			if(bos[i] == null) {
+				return null;
+			}
 		}
 		
 		return bos;		
 	}
 	
-	private static Object invokeAndDisposeContext(final Object object, final Class<? extends Annotation> qualifier, final IEclipseContext context, final Object defaultValue) {
-		try {
-			return ContextInjectionFactory.invoke(object, qualifier, context, defaultValue);
-		} finally {
-			context.dispose();
+	private boolean hasMethodWithAnnotation(final Class<? extends Annotation> annotationClass) {
+		for(final Method m : cmd.getClass().getMethods()) {
+			if(m.isAnnotationPresent(annotationClass)) {
+				return true;
+			}
 		}
-	}
-	
-	private static Object invokeAndDisposeContext(final Object object, final Class<? extends Annotation> qualifier, final IEclipseContext context) {
-		try {
-			return ContextInjectionFactory.invoke(object, qualifier, context);
-		} finally {
-			context.dispose();
-		}
+		
+		return false;
 	}
 }

@@ -161,6 +161,7 @@ public class ConfigureInModesFeature extends AbstractCustomFeature {
 		} else {
 			throw new RuntimeException("Unsupported type: " + me.getClass());
 		}
+		
 		//Sort mode and transition names for dialog menu
 		final List<String> localModeFeatureNames = new ArrayList<String>();
 		final List<String> localModeTransitionFeatureNames = new ArrayList<String>();

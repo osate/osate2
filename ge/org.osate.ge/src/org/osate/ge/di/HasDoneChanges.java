@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
 
 /**
  * <p>
+ * <b>This annotation is deprecated. It will be removed in a future version.</b>
  * This annotation must not be applied to more than one method per class.
  * </p>
  * <h1>Usages</h1>

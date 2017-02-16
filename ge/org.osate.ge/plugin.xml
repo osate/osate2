@@ -808,4 +808,10 @@
              class="org.osate.ge.internal.businessObjectHandlers.ConnectionHandler">
        </handler>
     </extension>
+    <extension
+          point="org.osate.ge.commands">
+       <command
+             class="org.osate.ge.internal.commands.SetFeatureClassifierCommand">
+       </command>
+    </extension>
 </plugin>
