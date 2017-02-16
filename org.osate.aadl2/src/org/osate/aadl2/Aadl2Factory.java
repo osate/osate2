@@ -324,15 +324,6 @@ public interface Aadl2Factory extends EFactory {
 	SubprogramGroupAccess createSubprogramGroupAccess();
 
 	/**
-	 * Returns a new object of class '<em>Abstract Feature</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Abstract Feature</em>'.
-	 * @generated
-	 */
-	AbstractFeature createAbstractFeature();
-
-	/**
 	 * Returns a new object of class '<em>Mode Binding</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1087,15 +1078,6 @@ public interface Aadl2Factory extends EFactory {
 	 * @generated
 	 */
 	ComponentPrototypeActual createComponentPrototypeActual();
-
-	/**
-	 * Returns a new object of class '<em>Feature Group Prototype</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Feature Group Prototype</em>'.
-	 * @generated
-	 */
-	FeatureGroupPrototype createFeatureGroupPrototype();
 
 	/**
 	 * Returns a new object of class '<em>Feature Group Prototype Binding</em>'.

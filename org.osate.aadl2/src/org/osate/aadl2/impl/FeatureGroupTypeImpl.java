@@ -833,18 +833,6 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * @generated
 	 */
 	@Override
-	public AbstractFeature createOwnedAbstractFeature() {
-		AbstractFeature newOwnedAbstractFeature = (AbstractFeature) create(Aadl2Package.eINSTANCE.getAbstractFeature());
-		getOwnedAbstractFeatures().add(newOwnedAbstractFeature);
-		return newOwnedAbstractFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.FEATURE_GROUP_TYPE__OWNED_EXTENSION:
