@@ -196,7 +196,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		final Collection<Object> commands = instantiateSimpleExtensions(registry, COMMAND_EXTENSION_POINT_ID, "command");
 		
 		// Activate command contributors to create commands
-		final IEclipseContext ctx = EclipseContextFactory.create();;
+		final IEclipseContext ctx = EclipseContextFactory.create();
 		try {
 			for(final Object commandContributor : instantiateSimpleExtensions(registry, COMMAND_EXTENSION_POINT_ID, "commandContributor")) {
 				@SuppressWarnings("unchecked")
