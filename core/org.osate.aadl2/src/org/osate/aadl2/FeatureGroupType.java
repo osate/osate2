@@ -550,16 +550,6 @@ public interface FeatureGroupType extends Classifier, FeatureType {
 	EList<AbstractFeature> getOwnedAbstractFeatures();
 
 	/**
-	 * Creates a new {@link org.osate.aadl2.AbstractFeature} and appends it to the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return The new {@link org.osate.aadl2.AbstractFeature}.
-	 * @see #getOwnedAbstractFeatures()
-	 * @generated
-	 */
-	AbstractFeature createOwnedAbstractFeature();
-
-	/**
 	 * returns true of this feature group type is the inverse of the feature group type pgt
 	 * @param pgt FeatureGroupType the feature group type to compare to
 	 * @return boolean true if they are inverse of each other

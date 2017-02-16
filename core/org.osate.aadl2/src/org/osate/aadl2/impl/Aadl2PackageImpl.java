@@ -11300,7 +11300,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(subprogramGroupSubcomponentTypeEClass, SubprogramGroupSubcomponentType.class,
 				"SubprogramGroupSubcomponentType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", !IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractFeature_FeaturePrototype(), getFeaturePrototype(), null, "featurePrototype", null, 0,
 				1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
@@ -11323,7 +11323,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 
-		initEClass(featureGroupPrototypeEClass, FeatureGroupPrototype.class, "FeatureGroupPrototype", !IS_ABSTRACT,
+		initEClass(featureGroupPrototypeEClass, FeatureGroupPrototype.class, "FeatureGroupPrototype", IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureGroupPrototype_ConstrainingFeatureGroupType(), getFeatureGroupType(), null,
 				"constrainingFeatureGroupType", null, 0, 1, FeatureGroupPrototype.class, !IS_TRANSIENT, !IS_VOLATILE,
@@ -12660,7 +12660,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(classifierTypeEClass, ClassifierType.class, "ClassifierType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getClassifierType_ClassifierReference(), getMetaclassReference(), null, "classifierReference",
-				null, 1, -1, ClassifierType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				null, 0, -1, ClassifierType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(rangeTypeEClass, RangeType.class, "RangeType", !IS_ABSTRACT, !IS_INTERFACE,
@@ -12687,7 +12687,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(referenceTypeEClass, ReferenceType.class, "ReferenceType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReferenceType_NamedElementReference(), getMetaclassReference(), null, "namedElementReference",
-				null, 1, -1, ReferenceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				null, 0, -1, ReferenceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(listTypeEClass, ListType.class, "ListType", !IS_ABSTRACT, !IS_INTERFACE,

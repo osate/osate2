@@ -187,14 +187,8 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
 			notifySubprogramGroupAccessChanged(notification, eClass);
 			break;
-		case Aadl2Package.ABSTRACT_FEATURE:
-			notifyAbstractFeatureChanged(notification, eClass);
-			break;
 		case Aadl2Package.FEATURE_PROTOTYPE:
 			notifyFeaturePrototypeChanged(notification, eClass);
-			break;
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
-			notifyFeatureGroupPrototypeChanged(notification, eClass);
 			break;
 		case Aadl2Package.MODE_BINDING:
 			notifyModeBindingChanged(notification, eClass);
@@ -1315,59 +1309,12 @@ public class Aadl2DerivedUnionAdapter extends AdapterImpl {
 	 * @param eClass the Ecore class of the notifier.
 	 * @generated
 	 */
-	protected void notifyAbstractFeatureChanged(Notification notification, EClass eClass) {
-		switch (notification.getFeatureID(AbstractFeature.class)) {
-		case Aadl2Package.ABSTRACT_FEATURE__OWNED_COMMENT:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
-			break;
-		case Aadl2Package.ABSTRACT_FEATURE__PROTOTYPE:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getFeature_FeatureClassifier());
-			break;
-		case Aadl2Package.ABSTRACT_FEATURE__REFINED:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement());
-			break;
-		case Aadl2Package.ABSTRACT_FEATURE__CLASSIFIER:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getFeature_FeatureClassifier());
-			break;
-		case Aadl2Package.ABSTRACT_FEATURE__ABSTRACT_FEATURE_CLASSIFIER:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getFeature_FeatureClassifier());
-			break;
-		}
-	}
-
-	/**
-	 * Calls <code>notifyChanged</code> for each affected derived union.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param notification a description of the change.
-	 * @param eClass the Ecore class of the notifier.
-	 * @generated
-	 */
 	protected void notifyFeaturePrototypeChanged(Notification notification, EClass eClass) {
 		switch (notification.getFeatureID(FeaturePrototype.class)) {
 		case Aadl2Package.FEATURE_PROTOTYPE__OWNED_COMMENT:
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
 			break;
 		case Aadl2Package.FEATURE_PROTOTYPE__REFINED:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement());
-			break;
-		}
-	}
-
-	/**
-	 * Calls <code>notifyChanged</code> for each affected derived union.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @param notification a description of the change.
-	 * @param eClass the Ecore class of the notifier.
-	 * @generated
-	 */
-	protected void notifyFeatureGroupPrototypeChanged(Notification notification, EClass eClass) {
-		switch (notification.getFeatureID(FeatureGroupPrototype.class)) {
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE__OWNED_COMMENT:
-			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getElement_OwnedElement());
-			break;
-		case Aadl2Package.FEATURE_GROUP_PROTOTYPE__REFINED:
 			notifyChanged(notification, eClass, Aadl2Package.eINSTANCE.getRefinableElement_RefinedElement());
 			break;
 		}

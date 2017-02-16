@@ -558,18 +558,6 @@ public abstract class ComponentTypeImpl extends ComponentClassifierImpl implemen
 	 * @generated
 	 */
 	@Override
-	public AbstractFeature createOwnedAbstractFeature() {
-		AbstractFeature newOwnedAbstractFeature = (AbstractFeature) create(Aadl2Package.eINSTANCE.getAbstractFeature());
-		getOwnedAbstractFeatures().add(newOwnedAbstractFeature);
-		return newOwnedAbstractFeature;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
 		case Aadl2Package.COMPONENT_TYPE__OWNED_FLOW_SPECIFICATION:
