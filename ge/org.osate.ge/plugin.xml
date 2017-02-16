@@ -813,5 +813,8 @@
        <command
              class="org.osate.ge.internal.commands.SetFeatureClassifierCommand">
        </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetInitialModeCommandContributor">
+       </commandContributor>
     </extension>
 </plugin>

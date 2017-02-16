@@ -46,6 +46,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.Categories;
+import org.osate.ge.di.Activate;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -148,11 +149,11 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
-		return instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool");
+		return Collections.unmodifiableCollection(instantiateSimpleExtensions(registry, TOOL_EXTENSION_POINT_ID, "tool"));
 	}
 	
 	private static Collection<Object> instantiateBusinessObjectHandlers(final IExtensionRegistry registry) {
-		return instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler");
+		return Collections.unmodifiableCollection(instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler"));
 	}
 
 	private static Collection<Object> instantiateTooltipContributors(final IExtensionRegistry registry) {
@@ -192,7 +193,23 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static Collection<Object> instantiateCommands(final IExtensionRegistry registry) {
-		return instantiateSimpleExtensions(registry, COMMAND_EXTENSION_POINT_ID, "command");
+		final Collection<Object> commands = instantiateSimpleExtensions(registry, COMMAND_EXTENSION_POINT_ID, "command");
+		
+		// Activate command contributors to create commands
+		final IEclipseContext ctx = EclipseContextFactory.create();;
+		try {
+			for(final Object commandContributor : instantiateSimpleExtensions(registry, COMMAND_EXTENSION_POINT_ID, "commandContributor")) {
+				@SuppressWarnings("unchecked")
+				final Collection<Object> contributedCommands = (Collection<Object>)ContextInjectionFactory.invoke(commandContributor, Activate.class, ctx);
+				if(contributedCommands != null) {
+					commands.addAll(contributedCommands);
+				}
+			}
+		} finally {
+			ctx.dispose();
+		}		
+		
+		return Collections.unmodifiableCollection(commands);
 	}
 	
 	// Returns an unmodifiable collection containing the objects created by instantiating class referenced by the "class" attribute of all configuration elements
@@ -217,7 +234,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 			}
 		}
 		
-		return Collections.unmodifiableCollection(extensions);
+		return extensions;
 	}
 	
 	// Returns an unmodifiable collection containing the objects created by the id and name attribute of all configuration elements

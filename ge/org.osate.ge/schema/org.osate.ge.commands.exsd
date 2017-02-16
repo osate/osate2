@@ -19,6 +19,7 @@
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
             <element ref="command"/>
+            <element ref="commandContributor"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -48,6 +49,21 @@
    </element>
 
    <element name="command">
+      <complexType>
+         <attribute name="class" type="string">
+            <annotation>
+               <documentation>
+                  
+               </documentation>
+               <appinfo>
+                  <meta.attribute kind="java"/>
+               </appinfo>
+            </annotation>
+         </attribute>
+      </complexType>
+   </element>
+
+   <element name="commandContributor">
       <complexType>
          <attribute name="class" type="string">
             <annotation>
