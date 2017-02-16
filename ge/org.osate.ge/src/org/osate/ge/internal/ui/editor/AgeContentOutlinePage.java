@@ -36,7 +36,6 @@ import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -206,7 +205,9 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		menuMgr.addMenuListener(new IMenuListener() {
 			@Override
 			public void menuAboutToShow(final IMenuManager contextMenu) {
-				final ICustomContext context = new CustomContext(editor.getSelectedPictogramElements());
+				final Object[] ss = ((IStructuredSelection)getSelection()).toArray();
+				final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
+				final ICustomContext context = new CustomContext(treePes);
 				final ICustomFeature[] customFeatures = diagramTypeProvider.getFeatureProvider().getCustomFeatures(context);				
 
 				// Renaming
@@ -238,7 +239,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 					final DeleteContext deleteContext = new DeleteContext(pe);
 					final IDeleteFeature deleteFeature = diagramTypeProvider.getFeatureProvider().getDeleteFeature(deleteContext);
 
-					deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, editor.getSelectedPictogramElements().length));
+					if(context.getPictogramElements().length > 1) {
+						deleteContext.setMultiDeleteInfo(new MultiDeleteInfo(false, false, context.getPictogramElements().length));
+					}
+					
 					if(!deleteFeature.canDelete(deleteContext)) {
 						deleteContextToFeatureMap.clear();
 						break;
@@ -249,14 +253,18 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 				if(!deleteContextToFeatureMap.isEmpty()) {
 					final Map.Entry<DeleteContext, IDeleteFeature> firstEntry = deleteContextToFeatureMap.entrySet().iterator().next();
-					firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
-					contextMenu.add(new Action(firstEntry.getValue().getName()) {
+
+					if(firstEntry.getKey().getMultiDeleteInfo() != null) {
+						firstEntry.getKey().getMultiDeleteInfo().setShowDialog(true);
+					}
+					
+					contextMenu.add(new Action("Delete") {
 						@Override
 						public void run() {
 							for(final DeleteContext deleteContext : deleteContextToFeatureMap.keySet()) {
 								final IDeleteFeature deleteFeature = deleteContextToFeatureMap.get(deleteContext);
 								editor.getDiagramBehavior().executeFeature(deleteFeature, deleteContext);
-								if(deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
+								if(deleteContext.getMultiDeleteInfo() != null && deleteContext.getMultiDeleteInfo().isDeleteCanceled()) {
 									break;
 								}
 							}
@@ -299,7 +307,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				}
 			}
 
-			private ISelection getTreeSelection() {
+			private TreeSelection getTreeSelection() {
 				final ArrayList<TreePath> treePathList = new ArrayList<>();
 				final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
 				for(final PictogramElement selectedPe : selectedPes) {
