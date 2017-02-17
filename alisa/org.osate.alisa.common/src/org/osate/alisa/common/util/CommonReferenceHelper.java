@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -126,7 +127,7 @@ public class CommonReferenceHelper {
 				.map(uri -> resourceSet.getEObject(uri, true));
 		@SuppressWarnings("unchecked")
 		Stream<T> srss = (Stream<T>) eobjs.filter(it -> clazz.isAssignableFrom(it.getClass()));
-		return srss::iterator;
+		return srss.collect(Collectors.toList());
 	}
 
 	public static class ReferenceDescriptionAcceptor implements IReferenceFinder.Acceptor {
