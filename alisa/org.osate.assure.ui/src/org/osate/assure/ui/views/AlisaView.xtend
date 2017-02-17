@@ -340,12 +340,12 @@ class AlisaView extends ViewPart {
 					if (eObject instanceof AssuranceCase) {
 						add(new Action("Verify All") {
 							override run() {
-								verifyAll(eObject as AssuranceCase, uri)
+								verifyAll(eObject, uri)
 							}
 						})
 						add(new Action("Verify TBD") {
 							override run() {
-								verifyTBD(eObject as AssuranceCase, uri)
+								verifyTBD(eObject, uri)
 							}
 						})
 					}
@@ -616,6 +616,7 @@ class AlisaView extends ViewPart {
 	}
 	
 	def private verifyCommon(AssuranceCase assuranceCase, URI assuranceCaseURI, (ResourceSet)=>Pair<IProject, AssuranceCaseResult> getProjectAndResult) {
+		val aadlProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCase.system.URI.toPlatformString(true))).project
 		val dirtyEditors = viewSite.page.dirtyEditors
 		if (!dirtyEditors.empty && MessageDialog.openConfirm(viewSite.shell, "Save editors", "Save editors and continue?")) {
 			val monitor = new NullProgressMonitor
@@ -658,7 +659,6 @@ class AlisaView extends ViewPart {
 				}
 			}
 		}
-		val aadlProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCase.system.URI.toPlatformString(true))).project
 		job.rule = new MultiRule(#[assureProject, aadlProject])
 		job.schedule
 	}
