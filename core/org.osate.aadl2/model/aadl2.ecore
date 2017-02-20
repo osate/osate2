@@ -1550,7 +1550,7 @@
       <details key="documentation" value="&lt;p>From package AADLDetails::Components::SubprogramGroup.&lt;/p>"/>
     </eAnnotations>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" abstract="true" eSuperTypes="#//DirectedFeature #//TriggerPort">
+  <eClassifiers xsi:type="ecore:EClass" name="AbstractFeature" eSuperTypes="#//DirectedFeature #//TriggerPort">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLConstructs::Features.&lt;/p>"/>
     </eAnnotations>
@@ -1598,8 +1598,7 @@
       </eAnnotations>
     </eStructuralFeatures>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" abstract="true"
-      eSuperTypes="#//Prototype #//FeatureType">
+  <eClassifiers xsi:type="ecore:EClass" name="FeatureGroupPrototype" eSuperTypes="#//Prototype #//FeatureType">
     <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
       <details key="documentation" value="&lt;p>From package AADLConstructs::Templates.&lt;/p>"/>
     </eAnnotations>

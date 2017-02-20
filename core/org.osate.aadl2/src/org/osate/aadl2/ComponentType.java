@@ -299,6 +299,16 @@ public interface ComponentType extends ComponentClassifier {
 	EList<AbstractFeature> getOwnedAbstractFeatures();
 
 	/**
+	 * Creates a new {@link org.osate.aadl2.AbstractFeature} and appends it to the '<em><b>Owned Abstract Feature</b></em>' containment reference list.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.AbstractFeature}.
+	 * @see #getOwnedAbstractFeatures()
+	 * @generated
+	 */
+	AbstractFeature createOwnedAbstractFeature();
+
+	/**
 	 * get list of all flow specs of a component type, including ancestor
 	 * features In case of refined flow specs the refined flow spec is returned
 	 * in the list.

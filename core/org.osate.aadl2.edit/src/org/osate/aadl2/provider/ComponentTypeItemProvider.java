@@ -220,6 +220,9 @@ public class ComponentTypeItemProvider extends ComponentClassifierItemProvider {
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedFeatureGroup(),
 				Aadl2Factory.eINSTANCE.createFeatureGroup()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getComponentType_OwnedAbstractFeature(),
+				Aadl2Factory.eINSTANCE.createAbstractFeature()));
 	}
 
 }

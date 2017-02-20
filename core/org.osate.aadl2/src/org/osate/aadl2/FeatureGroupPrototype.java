@@ -53,7 +53,7 @@ package org.osate.aadl2;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getFeatureGroupPrototype()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface FeatureGroupPrototype extends Prototype, FeatureType {

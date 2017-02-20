@@ -11300,7 +11300,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(subprogramGroupSubcomponentTypeEClass, SubprogramGroupSubcomponentType.class,
 				"SubprogramGroupSubcomponentType", IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 
-		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", IS_ABSTRACT, !IS_INTERFACE,
+		initEClass(abstractFeatureEClass, AbstractFeature.class, "AbstractFeature", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getAbstractFeature_FeaturePrototype(), getFeaturePrototype(), null, "featurePrototype", null, 0,
 				1, AbstractFeature.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
@@ -11323,7 +11323,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED,
 				!IS_ORDERED);
 
-		initEClass(featureGroupPrototypeEClass, FeatureGroupPrototype.class, "FeatureGroupPrototype", IS_ABSTRACT,
+		initEClass(featureGroupPrototypeEClass, FeatureGroupPrototype.class, "FeatureGroupPrototype", !IS_ABSTRACT,
 				!IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getFeatureGroupPrototype_ConstrainingFeatureGroupType(), getFeatureGroupType(), null,
 				"constrainingFeatureGroupType", null, 0, 1, FeatureGroupPrototype.class, !IS_TRANSIENT, !IS_VOLATILE,
