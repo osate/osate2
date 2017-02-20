@@ -263,9 +263,6 @@ public class FeatureGroupTypeItemProvider extends ClassifierItemProvider {
 		newChildDescriptors
 				.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedSubprogramGroupAccess(),
 						Aadl2Factory.eINSTANCE.createSubprogramGroupAccess()));
-
-		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFeatureGroupType_OwnedAbstractFeature(),
-				Aadl2Factory.eINSTANCE.createAbstractFeature()));
 	}
 
 }

@@ -61,7 +61,7 @@ import org.osate.aadl2.FeaturePrototype;
  *
  * @generated
  */
-public class AbstractFeatureImpl extends DirectedFeatureImpl implements AbstractFeature {
+public abstract class AbstractFeatureImpl extends DirectedFeatureImpl implements AbstractFeature {
 	/**
 	 * The cached value of the '{@link #getFeaturePrototype() <em>Feature Prototype</em>}' reference.
 	 * <!-- begin-user-doc -->

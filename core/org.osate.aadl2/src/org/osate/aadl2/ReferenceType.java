@@ -72,7 +72,7 @@ public interface ReferenceType extends NonListType {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Named Element Reference</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getReferenceType_NamedElementReference()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MetaclassReference> getNamedElementReferences();

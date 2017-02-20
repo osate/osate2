@@ -58,7 +58,7 @@ import org.osate.aadl2.FeatureGroupType;
  *
  * @generated
  */
-public class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureGroupPrototype {
+public abstract class FeatureGroupPrototypeImpl extends PrototypeImpl implements FeatureGroupPrototype {
 	/**
 	 * The cached value of the '{@link #getConstrainingFeatureGroupType() <em>Constraining Feature Group Type</em>}' reference.
 	 * <!-- begin-user-doc -->
