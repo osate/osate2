@@ -75,7 +75,6 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
@@ -114,7 +113,6 @@ import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
 import org.osate.ge.internal.features.RefineFeatureFeature;
 import org.osate.ge.internal.features.RefineFlowSpecificationFeature;
-import org.osate.ge.internal.features.RenameFlowSpecificationFeature;
 import org.osate.ge.internal.features.SetAccessFeatureKindFeature;
 import org.osate.ge.internal.features.SetFeatureDirectionFeature;
 import org.osate.ge.internal.features.SetFeatureGroupInverseFeature;
@@ -360,12 +358,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	@Override
 	public IDirectEditingFeature getDirectEditingFeature(final IDirectEditingContext context) {
-		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
-		if(bo instanceof FlowSpecification) {
-			return make(RenameFlowSpecificationFeature.class);
-		} else {	
-			return defaultDirectEditFeature;
-		}
+		return defaultDirectEditFeature;
 	}
 	
 	@Override
