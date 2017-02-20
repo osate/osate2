@@ -571,7 +571,7 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Templates-A_componentPrototypeBinding_formal-binding-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupPrototype" name="FeatureGroupPrototype" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Templates-FeatureGroupPrototype" name="FeatureGroupPrototype">
         <ownedComment xmi:id="Templates-FeatureGroupPrototype-_ownedComment.0">
           <body>A prototype that can be bound to a feature group type.</body>
         </ownedComment>
@@ -1239,7 +1239,7 @@ For access features, the classifier specifies the type of the shared component.<
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="Features-A_groupExtension_extended-groupExtension-_upperValue" value="*"/>
         </ownedEnd>
       </packagedElement>
-      <packagedElement xmi:type="uml:Class" xmi:id="Features-AbstractFeature" name="AbstractFeature" isAbstract="true">
+      <packagedElement xmi:type="uml:Class" xmi:id="Features-AbstractFeature" name="AbstractFeature">
         <ownedComment xmi:id="Features-AbstractFeature-_ownedComment.0">
           <body>A generic feature.</body>
         </ownedComment>

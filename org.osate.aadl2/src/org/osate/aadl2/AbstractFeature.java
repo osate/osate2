@@ -54,7 +54,7 @@ package org.osate.aadl2;
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getAbstractFeature()
- * @model abstract="true"
+ * @model
  * @generated
  */
 public interface AbstractFeature extends DirectedFeature, TriggerPort {

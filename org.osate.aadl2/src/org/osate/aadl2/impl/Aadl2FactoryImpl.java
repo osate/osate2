@@ -145,8 +145,12 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 			return createSubprogramAccess();
 		case Aadl2Package.SUBPROGRAM_GROUP_ACCESS:
 			return createSubprogramGroupAccess();
+		case Aadl2Package.ABSTRACT_FEATURE:
+			return createAbstractFeature();
 		case Aadl2Package.FEATURE_PROTOTYPE:
 			return createFeaturePrototype();
+		case Aadl2Package.FEATURE_GROUP_PROTOTYPE:
+			return createFeatureGroupPrototype();
 		case Aadl2Package.MODE_BINDING:
 			return createModeBinding();
 		case Aadl2Package.FLOW_IMPLEMENTATION:
@@ -794,6 +798,17 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public SubprogramGroupAccess createSubprogramGroupAccess() {
 		SubprogramGroupAccessImpl subprogramGroupAccess = new SubprogramGroupAccessImpl();
 		return subprogramGroupAccess;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public AbstractFeature createAbstractFeature() {
+		AbstractFeatureImpl abstractFeature = new AbstractFeatureImpl();
+		return abstractFeature;
 	}
 
 	/**
@@ -1768,6 +1783,17 @@ public class Aadl2FactoryImpl extends EFactoryImpl implements Aadl2Factory {
 	public FeaturePrototype createFeaturePrototype() {
 		FeaturePrototypeImpl featurePrototype = new FeaturePrototypeImpl();
 		return featurePrototype;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public FeatureGroupPrototype createFeatureGroupPrototype() {
+		FeatureGroupPrototypeImpl featureGroupPrototype = new FeatureGroupPrototypeImpl();
+		return featureGroupPrototype;
 	}
 
 	/**
