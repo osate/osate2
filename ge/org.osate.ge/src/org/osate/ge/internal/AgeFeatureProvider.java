@@ -49,14 +49,12 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
-import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
 import org.eclipse.graphiti.features.IUpdateFeature;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.IAddContext;
-import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
@@ -64,31 +62,19 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
-import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
-import org.eclipse.graphiti.features.context.impl.CreateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
-import org.eclipse.graphiti.func.IDelete;
-import org.eclipse.graphiti.func.IReconnection;
-import org.eclipse.graphiti.func.IUpdate;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
-import org.eclipse.graphiti.pattern.DefaultFeatureProviderWithPatterns;
-import org.eclipse.graphiti.pattern.IConnectionPattern;
-import org.eclipse.graphiti.pattern.ReconnectionFeatureForPattern;
-import org.eclipse.graphiti.pattern.UpdateFeatureForPattern;
-import org.eclipse.graphiti.ui.features.DefaultDeleteFeature;
+import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
@@ -118,8 +104,6 @@ import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
 import org.osate.ge.internal.features.SetInitialModeFeature;
 import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
-import org.osate.ge.internal.patterns.AgeConnectionPattern;
-import org.osate.ge.internal.patterns.FlowSpecificationPattern;
 import org.osate.ge.internal.features.EditFlowsFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallDownFeature;
 import org.osate.ge.internal.features.MoveSubprogramCallUpFeature;
@@ -128,7 +112,6 @@ import org.osate.ge.internal.features.RefineSubcomponentFeature;
 import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
 import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
 import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
-import org.osate.ge.internal.features.CreateSimpleFlowSpecificationFeature;
 import org.osate.ge.internal.features.RefineFeatureFeature;
 import org.osate.ge.internal.features.RefineFlowSpecificationFeature;
 import org.osate.ge.internal.features.RenameFlowSpecificationFeature;
@@ -157,7 +140,7 @@ import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
 
-public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
+public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private final boolean enableIndependenceProviderCaching = true;
 	private IEclipseContext eclipseContext;
 	private ConnectionService connectionService;
@@ -208,9 +191,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			setIndependenceSolver(nonCachingIndependenceProvider);
 		}
 		
-		// Add patterns
-		addConnectionPattern(make(FlowSpecificationPattern.class));
-		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
@@ -248,52 +228,8 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		return null;
 	}
 
-	// As of 2013-07-03 Graphiti doesn't support connection patterns handling deletes so check if the pattern implements IDeleteFeature and return a feature based on the pattern
-	@Override 
-	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
-		PictogramElement pictogramElement = context.getPictogramElement();
-		if(pictogramElement instanceof Connection) {
-			for(final IConnectionPattern conPattern : getConnectionPatterns()) {
-				if(conPattern instanceof IDelete) {
-					final IDelete deleter = (IDelete)conPattern;
-					if(deleter.canDelete(context)) {
-						// Create a new feature that wraps the connection pattern
-						final IDeleteFeature f = new DefaultDeleteFeature(this) {
-							@Override
-							public boolean canDelete(IDeleteContext context) {
-								return deleter.canDelete(context);
-							}
-
-							@Override
-							public void preDelete(IDeleteContext context) {
-								deleter.preDelete(context);
-							}
-
-							@Override
-							public void delete(IDeleteContext context) {
-								deleter.delete(context);
-							}
-
-							@Override
-							public void postDelete(IDeleteContext context) {
-								deleter.postDelete(context);
-							}
-						};
-						
-						// Check the Feature
-						if (checkFeatureAndContext(f, context)) {
-							return f;
-						}
-					}
-				}
-			}
-		}
-		
-		return super.getDeleteFeature(context);
-	}
-	
 	@Override
-	protected IDeleteFeature getDeleteFeatureAdditional(final IDeleteContext context) {
+	public IDeleteFeature getDeleteFeature(final IDeleteContext context) {
 		return defaultDeleteFeature;
 	}
 	
@@ -404,28 +340,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 	}
 	
-	@Override
-	public IUpdateFeature getUpdateFeature(IUpdateContext context) {	
-		PictogramElement pictogramElement = context.getPictogramElement();
-		
-		// TODO: Remove when all conncetion patterns are removed
-		// As of 2013-07-08 Graphiti doesn't support connection patterns handling updates so check if the pattern implements IUpdate and return a feature based on the pattern
-		if(pictogramElement instanceof Connection) {
-			for(final IConnectionPattern conPattern : getConnectionPatterns()) {
-				if(conPattern instanceof IUpdate) {
-					if(((IUpdate)conPattern).canUpdate(context)) {
-						final IUpdateFeature f = new UpdateFeatureForPattern(this, (IUpdate)conPattern);
-						if (checkFeatureAndContext(f, context)) {
-							return f;
-						}
-					}
-				}
-			}
-		}
- 
-		return super.getUpdateFeature(context);
-	}
-
 	// Helper methods to hide the fact that we are wrapping our AADL Elements to hide the fact they are EMF objects from Graphiti. See AadlElementWrapper
 	@Override
 	public PictogramElement getPictogramElementForBusinessObject(Object businessObject) {
@@ -445,7 +359,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 
 	@Override
-	protected IDirectEditingFeature getDirectEditingFeatureAdditional(final IDirectEditingContext context) {
+	public IDirectEditingFeature getDirectEditingFeature(final IDirectEditingContext context) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());			
 		if(bo instanceof FlowSpecification) {
 			return make(RenameFlowSpecificationFeature.class);
@@ -455,14 +369,10 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	@Override
-	protected ICreateFeature[] getCreateFeaturesAdditional() {			
-		final IContext ctx = new CreateContext();
+	public ICreateFeature[] getCreateFeatures() {		
 		final List<ICreateFeature> features = new ArrayList<>();
 		
-		if(getDiagramBusinessObject() != null) {
-			addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SOURCE), ctx);
-			addIfAvailable(features, createCreateSimpleFlowSpecificationFeature(FlowKind.SINK), ctx);
-			
+		if(getDiagramBusinessObject() != null) {			
 			final IEclipseContext childCtx = createGetPaletteEntriesContext();
 			try {
 				for(final Object boHandler : extService.getBusinessObjectHandlers()) {
@@ -485,17 +395,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 			
 	@Override
-	protected IAddFeature getAddFeatureAdditional(final IAddContext addCtx) {
+	public IAddFeature getAddFeature(final IAddContext addCtx) {
 		final Object boHandler = extService.getApplicableBusinessObjectHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
 		if(boHandler != null) {
 			return new BoHandlerAddFeature(extService, pictogramRefreshHelper, this, boHandler);
 		}
 
-		return super.getAddFeatureAdditional(addCtx);
+		return null;
 	}
 	
 	@Override
-	protected IUpdateFeature getUpdateFeatureAdditional(final IUpdateContext updateCtx) {
+	public IUpdateFeature getUpdateFeature(final IUpdateContext updateCtx) {
 		final PictogramElement pe = updateCtx.getPictogramElement(); 
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
 		if(bo == null) {
@@ -507,36 +417,13 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 			return new BoHandlerUpdateFeature(diagramService, bor, connectionService, pictogramRefreshHelper, this, boHandler);
 		}
 
-		return super.getUpdateFeatureAdditional(updateCtx);
+		return null;
 	}
-	
-	private void addIfAvailable(final List<ICreateFeature> features, final ICreateFeature feature, final IContext context) {
-		if(feature.isAvailable(context)) {
-			features.add(feature);
-		}
-	}
-	
-	/**
-	 * Override of getCreateConnectionFeatures() that allow connection patterns to be hidden by implementing isPaletteApplicable()
-	 * As of 2014-09-18 Graphiti's connection pattern interface does not contain such a mechanism.
-	 */
+		
 	@Override
 	public ICreateConnectionFeature[] getCreateConnectionFeatures() {
 		final List<ICreateConnectionFeature> retList = new ArrayList<ICreateConnectionFeature>();
-		if(getDiagramBusinessObject() != null) {
-			for (IConnectionPattern conPattern : getConnectionPatterns()) {
-				if(conPattern instanceof AgeConnectionPattern) {
-					if(((AgeConnectionPattern) conPattern).isPaletteApplicable()) {
-						retList.add(new CreateConnectionFeatureForPattern(this, conPattern));					
-					}
-				}
-			}
-			
-			final ICreateConnectionFeature[] a = getCreateConnectionFeaturesAdditional();
-			for (ICreateConnectionFeature element : a) {
-				retList.add(element);
-			}
-			
+		if(getDiagramBusinessObject() != null) {			
 			// Add extension create connection features		
 			final IEclipseContext childCtx = createGetPaletteEntriesContext();
 			try {
@@ -558,25 +445,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 		return retList.toArray(new ICreateConnectionFeature[0]);
 	}
-	
-	@Override
-	public IReconnectionFeature getReconnectionFeature(final IReconnectionContext context) {
-		for(final IConnectionPattern conPattern : getConnectionPatterns()) {
-			if(conPattern instanceof IReconnection) {
-				final IReconnection reconnection = (IReconnection)conPattern;
-				if(reconnection.canReconnect(context)) {
-					final ReconnectionFeatureForPattern f = new ReconnectionFeatureForPattern(this, reconnection);
-					if (checkFeatureAndContext(f, context)) {
-						return f;
-					}
-				}
-			}
-		}
 		
-		// Disable all other reconnection
-		return null;
-	 }
-	
 	// Specialized handling for manipulating bendpoints.
 	// Currently only allow editing when working with a limited subset of connections.
 	// This will disable manipulating connections associated with flow specifications and other model elements which are not persisted. 	
@@ -684,17 +553,6 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 		}
 	}
 	
-	private CreateSimpleFlowSpecificationFeature createCreateSimpleFlowSpecificationFeature(final FlowKind flowKind) 
-	{
-		final IEclipseContext childCtx = getContext().createChild();
-		try {			
-			childCtx.set("Kind", flowKind);
-			return ContextInjectionFactory.make(CreateSimpleFlowSpecificationFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
 	private IEclipseContext createGetPaletteEntriesContext() {
 		final Object diagramBo = getDiagramBusinessObject();
 		final IEclipseContext childCtx = extService.createChildContext();
@@ -717,17 +575,17 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 	}
 	
 	@Override
-	protected IMoveShapeFeature getMoveShapeFeatureAdditional(final IMoveShapeContext context) {
+	public IMoveShapeFeature getMoveShapeFeature(final IMoveShapeContext context) {
 		return defaultMoveShapeFeature;
 	}
 	
 	@Override
-	protected IResizeShapeFeature getResizeShapeFeatureAdditional(final IResizeShapeContext context) {
+	public IResizeShapeFeature getResizeShapeFeature(final IResizeShapeContext context) {
 		return defaultResizeShapeFeature;
 	}
 	
 	@Override
-	protected ILayoutFeature getLayoutFeatureAdditional(final ILayoutContext context) {
+	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		return defaultLayoutFeature;
 	}
 	
