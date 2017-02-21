@@ -837,53 +837,24 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 			if (propOwner instanceof MetaclassReference) {
 				MetaclassReference metaRef = (MetaclassReference) propOwner;
+				EClass appliesTo = metaRef.getMetaclass();
+				EClass thisClass = getComponentClassifier().eClass();
 
 				if (getCategory().equals(ComponentCategory.ABSTRACT)) {
 					return true;
 				}
-
 				if (metaRef.getMetaclassNames().size() > 0 && metaRef.getMetaclassNames().get(0).equals("all")) {
 					return true;
 				}
-
-				if (metaRef.getMetaclass() == null) {
+				if (appliesTo == null) {
 					return false;
 				}
-
-				String catLitteral = metaRef.getMetaclass().getName().toLowerCase();
-
-				/*
-				 * JD: fixes for bug #126
-				 * The following line has been added to fix bug #126
-				 * When getting the literal value of the category from the meta model,
-				 * we get the literal "virtualprocessor" or "virtualbus" because
-				 * it is splitted into two words. On the other hand, the ComponentCategory
-				 * class use a space between the two. For these reason, we
-				 * force the category litteral when finding virtualprocessor
-				 * or virtualbus.
-				 */
-				if (catLitteral.equals("virtualprocessor")) {
-					catLitteral = "virtual processor";
-				} else if (catLitteral.equals("virtualbus")) {
-					catLitteral = "virtual bus";
-				} else if (catLitteral.equals("subprogramgroup")) {
-					catLitteral = "subprogram group";
-				} else if (catLitteral.equals("threadgroup")) {
-					catLitteral = "thread group";
-				}
-
-				final ComponentCategory categ = ComponentCategory.get(catLitteral);
-
-				if (getCategory().equals(categ)) {
-					return true;
-				}
+				return appliesTo.isSuperTypeOf(thisClass);
 			}
 		}
-
 		final ComponentClassifier cc = getComponentClassifier();
 
 		return (cc == null) ? false : cc.checkAppliesToClassifier(property);
-
 	}
 
 	/**
