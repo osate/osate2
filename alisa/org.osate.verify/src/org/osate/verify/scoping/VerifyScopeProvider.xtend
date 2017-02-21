@@ -40,6 +40,7 @@ import org.osate.verify.verify.VerificationActivity
 
 import static org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static org.osate.verify.util.VerifyUtilExtension.*
+import org.eclipse.xtext.resource.EObjectDescription
 
 /**
  * This class contains custom scoping description.
@@ -90,11 +91,12 @@ class VerifyScopeProvider extends CommonScopeProvider {
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
 		if (foundlist.isEmpty)
 			return IScope.NULLSCOPE
-		val fcns = foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy, context) as FunctionDefinition].filter [ fd |
-			fd.body instanceof ClaimBody
+		val fcnsEODs = foundlist.map[f|val name = f.name.lastSegment
+			EObjectDescription.create(name, f.EObjectOrProxy)
 		]
-		return new SimpleScope(IScope.NULLSCOPE, Scopes::scopedElementsFor(fcns,
-			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+		return new SimpleScope(IScope.NULLSCOPE, 
+			fcnsEODs
+			, false)
 	}
 
 	def scope_VerificationActivity(EObject context, EReference reference) {
