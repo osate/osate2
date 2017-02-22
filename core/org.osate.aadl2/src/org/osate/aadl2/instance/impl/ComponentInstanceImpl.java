@@ -849,7 +849,9 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 				if (appliesTo == null) {
 					return false;
 				}
-				return appliesTo.isSuperTypeOf(thisClass);
+				if (appliesTo.isSuperTypeOf(thisClass)) {
+					return true;
+				}
 			}
 		}
 		final ComponentClassifier cc = getComponentClassifier();
