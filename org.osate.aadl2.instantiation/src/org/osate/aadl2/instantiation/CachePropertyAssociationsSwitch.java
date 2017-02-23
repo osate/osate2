@@ -77,7 +77,7 @@ import org.osate.aadl2.util.OsateDebug;
  * TODO: Add comment
  * @author lwrage
  */
-class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
+public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	/*
 	 * PropertyFilter contains all properties used in the model.
@@ -97,7 +97,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	final private SCProperties scProps;
 
-	CachePropertyAssociationsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
+	protected CachePropertyAssociationsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
 			final List<Property> filter, final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
 			final SCProperties scProps, final HashMap<ModeInstance, List<SystemOperationMode>> mode2som) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
