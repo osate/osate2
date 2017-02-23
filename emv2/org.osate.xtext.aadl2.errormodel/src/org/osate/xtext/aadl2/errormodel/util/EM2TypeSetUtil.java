@@ -80,7 +80,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(ErrorType supertype, ErrorType type) {
 		if (supertype == null || type == null) {
-			return false;
+			return true;
 		}
 		ErrorType resolvedtype = EMV2Util.resolveAlias(type);
 		ErrorType resolvedsupertype = EMV2Util.resolveAlias(supertype);
@@ -124,6 +124,9 @@ public class EM2TypeSetUtil {
 	}
 
 	public static boolean contains(ErrorTypes constraint, TypeSet type) {
+		if (constraint == null) {
+			return true;
+		}
 		if (constraint instanceof ErrorType) {
 			return contains((ErrorType) constraint, type);
 		}
@@ -216,7 +219,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(TypeToken constraint, ErrorType type) {
 		if (constraint == null || type == null) {
-			return false;
+			return true;
 		}
 		if (constraint.isNoError()) {
 			return false;
@@ -335,7 +338,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(TypeToken token, TypeSet ts) {
 		if (ts == null || token == null) {
-			return false;
+			return true;
 		}
 		ts = EMV2Util.resolveAlias(ts);
 		if (token.isNoError() && isNoError(ts)) {
@@ -366,7 +369,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(TypeSet ts, ErrorType et) {
 		if (ts == null || et == null) {
-			return false;
+			return true;
 		}
 		ts = EMV2Util.resolveAlias(ts);
 		for (TypeToken tselement : ts.getTypeTokens()) {
@@ -387,7 +390,7 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(TypeSet ts, TypeSet subts) {
 		if (ts == null || subts == null) {
-			return false;
+			return true;
 		}
 		ts = EMV2Util.resolveAlias(ts);
 		subts = EMV2Util.resolveAlias(subts);
