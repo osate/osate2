@@ -145,8 +145,8 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	private final AnalysisErrorReporterManager errManager;
-	private final IProgressMonitor monitor;
+	protected final AnalysisErrorReporterManager errManager;
+	protected final IProgressMonitor monitor;
 
 	/**
 	 * A classifier for an instance object when it is a prototype in the
@@ -158,11 +158,11 @@ public class InstantiateModel {
 	 */
 	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
-	private SCProperties scProps = new SCProperties();
+	protected SCProperties scProps = new SCProperties();
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
-	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+	protected HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
 	/*
 	 * An error message that is filled by potential methods that
@@ -465,6 +465,25 @@ public class InstantiateModel {
 //			return null;
 //		}
 
+		getUsedPropertyDefinitions(root);
+		// handle connection patterns
+		processConnections(root);
+
+//		OsateResourceManager.save(aadlResource);
+//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
+		// Run some checks over the model.
+//		final SOMIterator soms = new SOMIterator(root);
+//		while (soms.hasNext()) {
+//			final SystemOperationMode som = soms.nextSOM();
+//			monitor.subTask("Checking model semantics for mode " + som.getName());
+//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
+//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
+//			semanticsSwitch.processPostOrderAll(root);
+//		}
+		return;
+	}
+
+	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
 		/*
 		 * We now cache the property associations. First we cache the contained
 		 * property associations. In a second pass we cache regular property
@@ -487,21 +506,6 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
-		// handle connection patterns
-		processConnections(root);
-
-//		OsateResourceManager.save(aadlResource);
-//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
-		// Run some checks over the model.
-//		final SOMIterator soms = new SOMIterator(root);
-//		while (soms.hasNext()) {
-//			final SystemOperationMode som = soms.nextSOM();
-//			monitor.subTask("Checking model semantics for mode " + som.getName());
-//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
-//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
-//			semanticsSwitch.processPostOrderAll(root);
-//		}
-		return;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -1976,7 +1980,7 @@ public class InstantiateModel {
 	 * @param result EList holding the used property definitions
 	 * @return List holding the used property definitions
 	 */
-	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
+	protected void addUsedPropertyDefinitions(Element root, List<Property> result) {
 //		OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
 
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));
