@@ -94,6 +94,7 @@ import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.SystemInstance;
@@ -709,7 +710,7 @@ public class AgeFeatureProvider extends DefaultFeatureProviderWithPatterns {
 
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference;
+		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference || bo instanceof Generalization;
 	}
 	
 	// ComponentImplementation
