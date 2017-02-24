@@ -40,10 +40,6 @@ class Issue635Test extends OsateTest {
 		var names = pas.map[it.property.name]
 		assertEquals('In top_i_Instance: Did not find expected properties', names, #['p0', 'p2'])
 
-		pas = instance.componentInstances.get(0).ownedPropertyAssociations
-		names = pas.map[it.property.name]
-		assertEquals('In component sub: Did not find expected properties', names, #['p2', 'p1'])
-
 		pas = instance.featureInstances.get(0).ownedPropertyAssociations
 		names = pas.map[it.property.name]
 		assertEquals('In feature group fg: Did not find expected properties', names, #['q0', 'q3'])
@@ -54,24 +50,34 @@ class Issue635Test extends OsateTest {
 
 		pas = instance.featureInstances.get(0).featureInstances.get(1).ownedPropertyAssociations
 		names = pas.map[it.property.name]
-		assertEquals('In feature fg.f1: Did not find expected properties', names, #['q0', 'q2'])
+		assertEquals('In feature fg.f1: Did not find expected properties', names, #['q0', 'q2', 'r1'])
 
 		pas = instance.featureInstances.get(0).featureInstances.get(2).ownedPropertyAssociations
 		names = pas.map[it.property.name]
 		assertEquals('In feature fg.f0: Did not find expected properties', names, #['q0'])
+		
+		pas = instance.componentInstances.get(0).ownedPropertyAssociations
+		names = pas.map[it.property.name]
+		assertEquals('In component sub: Did not find expected properties', names, #['p2', 'p1'])
+
+		pas = instance.componentInstances.get(1).ownedPropertyAssociations
+		names = pas.map[it.property.name]
+		assertEquals('In component sub1: Did not find expected properties', names, #['p2', 'p3'])
 
 	}
 
 	val psText = '''
 		property set ps635 is
-			p0: aadlboolean applies to (system implementation);
+			p0: aadlboolean applies to (data, system implementation);
 			p1: aadlboolean applies to (system type);
-			p2: aadlboolean applies to (system);
+			p2: aadlboolean applies to (memory, system);
+			p3: aadlboolean applies to (system subcomponent);
 			q0: aadlboolean applies to (feature);
 			q1: aadlboolean applies to (access);
 			q2: aadlboolean applies to (port);
 			q3: aadlboolean applies to (feature group);
 			q4: aadlboolean applies to (feature group type);
+			r1: aadlboolean applies to (all);
 		end ps635;
 	'''
 	val aadlText = '''
@@ -87,6 +93,7 @@ class Issue635Test extends OsateTest {
 					f1: in data port {
 						ps635::q0 => true;	
 						ps635::q2 => true;	
+						ps635::r1 => true;
 					};
 					f2: provides bus access {
 						ps635::q0 => true;	
@@ -108,9 +115,12 @@ class Issue635Test extends OsateTest {
 			system implementation top.i
 				subcomponents
 					sub: system top;
+					sub1: system;
 				properties
 					ps635::p0 => true;
 					ps635::p2 => true;
+					ps635::p2 => true applies to sub1;
+					ps635::p3 => true applies to sub1;
 			end top.i;
 			
 		end issue635;
