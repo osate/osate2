@@ -21,7 +21,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.graphiti.features;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -49,6 +48,7 @@ import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
+import org.osate.ge.internal.util.AnnotationUtil;
 
 /**
  * Custom feature for wrapping AADL Graphical Editor commands registered with the command service as a graphiti custom feature.
@@ -231,12 +231,6 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	}
 	
 	private boolean hasMethodWithAnnotation(final Class<? extends Annotation> annotationClass) {
-		for(final Method m : cmd.getClass().getMethods()) {
-			if(m.isAnnotationPresent(annotationClass)) {
-				return true;
-			}
-		}
-		
-		return false;
+		return AnnotationUtil.hasMethodWithAnnotation(annotationClass, cmd);
 	}
 }

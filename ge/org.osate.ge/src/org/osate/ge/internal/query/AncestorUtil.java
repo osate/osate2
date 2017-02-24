@@ -1,6 +1,7 @@
 package org.osate.ge.internal.query;
 
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.services.ConnectionService;
@@ -22,7 +23,9 @@ public class AncestorUtil {
 	 */
 	public static PictogramElement getParent(PictogramElement pe, final PropertyService propertyService, final ConnectionService connectionService) {
 		while(pe != null) {
-			if(pe instanceof Shape) {
+			if(pe instanceof ConnectionDecorator) {
+				pe = ((ConnectionDecorator) pe).getConnection();
+			} else if(pe instanceof Shape) {
 				pe = ((Shape) pe).getContainer();
 			} else if(pe instanceof Connection) {
 				pe = connectionService.getOwner((Connection)pe);

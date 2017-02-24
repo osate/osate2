@@ -1,6 +1,5 @@
 package org.osate.ge.internal.graphiti.features;
 
-import java.lang.reflect.Method;
 import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -13,6 +12,7 @@ import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.util.AnnotationUtil;
 
 // ICustomFeature implementation that delegates behavior to a business object handler's double click functionality
 public class BoHandlerDoubleClickFeature extends AbstractCustomFeature {
@@ -32,15 +32,7 @@ public class BoHandlerDoubleClickFeature extends AbstractCustomFeature {
 		}
 		
 		final Object boHandler = extService.getApplicableBusinessObjectHandler(bor.getBusinessObjectForPictogramElement(pe));
-		if(boHandler != null) {
-			for(final Method m : boHandler.getClass().getMethods()) {
-				if(m.isAnnotationPresent(HandleDoubleClick.class)) {
-					return true;
-				}
-			}
-		}
-		
-		return false;
+		return AnnotationUtil.hasMethodWithAnnotation(HandleDoubleClick.class, boHandler);
 	}
 	
 	@Override

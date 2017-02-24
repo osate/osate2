@@ -1,7 +1,6 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
-
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
@@ -14,17 +13,55 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
+import org.osate.ge.di.CreateDestinationQuery;
+import org.osate.ge.di.CreateParentQuery;
+import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.ConnectionBuilder;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.query.PictogramQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.query.DiagramElementQuery;
 
 public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
+	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).build();
+	
+	// Basics
+	@IsApplicable
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
+		return fs.getKind() == FlowKind.PATH;
+	}
+	
+	@GetGraphic
+	public Graphic getGraphicalRepresentation() {
+		return graphic;
+	}
+		
+	@CreateParentQuery
+	public DiagramElementQuery<FlowSpecification> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<FlowSpecification> srcRootQuery) {
+		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
+	}
+	
+	@CreateSourceQuery
+	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
+		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first();
+	}
+	
+	@CreateDestinationQuery
+	public DiagramElementQuery<FlowSpecification> createDestination(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
+		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first();
+	}
+	
 	// Creating
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {

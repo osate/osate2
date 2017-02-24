@@ -29,7 +29,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -63,6 +62,7 @@ import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.CachingService.Cache;
+import org.osate.ge.internal.util.AnnotationUtil;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -118,11 +118,8 @@ public class DefaultConnectionService implements ConnectionService {
 		// Create ConnectionInfoProvider for business object handlers.
 		for(final Object handler : extService.getBusinessObjectHandlers()) {
 			// Look for a method which is used if and only if the business object handler handles connections
-			for(final Method m : handler.getClass().getMethods()) {
-				if(m.isAnnotationPresent(CreateParentQuery.class)) {
-					infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, bor, handler, queryRunner));
-					break;
-				}
+			if(AnnotationUtil.hasMethodWithAnnotation(CreateParentQuery.class, handler)) {
+				infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, bor, handler, queryRunner));
 			}
 		}
 		

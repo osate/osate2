@@ -1,5 +1,8 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Named;
 
 import org.osate.aadl2.AbstractFeature;
@@ -13,7 +16,8 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
-import org.osate.aadl2.FlowKind;
+import org.osate.aadl2.FlowEnd;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Parameter;
 import org.osate.aadl2.Port;
 import org.osate.aadl2.ProcessType;
@@ -24,30 +28,49 @@ import org.osate.aadl2.SystemType;
 import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
-import org.osate.ge.Categories;
-import org.osate.ge.PaletteEntry;
-import org.osate.ge.PaletteEntryBuilder;
-import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.CanDelete;
+import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
+import org.osate.ge.di.SetName;
+import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
-import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.services.RefactoringService;
 
 class FlowSpecificationHandler {
 	private static final StandaloneDiagramElementQuery componentTypeQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first());
 	private static final StandaloneDiagramElementQuery contextQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof Context).first());
-	
-	/*
-	@IsApplicable
-	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
-		return true;
+		
+	// Basics
+	@GetName
+	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
+		return fs.getName();
 	}
-	*/
 	
+	// Rename and Editing
+	@CanRename
+	@CanDelete
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+		final Object containerBo = queryService.getFirstBusinessObject(componentTypeQuery, diagramElement);
+		return fs.getContainingClassifier() == containerBo;
+	}
+	
+	@ValidateName
+	public String validateName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(Names.NAME) String value, final NamingService namingService) {
+		return namingService.checkNameValidity(fs, value);
+	}
+	
+	@SetName
+	public void setName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
+		refactoringService.renameElement(fs, value);
+	}
+	
+	// Helper functions
 	protected static boolean canOwnFlowSpecification(final Object diagramBo) {
 		return diagramBo instanceof ThreadGroupType || 
 				diagramBo instanceof ThreadType || 
@@ -111,5 +134,26 @@ class FlowSpecificationHandler {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * Gets an array of business objects which describes the logical diagram element path to the flow end.
+	 * @param ctx
+	 * @param flowEnd
+	 * @return
+	 */
+	protected static Object[] getBusinessObjectsPathToFlowEnd(final FlowEnd flowEnd) {
+		if(flowEnd == null || flowEnd.getFeature() == null) {
+			return null;
+		}
+		
+		final List<Object> path = new ArrayList<>(2);
+		if(flowEnd.getContext() != null) {
+			path.add(flowEnd.getContext());
+		}
+		
+		path.add(flowEnd.getFeature());
+
+		return path.toArray();
 	}
 }

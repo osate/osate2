@@ -1,6 +1,5 @@
 package org.osate.ge.internal.graphiti.features;
 
-import java.lang.reflect.Method;
 import java.util.Objects;
 
 import javax.inject.Inject;
@@ -32,6 +31,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.util.AnnotationUtil;
 
 // Direct Editing Feature implementation that delegates behavior to a business object handler
 public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature implements ICustomUndoRedoFeature {
@@ -93,13 +93,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		}
 		
 		// Check if there is a method to set the name
-		for(final Method m : handler.getClass().getMethods()) {
-			if(m.isAnnotationPresent(SetName.class)) {
-				return true;
-			}
-		}		
-		
-		return false;
+		return AnnotationUtil.hasMethodWithAnnotation(SetName.class, handler);
 	}
 	
 	@Override
