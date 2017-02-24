@@ -831,31 +831,30 @@ public class ComponentInstanceImpl extends ConnectionInstanceEndImpl implements 
 
 	@Override
 	public boolean acceptsProperty(Property property) {
-		// OsateDebug.osateDebug("[CompnentInstanceImpl] property=" + property);
+		ComponentClassifier cc = getComponentClassifier();
+		Subcomponent sub = getSubcomponent();
 
-		for (final PropertyOwner propOwner : property.getAppliesTos()) {
-
+		if (getCategory().equals(ComponentCategory.ABSTRACT)) {
+			return true;
+		}
+		for (PropertyOwner propOwner : property.getAppliesTos()) {
 			if (propOwner instanceof MetaclassReference) {
 				MetaclassReference metaRef = (MetaclassReference) propOwner;
-				EClass appliesTo = metaRef.getMetaclass();
-				EClass thisClass = getComponentClassifier().eClass();
+				if (metaRef.getMetaclassNames().get(0).equals("all")) {
+					return true;
+				} else {
+					EClass appliesTo = metaRef.getMetaclass();
+					if (appliesTo == null) {
+						return false;
+					}
 
-				if (getCategory().equals(ComponentCategory.ABSTRACT)) {
-					return true;
-				}
-				if (metaRef.getMetaclassNames().size() > 0 && metaRef.getMetaclassNames().get(0).equals("all")) {
-					return true;
-				}
-				if (appliesTo == null) {
-					return false;
-				}
-				if (appliesTo.isSuperTypeOf(thisClass)) {
-					return true;
+					if (cc != null && appliesTo.isSuperTypeOf(cc.eClass())
+							|| sub != null && appliesTo.isSuperTypeOf(sub.eClass())) {
+						return true;
+					}
 				}
 			}
 		}
-		final ComponentClassifier cc = getComponentClassifier();
-
 		return (cc == null) ? false : cc.checkAppliesToClassifier(property);
 	}
 
