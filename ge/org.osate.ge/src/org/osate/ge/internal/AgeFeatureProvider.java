@@ -75,6 +75,7 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
@@ -499,7 +500,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	private boolean allowBendpointManipulation(final PictogramElement pe) {
 		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference;
+		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference || bo instanceof Generalization;
 	}
 	
 	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {

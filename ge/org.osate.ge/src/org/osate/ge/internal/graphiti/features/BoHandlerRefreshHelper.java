@@ -180,7 +180,7 @@ public class BoHandlerRefreshHelper {
 						pe = peCreateService.createCurvedConnection(new double[] {0.0, 0.0}, getDiagram());
 					} else {
 						pe = peCreateService.createFreeFormConnection(getDiagram());
-					}
+					}					
 					
 			        connectionService.onConnectionCreated(logicalParent, bo, (Connection)pe);
 					Graphiti.getGaService().createPlainPolyline(pe);

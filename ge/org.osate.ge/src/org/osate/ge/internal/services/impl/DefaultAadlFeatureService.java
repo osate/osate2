@@ -116,9 +116,23 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	}
 	
 	@Override
+	public boolean isFeatureInverted(final DiagramElementProxy featureDiagramElement) {
+		// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level and to use logical diagram structure.
+		if(featureDiagramElement instanceof PictogramElementProxy) {
+			final PictogramElement pe = ((PictogramElementProxy) featureDiagramElement).getPictogramElement();
+			if(pe instanceof Shape) {
+				return isFeatureInvertedByParent(((Shape)pe).getContainer());
+			}
+		}
+		
+		return false;
+		
+	}
+	
+	@Override
 	public boolean isFeatureInvertedByParent(final DiagramElementProxy parentFeatureDiagramElement) {
 		// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level.
-		if( parentFeatureDiagramElement instanceof PictogramElementProxy) {
+		if(parentFeatureDiagramElement instanceof PictogramElementProxy) {
 			final PictogramElement pe = ((PictogramElementProxy) parentFeatureDiagramElement).getPictogramElement();
 			if(pe instanceof Shape) {
 				return isFeatureInvertedByParent((Shape)pe);

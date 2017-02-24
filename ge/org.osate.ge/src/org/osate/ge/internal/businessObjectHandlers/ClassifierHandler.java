@@ -187,7 +187,7 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	private AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
+	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {

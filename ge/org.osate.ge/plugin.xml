@@ -807,6 +807,12 @@
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.ConnectionHandler">
        </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationHandler">
+       </handler>
     </extension>
     <extension
           point="org.osate.ge.commands">
