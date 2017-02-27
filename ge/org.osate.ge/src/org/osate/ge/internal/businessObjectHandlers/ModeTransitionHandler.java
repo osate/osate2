@@ -106,9 +106,9 @@ public class ModeTransitionHandler {
 	}	
 	
 	@CanCreate
-	public boolean canCreate(@Named(Names.SOURCE_BO) final Object srcMode, 
+	public boolean canCreate(@Named(Names.SOURCE_BO) final Mode srcMode, 
 			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy srcDiagramElement, 
-			@Named(Names.DESTINATION_BO) final Object dstMode,
+			@Named(Names.DESTINATION_BO) final Mode dstMode,
 			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy dstDiagramElement, 
 			final QueryService queryService) {		
 		return getComponentClassifier(srcDiagramElement, queryService) == getComponentClassifier(dstDiagramElement, queryService);
