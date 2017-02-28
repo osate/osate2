@@ -16,7 +16,7 @@ public class ProcessCheck extends AbstractCheck {
 		/**
 		 * Get processes that do not have thread
 		 */
-		final List<ComponentInstance> processWithoutThread = (List<ComponentInstance>) si.getAllComponentInstances()
+		final List<ComponentInstance> processWithoutThread = si.getAllComponentInstances()
 				.stream().filter(c -> c.getCategory() == ComponentCategory.PROCESS)
 				.filter(pr -> pr.getComponentInstances().stream()
 						.filter(subco -> subco.getCategory() == ComponentCategory.THREAD).collect(Collectors.toList())
@@ -31,7 +31,7 @@ public class ProcessCheck extends AbstractCheck {
 		 * 
 		 * Get Processes that are not bound to a virtual processor/runtime
 		 */
-		final List<ComponentInstance> processWithoutRuntime = (List<ComponentInstance>) si.getAllComponentInstances()
+		final List<ComponentInstance> processWithoutRuntime = si.getAllComponentInstances()
 				.stream().filter(comp -> (comp.getCategory() == ComponentCategory.PROCESS)
 						&& (GetProperties.getBoundProcessor(comp) == null))
 				.collect(Collectors.toList());
@@ -44,7 +44,7 @@ public class ProcessCheck extends AbstractCheck {
 		 * Get processes that are not bound to a memory
 		 */
 
-		final List<ComponentInstance> processWithoutMemory = (List<ComponentInstance>) si.getAllComponentInstances()
+		final List<ComponentInstance> processWithoutMemory = si.getAllComponentInstances()
 				.stream().filter(comp -> (comp.getCategory() == ComponentCategory.PROCESS)
 						&& (GetProperties.getActualMemoryBinding(comp) == null))
 				.collect(Collectors.toList());

@@ -21,7 +21,7 @@ public class MemoryCheck extends AbstractCheck {
 		 */
 
 		if (pok()) {
-			final List<ComponentInstance> segmentsWithoutSize = (List<ComponentInstance>) si.getAllComponentInstances()
+			final List<ComponentInstance> segmentsWithoutSize = si.getAllComponentInstances()
 					.stream()
 					.filter(comp -> (comp.getCategory() == ComponentCategory.MEMORY)
 							&& (GetProperties.getByteCount(comp) == 0.0)

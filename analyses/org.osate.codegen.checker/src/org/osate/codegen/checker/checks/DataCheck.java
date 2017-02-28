@@ -15,7 +15,7 @@ public class DataCheck extends AbstractCheck {
 		/**
 		 * Get data that do not have size
 		 */
-		final List<ComponentInstance> dataWithoutSize = (List<ComponentInstance>) si.getAllComponentInstances().stream()
+		final List<ComponentInstance> dataWithoutSize = si.getAllComponentInstances().stream()
 				.filter(comp -> (comp.getCategory() == ComponentCategory.DATA)
 						&& (GetProperties.getDataSizeInBytes(comp) == 0.0))
 				.collect(Collectors.toList());
