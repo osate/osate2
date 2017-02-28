@@ -51,9 +51,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.internal.connections.BindingConnectionInfoProvider;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
-import org.osate.ge.internal.connections.FlowSpecificationInfoProvider;
 import org.osate.ge.internal.connections.BusinessObjectHandlerConnectionInfoProvider;
 import org.osate.ge.internal.query.Query;
 import org.osate.ge.internal.query.QueryRunner;
@@ -106,11 +104,6 @@ public class DefaultConnectionService implements ConnectionService {
 		this.refBuilder = refBuilder;
 		this.fp = fp;
 		this.cachingService = cachingService;
-		
-		final Diagram diagram = getDiagram();
-
-		infoProviders.add(new FlowSpecificationInfoProvider(bor, diagram, anchorUtil, shapeHelper));
-		infoProviders.add(new BindingConnectionInfoProvider(bor, diagram, propertyService, shapeHelper));
 
 		// Create a query runner for use internally and by connection info providers
 		queryRunner = new QueryRunner(propertyService, this, bor, refBuilder);
@@ -119,7 +112,7 @@ public class DefaultConnectionService implements ConnectionService {
 		for(final Object handler : extService.getBusinessObjectHandlers()) {
 			// Look for a method which is used if and only if the business object handler handles connections
 			if(AnnotationUtil.hasMethodWithAnnotation(CreateParentQuery.class, handler)) {
-				infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, bor, handler, queryRunner));
+				infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, anchorService, bor, handler, queryRunner, fp));
 			}
 		}
 		
@@ -148,6 +141,7 @@ public class DefaultConnectionService implements ConnectionService {
 	@Override
 	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {
 		final ConnectionInfoProvider p = getInfoProviderByBusinessObject(bo);
+
 		if(p != null) {
 			final Anchor[] anchors = p.getAnchors(owner, bo);
 			if(anchors != null && isVisible(anchors[0]) && isVisible(anchors[1])) {

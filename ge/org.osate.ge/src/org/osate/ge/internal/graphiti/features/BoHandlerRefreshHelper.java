@@ -62,6 +62,7 @@ import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.ConnectionTerminatorSize;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
+import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.query.AncestorUtil;
@@ -215,8 +216,10 @@ public class BoHandlerRefreshHelper {
 				
 				if(pe instanceof Shape) {										
 					if(!(pe instanceof Diagram)) {
+						final Shape shape = ((Shape) pe);
+						
 						// Remove all non-chopbox anchors that do not have an incoming or outgoing connection
-						final Iterator<Anchor> it = ((Shape) pe).getAnchors().iterator();
+						final Iterator<Anchor> it = shape.getAnchors().iterator();
 						while(it.hasNext()) {
 							final Anchor anchor = it.next();
 							if(!(anchor instanceof ChopboxAnchor) && anchor.getIncomingConnections().size() + anchor.getOutgoingConnections().size() == 0) {
@@ -225,8 +228,8 @@ public class BoHandlerRefreshHelper {
 						}
 						
 						// Create/update the chopbox anchor
-						anchorService.createOrUpdateChopboxAnchor((Shape)pe);
-						
+						anchorService.createOrUpdateChopboxAnchor(shape);
+														
 						// Set the dock area as appropriate
 						final DockingPosition dockingPosition = (DockingPosition)ContextInjectionFactory.invoke(handler, GetDefaultDockingPosition.class, eclipseCtx, DockingPosition.NOT_DOCKED);
 						if(dockingPosition == null) {
@@ -243,6 +246,9 @@ public class BoHandlerRefreshHelper {
 							
 							// Marked docked shapes as layed out so that the layout algorithm won't change the docked side.
 							propertyService.setIsLayedOut(pe, true);
+							
+							// Create/update the flow specification anchor for all docked shapes
+							anchorService.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION, 0, 0, false);
 						}
 					}
 				} else if(pe instanceof Connection) {
@@ -322,25 +328,8 @@ public class BoHandlerRefreshHelper {
 						}
 					} else if(pe instanceof Connection) {
 						final Connection connection = (Connection)pe;
-
-						// TODO: Remove
-						/*
-						Integer labelX = null;
-						Integer labelY = null;
-						if(name != null) {
-							// Before removing all the decorators, get position of the label(if one exists)
-							for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
-								if(BoHandlerFeatureHelper.nameShapeName.equals(propertyService.getName(d))) {
-									if(d.getGraphicsAlgorithm() != null) {
-										final Text text = (Text)d.getGraphicsAlgorithm();
-										labelX = text.getX();
-										labelY = text.getY();
-									}
-								}
-							}
-						}
-						*/
-						
+					    final AgeConnection ageConnection = (AgeConnection)gr;
+					    
 						// Store position of all decorators which have ID's
 						final Map<String, Point> decoratorNameToLocation = new HashMap<>();
 						
@@ -363,7 +352,7 @@ public class BoHandlerRefreshHelper {
 						int labelX = 0;
 						int labelY = 0;
 						if(name != null) {
-							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
+							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
 							text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
 							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);						
@@ -373,8 +362,13 @@ public class BoHandlerRefreshHelper {
 						    if(labelPosition == null) {
 						    	// Set default position
 						    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getStyle().getFont());
-						    	labelX = -labelTextSize.getWidth()/2;
-						    	labelY = -labelTextSize.getHeight()/2;
+						    	if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
+						    		labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the right
+						    		labelY = 5;
+						    	} else {
+						    		labelX = -labelTextSize.getWidth()/2;
+						    		labelY = -labelTextSize.getHeight()/2;
+						    	}
 						    } else {
 						    	labelX = labelPosition.x;
 						    	labelY = labelPosition.y;
@@ -420,7 +414,6 @@ public class BoHandlerRefreshHelper {
 						}
 						
 						// Create Graphiti decorators for connection terminators
-					    final AgeConnection ageConnection = (AgeConnection)gr;
 					    createDecorator(connection, ageConnection.srcTerminator, 0.0);
 					    createDecorator(connection, ageConnection.dstTerminator, 1.0);
 					    
@@ -590,32 +583,50 @@ public class BoHandlerRefreshHelper {
 			final Color black = Graphiti.getGaService().manageColor(diagram, IColorConstant.BLACK);
 			final Color white = Graphiti.getGaService().manageColor(diagram, IColorConstant.WHITE);
 
+			final GraphicsAlgorithm ga;
 			switch(terminator.type) {
-			case FILLED_ARROW: {
-				final GraphicsAlgorithm ga = createPolygonArrow(cd, terminator.size);
+			case FILLED_ARROW:
+				ga = createPolygonArrow(cd, terminator.size);
 			    ga.setForeground(black);
 			    ga.setBackground(black);
 				break;
-			}
-				
-			case OPEN_ARROW: {
-				final GraphicsAlgorithm ga = createPolygonArrow(cd, terminator.size);
+
+			case OPEN_ARROW:
+				ga = createPolygonArrow(cd, terminator.size);
 			    ga.setForeground(black);
 			    ga.setBackground(white);
 				break;
+			
+			case LINE_ARROW:
+				ga = createLineArrow(cd, terminator.size);
+			    ga.setForeground(black);
+			    ga.setBackground(white);
+				break;
+				
+			case ORTHOGONAL_LINE:
+				ga = createOrthogonalLine(cd);
+			    ga.setForeground(black);
+			    ga.setBackground(white);
+				break;
+
+			default:
+				throw new RuntimeException("Unsupported terminator type: " + terminator.type);
 			}
 			
-			case LINE_ARROW: {
-				final GraphicsAlgorithm ga = createLineArrow(cd, terminator.size);
-			    ga.setForeground(black);
-			    ga.setBackground(white);
-				break;
-			}
-				
-			default:
-				throw new RuntimeException("Unhandled case: " + terminator);
-			}
+			if(terminator.reversed) {
+				AgeGraphitiGraphicsUtil.mirrorX(ga);
+			}				
 		}
+	}
+	
+	private GraphicsAlgorithm createOrthogonalLine(final GraphicsAlgorithmContainer gaContainer) {
+	    final IGaService gaService = Graphiti.getGaService();
+	    final GraphicsAlgorithm ga = gaService.createPlainPolyline(gaContainer, new int[] {
+	    		0, 8,
+	    		0, -8});
+	    ga.setLineWidth(2);
+
+	    return ga;
 	}
 	
 	private GraphicsAlgorithm createLineArrow(final GraphicsAlgorithmContainer gaContainer, final ConnectionTerminatorSize size) {

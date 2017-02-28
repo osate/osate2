@@ -14,7 +14,6 @@ import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
@@ -46,12 +45,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	public Graphic getGraphicalRepresentation() {
 		return graphic;
 	}
-		
-	@CreateParentQuery
-	public DiagramElementQuery<FlowSpecification> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<FlowSpecification> srcRootQuery) {
-		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
-	}
-	
+			
 	@CreateSourceQuery
 	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first();

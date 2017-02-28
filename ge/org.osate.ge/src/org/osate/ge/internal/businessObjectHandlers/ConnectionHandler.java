@@ -83,11 +83,14 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class ConnectionHandler {
 	private static final StandaloneDiagramElementQuery componentImplementationQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
-	private static final Graphic graphic = ConnectionBuilder.create().build(); // TODO: Arrows, etc
+	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
 	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
 	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
-		
+	private static final StandaloneDiagramElementQuery selfQuery = StandaloneDiagramElementQuery.create((root) -> root);
+	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
+	private static final StandaloneDiagramElementQuery grandparentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(2));
+	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Connection c) {
 		return true;
@@ -352,11 +355,6 @@ public class ConnectionHandler {
 		
 		return newAadlConnection;
 	}
-		
-	// TODO: Move	
-	private static final StandaloneDiagramElementQuery selfQuery = StandaloneDiagramElementQuery.create((root) -> root);
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
-	private static final StandaloneDiagramElementQuery grandparentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(2));
 	
 	private ConnectedElement getConnectedElementForDiagramElement(final DiagramElementProxy element, final QueryService queryService) {
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();

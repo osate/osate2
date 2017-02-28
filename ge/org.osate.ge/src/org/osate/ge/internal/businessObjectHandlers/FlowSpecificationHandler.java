@@ -29,6 +29,7 @@ import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.di.CanDelete;
+import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -41,15 +42,21 @@ import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
+import org.osate.ge.query.DiagramElementQuery;
 
 class FlowSpecificationHandler {
-	private static final StandaloneDiagramElementQuery componentTypeQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first());
+	private static final StandaloneDiagramElementQuery componentTypeQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first());
 	private static final StandaloneDiagramElementQuery contextQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof Context).first());
 		
 	// Basics
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
 		return fs.getName();
+	}
+	
+	@CreateParentQuery
+	public DiagramElementQuery<FlowSpecification> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<FlowSpecification> srcRootQuery) {
+		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
 	}
 	
 	// Rename and Editing
@@ -115,7 +122,7 @@ class FlowSpecificationHandler {
 		// Check that the feature is of the appropriate type
 		if(!(feature instanceof Port || feature instanceof Parameter || feature instanceof DataAccess || feature instanceof FeatureGroup || feature instanceof AbstractFeature)) {
 			return false;
-		}
+		}		
 		
 		// If it is a direct feature, it must have the specified direction or be an in out feature. Take into account feature group, inverse, etc..
 		if(feature instanceof DirectedFeature) {

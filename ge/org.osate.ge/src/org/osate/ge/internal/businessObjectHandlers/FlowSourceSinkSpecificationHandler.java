@@ -13,17 +13,60 @@ import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
+import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.ArrowBuilder;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
+import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
+import org.osate.ge.internal.query.PictogramQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.query.DiagramElementQuery;
 
 public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler {
+	private static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create().
+			sourceTerminator(ArrowBuilder.create().small().build()).
+			destinationTerminator(OrthogonalLineBuilder.create().build()).
+			build();
+	private static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create().
+			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
+			destinationTerminator(OrthogonalLineBuilder.create().build()).
+			build();
+	
+	// Basics
+	@IsApplicable
+	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
+		return fs.getKind() == FlowKind.SOURCE || fs.getKind() == FlowKind.SINK;
+	}
+	
+	@GetGraphic
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
+		switch(fs.getKind()) {
+		case SOURCE:
+			return flowSourceGraphic;
+			
+		case SINK:
+			return flowSinkGraphic;
+			
+		default:
+			return null;
+		}
+	}
+	
+	@CreateSourceQuery
+	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
+		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first();
+	}
+	
 	// Creating
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {

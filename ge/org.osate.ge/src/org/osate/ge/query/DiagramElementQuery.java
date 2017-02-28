@@ -24,6 +24,13 @@ import java.util.function.Predicate;
  */
 public interface DiagramElementQuery<A> {
 	/**
+	 * Returns a query whose results contain only the first count results of this query.
+	 * @param count is the maximum number of results of the resulting query.
+	 * @return the new query
+	 */
+	DiagramElementQuery<A> first(int count);
+	
+	/**
 	 * Returns a query whose results contain only the first result of this query.
 	 * @return the new query
 	 */

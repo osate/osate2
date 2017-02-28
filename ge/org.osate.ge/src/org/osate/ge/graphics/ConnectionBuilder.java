@@ -77,6 +77,6 @@ public class ConnectionBuilder {
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new AgeConnection(lineStyle, srcTerminator, dstTerminator, isCurved);
+		return AgeConnection.createNormal(lineStyle, srcTerminator, dstTerminator, isCurved);
 	}
 }

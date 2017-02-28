@@ -3,6 +3,7 @@ package org.osate.ge.internal.connections;
 import java.util.Objects;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
@@ -11,13 +12,19 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.di.CreateDestinationQuery;
 import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.CreateSourceQuery;
+import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphics.AgeConnection;
+import org.osate.ge.internal.graphiti.AnchorNames;
+import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.query.PictogramQuery;
 import org.osate.ge.internal.query.Query;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryUtil;
 import org.osate.ge.internal.query.RootPictogramQuery;
+import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -27,9 +34,11 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 	private final ConnectionService connectionService;
 	private final PropertyService propertyService;
 	private final ExtensionService extService;
+	private final AnchorService anchorService;
 	private final BusinessObjectResolutionService bor;
 	private final Object handler;
 	private final QueryRunner queryRunner;
+	private final IFeatureProvider fp;
 	private final RootPictogramQuery rootQuery = new RootPictogramQuery(() -> this.rootValue);
 	private final RootPictogramQuery srcRootQuery = new RootPictogramQuery(() -> this.srcRootValue); // For getting the connection's source
 	private final RootPictogramQuery dstRootQuery = new RootPictogramQuery(() -> this.dstRootValue); // For getting the connection's destination
@@ -46,15 +55,19 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 	public BusinessObjectHandlerConnectionInfoProvider(final ConnectionService connectionService,
 			final PropertyService propertyService,
 			final ExtensionService extService, 
+			final AnchorService anchorService,
 			final BusinessObjectResolutionService bor,
 			final Object boHandler, 
-			final QueryRunner queryRunner) {
+			final QueryRunner queryRunner,
+			final IFeatureProvider fp) {
 		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
+		this.anchorService = Objects.requireNonNull(anchorService, "anchorService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 		this.queryRunner = Objects.requireNonNull(queryRunner, "queryRunner muts not be null");
+		this.fp = Objects.requireNonNull(fp, "fp must not be null");
 
 		// Create queries using the business object handler
 		final IEclipseContext childCtx = extService.createChildContext();
@@ -66,8 +79,8 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 			childCtx.remove(Names.DESTINATION_ROOT_QUERY);
 			
 			childCtx.set(Names.ROOT_QUERY, rootQuery);	
-			srcQuery = QueryUtil.ensureFirst(Objects.requireNonNull((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateSourceQuery.class, childCtx), "unable to create source query"));
-			dstQuery = QueryUtil.ensureFirst(Objects.requireNonNull((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateDestinationQuery.class, childCtx), "unable to create destination query"));
+			srcQuery = QueryUtil.ensureFirst((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateSourceQuery.class, childCtx, null));
+			dstQuery = QueryUtil.ensureFirst((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateDestinationQuery.class, childCtx, null));
 		} finally {
 			childCtx.dispose();
 		}
@@ -117,22 +130,53 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 
 	@Override
 	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {
+		// Get the graphic
+		final IEclipseContext eclipseCtx = extService.createChildContext();
+		final Object gr;
+		try {			
+			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
+			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(fp.getDiagramTypeProvider().getDiagram()));		
+			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(owner));
+			gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
+		} finally {
+			eclipseCtx.dispose();
+		}
+		
 		try {
 			// Set root value of queries
 			this.rootValue = owner;
 
-			// Get the anchors
-			final Anchor a1 = getAnchor(queryRunner.getFirstPictogramElement(srcQuery, bo));
-			if(a1 == null) {
-				return null;
+			if(gr instanceof AgeConnection) {
+				final AgeConnection ac = (AgeConnection)gr;
+				
+				// Get the anchors
+				Objects.requireNonNull(srcQuery, "Source query must not be null for connections");
+				final PictogramElement src = queryRunner.getFirstPictogramElement(srcQuery, bo);
+				final Anchor a1 = getAnchor(src);
+				if(a1 == null) {
+					return null;
+				}
+				
+				final Anchor a2;
+				if(ac.isFlowIndicator) {
+					if(!(src instanceof AnchorContainer)) {
+						return null;
+					}
+					
+					a2 = anchorService.getAnchorByName(src, AnchorNames.FLOW_SPECIFICATION);						
+				} else {
+					Objects.requireNonNull(dstQuery, "Destination query must not be null for flow indicators");
+					a2 = getAnchor(queryRunner.getFirstPictogramElement(dstQuery, bo));
+				}
+		
+				if(a2 == null) {
+					return null;
+				}
+				
+				return new Anchor[] {a1, a2};
+			} else {
+				throw new RuntimeException("Unsupported graphic: " + gr);
 			}
-			
-			final Anchor a2 = getAnchor(queryRunner.getFirstPictogramElement(dstQuery, bo));
-			if(a2 == null) {
-				return null;
-			}
-	
-			return new Anchor[] {a1, a2};
 		} finally {
 			this.rootValue = null;
 		}

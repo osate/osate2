@@ -28,6 +28,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FeatureGraphic;
+import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
@@ -35,6 +36,7 @@ import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.labels.LabelPosition;
 import org.osate.ge.internal.query.AncestorUtil;
+import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -51,16 +53,23 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 	private final ShapeService shapeService;
 	private final PropertyService propertyService;
 	private final ConnectionService connectionService;
+	private final AnchorService anchorService;
 	
 	@Inject
-	public BoHandlerLayoutFeature(final IFeatureProvider fp, final BusinessObjectResolutionService bor, 
-			final ExtensionService extService, final ShapeService shapeService, final PropertyService propertyService, final ConnectionService connectionService) {
+	public BoHandlerLayoutFeature(final IFeatureProvider fp, 
+			final BusinessObjectResolutionService bor, 
+			final ExtensionService extService, 
+			final ShapeService shapeService, 
+			final PropertyService propertyService, 
+			final ConnectionService connectionService,
+			final AnchorService anchorService) {
 		super(fp);
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.shapeService = Objects.requireNonNull(shapeService, "shapeService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
 		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
+		this.anchorService = Objects.requireNonNull(anchorService, "anchorService must not be null");
 	}
 
 	@Override
@@ -285,6 +294,45 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 				innerGa.setY(lm.topOuterPadding);
 			}
 			
+			// TODO: Determine positions in an appropriate manner
+			// TODO: Move to another function? or multiple functions?
+			if(shapeDockArea != null) {
+				final int flowSpecAnchorOffsetX;
+				final int flowSpecAnchorOffsetY;
+				final int flowSpecOffsetLength = 50;
+				switch(shapeDockArea) {
+				case LEFT:
+					flowSpecAnchorOffsetX = flowSpecOffsetLength;
+					flowSpecAnchorOffsetY = 0;
+					break;
+					
+				case RIGHT:
+					flowSpecAnchorOffsetX = -flowSpecOffsetLength;
+					flowSpecAnchorOffsetY = 0;
+					break;
+					
+				case TOP:
+					flowSpecAnchorOffsetX = 0;
+					flowSpecAnchorOffsetY = flowSpecOffsetLength;
+					break;
+					
+				case BOTTOM:
+					flowSpecAnchorOffsetX = 0;
+					flowSpecAnchorOffsetY = -flowSpecOffsetLength;
+					break;
+					
+				default:
+					flowSpecAnchorOffsetX = 0;
+					flowSpecAnchorOffsetY = 0;
+					break;
+				}
+
+				anchorService.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION, 
+						innerGa.getX() + (innerGa.getWidth()/2) + flowSpecAnchorOffsetX, 
+						innerGa.getY() + (innerGa.getHeight()/2) + flowSpecAnchorOffsetY, true);
+				
+			}
+
 			// Determine the Y position for the labels
 			int labelsY;
 			switch(nameVerticalPosition) {

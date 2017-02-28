@@ -706,7 +706,7 @@ public class AgeGraphitiGraphicsUtil {
         	eventGa.setForeground(black);
         	eventGa.setLineWidth(featureLineWidth);
     	}
-
+   	
         gaService.setSize(ga,  width, height);
         shrink(ga);
 
@@ -934,7 +934,7 @@ public class AgeGraphitiGraphicsUtil {
 		}
 	}
 	
-	public static void mirror(final GraphicsAlgorithm ga) {
+	public static void mirrorX(final GraphicsAlgorithm ga) {
 		mirrorX(ga, ga);
 	}
 	

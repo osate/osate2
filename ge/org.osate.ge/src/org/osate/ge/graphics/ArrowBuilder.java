@@ -20,6 +20,7 @@ import org.osate.ge.internal.graphics.ConnectionTerminatorType;
 public class ArrowBuilder {
 	private ConnectionTerminatorType terminatorType = ConnectionTerminatorType.FILLED_ARROW;
 	private ConnectionTerminatorSize terminatorSize = ConnectionTerminatorSize.REGULAR;
+	private boolean reversed = false;
 	
 	private ArrowBuilder() {} 
 	
@@ -68,10 +69,19 @@ public class ArrowBuilder {
 	}
 	
 	/**
+	 * Configures the arrow builder to create a reversed arrow. Reversed arrows will point inwards rather than outwards.
+	 * @return the arrow builder on which the method was invoked to allow method chaining
+	 */
+	public ArrowBuilder reverse() {
+		reversed = true;
+		return this;
+	}
+	
+	/**
 	 * Creates a connection terminator based on the current state of the arrow builder.
 	 * @return the newly created connection terminator
 	 */
 	public ConnectionTerminator build() {
-		return new AgeConnectionTerminator(terminatorType, terminatorSize);
+		return new AgeConnectionTerminator(terminatorType, terminatorSize, reversed);
 	}
 }

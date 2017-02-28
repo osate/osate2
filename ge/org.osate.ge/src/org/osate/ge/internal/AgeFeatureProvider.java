@@ -49,6 +49,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IMoveBendpointFeature;
 import org.eclipse.graphiti.features.IMoveConnectionDecoratorFeature;
 import org.eclipse.graphiti.features.IMoveShapeFeature;
+import org.eclipse.graphiti.features.IReconnectionFeature;
 import org.eclipse.graphiti.features.IRemoveBendpointFeature;
 import org.eclipse.graphiti.features.IRemoveFeature;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
@@ -62,6 +63,7 @@ import org.eclipse.graphiti.features.context.ILayoutContext;
 import org.eclipse.graphiti.features.context.IMoveBendpointContext;
 import org.eclipse.graphiti.features.context.IMoveConnectionDecoratorContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
+import org.eclipse.graphiti.features.context.IReconnectionContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
@@ -238,6 +240,11 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		addCustomFeatures(features);
 		return features.toArray(new ICustomFeature[] {});
 	}	
+
+	// Don't allow reconnection
+	public IReconnectionFeature getReconnectionFeature(IReconnectionContext context) {
+		return null;
+	}
 	
 	/**
 	 * Method used to additively build a list of custom features. Subclasses can override to add additional custom features while including those supported by parent classes.
@@ -461,7 +468,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
 		return moveBendpointFeature;
 	}
-	
+		
 	private final IAddBendpointFeature addBendpointFeature = new DefaultAddBendpointFeature(this) {
 		@Override
 		public boolean canAddBendpoint(IAddBendpointContext context) {

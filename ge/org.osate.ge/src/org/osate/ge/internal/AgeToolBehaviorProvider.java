@@ -38,6 +38,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
+import org.eclipse.graphiti.features.IFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDoubleClickContext;
 import org.eclipse.graphiti.features.context.IPictogramElementContext;
@@ -52,8 +53,6 @@ import org.eclipse.graphiti.palette.IToolEntry;
 import org.eclipse.graphiti.palette.impl.ConnectionCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.ObjectCreationToolEntry;
 import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
-import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
-import org.eclipse.graphiti.pattern.CreateFeatureForPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Generalization;
@@ -193,10 +192,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			/**
 			 * Add the tool entry to the correct category
 			 * @param toolEntry the toolEntry to be added to the palette
-			 * @param featureOrPattern the object that holds which category the tool should be added to
+			 * @param feature the feature that holds which category to which the tool should be added.
 			 */
-			public void addToolEntry(final IToolEntry toolEntry, final Object featureOrPattern) {
-				final Category category = getCategory(featureOrPattern);
+			public void addToolEntry(final IToolEntry toolEntry, final IFeature feature) {
+				final Category category = getCategory(feature);
 				if(category != null) {
 					for(final PaletteCompartmentEntry compartmentEntry : compartments) {
 						if(compartmentEntry.getLabel().equals(category.getName())) {
@@ -211,12 +210,12 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 			
 			/**
 			 * Get the category
-			 * @param featureOrPattern
-			 * @return the category in which the toolEntry will be added to
+			 * @param feature
+			 * @return the category to which the toolEntry will be added
 			 */
-			private Category getCategory(final Object featureOrPattern) {
-				if(featureOrPattern instanceof Categorized) {
-					return getCategoryById(((Categorized)featureOrPattern).getCategory());
+			private Category getCategory(final IFeature feature) {
+				if(feature instanceof Categorized) {
+					return getCategoryById(((Categorized)feature).getCategory());
 				} else {
 					return null;
 				}
@@ -263,10 +262,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 						createConnectionFeature.getCreateName(), createConnectionFeature.getCreateDescription(),
 						createConnectionFeature.getCreateImageId(), createConnectionFeature.getCreateLargeImageId());
 				ccTool.addCreateConnectionFeature(createConnectionFeature);
-
-				// Use the pattern if the feature was created from one.
-				final Object featureOrPattern = (createConnectionFeature instanceof CreateConnectionFeatureForPattern) ? ((CreateConnectionFeatureForPattern)createConnectionFeature).getPattern() : createConnectionFeature;
-				compartments.addToolEntry(ccTool, featureOrPattern);
+				compartments.addToolEntry(ccTool, createConnectionFeature);
 			}
 		}
 		
@@ -276,10 +272,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				final ObjectCreationToolEntry objectCreationToolEntry = new ObjectCreationToolEntry(
 						createFeature.getCreateName(), createFeature.getCreateDescription(),
 						createFeature.getCreateImageId(), createFeature.getCreateLargeImageId(), createFeature);
-				
-				// Use the pattern if the feature was created from one.
-				final Object featureOrPattern = (createFeature instanceof CreateFeatureForPattern) ? ((CreateFeatureForPattern)createFeature).getPattern() : createFeature;
-				compartments.addToolEntry(objectCreationToolEntry, featureOrPattern);
+				compartments.addToolEntry(objectCreationToolEntry, createFeature);
 			}
 		}
 		

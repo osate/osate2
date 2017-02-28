@@ -12,6 +12,11 @@ public abstract class PictogramQuery<A> extends Query<A> implements DiagramEleme
 	}
 	
 	@Override
+	public PictogramQuery<A> first(int count) {
+		return new FirstPictogramQuery<A>(this, count);
+	}
+	
+	@Override
 	public PictogramQuery<A> first() {
 		return new FirstPictogramQuery<A>(this);
 	}
