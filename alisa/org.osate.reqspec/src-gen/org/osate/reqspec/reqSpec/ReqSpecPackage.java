@@ -1081,22 +1081,13 @@ public interface ReqSpecPackage extends EPackage
   int REQUIREMENT__GOAL_REFERENCE = CONTRACTUAL_ELEMENT__GOAL_REFERENCE;
 
   /**
-   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
-
-  /**
    * The feature id for the '<em><b>Predicate</b></em>' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @generated
    * @ordered
    */
-  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
+  int REQUIREMENT__PREDICATE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Exception</b></em>' reference.
@@ -1105,7 +1096,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
+  int REQUIREMENT__EXCEPTION = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Exception Text</b></em>' attribute.
@@ -1114,25 +1105,7 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
-
-  /**
-   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
-
-  /**
-   * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   * @ordered
-   */
-  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+  int REQUIREMENT__EXCEPTION_TEXT = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 2;
 
   /**
    * The feature id for the '<em><b>Inherits Reference</b></em>' reference.
@@ -1141,7 +1114,34 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    * @ordered
    */
-  int REQUIREMENT__INHERITS_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
+  int REQUIREMENT__INHERITS_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Computes</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__COMPUTES = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Refines Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__REFINES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>Decomposes Reference</b></em>' reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int REQUIREMENT__DECOMPOSES_REFERENCE = CONTRACTUAL_ELEMENT_FEATURE_COUNT + 6;
 
   /**
    * The feature id for the '<em><b>Development Stakeholder</b></em>' reference list.
@@ -2322,17 +2322,6 @@ public interface ReqSpecPackage extends EPackage
   EClass getRequirement();
 
   /**
-   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the containment reference list '<em>Computes</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getComputes()
-   * @see #getRequirement()
-   * @generated
-   */
-  EReference getRequirement_Computes();
-
-  /**
    * Returns the meta object for the containment reference '{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2366,6 +2355,28 @@ public interface ReqSpecPackage extends EPackage
   EAttribute getRequirement_ExceptionText();
 
   /**
+   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the reference '<em>Inherits Reference</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getInheritsReference()
+   * @see #getRequirement()
+   * @generated
+   */
+  EReference getRequirement_InheritsReference();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Computes</em>'.
+   * @see org.osate.reqspec.reqSpec.Requirement#getComputes()
+   * @see #getRequirement()
+   * @generated
+   */
+  EReference getRequirement_Computes();
+
+  /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -2386,17 +2397,6 @@ public interface ReqSpecPackage extends EPackage
    * @generated
    */
   EReference getRequirement_DecomposesReference();
-
-  /**
-   * Returns the meta object for the reference '{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}'.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @return the meta object for the reference '<em>Inherits Reference</em>'.
-   * @see org.osate.reqspec.reqSpec.Requirement#getInheritsReference()
-   * @see #getRequirement()
-   * @generated
-   */
-  EReference getRequirement_InheritsReference();
 
   /**
    * Returns the meta object for the reference list '{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}'.
@@ -3197,14 +3197,6 @@ public interface ReqSpecPackage extends EPackage
     EClass REQUIREMENT = eINSTANCE.getRequirement();
 
     /**
-     * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQUIREMENT__COMPUTES = eINSTANCE.getRequirement_Computes();
-
-    /**
      * The meta object literal for the '<em><b>Predicate</b></em>' containment reference feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3229,6 +3221,22 @@ public interface ReqSpecPackage extends EPackage
     EAttribute REQUIREMENT__EXCEPTION_TEXT = eINSTANCE.getRequirement_ExceptionText();
 
     /**
+     * The meta object literal for the '<em><b>Inherits Reference</b></em>' reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT__INHERITS_REFERENCE = eINSTANCE.getRequirement_InheritsReference();
+
+    /**
+     * The meta object literal for the '<em><b>Computes</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference REQUIREMENT__COMPUTES = eINSTANCE.getRequirement_Computes();
+
+    /**
      * The meta object literal for the '<em><b>Refines Reference</b></em>' reference list feature.
      * <!-- begin-user-doc -->
      * <!-- end-user-doc -->
@@ -3243,14 +3251,6 @@ public interface ReqSpecPackage extends EPackage
      * @generated
      */
     EReference REQUIREMENT__DECOMPOSES_REFERENCE = eINSTANCE.getRequirement_DecomposesReference();
-
-    /**
-     * The meta object literal for the '<em><b>Inherits Reference</b></em>' reference feature.
-     * <!-- begin-user-doc -->
-     * <!-- end-user-doc -->
-     * @generated
-     */
-    EReference REQUIREMENT__INHERITS_REFERENCE = eINSTANCE.getRequirement_InheritsReference();
 
     /**
      * The meta object literal for the '<em><b>Development Stakeholder</b></em>' reference list feature.

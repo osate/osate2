@@ -649,17 +649,17 @@ public class ReqSpecSemanticSequencer extends CommonSemanticSequencer {
 	 *             (
 	 *                 category+=[Category|QualifiedName] | 
 	 *                 description=Description | 
-	 *                 constants+=ValDeclaration | 
-	 *                 computes+=ComputeDeclaration | 
 	 *                 whencondition=WhenCondition | 
 	 *                 predicate=ReqPredicate | 
 	 *                 rationale=Rationale | 
 	 *                 changeUncertainty=Uncertainty | 
 	 *                 exception=[EObject|ID] | 
 	 *                 exceptionText=STRING | 
+	 *                 inheritsReference=[Requirement|QualifiedName] | 
+	 *                 constants+=ValDeclaration | 
+	 *                 computes+=ComputeDeclaration | 
 	 *                 refinesReference+=[Requirement|QualifiedName] | 
 	 *                 decomposesReference+=[Requirement|QualifiedName] | 
-	 *                 inheritsReference=[Requirement|QualifiedName] | 
 	 *                 evolvesReference+=[Requirement|QualifiedName] | 
 	 *                 developmentStakeholder+=[Stakeholder|QualifiedName] | 
 	 *                 goalReference+=[Goal|QualifiedName] | 

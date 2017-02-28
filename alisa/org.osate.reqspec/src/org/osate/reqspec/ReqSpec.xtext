@@ -61,15 +61,15 @@ SystemRequirementSet returns RequirementSet:
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
 	(
-	 description=Description? 
-	&constants+=ValDeclaration*
-	& computes+=ComputeDeclaration* 
-	& requirements+= SystemRequirement*
-	& include+= IncludeGlobalRequirement*
-	 &('see''document'  docReference+=ExternalDocument+)? 
-	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
-	&('issues' issues+=STRING+ )?
-	)
+	 description=Description 
+	|	constants+=ValDeclaration
+	| computes+=ComputeDeclaration 
+	| requirements+= SystemRequirement
+	| include+= IncludeGlobalRequirement
+	 |('see''document'  docReference+=ExternalDocument+) 
+	 |('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+) 
+	|('issues' issues+=STRING+ )
+	)*
 	']'
 	;
 
@@ -77,15 +77,14 @@ GlobalRequirementSet returns RequirementSet:
 	{GlobalRequirementSet}'global''requirements'  name =QualifiedName (':' title=STRING)? 
 	('use' 'constants' importConstants+=[GlobalConstants|QualifiedName]+)?
 	'[' 
-	(
-	 description=Description? 
-	&constants+=ValDeclaration*
-	& computes+=ComputeDeclaration* 
-	& requirements+= (GlobalRequirement)*
-	 &('see''document'  docReference+=ExternalDocument+)? 
-	 &('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+)? 
-	&('issues' issues+=STRING+ )?
-	)
+	(description=Description
+	|constants+=ValDeclaration
+	| computes+=ComputeDeclaration 
+	| requirements+= GlobalRequirement
+	 |('see''document'  docReference+=ExternalDocument+) 
+	 |('see' 'goals'  stakeholderGoals+=[ReqRoot|QualifiedName]+) 
+	|('issues' issues+=STRING+ )
+	)*
 	']'
 	;
 
@@ -144,26 +143,26 @@ SystemRequirement returns Requirement:
 		targetElement=[aadl2::NamedElement|ID] )
 	)?
 '['	(
- 	('category' category+=[categories::Category|QualifiedName]+ )?
-	&(  description=Description)? 
-	& (  constants+=ValDeclaration* )
-	& (  computes+=ComputeDeclaration* )
-	&(  whencondition=WhenCondition)?  // condition under which requirement applies 
-	&(  predicate=ReqPredicate)?  // predicate expression 
-	&(rationale=Rationale)? 
-	 &(changeUncertainty=Uncertainty)? 
-	&('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING))? 
-	&('refines' refinesReference+=[Requirement|QualifiedName]+)? 
-	&('decomposes' decomposesReference+=[Requirement|QualifiedName]+)? 
-	&('inherits' inheritsReference=[Requirement|QualifiedName])? 
-	&('evolves' evolvesReference+=[Requirement|QualifiedName]+)? 
-	&(dropped?='dropped' ( dropRationale=STRING )? )? 
-	 &('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)?
-	&('see''goal'  goalReference+=[Goal|QualifiedName]+)?
-	&('see''requirement'  requirementReference+=[Requirement|QualifiedName]+)?
-	 &('see''document'  docReference+=ExternalDocument+)? 
-		&('issues' issues+=STRING+ )?
-	)
+ 	('category' category+=[categories::Category|QualifiedName]+ )
+	|(  description=Description) 
+	|(  whencondition=WhenCondition)  // condition under which requirement applies 
+	|(  predicate=ReqPredicate)  // predicate expression 
+	|(rationale=Rationale) 
+	 |(changeUncertainty=Uncertainty) 
+	|('mitigates'  (exception=[ecore::EObject|ID]|exceptionText=STRING)) 
+	|('inherits' inheritsReference=[Requirement|QualifiedName]) 
+	|(dropped?='dropped' ( dropRationale=STRING )? ) 
+	|(  constants+=ValDeclaration )
+	| (  computes+=ComputeDeclaration )
+	|('refines' refinesReference+=[Requirement|QualifiedName]+) 
+	|('decomposes' decomposesReference+=[Requirement|QualifiedName]+) 
+	|('evolves' evolvesReference+=[Requirement|QualifiedName]+) 
+	 |('development' 'stakeholder'  developmentStakeholder+=[org::Stakeholder|QualifiedName]+)
+	|('see''goal'  goalReference+=[Goal|QualifiedName]+)
+	|('see''requirement'  requirementReference+=[Requirement|QualifiedName]+)
+	 |('see''document'  docReference+=ExternalDocument+) 
+		|('issues' issues+=STRING+ )
+	)*
 	']';
 	
 GlobalRequirement returns Requirement:
