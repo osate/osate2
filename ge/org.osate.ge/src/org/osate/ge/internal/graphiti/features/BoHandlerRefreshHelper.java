@@ -356,7 +356,7 @@ public class BoHandlerRefreshHelper {
 						    final Point labelPosition = decoratorNameToLocation.get(BoHandlerFeatureHelper.nameShapeName);
 						    if(labelPosition == null) {
 						    	// Set default position
-						    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getStyle().getFont());
+						    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getFont());
 						    	if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
 						    		labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the right
 						    		labelY = 5;
