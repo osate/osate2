@@ -29,7 +29,6 @@ import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.LabelService;
@@ -44,7 +43,6 @@ import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.UserInputService;
@@ -60,7 +58,6 @@ import org.osate.ge.internal.services.impl.DefaultConnectionService;
 import org.osate.ge.internal.services.impl.DefaultDiagramModificationService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultGhostingService;
-import org.osate.ge.internal.services.impl.DefaultGraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.impl.DefaultLabelService;
 import org.osate.ge.internal.services.impl.DefaultLayoutService;
@@ -72,7 +69,6 @@ import org.osate.ge.internal.services.impl.DefaultRefactoringService;
 import org.osate.ge.internal.services.impl.DefaultSerializableReferenceService;
 import org.osate.ge.internal.services.impl.DefaultShapeCreationService;
 import org.osate.ge.internal.services.impl.DefaultShapeService;
-import org.osate.ge.internal.services.impl.DefaultStyleService;
 import org.osate.ge.internal.services.impl.DefaultSubcomponentService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
@@ -85,7 +81,6 @@ import org.osgi.framework.FrameworkUtil;
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final IEclipseContext context;
 	private DefaultSerializableReferenceService serializableReferenceService;
-	private DefaultStyleService styleService;
 	
 	public AgeDiagramTypeProvider() {	
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
@@ -120,16 +115,15 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
 		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, propertyUtil, bor, cachingService, extensionService, refBuilder, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
-		styleService = new DefaultStyleService(fp);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
 		final DefaultSubcomponentService subcomponentService = new DefaultSubcomponentService(prototypeService);
 		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, fp);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
-		final DefaultGraphicsAlgorithmCreationService graphicsAlgorithmCreator = new DefaultGraphicsAlgorithmCreationService(styleService, featureService, subcomponentService);		
+	
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
-		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, graphicsAlgorithmCreator, fp);
+		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, fp);
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final DefaultQueryService queryService = new DefaultQueryService(propertyUtil, connectionService, bor, refBuilder);
 		
@@ -149,7 +143,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(RefactoringService.class, refactoringService);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(LayoutService.class, layoutService);
-		context.set(StyleService.class, styleService);
 		context.set(AnchorService.class, anchorUtil);
 		context.set(GhostingService.class, ghostingService);
 		context.set(ShapeService.class, shapeHelper);
@@ -159,7 +152,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(PrototypeService.class, prototypeService);
 		context.set(ConnectionService.class, connectionService);
 		context.set(ConnectionCreationService.class, connectionCreationService);
-		context.set(GraphicsAlgorithmCreationService.class, graphicsAlgorithmCreator);
 		context.set(ColoringService.class, highlightingHelper);
 		context.set(LabelService.class, labelService);
 		context.set(GraphitiService.class, graphitiService);
@@ -173,11 +165,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	
 	@Override
 	public void dispose() {
-		// Dispose of services that need disposing
-		if(styleService != null) {
-			styleService.dispose();
-		}
-		
 		if(serializableReferenceService != null) {
 			serializableReferenceService.dispose();
 		}

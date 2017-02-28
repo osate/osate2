@@ -137,7 +137,6 @@ import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.services.StyleService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
 
@@ -179,9 +178,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final ShapeCreationService shapeCreationService = Objects.requireNonNull(eclipseContext.get(ShapeCreationService.class), "unable to retrieve shape creation service");
 		final ConnectionCreationService connectionCreationService = Objects.requireNonNull(eclipseContext.get(ConnectionCreationService.class), "unable to retrieve connection creation service");
 		final AnchorService anchorService = Objects.requireNonNull(eclipseContext.get(AnchorService.class), "unable to retrieve anchor service");
-		final StyleService styleService = Objects.requireNonNull(context.get(StyleService.class), "unable to retrieve style service");
 		final QueryService queryService = Objects.requireNonNull(context.get(QueryService.class), "unable to retrieve query service");
-		this.pictogramRefreshHelper = new BoHandlerRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, propertyService, styleService, connectionService, queryService, bor, this);
+		this.pictogramRefreshHelper = new BoHandlerRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, propertyService, connectionService, queryService, bor, this);
 		
 		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
 		if(enableIndependenceProviderCaching) {

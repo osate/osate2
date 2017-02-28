@@ -76,8 +76,6 @@ import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.ShapeCreationService;
-import org.osate.ge.internal.services.StyleService;
-import org.osate.ge.internal.styles.StyleConstants;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 
 public class BoHandlerRefreshHelper {
@@ -93,7 +91,6 @@ public class BoHandlerRefreshHelper {
 	private final ConnectionCreationService connectionCreationService;
 	private final AnchorService anchorService;
 	private final PropertyService propertyService;
-	private final StyleService styleService;
 	private final ConnectionService connectionService;
 	private final BusinessObjectResolutionService bor;
 	private final IFeatureProvider featureProvider;
@@ -105,7 +102,6 @@ public class BoHandlerRefreshHelper {
 		final ConnectionCreationService connectionCreationService,
 		final AnchorService anchorService,
 		final PropertyService propertyService,
-		final StyleService styleService,
 		final ConnectionService connectionService,
 		final QueryService queryService,
 		final BusinessObjectResolutionService bor,
@@ -117,7 +113,6 @@ public class BoHandlerRefreshHelper {
 		this.connectionCreationService = Objects.requireNonNull(connectionCreationService, "connectionCreationService must not be null");
 		this.anchorService = Objects.requireNonNull(anchorService, "anchorService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
-		this.styleService = Objects.requireNonNull(styleService, "styleService must not be null");
 		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.featureProvider = Objects.requireNonNull(featureProvider, "featureProvider must not be null");
@@ -354,7 +349,7 @@ public class BoHandlerRefreshHelper {
 						if(name != null) {
 							final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 							final Text text = gaService.createDefaultText(getDiagram(), textDecorator);
-							text.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
+							labelService.setStyle(text);
 							propertyService.setName(textDecorator, BoHandlerFeatureHelper.nameShapeName);						
 						    text.setValue(name);
 
@@ -388,8 +383,8 @@ public class BoHandlerRefreshHelper {
 								final AgeAnnotation ageAnnotation = (AgeAnnotation)annotation;
 								
 								final ConnectionDecorator annotationDecorator = peCreateService.createConnectionDecorator(connection, true, 0.5, true);
-								final Text annotationTxt = gaService.createDefaultText(getDiagram(), annotationDecorator);								
-								annotationTxt.setStyle(styleService.getStyle(StyleConstants.LABEL_STYLE));
+								final Text annotationTxt = gaService.createDefaultText(getDiagram(), annotationDecorator);
+								labelService.setStyle(annotationTxt);
 								annotationTxt.setValue(ageAnnotation.text);
 
 								if(ageAnnotation.name != null) {

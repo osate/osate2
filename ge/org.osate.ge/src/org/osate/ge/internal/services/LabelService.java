@@ -7,6 +7,7 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
+import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 
@@ -19,4 +20,6 @@ public interface LabelService {
 	Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue);
 	
 	Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue, final boolean includeBackground);
+	
+	void setStyle(Text text);
 }

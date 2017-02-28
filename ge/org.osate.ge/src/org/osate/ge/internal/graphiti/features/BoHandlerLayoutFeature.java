@@ -125,6 +125,7 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 
 			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetDefaultLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
+			shapeGa.setStyle(null); // Remove reference to Graphiti style.
 			
 			final Graphic gr = (Graphic)ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			if(gr == null) {	
