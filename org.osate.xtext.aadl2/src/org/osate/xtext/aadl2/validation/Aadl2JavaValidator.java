@@ -448,6 +448,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFlowSegmentModes(flow);
 		checkSubcomponentFlows(flow);
 		// checkFlowPathElements(flow);
+		checkEmptyFlowImplementation(flow);
 	}
 
 	@Check(CheckType.FAST)
@@ -1619,6 +1620,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 			}
+		}
+	}
+	
+	private void checkEmptyFlowImplementation(FlowImplementation flow) {
+		if (flow.getOwnedFlowSegments().isEmpty()) {
+			warning("Flow implementation is empty and does not add value to the model", flow,
+					Aadl2Package.eINSTANCE.getFlowImplementation_Specification());
 		}
 	}
 
