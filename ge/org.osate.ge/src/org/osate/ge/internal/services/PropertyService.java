@@ -123,8 +123,11 @@ public interface PropertyService {
     void setIsColoringContainer(PictogramElement pe, boolean value);
     
     boolean isColoringChild(PictogramElement pe);
-    void setIsColoringChild(PictogramElement pe, boolean value);
-    
+    void setIsColoringChild(PictogramElement pe, boolean value);    
+	
+	boolean isUnresizable(PictogramElement pe);
+	void setIsUnresizable(PictogramElement pe, boolean value);
+	
 	// Bindings
 	BindingType getBindingType(Connection c);
 	void setBindingType(Connection c, BindingType value);

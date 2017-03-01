@@ -28,6 +28,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FeatureGraphic;
+import org.osate.ge.internal.graphics.FeatureType;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -162,12 +163,9 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			// Update the layout metrics to ensure there is room for all the labels
 			updateLayoutMetricsForLabelPositions(lm, nameHorizontalPosition, nameVerticalPosition, totalLabelsWidth + labelPadding, totalLabelsHeight + labelPadding);
 			
-			// Shrink features to the smallest required size
-			if(!(gr instanceof FeatureGraphic)) {
-				// Adjust inner width and height based on padding and current size
-				lm.innerWidth = Math.max(lm.innerWidth, shapeGa.getWidth() - lm.leftOuterPadding - lm.rightOuterPadding);
-				lm.innerHeight = Math.max(lm.innerHeight, shapeGa.getHeight() - lm.topOuterPadding - lm.bottomOuterPadding);
-			}
+			// Adjust inner width and height based on padding and current size
+			lm.innerWidth = Math.max(lm.innerWidth, shapeGa.getWidth() - lm.leftOuterPadding - lm.rightOuterPadding);
+			lm.innerHeight = Math.max(lm.innerHeight, shapeGa.getHeight() - lm.topOuterPadding - lm.bottomOuterPadding);
 			
 			// Prevent children from being positioned outside of the inner area
 			for(final Shape childShape : shapeService.getNonGhostChildren(shape)) {
@@ -231,6 +229,10 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			} else {
 				innerGa = AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(getDiagram(), shapeGa, gr, lm.innerWidth, lm.innerHeight, filled);
 			}
+			
+			// Set whether the shape is unresizable based on the graphic
+			final boolean unresizeable = (gr instanceof FeatureGraphic && ((FeatureGraphic) gr).featureType != FeatureType.FEATURE_GROUP);
+			propertyService.setIsUnresizable(shape, unresizeable);
 
 			// Rotate shape
 			if(shapeDockArea != null) {

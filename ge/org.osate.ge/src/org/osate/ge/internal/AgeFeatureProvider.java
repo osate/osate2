@@ -77,8 +77,6 @@ import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
 import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
 import org.osate.ge.internal.features.ComponentImplementationToTypeFeature;
@@ -100,7 +98,6 @@ import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
-import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
@@ -450,11 +447,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	// This will disable manipulating connections associated with flow specifications and other model elements which are not persisted. 	
 	private final IMoveBendpointFeature moveBendpointFeature = new DefaultMoveBendpointFeature(this) {
 		@Override
-		public boolean canMoveBendpoint(IMoveBendpointContext context) {
-			return allowBendpointManipulation(context.getConnection());
-		}
-		
-		@Override
 		public boolean moveBendpoint(final IMoveBendpointContext ctx) {
 			boolean result = super.moveBendpoint(ctx);			
 			connectionService.updateConnectionAnchor(ctx.getConnection());						
@@ -469,11 +461,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		
 	private final IAddBendpointFeature addBendpointFeature = new DefaultAddBendpointFeature(this) {
 		@Override
-		public boolean canAddBendpoint(IAddBendpointContext context) {
-			return allowBendpointManipulation(context.getConnection());
-		}
-		
-		@Override
 		public void addBendpoint(final IAddBendpointContext ctx) {
 			super.addBendpoint(ctx);			
 			connectionService.updateConnectionAnchor(ctx.getConnection());						
@@ -487,11 +474,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	
 	private final IRemoveBendpointFeature removeBendpointFeature = new DefaultRemoveBendpointFeature(this) {
 		@Override
-		public boolean canRemoveBendpoint(IRemoveBendpointContext context) {
-			return allowBendpointManipulation(context.getConnection());
-		}
-		
-		@Override
 		public void removeBendpoint(final IRemoveBendpointContext ctx) {
 			super.removeBendpoint(ctx);			
 			connectionService.updateConnectionAnchor(ctx.getConnection());						
@@ -503,11 +485,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return removeBendpointFeature;
 	}
 
-	private boolean allowBendpointManipulation(final PictogramElement pe) {
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-		return bo instanceof org.osate.aadl2.Connection || bo instanceof org.osate.aadl2.FlowSpecification || bo instanceof SubprogramCallOrder || bo instanceof ConnectionReference || bo instanceof Generalization;
-	}
-	
 	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {
 		final IEclipseContext childCtx = getContext().createChild();
 		try {

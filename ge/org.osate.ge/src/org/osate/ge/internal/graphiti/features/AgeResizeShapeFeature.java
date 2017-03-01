@@ -44,18 +44,21 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 			return false;
 		}
 		
-		// Don't allow resizing of docked shapes
-		if(propertyService.getDockArea(shape) != null) {
+		// Check if the unresizable setting has been set on the graphics algorithm
+		if(propertyService.isUnresizable(shape)) {
 			return false;
 		}
-		
+				
+		// Ensure that the resize won't move the shape outside of its container
 		final Shape container = shape.getContainer();
 		if(!(container instanceof Diagram) && ctx.getDirection() != IResizeShapeContext.DIRECTION_UNSPECIFIED) {
 			final GraphicsAlgorithm containerInnerGa = container.getGraphicsAlgorithm().getGraphicsAlgorithmChildren().get(0);
-			if(ctx.getX() < containerInnerGa.getX() || 
-					ctx.getY() < containerInnerGa.getY() ||
-					ctx.getX() >= containerInnerGa.getX() + containerInnerGa.getWidth() ||
-					ctx.getY() >= containerInnerGa.getY() + containerInnerGa.getHeight()) {
+			if((ctx.getX() != shape.getGraphicsAlgorithm().getX() &&
+					(ctx.getX() < containerInnerGa.getX() || 
+					ctx.getX() > containerInnerGa.getX() + containerInnerGa.getWidth())) ||
+				(ctx.getY() != shape.getGraphicsAlgorithm().getY() &&
+					(ctx.getY() < containerInnerGa.getY() ||
+					ctx.getY() > containerInnerGa.getY() + containerInnerGa.getHeight()))) {
 				return false;
 			}
 		}
@@ -67,8 +70,12 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature {
 	public void resizeShape(final IResizeShapeContext context) {
 		final ContainerShape shape = (ContainerShape)context.getPictogramElement();			
 		super.resizeShape(context);
-		layoutService.checkShapeBoundsWithAncestors(shape);
-		
+		layoutService.checkShapeBoundsWithAncestors(shape);		
 		connectionService.updateConnectionAnchors(shape);	
+		
+		// Relayout the container of docked shapes after resizing. It could force other shapes to be moved.
+		if(propertyService.getDockArea(shape) != null) {
+			layoutPictogramElement(shape.getContainer());
+		}
 	}
 }

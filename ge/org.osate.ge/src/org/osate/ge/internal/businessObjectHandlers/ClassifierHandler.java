@@ -58,7 +58,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.DiagramElementProxy;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
@@ -79,11 +78,8 @@ import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 
 public class ClassifierHandler {
-	private static final LabelConfiguration classifierDiagramNameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
-	private static final LabelConfiguration ccNameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
-	private static final LabelConfiguration fgtNameLabelConfiguration = LabelConfigurationBuilder.create().afterRight().verticalCenter().build();
+	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 	private static final StandaloneDiagramElementQuery packageQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
-	private static final Graphic featureGroupTypeClassifierDiagramGraphic = RectangleBuilder.create().lineWidth(2).build(); // Graphic to use for feature group types when they are not contained in a package diagram element.
 	
 	@IsApplicable
 	@CanDelete
@@ -359,26 +355,12 @@ public class ClassifierHandler {
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(InternalNames.INTERNAL_DIAGRAM_BO) Object diagramBo) {
-		if(bo instanceof FeatureGroupType && !(diagramBo instanceof AadlPackage)) {
-			return featureGroupTypeClassifierDiagramGraphic;
-		}
 		return AadlGraphics.getGraphic(bo);
 	}
 	
 	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
-		// Is the diagram element contained inside a package diagram element
-		if(queryService.getFirstBusinessObject(packageQuery, diagramElement) == null) {
-			// Not in package
-			return classifierDiagramNameLabelConfiguration;
-		} else {
-			// In a package
-			if(classifier instanceof FeatureGroupType) {
-				return fgtNameLabelConfiguration;
-			} else {
-				return ccNameLabelConfiguration;
-			}
-		}
+		return nameLabelConfiguration;
 	}
 		
 	@CanRename
