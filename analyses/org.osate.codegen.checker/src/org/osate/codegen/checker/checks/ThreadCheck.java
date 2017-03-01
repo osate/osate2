@@ -57,7 +57,7 @@ public class ThreadCheck extends AbstractCheck {
 		 * Each thread needs to specify its dispatch protocol
 		 */
 		final List<ComponentInstance> threadMissingDispatch = allThreads.stream()
-				.filter(comp -> (GetProperties.getDispatchProtocol(comp) == null)
+				.filter(comp -> (GetProperties.getDispatchProtocol(comp) != null)
 						&& ((GetProperties.getDispatchProtocol(comp).toString().equalsIgnoreCase("periodic"))
 								|| (GetProperties.getDispatchProtocol(comp).toString().equalsIgnoreCase("sporadic"))))
 				.collect(Collectors.toList());
