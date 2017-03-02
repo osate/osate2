@@ -25,6 +25,7 @@ import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Element;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.graphiti.TextUtil;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.PropertyService;
 
@@ -83,7 +84,7 @@ public class DefaultLabelService implements LabelService {
 	@Override
 	public void setStyle(final Text text) {
 		final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
-		setStyle(diagram, text);
+		TextUtil.setDefaultStyle(diagram, text);
 	}
 
 	private static GraphicsAlgorithm createTextBackground(final Diagram diagram, final GraphicsAlgorithmContainer container) {
@@ -100,25 +101,8 @@ public class DefaultLabelService implements LabelService {
 	private static Text createLabelGraphicsAlgorithm(final Diagram diagram, final GraphicsAlgorithmContainer container, final String labelTxt) {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
-		setStyle(diagram, text);
+		TextUtil.setDefaultStyle(diagram, text);
         
         return text;
-	}
-	
-	public static void setStyle(final Diagram diagram, final Text text) {
-		final IGaService gaService = Graphiti.getGaService();
-		text.setForeground(gaService.manageColor(diagram, IColorConstant.BLACK));
-		text.setFilled(false);
-		text.setHorizontalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setVerticalAlignment(Orientation.ALIGNMENT_CENTER);
-		text.setFont(gaService.manageFont(diagram, "Arial", getScaledFontPointSize(10.0), false, true));
-	}
-	
-	private static int getScaledFontPointSize(final double unscaledFontSize) {
-		final Device device = Display.getCurrent();
-		// Round to 1 decimal point before casting to int. 
-		// This ensures that the value is rounded up only in cases where the value is within .1 of a whole number
-		final int fontSizeInPoints = (int)(Math.round(unscaledFontSize*96.0/device.getDPI().y*10.0)/10.0);
-		return fontSizeInPoints;
 	}
 }

@@ -16,9 +16,12 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.osate.ge.internal.query.QueryRunner;
+import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.services.AadlArrayService;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
+import org.osate.ge.internal.services.AadlPropertyService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
@@ -49,6 +52,7 @@ import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.impl.DefaultAadlArrayService;
 import org.osate.ge.internal.services.impl.DefaultAadlFeatureService;
 import org.osate.ge.internal.services.impl.DefaultAadlModificationService;
+import org.osate.ge.internal.services.impl.DefaultAadlPropertyService;
 import org.osate.ge.internal.services.impl.DefaultAnchorService;
 import org.osate.ge.internal.services.impl.DefaultBusinessObjectResolutionService;
 import org.osate.ge.internal.services.impl.DefaultCachingService;
@@ -122,10 +126,18 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, fp);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
 	
+		final QueryRunnerFactory queryRunnerFactory = new QueryRunnerFactory() {
+			@Override
+			public QueryRunner create() {
+				return new QueryRunner(propertyUtil, connectionService, bor, refBuilder);
+			}			
+		};
+		
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
 		final DefaultLabelService labelService = new DefaultLabelService(propertyUtil, fp);
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final DefaultQueryService queryService = new DefaultQueryService(propertyUtil, connectionService, bor, refBuilder);
+		final DefaultAadlPropertyService aadlPropertyService = new DefaultAadlPropertyService(cachingService, this, propertyUtil, bor, queryRunnerFactory);
 		
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 
@@ -156,6 +168,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(LabelService.class, labelService);
 		context.set(GraphitiService.class, graphitiService);
 		context.set(QueryService.class, queryService);
+		context.set(AadlPropertyService.class, aadlPropertyService);
+		context.set(QueryRunnerFactory.class, queryRunnerFactory);
 		
 		// Create Public Services
 		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));
