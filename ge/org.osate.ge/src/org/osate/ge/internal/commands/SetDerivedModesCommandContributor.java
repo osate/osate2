@@ -5,12 +5,12 @@ import java.util.Collection;
 
 import org.osate.ge.di.Activate;
 
-public class SetInitialModeCommandContributor {
+public class SetDerivedModesCommandContributor {
 	@Activate
 	public Collection<Object> activate() {
 		final Collection<Object> contributedCommands = new ArrayList<>();
-		contributedCommands.add(new SetInitialModeCommand(true));
-		contributedCommands.add(new SetInitialModeCommand(false)); 
+		contributedCommands.add(new SetDerivedModesCommand(true));
+		contributedCommands.add(new SetDerivedModesCommand(false));
 		return contributedCommands;
 	}
 }
