@@ -578,7 +578,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	//Tests scope_ModalPath_inModeOrTransition and scope_FlowImplementation_specification
 	@Test
 	def void testInModesAndFlows() {
-		('''
+		createFiles("pack.aadl" -> '''
 			package pack
 			public
 			  abstract a1
@@ -652,8 +652,11 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			    param2: in parameter;
 			  end subp2;
 			end pack;
-		'''.parse as AadlPackage) => [
-			assertNoIssues
+		''')
+		suppressSerialization
+		val testFileResult = testFile("pack.aadl")
+		val issueCollection = new FluentIssueCollection(testFileResult.resource, newArrayList, newArrayList)
+		testFileResult.resource.contents.head as AadlPackage => [
 			"pack".assertEquals(name)
 			publicSection.ownedClassifiers.get(1) as AbstractImplementation => [
 				"a1.i".assertEquals(name)
@@ -714,6 +717,7 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsink1", "fsource1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 				]
 				ownedFlowImplementations.get(1) => [
 					"fsink1".assertEquals(specification.name)
@@ -721,9 +725,12 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 					assertScope(Aadl2Package::eINSTANCE.flowImplementation_Specification, #["fsource1", "fsink1"])
 					//Tests scope_ModalPath_inModeOrTransition
 					assertScope(Aadl2Package::eINSTANCE.modalPath_InModeOrTransition, #["m5", "m6", "m7", "m8", "mt5", "mt6", "mt7", "mt8"])
+					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
 				]
 			]
 		]
+		issueCollection.sizeIs(issueCollection.issues.size)
+		assertConstraints(issueCollection)
 	}
 	
 	//Tests scope_ModeBinding_parentMode and scope_ModeBinding_derivedMode
