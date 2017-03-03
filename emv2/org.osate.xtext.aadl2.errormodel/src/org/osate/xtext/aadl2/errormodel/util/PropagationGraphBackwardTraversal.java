@@ -57,7 +57,9 @@ public class PropagationGraphBackwardTraversal {
 	public EObject traverseOutgoingErrorPropagation(final ComponentInstance component,
 			final ErrorPropagation errorPropagation, ErrorTypes type) {
 		List<EObject> subResults = new LinkedList<EObject>();
-		type = getTargetType(errorPropagation.getTypeSet(), type);
+		type = matchTargetType(errorPropagation.getTypeSet(), type);
+		if (type == null)
+			return null;
 		EObject found = preProcessOutgoingErrorPropagation(component, errorPropagation, type);
 		if (found != null) {
 			// used to return cached object
@@ -65,7 +67,7 @@ public class PropagationGraphBackwardTraversal {
 		}
 		for (OutgoingPropagationCondition opc : EMV2Util.getAllOutgoingPropagationConditions(component)) {
 			if (!EM2TypeSetUtil.isNoError(opc.getTypeToken())) {
-				ErrorTypes condTargetType = getTargetType(opc.getTypeToken(), type);
+				ErrorTypes condTargetType = mapTargetType(opc.getTypeToken(), type);
 				if ((EMV2Util.isSame(opc.getOutgoing(), errorPropagation) || opc.isAllPropagations())
 						&& EM2TypeSetUtil.contains(type, opc.getTypeToken())) {
 					EObject res = handleOutgoingErrorPropagationCondition(component, opc, condTargetType);
@@ -98,16 +100,16 @@ public class PropagationGraphBackwardTraversal {
 			if (ef instanceof ErrorPath) {
 				ErrorPath ep = (ErrorPath) ef;
 //				boolean typeContained = EM2TypeSetUtil.contains(type, ep.getTargetToken());
-				
+
 				/**
 				 * Make sure that the error type we are looking for is contained
 				 * in the error types for the out propagation.
 				 * This is a fix for the JMR/SAVI WBS model.
 				 */
-				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(),type);
+				boolean typeContained = EM2TypeSetUtil.contains(ep.getTargetToken(), type);
 				if (EMV2Util.isSame(ep.getOutgoing(), errorPropagation) && typeContained) {
 					EObject newEvent = traverseIncomingErrorPropagation(component, ep.getIncoming(),
-							getTargetType(ep.getTypeTokenConstraint(), type));
+							mapTargetType(ep.getTypeTokenConstraint(), type));
 					if (newEvent != null) {
 						subResults.add(newEvent);
 					}
@@ -140,12 +142,20 @@ public class PropagationGraphBackwardTraversal {
 	 * @param original ErrroTypes that is the actual origin of the backward proapagation
 	 * @return ErrorTypes
 	 */
-	private ErrorTypes getTargetType(ErrorTypes constraint, ErrorTypes original) {
+	private ErrorTypes mapTargetType(ErrorTypes constraint, ErrorTypes original) {
 		if (constraint == null)
 			return original;
 		if (original == null)
 			return constraint;
 		return EM2TypeSetUtil.contains(constraint, original) ? original : constraint;
+	}
+
+	private ErrorTypes matchTargetType(ErrorTypes constraint, ErrorTypes original) {
+		if (constraint == null)
+			return original;
+		if (original == null)
+			return constraint;
+		return EM2TypeSetUtil.contains(constraint, original) ? original : null;
 	}
 
 	/**
@@ -387,7 +397,7 @@ public class PropagationGraphBackwardTraversal {
 					QualifiedErrorBehaviorState qs = sconditionElement.getQualifiedState();
 					ComponentInstance referencedInstance = EMV2Util.getLastComponentInstance(qs, component);
 					EObject result = null;
-					ErrorTypes referencedErrorType = getTargetType(sconditionElement.getConstraint(), type);
+					ErrorTypes referencedErrorType = mapTargetType(sconditionElement.getConstraint(), type);
 					if (referencedInstance != null) {
 						result = traverseCompositeErrorState(referencedInstance, EMV2Util.getState(sconditionElement),
 								referencedErrorType);
@@ -414,7 +424,8 @@ public class PropagationGraphBackwardTraversal {
 
 				ComponentInstance relatedComponent = EMV2Util.getLastComponentInstance(path, component);
 				NamedElement errorModelElement = EMV2Util.getErrorModelElement(path);
-				ErrorTypes referencedErrorType = conditionElement.getConstraint();
+				ErrorTypes referencedErrorType = mapTargetType(conditionElement.getConstraint(), type);
+
 				/**
 				 * Here, we have an error event. Likely, this is something we
 				 * can get when we are analyzing error component behavior.
@@ -463,7 +474,9 @@ public class PropagationGraphBackwardTraversal {
 	private EObject traverseIncomingErrorPropagation(ComponentInstance component, ErrorPropagation errorPropagation,
 			ErrorTypes type) {
 		List<EObject> subResults = new LinkedList<EObject>();
-		type = getTargetType(errorPropagation.getTypeSet(), type);
+		type = matchTargetType(errorPropagation.getTypeSet(), type);
+		if (type == null)
+			return null;
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type);
 		if (preResult != null)
 			return preResult;
