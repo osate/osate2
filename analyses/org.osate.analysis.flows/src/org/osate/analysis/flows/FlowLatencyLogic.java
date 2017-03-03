@@ -22,6 +22,13 @@ public class FlowLatencyLogic {
 			FlowLatencyLogicConnection.mapConnectionInstance(etef, flowElementInstance, entry);
 		}
 
+		if (flowElementInstance instanceof EndToEndFlowInstance) {
+
+			for (FlowElementInstance fei : ((EndToEndFlowInstance) flowElementInstance).getFlowElements()) {
+				FlowLatencyLogic.mapFlowElementInstance(etef, fei, entry);
+			}
+		}
+
 	}
 
 }
