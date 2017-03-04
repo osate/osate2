@@ -1246,15 +1246,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		// if the feature names don't match
-		if ((!outFeatureName.equalsIgnoreCase(specFeature.getName()) ||
-		// if the spec has a context, but the impl doesn't: flow spec
-		// picks an element from a FG
-				(outContextName == null && !Aadl2Util.isNull(specContext)) ||
-				// if the impl has a context (FG), but the spec doesn't (feature
-				// is FG)
-				(outContextName != null && Aadl2Util.isNull(specContext)) ||
-				// if the context names don't match
-				(outContextName != null && !outContextName.equalsIgnoreCase(specContext.getName())))) {
+		boolean match = false;
+		if (outFeatureName.equalsIgnoreCase(specFeature.getName())) {
+			if (outContextName != null && !Aadl2Util.isNull(specContext)) {
+				// feature and context match
+				match = outContextName.equalsIgnoreCase(specContext.getName());
+			} else if (outContextName == null && Aadl2Util.isNull(specContext)) {
+				// features match and no context specified
+				match = true;
+			}
+		} else if (outContextName != null && Aadl2Util.isNull(specContext)) {
+			// spec has no context impl does: match spec FG with feature FG as context
+			match = outContextName.equalsIgnoreCase(specFeature.getName());
+		} else if (outContextName == null && !Aadl2Util.isNull(specContext)) {
+			// spec has FG as context, impl refers to FG only
+			// XXX: Currently not supported
+		}
+		if (!match) {
 			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
 			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
 			error('\'' + outImplName + "' does not match the out flow feature identifier '" + specName
@@ -1302,14 +1310,31 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			return;
 		}
 		// if the feature names don't match
-		if ((!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
-		// if the spec has a context, but the impl doesn't
-				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
-				// if the impl has a context, but the spec doesn't
-				(inContextName != null && Aadl2Util.isNull(specContext)) ||
-				// if the context names don't match
-				(inContextName != null && specContext != null
-						&& !inContextName.equalsIgnoreCase(specContext.getName())))) {
+//		if ((!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
+//		// if the spec has a context, but the impl doesn't
+//				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
+//				// if the impl has a context, but the spec doesn't
+//				(inContextName != null && Aadl2Util.isNull(specContext)) ||
+//				// if the context names don't match
+//				(inContextName != null && specContext != null
+//						&& !inContextName.equalsIgnoreCase(specContext.getName())))) {
+		boolean match = false;
+		if (inFeatureName.equalsIgnoreCase(specFeature.getName())) {
+			if (inContextName != null && !Aadl2Util.isNull(specContext)) {
+				// feature and context match
+				match = inContextName.equalsIgnoreCase(specContext.getName());
+			} else if (inContextName == null && Aadl2Util.isNull(specContext)) {
+				// features match and no context specified
+				match = true;
+			}
+		} else if (inContextName != null && Aadl2Util.isNull(specContext)) {
+			// spec has no context impl does: match spec FG with feature FG as context
+			match = inContextName.equalsIgnoreCase(specFeature.getName());
+		} else if (inContextName == null && !Aadl2Util.isNull(specContext)) {
+			// spec has FG as context, impl refers to FG only
+			// XXX: Currently not supported
+		}
+		if (!match) {
 			String inImplName = (inContextName != null ? inContextName + '.' : "") + inFeatureName;
 			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
 			error('\'' + inImplName + "' does not match the in flow feature identifier '" + specName
@@ -1622,8 +1647,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 		}
 	}
-	
+
 	private void checkEmptyFlowImplementation(FlowImplementation flow) {
+		if (flow.getContainingComponentImpl().getAllSubcomponents().isEmpty()
+				|| flow.getContainingComponentImpl().getAllConnections().isEmpty())
+			return;
 		if (flow.getOwnedFlowSegments().isEmpty()) {
 			warning("Flow implementation is empty and does not add value to the model", flow,
 					Aadl2Package.eINSTANCE.getFlowImplementation_Specification());
