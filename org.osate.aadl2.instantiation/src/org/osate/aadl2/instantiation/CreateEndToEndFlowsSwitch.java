@@ -188,6 +188,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	private List<Connection> connections = new ArrayList<Connection>();
 	private List<EndToEndFlowInstance> removeETEI = new ArrayList<EndToEndFlowInstance>();
+	private List<EndToEndFlowInstance> addETEI = new ArrayList<EndToEndFlowInstance>();
 
 	/**
 	 * All end to end flow instances created for an end to end flow.
@@ -234,8 +235,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 								instantiateEndToEndFlow(ci, ete, ete2info);
 								for (EndToEndFlowInstance etei : removeETEI) {
 									ci.getEndToEndFlows().remove(etei);
+									addETEI.remove(etei);
+								}
+								resetETECloneCount();
+								for (EndToEndFlowInstance etei : addETEI) {
+									setCloneName(etei);
 								}
 								removeETEI.clear();
+								addETEI.clear();
 							}
 						}
 					}
@@ -268,6 +275,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		etei.setName(ete.getName());
 		etei.setEndToEndFlow(ete);
 		ci.getEndToEndFlows().add(etei);
+		addETEI.add(etei);
 		created.add(myInfo = new ETEInfo(etei));
 		EList<EList<ModeInstance>> ml = etei.getModesList();
 		ml.clear();
@@ -398,6 +406,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 					etei = eteiClone;
 					state = stateClone;
+					addETEI.add(etei);
 					if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 						created.add(myInfo = new ETEInfo(etei));
 					} else {
@@ -500,6 +509,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 						etei = eteiClone;
 						state = stateClone;
+						addETEI.add(etei);
 						if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 							created.add(myInfo = new ETEInfo(etei));
 						} else {
@@ -616,6 +626,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 							etei = eteiClone;
 							state = stateClone;
+							addETEI.add(etei);
 							if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 								created.add(myInfo = new ETEInfo(etei));
 							} else {
@@ -703,6 +714,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 					etei = eteiClone;
 					state = stateClone;
+					addETEI.add(etei);
 					if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 						created.add(myInfo = new ETEInfo(etei));
 					} else {
@@ -755,6 +767,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 							etei = eteiClone;
 							state = stateClone;
+							addETEI.add(etei);
 							if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 								created.add(myInfo = new ETEInfo(etei));
 							} else {
