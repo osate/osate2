@@ -59,13 +59,13 @@ public class ProcessorCheck extends AbstractCheck {
 					.filter(cpu -> GetProperties.getModuleSchedule(cpu).size() == 0).collect(Collectors.toList());
 
 			for (ComponentInstance cpu : badProcessors) {
-				addError(new ErrorReport(cpu, "Need to define the processor schedule"));
+				addError(new ErrorReport(cpu, "Processor must define the property ARINC653::Module_Schedule"));
 			}
 		}
 
 		/**
-		 * For vxworks, we need to check that the Source_Name property
-		 * is defined on each virtual processor.
+		 * For vxworks, we need to check that the Source_Name property is
+		 * defined on each virtual processor.
 		 */
 		if (vxworks()) {
 			final List<ComponentInstance> virtualProcessorsWithoutSourceName = si
@@ -74,13 +74,14 @@ public class ProcessorCheck extends AbstractCheck {
 							&& (GetProperties.getSourceName(comp) == null)))
 					.collect(Collectors.toList());
 			for (ComponentInstance vp : virtualProcessorsWithoutSourceName) {
-				addError(new ErrorReport(vp, "Need to define the source_name property (virtual processor)"));
+				addError(new ErrorReport(vp,
+						"Virtual Processor must define the property Programming_Properties::Source_Name"));
 			}
 		}
 
 		/**
-		 * For vxworks, we need to check that the Source_Name property
-		 * is defined on each virtual processor.
+		 * For vxworks, we need to check that the Source_Name property is
+		 * defined on each virtual processor.
 		 */
 		if (deos()) {
 			final List<ComponentInstance> virtualProcessorsWithoutExecutionTime = si
@@ -89,7 +90,8 @@ public class ProcessorCheck extends AbstractCheck {
 							&& (GetProperties.getExecutionTimeInMS(comp) == 0)))
 					.collect(Collectors.toList());
 			for (ComponentInstance vp : virtualProcessorsWithoutExecutionTime) {
-				addError(new ErrorReport(vp, "Need to define the execution_time property"));
+				addError(new ErrorReport(vp,
+						"Virtual processor must define the property Timing_Properties::Execution_Time"));
 			}
 
 			final List<ComponentInstance> virtualProcessorsWithoutPeriod = si
@@ -98,7 +100,7 @@ public class ProcessorCheck extends AbstractCheck {
 							&& (GetProperties.getPeriodinMS(comp) == 0)))
 					.collect(Collectors.toList());
 			for (ComponentInstance vp : virtualProcessorsWithoutPeriod) {
-				addError(new ErrorReport(vp, "Need to define the period property"));
+				addError(new ErrorReport(vp, "Virtual processor must define the property Timing_Properties::Period"));
 			}
 		}
 
@@ -106,8 +108,8 @@ public class ProcessorCheck extends AbstractCheck {
 			OsateDebug.osateDebug("pok case");
 
 			/**
-			 * For each CPU, we check that every virtual processor contained in the cpu is correctly
-			 * referenced in the schedule slots 
+			 * For each CPU, we check that every virtual processor contained in
+			 * the cpu is correctly referenced in the schedule slots
 			 */
 			for (ComponentInstance cpu : si.getComponentInstances().stream()
 					.filter(comp -> comp.getCategory() == ComponentCategory.PROCESSOR).collect(Collectors.toList())) {
@@ -116,21 +118,30 @@ public class ProcessorCheck extends AbstractCheck {
 								&& (PokProperties.getSlotsAllocation(cpu).contains(comp) == false)))
 						.collect(Collectors.toList());
 				for (ComponentInstance vp : unreferencedVirtualProcessors) {
-					addError(new ErrorReport(vp, "Need to be referenced in the processor slots"));
+					addError(new ErrorReport(vp,
+							"Virtual processor must be declared in the containing processor's POK::Slots_Allocation property"));
 				}
 
-				if (PokProperties.getSlotsAllocation(cpu).size() != PokProperties.getTimeSlotInMs(cpu).size()) {
-					addError(new ErrorReport(cpu, "There are missing slots"));
+				int slotsAllocationSize = PokProperties.getSlotsAllocation(cpu).size();
+				int slotsSize = PokProperties.getTimeSlotInMs(cpu).size();
+				if (slotsAllocationSize != slotsSize) {
+					addError(new ErrorReport(cpu, "Property POK::Slots_Allocation has " + slotsAllocationSize
+							+ " elements, but property POK::Slots has " + slotsSize + "elements"));
 				}
 			}
 
-//			List<ComponentInstance> badProcessors = (List<ComponentInstance>) si.getAllComponentInstances().stream()
-//					.filter( comp -> comp.getCategory() == ComponentCategory.PROCESSOR).filter( cpu -> GetProperties.getModuleSchedule(cpu).size() == 0).collect(Collectors.toList());
-//	
-//			for (ComponentInstance cpu : badProcessors)
-//			{
-//				addError (new ErrorReport (cpu, "Need to define the processor schedule"));
-//			}		
+			// List<ComponentInstance> badProcessors = (List<ComponentInstance>)
+			// si.getAllComponentInstances().stream()
+			// .filter( comp -> comp.getCategory() ==
+			// ComponentCategory.PROCESSOR).filter( cpu ->
+			// GetProperties.getModuleSchedule(cpu).size() ==
+			// 0).collect(Collectors.toList());
+			//
+			// for (ComponentInstance cpu : badProcessors)
+			// {
+			// addError (new ErrorReport (cpu, "Need to define the processor
+			// schedule"));
+			// }
 		}
 	}
 

@@ -58,7 +58,7 @@ public class ProcessCheck extends AbstractCheck {
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutThread) {
-			addError(new ErrorReport(process, "Every Process needs to have at least a thread"));
+			addError(new ErrorReport(process, "Every Process needs to have at least one thread subcomponent"));
 		}
 
 		/**
@@ -71,7 +71,7 @@ public class ProcessCheck extends AbstractCheck {
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutRuntime) {
-			addError(new ErrorReport(process, "Every Process needs to be bound to a virtual processor"));
+			addError(new ErrorReport(process, "Process must define the property Deployment_Properties::Actual_Processor_Binding"));
 		}
 
 		/**
@@ -84,7 +84,7 @@ public class ProcessCheck extends AbstractCheck {
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutMemory) {
-			addError(new ErrorReport(process, "Every Process needs to be bound to a memory"));
+			addError(new ErrorReport(process, "Process must define the property Deployment_Properties::Actual_Memory_Binding"));
 		}
 	}
 

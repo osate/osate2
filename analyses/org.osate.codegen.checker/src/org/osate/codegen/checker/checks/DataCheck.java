@@ -55,7 +55,7 @@ public class DataCheck extends AbstractCheck {
 				.collect(Collectors.toList());
 
 		for (ComponentInstance data : dataWithoutSize) {
-			addError(new ErrorReport(data, "Data needs to define their size"));
+			addError(new ErrorReport(data, "Data must define the property Memory_Properties::Data_Size"));
 		}
 	}
 

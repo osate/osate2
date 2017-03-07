@@ -62,8 +62,8 @@ public class MemoryCheck extends AbstractCheck {
 							&& (comp.getContainingComponentInstance().getCategory() == ComponentCategory.MEMORY))
 					.collect(Collectors.toList());
 
-			for (ComponentInstance data : segmentsWithoutSize) {
-				addError(new ErrorReport(data, "Partition size must be set"));
+			for (ComponentInstance memory : segmentsWithoutSize) {
+				addError(new ErrorReport(memory, "Memory subcomponent contained within a memory must define the property Memory_Properties::Byte_Count"));
 			}
 		}
 

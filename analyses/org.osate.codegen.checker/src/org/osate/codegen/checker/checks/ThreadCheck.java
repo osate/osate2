@@ -63,8 +63,8 @@ public class ThreadCheck extends AbstractCheck {
 			EnumerationLiteral protocol = GetProperties.getDispatchProtocol(comp);
 			return protocol == null || !(protocol.toString().equalsIgnoreCase(AadlProject.PERIODIC_LITERAL)
 					|| protocol.toString().equalsIgnoreCase(AadlProject.SPORADIC_LITERAL));
-		}).forEach(
-				thr -> addError(new ErrorReport(thr, "Thread needs a dispatch protocol of 'periodic' or 'sporadic'")));
+		}).forEach(thr -> addError(new ErrorReport(thr,
+				"Thread needs a Thread_Properties::Dispatch_Protocol property of 'Periodic' or 'Sporadic'")));
 
 		/**
 		 * Each thread needs to specify period
@@ -72,13 +72,13 @@ public class ThreadCheck extends AbstractCheck {
 		final List<ComponentInstance> threadMissingPeriod = allThreads.stream()
 				.filter(comp -> (GetProperties.getPeriodinMS(comp) == 0.0)).collect(Collectors.toList());
 		for (ComponentInstance thr : threadMissingPeriod) {
-			addError(new ErrorReport(thr, "Thread needs to define the Period property"));
+			addError(new ErrorReport(thr, "Thread must define the property Timing_Properties::Period"));
 		}
 
 		final List<ComponentInstance> threadMissingDeadline = allThreads.stream()
 				.filter(comp -> (GetProperties.getDeadlineinMilliSec(comp) == 0.0)).collect(Collectors.toList());
 		for (ComponentInstance thr : threadMissingDeadline) {
-			addError(new ErrorReport(thr, "Thread needs to define the Deadline property"));
+			addError(new ErrorReport(thr, "Thread must define the property Timing_Properties::Deadline"));
 		}
 
 		for (ComponentInstance ci : allThreads) {
@@ -88,30 +88,34 @@ public class ThreadCheck extends AbstractCheck {
 				NamedElement cs = (NamedElement) sc.getCalledSubprogram();
 
 				if (GetProperties.getSourceName(cs) == null) {
-					addError(new ErrorReport(cs, "Subprogram needs to define Source_Name property"));
+					addError(new ErrorReport(cs,
+							"Subprogram must define the property Programming_Properties::Source_Name"));
 				}
 
 				if (GetProperties.getSourceText(cs).size() == 0) {
-					addError(new ErrorReport(cs, "Thread needs to define Source_Text property"));
+					addError(new ErrorReport(cs,
+							"Subprogram must define the property Programming_Properties::Source_Text"));
 				}
 
 				if (GetProperties.getSourceLanguage(cs).size() == 0) {
-					addError(new ErrorReport(cs, "Thread needs to define Source_Language property"));
+					addError(new ErrorReport(cs,
+							"Subprogram must define the property Programming_Properties::Source_Language"));
 				}
 			}
 
 		}
 
 		/**
-		 * FIXME JD
-		 * Each thread needs to specify execution time
+		 * FIXME JD Each thread needs to specify execution time
 		 */
-//		List<ComponentInstance> threadMissingExecutionTime = (List<ComponentInstance>) si.getAllComponentInstances().stream().
-//				filter( comp -> (comp.getCategory() == ComponentCategory.THREAD) && (GetProperties.get > 0.0));
-//		for (ComponentInstance thr : threadMissingPeriod)
-//		{
-//			addError (new ErrorReport (thr, "Thread needs to define a period"));
-//		}
+		// List<ComponentInstance> threadMissingExecutionTime =
+		// (List<ComponentInstance>) si.getAllComponentInstances().stream().
+		// filter( comp -> (comp.getCategory() == ComponentCategory.THREAD) &&
+		// (GetProperties.get > 0.0));
+		// for (ComponentInstance thr : threadMissingPeriod)
+		// {
+		// addError (new ErrorReport (thr, "Thread needs to define a period"));
+		// }
 	}
 
 }
