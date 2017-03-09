@@ -6,7 +6,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class BusinessObjectTreeConfiguration {
+//TODO: Cleanup. Rename and/or merge with org.osate.ge.internal.diagram as appropriate.
+class BusinessObjectTreeConfiguration {
 	private final Collection<Rule> enabledRules;
 	private final Collection<EnabledProviderGroupNode> enabledProviders;	
 	

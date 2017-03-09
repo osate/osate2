@@ -169,7 +169,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	@Override
     	public void markLinkagesAsDirty(final Object bo) {    		
     		// For each diagram
-    		final String boRef = refBuilder.getReference(bo);
+    		final String boRef = refBuilder.getAbsoluteReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			markLinkagesAsDirty(bo, boRef, diagramRef);
     		}
@@ -178,7 +178,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	@Override
 		public void markOpenLinkagesAsDirty(final Object bo) {
     		// For each diagram
-    		final String boRef = refBuilder.getReference(bo);
+    		final String boRef = refBuilder.getAbsoluteReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			if(diagramRef.isOpen()) {
 	    			markLinkagesAsDirty(bo, boRef, diagramRef);
@@ -210,7 +210,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					}
 	
 					// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
-					if(boRef.equals(refBuilder.getReference(diagramBo))) {
+					if(boRef.equals(refBuilder.getAbsoluteReference(diagramBo))) {
 						linkages.add(diagram);
 					}						
 					

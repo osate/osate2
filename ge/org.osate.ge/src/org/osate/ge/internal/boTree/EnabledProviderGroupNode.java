@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class EnabledProviderGroupNode {
+class EnabledProviderGroupNode {
 	final BusinessObjectProviderGroup providerGroup;
 	final Object businessObject; // Optional. If null, indicates that the provider group is enabled for all business objects provided by the parent
 	final List<EnabledProviderGroupNode> children; // TODO: Decide on appropriate data structure

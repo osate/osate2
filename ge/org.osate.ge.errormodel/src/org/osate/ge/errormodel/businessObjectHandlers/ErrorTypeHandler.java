@@ -11,6 +11,7 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
@@ -24,7 +25,6 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
@@ -43,20 +43,20 @@ public class ErrorTypeHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorTypeLibrary typeLib) {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		return new PaletteEntry[] { 
 			PaletteEntryBuilder.create().label("Error Type").category(ErrorModelCategories.ERROR_MODEL).build()
 		};
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) ErrorTypeLibrary errorTypeLib) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) AadlPackage pkg) {
 		return true;
 	}
 
 	@GetCreateOwner
-	public Object getOwnerBusinessObject(final @Named(Names.TARGET_BO) ErrorTypeLibrary typeLib) {
-		return typeLib.getErrorModelLibrary();
+	public Object getOwnerBusinessObject(final @Named(Names.TARGET_BO) ErrorModelLibrary lib) {
+		return lib;
 	}
 	
 	@Create

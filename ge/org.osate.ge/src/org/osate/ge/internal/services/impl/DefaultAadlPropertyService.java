@@ -81,7 +81,7 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 	
 	@Override
 	public PropertyResult getValue(final DiagramElementProxy diagramElement, final String propertySetName, final String propertyName) {
-		// TODO: For testing.. Process the diaram.. Need to lazy processs
+		// TODO: For testing.. Process the diagram.. Need to lazy process
 		processDiagramPropertyAssociations(dtp.getDiagram());
 		
 		// TODO: Convert diagram element proxy into a reference/bo path

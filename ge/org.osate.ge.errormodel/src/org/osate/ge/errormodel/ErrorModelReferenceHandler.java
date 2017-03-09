@@ -20,7 +20,6 @@ import org.osate.ge.di.BuildReference;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -62,12 +61,6 @@ public class ErrorModelReferenceHandler {
 					return new String[] {TYPE_ERROR_TYPE, refBuilder.getReference(pkg), ((ErrorType)bo).getName().toLowerCase()};				
 				}  
 			}
-		} else if(bo instanceof ErrorTypeLibrary) {
-			final ErrorTypeLibrary etl = (ErrorTypeLibrary)bo;
-			if(etl.getErrorModelLibrary().getElementRoot() instanceof AadlPackage) {
-				final AadlPackage pkg = (AadlPackage)etl.getErrorModelLibrary().getElementRoot();
-				return new String[] {TYPE_ERROR_TYPE_LIBRARY, refBuilder.getReference(pkg)};
-			}
 		} else if(bo instanceof ErrorTypeExtension) {
 			final ErrorTypeExtension ete = (ErrorTypeExtension)bo;
 			if(ete.getSubtype().getElementRoot() instanceof AadlPackage && ete.getSupertype().getElementRoot() instanceof AadlPackage) {
@@ -98,16 +91,6 @@ public class ErrorModelReferenceHandler {
 		final Object ref1 = refService.getReferencedObject(ref[1]);		
 		if(ref1 == null) {
 			return null;
-		}
-
-		if(type.equals(TYPE_ERROR_TYPE_LIBRARY)) {
-			final AadlPackage pkg = (AadlPackage)ref1;
-			final Optional<ErrorModelLibrary> errorModelLibrary = pkg.getOwnedPublicSection().getOwnedAnnexLibraries().stream(). // Get annex libraries
-					filter(lib -> lib instanceof DefaultAnnexLibrary && ((DefaultAnnexLibrary)lib).getParsedAnnexLibrary() instanceof ErrorModelLibrary). // Filter non EMV2 Libraries
-					map(lib -> ((ErrorModelLibrary)((DefaultAnnexLibrary)lib).getParsedAnnexLibrary())). // Get parsed annex library
-					findAny();
-			
-			return errorModelLibrary.isPresent() ? new ErrorTypeLibrary(errorModelLibrary.get()) : null;
 		}
 		
 		// Handle types which require 3 reference segments

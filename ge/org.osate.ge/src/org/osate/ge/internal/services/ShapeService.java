@@ -33,7 +33,6 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.NamedElement;
 
 /**
  * Contains methods for finding and working with shapes
@@ -51,47 +50,10 @@ public interface ShapeService {
 	 */
 	Shape getChildShapeByReference(ContainerShape shape, Object bo);
 
-	/**
-	 * Note: This method will not return invisible shapes. The method will returns null if the specified shape is not visible.
-	 * @param shape
-	 * @param el
-	 * @return
-	 */
-	Shape getChildShapeByElementName(ContainerShape shape,
-			NamedElement el);
-
-	/**
-	 * Gets a descendant shape tied to a particular business object. The business object comparison is done using serializable references
-	 * Does not look at children if the child shape is associated with another object.
-	 * @param shape
-	 * @param el
-	 * @return
-	 */
-	Shape getDescendantShapeByReference(final ContainerShape shape, final Object bo);
-		
-	/**
-	 * Gets a descendant shape that is linked to a an AADL element with the same same as the specified element. Does not look at children if the child shape is associated with another object.
-	 * Only looks for visible shapes.
-	 * @param shape
-	 * @param el
-	 * @return
-	 */
-	Shape getDescendantShapeByElementName(ContainerShape shape,
-			NamedElement el);
-
 	Shape getChildShapeByName(ContainerShape shape, String name);
 	
 	List<Shape> getChildShapesByName(ContainerShape shape, String name);
 
-	
-	/**
-	 * Finds a descendant shape that is linked to the specified business object. Unlike getDescendantShape*, this method does look into children that are associated with another object
-	 * @param shape
-	 * @param bo
-	 * @return
-	 */
-	Shape findDescendantShapeByReference(ContainerShape shape, Object bo);
-	
 	/**
 	 * Determines whether s1 contains s2
 	 * @param s1

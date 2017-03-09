@@ -8,11 +8,22 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import org.osate.ge.services.ReferenceBuilderService;
+import org.osate.ge.services.ReferenceResolutionService;
 
 /**
  * Service for building string references to business objects
  */
-public interface InternalReferenceBuilderService extends ReferenceBuilderService {
+public interface InternalReferenceBuilderService {
+	/**
+	 * Returns a string that can be used with the ReferenceResolutionService to retrieve the business object. 
+	 * The reference will remain consistent between application executions.
+	 * @param bo the business object for which to retrieve the reference.
+	 * @return the reference or null if the reference could not be created
+	 * @see ReferenceResolutionService#getReferencedObject(String)
+	 */
+	String getAbsoluteReference(final Object bo);
+	
+	String getRelativeReference(final Object bo);
+	
 
 }

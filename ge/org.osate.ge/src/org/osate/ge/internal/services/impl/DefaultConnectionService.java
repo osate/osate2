@@ -61,7 +61,6 @@ import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.CachingService.Cache;
 import org.osate.ge.internal.util.AnnotationUtil;
-import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
@@ -72,7 +71,7 @@ public class DefaultConnectionService implements ConnectionService {
 	private final AnchorService anchorService;
 	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
-	private final ReferenceBuilderService refBuilder;
+	private final InternalReferenceBuilderService refBuilder;
 	private final IFeatureProvider fp;
 	private final CachingService cachingService;
 	private final List<ConnectionInfoProvider> infoProviders = new ArrayList<>();
@@ -312,7 +311,7 @@ public class DefaultConnectionService implements ConnectionService {
 		}
 		
 		String result = "";
-		result = concatPictogramReferenceSegment(result, refBuilder.getReference(connectionBo));
+		result = concatPictogramReferenceSegment(result, refBuilder.getAbsoluteReference(connectionBo));
 		
 		try {
 			ancestorsRootValue = connection;
@@ -322,7 +321,7 @@ public class DefaultConnectionService implements ConnectionService {
 					return null;			
 				}
 				
-				result = concatPictogramReferenceSegment(result, refBuilder.getReference(ancestorBo));
+				result = concatPictogramReferenceSegment(result, refBuilder.getAbsoluteReference(ancestorBo));
 			}
 		} finally {
 			ancestorsRootValue = null;

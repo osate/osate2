@@ -32,6 +32,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ge.internal.di.BuildRelativeReference;
 import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
@@ -63,6 +64,72 @@ public class DeclarativeReferenceBuilder {
 	public final static String TYPE_ANNEX_LIBRARY = "annex_library";
 	public final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 
+	@BuildRelativeReference 
+	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {		
+		if(bo instanceof Classifier) {
+			return buildSimpleRelativeReference(TYPE_CLASSIFIER, ((Classifier)bo));
+		} else if(bo instanceof Subcomponent) {
+			return buildSimpleRelativeReference(TYPE_SUBCOMPONENT, ((Subcomponent)bo));
+		} else if(bo instanceof Realization) {
+			return new String[] {TYPE_REALIZATION };
+		} else if(bo instanceof TypeExtension) {
+			return new String[] {TYPE_TYPE_EXTENSION };
+		} else if(bo instanceof ImplementationExtension) {
+			return new String[] {TYPE_IMPLEMENTATION_EXTENSION };
+		} else if(bo instanceof GroupExtension) {
+			return new String[] {TYPE_GROUP_EXTENSION };
+		} else if(bo instanceof Feature) {
+			return buildSimpleRelativeReference(TYPE_FEATURE, ((Feature)bo));
+		} else if(bo instanceof InternalFeature) {
+			return buildSimpleRelativeReference(TYPE_INTERNAL_FEATURE, ((InternalFeature)bo));
+		} else if(bo instanceof ProcessorFeature) {
+			return buildSimpleRelativeReference(TYPE_PROCESSOR_FEATURE, ((ProcessorFeature)bo));
+		} else if(bo instanceof FlowSpecification) {
+			return buildSimpleRelativeReference(TYPE_FLOW_SPECIFICATION, ((FlowSpecification)bo));
+		} else if(bo instanceof Connection) {
+			return buildSimpleRelativeReference(TYPE_CONNECTION, ((Connection)bo));
+		} else if(bo instanceof Mode) {
+			return buildSimpleRelativeReference(TYPE_MODE, ((Mode)bo));
+		} else if(bo instanceof ModeTransition) {
+			final ModeTransition mt = (ModeTransition)bo;
+			final String name = mt.getName();
+			if(name == null) {
+				return buildUnnamedModeTransitionRelativeReference((ModeTransition)bo);
+			} else {
+				return buildSimpleRelativeReference(TYPE_MODE_TRANSITION_NAMED, mt);
+			}
+		} else if(bo instanceof ModeTransitionTrigger) {
+			final ModeTransitionTrigger mtt = (ModeTransitionTrigger)bo;
+			return new String[] {TYPE_MODE_TRANSITION_TRIGGER, getNameForSerialization(mtt.getContext()), getNameForSerialization(mtt.getTriggerPort())};
+		} else if(bo instanceof SubprogramCallSequence) {
+			return buildSimpleRelativeReference(TYPE_SUBPROGRAM_CALL_SEQUENCE, ((SubprogramCallSequence)bo));
+		} else if(bo instanceof SubprogramCall) {
+			return buildSimpleRelativeReference(TYPE_SUBPROGRAM_CALL, ((SubprogramCall)bo));
+		} else if(bo instanceof SubprogramCallOrder) {
+			final SubprogramCallOrder sco = (SubprogramCallOrder)bo;
+			return new String[] {TYPE_SUBPROGRAM_CALL_ORDER, getNameForSerialization(sco.previousSubprogramCall), getNameForSerialization(sco.subprogramCall)};
+		} else if(bo instanceof AnnexLibrary) {
+			final AnnexLibrary annexLibrary = (AnnexLibrary)bo;					
+			final int index = getAnnexLibraryIndex(annexLibrary);
+			return new String[] {TYPE_ANNEX_LIBRARY, annexLibrary.getName().toLowerCase(), Integer.toString(index)};
+
+		} else if(bo instanceof AnnexSubclause) {
+			final AnnexSubclause annexSubclause = (AnnexSubclause)bo;			
+			if(annexSubclause.getContainingClassifier() == null) {
+				throw new RuntimeException("Unable to retrieve containing classifier.");
+			}
+			
+			final int index = getAnnexSubclauseIndex(annexSubclause);
+			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclause.getName().toLowerCase(), Integer.toString(index)};
+		} else {
+			return null;
+		}
+	}
+	
+	private String[] buildSimpleRelativeReference(final String type, final NamedElement bo) {
+		return new String[] {type, getNameForSerialization(bo)};
+	}
+	
 	@BuildReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
 		if(bo instanceof AadlPackage) {
@@ -134,6 +201,22 @@ public class DeclarativeReferenceBuilder {
 		}
 	}
 
+	static String[] buildUnnamedModeTransitionRelativeReference(final ModeTransition mt) {
+		final List<ModeTransitionTrigger> triggers = mt.getOwnedTriggers();
+		final String[] key = new String[4 + (triggers.size() * 2)];
+		int index = 0;
+		key[index++] = TYPE_MODE_TRANSITION_UNNAMED;
+		key[index++] = getNameForSerialization(mt);
+		key[index++] = getNameForSerialization(mt.getSource());
+		key[index++] = getNameForSerialization(mt.getDestination());
+		for(final ModeTransitionTrigger trigger : triggers) {
+			key[index++] = getNameForSerialization(trigger.getContext());
+			key[index++] = getNameForSerialization(trigger.getTriggerPort());
+		}
+
+		return key;
+	}
+	
 	public static String getNameForSerialization(final NamedElement ne) {
 		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}

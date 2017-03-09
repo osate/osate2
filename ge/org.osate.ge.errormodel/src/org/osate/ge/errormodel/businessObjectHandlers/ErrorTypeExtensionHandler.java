@@ -2,6 +2,7 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
 
+import org.osate.aadl2.AadlPackage;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
@@ -19,7 +20,6 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -30,7 +30,7 @@ public class ErrorTypeExtensionHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorTypeLibrary typeLib) {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		return new PaletteEntry[] { 
 			PaletteEntryBuilder.create().connectionCreation().label("Error Type Extension").category(ErrorModelCategories.ERROR_MODEL).build()
 		};

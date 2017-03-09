@@ -25,7 +25,7 @@ class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
 		String boRef = (String)state.cache.get(this);
 		if(boRef == null) {
 			final Object bo = boSupplier.get(state.arg);
-			boRef = bo == null ? nullBoRef : state.refBuilder.getReference(bo);
+			boRef = bo == null ? nullBoRef : state.refBuilder.getAbsoluteReference(bo);
 			if(boRef == null) {
 				boRef = nullBoRef;
 			}
@@ -39,7 +39,7 @@ class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
 		// Compare references
 		final PictogramElement pe = (PictogramElement)ctx;
 		final Object peBo = state.bor.getBusinessObjectForPictogramElement(pe);
-		if(boRef.equals(state.refBuilder.getReference(peBo))) {
+		if(boRef.equals(state.refBuilder.getAbsoluteReference(peBo))) {
 			processResultValue(remainingQueries, pe, state, result);
 		}
 	}

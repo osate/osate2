@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Objects;
 
 // TODO: Implement
-public class BusinessObjectProviderGroup {
+class BusinessObjectProviderGroup {
 	private final BusinessObjectProviderGroup parent;
 	private final String id;
 	private final String name;

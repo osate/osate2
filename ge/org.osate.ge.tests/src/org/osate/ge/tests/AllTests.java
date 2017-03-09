@@ -1,11 +1,11 @@
 package org.osate.ge.tests;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ BusinessObjectTreeFactoryTests.class })
+@SuiteClasses({ DiagramUpdaterTests.class})
 public class AllTests {
-
 }

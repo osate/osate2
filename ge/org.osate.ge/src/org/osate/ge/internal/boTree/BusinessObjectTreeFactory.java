@@ -3,7 +3,8 @@ package org.osate.ge.internal.boTree;
 import java.util.List;
 import java.util.Objects;
 
-public class BusinessObjectTreeFactory {
+//TODO: Cleanup. Rename and/or merge with org.osate.ge.internal.diagram as appropriate.
+class BusinessObjectTreeFactory {
 	public static BusinessObjectTree createBusinessObjectTree(final BusinessObjectTreeConfiguration config, 
 			final List<BusinessObjectProvider> allProviders, // TODO: Should be in priority order
 			final Object rootBusinessObject) {

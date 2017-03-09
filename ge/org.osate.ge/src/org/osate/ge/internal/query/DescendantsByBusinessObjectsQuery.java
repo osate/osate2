@@ -56,7 +56,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends PictogramQuery<A> {
 						if(state.propertyService.isLogicalTreeNode(childShape)) {
 							// Check the business object reference
 							final Object childBo = state.bor.getBusinessObjectForPictogramElement(childShape);
-							if(boRef.equals(state.refBuilder.getReference(childBo))) {
+							if(boRef.equals(state.refBuilder.getAbsoluteReference(childBo))) {
 								findMatchingDescendants(remainingQueries, childShape, state, result, boRefs, currentDepth+1);
 							}					
 						} else {
@@ -76,7 +76,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends PictogramQuery<A> {
 					if(state.propertyService.isLogicalTreeNode(c)) {
 						// Check the business object reference
 						final Object childBo = state.bor.getBusinessObjectForPictogramElement(c);
-						if(boRef.equals(state.refBuilder.getReference(childBo))) {
+						if(boRef.equals(state.refBuilder.getAbsoluteReference(childBo))) {
 							findMatchingDescendants(remainingQueries, c, state, result, boRefs, currentDepth+1);
 						}
 					
@@ -107,7 +107,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends PictogramQuery<A> {
 				return null;
 			}
 			
-			final String ref = refBuilder.getReference(bo);
+			final String ref = refBuilder.getAbsoluteReference(bo);
 			if(ref == null) {
 				return null;
 			}

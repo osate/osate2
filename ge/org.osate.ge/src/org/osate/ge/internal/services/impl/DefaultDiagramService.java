@@ -75,6 +75,7 @@ import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
@@ -179,7 +180,7 @@ public class DefaultDiagramService implements DiagramService {
 		
 	@Override
 	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo) {
-		final String boReference = referenceBuilder.getReference(bo);
+		final String boReference = referenceBuilder.getAbsoluteReference(bo);
 		final List<DiagramReference> diagramRefs = findDiagrams();
 		final IProject project = getProject(bo);
 		if(project == null) {
@@ -194,7 +195,7 @@ public class DefaultDiagramService implements DiagramService {
 					if(featureProvider != null) {
 						final Object tmpDiagramBo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
 						if(tmpDiagramBo != null) {
-							if(boReference.equalsIgnoreCase(referenceBuilder.getReference(tmpDiagramBo))) {
+							if(boReference.equalsIgnoreCase(referenceBuilder.getAbsoluteReference(tmpDiagramBo))) {
 								return diagramRef;
 							}
 						}
@@ -214,7 +215,7 @@ public class DefaultDiagramService implements DiagramService {
 						if(featureProvider != null) {
 							final Object tmpDiagramBo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
 							if(tmpDiagramBo != null) {
-								if(boReference.equalsIgnoreCase(referenceBuilder.getReference(tmpDiagramBo))) {
+								if(boReference.equalsIgnoreCase(referenceBuilder.getAbsoluteReference(tmpDiagramBo))) {
 									return diagramRef;
 								}
 							}
@@ -333,7 +334,7 @@ public class DefaultDiagramService implements DiagramService {
 	 */
 	private Resource createNewDiagram(final Object bo) {
 		// Determine the diagram type id
-		final String diagramTypeId = AgeDiagramBehavior.AADL_DIAGRAM_TYPE_ID;
+		final String diagramTypeId = GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID;
 		Log.info("Creating diagram of type '" + diagramTypeId + "' for business object '" + bo + "'");
 		
 		// Get the default resource set to hold the new resource

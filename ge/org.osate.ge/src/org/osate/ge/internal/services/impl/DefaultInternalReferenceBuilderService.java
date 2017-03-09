@@ -23,6 +23,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
+import org.osate.ge.internal.di.BuildRelativeReference;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -85,14 +86,14 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 	}
 	
 	@Override
-	public String getReference(Object bo) {
+	public String getAbsoluteReference(final Object bo) {
 		try {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
 				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildReference.class, serviceContext, argCtx, null);
 				if(ref != null) {
-					return segmentsToReference(ref);
+					return ReferenceEncoder.encode(ref);
 				}
 			}
 		} finally {
@@ -103,18 +104,23 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 		return null;
 	}
 	
-	private static String segmentsToReference(final String[] segs) {
-		final StringBuilder sb = new StringBuilder();
-		ReferenceEncoder.encodeSegment(sb, segs[0]);
-		for(int i = 1; i < segs.length; i++) {
-			sb.append(' ');
-			if(segs[i] == null) {
-				return null;
+	
+	@Override
+	public String getRelativeReference(final Object bo) {
+		try {
+			// Set context fields
+			argCtx.set(Names.BUSINESS_OBJECT, bo);
+			for(final Object refBuilder : referenceBuilders) {
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildRelativeReference.class, serviceContext, argCtx, null);
+				if(ref != null) {
+					return ReferenceEncoder.encode(ref);
+				}
 			}
-			
-			ReferenceEncoder.encodeSegment(sb, segs[i]);
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
 		}
 		
-		return sb.toString();
+		return null;
 	}
 }

@@ -15,14 +15,11 @@ import org.osate.aadl2.AadlPackage;
  *
  */
 public interface SerializableReferenceService {
-	String getReference(final Object bo);
+	String getAbsoluteReference(final Object bo);
+	String getRelativeReference(final Object bo);
 	
-	/**
-	 * AADL elements will be wrapped with an AadlElementWrapper object
-	 * @param reference
-	 * @return
-	 */
-	Object getReferencedObject(final String reference);
+	Object resolveAbsoluteReference(final String reference);
+	Object resolveRelativeReference(final Object parentBo, final String reference);
 	
 	AadlPackage getAadlPackage(final String qualifiedName);
 }

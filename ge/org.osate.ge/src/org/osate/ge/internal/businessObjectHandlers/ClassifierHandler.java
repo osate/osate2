@@ -354,7 +354,7 @@ public class ClassifierHandler {
 	}
 	
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(InternalNames.INTERNAL_DIAGRAM_BO) Object diagramBo) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
 		return AadlGraphics.getGraphic(bo);
 	}
 	

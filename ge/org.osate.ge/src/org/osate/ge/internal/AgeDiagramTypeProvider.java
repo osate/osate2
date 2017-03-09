@@ -115,7 +115,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
+		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, cachingService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
 		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, shapeHelper, propertyUtil, bor, cachingService, extensionService, refBuilder, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
@@ -123,7 +123,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
 		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
 		final DefaultSubcomponentService subcomponentService = new DefaultSubcomponentService(prototypeService);
-		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, propertyUtil, layoutService, fp);		
+		final DefaultShapeCreationService shapeCreationService = new DefaultShapeCreationService(shapeHelper, fp);		
 		final DefaultConnectionCreationService connectionCreationService = new DefaultConnectionCreationService(connectionService, fp);
 	
 		final QueryRunnerFactory queryRunnerFactory = new QueryRunnerFactory() {

@@ -94,6 +94,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.features.DiagramUpdateFeature;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;
@@ -109,7 +110,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
-	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
 	private boolean updateInProgress = false;
@@ -716,7 +716,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 						editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
 							@Override
 							protected void doExecute() {
-								diagram.setDiagramTypeId(AADL_DIAGRAM_TYPE_ID);
+								diagram.setDiagramTypeId(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID);
 							}				
 						});	
 					}

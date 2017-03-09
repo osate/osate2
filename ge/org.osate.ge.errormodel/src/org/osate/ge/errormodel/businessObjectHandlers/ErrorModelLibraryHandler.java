@@ -14,7 +14,7 @@ import javax.inject.Named;
 
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.IsApplicable;
-import org.osate.ge.errormodel.model.ErrorTypeLibrary;
+import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.di.Names;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 
@@ -26,6 +26,10 @@ public class ErrorModelLibraryHandler {
 	
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorModelLibrary lib) {
-		return Stream.concat(Stream.of(new ErrorTypeLibrary(lib)), lib.getBehaviors().stream());
+		// TODO: Also ensure that super type is added to diagram if it is part of another error type library? Should be handled by provider?		
+		return Stream.concat(lib.getTypes().stream(), 
+				lib.getTypes().stream(). // Error Type Extensions
+					filter((et) -> et.getSuperType() != null).
+					map((et) -> new ErrorTypeExtension(et.getSuperType(), et)));
 	}
 }

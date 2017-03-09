@@ -5,7 +5,7 @@ import org.osate.ge.internal.query.AncestorUtil;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.PropertyService;
 
-class AgeFeatureUtil {
+public class AgeFeatureUtil {
 	public static PictogramElement getLogicalPictogramElement(PictogramElement pe, final PropertyService propertyService, final ConnectionService connectionService){
 		if(pe == null) {
 			return null;

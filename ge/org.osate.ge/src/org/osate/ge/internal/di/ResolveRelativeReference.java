@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
-package org.osate.ge.di;
+package org.osate.ge.internal.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -15,20 +15,23 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
+ * <p>
+ * This annotation must not be applied to more than one method per class.
+ * </p>
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Reference Builder</td><td>Returns an absolute reference for a business object. A reference is an array of strings.</td><td>String[]</td></tr>
+ *   <tr><td>Reference Resolver</td><td>Returns the referenced business object based on a relative reference. Returns null if the business object could not be returned.</td><td>Object</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
- *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Reference Builder</td><td>The business object for which to return reference segments.</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#REFERENCE}</td><td>Reference Resolver</td><td>The relative reference for which to retrieve the business object.</td></tr>
  * </table>
- * @see ResolveReference
+ * @see BuildReference
  */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface BuildReference {
+public @interface ResolveRelativeReference {
 }

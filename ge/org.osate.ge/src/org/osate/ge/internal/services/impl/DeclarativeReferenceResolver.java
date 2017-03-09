@@ -38,11 +38,13 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BehavioredImplementation;
+import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
@@ -59,6 +61,7 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
+import org.osate.ge.internal.di.ResolveRelativeReference;
 import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.CachingService;
@@ -241,6 +244,117 @@ public class DeclarativeReferenceResolver {
 		declarativeCache.dispose();
 	}
 	
+	@ResolveRelativeReference
+	public Object resolveRelativeReference(final @Named(Names.OWNER_BO) NamedElement parentBo, final @Named(Names.REFERENCE) String[] refSegs) {
+		Objects.requireNonNull(refSegs, "refSegs must not be null");
+		if(refSegs.length < 1) {
+			return null;
+		}
+		
+		Object referencedObject = null; // The object that will be returned
+		final String type = refSegs[0];
+		
+		if(refSegs.length == 1) {
+			if(type.equals(DeclarativeReferenceBuilder.TYPE_REALIZATION)) {
+				if(parentBo instanceof ComponentImplementation) {
+					referencedObject = ((ComponentImplementation) parentBo).getOwnedRealization();
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_TYPE_EXTENSION)) {
+				if(parentBo instanceof ComponentType) {
+					referencedObject = ((ComponentType) parentBo).getOwnedExtension();
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_IMPLEMENTATION_EXTENSION)) {
+				if(parentBo instanceof ComponentImplementation) {
+					referencedObject = ((ComponentImplementation) parentBo).getOwnedExtension();
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_GROUP_EXTENSION)) {
+				if(parentBo instanceof FeatureGroupType) {
+					referencedObject = ((FeatureGroupType) parentBo).getOwnedExtension();
+				}
+			}
+		} else if(refSegs.length == 2) {
+			final String name = refSegs[1];
+			if(type.equals(DeclarativeReferenceBuilder.TYPE_CLASSIFIER)) {
+				referencedObject = findChildByName(parentBo, Classifier.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBCOMPONENT)) {
+				referencedObject = findChildByName(parentBo, Subcomponent.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FEATURE)){
+				referencedObject = findChildByName(parentBo, Feature.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_INTERNAL_FEATURE)) {
+				referencedObject = findChildByName(parentBo, InternalFeature.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_PROCESSOR_FEATURE)) {
+				referencedObject = findChildByName(parentBo, ProcessorFeature.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FLOW_SPECIFICATION)) {
+				referencedObject = findChildByName(parentBo, FlowSpecification.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_CONNECTION)) {
+				referencedObject = findChildByName(parentBo, Connection.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE)) {
+				referencedObject = findChildByName(parentBo, Mode.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_SEQUENCE)) {
+				referencedObject = findChildByName(parentBo, SubprogramCallSequence.class, name);
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL)) {
+				if(parentBo instanceof SubprogramCallSequence) {
+					final Namespace subprogramCallSequenceNamespace = ((SubprogramCallSequence)parentBo).getNamespace();
+					referencedObject = findChildByName(subprogramCallSequenceNamespace, SubprogramCall.class, name);
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_NAMED)) {
+				// TODO: Test using the findChildByName
+				if(parentBo instanceof ComponentClassifier) {
+					final ComponentClassifier cc = (ComponentClassifier)parentBo;
+					referencedObject = cc.getOwnedModeTransitions().stream().
+							filter(mt -> name.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mt))). // Filter objects by name
+							findAny().orElse(null);
+				}
+			}
+		} else if(refSegs.length == 3) {
+			if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_ORDER)) {
+				final SubprogramCall previousSubprogramCall = findChildByName(parentBo, SubprogramCall.class, refSegs[1]);
+				final SubprogramCall subprogramCall = findChildByName(parentBo, SubprogramCall.class, refSegs[2]);
+				if(previousSubprogramCall != null && subprogramCall != null) {
+					referencedObject = new SubprogramCallOrder(previousSubprogramCall, subprogramCall);
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_TRIGGER)) {
+				if(parentBo instanceof ModeTransition) {
+					final ModeTransition mt = (ModeTransition)parentBo;
+					final String contextName = refSegs[1];
+					final String triggerPortName = refSegs[2];
+					referencedObject = mt.getOwnedTriggers().stream().
+						filter(mtt -> contextName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getContext())) &&
+								triggerPortName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getTriggerPort()))).
+						findAny().orElse(null);
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_LIBRARY)) {
+				if(parentBo instanceof AadlPackage) {
+					final AadlPackage pkg = (AadlPackage)parentBo;
+					final String annexName = refSegs[1];
+					final int annexIndex = Integer.parseInt(refSegs[2]);
+					referencedObject = findAnnexLibrary(pkg, annexName, annexIndex);
+				}
+			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_SUBCLAUSE)) {
+				if(parentBo instanceof Classifier) {
+					final Classifier classifier = (Classifier)parentBo;
+					final String annexName = refSegs[1];
+					final int annexIndex = Integer.parseInt(refSegs[2]);
+					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
+				}
+			}
+		} else { 
+			if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_UNNAMED)) {
+				if(parentBo instanceof ComponentClassifier) {
+					final ComponentClassifier cc = (ComponentClassifier)parentBo;
+					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
+						if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildUnnamedModeTransitionRelativeReference(mt))) { 
+							referencedObject = mt;
+							break;
+						}
+					}
+				}			
+			}
+		}
+		
+		return referencedObject;
+	}
+	
 	@ResolveReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");
@@ -249,7 +363,7 @@ public class DeclarativeReferenceResolver {
 		}
 				
 		Object referencedObject = null; // The object that will be returned
-		final String type = refSegs[0]; 
+		final String type = refSegs[0];
 		
 		if(type.equals(DeclarativeReferenceBuilder.TYPE_PROJECT_OVERVIEW)) {
 			referencedObject = new ProjectOverview();
@@ -410,9 +524,9 @@ public class DeclarativeReferenceResolver {
 			element = (T)pkg;
 		} else {		
 			final String[] elementPathSegs = elementPath.split("\\.");
-			element = findNamedElement(pkg.getPublicSection(), searchClass, elementPathSegs);
+			element = findNamedElementByDeclarativeModelPath(pkg.getPublicSection(), searchClass, elementPathSegs);
 			if(element == null) {
-				element = findNamedElement(pkg.getPrivateSection(), searchClass, elementPathSegs);
+				element = findNamedElementByDeclarativeModelPath(pkg.getPrivateSection(), searchClass, elementPathSegs);
 			}
 		}
 
@@ -423,12 +537,22 @@ public class DeclarativeReferenceResolver {
 		return declarativeCache.getAadlPackage(packageName);
 	}
 
-	private <T> T findNamedElement(final Namespace namespace, final Class<T> searchClass, final String[] pathSegs) {
-		return findNamedElement(namespace, searchClass, pathSegs, 0);
+	private <T> T findNamedElementByDeclarativeModelPath(final Namespace namespace, final Class<T> searchClass, final String[] pathSegs) {
+		return findNamedElementByDeclarativeModelPath(namespace, searchClass, pathSegs, 0);
 	}
 	
+	/**
+	 * Looks up a model element based on the concept of a declarative model path. This path does not include the AadlPackage
+	 * An example path is top_classifier.flow_type
+	 * @param element the element in which to look for the next child
+	 * @param searchClass the base type of the final object.
+	 * @param pathSegs is the segments to use to find the object. Usually one segment corresponds to one child but in the case of component implementations, two 
+	 * segments will be used for a single child.
+	 * @param i the current path segment
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
-	private <T> T findNamedElement(final NamedElement element, final Class<T> searchClass, final String[] pathSegs, final int i) {
+	private <T> T findNamedElementByDeclarativeModelPath(final NamedElement element, final Class<T> searchClass, final String[] pathSegs, final int i) {
 		if(i >= pathSegs.length) {
 			return searchClass.isInstance(element) ? (T)element : null;
 		}
@@ -436,13 +560,13 @@ public class DeclarativeReferenceResolver {
 		final String seg = pathSegs[i];
 		if(element instanceof Classifier) {
 			final Classifier c = (Classifier)element;
-			return findNamedElementInClassifier(c, searchClass, pathSegs, i, new HashSet<Classifier>());
+			return findNamedElementInClassifierByDeclarativeModelPath(c, searchClass, pathSegs, i, new HashSet<Classifier>());
 		} else if(element instanceof Namespace) {
 			for(final NamedElement member : ((Namespace)element).getMembers()) {
 				final String name = member.getName();
 				if(name != null) {
 					if(name.equalsIgnoreCase(seg)) {
-						final T result = findNamedElement(member, searchClass, pathSegs, i+1);
+						final T result = findNamedElementByDeclarativeModelPath(member, searchClass, pathSegs, i+1);
 						if(result != null) {
 							return result;
 						}
@@ -451,7 +575,7 @@ public class DeclarativeReferenceResolver {
 					// Handle Component Implementations
 					if(((i+1) < pathSegs.length) && name.contains(".")) {
 						if(name.equalsIgnoreCase(pathSegs[i] + "." + pathSegs[i+1])) {
-							final T result = findNamedElement(member, searchClass, pathSegs, i+2);
+							final T result = findNamedElementByDeclarativeModelPath(member, searchClass, pathSegs, i+2);
 							if(result != null) {
 								return result;
 							}
@@ -464,8 +588,8 @@ public class DeclarativeReferenceResolver {
 		return null;
 	}
 	
-	// Specialized implementation of findNamedElement for Classifiers because of performance issues when using Classifier.getMembers()
-	private <T> T findNamedElementInClassifier(final Classifier c, final Class<T> searchClass, final String[] pathSegs, final int i, Set<Classifier> checkedClassifiers) {
+	// Specialized implementation of findNamedElementByDeclarativeModelPath for Classifiers because of performance issues when using Classifier.getMembers()
+	private <T> T findNamedElementInClassifierByDeclarativeModelPath(final Classifier c, final Class<T> searchClass, final String[] pathSegs, final int i, Set<Classifier> checkedClassifiers) {
 		final String seg = pathSegs[i];
 		
 		if(c != null) {
@@ -473,7 +597,7 @@ public class DeclarativeReferenceResolver {
 				final String name = member.getName();
 				if(name != null) {
 					if(name.equalsIgnoreCase(seg)) {
-						final T result = findNamedElement(member, searchClass, pathSegs, i+1);
+						final T result = findNamedElementByDeclarativeModelPath(member, searchClass, pathSegs, i+1);
 						if(result != null) {
 							return result;
 						}
@@ -481,7 +605,7 @@ public class DeclarativeReferenceResolver {
 				}
 			}
 			
-			// Special handling for subprogram calls. They are not owned by the classifier but rather the subprogram call sequence.
+			// Special handling for subprogram calls. The qualified name does not include the call sequence. Just the classifier.
 			if(c instanceof BehavioredImplementation) {
 				final BehavioredImplementation bi = (BehavioredImplementation)c;
 				for(final SubprogramCallSequence callSequence : bi.getOwnedSubprogramCallSequences()) {
@@ -489,7 +613,7 @@ public class DeclarativeReferenceResolver {
 						final String name = member.getName();
 						if(name != null) {
 							if(name.equalsIgnoreCase(seg)) {
-								final T result = findNamedElement(member, searchClass, pathSegs, i+1);
+								final T result = findNamedElementByDeclarativeModelPath(member, searchClass, pathSegs, i+1);
 								if(result != null) {
 									return result;
 								}
@@ -504,7 +628,7 @@ public class DeclarativeReferenceResolver {
 				// Only check the generalization if it has not been checked yet. This protects against cycles.
 				if(!checkedClassifiers.contains(gc)) {
 					checkedClassifiers.add(gc);
-					final T result = findNamedElementInClassifier(gc, searchClass, pathSegs, i, checkedClassifiers);
+					final T result = findNamedElementInClassifierByDeclarativeModelPath(gc, searchClass, pathSegs, i, checkedClassifiers);
 					if(result != null) {
 						return result;
 					}				
@@ -542,6 +666,34 @@ public class DeclarativeReferenceResolver {
 				currentIndex++;
 			}
 		}
+		
+		return null;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private <T> T findChildByName(final Object parent, final Class<T> searchClass, final String searchName) {
+		if(parent instanceof Namespace) {
+			for(final NamedElement member : ((Namespace)parent).getMembers()) {
+				if(searchName.equalsIgnoreCase(member.getName())) {
+					if(searchClass.isInstance(member)) {
+						return (T)member;
+					}
+				}
+			}
+		}
+		
+		if(parent instanceof SubprogramCall) {
+			// TODO
+			// TOOD: Handle prototypes, etc? More general way to do this?
+			final CalledSubprogram sc = ((SubprogramCall) parent).getCalledSubprogram();
+			final T result = findChildByName(sc, searchClass, searchName);
+			if(result != null) {
+				return result;
+			}
+		}
+		
+		// TODO: Incorrect? Subprogram call sequences need to be look at...
+		// TODO: Special handling for classifiers once everything is working?
 		
 		return null;
 	}

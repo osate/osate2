@@ -23,6 +23,6 @@ public class DefaultReferenceResolutionService implements ReferenceResolutionSer
 	
 	@Override
 	public Object getReferencedObject(final String reference) {
-		return AadlElementWrapper.unwrap(srService.getReferencedObject(reference));
+		return AadlElementWrapper.unwrap(srService.resolveAbsoluteReference(reference));
 	}
 }

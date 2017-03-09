@@ -31,6 +31,6 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	
 	@Override
 	public String getReference(final Object bo) {
-		return internalService.getReference(bo);
+		return internalService.getAbsoluteReference(bo);
 	}
 }

@@ -5,7 +5,8 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-public class BusinessObjectTreeNode {
+// TODO: Cleanup. Rename and/or merge with org.osate.ge.internal.diagram as appropriate.
+class BusinessObjectTreeNode {
 	private final Object businessObject;
 	private final List<BusinessObjectTreeNode> children;
 	

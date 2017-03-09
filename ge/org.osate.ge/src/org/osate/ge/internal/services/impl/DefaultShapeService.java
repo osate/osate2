@@ -34,7 +34,6 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.SerializableReferenceService;
@@ -65,7 +64,8 @@ public class DefaultShapeService implements ShapeService {
 	
 	@Override
 	public Shape getChildShapeByReference(final ContainerShape shape, final Object bo) {
-		final String searchRef = refService.getReference(bo);
+		// TODO: Consider using relative references
+		final String searchRef = refService.getAbsoluteReference(bo);
 		if(searchRef == null) {
 			return null;
 		}
@@ -74,81 +74,15 @@ public class DefaultShapeService implements ShapeService {
 	}
 	
 	private Shape getChildShapeByReferenceString(final ContainerShape shape, final String searchRef) {
+		// TODO: Consider using relative references
 		for(final Shape c : shape.getChildren()) {
 			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(searchRef.equals(refService.getReference(bo))) {
+			if(searchRef.equals(refService.getAbsoluteReference(bo))) {
 				return c;
 			}
 		}
 		return null;
 	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ShapeService#getChildShapeByElementName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
-	 */
-	@Override
-	public Shape getChildShapeByElementName(final ContainerShape shape, final NamedElement el) {
-		if(shape.isVisible()) {
-			for(final Shape c : shape.getChildren()) {
-				Object bo = bor.getBusinessObjectForPictogramElement(c);
-				if(bo instanceof NamedElement && areNamesEqual((NamedElement)bo, el) && c.isVisible()) {
-					return c;
-				}
-			}
-		}
-		
-		return null;
-	}
-		
-	@Override
-	public Shape getDescendantShapeByReference(final ContainerShape shape, final Object bo) {
-		final String searchRef = refService.getReference(bo);
-		if(searchRef == null) {
-			return null;
-		}
-		
-		return getDescendantShapeByReferenceString(shape, searchRef);
-	}
-	
-	private Shape getDescendantShapeByReferenceString(final ContainerShape shape, final String searchRef) {
-		for(final Shape c : shape.getChildren()) {
-			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(bo == null && c instanceof ContainerShape) {
-				final Shape recResult = getDescendantShapeByReferenceString((ContainerShape)c, searchRef);
-				if(recResult != null) {
-					return recResult;
-				}
-			} else if(searchRef.equals(refService.getReference(bo))) {
-				return c;
-			}
-		}
-		return null;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.ShapeService#getDescendantShapeByElementName(org.eclipse.graphiti.mm.pictograms.ContainerShape, org.osate.aadl2.NamedElement)
-	 */	
-	@Override
-	public Shape getDescendantShapeByElementName(final ContainerShape shape, final NamedElement el) {
-		// Only look inside visible shapes
-		if(shape.isVisible()) {
-			for(final Shape c : shape.getChildren()) {
-				if(c.isVisible()) {
-					final Object childBo = bor.getBusinessObjectForPictogramElement(c);			
-					if(childBo instanceof NamedElement && areNamesEqual((NamedElement)childBo, el)) {
-						return c;
-					} else if(childBo == null && c instanceof ContainerShape) {
-						final Shape recResult = getDescendantShapeByElementName((ContainerShape)c, el);
-						if(recResult != null) {
-							return recResult;
-						}
-					}
-				}
-			}
-		}
-		
-		return null;
-	}	
 
 	/* (non-Javadoc)
 	 * @see org.osate.ge.diagrams.common.util.ShapeService#getChildShapeByName(org.eclipse.graphiti.mm.pictograms.ContainerShape, java.lang.String)
@@ -191,13 +125,6 @@ public class DefaultShapeService implements ShapeService {
 		return false;
 	}
 	
-	private boolean areNamesEqual(final NamedElement e1, final NamedElement e2) {
-		if(e1 == null || e1.getName() == null || e2 == null || e2.getName() == null)
-			return false;
-
-		return e1.getName().equalsIgnoreCase(e2.getName());
-	}
-
 	@Override
 	public Shape getClosestAncestorWithBusinessObjectType(final Shape s, final Class<?> ... boTypes) {
 		for(Shape tmpShape = s; tmpShape != null; tmpShape = tmpShape.getContainer()) {
@@ -223,35 +150,6 @@ public class DefaultShapeService implements ShapeService {
 			}			
 		}
 		
-		return null;
-	}
-	
-	@Override
-	public Shape findDescendantShapeByReference(final ContainerShape shape, final Object bo) {
-		final String searchRef = refService.getReference(bo);
-		if(searchRef == null) {
-			return null;			
-		}
-
-		return findDescendantShape(shape, searchRef);
-	}
-	
-	private Shape findDescendantShape(final ContainerShape shape, final String searchRef) {
-		for(final Shape c : shape.getChildren()) {
-			final Object childBo = bor.getBusinessObjectForPictogramElement(c);	
-			final String ref = refService.getReference(childBo);
-			if(searchRef.equals(ref)) {
-				return c;
-			}
-			
-			if(c instanceof ContainerShape) {
-				final Shape recResult = findDescendantShape((ContainerShape)c, searchRef);
-				if(recResult != null) {
-					return recResult;
-				}
-			}
-		}
-
 		return null;
 	}
 }

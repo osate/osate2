@@ -30,6 +30,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
@@ -72,7 +73,10 @@ import org.eclipse.graphiti.features.custom.ICustomFeature;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
+import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
@@ -94,10 +98,12 @@ import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerLayoutFeature;
+import org.osate.ge.internal.graphiti.features.AgeFeatureUtil;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerUpdateFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
+import org.osate.ge.internal.query.AncestorUtil;
 import org.osate.ge.internal.graphiti.features.BoHandlerRefreshHelper;
 import org.osate.ge.internal.features.SetDerivedModesFeature;
 import org.osate.ge.internal.features.SetDimensionsFeature;
@@ -123,7 +129,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramService;
@@ -131,14 +136,21 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.QueryService;
+import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
+import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {
-	private final boolean enableIndependenceProviderCaching = true;
+	private static final String KEY_BUSINESS_OBJECT = "bo"; // TODO: Rename?
+	private static final String REFERENCE_TYPE_ABSOLUTE = "abs";
+	private static final String REFERENCE_TYPE_RELATIVE = "rel";
+	
+	// TODO: Rename?
+	private static final String LEGACY_KEY_INDEPENDENT_PROPERTY = "independentObject"; // Property which was used to store references by Graphiti before migration to custom handling of references.
 	private IEclipseContext eclipseContext;
 	private ConnectionService connectionService;
 	private ExtensionService extService;
@@ -147,6 +159,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private ShapeService shapeService;
 	private BusinessObjectResolutionService bor;
 	private PropertyService propertyService;
+	private SerializableReferenceService referenceService;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private BoHandlerLayoutFeature defaultLayoutFeature;
@@ -168,6 +181,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
+		this.referenceService = Objects.requireNonNull(eclipseContext.get(SerializableReferenceService.class), "unable to retrieve serializable reference service");
 		
 		// Create the refresh helper
 		final GhostingService ghostingService = Objects.requireNonNull(context.get(GhostingService.class), "unable to retrieve ghosting service");
@@ -177,15 +191,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		final AnchorService anchorService = Objects.requireNonNull(eclipseContext.get(AnchorService.class), "unable to retrieve anchor service");
 		final QueryService queryService = Objects.requireNonNull(context.get(QueryService.class), "unable to retrieve query service");
 		this.pictogramRefreshHelper = new BoHandlerRefreshHelper(extService, ghostingService, labelService, shapeCreationService, connectionCreationService, anchorService, propertyService, connectionService, queryService, bor, this);
-		
-		final IndependenceProvider nonCachingIndependenceProvider = make(IndependenceProvider.class);
-		if(enableIndependenceProviderCaching) {
-			final CachingIndependenceProvider cachingIndependenceProvider = new CachingIndependenceProvider(nonCachingIndependenceProvider);
-			eclipseContext.get(CachingService.class).registerCache(cachingIndependenceProvider);
-			setIndependenceSolver(cachingIndependenceProvider);
-		} else {
-			setIndependenceSolver(nonCachingIndependenceProvider);
-		}
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
@@ -218,6 +223,182 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return ContextInjectionFactory.make(clazz, eclipseContext);
 	}
 	
+	// Referencing
+	@Override
+	public Object[] getAllBusinessObjectsForPictogramElement(final PictogramElement pictogramElement) {
+		// A maximum of one business object per pictogram element is supported
+		final Object bo = getBusinessObjectForPictogramElement(pictogramElement);
+		return bo == null ? new Object[0] : new Object[] { bo };
+	}
+	
+	@Override
+	public Object getBusinessObjectForPictogramElement(final PictogramElement pictogramElement) {
+		if(pictogramElement == null) {
+			return null;
+		}
+		
+		String reference = Graphiti.getPeService().getPropertyValue(pictogramElement, KEY_BUSINESS_OBJECT);
+		if(reference == null) {
+			// TODO: Remove this when references are updated as part of migration to the new file format. 
+			// Try the old reference property
+			reference = Graphiti.getPeService().getPropertyValue(pictogramElement, LEGACY_KEY_INDEPENDENT_PROPERTY);
+			System.err.println("NOTE: LOOKING AT LEGACY PROPERTY : " + pictogramElement + " : " + reference);
+			if(reference == null) {
+				return null;	
+			}
+		}
+		
+		final String[] ref = ReferenceEncoder.decode(reference);
+		if(ref == null) {
+			return null;
+		}
+		
+		// Resolve the reference based on its type
+		final Object bo;
+		if(ref[0].equals(REFERENCE_TYPE_ABSOLUTE)) {
+			if(ref.length < 2) { // Absolute references
+				return null;
+			}
+			bo = referenceService.resolveAbsoluteReference(ref[1]);
+		} else if(ref[0].equals(REFERENCE_TYPE_RELATIVE)) { // Relative references
+			if(ref.length < 2) {
+				return null;
+			}
+			
+			// Get the parent logical pictogram element
+			final PictogramElement logicalPictogramElement = AgeFeatureUtil.getLogicalPictogramElement(pictogramElement, propertyService, connectionService);
+			final PictogramElement logicalParent = AncestorUtil.getParent(logicalPictogramElement, propertyService, connectionService);
+			if(logicalParent == null) {
+				return null;
+			}			
+			
+			final Object parentBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(logicalParent));
+			if(parentBo == null) {
+				return null;
+			}
+			
+			bo = referenceService.resolveRelativeReference(parentBo, ref[1]);
+		} else { // Legacy references. Type identifier not included
+			// TODO: Ability to pass in the decoded string
+			bo = referenceService.resolveAbsoluteReference(reference);
+		}
+
+		return bo;
+	}
+	
+	@Override
+	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {		
+		final List<PictogramElement> pes = new ArrayList<>();
+		
+		if(businessObject != null) {
+			// TODO: Remove need for AadlElementWrapper
+			if(businessObject instanceof Element) {
+				businessObject = new AadlElementWrapper((Element)businessObject);
+			}
+
+			// TODO: Support relative references?			
+			final String reference = referenceService.getAbsoluteReference(businessObject);
+			if(reference != null) {
+				final Collection<PictogramElement> allContainedPictogramElements = Graphiti.getPeService().getAllContainedPictogramElements(getDiagramTypeProvider().getDiagram());
+				for(PictogramElement pe : allContainedPictogramElements) {
+					if(reference.equals(Graphiti.getPeService().getPropertyValue(pe, KEY_BUSINESS_OBJECT))) {
+						pes.add(pe);
+					}
+				}
+			}
+		}
+		
+		return pes.toArray(new PictogramElement[pes.size()]);
+	}
+		
+	@Override
+	public PictogramElement getPictogramElementForBusinessObject(final Object businessObject) {
+		// TODO: Optimize so it just finds the first pictogram element
+		final PictogramElement[] pes = getAllPictogramElementsForBusinessObject(businessObject);
+		if(pes.length > 0) {
+			return pes[0];
+		}
+		
+		return null;
+	}
+		
+	@Override
+	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
+		if(businessObjects.length > 1) {
+			throw new RuntimeException("Linking to multiple business objects is not supported");
+		}
+		
+		// Prevent linkage from occurring if we are unable to get a resource for the EObject.
+		// This is to prevent linking when the root of the EObject is not an expected object. In such cases, annex references may be invalid because such references
+		// often depend on getting the reference for the root package.
+		for(final Object rawBo : businessObjects) {
+			// Get an EMF object
+			Object bo = AadlElementWrapper.unwrap(rawBo);
+			if(bo instanceof EmfContainerProvider) {
+				bo = ((EmfContainerProvider) bo).getEmfContainer();
+			}
+			
+			if(!(bo instanceof EObject)) {
+				throw new RuntimeException("Unsupported business object. Business object is not an EObject and/or EmfContainerProvider did not supply an EObject.");
+			}
+			
+			if(bo instanceof EObject) {
+				// Check if the resource is valid.
+				final EObject eobj = (EObject)bo;
+				if(eobj.eResource() == null) {
+					return;
+				}
+			}
+		}
+		
+		if(businessObjects.length == 1) {
+			final Object bo = businessObjects[0];
+			
+			String reference = null;
+			
+			// TODO: Need to support relative references for connections. This requires a knowledge of knowledge of the connection's parent.
+			if(!(pictogramElement instanceof Connection || pictogramElement instanceof ConnectionDecorator)) {
+				// Attempt to use a relative reference if the logical parent is not null
+				final PictogramElement logicalParent = AncestorUtil.getParent(pictogramElement, propertyService, connectionService);
+				if(logicalParent != null) {
+					reference = buildRelativeReference(bo);
+				}
+			}
+			
+			// Otherwise, use an absolute reference
+			if(reference == null) {
+				reference = buildAbsoluteReference(bo);
+			}
+			
+			if(reference == null) {
+				throw new RuntimeException("Unable to build reference for object: " + bo);
+			}
+			
+			// Set the property
+			Graphiti.getPeService().setPropertyValue(pictogramElement, KEY_BUSINESS_OBJECT, reference);
+		} else {
+			Graphiti.getPeService().removeProperty(pictogramElement, KEY_BUSINESS_OBJECT);
+		}
+	}
+	
+	private String buildAbsoluteReference(final Object bo) {
+		final String ref = referenceService.getAbsoluteReference(bo);;
+		if(ref == null) {
+			return null;
+		}
+		
+		return ReferenceEncoder.encode(new String[] { REFERENCE_TYPE_ABSOLUTE, ref });
+	}
+	
+	private String buildRelativeReference(final Object bo) {
+		final String ref = referenceService.getRelativeReference(bo);
+		if(ref == null) {
+			return null;
+		}
+		
+		return ReferenceEncoder.encode(new String[] { REFERENCE_TYPE_RELATIVE, ref });
+	}
+		
 	// Don't allow removing, just deleting.
 	@Override 
 	public IRemoveFeature getRemoveFeature(final IRemoveContext context) {
@@ -341,24 +522,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		}
 	}
 	
-	// Helper methods to hide the fact that we are wrapping our AADL Elements to hide the fact they are EMF objects from Graphiti. See AadlElementWrapper
-	@Override
-	public PictogramElement getPictogramElementForBusinessObject(Object businessObject) {
-		if(businessObject instanceof Element) {
-			businessObject =  new AadlElementWrapper((Element)businessObject);
-		}
-		
-		return super.getPictogramElementForBusinessObject(businessObject);
-	}
-	
-	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {
-		if(businessObject instanceof Element) {
-			businessObject =  new AadlElementWrapper((Element)businessObject);
-		}
-		
-		return super.getAllPictogramElementsForBusinessObject(businessObject);
-	}
-
 	@Override
 	public IDirectEditingFeature getDirectEditingFeature(final IDirectEditingContext context) {
 		return defaultDirectEditFeature;
@@ -563,38 +726,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		return defaultLayoutFeature;
-	}
-	
-	@Override
-	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
-		// Prevent linkage from occurring if we are unable to get a resource for the EObject.
-		// This is to prevent linking when the root of the EObject is not an expected object. In such cases, annex references may be invalid because such references
-		// often depend on getting the reference for the root package.
-		for(final Object rawBo : businessObjects) {
-			// Get an EMF object
-			Object bo = AadlElementWrapper.unwrap(rawBo);
-			if(bo instanceof EmfContainerProvider) {
-				bo = ((EmfContainerProvider) bo).getEmfContainer();
-			}
-			
-			if(bo == null) {
-				return;
-			}
-			
-			if(!(bo instanceof EObject)) {
-				return;
-			}
-			
-			if(bo instanceof EObject) {
-				// Check if the resource is valid.
-				final EObject eobj = (EObject)bo;
-				if(eobj.eResource() == null) {
-					return;
-				}
-			}
-		}
-		
-		super.link(pictogramElement, businessObjects);
 	}
 }
 

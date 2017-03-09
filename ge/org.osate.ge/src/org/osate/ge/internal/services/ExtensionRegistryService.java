@@ -32,7 +32,9 @@ package org.osate.ge.internal.services;
 import java.util.Collection;
 import java.util.List;
 
-public interface ExtensionRegistryService {
+import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
+
+public interface ExtensionRegistryService extends BusinessObjectHandlerProvider {
 	/**
 	 * Tools are objects that allow the user to perform a specific action using the editor. Only a single tool may be active at a time and tools should have their own 
 	 * user interface to provide feedback to the user. 
