@@ -34,13 +34,13 @@ import org.osate.organization.organization.Stakeholder;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getPredicate <em>Predicate</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getException <em>Exception</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getExceptionText <em>Exception Text</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}</li>
+ *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComputes <em>Computes</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRefinesReference <em>Refines Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDecomposesReference <em>Decomposes Reference</em>}</li>
- *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getDevelopmentStakeholder <em>Development Stakeholder</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getRequirementReference <em>Requirement Reference</em>}</li>
  *   <li>{@link org.osate.reqspec.reqSpec.Requirement#getComponentCategory <em>Component Category</em>}</li>
@@ -53,22 +53,6 @@ import org.osate.organization.organization.Stakeholder;
  */
 public interface Requirement extends ContractualElement
 {
-  /**
-   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
-   * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Computes</em>' containment reference list.
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Computes()
-   * @model containment="true"
-   * @generated
-   */
-  EList<AVariableDeclaration> getComputes();
-
   /**
    * Returns the value of the '<em><b>Predicate</b></em>' containment reference.
    * <!-- begin-user-doc -->
@@ -148,6 +132,48 @@ public interface Requirement extends ContractualElement
   void setExceptionText(String value);
 
   /**
+   * Returns the value of the '<em><b>Inherits Reference</b></em>' reference.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Inherits Reference</em>' reference isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Inherits Reference</em>' reference.
+   * @see #setInheritsReference(Requirement)
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_InheritsReference()
+   * @model
+   * @generated
+   */
+  Requirement getInheritsReference();
+
+  /**
+   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}' reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @param value the new value of the '<em>Inherits Reference</em>' reference.
+   * @see #getInheritsReference()
+   * @generated
+   */
+  void setInheritsReference(Requirement value);
+
+  /**
+   * Returns the value of the '<em><b>Computes</b></em>' containment reference list.
+   * The list contents are of type {@link org.osate.alisa.common.common.AVariableDeclaration}.
+   * <!-- begin-user-doc -->
+   * <p>
+   * If the meaning of the '<em>Computes</em>' containment reference list isn't clear,
+   * there really should be more of a description here...
+   * </p>
+   * <!-- end-user-doc -->
+   * @return the value of the '<em>Computes</em>' containment reference list.
+   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_Computes()
+   * @model containment="true"
+   * @generated
+   */
+  EList<AVariableDeclaration> getComputes();
+
+  /**
    * Returns the value of the '<em><b>Refines Reference</b></em>' reference list.
    * The list contents are of type {@link org.osate.reqspec.reqSpec.Requirement}.
    * <!-- begin-user-doc -->
@@ -178,32 +204,6 @@ public interface Requirement extends ContractualElement
    * @generated
    */
   EList<Requirement> getDecomposesReference();
-
-  /**
-   * Returns the value of the '<em><b>Inherits Reference</b></em>' reference.
-   * <!-- begin-user-doc -->
-   * <p>
-   * If the meaning of the '<em>Inherits Reference</em>' reference isn't clear,
-   * there really should be more of a description here...
-   * </p>
-   * <!-- end-user-doc -->
-   * @return the value of the '<em>Inherits Reference</em>' reference.
-   * @see #setInheritsReference(Requirement)
-   * @see org.osate.reqspec.reqSpec.ReqSpecPackage#getRequirement_InheritsReference()
-   * @model
-   * @generated
-   */
-  Requirement getInheritsReference();
-
-  /**
-   * Sets the value of the '{@link org.osate.reqspec.reqSpec.Requirement#getInheritsReference <em>Inherits Reference</em>}' reference.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @param value the new value of the '<em>Inherits Reference</em>' reference.
-   * @see #getInheritsReference()
-   * @generated
-   */
-  void setInheritsReference(Requirement value);
 
   /**
    * Returns the value of the '<em><b>Development Stakeholder</b></em>' reference list.

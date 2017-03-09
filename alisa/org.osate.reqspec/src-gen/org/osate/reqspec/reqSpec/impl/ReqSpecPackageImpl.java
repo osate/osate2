@@ -808,7 +808,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_Computes()
+  public EReference getRequirement_Predicate()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(0);
   }
@@ -818,7 +818,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_Predicate()
+  public EReference getRequirement_Exception()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(1);
   }
@@ -828,19 +828,9 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_Exception()
-  {
-    return (EReference)requirementEClass.getEStructuralFeatures().get(2);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
   public EAttribute getRequirement_ExceptionText()
   {
-    return (EAttribute)requirementEClass.getEStructuralFeatures().get(3);
+    return (EAttribute)requirementEClass.getEStructuralFeatures().get(2);
   }
 
   /**
@@ -848,7 +838,17 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_RefinesReference()
+  public EReference getRequirement_InheritsReference()
+  {
+    return (EReference)requirementEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getRequirement_Computes()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(4);
   }
@@ -858,7 +858,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_DecomposesReference()
+  public EReference getRequirement_RefinesReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(5);
   }
@@ -868,7 +868,7 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EReference getRequirement_InheritsReference()
+  public EReference getRequirement_DecomposesReference()
   {
     return (EReference)requirementEClass.getEStructuralFeatures().get(6);
   }
@@ -1275,13 +1275,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     createEReference(goalEClass, GOAL__STAKEHOLDER_REFERENCE);
 
     requirementEClass = createEClass(REQUIREMENT);
-    createEReference(requirementEClass, REQUIREMENT__COMPUTES);
     createEReference(requirementEClass, REQUIREMENT__PREDICATE);
     createEReference(requirementEClass, REQUIREMENT__EXCEPTION);
     createEAttribute(requirementEClass, REQUIREMENT__EXCEPTION_TEXT);
+    createEReference(requirementEClass, REQUIREMENT__INHERITS_REFERENCE);
+    createEReference(requirementEClass, REQUIREMENT__COMPUTES);
     createEReference(requirementEClass, REQUIREMENT__REFINES_REFERENCE);
     createEReference(requirementEClass, REQUIREMENT__DECOMPOSES_REFERENCE);
-    createEReference(requirementEClass, REQUIREMENT__INHERITS_REFERENCE);
     createEReference(requirementEClass, REQUIREMENT__DEVELOPMENT_STAKEHOLDER);
     createEReference(requirementEClass, REQUIREMENT__REQUIREMENT_REFERENCE);
     createEAttribute(requirementEClass, REQUIREMENT__COMPONENT_CATEGORY);
@@ -1436,13 +1436,13 @@ public class ReqSpecPackageImpl extends EPackageImpl implements ReqSpecPackage
     initEReference(getGoal_StakeholderReference(), theOrganizationPackage.getStakeholder(), null, "stakeholderReference", null, 0, -1, Goal.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(requirementEClass, Requirement.class, "Requirement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-    initEReference(getRequirement_Computes(), theCommonPackage.getAVariableDeclaration(), null, "computes", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_Predicate(), this.getReqPredicate(), null, "predicate", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_Exception(), theEcorePackage.getEObject(), null, "exception", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRequirement_ExceptionText(), theEcorePackage.getEString(), "exceptionText", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRequirement_InheritsReference(), this.getRequirement(), null, "inheritsReference", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getRequirement_Computes(), theCommonPackage.getAVariableDeclaration(), null, "computes", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_RefinesReference(), this.getRequirement(), null, "refinesReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_DecomposesReference(), this.getRequirement(), null, "decomposesReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEReference(getRequirement_InheritsReference(), this.getRequirement(), null, "inheritsReference", null, 0, 1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_DevelopmentStakeholder(), theOrganizationPackage.getStakeholder(), null, "developmentStakeholder", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getRequirement_RequirementReference(), this.getRequirement(), null, "requirementReference", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEAttribute(getRequirement_ComponentCategory(), theAadl2Package.getComponentCategory(), "componentCategory", null, 0, -1, Requirement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, !IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

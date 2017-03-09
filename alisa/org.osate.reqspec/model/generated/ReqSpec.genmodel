@@ -70,13 +70,13 @@
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Goal/stakeholderReference"/>
     </genClasses>
     <genClasses ecoreClass="ReqSpec.ecore#//Requirement">
-      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/computes"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/predicate"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/exception"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/exceptionText"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/inheritsReference"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/computes"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/refinesReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/decomposesReference"/>
-      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/inheritsReference"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/developmentStakeholder"/>
       <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference ReqSpec.ecore#//Requirement/requirementReference"/>
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute ReqSpec.ecore#//Requirement/componentCategory"/>
