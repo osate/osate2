@@ -53,7 +53,8 @@ class Issue789Test extends OsateTest {
 		assertTrue('ETEF "etef1_1" not created', names1.contains('etef1_1'))
 		assertTrue('ETEF "etef1_2" not created', names1.contains('etef1_2'))
 		assertTrue('ETEF "etef1_3" not created', names1.contains('etef1_3'))
-		assertTrue('Expected three end to end flow instances but found ' + eteis1.size, eteis1.size == 3)
+		assertTrue('ETEF "etef1_4" not created', names1.contains('etef1_4'))
+		assertTrue('Expected three end to end flow instances but found ' + eteis1.size, eteis1.size == 4)
 	}
 
 	val aadlText = '''
@@ -185,8 +186,6 @@ public
 		flows
 			through: flow path readings -> cs3 -> speed.speedcontrol -> cs1 -> commands;
 			through: flow path readings -> cs4 -> altitude.altcontrol -> cs2 -> commands;
---			through: flow path readings.speedreading -> commands.speedcmd;
---			through: flow path readings.altitudereading -> commands.altitudecmd;
 	end controllers.impl;
 	
 	system implementation topsystem.tier2 extends topsystem.tier1
