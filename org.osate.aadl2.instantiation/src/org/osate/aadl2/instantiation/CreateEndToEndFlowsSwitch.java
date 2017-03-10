@@ -383,6 +383,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			while (itt.hasNext()) {
 				EndToEndFlowInstance eteiClone = null;
 				Stack<FlowIterator> stateClone = null;
+				FlowIterator iterClone = null;
 				List<Connection> connectionsClone = new ArrayList<Connection>();
 				FlowImplementation flowImpl = itt.next();
 				boolean prepareNext = itt.hasNext();
@@ -390,8 +391,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				if (prepareNext) {
 					stateClone = clone(state);
 					eteiClone = EcoreUtil.copy(etei);
+					iterClone = iter.clone();
 					connectionsClone = new ArrayList<Connection>(connections);
-					etei.setName(etei.getEndToEndFlow().getName());
+//					etei.setName(etei.getEndToEndFlow().getName());
 					;
 					eteiClone.getModesList().addAll(etei.getModesList());
 				}
@@ -409,6 +411,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 					etei = eteiClone;
 					state = stateClone;
+					iter = iterClone;
 					addETEI.add(etei);
 					if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 						created.add(myInfo = new ETEInfo(etei));
@@ -473,12 +476,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					Stack<FlowIterator> stateClone = null;
 					ConnectionInstance conni = connIter.next();
 					boolean prepareNext = connIter.hasNext();
+					FlowIterator iterClone = null;
 
 					if (prepareNext) {
 						stateClone = clone(state);
 						eteiClone = EcoreUtil.copy(etei);
-						etei.setName(etei.getEndToEndFlow().getName());
-						;
+						iterClone = iter.clone();
 						eteiClone.getModesList().addAll(etei.getModesList());
 					}
 
@@ -513,6 +516,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						etei.getContainingComponentInstance().getEndToEndFlows().add(eteiClone);
 						etei = eteiClone;
 						state = stateClone;
+						iter = iterClone;
 						addETEI.add(etei);
 						if (etei.getFlowElements() == null || etei.getFlowElements().isEmpty()) {
 							created.add(myInfo = new ETEInfo(etei));
