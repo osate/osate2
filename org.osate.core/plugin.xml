@@ -88,4 +88,20 @@
          </with>
       </definition>
    </extension>
+    <extension
+         point="org.eclipse.core.contenttype.contentTypes">
+      <file-association
+            content-type="org.eclipse.emf.compare.content.type"
+            file-extensions="aadl,aadl2,aaxl2,aail2,instance,reqspec,aadl_diagram,assure,alisa,cat,filter,org,reqspec,goals,constants,reqdoc,goaldoc,verify,methodregistry,results">
+      </file-association>
+   </extension>
+    <extension
+          point="org.eclipse.emf.compare.ide.ui.modelDependencyProvider">
+       <dependency
+             class="org.osate.core.compare.XtextDependencyProvider">
+       </dependency>
+       <dependency
+             class="org.osate.core.compare.DiagramDependencyProvider">
+       </dependency>
+    </extension>
  </plugin>
