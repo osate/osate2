@@ -637,6 +637,10 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 			  end a2;
 			  
 			  abstract implementation a2.i
+			  subcomponents
+			    dummy: abstract a2;
+			  connections
+			    c1: port dummy.ep2 -> dummy.ep3;
 			  flows
 			    fsource1: flow source ep2 in modes (m5, m6, m7, mt5, mt6, mt7);
 			    fsink1: flow sink ep3 in modes (m5, m6, m7, mt5, mt6, mt7);

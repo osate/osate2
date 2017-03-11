@@ -35,6 +35,11 @@ class Issue781Test extends OsateTest {
 				end a1;
 				
 				abstract implementation a1.i
+				  subcomponents
+				    s1: abstract a1;
+				    s2: abstract a1;
+				  connections
+				    c1: feature s1.af1 -> s2.af1;
 					flows
 						flow1: flow source af1;
 						flow2: flow sink af1;
