@@ -987,28 +987,13 @@ public final class AadlUtil {
 
 	/**
 	 * checks for legal type substitution.
-	 * It is acceptable to replace a type extension if its sole purpose is to
-	 make the name visible in another package and/or to add property values
-	 * In the future we can allow type substitution by refined types or
-	 extended types
 	 * origin or replacement may be null.
 	 * @param origin Component type
 	 * @param reptype type Component type
 	 * @return true if the Component type can be substituted
 	 */
 	public static boolean isokTypeClassifierMatch(ComponentType origin, ComponentType reptype) {
-		if (reptype == origin || reptype == null) {
-			return true;
-		}
-		// an extension for the purpose of making name visible in another package
-		// or refinement with only property associations
-		ComponentType repancestor = reptype.getExtended();
-		if (repancestor == origin) {
-			if (reptype.getOwnedFeatures() == null || reptype.getOwnedFeatures().isEmpty()) {
-				return true;
-			}
-		}
-		return false;
+		return reptype == null || reptype == origin;
 	}
 
 	public static boolean isokTypeClassifierMatch(FeatureGroupType origin, FeatureGroupType reptype) {
