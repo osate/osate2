@@ -36,17 +36,17 @@ import org.osate.ge.internal.ui.util.SelectionHelper;
 
 // TODO: Rename?
 public class GraphitiAgeDiagramUpdater {
-	private final DiagramUpdater diagramUpdater; 
-	private final BusinessObjectHandlerProvider boHandlerProvider;
-	private final ExtensionService extService;
+	//private final DiagramUpdater diagramUpdater; 
+	//private final BusinessObjectHandlerProvider boHandlerProvider;
+	//private final ExtensionService extService;
 	
 	// TODO: Replace extservice with something more specific
 	public GraphitiAgeDiagramUpdater(final BusinessObjectTreeFactory boTreeFactory,
 			final BusinessObjectHandlerProvider boHandlerProvider, 
 			final ExtensionService extService) {
-		this.diagramUpdater = new DiagramUpdater(boTreeFactory, null); // TODO: Register listener
-		this.boHandlerProvider = Objects.requireNonNull(boHandlerProvider, "boHandlerProvider must not be null");
-		this.extService = Objects.requireNonNull(extService, "extService must not be null");
+		//this.diagramUpdater = new DiagramUpdater(boTreeFactory); // TODO: Register listener
+		//this.boHandlerProvider = Objects.requireNonNull(boHandlerProvider, "boHandlerProvider must not be null");
+		//this.extService = Objects.requireNonNull(extService, "extService must not be null");
 	}
 
 	public void updateDiagram(final GraphitiAgeDiagram diagram) {

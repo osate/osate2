@@ -16,10 +16,11 @@ import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 
+// TODO: Rework. Don't make copy. Listener/Synchronization paradigm.
 public class GraphitiAgeDiagram {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	
-	private final AgeDiagram ageDiagram;
+//	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
 	private final List<DiagramElement> elements;
 	
@@ -28,7 +29,6 @@ public class GraphitiAgeDiagram {
 	 * @param ageDiagram
 	 */
 	public GraphitiAgeDiagram(final AgeDiagram ageDiagram) {
-		this.ageDiagram = new AgeDiagram(Objects.requireNonNull(ageDiagram, "ageDiagram must not be null"));
 		this.graphitiDiagram = Graphiti.getPeService().createDiagram(AADL_DIAGRAM_TYPE_ID, "Untitled Diagram", true); // TODO: Diagram title
 		this.elements = new ArrayList<>();
 		

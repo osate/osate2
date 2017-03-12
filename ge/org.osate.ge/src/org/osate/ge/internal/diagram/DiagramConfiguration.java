@@ -6,13 +6,18 @@ package org.osate.ge.internal.diagram;
  * @see DiagramConfigurationBuilder
  */
 public class DiagramConfiguration {
-	private final BusinessObjectReference rootBoReference;
+	private final RelativeBusinessObjectReference rootBoReference;
 	
-	DiagramConfiguration(final BusinessObjectReference rootBoReference) {
+	DiagramConfiguration(final RelativeBusinessObjectReference rootBoReference) {
 		this.rootBoReference = rootBoReference == null ? null : rootBoReference;
 	}
 	
-	public BusinessObjectReference getRootBoReference() {
+	public RelativeBusinessObjectReference getRootBoReference() {
 		return rootBoReference;
+	}
+	
+	@Override
+	public String toString() {
+		return "{ root business object reference: " + rootBoReference + " } ";
 	}
 }
