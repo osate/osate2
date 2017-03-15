@@ -233,8 +233,8 @@ public class ModalPropertyValueImpl extends ModalElementImpl implements ModalPro
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
-		EvaluatedProperty value = ownedValue.evaluate(ctx);
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
+		EvaluatedProperty value = ownedValue.evaluate(ctx, depth);
 
 		if (!getInModes().isEmpty()) {
 			if (!value.isEmpty()) {

@@ -175,7 +175,7 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 					 * declarative model. Property lookup process now corrects
 					 * reference values to instance reference values.
 					 */
-					PropertyEvaluationResult result = property.evaluate(new EvaluationContext(io, classifierCache));
+					PropertyEvaluationResult result = property.evaluate(new EvaluationContext(io, classifierCache), 0);
 					List<EvaluatedProperty> evaluated = result.getEvaluated();
 
 					if (!evaluated.isEmpty()) {
@@ -252,7 +252,7 @@ public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithPro
 								connRef.getConnection());
 
 						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache, propAssociation);
-						PropertyEvaluationResult result = prop.evaluate(ctx);
+						PropertyEvaluationResult result = prop.evaluate(ctx, 0);
 						List<EvaluatedProperty> evaluated = result.getEvaluated();
 
 						if (!evaluated.isEmpty()) {

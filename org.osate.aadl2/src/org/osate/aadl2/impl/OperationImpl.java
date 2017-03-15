@@ -273,11 +273,11 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
 		if (ownedPropertyExpressions.size() < 1) {
 			throw new InvalidModelException(ctx.getInstanceObject(), "Property expression has no operands");
 		}
-		EvaluatedProperty left = ownedPropertyExpressions.get(0).evaluate(ctx);
+		EvaluatedProperty left = ownedPropertyExpressions.get(0).evaluate(ctx, depth);
 		EvaluatedProperty right = null;
 		PropertyExpression arg1 = null;
 		PropertyExpression arg2 = null;
@@ -303,7 +303,7 @@ public class OperationImpl extends PropertyExpressionImpl implements Operation {
 			if (ownedPropertyExpressions.size() > 2) {
 				throw new InvalidModelException(ctx.getInstanceObject(), "Too many operands in expression");
 			}
-			right = ownedPropertyExpressions.get(1).evaluate(ctx);
+			right = ownedPropertyExpressions.get(1).evaluate(ctx, depth);
 			if (right.size() != 1 || right.first().isModal()) {
 				throw new InvalidModelException(ctx.getInstanceObject(), "Argument to operation cannot be modal");
 			}

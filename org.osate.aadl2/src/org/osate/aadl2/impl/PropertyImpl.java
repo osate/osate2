@@ -514,13 +514,13 @@ public class PropertyImpl extends BasicPropertyImpl implements Property {
 	}
 
 	@Override
-	public PropertyEvaluationResult evaluate(EvaluationContext ctx) {
+	public PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth) {
 		List<PropertyAssociation> pas = getPropertyValue(ctx).getAssociations();
 		List<EvaluatedProperty> vals = new LinkedList<EvaluatedProperty>();
 
 		for (PropertyAssociation pa : pas) {
 			// OsateDebug.osateDebug("pa" + pa);
-			vals.add(pa.evaluate(ctx));
+			vals.add(pa.evaluate(ctx, depth));
 
 			if ((!(ctx.getInstanceObject() instanceof ConnectionReference)) && (!pa.isAppend())) {
 				break;

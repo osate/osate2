@@ -197,7 +197,7 @@ public class ClassifierValueImpl extends PropertyOwnerImpl implements Classifier
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		return new EvaluatedProperty(this);
 	}
 
