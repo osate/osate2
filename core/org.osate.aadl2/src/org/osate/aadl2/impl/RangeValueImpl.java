@@ -417,7 +417,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 	}
 
 	@Override
-	public final EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
+	public final EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
 		/*
 		 * The min, max, and delta attributes can refer to PropertyReferences to
 		 * signed property constants that we need to resolve. So we first
@@ -427,8 +427,8 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 		try {
 			NumberValue maxNumberValue;
 			NumberValue minNumberValue;
-			EvaluatedProperty maxVal = maximum.evaluate(ctx);
-			EvaluatedProperty minVal = minimum.evaluate(ctx);
+			EvaluatedProperty maxVal = maximum.evaluate(ctx, depth);
+			EvaluatedProperty minVal = minimum.evaluate(ctx, depth);
 			EvaluatedProperty deltaVal = null;
 
 			maxNumberValue = null;
@@ -461,7 +461,7 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 			}
 
 			if (delta != null) {
-				deltaVal = delta.evaluate(ctx);
+				deltaVal = delta.evaluate(ctx, depth);
 				if (deltaVal.size() != 1 || deltaVal.first().isModal()) {
 					throw new InvalidModelException(ctx.getInstanceObject(), "Range delta is modal");
 				}
