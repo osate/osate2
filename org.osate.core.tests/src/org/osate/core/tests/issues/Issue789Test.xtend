@@ -16,11 +16,11 @@ import static org.junit.Assert.*
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class Issue789Test extends OsateTest {
 	override getProjectName() {
-		"issue361"
+		"issue789"
 	}
 
 	@Test
-	def void issue361() {
+	def void issue789() {
 		val aadlFile = "myflows.aadl"
 		createFiles(aadlFile -> aadlText)
 		suppressSerialization
@@ -58,143 +58,143 @@ class Issue789Test extends OsateTest {
 	}
 
 	val aadlText = '''
-package FeatureGroupflows
-public
-	feature group sensoroutput
-		features
-			speedreading: out data port;
-			altitudereading: out data port;
-	end sensoroutput;
-	feature group commandinput
-		features
-			speedcmd: in data port;
-			altitudecmd: in data port;
-	end commandinput;
-	abstract sensors
-		features
-			readings: feature group sensoroutput;
-		flows 
-			sensesrc: flow source readings;
-	end sensors;
-	abstract actuators
-		features
-			commands: feature group commandinput;
-		flows 
-			actuatedst: flow sink commands;
-	end actuators;
-	abstract controllers
-		features
-			readings: feature group inverse of sensoroutput;
-			commands: feature group inverse of commandinput;
-		flows
-			through: flow path readings -> commands;
-			throughs: flow path readings.speedreading -> commands.speedcmd;
-			througha: flow path readings.altitudereading -> commands.altitudecmd;
-	end controllers;
-	
-	system topsystem
-	
-	end topsystem;
-	
-	system implementation topsystem.tier1
-		subcomponents
-			sense: abstract sensors;
-			actuate: abstract actuators;
-			control: abstract controllers;
-		connections
-			stoc: feature group sense.readings -> control.readings;
-			ctoa: feature group control.commands -> actuate.commands;
-		flows
-			etef1: end to end flow sense.sensesrc -> stoc -> control.through -> ctoa -> actuate.actuatedst;
-	end topsystem.tier1;
-	
-	device speedsensor
-		features
-			speedreading: out data port;
-		flows
-			sensesrc: flow source speedreading;
-	end speedsensor;
-	device altitudesensor
-		features
-			altitudereading: out data port;
-		flows
-			sensesrc: flow source altitudereading;
-	end altitudesensor;
-	
-	device speedactuator
-		features
-			speedcmd: in data port;
-		flows
-			actuatedst: flow sink speedcmd;
-	end speedactuator;
-	device altitudeactuator
-		features
-			altitudecmd: in data port;
-		flows
-			actuatedst: flow sink altitudecmd;
-	end altitudeactuator;
-
-	
-	device speedcontroller
-		features
-			speedreading: in data port;
-			speedcmd: out data port;
-		flows
-			speedcontrol: flow path speedreading -> speedcmd;
-	end speedcontroller;
-	device altitudecontroller
-		features
-			altitudereading: in data port;
-			altitudecmd: out data port;
-		flows
-			altcontrol: flow path altitudereading -> altitudecmd;
-	end altitudecontroller;
-	
-	abstract implementation sensors.impl
-		subcomponents
-			speed: device speedsensor;
-			altitude: device altitudesensor;
-		connections
-			cs1: port speed.speedreading -> readings.speedreading;
-			cs2: port altitude.altitudereading -> readings.altitudereading;
-		flows
-			sensesrc: flow source speed.sensesrc -> cs1 -> readings;
-			sensesrc: flow source altitude.sensesrc -> cs2 -> readings;
-	end sensors.impl;
-	
-	abstract implementation actuators.impl
-		subcomponents
-			speed: device speedactuator;
-			altitude: device altitudeactuator;
-		connections
-			cs1: port commands.speedcmd -> speed.speedcmd;
-			cs2: port commands.altitudecmd -> altitude.altitudecmd;
-		flows
-			actuatedst: flow sink commands -> cs1 -> speed.actuatedst;
-			actuatedst: flow sink commands -> cs2 -> altitude.actuatedst;
-	end actuators.impl;
-	
-	abstract implementation controllers.impl
-		subcomponents
-			speed: device speedcontroller;
-			altitude: device altitudecontroller;
-		connections
-			cs1: port  speed.speedcmd -> commands.speedcmd ;
-			cs2: port  altitude.altitudecmd -> commands.altitudecmd;
-			cs3: port  readings.speedreading -> speed.speedreading ;
-			cs4: port  readings.altitudereading -> altitude.altitudereading;
-		flows
-			through: flow path readings -> cs3 -> speed.speedcontrol -> cs1 -> commands;
-			through: flow path readings -> cs4 -> altitude.altcontrol -> cs2 -> commands;
-	end controllers.impl;
-	
-	system implementation topsystem.tier2 extends topsystem.tier1
-		subcomponents
-			sense: refined to abstract sensors.impl;
-			actuate: refined to abstract actuators.impl;
-			control: refined to abstract controllers.impl;
-	end topsystem.tier2;
-	
-end FeatureGroupflows;
+		package FeatureGroupflows
+		public
+			feature group sensoroutput
+				features
+					speedreading: out data port;
+					altitudereading: out data port;
+			end sensoroutput;
+			feature group commandinput
+				features
+					speedcmd: in data port;
+					altitudecmd: in data port;
+			end commandinput;
+			abstract sensors
+				features
+					readings: feature group sensoroutput;
+				flows 
+					sensesrc: flow source readings;
+			end sensors;
+			abstract actuators
+				features
+					commands: feature group commandinput;
+				flows 
+					actuatedst: flow sink commands;
+			end actuators;
+			abstract controllers
+				features
+					readings: feature group inverse of sensoroutput;
+					commands: feature group inverse of commandinput;
+				flows
+					through: flow path readings -> commands;
+					throughs: flow path readings.speedreading -> commands.speedcmd;
+					througha: flow path readings.altitudereading -> commands.altitudecmd;
+			end controllers;
+			
+			system topsystem
+			
+			end topsystem;
+			
+			system implementation topsystem.tier1
+				subcomponents
+					sense: abstract sensors;
+					actuate: abstract actuators;
+					control: abstract controllers;
+				connections
+					stoc: feature group sense.readings -> control.readings;
+					ctoa: feature group control.commands -> actuate.commands;
+				flows
+					etef1: end to end flow sense.sensesrc -> stoc -> control.through -> ctoa -> actuate.actuatedst;
+			end topsystem.tier1;
+			
+			device speedsensor
+				features
+					speedreading: out data port;
+				flows
+					sensesrc: flow source speedreading;
+			end speedsensor;
+			device altitudesensor
+				features
+					altitudereading: out data port;
+				flows
+					sensesrc: flow source altitudereading;
+			end altitudesensor;
+			
+			device speedactuator
+				features
+					speedcmd: in data port;
+				flows
+					actuatedst: flow sink speedcmd;
+			end speedactuator;
+			device altitudeactuator
+				features
+					altitudecmd: in data port;
+				flows
+					actuatedst: flow sink altitudecmd;
+			end altitudeactuator;
+		
+			
+			device speedcontroller
+				features
+					speedreading: in data port;
+					speedcmd: out data port;
+				flows
+					speedcontrol: flow path speedreading -> speedcmd;
+			end speedcontroller;
+			device altitudecontroller
+				features
+					altitudereading: in data port;
+					altitudecmd: out data port;
+				flows
+					altcontrol: flow path altitudereading -> altitudecmd;
+			end altitudecontroller;
+			
+			abstract implementation sensors.impl
+				subcomponents
+					speed: device speedsensor;
+					altitude: device altitudesensor;
+				connections
+					cs1: port speed.speedreading -> readings.speedreading;
+					cs2: port altitude.altitudereading -> readings.altitudereading;
+				flows
+					sensesrc: flow source speed.sensesrc -> cs1 -> readings;
+					sensesrc: flow source altitude.sensesrc -> cs2 -> readings;
+			end sensors.impl;
+			
+			abstract implementation actuators.impl
+				subcomponents
+					speed: device speedactuator;
+					altitude: device altitudeactuator;
+				connections
+					cs1: port commands.speedcmd -> speed.speedcmd;
+					cs2: port commands.altitudecmd -> altitude.altitudecmd;
+				flows
+					actuatedst: flow sink commands -> cs1 -> speed.actuatedst;
+					actuatedst: flow sink commands -> cs2 -> altitude.actuatedst;
+			end actuators.impl;
+			
+			abstract implementation controllers.impl
+				subcomponents
+					speed: device speedcontroller;
+					altitude: device altitudecontroller;
+				connections
+					cs1: port  speed.speedcmd -> commands.speedcmd ;
+					cs2: port  altitude.altitudecmd -> commands.altitudecmd;
+					cs3: port  readings.speedreading -> speed.speedreading ;
+					cs4: port  readings.altitudereading -> altitude.altitudereading;
+				flows
+					through: flow path readings -> cs3 -> speed.speedcontrol -> cs1 -> commands;
+					through: flow path readings -> cs4 -> altitude.altcontrol -> cs2 -> commands;
+			end controllers.impl;
+			
+			system implementation topsystem.tier2 extends topsystem.tier1
+				subcomponents
+					sense: refined to abstract sensors.impl;
+					actuate: refined to abstract actuators.impl;
+					control: refined to abstract controllers.impl;
+			end topsystem.tier2;
+			
+		end FeatureGroupflows;
 	'''
 }
