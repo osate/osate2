@@ -1876,7 +1876,7 @@ public class GetProperties {
 			return 0;
 		}
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
-		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+		PropertyExpression maximum = rv.getMaximum().evaluate(null, 0).first().getValue();
 		return ((NumberValue) maximum).getScaledValue();
 	}
 
@@ -1886,7 +1886,7 @@ public class GetProperties {
 			return 0;
 		}
 		RangeValue rv = (RangeValue) vr.getOwnedValue();
-		PropertyExpression minimum = rv.getMinimum().evaluate(null).first().getValue();
+		PropertyExpression minimum = rv.getMinimum().evaluate(null, 0).first().getValue();
 		return ((NumberValue) minimum).getScaledValue();
 	}
 
