@@ -512,10 +512,10 @@ public class PropertyAssociationImpl extends ElementImpl implements PropertyAsso
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException {
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
 		EvaluatedProperty result = new EvaluatedProperty();
 		for (ModalPropertyValue mpv : ownedValues) {
-			result.add(mpv.evaluate(ctx));
+			result.add(mpv.evaluate(ctx, depth));
 		}
 		return result;
 	}
