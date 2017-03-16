@@ -124,9 +124,8 @@ import org.osate.aadl2.RecordValue
 import org.osate.aadl2.RefinableElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.instance.PropertyAssociationInstance
+import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding
 import org.osate.xtext.aadl2.ui.MyAadl2Activator
-
-import static org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView.*
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
@@ -213,6 +212,7 @@ class AadlPropertyView extends ViewPart {
 	var ArrayList<FilterCriterion> currentPropertyGroup = new ArrayList<FilterCriterion>
 
 	@Inject
+	@InstanceEnabledSerializerBinding
 	var package ISerializer serializer
 
 	@Inject
