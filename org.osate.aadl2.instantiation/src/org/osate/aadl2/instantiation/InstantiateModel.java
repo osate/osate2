@@ -1011,24 +1011,45 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse) {
 		for (final Feature feature : flist) {
-			final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-			if (dims.isEmpty()) {
-				fillFeatureInstance(fgi, feature, inverse, 0);
+			if (hasFeatureInstance(fgi, feature)) {
+				errManager.error(fgi, "Cyclic containment dependency: Feature '" + feature.getName()
+						+ "' has already been instantiated as enclosing feature group.");
 			} else {
-				class ArrayInstantiator {
-					void process(int dim) {
-						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
+				final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
-						for (int i = 0; i < count; i++) {
-							fillFeatureInstance(fgi, feature, inverse, i + 1);
+				if (dims.isEmpty()) {
+					fillFeatureInstance(fgi, feature, inverse, 0);
+				} else {
+					class ArrayInstantiator {
+						void process(int dim) {
+							ArraySize arraySize = dims.get(dim).getSize();
+							long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
+
+							for (int i = 0; i < count; i++) {
+								fillFeatureInstance(fgi, feature, inverse, i + 1);
+							}
 						}
 					}
+					new ArrayInstantiator().process(0);
 				}
-				new ArrayInstantiator().process(0);
 			}
 		}
+	}
+
+	/*
+	 * check to see if the specified feature already exists as feature
+	 * instance in the ancestry
+	 */
+	private boolean hasFeatureInstance(FeatureInstance fi, Feature f) {
+		EObject parent = fi;
+		while (parent instanceof FeatureInstance) {
+			Feature df = ((FeatureInstance) parent).getFeature();
+			if (df == f) {
+				return true;
+			}
+			parent = parent.eContainer();
+		}
+		return false;
 	}
 
 	// --------------------------------------------------------------------------------------------
