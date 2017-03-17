@@ -777,8 +777,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected ConnectionInstance addConnectionInstance(final SystemInstance systemInstance,
 			final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI) {
-		// check for duplicate connection instance
+		// with aggregate data ports will be sources/destinations missing
+		int numConns = connInfo.connections.size();
+		if (connInfo.sources.size() != numConns || connInfo.destinations.size() != numConns) {
+			// happens if conn leaves system to aggregate data port
+			warning(connInfo.container, "Connection from " + connInfo.sources.get(0).getInstanceObjectPath() + " to "
+					+ dstI.getInstanceObjectPath() + " could not be instantiated.");
+			return null;
 
+		}
+
+		// check for duplicate connection instance
 		// with arrays we can get duplicates that we don't need
 		ComponentInstance container = connInfo.container;
 		List<Connection> conns = connInfo.connections;
