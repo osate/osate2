@@ -6,12 +6,12 @@ public class QueryUtil {
 	 * @param q
 	 * @return
 	 */
-	public static <T> PictogramQuery<T> ensureFirst(final PictogramQuery<T> q) {
+	public static <T> AgeDiagramElementQuery<T> ensureFirst(final AgeDiagramElementQuery<T> q) {
 		if(q == null) {
 			return null;
 		}
 		
-		if(q instanceof FirstPictogramQuery && ((FirstPictogramQuery<T>)q).getMaximumNumberOfResults() == 1) {
+		if(q instanceof FirstQuery && ((FirstQuery<T>)q).getMaximumNumberOfResults() == 1) {
 			return q;
 		}
 		

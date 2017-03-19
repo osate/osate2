@@ -17,7 +17,6 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
@@ -74,7 +73,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
-			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate! eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
 			
 			return (boolean)ContextInjectionFactory.invoke(handler, CanStartConnection.class, eclipseCtx, false);			
 		} finally {
@@ -100,9 +99,9 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
-			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
-			eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService, connectionService)));
 			
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);			
 		} finally {
@@ -129,9 +128,9 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.SOURCE_BO, srcBo);
-			eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getSourcePictogramElement(), propertyService, connectionService)));
 			eclipseCtx.set(Names.DESTINATION_BO, dstBo);
-			eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService, connectionService)));					
+			//TODO: Migrate!eclipseCtx.set(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getTargetPictogramElement(), propertyService, connectionService)));					
 			
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
 			if(ownerBo == null) {

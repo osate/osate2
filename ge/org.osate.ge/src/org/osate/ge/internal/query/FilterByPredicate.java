@@ -3,24 +3,19 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.Objects;
 import java.util.function.Predicate;
-
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.query.FilterArguments;
 
-class FilterByPredicate<A> extends PictogramQuery<A> {
+class FilterByPredicate<A> extends AgeDiagramElementQuery<A> {
 	private final Predicate<FilterArguments<A>> filter;
 	
-	public FilterByPredicate(final Query<A> prev, final Predicate<FilterArguments<A>> filter) {
+	public FilterByPredicate(final AgeDiagramElementQuery<A> prev, final Predicate<FilterArguments<A>> filter) {
 		super(prev);
 		this.filter = Objects.requireNonNull(filter, "filter must not be null");
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		if(!(ctx instanceof PictogramElement)) {
-			throw new RuntimeException("Unsupported context: " + ctx);
-		}
-
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Set filter arguments
 		@SuppressWarnings("unchecked")
 		ExpressionArguments<A> filterArgs = (ExpressionArguments<A>)state.cache.get(this);
@@ -28,7 +23,7 @@ class FilterByPredicate<A> extends PictogramQuery<A> {
 			filterArgs = new ExpressionArguments<>();
 			state.cache.put(this, filterArgs);
 		}
-		filterArgs.update(state, (PictogramElement)ctx);
+		filterArgs.update(state, ctx);
 		
 		// Run the predicate
 		if(filter.test(filterArgs)) {

@@ -1,55 +1,26 @@
 package org.osate.ge.internal.query;
 
 import java.util.Deque;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-
-class DescendantsQuery<A> extends PictogramQuery<A> {
-	public DescendantsQuery(final Query<A> prev) {
+class DescendantsQuery<A> extends AgeDiagramElementQuery<A> {
+	public DescendantsQuery(final AgeDiagramElementQuery<A> prev) {
 		super(prev);
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		if(ctx instanceof ContainerShape) {
-			// Child Shapes
-			final ContainerShape shape = (ContainerShape)ctx;
-			for(final Shape childShape : shape.getChildren()) {
-				// Don't process ghosts or their children
-				if(!state.propertyService.isGhost(childShape)) {
-					if(state.propertyService.isLogicalTreeNode(childShape)) {
-						processResultValue(remainingQueries, childShape, state, result);
-						if(result.done) {
-							return;
-						}
-					}
-					
-					run(remainingQueries, childShape, state, result);
-					
-					if(result.done) {
-						return;
-					}
-				}
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		final DiagramElementContainer container = ctx;
+		for(final AgeDiagramElement child : container.getDiagramElements()) {
+			processResultValue(remainingQueries, child, state, result);
+			if(result.done) {
+				return;
 			}
-		}
 			
-		if(ctx instanceof ContainerShape || ctx instanceof Connection) {
-			final PictogramElement pe = (PictogramElement)ctx;
-			// Owned Connections
-			for(final Connection c : state.connectionService.getConnections(pe)) {
-				if(!state.propertyService.isGhost(c)) {
-					if(state.propertyService.isLogicalTreeNode(c)) {
-						processResultValue(remainingQueries, c, state, result);						
-						if(result.done) {
-							return;
-						}
-					}
-					
-					run(remainingQueries, c, state, result);
-				}
+			run(remainingQueries, child, state, result);			
+			if(result.done) {
+				return;
 			}
 		}
 	}

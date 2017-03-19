@@ -23,9 +23,10 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.PictogramQuery;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
@@ -47,12 +48,12 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 			
 	@CreateSourceQuery
-	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
+	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first();
 	}
 	
 	@CreateDestinationQuery
-	public DiagramElementQuery<FlowSpecification> createDestination(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
+	public DiagramElementQuery<FlowSpecification> createDestination(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first();
 	}
 	
@@ -70,7 +71,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Feature srcFeature, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy srcDiagramElement, 
+			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final AgeDiagramElement srcDiagramElement, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final AadlFeatureService featureService,
 			final QueryService queryService) {
@@ -84,14 +85,14 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	
 	@CanCreate
 	public boolean canCreate(@Named(Names.DESTINATION_BO) final Feature dstFeature, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy dstDiagramElement, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final AgeDiagramElement dstDiagramElement, 
 			final AadlFeatureService featureService,
 			final QueryService queryService) {		
 		return isValidFlowEnd(dstFeature, dstDiagramElement, DirectionType.OUT, featureService, queryService);
 	}
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy srcDiagramElement,
+	public ComponentType getCreateOwner(final @Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) DiagramElement srcDiagramElement,
 			final QueryService queryService) {
 		return getComponentType(srcDiagramElement, queryService);
 	}	
@@ -99,9 +100,9 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	@Create
 	public FlowSpecification createFlowPath(final @Named(Names.OWNER_BO) ComponentType ct,
 			final @Named(Names.SOURCE_BO) Feature srcFeature,
-			final @Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy srcDiagramElement,
+			final @Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) DiagramElement srcDiagramElement,
 			final @Named(Names.DESTINATION_BO) Feature dstFeature,
-			final @Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy dstDiagramElement,
+			final @Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) DiagramElement dstDiagramElement,
 			final NamingService namingService,
 			final QueryService queryService) {
 		

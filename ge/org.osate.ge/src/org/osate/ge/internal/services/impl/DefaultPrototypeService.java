@@ -8,7 +8,6 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
@@ -20,8 +19,8 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
-import org.osate.ge.internal.DiagramElementProxy;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
 
@@ -91,31 +90,63 @@ public class DefaultPrototypeService implements PrototypeService {
 	}
 	
 	@Override
-	public Element getPrototypeBindingContextByParent(DiagramElementProxy parentDiagramElement) {
-		// TODO: Rewrite to use queries.
-		if(parentDiagramElement instanceof PictogramElementProxy) {
-			final PictogramElement pe = ((PictogramElementProxy) parentDiagramElement).getPictogramElement();
-			if(pe instanceof Shape){
-				return getPrototypeBindingContextByParent((Shape)pe);
-			}
-		}
+	public Element getPrototypeBindingContext(final AgeDiagramElement diagramElement) {
+		final DiagramElementContainer container = diagramElement.getContainer();
+		if(container instanceof AgeDiagramElement) {
+			final AgeDiagramElement containerElement = (AgeDiagramElement)container;
+			return getPrototypeBindingContextByContainer(containerElement);
+		}		
 					
 		return null;
 	}
 	
-	/**
-	 * Returns either the feature group type or the actual prototype
-	 * @param shape
-	 * @param fg
-	 * @param fp
-	 * @return
-	 */
-	// TODO: Define what shape is supposed to be
+	public Element getPrototypeBindingContextByContainer(final AgeDiagramElement diagramElementContainer) {
+		DiagramElementContainer temp = diagramElementContainer;
+		
+		while(temp instanceof AgeDiagramElement) {
+			final AgeDiagramElement tempElement = (AgeDiagramElement)temp;
+			Object bo = tempElement.getBusinessObject();
+			if(bo instanceof ComponentClassifier || bo instanceof FeatureGroupType) {
+				return (Classifier)bo;
+			} else if(bo instanceof Subcomponent) {
+				return (Subcomponent)bo;
+			} else if(bo instanceof FeatureGroup){
+				if(tempElement.getContainer() instanceof AgeDiagramElement) {
+					return getFeatureGroupTypeOrActual((AgeDiagramElement)tempElement.getContainer(), (FeatureGroup)bo);	
+				}
+				return null;
+			}
+
+			temp = tempElement.getContainer();
+		}
+		return null;
+	}
+	
 	private Element getFeatureGroupTypeOrActual(final Shape shape, final FeatureGroup fg) {
 		if(fg.getFeatureGroupPrototype() == null) {
 			return fg.getAllFeatureGroupType();
 		} else {
 			final Element bindingContext = getPrototypeBindingContext(shape);
+			if(bindingContext != null) {
+				return resolveFeatureGroupPrototypeToActual(fg.getFeatureGroupPrototype(), bindingContext);
+			} else {
+				return null;
+			}
+		}
+	}
+	
+	/**
+	 * Returns either the feature group type or the actual prototype
+	 * @param 
+	 * @param fg
+	 * @param fp
+	 * @return
+	 */
+	private Element getFeatureGroupTypeOrActual(final AgeDiagramElement element, final FeatureGroup fg) {
+		if(fg.getFeatureGroupPrototype() == null) {
+			return fg.getAllFeatureGroupType();
+		} else {
+			final Element bindingContext = getPrototypeBindingContext(element);
 			if(bindingContext != null) {
 				return resolveFeatureGroupPrototypeToActual(fg.getFeatureGroupPrototype(), bindingContext);
 			} else {

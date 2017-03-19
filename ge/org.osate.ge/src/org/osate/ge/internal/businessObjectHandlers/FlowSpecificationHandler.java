@@ -34,9 +34,10 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
@@ -62,7 +63,7 @@ class FlowSpecificationHandler {
 	// Rename and Editing
 	@CanRename
 	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(componentTypeQuery, diagramElement);
 		return fs.getContainingClassifier() == containerBo;
 	}
@@ -96,11 +97,11 @@ class FlowSpecificationHandler {
 		return namingService.buildUniqueIdentifier(ct, "new_flow_spec");		
 	}
 	
-	protected static Context getContext(final DiagramElementProxy featureDiagramElement, final QueryService queryService) {
+	protected static Context getContext(final DiagramElement featureDiagramElement, final QueryService queryService) {
 		return (Context)queryService.getFirstBusinessObject(contextQuery, featureDiagramElement);
 	}
 	
-	protected static ComponentType getComponentType(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement,
+	protected static ComponentType getComponentType(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
 			final QueryService queryService) {
 		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, targetDiagramElement);
 	}	
@@ -110,7 +111,7 @@ class FlowSpecificationHandler {
 	 * feature, its direction must be IN OUT or match the specified direction
 	 */
 	protected static boolean isValidFlowEnd(final Feature feature,
-			final DiagramElementProxy featureDiagramElement, 
+			final AgeDiagramElement featureDiagramElement, 
 			final DirectionType requiredDirection, 
 			final AadlFeatureService featureService,
 			final QueryService queryService) {

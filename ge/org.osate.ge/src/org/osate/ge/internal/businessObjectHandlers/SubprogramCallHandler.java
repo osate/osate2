@@ -39,7 +39,7 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
@@ -115,11 +115,11 @@ public class SubprogramCallHandler {
 	}
 
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return call.getContainingClassifier() == getBehavioredImplementation(diagramElement, queryService);
     }
 	
-	private BehavioredImplementation getBehavioredImplementation(final DiagramElementProxy callDiagramElement, final QueryService queryService) {
+	private BehavioredImplementation getBehavioredImplementation(final DiagramElement callDiagramElement, final QueryService queryService) {
 		return (BehavioredImplementation)queryService.getFirstBusinessObject(behavioredImplementationQuery, callDiagramElement);
 	}
 	
@@ -134,13 +134,13 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement, final QueryService queryService) {
 		return cs.getContainingClassifier() == getBehavioredImplementation(targetDiagramElement, queryService);
 	}
 	
 	@Create
 	public SubprogramCall createBusinessObject(@Named(Names.OWNER_BO) SubprogramCallSequence cs, 
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement,
+			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
 			final AadlFeatureService featureService, 
 			final NamingService namingService,
 			final QueryService queryService) {
@@ -173,7 +173,7 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		if(call.eContainer() instanceof SubprogramCallSequence) {
 			final SubprogramCallSequence cs = (SubprogramCallSequence)call.eContainer();
 			

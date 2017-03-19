@@ -45,7 +45,7 @@ import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.annotations.AgeAnnotation;
@@ -63,7 +63,6 @@ import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphics.ConnectionTerminatorSize;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphiti.AnchorNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.query.AncestorUtil;
 import org.osate.ge.internal.services.AnchorService;
@@ -131,14 +130,14 @@ public class BoHandlerRefreshHelper {
 		if(pe == null) {
 			logicalParent = AgeFeatureUtil.getLogicalPictogramElement(addTargetContainer, propertyService, connectionService);
 		} else {
-			logicalParent = AncestorUtil.getParent(pe, propertyService, connectionService);
+			//TODO: Migrate!logicalParent = AncestorUtil.getParent(pe, propertyService, connectionService);
 		}
 
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);	
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, bor.getBusinessObjectForPictogramElement(getDiagram()));		
-			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(logicalParent));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(logicalParent));
 			final Object gr = ContextInjectionFactory.invoke(handler, GetGraphic.class, eclipseCtx, null);
 			
 			// Special handling for diagram
@@ -147,7 +146,7 @@ public class BoHandlerRefreshHelper {
 				ghostingService.setIsGhost(pe, false);
 				propertyService.setIsLogicalTreeNode(pe, false);
 				ghostingService.ghostChildren((Diagram)pe);
-				createContextAndUpdateChild((Diagram)pe, new PictogramElementProxy(null), bo);
+				//TODO: Migrate!createContextAndUpdateChild((Diagram)pe, new PictogramElementProxy(null), bo);
 				
 				return pe;
 			}
@@ -178,7 +177,7 @@ public class BoHandlerRefreshHelper {
 						pe = peCreateService.createFreeFormConnection(getDiagram());
 					}					
 					
-			        connectionService.onConnectionCreated(logicalParent, bo, (Connection)pe);
+					//TODO: Migrate! connectionService.onConnectionCreated(logicalParent, bo, (Connection)pe);
 					Graphiti.getGaService().createPlainPolyline(pe);
 				}
 				childContainer = pe;				
@@ -226,10 +225,10 @@ public class BoHandlerRefreshHelper {
 						anchorService.createOrUpdateChopboxAnchor(shape);
 														
 						// Set the dock area as appropriate
-						final DockingPosition dockingPosition = (DockingPosition)ContextInjectionFactory.invoke(handler, GetDefaultDockingPosition.class, eclipseCtx, DockingPosition.NOT_DOCKED);
+						final DockingPosition dockingPosition = (DockingPosition)ContextInjectionFactory.invoke(handler, GetDefaultDockingPosition.class, eclipseCtx, DockingPosition.NOT_DOCKABLE);
 						if(dockingPosition == null) {
 							throw new RuntimeException("Method annotated with " + GetDefaultDockingPosition.class.getName() + " must return a value of type " + DockingPosition.class + ".");
-						} if(dockingPosition == DockingPosition.NOT_DOCKED) {
+						} if(dockingPosition == DockingPosition.NOT_DOCKABLE) {
 							propertyService.setDockArea(pe, null);
 						} else {
 							final String parentDockArea = propertyService.getDockArea(((Shape)pe).getContainer());
@@ -280,11 +279,13 @@ public class BoHandlerRefreshHelper {
 				// TODO: Replace this with a user controllable mechanism for determining which children should be shown.
 				// Refresh Children
 				// It is up to the business object handler to provide children in an appropriate order(objects represented by connections should be last)
-				eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(childContainer));
+				//TODO: Migrate!eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(childContainer));
 				eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
 				final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(handler, GetChildren.class, eclipseCtx, null);
 				if(childBos != null) {
-					final DiagramElementProxy logicalContainerProxy = new PictogramElementProxy(childContainer);
+					//TODO: Migrate!
+					/*
+					final DiagramElement logicalContainerProxy = new PictogramElementProxy(childContainer);
 					final Iterator<?> childIt = childBos.iterator();
 				    if (childIt.hasNext()) {
 				    	final IEclipseContext childEclipseCtx = extService.createChildContext();
@@ -296,7 +297,8 @@ public class BoHandlerRefreshHelper {
 						} finally {
 							childEclipseCtx.dispose();
 						}					    	
-				    }					    
+				    }
+				    */					    
 				}
 			}
 			
@@ -304,7 +306,7 @@ public class BoHandlerRefreshHelper {
 				// Don't create labels and graphics for diagrams
 				if(!(pe instanceof Diagram)) {
 					// Get the name
-					eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(pe));
+					//TODO: Migrate!eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(pe));
 					final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, eclipseCtx, null);
 								
 					if(pe instanceof ContainerShape) {
@@ -660,7 +662,7 @@ public class BoHandlerRefreshHelper {
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
 	}
 	
-	private void createContextAndUpdateChild(final ContainerShape containerShape, final DiagramElementProxy logicalContainer, final Object childBo) {
+	private void createContextAndUpdateChild(final ContainerShape containerShape, final DiagramElement logicalContainer, final Object childBo) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {			
 			createUpdateChild(eclipseCtx, containerShape, logicalContainer, childBo);
@@ -669,7 +671,7 @@ public class BoHandlerRefreshHelper {
 		}
 	}
 	
-	private void createUpdateChild(final IEclipseContext eclipseCtx, final PictogramElement container, final DiagramElementProxy logicalContainer, final Object childBo) {
+	private void createUpdateChild(final IEclipseContext eclipseCtx, final PictogramElement container, final DiagramElement logicalContainer, final Object childBo) {
 		final Object childBoHandler = extService.getApplicableBusinessObjectHandler(childBo);
 		if(childBoHandler != null) {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, childBo);			

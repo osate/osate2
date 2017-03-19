@@ -21,7 +21,6 @@ import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
@@ -92,7 +91,7 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);	
-			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate!childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService, connectionService)));
 			final Object boHandler = extService.getApplicableBusinessObjectHandler(bo);
 			return boHandler == null ? false : (boolean)ContextInjectionFactory.invoke(boHandler, CanDelete.class, childCtx, false);
 		} finally {

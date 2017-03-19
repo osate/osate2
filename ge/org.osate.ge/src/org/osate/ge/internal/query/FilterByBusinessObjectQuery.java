@@ -2,30 +2,27 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
-
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.query.Supplier;
 
-class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
+class FilterByBusinessObjectQuery<A> extends AgeDiagramElementQuery<A> {
 	private final Supplier<A, Object> boSupplier;
-	private String nullBoRef = "<null>";
+	private CanonicalBusinessObjectReference nullBoRef = new CanonicalBusinessObjectReference("<null>");
 	
-	public FilterByBusinessObjectQuery(final Query<A> prev, final Supplier<A, Object> boSupplier) {
+	public FilterByBusinessObjectQuery(final AgeDiagramElementQuery<A> prev, final Supplier<A, Object> boSupplier) {
 		super(prev);
 		this.boSupplier = Objects.requireNonNull(boSupplier, "boSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		if(!(ctx instanceof PictogramElement)) {
-			throw new RuntimeException("Unsupported context: " + ctx);
-		}
-
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
-		String boRef = (String)state.cache.get(this);
+		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {
 			final Object bo = boSupplier.get(state.arg);
-			boRef = bo == null ? nullBoRef : state.refBuilder.getAbsoluteReference(bo);
+			boRef = bo == null ? nullBoRef : state.refBuilder.getCanonicalReference(bo);
 			if(boRef == null) {
 				boRef = nullBoRef;
 			}
@@ -37,10 +34,10 @@ class FilterByBusinessObjectQuery<A> extends PictogramQuery<A> {
 		}
 		
 		// Compare references
-		final PictogramElement pe = (PictogramElement)ctx;
-		final Object peBo = state.bor.getBusinessObjectForPictogramElement(pe);
-		if(boRef.equals(state.refBuilder.getAbsoluteReference(peBo))) {
-			processResultValue(remainingQueries, pe, state, result);
+		if(ctx instanceof AgeDiagramElement) {
+			if(((AgeDiagramElement) ctx).getCanonicalReference().equals(boRef)) {
+				processResultValue(remainingQueries, ctx, state, result);
+			}
 		}
 	}
 }

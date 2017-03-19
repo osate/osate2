@@ -18,7 +18,6 @@ import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
@@ -82,7 +81,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetBo);
-			eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);
 		} finally {
 			eclipseCtx.dispose();
@@ -115,7 +114,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					eclipseCtx.set(Names.TARGET_BO, targetBo);
 					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
 					eclipseCtx.set(InternalNames.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
-					eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+					//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
 					return newBo == null ? EMPTY : newBo;
 				} finally {
@@ -146,7 +145,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetBo);
-			eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
 			if(ownerBo != null) {
 				return (EObject)ownerBo;

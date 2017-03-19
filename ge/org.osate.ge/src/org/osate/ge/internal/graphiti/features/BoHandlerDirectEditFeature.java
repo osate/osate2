@@ -22,7 +22,6 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
@@ -83,7 +82,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			}
 			
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(pe, propertyService, connectionService)));
+			//TODO: Migrate!childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(pe, propertyService, connectionService)));
 			canRename = (boolean)ContextInjectionFactory.invoke(handler, CanRename.class, childCtx, true);
 			if(!canRename) {
 				return false;
@@ -130,7 +129,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
-			childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate!childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService, connectionService)));
 			
 			// Get the name of the business object from the handler
 			final String name = (String)ContextInjectionFactory.invoke(handler, GetName.class, childCtx, null);

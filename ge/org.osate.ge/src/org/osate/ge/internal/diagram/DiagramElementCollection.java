@@ -1,67 +1,58 @@
 package org.osate.ge.internal.diagram;
 
 import java.util.AbstractCollection;
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 
-// TODO: Need access to diagram to update listeners. TODO: Need access to owner too? Should listeners be on the updater or the collection. Consider things later..
-// TODO: If listeners are on the other side, it makes things easier...
 /**
  * A collection of diagram elements. A diagram element may only be added to the collection once.
  *
  */
-public class DiagramElementCollection extends AbstractCollection<DiagramElement> {
-	private final Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToDiagramElementMap = new HashMap<>();
-
+class DiagramElementCollection extends AbstractCollection<AgeDiagramElement> {
+	private Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToDiagramElementMap; // Initialized lazily.
+	
 	// Internal. Only used by the DiagramUpdater.
 	@Override
-	public boolean add(final DiagramElement e) {
+	public boolean add(final AgeDiagramElement e) {
+		if(relativeReferenceToDiagramElementMap == null) {
+			relativeReferenceToDiagramElementMap = new ConcurrentHashMap<>(16, 0.75f, 1);
+		}
+		
 		return relativeReferenceToDiagramElementMap.put(e.getRelativeReference(), e) != e;
 	}
 	
-	// TODO: Will need notifications on remove to allow for ghosting, etc.
 	@Override
-	public int size() {
-		return relativeReferenceToDiagramElementMap.size();
+	public boolean remove(final Object o) {
+		return remove((AgeDiagramElement)o);
 	}
 	
-	// TODO: If notifications are not implemented, get rid of the custom iterator.
-	private class DiagramElementIterator implements Iterator<DiagramElement> {
-		private final Iterator<DiagramElement> innerIterator;
-		
-		public DiagramElementIterator(final Iterator<DiagramElement> innerIterator) {
-			this.innerIterator = Objects.requireNonNull(innerIterator, "innerIterator must not be null");
+	public boolean remove(final AgeDiagramElement e) {
+		if(relativeReferenceToDiagramElementMap == null) {
+			return false;
 		}
 		
-		@Override
-		public boolean hasNext() {
-			return innerIterator.hasNext();
-		}
-
-		@Override
-		public DiagramElement next() {
-			return innerIterator.next();
-		}
-		
-		@Override
-		public void remove() {
-			// TODO: Notificatons as appropriate.
-			innerIterator.remove();
-		}
+		return relativeReferenceToDiagramElementMap.remove(e.getRelativeReference()) != null;
+	}
+	
+	@Override
+	public int size() {
+		return relativeReferenceToDiagramElementMap == null ? 0 : relativeReferenceToDiagramElementMap.size();
 	}
 
 	/**
 	 * Iterator does not allow modification. 
 	 */
 	@Override
-	public Iterator<DiagramElement> iterator() {
-		return new DiagramElementIterator(relativeReferenceToDiagramElementMap.values().iterator());
+	public Iterator<AgeDiagramElement> iterator() {
+		final Collection<AgeDiagramElement> c = relativeReferenceToDiagramElementMap == null ? Collections.emptyList() : relativeReferenceToDiagramElementMap.values(); 
+		return c.iterator();
 	}
 	
-	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
-		return relativeReferenceToDiagramElementMap.get(ref);
+	public AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+		return relativeReferenceToDiagramElementMap == null ? null : relativeReferenceToDiagramElementMap.get(ref);
 	}
 	
 	@Override
@@ -72,7 +63,7 @@ public class DiagramElementCollection extends AbstractCollection<DiagramElement>
 	}
 	
 	void toString(final StringBuilder sb, final String indention) {
-		for(final DiagramElement e : this) {
+		for(final AgeDiagramElement e : this) {
 			e.toString(sb, indention);
 		}
 	}

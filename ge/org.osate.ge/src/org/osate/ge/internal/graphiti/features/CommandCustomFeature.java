@@ -38,10 +38,9 @@ import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
@@ -106,7 +105,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 				return false;
 			}
 			
-			final DiagramElementProxy[] diagramElements = getDiagramElements(customCtx.getPictogramElements());
+			final DiagramElement[] diagramElements = getDiagramElements(customCtx.getPictogramElements());
 			if(diagramElements == null) {
 				return false;
 			}
@@ -158,7 +157,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 	
-	private boolean activate(final DiagramElementProxy[] diagramElements, final Object[] businessObjects) {
+	private boolean activate(final DiagramElement[] diagramElements, final Object[] businessObjects) {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
 			populateEclipseContext(eclipseContext, diagramElements, businessObjects);
@@ -183,7 +182,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 	
-	private void populateEclipseContext(final IEclipseContext context, final DiagramElementProxy[] diagramElements, final Object[] businessObjects) {
+	private void populateEclipseContext(final IEclipseContext context, final DiagramElement[] diagramElements, final Object[] businessObjects) {
 		// Diagram Elements
 		if(diagramElements.length == 1) {
 			context.set(InternalNames.DIAGRAM_ELEMENT_PROXY, diagramElements[0]);	
@@ -197,8 +196,8 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		context.set(Names.BUSINESS_OBJECTS, businessObjects);
 	}
 	
-	private DiagramElementProxy[] getDiagramElements(final PictogramElement[] pes) {
-		final DiagramElementProxy[] diagramElements = new DiagramElementProxy[pes.length];
+	private DiagramElement[] getDiagramElements(final PictogramElement[] pes) {
+		final DiagramElement[] diagramElements = new DiagramElement[pes.length];
 		for(int i = 0; i < pes.length; i++) {
 			final PictogramElement pe = AgeFeatureUtil.getLogicalPictogramElement(pes[i], propertyService, connectionService);
 			
@@ -207,7 +206,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 				return null;
 			}
 			
-			diagramElements[i] = new PictogramElementProxy(pe);
+			//TODO: Migrate!diagramElements[i] = new PictogramElementProxy(pe);
 		}
 		
 		return diagramElements;

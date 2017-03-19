@@ -14,7 +14,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
 
 /**
  * Contains methods for working with AADL prototypes
@@ -31,5 +31,6 @@ public interface PrototypeService {
 	 */
 	Element getPrototypeBindingContext(Shape shape);
 	
-	Element getPrototypeBindingContextByParent(DiagramElementProxy parentDiagramElement);
+	Element getPrototypeBindingContext(AgeDiagramElement diagramElement);
+	Element getPrototypeBindingContextByContainer(AgeDiagramElement diagramElement);
 }

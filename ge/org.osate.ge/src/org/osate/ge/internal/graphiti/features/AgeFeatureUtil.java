@@ -15,6 +15,7 @@ public class AgeFeatureUtil {
 			return pe;
 		}
 		
-		return AncestorUtil.getParent(pe, propertyService, connectionService);
+		//TODO: Migrate! return AncestorUtil.getParent(pe, propertyService, connectionService);
+		return null;
 	}
 }

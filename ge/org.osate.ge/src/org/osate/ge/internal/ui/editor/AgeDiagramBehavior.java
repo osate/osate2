@@ -94,7 +94,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.features.DiagramUpdateFeature;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;

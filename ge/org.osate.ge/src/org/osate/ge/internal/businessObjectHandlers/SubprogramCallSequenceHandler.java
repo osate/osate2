@@ -28,7 +28,7 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -79,11 +79,11 @@ public class SubprogramCallSequenceHandler {
 	
 	@CanRename
 	@CanDelete
-    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return cs.getContainingClassifier() == getComponentImplementation(diagramElement, queryService);
     }
     
-	private ComponentImplementation getComponentImplementation(final DiagramElementProxy csDiagramElement, final QueryService queryService) {
+	private ComponentImplementation getComponentImplementation(final DiagramElement csDiagramElement, final QueryService queryService) {
 		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, csDiagramElement);
 	}
 	

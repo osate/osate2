@@ -30,7 +30,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FeatureGraphic;
 import org.osate.ge.internal.graphics.FeatureType;
 import org.osate.ge.internal.graphiti.AnchorNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfiguration;
@@ -121,8 +120,8 @@ public class BoHandlerLayoutFeature extends AbstractLayoutFeature implements ICu
 			final Object diagramBo = bor.getBusinessObjectForPictogramElement(getDiagram());
 			eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
 			eclipseCtx.set(InternalNames.INTERNAL_DIAGRAM_BO, diagramBo);
-			eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
-			eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AncestorUtil.getParent(context.getPictogramElement(), propertyService, connectionService)));
+			//TODO: Migrate!eclipseCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(context.getPictogramElement()));	
+			//TODO: Migrate!eclipseCtx.set(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AncestorUtil.getParent(context.getPictogramElement(), propertyService, connectionService)));
 
 			final AgeLabelConfiguration labelConfiguration = (AgeLabelConfiguration)ContextInjectionFactory.invoke(handler, GetDefaultLabelConfiguration.class, eclipseCtx, defaultLabelConfiguration);
 			final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();

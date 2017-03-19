@@ -23,9 +23,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.ProcessImplementation;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.di.ResolveRelativeReference;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.aadl2.AadlPackage;
@@ -155,44 +153,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 		
 		return null;
 	}
-	
-	@Override
-	public Object resolveRelativeReference(final Object parentBo, final String referenceStr) {
-		Objects.requireNonNull(parentBo, "parentBo must not be null");
-		// TODO: Caching. Need a cache for each parent businesss object.
-		return resolveUncachedRelativeReference(parentBo, referenceStr);
-	}
-				
-	private Object resolveUncachedRelativeReference(final Object parentBo, final String referenceStr) {	
-		Objects.requireNonNull(referenceStr, "referenceStr must not be null");
-		ensureReferenceResolversHaveBeenInstantiated();
-		
-		// Break the reference into segments
-		final String[] ref = ReferenceEncoder.decode(referenceStr);
-		if(ref == null) {
-			return null;
-		}
 
-		final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
-		try {
-			// Set context fields
-			// TODO: Owner vs parent BO
-			argCtx.set(Names.OWNER_BO, parentBo);
-			argCtx.set(Names.REFERENCE, ref);	
-			
-			for(final Object refResolver : referenceResolvers) {
-				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveRelativeReference.class, ctx, argCtx, null);
-				if(referencedObject != null) {
-					return referencedObject instanceof Element ?  new AadlElementWrapper((Element)referencedObject) : referencedObject;
-				}
-			}
-		} finally {
-			argCtx.dispose();
-		}
-		
-		return null;
-	}
-	
 	@Override
 	public AadlPackage getAadlPackage(final String qualifiedName) {
 		return declarativeReferenceResolver.getAadlPackage(qualifiedName);

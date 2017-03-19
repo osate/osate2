@@ -16,7 +16,7 @@ public class QueryExecutionState<A> {
 	final BusinessObjectResolutionService bor;
 	final InternalReferenceBuilderService refBuilder;
 	final A arg;
-	final Map<Query<A>, Object> cache = new HashMap<>(); // Generic cache to allow queries to store data between run() calls
+	final Map<AgeDiagramElementQuery<A>, Object> cache = new HashMap<>(); // Generic cache to allow queries to store data between run() calls
 	
 	public QueryExecutionState(final QueryRunner queryRunner, final PropertyService propertyService, final ConnectionService connectionService, final BusinessObjectResolutionService bor, final InternalReferenceBuilderService refBuilder, final A arg) {
 		this.queryRunner = Objects.requireNonNull(queryRunner, "queryRunner must not be null");

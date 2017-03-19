@@ -22,7 +22,6 @@ import org.eclipse.graphiti.mm.algorithms.Text;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
@@ -59,34 +58,19 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.query.PictogramQuery;
-import org.osate.ge.internal.query.QueryRunner;
-import org.osate.ge.internal.query.RootPictogramQuery;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
 	private AgeDiagramEditor editor;
-	private QueryRunner queryRunner;
-	private PictogramElement rootPictogramElement;
-	private final PictogramQuery<Object> rootPictogramQuery = new RootPictogramQuery(() -> this.rootPictogramElement);
-	private final PictogramQuery<Object> parentQuery = rootPictogramQuery.ancestor(1);
-	private final PictogramQuery<Object> childrenQuery = rootPictogramQuery.children().filter((fa) -> fa.getBusinessObject() instanceof NamedElement);
 	private final BusinessObjectResolutionService bor;
-	private final PropertyService propertyService;
 	
 	public AgeContentOutlinePage(final AgeDiagramEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
 		this.bor = Objects.requireNonNull((BusinessObjectResolutionService)editor.getAdapter(BusinessObjectResolutionService.class), "Unable to retrieve business object resolution service");
-		this.propertyService = Objects.requireNonNull((PropertyService)editor.getAdapter(PropertyService.class), "Unable to retrieve property service");
-		this.queryRunner = new QueryRunner(propertyService,
-				(ConnectionService)editor.getAdapter(ConnectionService.class), 
-				bor,
-				(InternalReferenceBuilderService)editor.getAdapter(InternalReferenceBuilderService.class));
 	}
 
 	public void createControl(final Composite parent) {
@@ -105,29 +89,15 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object[] getElements(final Object inputElement) {
-				if(inputElement instanceof AgeDiagramEditor) {
-					final AgeDiagramEditor editor = (AgeDiagramEditor)inputElement;
-					if(editor.getDiagramTypeProvider() != null) {
-						final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
-						if(diagram != null) {
-							if(propertyService.isLogicalTreeNode(diagram)) {
-								return new Object[] { diagram };
-							}
-							
-							return getChildren(editor.getDiagramTypeProvider().getDiagram());	
-						}		
-					}
-				}
-
+				// TODO: Need access to AgeDiagram
+				// return getChildren(getAgeDiagram()));
 				return new Object[0];
 			}
 
 			@Override
 			public Object[] getChildren(final Object parentElement) {
-				if(parentElement instanceof PictogramElement) {
-					rootPictogramElement = (PictogramElement)parentElement;
-
-					return queryRunner.getPictogramElements(childrenQuery, null).toArray();
+				if(parentElement instanceof DiagramElementContainer) {
+					return ((DiagramElementContainer) parentElement).getDiagramElements().toArray();
 				}
 
 				return new Object[0];
@@ -135,20 +105,17 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object getParent(final Object element) {
-				if(element instanceof PictogramElement) {
-					rootPictogramElement = (PictogramElement)element;
-					final Object parent = queryRunner.getFirstResult(parentQuery, null);
-					return parent;
+				if(element instanceof AgeDiagramElement) {
+					return ((AgeDiagramElement) element).getContainer();
 				}
 
-				return false;
+				return null;
 			}
 
 			@Override
 			public boolean hasChildren(final Object element) {
-				if(element instanceof PictogramElement) {
-					rootPictogramElement = (PictogramElement)element;
-					return queryRunner.getFirstResult(childrenQuery, null) != null;
+				if(element instanceof DiagramElementContainer) {
+					return ((DiagramElementContainer) element).getDiagramElements().size() > 0;
 				}
 
 				return false;

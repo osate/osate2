@@ -2,15 +2,17 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-public class FirstPictogramQuery<A> extends PictogramQuery<A> {
+import org.osate.ge.internal.diagram.DiagramElementContainer;
+
+public class FirstQuery<A> extends AgeDiagramElementQuery<A> {
 	private int maximumNumberOfResults;
 	
-	public FirstPictogramQuery(final Query<A> prev, int count) {
+	public FirstQuery(final AgeDiagramElementQuery<A> prev, int count) {
 		super(prev);
 		this.maximumNumberOfResults = count;
 	}
 	
-	public FirstPictogramQuery(final Query<A> prev) {
+	public FirstQuery(final AgeDiagramElementQuery<A> prev) {
 		super(prev);
 		this.maximumNumberOfResults = 1;
 	}
@@ -20,7 +22,7 @@ public class FirstPictogramQuery<A> extends PictogramQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		final Integer currentCountInteger = (Integer)state.cache.get(this);
 		int currentCount;
 		if(currentCountInteger == null) {

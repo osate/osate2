@@ -52,10 +52,12 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.internal.connections.ConnectionInfoProvider;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.internal.connections.BusinessObjectHandlerConnectionInfoProvider;
-import org.osate.ge.internal.query.Query;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
-import org.osate.ge.internal.query.RootPictogramQuery;
+import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
@@ -85,8 +87,8 @@ public class DefaultConnectionService implements ConnectionService {
 		}			
 	};
 	
-	private final Query<Object> ancestorsQuery = new RootPictogramQuery(() -> this.ancestorsRootValue).ancestors();
-	private PictogramElement ancestorsRootValue;
+	private final AgeDiagramElementQuery<Object> ancestorsQuery = new RootAgeDiagramElementQuery(() -> this.ancestorsRootValue).ancestors();
+	private DiagramElementContainer ancestorsRootValue;
 	private final QueryRunner queryRunner;
 	
 	public DefaultConnectionService(final AnchorService anchorUtil, 
@@ -111,7 +113,8 @@ public class DefaultConnectionService implements ConnectionService {
 		for(final Object handler : extService.getBusinessObjectHandlers()) {
 			// Look for a method which is used if and only if the business object handler handles connections
 			if(AnnotationUtil.hasMethodWithAnnotation(CreateParentQuery.class, handler)) {
-				infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, anchorService, bor, handler, queryRunner, fp));
+				// TODO: Reimplement
+				//infoProviders.add(new BusinessObjectHandlerConnectionInfoProvider(this, propertyService, extService, anchorService, bor, handler, queryRunner, fp));
 			}
 		}
 		
@@ -286,7 +289,8 @@ public class DefaultConnectionService implements ConnectionService {
 		final ILocation ownerLocation = layoutService.getLocationRelativeToDiagram(ownerShape);
 		
 		final Point connectionMidpoint = getConnectionMidpoint(connection, 0.5);
-		final String midpointAnchorName = getUniqueReference(connection);
+		throw new RuntimeException("TODO: Not Implemented. PictogramElement to DiagramElement mapping");
+		/*final String midpointAnchorName = getUniqueReference(connection);
 		if(midpointAnchorName == null || connectionMidpoint == null) {
 			return null;
 		}
@@ -302,26 +306,30 @@ public class DefaultConnectionService implements ConnectionService {
 		propertyService.setIsConnectionAnchor(anchor, true);
 		
 		return anchor;
+		*/
 	}
 	
-	private String getUniqueReference(final Connection connection) {
-		final Object connectionBo = bor.getBusinessObjectForPictogramElement(connection);
+	// TODO: Combine relative references to create the unique reference?
+	private String getUniqueReference(final AgeDiagramElement element) {
+		final Object connectionBo = element.getBusinessObject();
 		if(connectionBo == null) {
 			return null;			
 		}
 		
 		String result = "";
-		result = concatPictogramReferenceSegment(result, refBuilder.getAbsoluteReference(connectionBo));
+		result = concatDiagramElementReferenceSegment(result, refBuilder.getAbsoluteReference(connectionBo));
 		
 		try {
-			ancestorsRootValue = connection;
-			for(final PictogramElement ancestor : queryRunner.getPictogramElements(ancestorsQuery, null)) {
-				final Object ancestorBo = bor.getBusinessObjectForPictogramElement(ancestor);
-				if(ancestorBo == null) {
-					return null;			
+			ancestorsRootValue = element;
+			for(final DiagramElementContainer ancestor : queryRunner.getResults(ancestorsQuery, null)) {
+				if(ancestor instanceof AgeDiagramElement) {
+					final Object ancestorBo = ((AgeDiagramElement) ancestor).getBusinessObject();
+					if(ancestorBo == null) {
+						return null;			
+					}
+					
+					result = concatDiagramElementReferenceSegment(result, refBuilder.getAbsoluteReference(ancestorBo));
 				}
-				
-				result = concatPictogramReferenceSegment(result, refBuilder.getAbsoluteReference(ancestorBo));
 			}
 		} finally {
 			ancestorsRootValue = null;
@@ -330,7 +338,7 @@ public class DefaultConnectionService implements ConnectionService {
 		return result;
 	}
 	
-	private static String concatPictogramReferenceSegment(final String value, final String seg) {
+	private static String concatDiagramElementReferenceSegment(final String value, final String seg) {
 		if(value == null) {
 			return null;
 		}

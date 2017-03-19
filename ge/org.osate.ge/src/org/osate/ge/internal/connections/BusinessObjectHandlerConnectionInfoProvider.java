@@ -18,19 +18,19 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphiti.AnchorNames;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
-import org.osate.ge.internal.query.PictogramQuery;
-import org.osate.ge.internal.query.Query;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryUtil;
-import org.osate.ge.internal.query.RootPictogramQuery;
+import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 
-public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionInfoProvider {
+// TODO: Replace with new system
+public class BusinessObjectHandlerConnectionInfoProvider/* implements ConnectionInfoProvider */{
+	/*
 	private final ConnectionService connectionService;
 	private final PropertyService propertyService;
 	private final ExtensionService extService;
@@ -39,9 +39,9 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 	private final Object handler;
 	private final QueryRunner queryRunner;
 	private final IFeatureProvider fp;
-	private final RootPictogramQuery rootQuery = new RootPictogramQuery(() -> this.rootValue);
-	private final RootPictogramQuery srcRootQuery = new RootPictogramQuery(() -> this.srcRootValue); // For getting the connection's source
-	private final RootPictogramQuery dstRootQuery = new RootPictogramQuery(() -> this.dstRootValue); // For getting the connection's destination
+	private final RootAgeDiagramElementQuery rootQuery = new RootAgeDiagramElementQuery(() -> this.rootValue);
+	private final RootAgeDiagramElementQuery srcRootQuery = new RootAgeDiagramElementQuery(() -> this.srcRootValue); // For getting the connection's source
+	private final RootAgeDiagramElementQuery dstRootQuery = new RootAgeDiagramElementQuery(() -> this.dstRootValue); // For getting the connection's destination
 	private final Query<Object> ownerDiagramElementQuery;
 	private final Query<Object> srcQuery;
 	private final Query<Object> dstQuery;	
@@ -74,13 +74,13 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 		try {
 			childCtx.set(Names.SOURCE_ROOT_QUERY, srcRootQuery);
 			childCtx.set(Names.DESTINATION_ROOT_QUERY, dstRootQuery);
-			ownerDiagramElementQuery = QueryUtil.ensureFirst(Objects.requireNonNull((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateParentQuery.class, childCtx), "unable to create parent diagram element query"));
+			ownerDiagramElementQuery = QueryUtil.ensureFirst(Objects.requireNonNull((AgeDiagramElementQuery<Object>)ContextInjectionFactory.invoke(handler, CreateParentQuery.class, childCtx), "unable to create parent diagram element query"));
 			childCtx.remove(Names.SOURCE_ROOT_QUERY);
 			childCtx.remove(Names.DESTINATION_ROOT_QUERY);
 			
 			childCtx.set(Names.ROOT_QUERY, rootQuery);	
-			srcQuery = QueryUtil.ensureFirst((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateSourceQuery.class, childCtx, null));
-			dstQuery = QueryUtil.ensureFirst((PictogramQuery<Object>)ContextInjectionFactory.invoke(handler, CreateDestinationQuery.class, childCtx, null));
+			srcQuery = QueryUtil.ensureFirst((AgeDiagramElementQuery<Object>)ContextInjectionFactory.invoke(handler, CreateSourceQuery.class, childCtx, null));
+			dstQuery = QueryUtil.ensureFirst((AgeDiagramElementQuery<Object>)ContextInjectionFactory.invoke(handler, CreateDestinationQuery.class, childCtx, null));
 		} finally {
 			childCtx.dispose();
 		}
@@ -119,7 +119,7 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 			this.srcRootValue = propertyService.isConnectionAnchor(srcAnchor) ? null : srcAnchor.getParent();
 			this.dstRootValue = propertyService.isConnectionAnchor(dstAnchor) ? null : dstAnchor.getParent();
 			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-			final PictogramElement result = queryRunner.getFirstPictogramElement(ownerDiagramElementQuery, bo);
+			final PictogramElement result = queryRunner.getFirstResult(ownerDiagramElementQuery, bo);
 			
 			return result;
 		} finally {
@@ -151,7 +151,7 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 				
 				// Get the anchors
 				Objects.requireNonNull(srcQuery, "Source query must not be null for connections");
-				final PictogramElement src = queryRunner.getFirstPictogramElement(srcQuery, bo);
+				final PictogramElement src = queryRunner.getFirstResult(srcQuery, bo);
 				final Anchor a1 = getAnchor(src);
 				if(a1 == null) {
 					return null;
@@ -166,7 +166,7 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 					a2 = anchorService.getAnchorByName(src, AnchorNames.FLOW_SPECIFICATION);						
 				} else {
 					Objects.requireNonNull(dstQuery, "Destination query must not be null for flow indicators");
-					a2 = getAnchor(queryRunner.getFirstPictogramElement(dstQuery, bo));
+					a2 = getAnchor(queryRunner.getFirstResult(dstQuery, bo));
 				}
 		
 				if(a2 == null) {
@@ -192,4 +192,5 @@ public class BusinessObjectHandlerConnectionInfoProvider implements ConnectionIn
 			return null;
 		}
 	}
+	*/
 }

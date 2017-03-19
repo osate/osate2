@@ -30,11 +30,13 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.internal.DiagramElementProxy;
-import org.osate.ge.internal.query.PictogramQuery;
+import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
-import org.osate.ge.internal.query.RootPictogramQuery;
+import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
 import org.osate.ge.internal.services.AadlPropertyService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ConnectionService;
@@ -48,9 +50,9 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 	private final IDiagramTypeProvider dtp;
 	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
-	private PictogramElement rootPictogramElement;
-	private final PictogramQuery<Object> rootPictogramQuery = new RootPictogramQuery(() -> this.rootPictogramElement);
-	private final PictogramQuery<Object> supportedChildrenQuery = rootPictogramQuery.children().filter((fa) -> isElementSupportedNamedElement(fa.getBusinessObject()));
+	private DiagramElementContainer rootDiagramElement;
+	private final AgeDiagramElementQuery<Object> rootDiagramElementQuery = new RootAgeDiagramElementQuery(() -> this.rootDiagramElement);
+	private final AgeDiagramElementQuery<Object> supportedChildrenQuery = rootDiagramElementQuery.children().filter((fa) -> isElementSupportedNamedElement(fa.getBusinessObject()));
 	private final QueryRunner queryRunner;
 	
 	private final Cache cache = new Cache() {
@@ -74,15 +76,15 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 		cachingService.registerCache(cache);
 	}
 	
-	private final List<? extends PictogramElement> getSupportedChildren(final PictogramElement pe) {
-		rootPictogramElement = (PictogramElement)pe;
-		return queryRunner.getPictogramElements(supportedChildrenQuery, null);		
+	private final List<DiagramElementContainer> getSupportedChildren(final AgeDiagramElement e) {
+		rootDiagramElement = e;
+		return queryRunner.getResults(supportedChildrenQuery, null);		
 	}
 	
 	@Override
-	public PropertyResult getValue(final DiagramElementProxy diagramElement, final String propertySetName, final String propertyName) {
+	public PropertyResult getValue(final DiagramElement diagramElement, final String propertySetName, final String propertyName) {
 		// TODO: For testing.. Process the diagram.. Need to lazy process
-		processDiagramPropertyAssociations(dtp.getDiagram());
+		//processDiagramPropertyAssociations(dtp.getDiagram());
 		
 		// TODO: Convert diagram element proxy into a reference/bo path
 		
@@ -100,6 +102,8 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 		return null;
 	}
 	
+	// TODO
+	/*
 	private void processDiagramPropertyAssociations(final Diagram diagram) {
 		// TODO: For testing: process all root elements.
 		if(propertyService.isLogicalTreeNode(diagram)) {
@@ -115,7 +119,7 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 		// TODO: Pass in context
 		processPropertyAssociations(pe, (NamedElement)bor.getBusinessObjectForPictogramElement(pe));
 	}
-	
+	*/
 	/**
 	 * Returns true if the element is a named element and the property service should process the element when determining property values
 	 * @param e
@@ -138,6 +142,7 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 	
 	// TODO: Need context
 	// TODO: Need to do this lazily instead of processing all properties at once
+	/*
 	private void processPropertyAssociations(final PictogramElement pe, final NamedElement ne) {
 		// Special handling for classifiers
 		if(ne instanceof Classifier) {
@@ -152,7 +157,7 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 			}
 		}
 	}
-
+*/
 	private void processPropertyAssociations(final Classifier classifier, final Object ctx) {
 		// TODO: Rework. Want to process in the appropriate order but want to only process subcomponents that are in the diagram.
 		for(final Classifier tmpClassifier : classifier.getSelfPlusAllExtended()) {

@@ -1,29 +1,21 @@
 package org.osate.ge.internal.query;
 
 import java.util.Deque;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-
-class AncestorsQuery<A> extends PictogramQuery<A> {
-	public AncestorsQuery(final Query<A> prev) {
+class AncestorsQuery<A> extends AgeDiagramElementQuery<A> {
+	public AncestorsQuery(final AgeDiagramElementQuery<A> prev) {
 		super(prev);
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Object ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		PictogramElement pe;
-		if(ctx instanceof Shape || ctx instanceof Connection) {
-			pe = (PictogramElement)ctx;
-		} else {
-			throw new RuntimeException("Unsupported context: " + ctx);
-		}
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		DiagramElementContainer e = ctx;
 
-		while(pe != null && !result.done) {		
-			pe = AncestorUtil.getParent(pe, state);
-			if(pe != null) {
-				processResultValue(remainingQueries, pe, state, result);
+		while(e != null && !result.done) {		
+			e = AncestorUtil.getContainer(e);
+			if(e != null) {
+				processResultValue(remainingQueries, e, state, result);
 			}
 		}
 	}

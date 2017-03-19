@@ -28,7 +28,7 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.ExtensionService;
@@ -51,7 +51,7 @@ public class PackageHandler {
 	}
 		
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final ExtensionService extService, final QueryService queryService) {
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final ExtensionService extService, final QueryService queryService) {
 		final boolean showObjectsOutsideOfPackage = queryService.getFirstBusinessObject(parentQuery, diagramElement) == null;
 
 		// Build a list of all named elements in the public and private sections of the package

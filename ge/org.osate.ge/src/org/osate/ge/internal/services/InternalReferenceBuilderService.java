@@ -8,6 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.services.ReferenceResolutionService;
 
 /**
@@ -21,7 +22,11 @@ public interface InternalReferenceBuilderService {
 	 * @return the reference or null if the reference could not be created
 	 * @see ReferenceResolutionService#getReferencedObject(String)
 	 */
+	// TODO: Remove
 	String getAbsoluteReference(final Object bo);
+	
+	// TODO: Document
+	CanonicalBusinessObjectReference getCanonicalReference(final Object bo);
 	
 	String getRelativeReference(final Object bo);
 	

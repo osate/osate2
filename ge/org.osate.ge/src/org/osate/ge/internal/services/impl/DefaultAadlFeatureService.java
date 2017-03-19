@@ -11,7 +11,6 @@ package org.osate.ge.internal.services.impl;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DirectedFeature;
@@ -20,8 +19,8 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.ge.internal.DiagramElementProxy;
-import org.osate.ge.internal.graphiti.PictogramElementProxy;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
@@ -116,30 +115,39 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	}
 	
 	@Override
-	public boolean isFeatureInverted(final DiagramElementProxy featureDiagramElement) {
-		// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level and to use logical diagram structure.
-		if(featureDiagramElement instanceof PictogramElementProxy) {
-			final PictogramElement pe = ((PictogramElementProxy) featureDiagramElement).getPictogramElement();
-			if(pe instanceof Shape) {
-				return isFeatureInvertedByParent(((Shape)pe).getContainer());
-			}
+	public boolean isFeatureInverted(final AgeDiagramElement featureDiagramElement) {
+		final DiagramElementContainer container = featureDiagramElement.getContainer();
+		if(container instanceof AgeDiagramElement) {
+			return isFeatureInvertedByContainer((AgeDiagramElement)container);
 		}
 		
 		return false;
-		
 	}
 	
 	@Override
-	public boolean isFeatureInvertedByParent(final DiagramElementProxy parentFeatureDiagramElement) {
-		// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level.
-		if(parentFeatureDiagramElement instanceof PictogramElementProxy) {
-			final PictogramElement pe = ((PictogramElementProxy) parentFeatureDiagramElement).getPictogramElement();
-			if(pe instanceof Shape) {
-				return isFeatureInvertedByParent((Shape)pe);
+	public boolean isFeatureInvertedByContainer(final AgeDiagramElement parentFeatureDiagramElement) {
+		boolean isInverted = false;
+		
+		DiagramElementContainer container = parentFeatureDiagramElement;
+		while(container instanceof AgeDiagramElement) {
+			final AgeDiagramElement containerElement = (AgeDiagramElement)container;
+			final Object containerBo = containerElement.getBusinessObject();
+			if(containerBo instanceof FeatureGroup) {
+				final FeatureGroup fg = (FeatureGroup)containerBo;
+				isInverted ^= fg.isInverse();
+				
+				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
+				// Check if the feature group type was implicitly defined via an inverse
+				final FeatureGroupType fgt = getFeatureGroupType(containerElement, fg);
+				if(fgt != null && getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
+					isInverted = !isInverted;
+				}
 			}
+
+			container = containerElement.getContainer();
 		}
 		
-		return false;		
+		return isInverted;
 	}
 	
 	// Prototype Related Methods
@@ -153,20 +161,12 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	}
 	
 	@Override
-	public FeatureGroupType getFeatureGroupType(final DiagramElementProxy diagramElement, final FeatureGroup fg) {
+	public FeatureGroupType getFeatureGroupType(final AgeDiagramElement diagramElement, final FeatureGroup fg) {
 		if(fg.getFeatureGroupPrototype() == null) {
 			return fg.getAllFeatureGroupType();
 		} else {
-			// TODO: Rewrite and expand API to prevent needing to drop down to the PictogramElementProxy level.
-			if(diagramElement instanceof PictogramElementProxy) {
-				final PictogramElement pe = ((PictogramElementProxy)diagramElement).getPictogramElement();
-				if(pe instanceof Shape) {
-					return prototypeService.getFeatureGroupType(prototypeService.getPrototypeBindingContext((Shape)pe), fg);
-				}
-			}
+			return prototypeService.getFeatureGroupType(prototypeService.getPrototypeBindingContext(diagramElement), fg);
 		}
-
-		return null;
 	}
 	
 	@Override

@@ -237,168 +237,25 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 			return null;
 		}
 		
-		String reference = Graphiti.getPeService().getPropertyValue(pictogramElement, KEY_BUSINESS_OBJECT);
-		if(reference == null) {
-			// TODO: Remove this when references are updated as part of migration to the new file format. 
-			// Try the old reference property
-			reference = Graphiti.getPeService().getPropertyValue(pictogramElement, LEGACY_KEY_INDEPENDENT_PROPERTY);
-			System.err.println("NOTE: LOOKING AT LEGACY PROPERTY : " + pictogramElement + " : " + reference);
-			if(reference == null) {
-				return null;	
-			}
-		}
-		
-		final String[] ref = ReferenceEncoder.decode(reference);
-		if(ref == null) {
-			return null;
-		}
-		
-		// Resolve the reference based on its type
-		final Object bo;
-		if(ref[0].equals(REFERENCE_TYPE_ABSOLUTE)) {
-			if(ref.length < 2) { // Absolute references
-				return null;
-			}
-			bo = referenceService.resolveAbsoluteReference(ref[1]);
-		} else if(ref[0].equals(REFERENCE_TYPE_RELATIVE)) { // Relative references
-			if(ref.length < 2) {
-				return null;
-			}
-			
-			// Get the parent logical pictogram element
-			final PictogramElement logicalPictogramElement = AgeFeatureUtil.getLogicalPictogramElement(pictogramElement, propertyService, connectionService);
-			final PictogramElement logicalParent = AncestorUtil.getParent(logicalPictogramElement, propertyService, connectionService);
-			if(logicalParent == null) {
-				return null;
-			}			
-			
-			final Object parentBo = AadlElementWrapper.unwrap(getBusinessObjectForPictogramElement(logicalParent));
-			if(parentBo == null) {
-				return null;
-			}
-			
-			bo = referenceService.resolveRelativeReference(parentBo, ref[1]);
-		} else { // Legacy references. Type identifier not included
-			// TODO: Ability to pass in the decoded string
-			bo = referenceService.resolveAbsoluteReference(reference);
-		}
-
-		return bo;
+		// TODO: Implement using AgeDiagram
+		throw new RuntimeException("Not implemented");
 	}
 	
 	@Override
 	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {		
-		final List<PictogramElement> pes = new ArrayList<>();
-		
-		if(businessObject != null) {
-			// TODO: Remove need for AadlElementWrapper
-			if(businessObject instanceof Element) {
-				businessObject = new AadlElementWrapper((Element)businessObject);
-			}
-
-			// TODO: Support relative references?			
-			final String reference = referenceService.getAbsoluteReference(businessObject);
-			if(reference != null) {
-				final Collection<PictogramElement> allContainedPictogramElements = Graphiti.getPeService().getAllContainedPictogramElements(getDiagramTypeProvider().getDiagram());
-				for(PictogramElement pe : allContainedPictogramElements) {
-					if(reference.equals(Graphiti.getPeService().getPropertyValue(pe, KEY_BUSINESS_OBJECT))) {
-						pes.add(pe);
-					}
-				}
-			}
-		}
-		
-		return pes.toArray(new PictogramElement[pes.size()]);
+		throw new RuntimeException("Not supported");
 	}
 		
 	@Override
 	public PictogramElement getPictogramElementForBusinessObject(final Object businessObject) {
-		// TODO: Optimize so it just finds the first pictogram element
-		final PictogramElement[] pes = getAllPictogramElementsForBusinessObject(businessObject);
-		if(pes.length > 0) {
-			return pes[0];
-		}
-		
-		return null;
+		throw new RuntimeException("Not supported");
 	}
 		
 	@Override
 	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
-		if(businessObjects.length > 1) {
-			throw new RuntimeException("Linking to multiple business objects is not supported");
-		}
-		
-		// Prevent linkage from occurring if we are unable to get a resource for the EObject.
-		// This is to prevent linking when the root of the EObject is not an expected object. In such cases, annex references may be invalid because such references
-		// often depend on getting the reference for the root package.
-		for(final Object rawBo : businessObjects) {
-			// Get an EMF object
-			Object bo = AadlElementWrapper.unwrap(rawBo);
-			if(bo instanceof EmfContainerProvider) {
-				bo = ((EmfContainerProvider) bo).getEmfContainer();
-			}
-			
-			if(!(bo instanceof EObject)) {
-				throw new RuntimeException("Unsupported business object. Business object is not an EObject and/or EmfContainerProvider did not supply an EObject.");
-			}
-			
-			if(bo instanceof EObject) {
-				// Check if the resource is valid.
-				final EObject eobj = (EObject)bo;
-				if(eobj.eResource() == null) {
-					return;
-				}
-			}
-		}
-		
-		if(businessObjects.length == 1) {
-			final Object bo = businessObjects[0];
-			
-			String reference = null;
-			
-			// TODO: Need to support relative references for connections. This requires a knowledge of knowledge of the connection's parent.
-			if(!(pictogramElement instanceof Connection || pictogramElement instanceof ConnectionDecorator)) {
-				// Attempt to use a relative reference if the logical parent is not null
-				final PictogramElement logicalParent = AncestorUtil.getParent(pictogramElement, propertyService, connectionService);
-				if(logicalParent != null) {
-					reference = buildRelativeReference(bo);
-				}
-			}
-			
-			// Otherwise, use an absolute reference
-			if(reference == null) {
-				reference = buildAbsoluteReference(bo);
-			}
-			
-			if(reference == null) {
-				throw new RuntimeException("Unable to build reference for object: " + bo);
-			}
-			
-			// Set the property
-			Graphiti.getPeService().setPropertyValue(pictogramElement, KEY_BUSINESS_OBJECT, reference);
-		} else {
-			Graphiti.getPeService().removeProperty(pictogramElement, KEY_BUSINESS_OBJECT);
-		}
+		throw new RuntimeException("Not supported");
 	}
-	
-	private String buildAbsoluteReference(final Object bo) {
-		final String ref = referenceService.getAbsoluteReference(bo);;
-		if(ref == null) {
-			return null;
-		}
-		
-		return ReferenceEncoder.encode(new String[] { REFERENCE_TYPE_ABSOLUTE, ref });
-	}
-	
-	private String buildRelativeReference(final Object bo) {
-		final String ref = referenceService.getRelativeReference(bo);
-		if(ref == null) {
-			return null;
-		}
-		
-		return ReferenceEncoder.encode(new String[] { REFERENCE_TYPE_RELATIVE, ref });
-	}
-		
+			
 	// Don't allow removing, just deleting.
 	@Override 
 	public IRemoveFeature getRemoveFeature(final IRemoveContext context) {

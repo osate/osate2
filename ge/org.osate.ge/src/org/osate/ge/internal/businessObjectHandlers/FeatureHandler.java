@@ -48,7 +48,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
@@ -57,6 +57,7 @@ import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -83,13 +84,13 @@ public class FeatureHandler {
 	}
 	
 	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return feature.getContainingClassifier() == containerBo;
 	}
 
 	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return canEdit(feature, diagramElement, queryService) && (!(feature instanceof Feature) || ((Feature)feature).getRefined() == null);
 	}
 	
@@ -147,19 +148,19 @@ public class FeatureHandler {
 	}
 	
 	@GetDefaultDockingPosition
-	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy parentDiagramElement, final AadlFeatureService featureService) {
+	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement, final AadlFeatureService featureService) {
 		return getDirection(feature, parentDiagramElement, featureService) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
 	}
 		
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy parentDiagramElement, final AadlFeatureService featureService, final PrototypeService prototypeService) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement, final AadlFeatureService featureService, final PrototypeService prototypeService) {
 		// Check to see if it is a prototype feature
 		if(feature instanceof AbstractFeature) {
 			final AbstractFeature af = (AbstractFeature)feature;
 			if(af.getFeaturePrototype() != null) {
 				// Lookup the binding
 				// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-				final Element bindingContext = prototypeService.getPrototypeBindingContextByParent(parentDiagramElement);
+				final Element bindingContext = prototypeService.getPrototypeBindingContextByContainer(parentDiagramElement);
 				if(bindingContext != null) {
 					final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 					if(binding instanceof FeaturePrototypeBinding) {
@@ -187,7 +188,7 @@ public class FeatureHandler {
 	 * @param featureService
 	 * @return
 	 */
-	private DirectionType getDirection(final Element feature, final DiagramElementProxy parentDiagramElement, final AadlFeatureService featureService) {
+	private DirectionType getDirection(final Element feature, final AgeDiagramElement parentDiagramElement, final AadlFeatureService featureService) {
 		DirectionType direction;
 		if(feature instanceof DirectedFeature) {
 			direction = ((DirectedFeature) feature).getDirection();
@@ -204,7 +205,7 @@ public class FeatureHandler {
 		}
 		
 		// Invert the feature as appropriate
-		if(featureService.isFeatureInvertedByParent(parentDiagramElement)) {
+		if(featureService.isFeatureInvertedByContainer(parentDiagramElement)) {
 			if(direction == DirectionType.IN) {
 				direction = DirectionType.OUT;
 			} else if(direction == DirectionType.OUT) {
@@ -253,7 +254,7 @@ public class FeatureHandler {
 	}
 	
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final AadlFeatureService featureService) {
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) AgeDiagramElement diagramElement, final AadlFeatureService featureService) {
 		final FeatureGroupType fgt = featureService.getFeatureGroupType(diagramElement, fg);
 		return fgt == null ? null : featureService.getAllFeatures(fgt).stream();
 	}

@@ -75,7 +75,7 @@ import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.AadlElementWrapper;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;

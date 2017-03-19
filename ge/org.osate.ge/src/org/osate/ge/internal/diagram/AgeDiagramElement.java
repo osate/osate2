@@ -3,12 +3,15 @@ package org.osate.ge.internal.diagram;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockArea;
 
-public class DiagramElement implements DiagramElementContainer {
+public class AgeDiagramElement implements DiagramElementContainer, ModifiableDiagramElementContainer, DiagramElement {
 	private final DiagramElementContainer container;
 
 	private Object bo;
@@ -23,11 +26,11 @@ public class DiagramElement implements DiagramElementContainer {
 	private DockArea dockArea; // Optional
 	
 	// Connection Specific
-	private DiagramElement connectionStartElement;
-	private DiagramElement connectionEndElement;
+	private AgeDiagramElement connectionStartElement;
+	private AgeDiagramElement connectionEndElement;
 	private List<Point> bendpoints; // Optional
 
-	public DiagramElement(final DiagramElementContainer container,
+	public AgeDiagramElement(final DiagramElementContainer container,
 			final Object bo, 
 			final RelativeBusinessObjectReference boRelReference,
 			final CanonicalBusinessObjectReference boCanonicalReference) {
@@ -35,26 +38,36 @@ public class DiagramElement implements DiagramElementContainer {
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
 		this.boCanonicalReference = Objects.requireNonNull(boCanonicalReference, "boCanonicalReference must not be null");
-		
-		// TODO: Think about this. It may be beneficial to allow the updater to manually add elements to the collection to prevent premature otificatons.
-		// Add the element to the container
-		container.getDiagramElements().add(this);
 	}
 
 	public DiagramElementContainer getContainer() {
 		return container;
 	}
 	
+	public ModifiableDiagramElementContainer getModifiableContainer() {
+		return (ModifiableDiagramElementContainer)container;
+	}
+	
 	@Override
-	public DiagramElementCollection getDiagramElements() {
+	public Collection<AgeDiagramElement> getDiagramElements() {
+		return Collections.unmodifiableCollection(children);
+	}
+	
+	@Override
+	public DiagramElementCollection getModifiableDiagramElements() {
 		return children;
-	}	
+	}
+	
+	@Override
+	public AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+		return children.getByRelativeReference(ref);
+	}
 	
 	public Object getBusinessObject() {
 		return bo;
 	}
 	
-	void setBusinessObject(final Object value) {
+	final void setBusinessObject(final Object value) {
 		this.bo = Objects.requireNonNull(value, "value must not be null");
 	}
 	
@@ -66,35 +79,51 @@ public class DiagramElement implements DiagramElementContainer {
 		return boCanonicalReference;
 	}
 	
-	public void setPosition(final Point value) {
+	public Point getPosition() {
+		return position;
+	}
+	
+	final void setPosition(final Point value) {
 		this.position = value == null ? null : new Point(value);
 	}
 	
-	public Point getPosition() {
-		return position;
+	public Dimension getSize() {
+		return size;
+	}
+	
+	final void setSize(final Dimension value) {
+		this.size = size == null ? null : new Dimension(value);
 	}
 	
 	public Graphic getGraphic() {
 		return graphic;
 	}
 	
-	void setGraphic(final Graphic value) {
+	final void setGraphic(final Graphic value) {
 		this.graphic = Objects.requireNonNull(value, "value must not be null");
 	}
+	
+	public DockArea getDockArea() {
+		return dockArea;
+	}
+	
+	final void setDockArea(final DockArea value) {
+		this.dockArea = value;
+	}
 
-	public DiagramElement getStartElement() {
+	public AgeDiagramElement getStartElement() {
 		return connectionStartElement;
 	}
 	
-	void setStartElement(final DiagramElement value) {
+	final void setStartElement(final AgeDiagramElement value) {
 		this.connectionStartElement = value;
 	}
 	
-	public DiagramElement getEndElement() {
+	public AgeDiagramElement getEndElement() {
 		return connectionEndElement;
 	}
 	
-	void setEndElement(final DiagramElement value) {
+	final void setEndElement(final AgeDiagramElement value) {
 		this.connectionEndElement = value;
 	}
 	

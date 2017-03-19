@@ -4,8 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.PropertyService;
@@ -30,8 +29,8 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final <A> Object getFirstResult(final Query<A> query, final A arg) {
-		final List<?> results = getResults(query, arg);
+	public final <A> DiagramElementContainer getFirstResult(final AgeDiagramElementQuery<A> query, final A arg) {
+		final List<DiagramElementContainer> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return null;
 		}
@@ -39,29 +38,19 @@ public class QueryRunner {
 		return results.get(0);
 	}
 	
-	public final <A> List<?> getResults(final Query<A> query, final A arg) {
+	public final <A> List<DiagramElementContainer> getResults(final AgeDiagramElementQuery<A> query, final A arg) {
 		Objects.requireNonNull(query, "query must not be null");
 		
-		final Deque<Query<A>> queryStack = new ArrayDeque<>();
-		for(Query<A> q = query; q != null; q = q.getPrev()) {
+		final Deque<AgeDiagramElementQuery<A>> queryStack = new ArrayDeque<>();
+		for(AgeDiagramElementQuery<A> q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
 
-		final Query<A> initialQuery = queryStack.pop();
+		final AgeDiagramElementQuery<A> initialQuery = queryStack.pop();
 		final QueryExecutionState<A> state = new QueryExecutionState<>(this, propertyService, connectionService, bor, refBuilder, arg);
 		final QueryResult result = new QueryResult();
 		initialQuery.run(queryStack, null, state, result);
 		
-		return (List<?>)result.result;
-	}
-	
-	// Convenience Methods for Queries that return PictogramElement(s). A cast error will occur if an object which is not a PictogramElement is returned from the query
-	@SuppressWarnings("unchecked")
-	public final <A> List<? extends PictogramElement> getPictogramElements(final Query<A> query, final A arg) {
-		return (List<? extends PictogramElement>) getResults(query, arg);
-	}
-	
-	public final <A> PictogramElement getFirstPictogramElement(final Query<A> query, final A arg) {
-		return (PictogramElement)getFirstResult(query, arg);
+		return result.result;
 	}
 }

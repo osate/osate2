@@ -19,7 +19,6 @@ public interface SerializableReferenceService {
 	String getRelativeReference(final Object bo);
 	
 	Object resolveAbsoluteReference(final String reference);
-	Object resolveRelativeReference(final Object parentBo, final String reference);
 	
 	AadlPackage getAadlPackage(final String qualifiedName);
 }

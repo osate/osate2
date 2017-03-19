@@ -16,14 +16,14 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
 
 /**
  * Contains methods for working with AADL Subcomponents
  *
  */
 public interface SubcomponentService {
-	ComponentClassifier getComponentClassifier(DiagramElementProxy parentDiagramElement, Subcomponent sc);
+	ComponentClassifier getComponentClassifier(AgeDiagramElement diagramElementContainer, Subcomponent sc);
 	
 	/**
 	 * Resolves the component classifier for the subcomponent

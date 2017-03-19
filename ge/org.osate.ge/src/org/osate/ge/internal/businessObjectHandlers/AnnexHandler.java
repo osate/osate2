@@ -30,7 +30,7 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
@@ -58,7 +58,7 @@ public class AnnexHandler {
 	}
 	
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement);
     }
 	

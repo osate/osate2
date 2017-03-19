@@ -44,7 +44,6 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.FlowSpecification;
@@ -61,7 +60,6 @@ import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
-import org.osate.ge.internal.di.ResolveRelativeReference;
 import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.CachingService;
@@ -243,118 +241,7 @@ public class DeclarativeReferenceResolver {
 	public void dispose() {
 		declarativeCache.dispose();
 	}
-	
-	@ResolveRelativeReference
-	public Object resolveRelativeReference(final @Named(Names.OWNER_BO) NamedElement parentBo, final @Named(Names.REFERENCE) String[] refSegs) {
-		Objects.requireNonNull(refSegs, "refSegs must not be null");
-		if(refSegs.length < 1) {
-			return null;
-		}
-		
-		Object referencedObject = null; // The object that will be returned
-		final String type = refSegs[0];
-		
-		if(refSegs.length == 1) {
-			if(type.equals(DeclarativeReferenceBuilder.TYPE_REALIZATION)) {
-				if(parentBo instanceof ComponentImplementation) {
-					referencedObject = ((ComponentImplementation) parentBo).getOwnedRealization();
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_TYPE_EXTENSION)) {
-				if(parentBo instanceof ComponentType) {
-					referencedObject = ((ComponentType) parentBo).getOwnedExtension();
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_IMPLEMENTATION_EXTENSION)) {
-				if(parentBo instanceof ComponentImplementation) {
-					referencedObject = ((ComponentImplementation) parentBo).getOwnedExtension();
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_GROUP_EXTENSION)) {
-				if(parentBo instanceof FeatureGroupType) {
-					referencedObject = ((FeatureGroupType) parentBo).getOwnedExtension();
-				}
-			}
-		} else if(refSegs.length == 2) {
-			final String name = refSegs[1];
-			if(type.equals(DeclarativeReferenceBuilder.TYPE_CLASSIFIER)) {
-				referencedObject = findChildByName(parentBo, Classifier.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBCOMPONENT)) {
-				referencedObject = findChildByName(parentBo, Subcomponent.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FEATURE)){
-				referencedObject = findChildByName(parentBo, Feature.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_INTERNAL_FEATURE)) {
-				referencedObject = findChildByName(parentBo, InternalFeature.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_PROCESSOR_FEATURE)) {
-				referencedObject = findChildByName(parentBo, ProcessorFeature.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_FLOW_SPECIFICATION)) {
-				referencedObject = findChildByName(parentBo, FlowSpecification.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_CONNECTION)) {
-				referencedObject = findChildByName(parentBo, Connection.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE)) {
-				referencedObject = findChildByName(parentBo, Mode.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_SEQUENCE)) {
-				referencedObject = findChildByName(parentBo, SubprogramCallSequence.class, name);
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL)) {
-				if(parentBo instanceof SubprogramCallSequence) {
-					final Namespace subprogramCallSequenceNamespace = ((SubprogramCallSequence)parentBo).getNamespace();
-					referencedObject = findChildByName(subprogramCallSequenceNamespace, SubprogramCall.class, name);
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_NAMED)) {
-				// TODO: Test using the findChildByName
-				if(parentBo instanceof ComponentClassifier) {
-					final ComponentClassifier cc = (ComponentClassifier)parentBo;
-					referencedObject = cc.getOwnedModeTransitions().stream().
-							filter(mt -> name.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mt))). // Filter objects by name
-							findAny().orElse(null);
-				}
-			}
-		} else if(refSegs.length == 3) {
-			if(type.equals(DeclarativeReferenceBuilder.TYPE_SUBPROGRAM_CALL_ORDER)) {
-				final SubprogramCall previousSubprogramCall = findChildByName(parentBo, SubprogramCall.class, refSegs[1]);
-				final SubprogramCall subprogramCall = findChildByName(parentBo, SubprogramCall.class, refSegs[2]);
-				if(previousSubprogramCall != null && subprogramCall != null) {
-					referencedObject = new SubprogramCallOrder(previousSubprogramCall, subprogramCall);
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_TRIGGER)) {
-				if(parentBo instanceof ModeTransition) {
-					final ModeTransition mt = (ModeTransition)parentBo;
-					final String contextName = refSegs[1];
-					final String triggerPortName = refSegs[2];
-					referencedObject = mt.getOwnedTriggers().stream().
-						filter(mtt -> contextName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getContext())) &&
-								triggerPortName.equalsIgnoreCase(DeclarativeReferenceBuilder.getNameForSerialization(mtt.getTriggerPort()))).
-						findAny().orElse(null);
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_LIBRARY)) {
-				if(parentBo instanceof AadlPackage) {
-					final AadlPackage pkg = (AadlPackage)parentBo;
-					final String annexName = refSegs[1];
-					final int annexIndex = Integer.parseInt(refSegs[2]);
-					referencedObject = findAnnexLibrary(pkg, annexName, annexIndex);
-				}
-			} else if(type.equals(DeclarativeReferenceBuilder.TYPE_ANNEX_SUBCLAUSE)) {
-				if(parentBo instanceof Classifier) {
-					final Classifier classifier = (Classifier)parentBo;
-					final String annexName = refSegs[1];
-					final int annexIndex = Integer.parseInt(refSegs[2]);
-					referencedObject = findAnnexSubclause(classifier, annexName, annexIndex);
-				}
-			}
-		} else { 
-			if(type.equals(DeclarativeReferenceBuilder.TYPE_MODE_TRANSITION_UNNAMED)) {
-				if(parentBo instanceof ComponentClassifier) {
-					final ComponentClassifier cc = (ComponentClassifier)parentBo;
-					for(final ModeTransition mt : cc.getOwnedModeTransitions()) {
-						if(equalsIgnoreCase(refSegs, DeclarativeReferenceBuilder.buildUnnamedModeTransitionRelativeReference(mt))) { 
-							referencedObject = mt;
-							break;
-						}
-					}
-				}			
-			}
-		}
-		
-		return referencedObject;
-	}
-	
+
 	@ResolveReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");

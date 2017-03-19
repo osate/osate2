@@ -32,7 +32,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
@@ -87,19 +87,19 @@ public class ModeTransitionHandler {
 		return rootQuery.descendants().filterByBusinessObject((mt) -> mt.getDestination());
 	}
 	
-	private ComponentClassifier getComponentClassifier(final DiagramElementProxy modeDiagramElement, final QueryService queryService) {
+	private ComponentClassifier getComponentClassifier(final DiagramElement modeDiagramElement, final QueryService queryService) {
 		return (ComponentClassifier)queryService.getFirstBusinessObject(componentClassifierQuery, modeDiagramElement);
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy srcDiagramElement, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
 			final QueryService queryService) {
 		return getComponentClassifier(srcDiagramElement, queryService);
 	}
 
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Mode mode, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy srcDiagramElement, 
+			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
 			final QueryService queryService) {
 		final ComponentClassifier cc = getCreateConnectionOwner(srcDiagramElement, queryService);
 		return cc != null && !cc.isDerivedModes();
@@ -107,9 +107,9 @@ public class ModeTransitionHandler {
 	
 	@CanCreate
 	public boolean canCreate(@Named(Names.SOURCE_BO) final Mode srcMode, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy srcDiagramElement, 
+			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
 			@Named(Names.DESTINATION_BO) final Mode dstMode,
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElementProxy dstDiagramElement, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElement dstDiagramElement, 
 			final QueryService queryService) {		
 		return getComponentClassifier(srcDiagramElement, queryService) == getComponentClassifier(dstDiagramElement, queryService);
 	}
@@ -153,7 +153,7 @@ public class ModeTransitionHandler {
 
 	@CanRename
 	@CanDelete
-	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return mt.getContainingClassifier() == containerBo;
 	}

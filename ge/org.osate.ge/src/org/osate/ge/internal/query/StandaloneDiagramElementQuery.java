@@ -7,6 +7,6 @@ import org.osate.ge.query.DiagramElementQuery;
 // TODO: Make API when stabilized
 public interface StandaloneDiagramElementQuery {
 	public static StandaloneDiagramElementQuery create(Function<DiagramElementQuery<?>, DiagramElementQuery<?>> queryCreator) {
-		return new StandalonePictogramElementQuery(queryCreator);
+		return new StandaloneAgeDiagramElementQuery(queryCreator);
 	}
 }

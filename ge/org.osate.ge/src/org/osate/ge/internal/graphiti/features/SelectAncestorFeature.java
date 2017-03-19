@@ -7,23 +7,19 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.internal.query.PictogramQuery;
+import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
-import org.osate.ge.internal.query.RootPictogramQuery;
+import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.PropertyService;
 
 public class SelectAncestorFeature extends AbstractCustomFeature {
-	private final QueryRunner queryRunner;
-	private final PictogramQuery<Object> query = new RootPictogramQuery(() -> this.rootPictogramElement).ancestor(1);
-	private PictogramElement rootPictogramElement;
-	
 	@Inject
-	public SelectAncestorFeature(final IFeatureProvider fp, final PropertyService propertyService, final ConnectionService connectionService, final BusinessObjectResolutionService bor, final InternalReferenceBuilderService refBuilder)  {
+	public SelectAncestorFeature(final IFeatureProvider fp)  {
 		super(fp);
-		queryRunner = new QueryRunner(propertyService, connectionService, bor, refBuilder);
 	}
 
 	@Override
@@ -45,8 +41,10 @@ public class SelectAncestorFeature extends AbstractCustomFeature {
 			return false;
 		}
 		
-		rootPictogramElement = pes[0];
-		return queryRunner.getFirstPictogramElement(query, null) != null;
+		//TODO: Migrate!
+		//rootPictogramElement = pes[0];
+		//return queryRunner.getFirstResult(query, null) != null;
+		return false;
 	}
    
     @Override
@@ -60,11 +58,14 @@ public class SelectAncestorFeature extends AbstractCustomFeature {
 		final ICustomContext customCtx = (ICustomContext)context;
 		PictogramElement[] pes = customCtx.getPictogramElements();		
 
+		//TODO: Migrate!
+		/*
 		rootPictogramElement = pes[0];
-		final PictogramElement ancestor = queryRunner.getFirstPictogramElement(query, null);
+		final PictogramElement ancestor = queryRunner.getFirstResult(query, null);
 		if(ancestor != null) {
 			getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[]{ancestor});			
 		}
+		*/
 	}
 
 }

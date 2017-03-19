@@ -1,6 +1,6 @@
 package org.osate.ge.internal.services;
 
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 
 public interface AadlPropertyService {
 	// TODO: Rename
@@ -21,5 +21,5 @@ public interface AadlPropertyService {
 	
 	// TODO: Need a way to build a reference from a diagram element?
 	
-	PropertyResult getValue(final DiagramElementProxy diagramElement, final String propertySetName, final String propertyName);
+	PropertyResult getValue(final DiagramElement diagramElement, final String propertySetName, final String propertyName);
 }

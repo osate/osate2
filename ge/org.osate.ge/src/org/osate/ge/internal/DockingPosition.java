@@ -6,7 +6,7 @@ package org.osate.ge.internal;
  */
 public enum DockingPosition {
 	ANY(DockArea.LEFT),
-	NOT_DOCKED(null),
+	NOT_DOCKABLE(null),
 	LEFT(DockArea.LEFT),
 	RIGHT(DockArea.RIGHT),
 	TOP(DockArea.TOP),

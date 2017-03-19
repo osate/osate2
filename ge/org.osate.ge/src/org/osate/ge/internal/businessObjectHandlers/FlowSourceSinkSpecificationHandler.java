@@ -21,11 +21,12 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
-import org.osate.ge.internal.query.PictogramQuery;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
@@ -63,7 +64,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}
 	
 	@CreateSourceQuery
-	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) PictogramQuery<FlowSpecification> rootQuery) {
+	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first();
 	}
 	
@@ -82,7 +83,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy featureDiagramElement,
+			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement featureDiagramElement,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final AadlFeatureService featureService,
 			final QueryService queryService) {
@@ -99,7 +100,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}	
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement,
+	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
 			final QueryService queryService) {
 		return getComponentType(targetDiagramElement, queryService);
 	}	
@@ -107,7 +108,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	@Create
 	public FlowSpecification createFlowSpecification(final @Named(Names.OWNER_BO) ComponentType ct,
 			final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy featureDiagramElement,
+			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement featureDiagramElement,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind, 
 			final NamingService namingService,
 			final QueryService queryService) {

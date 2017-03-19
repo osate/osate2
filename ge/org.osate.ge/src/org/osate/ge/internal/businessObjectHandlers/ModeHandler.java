@@ -18,7 +18,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -90,7 +90,7 @@ public class ModeHandler {
 	
 	@CanRename
 	@CanDelete
-    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return mode.getContainingClassifier() == containerBo;
     }

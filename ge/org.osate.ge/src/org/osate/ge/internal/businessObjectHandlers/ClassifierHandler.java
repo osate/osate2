@@ -58,7 +58,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -183,7 +183,7 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy targetDiagramElement, final QueryService queryService) {
+	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement, final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {
@@ -359,22 +359,22 @@ public class ClassifierHandler {
 	}
 	
 	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return nameLabelConfiguration;
 	}
 		
 	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return classifierIsOwnedByPackage(classifier, diagramElement, queryService);
 	}
 	
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		return isContainerNonOwningPackage(classifier, diagramElement, queryService) ? classifier.getQualifiedName() : classifier.getName(); 
 	}
 	
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
-	private boolean classifierIsOwnedByPackage(final Classifier classifier, final DiagramElementProxy diagramElement, final QueryService queryService) {
+	private boolean classifierIsOwnedByPackage(final Classifier classifier, final DiagramElement diagramElement, final QueryService queryService) {
 		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
 		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
 			return false;
@@ -385,7 +385,7 @@ public class ClassifierHandler {
 	
 	// Returns whether the classifier's diagram element is contained in a diagram element which represents a package which does not own the classifier. 
 	// Returns false if the classifier's diagram element is not contained in a package diagram element.
-	private boolean isContainerNonOwningPackage(final Classifier classifier, final DiagramElementProxy diagramElement, final QueryService queryService) {
+	private boolean isContainerNonOwningPackage(final Classifier classifier, final DiagramElement diagramElement, final QueryService queryService) {
 		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
 		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
 			return false;

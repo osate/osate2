@@ -25,13 +25,14 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElementProxy;
+import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -57,7 +58,7 @@ public class SubcomponentHandler {
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy parentDiagramElement, 
+			final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement, 
 			final SubcomponentService subcomponentService) {
 		final ComponentClassifier cc = subcomponentService.getComponentClassifier(parentDiagramElement, sc);
 		if(cc == null) {
@@ -124,7 +125,7 @@ public class SubcomponentHandler {
 	// Children
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) DiagramElementProxy parentDiagramElement,
+			final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement,
 			final AadlFeatureService featureService,
 			final SubcomponentService subcomponentService) {
 		final ComponentClassifier cc = subcomponentService.getComponentClassifier(parentDiagramElement, sc);
@@ -176,7 +177,7 @@ public class SubcomponentHandler {
 	
 	// Renaming    
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return sc.getContainingClassifier() == ci && sc.getRefined() == null;
     }
@@ -193,7 +194,7 @@ public class SubcomponentHandler {
 	
 	// Deleting
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElementProxy diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return sc.getContainingClassifier() == ci;
     }

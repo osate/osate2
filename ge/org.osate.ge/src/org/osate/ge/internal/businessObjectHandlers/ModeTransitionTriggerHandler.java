@@ -11,7 +11,7 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.query.PictogramQuery;
+import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.query.DiagramElementQuery;
 
 public class ModeTransitionTriggerHandler {
@@ -35,7 +35,7 @@ public class ModeTransitionTriggerHandler {
 			
 	// Destination - trigger feature
 	@CreateDestinationQuery
-	public DiagramElementQuery<ModeTransitionTrigger> createDestination(final @Named(Names.ROOT_QUERY) PictogramQuery<ModeTransitionTrigger> rootQuery) {
+	public DiagramElementQuery<ModeTransitionTrigger> createDestination(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<ModeTransitionTrigger> rootQuery) {
 		// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
 		return rootQuery.ancestor(1).ifElse((ca) -> ca.getQueryArgument().getContext() == null, 
 				(innerRoot) -> innerRoot, 
@@ -44,7 +44,7 @@ public class ModeTransitionTriggerHandler {
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<ModeTransitionTrigger> createParentDiagramElementQuery(final @Named(Names.DESTINATION_ROOT_QUERY) PictogramQuery<ModeTransitionTrigger> dstRootQuery) {
+	public DiagramElementQuery<ModeTransitionTrigger> createParentDiagramElementQuery(final @Named(Names.DESTINATION_ROOT_QUERY) AgeDiagramElementQuery<ModeTransitionTrigger> dstRootQuery) {
 		return dstRootQuery.ifElse((ca) -> ca.getQueryArgument().getContext() == null, 
 				(innerRoot) -> innerRoot.ancestor(1), 
 				(innerRoot) -> innerRoot.ancestor(2)).

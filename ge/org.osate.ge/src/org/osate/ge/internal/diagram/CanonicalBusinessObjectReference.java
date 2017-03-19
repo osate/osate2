@@ -37,7 +37,7 @@ public class CanonicalBusinessObjectReference {
 			return false;
 		}
 		
-		final CanonicalBusinessObjectReference other = (CanonicalBusinessObjectReference) obj;
+		final CanonicalBusinessObjectReference other = (CanonicalBusinessObjectReference)obj;
 		if (segments == null) {
 			if (other.segments != null) {
 				return false;
@@ -50,7 +50,12 @@ public class CanonicalBusinessObjectReference {
 	
 	@Override
 	public String toString() {
-		// TODO: Do this withotu converting to array
+		// TODO: Do this without converting to array
 		return Arrays.toString(segments.toArray());
+	}
+	
+	// TODO: Remove when no longer used
+	public String[] toSegmentArray() {
+		return segments.toArray(new String[segments.size()]);
 	}
 }
