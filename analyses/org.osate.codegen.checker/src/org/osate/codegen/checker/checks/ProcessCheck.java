@@ -38,6 +38,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.osate.aadl2.ComponentCategory;
+import org.osate.aadl2.VirtualProcessor;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.codegen.checker.report.ErrorReport;
@@ -50,8 +51,8 @@ public class ProcessCheck extends AbstractCheck {
 		/**
 		 * Get processes that do not have thread
 		 */
-		final List<ComponentInstance> processWithoutThread = si.getAllComponentInstances()
-				.stream().filter(c -> c.getCategory() == ComponentCategory.PROCESS)
+		final List<ComponentInstance> processWithoutThread = si.getAllComponentInstances().stream()
+				.filter(c -> c.getCategory() == ComponentCategory.PROCESS)
 				.filter(pr -> pr.getComponentInstances().stream()
 						.filter(subco -> subco.getCategory() == ComponentCategory.THREAD).collect(Collectors.toList())
 						.size() == 0)
@@ -65,26 +66,28 @@ public class ProcessCheck extends AbstractCheck {
 		 * 
 		 * Get Processes that are not bound to a virtual processor/runtime
 		 */
-		final List<ComponentInstance> processWithoutRuntime = si.getAllComponentInstances()
-				.stream().filter(comp -> (comp.getCategory() == ComponentCategory.PROCESS)
-						&& (GetProperties.getBoundProcessor(comp) == null))
+		final List<ComponentInstance> processWithoutRuntime = si.getAllComponentInstances().stream()
+				.filter(comp -> comp.getCategory() == ComponentCategory.PROCESS
+						&& !(GetProperties.getBoundProcessor(comp) instanceof VirtualProcessor))
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutRuntime) {
-			addError(new ErrorReport(process, "Process must define the property Deployment_Properties::Actual_Processor_Binding"));
+			addError(new ErrorReport(process,
+					"Process must be bound to a Virtual Processor through the property Deployment_Properties::Actual_Processor_Binding"));
 		}
 
 		/**
 		 * Get processes that are not bound to a memory
 		 */
 
-		final List<ComponentInstance> processWithoutMemory = si.getAllComponentInstances()
-				.stream().filter(comp -> (comp.getCategory() == ComponentCategory.PROCESS)
+		final List<ComponentInstance> processWithoutMemory = si.getAllComponentInstances().stream()
+				.filter(comp -> (comp.getCategory() == ComponentCategory.PROCESS)
 						&& (GetProperties.getActualMemoryBinding(comp) == null))
 				.collect(Collectors.toList());
 
 		for (ComponentInstance process : processWithoutMemory) {
-			addError(new ErrorReport(process, "Process must define the property Deployment_Properties::Actual_Memory_Binding"));
+			addError(new ErrorReport(process,
+					"Process must define the property Deployment_Properties::Actual_Memory_Binding"));
 		}
 	}
 
