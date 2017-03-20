@@ -85,11 +85,12 @@ class ValueColumnLabelProvider extends ColumnLabelProvider {
 	
 	def static getValueAsString(Element expression, ISerializer serializer) {
 		try {
-			switch expression {
+			val unformatted = switch expression {
 				InstanceReferenceValue: expression.referencedInstanceObject?.instanceObjectPath ?: "null"
 				ListValue case expression.hasInstanceReferenceValue: expression.serializeListWithInstanceReferenceValue(serializer)
 				default: serializer.serialize(expression).replaceAll("\n", "").replaceAll("\r", "").replaceAll("\t", "").trim
 			}
+			unformatted.replace("( ", "(").replace(" )", ")").replace("[ ", "[").replace(" ]", "]").replace(" ,", ",").replace(" ;", ";")
 		} catch (IConcreteSyntaxValidator.InvalidConcreteSyntaxException e) {
 			//Simply return null.  Expression could not be serialized because the model is invalid.
 		}
