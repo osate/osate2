@@ -5,6 +5,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ DiagramUpdaterTests.class})
+@SuiteClasses({ DiagramUpdaterTests.class,
+	GraphitiAgeDiagramTests.class})
 public class AllTests {
 }
