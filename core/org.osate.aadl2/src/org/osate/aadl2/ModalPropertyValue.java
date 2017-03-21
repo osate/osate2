@@ -105,4 +105,6 @@ public interface ModalPropertyValue extends ModalElement {
 
 	EvaluatedProperty evaluate(EvaluationContext ctx, int depth) throws InvalidModelException;
 
+	EvaluatedProperty evaluate(EvaluationContext ctx) throws InvalidModelException;
+
 } // ModalPropertyValue
