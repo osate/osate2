@@ -431,10 +431,10 @@ class AssureProcessor implements IAssureProcessor {
 					if (agreemethod.isAll) { // is recursive
 						// System.out.println("AgreeMethodAgreeMethodAgreeMethod executeURI ALL   ");
 					} else if (agreemethod.singleLayer) {
-//						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
+						val AgreeVerifySingleHandler verHandler = new AgreeVerifySingleHandler (verificationResult);
 					// verHandler.executeSystemInstance(instanceroot, progressTreeViewer);
 					// Currently Agree does not work on Flows or Connections so this is valid
-//						verHandler.executeSystemInstance(target as ComponentInstance, progressTreeViewer);
+						verHandler.executeSystemInstance(target as ComponentInstance, null);
 					}
 
 				// Should not save here because it is job based
