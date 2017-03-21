@@ -412,11 +412,11 @@ class AssureProcessor implements IAssureProcessor {
 
 						// using com.rockwellcollins.atc.resolute.analysis.results.ClaimResult
 						val ClaimResult proof = interpreter.evaluateProveStatement(provecall) as ClaimResult
+							val proveri = CommonFactory.eINSTANCE.createResultIssue
+							proof.doResoluteResults(proveri)
 						if (proof.valid) {
 							setToSuccess(verificationResult)
 						} else {
-							val proveri = CommonFactory.eINSTANCE.createResultIssue
-							proof.doResoluteResults(proveri)
 							setToFail(verificationResult, proveri.issues)
 						}
 					}
