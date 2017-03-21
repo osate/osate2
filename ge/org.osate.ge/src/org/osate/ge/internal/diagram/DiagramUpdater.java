@@ -13,8 +13,6 @@ import java.util.stream.Collectors;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.diagram.AgeDiagram.Modification;
-import org.osate.ge.internal.diagram.AgeDiagram.Modifier;
 import org.osate.ge.internal.graphics.AgeConnection;
 
 /**
@@ -45,6 +43,7 @@ public class DiagramUpdater {
 		RelativeBusinessObjectReference getRelativeReference();
 		CanonicalBusinessObjectReference getCanonicalReference();
 		Collection<BusinessObjectTreeNode> getChildren();
+		String getName(); // Get name for the business object's name label
 	}
 	
 	/**
@@ -89,9 +88,9 @@ public class DiagramUpdater {
 		final List<AgeDiagramElement> connectionElements = new LinkedList<>();
 		final BusinessObjectTree boTree = Objects.requireNonNull(boTreeFactory.createBusinessObjectTree(diagram.getConfiguration()), "Business Object Tree Factory returned null");
 		
-		diagram.modify(new Modifier() {
+		diagram.modify(new DiagramModifier() {
 			@Override
-			public void modify(final Modification m) {
+			public void modify(final DiagramModification m) {
 				updateElements(m, diagram, boTree.getRootNodes(), connectionElements);
 				removeInvalidConnections(m, connectionElements);
 			}			
@@ -104,7 +103,7 @@ public class DiagramUpdater {
 	 * @param bos 
 	 * @param connectionElements is a collection to populate with connection elements.
 	 */
-	private void updateElements(final Modification m, final DiagramElementContainer container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
+	private void updateElements(final DiagramModification m, final DiagramElementContainer container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
 		for(final BusinessObjectTreeNode n : bos) {
 			// Get existing element if it exists.
 			AgeDiagramElement element = container.getByRelativeReference(n.getRelativeReference());
@@ -167,7 +166,7 @@ public class DiagramUpdater {
 		}
 	}
 	
-	private void removeInvalidConnections(final Modification m, final Collection<AgeDiagramElement> connectionElements) {
+	private void removeInvalidConnections(final DiagramModification m, final Collection<AgeDiagramElement> connectionElements) {
 		// Set connection ends
 		for(final AgeDiagramElement e : connectionElements) {
 			connectionEndProvider.getConnectionStart(e);

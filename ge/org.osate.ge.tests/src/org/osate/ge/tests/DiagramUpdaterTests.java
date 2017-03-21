@@ -10,10 +10,10 @@ import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.AgeDiagram.Modification;
-import org.osate.ge.internal.diagram.AgeDiagram.Modifier;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramUpdater;
 import static org.osate.ge.tests.TestBusinessObject.newBO;
 
@@ -125,9 +125,9 @@ public class DiagramUpdaterTests {
 
 		final AgeDiagramElement e = diagram.getByRelativeReference(owner.getRelativeReference()).
 				getByRelativeReference(newBusinessObject.getRelativeReference());
-		diagram.modify(new Modifier() {
+		diagram.modify(new DiagramModifier() {
 			@Override
-			public void modify(final Modification m) {
+			public void modify(final DiagramModification m) {
 				// Set the position of the element
 				m.setPosition(e, newBusinessObject.getTestPosition());
 			}			
@@ -177,9 +177,9 @@ public class DiagramUpdaterTests {
 		assertThat(dockableDiagramElement.getDockArea(), is(equalTo(testBo.defaultDockingPosition.getDockArea())));
 		final DockArea newDockArea = DockingPosition.RIGHT.getDockArea();
 		
-		diagram.modify(new Modifier() {
+		diagram.modify(new DiagramModifier() {
 			@Override
-			public void modify(final Modification m) {
+			public void modify(final DiagramModification m) {
 				m.setDockArea(dockableDiagramElement, newDockArea);
 			}			
 		});
@@ -256,15 +256,15 @@ public class DiagramUpdaterTests {
 	}
 
 	private void assignPositions(final Collection<AgeDiagramElement> elements) {
-		diagram.modify(new Modifier() {
+		diagram.modify(new DiagramModifier() {
 			@Override
-			public void modify(final Modification m) {
+			public void modify(final DiagramModification m) {
 				assignPositions(m, elements);
 			}			
 		});
 	}
 	
-	private static void assignPositions(final Modification m, final Collection<AgeDiagramElement> elements) {
+	private static void assignPositions(final DiagramModification m, final Collection<AgeDiagramElement> elements) {
 		for(final AgeDiagramElement element : elements) {
 			final TestBusinessObject bo = (TestBusinessObject)element.getBusinessObject();
 			m.setPosition(element, bo.getTestPosition());

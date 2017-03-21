@@ -58,6 +58,11 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Graph
 				public CanonicalBusinessObjectReference getCanonicalReference() {
 					return child.getCanonicalReference();
 				}
+				
+				@Override
+				public String getName() {
+					return "BO: " + child.getRelativeReference().toString();
+				}
 			});
 		}
 
