@@ -1,0 +1,52 @@
+package codegen_demo::actuator
+public
+
+with codegen_demo::datatypes;
+with arinc653;
+
+
+process actuator
+features
+	altitude_in : in data port codegen_demo::datatypes::altitude {arinc653::sampling_refresh_period => 10 ms;};
+end actuator;
+
+process implementation actuator.i
+subcomponents
+	thr : thread actuator_thr.i;
+connections
+	c0 : port altitude_in -> thr.altitude_in;
+end actuator.i;
+
+thread actuator_thr
+features
+	altitude_in : in data port codegen_demo::datatypes::altitude;
+end actuator_thr;
+
+thread implementation actuator_thr.i
+calls 
+   call1 : { pspg : subprogram actuator_spg;};
+connections
+	c0 : parameter altitude_in -> pspg.altitude_in;
+properties
+   Priority => 1;
+   dispatch_protocol => periodic;
+   period            => 1000ms; 
+   deadline          => 500ms;
+   compute_execution_time => 0ms .. 1ms;
+   Code_Size  => 4 Kbyte;
+   Stack_Size => 30 Kbyte;
+   Data_Size  => 4 Kbyte;	
+end actuator_thr.i;
+
+subprogram actuator_spg
+features
+	altitude_in : in parameter codegen_demo::datatypes::altitude;
+properties
+   source_name => "actuator_spg";
+   source_language => (C);
+   Source_Text => ("actuator.c");
+   Code_Size  => 2 Kbyte;
+   Data_Size  => 2 Kbyte;	
+end actuator_spg;
+
+end codegen_demo::actuator;
