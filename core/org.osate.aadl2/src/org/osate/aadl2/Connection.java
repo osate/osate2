@@ -207,6 +207,11 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return ConnectionEnd the source (feature, data/bus access end or parameter end)
 	 */
 	ConnectionEnd getAllSource();
+	
+	/**
+	 * Gets the last element in the source chain.
+	 */
+	ConnectionEnd getAllLastSource();
 
 	/**
 	 * get destination context
@@ -221,6 +226,12 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return ConnectionEnd the destination (feature, data/bus access end or parameter end)
 	 */
 	ConnectionEnd getAllDestination();
+	
+	/**
+	 * Gets the last element in the destination chain.
+	 * @return
+	 */
+	ConnectionEnd getAllLastDestination();
 
 	/**
 	 * get source context

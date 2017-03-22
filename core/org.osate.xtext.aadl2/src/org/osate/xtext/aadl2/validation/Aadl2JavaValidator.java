@@ -402,8 +402,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureConnection(FeatureConnection connection) {
-		if (connection.getSource().getConnectionEnd() instanceof FeatureGroupConnectionEnd
-				&& connection.getDestination().getConnectionEnd() instanceof FeatureGroupConnectionEnd) {
+		if (connection.getAllLastSource() instanceof FeatureGroupConnectionEnd
+				&& connection.getAllLastDestination() instanceof FeatureGroupConnectionEnd) {
 			typeCheckFeatureGroupConnectionEnd(connection.getSource());
 			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
 			checkFeatureGroupConnectionDirection(connection);
@@ -1087,7 +1087,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		connectedElements.add(connection.getDestination());
 
 		for (ConnectedElement connectedElement : connectedElements) {
-			ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+			ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
 			ICompositeNode conElemNNode = NodeModelUtils.getNode(connectedElement);
 			INode lln = getLastLeaf(conElemNNode).getPreviousSibling();
 
@@ -1445,7 +1445,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Context cxt = null;
 			if (flow.getOwnedFlowSegments().get(i).getFlowElement() instanceof Connection) {
 				Connection connection = (Connection) flow.getOwnedFlowSegments().get(i).getFlowElement();
-				ce = connection.getAllSource();
+				ce = connection.getAllLastSource();
 				cxt = connection.getAllSourceContext();
 				boolean didReverse = false;
 				if (i == 0) {
@@ -1457,7 +1457,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						boolean noMatch = false;
 						if (connection.isAllBidirectional()) {
 							didReverse = true;
-							ce = connection.getAllDestination();
+							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
 							if (!isMatchingConnectionPoint(inEnd.getFeature(), inEnd.getContext(), ce, cxt)) {
 								noMatch = true;
@@ -1485,7 +1485,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							boolean noMatch = false;
 							if (connection.isAllBidirectional()) {
 								didReverse = true;
-								ce = connection.getAllDestination();
+								ce = connection.getAllLastDestination();
 								cxt = connection.getAllDestinationContext();
 								if (!isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
 									noMatch = true;
@@ -1511,10 +1511,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 				if (didReverse) {
-					ce = connection.getAllSource();
+					ce = connection.getAllLastSource();
 					cxt = connection.getAllSourceContext();
 				} else {
-					ce = connection.getAllDestination();
+					ce = connection.getAllLastDestination();
 					cxt = connection.getAllDestinationContext();
 				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
@@ -1630,14 +1630,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		for (Connection conn : conns) {
 			ConnectionEnd ce = null;
 			if (sub == conn.getAllSourceContext()) {
-				ce = conn.getAllSource();
+				ce = conn.getAllLastSource();
 			} else if (sub == conn.getAllDestinationContext()) {
-				ce = conn.getAllDestination();
+				ce = conn.getAllLastDestination();
 			}
 			if (ce != null && sub.getComponentImplementation() != null) {
 				for (Connection innerConn : sub.getComponentImplementation().getAllConnections()) {
-					if ((innerConn.getAllSourceContext() == null && innerConn.getAllSource() == ce)
-							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllDestination() == ce)) {
+					if ((innerConn.getAllSourceContext() == null && innerConn.getAllLastSource() == ce)
+							|| (innerConn.getAllDestinationContext() == null && innerConn.getAllLastDestination() == ce)) {
 						// connection continues inside subcomponent
 						error(segment, "Connection '" + conn.getName() + "' continues inside subcomponent '"
 								+ sub.getName() + "'");
@@ -2258,7 +2258,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				// for connection (every even element) check that it matches up
 				// with the preceding flow specification
 				Connection connection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i).getFlowElement();
-				ce = connection.getAllSource();
+				ce = connection.getAllLastSource();
 				cxt = connection.getAllSourceContext();
 				boolean didReverse = false;
 				if (i > 0 && flow.getOwnedEndToEndFlowSegments().get(i - 1)
@@ -2280,7 +2280,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						}
 					} else {
 						if (connection.isAllBidirectional()) {
-							ce = connection.getAllDestination();
+							ce = connection.getAllLastDestination();
 							cxt = connection.getAllDestinationContext();
 							if (isMatchingConnectionPoint(outEnd.getFeature(), outEnd.getContext(), ce, cxt)) {
 								if (cxt instanceof Subcomponent && previousFlowCxt instanceof Subcomponent) {
@@ -2318,7 +2318,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSegment)
 								|| AadlUtil.isSameOrRefines(previousFlowSegment, (Subcomponent) cxt))) {
 							if (connection.isAllBidirectional()) {
-								ce = connection.getAllSource();
+								ce = connection.getAllLastSource();
 								cxt = connection.getAllSourceContext();
 								if (cxt instanceof Subcomponent) {
 									if (!(AadlUtil.isSameOrRefines((Subcomponent) cxt, previousFlowSegment)
@@ -2345,10 +2345,10 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					}
 				}
 				if (didReverse) {
-					ce = connection.getAllSource();
+					ce = connection.getAllLastSource();
 					cxt = connection.getAllSourceContext();
 				} else {
-					ce = connection.getAllDestination();
+					ce = connection.getAllLastDestination();
 					cxt = connection.getAllDestinationContext();
 				}
 				if (i + 1 < size) {
@@ -2443,7 +2443,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 								.getOwnedEndToEndFlowSegments().get(i + 1).getFlowElement() instanceof Connection) {
 							Connection nextConnection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i + 1)
 									.getFlowElement();
-							if (referencedEndFlowSpec.getAllOutEnd().getFeature() != nextConnection.getAllSource()) {
+							if (referencedEndFlowSpec.getAllOutEnd().getFeature() != nextConnection.getAllLastSource()) {
 								error(segment,
 										"The last subcomponent flow of '" + referencedFlow.getName()
 												+ "' does not name the same feature as the source of the succeeding connection '"
@@ -2465,7 +2465,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							Connection previousConnection = (Connection) flow.getOwnedEndToEndFlowSegments().get(i - 1)
 									.getFlowElement();
 							if (referencedStartFlowSpec.getAllInEnd().getFeature() != previousConnection
-									.getAllDestination()) {
+									.getAllLastDestination()) {
 								error(segment,
 										"The first subcomponent flow of '" + referencedFlow.getName()
 												+ "' does not name the same feature as the destination of the preceding connection '"
@@ -5062,8 +5062,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * the source data classifier to the destination classifier."
 	 */
 	private void checkPortConnectionClassifiers(PortConnection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if ((source instanceof DataAccess || source instanceof DataSubcomponent || source instanceof DataPort
 				|| source instanceof EventDataPort)
 				&& (destination instanceof DataAccess || destination instanceof DataSubcomponent
@@ -5299,8 +5299,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	private void checkFeatureConnectionFeatureGroupToFeatureOrAbstract(Connection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof FeatureGroup
 				&& !(destination instanceof FeatureGroup || destination instanceof AbstractFeature)) {
 			error(connection,
@@ -5317,8 +5317,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Check direction of ConnectionEnd in connections
 	 */
 	private void checkConnectionDirection(Connection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof ConnectionEnd && destination instanceof ConnectionEnd) {
 			DirectionType srcDirection = DirectionType.IN_OUT;
 			DirectionType dstDirection = DirectionType.IN_OUT;
@@ -5550,8 +5550,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * Check connection ends of port connections Section 9.2 Legality rule L5
 	 */
 	private void checkPortConnectionEnds(PortConnection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof PortConnectionEnd && destination instanceof PortConnectionEnd) {
 			if (source instanceof EventPort
 					&& !(destination instanceof EventPort || destination instanceof EventSource)) {
@@ -5606,8 +5606,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * 9.2 (L13)). By default the data classifiers must be match."
 	 */
 	private void checkParameterConnectionClassifiers(ParameterConnection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof ParameterConnectionEnd && destination instanceof ParameterConnectionEnd) {
 			Classifier sourceClassifier;
 			Classifier destinationClassifier;
@@ -5678,7 +5678,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void typeCheckAccessConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
-		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
 			// Don't validate if the context or connection end could not be
@@ -5710,7 +5710,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void typeCheckFeatureConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
-		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
 			// Don't validate if the context or connection end could not be
@@ -5740,7 +5740,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void typeCheckFeatureGroupConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
-		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
 			// Don't validate if the context or connection end could not be
@@ -5769,7 +5769,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void typeCheckParameterConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
-		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
 			// Don't validate if the context or connection end could not be
@@ -5813,7 +5813,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	private void typeCheckPortConnectionEnd(ConnectedElement connectedElement) {
 		Context connectionContext = connectedElement.getContext();
-		ConnectionEnd connectionEnd = connectedElement.getConnectionEnd();
+		ConnectionEnd connectionEnd = connectedElement.getLastConnectionEnd();
 		if ((connectionContext != null && connectionContext.eIsProxy()) || connectionEnd == null
 				|| connectionEnd.eIsProxy()) {
 			// Don't validate if the context or connection end could not be
@@ -5895,7 +5895,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkAccessConnectionCategory(AccessConnection connection) {
 		AccessCategory connectionCategory = connection.getAccessCategory();
 
-		ConnectionEnd source = connection.getAllSource();
+		ConnectionEnd source = connection.getAllLastSource();
 		AccessCategory sourceCategory = null;
 		if (source instanceof SubprogramProxy) {
 			sourceCategory = AccessCategory.SUBPROGRAM;
@@ -5913,7 +5913,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			sourceCategory = AccessCategory.SUBPROGRAM_GROUP;
 		}
 
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		AccessCategory destinationCategory = null;
 		if (destination instanceof SubprogramProxy) {
 			destinationCategory = AccessCategory.SUBPROGRAM;
@@ -5949,8 +5949,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * rules L5, L6, and L7
 	 */
 	private void checkAccessConnectionProvidesRequires(AccessConnection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		AccessType sourceType = null;
 		AccessType destinationType = null;
 		Context srcContext = connection.getAllSourceContext();
@@ -6060,8 +6060,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * the same (see Section 9.1)."
 	 */
 	private void checkAccessConnectionClassifiers(AccessConnection connection) {
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof AccessConnectionEnd && destination instanceof AccessConnectionEnd) {
 			Classifier sourceClassifier = null;
 			Classifier destinationClassifier = null;
@@ -7417,8 +7417,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			// in case of subset if the connection is directional we do not have to match
 			return;
 		}
-		ConnectionEnd source = connection.getAllSource();
-		ConnectionEnd destination = connection.getAllDestination();
+		ConnectionEnd source = connection.getAllLastSource();
+		ConnectionEnd destination = connection.getAllLastDestination();
 		if (source instanceof FeatureGroupConnectionEnd && destination instanceof FeatureGroupConnectionEnd) {
 			Context srccxt = connection.getAllSourceContext();
 			Context dstcxt = connection.getAllDestinationContext();
@@ -7495,7 +7495,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		ConnectedElement source = connection.getSource();
 		ConnectedElement destination = connection.getDestination();
 		if (source != null && destination != null) {
-			if (source.getConnectionEnd() instanceof Feature && destination.getConnectionEnd() instanceof Feature) {
+			if (source.getLastConnectionEnd() instanceof Feature && destination.getLastConnectionEnd() instanceof Feature) {
 				if ((source.getContext() == null || source.getContext() instanceof FeatureGroup)
 						&& (destination.getContext() == null || destination.getContext() instanceof FeatureGroup)) {
 					error(connection,
@@ -7553,12 +7553,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * We check that by checking whether the connection has SUBSET, EQUIVALNCE, CONVERSION
 	 */
 	private void checkDirectionOfFeatureGroupMembers(Connection connection) {
-		if (!(connection.getAllSource() instanceof FeatureGroup)
-				|| !(connection.getAllDestination() instanceof FeatureGroup)) {
+		if (!(connection.getAllLastSource() instanceof FeatureGroup)
+				|| !(connection.getAllLastDestination() instanceof FeatureGroup)) {
 			return;
 		}
-		FeatureGroup source = (FeatureGroup) connection.getAllSource();
-		FeatureGroup destination = (FeatureGroup) connection.getAllDestination();
+		FeatureGroup source = (FeatureGroup) connection.getAllLastSource();
+		FeatureGroup destination = (FeatureGroup) connection.getAllLastDestination();
 		FeatureGroupType sourceType = source.getAllFeatureGroupType();
 		FeatureGroupType destinationType = destination.getAllFeatureGroupType();
 		if (sourceType == null || destinationType == null) {
@@ -7751,12 +7751,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * have the same name."
 	 */
 	private void checkFeatureGroupConnectionClassifiers(Connection connection) {
-		if (!(connection.getAllSource() instanceof FeatureGroup)
-				|| !(connection.getAllDestination() instanceof FeatureGroup)) {
+		if (!(connection.getAllLastSource() instanceof FeatureGroup)
+				|| !(connection.getAllLastDestination() instanceof FeatureGroup)) {
 			return;
 		}
-		FeatureGroup source = (FeatureGroup) connection.getAllSource();
-		FeatureGroup destination = (FeatureGroup) connection.getAllDestination();
+		FeatureGroup source = (FeatureGroup) connection.getAllLastSource();
+		FeatureGroup destination = (FeatureGroup) connection.getAllLastDestination();
 		FeatureGroupType sourceType = source.getAllFeatureGroupType();
 		FeatureGroupType destinationType = destination.getAllFeatureGroupType();
 		if (sourceType == null || destinationType == null) {

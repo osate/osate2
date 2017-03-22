@@ -149,5 +149,11 @@ public interface ConnectedElement extends Element {
 	 * @generated
 	 */
 	ConnectedElement createNext();
+	
+	/**
+	 * In a ConnectedElement chain, gets the last element in the chain. For example, if the chain is "a.b.c.d", this
+	 * method returns "d".
+	 */
+	ConnectionEnd getLastConnectionEnd();
 
 } // ConnectedElement

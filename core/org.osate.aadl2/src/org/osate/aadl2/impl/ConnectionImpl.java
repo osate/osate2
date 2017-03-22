@@ -766,6 +766,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 		ConnectedElement end = getRootConnection().getSource();
 		return (end instanceof ConnectedElement) ? end.getConnectionEnd() : null;
 	}
+	
+	@Override
+	public ConnectionEnd getAllLastSource() {
+		return getRootConnection().getSource().getLastConnectionEnd();
+	}
 
 	public Connection getRootConnection() {
 		Connection conn = this;
@@ -797,6 +802,11 @@ public abstract class ConnectionImpl extends StructuralFeatureImpl implements Co
 	public ConnectionEnd getAllDestination() {
 		ConnectedElement end = getRootConnection().getDestination();
 		return end.getConnectionEnd();
+	}
+	
+	@Override
+	public ConnectionEnd getAllLastDestination() {
+		return getRootConnection().getDestination().getLastConnectionEnd();
 	}
 
 	/**

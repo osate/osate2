@@ -364,5 +364,14 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 		}
 		return super.eIsSet(featureID);
 	}
+	
+	@Override
+	public ConnectionEnd getLastConnectionEnd() {
+		ConnectedElement current = this;
+		while (current.getNext() != null) {
+			current = current.getNext();
+		}
+		return current.getConnectionEnd();
+	}
 
 } // ConnectedElementImpl
