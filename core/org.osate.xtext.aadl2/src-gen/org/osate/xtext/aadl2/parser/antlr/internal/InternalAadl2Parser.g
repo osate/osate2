@@ -29676,6 +29676,148 @@ ruleSubprogramProxy returns [EObject current=null]
 
 
 
+// Entry rule entryRuleNestedConnectedElement
+entryRuleNestedConnectedElement returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getNestedConnectedElementRule()); }
+	 iv_ruleNestedConnectedElement=ruleNestedConnectedElement 
+	 { $current=$iv_ruleNestedConnectedElement.current; } 
+	 EOF 
+;
+
+// Rule NestedConnectedElement
+ruleNestedConnectedElement returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+(
+    { 
+        newCompositeNode(grammarAccess.getNestedConnectedElementAccess().getConnectedElementParserRuleCall_0()); 
+    }
+    this_ConnectedElement_0=ruleConnectedElement
+    {
+        $current = $this_ConnectedElement_0.current;
+        afterParserOrEnumRuleCall();
+    }
+
+    |((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getNestedConnectedElementRule());
+	        }
+        }
+	otherlv_1=RULE_ID
+	{
+		newLeafNode(otherlv_1, grammarAccess.getNestedConnectedElementAccess().getContextContextCrossReference_1_0_0()); 
+	}
+
+)
+)
+	otherlv_2=FullStop
+    {
+    	newLeafNode(otherlv_2, grammarAccess.getNestedConnectedElementAccess().getFullStopKeyword_1_1());
+    }
+(
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getNestedConnectedElementRule());
+	        }
+        }
+	otherlv_3=RULE_ID
+	{
+		newLeafNode(otherlv_3, grammarAccess.getNestedConnectedElementAccess().getConnectionEndConnectionEndCrossReference_1_2_0()); 
+	}
+
+)
+)
+	otherlv_4=FullStop
+    {
+    	newLeafNode(otherlv_4, grammarAccess.getNestedConnectedElementAccess().getFullStopKeyword_1_3());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getNestedConnectedElementAccess().getNextConnectedElementChainParserRuleCall_1_4_0()); 
+	    }
+		lv_next_5_0=ruleConnectedElementChain		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getNestedConnectedElementRule());
+	        }
+       		set(
+       			$current, 
+       			"next",
+        		lv_next_5_0, 
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElementChain");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)))
+;
+
+
+
+
+
+// Entry rule entryRuleConnectedElementChain
+entryRuleConnectedElementChain returns [EObject current=null]
+	:
+	{ newCompositeNode(grammarAccess.getConnectedElementChainRule()); }
+	 iv_ruleConnectedElementChain=ruleConnectedElementChain 
+	 { $current=$iv_ruleConnectedElementChain.current; } 
+	 EOF 
+;
+
+// Rule ConnectedElementChain
+ruleConnectedElementChain returns [EObject current=null] 
+    @init { enterRule(); 
+    }
+    @after { leaveRule(); }:
+((
+(
+		{
+			if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectedElementChainRule());
+	        }
+        }
+	otherlv_0=RULE_ID
+	{
+		newLeafNode(otherlv_0, grammarAccess.getConnectedElementChainAccess().getConnectionEndConnectionEndCrossReference_0_0()); 
+	}
+
+)
+)(
+	otherlv_1=FullStop
+    {
+    	newLeafNode(otherlv_1, grammarAccess.getConnectedElementChainAccess().getFullStopKeyword_1_0());
+    }
+(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getConnectedElementChainAccess().getNextConnectedElementChainParserRuleCall_1_1_0()); 
+	    }
+		lv_next_2_0=ruleConnectedElementChain		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getConnectedElementChainRule());
+	        }
+       		set(
+       			$current, 
+       			"next",
+        		lv_next_2_0, 
+        		"org.osate.xtext.aadl2.Aadl2.ConnectedElementChain");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+))?)
+;
+
+
+
+
+
 // Entry rule entryRuleConnectedElement
 entryRuleConnectedElement returns [EObject current=null]
 	:
@@ -30494,9 +30636,9 @@ ruleFeatureGroupConnection returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupConnectionAccess().getSourceConnectedElementParserRuleCall_0_0_4_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupConnectionAccess().getSourceNestedConnectedElementParserRuleCall_0_0_4_0()); 
 	    }
-		lv_source_4_0=ruleConnectedElement		{
+		lv_source_4_0=ruleNestedConnectedElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureGroupConnectionRule());
 	        }
@@ -30504,7 +30646,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_4_0, 
-        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.NestedConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30534,9 +30676,9 @@ ruleFeatureGroupConnection returns [EObject current=null]
 ))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureGroupConnectionAccess().getDestinationConnectedElementParserRuleCall_0_0_6_0()); 
+	        newCompositeNode(grammarAccess.getFeatureGroupConnectionAccess().getDestinationNestedConnectedElementParserRuleCall_0_0_6_0()); 
 	    }
-		lv_destination_7_0=ruleConnectedElement		{
+		lv_destination_7_0=ruleNestedConnectedElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureGroupConnectionRule());
 	        }
@@ -30544,7 +30686,7 @@ ruleFeatureGroupConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_7_0, 
-        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.NestedConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30727,9 +30869,9 @@ ruleFeatureConnection returns [EObject current=null]
 (
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureConnectionAccess().getSourceConnectedElementParserRuleCall_0_0_3_0()); 
+	        newCompositeNode(grammarAccess.getFeatureConnectionAccess().getSourceNestedConnectedElementParserRuleCall_0_0_3_0()); 
 	    }
-		lv_source_3_0=ruleConnectedElement		{
+		lv_source_3_0=ruleNestedConnectedElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureConnectionRule());
 	        }
@@ -30737,7 +30879,7 @@ ruleFeatureConnection returns [EObject current=null]
        			$current, 
        			"source",
         		lv_source_3_0, 
-        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.NestedConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
@@ -30767,9 +30909,9 @@ ruleFeatureConnection returns [EObject current=null]
 ))(
 (
 		{ 
-	        newCompositeNode(grammarAccess.getFeatureConnectionAccess().getDestinationConnectedElementParserRuleCall_0_0_5_0()); 
+	        newCompositeNode(grammarAccess.getFeatureConnectionAccess().getDestinationNestedConnectedElementParserRuleCall_0_0_5_0()); 
 	    }
-		lv_destination_6_0=ruleConnectedElement		{
+		lv_destination_6_0=ruleNestedConnectedElement		{
 	        if ($current==null) {
 	            $current = createModelElementForParent(grammarAccess.getFeatureConnectionRule());
 	        }
@@ -30777,7 +30919,7 @@ ruleFeatureConnection returns [EObject current=null]
        			$current, 
        			"destination",
         		lv_destination_6_0, 
-        		"org.osate.xtext.aadl2.Aadl2.ConnectedElement");
+        		"org.osate.xtext.aadl2.Aadl2.NestedConnectedElement");
 	        afterParserOrEnumRuleCall();
 	    }
 
