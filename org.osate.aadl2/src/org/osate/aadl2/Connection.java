@@ -251,4 +251,9 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 */
 	public boolean isAllBidirectional();
 
+	/**
+	 * Return whether this connection is between two subcomponents and not up/down the hierarchy.
+	 */
+	public boolean isAcross();
+
 } // Connection
