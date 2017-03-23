@@ -7546,6 +7546,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				chain.add(current.getContext());
 			}
 			chain.add(current.getConnectionEnd());
+			current = current.getNext();
 		}
 		return chain;
 	}
