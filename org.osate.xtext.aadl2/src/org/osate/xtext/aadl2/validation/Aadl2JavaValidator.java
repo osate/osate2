@@ -7784,7 +7784,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		// connection across or through a component
 		if (srcContext instanceof Subcomponent && dstContext instanceof Subcomponent) {
 			if (ModelingProperties.CLASSIFIER_MATCH.equalsIgnoreCase(classifierMatchingRuleValue)) {
-				if (!testIfFeatureGroupsAreInverses(source, destination)) {
+				if (!testIfFeatureGroupsAreInverses(connection.getRootConnection().getSource(), connection.getRootConnection().getDestination())) {
 					error(connection, "The feature groups '" + source.getName() + "' and '" + destination.getName()
 							+ "' are not inverses of each other.");
 				}
@@ -7797,8 +7797,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			}
 
 			else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
-				if (!checkIfFeatureGroupTypesAreSiblingSubsets(sourceType, source.isInverse(), destinationType,
-						destination.isInverse(), connection.isAllBidirectional())) {
+				if (!checkIfFeatureGroupTypesAreSiblingSubsets(connection.getRootConnection().getSource(), sourceType,
+						connection.getRootConnection().getDestination(), destinationType, connection.isAllBidirectional())) {
 					error(connection,
 							"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
 									+ sourceType.getQualifiedName() + "' and '" + destinationType.getQualifiedName()
@@ -7834,17 +7834,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				// connect up or down the containment hierarchy. Using rule '" +
 				// ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				// }
+				
+				boolean sourceIsInverse = isInvertNeeded(connection.getRootConnection().getSource());
+				boolean destinationIsInverse = isInvertNeeded(connection.getRootConnection().getDestination());
+				
 				if (sourceType == destinationType) {
-					if (cxtFGIsInverse ? source.isInverse() == destination.isInverse()
-							: source.isInverse() != destination.isInverse()) {
+					if (sourceIsInverse != destinationIsInverse) {
 						error(connection,
 								"For connections that connect up or down the containment hierarchy, the feature group types of the source and destination must be identical."
 										+ " They cannot be inverses of each other.");
 					}
 				} else {
 					if (isSameInExtends(sourceType, destinationType)) {
-						if (cxtFGIsInverse ? source.isInverse() == destination.isInverse()
-								: source.isInverse() != destination.isInverse()) {
+						if (sourceIsInverse != destinationIsInverse) {
 							error(connection, "Ancestor feature group types match, but feature group '"
 									+ source.getName() + "' and '" + destination.getName() + "' differ in inverse of.");
 						} else {
@@ -7866,23 +7868,23 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 									+ AadlProject.SUPPORTED_CLASSIFIER_EQUIVALENCE_MATCHES + "'.");
 				}
 			} else if (ModelingProperties.SUBSET.equalsIgnoreCase(classifierMatchingRuleValue)) {
-				FeatureGroup innerFeatureGroup;
 				FeatureGroupType innerFeatureGroupType;
-				FeatureGroup outerFeatureGroup;
+				ConnectedElement inner;
 				FeatureGroupType outerFeatureGroupType;
+				ConnectedElement outer;
 				if (connection.getAllSourceContext() instanceof Subcomponent) {
-					innerFeatureGroup = source;
 					innerFeatureGroupType = sourceType;
-					outerFeatureGroup = destination;
+					inner = connection.getRootConnection().getSource();
 					outerFeatureGroupType = destinationType;
+					outer = connection.getRootConnection().getDestination();
 				} else {
-					outerFeatureGroup = source;
 					outerFeatureGroupType = sourceType;
-					innerFeatureGroup = destination;
+					outer = connection.getRootConnection().getSource();
 					innerFeatureGroupType = destinationType;
+					inner = connection.getRootConnection().getDestination();
 				}
-				if (!checkIfFeatureGroupTypesAreUpAndDownSubsets(innerFeatureGroupType, innerFeatureGroup.isInverse(),
-						outerFeatureGroupType, outerFeatureGroup.isInverse())) {
+				if (!checkIfFeatureGroupTypesAreUpAndDownSubsets(inner, innerFeatureGroupType,
+						outer, outerFeatureGroupType)) {
 					error(connection,
 							"The types of '" + source.getName() + "' and '" + destination.getName() + "' ('"
 									+ sourceType.getQualifiedName() + "' and '" + destination.getQualifiedName()
@@ -7894,19 +7896,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 	}
 
-	public boolean testIfFeatureGroupsAreInverses(FeatureGroup source, FeatureGroup destination) {
-		boolean sourceIsInverse = source.isInverse() ^ source.getAllFeatureGroupType().getInverse() != null;
-		boolean destinationIsInverse = destination.isInverse()
-				^ destination.getAllFeatureGroupType().getInverse() != null;
+	public boolean testIfFeatureGroupsAreInverses(ConnectedElement source, ConnectedElement destination) {
+		boolean sourceIsInverse = isInvertNeeded(source);
+		boolean destinationIsInverse = isInvertNeeded(destination);
 		if (sourceIsInverse == destinationIsInverse) {
 			return false;
 		}
 		;
-		FeatureGroupType sourceType = source.getAllFeatureGroupType();
+		FeatureGroupType sourceType = ((FeatureGroup)source.getConnectionEnd()).getAllFeatureGroupType();
 		if (sourceType.getInverse() != null) {
 			sourceType = sourceType.getInverse();
 		}
-		FeatureGroupType destinationType = destination.getAllFeatureGroupType();
+		FeatureGroupType destinationType = ((FeatureGroup)destination.getConnectionEnd()).getAllFeatureGroupType();
 		if (destinationType.getInverse() != null) {
 			destinationType = destinationType.getInverse();
 		}
@@ -8080,8 +8081,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	// return true;
 	// }
 
-	private boolean checkIfFeatureGroupTypesAreUpAndDownSubsets(FeatureGroupType innerType, boolean isInnerFGInverse,
-			FeatureGroupType outerType, boolean isOuterFGInverse) {
+	private boolean checkIfFeatureGroupTypesAreUpAndDownSubsets(ConnectedElement inner, FeatureGroupType innerType,
+			ConnectedElement outer, FeatureGroupType outerType) {
 		EList<Feature> innerFeatures = innerType.getAllFeatures();
 		EList<Feature> outerFeatures = outerType.getAllFeatures();
 		if (outerFeatures.isEmpty() || innerFeatures.isEmpty()) {
@@ -8089,15 +8090,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		for (Feature innerFeature : innerFeatures) {
 			if (innerFeature instanceof DirectedFeature) {
-				DirectionType innerDirection = ((DirectedFeature) innerFeature).getDirection();
-				if (isInnerFGInverse) {
-					innerDirection = innerDirection.getInverseDirection();
-				}
-				if (innerType != innerFeature.getContainingClassifier() && innerType.getInverse() != null) {
-					// feature group type has inverse and feature is defined in
-					// the inverse FGT
-					innerDirection = innerDirection.getInverseDirection();
-				}
+				DirectionType innerDirection = invertIfNeeded(((DirectedFeature)innerFeature).getDirection(),
+						inner);
 				// if (innerDirection.incoming()) {
 				// need to find incoming feature in outer feature group
 				boolean matchingFeatureFound = false;
@@ -8105,15 +8099,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					if (innerFeature.getName().equalsIgnoreCase(outerFeature.getName())) {
 						matchingFeatureFound = true;
 						if (outerFeature instanceof DirectedFeature) {
-							DirectionType outerDirection = ((DirectedFeature) outerFeature).getDirection();
-							if (isOuterFGInverse) {
-								outerDirection = outerDirection.getInverseDirection();
-							}
-							if (outerType != outerFeature.getContainingClassifier() && outerType.getInverse() != null) {
-								// feature group type has inverse and feature is
-								// defined in the inverse FGT
-								outerDirection = outerDirection.getInverseDirection();
-							}
+							DirectionType outerDirection = invertIfNeeded(
+									((DirectedFeature)outerFeature).getDirection(),
+									outer);
 							// if (!outerDirection.incoming())
 							// return false;
 							if (!innerFeature.eClass().equals(outerFeature.eClass())) {
@@ -8188,8 +8176,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * @param isDestinationFGInverse
 	 * @return boolean
 	 */
-	private boolean checkIfFeatureGroupTypesAreSiblingSubsets(FeatureGroupType sourceType, boolean isSourceFGInverse,
-			FeatureGroupType destinationType, boolean isDestinationFGInverse, boolean isBidirectional) {
+	private boolean checkIfFeatureGroupTypesAreSiblingSubsets(ConnectedElement source, FeatureGroupType sourceType,
+			ConnectedElement destination, FeatureGroupType destinationType, boolean isBidirectional) {
 		EList<Feature> srcFeatures = sourceType.getAllFeatures();
 		EList<Feature> dstFeatures = destinationType.getAllFeatures();
 		if (srcFeatures.isEmpty() || dstFeatures.isEmpty()) {
@@ -8197,16 +8185,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		for (Feature destinationFeature : dstFeatures) {
 			if (destinationFeature instanceof DirectedFeature) {
-				DirectionType destinationDirection = ((DirectedFeature) destinationFeature).getDirection();
-				if (isDestinationFGInverse) {
-					destinationDirection = destinationDirection.getInverseDirection();
-				}
-				if (destinationType != destinationFeature.getContainingClassifier()
-						&& destinationType.getInverse() != null) {
-					// feature group type has inverse and feature is defined in
-					// the inverse FGT
-					destinationDirection = destinationDirection.getInverseDirection();
-				}
+				DirectionType destinationDirection = invertIfNeeded(
+						((DirectedFeature)destinationFeature).getDirection(),
+						destination);
 				if (destinationDirection.incoming()) {
 					// need to find outgoing feature in source
 					boolean matchingFeatureFound = false;
@@ -8214,16 +8195,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						if (destinationFeature.getName().equalsIgnoreCase(sourceFeature.getName())) {
 							matchingFeatureFound = true;
 							if (sourceFeature instanceof DirectedFeature) {
-								DirectionType sourceDirection = ((DirectedFeature) sourceFeature).getDirection();
-								if (isSourceFGInverse) {
-									sourceDirection = sourceDirection.getInverseDirection();
-								}
-								if (sourceType != sourceFeature.getContainingClassifier()
-										&& sourceType.getInverse() != null) {
-									// feature group type has inverse and
-									// feature is defined in the inverse FGT
-									sourceDirection = sourceDirection.getInverseDirection();
-								}
+								DirectionType sourceDirection = invertIfNeeded(
+										((DirectedFeature)sourceFeature).getDirection(),
+										source);
 								if (!((destinationFeature instanceof AbstractFeature
 										&& destinationDirection == DirectionType.IN_OUT)
 										|| (sourceFeature instanceof AbstractFeature
@@ -8253,15 +8227,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			for (Feature sourceFeature : srcFeatures) {
 				// check srcFeatures as destination
 				if (sourceFeature instanceof DirectedFeature) {
-					DirectionType sourceDirection = ((DirectedFeature) sourceFeature).getDirection();
-					if (isSourceFGInverse) {
-						sourceDirection = sourceDirection.getInverseDirection();
-					}
-					if (sourceType != sourceFeature.getContainingClassifier() && sourceType.getInverse() != null) {
-						// feature group type has inverse and feature is defined in
-						// the inverse FGT.
-						sourceDirection = sourceDirection.getInverseDirection();
-					}
+					DirectionType sourceDirection = invertIfNeeded(((DirectedFeature)sourceFeature).getDirection(),
+							source);
 					// check srcFeatures as destination, i.e., they are incoming
 					if (sourceDirection.incoming()) {
 						// need to find outgoing feature in destination
@@ -8270,17 +8237,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 							if (sourceFeature.getName().equalsIgnoreCase(destinationFeature.getName())) {
 								matchingFeatureFound = true;
 								if (destinationFeature instanceof DirectedFeature) {
-									DirectionType destinationDirection = ((DirectedFeature) destinationFeature)
-											.getDirection();
-									if (isDestinationFGInverse) {
-										destinationDirection = destinationDirection.getInverseDirection();
-									}
-									if (destinationType != destinationFeature.getContainingClassifier()
-											&& destinationType.getInverse() != null) {
-										// feature group type has inverse and
-										// feature is defined in the inverse FGT
-										destinationDirection = destinationDirection.getInverseDirection();
-									}
+									DirectionType destinationDirection = invertIfNeeded(
+											((DirectedFeature)destinationFeature).getDirection(),
+											destination);
 									// we now have both directions.
 									if (!((destinationFeature instanceof AbstractFeature
 											&& destinationDirection == DirectionType.IN_OUT)
