@@ -402,6 +402,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureConnection(FeatureConnection connection) {
+		checkFeatureGroupChaining(connection);
 		if (connection.getAllLastSource() instanceof FeatureGroupConnectionEnd
 				&& connection.getAllLastDestination() instanceof FeatureGroupConnectionEnd) {
 			typeCheckFeatureGroupConnectionEnd(connection.getSource());
@@ -418,6 +419,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupConnection(FeatureGroupConnection connection) {
+		checkFeatureGroupChaining(connection);
 		typeCheckFeatureGroupConnectionEnd(connection.getSource());
 		typeCheckFeatureGroupConnectionEnd(connection.getDestination());
 		checkFeatureGroupConnectionDirection(connection);
@@ -5310,6 +5312,24 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				&& !(source instanceof FeatureGroup || source instanceof AbstractFeature)) {
 			error(connection,
 					"If destination is a Feature Group then source must be either a Feature Group or an Abstract Feature.");
+		}
+	}
+	
+	private void checkFeatureGroupChaining(Connection connection) {
+		if (connection.getRefined() == null) {
+			List<NamedElement> sourceChain = getConnectionChain(connection.getSource());
+			List<NamedElement> destinationChain = getConnectionChain(connection.getDestination());
+			if (!sourceChain.isEmpty() && !destinationChain.isEmpty() && (!(sourceChain.get(0) instanceof Subcomponent)
+					|| !(destinationChain.get(0) instanceof Subcomponent))) {
+				if (sourceChain.size() > 2) {
+					error(connection.getSource(),
+							"Nested Feature Groups are only allowed for connections going across from Subcomponent to Subcomponent.");
+				}
+				if (destinationChain.size() > 2) {
+					error(connection.getDestination(),
+							"Nested Feature Groups are only allowed for connections going across from Subcomponent to Subcomponent.");
+				}
+			}
 		}
 	}
 
