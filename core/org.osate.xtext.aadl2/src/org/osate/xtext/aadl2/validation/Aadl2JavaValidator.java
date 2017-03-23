@@ -5319,90 +5319,75 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	private void checkConnectionDirection(Connection connection) {
 		ConnectionEnd source = connection.getAllLastSource();
 		ConnectionEnd destination = connection.getAllLastDestination();
-		if (source instanceof ConnectionEnd && destination instanceof ConnectionEnd) {
-			DirectionType srcDirection = DirectionType.IN_OUT;
-			DirectionType dstDirection = DirectionType.IN_OUT;
-			if (source instanceof DirectedFeature) {
-				srcDirection = ((DirectedFeature) source).getDirection();
+		DirectionType srcDirection = DirectionType.IN_OUT;
+		DirectionType dstDirection = DirectionType.IN_OUT;
+		if (source instanceof DirectedFeature) {
+			srcDirection = ((DirectedFeature) source).getDirection();
+		}
+		if (destination instanceof DirectedFeature) {
+			dstDirection = ((DirectedFeature) destination).getDirection();
+		}
+		if (source instanceof DataSubcomponent || source instanceof DataAccess) {
+			// TODO check access right to limit to in or out
+		}
+		if (destination instanceof DataSubcomponent || destination instanceof DataAccess) {
+			// TODO check access right to limit to in or out
+		}
+		Context srcContext = connection.getAllSourceContext();
+		Context dstContext = connection.getAllDestinationContext();
+		
+		if (isInvertNeeded(connection.getRootConnection().getSource())) {
+			srcDirection = srcDirection.getInverseDirection();
+		}
+		
+		if (isInvertNeeded(connection.getRootConnection().getDestination())) {
+			dstDirection = dstDirection.getInverseDirection();
+		}
+		
+		checkThroughConnection(connection);
+		if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
+				// between ports of subcomponents
+				|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
+				// from a data subcomponent to a port
+				|| (dstContext == null && destination instanceof DataSubcomponent
+						&& srcContext instanceof Subcomponent)
+		// from a data subcomponent to a port
+		) {
+			if (!(srcDirection.outgoing() && dstDirection.incoming())) {
+				error(connection, "Source must be outgoing and destination incoming.");
 			}
-			if (destination instanceof DirectedFeature) {
-				dstDirection = ((DirectedFeature) destination).getDirection();
+		} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)
+				|| (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
+			// going up or down hierarchy
+			if (!sameDirection(srcDirection, dstDirection)) {
+				error(connection, "Source feature '" + source.getName() + "' and destination feature '"
+						+ destination.getName() + "' must have same direction.");
 			}
-			if (source instanceof DataSubcomponent || source instanceof DataAccess) {
-				// TODO check access right to limit to in or out
-			}
-			if (destination instanceof DataSubcomponent || destination instanceof DataAccess) {
-				// TODO check access right to limit to in or out
-			}
-			Context srcContext = connection.getAllSourceContext();
-			Context dstContext = connection.getAllDestinationContext();
-			if (srcContext instanceof FeatureGroup) {
-				if (((FeatureGroup) srcContext).isInverse()) {
-					srcDirection = srcDirection.getInverseDirection();
+			if ((srcContext instanceof Subcomponent) || (srcContext instanceof SubprogramCall)) {
+				if (!(srcDirection.outgoing())) {
+					error("Outgoing connection requires outgoing feature '" + srcContext.getName() + "."
+							+ source.getName() + "'.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
 				}
-				FeatureGroupType srcFGT = getFGTforPrototype(((FeatureGroup) srcContext).getFeatureType());
-				FeatureGroupType contsrcFGT = (FeatureGroupType) ((Feature) source).getContainingClassifier();
-				if (srcFGT != contsrcFGT && !Aadl2Util.isNull(srcFGT) && srcFGT.getInverse() != null) {
-					// feature group type has inverse and feature is defined in
-					// the inverse FGT
-					srcDirection = srcDirection.getInverseDirection();
+				if (!(dstDirection.outgoing())) {
+					error("Outgoing connection requires outgoing feature '" + destination.getName() + "'.",
+							connection, Aadl2Package.eINSTANCE.getConnection_Destination());
 				}
 			}
-			if (dstContext instanceof FeatureGroup) {
-				if (((FeatureGroup) dstContext).isInverse()) {
-					dstDirection = dstDirection.getInverseDirection();
+			if ((dstContext instanceof Subcomponent) || (dstContext instanceof SubprogramCall)) {
+				if (!(dstDirection.incoming())) {
+					error("Incoming connection requires incoming feature '" + dstContext.getName() + "."
+							+ destination.getName() + "'.", connection,
+							Aadl2Package.eINSTANCE.getConnection_Destination());
 				}
-				FeatureGroupType dstFGT = getFGTforPrototype(((FeatureGroup) dstContext).getFeatureType());
-				FeatureGroupType contdstFGT = (FeatureGroupType) ((Feature) destination).getContainingClassifier();
-				if (dstFGT != contdstFGT && !Aadl2Util.isNull(dstFGT) && dstFGT.getInverse() != null) {
-					dstDirection = dstDirection.getInverseDirection();
+				if (!(srcDirection.incoming())) {
+					error("Incoming connection requires incoming feature '" + source.getName() + "'.", connection,
+							Aadl2Package.eINSTANCE.getConnection_Source());
 				}
 			}
-			checkThroughConnection(connection);
-			if ((srcContext instanceof Subcomponent && dstContext instanceof Subcomponent)
-					// between ports of subcomponents
-					|| (srcContext == null && source instanceof DataSubcomponent && dstContext instanceof Subcomponent)
-					// from a data subcomponent to a port
-					|| (dstContext == null && destination instanceof DataSubcomponent
-							&& srcContext instanceof Subcomponent)
-			// from a data subcomponent to a port
-			) {
-				if (!(srcDirection.outgoing() && dstDirection.incoming())) {
-					error(connection, "Source must be outgoing and destination incoming.");
-				}
-			} else if ((srcContext instanceof Subcomponent || dstContext instanceof Subcomponent)
-					|| (srcContext instanceof SubprogramCall || dstContext instanceof SubprogramCall)) {
-				// going up or down hierarchy
-				if (!sameDirection(srcDirection, dstDirection)) {
-					error(connection, "Source feature '" + source.getName() + "' and destination feature '"
-							+ destination.getName() + "' must have same direction.");
-				}
-				if ((srcContext instanceof Subcomponent) || (srcContext instanceof SubprogramCall)) {
-					if (!(srcDirection.outgoing())) {
-						error("Outgoing connection requires outgoing feature '" + srcContext.getName() + "."
-								+ source.getName() + "'.", connection, Aadl2Package.eINSTANCE.getConnection_Source());
-					}
-					if (!(dstDirection.outgoing())) {
-						error("Outgoing connection requires outgoing feature '" + destination.getName() + "'.",
-								connection, Aadl2Package.eINSTANCE.getConnection_Destination());
-					}
-				}
-				if ((dstContext instanceof Subcomponent) || (dstContext instanceof SubprogramCall)) {
-					if (!(dstDirection.incoming())) {
-						error("Incoming connection requires incoming feature '" + dstContext.getName() + "."
-								+ destination.getName() + "'.", connection,
-								Aadl2Package.eINSTANCE.getConnection_Destination());
-					}
-					if (!(srcDirection.incoming())) {
-						error("Incoming connection requires incoming feature '" + source.getName() + "'.", connection,
-								Aadl2Package.eINSTANCE.getConnection_Source());
-					}
-				}
-			} else if (source instanceof InternalFeature || destination instanceof InternalFeature) {
-				// internal event or event data port. One is acceptable, but not both.
-				if (source instanceof InternalFeature && destination instanceof InternalFeature) {
-					error(connection, "Cannot connect two internal features of the containing component.");
-				}
+		} else if (source instanceof InternalFeature || destination instanceof InternalFeature) {
+			// internal event or event data port. One is acceptable, but not both.
+			if (source instanceof InternalFeature && destination instanceof InternalFeature) {
+				error(connection, "Cannot connect two internal features of the containing component.");
 			}
 		}
 	}
