@@ -12,7 +12,6 @@ Export-Package: org.osate.aadl2.instance.provider,
  org.osate.aadl2.provider
 Require-Bundle: org.osate.aadl2;visibility:=reexport,
  org.eclipse.emf.edit;visibility:=reexport,
- org.osate.aadl2.edit;visibility:=reexport,
  org.eclipse.emf.ecore;visibility:=reexport,
  org.eclipse.emf.ecore.edit;visibility:=reexport,
  org.eclipse.uml2.uml;visibility:=reexport,
