@@ -19,6 +19,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.eclipse.emf.common.util.EList;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -52,6 +53,8 @@ class ConnectionInfo {
 	boolean complete = false;
 	private boolean across = false;
 	Connection acrossConnection;
+	ConnectedElement srcToMatch;
+	ConnectedElement dstToMatch;
 	ComponentInstance container;
 
 	private ConnectionInfo(final ConnectionInfo info) {
@@ -66,6 +69,8 @@ class ConnectionInfo {
 		complete = info.complete;
 		across = info.across;
 		acrossConnection = info.acrossConnection;
+		srcToMatch = info.srcToMatch;
+		dstToMatch = info.dstToMatch;
 		container = info.container;
 	}
 
@@ -103,7 +108,7 @@ class ConnectionInfo {
 	 *         instance
 	 */
 	public boolean addSegment(final Connection newSeg, final ConnectionInstanceEnd srcFi,
-			final ConnectionInstanceEnd dstFi, final ComponentInstance ci, boolean opposite) {
+			final ConnectionInstanceEnd dstFi, final ComponentInstance ci, boolean opposite, boolean[] keep) {
 		boolean valid = true;
 		final Context srcCtx = opposite ? newSeg.getAllDestinationContext() : newSeg.getAllSourceContext();
 		final Context dstCtx = opposite ? newSeg.getAllSourceContext() : newSeg.getAllDestinationContext();
@@ -114,6 +119,7 @@ class ConnectionInfo {
 		final boolean goingDown = !(srcCtx instanceof Subcomponent)
 				&& (dest instanceof Subcomponent || dstCtx instanceof Subcomponent);
 		// TODO can we do these checks on the instance information
+		keep[0] = true;
 
 		if (srcFi != null) {
 			sources.add(srcFi);
@@ -146,10 +152,33 @@ class ConnectionInfo {
 				}
 			}
 		}
-		if (newSeg.isAcross()) {
-			across = true;
-			acrossConnection = newSeg;
-			container = ci;
+		if (valid) {
+			// handle reaching into feature groups in across connection
+			if (newSeg.isAcross()) {
+				// segment goes across
+				int i = connections.size();
+				Connection root = newSeg.getRootConnection();
+				srcToMatch = opposite ? root.getDestination() : root.getSource();
+				srcToMatch = srcToMatch.getNext();
+				while (keep[0] && i > 0 && srcToMatch != null) {
+					i -= 1;
+					Connection c = connections.get(i);
+					ConnectionEnd e = opposites.get(i) ? c.getAllSource() : c.getAllDestination();
+					ConnectionEnd cce = srcToMatch.getConnectionEnd();
+					srcToMatch = srcToMatch.getNext();
+					keep[0] = cce == e;
+				}
+				across = true;
+				acrossConnection = newSeg;
+				dstToMatch = opposite ? root.getSource() : root.getDestination();
+				dstToMatch = dstToMatch.getNext();
+				container = ci;
+			} else if (across && dstToMatch != null) {
+				ConnectionEnd e = opposite ? newSeg.getAllDestination() : newSeg.getAllSource();
+				ConnectionEnd cce = dstToMatch.getConnectionEnd();
+				dstToMatch = dstToMatch.getNext();
+				keep[0] = cce == e;
+			}
 		}
 		connections.add(newSeg);
 		opposites.add(opposite);

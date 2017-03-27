@@ -431,7 +431,8 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 				if (fromFi != null) {
 					if (!upFeature.empty()) {
 						FeatureInstance popfi = upFeature.peek();
-						if (!Aadl2InstanceUtil.isSame(popfi, (FeatureInstance) fromFi)) {
+						// match against stack only if we don't reach deeper into feature group
+						if (connInfo.dstToMatch == null && !Aadl2InstanceUtil.isSame(popfi, (FeatureInstance) fromFi)) {
 							// did not match
 							return;
 						} else {
@@ -472,7 +473,12 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 			toFi = ci.findSubcomponentInstance((Subcomponent) toEnd);
 		}
 
-		if (!connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite)) {
+		boolean[] keep = { false };
+		boolean valid = connInfo.addSegment(newSegment, fromFi, toFi, ci, goOpposite, keep);
+		if (!keep[0]) {
+			return;
+		}
+		if (!valid) {
 			if (toFi == null) {
 				error(ci, "Connection from " + connInfo.src.getInstanceObjectPath() + " via "
 						+ newSegment.getQualifiedName() + " has no valid direction. Connection instance not created.");
@@ -485,7 +491,9 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		// first check if the connection must end with the new segment
 
-		if (toEnd instanceof Subcomponent) {
+		if (toEnd instanceof Subcomponent)
+
+		{
 			// connection ends at a shared data, bus, or subprogram (group)
 			connInfo.complete = true;
 			finalizeConnectionInstance(ci.getSystemInstance(), connInfo,
