@@ -77,6 +77,10 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		this.modifiesBusinessObjects = cmd.getClass().getAnnotation(ModifiesBusinessObjects.class) != null;
 	}
 
+	public Object getCommand() {
+		return cmd;
+	}
+	
 	@Override
     public String getName() {
 		final IEclipseContext eclipseContext = extService.createChildContext();

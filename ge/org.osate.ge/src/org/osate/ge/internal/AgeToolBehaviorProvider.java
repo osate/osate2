@@ -33,8 +33,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
-
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
@@ -56,10 +54,9 @@ import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Generalization;
-import org.osate.ge.internal.features.DrillDownFeature;
-import org.osate.ge.internal.features.GraphicalToTextualFeature;
+import org.osate.ge.internal.commands.GraphicalToTextualCommand;
 import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
-import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
@@ -104,10 +101,6 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		return super.equalsBusinessObjects(o1, o2);
 	}
 	
-	private IEclipseContext getContext() {
-		return context;
-	}	
-	
 	/**
 	 * This is how we provide objects in the context to the editor.
 	 */
@@ -127,11 +120,6 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
-	    final ICustomFeature customFeature = ContextInjectionFactory.make(DrillDownFeature.class, getContext());
-	    if(customFeature.canExecute(context)) {
-	        return customFeature;
-	    }
-	    
 	    return defaultDoubleClickFeature;
 	 }
 	
@@ -160,11 +148,17 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
 		//Use hint to verify command should be executed
-		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){
-			final ICustomFeature customFeature = ContextInjectionFactory.make(GraphicalToTextualFeature.class, getContext());
-			if(customFeature.canExecute(context)){	
-				return customFeature;
-			}
+		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){		
+			for(final ICustomFeature customFeature : getFeatureProvider().getCustomFeatures(context)) {
+				if(customFeature instanceof CommandCustomFeature) {
+					if(((CommandCustomFeature) customFeature).getCommand() instanceof GraphicalToTextualCommand) {
+						if(customFeature.canExecute(context)){	
+							return customFeature;
+						}
+						break;
+					}
+				}
+			}			
 		}
 		return super.getCommandFeature(context, hint);
 	}

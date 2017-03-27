@@ -36,7 +36,6 @@ import java.util.Objects;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddBendpointFeature;
@@ -74,63 +73,25 @@ import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
 import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
-import org.eclipse.graphiti.mm.algorithms.styles.Point;
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
-import org.osate.aadl2.AccessType;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.Element;
-import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramLayoutUtil;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.features.ChangeFeatureTypeFeature;
-import org.osate.ge.internal.features.ChangeSubcomponentTypeFeature;
-import org.osate.ge.internal.features.ComponentImplementationToTypeFeature;
-import org.osate.ge.internal.features.GoToPackageDiagramFeature;
-import org.osate.ge.internal.features.ConfigureInModesFeature;
-import org.osate.ge.internal.features.DrillDownFeature;
-import org.osate.ge.internal.features.GraphicalToTextualFeature;
-import org.osate.ge.internal.features.InstantiateComponentImplementationFeature;
-import org.osate.ge.internal.features.SwitchDirectionOfConnectionFeature;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerAddFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
+import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.features.AgeFeatureUtil;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
-import org.osate.ge.internal.query.AncestorUtil;
-import org.osate.ge.internal.features.SetDerivedModesFeature;
-import org.osate.ge.internal.features.SetDimensionsFeature;
-import org.osate.ge.internal.features.SetInitialModeFeature;
-import org.osate.ge.internal.features.SetModeTransitionTriggersFeature;
-import org.osate.ge.internal.features.EditFlowsFeature;
-import org.osate.ge.internal.features.MoveSubprogramCallDownFeature;
-import org.osate.ge.internal.features.MoveSubprogramCallUpFeature;
-import org.osate.ge.internal.features.RefineConnectionFeature;
-import org.osate.ge.internal.features.RefineSubcomponentFeature;
-import org.osate.ge.internal.features.SetConnectionBidirectionalityFeature;
-import org.osate.ge.internal.features.SetSubcomponentClassifierFeature;
-import org.osate.ge.internal.features.PackageSetExtendedClassifierFeature;
-import org.osate.ge.internal.features.RefineFeatureFeature;
-import org.osate.ge.internal.features.RefineFlowSpecificationFeature;
-import org.osate.ge.internal.features.SetAccessFeatureKindFeature;
-import org.osate.ge.internal.features.SetFeatureDirectionFeature;
-import org.osate.ge.internal.features.SetFeatureGroupInverseFeature;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
@@ -142,9 +103,6 @@ import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.services.impl.ReferenceEncoder;
-import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.SubcomponentUtil;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private static final String KEY_BUSINESS_OBJECT = "bo"; // TODO: Rename?
@@ -200,11 +158,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		}
 		
 		super.dispose();
-	}
-	
-
-	private IEclipseContext getContext() {
-		return eclipseContext;
 	}
 	
 	/**
@@ -283,97 +236,11 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(LayoutDiagramFeature.class));
-		features.add(make(DrillDownFeature.class));
 		features.add(make(SelectAncestorFeature.class));
-		features.add(make(ComponentImplementationToTypeFeature.class));
-		features.add(make(GoToPackageDiagramFeature.class));
-		features.add(make(GraphicalToTextualFeature.class));
-		features.add(make(InstantiateComponentImplementationFeature.class));
-		features.add(make(SwitchDirectionOfConnectionFeature.class));
-		features.add(make(ConfigureInModesFeature.class));
-		features.add(createSetInitialModeFeature(true));
-		features.add(createSetInitialModeFeature(false));
-		features.add(createSetDerivedModesFeature(true));
-		features.add(createSetDerivedModesFeature(false));
-		features.add(make(SetModeTransitionTriggersFeature.class));		
-	//	features.add(make(SetFeatureClassifierFeature.class));
-		features.add(make(SetDimensionsFeature.class));
-		
-		for(final EClass featureType : AadlFeatureUtil.getFeatureTypes()) {
-			final IEclipseContext childCtx = getContext().createChild();
-			try {
-				try {
-					childCtx.set("Feature Type", featureType);
-					features.add(ContextInjectionFactory.make(ChangeFeatureTypeFeature.class, childCtx));
-				} finally {
-					childCtx.dispose();
-				}
-			} finally {
-				childCtx.dispose();
-			}
-		}
-		
-		// Component Implementation
-		features.add(make(EditFlowsFeature.class));
-		features.add(make(SetSubcomponentClassifierFeature.class));
-		features.add(make(RefineSubcomponentFeature.class));
-		features.add(make(RefineConnectionFeature.class));
-		
-		for(final EClass subcomponentType : SubcomponentUtil.getSubcomponentTypes()) {
-			final IEclipseContext childCtx = getContext().createChild();
-			try {
-				childCtx.set("Subcomponent Type", subcomponentType);
-				features.add(ContextInjectionFactory.make(ChangeSubcomponentTypeFeature.class, childCtx));	
-			} finally {
-				childCtx.dispose();
-			}
-		}
-		
-		features.add(createSetConnectionBidirectionalityFeature(false));
-		features.add(createSetConnectionBidirectionalityFeature(true));
-		
-		// Package
-		features.add(make(PackageSetExtendedClassifierFeature.class));
-		
-		// Type
-		features.add(make(RefineFeatureFeature.class));
-		features.add(make(RefineFlowSpecificationFeature.class));
-		
-		features.add(createSetFeatureGroupInverseFeature(true));
-		features.add(createSetFeatureGroupInverseFeature(false));
-		features.add(createSetFeatureDirectionFeature(DirectionType.IN));
-		features.add(createSetFeatureDirectionFeature(DirectionType.OUT));
-		features.add(createSetFeatureDirectionFeature(DirectionType.IN_OUT));		
-		features.add(createSetFeatureKindFeature(AccessType.PROVIDES));
-		features.add(createSetFeatureKindFeature(AccessType.REQUIRES));
-		
-		// Subprogram Call
-		features.add(make(MoveSubprogramCallUpFeature.class));
-		features.add(make(MoveSubprogramCallDownFeature.class));
-		
+
 		// Commands
 		for(final Object cmd : extService.getCommands()) {
 			features.add(new CommandCustomFeature(cmd, extService, bor, aadlModService, graphitiAgeDiagramProvider, this)); 		
-		}
-	}
-	
-	private ICustomFeature createSetInitialModeFeature(final Boolean isInitial) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Is Initial", isInitial);
-			return ContextInjectionFactory.make(SetInitialModeFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
-	private ICustomFeature createSetDerivedModesFeature(final Boolean derivedModes) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Derived Modes", derivedModes);
-			return ContextInjectionFactory.make(SetDerivedModesFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
 		}
 	}
 	
@@ -524,50 +391,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return removeBendpointFeature;
 	}
 
-	private ICustomFeature createSetConnectionBidirectionalityFeature(final Boolean bidirectionalityValue) {
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Value", bidirectionalityValue);
-			return ContextInjectionFactory.make(SetConnectionBidirectionalityFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
-	// Type
-	private SetFeatureDirectionFeature createSetFeatureDirectionFeature(final DirectionType dirType) 
-	{
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Direction", dirType);
-			return ContextInjectionFactory.make(SetFeatureDirectionFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
-	private SetFeatureGroupInverseFeature createSetFeatureGroupInverseFeature(final boolean inverse) 
-	{
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Inverse", inverse);
-			return ContextInjectionFactory.make(SetFeatureGroupInverseFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
-	private SetAccessFeatureKindFeature createSetFeatureKindFeature(final AccessType accType) 
-	{
-		final IEclipseContext childCtx = getContext().createChild();
-		try {
-			childCtx.set("Access", accType);
-			return ContextInjectionFactory.make(SetAccessFeatureKindFeature.class, childCtx);
-		} finally {
-			childCtx.dispose();
-		}
-	}
-	
 	private IEclipseContext createGetPaletteEntriesContext() {
 		final Object diagramBo = getDiagramBusinessObject();
 		final IEclipseContext childCtx = extService.createChildContext();

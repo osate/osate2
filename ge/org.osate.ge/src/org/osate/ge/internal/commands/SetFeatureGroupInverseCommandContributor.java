@@ -5,12 +5,12 @@ import java.util.Collection;
 
 import org.osate.ge.di.Activate;
 
-public class SetInitialModeCommandContributor {
+public class SetFeatureGroupInverseCommandContributor {
 	@Activate
 	public Collection<Object> activate() {
 		final Collection<Object> contributedCommands = new ArrayList<>();
-		contributedCommands.add(new SetInitialModeCommand(true));
-		contributedCommands.add(new SetInitialModeCommand(false)); 
+		contributedCommands.add(new SetFeatureGroupInverseCommand(true));
+		contributedCommands.add(new SetFeatureGroupInverseCommand(false));
 		return contributedCommands;
 	}
 }

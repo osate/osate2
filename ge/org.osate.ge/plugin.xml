@@ -249,25 +249,6 @@
 </extension>
      
  <extension
-      point="org.eclipse.ui.views.properties.tabbed.propertySections">
-    <propertySections
-          contributorId="org.osate.ge.editor.AgeDiagramEditor">
-        <propertySection
-              class="org.osate.ge.internal.ui.properties.BindingsSection"
-              filter="org.osate.ge.internal.ui.properties.BindingsFilter"
-              id="graphiti.main.tab.emfclass"
-              tab="org.osate.ge.bindings">
-        </propertySection>
-        <propertySection
-              class="org.osate.ge.internal.ui.properties.ConnectionsSection"
-              filter="org.osate.ge.internal.ui.properties.ConnectionsFilter"
-              id="graphiti.main.tab.emfclass"
-              tab="org.osate.ge.connections">
-        </propertySection>
-    </propertySections>
- </extension>
-
- <extension
        point="org.eclipse.core.expressions.definitions">
     <definition
           id="oneElementSelected">
@@ -817,11 +798,80 @@
     </extension>
     <extension
           point="org.osate.ge.commands">
-       <command
-             class="org.osate.ge.internal.commands.SetFeatureClassifierCommand">
-       </command>
        <commandContributor
              class="org.osate.ge.internal.commands.SetInitialModeCommandContributor">
        </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.ComponentImplementationToTypeCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.GoToPackageDiagramCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.GraphicalToTextualCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SetFeatureClassifierCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.InstantiateComponentImplementationCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SwitchDirectionOfConnectionCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.ConfigureInModesCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SetDimensionsCommand">
+       </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetDerivedModesCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.SetModeTransitionTriggersCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.EditFlowsCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SetSubcomponentClassifierCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.RefineSubcomponentCommand">
+       </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetConnectionBidirectionalityCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.MoveSubprogramCallUpCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.MoveSubprogramCallDownCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.PackageSetExtendedClassifierCommand">
+       </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.ChangeFeatureTypeCommandContributor">
+       </commandContributor>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetFeatureGroupInverseCommandContributor">
+       </commandContributor>
+        <commandContributor
+             class="org.osate.ge.internal.commands.SetFeatureKindCommandContributor">
+       </commandContributor>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetFeatureDirectionCommandContributor">
+       </commandContributor>
+       <commandContributor
+             class="org.osate.ge.internal.commands.ChangeSubcomponentTypeCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.RefineFeatureCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.RefineFlowSpecificationCommand">
+       </command>
     </extension>
 </plugin>
