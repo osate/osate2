@@ -1,7 +1,7 @@
 package org.osate.ge.internal.query;
 
 import java.util.Deque;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 
 class AncestorQuery<A> extends AgeDiagramElementQuery<A> {
 	private final int depth;
@@ -16,8 +16,8 @@ class AncestorQuery<A> extends AgeDiagramElementQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		DiagramElementContainer e = ctx;
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		DiagramNode e = ctx;
 		for(int i = 0; i < depth && ctx != null; i++) {
 			e = AncestorUtil.getContainer(e);
 		}

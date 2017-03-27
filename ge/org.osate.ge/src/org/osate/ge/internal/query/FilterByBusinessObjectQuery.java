@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.Objects;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.Supplier;
 
 class FilterByBusinessObjectQuery<A> extends AgeDiagramElementQuery<A> {
@@ -17,7 +17,7 @@ class FilterByBusinessObjectQuery<A> extends AgeDiagramElementQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {

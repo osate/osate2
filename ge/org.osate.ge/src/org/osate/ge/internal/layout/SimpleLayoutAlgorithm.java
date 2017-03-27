@@ -117,7 +117,6 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 		
 		// Take into account labels
 		final int minStartRight = nextX + maxLockedNonEdgeSize[0];
-		
 		final long targetHeight = Math.max(Math.max(maxLeftHeight, maxRightHeight), Math.max(avgNonEdgeHeight*targetNumberOfRows, maxNonEdgeHeight));
 		
 		// Position Non-edge Shapes into a Grid
@@ -164,7 +163,7 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 			
 			nextY += shape.getHeight() + minYSpacing;
 		}
-
+		
 		// Clear reused data structures
 		freeEdgeShapes.clear();
 		freeNonEdgeShapes.clear();

@@ -1,7 +1,6 @@
 package org.osate.ge.tests;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import java.awt.Point;
 import java.util.EnumSet;
 import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
@@ -17,6 +16,7 @@ import org.osate.ge.internal.diagram.ElementAddedEvent;
 import org.osate.ge.internal.diagram.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.ModificationsCompletedEvent;
+import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 
@@ -79,7 +79,7 @@ public class AgeDiagramTests {
 	@Test
 	public void testElementAddedEvent() {
 		// Test an add event
-		final AgeDiagramElement newElement = new AgeDiagramElement(diagram, 1, new RelativeBusinessObjectReference("1"), new CanonicalBusinessObjectReference("1"));
+		final AgeDiagramElement newElement = new AgeDiagramElement(diagram, 1, new RelativeBusinessObjectReference("1"), new CanonicalBusinessObjectReference("1"), "1");
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
@@ -150,7 +150,7 @@ public class AgeDiagramTests {
 	}
 	
 	private AgeDiagramElement addRootElementAndResetCounter(final int id) {
-		final AgeDiagramElement newElement = new AgeDiagramElement(diagram, id, new RelativeBusinessObjectReference(Integer.toString(id)), new CanonicalBusinessObjectReference(Integer.toString(id)));
+		final AgeDiagramElement newElement = new AgeDiagramElement(diagram, id, new RelativeBusinessObjectReference(Integer.toString(id)), new CanonicalBusinessObjectReference(Integer.toString(id)), Integer.toString(id));
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {

@@ -501,8 +501,6 @@ public class AgeGraphitiGraphicsUtil {
 		modeGa.setWidth(requestedWidth);
 		modeGa.setHeight(requestedHeight);
 
-		
-		
 		if(mg.isInitialMode) {
 			// Create ellipse for the initial mode indicator
 			final GraphicsAlgorithm initialModeEllipse = gaService.createEllipse(ga);
@@ -564,6 +562,7 @@ public class AgeGraphitiGraphicsUtil {
 
 		switch(featureGraphic.featureType) {
 		case ABSTRACT:
+		case PORT_PROXY:
 			return createAbstractFeatureGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction);
 
 		case BUS_ACCESS:
@@ -574,12 +573,15 @@ public class AgeGraphitiGraphicsUtil {
 			return createPortGraphicsAlgorithm(diagram,  containerGa, true, false, featureGraphic.direction);
 			
 		case EVENT_DATA_PORT:
+		case EVENT_DATA_SOURCE:
 			return createPortGraphicsAlgorithm(diagram,  containerGa, true, true, featureGraphic.direction);
 
 		case EVENT_PORT:
+		case EVENT_SOURCE:
 			return createPortGraphicsAlgorithm(diagram,  containerGa, false, true, featureGraphic.direction);			
 
 		case SUBPROGRAM_ACCESS:
+		case SUBPROGRAM_PROXY:
 			return createSubprogramAccessGraphicsAlgorithm(diagram, containerGa, featureGraphic.direction, false);
 			
 		case SUBPROGRAM_GROUP_ACCESS:

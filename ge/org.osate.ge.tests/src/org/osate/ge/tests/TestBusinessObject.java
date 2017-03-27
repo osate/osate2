@@ -1,11 +1,11 @@
 package org.osate.ge.tests;
 
-import java.awt.Point;
-
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
 // Class used for test business objects. Allowed to contain children or have a value specified but not both.
 public class TestBusinessObject {
@@ -15,6 +15,7 @@ public class TestBusinessObject {
 	public RelativeBusinessObjectReference connectionStartReference; // Reference to sibling which is the start of the connection
 	public RelativeBusinessObjectReference connectionEndReference; // Reference to sibling which is the end of the connection
 	public DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
+	public AgeLabelConfiguration labelConfiguration;
 	
 	public TestBusinessObject(final int value) {
 		this.value = value;

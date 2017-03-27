@@ -39,8 +39,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
  *
  */
 public interface ShapeService {
-	List<Shape> getNonGhostChildren(ContainerShape shape);
-	
 	/**
 	 * Gets a child shape tied to a particular business object. The business object comparison is done using serializable references
 	 * Note: This method will return ghosted children.

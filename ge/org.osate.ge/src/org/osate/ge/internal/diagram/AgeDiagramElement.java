@@ -1,69 +1,75 @@
 package org.osate.ge.internal.diagram;
 
-import java.awt.Dimension;
-import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
-public class AgeDiagramElement implements DiagramElementContainer, ModifiableDiagramElementContainer, DiagramElement {
-	private final DiagramElementContainer container;
+public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementContainer, DiagramElement {	
+	private final DiagramNode container;
 
 	private Object bo;
 	private final RelativeBusinessObjectReference boRelReference;
 	private final CanonicalBusinessObjectReference boCanonicalReference;
 	private final DiagramElementCollection children = new DiagramElementCollection();
+	private final String name;
 	private Graphic graphic; // Required after initialization.
 	
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
 	private Dimension size; // Optional
 	private DockArea dockArea; // Optional
+	private AgeLabelConfiguration labelConfiguration;
 	
 	// Connection Specific
 	private AgeDiagramElement connectionStartElement;
 	private AgeDiagramElement connectionEndElement;
-	private List<Point> bendpoints; // Optional
+	private List<Point> bendpoints; // Optional. Diagram coordinate system.
 
-	public AgeDiagramElement(final DiagramElementContainer container,
+	public AgeDiagramElement(final DiagramNode container,
 			final Object bo, 
 			final RelativeBusinessObjectReference boRelReference,
-			final CanonicalBusinessObjectReference boCanonicalReference) {
+			final CanonicalBusinessObjectReference boCanonicalReference,
+			final String name) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
 		this.boCanonicalReference = Objects.requireNonNull(boCanonicalReference, "boCanonicalReference must not be null");
+		this.name = name;
 	}
 
-	public DiagramElementContainer getContainer() {
+	public final DiagramNode getContainer() {
 		return container;
 	}
 	
-	public ModifiableDiagramElementContainer getModifiableContainer() {
+	public final ModifiableDiagramElementContainer getModifiableContainer() {
 		return (ModifiableDiagramElementContainer)container;
 	}
 	
 	@Override
-	public Collection<AgeDiagramElement> getDiagramElements() {
+	public final Collection<AgeDiagramElement> getDiagramElements() {
 		return Collections.unmodifiableCollection(children);
 	}
 	
 	@Override
-	public DiagramElementCollection getModifiableDiagramElements() {
+	public final DiagramElementCollection getModifiableDiagramElements() {
 		return children;
 	}
 	
 	@Override
-	public AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+	public final AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return children.getByRelativeReference(ref);
 	}
 	
-	public Object getBusinessObject() {
+	public final Object getBusinessObject() {
 		return bo;
 	}
 	
@@ -71,31 +77,93 @@ public class AgeDiagramElement implements DiagramElementContainer, ModifiableDia
 		this.bo = Objects.requireNonNull(value, "value must not be null");
 	}
 	
-	public RelativeBusinessObjectReference getRelativeReference() {
+	public final RelativeBusinessObjectReference getRelativeReference() {
 		return boRelReference;
 	}
 	
-	public CanonicalBusinessObjectReference getCanonicalReference() {
+	public final CanonicalBusinessObjectReference getCanonicalReference() {
 		return boCanonicalReference;
 	}
 	
-	public Point getPosition() {
+	public final String getName() {
+		return name;
+	}
+	
+	public final boolean hasPosition() {
+		return position != null;
+	}	
+	
+	/**
+	 * 
+	 * @return copy of the element's position or null.
+	 */
+	public final Point getPosition() {
 		return position;
 	}
 	
-	final void setPosition(final Point value) {
-		this.position = value == null ? null : new Point(value);
+	/**
+	 * 
+	 * @return 0 if the element does not have a position
+	 */
+	public final int getX() {
+		return position == null ? 0 : position.x;
 	}
 	
-	public Dimension getSize() {
+	/**
+	 * 
+	 * @return 0 if the element does not have a position
+	 */
+	public final int getY() {
+		return position == null ? 0 : position.y;
+	}
+	
+	final void setPosition(final Point value) {
+		this.position = value;
+	}
+	
+	public boolean hasSize() {
+		return size != null;
+	}
+	
+	/**
+	 * 
+	 * @return copy of the element's size or null.
+	 */
+	public final Dimension getSize() {
 		return size;
 	}
 	
-	final void setSize(final Dimension value) {
-		this.size = size == null ? null : new Dimension(value);
+	/**
+	 * 
+	 * @return 0 if the element does not have a size
+	 */
+	public final int getWidth() {
+		return size == null ? 0 : size.width;
 	}
 	
-	public Graphic getGraphic() {
+	/**
+	 * 
+	 * @return 0 if the element does not have a size
+	 */
+	public final int getHeight() {
+		return size == null ? 0 : size.height;
+	}
+		
+	final void setSize(final Dimension value) {
+		this.size = value;
+	}
+	
+	/**
+	 * Intended for internal use by platform specific code in order to update the element's size to reflect the actual size after layout.
+	 * Using this method prevents notifications from being sent.
+	 * @param width
+	 * @param height
+	 */
+	public final void setSizeInternal(final int width, final int height) {
+		this.size = new Dimension(width, height);
+	}
+	
+	public final Graphic getGraphic() {
 		return graphic;
 	}
 	
@@ -103,7 +171,7 @@ public class AgeDiagramElement implements DiagramElementContainer, ModifiableDia
 		this.graphic = Objects.requireNonNull(value, "value must not be null");
 	}
 	
-	public DockArea getDockArea() {
+	public final DockArea getDockArea() {
 		return dockArea;
 	}
 	
@@ -111,7 +179,15 @@ public class AgeDiagramElement implements DiagramElementContainer, ModifiableDia
 		this.dockArea = value;
 	}
 
-	public AgeDiagramElement getStartElement() {
+	public final AgeLabelConfiguration getLabelConfiguration() {
+		return labelConfiguration;
+	}
+	
+	final void setLabelConfiguration(final AgeLabelConfiguration value) {
+		this.labelConfiguration = value;
+	}
+
+	public final AgeDiagramElement getStartElement() {
 		return connectionStartElement;
 	}
 	
@@ -119,12 +195,25 @@ public class AgeDiagramElement implements DiagramElementContainer, ModifiableDia
 		this.connectionStartElement = value;
 	}
 	
-	public AgeDiagramElement getEndElement() {
+	public final AgeDiagramElement getEndElement() {
 		return connectionEndElement;
 	}
 	
 	final void setEndElement(final AgeDiagramElement value) {
 		this.connectionEndElement = value;
+	}
+	
+	/**
+	 * Returns an unmodifiable list of the element's bendpoints. The returned list is not guaranteed to be updated to reflect changes.
+	 * Bendpoints are specified in diagram coordinates rather than relative to the diagram element.
+	 * @return never returns null.
+	 */
+	public final List<Point> getBendpoints() {
+		return bendpoints == null ? Collections.emptyList() : Collections.unmodifiableList(bendpoints);
+	}
+	
+	public final void setBendpoints(final List<Point> value) {
+		bendpoints = value == null ? null : new ArrayList<>(value);
 	}
 	
 	@Override

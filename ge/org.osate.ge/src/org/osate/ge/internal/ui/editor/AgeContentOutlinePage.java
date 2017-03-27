@@ -59,7 +59,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
@@ -96,8 +96,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object[] getChildren(final Object parentElement) {
-				if(parentElement instanceof DiagramElementContainer) {
-					return ((DiagramElementContainer) parentElement).getDiagramElements().toArray();
+				if(parentElement instanceof DiagramNode) {
+					return ((DiagramNode) parentElement).getDiagramElements().toArray();
 				}
 
 				return new Object[0];
@@ -114,8 +114,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public boolean hasChildren(final Object element) {
-				if(element instanceof DiagramElementContainer) {
-					return ((DiagramElementContainer) element).getDiagramElements().size() > 0;
+				if(element instanceof DiagramNode) {
+					return ((DiagramNode) element).getDiagramElements().size() > 0;
 				}
 
 				return false;

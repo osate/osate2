@@ -3,7 +3,7 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.ge.query.Supplier;
 
@@ -12,7 +12,7 @@ class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
 	private final AgeDiagramElementQuery<A> trueQuery;
 	private final AgeDiagramElementQuery<A> falseQuery;
 	private final RootAgeDiagramElementQuery innerRootQuery = new RootAgeDiagramElementQuery(() -> this.innerRootValue);
-	private DiagramElementContainer innerRootValue;
+	private DiagramNode innerRootValue;
 	
 	@SuppressWarnings("unchecked")
 	public IfElseQuery(final AgeDiagramElementQuery<A> prev, 
@@ -28,7 +28,7 @@ class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
 	}
 
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		try {
 			this.innerRootValue = ctx;
 
@@ -39,7 +39,7 @@ class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
 				conditionArgs = new ExpressionArguments<>();
 				state.cache.put(this, conditionArgs);
 			}
-			conditionArgs.update(state, (DiagramElementContainer)ctx);
+			conditionArgs.update(state, (DiagramNode)ctx);
 			
 			// Evaluate the condition
 			final Boolean condResult = cond.get(conditionArgs);		
@@ -48,8 +48,8 @@ class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
 			// Process the results of the inner query.
 			// NOTE: Ideally this would be lazily evaluated instead of retrieving all the results. However, in the current use cases, only one result will be 
 			// returned by the inner query.
-			final List<DiagramElementContainer> diagramElementContainers = state.queryRunner.getResults(innerQuery, state.arg);
-			for(final DiagramElementContainer diagramElementContainer : diagramElementContainers) {
+			final List<DiagramNode> diagramElementContainers = state.queryRunner.getResults(innerQuery, state.arg);
+			for(final DiagramNode diagramElementContainer : diagramElementContainers) {
 				processResultValue(remainingQueries, diagramElementContainer, state, result);
 				
 				if(result.done) {

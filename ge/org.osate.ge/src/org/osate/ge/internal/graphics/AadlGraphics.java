@@ -69,15 +69,15 @@ public class AadlGraphics {
 		
 		// Configure the feature type
 		final Aadl2Package aadl2Pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
-		if(featureClass == aadl2Pkg.getAbstractFeature() || featureClass == aadl2Pkg.getPortProxy()) {
+		if(featureClass == aadl2Pkg.getAbstractFeature()) {
 			builder.abstractFeature();
-		} else if(featureClass == aadl2Pkg.getEventPort() || featureClass == aadl2Pkg.getEventSource()) {
+		} else if(featureClass == aadl2Pkg.getEventPort()) {
 			builder.eventPort();
 		} else if(featureClass == aadl2Pkg.getDataPort() || featureClass == aadl2Pkg.getParameter()) {
 			builder.dataPort();
-		} else if(featureClass == aadl2Pkg.getEventDataPort() || featureClass == aadl2Pkg.getEventDataSource()) {
+		} else if(featureClass == aadl2Pkg.getEventDataPort()) {
 			builder.eventDataPort();
-		} else if(featureClass == aadl2Pkg.getSubprogramAccess() || featureClass == aadl2Pkg.getSubprogramProxy()) {
+		} else if(featureClass == aadl2Pkg.getSubprogramAccess()) {
 			builder.subprogramAccess();
 		} else if(featureClass == aadl2Pkg.getSubprogramGroupAccess()) {
 			builder.subprogramGroupAccess();
@@ -87,6 +87,14 @@ public class AadlGraphics {
 			builder.busAccess();
 		} else if(featureClass == aadl2Pkg.getFeatureGroup()) {
 			builder.featureGroup();
+		} else if(featureClass == aadl2Pkg.getPortProxy()) {
+			builder.portProxy();
+		} else if(featureClass == aadl2Pkg.getEventSource()) {
+			builder.eventSource();
+		} else if(featureClass == aadl2Pkg.getEventDataSource()) {
+			builder.eventDataSource();
+		} else if(featureClass == aadl2Pkg.getSubprogramProxy()) {
+			builder.subprogramProxy();
 		} else {
 			return defaultGraphic;
 		}

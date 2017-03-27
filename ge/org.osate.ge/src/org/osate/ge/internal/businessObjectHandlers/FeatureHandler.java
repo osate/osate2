@@ -50,10 +50,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.annotations.Annotation;
-import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -75,8 +72,6 @@ import org.osate.ge.internal.util.StringUtil;
 public class FeatureHandler {
 	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first());
 	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
-	private final static Annotation processorFeatureAnnotation = AnnotationBuilder.create().text("<processor>").build();
-	private final static Annotation internalFeatureAnnotation = AnnotationBuilder.create().text("<internal>").build();
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -215,17 +210,6 @@ public class FeatureHandler {
 		
 		return direction;
 	}
-	
-	@GetAnnotations
-	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
-		if(feature instanceof ProcessorFeature) {
-			return new Annotation[] {processorFeatureAnnotation};
-		} else if(feature instanceof InternalFeature) {
-			return new Annotation[] {internalFeatureAnnotation};
-		}
-		
-		return null;
-	}	
 	
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final AadlArrayService arrayService) {

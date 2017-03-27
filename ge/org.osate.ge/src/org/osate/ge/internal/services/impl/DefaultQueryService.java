@@ -6,7 +6,6 @@ import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.query.StandaloneAgeDiagramElementQuery;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.QueryService;
@@ -14,8 +13,8 @@ import org.osate.ge.internal.services.QueryService;
 public class DefaultQueryService implements QueryService {
 	private final QueryRunner queryRunner;
 	
-	public DefaultQueryService(final PropertyService propertyService, final ConnectionService connectionService, final BusinessObjectResolutionService bor, final InternalReferenceBuilderService refBuilder) {
-		this.queryRunner = new QueryRunner(propertyService, connectionService, bor, refBuilder);
+	public DefaultQueryService(final PropertyService propertyService, final BusinessObjectResolutionService bor, final InternalReferenceBuilderService refBuilder) {
+		this.queryRunner = new QueryRunner(propertyService, bor, refBuilder);
 	}
 	
 	@Override

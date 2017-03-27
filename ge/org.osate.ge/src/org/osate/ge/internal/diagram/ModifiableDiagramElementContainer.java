@@ -1,5 +1,5 @@
 package org.osate.ge.internal.diagram;
 
-interface ModifiableDiagramElementContainer extends DiagramElementContainer {
+interface ModifiableDiagramElementContainer extends DiagramNode {
 	DiagramElementCollection getModifiableDiagramElements();
 }

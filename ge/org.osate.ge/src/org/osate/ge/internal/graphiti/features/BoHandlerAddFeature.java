@@ -13,13 +13,12 @@ import org.osate.ge.internal.services.ExtensionService;
 
 // IAddFeature implementation that delegates behavior to a business object handler
 public class BoHandlerAddFeature extends AbstractAddFeature implements ICustomUndoRedoFeature{
-	private final BoHandlerRefreshHelper refreshHelper;
 	private final Object handler;
 	
-	public BoHandlerAddFeature(final ExtensionService extService, final BoHandlerRefreshHelper refreshHelper, 
-			final IFeatureProvider fp, final Object boHandler) {
+	public BoHandlerAddFeature(final ExtensionService extService, 
+			final IFeatureProvider fp, 
+			final Object boHandler) {
 		super(fp);
-		this.refreshHelper = Objects.requireNonNull(refreshHelper, "refreshHelper must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 	}
 	
@@ -49,7 +48,9 @@ public class BoHandlerAddFeature extends AbstractAddFeature implements ICustomUn
 			dstAnchor = null;
 		}
 		
-		return refreshHelper.refresh(bo, handler, null, 0, 0, targetContainer, srcAnchor, dstAnchor);
+		//return refreshHelper.refresh(bo, handler, null, 0, 0, targetContainer, srcAnchor, dstAnchor);
+		//TODO: Migrate!
+		throw new RuntimeException("TODO: Migrate");
 	}
 	
 	// ICustomUndoRedoFeature

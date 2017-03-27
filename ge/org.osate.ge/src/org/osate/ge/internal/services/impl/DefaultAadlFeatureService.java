@@ -20,7 +20,7 @@ import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
@@ -116,7 +116,7 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	
 	@Override
 	public boolean isFeatureInverted(final AgeDiagramElement featureDiagramElement) {
-		final DiagramElementContainer container = featureDiagramElement.getContainer();
+		final DiagramNode container = featureDiagramElement.getContainer();
 		if(container instanceof AgeDiagramElement) {
 			return isFeatureInvertedByContainer((AgeDiagramElement)container);
 		}
@@ -128,7 +128,7 @@ public class DefaultAadlFeatureService implements AadlFeatureService {
 	public boolean isFeatureInvertedByContainer(final AgeDiagramElement parentFeatureDiagramElement) {
 		boolean isInverted = false;
 		
-		DiagramElementContainer container = parentFeatureDiagramElement;
+		DiagramNode container = parentFeatureDiagramElement;
 		while(container instanceof AgeDiagramElement) {
 			final AgeDiagramElement containerElement = (AgeDiagramElement)container;
 			final Object containerBo = containerElement.getBusinessObject();

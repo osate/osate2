@@ -2,7 +2,7 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.function.Predicate;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.ge.query.FilterArguments;
 import org.osate.ge.query.Supplier;
@@ -18,9 +18,9 @@ public abstract class AgeDiagramElementQuery<A> implements DiagramElementQuery<A
 		return prev;
 	}
 	
-	abstract void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result);
+	abstract void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result);
 	
-	protected void processResultValue(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer value, final QueryExecutionState<A> state, final QueryResult result) {
+	protected void processResultValue(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode value, final QueryExecutionState<A> state, final QueryResult result) {
 		if(remainingQueries.size() == 0) {
 			result.result.add(value);
 			return;

@@ -51,18 +51,6 @@ public class DefaultShapeService implements ShapeService {
 	}
 	
 	@Override
-	public List<Shape> getNonGhostChildren(final ContainerShape shape) {
-		final List<Shape> children = new ArrayList<Shape>();
-		for(final Shape child : shape.getChildren()) {
-			if(!propertyUtil.isGhost(child)) {
-				children.add(child);
-			}
-		}
-		
-		return children;
-	}
-	
-	@Override
 	public Shape getChildShapeByReference(final ContainerShape shape, final Object bo) {
 		// TODO: Consider using relative references
 		final String searchRef = refService.getAbsoluteReference(bo);
@@ -89,7 +77,7 @@ public class DefaultShapeService implements ShapeService {
 	 */
 	@Override
 	public Shape getChildShapeByName(final ContainerShape shape, final String name) {
-		for(final Shape child : getNonGhostChildren(shape)) {
+		for(final Shape child : shape.getChildren()) {
 			if(name.equals(propertyUtil.getName(child))) {
 				return child;
 			}
@@ -101,7 +89,7 @@ public class DefaultShapeService implements ShapeService {
 	@Override
 	public List<Shape> getChildShapesByName(ContainerShape shape, String name) {
 		final List<Shape> results = new ArrayList<Shape>();
-		for(final Shape child : getNonGhostChildren(shape)) {
+		for(final Shape child : shape.getChildren()) {
 			if(name.equals(propertyUtil.getName(child))) {
 				results.add(child);
 			}

@@ -69,7 +69,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.ShapeService;
@@ -103,14 +102,14 @@ public class SetBindingTool {
 	}
 	
 	@Activate
-	public void activate(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final ConnectionService connectionService) {
+	public void activate(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService) {
 		final AgeDiagramEditor editor = (AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
 
 		// Open Dialog
 		if (currentWindow == null) {
 			currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
 			if(currentWindow.open() == Dialog.OK) {
-				createPropertyAssociation(graphiti.getDiagramTypeProvider().getDiagram(), bor, aadlModService, diagramModService, connectionService);
+				createPropertyAssociation(graphiti.getDiagramTypeProvider().getDiagram(), bor, aadlModService, diagramModService);
 			}
 			
 			currentWindow = null;
@@ -119,7 +118,7 @@ public class SetBindingTool {
 	
 	@SelectionChanged
 	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final GraphitiService graphiti,
-			final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
+			final BusinessObjectResolutionService bor, final ShapeService shapeService) {
 		if(currentWindow != null && currentWindow.getShell() != null && currentWindow.getShell().isVisible()) {
 			final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
 			editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
@@ -371,7 +370,7 @@ public class SetBindingTool {
 	}
 
 	private void createPropertyAssociation(final Diagram diagram, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, 
-			final DiagramModificationService diagramModService, final ConnectionService connectionService) {
+			final DiagramModificationService diagramModService) {
 		final ComponentClassifier cc = (ComponentClassifier) bor.getBusinessObjectForPictogramElement(diagram);
 
 		if (cc == null) {
@@ -394,7 +393,7 @@ public class SetBindingTool {
 					final Object elementToBind = bor.getBusinessObjectForPictogramElement(currentWindow.getPictogramToBind());
 					final Object diagramBo = bor.getBusinessObjectForPictogramElement(diagram);
 					if (elementToBind != null && elementToBind != diagramBo) {
-						setContainedNamedElementPath(newPa.createAppliesTo(), currentWindow.getPictogramToBind(), bor, connectionService);
+						setContainedNamedElementPath(newPa.createAppliesTo(), currentWindow.getPictogramToBind(), bor);
 					}
 
 					// Create owned values
@@ -407,7 +406,7 @@ public class SetBindingTool {
 						if (!(pe instanceof Diagram)) {
 							final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE
 									.getAadl2Package().getReferenceValue());
-							setContainedNamedElementPath(rv, pe, bor, connectionService);
+							setContainedNamedElementPath(rv, pe, bor);
 						}
 					}
 
@@ -513,7 +512,10 @@ public class SetBindingTool {
 		return cp1 == cp2; // Both should be null
 	}
 
-	private ContainmentPathElement setContainedNamedElementPath(final ContainedNamedElement c, final PictogramElement pe, final BusinessObjectResolutionService bor, final ConnectionService connectionService) {
+	private ContainmentPathElement setContainedNamedElementPath(final ContainedNamedElement c, final PictogramElement pe, final BusinessObjectResolutionService bor) {
+		// TODO
+		throw new RuntimeException("Not Implemented");
+		/*
 		if (pe == null || bor.getBusinessObjectForPictogramElement(pe) instanceof Classifier) {
 			return null;
 		}
@@ -543,6 +545,7 @@ public class SetBindingTool {
 		}
 
 		return pathElement;
+		*/
 	}
 
 }

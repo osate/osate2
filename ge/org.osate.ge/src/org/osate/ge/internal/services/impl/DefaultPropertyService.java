@@ -35,22 +35,16 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
+import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.services.PropertyService;
 
 public class DefaultPropertyService implements PropertyService {
-	private static final String NAME_KEY = "name";
 	private static final String IS_CONNECTION_ANCHOR_KEY = "is_connection_anchor";
 	private static final String CONNECTION_TYPE_KEY = "connection_type";
-	private static final String SIDE_KEY = "side"; // Which side the shape is on
-	private static final String LAYOUT_SIDE_KEY = "layout_side"; // Which side the shape is layed out as
 	private static final String SELECTED_MODE_KEY = "selected_mode"; // The name of the mode the user has selected in the UI
 	private static final String SELECTED_FLOW_KEY = "selected_flow"; // The name of the flow the user has selected in the UI
-	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
-	private static final String IS_MANUALLY_POSITIONED_KEY = "is_manually_positioned"; // Whether the shape should be ignored by the automatic layout algorithm
-	private static final String IS_GHOST_KEY = "is_ghost"; // Whether the pictogram element is a ghost. A ghost is an element that has been hidden because the corresponding business object is no longer valid.
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
 	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
-	private static final String IS_TRANSIENT_KEY = "is_transient";
 	private static final String IS_LOGICAL_TREE_NODE = "is_lt_node";
 	private static final String IS_BACKGROUND_KEY = "is_background";
 	private static final String IS_COLORING_CONTAINER_KEY = "is_coloring_container";
@@ -61,12 +55,12 @@ public class DefaultPropertyService implements PropertyService {
 
 	@Override
 	public final String getName(final PropertyContainer pc) {
-		return Graphiti.getPeService().getPropertyValue(pc, NAME_KEY);
+		return PropertyUtil.getName(pc);
 	}
 
 	@Override
-	public final void setName(final PropertyContainer pc, final String typeName) {
-		Graphiti.getPeService().setPropertyValue(pc, NAME_KEY, typeName);
+	public final void setName(final PropertyContainer pc, final String value) {
+		PropertyUtil.setName(pc, value);
 	}
 	
 	@Override
@@ -77,54 +71,6 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public final void setIsConnectionAnchor(final Anchor anchor, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(anchor, IS_CONNECTION_ANCHOR_KEY, value ? "true" : "false");
-	}
-	
-	@Override
-	public String getDockArea(final PictogramElement pe) {
-		return Graphiti.getPeService().getPropertyValue(pe, SIDE_KEY);
-	}
-	
-	@Override
-	public void setDockArea(final PictogramElement pe, final String value) {
-		if(value == null) {
-			Graphiti.getPeService().removeProperty(pe, SIDE_KEY);
-		} else {
-			Graphiti.getPeService().setPropertyValue(pe, SIDE_KEY, value);
-		}
-	}
-	
-	// Is on the left side of the container. Defaults to true if there isn't a value assigned to the property
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#getIsLeft(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
-	@Override
-	public final boolean getIsLeft(final PictogramElement pe) {
-		return !("right".equals(getDockArea(pe)));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#setIsLeft(org.eclipse.graphiti.mm.pictograms.PictogramElement, boolean)
-	 */
-	@Override
-	public final void setIsLeft(final PictogramElement pe, final boolean value) {
-		setDockArea(pe, value ? "left" : "right");
-	}
-	
-	// If it is layed out such that it is on the left side of the layout container. Defaults to true if there isn't a value assigned to the property
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#getIsLeftLayout(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
-	@Override
-	public final boolean getIsLeftLayout(final PictogramElement pe) {
-		return !("right".equals(Graphiti.getPeService().getPropertyValue(pe, LAYOUT_SIDE_KEY)));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#setIsLeftLayout(org.eclipse.graphiti.mm.pictograms.PictogramElement, boolean)
-	 */
-	@Override
-	public final void setIsLeftLayout(final PictogramElement pe, final boolean value) {
-		Graphiti.getPeService().setPropertyValue(pe, LAYOUT_SIDE_KEY, value ? "left" : "right");
 	}
 	
 	/* (non-Javadoc)
@@ -160,48 +106,6 @@ public class DefaultPropertyService implements PropertyService {
 	public final void setSelectedFlow(final Diagram diagram, final String flowName) {
 		Graphiti.getPeService().setPropertyValue(diagram, SELECTED_FLOW_KEY, flowName);
 	}
-
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#isLayedOut(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
-	@Override
-	public final boolean isLayedOut(final PictogramElement pe) {
-		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_LAYED_OUT_KEY));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#setIsLayedOut(org.eclipse.graphiti.mm.pictograms.PictogramElement, boolean)
-	 */
-	@Override
-	public final void setIsLayedOut(final PictogramElement pe, final boolean value) {
-		Graphiti.getPeService().setPropertyValue(pe, IS_LAYED_OUT_KEY, value ? "true" : "false");
-	}
-	
-	@Override
-	public boolean isManuallyPositioned(PictogramElement pe) {
-		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_MANUALLY_POSITIONED_KEY));
-	}
-	
-	@Override
-	public void setIsManuallyPositioned(PictogramElement pe, boolean value) {
-		Graphiti.getPeService().setPropertyValue(pe, IS_MANUALLY_POSITIONED_KEY, value ? "true" : "false");
-	}	
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#isGhost(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
-	@Override
-	public final boolean isGhost(final PictogramElement pe) {
-		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_GHOST_KEY));
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#setIsGhost(org.eclipse.graphiti.mm.pictograms.PictogramElement, boolean)
-	 */
-	@Override
-	public final void setIsGhost(final PictogramElement pe, final boolean value) {
-		Graphiti.getPeService().setPropertyValue(pe, IS_GHOST_KEY, value ? "true" : "false");
-	}
 	
 	@Override
 	public String getConnectionType(Connection c) {
@@ -235,12 +139,12 @@ public class DefaultPropertyService implements PropertyService {
 	
 	@Override
 	public boolean isTransient(final PictogramElement pe) {
-		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_TRANSIENT_KEY));
+		return PropertyUtil.isTransient(pe);
 	}
 	
 	@Override
 	public void setIsTransient(final PictogramElement pe, final boolean value) {
-		Graphiti.getPeService().setPropertyValue(pe, IS_TRANSIENT_KEY, value ? "true" : "false");
+		PropertyUtil.setIsTransient(pe, value);
 	}
 	
 	@Override

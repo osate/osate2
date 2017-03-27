@@ -20,7 +20,7 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PrototypeService;
 
@@ -91,7 +91,7 @@ public class DefaultPrototypeService implements PrototypeService {
 	
 	@Override
 	public Element getPrototypeBindingContext(final AgeDiagramElement diagramElement) {
-		final DiagramElementContainer container = diagramElement.getContainer();
+		final DiagramNode container = diagramElement.getContainer();
 		if(container instanceof AgeDiagramElement) {
 			final AgeDiagramElement containerElement = (AgeDiagramElement)container;
 			return getPrototypeBindingContextByContainer(containerElement);
@@ -101,7 +101,7 @@ public class DefaultPrototypeService implements PrototypeService {
 	}
 	
 	public Element getPrototypeBindingContextByContainer(final AgeDiagramElement diagramElementContainer) {
-		DiagramElementContainer temp = diagramElementContainer;
+		DiagramNode temp = diagramElementContainer;
 		
 		while(temp instanceof AgeDiagramElement) {
 			final AgeDiagramElement tempElement = (AgeDiagramElement)temp;

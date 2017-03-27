@@ -10,23 +10,26 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.eclipse.debug.internal.ui.DefaultLabelProvider;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.graphics.AgeConnection;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
  *
  */
 // TODO: Document purpose, etc
-public class DiagramUpdater {
+public class DiagramUpdater {	
 	private final BusinessObjectTreeFactory boTreeFactory;
-	private final GraphicProvider graphicProvider;
-	private final DockingConfigurationProvider dockingConfigurationProvider;
-	private final ConnectionEndProvider connectionEndProvider;
+	private final DiagramElementInfoProvider infoProvider; // TODO:Rename
 	
-	private final Map<DiagramElementContainer, Map<RelativeBusinessObjectReference, AgeDiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
+	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, AgeDiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 		
 	// This interface provides the business objects that should be included in the diagram.
 	// The updater is responsible for adding and removing elements as necessary.
@@ -45,43 +48,39 @@ public class DiagramUpdater {
 		Collection<BusinessObjectTreeNode> getChildren();
 		String getName(); // Get name for the business object's name label
 	}
-	
-	/**
-	 * Provides the graphic that should be used for a business object. 
-	 *
-	 */
-	public static interface GraphicProvider {
+
+	// TODO: Rename
+	public static interface DiagramElementInfoProvider {
 		/**
+		 * Provides the graphic that should be used for a business object. 
 		 * The specified diagram element may not be fully initialized. Only the business object and container fields are guaranteed to be initialized.
 		 * @param element
 		 * @return
 		 */
 		Graphic getGraphic(AgeDiagramElement element);
-	}
-	
-	// TODO: RENAME?
-	public static interface DockingConfigurationProvider {
+		
 		/**
 		 * The specified diagram element may not be fully initialized. Only the business object and container fields are guaranteed to be initialized.
 		 * @param element
-		 * @return
+		 * @return the default docking position. Must not be null.
 		 */
 		DockingPosition getDefaultDockingPosition(AgeDiagramElement element);
-	}
-	
-	public static interface ConnectionEndProvider {
+		
+		/**
+		 * 
+		 * @param element
+		 * @return may return null.
+		 */
+		AgeLabelConfiguration getDefaultLabelConfiguration(AgeDiagramElement element);
+		
 		AgeDiagramElement getConnectionStart(final AgeDiagramElement e);
 		AgeDiagramElement getConnectionEnd(final AgeDiagramElement e);
 	}
-		
+	
 	public DiagramUpdater(final BusinessObjectTreeFactory boTreeFactory, 
-			final GraphicProvider graphicProvider,
-			final DockingConfigurationProvider dockingConfigurationProvider,
-			final ConnectionEndProvider connectionEndProvider) {
+			final DiagramElementInfoProvider infoProvider) {
 		this.boTreeFactory = Objects.requireNonNull(boTreeFactory, "boTreeFactory must not be null");
-		this.graphicProvider = Objects.requireNonNull(graphicProvider, "graphicProvider must not be null");
-		this.dockingConfigurationProvider = Objects.requireNonNull(dockingConfigurationProvider, "dockingConfigurationProvider must not be null");
-		this.connectionEndProvider = Objects.requireNonNull(connectionEndProvider, "connectionEndProvider must not be null");
+		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
 	}
 
 	public void updateDiagram(final AgeDiagram diagram) {
@@ -92,7 +91,7 @@ public class DiagramUpdater {
 			@Override
 			public void modify(final DiagramModification m) {
 				updateElements(m, diagram, boTree.getRootNodes(), connectionElements);
-				removeInvalidConnections(m, connectionElements);
+				finalizeConnections(m, connectionElements);
 			}			
 		});
 	}
@@ -103,7 +102,7 @@ public class DiagramUpdater {
 	 * @param bos 
 	 * @param connectionElements is a collection to populate with connection elements.
 	 */
-	private void updateElements(final DiagramModification m, final DiagramElementContainer container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
+	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
 		for(final BusinessObjectTreeNode n : bos) {
 			// Get existing element if it exists.
 			AgeDiagramElement element = container.getByRelativeReference(n.getRelativeReference());
@@ -112,7 +111,7 @@ public class DiagramUpdater {
 			if(element == null) {
 				final AgeDiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
 				if(removedGhost == null) {
-					element = new AgeDiagramElement(container, n.getBusinessObject(), n.getRelativeReference(), n.getCanonicalReference());
+					element = new AgeDiagramElement(container, n.getBusinessObject(), n.getRelativeReference(), n.getCanonicalReference(), n.getName());
 				} else {
 					element = removedGhost;
 				}
@@ -124,9 +123,9 @@ public class DiagramUpdater {
 			}
 			
 			// Set the graphic
-			m.setGraphic(element, graphicProvider.getGraphic(element));
+			m.setGraphic(element, infoProvider.getGraphic(element));
 			
-			final DockingPosition defaultDockingPosition = Objects.requireNonNull(dockingConfigurationProvider.getDefaultDockingPosition(element), "getDefaultDockingPosition() must not return null");
+			final DockingPosition defaultDockingPosition = Objects.requireNonNull(infoProvider.getDefaultDockingPosition(element), "getDefaultDockingPosition() must not return null");
 			final boolean dockable = defaultDockingPosition != DockingPosition.NOT_DOCKABLE;
 			if(dockable) {
 				// If parent is docked, the child should use the group docking area
@@ -139,6 +138,11 @@ public class DiagramUpdater {
 				// Ensure the dock area is null
 				m.setDockArea(element, null);
 			}		
+			
+			// Set the label configuration if one is provided and the element's label configuration has not already been configuration
+			if(element.getLabelConfiguration() == null) {
+				m.setLabelConfiguration(element, infoProvider.getDefaultLabelConfiguration(element));
+			}
 			
 			// Add connection elements to the list so that they can be easily accessed in later stages of the update process
 			if(element.getGraphic() instanceof AgeConnection) {
@@ -166,13 +170,14 @@ public class DiagramUpdater {
 		}
 	}
 	
-	private void removeInvalidConnections(final DiagramModification m, final Collection<AgeDiagramElement> connectionElements) {
+	/**
+	 * Finishes updating connections and removes invalid connections
+	 */
+	private void finalizeConnections(final DiagramModification m, final Collection<AgeDiagramElement> connectionElements) {
 		// Set connection ends
 		for(final AgeDiagramElement e : connectionElements) {
-			connectionEndProvider.getConnectionStart(e);
-			
-			m.setConnectionStart(e, connectionEndProvider.getConnectionStart(e));
-			m.setConnectionEnd(e, connectionEndProvider.getConnectionEnd(e));
+			m.setConnectionStart(e, infoProvider.getConnectionStart(e));
+			m.setConnectionEnd(e, infoProvider.getConnectionEnd(e));
 		}
 		
 		// Build Collection of All Invalid Connections
@@ -214,7 +219,7 @@ public class DiagramUpdater {
 	}
 	
 	public void addGhost(final AgeDiagramElement ghost) {
-		final DiagramElementContainer container = ghost.getContainer();
+		final DiagramNode container = ghost.getContainer();
 		
 		// Get the mapping from relative reference to the ghost for the container
 		Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
@@ -227,7 +232,7 @@ public class DiagramUpdater {
 		relativeReferenceToGhostMap.put(ghost.getRelativeReference(), ghost);		
 	}
 	
-	public AgeDiagramElement removeGhost(final DiagramElementContainer container, final RelativeBusinessObjectReference relativeReference) {
+	public AgeDiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
 		final Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
 		if(relativeReferenceToGhostMap == null) {
 			return null;

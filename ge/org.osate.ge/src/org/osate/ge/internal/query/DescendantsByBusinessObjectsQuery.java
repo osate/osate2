@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.Objects;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.query.Supplier;
 
@@ -18,7 +18,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends AgeDiagramElementQuery
 	}
 	
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference[] boRefs = (CanonicalBusinessObjectReference[])state.cache.get(this);
 		if(boRefs == null) {
@@ -37,7 +37,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends AgeDiagramElementQuery
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, 0);		
 	}
 	
-	void findMatchingDescendants(final Deque<AgeDiagramElementQuery<A>> remainingQueries, DiagramElementContainer container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
+	void findMatchingDescendants(final Deque<AgeDiagramElementQuery<A>> remainingQueries, DiagramNode container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
 		if(currentDepth >= boRefs.length) {
 			processResultValue(remainingQueries, container, state, result);
 		} else {		

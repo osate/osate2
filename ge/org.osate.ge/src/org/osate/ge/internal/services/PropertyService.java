@@ -49,20 +49,6 @@ public interface PropertyService {
 	boolean isConnectionAnchor(Anchor anchor);
 	void setIsConnectionAnchor(Anchor anchor, boolean value);
 	
-	String getDockArea(PictogramElement pe);
-	void setDockArea(PictogramElement pe, String value);
-	
-	// getIsLeft and setIsLeft is deprecated. Users should move to the new dock area system when it is complete.
-	// Is on the left side of the container. Defaults to true if there isn't a value assigned to the property
-	boolean getIsLeft(PictogramElement pe);
-
-	void setIsLeft(PictogramElement pe, boolean value);
-
-	// If it is layed out such that it is on the left side of the layout container. Defaults to true if there isn't a value assigned to the property
-	boolean getIsLeftLayout(PictogramElement pe);
-
-	void setIsLeftLayout(PictogramElement pe, boolean value);
-	
 	String getSelectedMode(Diagram diagram);
 
 	void setSelectedMode(Diagram diagram, String modeName);
@@ -70,23 +56,6 @@ public interface PropertyService {
 	String getSelectedFlow(Diagram diagram);
 
 	void setSelectedFlow(Diagram diagram, String flowName);
-
-	boolean isLayedOut(PictogramElement pe);
-
-	void setIsLayedOut(PictogramElement pe, boolean value);
-	
-	/**
-	 * Being manually positioned indicates the the pictogram is manually positioned by the editor. Manually positions shapes should not
-	 * be moved by automatic diagram layout or adjustment algorithms An example of such a pictogram is a label shape.
-	 * @param pe
-	 * @return
-	 */
-	boolean isManuallyPositioned(PictogramElement pe);	
-	void setIsManuallyPositioned(PictogramElement pe, boolean value);
-
-	boolean isGhost(PictogramElement pe);
-
-	void setIsGhost(PictogramElement pe, boolean value);
 	
 	String getConnectionType(Connection c);
 	void setConnectionType(Connection c, String type);

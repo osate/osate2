@@ -91,6 +91,7 @@ public class FeatureGraphicBuilder {
 		this.featureType = FeatureType.DATA_ACCESS;
 		return this;
 	}	
+	
 	/**
 	 * Sets the type of feature graphic to create.
 	 * @return this builder to allow method chaining.
@@ -106,6 +107,42 @@ public class FeatureGraphicBuilder {
 	 */
 	public FeatureGraphicBuilder featureGroup() {
 		this.featureType = FeatureType.FEATURE_GROUP;
+		return this;
+	}
+	
+	/**
+	 * Sets the type of feature graphic to create.
+	 * @return this builder to allow method chaining.
+	 */
+	public FeatureGraphicBuilder portProxy() {
+		this.featureType = FeatureType.PORT_PROXY;
+		return this;
+	}
+	
+	/**
+	 * Sets the type of feature graphic to create.
+	 * @return this builder to allow method chaining.
+	 */
+	public FeatureGraphicBuilder eventSource() {
+		this.featureType = FeatureType.EVENT_SOURCE;
+		return this;
+	}
+	
+	/**
+	 * Sets the type of feature graphic to create.
+	 * @return this builder to allow method chaining.
+	 */
+	public FeatureGraphicBuilder eventDataSource() {
+		this.featureType = FeatureType.EVENT_DATA_SOURCE;
+		return this;
+	}
+	
+	/**
+	 * Sets the type of feature graphic to create.
+	 * @return this builder to allow method chaining.
+	 */
+	public FeatureGraphicBuilder subprogramProxy() {
+		this.featureType = FeatureType.SUBPROGRAM_PROXY;
 		return this;
 	}
 	

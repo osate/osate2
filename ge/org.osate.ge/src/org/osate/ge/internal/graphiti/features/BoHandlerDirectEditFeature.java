@@ -22,9 +22,9 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
@@ -36,19 +36,20 @@ import org.osate.ge.internal.util.AnnotationUtil;
 public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature implements ICustomUndoRedoFeature {
 	private final ExtensionService extService;
 	private final PropertyService propertyService;
-	private final ConnectionService connectionService;
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
-	public BoHandlerDirectEditFeature(final IFeatureProvider fp, final ExtensionService extService,
-			final PropertyService propertyService, final ConnectionService connectionService, final AadlModificationService aadlModService, 
-			final DiagramModificationService diagramModService,	final BusinessObjectResolutionService bor) {
+	public BoHandlerDirectEditFeature(final IFeatureProvider fp, 
+			final ExtensionService extService,
+			final PropertyService propertyService, 
+			final AadlModificationService aadlModService, 
+			final DiagramModificationService diagramModService,	
+			final BusinessObjectResolutionService bor) {
 		super(fp);
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
-		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.diagramModService = Objects.requireNonNull(diagramModService, "diaramModService must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
@@ -61,7 +62,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			return false;
 		}
 		
-		if(!BoHandlerFeatureHelper.nameShapeName.equals(propertyService.getName(context.getPictogramElement()))) {
+		if(!ShapeNames.nameShapeName.equals(propertyService.getName(context.getPictogramElement()))) {
 			return false;
 		}
 		

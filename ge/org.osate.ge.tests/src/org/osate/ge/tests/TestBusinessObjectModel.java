@@ -12,14 +12,13 @@ import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.diagram.DiagramUpdater.BusinessObjectTree;
 import org.osate.ge.internal.diagram.DiagramUpdater.BusinessObjectTreeFactory;
 import org.osate.ge.internal.diagram.DiagramUpdater.BusinessObjectTreeNode;
-import org.osate.ge.internal.diagram.DiagramUpdater.ConnectionEndProvider;
-import org.osate.ge.internal.diagram.DiagramUpdater.DockingConfigurationProvider;
-import org.osate.ge.internal.diagram.DiagramUpdater.GraphicProvider;
+import org.osate.ge.internal.diagram.DiagramUpdater.DiagramElementInfoProvider;
 
-public class TestBusinessObjectModel implements BusinessObjectTreeFactory, GraphicProvider, DockingConfigurationProvider, ConnectionEndProvider {
+public class TestBusinessObjectModel implements BusinessObjectTreeFactory, DiagramElementInfoProvider {
 	public TestBusinessObject model;
 		
 	// BusinessObjectTreeFactory
@@ -69,7 +68,7 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Graph
 		return result;
 	}
 	
-	// GraphicProvider
+	// DiagramElementInfoProvider
 	@Override
 	public Graphic getGraphic(final AgeDiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
@@ -80,14 +79,12 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Graph
 		}
 	}
 	
-	// DockingConfigurationProvider
 	@Override
 	public DockingPosition getDefaultDockingPosition(final AgeDiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
 		return testBo.defaultDockingPosition;
 	}
 	
-	// ConnectionEndProvider
 	@Override
 	public AgeDiagramElement getConnectionStart(final AgeDiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
@@ -98,5 +95,10 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Graph
 	public AgeDiagramElement getConnectionEnd(final AgeDiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
 		return bo.connectionEndReference == null ? null : e.getContainer().getByRelativeReference(bo.connectionEndReference);
+	}
+
+	@Override
+	public AgeLabelConfiguration getDefaultLabelConfiguration(AgeDiagramElement element) {
+		return model.labelConfiguration;
 	}
 }

@@ -41,11 +41,11 @@ import org.osate.ge.di.CanActivate;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.util.AnnotationUtil;
 
@@ -58,8 +58,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	private final ExtensionService extService;
 	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModificationService;
-	private final PropertyService propertyService;
-	private final ConnectionService connectionService;
+	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final boolean modifiesBusinessObjects;
 	private boolean hasMadeChanges = false;
 	
@@ -67,16 +66,14 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 			final ExtensionService extService,
 			final BusinessObjectResolutionService bor, 
 			final AadlModificationService aadlModificationService,
-			final PropertyService propertyService,
-			final ConnectionService connectionService,
+			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
 			final IFeatureProvider fp) {
 		super(fp);
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.cmd = Objects.requireNonNull(cmd, "cmd must not be null");
 		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.aadlModificationService = Objects.requireNonNull(aadlModificationService, "aadlModificationService must not be null");
-		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
-		this.connectionService = Objects.requireNonNull(connectionService, "connectionService must not be null");
+		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.modifiesBusinessObjects = cmd.getClass().getAnnotation(ModifiesBusinessObjects.class) != null;
 	}
 
@@ -101,10 +98,10 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
 			final Object[] bos = getBusinessObjects(customCtx.getPictogramElements());
-			if(bos == null) {
+			if(bos == null ){
 				return false;
+				
 			}
-			
 			final DiagramElement[] diagramElements = getDiagramElements(customCtx.getPictogramElements());
 			if(diagramElements == null) {
 				return false;
@@ -161,7 +158,11 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
 			populateEclipseContext(eclipseContext, diagramElements, businessObjects);
-			return (Boolean)ContextInjectionFactory.invoke(cmd, Activate.class, eclipseContext, modifiesBusinessObjects);
+			Boolean result = (Boolean)ContextInjectionFactory.invoke(cmd, Activate.class, eclipseContext, modifiesBusinessObjects);
+			if(result == null) {
+				result = modifiesBusinessObjects;
+			}
+			return result;
 		} finally {
 			eclipseContext.dispose();
 		}
@@ -182,33 +183,39 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 	
-	private void populateEclipseContext(final IEclipseContext context, final DiagramElement[] diagramElements, final Object[] businessObjects) {
+	private static void populateEclipseContext(final IEclipseContext context, final DiagramElement[] diagramElements, final Object[] businessObjects) {
 		// Diagram Elements
-		if(diagramElements.length == 1) {
-			context.set(InternalNames.DIAGRAM_ELEMENT_PROXY, diagramElements[0]);	
+		if(diagramElements != null && diagramElements.length > 0) {
+			if(diagramElements.length == 1) {
+				context.set(InternalNames.DIAGRAM_ELEMENT_PROXY, diagramElements[0]);	
+			}
+			
+			context.set(InternalNames.DIAGRAM_ELEMENT_PROXIES, diagramElements);
 		}
-		context.set(InternalNames.DIAGRAM_ELEMENT_PROXIES, diagramElements);
 		
 		// Business Objects
-		if(businessObjects.length == 1) {
-			context.set(Names.BUSINESS_OBJECT, businessObjects[0]);	
+		if(businessObjects != null && businessObjects.length > 0) {
+			if(businessObjects.length == 1) {
+				context.set(Names.BUSINESS_OBJECT, businessObjects[0]);	
+			}
+			context.set(Names.BUSINESS_OBJECTS, businessObjects);
 		}
-		context.set(Names.BUSINESS_OBJECTS, businessObjects);
 	}
 	
 	private DiagramElement[] getDiagramElements(final PictogramElement[] pes) {
+		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		final DiagramElement[] diagramElements = new DiagramElement[pes.length];
 		for(int i = 0; i < pes.length; i++) {
-			final PictogramElement pe = AgeFeatureUtil.getLogicalPictogramElement(pes[i], propertyService, connectionService);
+			final DiagramElement de = AgeFeatureUtil.getDiagramElement(pes[i], graphitiAgeDiagram);
 			
 			// Return null if we are unable to get the logical pictogram element for any passed in pictogram element
-			if(pe == null) {
+			if(de == null) {
 				return null;
 			}
 			
-			//TODO: Migrate!diagramElements[i] = new PictogramElementProxy(pe);
+			diagramElements[i] = de;
 		}
-		
+
 		return diagramElements;
 	}
 	

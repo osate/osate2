@@ -1,23 +1,24 @@
 package org.osate.ge.internal.diagram;
 
-import java.awt.Dimension;
-import java.awt.Point;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfiguration;
 
 /**
  * This class is the in-memory data structure for the diagram. 
  * Represents the state of the diagram independent of the UI library being used to present the diagram. 
  * Listeners are used to provide notifications when the diagram state changes. For example: when an element is moved listeners are notified.
  */
-public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramElementContainer {
+public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContainer {
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
@@ -42,6 +43,11 @@ public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramEle
 		return diagramConfiguration;
 	}
 
+	@Override
+	public DiagramNode getContainer() {
+		return null;
+	}
+	
 	@Override
 	public Collection<AgeDiagramElement> getDiagramElements() {
 		return Collections.unmodifiableCollection(elements);
@@ -97,7 +103,7 @@ public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramEle
 		@Override
 		public void updateBusinessObjectWithSameRelativeReference(final AgeDiagramElement e, final Object bo) {
 			e.setBusinessObject(bo);
-			// TODO: Decide whether an update notification is needed.
+			// Should listeners be notified?
 		}
 		
 		@Override
@@ -108,36 +114,73 @@ public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramEle
 		
 		@Override
 		public void setPosition(final AgeDiagramElement e, final Point value) {
-			e.setPosition(value);
-			afterUpdate(e, DiagramElementField.POSITION);
+			if(!value.equals(e.getPosition())) { 
+				e.setPosition(value);
+				afterUpdate(e, DiagramElementField.POSITION);
+				
+				// Update the dock area based on the position
+				final DockArea currentDockArea = e.getDockArea();
+				if(currentDockArea != null) {
+					if(currentDockArea != DockArea.GROUP) {
+						setDockArea(e, calculateDockArea(e));
+					}
+				}
+			}
 		}
 		
 		@Override
 		public void setGraphic(final AgeDiagramElement e, final Graphic value) {
-			e.setGraphic(value);
-			afterUpdate(e, DiagramElementField.GRAPHIC);
+			if(!value.equals(e.getGraphic())) { 
+				e.setGraphic(value);
+				afterUpdate(e, DiagramElementField.GRAPHIC);
+			}
 		}
 		
 		@Override
 		public void setDockArea(final AgeDiagramElement e, final DockArea value) {
-			e.setDockArea(value);
-			afterUpdate(e, DiagramElementField.DOCK_AREA);
+			if(value != e.getDockArea()) { 
+				e.setDockArea(value);
+				afterUpdate(e, DiagramElementField.DOCK_AREA);
+			}
+		}
+		
+		@Override
+		public void setLabelConfiguration(final AgeDiagramElement e, final AgeLabelConfiguration value) {
+			if(value != e.getLabelConfiguration()) { 
+				e.setLabelConfiguration(value);
+				afterUpdate(e, DiagramElementField.LABEL_CONFIGURATION);
+			}
 		}
 		
 		@Override
 		public void setConnectionStart(final AgeDiagramElement e, final AgeDiagramElement value) {
-			e.setStartElement(value);
-			afterUpdate(e, DiagramElementField.CONNECTION_START);
+			if(value != e.getStartElement()) { 
+				e.setStartElement(value);
+				afterUpdate(e, DiagramElementField.CONNECTION_START);
+			}
 		}
 		
 		@Override
 		public void setConnectionEnd(final AgeDiagramElement e, final AgeDiagramElement value) {
-			e.setEndElement(value);
-			afterUpdate(e, DiagramElementField.CONNECTION_END);			
+			if(value != e.getEndElement()) { 
+				e.setEndElement(value);
+				afterUpdate(e, DiagramElementField.CONNECTION_END);
+			}
 		}
+		
+		
+		@Override
+		public void setBendpoints(final AgeDiagramElement e, final List<Point> value) {
+			if(!value.equals(e.getBendpoints())) {
+					e.setBendpoints(value);
+				afterUpdate(e, DiagramElementField.BENDPOINTS);
+			}
+		}
+		
 		
 		// Notifies listeners and manages change tracking state after a field has been updated.
 		private void afterUpdate(final AgeDiagramElement e, final DiagramElementField c) {
+			// Notify listeners of the previous modification
 			if((addedElement != null && addedElement != e) ||
 				(updatedElement != null && updatedElement != e) ||
 				removedElement != null) { 
@@ -153,24 +196,26 @@ public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramEle
 		
 		@Override
 		public void removeElement(final AgeDiagramElement e) {
-			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			// Notify listeners of the previous modification
 			if(addedElement != null || updatedElement != null || removedElement != null) { 
 				notifyListeners();
 			}
 			
+			e.getModifiableContainer().getModifiableDiagramElements().remove(e);			
 			removedElement = e;
 		}
 		
 		@Override
 		public void addElement(final AgeDiagramElement e) {
-			e.getModifiableContainer().getModifiableDiagramElements().add(e);			
+			// Notify listeners of the previous modification
 			if(addedElement != null || updatedElement != null || removedElement != null) { 
 				notifyListeners();
-			}
+			}			
 			
+			e.getModifiableContainer().getModifiableDiagramElements().add(e);			
 			addedElement = e;
 		}
-		
+
 		private void completeModification() {
 			// Send any pending events
 			notifyListeners();
@@ -184,9 +229,7 @@ public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramEle
 			}			
 		}
 		
-		// TODO: Needs to be called on modification finish.
 		private void notifyListeners() {
-			// TODO: Should wait until other changes
 			// Notify Listeners
 			if(modificationListeners.size() > 0) {
 				if(addedElement != null) {
@@ -217,6 +260,34 @@ public class AgeDiagram implements DiagramElementContainer, ModifiableDiagramEle
 					removedElement = null;
 				}
 			}
+		}
+	}
+	
+	private DockArea calculateDockArea(final AgeDiagramElement e) {
+		return determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight()).getDockArea();
+	}
+	
+	private static DockingPosition determineDockingPosition(final DiagramNode container, final int x, final int y, final int width, final int height) {
+		if(!(container instanceof AgeDiagramElement)) {
+			return DockingPosition.ANY;
+		}		
+		
+		final AgeDiagramElement containerElement = (AgeDiagramElement)container;
+		
+		final int distanceToLeft = Math.max(0, x);
+		final int distanceToRight = containerElement.getWidth() - Math.min(x + width, containerElement.getWidth());
+		final int distanceToTop = Math.max(0, y);
+		final int distanceToBottom = containerElement.getHeight() - Math.min(y + height, containerElement.getHeight());
+
+		// Find the closest dock area while giving priority to the left, right, top, and bottom.
+		if(distanceToLeft <= distanceToRight && distanceToLeft <= distanceToTop && distanceToLeft <= distanceToBottom) {
+			return DockingPosition.LEFT;
+		} else if(distanceToRight <= distanceToTop && distanceToRight <= distanceToBottom) {
+			return DockingPosition.RIGHT;
+		} else if(distanceToTop <= distanceToBottom) {
+			return DockingPosition.TOP;
+		} else {
+			return DockingPosition.BOTTOM;
 		}
 	}
 }

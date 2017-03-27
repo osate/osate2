@@ -72,7 +72,6 @@ import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UiService;
@@ -185,7 +184,7 @@ public class CreateFlowImplementationTool {
 
 	@SelectionChanged
 	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
-			final BusinessObjectResolutionService bor, final GraphitiService graphiti, final ShapeService shapeService, final ConnectionService connectionService) {
+			final BusinessObjectResolutionService bor, final GraphitiService graphiti, final ShapeService shapeService) {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the flow implementation, add it		
 			final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();			
@@ -199,6 +198,9 @@ public class CreateFlowImplementationTool {
 								if(selectedPes.length > 1) {
 									dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
 								} else if(selectedPes.length == 1) {
+									// TODO
+									throw new RuntimeException("Not Implemented");
+									/*
 									// Get the selected pictogram
 									PictogramElement pe = selectedPes[0];
 									PictogramElement owner = null;
@@ -240,7 +242,8 @@ public class CreateFlowImplementationTool {
 										} else {
 											dlg.setErrorMessage(error + " " + getDialogMessage());
 										}
-									}									
+									}	
+									*/							
 								}
 							}
 						}

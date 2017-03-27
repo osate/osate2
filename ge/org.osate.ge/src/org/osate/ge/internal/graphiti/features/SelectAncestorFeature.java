@@ -7,12 +7,11 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.PropertyService;
 

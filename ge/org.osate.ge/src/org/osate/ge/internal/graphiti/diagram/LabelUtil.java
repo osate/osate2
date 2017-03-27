@@ -5,10 +5,9 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  *******************************************************************************/
-package org.osate.ge.internal.services.impl;
+package org.osate.ge.internal.graphiti.diagram;
 
 import org.eclipse.graphiti.datatypes.IDimension;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.GraphicsAlgorithmContainer;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
@@ -20,41 +19,22 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
-import org.osate.aadl2.Element;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.graphiti.TextUtil;
-import org.osate.ge.internal.services.LabelService;
-import org.osate.ge.internal.services.PropertyService;
 
-public class DefaultLabelService implements LabelService {
-	private final PropertyService propertyService;
-	private final IFeatureProvider featureProvider;
-	
-	public DefaultLabelService(final PropertyService propertyService, final IFeatureProvider featureProvider) {
-		this.propertyService = propertyService;
-		this.featureProvider = featureProvider;
+public class LabelUtil {
+	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue) {
+		return createLabelShape(diagram, container, shapeName, labelValue, true);
 	}
 	
-	@Override
-	public Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue) {
-		return createLabelShape(container, shapeName, bo, labelValue, true);
-	}
-	
-	@Override
-	public Shape createLabelShape(final ContainerShape container, final String shapeName, final Object bo, final String labelValue, final boolean includeBackground) {
+	public static Shape createLabelShape(final Diagram diagram, final ContainerShape container, final String shapeName, final String labelValue, final boolean includeBackground) {
 		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
         final Shape labelShape = peCreateService.createShape(container, true);
-        propertyService.setName(labelShape, shapeName);
-        propertyService.setIsManuallyPositioned(labelShape, true);
-        propertyService.setIsTransient(labelShape, true);
-        
-        if(bo != null) {
-        	featureProvider.link(labelShape, bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
-        }
+        PropertyUtil.setName(labelShape, shapeName);
+        PropertyUtil.setIsManuallyPositioned(labelShape, true);
+        PropertyUtil.setIsTransient(labelShape, true);
         
         final GraphicsAlgorithm labelBackground;
         final Text labelText;
-        final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
         if(includeBackground) {
         	labelBackground = createTextBackground(diagram, labelShape);		
         	labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue);
@@ -78,9 +58,7 @@ public class DefaultLabelService implements LabelService {
         return labelShape;
 	}
 	
-	@Override
-	public void setStyle(final Text text) {
-		final Diagram diagram = featureProvider.getDiagramTypeProvider().getDiagram();
+	public static void setStyle(final Diagram diagram, final Text text) {
 		TextUtil.setDefaultStyle(diagram, text);
 	}
 

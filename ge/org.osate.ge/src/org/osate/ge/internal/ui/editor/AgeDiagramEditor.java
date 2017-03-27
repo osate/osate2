@@ -36,9 +36,6 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.GraphicalEditor;
-import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.impl.DefaultPropertyService;
-import org.osate.ge.internal.ui.util.impl.DefaultGhostPurger;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
@@ -50,9 +47,8 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	}
 	
 	protected DiagramBehavior createDiagramBehavior() {
-		final PropertyService propertyService = new DefaultPropertyService();
 		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		return new AgeDiagramBehavior(this, new DefaultGhostPurger(propertyService), diagramService);
+		return new AgeDiagramBehavior(this, diagramService);
 	}
 	
 	/*

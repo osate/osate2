@@ -10,4 +10,20 @@ public class FeatureGraphic implements AgeShape {
 		this.direction = Objects.requireNonNull(direction, "direction must not be null");
 		this.featureType = Objects.requireNonNull(featureType, "featureType must not be null");
 	}
+	
+	@Override
+	public String getAnnotation() {
+		switch(featureType) {
+		case PORT_PROXY:
+		case SUBPROGRAM_PROXY:
+			return "<processor>";
+			
+		case EVENT_SOURCE:
+		case EVENT_DATA_SOURCE:
+			return "<internal>";
+			
+		default:
+			return null;
+		}
+	}
 }

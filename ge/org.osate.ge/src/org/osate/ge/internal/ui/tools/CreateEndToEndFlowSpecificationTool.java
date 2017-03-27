@@ -72,7 +72,6 @@ import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ShapeService;
@@ -180,7 +179,7 @@ public class CreateEndToEndFlowSpecificationTool {
 
 	@SelectionChanged
 	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes,
-		final BusinessObjectResolutionService bor, final ShapeService shapeService, final ConnectionService connectionService) {
+		final BusinessObjectResolutionService bor, final ShapeService shapeService) {
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the end to end flow specification, add it.
 			final TransactionalEditingDomain editingDomain = dtp.getDiagramBehavior().getEditingDomain();
@@ -194,6 +193,9 @@ public class CreateEndToEndFlowSpecificationTool {
 								if(selectedPes.length > 1) {
 									dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
 								} else if(selectedPes.length == 1) {
+									// TODO
+									throw new RuntimeException("Not Implemented");
+									/*
 									// Get the selected pictogram
 									PictogramElement pe = selectedPes[0];
 									PictogramElement owner = null;
@@ -233,6 +235,7 @@ public class CreateEndToEndFlowSpecificationTool {
 											}
 										}
 									}
+									*/
 								}
 							}
 						}

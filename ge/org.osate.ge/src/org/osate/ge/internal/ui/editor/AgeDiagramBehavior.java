@@ -29,18 +29,22 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.io.IOException;
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
@@ -63,6 +67,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
@@ -92,15 +97,29 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
+import org.osate.ge.graphics.ConnectionBuilder;
+import org.osate.ge.graphics.EllipseBuilder;
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.DiagramLayoutUtil;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.features.DiagramUpdateFeature;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -110,8 +129,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
-	private final GhostPurger ghostPurger;
 	private final DiagramService diagramService;
+	private GraphitiAgeDiagram graphitiAgeDiagram;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
@@ -159,9 +178,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}		
 	};
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final GhostPurger ghostPurger, final DiagramService diagramService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final DiagramService diagramService) {
 		super(diagramContainer);
-		this.ghostPurger = ghostPurger;
 		this.diagramService = diagramService;
 	}	
 	
@@ -704,28 +722,103 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		return new DefaultPersistencyBehavior(this) {
 			@Override
 			public Diagram loadDiagram(final URI uri) {
-				final Diagram diagram = super.loadDiagram(uri);
+				// TODO: Replace with something that supports loading the the native format and loading and converting a legacy(Graphiti) format diagram
+				// TODO: Should consider a custom resource implementation which would handle the conversion and saving at the EMF resource level.
+				final AgeDiagram ageDiagram = new AgeDiagram();
 				
-				if(diagram != null) {
-					// Check if the diagram type is a legacy type. If so, convert it to the newer diagram type ID
-					final String diagramTypeId = diagram.getDiagramTypeId();
-					if("AADL Package".equals(diagramTypeId) ||
-							"AADL Type".equals(diagramTypeId) ||
-							"AADL Component Implementation".equals(diagramTypeId)) {						
-						final TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
-						editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-							@Override
-							protected void doExecute() {
-								diagram.setDiagramTypeId(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID);
-							}				
-						});	
+				// TODO: Create diagram elements for testing
+				ageDiagram.modify(new DiagramModifier() {
+					@Override
+					public void modify(final DiagramModification m) {
+						final AgeDiagramElement e1 = createElement(m, ageDiagram, 1, RectangleBuilder.create().build());
+						m.setLabelConfiguration(e1, (AgeLabelConfiguration)LabelConfigurationBuilder.create().horizontalCenter().build());
+						
+						createElement(m, ageDiagram, 2, EllipseBuilder.create().build());
+						
+						final AgeDiagramElement e3 = createElement(m, e1, 3, RectangleBuilder.create().build());
+						final AgeDiagramElement e4 = createElement(m, e1, 4, RectangleBuilder.create().build());
+						
+						m.setDockArea(createElement(m, e1, 5, RectangleBuilder.create().build()), DockArea.RIGHT);
+						m.setDockArea(createElement(m, e1, 6, RectangleBuilder.create().build()), DockArea.RIGHT);
+						m.setDockArea(createElement(m, e1, 7, RectangleBuilder.create().build()), DockArea.RIGHT);						
+						
+						final AgeDiagramElement e8 = createElement(m, e1, 8, RectangleBuilder.create().build());
+						final AgeDiagramElement e9 = createElement(m, e1, 9, RectangleBuilder.create().build());
+						
+						final AgeDiagramElement e10 = createConnectionElement(m, e1, 10, ConnectionBuilder.create().build(), e3, e4);
+						final AgeDiagramElement e11 = createConnectionElement(m, e1, 11, ConnectionBuilder.create().curved().build(), e8, e9);
+						createConnectionElement(m, e1, 12, ConnectionBuilder.create().dashed().build(), e10, e11);
+					}	
+					
+					private AgeDiagramElement createElement(final DiagramModification m, final DiagramNode parent, final int value, final Graphic graphic) {
+						final AgeDiagramElement newElement = new AgeDiagramElement(parent, 
+								value, 
+								new RelativeBusinessObjectReference(Integer.toString(value)), 
+								new CanonicalBusinessObjectReference(Integer.toString(value)), 
+								"OBJECT: " + value);
+						m.setGraphic(newElement, graphic);
+						m.addElement(newElement);
+						return newElement;
 					}
-				}
-				
-				return diagram;
+					
+					private AgeDiagramElement createConnectionElement(final DiagramModification m, 
+							final DiagramNode parent, 
+							final int value, 
+							final Graphic graphic,
+							final AgeDiagramElement start,
+							final AgeDiagramElement end) {
+						final AgeDiagramElement newElement = createElement(m, parent,value, graphic);
+						m.setConnectionStart(newElement, start);
+						m.setConnectionEnd(newElement, end);
+						return newElement;
+					}
+				});
+
+				// Get the editing domain
+				final TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
+								
+				// Update the graphiti Diagram based on the AgeDiagram		
+				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, editingDomain);
+
+				editingDomain.getCommandStack().execute(new AbstractCommand() {
+					@Override
+					protected boolean prepare() {
+						return true;
+					}
+
+					@Override
+					public String getDescription() {
+						return "Update Diagram";
+					}
+					
+					@Override
+					public void execute() {
+						// Layout the elements. They should have the appropriate sizes since the graphiti diagram has been created.
+						ageDiagram.modify(new DiagramModifier() {
+							@Override
+							public void modify(final DiagramModification m) {
+								// TODO: Update the diagram to set positions
+								DiagramLayoutUtil.layout(ageDiagram, m, true); // TODO: Switch to incremental layout
+							}
+						});
+					}
+
+					@Override
+					public void redo() {
+					}
+					
+					@Override public boolean canUndo() {
+						return false;
+					}
+				});			
+								
+				return graphitiAgeDiagram.getGraphitiDiagram();
+				//TODO: Migrate!
 			}
 			
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
+				// TODO: Implement saving to native format
+				/*
 				final Diagram diagram = getDiagramTypeProvider().getDiagram();
 
 				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
@@ -743,6 +836,9 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				diagramService.savePersistentProperties(diagram);
 				
 				return retValue;
+				*/
+				//TODO: Migrate!
+				throw new RuntimeException("TODO: Migrate");
 			}
 			
 			// Keep the forceNotDirty check
@@ -755,6 +851,14 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				return super.isDirty();
 			}
 		};
+	}
+	
+	/**
+	 * Method intended to allow getting the Graphiti Age Diagram from the Grpahiti Diagram Type Provider
+	 * @return
+	 */
+	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
+		return graphitiAgeDiagram;
 	}
 
 	private final AgeDiagramEditor getDiagramEditor() {

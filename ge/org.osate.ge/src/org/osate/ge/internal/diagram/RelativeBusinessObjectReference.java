@@ -50,7 +50,7 @@ public class RelativeBusinessObjectReference {
 	
 	@Override
 	public String toString() {
-		// TODO: Do this withotu converting to array
+		// TODO: Do this without converting to array
 		return Arrays.toString(segments.toArray());
 	}
 }

@@ -32,14 +32,13 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
 import org.osate.ge.internal.services.AadlPropertyService;
 import org.osate.ge.internal.services.CachingService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlPropertyService.PropertyResult;
@@ -50,7 +49,7 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 	private final IDiagramTypeProvider dtp;
 	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
-	private DiagramElementContainer rootDiagramElement;
+	private DiagramNode rootDiagramElement;
 	private final AgeDiagramElementQuery<Object> rootDiagramElementQuery = new RootAgeDiagramElementQuery(() -> this.rootDiagramElement);
 	private final AgeDiagramElementQuery<Object> supportedChildrenQuery = rootDiagramElementQuery.children().filter((fa) -> isElementSupportedNamedElement(fa.getBusinessObject()));
 	private final QueryRunner queryRunner;
@@ -76,7 +75,7 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 		cachingService.registerCache(cache);
 	}
 	
-	private final List<DiagramElementContainer> getSupportedChildren(final AgeDiagramElement e) {
+	private final List<DiagramNode> getSupportedChildren(final AgeDiagramElement e) {
 		rootDiagramElement = e;
 		return queryRunner.getResults(supportedChildrenQuery, null);		
 	}

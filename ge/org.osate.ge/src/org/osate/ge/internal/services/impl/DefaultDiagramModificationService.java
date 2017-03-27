@@ -40,7 +40,6 @@ import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.DiagramReference;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
-import org.osate.ge.internal.ui.util.GhostPurger;
 import org.osate.ge.internal.util.Log;
 
 public class DefaultDiagramModificationService implements DiagramModificationService {
@@ -51,11 +50,9 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	private final DiagramService diagramService;
 	private final InternalReferenceBuilderService refBuilder;
 	private final BusinessObjectResolutionService bor;
-	private final GhostPurger ghostPurger;
-	
-	public DefaultDiagramModificationService(final DiagramService diagramService, final GhostPurger ghostPurger, final InternalReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor) {
+
+	public DefaultDiagramModificationService(final DiagramService diagramService, final InternalReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor) {
 		this.diagramService = diagramService;
-		this.ghostPurger = ghostPurger;
 		this.refBuilder = refBuilder;
 		this.bor = bor;
 	}
@@ -276,18 +273,13 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 				}			
 			});						
 			
-			// Only save the diagram is it is not open. Otherwise, the user can save the diagram using the editor
+			// Only save the diagram if it is not open. Otherwise, the user can save the diagram using the editor
 			if(!diagramReference.isOpen()) {
 				// Save the resource
 				try {
-					// Delete all ghosts
-					editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-						@Override
-						protected void doExecute() {
-							ghostPurger.purgeGhosts(diagram);
-						}				
-					});	
-	
+					// TODO: Save through the editor instead of saving the resource. Actually.. Would be better to update the saved resource and update the 
+					// open diagram in memory. The user may not want to save at this point.
+					//TODO:Migrate!
 					resource.save(null);
 				} catch (IOException e) {
 					throw new RuntimeException("Error saving new diagram", e);

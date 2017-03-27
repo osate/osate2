@@ -2,7 +2,7 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 
 public class FirstQuery<A> extends AgeDiagramElementQuery<A> {
 	private int maximumNumberOfResults;
@@ -22,7 +22,7 @@ public class FirstQuery<A> extends AgeDiagramElementQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		final Integer currentCountInteger = (Integer)state.cache.get(this);
 		int currentCount;
 		if(currentCountInteger == null) {

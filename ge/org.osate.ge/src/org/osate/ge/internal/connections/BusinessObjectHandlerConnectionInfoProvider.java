@@ -22,12 +22,11 @@ import org.osate.ge.internal.query.AgeDiagramElementQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryUtil;
 import org.osate.ge.internal.query.RootAgeDiagramElementQuery;
-import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
 
+// TODO: Remove after migration to new systme
 // TODO: Replace with new system
 public class BusinessObjectHandlerConnectionInfoProvider/* implements ConnectionInfoProvider */{
 	/*
@@ -107,28 +106,6 @@ public class BusinessObjectHandlerConnectionInfoProvider/* implements Connection
 	}
 	
 	@Override
-	public PictogramElement getOwner(final Connection connection) {
-		try {			
-			final Anchor srcAnchor = connection.getStart();
-			final Anchor dstAnchor = connection.getEnd();
-			
-			if(srcAnchor == null || srcAnchor.getParent() == null || dstAnchor == null || dstAnchor.getParent() == null) {
-				return null;
-			}
-			
-			this.srcRootValue = propertyService.isConnectionAnchor(srcAnchor) ? null : srcAnchor.getParent();
-			this.dstRootValue = propertyService.isConnectionAnchor(dstAnchor) ? null : dstAnchor.getParent();
-			final Object bo = bor.getBusinessObjectForPictogramElement(connection);
-			final PictogramElement result = queryRunner.getFirstResult(ownerDiagramElementQuery, bo);
-			
-			return result;
-		} finally {
-			this.srcRootValue = null;
-			this.dstRootValue = null;
-		}
-	}
-
-	@Override
 	public Anchor[] getAnchors(final PictogramElement owner, final Object bo) {
 		// Get the graphic
 		final IEclipseContext eclipseCtx = extService.createChildContext();
@@ -181,16 +158,6 @@ public class BusinessObjectHandlerConnectionInfoProvider/* implements Connection
 			this.rootValue = null;
 		}
 	}
-	
-	private Anchor getAnchor(final PictogramElement pe) {
-		if(pe instanceof Connection) {
-			return connectionService.createUpdateConnectionAnchor((Connection)pe);
-		} else if(pe instanceof AnchorContainer) {
-			final AnchorContainer anchorContainer = (AnchorContainer)pe;
-			return Graphiti.getPeService().getChopboxAnchor(anchorContainer);
-		} else {		
-			return null;
-		}
-	}
+
 	*/
 }

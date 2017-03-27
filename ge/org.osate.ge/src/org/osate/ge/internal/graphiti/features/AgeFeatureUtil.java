@@ -1,21 +1,27 @@
 package org.osate.ge.internal.graphiti.features;
 
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.internal.query.AncestorUtil;
-import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.PropertyService;
+import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 public class AgeFeatureUtil {
-	public static PictogramElement getLogicalPictogramElement(PictogramElement pe, final PropertyService propertyService, final ConnectionService connectionService){
-		if(pe == null) {
-			return null;
+	public static AgeDiagramElement getDiagramElement(PictogramElement pe, final GraphitiAgeDiagram graphitiAgeDiagram) {
+		DiagramNode result = graphitiAgeDiagram.getDiagramNode(pe);
+		while(result == null ) {
+			if(pe instanceof ConnectionDecorator) {
+				pe = ((ConnectionDecorator) pe).getConnection();
+			} else if(pe instanceof Shape) {
+				pe = ((Shape) pe).getContainer();
+			} else {
+				break;
+			}
+			
+			result = graphitiAgeDiagram.getDiagramNode(pe);
 		}
 		
-		if(propertyService.isLogicalTreeNode(pe)) {
-			return pe;
-		}
-		
-		//TODO: Migrate! return AncestorUtil.getParent(pe, propertyService, connectionService);
-		return null;
+		return result instanceof AgeDiagramElement ? (AgeDiagramElement)result : null;
 	}
 }

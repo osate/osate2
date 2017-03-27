@@ -3,7 +3,7 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.DiagramElementContainer;
+import org.osate.ge.internal.diagram.DiagramNode;
 
 class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
 	private final AgeDiagramElementQuery<A> q1;
@@ -16,9 +16,9 @@ class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
 	}
 
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramElementContainer ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		final List<DiagramElementContainer> q1Result = state.queryRunner.getResults(q1, state.arg);		
-		final List<DiagramElementContainer> q2Result = state.queryRunner.getResults(q2, state.arg);
+	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		final List<DiagramNode> q1Result = state.queryRunner.getResults(q1, state.arg);		
+		final List<DiagramNode> q2Result = state.queryRunner.getResults(q2, state.arg);
 		
 		// Check sizes
 		if(q1Result.size() == 0 || q2Result.size() == 0) {
@@ -33,13 +33,13 @@ class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
 			throw new RuntimeException("q2 returns more than one element");
 		}
 		
-		final DiagramElementContainer de1 = AncestorUtil.getContainer(q1Result.get(0));
-		final DiagramElementContainer de2 = AncestorUtil.getContainer(q2Result.get(0));
+		final DiagramNode de1 = AncestorUtil.getContainer(q1Result.get(0));
+		final DiagramNode de2 = AncestorUtil.getContainer(q2Result.get(0));
 
 		// Get all common ancestors common ancestor
-		DiagramElementContainer temp1 = de1;
+		DiagramNode temp1 = de1;
 		while(temp1 != null) {
-			DiagramElementContainer temp2 = de2;
+			DiagramNode temp2 = de2;
 			while(temp2 != null) {
 				if(temp1 == temp2) {
 					processResultValue(remainingQueries, temp1, state, result);

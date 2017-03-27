@@ -6,5 +6,11 @@ import org.osate.ge.graphics.Graphic;
  * Marker for graphics which will be used to represent shapes. Not public API.
  */
 public interface AgeShape extends Graphic {
-
+	// Shapes may have a string which provides additional information about the shape. It is used in the case of internal and processor features 
+	// which have the same graphical representation as other features.
+	default String getAnnotation() { return null; }
+	
+	default boolean isResizeable() {
+		return !(this instanceof FeatureGraphic && ((FeatureGraphic)this).featureType != FeatureType.FEATURE_GROUP);
+	}
 }
