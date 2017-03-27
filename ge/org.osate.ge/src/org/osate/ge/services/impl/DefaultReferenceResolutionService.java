@@ -11,7 +11,6 @@ package org.osate.ge.services.impl;
 import java.util.Objects;
 
 import org.osate.ge.services.ReferenceResolutionService;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.SerializableReferenceService;
 
 public class DefaultReferenceResolutionService implements ReferenceResolutionService {
@@ -23,6 +22,6 @@ public class DefaultReferenceResolutionService implements ReferenceResolutionSer
 	
 	@Override
 	public Object getReferencedObject(final String reference) {
-		return AadlElementWrapper.unwrap(srService.resolveAbsoluteReference(reference));
+		return srService.resolveAbsoluteReference(reference);
 	}
 }

@@ -101,7 +101,6 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
@@ -475,7 +474,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			return;
 		}
 		
-		final Object bo = AadlElementWrapper.unwrap(getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram()));
+		final Object bo = getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
 		if(bo != null) {
 			final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
 			final Resource diagramBoResource = diagramService.getResource(bo);

@@ -34,7 +34,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Generalization;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.DiagramService;
@@ -201,7 +200,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					final List<PictogramElement> linkages = new ArrayList<PictogramElement>();
 					
 					// Get pictogram elements in the diagram that is linked to the element
-					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
+					final PictogramElement[] pes = featureProvider.getAllPictogramElementsForBusinessObject(bo);
 					for(PictogramElement pe : pes) {
 						linkages.add(pe);
 					}
@@ -234,9 +233,8 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 							if(dirtyLinkagesMap != null) {
 				    			for(final Entry<Object, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
 				    				final Object bo = dirtyLinkagesEntry.getKey();
-				    				final Object wrappedBo = bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo;
 				    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
-				    					fp.link(pe, wrappedBo);
+				    					fp.link(pe, bo);
 				    				}
 				    			}
 							}

@@ -22,8 +22,6 @@ import org.eclipse.core.runtime.Platform;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.aadl2.Element;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.aadl2.AadlPackage;
@@ -97,14 +95,12 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	
 	@Override
 	public String getAbsoluteReference(final Object bo) {
-		// TODO: Cleanup when AadlElementWrapper is removed
-		return referenceBuilderService.getAbsoluteReference(bo instanceof AadlElementWrapper ? AadlElementWrapper.unwrap(bo) : bo);
+		return referenceBuilderService.getAbsoluteReference(bo);
 	}
 	
 	@Override
 	public String getRelativeReference(final Object bo) {
-		// TODO: Cleanup when AadlElementWrapper is removed
-		return referenceBuilderService.getRelativeReference(bo instanceof AadlElementWrapper ? AadlElementWrapper.unwrap(bo) : bo);
+		return referenceBuilderService.getRelativeReference(bo);
 	}
 
 	@Override
@@ -144,7 +140,7 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 			for(final Object refResolver : referenceResolvers) {
 				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveReference.class, ctx, argCtx, null);
 				if(referencedObject != null) {
-					return referencedObject instanceof Element ?  new AadlElementWrapper((Element)referencedObject) : referencedObject;
+					return referencedObject;
 				}
 			}
 		} finally {

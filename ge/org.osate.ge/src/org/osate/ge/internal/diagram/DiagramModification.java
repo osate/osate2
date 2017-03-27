@@ -21,4 +21,18 @@ public interface DiagramModification {
 	void setConnectionStart(final AgeDiagramElement e, final AgeDiagramElement value);
 	void setConnectionEnd(final AgeDiagramElement e, final AgeDiagramElement value);
 	void setBendpoints(final AgeDiagramElement e, final List<Point> bendpoints);
+	
+	/**
+	 * Undoes a previous modification. The specified modification must be the most recently performed modification.
+	 * @param modification
+	 */
+	public void undoModification(final DiagramModification modification);
+	
+	/**
+	 * Repeats a modification The specified modification must be the most recently performed modification.
+	 * @param modification
+	 */
+	public void redoModification(final DiagramModification modification);
+	public boolean isUndoable();
+	public boolean isRedoable();
 }

@@ -74,7 +74,6 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -193,7 +192,7 @@ public class DefaultDiagramService implements DiagramService {
 				if(diagramRef.isOpen()) {
 					final IFeatureProvider featureProvider = diagramRef.getEditor().getDiagramTypeProvider().getFeatureProvider();
 					if(featureProvider != null) {
-						final Object tmpDiagramBo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
+						final Object tmpDiagramBo = featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram());
 						if(tmpDiagramBo != null) {
 							if(boReference.equalsIgnoreCase(referenceBuilder.getAbsoluteReference(tmpDiagramBo))) {
 								return diagramRef;
@@ -213,7 +212,7 @@ public class DefaultDiagramService implements DiagramService {
 					if(diagram != null) {
 						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 						if(featureProvider != null) {
-							final Object tmpDiagramBo = AadlElementWrapper.unwrap(featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram()));
+							final Object tmpDiagramBo = featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram());
 							if(tmpDiagramBo != null) {
 								if(boReference.equalsIgnoreCase(referenceBuilder.getAbsoluteReference(tmpDiagramBo))) {
 									return diagramRef;
@@ -357,7 +356,7 @@ public class DefaultDiagramService implements DiagramService {
 			}
 			
 			final Diagram diagram = peService.createDiagram(diagramTypeId, diagramName, true);
-			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo instanceof NamedElement ? new AadlElementWrapper((NamedElement)bo) : bo);
+			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo);
 			
 			// Create a resource to hold the diagram
 			final IProject project = getProject(bo);

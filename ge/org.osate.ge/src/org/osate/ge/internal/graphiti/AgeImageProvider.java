@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
-package org.osate.ge.internal;
+package org.osate.ge.internal.graphiti;
 
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;

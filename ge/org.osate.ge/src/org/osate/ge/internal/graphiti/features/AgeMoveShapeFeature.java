@@ -11,14 +11,9 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IMoveShapeContext;
 import org.eclipse.graphiti.features.impl.AbstractMoveShapeFeature;
-import org.eclipse.graphiti.features.impl.DefaultMoveShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
@@ -29,7 +24,6 @@ import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
-import org.osate.ge.internal.services.PropertyService;
 
 public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICustomUndoRedoFeature {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
@@ -76,27 +70,24 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		
 		return true;
 	}
-
+	
 	@Override
 	public void moveShape(final IMoveShapeContext context) {
-		moveShape(context.getShape(), context.getX(), context.getY(), true);
-	}
-
-	private void moveShape(final Shape shape, final int x, final int y, final boolean updateGraphitiDiagram) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final AgeDiagramElement diagramElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(shape);
+		final AgeDiagramElement diagramElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(context.getShape());
 		graphitiAgeDiagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
-				final int dx = x - diagramElement.getPosition().x;
-				final int dy = y - diagramElement.getPosition().y;
+				final int dx = context.getX() - diagramElement.getPosition().x;
+				final int dy = context.getY() - diagramElement.getPosition().y;
 				
-				m.setPosition(diagramElement, new Point(x, y));
-				updateBendpointsForContainedConnections(m, diagramElement, dx, dy);			
+				m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
+				updateBendpointsForContainedConnections(m, diagramElement, dx, dy);
+				AgeFeatureUtil.storeModificationInContext(context, m);
 			}				
-		}, updateGraphitiDiagram);		
+		});	
 	}
-	
+
 	void updateBendpointsForContainedConnections(final DiagramModification m, 
 			final AgeDiagramElement shapeDiagramElement, 
 			final int dx, 
@@ -115,20 +106,22 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 	}
 	
 	@Override
+	public boolean canUndo(final IContext context) {
+		return AgeFeatureUtil.canUndo(context);
+	}
+	
+	@Override
 	public void preUndo(final IContext context) {
 	}
 
 	@Override
-	public void postUndo(final IContext ctx) {
-		final IMoveShapeContext context = (IMoveShapeContext)ctx;
-		final Shape shape = context.getShape();
-		final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
-		moveShape(shape, ga.getX(), ga.getY(), false);
+	public void postUndo(final IContext context) {
+		AgeFeatureUtil.undoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
 	}
 
 	@Override
 	public boolean canRedo(final IContext context) {
-		return true;
+		return AgeFeatureUtil.canRedo(context);
 	}
 
 	@Override
@@ -136,8 +129,7 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 	}
 
 	@Override
-	public void postRedo(final IContext ctx) {
-		final IMoveShapeContext context = (IMoveShapeContext)ctx;
-		moveShape(context.getShape(), context.getX(), context.getY(), false);
+	public void postRedo(final IContext context) {
+		AgeFeatureUtil.redoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
 	}
 }

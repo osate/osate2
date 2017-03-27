@@ -27,7 +27,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.internal;
+package org.osate.ge.internal.graphiti;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -82,13 +82,17 @@ import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
+import org.osate.ge.internal.SimplePaletteEntry;
+import org.osate.ge.internal.SimplePaletteEntry.Type;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.features.AgeAddBendpointFeature;
+import org.osate.ge.internal.graphiti.features.AgeMoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
+import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
@@ -124,6 +128,9 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private AgeMoveShapeFeature defaultMoveShapeFeature;
 	private AgeResizeShapeFeature defaultResizeShapeFeature;
+	private IMoveBendpointFeature moveBendpointFeature;
+	private IAddBendpointFeature addBendpointFeature;
+	private IRemoveBendpointFeature removeBendpointFeature;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -141,14 +148,14 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
 		this.referenceService = Objects.requireNonNull(eclipseContext.get(SerializableReferenceService.class), "unable to retrieve serializable reference service");
 		
-		// Create the refresh helper
-		final QueryService queryService = Objects.requireNonNull(context.get(QueryService.class), "unable to retrieve query service");
-		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
 		defaultMoveShapeFeature = make(AgeMoveShapeFeature.class);
 		defaultResizeShapeFeature = make(AgeResizeShapeFeature.class);
+		moveBendpointFeature = make(AgeMoveBendpointFeature.class);
+		addBendpointFeature = make(AgeAddBendpointFeature.class);
+		removeBendpointFeature = make(AgeRemoveBendpointFeature.class);
 	}
 
 	@Override
@@ -277,7 +284,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 			
 	@Override
 	public IAddFeature getAddFeature(final IAddContext addCtx) {
-		final Object boHandler = extService.getApplicableBusinessObjectHandler(AadlElementWrapper.unwrap(addCtx.getNewObject()));
+		final Object boHandler = extService.getApplicableBusinessObjectHandler(addCtx.getNewObject());
 		if(boHandler != null) {
 			return new BoHandlerAddFeature(extService, this, boHandler);
 		}
@@ -316,75 +323,15 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		return retList.toArray(new ICreateConnectionFeature[0]);
 	}
 		
-	// Bendpoints manipulation features
-	private final IMoveBendpointFeature moveBendpointFeature = new DefaultMoveBendpointFeature(this) {
-		@Override
-		public boolean moveBendpoint(final IMoveBendpointContext ctx) {
-			final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-			final AgeDiagramElement connectionElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
-			if(connectionElement != null) {
-				graphitiAgeDiagram.modify(new DiagramModifier() {					
-					@Override
-					public void modify(final DiagramModification m) {					
-						// Update the bendpoint
-						final List<org.osate.ge.internal.diagram.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
-						newBendpoints.set(ctx.getBendpointIndex(), new org.osate.ge.internal.diagram.Point(ctx.getX(), ctx.getY()));
-						m.setBendpoints(connectionElement, newBendpoints);
-					}
-				});
-			}	
-								
-			return true;
-		}
-	};
-	
 	@Override 
 	public IMoveBendpointFeature getMoveBendpointFeature(final IMoveBendpointContext context) {
 		return moveBendpointFeature;
 	}
-		
-	private final IAddBendpointFeature addBendpointFeature = new DefaultAddBendpointFeature(this) {
-		@Override
-		public void addBendpoint(final IAddBendpointContext ctx) {
-			final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-			final AgeDiagramElement connectionElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
-			if(connectionElement != null) {
-				graphitiAgeDiagram.modify(new DiagramModifier() {					
-					@Override
-					public void modify(final DiagramModification m) {
-						// Update the bendpoints
-						final List<org.osate.ge.internal.diagram.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
-						newBendpoints.add(ctx.getBendpointIndex(), new org.osate.ge.internal.diagram.Point(ctx.getX(), ctx.getY()));
-						m.setBendpoints(connectionElement, newBendpoints);
-					}
-				});
-			}		
-		}
-	};
 	
 	@Override 
 	public IAddBendpointFeature getAddBendpointFeature(final IAddBendpointContext context) {
 		return addBendpointFeature;
 	}
-	
-	private final IRemoveBendpointFeature removeBendpointFeature = new DefaultRemoveBendpointFeature(this) {
-		@Override
-		public void removeBendpoint(final IRemoveBendpointContext ctx) {
-			final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-			final AgeDiagramElement connectionElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
-			if(connectionElement != null) {
-				graphitiAgeDiagram.modify(new DiagramModifier() {					
-					@Override
-					public void modify(final DiagramModification m) {
-						// Update the bendpoints
-						final List<org.osate.ge.internal.diagram.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
-						newBendpoints.remove(ctx.getBendpointIndex());
-						m.setBendpoints(connectionElement, newBendpoints);
-					}
-				});
-			}							
-		}
-	};
 	
 	@Override 
 	public IRemoveBendpointFeature getRemoveBendpointFeature(final IRemoveBendpointContext context) {

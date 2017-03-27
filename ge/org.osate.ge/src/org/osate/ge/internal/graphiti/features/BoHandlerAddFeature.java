@@ -8,7 +8,6 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.impl.AbstractAddFeature;
 import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.ExtensionService;
 
 // IAddFeature implementation that delegates behavior to a business object handler
@@ -30,7 +29,7 @@ public class BoHandlerAddFeature extends AbstractAddFeature implements ICustomUn
 	
 	@Override
 	public PictogramElement add(final IAddContext context) {
-		final Object bo = AadlElementWrapper.unwrap(context.getNewObject());
+		final Object bo = context.getNewObject();
 		if(bo == null) {
 			return null;
 		}

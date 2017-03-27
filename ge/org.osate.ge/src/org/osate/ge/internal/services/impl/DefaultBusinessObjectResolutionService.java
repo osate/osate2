@@ -11,7 +11,6 @@ package org.osate.ge.internal.services.impl;
 import org.eclipse.graphiti.features.IMappingProvider;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Element;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 
 public class DefaultBusinessObjectResolutionService implements BusinessObjectResolutionService {
@@ -22,7 +21,7 @@ public class DefaultBusinessObjectResolutionService implements BusinessObjectRes
 	
 	@Override
 	public Object getBusinessObjectForPictogramElement(PictogramElement pe) {
-		return AadlElementWrapper.unwrap(mappingProvider.getBusinessObjectForPictogramElement(pe));
+		return mappingProvider.getBusinessObjectForPictogramElement(pe);
 	}
 	
 	@Override

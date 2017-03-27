@@ -22,7 +22,6 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.PropertyService;
 
 public class FlowContributionItem extends ComboContributionItem implements ComponentClassifierItem {
@@ -80,7 +79,7 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 			
 		final AgeDiagramEditor ed = (AgeDiagramEditor)part;
 		final IFeatureProvider fp = ed.getDiagramTypeProvider().getFeatureProvider();
-		return AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram()));
+		return fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram());
 	}
 	/**
 	 * Get the top-level component classifier from the editor
@@ -91,7 +90,7 @@ public class FlowContributionItem extends ComboContributionItem implements Compo
 			// Get the AADL Element at the top level of the diagram
 			final Diagram diagram = editor.getDiagramTypeProvider().getDiagram();
 			final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
-			final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(diagram));
+			final NamedElement element = (NamedElement)fp.getBusinessObjectForPictogramElement(diagram);
 			if(element instanceof ComponentImplementation) {
 				return (ComponentImplementation)element;
 			}

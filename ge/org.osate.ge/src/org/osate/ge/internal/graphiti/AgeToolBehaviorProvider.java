@@ -27,7 +27,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.internal;
+package org.osate.ge.internal.graphiti;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -54,6 +54,7 @@ import org.eclipse.graphiti.palette.impl.PaletteCompartmentEntry;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
 import org.osate.aadl2.Generalization;
+import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.commands.GraphicalToTextualCommand;
 import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;

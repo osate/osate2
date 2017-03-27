@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0073.
  *******************************************************************************/
-package org.osate.ge.internal;
+package org.osate.ge.internal.graphiti;
 
 import java.util.Objects;
 
@@ -16,7 +16,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.LabelUtil;
 import org.osate.ge.internal.query.QueryRunner;

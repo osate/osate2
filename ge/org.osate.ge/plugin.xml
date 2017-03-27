@@ -51,7 +51,7 @@
    <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
       <diagramTypeProvider
             name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.internal.AgeDiagramTypeProvider"
+            class="org.osate.ge.internal.graphiti.AgeDiagramTypeProvider"
             id="org.osate.ge.aadlDiagramTypeProvider">
          <diagramType
                id="org.osate.ge.aadlDiagramType">
@@ -194,7 +194,7 @@
  <extension
       point="org.eclipse.graphiti.ui.imageProviders">
    <imageProvider
-         class="org.osate.ge.internal.AgeImageProvider"
+         class="org.osate.ge.internal.graphiti.AgeImageProvider"
          id="org.osate.ge.image_provider">
    </imageProvider>
 </extension>

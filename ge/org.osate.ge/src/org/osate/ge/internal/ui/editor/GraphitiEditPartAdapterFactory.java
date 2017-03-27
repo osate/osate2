@@ -15,7 +15,6 @@ import org.eclipse.ui.views.properties.IPropertySource;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.ui.properties.AadlElementPropertySource;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.xtext.aadl2.ui.propertyview.IAadlPropertySource;
@@ -38,9 +37,6 @@ public class GraphitiEditPartAdapterFactory implements IAdapterFactory {
 			bo = part.getFeatureProvider().getBusinessObjectForPictogramElement(part.getPictogramElement());
 		}
 		
-		// Unwrap the object
-		bo = AadlElementWrapper.unwrap(bo);
-
 		if(IAadlPropertySource.class.equals(adapterType)) {
 			// If the business object is an AADL Named Element
 			if(bo instanceof NamedElement) {
