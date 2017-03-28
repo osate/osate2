@@ -12,11 +12,11 @@ import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.updating.BusinessObjectTree;
+import org.osate.ge.internal.diagram.updating.BusinessObjectTreeFactory;
+import org.osate.ge.internal.diagram.updating.BusinessObjectTreeNode;
+import org.osate.ge.internal.diagram.updating.DiagramElementInfoProvider;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
-import org.osate.ge.internal.diagram.DiagramUpdater.BusinessObjectTree;
-import org.osate.ge.internal.diagram.DiagramUpdater.BusinessObjectTreeFactory;
-import org.osate.ge.internal.diagram.DiagramUpdater.BusinessObjectTreeNode;
-import org.osate.ge.internal.diagram.DiagramUpdater.DiagramElementInfoProvider;
 
 public class TestBusinessObjectModel implements BusinessObjectTreeFactory, DiagramElementInfoProvider {
 	public TestBusinessObject model;

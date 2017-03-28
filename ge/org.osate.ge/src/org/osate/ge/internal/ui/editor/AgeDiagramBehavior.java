@@ -29,24 +29,18 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
-import java.io.IOException;
-import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.command.BasicCommandStack;
 import org.eclipse.emf.common.command.Command;
 import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.NotificationFilter;
-import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
 import org.eclipse.emf.transaction.RollbackException;
@@ -67,7 +61,6 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
@@ -97,23 +90,9 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.ConnectionBuilder;
-import org.osate.ge.graphics.EllipseBuilder;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.RectangleBuilder;
-import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.diagram.DiagramLayoutUtil;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.DiagramUpdateFeature;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;
@@ -128,7 +107,6 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
-	private final DiagramService diagramService;
 	private GraphitiAgeDiagram graphitiAgeDiagram;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
@@ -177,9 +155,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		}		
 	};
 	
-	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer, final DiagramService diagramService) {
+	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer) {
 		super(diagramContainer);
-		this.diagramService = diagramService;
 	}	
 	
 	@Override

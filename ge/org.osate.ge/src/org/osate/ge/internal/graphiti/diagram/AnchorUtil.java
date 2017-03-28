@@ -2,7 +2,6 @@ package org.osate.ge.internal.graphiti.diagram;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.datatypes.ILocation;
@@ -12,7 +11,6 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -87,31 +85,28 @@ class AnchorUtil {
 	 * @param shape
 	 * @param diagramNodeProvider
 	 */
-	public static void updateConnectionAnchors(final Shape shape, final DiagramNodeToPictogramElementAdapter diagramNodeProvider) {
-		// TODO: Is this needed? conneciton anchors may be updated in other cases.. Assuming we keep the rule the the connection must only refer to children of it's shape container...
+	public static void updateConnectionAnchors(final Shape shape, final NodePictogramBiMap diagramNodeProvider) {
+		// This is needed to update connection anchors for connections which are not owned by any of elements involved in the connection.
 		for(final Anchor anchor : shape.getAnchors()) {
 			for(final Connection connection : anchor.getIncomingConnections()) {
-				createUpdateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
+				updateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
 			}
 			
 			for(final Connection connection : anchor.getOutgoingConnections()) {
-				createUpdateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
+				updateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
 			}
 		}
 	}
 	
-	// TODO: OPTIMIZE: Have a flag to check if the connection anchor exists before updating if this is an update only operation.
-	private static Shape getConnectionAnchorContainer(final AgeDiagramElement connectionDiagramElement, final DiagramNodeToPictogramElementAdapter peProvider) {
+	private static Shape getConnectionAnchorContainer(final AgeDiagramElement connectionDiagramElement, final NodePictogramBiMap mapping) {
 		if(connectionDiagramElement == null) {
 			return null;
 		}
 		
 		// Get the first non-connection owner
-		Shape containerShape = null;
-		
-		// TODO: Can check graphic instead?
+		Shape containerShape = null;		
 		for(DiagramNode tmpDe = connectionDiagramElement.getContainer(); tmpDe != null; tmpDe = tmpDe.getContainer()) {
-			final PictogramElement pe = peProvider.getPictogramElement(tmpDe);
+			final PictogramElement pe = mapping.getPictogramElement(tmpDe);
 			if(pe == null) {
 				break;
 			} else if(pe instanceof Shape) {
@@ -134,11 +129,11 @@ class AnchorUtil {
 	 * Gets the connection anchor for a specified connection. Creates a new anchor and initializes it as necessary.
 	 * @param connectionDiagramElement
 	 * @param connection
-	 * @param peProvider
+	 * @param mapping
 	 * @return
 	 */
-	public static Anchor getConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final DiagramNodeToPictogramElementAdapter peProvider) {
-		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, peProvider);
+	public static Anchor getOrCreateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final NodePictogramBiMap mapping) {
+		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, mapping);
 		final String anchorName = getConnectionAnchorName(connectionDiagramElement);
 		if(anchorName == null) {
 			return null;
@@ -164,22 +159,34 @@ class AnchorUtil {
 
 		return newAnchor;
 	}	
-		
-	public static Anchor createUpdateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final DiagramNodeToPictogramElementAdapter peProvider) {
-		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, peProvider);
-		final ILayoutService layoutService = Graphiti.getLayoutService();
-		final ILocation ownerLocation = layoutService.getLocationRelativeToDiagram(containerShape);
-		
-		final Point connectionMidpoint = getConnectionMidpoint(connection, 0.5);
+			
+	public static Anchor updateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final NodePictogramBiMap mapping) {
+		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, mapping);
 		final String anchorName = getConnectionAnchorName(connectionDiagramElement);
-		if(anchorName == null || connectionMidpoint == null) {
+		if(anchorName == null) {
 			return null;
 		}
 		
+		final Anchor retrievedAnchor = getAnchorByName(containerShape, anchorName);
+		if(!(retrievedAnchor instanceof FixPointAnchor)) {
+			return null;
+		}
+		
+		final FixPointAnchor fpa = (FixPointAnchor)retrievedAnchor;		
+		final ILayoutService layoutService = Graphiti.getLayoutService();
+		final ILocation ownerLocation = layoutService.getLocationRelativeToDiagram(containerShape);
+		final Point connectionMidpoint = getConnectionMidpoint(connection, 0.5);
+		if(connectionMidpoint == null) {
+			return null;
+		}
+		
+		// Configure the anchor
 		final int anchorX = connectionMidpoint.x - ownerLocation.getX();
 		final int anchorY = connectionMidpoint.y - ownerLocation.getY();	
-		final Anchor anchor = createOrUpdateFixPointAnchor(containerShape, anchorName, anchorX, anchorY, true);
-		return anchor;
+        fpa.setLocation(Graphiti.getGaService().createPoint(anchorX, anchorY));
+        fpa.setUseAnchorLocationAsConnectionEndpoint(true);
+		
+		return retrievedAnchor;
 	}
 	
 	private static Point getConnectionMidpoint(final Connection connection, final double d) {

@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-// TODO: Should have a variable argument constructor?
+/**
+ * Data type for relative references to a business object. A relative reference along with a containing diagram element must uniquely identify the business object.
+ */
 public class RelativeBusinessObjectReference {
 	private List<String> segments;
 	
@@ -50,7 +52,6 @@ public class RelativeBusinessObjectReference {
 	
 	@Override
 	public String toString() {
-		// TODO: Do this without converting to array
 		return Arrays.toString(segments.toArray());
 	}
 }

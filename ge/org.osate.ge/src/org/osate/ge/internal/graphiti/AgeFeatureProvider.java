@@ -30,13 +30,10 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.graphiti;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IAddBendpointFeature;
 import org.eclipse.graphiti.features.IAddFeature;
@@ -69,10 +66,6 @@ import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
-import org.eclipse.graphiti.features.impl.AbstractLayoutFeature;
-import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
-import org.eclipse.graphiti.features.impl.DefaultMoveBendpointFeature;
-import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
@@ -81,14 +74,9 @@ import org.osate.ge.internal.graphiti.features.BoHandlerCreateConnectionFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
-import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
 import org.osate.ge.internal.SimplePaletteEntry;
-import org.osate.ge.internal.SimplePaletteEntry.Type;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.AgeAddBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
@@ -102,23 +90,14 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeService;
 
-public class AgeFeatureProvider extends DefaultFeatureProvider {
-	private static final String KEY_BUSINESS_OBJECT = "bo"; // TODO: Rename?
-	private static final String REFERENCE_TYPE_ABSOLUTE = "abs";
-	private static final String REFERENCE_TYPE_RELATIVE = "rel";
-	
-	// TODO: Rename?
-	private static final String LEGACY_KEY_INDEPENDENT_PROPERTY = "independentObject"; // Property which was used to store references by Graphiti before migration to custom handling of references.
+public class AgeFeatureProvider extends DefaultFeatureProvider {	
 	private IEclipseContext eclipseContext;
 	private ExtensionService extService;
-	private DiagramService diagramService;
 	private AadlModificationService aadlModService;
 	private GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private ShapeService shapeService;
@@ -141,7 +120,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
-		this.diagramService = Objects.requireNonNull(eclipseContext.get(DiagramService.class), "unable to retrieve diagram service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(eclipseContext.get(GraphitiAgeDiagramProvider.class), "unable to retrieve Graphiti AGE Diagram Provider");
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
@@ -200,7 +178,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	}
 	
 	@Override
-	public PictogramElement[] getAllPictogramElementsForBusinessObject(Object businessObject) {		
+	public PictogramElement[] getAllPictogramElementsForBusinessObject(final Object businessObject) {		
 		//TODO: Migrate!
 		return new PictogramElement[0];
 	}

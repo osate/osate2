@@ -12,7 +12,15 @@ import org.osate.ge.internal.labels.AgeLabelConfiguration;
 public interface DiagramModification {
 	void addElement(final AgeDiagramElement e);
 	void removeElement(final AgeDiagramElement e);
-	void updateBusinessObjectWithSameRelativeReference(final AgeDiagramElement e, final Object bo); // TODO: Refresh business object? Require relative reference to match?
+	
+	/**
+	 * Updates the business object for a diagram element. The business object must have the same relative reference as the current business object.
+	 * It is intended that this method be used to update an element to reflect an updated model when refreshing the diagram.
+	 * @param e
+	 * @param bo
+	 */
+	void updateBusinessObjectWithSameRelativeReference(final AgeDiagramElement e, final Object bo);
+	
 	void setGraphic(final AgeDiagramElement e, final Graphic value);
 	void setPosition(final AgeDiagramElement e, final Point value);
 	void setSize(final AgeDiagramElement e, final Dimension value);

@@ -5,8 +5,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-// TODO: Explain
-// TODO: Should have a variable argument constructor?
+/**
+ * Data type for canonical references to a business object. 
+ * A canonical reference uniquely identifies a business object.
+ *
+ */
 public class CanonicalBusinessObjectReference {
 	private List<String> segments;
 	
@@ -50,11 +53,9 @@ public class CanonicalBusinessObjectReference {
 	
 	@Override
 	public String toString() {
-		// TODO: Do this without converting to array
 		return Arrays.toString(segments.toArray());
 	}
 	
-	// TODO: Remove when no longer used
 	public String[] toSegmentArray() {
 		return segments.toArray(new String[segments.size()]);
 	}

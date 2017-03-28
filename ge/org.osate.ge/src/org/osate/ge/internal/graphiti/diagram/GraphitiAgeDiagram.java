@@ -1,7 +1,9 @@
 package org.osate.ge.internal.graphiti.diagram;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -54,9 +56,13 @@ import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 
-// TODO: Rename
-// TODO: Rework. Don't make copy. Listener/Synchronization paradigm.
-public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter {
+/**
+ * Class that integrates AgeDiagram with Graphiti. 
+ * Handles updating the Graphiti diagram to reflect changes in the AgeDiagram.
+ * The Graphiti diagram must not be modified directly.
+ *
+ */
+public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	
 	private final AgeDiagram ageDiagram;
@@ -65,156 +71,16 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 	private final Map<DiagramNode, PictogramElement> diagramNodeToPictogramElementMap = new HashMap<>();
 	private final GraphitiDiagramModificationListener modificationListener = new GraphitiDiagramModificationListener();
 	
-	// TODO: Move outside of class. Only needs access to the mappings?
-	private class GraphitiDiagramModificationListener implements DiagramModificationListener {
-		private boolean enabled = true;
-		
-		final Set<AgeDiagramElement> elementsToAdd = new LinkedHashSet<>();
-		final Set<AgeDiagramElement> elementsToUpdate = new LinkedHashSet<>();
-		final Set<AgeDiagramElement> elementsToRemove = new LinkedHashSet<>();
-		
-		@Override
-		public void elementAdded(final ElementAddedEvent e) {
-			if(enabled) {
-				elementsToRemove.remove(e.element);
-				elementsToAdd.add(e.element);
-				elementsToUpdate.add(e.element);
-			}
-		}
-
-		@Override
-		public void elementRemoved(final ElementRemovedEvent e) {
-			if(enabled) {
-				elementsToRemove.add(e.element);
-				elementsToAdd.remove(e.element);
-				elementsToUpdate.remove(e.element);
-			}
-		}
-
-		@Override
-		public void elementUpdated(final ElementUpdatedEvent e) {
-			if(enabled) {
-				// TODO: Special handling of graphic update... Add list to update structure.
-
-				if(!elementsToRemove.contains(e.element)) {
-					// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
-					if(elementsToUpdate.contains(e.element)) {
-						elementsToUpdate.remove(e.element);
-					}
-					
-					elementsToUpdate.add(e.element);
-				}
-			}
-		}
-		
-		@Override
-		public void modificationsCompleted(final ModificationsCompletedEvent event) {
-			if(enabled) {
-				try {				
-					// Remove elements
-					for(final AgeDiagramElement element : elementsToRemove) {						
-						// Remove any contained connections first. Connections are stored at the diagram level in the Graphiti model so they need to be deleted individually.
-						removeContainedConnections(element);
-						
-						final PictogramElement pe = getPictogramElement(element);
-						if(pe != null) {
-							EcoreUtil.delete(pe, true);
-						}
-					}
-					
-					if(elementsToAdd.size() > 0) {
-						// TODO: Combine this into a function shared with initialization?
-						ensureCreatedChildren(ageDiagram, graphitiDiagram);
-						updateChildren(ageDiagram, true); // TODO: Should just do update at this point
-						LayoutUtil.layoutDepthFirst(graphitiDiagram, ageDiagram, GraphitiAgeDiagram.this); // Layout
-						updateConnections(ageDiagram);
-						
-						// TODO: May need this for delete too?
-					} else {					
-						final Set<DiagramNode> nodesToLayout = new LinkedHashSet<>(); // TODO: Make shared list? How will we sort this?
-						
-						// TODO: Update elements. Set connection anchors, etc.
-						// TODO: Build a list of elements to layout and sort them.. Do it as a different step.
-						for(final AgeDiagramElement element : elementsToUpdate) {
-							// TODO: Need to update in appropriate order.
-							final PictogramElement pe = getPictogramElement(element);
-							// TODO: Need to order the elements that are being updated... Update parents as appropriate
-							updateDiagramElement(element, false);
-	
-							if(pe instanceof ContainerShape) {
-								// TODO: Need to be smarter about laying out the entire tree? Some cases may only require relaying out one or two levels.
-								final DiagramNode undockedContainer = getUndockedDiagramNode(element.getContainer());
-								nodesToLayout.add(undockedContainer);
-							}
-						}
-		
-						// Layout Nodes
-						// TODO: Need to filter out descendants. Especially if doing the entire tree..				
-						for(final DiagramNode n : nodesToLayout) {
-							if(n instanceof AgeDiagram) {
-								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram)n, GraphitiAgeDiagram.this);	
-							} else if(n instanceof AgeDiagramElement) {
-								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagramElement)n, GraphitiAgeDiagram.this);
-							}
-						}
-						
-						// Update affected connections
-						for(final AgeDiagramElement element : elementsToUpdate) {							
-							updateConnections(element);
-						}			
-					}
-				} finally {
-					elementsToAdd.clear();
-					elementsToRemove.clear();
-					elementsToUpdate.clear();
-				}
-			}
-		}
-		
-		/**
-		 * Removes all connections contained in the specified element or its descendants.
-		 */
-		private void removeContainedConnections(final AgeDiagramElement e) {
-			for(final AgeDiagramElement element : e.getDiagramElements()) {
-				final PictogramElement pe = getPictogramElement(element);
-				removeContainedConnections(element);
-				
-				if(pe instanceof Connection) {
-					EcoreUtil.delete(pe, true);
-				}
-			}
-		}
-		
-		public void enable() {
-			this.enabled = true;
-		}
-		
-		public void disable() {
-			this.enabled = false;
-		}
-	};
-	
-	private DiagramNode getUndockedDiagramNode(DiagramNode n) {
-		while(n instanceof AgeDiagramElement) {
-			final AgeDiagramElement e = ((AgeDiagramElement) n);
-			if(e.getDockArea() == null) {
-				return e;
-			}
-			
-			n = e.getContainer();
-		}
-		return n;
-		
-	}
-	
-	// TODO: Document. Synchronizes AgeDiagram and a graphiti diagram... Diagram must belong to a resource 
-	// Editing domain is only used during intialization?
-	// It is expected that the editing domain's resource set will not contain any other AADL diagram
+	/**
+	 * 
+	 * @param ageDiagram is the AgeDiagram that will be associated with the Graphiti Diagram
+	 * @param editingDomain is the editing domain to use to make modifications to the diagram. It must not contain any other diagrams.
+	 */
 	public GraphitiAgeDiagram(final AgeDiagram ageDiagram, final EditingDomain editingDomain) {
 		this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
 		Objects.requireNonNull(editingDomain, "editingDomain must not be null");
 				
-		this.graphitiDiagram = Graphiti.getPeService().createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "Untitled Diagram", true); // TODO: Diagram title
+		this.graphitiDiagram = Graphiti.getPeService().createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
 		addMapping(ageDiagram, graphitiDiagram);
 		
 		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
@@ -236,20 +102,8 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 
 			@Override
 			public void execute() {
-				diagramResource.getContents().add(graphitiDiagram);
-				
-				// TODO: Update diagram title..
-
-				// TODO: Add ageDiagram to the pictogram map somewhere...		
-				// Initialize the Graphiti diagram
-				// TODO: Ensure structure is created
-				// TODO: Update graphics and position for all elements
-				// TODO: Layout contents using a depth first approach.
-				
-				ensureCreatedChildren(ageDiagram, graphitiDiagram);
-				updateChildren(ageDiagram, true); // TODO: Should just do update at this point
-				LayoutUtil.layoutDepthFirst(graphitiDiagram, ageDiagram, GraphitiAgeDiagram.this); // Layout
-				updateConnections(ageDiagram);
+				diagramResource.getContents().add(graphitiDiagram);		
+				createUpdateElementsFromAgeDiagram();
 			}
 
 			@Override
@@ -258,9 +112,22 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		});
 		
 		ageDiagram.addModificationListener(modificationListener); // Listen for updates
-		
-		// TODO: Update connection anchors too. Need all shapes to exist before doing that	
 	}
+	
+	/**
+	 * Creates/Updates and lays out graphiti elements for all diagram elements. Does not remove elements which are no longer in the graphiti diagram.
+	 */
+	private void createUpdateElementsFromAgeDiagram() {
+		ensureCreatedChildren(ageDiagram, graphitiDiagram);
+		updateChildren(ageDiagram, true);
+		LayoutUtil.layoutDepthFirst(graphitiDiagram, ageDiagram, GraphitiAgeDiagram.this); // Layout
+		finishUpdatingConnections(ageDiagram);
+	}
+	
+	@Override
+	public void close() {
+		ageDiagram.removeModificationListener(modificationListener);		
+	};
 	
 	public void modify(final DiagramModifier modifier) {
 		this.ageDiagram.modify(modifier); 
@@ -286,31 +153,56 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		}
 	}
 	
-	// TODO: Rename?
-	private void ensureCreatedChildren(final DiagramNode elementContainer, final ContainerShape containerShape) {
-		for(final AgeDiagramElement e : elementContainer.getDiagramElements()) {			
-			ensureCreatedDiagramElement(e, containerShape);
-		}
-	}
-
+	/**
+	 * Stores mapping between the diagram node and the pictogram element
+	 * @param dn
+	 * @param pe
+	 */
 	private void addMapping(final DiagramNode dn, final PictogramElement pe) {
 		diagramNodeToPictogramElementMap.put(dn, pe);
 		pictogramElementToDiagramNodeMap.put(pe, dn);
 	}
 	
-	// TODO: Rename?
+	/**
+	 * Removes the mapping for the specified diagram node and all children
+	 * @param dn
+	 */
+	private void removeMappingForBranch(final DiagramNode dn) {
+		// Remove mapping for children
+		for(final DiagramNode child : dn.getDiagramElements()) {
+			removeMappingForBranch(child);
+		}
+		
+		// Remove mapping for the element itself
+		final PictogramElement pe = getPictogramElement(dn);
+		pictogramElementToDiagramNodeMap.remove(pe);
+		diagramNodeToPictogramElementMap.remove(dn);
+	}
+	
+	/**
+	 * Ensures graphiti elements for children of the specified node have been created
+	 * @param dn
+	 * @param containerShape
+	 */
+	private void ensureCreatedChildren(final DiagramNode dn, final ContainerShape containerShape) {
+		for(final AgeDiagramElement e : dn.getDiagramElements()) {			
+			ensureCreatedDiagramElement(e, containerShape);
+		}
+	}
+
+	/**
+	 * Creates/updates the pictogram element. Also creates most anchors. Connection anchors are not created. They are lazily created. 
+	 * @param de
+	 * @param containerShape
+	 */
 	private void ensureCreatedDiagramElement(final AgeDiagramElement de, final ContainerShape containerShape) {
 		final Graphic g = de.getGraphic();
 		
-		// TODO: PE is 
+		// Create/Update the pictogram Element
 		final PictogramElement pe = createUpdatePictogramElementForGraphic(graphitiDiagram, g, containerShape, getPictogramElement(de));		
 		Objects.requireNonNull(pe, "pe must not be null");
 
-		// TODO: Need to add PE to map? Should be done by createUpdatePictogramElementForGraphic?
-		// TODO: Move to other function?
 		addMapping(de, pe);
-		
-		// TODO: Some of this update is also required if the graphic changes. Rework listeners and things to ensure that it is done in that case...
 		
 		// Configure PE if one exists
 		if(pe instanceof Shape) {										
@@ -337,14 +229,17 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		ensureCreatedChildren(de, nextContainerShape);
 	}
 	
-	// TODO: Name
 	private void updateChildren(final DiagramNode elementContainer, final boolean recursive) {
 		for(final AgeDiagramElement e : elementContainer.getDiagramElements()) {			
 			updateDiagramElement(e, recursive);
 		}
 	}
 
-	// TODO: Rename
+	/**
+	 * Refreshes transient shapes and updates pictogram element properties based on the diagram element.
+	 * @param de
+	 * @param recursive
+	 */
 	private void updateDiagramElement(final AgeDiagramElement de, final boolean recursive) {
 		final Graphic g = de.getGraphic();
 		
@@ -357,7 +252,6 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		if(pe instanceof Shape) {										
 			final Shape shape = ((Shape) pe);
 			
-			// TODO: Should this be part of updating the structure or part of this update?
 			// Remove all non-chopbox anchors that do not have an incoming or outgoing connection
 			final Iterator<Anchor> it = shape.getAnchors().iterator();
 			while(it.hasNext()) {
@@ -516,15 +410,20 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		}
 	}
 	
-	// TODO: Rename. Update things after move
-	// TODO: Move this? Post Layout Update...
-	private void updateConnections(final AgeDiagram diagram) {
+	/**
+	 * Finishes updating connections for all elements contained in the diagram.
+	 */
+	private void finishUpdatingConnections(final AgeDiagram diagram) {
 		for(final AgeDiagramElement element : diagram.getDiagramElements()) {							
-			updateConnections(element);
+			finishUpdatingConnections(element);
 		}	
 	}
 	
-	private void updateConnections(final AgeDiagramElement element) {
+	/**
+	 * Refreshes the control points and anchors of connections related to the specified element.
+	 * This function depends on the position of connection anchors so it should be executed after layout has been performed for all relevant elements.
+	 */
+	private void finishUpdatingConnections(final AgeDiagramElement element) {
 		final PictogramElement pe = getPictogramElement(element);
 		if(pe instanceof Shape) {
 			final Shape shape = ((Shape)pe);
@@ -537,13 +436,12 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 			
 			AnchorUtil.updateConnectionAnchors(shape, GraphitiAgeDiagram.this);
 		} else if(pe instanceof Connection) {
-			AnchorUtil.createUpdateConnectionAnchor(element, (Connection)pe, GraphitiAgeDiagram.this);
+			AnchorUtil.updateConnectionAnchor(element, (Connection)pe, GraphitiAgeDiagram.this);
 		}
 		
 		for(final AgeDiagramElement child : element.getDiagramElements()) {
-			updateConnections(child);
-		}
-		
+			finishUpdatingConnections(child);
+		}		
 	}
 		
 	/**
@@ -616,7 +514,7 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		}
 		
 		if(pe instanceof Connection) {
-			return AnchorUtil.getConnectionAnchor(de, (Connection)pe, this);
+			return AnchorUtil.getOrCreateConnectionAnchor(de, (Connection)pe, this);
 		} else if(pe instanceof AnchorContainer) {
 			final AnchorContainer anchorContainer = (AnchorContainer)pe;
 			return Graphiti.getPeService().getChopboxAnchor(anchorContainer);
@@ -714,5 +612,150 @@ public class GraphitiAgeDiagram implements DiagramNodeToPictogramElementAdapter 
 		}		
 		
 		throw new RuntimeException("Unsupported connection terminator size: " + size);
+	}
+	
+	private DiagramNode getUndockedDiagramNode(DiagramNode n) {
+		while(n instanceof AgeDiagramElement) {
+			final AgeDiagramElement e = ((AgeDiagramElement) n);
+			if(e.getDockArea() == null) {
+				return e;
+			}
+			
+			n = e.getContainer();
+		}
+		return n;
+		
+	}
+	
+	private class GraphitiDiagramModificationListener implements DiagramModificationListener {
+		private boolean enabled = true;
+		
+		final Set<AgeDiagramElement> elementsToAdd = new LinkedHashSet<>();
+		final Set<AgeDiagramElement> elementsToUpdate = new LinkedHashSet<>();
+		final Set<AgeDiagramElement> elementsToRemove = new LinkedHashSet<>();
+		
+		@Override
+		public void elementAdded(final ElementAddedEvent e) {
+			if(enabled) {
+				elementsToRemove.remove(e.element);
+				elementsToAdd.add(e.element);
+				elementsToUpdate.add(e.element);
+			}
+		}
+
+		@Override
+		public void elementRemoved(final ElementRemovedEvent e) {
+			if(enabled) {
+				elementsToRemove.add(e.element);
+				elementsToAdd.remove(e.element);
+				elementsToUpdate.remove(e.element);
+			}
+		}
+
+		@Override
+		public void elementUpdated(final ElementUpdatedEvent e) {
+			if(enabled) {
+				// All updates are treated the same at this point. Each element is updated and containers are layed out.
+				if(!elementsToRemove.contains(e.element)) {
+					// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
+					if(elementsToUpdate.contains(e.element)) {
+						elementsToUpdate.remove(e.element);
+					}
+					
+					elementsToUpdate.add(e.element);
+				}
+			}
+		}
+
+		@Override
+		public void modificationsCompleted(final ModificationsCompletedEvent event) {
+			if(enabled) {
+				try {				
+					// Remove elements
+					for(final AgeDiagramElement element : elementsToRemove) {						
+						// Remove any contained connections first. Connections are stored at the diagram level in the Graphiti model so they need to be deleted individually.
+						removeContainedConnections(element);
+						
+						final PictogramElement pe = getPictogramElement(element);
+						if(pe != null) {
+							EcoreUtil.delete(pe, true);
+						}
+						
+						// Remove the mapping
+						removeMappingForBranch(element);
+					}
+					
+					if(elementsToAdd.size() > 0) {
+						createUpdateElementsFromAgeDiagram();
+					} else {					
+						final Set<DiagramNode> nodesToLayout = new HashSet<>();
+						
+						// Update modified elements 
+						for(final AgeDiagramElement element : elementsToUpdate) {
+							final PictogramElement pe = getPictogramElement(element);
+							updateDiagramElement(element, false);
+	
+							if(pe instanceof ContainerShape) {
+								final DiagramNode undockedContainer = getUndockedDiagramNode(element.getContainer());
+								nodesToLayout.add(undockedContainer);
+							}
+						}
+								
+						// Layout Nodes
+						// OPTIMIZE: It would be more efficient to only layout the nodes that need to be layed out instead of laying out all descendants of the container.
+						nodesToLayout.removeIf((n) -> collectionContainsAnyAncestor(nodesToLayout, n)); // Filter out elements whose parents are in the collection of nodes to layout
+						for(final DiagramNode n : nodesToLayout) {
+							if(n instanceof AgeDiagram) {
+								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram)n, GraphitiAgeDiagram.this);	
+							} else if(n instanceof AgeDiagramElement) {
+								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagramElement)n, GraphitiAgeDiagram.this);
+							}
+						}
+						
+						// Update affected connections
+						for(final AgeDiagramElement element : elementsToUpdate) {							
+							finishUpdatingConnections(element);
+						}			
+					}
+				} finally {
+					elementsToAdd.clear();
+					elementsToRemove.clear();
+					elementsToUpdate.clear();
+				}
+			}
+		}		
+		
+		private boolean collectionContainsAnyAncestor(final Collection<?> collection, final DiagramNode n) {
+			DiagramNode t = n.getContainer();
+			while(t != null) {
+				if(collection.contains(t)) {
+					return true;
+				}
+				t = t.getContainer();
+			}
+			return false;
+		}		
+		
+		/**
+		 * Removes all connections contained in the specified element or its descendants.
+		 */
+		private void removeContainedConnections(final AgeDiagramElement e) {
+			for(final AgeDiagramElement element : e.getDiagramElements()) {
+				final PictogramElement pe = getPictogramElement(element);
+				removeContainedConnections(element);
+				
+				if(pe instanceof Connection) {
+					EcoreUtil.delete(pe, true);
+				}
+			}
+		}
+		
+		public void enable() {
+			this.enabled = true;
+		}
+		
+		public void disable() {
+			this.enabled = false;
+		}
 	}
 }

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
-import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -58,31 +57,38 @@ class LayoutUtil {
 		}
 	}
 	
-	public static void layoutDepthFirst(final Diagram graphitiDiagram, final AgeDiagram ageDiagram, final DiagramNodeToPictogramElementAdapter peProvider) {
+	public static void layoutDepthFirst(final Diagram graphitiDiagram, final AgeDiagram ageDiagram, final NodePictogramBiMap mapping) {
 		for(final AgeDiagramElement child : ageDiagram.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, child, peProvider);				
+			layoutDepthFirst(graphitiDiagram, child, mapping);				
 		}
 	}
 	
 	public static void layoutDepthFirst(final Diagram graphitiDiagram, 
 			final AgeDiagramElement element, 
-			final DiagramNodeToPictogramElementAdapter peProvider) {
+			final NodePictogramBiMap mapping) {
 		for(final AgeDiagramElement child : element.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, child, peProvider);				
+			layoutDepthFirst(graphitiDiagram, child, mapping);				
 		}
 		
 		// Get the pictogram element and lay it out if it is a shape
-		final PictogramElement pe = peProvider.getPictogramElement(element);
+		final PictogramElement pe = mapping.getPictogramElement(element);
 		if(pe instanceof ContainerShape) {
-			layout(graphitiDiagram, element, (ContainerShape)pe, peProvider);
+			layout(graphitiDiagram, element, (ContainerShape)pe, mapping);
 		}
 	}	
 	
-	// TODO: Document. Single layer
+	/**
+	 * Lays out a shape associated with a diagram element.
+	 * The layout process includes positioning children, ensuring the element is sized properly, and updating the graphics algorithm for the shape.
+	 * @param graphitiDiagram
+	 * @param element
+	 * @param shape
+	 * @param diagramNodeProvider
+	 */
 	public static void layout(final Diagram graphitiDiagram, 
 			final AgeDiagramElement element, 
 			final ContainerShape shape,
-			final DiagramNodeToPictogramElementAdapter diagramNodeProvider) {
+			final NodePictogramBiMap diagramNodeProvider) {
 		final AgeLabelConfiguration labelConfiguration = element.getLabelConfiguration() == null ? defaultLabelConfiguration : element.getLabelConfiguration();
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		shapeGa.setStyle(null); // Remove reference to Graphiti style.
@@ -249,8 +255,7 @@ class LayoutUtil {
 			innerGa.setY(lm.topOuterPadding);
 		}
 		
-		// TODO: Determine positions in an appropriate manner
-		// TODO: Move to another function? or multiple functions?
+		// Create an anchor which is used for flow specifications
 		if(shapeDockArea != null) {
 			final int flowSpecAnchorOffsetX;
 			final int flowSpecAnchorOffsetY;

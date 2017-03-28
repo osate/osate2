@@ -64,7 +64,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	
 	public void addModificationListener(final DiagramModificationListener listener) {
 		this.modificationListeners.add(Objects.requireNonNull(listener, "listener must not be null"));
-	}		
+	}
+	
+	public void removeModificationListener(final DiagramModificationListener listener) {
+		this.modificationListeners.remove(Objects.requireNonNull(listener, "listener must not be null"));
+	}
 	
 	public void modify(final DiagramModifier modifier) {
 		final AgeDiagramModification m = new AgeDiagramModification();

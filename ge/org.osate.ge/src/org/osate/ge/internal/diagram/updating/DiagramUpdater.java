@@ -1,4 +1,4 @@
-package org.osate.ge.internal.diagram;
+package org.osate.ge.internal.diagram.updating;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -11,72 +11,26 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.eclipse.debug.internal.ui.DefaultLabelProvider;
-import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfiguration;
-import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
- *
+ * The DiagramUpdater updates the diagram using information provided by objects passed into the constructor.
  */
-// TODO: Document purpose, etc
 public class DiagramUpdater {	
 	private final BusinessObjectTreeFactory boTreeFactory;
-	private final DiagramElementInfoProvider infoProvider; // TODO:Rename
+	private final DiagramElementInfoProvider infoProvider;
 	
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, AgeDiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 		
-	// This interface provides the business objects that should be included in the diagram.
-	// The updater is responsible for adding and removing elements as necessary.
-	public static interface BusinessObjectTreeFactory {
-		BusinessObjectTree createBusinessObjectTree(final DiagramConfiguration configuration);
-	}
-	
-	public static interface BusinessObjectTree {
-		Collection<BusinessObjectTreeNode> getRootNodes();
-	}
-	
-	public static interface BusinessObjectTreeNode {
-		Object getBusinessObject();
-		RelativeBusinessObjectReference getRelativeReference();
-		CanonicalBusinessObjectReference getCanonicalReference();
-		Collection<BusinessObjectTreeNode> getChildren();
-		String getName(); // Get name for the business object's name label
-	}
-
-	// TODO: Rename
-	public static interface DiagramElementInfoProvider {
-		/**
-		 * Provides the graphic that should be used for a business object. 
-		 * The specified diagram element may not be fully initialized. Only the business object and container fields are guaranteed to be initialized.
-		 * @param element
-		 * @return
-		 */
-		Graphic getGraphic(AgeDiagramElement element);
-		
-		/**
-		 * The specified diagram element may not be fully initialized. Only the business object and container fields are guaranteed to be initialized.
-		 * @param element
-		 * @return the default docking position. Must not be null.
-		 */
-		DockingPosition getDefaultDockingPosition(AgeDiagramElement element);
-		
-		/**
-		 * 
-		 * @param element
-		 * @return may return null.
-		 */
-		AgeLabelConfiguration getDefaultLabelConfiguration(AgeDiagramElement element);
-		
-		AgeDiagramElement getConnectionStart(final AgeDiagramElement e);
-		AgeDiagramElement getConnectionEnd(final AgeDiagramElement e);
-	}
-	
 	public DiagramUpdater(final BusinessObjectTreeFactory boTreeFactory, 
 			final DiagramElementInfoProvider infoProvider) {
 		this.boTreeFactory = Objects.requireNonNull(boTreeFactory, "boTreeFactory must not be null");

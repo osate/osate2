@@ -120,11 +120,10 @@ public class RefreshDiagramFeature extends AbstractCustomFeature implements ICus
 			}
 		});
 		
-		// TODO: Consider whether this can be part of the other modification
+		// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
 		ageDiagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
-				// TODO: Update the diagram to set positions
 				DiagramLayoutUtil.layout(ageDiagram, m, false);
 			}
 		});

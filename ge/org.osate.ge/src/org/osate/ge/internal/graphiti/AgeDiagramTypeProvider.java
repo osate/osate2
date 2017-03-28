@@ -17,7 +17,6 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.diagram.LabelUtil;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.services.AadlArrayService;
@@ -73,6 +72,7 @@ import org.osgi.framework.FrameworkUtil;
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final IEclipseContext context;
 	private DefaultSerializableReferenceService serializableReferenceService;
+	private IToolBehaviorProvider[] toolBehaviorProviders;
 	
 	public AgeDiagramTypeProvider() {	
 		final AgeFeatureProvider featureProvider = new AgeFeatureProvider(this);
@@ -169,12 +169,15 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		super.dispose();
 	}
 	
+	@Override 
+	public String getDiagramTitle() {
+		return super.getDiagramTitle();
+	}
+	
 	@Override
 	public boolean isAutoUpdateAtStartup() {
 		return true;
 	}	
-
-	private IToolBehaviorProvider[] toolBehaviorProviders;
 	
 	@Override
     public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {

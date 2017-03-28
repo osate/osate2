@@ -10,11 +10,12 @@ import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.DiagramUpdater;
+
 import static org.osate.ge.tests.TestBusinessObject.newBO;
 
 import java.util.Collection;

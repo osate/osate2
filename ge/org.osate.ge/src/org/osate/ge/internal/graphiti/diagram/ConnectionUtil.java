@@ -1,24 +1,13 @@
 package org.osate.ge.internal.graphiti.diagram;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-import org.eclipse.draw2d.geometry.Point;
-import org.eclipse.draw2d.geometry.Rectangle;
 import org.eclipse.graphiti.datatypes.ILocation;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.styles.PrecisionPoint;
 import org.eclipse.graphiti.mm.algorithms.styles.StylesFactory;
-import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.services.ILayoutService;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
 
 class ConnectionUtil {	
 	public static void updateControlPoints(final Collection<Connection> connections) {
@@ -28,6 +17,7 @@ class ConnectionUtil {
 			}
 		}
 	}
+	
 	public static void updateControlPoints(final CurvedConnection connection) {
 		final ILayoutService layoutService = Graphiti.getLayoutService();			
 

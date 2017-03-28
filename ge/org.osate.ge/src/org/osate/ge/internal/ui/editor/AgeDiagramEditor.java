@@ -29,12 +29,12 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import org.eclipse.emf.common.util.URI;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
-import org.eclipse.ui.PlatformUI;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.GraphicalEditor;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
@@ -47,8 +47,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	}
 	
 	protected DiagramBehavior createDiagramBehavior() {
-		final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		return new AgeDiagramBehavior(this, diagramService);
+		return new AgeDiagramBehavior(this);
 	}
 	
 	/*
@@ -79,5 +78,23 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		}
 		
 		return super.getAdapter(required);
+	}
+	
+	@Override
+	public void refreshTitle() {
+		final IDiagramEditorInput input = getDiagramEditorInput();
+		String name = null;
+		if(input != null) {
+			final URI uri = input.getUri();
+			if(uri != null) {
+				name = uri.lastSegment();
+			}
+		}
+		
+		if(name == null) {
+			name = "";
+		}
+
+		setPartName(name);
 	}
 }

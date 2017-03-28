@@ -29,6 +29,10 @@ import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
+/**
+ * 
+ *
+ */
 public class DefaultInternalReferenceBuilderService implements InternalReferenceBuilderService {
 	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
 	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";

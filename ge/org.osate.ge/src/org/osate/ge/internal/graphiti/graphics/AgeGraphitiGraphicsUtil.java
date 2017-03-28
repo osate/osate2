@@ -394,25 +394,25 @@ public class AgeGraphitiGraphicsUtil {
 		ga.setFilled(false);
 
 		// Draw a half ellipse
-		int pointCount = 16; // TODO: Rename.. Per half circle
-		int[] points = new int[pointCount*4];
+		int pointPerSemiCircle = 16;
+		int[] points = new int[pointPerSemiCircle*4];
 		int j = 0;
 		double t = 0;
-		for(int i = 0; i < pointCount; i++) {
+		for(int i = 0; i < pointPerSemiCircle; i++) {
 			final int x = (int)Math.round(halfCircleOuterWidth + (-Math.sin(t) * halfCircleOuterWidth));
 			final int y = (int)Math.round(halfCircleOuterHeight + (Math.cos(t) * halfCircleOuterHeight));
 			points[j++] = x;
 			points[j++] = y;
-			t += Math.PI/(pointCount-1);
+			t += Math.PI/(pointPerSemiCircle-1);
 		}
 		
 		t = Math.PI;
-		for(int i = 0; i < pointCount; i++) {
+		for(int i = 0; i < pointPerSemiCircle; i++) {
 			final int x = (int)Math.round(halfCircleOuterWidth + (-Math.sin(t) * halfCircleInnerWidth));
 			final int y = (int)Math.round(halfCircleOuterHeight + (Math.cos(t) * halfCircleInnerHeight));
 			points[j++] = x;
 			points[j++] = y;
-			t -= Math.PI/(pointCount-1);
+			t -= Math.PI/(pointPerSemiCircle-1);
 		}
 		
 		final org.eclipse.graphiti.mm.algorithms.Polygon halfCircle = gaService.createPlainPolygon(ga, points);
