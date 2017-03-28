@@ -64,6 +64,7 @@ import org.osate.aadl2.AccessType;
 import org.osate.aadl2.BusAccess;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
@@ -885,15 +886,16 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 		if (!upFeature.isEmpty()) {
 			// dstEnd is higher up in the hierarchy than srcEnd:
-			// we need to match from latest to the oldest in stack
-			// going down into the FG nesting hierarchy
+			// we need to match from latest to the oldest in stack going down into the FG nesting hierarchy
 			for (int count = upFeature.size() - 1; count >= 0; count--) {
-				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
 				FeatureInstance upFi = upFeature.get(count);
-				FeatureInstance dstFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, upFi.getName());
-				if (dstFi == null) { // do index only if we have inverse feature
-										// groups and they have their own
-										// element names
+				EList<FeatureInstance> flist = ((FeatureInstance) dstEnd).getFeatureInstances();
+				String name = connInfo.dstToMatch != null ? connInfo.dstToMatch.getConnectionEnd().getName()
+						: upFi.getName();
+				FeatureInstance dstFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, name);
+				if (dstFi == null) {
+					// do index only if we have inverse feature groups and they have their own element names
+					// cannot happen if we're matching against connInfo.dstToMatch, it contains names from the destination side
 					FeatureGroup upfg = (FeatureGroup) ((FeatureInstance) upFi.getOwner()).getFeature();
 					FeatureGroup downfg = (FeatureGroup) ((FeatureInstance) dstEnd).getFeature();
 					FeatureGroupType upfgt = upfg.getAllFeatureGroupType();
@@ -904,24 +906,35 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 					}
 				} else {
 					dstEnd = dstFi;
+					if (connInfo.dstToMatch != null) {
+						connInfo.dstToMatch = connInfo.dstToMatch.getNext();
+					}
 				}
 			}
 		} else if (!downFeature.isEmpty()) {
-			// dstEnd is further down in the hierarchy than srcEnd: find feature
-			// corresponding to dstEnd
-			// We need to match from the oldest to the latest in stack
-			// This is a down stack, i.e., the highest element got pushed first
-			// an dis the oldest.
+			// dstEnd is further down in the hierarchy than srcEnd: find feature corresponding to dstEnd
+			// We need to match from the oldest to the latest in stack.
+			// This is a down stack, i.e., the highest element got pushed first and is the oldest.
 			for (int count = 0; count < downFeature.size(); count++) {
 				FeatureInstance downFi = downFeature.get(count);
 				EList<FeatureInstance> flist = ((FeatureInstance) srcEnd).getFeatureInstances();
-				FeatureGroup downfg = ((FeatureGroup) ((FeatureInstance) downFi.getOwner()).getFeature());
-				FeatureGroupType downfgt = downfg.getFeatureGroupType();
-				FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature());
-				FeatureGroupType upfgt = upfg.getFeatureGroupType();
-				if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg) && !upfgt.getAllFeatures().isEmpty()
-						&& !downfgt.getAllFeatures().isEmpty()) {
-					srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
+				String name = connInfo.srcToMatch != null ? connInfo.srcToMatch.getConnectionEnd().getName()
+						: downFi.getName();
+				FeatureInstance srcFi = (FeatureInstance) AadlUtil.findNamedElementInList(flist, name);
+				if (srcFi == null) {
+					FeatureGroup downfg = ((FeatureGroup) ((FeatureInstance) downFi.getOwner()).getFeature());
+					FeatureGroupType downfgt = downfg.getFeatureGroupType();
+					FeatureGroup upfg = ((FeatureGroup) ((FeatureInstance) srcEnd).getFeature());
+					FeatureGroupType upfgt = upfg.getFeatureGroupType();
+					if (upfgt != null && downfgt != null && upfg.isInverseOf(downfg)
+							&& !upfgt.getAllFeatures().isEmpty() && !downfgt.getAllFeatures().isEmpty()) {
+						srcEnd = flist.get(Aadl2InstanceUtil.getFeatureIndex(downFi));
+					}
+				} else {
+					srcEnd = srcFi;
+					if (connInfo.srcToMatch != null) {
+						connInfo.srcToMatch = connInfo.srcToMatch.getNext();
+					}
 				}
 			}
 			connInfo.src = srcEnd;
@@ -932,7 +945,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		} else if (srcEnd instanceof ComponentInstance || dstEnd instanceof ComponentInstance) {
 			addConnectionInstance(parentci.getSystemInstance(), connInfo, dstEnd);
 		} else {
-			expandFeatureGroupConnection(parentci, connInfo, srcEnd, dstEnd);
+			expandFeatureGroupConnection(parentci, connInfo, srcEnd, dstEnd, connInfo.srcToMatch, connInfo.dstToMatch);
 		}
 	}
 
@@ -945,102 +958,123 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 	 * @param dstEnd
 	 */
 	private void expandFeatureGroupConnection(final ComponentInstance parentci, final ConnectionInfo connInfo,
-			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd) {
+			ConnectionInstanceEnd srcEnd, ConnectionInstanceEnd dstEnd, ConnectedElement srcToMatch,
+			ConnectedElement dstToMatch) {
 		ConnectionInstanceEnd oldSrc = connInfo.src;
-
-		/*
-		 * One of three possible situations
-		 * - both ends are feature groups without or with an empty type
-		 * - one end is empty and the other is not
-		 * - both ends are not empty, in this case they have the same internal structure
-		 * TODO-lw: what about feature group subset/equivalence?
-		 */
 
 		if (srcEnd instanceof FeatureInstance && dstEnd instanceof FeatureInstance) {
 			FeatureInstance srcFi = (FeatureInstance) srcEnd;
 			FeatureInstance dstFi = (FeatureInstance) dstEnd;
 
-			if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
-				// both ends are empty
-				if (connInfo.isAcross()) {
-					if (srcFi.getDirection().outgoing() && dstFi.getDirection().incoming()) {
-						connInfo.src = srcFi;
-						addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
-					}
-				} else {
-					boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
-					if (upOnly && srcFi.getDirection().outgoing() && dstFi.getDirection().outgoing()
-							|| !upOnly && srcFi.getDirection().incoming() && dstFi.getDirection().incoming()) {
-						connInfo.src = srcFi;
-						addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+			if (srcToMatch != null) {
+				for (FeatureInstance fi : srcFi.getFeatureInstances()) {
+					if (srcToMatch.getConnectionEnd() == fi.getFeature()) {
+						expandFeatureGroupConnection(parentci, connInfo, fi, dstFi, srcToMatch.getNext(), dstToMatch);
+						break;
 					}
 				}
-			} else if (isLeafFeature(srcFi)) {
-				// first find the feature instance as an element of the other end
-				FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
-				// we need to deal with outgoing/incoming only and check the direction correctly
-				if (dst != null
-						&& ((connInfo.isAcross() && dst.getDirection().incoming()) || dst.getDirection().outgoing())) {
-					expandFeatureGroupConnection(parentci, connInfo, srcFi, dst);
-				} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
-					// we may have a feature group with no FGT or an empty FGT
-					boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
-					for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
-						if (upOnly) {
-							if (dstelem.getDirection().outgoing()) {
-								expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
-							}
-						} else if (dstelem.getDirection().incoming()) {
-							expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem);
-						}
+			}
+			if (dstToMatch != null) {
+				for (FeatureInstance fi : dstFi.getFeatureInstances()) {
+					if (dstToMatch.getConnectionEnd() == fi.getFeature()) {
+						expandFeatureGroupConnection(parentci, connInfo, srcFi, fi, srcToMatch, dstToMatch.getNext());
+						break;
 					}
-				} else {
-					// create the unexpanded connection instance
-					connInfo.src = srcFi;
-					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
-				}
-			} else if (isLeafFeature(dstFi)) {
-				FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
-				// we need to deal with outgoing/incoming only and check the direction correctly
-				if (target != null && ((connInfo.isAcross() && target.getDirection().outgoing())
-						|| target.getDirection().incoming())) {
-					expandFeatureGroupConnection(parentci, connInfo, target, dstFi);
-				} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
-					// we may have a feature group with no FGT or an empty FGT
-					boolean downOnly = !connInfo.isAcross() && !isUpOnly(connInfo, srcFi, dstFi);
-					for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
-						if (downOnly) {
-							if (srcelem.getDirection().incoming()) {
-								expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
-							}
-						} else if (srcelem.getDirection().outgoing()) {
-							expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi);
-						}
-					}
-				} else {
-					// create the unexpanded connection instance
-					connInfo.src = srcFi;
-					addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
 				}
 			} else {
-				boolean isSubset = subsetMatch(connInfo.connections);
-				if (!isSubset) {
-					Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
-					Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
-					while (srcIter.hasNext() && dstIter.hasNext()) {
-						FeatureInstance src = srcIter.next();
-						FeatureInstance dst = dstIter.next();
-						expandFeatureGroupConnection(parentci, connInfo, src, dst);
+				/*
+				 * One of three possible situations
+				 * - both ends are feature groups without or with an empty type
+				 * - one end is empty and the other is not
+				 * - both ends are not empty, in this case they have the same internal structure
+				 */
+				if (isLeafFeature(srcFi) && isLeafFeature(dstFi)) {
+					// both ends are empty
+					if (connInfo.isAcross()) {
+						if (srcFi.getDirection().outgoing() && dstFi.getDirection().incoming()) {
+							connInfo.src = srcFi;
+							addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+						}
+					} else {
+						boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
+						if (upOnly && srcFi.getDirection().outgoing() && dstFi.getDirection().outgoing()
+								|| !upOnly && srcFi.getDirection().incoming() && dstFi.getDirection().incoming()) {
+							connInfo.src = srcFi;
+							addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+						}
 					}
-					Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
-							"Connected feature groups do not have the same number of features");
+				} else if (isLeafFeature(srcFi)) {
+					// first find the feature instance as an element of the other end
+					FeatureInstance dst = findDestinationFeatureInstance(connInfo, dstFi);
+					// we need to deal with outgoing/incoming only and check the direction correctly
+					if (dst != null && ((connInfo.isAcross() && dst.getDirection().incoming())
+							|| dst.getDirection().outgoing())) {
+						expandFeatureGroupConnection(parentci, connInfo, srcFi, dst, srcToMatch, dstToMatch);
+					} else if (srcFi.getCategory() == FeatureCategory.FEATURE_GROUP) {
+						// we may have a feature group with no FGT or an empty FGT
+						boolean upOnly = isUpOnly(connInfo, srcFi, dstFi);
+						for (FeatureInstance dstelem : dstFi.getFeatureInstances()) {
+							if (upOnly) {
+								if (dstelem.getDirection().outgoing()) {
+									expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem, srcToMatch,
+											dstToMatch);
+								}
+							} else if (dstelem.getDirection().incoming()) {
+								expandFeatureGroupConnection(parentci, connInfo, srcFi, dstelem, srcToMatch,
+										dstToMatch);
+							}
+						}
+					} else {
+						// create the unexpanded connection instance
+						connInfo.src = srcFi;
+						addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+					}
+				} else if (isLeafFeature(dstFi)) {
+					FeatureInstance target = findSourceFeatureInstance(connInfo, srcFi);
+					// we need to deal with outgoing/incoming only and check the direction correctly
+					if (target != null && ((connInfo.isAcross() && target.getDirection().outgoing())
+							|| target.getDirection().incoming())) {
+						expandFeatureGroupConnection(parentci, connInfo, target, dstFi, srcToMatch, dstToMatch);
+					} else if (dstFi.getCategory() == FeatureCategory.FEATURE_GROUP || connInfo.srcToMatch != null) {
+						// we may have a feature group with no FGT or an empty FGT
+						boolean downOnly = !connInfo.isAcross() && !isUpOnly(connInfo, srcFi, dstFi);
+						for (FeatureInstance srcelem : srcFi.getFeatureInstances()) {
+							if (downOnly) {
+								if (srcelem.getDirection().incoming()) {
+									expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi, srcToMatch,
+											dstToMatch);
+								}
+							} else if (srcelem.getDirection().outgoing()) {
+								expandFeatureGroupConnection(parentci, connInfo, srcelem, dstFi, srcToMatch,
+										dstToMatch);
+							}
+						}
+					} else {
+						// create the unexpanded connection instance
+						connInfo.src = srcFi;
+						addConnectionInstance(parentci.getSystemInstance(), connInfo, dstFi);
+					}
 				} else {
-					// subset matching features by name
-					for (FeatureInstance dst : dstFi.getFeatureInstances()) {
-						if ((connInfo.isAcross() && dst.getDirection().incoming()) || dst.getDirection().outgoing()) {
-							FeatureInstance src = findFeatureInstance(srcFi, dst.getName());
-							if (src != null) {
-								expandFeatureGroupConnection(parentci, connInfo, src, dst);
+					boolean isSubset = subsetMatch(connInfo.connections);
+					if (!isSubset) {
+						Iterator<FeatureInstance> srcIter = srcFi.getFeatureInstances().iterator();
+						Iterator<FeatureInstance> dstIter = dstFi.getFeatureInstances().iterator();
+						while (srcIter.hasNext() && dstIter.hasNext()) {
+							FeatureInstance src = srcIter.next();
+							FeatureInstance dst = dstIter.next();
+							expandFeatureGroupConnection(parentci, connInfo, src, dst, srcToMatch, dstToMatch);
+						}
+						Assert.isTrue(!srcIter.hasNext() && !dstIter.hasNext(),
+								"Connected feature groups do not have the same number of features");
+					} else {
+						// subset matching features by name
+						for (FeatureInstance dst : dstFi.getFeatureInstances()) {
+							if ((connInfo.isAcross() && dst.getDirection().incoming())
+									|| dst.getDirection().outgoing()) {
+								FeatureInstance src = findFeatureInstance(srcFi, dst.getName());
+								if (src != null) {
+									expandFeatureGroupConnection(parentci, connInfo, src, dst, srcToMatch, dstToMatch);
+								}
 							}
 						}
 					}
