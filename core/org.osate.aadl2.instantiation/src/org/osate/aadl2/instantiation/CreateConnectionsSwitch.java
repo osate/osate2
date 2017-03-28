@@ -973,8 +973,7 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 						break;
 					}
 				}
-			}
-			if (dstToMatch != null) {
+			} else if (dstToMatch != null) {
 				for (FeatureInstance fi : dstFi.getFeatureInstances()) {
 					if (dstToMatch.getConnectionEnd() == fi.getFeature()) {
 						expandFeatureGroupConnection(parentci, connInfo, srcFi, fi, srcToMatch, dstToMatch.getNext());
