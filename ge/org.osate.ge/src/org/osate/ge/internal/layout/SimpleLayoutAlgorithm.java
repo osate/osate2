@@ -155,13 +155,18 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 		nextY = minChildPadding;
 		for(int i = leftStopIndex; i < freeEdgeShapes.size(); i++) {
 			final Shape shape = freeEdgeShapes.get(i);
-			shape.setX(nextX);
 			shape.setY(nextY);
 
 			minSize[0] = Math.max(minSize[0], nextX + shape.getWidth());
 			minSize[1] = Math.max(minSize[1], nextY + shape.getHeight() + minChildPadding);
 			
 			nextY += shape.getHeight() + minYSpacing;
+		}
+		
+		// Set X value of right edge shapes. This ensures the shapes are docked to the right side of the container.
+		for(int i = leftStopIndex; i < freeEdgeShapes.size(); i++) {
+			final Shape shape = freeEdgeShapes.get(i);
+			shape.setX(minSize[0]);
 		}
 		
 		// Clear reused data structures

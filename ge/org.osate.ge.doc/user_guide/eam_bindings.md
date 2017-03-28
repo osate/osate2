@@ -44,18 +44,3 @@ When viewing a component implementation diagram, a binding property associations
 
 5. Select *OK*.
 
-
-
-
-
-
-### Bindings Diagram Properties
-The *Properties* view can be used to customize which bindings are shown in a diagram. By default, all supported bindings are displayed.
-
-1. Left-click the empty space outside of the elements in a diagram.
-
-2. In the *Properties* view, select the *Bindings* tab.
-
-3. Select the checkboxes to configure which bindings to show.
-
-![](images/BindingProperties.png)

@@ -25,7 +25,6 @@
          <topic label="Creating Connections" href="output/ch03s02.html#d0e281"/>
          <topic label="Editing Connections" href="output/ch03s02.html#d0e296">
             <topic label="Using the Context Menu to Edit Connections" href="output/ch03s02.html#d0e301"/>
-            <topic label="Using the Properties Diagram View to Edit Connections" href="output/ch03s02.html#d0e306"/>
          </topic>
          <topic label="Connection_Pattern Property Visualization" href="output/ch03s02.html#d0e330"/>
       </topic>
@@ -85,7 +84,6 @@
             <topic label="Using the Toolbar to Set Bindings" href="output/ch03s08.html#d0e857"/>
             <topic label="Using the Context Menu to Set Bindings" href="output/ch03s08.html#d0e889"/>
          </topic>
-         <topic label="Bindings Diagram Properties" href="output/ch03s08.html#d0e917"/>
       </topic>
       <topic label="Arrays" href="output/ch03s09.html">
          <topic label="Creating Arrays" href="output/ch03s09.html#d0e949"/>

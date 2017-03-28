@@ -12,6 +12,7 @@ import org.eclipse.graphiti.mm.pictograms.Anchor;
 import org.eclipse.graphiti.mm.pictograms.AnchorContainer;
 import org.eclipse.graphiti.mm.pictograms.ChopboxAnchor;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.CurvedConnection;
 import org.eclipse.graphiti.mm.pictograms.FixPointAnchor;
 import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
@@ -87,19 +88,20 @@ class AnchorUtil {
 	 * @param diagramNodeProvider
 	 */
 	public static void updateConnectionAnchors(final Shape shape, final DiagramNodeToPictogramElementAdapter diagramNodeProvider) {
+		// TODO: Is this needed? conneciton anchors may be updated in other cases.. Assuming we keep the rule the the connection must only refer to children of it's shape container...
 		for(final Anchor anchor : shape.getAnchors()) {
 			for(final Connection connection : anchor.getIncomingConnections()) {
-				createUpdateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider, true);
+				createUpdateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
 			}
 			
 			for(final Connection connection : anchor.getOutgoingConnections()) {
-				createUpdateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider, true);
+				createUpdateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
 			}
 		}
 	}
 	
 	// TODO: OPTIMIZE: Have a flag to check if the connection anchor exists before updating if this is an update only operation.
-	public static Anchor createUpdateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final DiagramNodeToPictogramElementAdapter peProvider, final boolean updateOnly) {
+	private static Shape getConnectionAnchorContainer(final AgeDiagramElement connectionDiagramElement, final DiagramNodeToPictogramElementAdapter peProvider) {
 		if(connectionDiagramElement == null) {
 			return null;
 		}
@@ -120,19 +122,63 @@ class AnchorUtil {
 		if(containerShape == null) {
 			return null;
 		}
+		
+		return containerShape;
+	}
 	
+	private static String getConnectionAnchorName(final AgeDiagramElement connectionElement) {
+		return getUniqueReference(connectionElement);
+	}
+	
+	/**
+	 * Gets the connection anchor for a specified connection. Creates a new anchor and initializes it as necessary.
+	 * @param connectionDiagramElement
+	 * @param connection
+	 * @param peProvider
+	 * @return
+	 */
+	public static Anchor getConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final DiagramNodeToPictogramElementAdapter peProvider) {
+		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, peProvider);
+		final String anchorName = getConnectionAnchorName(connectionDiagramElement);
+		if(anchorName == null) {
+			return null;
+		}
+		
+		Anchor retrievedAnchor = getAnchorByName(containerShape, anchorName);
+		if(retrievedAnchor != null) {
+			return retrievedAnchor;
+		}
+		
+		final IPeCreateService peCreateService = Graphiti.getPeCreateService();
+		final IGaService gaService = Graphiti.getGaService();
+		FixPointAnchor newAnchor = peCreateService.createFixPointAnchor(containerShape);
+		PropertyUtil.setName(newAnchor, anchorName);	
+		
+		// Theoretically this could be done for the retrieved anchor as well to ensure it has the proper graphical algorithm. Practically it causes problem for Graphiti
+		// for an unknown reason when moving feature groups. We do it only when creating the anchor for that reason
+		gaService.createInvisibleRectangle(newAnchor);
+		
+		// Configure the anchor
+		newAnchor.setLocation(gaService.createPoint(0, 0));
+        newAnchor.setUseAnchorLocationAsConnectionEndpoint(true);
+
+		return newAnchor;
+	}	
+		
+	public static Anchor createUpdateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final DiagramNodeToPictogramElementAdapter peProvider) {
+		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, peProvider);
 		final ILayoutService layoutService = Graphiti.getLayoutService();
 		final ILocation ownerLocation = layoutService.getLocationRelativeToDiagram(containerShape);
 		
 		final Point connectionMidpoint = getConnectionMidpoint(connection, 0.5);
-		final String midpointAnchorName = getUniqueReference(connectionDiagramElement);
-		if(midpointAnchorName == null || connectionMidpoint == null) {
+		final String anchorName = getConnectionAnchorName(connectionDiagramElement);
+		if(anchorName == null || connectionMidpoint == null) {
 			return null;
 		}
 		
 		final int anchorX = connectionMidpoint.x - ownerLocation.getX();
 		final int anchorY = connectionMidpoint.y - ownerLocation.getY();	
-		final Anchor anchor = createOrUpdateFixPointAnchor(containerShape, midpointAnchorName, anchorX, anchorY, updateOnly);
+		final Anchor anchor = createOrUpdateFixPointAnchor(containerShape, anchorName, anchorX, anchorY, true);
 		return anchor;
 	}
 	
@@ -145,7 +191,6 @@ class AnchorUtil {
 			return new Point(midpoint.getX(), midpoint.getY());
 		}
 		
-		// Should be end point?
 		final Shape startShape = (Shape)connection.getStart().getParent();
 		final Shape endShape = (Shape)connection.getEnd().getParent();
 		final ILocation startShapeLocation = layoutService.getLocationRelativeToDiagram(startShape);

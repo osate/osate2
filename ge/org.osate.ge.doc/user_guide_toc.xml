@@ -41,8 +41,6 @@
          <topic href="user_guide_output/eam_connections.html#editing-connections" label="Editing Connections">
             <topic href="user_guide_output/eam_connections.html#connection_pattern-property-visualization" label="Using the Context Menu to Edit Connections">
             </topic>
-            <topic href="user_guide_output/eam_connections.html#using-the-properties-diagram-view-to-edit-connections" label="Using the Properties Diagram View to Edit Connections">
-            </topic>
          </topic>
          <topic href="user_guide_output/eam_connections.html#connection_pattern-property-visualization" label="Connection_Pattern Property Visualization">
          </topic>
@@ -131,8 +129,6 @@
             </topic>
             <topic href="user_guide_output/eam_bindings.html#using-the-context-menu-to-set-bindings" label="Using the Context Menu to Set Bindings">
             </topic>
-         </topic>
-         <topic href="user_guide_output/eam_bindings.html#bindings-diagram-properties" label="Bindings Diagram Properties">
          </topic>
       </topic>
       <topic href="user_guide_output/eam_arrays.html" label="Arrays">

@@ -24,16 +24,6 @@ Right click on a connection and all appropriate editing options will appear on t
 
 
 
-#### Using the Properties Diagram View to Edit Connections
-The *Properties* view allows an additional editing option for renaming appropriate AADL connections.
-
-1. Select the desired connection to edit in the diagram.
-
-2. In the *Properties* view, select the *Connections* tab.
-
-![](images/ConnectionProperties.png)
-
-
 ### Connection_Pattern Property Visualization
 When working with arrays, the graphical editor supports visualization of the connection_pattern property. See ["Arrays"](eam_ar.html).
 

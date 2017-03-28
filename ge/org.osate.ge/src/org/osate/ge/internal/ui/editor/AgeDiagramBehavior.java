@@ -724,95 +724,11 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				// TODO: Replace with something that supports loading the the native format and loading and converting a legacy(Graphiti) format diagram
 				// TODO: Should consider a custom resource implementation which would handle the conversion and saving at the EMF resource level.
 				final AgeDiagram ageDiagram = new AgeDiagram();
-				
-				// TODO: Create diagram elements for testing
-				ageDiagram.modify(new DiagramModifier() {
-					@Override
-					public void modify(final DiagramModification m) {
-						final AgeDiagramElement e1 = createElement(m, ageDiagram, 1, RectangleBuilder.create().build());
-						m.setLabelConfiguration(e1, (AgeLabelConfiguration)LabelConfigurationBuilder.create().horizontalCenter().build());
-						
-						createElement(m, ageDiagram, 2, EllipseBuilder.create().build());
-						
-						final AgeDiagramElement e3 = createElement(m, e1, 3, RectangleBuilder.create().build());
-						final AgeDiagramElement e4 = createElement(m, e1, 4, RectangleBuilder.create().build());
-						
-						m.setDockArea(createElement(m, e1, 5, RectangleBuilder.create().build()), DockArea.RIGHT);
-						m.setDockArea(createElement(m, e1, 6, RectangleBuilder.create().build()), DockArea.RIGHT);
-						m.setDockArea(createElement(m, e1, 7, RectangleBuilder.create().build()), DockArea.RIGHT);						
-						
-						final AgeDiagramElement e8 = createElement(m, e1, 8, RectangleBuilder.create().build());
-						final AgeDiagramElement e9 = createElement(m, e1, 9, RectangleBuilder.create().build());
-						
-						final AgeDiagramElement e10 = createConnectionElement(m, e1, 10, ConnectionBuilder.create().build(), e3, e4);
-						final AgeDiagramElement e11 = createConnectionElement(m, e1, 11, ConnectionBuilder.create().curved().build(), e8, e9);
-						createConnectionElement(m, e1, 12, ConnectionBuilder.create().dashed().build(), e10, e11);
-					}	
-					
-					private AgeDiagramElement createElement(final DiagramModification m, final DiagramNode parent, final int value, final Graphic graphic) {
-						final AgeDiagramElement newElement = new AgeDiagramElement(parent, 
-								value, 
-								new RelativeBusinessObjectReference(Integer.toString(value)), 
-								new CanonicalBusinessObjectReference(Integer.toString(value)), 
-								"OBJECT: " + value);
-						m.setGraphic(newElement, graphic);
-						m.addElement(newElement);
-						return newElement;
-					}
-					
-					private AgeDiagramElement createConnectionElement(final DiagramModification m, 
-							final DiagramNode parent, 
-							final int value, 
-							final Graphic graphic,
-							final AgeDiagramElement start,
-							final AgeDiagramElement end) {
-						final AgeDiagramElement newElement = createElement(m, parent,value, graphic);
-						m.setConnectionStart(newElement, start);
-						m.setConnectionEnd(newElement, end);
-						return newElement;
-					}
-				});
 
-				// Get the editing domain
-				final TransactionalEditingDomain editingDomain = diagramBehavior.getEditingDomain();
-								
-				// Update the graphiti Diagram based on the AgeDiagram		
-				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, editingDomain);
-
-				editingDomain.getCommandStack().execute(new AbstractCommand() {
-					@Override
-					protected boolean prepare() {
-						return true;
-					}
-
-					@Override
-					public String getDescription() {
-						return "Update Diagram";
-					}
-					
-					@Override
-					public void execute() {
-						// Layout the elements. They should have the appropriate sizes since the graphiti diagram has been created.
-						ageDiagram.modify(new DiagramModifier() {
-							@Override
-							public void modify(final DiagramModification m) {
-								// TODO: Update the diagram to set positions
-								DiagramLayoutUtil.layout(ageDiagram, m, true); // TODO: Switch to incremental layout
-							}
-						});
-					}
-
-					@Override
-					public void redo() {
-					}
-					
-					@Override public boolean canUndo() {
-						return false;
-					}
-				});			
+				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		
+				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain());				
 								
 				return graphitiAgeDiagram.getGraphitiDiagram();
-				//TODO: Migrate!
 			}
 			
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {

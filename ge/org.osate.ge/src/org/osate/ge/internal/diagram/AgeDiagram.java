@@ -223,6 +223,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		
 		@Override
 		public void removeElement(final AgeDiagramElement e) {
+			Objects.requireNonNull(e, "e must not be null");
+			
 			// Notify listeners of the previous modification
 			if(addedElement != null || updatedElement != null || removedElement != null) { 
 				notifyListeners();

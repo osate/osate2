@@ -95,6 +95,7 @@ import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
+import org.osate.ge.internal.graphiti.features.RefreshDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
@@ -242,6 +243,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	 * @param features
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		features.add(make(RefreshDiagramFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(SelectAncestorFeature.class));
 
