@@ -32,8 +32,8 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Generalization;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.DiagramService;
@@ -165,7 +165,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	@Override
     	public void markLinkagesAsDirty(final Object bo) {    		
     		// For each diagram
-    		final String boRef = refBuilder.getAbsoluteReference(bo);
+    		final CanonicalBusinessObjectReference boRef = refBuilder.getCanonicalReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			markLinkagesAsDirty(bo, boRef, diagramRef);
     		}
@@ -174,7 +174,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	@Override
 		public void markOpenLinkagesAsDirty(final Object bo) {
     		// For each diagram
-    		final String boRef = refBuilder.getAbsoluteReference(bo);
+    		final CanonicalBusinessObjectReference boRef = refBuilder.getCanonicalReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			if(diagramRef.isOpen()) {
 	    			markLinkagesAsDirty(bo, boRef, diagramRef);
@@ -187,10 +187,9 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	 * @param elWrapper
     	 * @param diagram
     	 */
-    	private void markLinkagesAsDirty(final Object bo, final String boRef, final DiagramReference diagramReference) {
+    	private void markLinkagesAsDirty(final Object bo, final CanonicalBusinessObjectReference boRef, final DiagramReference diagramReference) {
     		final Diagram diagram = diagramReference.getDiagram();
-    		if(diagram != null) {
-    			
+    		if(diagram != null) {    			
 	    		// Create a feature provider and check if it is linked to the aadl element
 				final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
 				if(featureProvider != null) {
@@ -206,7 +205,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					}
 	
 					// Check if the diagram is linked to the element. Diagrams are not returned by getAllPictogramElementsForBusinessObject
-					if(boRef.equals(refBuilder.getAbsoluteReference(diagramBo))) {
+					if(boRef.equals(refBuilder.getCanonicalReference(diagramBo))) {
 						linkages.add(diagram);
 					}						
 					

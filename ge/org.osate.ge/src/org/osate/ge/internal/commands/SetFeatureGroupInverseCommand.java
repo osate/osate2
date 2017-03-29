@@ -16,8 +16,8 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.QueryService;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 
 @ModifiesBusinessObjects
 public class SetFeatureGroupInverseCommand {
@@ -45,9 +45,8 @@ public class SetFeatureGroupInverseCommand {
 	@CanActivate
 	public boolean canActivate(@Named(Names.BUSINESS_OBJECT) final FeatureGroup feat,
 			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final AgeDiagramElement diagramElement,
-			final AadlFeatureService featureService,
 			final QueryService queryService) {
-		return featureService.getFeatureGroupType(diagramElement, feat) != null && feat.isInverse() != inverse;
+		return AadlFeatureUtil.getFeatureGroupType(diagramElement, feat) != null && feat.isInverse() != inverse;
 	}
 
 	@Activate

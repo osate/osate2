@@ -27,7 +27,6 @@ import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.query.AgeDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
@@ -73,22 +72,20 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Feature srcFeature, 
 			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final AgeDiagramElement srcDiagramElement, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
-			final AadlFeatureService featureService,
 			final QueryService queryService) {
 		
 		if(flowKind != FlowKind.PATH) {
 			return false;
 		}
 		
-		return isValidFlowEnd(srcFeature, srcDiagramElement, DirectionType.IN, featureService, queryService);
+		return isValidFlowEnd(srcFeature, srcDiagramElement, DirectionType.IN, queryService);
 	}	
 	
 	@CanCreate
 	public boolean canCreate(@Named(Names.DESTINATION_BO) final Feature dstFeature, 
 			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final AgeDiagramElement dstDiagramElement, 
-			final AadlFeatureService featureService,
 			final QueryService queryService) {		
-		return isValidFlowEnd(dstFeature, dstDiagramElement, DirectionType.OUT, featureService, queryService);
+		return isValidFlowEnd(dstFeature, dstDiagramElement, DirectionType.OUT, queryService);
 	}
 	
 	@GetCreateOwner

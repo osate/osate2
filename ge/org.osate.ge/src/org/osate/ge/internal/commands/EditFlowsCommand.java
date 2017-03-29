@@ -14,7 +14,6 @@ import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.ui.dialogs.EditFlowsDialog;
 
 @ModifiesBusinessObjects
@@ -32,9 +31,9 @@ public class EditFlowsCommand {
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ComponentImplementation compImpl,
-			final NamingService namingService, final PrototypeService prototypeService) {
+			final NamingService namingService) {
 		// Show the edit flows dialog
-		final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), prototypeService, namingService, compImpl);
+		final EditFlowsDialog dlg = new EditFlowsDialog(Display.getCurrent().getActiveShell(), namingService, compImpl);
 		if(dlg.open() == Dialog.CANCEL) {
 			return false;
 		}

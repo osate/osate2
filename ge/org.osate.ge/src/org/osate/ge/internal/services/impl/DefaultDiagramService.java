@@ -74,6 +74,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
@@ -179,7 +180,7 @@ public class DefaultDiagramService implements DiagramService {
 		
 	@Override
 	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo) {
-		final String boReference = referenceBuilder.getAbsoluteReference(bo);
+		final CanonicalBusinessObjectReference boReference = referenceBuilder.getCanonicalReference(bo);
 		final List<DiagramReference> diagramRefs = findDiagrams();
 		final IProject project = getProject(bo);
 		if(project == null) {
@@ -194,7 +195,7 @@ public class DefaultDiagramService implements DiagramService {
 					if(featureProvider != null) {
 						final Object tmpDiagramBo = featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram());
 						if(tmpDiagramBo != null) {
-							if(boReference.equalsIgnoreCase(referenceBuilder.getAbsoluteReference(tmpDiagramBo))) {
+							if(boReference.equals(referenceBuilder.getCanonicalReference(tmpDiagramBo))) {
 								return diagramRef;
 							}
 						}
@@ -214,7 +215,7 @@ public class DefaultDiagramService implements DiagramService {
 						if(featureProvider != null) {
 							final Object tmpDiagramBo = featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram());
 							if(tmpDiagramBo != null) {
-								if(boReference.equalsIgnoreCase(referenceBuilder.getAbsoluteReference(tmpDiagramBo))) {
+								if(boReference.equals(referenceBuilder.getCanonicalReference(tmpDiagramBo))) {
 									return diagramRef;
 								}
 							}

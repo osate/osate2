@@ -92,7 +92,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.SerializableReferenceService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.ShapeService;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {	
@@ -103,7 +103,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private ShapeService shapeService;
 	private BusinessObjectResolutionService bor;
 	private PropertyService propertyService;
-	private SerializableReferenceService referenceService;
+	private ReferenceService referenceService;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private AgeMoveShapeFeature defaultMoveShapeFeature;
@@ -125,7 +125,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.shapeService = Objects.requireNonNull(eclipseContext.get(ShapeService.class), "unable to retrieve shape service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
-		this.referenceService = Objects.requireNonNull(eclipseContext.get(SerializableReferenceService.class), "unable to retrieve serializable reference service");
+		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unable to retrieve serializable reference service");
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);

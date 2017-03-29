@@ -49,12 +49,12 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 
@@ -141,7 +141,6 @@ public class SubprogramCallHandler {
 	@Create
 	public SubprogramCall createBusinessObject(@Named(Names.OWNER_BO) SubprogramCallSequence cs, 
 			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
-			final AadlFeatureService featureService, 
 			final NamingService namingService,
 			final QueryService queryService) {
 		final BehavioredImplementation bi = getBehavioredImplementation(targetDiagramElement, queryService);
@@ -149,7 +148,7 @@ public class SubprogramCallHandler {
 			throw new RuntimeException("Unexpected case. Unable to find BehavioredImplementation");
 		}
 		
-		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, bi);
+		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(bi);
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {
 			return null;
@@ -190,10 +189,10 @@ public class SubprogramCallHandler {
     }
 		
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final AadlFeatureService featureService) {
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
 		final SubprogramType subprogramType = getSubprogramType(call);
 		if(subprogramType != null) {
-			return Stream.concat(featureService.getAllDeclaredFeatures(subprogramType).stream(), subprogramType.getAllFlowSpecifications().stream());
+			return Stream.concat(AadlFeatureUtil.getAllDeclaredFeatures(subprogramType).stream(), subprogramType.getAllFlowSpecifications().stream());
 		}
 		
 		return null;

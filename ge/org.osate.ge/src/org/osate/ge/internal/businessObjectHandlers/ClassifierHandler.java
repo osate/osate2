@@ -67,10 +67,10 @@ import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
@@ -369,8 +369,8 @@ public class ClassifierHandler {
 	}
 	
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
-		return isContainerNonOwningPackage(classifier, diagramElement, queryService) ? classifier.getQualifiedName() : classifier.getName(); 
+	public String getName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier) {
+		return classifier.getName(); 
 	}
 	
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
@@ -381,17 +381,6 @@ public class ClassifierHandler {
 		}
 		
 		return containingAadlPackage.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? true : false;
-	}
-	
-	// Returns whether the classifier's diagram element is contained in a diagram element which represents a package which does not own the classifier. 
-	// Returns false if the classifier's diagram element is not contained in a package diagram element.
-	private boolean isContainerNonOwningPackage(final Classifier classifier, final DiagramElement diagramElement, final QueryService queryService) {
-		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
-		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
-			return false;
-		}
-		
-		return containingAadlPackage.getQualifiedName().equalsIgnoreCase(((NamedElement)classifier.getNamespace().getOwner()).getQualifiedName()) ? false : true;
 	}
 	
 	@ValidateName
@@ -449,18 +438,16 @@ public class ClassifierHandler {
 	}
 	
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, 
-			final AadlFeatureService featureService) {
-		return getChildren(classifier, featureService, true);
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier) {
+		return getChildren(classifier, true);
 	}
 	
-	static Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, 
-			final AadlFeatureService featureService,
+	static Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier,
 			boolean includeBindings) {
 		Stream<?> children = Stream.empty();
 		
 		// Shapes
-		children = Stream.concat(children, featureService.getAllDeclaredFeatures(classifier).stream());
+		children = Stream.concat(children, AadlFeatureUtil.getAllDeclaredFeatures(classifier).stream());
 		
 		if(classifier instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;

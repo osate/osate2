@@ -9,26 +9,14 @@
 package org.osate.ge.internal.services;
 
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.services.ReferenceResolutionService;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 
 /**
  * Service for building string references to business objects
  */
-public interface InternalReferenceBuilderService {
-	/**
-	 * Returns a string that can be used with the ReferenceResolutionService to retrieve the business object. 
-	 * The reference will remain consistent between application executions.
-	 * @param bo the business object for which to retrieve the reference.
-	 * @return the reference or null if the reference could not be created
-	 * @see ReferenceResolutionService#getReferencedObject(String)
-	 */
-	// TODO: Remove
-	String getAbsoluteReference(final Object bo);
-	
-	// TODO: Document
-	CanonicalBusinessObjectReference getCanonicalReference(final Object bo);
-	
-	String getRelativeReference(final Object bo);
+public interface InternalReferenceBuilderService {	
+	CanonicalBusinessObjectReference getCanonicalReference(final Object bo);	
+	RelativeBusinessObjectReference getRelativeReference(final Object bo);
 	
 
 }

@@ -6,18 +6,30 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Data type for canonical references to a business object. 
+ * Immutable data type for canonical references to a business object. 
  * A canonical reference uniquely identifies a business object.
  *
  */
 public class CanonicalBusinessObjectReference {
 	private List<String> segments;
 	
+	/**
+	 * Creates a canonical reference from an array of segments. Segments are case insensitive.
+	 * @param reference
+	 */
 	public CanonicalBusinessObjectReference(final String... reference) {
 		if(reference == null || reference.length < 1) {
 			throw new RuntimeException("reference must contain at least one segment");
 		}
-		this.segments = Collections.unmodifiableList(new ArrayList<>(Arrays.asList(reference)));
+		
+		// Copy segments into a new list and covert all segments to lower case
+		final List<String> segmentCopy = new ArrayList<>(reference.length);
+		for(int i = 0 ; i < reference.length; i++) {
+			segmentCopy.add(reference[i].toLowerCase());
+		}
+		
+		// Store an unmodifiable list of segments
+		this.segments = Collections.unmodifiableList(segmentCopy);
 	}
 	
 	@Override
@@ -56,6 +68,10 @@ public class CanonicalBusinessObjectReference {
 		return Arrays.toString(segments.toArray());
 	}
 	
+	/**
+	 * Returns an array of segments. All segments will be lowercase.
+	 * @return
+	 */
 	public String[] toSegmentArray() {
 		return segments.toArray(new String[segments.size()]);
 	}

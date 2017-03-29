@@ -19,7 +19,7 @@ class AncestorQuery<A> extends AgeDiagramElementQuery<A> {
 	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		DiagramNode e = ctx;
 		for(int i = 0; i < depth && ctx != null; i++) {
-			e = AncestorUtil.getContainer(e);
+			e = e.getContainer();
 		}
 		
 		// Process the value. If any

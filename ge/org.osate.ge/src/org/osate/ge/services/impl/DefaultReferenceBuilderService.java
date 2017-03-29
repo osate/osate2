@@ -12,7 +12,9 @@ import java.util.Objects;
 
 import org.osate.ge.services.ReferenceBuilderService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
 
 public class DefaultReferenceBuilderService implements ReferenceBuilderService {
@@ -31,6 +33,11 @@ public class DefaultReferenceBuilderService implements ReferenceBuilderService {
 	
 	@Override
 	public String getReference(final Object bo) {
-		return internalService.getAbsoluteReference(bo);
+		final CanonicalBusinessObjectReference ref = internalService.getCanonicalReference(bo);
+		if(ref != null) {
+			return ReferenceEncoder.encode(ref.toSegmentArray());
+		}
+		
+		return null;
 	}
 }

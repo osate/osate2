@@ -25,6 +25,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
 import org.osate.ge.internal.di.BuildRelativeReference;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
@@ -89,19 +90,10 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 		
 		return Collections.unmodifiableList(referenceBuilders);
 	}
-	
-	@Override
-	public String getAbsoluteReference(final Object bo) {
-		final CanonicalBusinessObjectReference ref = getCanonicalReference(bo);
-		if(ref != null) {
-			return ReferenceEncoder.encode(ref.toSegmentArray());
-		}
 		
-		return null;
-	}
-	
 	@Override
 	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
+		Objects.requireNonNull(bo, "bo must not be null");
 		try {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
@@ -120,14 +112,15 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 	}
 	
 	@Override
-	public String getRelativeReference(final Object bo) {
+	public RelativeBusinessObjectReference getRelativeReference(final Object bo) {
+		Objects.requireNonNull(bo, "bo must not be null");
 		try {
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
 				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildRelativeReference.class, serviceContext, argCtx, null);
 				if(ref != null) {
-					return ReferenceEncoder.encode(ref);
+					return new RelativeBusinessObjectReference(ref);
 				}
 			}
 		} finally {

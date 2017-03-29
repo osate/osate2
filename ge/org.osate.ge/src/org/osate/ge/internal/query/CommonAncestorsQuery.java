@@ -33,8 +33,8 @@ class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
 			throw new RuntimeException("q2 returns more than one element");
 		}
 		
-		final DiagramNode de1 = AncestorUtil.getContainer(q1Result.get(0));
-		final DiagramNode de2 = AncestorUtil.getContainer(q2Result.get(0));
+		final DiagramNode de1 = q1Result.get(0).getContainer();
+		final DiagramNode de2 = q2Result.get(0).getContainer();
 
 		// Get all common ancestors common ancestor
 		DiagramNode temp1 = de1;
@@ -46,7 +46,7 @@ class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
 
 					// Return all other ancestors
 					while(!result.done) {
-						temp1 = AncestorUtil.getContainer(temp1);
+						temp1 = temp1.getContainer();
 
 						if(temp1 == null) {
 							break;
@@ -56,10 +56,10 @@ class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
 					}
 					return;
 				}
-				temp2 = AncestorUtil.getContainer(temp2);
+				temp2 = temp2.getContainer();
 			}
 			
-			temp1 = AncestorUtil.getContainer(temp1);
+			temp1 = temp1.getContainer();
 		}		
 	}
 }

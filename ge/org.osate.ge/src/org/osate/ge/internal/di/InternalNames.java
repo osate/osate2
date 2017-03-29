@@ -23,4 +23,5 @@ public class InternalNames {
 	public static final String TARGET_DIAGRAM_ELEMENT_PROXY = "tdep"; 
 	public static final String SOURCE_DIAGRAM_ELEMENT_PROXY = "src_dep";
 	public static final String DESTINATION_DIAGRAM_ELEMENT_PROXY = "dst_dep";
+	public static final String BUSINESS_OBJECT_CONTEXT = "boc";
 }

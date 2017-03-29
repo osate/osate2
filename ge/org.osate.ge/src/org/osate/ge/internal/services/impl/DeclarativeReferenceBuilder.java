@@ -111,7 +111,7 @@ public class DeclarativeReferenceBuilder {
 		} else if(bo instanceof AnnexLibrary) {
 			final AnnexLibrary annexLibrary = (AnnexLibrary)bo;					
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new String[] {TYPE_ANNEX_LIBRARY, annexLibrary.getName().toLowerCase(), Integer.toString(index)};
+			return new String[] {TYPE_ANNEX_LIBRARY, annexLibrary.getName(), Integer.toString(index)};
 
 		} else if(bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause)bo;			
@@ -120,7 +120,7 @@ public class DeclarativeReferenceBuilder {
 			}
 			
 			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclause.getName().toLowerCase(), Integer.toString(index)};
+			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclause.getName(), Integer.toString(index)};
 		} else {
 			return null;
 		}
@@ -184,7 +184,7 @@ public class DeclarativeReferenceBuilder {
 			}
 			
 			final int index = getAnnexLibraryIndex(annexLibrary);
-			return new String[] {TYPE_ANNEX_LIBRARY, annexPkg.getQualifiedName(), annexLibrary.getName().toLowerCase(), Integer.toString(index)};
+			return new String[] {TYPE_ANNEX_LIBRARY, annexPkg.getQualifiedName(), annexLibrary.getName(), Integer.toString(index)};
 		} else if(bo instanceof AnnexSubclause) {
 			final AnnexSubclause annexSubclause = (AnnexSubclause)bo;			
 			if(annexSubclause.getContainingClassifier() == null) {
@@ -193,7 +193,7 @@ public class DeclarativeReferenceBuilder {
 			
 			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();	
 			final int index = getAnnexSubclauseIndex(annexSubclause);
-			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName().toLowerCase(), Integer.toString(index)};
+			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName(), Integer.toString(index)};
 		} else if(bo instanceof ProjectOverview) {
 			return new String[] {TYPE_PROJECT_OVERVIEW};				
 		} else {

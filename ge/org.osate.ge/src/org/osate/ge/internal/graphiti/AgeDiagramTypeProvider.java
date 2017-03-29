@@ -19,8 +19,6 @@ import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
-import org.osate.ge.internal.services.AadlArrayService;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AadlPropertyService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -33,18 +31,14 @@ import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
-import org.osate.ge.internal.services.SerializableReferenceService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.services.SubcomponentService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.UserInputService;
-import org.osate.ge.internal.services.impl.DefaultAadlArrayService;
-import org.osate.ge.internal.services.impl.DefaultAadlFeatureService;
 import org.osate.ge.internal.services.impl.DefaultAadlModificationService;
 import org.osate.ge.internal.services.impl.DefaultAadlPropertyService;
 import org.osate.ge.internal.services.impl.DefaultBusinessObjectResolutionService;
@@ -55,12 +49,10 @@ import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
 import org.osate.ge.internal.services.impl.DefaultPropertyService;
-import org.osate.ge.internal.services.impl.DefaultPrototypeService;
 import org.osate.ge.internal.services.impl.DefaultQueryService;
 import org.osate.ge.internal.services.impl.DefaultRefactoringService;
-import org.osate.ge.internal.services.impl.DefaultSerializableReferenceService;
+import org.osate.ge.internal.services.impl.DefaultReferenceService;
 import org.osate.ge.internal.services.impl.DefaultShapeService;
-import org.osate.ge.internal.services.impl.DefaultSubcomponentService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
@@ -71,7 +63,7 @@ import org.osgi.framework.FrameworkUtil;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	private final IEclipseContext context;
-	private DefaultSerializableReferenceService serializableReferenceService;
+	private DefaultReferenceService serializableReferenceService;
 	private IToolBehaviorProvider[] toolBehaviorProviders;
 	
 	public AgeDiagramTypeProvider() {	
@@ -93,7 +85,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final CachingService cachingService = new DefaultCachingService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final DiagramService internalDiagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
-		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(internalDiagramService, refBuilder, bor);
 		final DefaultNamingService namingService = new DefaultNamingService();
@@ -101,11 +92,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, cachingService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
+		serializableReferenceService = new DefaultReferenceService(extensionService, cachingService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
-		final DefaultPrototypeService prototypeService = new DefaultPrototypeService(bor);
-		final DefaultAadlFeatureService featureService = new DefaultAadlFeatureService(prototypeService, bor);
-		final DefaultSubcomponentService subcomponentService = new DefaultSubcomponentService(prototypeService);
 	
 		final QueryRunnerFactory queryRunnerFactory = new QueryRunnerFactory() {
 			@Override
@@ -125,9 +113,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
 		context.set(CachingService.class, cachingService);
-		context.set(SerializableReferenceService.class, serializableReferenceService);
+		context.set(ReferenceService.class, serializableReferenceService);
 		context.set(BusinessObjectResolutionService.class, bor);
-		context.set(AadlArrayService.class, arrayService);
 		context.set(DiagramModificationService.class, diagramModificationService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
@@ -135,9 +122,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(RefactoringService.class, refactoringService);
 		context.set(PropertyService.class, propertyUtil);
 		context.set(ShapeService.class, shapeHelper);
-		context.set(AadlFeatureService.class, featureService);
-		context.set(SubcomponentService.class, subcomponentService);
-		context.set(PrototypeService.class, prototypeService);
 		context.set(ColoringService.class, highlightingHelper);
 		context.set(GraphitiService.class, graphitiService);
 		context.set(QueryService.class, queryService);

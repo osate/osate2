@@ -71,7 +71,7 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.PrototypeService;
+import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.StringUtil;
 
 /**
@@ -81,7 +81,6 @@ import org.osate.ge.internal.util.StringUtil;
 public class EditFlowsDialog extends TitleAreaDialog {
 	private final ComponentImplementation ci;
 	private final List<FlowSegmentInfo> potentialFlowSegments = new ArrayList<FlowSegmentInfo>();
-	private final PrototypeService prototypeService;
 	private final NamingService namingService;
 	private final int deleteWidth = 50;
 	private final int segmentWidth = 50;
@@ -105,10 +104,9 @@ public class EditFlowsDialog extends TitleAreaDialog {
     private Composite flowDetailsPane;
     private final List<Flow> flows = new ArrayList<Flow>();
     		
-	public EditFlowsDialog(final Shell parentShell, final PrototypeService prototypeService, final NamingService namingService, final ComponentImplementation ci) {
+	public EditFlowsDialog(final Shell parentShell, final NamingService namingService, final ComponentImplementation ci) {
 		super(parentShell);
 		this.ci = ci;
-		this.prototypeService = prototypeService;
 		this.namingService = namingService;
 		this.setHelpAvailable(false);
 		populatePotentialFlowSegmentList();	 
@@ -132,7 +130,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		
 		// Subcomponent flow specifications
 		for(final Subcomponent sc : ci.getAllSubcomponents()) {
-			final ComponentClassifier scClassifier = prototypeService.getComponentClassifier(ci, sc);
+			final ComponentClassifier scClassifier = AadlPrototypeUtil.getComponentClassifier(ci, sc);
 			if(scClassifier instanceof ComponentType) {
 				addElementsToPotentialFlowSegmentList(sc, ((ComponentType) scClassifier).getAllFlowSpecifications());
 			} else if(scClassifier instanceof ComponentImplementation && ((ComponentImplementation) scClassifier).getType() != null) {
@@ -144,7 +142,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		for(final Feature f : ci.getAllFeatures()) {			
 			if(f instanceof FeatureGroup) {
 				final FeatureGroup fg = (FeatureGroup)f;
-				final FeatureGroupType fgt = prototypeService.getFeatureGroupType(ci, fg);
+				final FeatureGroupType fgt = AadlPrototypeUtil.getFeatureGroupType(ci, fg);
 				if(fgt != null) {
 					addElementsToPotentialFlowSegmentList(fg, fgt.getAllFeatures());
 				}

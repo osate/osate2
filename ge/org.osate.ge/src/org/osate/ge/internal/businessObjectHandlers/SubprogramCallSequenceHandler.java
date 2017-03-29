@@ -36,7 +36,6 @@ import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
@@ -103,8 +102,8 @@ public class SubprogramCallSequenceHandler {
 	}
 	
 	@Create
-	public SubprogramCallSequence createBusinessObject(@Named(Names.OWNER_BO) BehavioredImplementation bi, final AadlFeatureService featureService, final NamingService namingService) {
-		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(featureService, bi);
+	public SubprogramCallSequence createBusinessObject(@Named(Names.OWNER_BO) BehavioredImplementation bi, final NamingService namingService) {
+		final DefaultSelectSubprogramDialogModel subprogramSelectionModel = new DefaultSelectSubprogramDialogModel(bi);
 		final SelectSubprogramDialog dlg = new SelectSubprogramDialog(Display.getCurrent().getActiveShell(), subprogramSelectionModel);
 		if(dlg.open() == Dialog.CANCEL) {
 			return null;

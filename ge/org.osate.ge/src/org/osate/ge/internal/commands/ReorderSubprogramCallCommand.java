@@ -13,7 +13,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.QueryService;
-import org.osate.ge.internal.services.SubcomponentService;
 
 @ModifiesBusinessObjects
 public abstract class ReorderSubprogramCallCommand {
@@ -28,8 +27,7 @@ public abstract class ReorderSubprogramCallCommand {
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final SubprogramCall subprogramCall,
 			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
-			final QueryService queryService,
-			final SubcomponentService subcomponentService) {
+			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return diagram instanceof SubprogramCallSequence && subprogramCall.eContainer() instanceof SubprogramCallSequence &&
 				subprogramCall.getContainingClassifier() == queryService.getFirstBusinessObject(grandparentQuery, diagramElement);

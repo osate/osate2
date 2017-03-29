@@ -39,10 +39,10 @@ import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
+import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.query.DiagramElementQuery;
 
 class FlowSpecificationHandler {
@@ -113,7 +113,6 @@ class FlowSpecificationHandler {
 	protected static boolean isValidFlowEnd(final Feature feature,
 			final AgeDiagramElement featureDiagramElement, 
 			final DirectionType requiredDirection, 
-			final AadlFeatureService featureService,
 			final QueryService queryService) {
 		// Ensure that the feature is contained in a component type
 		if(getComponentType(featureDiagramElement, queryService) == null) {
@@ -131,7 +130,7 @@ class FlowSpecificationHandler {
 			final DirectedFeature df = (DirectedFeature)feature;
 			DirectionType direction = df.getDirection();
 	 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
-	 			if(featureService.isFeatureInverted(featureDiagramElement)) {
+	 			if(AadlFeatureUtil.isFeatureInverted(featureDiagramElement)) {
 	 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
 	 			}
 	 		}	

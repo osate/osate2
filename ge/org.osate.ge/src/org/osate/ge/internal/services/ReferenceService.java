@@ -8,17 +8,12 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import org.osate.aadl2.AadlPackage;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 
 /**
  * Service for referencing business objects using a string value.
  *
  */
-public interface SerializableReferenceService {
-	String getAbsoluteReference(final Object bo);
-	String getRelativeReference(final Object bo);
-	
-	Object resolveAbsoluteReference(final String reference);
-	
-	AadlPackage getAadlPackage(final String qualifiedName);
+public interface ReferenceService extends InternalReferenceBuilderService {
+	Object resolve(final CanonicalBusinessObjectReference reference);
 }

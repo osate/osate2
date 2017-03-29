@@ -24,23 +24,24 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
-import org.osate.aadl2.AadlPackage;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.CachingService.Cache;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
-import org.osate.ge.internal.services.SerializableReferenceService;
+import org.osate.ge.internal.services.ReferenceService;
 
-public class DefaultSerializableReferenceService implements SerializableReferenceService {
+public class DefaultReferenceService implements ReferenceService {
 	private static final String REFERENCE_RESOLVER_ELEMENT_NAME = "referenceResolver";
 	private final InternalReferenceBuilderService referenceBuilderService;
 	private final IEclipseContext ctx;
 	//private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private List<Object> referenceResolvers = null;
 	private DeclarativeReferenceResolver declarativeReferenceResolver;
-	private Map<String, Object> keyToBusinessObjectMap = new HashMap<String, Object>();
+	private Map<CanonicalBusinessObjectReference, Object> keyToBusinessObjectMap = new HashMap<CanonicalBusinessObjectReference, Object>();
 	
-	public DefaultSerializableReferenceService(final ExtensionService extService, 
+	public DefaultReferenceService(final ExtensionService extService, 
 			final CachingService cachingService,
 			final InternalReferenceBuilderService referenceBuilderService) {
 		this.referenceBuilderService = referenceBuilderService;
@@ -94,48 +95,29 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	}
 	
 	@Override
-	public String getAbsoluteReference(final Object bo) {
-		return referenceBuilderService.getAbsoluteReference(bo);
-	}
-	
-	@Override
-	public String getRelativeReference(final Object bo) {
-		return referenceBuilderService.getRelativeReference(bo);
-	}
-
-	@Override
-	public Object resolveAbsoluteReference(final String referenceStr) {
-		if(referenceStr == null) {
-			return null;
-		}
+	public Object resolve(final CanonicalBusinessObjectReference reference) {
+		Objects.requireNonNull(reference, "reference must not be null");
 		
 		// Look in the cache first. Don't return null objects even if they have been stored in the cache.
-		Object bo = keyToBusinessObjectMap.get(referenceStr);
+		Object bo = keyToBusinessObjectMap.get(reference);
 		if(bo != null) {
 			return bo;
 		}
 		
 		// Retrieve the value and add it to the cache
-		bo = resolveUncachedAbsoluteReference(referenceStr);
-		keyToBusinessObjectMap.put(referenceStr, bo);
+		bo = resolveUncachedAbsoluteReference(reference);
+		keyToBusinessObjectMap.put(reference, bo);
 		
 		return bo;
 	}
 	
-	private Object resolveUncachedAbsoluteReference(final String referenceStr) {	
-		Objects.requireNonNull(referenceStr, "referenceStr must not be null");
+	private Object resolveUncachedAbsoluteReference(final CanonicalBusinessObjectReference reference) {	
 		ensureReferenceResolversHaveBeenInstantiated();
 		
-		// Break the reference into segments
-		final String[] ref = ReferenceEncoder.decode(referenceStr);
-		if(ref == null) {
-			return null;
-		}
-
 		final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 		try {
 			// Set context fields
-			argCtx.set(Names.REFERENCE, ref);	
+			argCtx.set(Names.REFERENCE, reference.toSegmentArray());	
 			
 			for(final Object refResolver : referenceResolvers) {
 				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveReference.class, ctx, argCtx, null);
@@ -151,7 +133,12 @@ public class DefaultSerializableReferenceService implements SerializableReferenc
 	}
 
 	@Override
-	public AadlPackage getAadlPackage(final String qualifiedName) {
-		return declarativeReferenceResolver.getAadlPackage(qualifiedName);
+	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
+		return referenceBuilderService.getCanonicalReference(bo);
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(Object bo) {
+		return referenceBuilderService.getRelativeReference(bo);
 	}
 }

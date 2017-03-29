@@ -25,6 +25,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.BusinessObjectContext;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
@@ -37,12 +38,11 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlArrayService;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
-import org.osate.ge.internal.services.SubcomponentService;
+import org.osate.ge.internal.util.AadlArrayUtil;
+import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
@@ -58,9 +58,8 @@ public class SubcomponentHandler {
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement, 
-			final SubcomponentService subcomponentService) {
-		final ComponentClassifier cc = subcomponentService.getComponentClassifier(parentDiagramElement, sc);
+			final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) AgeDiagramElement diagramElement) {
+		final ComponentClassifier cc = getComponentClassifier(diagramElement, sc);
 		if(cc == null) {
 			return AadlGraphics.getGraphic(sc.getCategory(), false);
 		} else {
@@ -70,8 +69,8 @@ public class SubcomponentHandler {
 	
 	// Labels
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final AadlArrayService arrayService) {
-		return getSubcomponentName(sc) + arrayService.getDimensionUserString(sc);
+	public String getName(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
+		return getSubcomponentName(sc) + AadlArrayUtil.getDimensionUserString(sc);
 	}
 	
 	private String getSubcomponentName(final Subcomponent sc) {
@@ -84,20 +83,20 @@ public class SubcomponentHandler {
 	}
 
 	@GetAnnotations
-	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final SubcomponentService subcomponentService) {
-		return new Annotation[] {AnnotationBuilder.create().text(getTypeText(sc, subcomponentService)).build()};
+	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
+		return new Annotation[] {AnnotationBuilder.create().text(getTypeText(sc)).build()};
 	}
 	
-	private String getTypeText(final Subcomponent sc, final SubcomponentService subcomponentService) {
+	private String getTypeText(final Subcomponent sc) {
 		String retVal = "";
-        final SubcomponentType scType = subcomponentService.getAllSubcomponentType(sc);
+        final SubcomponentType scType = getAllSubcomponentType(sc);
         
 		if(scType != null) {
 			retVal += scType.getQualifiedName();
 		}
 
 		// Add text for each of the implementation references (for arrays)
-		final List<ComponentImplementationReference> implRefs = subcomponentService.getArrayComponentImplementationReferences(sc);
+		final List<ComponentImplementationReference> implRefs = getArrayComponentImplementationReferences(sc);
 		if(implRefs.size() != 0) {
 			retVal += "\n(";			
 			for(int i = 0; i < implRefs.size(); i++) {
@@ -125,15 +124,13 @@ public class SubcomponentHandler {
 	// Children
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement,
-			final AadlFeatureService featureService,
-			final SubcomponentService subcomponentService) {
-		final ComponentClassifier cc = subcomponentService.getComponentClassifier(parentDiagramElement, sc);
+			final @Named(InternalNames.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+		final ComponentClassifier cc = getComponentClassifier(boc, sc);
 		if(cc == null) {
 			return null;
 		}
 		
-		return ClassifierHandler.getChildren(cc, featureService, false);
+		return ClassifierHandler.getChildren(cc, false);
 	}
 	
 	// Creating
@@ -198,4 +195,39 @@ public class SubcomponentHandler {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return sc.getContainingClassifier() == ci;
     }
+	
+	// Helper Methods
+	private static ComponentClassifier getComponentClassifier(final BusinessObjectContext boc, final Subcomponent sc) {
+		if(sc.getPrototype() == null) {
+			if(sc.getClassifier() == null && sc.getRefined() != null) {
+				return getComponentClassifier(boc, sc.getRefined());
+			} else {
+				return sc.getClassifier();
+			}
+		} else {
+			return AadlPrototypeUtil.getComponentClassifier(AadlPrototypeUtil.getPrototypeBindingContext(boc), sc);	
+		}
+	}	
+	
+	private static SubcomponentType getAllSubcomponentType(Subcomponent sc) {
+		SubcomponentType scType;
+		do {
+			scType = sc.getSubcomponentType();
+			sc = sc.getRefined();
+		} while(sc != null && scType == null);
+		
+		return scType;		
+	}
+	
+	private static List<ComponentImplementationReference> getArrayComponentImplementationReferences(final Subcomponent sc) {
+		Subcomponent tmpSc = sc;
+		List<ComponentImplementationReference> refs;
+		
+		do {
+			refs = tmpSc.getImplementationReferences();
+			tmpSc = tmpSc.getRefined();
+		} while(tmpSc != null && refs.size() == 0);
+		
+		return refs;
+	}
 }

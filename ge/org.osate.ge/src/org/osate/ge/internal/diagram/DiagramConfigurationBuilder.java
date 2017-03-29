@@ -1,7 +1,7 @@
 package org.osate.ge.internal.diagram;
 
 public class DiagramConfigurationBuilder {
-	private RelativeBusinessObjectReference rootBoReference;
+	private CanonicalBusinessObjectReference rootBoReference;
 	
 	public DiagramConfigurationBuilder() {
 		this.rootBoReference = null;

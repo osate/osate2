@@ -34,17 +34,18 @@ import java.util.List;
 
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.SerializableReferenceService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.ShapeService;
 
 public class DefaultShapeService implements ShapeService {
-	private final SerializableReferenceService refService;
+	private final ReferenceService refService;
 	private final PropertyService propertyUtil;
 	private final BusinessObjectResolutionService bor;
 	
-	public DefaultShapeService(final SerializableReferenceService refService, final PropertyService propertyUtil, final BusinessObjectResolutionService bor) {
+	public DefaultShapeService(final ReferenceService refService, final PropertyService propertyUtil, final BusinessObjectResolutionService bor) {
 		this.refService = refService;
 		this.propertyUtil = propertyUtil;
 		this.bor = bor;
@@ -53,22 +54,20 @@ public class DefaultShapeService implements ShapeService {
 	@Override
 	public Shape getChildShapeByReference(final ContainerShape shape, final Object bo) {
 		// TODO: Consider using relative references
-		final String searchRef = refService.getAbsoluteReference(bo);
+		final CanonicalBusinessObjectReference searchRef = refService.getCanonicalReference(bo);
 		if(searchRef == null) {
 			return null;
 		}
 		
-		return getChildShapeByReferenceString(shape, searchRef);
-	}
-	
-	private Shape getChildShapeByReferenceString(final ContainerShape shape, final String searchRef) {
+		
 		// TODO: Consider using relative references
-		for(final Shape c : shape.getChildren()) {
-			Object bo = bor.getBusinessObjectForPictogramElement(c);
-			if(searchRef.equals(refService.getAbsoluteReference(bo))) {
-				return c;
+		for(final Shape child : shape.getChildren()) {
+			Object childBo = bor.getBusinessObjectForPictogramElement(child);
+			if(searchRef.equals(refService.getCanonicalReference(childBo))) {
+				return child;
 			}
 		}
+				
 		return null;
 	}
 

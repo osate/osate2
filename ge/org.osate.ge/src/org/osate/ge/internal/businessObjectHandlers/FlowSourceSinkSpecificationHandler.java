@@ -27,7 +27,6 @@ import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
 import org.osate.ge.internal.query.AgeDiagramElementQuery;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
@@ -85,7 +84,6 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	public boolean canCreate(final @Named(Names.TARGET_BO) Feature feature,
 			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement featureDiagramElement,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
-			final AadlFeatureService featureService,
 			final QueryService queryService) {
 		
 		final DirectionType requiredDirection;
@@ -96,7 +94,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
  		} else {
  			throw new RuntimeException("Unexpected flow kind: " + flowKind);
  		}
-		return isValidFlowEnd(feature, featureDiagramElement, requiredDirection, featureService, queryService);
+		return isValidFlowEnd(feature, featureDiagramElement, requiredDirection, queryService);
 	}	
 	
 	@GetCreateOwner

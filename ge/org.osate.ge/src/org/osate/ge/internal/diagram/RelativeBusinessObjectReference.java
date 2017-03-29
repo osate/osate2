@@ -6,17 +6,29 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * Data type for relative references to a business object. A relative reference along with a containing diagram element must uniquely identify the business object.
+ * Immutable data type for relative references to a business object. 
+ * A relative reference along with a containing diagram element must uniquely identify the business object.
  */
 public class RelativeBusinessObjectReference {
 	private List<String> segments;
-	
+
+	/**
+	 * Creates a relative reference from an array of segments. Segments are case insensitive.
+	 * @param reference
+	 */
 	public RelativeBusinessObjectReference(final String... reference) {
 		if(reference == null || reference.length < 1) {
 			throw new RuntimeException("reference must contain at least one segment");
 		}
 		
-		this.segments = Collections.unmodifiableList(new ArrayList<>(Arrays.asList(reference)));
+		// Copy segments into a new list and covert all segments to lower case
+		final List<String> segmentCopy = new ArrayList<>(reference.length);
+		for(int i = 0 ; i < reference.length; i++) {
+			segmentCopy.add(reference[i].toLowerCase());
+		}
+		
+		// Store an unmodifiable list of segments
+		this.segments = Collections.unmodifiableList(segmentCopy);
 	}
 	
 	@Override

@@ -48,6 +48,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.BusinessObjectContext;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.CanRename;
@@ -59,13 +60,12 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.AadlArrayService;
-import org.osate.ge.internal.services.AadlFeatureService;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
+import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
+import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 
@@ -143,28 +143,28 @@ public class FeatureHandler {
 	}
 	
 	@GetDefaultDockingPosition
-	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement, final AadlFeatureService featureService) {
-		return getDirection(feature, parentDiagramElement, featureService) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement) {
+		return getDirection(feature, parentDiagramElement) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
 	}
 		
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement, final AadlFeatureService featureService, final PrototypeService prototypeService) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement) {
 		// Check to see if it is a prototype feature
 		if(feature instanceof AbstractFeature) {
 			final AbstractFeature af = (AbstractFeature)feature;
 			if(af.getFeaturePrototype() != null) {
 				// Lookup the binding
 				// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-				final Element bindingContext = prototypeService.getPrototypeBindingContextByContainer(parentDiagramElement);
+				final Element bindingContext = AadlPrototypeUtil.getPrototypeBindingContextByContainer(parentDiagramElement);
 				if(bindingContext != null) {
 					final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 					if(binding instanceof FeaturePrototypeBinding) {
 						FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 						if(actual instanceof PortSpecification) {
-							final DirectionType direction = getDirection(actual, parentDiagramElement, featureService);
+							final DirectionType direction = getDirection(actual, parentDiagramElement);
 							return AadlGraphics.getFeatureGraphic(((PortSpecification)actual).getCategory(), direction);
 						} else if(actual instanceof AccessSpecification) {
-							final DirectionType direction = getDirection(actual, parentDiagramElement, featureService);
+							final DirectionType direction = getDirection(actual, parentDiagramElement);
 							return AadlGraphics.getFeatureGraphic(((AccessSpecification)actual).getCategory(), direction);
 						}
 					}
@@ -172,7 +172,7 @@ public class FeatureHandler {
 			}
 		}
 		
-		final DirectionType direction = getDirection(feature, parentDiagramElement, featureService);
+		final DirectionType direction = getDirection(feature, parentDiagramElement);
 		return AadlGraphics.getFeatureGraphic(feature.eClass(), direction); 
 	}	
 	
@@ -183,7 +183,7 @@ public class FeatureHandler {
 	 * @param featureService
 	 * @return
 	 */
-	private DirectionType getDirection(final Element feature, final AgeDiagramElement parentDiagramElement, final AadlFeatureService featureService) {
+	private DirectionType getDirection(final Element feature, final AgeDiagramElement parentDiagramElement) {
 		DirectionType direction;
 		if(feature instanceof DirectedFeature) {
 			direction = ((DirectedFeature) feature).getDirection();
@@ -200,7 +200,7 @@ public class FeatureHandler {
 		}
 		
 		// Invert the feature as appropriate
-		if(featureService.isFeatureInvertedByContainer(parentDiagramElement)) {
+		if(AadlFeatureUtil.isFeatureInvertedByContainer(parentDiagramElement)) {
 			if(direction == DirectionType.IN) {
 				direction = DirectionType.OUT;
 			} else if(direction == DirectionType.OUT) {
@@ -212,11 +212,11 @@ public class FeatureHandler {
 	}
 	
 	@GetName
-	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final AadlArrayService arrayService) {
+	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature) {
 		String name = feature.getName() == null ? "" : feature.getName();
 		
 		if(feature instanceof ArrayableElement) {
-			name += arrayService.getDimensionUserString((ArrayableElement) feature);
+			name += AadlArrayUtil.getDimensionUserString((ArrayableElement) feature);
 		}
 		
 		return name;
@@ -238,8 +238,8 @@ public class FeatureHandler {
 	}
 	
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) AgeDiagramElement diagramElement, final AadlFeatureService featureService) {
-		final FeatureGroupType fgt = featureService.getFeatureGroupType(diagramElement, fg);
-		return fgt == null ? null : featureService.getAllFeatures(fgt).stream();
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(InternalNames.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+		final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(boc, fg);
+		return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
 	}
 }

@@ -11,17 +11,25 @@ package org.osate.ge.services.impl;
 import java.util.Objects;
 
 import org.osate.ge.services.ReferenceResolutionService;
-import org.osate.ge.internal.services.SerializableReferenceService;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
 public class DefaultReferenceResolutionService implements ReferenceResolutionService {
-	private final SerializableReferenceService srService;
+	private final ReferenceService srService;
 	
-	public DefaultReferenceResolutionService(final SerializableReferenceService srService) {
+	public DefaultReferenceResolutionService(final ReferenceService srService) {
 		this.srService = Objects.requireNonNull(srService, "srService must not be null");
 	}
 	
 	@Override
 	public Object getReferencedObject(final String reference) {
-		return srService.resolveAbsoluteReference(reference);
+		// Break the reference into segments
+		final String[] ref = ReferenceEncoder.decode(reference);
+		if(ref == null) {
+			return null;
+		}
+				
+		return srService.resolve(new CanonicalBusinessObjectReference(ref));
 	}
 }

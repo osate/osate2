@@ -28,9 +28,7 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
@@ -38,8 +36,6 @@ import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.GraphicalEditorService;
 
 public class PackageHandler {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
-
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
 		return true;
@@ -51,14 +47,12 @@ public class PackageHandler {
 	}
 		
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final ExtensionService extService, final QueryService queryService) {
-		final boolean showObjectsOutsideOfPackage = queryService.getFirstBusinessObject(parentQuery, diagramElement) == null;
-
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final ExtensionService extService, final QueryService queryService) {
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
 		final Set<Object> connectionChildren = new HashSet<>();
-		populateChildren(pkg, pkg.getPublicSection(), children, connectionChildren, showObjectsOutsideOfPackage, extService);
-		populateChildren(pkg, pkg.getPrivateSection(), children, connectionChildren, showObjectsOutsideOfPackage, extService);	
+		populateChildren(pkg, pkg.getPublicSection(), children, connectionChildren, extService);
+		populateChildren(pkg, pkg.getPrivateSection(), children, connectionChildren, extService);	
 		
 		return Stream.concat(children.stream(), connectionChildren.stream());
 	}
@@ -78,7 +72,7 @@ public class PackageHandler {
 		return null;
 	}
 	
-	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final Set<Object> connectionChildren, final boolean showObjectsOutsideOfPackage, final ExtensionService extService) {
+	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final Set<Object> connectionChildren, final ExtensionService extService) {
 		if(ps == null) {
 			return;
 		}
@@ -103,8 +97,8 @@ public class PackageHandler {
 				final ComponentType componentType = ((ComponentType)el);
 				final TypeExtension te = componentType.getOwnedExtension();
 				if(componentType.getOwnedExtension() != null) {
-					add(showObjectsOutsideOfPackage, pkg, children, componentType.getOwnedExtension().getGeneral());
-					add(showObjectsOutsideOfPackage, pkg, connectionChildren, te);
+					addIfInPackage(pkg, children, componentType.getOwnedExtension().getGeneral());
+					addIfInPackage(pkg, connectionChildren, te);
 				}
 			} else if(el instanceof ComponentImplementation) {
 				final ComponentImplementation componentImplementation = ((ComponentImplementation)el);
@@ -112,29 +106,29 @@ public class PackageHandler {
 				// Implementation Extension
 				final ImplementationExtension ie = componentImplementation.getOwnedExtension();
 				if(ie != null) {
-					add(showObjectsOutsideOfPackage, pkg, children, ie.getGeneral());
-					add(showObjectsOutsideOfPackage, pkg, connectionChildren, ie);					
+					addIfInPackage(pkg, children, ie.getGeneral());
+					addIfInPackage(pkg, connectionChildren, ie);					
 				}
 				
 				// Realization
 				final Realization realization = componentImplementation.getOwnedRealization();
 				if(realization != null) {	
-					add(showObjectsOutsideOfPackage, pkg, children, realization.getGeneral());
-					add(showObjectsOutsideOfPackage, pkg, connectionChildren, realization);					
+					addIfInPackage(pkg, children, realization.getGeneral());
+					addIfInPackage(pkg, connectionChildren, realization);					
 				}				
 			} else if(el instanceof FeatureGroupType) {
 				final FeatureGroupType featureGroupType = ((FeatureGroupType)el);
 				final GroupExtension ge = featureGroupType.getOwnedExtension();
 				if(ge != null) {
-					add(showObjectsOutsideOfPackage, pkg, children, ge.getGeneral());
-					add(showObjectsOutsideOfPackage, pkg, connectionChildren, ge);
+					addIfInPackage(pkg, children, ge.getGeneral());
+					addIfInPackage(pkg, connectionChildren, ge);
 				}
 			}
 		}
 	}
 	
-	private void add(final boolean showObjectsOutsideOfPackage, final AadlPackage pkg, final Set<Object> collection, final Element element) {
-		if(showObjectsOutsideOfPackage || pkg == element.getElementRoot()) {
+	private void addIfInPackage(final AadlPackage pkg, final Set<Object> collection, final Element element) {
+		if(pkg == element.getElementRoot()) {
 			collection.add(element);
 		}
 	}

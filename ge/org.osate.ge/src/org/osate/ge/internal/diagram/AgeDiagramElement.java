@@ -7,11 +7,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.BusinessObjectContext;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
-public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementContainer, DiagramElement {	
+public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementContainer, DiagramElement, BusinessObjectContext {	
 	private final DiagramNode container;
 
 	private Object bo;
@@ -44,8 +45,14 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 		this.name = name;
 	}
 
+	@Override
 	public final DiagramNode getContainer() {
 		return container;
+	}
+	
+	@Override
+	public final BusinessObjectContext getParent() {
+		return container instanceof BusinessObjectContext ? (BusinessObjectContext)container : null;
 	}
 	
 	public final ModifiableDiagramElementContainer getModifiableContainer() {

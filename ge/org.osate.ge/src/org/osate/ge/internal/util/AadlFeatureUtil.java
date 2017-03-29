@@ -6,17 +6,24 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.eclipse.emf.common.util.BasicEList;
+import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DeviceImplementation;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
+import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessImplementation;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.ThreadGroupImplementation;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.VirtualProcessorImplementation;
+import org.osate.aadl2.util.Aadl2Util;
+import org.osate.ge.internal.BusinessObjectContext;
 
 public class AadlFeatureUtil {
 	private final static Map<EClass, String> featureTypeToCreateMethodNameMap = createFeatureTypeToCreateMethodMap();
@@ -97,5 +104,93 @@ public class AadlFeatureUtil {
 	private static boolean isProcessorFeatureType(final EClass t) {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		return p.getProcessorFeature().isSuperTypeOf(t);
+	}
+	
+	/**
+	 * Returns all the features owned by the feature group type or the type it extends. It does not return features from the inverse and in the case of refined features, 
+	 * only returns the refined feature.
+	 * @param fgt
+	 * @return
+	 */
+	private static EList<Feature> getAllOwnedFeatures(final FeatureGroupType fgt) {
+		final EList<Feature> features = new BasicEList<Feature>();
+		FeatureGroupType temp = fgt;
+		while(temp != null) {
+			boolean wasRefined = false;
+			for(final Feature newFeature : temp.getOwnedFeatures()) {
+				for(final Feature existingFeature : features) {
+					if(existingFeature.getRefined() == newFeature) {
+						wasRefined = true;
+					}
+				}
+				
+				if(!wasRefined) {
+					features.add(newFeature);
+				}
+			}
+			temp = temp.getExtended();
+		}
+
+		return features;
+	}
+		
+	public static EList<Feature> getAllDeclaredFeatures(final Classifier classifier) {
+		if(classifier instanceof FeatureGroupType) {
+			return getAllOwnedFeatures((FeatureGroupType)classifier);
+		} 
+		
+		return classifier.getAllFeatures();
+	}
+	
+	public static EList<Feature> getAllFeatures(final FeatureGroupType fgt) {
+		final EList<Feature> owned = getAllOwnedFeatures(fgt);
+		final FeatureGroupType inverseFgt = fgt.getInverse();
+		if (owned.isEmpty() && !Aadl2Util.isNull(inverseFgt)) {
+			return getAllOwnedFeatures(inverseFgt);
+		}
+		
+		return owned;
+	}
+			
+	public static boolean isFeatureInverted(final BusinessObjectContext featureBoc) {
+		final BusinessObjectContext parent = featureBoc.getParent();
+		if(parent == null) {
+			return false;
+		}
+			
+		return isFeatureInvertedByContainer(parent);
+	}
+	
+	public static boolean isFeatureInvertedByContainer(final BusinessObjectContext featureParentBoc) {
+		boolean isInverted = false;
+		
+		BusinessObjectContext parent = featureParentBoc;
+		while(parent != null) {
+			final Object parentBo = parent.getBusinessObject();
+			if(parentBo instanceof FeatureGroup) {
+				final FeatureGroup fg = (FeatureGroup)parentBo;
+				isInverted ^= fg.isInverse();
+				
+				// This feature group type is not necessarily the one that owned the feature... Could be inverse.. Could be refined, etc..
+				// Check if the feature group type was implicitly defined via an inverse
+				final FeatureGroupType fgt = getFeatureGroupType(parent, fg);
+				if(fgt != null && getAllOwnedFeatures(fgt).isEmpty() && !Aadl2Util.isNull(fgt.getInverse())) {
+					isInverted = !isInverted;
+				}
+			}
+
+			parent = parent.getParent();
+		}
+		
+		return isInverted;
+	}
+	
+	// Prototype Related Methods	
+	public static FeatureGroupType getFeatureGroupType(BusinessObjectContext boc, final FeatureGroup fg) {
+		if(fg.getFeatureGroupPrototype() == null) {
+			return fg.getAllFeatureGroupType();
+		} else {
+			return AadlPrototypeUtil.getFeatureGroupType(AadlPrototypeUtil.getPrototypeBindingContext(boc), fg);
+		}
 	}
 }
