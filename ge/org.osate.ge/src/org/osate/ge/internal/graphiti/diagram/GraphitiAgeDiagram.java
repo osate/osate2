@@ -630,7 +630,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	private class GraphitiDiagramModificationListener implements DiagramModificationListener {
 		private boolean enabled = true;
 		
-		final Set<AgeDiagramElement> elementsToAdd = new LinkedHashSet<>();
+		boolean elementAdded = false;
 		final Set<AgeDiagramElement> elementsToUpdate = new LinkedHashSet<>();
 		final Set<AgeDiagramElement> elementsToRemove = new LinkedHashSet<>();
 		
@@ -638,8 +638,10 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		public void elementAdded(final ElementAddedEvent e) {
 			if(enabled) {
 				elementsToRemove.remove(e.element);
-				elementsToAdd.add(e.element);
-				elementsToUpdate.add(e.element);
+				elementAdded = true;
+				//elementsToAdd.add(e.element);
+				//elementsToUpdate.add(e.element);
+				elementsToUpdate.clear(); // Clear all elements to update. They will not be processed if an element has been added.
 			}
 		}
 
@@ -647,14 +649,15 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		public void elementRemoved(final ElementRemovedEvent e) {
 			if(enabled) {
 				elementsToRemove.add(e.element);
-				elementsToAdd.remove(e.element);
+				//elementsToAdd.remove(e.element);
 				elementsToUpdate.remove(e.element);
 			}
 		}
 
 		@Override
 		public void elementUpdated(final ElementUpdatedEvent e) {
-			if(enabled) {
+			// Don't store updated elements when an element has been added. The add will trigger a complete update.
+			if(enabled && !elementAdded) {
 				// All updates are treated the same at this point. Each element is updated and containers are layed out.
 				if(!elementsToRemove.contains(e.element)) {
 					// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
@@ -685,7 +688,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						removeMappingForBranch(element);
 					}
 					
-					if(elementsToAdd.size() > 0) {
+					if(elementAdded) {
 						createUpdateElementsFromAgeDiagram();
 					} else {					
 						final Set<DiagramNode> nodesToLayout = new HashSet<>();
@@ -718,7 +721,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						}			
 					}
 				} finally {
-					elementsToAdd.clear();
+					elementAdded = false;
+					//elementsToAdd.clear();
 					elementsToRemove.clear();
 					elementsToUpdate.clear();
 				}

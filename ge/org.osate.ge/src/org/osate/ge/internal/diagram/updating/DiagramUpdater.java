@@ -44,19 +44,23 @@ public class DiagramUpdater {
 		diagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
+				// Update the structure. By doing this in a separate pass, updateElements() will have access to the complete diagram structure. 
+				// However, connections will later be purged from the diagram if they do not refer to valid elements.
+				updateStructure(m, diagram, boTree.getRootNodes());
+				
 				updateElements(m, diagram, boTree.getRootNodes(), connectionElements);
-				finalizeConnections(m, connectionElements);
+				removeInvalidConnections(m, connectionElements);
 			}			
 		});
 	}
 	
 	/**
-	 * 
-	 * @param container is the container for which to update the elements
-	 * @param bos 
-	 * @param connectionElements is a collection to populate with connection elements.
+	 * Updates the structure of the diagram. Creates/Unghosts elements to match the business object tree. Ghosts diagram elements which are not in the diagram element tree.
+	 * @param m
+	 * @param container
+	 * @param bos
 	 */
-	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
+	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos) {
 		for(final BusinessObjectTreeNode n : bos) {
 			// Get existing element if it exists.
 			AgeDiagramElement element = container.getByRelativeReference(n.getRelativeReference());
@@ -75,6 +79,38 @@ public class DiagramUpdater {
 				// Update the business object. Although the reference matches. The business object may be new.
 				m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
 			}
+									
+			// Update the element's children
+			updateStructure(m, element, n.getChildren());
+		}
+		
+		// Remove elements whose business objects are not in the business object tree
+		// At this point, it is assumed that there is a diagram element for each business object. Elements that are incomplete may be pruned later.
+		// If the collections are the same size, there is nothing to remove
+		if(bos.size() != container.getDiagramElements().size()) {
+			// Build Set of Relative References of All the Objects in the Business Object Tree
+			final Set<RelativeBusinessObjectReference> boTreeRelativeReferenceSet = bos.stream().map((n) -> n.getRelativeReference()).collect(Collectors.toCollection(HashSet::new));
+			Iterator<AgeDiagramElement> childrenIt = container.getDiagramElements().iterator();
+			while(childrenIt.hasNext()) {
+				final AgeDiagramElement child = childrenIt.next();
+				if(!boTreeRelativeReferenceSet.contains(child.getRelativeReference())) {
+					addGhost(child);
+					m.removeElement(child);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param container is the container for which to update the elements
+	 * @param bos 
+	 * @param connectionElements is a collection to populate with connection elements.
+	 */
+	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
+		for(final BusinessObjectTreeNode n : bos) {
+			// Get existing element. The updateStructure() pass should have ensured that it exists.
+			AgeDiagramElement element = Objects.requireNonNull(container.getByRelativeReference(n.getRelativeReference()), "unable to retrieve element");
 			
 			// Set the graphic
 			m.setGraphic(element, infoProvider.getGraphic(element));
@@ -98,42 +134,24 @@ public class DiagramUpdater {
 				m.setLabelConfiguration(element, infoProvider.getDefaultLabelConfiguration(element));
 			}
 			
-			// Add connection elements to the list so that they can be easily accessed in later stages of the update process
 			if(element.getGraphic() instanceof AgeConnection) {
-				connectionElements.add(element);
+				// Set connection ends
+				m.setConnectionStart(element, infoProvider.getConnectionStart(element));
+				m.setConnectionEnd(element, infoProvider.getConnectionEnd(element));
+
+				// Add connection elements to the list so that they can be access later.
+				connectionElements.add(element);				
 			}
 			
 			// Update the element's children
 			updateElements(m, element, n.getChildren(), connectionElements);
 		}
-		
-		// Remove elements whose business objects are not in the business object tree
-		// At this point, it is assumed that there is a diagram element for each business object. Elements that are incomplete may be pruned later.
-		// If the collections are the same size, there is nothing to remove
-		if(bos.size() != container.getDiagramElements().size()) {
-			// Build Set of Relative References of All the Objects in the Business Object Tree
-			final Set<RelativeBusinessObjectReference> boTreeRelativeReferenceSet = bos.stream().map((n) -> n.getRelativeReference()).collect(Collectors.toCollection(HashSet::new));
-			Iterator<AgeDiagramElement> childrenIt = container.getDiagramElements().iterator();
-			while(childrenIt.hasNext()) {
-				final AgeDiagramElement child = childrenIt.next();
-				if(!boTreeRelativeReferenceSet.contains(child.getRelativeReference())) {
-					addGhost(child);
-					m.removeElement(child);
-				}
-			}
-		}
 	}
 	
 	/**
-	 * Finishes updating connections and removes invalid connections
+	 * Removes invalid connections.
 	 */
-	private void finalizeConnections(final DiagramModification m, final Collection<AgeDiagramElement> connectionElements) {
-		// Set connection ends
-		for(final AgeDiagramElement e : connectionElements) {
-			m.setConnectionStart(e, infoProvider.getConnectionStart(e));
-			m.setConnectionEnd(e, infoProvider.getConnectionEnd(e));
-		}
-		
+	private void removeInvalidConnections(final DiagramModification m, final Collection<AgeDiagramElement> connectionElements) {		
 		// Build Collection of All Invalid Connections
 		final Set<AgeDiagramElement> invalidConnectionElements = new HashSet<>();
 		Iterator<AgeDiagramElement> connectionElementsIt = connectionElements.iterator();
@@ -159,7 +177,7 @@ public class DiagramUpdater {
 					invalidConnectionElements.add(e);
 					
 					// Remove the connection from the connection collection and the diagram
-					connectionElements.remove(e);
+					removeConnectionAndDescendantConnections(e, connectionElements);
 					addGhost(e);
 					m.removeElement(e);
 				}
@@ -167,12 +185,22 @@ public class DiagramUpdater {
 		}
 	}
 	
+	private static void removeConnectionAndDescendantConnections(AgeDiagramElement e, final Collection<AgeDiagramElement> connections) {
+		if(e.getGraphic() instanceof AgeConnection) {
+			connections.remove(e);
+		}
+		
+		for(final AgeDiagramElement child : connections) {
+			removeConnectionAndDescendantConnections(child, connections);
+		}
+	}	
+	
 	// Ghosting
 	public void clearGhosts() {
 		containerToRelativeReferenceToGhostMap.clear();
 	}
 	
-	public void addGhost(final AgeDiagramElement ghost) {
+	private void addGhost(final AgeDiagramElement ghost) {
 		final DiagramNode container = ghost.getContainer();
 		
 		// Get the mapping from relative reference to the ghost for the container
@@ -186,7 +214,7 @@ public class DiagramUpdater {
 		relativeReferenceToGhostMap.put(ghost.getRelativeReference(), ghost);		
 	}
 	
-	public AgeDiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
+	private AgeDiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
 		final Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
 		if(relativeReferenceToGhostMap == null) {
 			return null;
