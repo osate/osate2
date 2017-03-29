@@ -164,14 +164,8 @@ class ConnectionInfo {
 
 	public ConnectionInstance createConnectionInstance(final String name, final ConnectionInstanceEnd dst) {
 		final ConnectionInstance conni;
-// XXX phf the code below diables out only and in only connection instances
-//		if (!across) {
-//			return null;
-//		}
-		// OsateDebug.osateDebug ("[ConnectionInfo] createConnectionInstance name=" + name);
 		kind = getKind(dst);
 		// TODO-LW: complete = ...;
-//		destinations.add(dst);
 		conni = InstanceFactory.eINSTANCE.createConnectionInstance();
 		conni.setName(name);
 		Iterator<Connection> connIter = connections.iterator();

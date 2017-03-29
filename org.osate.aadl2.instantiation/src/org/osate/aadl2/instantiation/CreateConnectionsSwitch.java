@@ -486,10 +486,15 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 		// first check if the connection must end with the new segment
 
 		if (toEnd instanceof Subcomponent) {
-			// connection ends at a shared data, bus, or subprogram (group)
-			connInfo.complete = true;
-			finalizeConnectionInstance(ci.getSystemInstance(), connInfo,
-					ci.findSubcomponentInstance((Subcomponent) toEnd));
+			ComponentInstance toInstance = ci.findSubcomponentInstance((Subcomponent) toEnd);
+			if (toInstance == null) {
+				// happens if conn leaves system to aggregate data port
+				warning(ci, "Connection to " + toEnd.getQualifiedName() + " could not be instantiated.");
+			} else {
+				// connection ends at a shared data, bus, or subprogram (group)
+				connInfo.complete = true;
+				finalizeConnectionInstance(ci.getSystemInstance(), connInfo, toInstance);
+			}
 		} else if (toEnd instanceof InternalFeature || toEnd instanceof ProcessorFeature) {
 			// can't handle these
 			// FIXME: What if a connection from outside goes to one of these?
@@ -772,8 +777,17 @@ public class CreateConnectionsSwitch extends AadlProcessingSwitchWithProgress {
 
 	protected ConnectionInstance addConnectionInstance(final SystemInstance systemInstance,
 			final ConnectionInfo connInfo, final ConnectionInstanceEnd dstI) {
-		// check for duplicate connection instance
+		// with aggregate data ports will be sources/destinations missing
+		int numConns = connInfo.connections.size();
+		if (connInfo.sources.size() != numConns || connInfo.destinations.size() != numConns) {
+			// happens if conn leaves system to aggregate data port
+			warning(connInfo.container, "Connection from " + connInfo.sources.get(0).getInstanceObjectPath() + " to "
+					+ dstI.getInstanceObjectPath() + " could not be instantiated.");
+			return null;
 
+		}
+
+		// check for duplicate connection instance
 		// with arrays we can get duplicates that we don't need
 		ComponentInstance container = connInfo.container;
 		List<Connection> conns = connInfo.connections;
