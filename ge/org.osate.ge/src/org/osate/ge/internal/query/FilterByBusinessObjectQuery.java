@@ -2,22 +2,20 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.Supplier;
 
-class FilterByBusinessObjectQuery<A> extends DiagramNodeQuery<A> {
+class FilterByBusinessObjectQuery<A> extends Query<A> {
 	private final Supplier<A, Object> boSupplier;
 	private CanonicalBusinessObjectReference nullBoRef = new CanonicalBusinessObjectReference("<null>");
 	
-	public FilterByBusinessObjectQuery(final DiagramNodeQuery<A> prev, final Supplier<A, Object> boSupplier) {
+	public FilterByBusinessObjectQuery(final Query<A> prev, final Supplier<A, Object> boSupplier) {
 		super(prev);
 		this.boSupplier = Objects.requireNonNull(boSupplier, "boSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {
@@ -34,10 +32,9 @@ class FilterByBusinessObjectQuery<A> extends DiagramNodeQuery<A> {
 		}
 		
 		// Compare references
-		if(ctx instanceof AgeDiagramElement) {
-			if(((AgeDiagramElement) ctx).getCanonicalReference().equals(boRef)) {
-				processResultValue(remainingQueries, ctx, state, result);
-			}
+		final CanonicalBusinessObjectReference ctxCanonicalReference = state.refBuilder.getCanonicalReference(ctx.getBusinessObject());
+		if(ctxCanonicalReference != null && ctxCanonicalReference.equals(boRef)) {
+			processResultValue(remainingQueries, ctx, state, result);
 		}
 	}
 }

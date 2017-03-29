@@ -26,7 +26,7 @@ public abstract class ReorderSubprogramCallCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final SubprogramCall subprogramCall,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return diagram instanceof SubprogramCallSequence && subprogramCall.eContainer() instanceof SubprogramCallSequence &&

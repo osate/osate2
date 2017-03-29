@@ -42,7 +42,7 @@ public class ConfigureInModesCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ModalElement modalElement,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return (modalElement instanceof Subcomponent || modalElement instanceof Connection || modalElement instanceof FlowSpecification) && 

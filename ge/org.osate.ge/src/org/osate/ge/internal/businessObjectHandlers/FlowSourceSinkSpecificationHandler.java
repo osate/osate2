@@ -26,7 +26,7 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
-import org.osate.ge.internal.query.DiagramNodeQuery;
+import org.osate.ge.internal.query.Query;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
@@ -63,7 +63,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}
 	
 	@CreateSourceQuery
-	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<FlowSpecification> rootQuery) {
+	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) Query<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first();
 	}
 	
@@ -82,7 +82,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement featureDiagramElement,
+			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) AgeDiagramElement featureDiagramElement,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final QueryService queryService) {
 		
@@ -98,7 +98,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}	
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
+	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement,
 			final QueryService queryService) {
 		return getComponentType(targetDiagramElement, queryService);
 	}	
@@ -106,7 +106,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	@Create
 	public FlowSpecification createFlowSpecification(final @Named(Names.OWNER_BO) ComponentType ct,
 			final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement featureDiagramElement,
+			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement featureDiagramElement,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind, 
 			final NamingService namingService,
 			final QueryService queryService) {

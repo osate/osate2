@@ -90,7 +90,7 @@ public class ModeHandler {
 	
 	@CanRename
 	@CanDelete
-    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return mode.getContainingClassifier() == containerBo;
     }

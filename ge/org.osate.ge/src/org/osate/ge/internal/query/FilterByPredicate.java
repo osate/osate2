@@ -3,19 +3,18 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.Objects;
 import java.util.function.Predicate;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.FilterArguments;
 
-class FilterByPredicate<A> extends DiagramNodeQuery<A> {
+class FilterByPredicate<A> extends Query<A> {
 	private final Predicate<FilterArguments<A>> filter;
 	
-	public FilterByPredicate(final DiagramNodeQuery<A> prev, final Predicate<FilterArguments<A>> filter) {
+	public FilterByPredicate(final Query<A> prev, final Predicate<FilterArguments<A>> filter) {
 		super(prev);
 		this.filter = Objects.requireNonNull(filter, "filter must not be null");
 	}
 	
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Set filter arguments
 		@SuppressWarnings("unchecked")
 		ExpressionArguments<A> filterArgs = (ExpressionArguments<A>)state.cache.get(this);

@@ -17,6 +17,4 @@ import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 public interface InternalReferenceBuilderService {	
 	CanonicalBusinessObjectReference getCanonicalReference(final Object bo);	
 	RelativeBusinessObjectReference getRelativeReference(final Object bo);
-	
-
 }

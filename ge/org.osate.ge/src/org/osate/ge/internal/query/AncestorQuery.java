@@ -1,12 +1,11 @@
 package org.osate.ge.internal.query;
 
 import java.util.Deque;
-import org.osate.ge.internal.diagram.DiagramNode;
 
-class AncestorQuery<A> extends DiagramNodeQuery<A> {
+class AncestorQuery<A> extends Query<A> {
 	private final int depth;
 	
-	public AncestorQuery(final DiagramNodeQuery<A> prev, final int depth) {
+	public AncestorQuery(final Query<A> prev, final int depth) {
 		super(prev);
 		this.depth = depth;
 		
@@ -16,10 +15,10 @@ class AncestorQuery<A> extends DiagramNodeQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		DiagramNode e = ctx;
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		Queryable e = ctx;
 		for(int i = 0; i < depth && ctx != null; i++) {
-			e = e.getContainer();
+			e = e.getParent();
 		}
 		
 		// Process the value. If any

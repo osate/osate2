@@ -68,7 +68,7 @@ import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.DiagramNodeQuery;
+import org.osate.ge.internal.query.Query;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
@@ -102,18 +102,18 @@ public class ConnectionHandler {
 	}
 
 	@CreateSourceQuery
-	public DiagramElementQuery<Connection> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<Connection> rootQuery) {
+	public DiagramElementQuery<Connection> createSourceQuery(final @Named(Names.ROOT_QUERY) Query<Connection> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((c) -> getBusinessObjectsPathToConnectionEnd(c.getAllSourceContext(), c.getAllSource())).first();
 	}	
 				
 	@CreateDestinationQuery
-	public DiagramElementQuery<Connection> createDestination(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<Connection> rootQuery) {
+	public DiagramElementQuery<Connection> createDestination(final @Named(Names.ROOT_QUERY) Query<Connection> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((c) -> getBusinessObjectsPathToConnectionEnd(c.getAllDestinationContext(), c.getAllDestination())).first();
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<Connection> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramNodeQuery<Connection> srcRootQuery, 
-			final @Named(Names.DESTINATION_ROOT_QUERY) DiagramNodeQuery<Connection> dstRootQuery) {
+	public DiagramElementQuery<Connection> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query<Connection> srcRootQuery, 
+			final @Named(Names.DESTINATION_ROOT_QUERY) Query<Connection> dstRootQuery) {
 		return srcRootQuery.commonAncestors(dstRootQuery).filter((fa) -> fa.getBusinessObject() instanceof Subcomponent || fa.getBusinessObject() instanceof ComponentClassifier);
 	}
 	
@@ -263,13 +263,13 @@ public class ConnectionHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
 			final QueryService queryService) {
 		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, srcDiagramElement);
 	}
 	
 	@CanStartConnection
-	public boolean canStartConnection(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
+	public boolean canStartConnection(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {
 		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcDiagramElement, queryService);
@@ -288,8 +288,8 @@ public class ConnectionHandler {
 	}	
 	
 	@CanCreate
-	public boolean canCreate(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElement dstDiagramElement, 
+	public boolean canCreate(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {		
 
@@ -312,8 +312,8 @@ public class ConnectionHandler {
 
 	@Create
 	public Connection createBusinessObject(@Named(Names.OWNER_BO) final ComponentImplementation ci, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElement dstDiagramElement, 
+			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService,
 			final NamingService namingService) {
@@ -406,7 +406,7 @@ public class ConnectionHandler {
 	
 	// Renaming
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return c.getContainingClassifier() == ci && c.getRefined() == null;
     }
@@ -423,7 +423,7 @@ public class ConnectionHandler {
 	
 	// Deleting
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return c.getContainingClassifier() == ci;
     }

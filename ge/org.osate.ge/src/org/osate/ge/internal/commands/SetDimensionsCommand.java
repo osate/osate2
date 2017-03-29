@@ -37,7 +37,7 @@ public class SetDimensionsCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ArrayableElement ae,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return ae.getContainingClassifier() == diagram;

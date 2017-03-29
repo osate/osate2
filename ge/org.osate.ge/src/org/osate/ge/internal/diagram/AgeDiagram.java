@@ -11,6 +11,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.query.Queryable;
 
 /**
  * This class is the in-memory data structure for the diagram. 
@@ -417,5 +418,16 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		} else {
 			return DockingPosition.BOTTOM;
 		}
+	}
+
+	@Override
+	public Collection<Queryable> getChildren() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Object getBusinessObject() {
+		return null;
 	}
 }

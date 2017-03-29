@@ -3,22 +3,21 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.DiagramNode;
 
-class CommonAncestorsQuery<A> extends DiagramNodeQuery<A> {
-	private final DiagramNodeQuery<A> q1;
-	private final DiagramNodeQuery<A> q2;
+class CommonAncestorsQuery<A> extends Query<A> {
+	private final Query<A> q1;
+	private final Query<A> q2;
 	
-	public CommonAncestorsQuery(final DiagramNodeQuery<A> q1, final DiagramNodeQuery<A> q2) {
+	public CommonAncestorsQuery(final Query<A> q1, final Query<A> q2) {
 		super(null);
 		this.q1 = Objects.requireNonNull(q1, "q1 must not be null");
 		this.q2 = Objects.requireNonNull(q2, "q2 must not be null");
 	}
 
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		final List<DiagramNode> q1Result = state.queryRunner.getResults(q1, state.arg);		
-		final List<DiagramNode> q2Result = state.queryRunner.getResults(q2, state.arg);
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		final List<Queryable> q1Result = state.queryRunner.getResults(q1, state.arg);		
+		final List<Queryable> q2Result = state.queryRunner.getResults(q2, state.arg);
 		
 		// Check sizes
 		if(q1Result.size() == 0 || q2Result.size() == 0) {
@@ -33,20 +32,20 @@ class CommonAncestorsQuery<A> extends DiagramNodeQuery<A> {
 			throw new RuntimeException("q2 returns more than one element");
 		}
 		
-		final DiagramNode de1 = q1Result.get(0).getContainer();
-		final DiagramNode de2 = q2Result.get(0).getContainer();
+		final Queryable qc1 = q1Result.get(0).getParent();
+		final Queryable qc2 = q2Result.get(0).getParent();
 
 		// Get all common ancestors common ancestor
-		DiagramNode temp1 = de1;
+		Queryable temp1 = qc1;
 		while(temp1 != null) {
-			DiagramNode temp2 = de2;
+			Queryable temp2 = qc2;
 			while(temp2 != null) {
 				if(temp1 == temp2) {
 					processResultValue(remainingQueries, temp1, state, result);
 
 					// Return all other ancestors
 					while(!result.done) {
-						temp1 = temp1.getContainer();
+						temp1 = temp1.getParent();
 
 						if(temp1 == null) {
 							break;
@@ -56,10 +55,10 @@ class CommonAncestorsQuery<A> extends DiagramNodeQuery<A> {
 					}
 					return;
 				}
-				temp2 = temp2.getContainer();
+				temp2 = temp2.getParent();
 			}
 			
-			temp1 = temp1.getContainer();
+			temp1 = temp1.getParent();
 		}		
 	}
 }

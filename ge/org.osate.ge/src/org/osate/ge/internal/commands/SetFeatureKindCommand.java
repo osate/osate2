@@ -32,7 +32,7 @@ public class SetFeatureKindCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Access af,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		final Classifier classifier = af.getContainingClassifier();

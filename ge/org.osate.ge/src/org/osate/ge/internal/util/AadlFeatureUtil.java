@@ -161,7 +161,7 @@ public class AadlFeatureUtil {
 		return isFeatureInvertedByContainer(parent);
 	}
 	
-	public static boolean isFeatureInvertedByContainer(final BusinessObjectContext featureParentBoc) {
+	private static boolean isFeatureInvertedByContainer(final BusinessObjectContext featureParentBoc) {
 		boolean isInverted = false;
 		
 		BusinessObjectContext parent = featureParentBoc;

@@ -31,7 +31,7 @@ public class RefineFeatureCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Feature feature,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		if(!(diagram instanceof Classifier)) {
@@ -44,7 +44,7 @@ public class RefineFeatureCommand {
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Feature feature,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object featureOwner = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		// Refine the feature

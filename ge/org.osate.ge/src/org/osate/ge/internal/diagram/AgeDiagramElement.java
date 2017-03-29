@@ -11,6 +11,7 @@ import org.osate.ge.internal.BusinessObjectContext;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.query.Queryable;
 
 public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementContainer, DiagramElement, BusinessObjectContext {	
 	private final DiagramNode container;
@@ -49,18 +50,17 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 	public final DiagramNode getContainer() {
 		return container;
 	}
-	
-	@Override
-	public final BusinessObjectContext getParent() {
-		return container instanceof BusinessObjectContext ? (BusinessObjectContext)container : null;
-	}
-	
+		
 	public final ModifiableDiagramElementContainer getModifiableContainer() {
 		return (ModifiableDiagramElementContainer)container;
 	}
 	
 	@Override
 	public final Collection<AgeDiagramElement> getDiagramElements() {
+		return Collections.unmodifiableCollection(children);
+	}
+	
+	public final Collection<Queryable> getChildren() {
 		return Collections.unmodifiableCollection(children);
 	}
 	

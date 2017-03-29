@@ -25,7 +25,7 @@ public class RefineFlowSpecificationCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final FlowSpecification fs,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		if(!(diagram instanceof ComponentType)) {
@@ -37,7 +37,7 @@ public class RefineFlowSpecificationCommand {
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final FlowSpecification fs,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final ComponentType ct = (ComponentType)queryService.getFirstBusinessObject(parentQuery, diagramElement);
 

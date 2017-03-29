@@ -79,13 +79,13 @@ public class FeatureHandler {
 	}
 	
 	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return feature.getContainingClassifier() == containerBo;
 	}
 
 	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		return canEdit(feature, diagramElement, queryService) && (!(feature instanceof Feature) || ((Feature)feature).getRefined() == null);
 	}
 	
@@ -143,28 +143,28 @@ public class FeatureHandler {
 	}
 	
 	@GetDefaultDockingPosition
-	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement) {
-		return getDirection(feature, parentDiagramElement) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) AgeDiagramElement featureElement) {
+		return getDirection(feature, featureElement) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
 	}
 		
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.PARENT_DIAGRAM_ELEMENT_PROXY) AgeDiagramElement parentDiagramElement) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) AgeDiagramElement featureElement) {
 		// Check to see if it is a prototype feature
 		if(feature instanceof AbstractFeature) {
 			final AbstractFeature af = (AbstractFeature)feature;
 			if(af.getFeaturePrototype() != null) {
 				// Lookup the binding
 				// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-				final Element bindingContext = AadlPrototypeUtil.getPrototypeBindingContextByContainer(parentDiagramElement);
+				final Element bindingContext = AadlPrototypeUtil.getPrototypeBindingContext(featureElement);
 				if(bindingContext != null) {
 					final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 					if(binding instanceof FeaturePrototypeBinding) {
 						FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 						if(actual instanceof PortSpecification) {
-							final DirectionType direction = getDirection(actual, parentDiagramElement);
+							final DirectionType direction = getDirection(actual, featureElement);
 							return AadlGraphics.getFeatureGraphic(((PortSpecification)actual).getCategory(), direction);
 						} else if(actual instanceof AccessSpecification) {
-							final DirectionType direction = getDirection(actual, parentDiagramElement);
+							final DirectionType direction = getDirection(actual, featureElement);
 							return AadlGraphics.getFeatureGraphic(((AccessSpecification)actual).getCategory(), direction);
 						}
 					}
@@ -172,7 +172,7 @@ public class FeatureHandler {
 			}
 		}
 		
-		final DirectionType direction = getDirection(feature, parentDiagramElement);
+		final DirectionType direction = getDirection(feature, featureElement);
 		return AadlGraphics.getFeatureGraphic(feature.eClass(), direction); 
 	}	
 	
@@ -183,7 +183,7 @@ public class FeatureHandler {
 	 * @param featureService
 	 * @return
 	 */
-	private DirectionType getDirection(final Element feature, final AgeDiagramElement parentDiagramElement) {
+	private DirectionType getDirection(final Element feature, final BusinessObjectContext featureBoc) {
 		DirectionType direction;
 		if(feature instanceof DirectedFeature) {
 			direction = ((DirectedFeature) feature).getDirection();
@@ -200,7 +200,7 @@ public class FeatureHandler {
 		}
 		
 		// Invert the feature as appropriate
-		if(AadlFeatureUtil.isFeatureInvertedByContainer(parentDiagramElement)) {
+		if(AadlFeatureUtil.isFeatureInverted(featureBoc)) {
 			if(direction == DirectionType.IN) {
 				direction = DirectionType.OUT;
 			} else if(direction == DirectionType.OUT) {

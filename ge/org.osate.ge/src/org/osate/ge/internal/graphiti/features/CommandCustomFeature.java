@@ -191,10 +191,10 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		// Diagram Elements
 		if(diagramElements != null && diagramElements.length > 0) {
 			if(diagramElements.length == 1) {
-				context.set(InternalNames.DIAGRAM_ELEMENT_PROXY, diagramElements[0]);	
+				context.set(InternalNames.DIAGRAM_ELEMENT, diagramElements[0]);	
 			}
 			
-			context.set(InternalNames.DIAGRAM_ELEMENT_PROXIES, diagramElements);
+			context.set(InternalNames.DIAGRAM_ELEMENTS, diagramElements);
 		}
 		
 		// Business Objects

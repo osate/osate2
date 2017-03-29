@@ -92,14 +92,14 @@ public class ModeTransitionHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
 			final QueryService queryService) {
 		return getComponentClassifier(srcDiagramElement, queryService);
 	}
 
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Mode mode, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
+			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
 			final QueryService queryService) {
 		final ComponentClassifier cc = getCreateConnectionOwner(srcDiagramElement, queryService);
 		return cc != null && !cc.isDerivedModes();
@@ -107,9 +107,9 @@ public class ModeTransitionHandler {
 	
 	@CanCreate
 	public boolean canCreate(@Named(Names.SOURCE_BO) final Mode srcMode, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT_PROXY) final DiagramElement srcDiagramElement, 
+			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
 			@Named(Names.DESTINATION_BO) final Mode dstMode,
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT_PROXY) final DiagramElement dstDiagramElement, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
 			final QueryService queryService) {		
 		return getComponentClassifier(srcDiagramElement, queryService) == getComponentClassifier(dstDiagramElement, queryService);
 	}
@@ -153,7 +153,7 @@ public class ModeTransitionHandler {
 
 	@CanRename
 	@CanDelete
-	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		return mt.getContainingClassifier() == containerBo;
 	}

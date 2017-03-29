@@ -2,17 +2,15 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-import org.osate.ge.internal.diagram.DiagramNode;
-
-public class FirstQuery<A> extends DiagramNodeQuery<A> {
+public class FirstQuery<A> extends Query<A> {
 	private int maximumNumberOfResults;
 	
-	public FirstQuery(final DiagramNodeQuery<A> prev, int count) {
+	public FirstQuery(final Query<A> prev, int count) {
 		super(prev);
 		this.maximumNumberOfResults = count;
 	}
 	
-	public FirstQuery(final DiagramNodeQuery<A> prev) {
+	public FirstQuery(final Query<A> prev) {
 		super(prev);
 		this.maximumNumberOfResults = 1;
 	}
@@ -22,7 +20,7 @@ public class FirstQuery<A> extends DiagramNodeQuery<A> {
 	}
 	
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		final Integer currentCountInteger = (Integer)state.cache.get(this);
 		int currentCount;
 		if(currentCountInteger == null) {

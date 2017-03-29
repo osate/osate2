@@ -26,7 +26,7 @@ public class RefineSubcomponentCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		if(diagram instanceof ComponentImplementation) {
@@ -39,7 +39,7 @@ public class RefineSubcomponentCommand {
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		// Refine the subcomponent

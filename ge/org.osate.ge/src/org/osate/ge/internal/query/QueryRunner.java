@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
@@ -26,8 +25,8 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final <A> DiagramNode getFirstResult(final DiagramNodeQuery<A> query, final A arg) {
-		final List<DiagramNode> results = getResults(query, arg);
+	public final <A> Queryable getFirstResult(final Query<A> query, final A arg) {
+		final List<Queryable> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return null;
 		}
@@ -35,15 +34,15 @@ public class QueryRunner {
 		return results.get(0);
 	}
 	
-	public final <A> List<DiagramNode> getResults(final DiagramNodeQuery<A> query, final A arg) {
+	public final <A> List<Queryable> getResults(final Query<A> query, final A arg) {
 		Objects.requireNonNull(query, "query must not be null");
 		
-		final Deque<DiagramNodeQuery<A>> queryStack = new ArrayDeque<>();
-		for(DiagramNodeQuery<A> q = query; q != null; q = q.getPrev()) {
+		final Deque<Query<A>> queryStack = new ArrayDeque<>();
+		for(Query<A> q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
 
-		final DiagramNodeQuery<A> initialQuery = queryStack.pop();
+		final Query<A> initialQuery = queryStack.pop();
 		final QueryExecutionState<A> state = new QueryExecutionState<>(this, propertyService, bor, refBuilder, arg);
 		final QueryResult result = new QueryResult();
 		initialQuery.run(queryStack, null, state, result);

@@ -183,7 +183,7 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement, final QueryService queryService) {
+	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement, final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {
@@ -359,12 +359,12 @@ public class ClassifierHandler {
 	}
 	
 	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		return nameLabelConfiguration;
 	}
 		
 	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		return classifierIsOwnedByPackage(classifier, diagramElement, queryService);
 	}
 	

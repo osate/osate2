@@ -58,8 +58,8 @@ public class SubcomponentHandler {
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) AgeDiagramElement diagramElement) {
-		final ComponentClassifier cc = getComponentClassifier(diagramElement, sc);
+			final @Named(InternalNames.DIAGRAM_ELEMENT) AgeDiagramElement scElement) {
+		final ComponentClassifier cc = getComponentClassifier(scElement, sc);
 		if(cc == null) {
 			return AadlGraphics.getGraphic(sc.getCategory(), false);
 		} else {
@@ -124,8 +124,8 @@ public class SubcomponentHandler {
 	// Children
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
-		final ComponentClassifier cc = getComponentClassifier(boc, sc);
+			final @Named(InternalNames.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
+		final ComponentClassifier cc = getComponentClassifier(scBoc, sc);
 		if(cc == null) {
 			return null;
 		}
@@ -174,7 +174,7 @@ public class SubcomponentHandler {
 	
 	// Renaming    
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return sc.getContainingClassifier() == ci && sc.getRefined() == null;
     }
@@ -191,7 +191,7 @@ public class SubcomponentHandler {
 	
 	// Deleting
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
 		return sc.getContainingClassifier() == ci;
     }

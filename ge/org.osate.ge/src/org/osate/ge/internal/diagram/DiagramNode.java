@@ -2,7 +2,10 @@ package org.osate.ge.internal.diagram;
 
 import java.util.Collection;
 
-public interface DiagramNode {
+import org.osate.ge.internal.BusinessObjectContext;
+import org.osate.ge.internal.query.Queryable;
+
+public interface DiagramNode extends Queryable, BusinessObjectContext {
 	/**
 	 * @return an unmodifiable view to the child diagram elements.
 	 */
@@ -15,4 +18,6 @@ public interface DiagramNode {
 	 */
 	AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref);
 	DiagramNode getContainer();
+	
+	default DiagramNode getParent() { return getContainer(); }
 }

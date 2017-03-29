@@ -68,7 +68,7 @@ public class SetSubcomponentClassifierCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		return sc.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement);
 	}

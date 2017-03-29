@@ -2,9 +2,8 @@ package org.osate.ge.internal.query;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.osate.ge.internal.diagram.DiagramNode;
 
 public class QueryResult {
-	public final List<DiagramNode> result = new ArrayList<DiagramNode>();
+	public final List<Queryable> result = new ArrayList<Queryable>();
 	public boolean done = false;
 }

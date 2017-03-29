@@ -115,7 +115,7 @@ public class SubprogramCallHandler {
 	}
 
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		return call.getContainingClassifier() == getBehavioredImplementation(diagramElement, queryService);
     }
 	
@@ -134,13 +134,13 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement, final QueryService queryService) {
+	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement, final QueryService queryService) {
 		return cs.getContainingClassifier() == getBehavioredImplementation(targetDiagramElement, queryService);
 	}
 	
 	@Create
 	public SubprogramCall createBusinessObject(@Named(Names.OWNER_BO) SubprogramCallSequence cs, 
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
+			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement,
 			final NamingService namingService,
 			final QueryService queryService) {
 		final BehavioredImplementation bi = getBehavioredImplementation(targetDiagramElement, queryService);
@@ -172,7 +172,7 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		if(call.eContainer() instanceof SubprogramCallSequence) {
 			final SubprogramCallSequence cs = (SubprogramCallSequence)call.eContainer();
 			

@@ -6,7 +6,7 @@ public class QueryUtil {
 	 * @param q
 	 * @return
 	 */
-	public static <T> DiagramNodeQuery<T> ensureFirst(final DiagramNodeQuery<T> q) {
+	public static <T> Query<T> ensureFirst(final Query<T> q) {
 		if(q == null) {
 			return null;
 		}

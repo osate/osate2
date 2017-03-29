@@ -46,7 +46,7 @@ public class ChangeFeatureTypeCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final NamedElement feature,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		// Check that the shape represents a feature and that the feature is owned by the classifier represented by the shape's diagram, and that the classifier can
 		// contain features of the type this feature changes features into.

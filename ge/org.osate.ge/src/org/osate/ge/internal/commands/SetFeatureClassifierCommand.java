@@ -83,7 +83,7 @@ public class SetFeatureClassifierCommand {
 	
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final NamedElement feature, 
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		return feature.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement) && 
 				featureTypeToClassifierSetterMap.containsKey(feature.eClass());		

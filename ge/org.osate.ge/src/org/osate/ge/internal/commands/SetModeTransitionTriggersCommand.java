@@ -28,7 +28,7 @@ public class SetModeTransitionTriggersCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ModeTransition modeTransition,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 
 		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
@@ -39,7 +39,7 @@ public class SetModeTransitionTriggersCommand {
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ModeTransition modeTransition,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final ComponentClassifier cc = (ComponentClassifier)queryService.getFirstBusinessObject(parentQuery, diagramElement);
 

@@ -63,7 +63,7 @@ class FlowSpecificationHandler {
 	// Rename and Editing
 	@CanRename
 	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(componentTypeQuery, diagramElement);
 		return fs.getContainingClassifier() == containerBo;
 	}
@@ -101,7 +101,7 @@ class FlowSpecificationHandler {
 		return (Context)queryService.getFirstBusinessObject(contextQuery, featureDiagramElement);
 	}
 	
-	protected static ComponentType getComponentType(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY) DiagramElement targetDiagramElement,
+	protected static ComponentType getComponentType(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement,
 			final QueryService queryService) {
 		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, targetDiagramElement);
 	}	

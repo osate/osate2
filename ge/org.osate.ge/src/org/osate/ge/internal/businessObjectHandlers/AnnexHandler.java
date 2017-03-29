@@ -58,7 +58,7 @@ public class AnnexHandler {
 	}
 	
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement);
     }
 	

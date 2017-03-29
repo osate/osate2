@@ -1,18 +1,16 @@
 package org.osate.ge.internal.query;
 
 import java.util.Deque;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
 
-class DescendantsQuery<A> extends DiagramNodeQuery<A> {
-	public DescendantsQuery(final DiagramNodeQuery<A> prev) {
+class DescendantsQuery<A> extends Query<A> {
+	public DescendantsQuery(final Query<A> prev) {
 		super(prev);
 	}
 	
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		final DiagramNode container = ctx;
-		for(final AgeDiagramElement child : container.getDiagramElements()) {
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+		final Queryable container = ctx;
+		for(final Queryable child : container.getChildren()) {
 			processResultValue(remainingQueries, child, state, result);
 			if(result.done) {
 				return;

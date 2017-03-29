@@ -2,23 +2,21 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.query.Supplier;
 
-public class DescendantsByBusinessObjectsQuery<A> extends DiagramNodeQuery<A> {
+public class DescendantsByBusinessObjectsQuery<A> extends Query<A> {
 	private final static CanonicalBusinessObjectReference[] nullBoRefs = new CanonicalBusinessObjectReference[0];
 	private final Supplier<A, Object[]> bosSupplier;
 	
-	public DescendantsByBusinessObjectsQuery(final DiagramNodeQuery<A> prev, final Supplier<A, Object[]> bosSupplier) {
+	public DescendantsByBusinessObjectsQuery(final Query<A> prev, final Supplier<A, Object[]> bosSupplier) {
 		super(prev);
 		this.bosSupplier = Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference[] boRefs = (CanonicalBusinessObjectReference[])state.cache.get(this);
 		if(boRefs == null) {
@@ -37,14 +35,14 @@ public class DescendantsByBusinessObjectsQuery<A> extends DiagramNodeQuery<A> {
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, 0);		
 	}
 	
-	void findMatchingDescendants(final Deque<DiagramNodeQuery<A>> remainingQueries, DiagramNode container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
+	void findMatchingDescendants(final Deque<Query<A>> remainingQueries, Queryable container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
 		if(currentDepth >= boRefs.length) {
 			processResultValue(remainingQueries, container, state, result);
 		} else {		
 			final CanonicalBusinessObjectReference boRef = boRefs[currentDepth];
-			for(final AgeDiagramElement child : container.getDiagramElements()) {
+			for(final Queryable child : container.getChildren()) {
 				// Check the business object reference
-				final CanonicalBusinessObjectReference childRef = child.getCanonicalReference();
+				final CanonicalBusinessObjectReference childRef = state.refBuilder.getCanonicalReference(child.getBusinessObject());
 				if(boRef.equals(childRef)) {
 					findMatchingDescendants(remainingQueries, child, state, result, boRefs, currentDepth+1);
 				}	

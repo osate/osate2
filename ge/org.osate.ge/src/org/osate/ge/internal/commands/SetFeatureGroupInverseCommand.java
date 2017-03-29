@@ -35,7 +35,7 @@ public class SetFeatureGroupInverseCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final FeatureGroup feat,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final DiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
 			final QueryService queryService) {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
 		final Classifier classifier = feat.getContainingClassifier();
@@ -44,7 +44,7 @@ public class SetFeatureGroupInverseCommand {
 
 	@CanActivate
 	public boolean canActivate(@Named(Names.BUSINESS_OBJECT) final FeatureGroup feat,
-			@Named(InternalNames.DIAGRAM_ELEMENT_PROXY) final AgeDiagramElement diagramElement,
+			@Named(InternalNames.DIAGRAM_ELEMENT) final AgeDiagramElement diagramElement,
 			final QueryService queryService) {
 		return AadlFeatureUtil.getFeatureGroupType(diagramElement, feat) != null && feat.isInverse() != inverse;
 	}

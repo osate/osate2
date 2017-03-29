@@ -78,7 +78,7 @@ public class SubprogramCallSequenceHandler {
 	
 	@CanRename
 	@CanDelete
-    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs, final @Named(InternalNames.DIAGRAM_ELEMENT_PROXY) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
 		return cs.getContainingClassifier() == getComponentImplementation(diagramElement, queryService);
     }
     
