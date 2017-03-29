@@ -16,7 +16,7 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 
 	private Object bo;
 	private final RelativeBusinessObjectReference boRelReference;
-	private final CanonicalBusinessObjectReference boCanonicalReference;
+	private final CanonicalBusinessObjectReference boCanonicalReference; // Use to determine whether two elements refer to the same business object.
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private final String name;
 	private Graphic graphic; // Required after initialization.

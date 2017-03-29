@@ -38,7 +38,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.BehavioredImplementation;
-import org.osate.aadl2.CalledSubprogram;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
@@ -553,34 +552,6 @@ public class DeclarativeReferenceResolver {
 				currentIndex++;
 			}
 		}
-		
-		return null;
-	}
-	
-	@SuppressWarnings("unchecked")
-	private <T> T findChildByName(final Object parent, final Class<T> searchClass, final String searchName) {
-		if(parent instanceof Namespace) {
-			for(final NamedElement member : ((Namespace)parent).getMembers()) {
-				if(searchName.equalsIgnoreCase(member.getName())) {
-					if(searchClass.isInstance(member)) {
-						return (T)member;
-					}
-				}
-			}
-		}
-		
-		if(parent instanceof SubprogramCall) {
-			// TODO
-			// TOOD: Handle prototypes, etc? More general way to do this?
-			final CalledSubprogram sc = ((SubprogramCall) parent).getCalledSubprogram();
-			final T result = findChildByName(sc, searchClass, searchName);
-			if(result != null) {
-				return result;
-			}
-		}
-		
-		// TODO: Incorrect? Subprogram call sequences need to be look at...
-		// TODO: Special handling for classifiers once everything is working?
 		
 		return null;
 	}
