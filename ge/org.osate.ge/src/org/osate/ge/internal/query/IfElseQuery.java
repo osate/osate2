@@ -7,15 +7,15 @@ import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.DiagramElementQuery;
 import org.osate.ge.query.Supplier;
 
-class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
+class IfElseQuery<A> extends DiagramNodeQuery<A> {
 	private final Supplier<ConditionArguments<A>, Boolean> cond;
-	private final AgeDiagramElementQuery<A> trueQuery;
-	private final AgeDiagramElementQuery<A> falseQuery;
-	private final RootAgeDiagramElementQuery innerRootQuery = new RootAgeDiagramElementQuery(() -> this.innerRootValue);
+	private final DiagramNodeQuery<A> trueQuery;
+	private final DiagramNodeQuery<A> falseQuery;
+	private final RootAgeDiagramNodeQuery innerRootQuery = new RootAgeDiagramNodeQuery(() -> this.innerRootValue);
 	private DiagramNode innerRootValue;
 	
 	@SuppressWarnings("unchecked")
-	public IfElseQuery(final AgeDiagramElementQuery<A> prev, 
+	public IfElseQuery(final DiagramNodeQuery<A> prev, 
 			final Supplier<ConditionArguments<A>, Boolean> cond, 
 			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> trueQuerySupplier, 
 			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> falseQuerySupplier) {
@@ -23,12 +23,12 @@ class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
 		this.cond = Objects.requireNonNull(cond, "cond must not be null");
 		Objects.requireNonNull(trueQuerySupplier, "trueQuerySupplier must not be null");
 		Objects.requireNonNull(falseQuerySupplier, "falseQuerySupplier must not be null");		
-		this.trueQuery = (AgeDiagramElementQuery<A>)Objects.requireNonNull(trueQuerySupplier.get((DiagramElementQuery<A>)innerRootQuery), "trueQuery must not be null");
-		this.falseQuery = (AgeDiagramElementQuery<A>)Objects.requireNonNull(falseQuerySupplier.get((DiagramElementQuery<A>)innerRootQuery), "falseQuery must not be null");
+		this.trueQuery = (DiagramNodeQuery<A>)Objects.requireNonNull(trueQuerySupplier.get((DiagramElementQuery<A>)innerRootQuery), "trueQuery must not be null");
+		this.falseQuery = (DiagramNodeQuery<A>)Objects.requireNonNull(falseQuerySupplier.get((DiagramElementQuery<A>)innerRootQuery), "falseQuery must not be null");
 	}
 
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		try {
 			this.innerRootValue = ctx;
 
@@ -43,7 +43,7 @@ class IfElseQuery<A> extends AgeDiagramElementQuery<A> {
 			
 			// Evaluate the condition
 			final Boolean condResult = cond.get(conditionArgs);		
-			final AgeDiagramElementQuery<A> innerQuery = condResult.booleanValue() ? trueQuery : falseQuery;
+			final DiagramNodeQuery<A> innerQuery = condResult.booleanValue() ? trueQuery : falseQuery;
 			
 			// Process the results of the inner query.
 			// NOTE: Ideally this would be lazily evaluated instead of retrieving all the results. However, in the current use cases, only one result will be 

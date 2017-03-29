@@ -68,7 +68,7 @@ import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.AgeDiagramElementQuery;
+import org.osate.ge.internal.query.DiagramNodeQuery;
 import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
@@ -102,18 +102,18 @@ public class ConnectionHandler {
 	}
 
 	@CreateSourceQuery
-	public DiagramElementQuery<Connection> createSourceQuery(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<Connection> rootQuery) {
+	public DiagramElementQuery<Connection> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<Connection> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((c) -> getBusinessObjectsPathToConnectionEnd(c.getAllSourceContext(), c.getAllSource())).first();
 	}	
 				
 	@CreateDestinationQuery
-	public DiagramElementQuery<Connection> createDestination(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<Connection> rootQuery) {
+	public DiagramElementQuery<Connection> createDestination(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<Connection> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((c) -> getBusinessObjectsPathToConnectionEnd(c.getAllDestinationContext(), c.getAllDestination())).first();
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<Connection> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) AgeDiagramElementQuery<Connection> srcRootQuery, 
-			final @Named(Names.DESTINATION_ROOT_QUERY) AgeDiagramElementQuery<Connection> dstRootQuery) {
+	public DiagramElementQuery<Connection> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramNodeQuery<Connection> srcRootQuery, 
+			final @Named(Names.DESTINATION_ROOT_QUERY) DiagramNodeQuery<Connection> dstRootQuery) {
 		return srcRootQuery.commonAncestors(dstRootQuery).filter((fa) -> fa.getBusinessObject() instanceof Subcomponent || fa.getBusinessObject() instanceof ComponentClassifier);
 	}
 	

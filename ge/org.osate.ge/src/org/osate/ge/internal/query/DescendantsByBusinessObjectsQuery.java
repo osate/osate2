@@ -8,17 +8,17 @@ import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.query.Supplier;
 
-public class DescendantsByBusinessObjectsQuery<A> extends AgeDiagramElementQuery<A> {
+public class DescendantsByBusinessObjectsQuery<A> extends DiagramNodeQuery<A> {
 	private final static CanonicalBusinessObjectReference[] nullBoRefs = new CanonicalBusinessObjectReference[0];
 	private final Supplier<A, Object[]> bosSupplier;
 	
-	public DescendantsByBusinessObjectsQuery(final AgeDiagramElementQuery<A> prev, final Supplier<A, Object[]> bosSupplier) {
+	public DescendantsByBusinessObjectsQuery(final DiagramNodeQuery<A> prev, final Supplier<A, Object[]> bosSupplier) {
 		super(prev);
 		this.bosSupplier = Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference[] boRefs = (CanonicalBusinessObjectReference[])state.cache.get(this);
 		if(boRefs == null) {
@@ -37,7 +37,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends AgeDiagramElementQuery
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, 0);		
 	}
 	
-	void findMatchingDescendants(final Deque<AgeDiagramElementQuery<A>> remainingQueries, DiagramNode container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
+	void findMatchingDescendants(final Deque<DiagramNodeQuery<A>> remainingQueries, DiagramNode container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
 		if(currentDepth >= boRefs.length) {
 			processResultValue(remainingQueries, container, state, result);
 		} else {		

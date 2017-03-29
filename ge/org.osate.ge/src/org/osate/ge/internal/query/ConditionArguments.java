@@ -1,11 +1,11 @@
 package org.osate.ge.internal.query;
 
 /**
- * Provides access to the arguments used to evaluate the condition for {@link AgeDiagramElementQuery#ifElse(org.osate.ge.query.Supplier, org.osate.ge.query.Supplier, org.osate.ge.query.Supplier)}. 
+ * Provides access to the arguments used to evaluate the condition for {@link DiagramNodeQuery#ifElse(org.osate.ge.query.Supplier, org.osate.ge.query.Supplier, org.osate.ge.query.Supplier)}. 
  * @param <A> the type of the query argument
  * @noextend
  * @noimplement
- * @see AgeDiagramElementQuery#ifElse(org.osate.ge.query.Supplier, org.osate.ge.query.Supplier, org.osate.ge.query.Supplier)
+ * @see DiagramNodeQuery#ifElse(org.osate.ge.query.Supplier, org.osate.ge.query.Supplier, org.osate.ge.query.Supplier)
  */
 public interface ConditionArguments<A> {
 	/**

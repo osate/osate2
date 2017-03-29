@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Objects;
 import org.osate.ge.internal.diagram.DiagramNode;
 
-class CommonAncestorsQuery<A> extends AgeDiagramElementQuery<A> {
-	private final AgeDiagramElementQuery<A> q1;
-	private final AgeDiagramElementQuery<A> q2;
+class CommonAncestorsQuery<A> extends DiagramNodeQuery<A> {
+	private final DiagramNodeQuery<A> q1;
+	private final DiagramNodeQuery<A> q2;
 	
-	public CommonAncestorsQuery(final AgeDiagramElementQuery<A> q1, final AgeDiagramElementQuery<A> q2) {
+	public CommonAncestorsQuery(final DiagramNodeQuery<A> q1, final DiagramNodeQuery<A> q2) {
 		super(null);
 		this.q1 = Objects.requireNonNull(q1, "q1 must not be null");
 		this.q2 = Objects.requireNonNull(q2, "q2 must not be null");
 	}
 
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		final List<DiagramNode> q1Result = state.queryRunner.getResults(q1, state.arg);		
 		final List<DiagramNode> q2Result = state.queryRunner.getResults(q2, state.arg);
 		

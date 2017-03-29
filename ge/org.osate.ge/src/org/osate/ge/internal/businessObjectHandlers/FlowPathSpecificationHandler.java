@@ -26,7 +26,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.query.AgeDiagramElementQuery;
+import org.osate.ge.internal.query.DiagramNodeQuery;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
@@ -47,12 +47,12 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 			
 	@CreateSourceQuery
-	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<FlowSpecification> rootQuery) {
+	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first();
 	}
 	
 	@CreateDestinationQuery
-	public DiagramElementQuery<FlowSpecification> createDestination(final @Named(Names.ROOT_QUERY) AgeDiagramElementQuery<FlowSpecification> rootQuery) {
+	public DiagramElementQuery<FlowSpecification> createDestination(final @Named(Names.ROOT_QUERY) DiagramNodeQuery<FlowSpecification> rootQuery) {
 		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first();
 	}
 	

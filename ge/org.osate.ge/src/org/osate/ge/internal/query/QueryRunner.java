@@ -26,7 +26,7 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final <A> DiagramNode getFirstResult(final AgeDiagramElementQuery<A> query, final A arg) {
+	public final <A> DiagramNode getFirstResult(final DiagramNodeQuery<A> query, final A arg) {
 		final List<DiagramNode> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return null;
@@ -35,15 +35,15 @@ public class QueryRunner {
 		return results.get(0);
 	}
 	
-	public final <A> List<DiagramNode> getResults(final AgeDiagramElementQuery<A> query, final A arg) {
+	public final <A> List<DiagramNode> getResults(final DiagramNodeQuery<A> query, final A arg) {
 		Objects.requireNonNull(query, "query must not be null");
 		
-		final Deque<AgeDiagramElementQuery<A>> queryStack = new ArrayDeque<>();
-		for(AgeDiagramElementQuery<A> q = query; q != null; q = q.getPrev()) {
+		final Deque<DiagramNodeQuery<A>> queryStack = new ArrayDeque<>();
+		for(DiagramNodeQuery<A> q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
 
-		final AgeDiagramElementQuery<A> initialQuery = queryStack.pop();
+		final DiagramNodeQuery<A> initialQuery = queryStack.pop();
 		final QueryExecutionState<A> state = new QueryExecutionState<>(this, propertyService, bor, refBuilder, arg);
 		final QueryResult result = new QueryResult();
 		initialQuery.run(queryStack, null, state, result);

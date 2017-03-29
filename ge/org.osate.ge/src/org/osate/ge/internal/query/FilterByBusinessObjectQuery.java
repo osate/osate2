@@ -7,17 +7,17 @@ import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.query.Supplier;
 
-class FilterByBusinessObjectQuery<A> extends AgeDiagramElementQuery<A> {
+class FilterByBusinessObjectQuery<A> extends DiagramNodeQuery<A> {
 	private final Supplier<A, Object> boSupplier;
 	private CanonicalBusinessObjectReference nullBoRef = new CanonicalBusinessObjectReference("<null>");
 	
-	public FilterByBusinessObjectQuery(final AgeDiagramElementQuery<A> prev, final Supplier<A, Object> boSupplier) {
+	public FilterByBusinessObjectQuery(final DiagramNodeQuery<A> prev, final Supplier<A, Object> boSupplier) {
 		super(prev);
 		this.boSupplier = Objects.requireNonNull(boSupplier, "boSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<AgeDiagramElementQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DiagramNodeQuery<A>> remainingQueries, final DiagramNode ctx, final QueryExecutionState<A> state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {

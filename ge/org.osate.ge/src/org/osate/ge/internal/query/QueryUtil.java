@@ -6,7 +6,7 @@ public class QueryUtil {
 	 * @param q
 	 * @return
 	 */
-	public static <T> AgeDiagramElementQuery<T> ensureFirst(final AgeDiagramElementQuery<T> q) {
+	public static <T> DiagramNodeQuery<T> ensureFirst(final DiagramNodeQuery<T> q) {
 		if(q == null) {
 			return null;
 		}
