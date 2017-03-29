@@ -36,6 +36,7 @@
 package org.osate.xtext.aadl2.validation;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -379,7 +380,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkPortConnectionClassifiers(connection);
 		checkConnectionDirection(connection);
 		checkPortConnectionEnds(connection);
-
+		checkAggregateDataPort(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -5601,6 +5602,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 						+ "' must be connected to an event data port destination.");
 				return;
 			}
+		}
+	}
+	
+	private void checkAggregateDataPort(PortConnection connection) {
+		if (connection.getRefined() == null) {
+			Arrays.asList(connection.getSource(), connection.getDestination())
+					.stream()
+					.filter(ce -> ce.getContext() instanceof Feature && ce.getConnectionEnd() instanceof DataSubcomponent)
+					.forEach(ce -> warning(ce, "Aggregate data ports not supported by instantiator."));
 		}
 	}
 
