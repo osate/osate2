@@ -14,7 +14,7 @@ import static extension org.junit.Assert.assertEquals
 
 @RunWith(XtextRunner2)
 @InjectWith(Aadl2UiInjectorProvider)
-class Issue744 extends OsateTest {
+class Issue744Test extends OsateTest {
 	override getProjectName() {
 		"issue744"
 	}
