@@ -413,6 +413,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 				]
 				ownedPortConnections.get(0) => [
 					"conn6".assertEquals(name)
+					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
@@ -436,6 +437,7 @@ class ConnectedElementsAndFlowEndsTest extends OsateTest {
 				]
 				ownedPortConnections.get(1) => [
 					"conn7".assertEquals(name)
+					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 					//Tests scope_ConnectedElement_connectionEnd(Connection, EReference)
 					assertScope(Aadl2Package::eINSTANCE.connectedElement_ConnectionEnd, #["af1", "ba1", "bsub1", "da1", "dp1", "dp2", "dsub1", "edp1",
 						"eds1", "ep1", "fg1", "fg4", "pp1", "sp1", "subpgsub1", "subpgsub2", "subpgsub3", "subpsub1", "subpsub2"
