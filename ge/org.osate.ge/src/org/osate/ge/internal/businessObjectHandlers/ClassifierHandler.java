@@ -42,6 +42,7 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -58,7 +59,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
@@ -66,9 +66,7 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.model.ProjectOverview;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
@@ -76,10 +74,12 @@ import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class ClassifierHandler {
 	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
-	private static final StandaloneDiagramElementQuery packageQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
+	private static final StandaloneQuery packageQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
 	
 	@IsApplicable
 	@CanDelete
@@ -183,13 +183,15 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement, final QueryService queryService) {
+	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, 
+			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
+			final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;
 		} else if(targetBo instanceof Classifier) {
 			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
 			// target business object is contained.
-			return (AadlPackage)queryService.getFirstBusinessObject(packageQuery, targetDiagramElement);
+			return (AadlPackage)queryService.getFirstBusinessObject(packageQuery, targetBoc);
 		}
 
 		return null;
@@ -359,13 +361,13 @@ public class ClassifierHandler {
 	}
 	
 	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
+	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final QueryService queryService) {
 		return nameLabelConfiguration;
 	}
 		
 	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		return classifierIsOwnedByPackage(classifier, diagramElement, queryService);
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		return classifierIsOwnedByPackage(classifier, boc, queryService);
 	}
 	
 	@GetName
@@ -374,8 +376,8 @@ public class ClassifierHandler {
 	}
 	
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
-	private boolean classifierIsOwnedByPackage(final Classifier classifier, final DiagramElement diagramElement, final QueryService queryService) {
-		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, diagramElement);
+	private boolean classifierIsOwnedByPackage(final Classifier classifier, final BusinessObjectContext boc, final QueryService queryService) {
+		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, boc);
 		if(containingAadlPackage == null || classifier == null || classifier.getNamespace() == null || classifier.getNamespace().getOwner() == null) {
 			return false;
 		}

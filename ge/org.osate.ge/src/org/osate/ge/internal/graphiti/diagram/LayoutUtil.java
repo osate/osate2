@@ -15,7 +15,7 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
@@ -58,15 +58,15 @@ class LayoutUtil {
 	}
 	
 	public static void layoutDepthFirst(final Diagram graphitiDiagram, final AgeDiagram ageDiagram, final NodePictogramBiMap mapping) {
-		for(final AgeDiagramElement child : ageDiagram.getDiagramElements()) {
+		for(final DiagramElement child : ageDiagram.getDiagramElements()) {
 			layoutDepthFirst(graphitiDiagram, child, mapping);				
 		}
 	}
 	
 	public static void layoutDepthFirst(final Diagram graphitiDiagram, 
-			final AgeDiagramElement element, 
+			final DiagramElement element, 
 			final NodePictogramBiMap mapping) {
-		for(final AgeDiagramElement child : element.getDiagramElements()) {
+		for(final DiagramElement child : element.getDiagramElements()) {
 			layoutDepthFirst(graphitiDiagram, child, mapping);				
 		}
 		
@@ -86,7 +86,7 @@ class LayoutUtil {
 	 * @param diagramNodeProvider
 	 */
 	public static void layout(final Diagram graphitiDiagram, 
-			final AgeDiagramElement element, 
+			final DiagramElement element, 
 			final ContainerShape shape,
 			final NodePictogramBiMap diagramNodeProvider) {
 		final AgeLabelConfiguration labelConfiguration = element.getLabelConfiguration() == null ? defaultLabelConfiguration : element.getLabelConfiguration();
@@ -490,12 +490,12 @@ class LayoutUtil {
 	private static DockArea getNonGroupDockArea(DiagramNode diagramNode) {
 		DockArea result = null;
 		do {
-			if(!(diagramNode instanceof AgeDiagramElement)) {
+			if(!(diagramNode instanceof DiagramElement)) {
 				result = null;
 				break;
 			}
 			
-			result = ((AgeDiagramElement)diagramNode).getDockArea();
+			result = ((DiagramElement)diagramNode).getDockArea();
 			diagramNode = diagramNode.getContainer();
 		} while(result != null && result == DockArea.GROUP);
 

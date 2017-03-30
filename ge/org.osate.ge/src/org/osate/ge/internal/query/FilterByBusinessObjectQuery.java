@@ -5,17 +5,18 @@ import java.util.Objects;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.query.Supplier;
 
-class FilterByBusinessObjectQuery<A> extends Query<A> {
-	private final Supplier<A, Object> boSupplier;
+class FilterByBusinessObjectQuery extends DefaultQuery {
+	private final Supplier<Object, Object> boSupplier;
 	private CanonicalBusinessObjectReference nullBoRef = new CanonicalBusinessObjectReference("<null>");
 	
-	public FilterByBusinessObjectQuery(final Query<A> prev, final Supplier<A, Object> boSupplier) {
+	@SuppressWarnings("unchecked")
+	public FilterByBusinessObjectQuery(final DefaultQuery prev, final Supplier<?, Object> boSupplier) {
 		super(prev);
-		this.boSupplier = Objects.requireNonNull(boSupplier, "boSupplier must not be null");
+		this.boSupplier = (Supplier<Object, Object>) Objects.requireNonNull(boSupplier, "boSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {

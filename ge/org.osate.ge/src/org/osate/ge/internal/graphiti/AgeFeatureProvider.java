@@ -66,6 +66,7 @@ import org.eclipse.graphiti.features.context.IRemoveContext;
 import org.eclipse.graphiti.features.context.IResizeShapeContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.custom.ICustomFeature;
+import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.features.DefaultFeatureProvider;
 import org.osate.ge.internal.graphiti.features.AgeResizeShapeFeature;
@@ -75,16 +76,24 @@ import org.osate.ge.internal.graphiti.features.BoHandlerCreateFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDeleteFeature;
 import org.osate.ge.internal.graphiti.features.BoHandlerDirectEditFeature;
 import org.osate.ge.internal.SimplePaletteEntry;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.updating.BusinessObjectTreeFactory;
+import org.osate.ge.internal.diagram.updating.DefaultBusinessObjectTreeFactory;
+import org.osate.ge.internal.diagram.updating.DefaultDiagramElementInfoProvider;
+import org.osate.ge.internal.diagram.updating.DiagramElementInfoProvider;
+import org.osate.ge.internal.diagram.updating.DiagramUpdater;
+import org.osate.ge.internal.graphiti.diagram.NodePictogramBiMap;
 import org.osate.ge.internal.graphiti.features.AgeAddBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
-import org.osate.ge.internal.graphiti.features.RefreshDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
+import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
@@ -111,6 +120,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private IMoveBendpointFeature moveBendpointFeature;
 	private IAddBendpointFeature addBendpointFeature;
 	private IRemoveBendpointFeature removeBendpointFeature;
+	private UpdateDiagramFeature updateDiagramFeature;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -135,6 +145,12 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		moveBendpointFeature = make(AgeMoveBendpointFeature.class);
 		addBendpointFeature = make(AgeAddBendpointFeature.class);
 		removeBendpointFeature = make(AgeRemoveBendpointFeature.class);
+		
+		// Create the refresh diagram feature
+		final BusinessObjectTreeFactory boTreeFactory = new DefaultBusinessObjectTreeFactory(extService, referenceService);
+		final DiagramElementInfoProvider deInfoProvider = new DefaultDiagramElementInfoProvider(context);
+		final DiagramUpdater diagramUpdater = new DiagramUpdater(boTreeFactory, deInfoProvider);
+		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiAgeDiagramProvider, diagramUpdater);
 	}
 
 	@Override
@@ -169,25 +185,63 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 			return null;
 		}
 		
-		final DiagramNode node = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramNode(pictogramElement);
-		if(node instanceof AgeDiagramElement) {
-			return ((AgeDiagramElement) node).getBusinessObject();
-		}
-
-		return null;
+		final DiagramElement de = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(pictogramElement);
+		return de == null ? null : de.getBusinessObject();
 	}
 	
 	@Override
-	public PictogramElement[] getAllPictogramElementsForBusinessObject(final Object businessObject) {		
-		//TODO: Migrate!
-		return new PictogramElement[0];
+	public PictogramElement[] getAllPictogramElementsForBusinessObject(final Object businessObject) {
+		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
+		final List<PictogramElement> pes = new ArrayList<>();
+		final CanonicalBusinessObjectReference searchRef = referenceService.getCanonicalReference(businessObject);
+		if(searchRef != null) {
+			getPictogramElements(searchRef, ageDiagram, graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes, Integer.MAX_VALUE);
+		}
+		return pes.toArray(new PictogramElement[pes.size()]);
 	}
-		
+			
 	@Override
 	public PictogramElement getPictogramElementForBusinessObject(final Object businessObject) {
-		throw new RuntimeException("Not supported");
+		final AgeDiagram ageDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram();
+		final List<PictogramElement> pes = new ArrayList<>();
+		final CanonicalBusinessObjectReference searchRef = referenceService.getCanonicalReference(businessObject);
+		if(searchRef != null) {
+			getPictogramElements(searchRef, ageDiagram, graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes, 1);
+		}
+		
+		return pes.size() > 0 ? pes.get(0) : null;
+	}
+	
+	/**
+	 * Searches the child of a specified diagram node for elements with a matching canonical business object reference. 
+	 * Returns the associated pictogram elmeents. Returns up to limit entries.
+	 * @return whether the limit has been reached
+	 */
+	private boolean getPictogramElements(final CanonicalBusinessObjectReference searchRef, 
+			final DiagramNode dn, 
+			final NodePictogramBiMap mapping, 			
+			final List<PictogramElement> results,
+			final int limit) {
+		for(final DiagramElement child : dn.getDiagramElements()) {
+			if(searchRef.equals(child.getCanonicalReference())) {
+				final PictogramElement pe = mapping.getPictogramElement(child);
+				if(pe != null) {
+					results.add(pe);
+					if(results.size() >= limit) {
+						return true;
+					}
+				}
+			}
+			
+			if(getPictogramElements(searchRef, child, mapping, results, limit)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 		
+	// link() is not supported because linkages are only changed when elements in the AgeDiagram is changed.
 	@Override
 	public void link(final PictogramElement pictogramElement, final Object[] businessObjects) {
 		throw new RuntimeException("Not supported");
@@ -221,7 +275,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	 * @param features
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
-		features.add(make(RefreshDiagramFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(SelectAncestorFeature.class));
 
@@ -274,6 +327,10 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	
 	@Override
 	public IUpdateFeature getUpdateFeature(final IUpdateContext updateCtx) {
+		if(updateCtx.getPictogramElement() instanceof Diagram) {
+			return updateDiagramFeature;
+		}
+		
 		return null;
 	}
 		

@@ -10,7 +10,7 @@ public class QueryFilters {
 	 * @param label a label to add to include with the output.
 	 * @return true
 	 */
-	public static <A> Predicate<FilterArguments<A>> boToStdErr(final String label) {
+	public static Predicate<FilterArguments> boToStdErr(final String label) {
 		return (fa) -> {System.err.println("[" + label + "] " + fa.getBusinessObject()); return true;};	
 	}
 }

@@ -22,24 +22,29 @@ import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetDestination;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.Query;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((Generalization g) -> g.getSpecific()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((Generalization g) -> g.getGeneral()));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
@@ -68,19 +73,21 @@ public class GeneralizatonHandler {
 	}
 	
 	@CreateParentQuery
-	public <T> DiagramElementQuery<T> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<T> srcRootQuery, final @Named(Names.DESTINATION_ROOT_QUERY) DiagramElementQuery<T> dstRootQuery) {
+	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery, final @Named(Names.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		// Owner will be the common ancestor for the shapes. Works for both overview and generalization diagram?
 		return srcRootQuery.commonAncestors(dstRootQuery);
 	}
 	
-	@CreateSourceQuery
-	public DiagramElementQuery<Generalization> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<Generalization> rootQuery) {
-		return rootQuery.descendants().filterByBusinessObject(g -> g.getSpecific());
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
-	@CreateDestinationQuery
-	public DiagramElementQuery<Generalization> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<Generalization> rootQuery) {
-		return rootQuery.descendants().filterByBusinessObject(g -> g.getGeneral());
+	@GetDestination
+	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 	
 	@GetCreateOwner

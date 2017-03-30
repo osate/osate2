@@ -4,18 +4,18 @@ import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
 
-class CommonAncestorsQuery<A> extends Query<A> {
-	private final Query<A> q1;
-	private final Query<A> q2;
+class CommonAncestorsQuery extends DefaultQuery {
+	private final DefaultQuery q1;
+	private final DefaultQuery q2;
 	
-	public CommonAncestorsQuery(final Query<A> q1, final Query<A> q2) {
+	public CommonAncestorsQuery(final DefaultQuery q1, final DefaultQuery q2) {
 		super(null);
 		this.q1 = Objects.requireNonNull(q1, "q1 must not be null");
 		this.q2 = Objects.requireNonNull(q2, "q2 must not be null");
 	}
 
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		final List<Queryable> q1Result = state.queryRunner.getResults(q1, state.arg);		
 		final List<Queryable> q2Result = state.queryRunner.getResults(q2, state.arg);
 		

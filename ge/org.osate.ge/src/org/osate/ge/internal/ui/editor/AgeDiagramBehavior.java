@@ -40,6 +40,8 @@ import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
+import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
@@ -61,6 +63,7 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
@@ -91,16 +94,24 @@ import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.features.DiagramUpdateFeature;
+import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ShapeService;
+import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 
@@ -108,6 +119,7 @@ import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior {
 	private GraphitiAgeDiagram graphitiAgeDiagram;
+	private IProject project = null;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
 	private boolean forceNotDirty = false;
@@ -455,7 +467,6 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		if(bo != null) {
 			final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
 			final Resource diagramBoResource = diagramService.getResource(bo);
-
 			if(diagramBoResource == resource) {
 				update();
 			}
@@ -650,7 +661,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		// If we are forcing the diagram to not be seen as dirty, decide whether to start using the typical dirty check
 		if(forceNotDirty) {
 			// Prevent the initial diagram update from making the diagram dirty if the number of objects doesn't change.			
-			if(feature instanceof DiagramUpdateFeature) {
+			if(feature instanceof UpdateDiagramFeature) {
 				final int startCount = getVisibleObjectsInDiagram();
 				updatingFeatureWhileForcingNotDirty = true;
 				final Object retValue = super.executeFeature(feature, context);
@@ -687,10 +698,28 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 					}					
 				});
 				
-				// Since we have successfully creased a command stack listener, force the diagram to be seen as not dirty until there is a change
+				// Since we have successfully created a command stack listener, force the diagram to be seen as not dirty until there is a change
 				forceNotDirty = true;
 			}
 		}
+	}
+	
+	/**
+	 * Returns the project in which the diagram is contained.
+	 * @return
+	 */
+	public IProject getProject() {
+		return project;
+	}
+	
+	private void updateProjectByUri(final URI uri) {
+		final IPath projectPath = new Path(uri.toPlatformString(true)).uptoSegment(1);
+		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
+		if(!(projectResource instanceof IProject)) {
+			throw new RuntimeException("Unable to determine project");
+		}
+
+		project = (IProject)projectResource;
 	}
 	
 	@Override
@@ -698,9 +727,30 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 		return new DefaultPersistencyBehavior(this) {
 			@Override
 			public Diagram loadDiagram(final URI uri) {
+				updateProjectByUri(uri);
+
 				// TODO: Replace with something that supports loading the the native format and loading and converting a legacy(Graphiti) format diagram
 				// TODO: Should consider a custom resource implementation which would handle the conversion and saving at the EMF resource level.
+				
+				// Load the graphiti diagram
+				final ResourceSet resourceSet = new ResourceSetImpl();
+				final Diagram tmpDiagram = (Diagram)resourceSet.getEObject(uri, true);
+				if(tmpDiagram == null) {
+					// TODO: Handle
+					throw new RuntimeException("Unable to open diagram");
+				}
+				
+				final String rootBoRefStr = Graphiti.getPeService().getPropertyValue(tmpDiagram, "independentObject"); // TODO: Use constant
+				if(rootBoRefStr == null) {
+					throw new RuntimeException("Unable to get root business object reference");
+				}
+				
+				final CanonicalBusinessObjectReference rootBoRef = new CanonicalBusinessObjectReference(ReferenceEncoder.decode(rootBoRefStr));
+				
 				final AgeDiagram ageDiagram = new AgeDiagram();
+
+				// TODO: Cleanup. Part of loading legacy diagram. Set the root business object reference
+				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).setRootBoReference(rootBoRef).build());
 
 				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		
 				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain());				

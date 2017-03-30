@@ -44,20 +44,19 @@ import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetDestination;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.decorations.Decoration;
@@ -65,31 +64,34 @@ import org.osate.ge.internal.decorations.DelayedDecorationBuilder;
 import org.osate.ge.internal.decorations.DirectionDecorationBuilder;
 import org.osate.ge.internal.decorations.ImmediateDecorationBuilder;
 import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.Query;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
+import org.osate.ge.internal.query.DefaultQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlConnectionUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.Query;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class ConnectionHandler {
-	private static final StandaloneDiagramElementQuery componentImplementationQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
+	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
 	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
 	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
-	private static final StandaloneDiagramElementQuery selfQuery = StandaloneDiagramElementQuery.create((root) -> root);
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
-	private static final StandaloneDiagramElementQuery grandparentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(2));
+	private static final StandaloneQuery selfQuery = StandaloneQuery.create((root) -> root);
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
+	private static final StandaloneQuery grandparentQuery = StandaloneQuery.create((root) -> root.ancestor(2));
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjects((Connection c) -> getBusinessObjectsPathToConnectionEnd(c.getAllSourceContext(), c.getAllSource())).first());
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjects((Connection c) -> getBusinessObjectsPathToConnectionEnd(c.getAllDestinationContext(), c.getAllDestination())).first());
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Connection c) {
@@ -101,19 +103,21 @@ public class ConnectionHandler {
 		return graphic;
 	}
 
-	@CreateSourceQuery
-	public DiagramElementQuery<Connection> createSourceQuery(final @Named(Names.ROOT_QUERY) Query<Connection> rootQuery) {
-		return rootQuery.descendantsByBusinessObjects((c) -> getBusinessObjectsPathToConnectionEnd(c.getAllSourceContext(), c.getAllSource())).first();
-	}	
-				
-	@CreateDestinationQuery
-	public DiagramElementQuery<Connection> createDestination(final @Named(Names.ROOT_QUERY) Query<Connection> rootQuery) {
-		return rootQuery.descendantsByBusinessObjects((c) -> getBusinessObjectsPathToConnectionEnd(c.getAllDestinationContext(), c.getAllDestination())).first();
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
+	}
+	
+	@GetDestination
+	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<Connection> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query<Connection> srcRootQuery, 
-			final @Named(Names.DESTINATION_ROOT_QUERY) Query<Connection> dstRootQuery) {
+	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DefaultQuery srcRootQuery, 
+			final @Named(Names.DESTINATION_ROOT_QUERY) DefaultQuery dstRootQuery) {
 		return srcRootQuery.commonAncestors(dstRootQuery).filter((fa) -> fa.getBusinessObject() instanceof Subcomponent || fa.getBusinessObject() instanceof ComponentClassifier);
 	}
 	
@@ -263,16 +267,16 @@ public class ConnectionHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
-		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, srcDiagramElement);
+		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, srcBoc);
 	}
 	
 	@CanStartConnection
-	public boolean canStartConnection(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+	public boolean canStartConnection(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {
-		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcDiagramElement, queryService);
+		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcBoc, queryService);
 		if(srcConnectedElement == null) {
 			return false;
 		}
@@ -288,14 +292,14 @@ public class ConnectionHandler {
 	}	
 	
 	@CanCreate
-	public boolean canCreate(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
+	public boolean canCreate(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final BusinessObjectContext dstBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {		
 
 		// Get the connection elements for the source and destination
-		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcDiagramElement, queryService);
-		final ConnectedElement dstConnectedElement = getConnectedElementForDiagramElement(dstDiagramElement, queryService);
+		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcBoc, queryService);
+		final ConnectedElement dstConnectedElement = getConnectedElementForDiagramElement(dstBoc, queryService);
 
 		// Ensure they are valid and are not the same
 		if(dstConnectedElement == null || EcoreUtil.equals(srcConnectedElement, dstConnectedElement)) {
@@ -312,8 +316,8 @@ public class ConnectionHandler {
 
 	@Create
 	public Connection createBusinessObject(@Named(Names.OWNER_BO) final ComponentImplementation ci, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
+			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final BusinessObjectContext dstBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService,
 			final NamingService namingService) {
@@ -334,9 +338,9 @@ public class ConnectionHandler {
 		newAadlConnection.setName(newConnectionName);
 		
 		// Set the source and destination
-		final ConnectedElement src = getConnectedElementForDiagramElement(srcDiagramElement, queryService);
+		final ConnectedElement src = getConnectedElementForDiagramElement(srcBoc, queryService);
 		newAadlConnection.setSource(src);
-		final ConnectedElement dst = getConnectedElementForDiagramElement(dstDiagramElement, queryService);
+		final ConnectedElement dst = getConnectedElementForDiagramElement(dstBoc, queryService);
 		newAadlConnection.setDestination(dst);
 		
 		// Set type of access connection
@@ -356,20 +360,20 @@ public class ConnectionHandler {
 		return newAadlConnection;
 	}
 	
-	private ConnectedElement getConnectedElementForDiagramElement(final DiagramElement element, final QueryService queryService) {
+	private ConnectedElement getConnectedElementForDiagramElement(final BusinessObjectContext boc, final QueryService queryService) {
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
-		final Object bo = queryService.getFirstBusinessObject(selfQuery, element);
+		final Object bo = queryService.getFirstBusinessObject(selfQuery, boc);
 		if(!(bo instanceof ConnectionEnd)) {
 			return null;
 		} 
 		
 		ce.setConnectionEnd((ConnectionEnd)bo);
 
-		final Object parentBo = queryService.getFirstBusinessObject(parentQuery, element);
+		final Object parentBo = queryService.getFirstBusinessObject(parentQuery, boc);
 		if(parentBo instanceof Context) {
 			ce.setContext((Context)parentBo);
 			// Grandparent must be the root of the feature specification path. Arbitrary length feature specifications aren't supported at this time.
-			final Object grandparentBo = queryService.getFirstBusinessObject(grandparentQuery, element);
+			final Object grandparentBo = queryService.getFirstBusinessObject(grandparentQuery, boc);
 			if(!(grandparentBo instanceof Subcomponent || grandparentBo instanceof ComponentImplementation)) {
 				return null;
 			}
@@ -406,8 +410,8 @@ public class ConnectionHandler {
 	
 	// Renaming
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 		return c.getContainingClassifier() == ci && c.getRefined() == null;
     }
 	
@@ -423,8 +427,8 @@ public class ConnectionHandler {
 	
 	// Deleting
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 		return c.getContainingClassifier() == ci;
     }
 }

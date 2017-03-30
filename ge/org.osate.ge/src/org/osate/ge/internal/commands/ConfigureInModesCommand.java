@@ -20,20 +20,19 @@ import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.SetInModeFeaturesDialog;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 @ModifiesBusinessObjects
 public class ConfigureInModesCommand {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 
 	@GetLabel
 	public String getLabel() {
@@ -42,9 +41,9 @@ public class ConfigureInModesCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ModalElement modalElement,
-			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
+		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
 		return (modalElement instanceof Subcomponent || modalElement instanceof Connection || modalElement instanceof FlowSpecification) && 
 				modalElement.getContainingClassifier() instanceof ComponentClassifier && modalElement.getContainingClassifier() == diagram;
 	}

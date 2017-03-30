@@ -33,6 +33,7 @@ import org.osate.aadl2.ProcessorFeature;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -48,29 +49,26 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.BusinessObjectContext;
-import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class FeatureHandler {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first());
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
 	
 	@IsApplicable
@@ -79,14 +77,14 @@ public class FeatureHandler {
 	}
 	
 	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, boc);
 		return feature.getContainingClassifier() == containerBo;
 	}
 
 	@CanRename
-	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		return canEdit(feature, diagramElement, queryService) && (!(feature instanceof Feature) || ((Feature)feature).getRefined() == null);
+	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		return canEdit(feature, boc, queryService) && (!(feature instanceof Feature) || ((Feature)feature).getRefined() == null);
 	}
 	
 	@GetPaletteEntries
@@ -143,12 +141,12 @@ public class FeatureHandler {
 	}
 	
 	@GetDefaultDockingPosition
-	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) AgeDiagramElement featureElement) {
+	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureElement) {
 		return getDirection(feature, featureElement) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
 	}
 		
 	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(InternalNames.DIAGRAM_ELEMENT) AgeDiagramElement featureElement) {
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureElement) {
 		// Check to see if it is a prototype feature
 		if(feature instanceof AbstractFeature) {
 			final AbstractFeature af = (AbstractFeature)feature;
@@ -238,7 +236,7 @@ public class FeatureHandler {
 	}
 	
 	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(InternalNames.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
 		final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(boc, fg);
 		return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
 	}

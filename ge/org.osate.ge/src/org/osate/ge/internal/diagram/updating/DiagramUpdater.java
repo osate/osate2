@@ -11,15 +11,17 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphics.AgeConnection;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
@@ -29,7 +31,7 @@ public class DiagramUpdater {
 	private final BusinessObjectTreeFactory boTreeFactory;
 	private final DiagramElementInfoProvider infoProvider;
 	
-	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, AgeDiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
+	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 		
 	public DiagramUpdater(final BusinessObjectTreeFactory boTreeFactory, 
 			final DiagramElementInfoProvider infoProvider) {
@@ -38,7 +40,7 @@ public class DiagramUpdater {
 	}
 
 	public void updateDiagram(final AgeDiagram diagram) {
-		final List<AgeDiagramElement> connectionElements = new LinkedList<>();
+		final List<DiagramElement> connectionElements = new LinkedList<>();
 		final BusinessObjectTree boTree = Objects.requireNonNull(boTreeFactory.createBusinessObjectTree(diagram.getConfiguration()), "Business Object Tree Factory returned null");
 		
 		diagram.modify(new DiagramModifier() {
@@ -63,13 +65,13 @@ public class DiagramUpdater {
 	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos) {
 		for(final BusinessObjectTreeNode n : bos) {
 			// Get existing element if it exists.
-			AgeDiagramElement element = container.getByRelativeReference(n.getRelativeReference());
+			DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
 			
 			// Create the element if it does not exist
 			if(element == null) {
-				final AgeDiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
+				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
 				if(removedGhost == null) {
-					element = new AgeDiagramElement(container, n.getBusinessObject(), n.getRelativeReference(), n.getCanonicalReference(), n.getName());
+					element = new DiagramElement(container, n.getBusinessObject(), n.getBusinessObjectHandler(), n.getRelativeReference(), n.getCanonicalReference(), n.getName());
 				} else {
 					element = removedGhost;
 				}
@@ -90,9 +92,9 @@ public class DiagramUpdater {
 		if(bos.size() != container.getDiagramElements().size()) {
 			// Build Set of Relative References of All the Objects in the Business Object Tree
 			final Set<RelativeBusinessObjectReference> boTreeRelativeReferenceSet = bos.stream().map((n) -> n.getRelativeReference()).collect(Collectors.toCollection(HashSet::new));
-			Iterator<AgeDiagramElement> childrenIt = container.getDiagramElements().iterator();
+			Iterator<DiagramElement> childrenIt = container.getDiagramElements().iterator();
 			while(childrenIt.hasNext()) {
-				final AgeDiagramElement child = childrenIt.next();
+				final DiagramElement child = childrenIt.next();
 				if(!boTreeRelativeReferenceSet.contains(child.getRelativeReference())) {
 					addGhost(child);
 					m.removeElement(child);
@@ -107,19 +109,20 @@ public class DiagramUpdater {
 	 * @param bos 
 	 * @param connectionElements is a collection to populate with connection elements.
 	 */
-	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos, final Collection<AgeDiagramElement> connectionElements) {
+	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos, final Collection<DiagramElement> connectionElements) {
 		for(final BusinessObjectTreeNode n : bos) {
 			// Get existing element. The updateStructure() pass should have ensured that it exists.
-			AgeDiagramElement element = Objects.requireNonNull(container.getByRelativeReference(n.getRelativeReference()), "unable to retrieve element");
+			DiagramElement element = Objects.requireNonNull(container.getByRelativeReference(n.getRelativeReference()), "unable to retrieve element");
 			
 			// Set the graphic
-			m.setGraphic(element, infoProvider.getGraphic(element));
+			final Graphic graphic = Objects.requireNonNull(infoProvider.getGraphic(element), "getGraphic() must not return null");
+			m.setGraphic(element, graphic);
 			
 			final DockingPosition defaultDockingPosition = Objects.requireNonNull(infoProvider.getDefaultDockingPosition(element), "getDefaultDockingPosition() must not return null");
 			final boolean dockable = defaultDockingPosition != DockingPosition.NOT_DOCKABLE;
 			if(dockable) {
 				// If parent is docked, the child should use the group docking area
-				if(container instanceof AgeDiagramElement && ((AgeDiagramElement) container).getDockArea() != null) { 								 
+				if(container instanceof DiagramElement && ((DiagramElement) container).getDockArea() != null) { 								 
 					m.setDockArea(element, DockArea.GROUP);
 				} else if(element.getDockArea() == null) {
 					m.setDockArea(element, defaultDockingPosition.getDockArea());
@@ -129,10 +132,9 @@ public class DiagramUpdater {
 				m.setDockArea(element, null);
 			}		
 			
-			// Set the label configuration if one is provided and the element's label configuration has not already been configuration
-			if(element.getLabelConfiguration() == null) {
-				m.setLabelConfiguration(element, infoProvider.getDefaultLabelConfiguration(element));
-			}
+			// Set the label configuration
+			final AgeLabelConfiguration labelConfiguration = Objects.requireNonNull(infoProvider.getDefaultLabelConfiguration(element), "getDefaultLabelConfiguration() must not return null");
+			m.setLabelConfiguration(element, labelConfiguration);
 			
 			if(element.getGraphic() instanceof AgeConnection) {
 				// Set connection ends
@@ -151,14 +153,14 @@ public class DiagramUpdater {
 	/**
 	 * Removes invalid connections.
 	 */
-	private void removeInvalidConnections(final DiagramModification m, final Collection<AgeDiagramElement> connectionElements) {		
+	private void removeInvalidConnections(final DiagramModification m, final Collection<DiagramElement> connectionElements) {		
 		// Build Collection of All Invalid Connections
-		final Set<AgeDiagramElement> invalidConnectionElements = new HashSet<>();
-		Iterator<AgeDiagramElement> connectionElementsIt = connectionElements.iterator();
+		final Set<DiagramElement> invalidConnectionElements = new HashSet<>();
+		Iterator<DiagramElement> connectionElementsIt = connectionElements.iterator();
 		while(connectionElementsIt.hasNext()) {
-			final AgeDiagramElement e = connectionElementsIt.next();
+			final DiagramElement e = connectionElementsIt.next();
 			
-			if(e.getStartElement() == null || e.getEndElement() == null) {
+			if(e.getStartElement() == null || (e.getEndElement() == null && !((AgeConnection)e.getGraphic()).isFlowIndicator)) {
 				invalidConnectionElements.add(e);
 				
 				// Remove the connection from the connection collection and the diagram
@@ -172,7 +174,7 @@ public class DiagramUpdater {
 		for(int lastSize = 0; (invalidConnectionElements.size() - lastSize) > 0; lastSize = invalidConnectionElements.size()) {
 			connectionElementsIt = connectionElements.iterator();
 			while(connectionElementsIt.hasNext()) {
-				final AgeDiagramElement e = connectionElementsIt.next();
+				final DiagramElement e = connectionElementsIt.next();
 				if(invalidConnectionElements.contains(e.getStartElement()) || invalidConnectionElements.contains(e.getEndElement())) {
 					invalidConnectionElements.add(e);
 					
@@ -185,12 +187,12 @@ public class DiagramUpdater {
 		}
 	}
 	
-	private static void removeConnectionAndDescendantConnections(AgeDiagramElement e, final Collection<AgeDiagramElement> connections) {
+	private static void removeConnectionAndDescendantConnections(DiagramElement e, final Collection<DiagramElement> connections) {
 		if(e.getGraphic() instanceof AgeConnection) {
 			connections.remove(e);
 		}
 		
-		for(final AgeDiagramElement child : connections) {
+		for(final DiagramElement child : connections) {
 			removeConnectionAndDescendantConnections(child, connections);
 		}
 	}	
@@ -200,11 +202,11 @@ public class DiagramUpdater {
 		containerToRelativeReferenceToGhostMap.clear();
 	}
 	
-	private void addGhost(final AgeDiagramElement ghost) {
+	private void addGhost(final DiagramElement ghost) {
 		final DiagramNode container = ghost.getContainer();
 		
 		// Get the mapping from relative reference to the ghost for the container
-		Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
+		Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
 		if(relativeReferenceToGhostMap == null) {
 			relativeReferenceToGhostMap = new HashMap<>();
 			containerToRelativeReferenceToGhostMap.put(container, relativeReferenceToGhostMap);
@@ -214,8 +216,8 @@ public class DiagramUpdater {
 		relativeReferenceToGhostMap.put(ghost.getRelativeReference(), ghost);		
 	}
 	
-	private AgeDiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
-		final Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
+	private DiagramElement removeGhost(final DiagramNode container, final RelativeBusinessObjectReference relativeReference) {
+		final Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToGhostMap = containerToRelativeReferenceToGhostMap.get(container);
 		if(relativeReferenceToGhostMap == null) {
 			return null;
 		}

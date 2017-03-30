@@ -114,7 +114,7 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 					eclipseCtx.set(Names.OWNER_BO, ownerBo);
 					eclipseCtx.set(Names.TARGET_BO, targetBo);
-					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
+					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource())); NOT VALID.
 					eclipseCtx.set(InternalNames.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
 					//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);

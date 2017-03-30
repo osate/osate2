@@ -12,7 +12,7 @@ import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 
@@ -99,7 +99,7 @@ public class DiagramUpdaterTests {
 		owner.children[0] = newBusinessObject;
 		diagramUpdater.updateDiagram(diagram);	
 		
-		final AgeDiagramElement element = diagram.getByRelativeReference(owner.getRelativeReference()).
+		final DiagramElement element = diagram.getByRelativeReference(owner.getRelativeReference()).
 				getByRelativeReference(newBusinessObject.getRelativeReference());
 		assertThat(element.getBusinessObject(), is(sameInstance(newBusinessObject)));
 		
@@ -118,13 +118,13 @@ public class DiagramUpdaterTests {
 		diagramUpdater.updateDiagram(diagram);
 		
 		// Get the new element
-		final AgeDiagramElement element = diagram.getByRelativeReference(owner.getRelativeReference()).
+		final DiagramElement element = diagram.getByRelativeReference(owner.getRelativeReference()).
 				getByRelativeReference(newBusinessObject.getRelativeReference());
 		assertThat(element, is(notNullValue()));
 		assertThat(element.getPosition(), is(nullValue()));
 		assertThat(element.getBusinessObject(), is(sameInstance(newBusinessObject)));
 
-		final AgeDiagramElement e = diagram.getByRelativeReference(owner.getRelativeReference()).
+		final DiagramElement e = diagram.getByRelativeReference(owner.getRelativeReference()).
 				getByRelativeReference(newBusinessObject.getRelativeReference());
 		diagram.modify(new DiagramModifier() {
 			@Override
@@ -173,7 +173,7 @@ public class DiagramUpdaterTests {
 		checkElements(diagram.getDiagramElements(), testModel.model);
 		
 		// Check that Changing the Docking Area and updating the diagram does not reset the docking area.
-		final AgeDiagramElement dockableDiagramElement = diagram.getByRelativeReference(testBoParent.getRelativeReference()).
+		final DiagramElement dockableDiagramElement = diagram.getByRelativeReference(testBoParent.getRelativeReference()).
 				getByRelativeReference(testBo.getRelativeReference());
 		assertThat(dockableDiagramElement.getDockArea(), is(equalTo(testBo.defaultDockingPosition.getDockArea())));
 		final DockArea newDockArea = DockingPosition.RIGHT.getDockArea();
@@ -203,7 +203,7 @@ public class DiagramUpdaterTests {
 		testModel.model.children[0].makeConnection(testModel.model.children[1], testModel.model.children[2]);
 		diagramUpdater.updateDiagram(diagram);
 		
-		final AgeDiagramElement testConnectionDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testConnectionDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
 		assertThat(testConnectionDiagramElement, notNullValue());
 		assertThat(testConnectionDiagramElement.getGraphic(), instanceOf(AgeConnection.class));		
 		assertThat(testConnectionDiagramElement.getStartElement(), notNullValue());
@@ -221,7 +221,7 @@ public class DiagramUpdaterTests {
 		testModel.model.children[0].makeConnection(null, testModel.model.children[2]);
 		diagramUpdater.updateDiagram(diagram);
 		
-		final AgeDiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 	
@@ -236,7 +236,7 @@ public class DiagramUpdaterTests {
 		testModel.model.children[0].makeConnection(testModel.model.children[1], null);
 		diagramUpdater.updateDiagram(diagram);
 		
-		final AgeDiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 	
@@ -252,11 +252,11 @@ public class DiagramUpdaterTests {
 		testModel.model.children[2].makeConnection(null, null); // Invalid connection
 		diagramUpdater.updateDiagram(diagram);
 		
-		final AgeDiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
+		final DiagramElement testDiagramElement = diagram.getByRelativeReference(testModel.model.children[0].getRelativeReference());
 		assertThat(testDiagramElement, nullValue());
 	}
 
-	private void assignPositions(final Collection<AgeDiagramElement> elements) {
+	private void assignPositions(final Collection<DiagramElement> elements) {
 		diagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
@@ -265,8 +265,8 @@ public class DiagramUpdaterTests {
 		});
 	}
 	
-	private static void assignPositions(final DiagramModification m, final Collection<AgeDiagramElement> elements) {
-		for(final AgeDiagramElement element : elements) {
+	private static void assignPositions(final DiagramModification m, final Collection<DiagramElement> elements) {
+		for(final DiagramElement element : elements) {
 			final TestBusinessObject bo = (TestBusinessObject)element.getBusinessObject();
 			m.setPosition(element, bo.getTestPosition());
 			
@@ -282,11 +282,11 @@ public class DiagramUpdaterTests {
 		public static final EnumSet<CheckFlag> ALL = EnumSet.allOf(CheckFlag.class);
 	}
 	
-	private static void checkElements(final Collection<AgeDiagramElement> elements, final TestBusinessObject parentBO) {
+	private static void checkElements(final Collection<DiagramElement> elements, final TestBusinessObject parentBO) {
 		checkElements(elements, parentBO, null, CheckFlag.ALL);
 	}
 	
-	private static void checkElements(final Collection<AgeDiagramElement> elements, final TestBusinessObject parentBO, final DockArea parentDockArea, final EnumSet<CheckFlag> flags) {
+	private static void checkElements(final Collection<DiagramElement> elements, final TestBusinessObject parentBO, final DockArea parentDockArea, final EnumSet<CheckFlag> flags) {
 		// Check the number of elements in the model
 		assertThat(elements.size(), is(equalTo(parentBO.children.length)));
 		
@@ -294,7 +294,7 @@ public class DiagramUpdaterTests {
 		for(final TestBusinessObject child : parentBO.children) {
 			boolean foundBO = false;
 			final RelativeBusinessObjectReference modelChildRef = child.getRelativeReference();
-			for(final AgeDiagramElement e : elements) {
+			for(final DiagramElement e : elements) {
 				final RelativeBusinessObjectReference elementRef = ((TestBusinessObject)e.getBusinessObject()).getRelativeReference();
 				if(elementRef.equals(modelChildRef)) {
 					foundBO = true;
@@ -306,7 +306,7 @@ public class DiagramUpdaterTests {
 		}
 
 		// Finish checking each element
-		for(final AgeDiagramElement e : elements) {
+		for(final DiagramElement e : elements) {
 			// Check the position of the element
 			final TestBusinessObject testBo = (TestBusinessObject)e.getBusinessObject();
 			if(flags.contains(CheckFlag.CHECK_POSITION)) {

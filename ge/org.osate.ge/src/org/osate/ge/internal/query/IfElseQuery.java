@@ -3,46 +3,44 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.Query;
 import org.osate.ge.query.Supplier;
 
-class IfElseQuery<A> extends Query<A> {
-	private final Supplier<ConditionArguments<A>, Boolean> cond;
-	private final Query<A> trueQuery;
-	private final Query<A> falseQuery;
+class IfElseQuery extends DefaultQuery {
+	private final Supplier<ConditionArguments, Boolean> cond;
+	private final DefaultQuery trueQuery;
+	private final DefaultQuery falseQuery;
 	private final RootQuery innerRootQuery = new RootQuery(() -> this.innerRootValue);
 	private Queryable innerRootValue;
 	
-	@SuppressWarnings("unchecked")
-	public IfElseQuery(final Query<A> prev, 
-			final Supplier<ConditionArguments<A>, Boolean> cond, 
-			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> trueQuerySupplier, 
-			final Supplier<DiagramElementQuery<A>, DiagramElementQuery<A>> falseQuerySupplier) {
+	public IfElseQuery(final DefaultQuery prev, 
+			final Supplier<ConditionArguments, Boolean> cond, 
+			final Supplier<Query, Query> trueQuerySupplier, 
+			final Supplier<Query, Query> falseQuerySupplier) {
 		super(prev);
 		this.cond = Objects.requireNonNull(cond, "cond must not be null");
 		Objects.requireNonNull(trueQuerySupplier, "trueQuerySupplier must not be null");
 		Objects.requireNonNull(falseQuerySupplier, "falseQuerySupplier must not be null");		
-		this.trueQuery = (Query<A>)Objects.requireNonNull(trueQuerySupplier.get((DiagramElementQuery<A>)innerRootQuery), "trueQuery must not be null");
-		this.falseQuery = (Query<A>)Objects.requireNonNull(falseQuerySupplier.get((DiagramElementQuery<A>)innerRootQuery), "falseQuery must not be null");
+		this.trueQuery = (DefaultQuery)Objects.requireNonNull(trueQuerySupplier.get((Query)innerRootQuery), "trueQuery must not be null");
+		this.falseQuery = (DefaultQuery)Objects.requireNonNull(falseQuerySupplier.get((Query)innerRootQuery), "falseQuery must not be null");
 	}
 
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		try {
 			this.innerRootValue = ctx;
 
 			// Set Condition Arguments
-			@SuppressWarnings("unchecked")
-			ExpressionArguments<A> conditionArgs = (ExpressionArguments<A>)state.cache.get(this);
+			ExpressionArguments conditionArgs = (ExpressionArguments)state.cache.get(this);
 			if(conditionArgs == null) {
-				conditionArgs = new ExpressionArguments<>();
+				conditionArgs = new ExpressionArguments();
 				state.cache.put(this, conditionArgs);
 			}
 			conditionArgs.update(state, ctx);
 			
 			// Evaluate the condition
 			final Boolean condResult = cond.get(conditionArgs);		
-			final Query<A> innerQuery = condResult.booleanValue() ? trueQuery : falseQuery;
+			final DefaultQuery innerQuery = condResult.booleanValue() ? trueQuery : falseQuery;
 			
 			// Process the results of the inner query.
 			// NOTE: Ideally this would be lazily evaluated instead of retrieving all the results. However, in the current use cases, only one result will be 

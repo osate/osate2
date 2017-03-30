@@ -18,13 +18,15 @@ import org.osate.ge.internal.diagram.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.ModificationsCompletedEvent;
 import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 
 /**
  * Contains tests for the AgeDiagram class. 
  *
  */
 public class AgeDiagramTests {
+	private Object dummyBoh = new Object(); // Dummy business object handler
+	
 	class TestModificationListener implements DiagramModificationListener {
 		public int elementUpdatedEventsReceived = 0;
 		public int elementAddedEventsReceived = 0;
@@ -79,7 +81,7 @@ public class AgeDiagramTests {
 	@Test
 	public void testElementAddedEvent() {
 		// Test an add event
-		final AgeDiagramElement newElement = new AgeDiagramElement(diagram, 1, new RelativeBusinessObjectReference("1"), new CanonicalBusinessObjectReference("1"), "1");
+		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh, new RelativeBusinessObjectReference("1"), new CanonicalBusinessObjectReference("1"), "1");
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
@@ -95,7 +97,7 @@ public class AgeDiagramTests {
 	// Ensure that the element removed event is received.
 	@Test
 	public void testElementRemovedEvent() {
-		final AgeDiagramElement e = addRootElementAndResetCounter(1);
+		final DiagramElement e = addRootElementAndResetCounter(1);
 		
 		// Test a remove event
 		diagram.modify(new DiagramModifier() {			
@@ -113,7 +115,7 @@ public class AgeDiagramTests {
 	// Ensure that the element updated event is received.
 	@Test
 	public void testElementUpdatedEventSingle() {
-		final AgeDiagramElement e = addRootElementAndResetCounter(1);
+		final DiagramElement e = addRootElementAndResetCounter(1);
 		
 		// Test the update event
 		diagram.modify(new DiagramModifier() {			
@@ -132,7 +134,7 @@ public class AgeDiagramTests {
 	// Ensure that a single event is received when the same element is updated multiple times.
 	@Test
 	public void testElementUpdatedEventMultiple() {
-		final AgeDiagramElement e = addRootElementAndResetCounter(1);
+		final DiagramElement e = addRootElementAndResetCounter(1);
 		
 		// Test the update event
 		diagram.modify(new DiagramModifier() {			
@@ -149,8 +151,8 @@ public class AgeDiagramTests {
 		assertThat(ml.lastUpdateEvent.updatedFields, is(equalTo(EnumSet.of(DiagramElementField.DOCK_AREA, DiagramElementField.POSITION))));
 	}
 	
-	private AgeDiagramElement addRootElementAndResetCounter(final int id) {
-		final AgeDiagramElement newElement = new AgeDiagramElement(diagram, id, new RelativeBusinessObjectReference(Integer.toString(id)), new CanonicalBusinessObjectReference(Integer.toString(id)), Integer.toString(id));
+	private DiagramElement addRootElementAndResetCounter(final int id) {
+		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)), new CanonicalBusinessObjectReference(Integer.toString(id)), Integer.toString(id));
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {

@@ -10,7 +10,7 @@ import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Prototype;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
-import org.osate.ge.internal.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 
 public class AadlPrototypeUtil {
 	public static ComponentClassifier getComponentClassifier(final Element bindingContext, final Subcomponent sc) {

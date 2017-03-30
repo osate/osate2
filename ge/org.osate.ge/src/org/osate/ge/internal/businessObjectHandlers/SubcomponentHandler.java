@@ -10,6 +10,7 @@ import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -25,30 +26,26 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.BusinessObjectContext;
-import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
-import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class SubcomponentHandler {
-	private static final StandaloneDiagramElementQuery componentImplementationQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
+	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 	
 	@IsApplicable
@@ -58,7 +55,7 @@ public class SubcomponentHandler {
 	
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.DIAGRAM_ELEMENT) AgeDiagramElement scElement) {
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scElement) {
 		final ComponentClassifier cc = getComponentClassifier(scElement, sc);
 		if(cc == null) {
 			return AadlGraphics.getGraphic(sc.getCategory(), false);
@@ -124,7 +121,7 @@ public class SubcomponentHandler {
 	// Children
 	@GetChildren
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(InternalNames.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
 		final ComponentClassifier cc = getComponentClassifier(scBoc, sc);
 		if(cc == null) {
 			return null;
@@ -174,8 +171,8 @@ public class SubcomponentHandler {
 	
 	// Renaming    
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 		return sc.getContainingClassifier() == ci && sc.getRefined() == null;
     }
 	
@@ -191,8 +188,8 @@ public class SubcomponentHandler {
 	
 	// Deleting
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, diagramElement);
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 		return sc.getContainingClassifier() == ci;
     }
 	

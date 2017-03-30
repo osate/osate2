@@ -23,7 +23,7 @@ import org.osate.aadl2.ThreadGroupImplementation;
 import org.osate.aadl2.ThreadImplementation;
 import org.osate.aadl2.VirtualProcessorImplementation;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.ge.internal.BusinessObjectContext;
+import org.osate.ge.BusinessObjectContext;
 
 public class AadlFeatureUtil {
 	private final static Map<EClass, String> featureTypeToCreateMethodNameMap = createFeatureTypeToCreateMethodMap();

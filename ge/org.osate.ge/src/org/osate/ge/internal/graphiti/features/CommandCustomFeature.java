@@ -36,10 +36,9 @@ import org.osate.ge.di.HasDoneChanges;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.Names;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -106,12 +105,12 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 				return false;
 				
 			}
-			final DiagramElement[] diagramElements = getDiagramElements(customCtx.getPictogramElements());
-			if(diagramElements == null) {
+			final BusinessObjectContext[] bocs = getBusinessObjectContexts(customCtx.getPictogramElements());
+			if(bocs == null) {
 				return false;
 			}
 			
-			populateEclipseContext(eclipseContext, diagramElements, bos);
+			populateEclipseContext(eclipseContext, bocs, bos);
 			return (Boolean)ContextInjectionFactory.invoke(cmd, IsAvailable.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
@@ -134,7 +133,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			populateEclipseContext(eclipseContext, getDiagramElements(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
+			populateEclipseContext(eclipseContext, getBusinessObjectContexts(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
 			return (Boolean)ContextInjectionFactory.invoke(cmd, CanActivate.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
@@ -149,19 +148,19 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 			aadlModificationService.modify(bo, new AbstractModifier<EObject, Object>() {
 				@Override
 				public Object modify(final Resource resource, final EObject bo) {
-					hasMadeChanges = activate(getDiagramElements(context.getPictogramElements()), new Object[] { bo });
+					hasMadeChanges = activate(getBusinessObjectContexts(context.getPictogramElements()), new Object[] { bo });
 					return null;
 				}				
 			});
 		} else {		
-			hasMadeChanges = activate(getDiagramElements(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
+			hasMadeChanges = activate(getBusinessObjectContexts(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
 		}
 	}
 	
-	private boolean activate(final DiagramElement[] diagramElements, final Object[] businessObjects) {
+	private boolean activate(final BusinessObjectContext[] bocs, final Object[] businessObjects) {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			populateEclipseContext(eclipseContext, diagramElements, businessObjects);
+			populateEclipseContext(eclipseContext, bocs, businessObjects);
 			Boolean result = (Boolean)ContextInjectionFactory.invoke(cmd, Activate.class, eclipseContext, modifiesBusinessObjects);
 			if(result == null) {
 				result = modifiesBusinessObjects;
@@ -187,14 +186,14 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 	
-	private static void populateEclipseContext(final IEclipseContext context, final DiagramElement[] diagramElements, final Object[] businessObjects) {
+	private static void populateEclipseContext(final IEclipseContext context, final BusinessObjectContext[] bocs, final Object[] businessObjects) {
 		// Diagram Elements
-		if(diagramElements != null && diagramElements.length > 0) {
-			if(diagramElements.length == 1) {
-				context.set(InternalNames.DIAGRAM_ELEMENT, diagramElements[0]);	
+		if(bocs != null && bocs.length > 0) {
+			if(bocs.length == 1) {
+				context.set(Names.BUSINESS_OBJECT_CONTEXT, bocs[0]);	
 			}
 			
-			context.set(InternalNames.DIAGRAM_ELEMENTS, diagramElements);
+			context.set(Names.BUSINESS_OBJECT_CONTEXTS, bocs);
 		}
 		
 		// Business Objects
@@ -206,18 +205,18 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 	
-	private DiagramElement[] getDiagramElements(final PictogramElement[] pes) {
+	private BusinessObjectContext[] getBusinessObjectContexts(final PictogramElement[] pes) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final DiagramElement[] diagramElements = new DiagramElement[pes.length];
+		final BusinessObjectContext[] diagramElements = new BusinessObjectContext[pes.length];
 		for(int i = 0; i < pes.length; i++) {
-			final DiagramElement de = AgeFeatureUtil.getDiagramElement(pes[i], graphitiAgeDiagram);
+			final BusinessObjectContext boc = graphitiAgeDiagram.getClosestDiagramElement(pes[i]);
 			
 			// Return null if we are unable to get the logical pictogram element for any passed in pictogram element
-			if(de == null) {
+			if(boc == null) {
 				return null;
 			}
 			
-			diagramElements[i] = de;
+			diagramElements[i] = boc;
 		}
 
 		return diagramElements;

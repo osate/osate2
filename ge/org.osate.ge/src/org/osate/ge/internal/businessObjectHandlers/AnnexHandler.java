@@ -18,6 +18,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -30,19 +31,17 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class AnnexHandler {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first());
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
 	private static final Graphic graphic = FolderGraphicBuilder.create().lineWidth(2).build();
 	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
 	
@@ -58,8 +57,9 @@ public class AnnexHandler {
 	}
 	
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement);
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) DefaultAnnexSubclause bo, 
+    		final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, boc);
     }
 	
 	@GetGraphic

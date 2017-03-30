@@ -2,10 +2,10 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-class AncestorQuery<A> extends Query<A> {
+class AncestorQuery extends DefaultQuery {
 	private final int depth;
 	
-	public AncestorQuery(final Query<A> prev, final int depth) {
+	public AncestorQuery(final DefaultQuery prev, final int depth) {
 		super(prev);
 		this.depth = depth;
 		
@@ -15,7 +15,7 @@ class AncestorQuery<A> extends Query<A> {
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		Queryable e = ctx;
 		for(int i = 0; i < depth && ctx != null; i++) {
 			e = e.getParent();

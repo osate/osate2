@@ -9,7 +9,7 @@ import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICustomContext;
 import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
@@ -48,23 +48,23 @@ public class SelectAncestorFeature extends AbstractCustomFeature {
 	}
 	
 	private PictogramElement getAncestor(final IContext context) {
-		// Make the command available if the selection is a shape and has at least one logical parent
 		final ICustomContext customCtx = (ICustomContext)context;
 		PictogramElement[] pes = customCtx.getPictogramElements();		
 		if(customCtx.getPictogramElements().length != 1) {
 			return null;
 		}
 		
+		
 		final GraphitiAgeDiagram gad = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final DiagramNode dn = gad.getDiagramNode(pes[0]);
-		if(dn == null) {
+		final DiagramElement de = gad.getClosestDiagramElement(pes[0]);
+		if(de == null) {
 			return null;
 		}
 		
-		if(dn.getContainer() == null) {
+		if(de.getContainer() == null) {
 			return null;
 		}
 		
-		return gad.getPictogramElement(dn.getContainer());
+		return gad.getPictogramElement(de.getContainer());
 	}
 }

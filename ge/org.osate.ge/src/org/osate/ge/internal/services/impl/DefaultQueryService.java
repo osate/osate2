@@ -1,15 +1,14 @@
 package org.osate.ge.internal.services.impl;
 
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.Queryable;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.query.StandaloneQuery;
+import org.osate.ge.internal.query.DefaultStandaloneQuery;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.QueryService;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class DefaultQueryService implements QueryService {
 	private final QueryRunner queryRunner;
@@ -19,8 +18,13 @@ public class DefaultQueryService implements QueryService {
 	}
 	
 	@Override
-	public Object getFirstBusinessObject(final StandaloneDiagramElementQuery query, final DiagramElement rootElement) {
-		final Queryable result = ((StandaloneQuery)query).getFirstResult(queryRunner, (DiagramNode)rootElement);
+	public BusinessObjectContext getFirstResult(StandaloneQuery query, BusinessObjectContext boc) {
+		return (BusinessObjectContext)((DefaultStandaloneQuery)query).getFirstResult(queryRunner, boc);
+	}
+	
+	@Override
+	public Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc) {
+		final Queryable result = ((DefaultStandaloneQuery)query).getFirstResult(queryRunner, boc);
 		return result == null ? null : result.getBusinessObject();
 	}
 }

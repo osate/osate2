@@ -21,7 +21,7 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
 
 class AnchorUtil {	
@@ -52,7 +52,7 @@ class AnchorUtil {
 			PropertyUtil.setName(anchor, name);
 			// Theoretically this could be done for the retrieved anchor as well to ensure it has the proper graphical algorithm. Practically it causes problem for Graphiti
 			// for an unknown reason when moving feature groups. We do it only when creating the anchor for that reason
-			gaService.createInvisibleRectangle(anchor);			
+			gaService.createInvisibleRectangle(anchor);
 		} else {
 			if(!(retrievedAnchor instanceof FixPointAnchor)) {
 				throw new RuntimeException("Retrieved anchor is of invalid type: " + retrievedAnchor.getClass().getName());	
@@ -68,7 +68,7 @@ class AnchorUtil {
         return anchor;
 	}
 	
-	private static Anchor getAnchorByName(final PictogramElement pe, final String name) {
+	public static Anchor getAnchorByName(final PictogramElement pe, final String name) {
 		if(pe instanceof AnchorContainer) {
 			for(final Anchor anchor : ((AnchorContainer)pe).getAnchors()) {
 				if(name.equals(PropertyUtil.getName(anchor))) {
@@ -89,16 +89,16 @@ class AnchorUtil {
 		// This is needed to update connection anchors for connections which are not owned by any of elements involved in the connection.
 		for(final Anchor anchor : shape.getAnchors()) {
 			for(final Connection connection : anchor.getIncomingConnections()) {
-				updateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
+				updateConnectionAnchor((DiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
 			}
 			
 			for(final Connection connection : anchor.getOutgoingConnections()) {
-				updateConnectionAnchor((AgeDiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
+				updateConnectionAnchor((DiagramElement)diagramNodeProvider.getDiagramNode(connection), connection, diagramNodeProvider);
 			}
 		}
 	}
 	
-	private static Shape getConnectionAnchorContainer(final AgeDiagramElement connectionDiagramElement, final NodePictogramBiMap mapping) {
+	private static Shape getConnectionAnchorContainer(final DiagramElement connectionDiagramElement, final NodePictogramBiMap mapping) {
 		if(connectionDiagramElement == null) {
 			return null;
 		}
@@ -121,7 +121,7 @@ class AnchorUtil {
 		return containerShape;
 	}
 	
-	private static String getConnectionAnchorName(final AgeDiagramElement connectionElement) {
+	private static String getConnectionAnchorName(final DiagramElement connectionElement) {
 		return getUniqueReference(connectionElement);
 	}
 	
@@ -132,7 +132,7 @@ class AnchorUtil {
 	 * @param mapping
 	 * @return
 	 */
-	public static Anchor getOrCreateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final NodePictogramBiMap mapping) {
+	public static Anchor getOrCreateConnectionAnchor(final DiagramElement connectionDiagramElement, final Connection connection, final NodePictogramBiMap mapping) {
 		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, mapping);
 		final String anchorName = getConnectionAnchorName(connectionDiagramElement);
 		if(anchorName == null) {
@@ -160,7 +160,7 @@ class AnchorUtil {
 		return newAnchor;
 	}	
 			
-	public static Anchor updateConnectionAnchor(final AgeDiagramElement connectionDiagramElement, final Connection connection, final NodePictogramBiMap mapping) {
+	public static Anchor updateConnectionAnchor(final DiagramElement connectionDiagramElement, final Connection connection, final NodePictogramBiMap mapping) {
 		final Shape containerShape = getConnectionAnchorContainer(connectionDiagramElement, mapping);
 		final String anchorName = getConnectionAnchorName(connectionDiagramElement);
 		if(anchorName == null) {
@@ -304,11 +304,11 @@ class AnchorUtil {
 		}
 	}
 	
-	private static String getUniqueReference(final AgeDiagramElement element) {
+	private static String getUniqueReference(final DiagramElement element) {
 		String result = "";
 		for(DiagramNode t = element; t != null; t = t.getContainer()) {
-			if(t instanceof AgeDiagramElement) {
-				result += "/" + ((AgeDiagramElement) t).getRelativeReference().toString();
+			if(t instanceof DiagramElement) {
+				result += "/" + ((DiagramElement) t).getRelativeReference().toString();
 			}
 		}
 		

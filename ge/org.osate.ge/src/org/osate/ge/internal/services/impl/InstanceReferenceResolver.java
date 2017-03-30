@@ -38,7 +38,6 @@ import org.eclipse.core.resources.IResourceDeltaVisitor;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -50,10 +49,9 @@ import org.osate.ge.di.ResolveReference;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
-import org.osate.ge.internal.ui.util.SelectionHelper;
 
-public class InstanceReferenceResolver {	
-	private final IDiagramTypeProvider diagramTypeProvider;
+public class InstanceReferenceResolver {
+	private final GraphitiService graphitiService;
 	private final CachingService cachingService;
 	private final SystemInstanceLoadingService systemInstanceLoader;
 	private final Map<String, SystemInstanceInfo> keyToSystemInstanceInfoMap = new HashMap<String, SystemInstanceInfo>();
@@ -149,7 +147,7 @@ public class InstanceReferenceResolver {
 	
 	@Inject
 	public InstanceReferenceResolver(final GraphitiService graphitiService, final SystemInstanceLoadingService systemInstanceLoader, final CachingService cachingService) {
-		this.diagramTypeProvider = Objects.requireNonNull(graphitiService, "graphitiService must not be null").getDiagramTypeProvider();
+		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader, "systemInstanceLoader must not be null");
 		this.cachingService = Objects.requireNonNull(cachingService, "cachingService must not be null");
 		
@@ -199,7 +197,7 @@ public class InstanceReferenceResolver {
 			
 			// If it wasn't loaded previously, load the system instance
 			if(siInfo == null) {
-				final IProject project = SelectionHelper.getProject(diagramTypeProvider.getDiagram().eResource());
+				final IProject project = graphitiService.getProject();
 				final SystemInstance si = systemInstanceLoader.loadSystemInstance(project, key);
 				if(si != null) {
 					siInfo = new SystemInstanceInfo(si);

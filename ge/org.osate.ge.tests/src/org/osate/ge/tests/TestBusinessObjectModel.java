@@ -8,7 +8,7 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
@@ -62,6 +62,11 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Diagr
 				public String getName() {
 					return "BO: " + child.getRelativeReference().toString();
 				}
+				
+				@Override
+				public Object getBusinessObjectHandler() {
+					return new Object(); // Return a dummy object. Must not be null.
+				}
 			});
 		}
 
@@ -70,7 +75,7 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Diagr
 	
 	// DiagramElementInfoProvider
 	@Override
-	public Graphic getGraphic(final AgeDiagramElement element) {
+	public Graphic getGraphic(final DiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
 		if(testBo.isConnection) {
 			return ConnectionBuilder.create().build();
@@ -80,25 +85,25 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Diagr
 	}
 	
 	@Override
-	public DockingPosition getDefaultDockingPosition(final AgeDiagramElement element) {
+	public DockingPosition getDefaultDockingPosition(final DiagramElement element) {
 		final TestBusinessObject testBo = (TestBusinessObject)element.getBusinessObject();
 		return testBo.defaultDockingPosition;
 	}
 	
 	@Override
-	public AgeDiagramElement getConnectionStart(final AgeDiagramElement e) {
+	public DiagramElement getConnectionStart(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
 		return bo.connectionStartReference == null ? null : e.getContainer().getByRelativeReference(bo.connectionStartReference);
 	}
 
 	@Override
-	public AgeDiagramElement getConnectionEnd(final AgeDiagramElement e) {
+	public DiagramElement getConnectionEnd(final DiagramElement e) {
 		final TestBusinessObject bo = (TestBusinessObject)e.getBusinessObject();
 		return bo.connectionEndReference == null ? null : e.getContainer().getByRelativeReference(bo.connectionEndReference);
 	}
 
 	@Override
-	public AgeLabelConfiguration getDefaultLabelConfiguration(AgeDiagramElement element) {
+	public AgeLabelConfiguration getDefaultLabelConfiguration(DiagramElement element) {
 		return model.labelConfiguration;
 	}
 }

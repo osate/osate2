@@ -66,7 +66,6 @@ import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.CachingService.Cache;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.SavedAadlResourceService.AadlPackageReference;
-import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
@@ -206,7 +205,7 @@ public class DeclarativeReferenceResolver {
 		private Set<IProject> getRelevantProjects() {
 			try {
 				final Set<IProject> projects = new HashSet<IProject>();
-				final IProject diagramProject = SelectionHelper.getProject(graphiti.getDiagram().eResource());
+				final IProject diagramProject = graphiti.getProject();
 				projects.add(diagramProject);
 				addReferencedProjects(diagramProject, projects);
 

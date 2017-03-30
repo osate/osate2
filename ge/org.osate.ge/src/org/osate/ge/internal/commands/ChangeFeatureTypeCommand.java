@@ -17,22 +17,21 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.ProcessorFeature;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.StringUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 @ModifiesBusinessObjects
 public class ChangeFeatureTypeCommand {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 	private final EClass featureType;	
 
 	public ChangeFeatureTypeCommand(final EClass featureType) {
@@ -46,11 +45,11 @@ public class ChangeFeatureTypeCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final NamedElement feature,
-			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
 		// Check that the shape represents a feature and that the feature is owned by the classifier represented by the shape's diagram, and that the classifier can
 		// contain features of the type this feature changes features into.
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
+		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
 		if(!((feature instanceof Feature || feature instanceof InternalFeature || feature instanceof ProcessorFeature) && diagram instanceof Classifier)) {
 			return false;
 		}

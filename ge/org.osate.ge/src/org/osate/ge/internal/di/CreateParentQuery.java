@@ -6,13 +6,16 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105
  *******************************************************************************/
-package org.osate.ge.di;
+package org.osate.ge.internal.di;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+
+import org.osate.ge.di.GetChildren;
+import org.osate.ge.di.Names;
 
 /**
  * <p>
@@ -36,7 +39,7 @@ import java.lang.annotation.Target;
  *   <tr><td>{@link org.osate.ge.di.Names#DESTINATION_ROOT_QUERY}</td><td>Business Object handler</td><td>A query whose result is destination of the connection. Not valid when the source is a connection.</td></tr>
  * </table>
  * @see GetChildren
- * @see org.osate.ge.query.DiagramElementQuery
+ * @see org.osate.ge.query.Query
  */
 @Documented
 @Target({ElementType.METHOD})

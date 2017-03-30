@@ -115,7 +115,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);
 			childCtx.set(Names.NAME, value);
-			childCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource()));
+			childCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource())); // TODO: MIGRATE. NOT VALID
 			return (String)ContextInjectionFactory.invoke(handler, ValidateName.class, childCtx, null);
 		} finally {
 			childCtx.dispose();

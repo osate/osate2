@@ -6,17 +6,18 @@ import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.query.Supplier;
 
-public class DescendantsByBusinessObjectsQuery<A> extends Query<A> {
+public class DescendantsByBusinessObjectsQuery extends DefaultQuery {
 	private final static CanonicalBusinessObjectReference[] nullBoRefs = new CanonicalBusinessObjectReference[0];
-	private final Supplier<A, Object[]> bosSupplier;
+	private final Supplier<Object, Object[]> bosSupplier;
 	
-	public DescendantsByBusinessObjectsQuery(final Query<A> prev, final Supplier<A, Object[]> bosSupplier) {
+	@SuppressWarnings("unchecked")
+	public DescendantsByBusinessObjectsQuery(final DefaultQuery prev, final Supplier<?, Object[]> bosSupplier) {
 		super(prev);
-		this.bosSupplier = Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
+		this.bosSupplier = (Supplier<Object, Object[]>) Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
 		CanonicalBusinessObjectReference[] boRefs = (CanonicalBusinessObjectReference[])state.cache.get(this);
 		if(boRefs == null) {
@@ -35,7 +36,7 @@ public class DescendantsByBusinessObjectsQuery<A> extends Query<A> {
 		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, 0);		
 	}
 	
-	void findMatchingDescendants(final Deque<Query<A>> remainingQueries, Queryable container, final QueryExecutionState<A> state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
+	void findMatchingDescendants(final Deque<DefaultQuery> remainingQueries, Queryable container, final QueryExecutionState state, final QueryResult result, final CanonicalBusinessObjectReference[] boRefs, int currentDepth) {
 		if(currentDepth >= boRefs.length) {
 			processResultValue(remainingQueries, container, state, result);
 		} else {		

@@ -43,7 +43,8 @@ public interface Names {
 	public static final String TARGET_BO = "target_bo";
 	public static final String BUSINESS_OBJECTS = "bos";
 	public static final String REFERENCE = "ref";
-	public static final String ROOT_QUERY = "root_query";
 	public static final String SOURCE_BO = "src_bo";
-	public static final String SOURCE_ROOT_QUERY = "src_root_query";	
+	public static final String SOURCE_ROOT_QUERY = "src_root_query";
+	public static final String BUSINESS_OBJECT_CONTEXT = "boc";
+	public static final String BUSINESS_OBJECT_CONTEXTS = "bocs";
 }

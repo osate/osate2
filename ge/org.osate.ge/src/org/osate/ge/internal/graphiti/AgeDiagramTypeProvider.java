@@ -9,7 +9,6 @@
 package org.osate.ge.internal.graphiti;
 
 import java.util.Objects;
-
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
@@ -31,7 +30,6 @@ import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
@@ -56,6 +54,7 @@ import org.osate.ge.internal.services.impl.DefaultShapeService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
+import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
@@ -136,7 +135,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		
 		// Create Public Services
 		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));
-				
+
 		return context;
 	}
 	

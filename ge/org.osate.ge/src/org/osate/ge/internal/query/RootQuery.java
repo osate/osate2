@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-public class RootQuery extends Query<Object> {
+public class RootQuery extends DefaultQuery {
 	private final Supplier<Queryable> supplier;
 	
 	public RootQuery(final Supplier<Queryable> supplier) {
@@ -13,7 +13,7 @@ public class RootQuery extends Query<Object> {
 	}
 
 	@Override
-	void run(final Deque<Query<Object>> remainingQueries, final Queryable ctx, final QueryExecutionState<Object> state, final QueryResult result) {		
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {		
 		final Queryable suppliedObject = supplier.get();
 		if(suppliedObject == null) {
 			result.done = true;

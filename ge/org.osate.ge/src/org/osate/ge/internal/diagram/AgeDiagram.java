@@ -49,7 +49,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 	
 	@Override
-	public Collection<AgeDiagramElement> getDiagramElements() {
+	public Collection<DiagramElement> getDiagramElements() {
 		return Collections.unmodifiableCollection(elements);
 	}
 	
@@ -59,7 +59,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 	
 	@Override
-	public AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return elements.getByRelativeReference(ref);
 	}
 	
@@ -103,12 +103,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	 *
 	 */
 	private static class FieldChange {
-		public final AgeDiagramElement element;
+		public final DiagramElement element;
 		public final DiagramElementField field;
 		public final Object previousValue;
 		public final Object newValue;
 		
-		public FieldChange(final AgeDiagramElement element, final DiagramElementField field, final Object previousValue, final Object newValue) {
+		public FieldChange(final DiagramElement element, final DiagramElementField field, final Object previousValue, final Object newValue) {
 			this.element = element;
 			this.field = field;
 			this.previousValue = previousValue;
@@ -117,28 +117,28 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 	
 	private class AgeDiagramModification implements DiagramModification {		
-		private AgeDiagramElement addedElement;
-		private AgeDiagramElement updatedElement;
+		private DiagramElement addedElement;
+		private DiagramElement updatedElement;
 		private EnumSet<DiagramElementField> updates = EnumSet.noneOf(DiagramElementField.class);
-		private AgeDiagramElement removedElement;
+		private DiagramElement removedElement;
 		private boolean undoable = true;
 		private ArrayList<FieldChange> fieldChanges = new ArrayList<>(); // Used for undoing the modification
 		
 		@Override
-		public void updateBusinessObjectWithSameRelativeReference(final AgeDiagramElement e, final Object bo) {
+		public void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo) {
 			e.setBusinessObject(bo);
 			// Should listeners be notified?
 		}
 		
 		@Override
-		public void setSize(final AgeDiagramElement e, final Dimension value) {
+		public void setSize(final DiagramElement e, final Dimension value) {
 			storeChange(e, DiagramElementField.SIZE, e.getSize(), value);
 			e.setSize(value);
 			afterUpdate(e, DiagramElementField.SIZE);
 		}
 				
 		@Override
-		public void setPosition(final AgeDiagramElement e, final Point value) {
+		public void setPosition(final DiagramElement e, final Point value) {
 			if(!value.equals(e.getPosition())) { 
 				storeChange(e, DiagramElementField.POSITION, e.getPosition(), value);
 				e.setPosition(value);
@@ -155,7 +155,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setGraphic(final AgeDiagramElement e, final Graphic value) {
+		public void setGraphic(final DiagramElement e, final Graphic value) {
 			if(!value.equals(e.getGraphic())) { 
 				storeChange(e, DiagramElementField.GRAPHIC, e.getGraphic(), value);
 				e.setGraphic(value);
@@ -164,7 +164,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setDockArea(final AgeDiagramElement e, final DockArea value) {
+		public void setDockArea(final DiagramElement e, final DockArea value) {
 			if(value != e.getDockArea()) { 
 				storeChange(e, DiagramElementField.DOCK_AREA, e.getDockArea(), value);
 				e.setDockArea(value);
@@ -173,7 +173,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setLabelConfiguration(final AgeDiagramElement e, final AgeLabelConfiguration value) {
+		public void setLabelConfiguration(final DiagramElement e, final AgeLabelConfiguration value) {
 			if(value != e.getLabelConfiguration()) { 
 				storeChange(e, DiagramElementField.LABEL_CONFIGURATION, e.getLabelConfiguration(), value);
 				e.setLabelConfiguration(value);
@@ -182,7 +182,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setConnectionStart(final AgeDiagramElement e, final AgeDiagramElement value) {
+		public void setConnectionStart(final DiagramElement e, final DiagramElement value) {
 			if(value != e.getStartElement()) {
 				storeChange(e, DiagramElementField.CONNECTION_START, e.getStartElement(), value);
 				e.setStartElement(value);
@@ -191,7 +191,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setConnectionEnd(final AgeDiagramElement e, final AgeDiagramElement value) {
+		public void setConnectionEnd(final DiagramElement e, final DiagramElement value) {
 			if(value != e.getEndElement()) {
 				storeChange(e, DiagramElementField.CONNECTION_END, e.getEndElement(), value);
 				e.setEndElement(value);
@@ -201,7 +201,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		
 		
 		@Override
-		public void setBendpoints(final AgeDiagramElement e, final List<Point> value) {
+		public void setBendpoints(final DiagramElement e, final List<Point> value) {
 			if(!value.equals(e.getBendpoints())) {
 				// Make copy of values because lists are not immutable.
 				storeChange(e, DiagramElementField.BENDPOINTS, new ArrayList<>(e.getBendpoints()), value == null ? Collections.emptyList() : new ArrayList<>(value));
@@ -211,7 +211,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}		
 		
 		// Notifies listeners and manages change tracking state after a field has been updated.
-		private void afterUpdate(final AgeDiagramElement e, final DiagramElementField c) {
+		private void afterUpdate(final DiagramElement e, final DiagramElementField c) {
 			// Notify listeners of the previous modification
 			if((addedElement != null && addedElement != e) ||
 				(updatedElement != null && updatedElement != e) ||
@@ -227,7 +227,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void removeElement(final AgeDiagramElement e) {
+		public void removeElement(final DiagramElement e) {
 			Objects.requireNonNull(e, "e must not be null");
 			
 			// Notify listeners of the previous modification
@@ -241,7 +241,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void addElement(final AgeDiagramElement e) {
+		public void addElement(final DiagramElement e) {
 			// Notify listeners of the previous modification
 			if(addedElement != null || updatedElement != null || removedElement != null) { 
 				notifyListeners();
@@ -348,18 +348,18 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 
 		@SuppressWarnings("unchecked")
-		private void setValue(final AgeDiagramModification m, final AgeDiagramElement element, final DiagramElementField field, final Object value) {
+		private void setValue(final AgeDiagramModification m, final DiagramElement element, final DiagramElementField field, final Object value) {
 			switch(field) {
 			case BENDPOINTS:
 				m.setBendpoints(element, (List<Point>)value);
 				break;
 				
 			case CONNECTION_END:
-				m.setConnectionEnd(element, (AgeDiagramElement)value);
+				m.setConnectionEnd(element, (DiagramElement)value);
 				break;
 				
 			case CONNECTION_START:
-				m.setConnectionEnd(element, (AgeDiagramElement)value);
+				m.setConnectionEnd(element, (DiagramElement)value);
 				break;
 				
 			case DOCK_AREA:
@@ -387,21 +387,21 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		/**
 		 * Stores the current value so that changes can be undone/redone
 		 */
-		private void storeChange(final AgeDiagramElement element, final DiagramElementField field, final Object currentValue, final Object newValue) {
+		private void storeChange(final DiagramElement element, final DiagramElementField field, final Object currentValue, final Object newValue) {
 			fieldChanges.add(new FieldChange(element, field, currentValue, newValue));
 		}
 	}
 	
-	private DockArea calculateDockArea(final AgeDiagramElement e) {
+	private DockArea calculateDockArea(final DiagramElement e) {
 		return determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight()).getDockArea();
 	}
 	
 	private static DockingPosition determineDockingPosition(final DiagramNode container, final int x, final int y, final int width, final int height) {
-		if(!(container instanceof AgeDiagramElement)) {
+		if(!(container instanceof DiagramElement)) {
 			return DockingPosition.ANY;
 		}		
 		
-		final AgeDiagramElement containerElement = (AgeDiagramElement)container;
+		final DiagramElement containerElement = (DiagramElement)container;
 		
 		final int distanceToLeft = Math.max(0, x);
 		final int distanceToRight = containerElement.getWidth() - Math.min(x + width, containerElement.getWidth());
@@ -422,8 +422,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 
 	@Override
 	public Collection<Queryable> getChildren() {
-		// TODO Auto-generated method stub
-		return null;
+		return Collections.unmodifiableCollection(elements);
 	}
 
 	@Override

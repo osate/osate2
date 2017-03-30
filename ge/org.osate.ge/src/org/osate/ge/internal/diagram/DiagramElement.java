@@ -6,17 +6,18 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.BusinessObjectContext;
-import org.osate.ge.internal.DiagramElement;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
-public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementContainer, DiagramElement, BusinessObjectContext {	
+public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {	
 	private final DiagramNode container;
 
 	private Object bo;
+	private final Object boHandler;
 	private final RelativeBusinessObjectReference boRelReference;
 	private final CanonicalBusinessObjectReference boCanonicalReference; // Use to determine whether two elements refer to the same business object.
 	private final DiagramElementCollection children = new DiagramElementCollection();
@@ -30,17 +31,19 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 	private AgeLabelConfiguration labelConfiguration;
 	
 	// Connection Specific
-	private AgeDiagramElement connectionStartElement;
-	private AgeDiagramElement connectionEndElement;
+	private DiagramElement connectionStartElement;
+	private DiagramElement connectionEndElement;
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
 
-	public AgeDiagramElement(final DiagramNode container,
+	public DiagramElement(final DiagramNode container,
 			final Object bo, 
+			final Object boHandler,
 			final RelativeBusinessObjectReference boRelReference,
 			final CanonicalBusinessObjectReference boCanonicalReference,
 			final String name) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
+		this.boHandler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
 		this.boCanonicalReference = Objects.requireNonNull(boCanonicalReference, "boCanonicalReference must not be null");
 		this.name = name;
@@ -56,7 +59,7 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 	}
 	
 	@Override
-	public final Collection<AgeDiagramElement> getDiagramElements() {
+	public final Collection<DiagramElement> getDiagramElements() {
 		return Collections.unmodifiableCollection(children);
 	}
 	
@@ -70,12 +73,16 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 	}
 	
 	@Override
-	public final AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+	public final DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return children.getByRelativeReference(ref);
 	}
 	
 	public final Object getBusinessObject() {
 		return bo;
+	}
+	
+	public final Object getBusinessObjectHandler() {
+		return boHandler;
 	}
 	
 	final void setBusinessObject(final Object value) {
@@ -192,19 +199,19 @@ public class AgeDiagramElement implements DiagramNode, ModifiableDiagramElementC
 		this.labelConfiguration = value;
 	}
 
-	public final AgeDiagramElement getStartElement() {
+	public final DiagramElement getStartElement() {
 		return connectionStartElement;
 	}
 	
-	final void setStartElement(final AgeDiagramElement value) {
+	final void setStartElement(final DiagramElement value) {
 		this.connectionStartElement = value;
 	}
 	
-	public final AgeDiagramElement getEndElement() {
+	public final DiagramElement getEndElement() {
 		return connectionEndElement;
 	}
 	
-	final void setEndElement(final AgeDiagramElement value) {
+	final void setEndElement(final DiagramElement value) {
 		this.connectionEndElement = value;
 	}
 	

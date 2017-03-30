@@ -18,21 +18,20 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.ModeGraphicBuilder;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class ModeHandler {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1).first());
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1).first());
 	private Graphic initialModeGraphic = ModeGraphicBuilder.create().initialMode().lineWidth(2).build();
 	private Graphic modeGraphic = ModeGraphicBuilder.create().lineWidth(2).build();	
 	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
@@ -90,8 +89,8 @@ public class ModeHandler {
 	
 	@CanRename
 	@CanDelete
-    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, boc);
 		return mode.getContainingClassifier() == containerBo;
     }
     

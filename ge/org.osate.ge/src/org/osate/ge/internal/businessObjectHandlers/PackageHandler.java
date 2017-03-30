@@ -31,9 +31,9 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.GraphicalEditorService;
+import org.osate.ge.services.QueryService;
 
 public class PackageHandler {
 	@IsApplicable

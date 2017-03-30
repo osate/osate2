@@ -11,6 +11,11 @@ public class DiagramConfigurationBuilder {
 		this.rootBoReference = config.getRootBoReference();
 	}
 	
+	public DiagramConfigurationBuilder setRootBoReference(final CanonicalBusinessObjectReference value) {
+		this.rootBoReference = value;
+		return this;
+	}
+	
 	public DiagramConfiguration build() {
 		return new DiagramConfiguration(rootBoReference);
 	}

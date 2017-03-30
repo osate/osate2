@@ -25,7 +25,7 @@ public class QueryRunner {
 	 * @param arg
 	 * @return
 	 */
-	public final <A> Queryable getFirstResult(final Query<A> query, final A arg) {
+	public final Queryable getFirstResult(final DefaultQuery query, final Object arg) {
 		final List<Queryable> results = getResults(query, arg);
 		if(results.size() == 0) {
 			return null;
@@ -34,16 +34,16 @@ public class QueryRunner {
 		return results.get(0);
 	}
 	
-	public final <A> List<Queryable> getResults(final Query<A> query, final A arg) {
+	public final List<Queryable> getResults(final DefaultQuery query, final Object arg) {
 		Objects.requireNonNull(query, "query must not be null");
 		
-		final Deque<Query<A>> queryStack = new ArrayDeque<>();
-		for(Query<A> q = query; q != null; q = q.getPrev()) {
+		final Deque<DefaultQuery> queryStack = new ArrayDeque<>();
+		for(DefaultQuery q = query; q != null; q = q.getPrev()) {
 			queryStack.push(q);
 		}
 
-		final Query<A> initialQuery = queryStack.pop();
-		final QueryExecutionState<A> state = new QueryExecutionState<>(this, propertyService, bor, refBuilder, arg);
+		final DefaultQuery initialQuery = queryStack.pop();
+		final QueryExecutionState state = new QueryExecutionState(this, propertyService, bor, refBuilder, arg);
 		final QueryResult result = new QueryResult();
 		initialQuery.run(queryStack, null, state, result);
 		

@@ -39,7 +39,7 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
@@ -48,18 +48,18 @@ import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class SubprogramCallHandler {
-	private static final StandaloneDiagramElementQuery behavioredImplementationQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehavioredImplementation).first());
+	private static final StandaloneQuery behavioredImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehavioredImplementation).first());
 	private Graphic graphic = EllipseBuilder.create().dashed().build();
 	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
 		
@@ -115,12 +115,12 @@ public class SubprogramCallHandler {
 	}
 
 	@CanRename
-    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		return call.getContainingClassifier() == getBehavioredImplementation(diagramElement, queryService);
+    public boolean canRename(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		return call.getContainingClassifier() == getBehavioredImplementation(boc, queryService);
     }
 	
-	private BehavioredImplementation getBehavioredImplementation(final DiagramElement callDiagramElement, final QueryService queryService) {
-		return (BehavioredImplementation)queryService.getFirstBusinessObject(behavioredImplementationQuery, callDiagramElement);
+	private BehavioredImplementation getBehavioredImplementation(final BusinessObjectContext callBoc, final QueryService queryService) {
+		return (BehavioredImplementation)queryService.getFirstBusinessObject(behavioredImplementationQuery, callBoc);
 	}
 	
 	@ValidateName
@@ -134,16 +134,17 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement, final QueryService queryService) {
-		return cs.getContainingClassifier() == getBehavioredImplementation(targetDiagramElement, queryService);
+	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
+			final QueryService queryService) {
+		return cs.getContainingClassifier() == getBehavioredImplementation(targetBoc, queryService);
 	}
 	
 	@Create
 	public SubprogramCall createBusinessObject(@Named(Names.OWNER_BO) SubprogramCallSequence cs, 
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement,
+			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final NamingService namingService,
 			final QueryService queryService) {
-		final BehavioredImplementation bi = getBehavioredImplementation(targetDiagramElement, queryService);
+		final BehavioredImplementation bi = getBehavioredImplementation(targetBoc, queryService);
 		if(bi == null) {
 			throw new RuntimeException("Unexpected case. Unable to find BehavioredImplementation");
 		}
@@ -172,7 +173,7 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanDelete
-    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
+    public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
 		if(call.eContainer() instanceof SubprogramCallSequence) {
 			final SubprogramCallSequence cs = (SubprogramCallSequence)call.eContainer();
 			
@@ -182,7 +183,7 @@ public class SubprogramCallHandler {
 			}
 					
 			// ensure the that call sequence is owned by the component implementation depicted by the shape
-			return call.getContainingClassifier() == getBehavioredImplementation(diagramElement, queryService);				
+			return call.getContainingClassifier() == getBehavioredImplementation(boc, queryService);				
 		}
 		
 		return false;

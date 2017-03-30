@@ -8,20 +8,23 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.di.CreateSourceQuery;
+import org.osate.ge.di.GetDestination;
 import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.decorations.Decoration;
 import org.osate.ge.internal.decorations.DelayedDecorationBuilder;
 import org.osate.ge.internal.decorations.DirectionDecorationBuilder;
 import org.osate.ge.internal.decorations.ImmediateDecorationBuilder;
+import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.GetDecorations;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.Query;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -30,6 +33,8 @@ public class ConnectionReferenceHandler {
 	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
 	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
 	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((ConnectionReference cr) -> cr.getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((ConnectionReference cr) -> cr.getDestination()));
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
@@ -98,19 +103,21 @@ public class ConnectionReferenceHandler {
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<?> createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<ConnectionReference> srcRootQuery, 
-			final @Named(Names.DESTINATION_ROOT_QUERY) DiagramElementQuery<ConnectionReference> dstRootQuery) {
+	public Query createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery, 
+			final @Named(Names.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		
-		return srcRootQuery.ancestors().filterByBusinessObject((cr) -> cr.getContainingComponentInstance());
+		return srcRootQuery.ancestors().filterByBusinessObject((ConnectionReference cr) -> cr.getContainingComponentInstance());
 	}
 	
-	@CreateSourceQuery
-	public DiagramElementQuery<ConnectionReference> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<ConnectionReference> rootQuery) {
-		return rootQuery.descendants().filterByBusinessObject((cr) -> cr.getSource());
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
-	@CreateDestinationQuery
-	public DiagramElementQuery<ConnectionReference> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<ConnectionReference> rootQuery) {
-		return rootQuery.descendants().filterByBusinessObject((cr) -> cr.getDestination());
+	@GetDestination
+	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 }

@@ -2,15 +2,14 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-class DescendantsQuery<A> extends Query<A> {
-	public DescendantsQuery(final Query<A> prev) {
+class DescendantsQuery extends DefaultQuery {
+	public DescendantsQuery(final DefaultQuery prev) {
 		super(prev);
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
-		final Queryable container = ctx;
-		for(final Queryable child : container.getChildren()) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
+		for(final Queryable child : ctx.getChildren()) {
 			processResultValue(remainingQueries, child, state, result);
 			if(result.done) {
 				return;

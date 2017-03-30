@@ -11,4 +11,5 @@ public interface BusinessObjectTreeNode {
 	CanonicalBusinessObjectReference getCanonicalReference();
 	Collection<BusinessObjectTreeNode> getChildren();
 	String getName(); // Get name for the business object's name label
+	Object getBusinessObjectHandler();
 }

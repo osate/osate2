@@ -1,34 +1,12 @@
 package org.osate.ge.internal.graphiti.features;
 
 import org.eclipse.graphiti.features.context.IContext;
-import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 public class AgeFeatureUtil {
 	private static String PROPERTY_MODIFICATION = "org.osate.ge.mod";
-	
-	public static AgeDiagramElement getDiagramElement(PictogramElement pe, final GraphitiAgeDiagram graphitiAgeDiagram) {
-		DiagramNode result = graphitiAgeDiagram.getDiagramNode(pe);
-		while(result == null ) {
-			if(pe instanceof ConnectionDecorator) {
-				pe = ((ConnectionDecorator) pe).getConnection();
-			} else if(pe instanceof Shape) {
-				pe = ((Shape) pe).getContainer();
-			} else {
-				break;
-			}
-			
-			result = graphitiAgeDiagram.getDiagramNode(pe);
-		}
-		
-		return result instanceof AgeDiagramElement ? (AgeDiagramElement)result : null;
-	}
 	
 	/**
 	 * Stores a modification in a Graphiti context to allow for undo/redo

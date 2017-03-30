@@ -30,7 +30,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.ui.editor;
 
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
@@ -59,13 +58,8 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	
 	@Override
 	public void selectDiagramElementsForBusinessObject(final Object bo) {
-		final PictogramElement pe = getDiagramTypeProvider().getFeatureProvider().getPictogramElementForBusinessObject(bo);
-		
-		// Select and reveal the pictogram element
-		if(pe != null) {
-			getDiagramBehavior().setPictogramElementForSelection(pe);					
-			getDiagramBehavior().selectBufferedPictogramElements();
-		}
+		// Select all pictogram elements associated with the business object
+		selectPictogramElements(getDiagramTypeProvider().getFeatureProvider().getAllPictogramElementsForBusinessObject(bo));
 	}
 	
 	@Override

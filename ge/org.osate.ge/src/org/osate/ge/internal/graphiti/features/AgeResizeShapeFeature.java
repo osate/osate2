@@ -12,7 +12,7 @@ import org.eclipse.graphiti.features.impl.DefaultResizeShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
@@ -40,11 +40,11 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements 
 	@Override
 	public boolean canResizeShape(final IResizeShapeContext ctx) {
 		final DiagramNode diagramNode = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramNode(ctx.getShape());
-		if(!(diagramNode instanceof AgeDiagramElement)) {
+		if(!(diagramNode instanceof DiagramElement)) {
 			return false;
 		}
 		
-		final AgeDiagramElement element = (AgeDiagramElement)diagramNode;
+		final DiagramElement element = (DiagramElement)diagramNode;
 		if(!(element.getGraphic() instanceof AgeShape)) {
 			return false;
 		}
@@ -74,7 +74,7 @@ public class AgeResizeShapeFeature extends DefaultResizeShapeFeature implements 
 	@Override
 	public void resizeShape(final IResizeShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final AgeDiagramElement diagramElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(context.getShape());
+		final DiagramElement diagramElement = (DiagramElement)graphitiAgeDiagram.getDiagramNode(context.getShape());
 		graphitiAgeDiagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(DiagramModification m) {

@@ -233,7 +233,8 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 				    			for(final Entry<Object, PictogramElement[]> dirtyLinkagesEntry : dirtyLinkagesMap.entrySet()) {
 				    				final Object bo = dirtyLinkagesEntry.getKey();
 				    				for(final PictogramElement pe : dirtyLinkagesEntry.getValue()) {
-				    					fp.link(pe, bo);
+				    					// TODO: Migrate! Feature provider link() is no longer supported. Linkages are assigned when building the AgeDiagram
+				    					//fp.link(pe, bo);
 				    				}
 				    			}
 							}

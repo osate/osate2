@@ -10,10 +10,12 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.Objects;
 
+import org.eclipse.core.resources.IProject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.services.GraphitiService;
+import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 
 public class DefaultGraphitiService implements GraphitiService {
 	private final IDiagramTypeProvider dtp;
@@ -37,5 +39,10 @@ public class DefaultGraphitiService implements GraphitiService {
 	@Override
 	public IFeatureProvider getFeatureProvider() {
 		return fp;
+	}
+
+	@Override
+	public IProject getProject() {
+		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getProject();
 	}
 }

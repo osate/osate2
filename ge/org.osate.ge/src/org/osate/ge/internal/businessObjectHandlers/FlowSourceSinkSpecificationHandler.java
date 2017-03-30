@@ -13,24 +13,25 @@ import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
-import org.osate.ge.internal.query.Query;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.Query;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler {
 	private static final Graphic flowSourceGraphic = FlowIndicatorBuilder.create().
@@ -41,6 +42,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjects((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first());
 	
 	// Basics
 	@IsApplicable
@@ -62,9 +64,15 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		}
 	}
 	
-	@CreateSourceQuery
-	public DiagramElementQuery<FlowSpecification> createSourceQuery(final @Named(Names.ROOT_QUERY) Query<FlowSpecification> rootQuery) {
-		return rootQuery.descendantsByBusinessObjects((fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first();
+	@CreateParentQuery
+	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery) {
+		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
+	}
+	
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
 	// Creating
@@ -82,7 +90,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) AgeDiagramElement featureDiagramElement,
+			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) DiagramElement featureDiagramElement,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final QueryService queryService) {
 		
@@ -98,15 +106,15 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}	
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement,
+	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService) {
-		return getComponentType(targetDiagramElement, queryService);
+		return getComponentType(targetBoc, queryService);
 	}	
 
 	@Create
 	public FlowSpecification createFlowSpecification(final @Named(Names.OWNER_BO) ComponentType ct,
 			final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement featureDiagramElement,
+			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind, 
 			final NamingService namingService,
 			final QueryService queryService) {
@@ -124,7 +132,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			throw new RuntimeException("Unexpected flow kind: " + flowKind);
 		}     			
 		flowEnd.setFeature(feature);
-		flowEnd.setContext(getContext(featureDiagramElement, queryService));
+		flowEnd.setContext(getContext(featureBoc, queryService));
 		
 		// Clear the no flows flag
 		ct.setNoFlows(false);

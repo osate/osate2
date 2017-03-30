@@ -9,18 +9,17 @@
 package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
-
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.di.CreateSourceQuery;
+import org.osate.ge.di.GetDestination;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
@@ -28,7 +27,8 @@ import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 import org.osate.ge.di.Names;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
@@ -38,6 +38,8 @@ public class ErrorBehaviorTransitionHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().
 			sourceTerminator(ArrowBuilder.create().open().build()).
 			destinationTerminator(ArrowBuilder.create().filled().build()).build();
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getTarget()));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorBehaviorStateMachine stateMachine) {
@@ -58,21 +60,18 @@ public class ErrorBehaviorTransitionHandler {
 		return graphic;
 	}
 	
-	@CreateParentQuery
-	public DiagramElementQuery<?> createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<?> srcRootQuery) {
-		return srcRootQuery.ancestor(1);
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
-	@CreateSourceQuery
-	public DiagramElementQuery<?> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<?> rootQuery) {
-		return rootQuery.children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getSource());
+	@GetDestination
+	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
-	
-	@CreateDestinationQuery
-	public DiagramElementQuery<?> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<?> rootQuery) {
-		return rootQuery.children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getTarget());
-	}
-	
+		
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition bo) {
 		return bo.getName();

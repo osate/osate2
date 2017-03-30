@@ -47,7 +47,7 @@ public class DiagramLayoutUtil {
 		// Convert the diagram shapes to shapes used by the layout algorithm
 		final List<org.osate.ge.internal.layout.Shape> rootLayoutShapes = new ArrayList<org.osate.ge.internal.layout.Shape>();
 		final Map<Object, Object> shapeMap = new HashMap<Object, Object>(); // Map that contains a mapping from layout/diagram element shapes to the other one.
-		for(final AgeDiagramElement diagramElement : diagram.getDiagramElements()) {
+		for(final DiagramElement diagramElement : diagram.getDiagramElements()) {
 			if(diagramElement.getGraphic() instanceof AgeShape) {
 				final org.osate.ge.internal.layout.Shape newLayoutShape = createLayoutShape(diagramElement, shapeMap, null, fullLayout);
 				if(newLayoutShape != null) {
@@ -63,7 +63,7 @@ public class DiagramLayoutUtil {
 
 		// Create layout connections
 		final List<org.osate.ge.internal.layout.Connection> layoutConnections = new ArrayList<org.osate.ge.internal.layout.Connection>();
-		for(final AgeDiagramElement diagramElement : diagram.getDiagramElements()) {
+		for(final DiagramElement diagramElement : diagram.getDiagramElements()) {
 			createLayoutConnections(diagramElement, shapeMap, fullLayout, layoutConnections);
 		}
 	
@@ -73,7 +73,7 @@ public class DiagramLayoutUtil {
 
 		// Remove all bendpoints
 		if(fullLayout) {
-			for(final AgeDiagramElement diagramElement : diagram.getDiagramElements()) {
+			for(final DiagramElement diagramElement : diagram.getDiagramElements()) {
 				removeAllBendpoints(mod, diagramElement);
 			}
 		}
@@ -86,7 +86,7 @@ public class DiagramLayoutUtil {
 		return true;
 	}
 	
-	private static void createLayoutConnections(final AgeDiagramElement diagramElement, 
+	private static void createLayoutConnections(final DiagramElement diagramElement, 
 			final Map<Object, Object> shapeMap, 
 			final boolean fullLayout,
 			final List<org.osate.ge.internal.layout.Connection> layoutConnections) {
@@ -98,22 +98,22 @@ public class DiagramLayoutUtil {
 			}			
 		}
 		
-		for(final AgeDiagramElement child : diagramElement.getDiagramElements()) {
+		for(final DiagramElement child : diagramElement.getDiagramElements()) {
 			createLayoutConnections(child, shapeMap, fullLayout, layoutConnections);
 		}
 	}
 	
-	private static void removeAllBendpoints(final DiagramModification mod, final AgeDiagramElement e) {
+	private static void removeAllBendpoints(final DiagramModification mod, final DiagramElement e) {
 		if(e.getGraphic() instanceof AgeConnection) {
 			mod.setBendpoints(e, Collections.emptyList());
 		}
 		
-		for(final AgeDiagramElement child : e.getDiagramElements()) {
+		for(final DiagramElement child : e.getDiagramElements()) {
 			removeAllBendpoints(mod, child);
 		}	
 	}
 	
-	private static org.osate.ge.internal.layout.Shape createLayoutShape(final AgeDiagramElement shapeElement, Map<Object, Object> shapeMap, final org.osate.ge.internal.layout.Shape parentLayoutShape, final boolean fullLayout) {
+	private static org.osate.ge.internal.layout.Shape createLayoutShape(final DiagramElement shapeElement, Map<Object, Object> shapeMap, final org.osate.ge.internal.layout.Shape parentLayoutShape, final boolean fullLayout) {
 		// Determine whether the shape may be moved 			
 		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
 		final boolean locked;
@@ -143,7 +143,7 @@ public class DiagramLayoutUtil {
 		shapeMap.put(shapeElement, newLayoutShape);
 
 		// Create layout shape for the diagram shape's children
-		for(final AgeDiagramElement child : shapeElement.getDiagramElements()) {
+		for(final DiagramElement child : shapeElement.getDiagramElements()) {
 			if(child.getGraphic() instanceof AgeShape) {
 				createLayoutShape(child, shapeMap, newLayoutShape, fullLayout);
 			}
@@ -163,7 +163,7 @@ public class DiagramLayoutUtil {
 	}
 	
 	private static void updateShape(final DiagramModification mod, final org.osate.ge.internal.layout.Shape layoutShape, final Map<Object, Object> shapeMap) {
-		final AgeDiagramElement diagramElement = (AgeDiagramElement)shapeMap.get(layoutShape);
+		final DiagramElement diagramElement = (DiagramElement)shapeMap.get(layoutShape);
 		if(layoutShape.isUnlocked()) {
 			mod.setPosition(diagramElement, new Point(layoutShape.getX(), layoutShape.getY()));
 			if(layoutShape.isResizable()) {

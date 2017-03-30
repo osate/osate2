@@ -23,7 +23,7 @@ import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
-import org.osate.ge.internal.di.BuildRelativeReference;
+import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;

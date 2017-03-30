@@ -35,17 +35,16 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 @ModifiesBusinessObjects
 public class SetFeatureClassifierCommand {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 	private static Map<EClass, FeatureClassifierSetterInfo> featureTypeToClassifierSetterMap = new HashMap<EClass, FeatureClassifierSetterInfo>();
 	
 	static {
@@ -83,9 +82,9 @@ public class SetFeatureClassifierCommand {
 	
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final NamedElement feature, 
-			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		return feature.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, diagramElement) && 
+		return feature.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, boc) && 
 				featureTypeToClassifierSetterMap.containsKey(feature.eClass());		
 	}
 	

@@ -2,7 +2,7 @@ package org.osate.ge.internal.diagram.updating;
 
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
 /**
@@ -15,24 +15,24 @@ public interface DiagramElementInfoProvider {
 	 * Provides the graphic that should be used for a business object. 
 	 * The specified diagram element may not be fully initialized.
 	 * @param element
-	 * @return
+	 * @return must not be null.
 	 */
-	Graphic getGraphic(AgeDiagramElement element);
+	Graphic getGraphic(DiagramElement element);
 	
 	/**
 	 * The specified diagram element may not be fully initialized.
 	 * @param element
 	 * @return the default docking position. Must not be null.
 	 */
-	DockingPosition getDefaultDockingPosition(AgeDiagramElement element);
+	DockingPosition getDefaultDockingPosition(DiagramElement element);
 	
 	/**
 	 * 
 	 * @param element
-	 * @return may return null.
+	 * @return must not return null.
 	 */
-	AgeLabelConfiguration getDefaultLabelConfiguration(AgeDiagramElement element);
+	AgeLabelConfiguration getDefaultLabelConfiguration(DiagramElement element);
 	
-	AgeDiagramElement getConnectionStart(final AgeDiagramElement e);
-	AgeDiagramElement getConnectionEnd(final AgeDiagramElement e);
+	DiagramElement getConnectionStart(DiagramElement element);
+	DiagramElement getConnectionEnd(DiagramElement element);
 }

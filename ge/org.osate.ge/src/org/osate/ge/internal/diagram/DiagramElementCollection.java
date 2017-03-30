@@ -11,12 +11,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * A collection of diagram elements. A diagram element may only be added to the collection once.
  *
  */
-class DiagramElementCollection extends AbstractCollection<AgeDiagramElement> {
-	private Map<RelativeBusinessObjectReference, AgeDiagramElement> relativeReferenceToDiagramElementMap; // Initialized lazily.
+class DiagramElementCollection extends AbstractCollection<DiagramElement> {
+	private Map<RelativeBusinessObjectReference, DiagramElement> relativeReferenceToDiagramElementMap; // Initialized lazily.
 	
 	// Internal. Only used by the DiagramUpdater.
 	@Override
-	public boolean add(final AgeDiagramElement e) {
+	public boolean add(final DiagramElement e) {
 		if(relativeReferenceToDiagramElementMap == null) {
 			relativeReferenceToDiagramElementMap = new ConcurrentHashMap<>(16, 0.75f, 1);
 		}
@@ -26,10 +26,10 @@ class DiagramElementCollection extends AbstractCollection<AgeDiagramElement> {
 	
 	@Override
 	public boolean remove(final Object o) {
-		return remove((AgeDiagramElement)o);
+		return remove((DiagramElement)o);
 	}
 	
-	public boolean remove(final AgeDiagramElement e) {
+	public boolean remove(final DiagramElement e) {
 		if(relativeReferenceToDiagramElementMap == null) {
 			return false;
 		}
@@ -46,12 +46,12 @@ class DiagramElementCollection extends AbstractCollection<AgeDiagramElement> {
 	 * Iterator does not allow modification. 
 	 */
 	@Override
-	public Iterator<AgeDiagramElement> iterator() {
-		final Collection<AgeDiagramElement> c = relativeReferenceToDiagramElementMap == null ? Collections.emptyList() : relativeReferenceToDiagramElementMap.values(); 
+	public Iterator<DiagramElement> iterator() {
+		final Collection<DiagramElement> c = relativeReferenceToDiagramElementMap == null ? Collections.emptyList() : relativeReferenceToDiagramElementMap.values(); 
 		return c.iterator();
 	}
 	
-	public AgeDiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return relativeReferenceToDiagramElementMap == null ? null : relativeReferenceToDiagramElementMap.get(ref);
 	}
 	
@@ -63,7 +63,7 @@ class DiagramElementCollection extends AbstractCollection<AgeDiagramElement> {
 	}
 	
 	void toString(final StringBuilder sb, final String indention) {
-		for(final AgeDiagramElement e : this) {
+		for(final DiagramElement e : this) {
 			e.toString(sb, indention);
 		}
 	}

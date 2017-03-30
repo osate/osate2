@@ -17,6 +17,7 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.Element;
 import org.osate.ge.di.BuildReference;
+import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
@@ -39,6 +40,25 @@ public class ErrorModelReferenceHandler {
 	private final static String TYPE_ERROR_TYPE = "emv2.et";
 	private final static String TYPE_ERROR_TYPE_EXT = "emv2.ete";
 	
+	@BuildRelativeReference 
+	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
+		if(bo instanceof ErrorBehaviorStateMachine) {
+			return new String[] {TYPE_BEHAVIOR_STATE_MACHINE, ((ErrorBehaviorStateMachine)bo).getName()};				
+		} else if(bo instanceof ErrorBehaviorEvent) {
+			return new String[] {TYPE_BEHAVIOR_EVENT, ((ErrorBehaviorEvent)bo).getName()};				
+		} else if(bo instanceof ErrorBehaviorState) {
+			return new String[] {TYPE_BEHAVIOR_STATE, ((ErrorBehaviorState)bo).getName()};				
+		} else if(bo instanceof ErrorBehaviorTransition) {
+			return new String[] {TYPE_BEHAVIOR_TRANSITION, ((ErrorBehaviorTransition)bo).getName()};				
+		} else if(bo instanceof ErrorType) {
+			return new String[] {TYPE_ERROR_TYPE, ((ErrorType)bo).getName()};				
+		} else if(bo instanceof ErrorTypeExtension) {
+			return new String[] {TYPE_ERROR_TYPE_EXT };
+		}
+		
+		return null;
+	}
+	
 	@BuildReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
 		if(bo instanceof Element) {
@@ -53,10 +73,10 @@ public class ErrorModelReferenceHandler {
 					return new String[] {TYPE_BEHAVIOR_EVENT, refBuilder.getReference(typedBo.eContainer()), typedBo.getName().toLowerCase()};				
 				} else if(bo instanceof ErrorBehaviorState) {
 					final ErrorBehaviorState typedBo = (ErrorBehaviorState)bo;
-					return new String[] {TYPE_BEHAVIOR_STATE, refBuilder.getReference(typedBo.eContainer()), ((ErrorBehaviorState)bo).getName().toLowerCase()};				
+					return new String[] {TYPE_BEHAVIOR_STATE, refBuilder.getReference(typedBo.eContainer()), typedBo.getName().toLowerCase()};				
 				} else if(bo instanceof ErrorBehaviorTransition) {
 					final ErrorBehaviorTransition typedBo = (ErrorBehaviorTransition)bo;
-					return new String[] {TYPE_BEHAVIOR_TRANSITION, refBuilder.getReference(typedBo.eContainer()), ((ErrorBehaviorTransition)bo).getName().toLowerCase()};				
+					return new String[] {TYPE_BEHAVIOR_TRANSITION, refBuilder.getReference(typedBo.eContainer()), typedBo.getName().toLowerCase()};				
 				} else if(bo instanceof ErrorType) {
 					return new String[] {TYPE_ERROR_TYPE, refBuilder.getReference(pkg), ((ErrorType)bo).getName().toLowerCase()};				
 				}  

@@ -30,10 +30,10 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.query.Query;
+import org.osate.ge.internal.query.DefaultQuery;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.query.RootQuery;
@@ -50,8 +50,8 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 	private final PropertyService propertyService;
 	private final BusinessObjectResolutionService bor;
 	private DiagramNode rootDiagramElement;
-	private final Query<Object> rootDiagramElementQuery = new RootQuery(() -> this.rootDiagramElement);
-	private final Query<Object> supportedChildrenQuery = rootDiagramElementQuery.children().filter((fa) -> isElementSupportedNamedElement(fa.getBusinessObject()));
+	//private final DefaultQuery<Object> rootDiagramElementQuery = new RootQuery(() -> this.rootDiagramElement);
+	//private final DefaultQuery<Object> supportedChildrenQuery = rootDiagramElementQuery.children().filter((fa) -> isElementSupportedNamedElement(fa.getBusinessObject()));
 	private final QueryRunner queryRunner;
 	
 	private final Cache cache = new Cache() {
@@ -75,13 +75,13 @@ public class DefaultAadlPropertyService implements AadlPropertyService {
 		cachingService.registerCache(cache);
 	}
 	
-	private final List<DiagramNode> getSupportedChildren(final AgeDiagramElement e) {
+	private final List<DiagramNode> getSupportedChildren(final DiagramElement e) {
 		rootDiagramElement = e;
 		return null; //queryRunner.getResults(supportedChildrenQuery, null);		
 	}
 	
 	@Override
-	public PropertyResult getValue(final DiagramElement diagramElement, final String propertySetName, final String propertyName) {
+	public PropertyResult getValue(final BusinessObjectContext boc, final String propertySetName, final String propertyName) {
 		// TODO: For testing.. Process the diagram.. Need to lazy process
 		//processDiagramPropertyAssociations(dtp.getDiagram());
 		

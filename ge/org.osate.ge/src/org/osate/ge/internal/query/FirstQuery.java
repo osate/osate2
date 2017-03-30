@@ -2,15 +2,15 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 
-public class FirstQuery<A> extends Query<A> {
+public class FirstQuery extends DefaultQuery {
 	private int maximumNumberOfResults;
 	
-	public FirstQuery(final Query<A> prev, int count) {
+	public FirstQuery(final DefaultQuery prev, int count) {
 		super(prev);
 		this.maximumNumberOfResults = count;
 	}
 	
-	public FirstQuery(final Query<A> prev) {
+	public FirstQuery(final DefaultQuery prev) {
 		super(prev);
 		this.maximumNumberOfResults = 1;
 	}
@@ -20,7 +20,7 @@ public class FirstQuery<A> extends Query<A> {
 	}
 	
 	@Override
-	void run(final Deque<Query<A>> remainingQueries, final Queryable ctx, final QueryExecutionState<A> state, final QueryResult result) {
+	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		final Integer currentCountInteger = (Integer)state.cache.get(this);
 		int currentCount;
 		if(currentCountInteger == null) {

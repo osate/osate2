@@ -1,9 +1,9 @@
 package org.osate.ge.internal.diagram;
 
 public class ElementRemovedEvent {
-	public final AgeDiagramElement element;
+	public final DiagramElement element;
 	
-	public ElementRemovedEvent(final AgeDiagramElement element) {
+	public ElementRemovedEvent(final DiagramElement element) {
 		this.element = element;
 	}
 }

@@ -17,14 +17,13 @@ import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetDestination;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -32,22 +31,25 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.Query;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 public class ModeTransitionHandler {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1).first());
-	private static final StandaloneDiagramElementQuery componentClassifierQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier).first());
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1).first());
+	private static final StandaloneQuery componentClassifierQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier).first());
 	private static final Graphic graphic = ConnectionBuilder.create().curved().destinationTerminator(ArrowBuilder.create().small().build()).build();
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((ModeTransition mt) -> mt.getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((ModeTransition mt) -> mt.getDestination()));
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt) {
@@ -72,46 +74,48 @@ public class ModeTransitionHandler {
 	}
 	
 	@CreateParentQuery
-	public DiagramElementQuery<ModeTransition> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<ModeTransition> srcRootQuery) {
+	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		// Find the subcomponent or component classifier that owns the mode transition connection.
 		return srcRootQuery.ancestor(1).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier || fa.getBusinessObject() instanceof Subcomponent).first();
 	}
 	
-	@CreateSourceQuery
-	public DiagramElementQuery<ModeTransition> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<ModeTransition> rootQuery) {
-		return rootQuery.descendants().filterByBusinessObject((mt) -> mt.getSource());
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
-	@CreateDestinationQuery
-	public DiagramElementQuery<ModeTransition> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<ModeTransition> rootQuery) {
-		return rootQuery.descendants().filterByBusinessObject((mt) -> mt.getDestination());
+	@GetDestination
+	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
-	
-	private ComponentClassifier getComponentClassifier(final DiagramElement modeDiagramElement, final QueryService queryService) {
-		return (ComponentClassifier)queryService.getFirstBusinessObject(componentClassifierQuery, modeDiagramElement);
+		
+	private ComponentClassifier getComponentClassifier(final BusinessObjectContext modeBoc, final QueryService queryService) {
+		return (ComponentClassifier)queryService.getFirstBusinessObject(componentClassifierQuery, modeBoc);
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
-		return getComponentClassifier(srcDiagramElement, queryService);
+		return getComponentClassifier(srcBoc, queryService);
 	}
 
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Mode mode, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
-		final ComponentClassifier cc = getCreateConnectionOwner(srcDiagramElement, queryService);
+		final ComponentClassifier cc = getCreateConnectionOwner(srcBoc, queryService);
 		return cc != null && !cc.isDerivedModes();
 	}	
 	
 	@CanCreate
 	public boolean canCreate(@Named(Names.SOURCE_BO) final Mode srcMode, 
-			@Named(InternalNames.SOURCE_DIAGRAM_ELEMENT) final DiagramElement srcDiagramElement, 
+			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			@Named(Names.DESTINATION_BO) final Mode dstMode,
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
+			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final BusinessObjectContext dstBoc, 
 			final QueryService queryService) {		
-		return getComponentClassifier(srcDiagramElement, queryService) == getComponentClassifier(dstDiagramElement, queryService);
+		return getComponentClassifier(srcBoc, queryService) == getComponentClassifier(dstBoc, queryService);
 	}
 
 	@Create
@@ -153,8 +157,8 @@ public class ModeTransitionHandler {
 
 	@CanRename
 	@CanDelete
-	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, diagramElement);
+	public boolean canDelete(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, boc);
 		return mt.getContainingClassifier() == containerBo;
 	}
 	

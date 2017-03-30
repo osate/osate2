@@ -14,7 +14,7 @@ import org.eclipse.graphiti.features.impl.AbstractMoveShapeFeature;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
@@ -44,11 +44,11 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		}
 		
 		final DiagramNode diagramNode = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramNode(ctx.getShape());
-		if(!(diagramNode instanceof AgeDiagramElement)) {
+		if(!(diagramNode instanceof DiagramElement)) {
 			return false;
 		}
 		
-		final AgeDiagramElement element = (AgeDiagramElement)diagramNode;
+		final DiagramElement element = (DiagramElement)diagramNode;
 		if(!(element.getGraphic() instanceof AgeShape)) {
 			return false;
 		}
@@ -74,7 +74,7 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 	@Override
 	public void moveShape(final IMoveShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final AgeDiagramElement diagramElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(context.getShape());
+		final DiagramElement diagramElement = (DiagramElement)graphitiAgeDiagram.getDiagramNode(context.getShape());
 		graphitiAgeDiagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
@@ -89,10 +89,10 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 	}
 
 	void updateBendpointsForContainedConnections(final DiagramModification m, 
-			final AgeDiagramElement shapeDiagramElement, 
+			final DiagramElement shapeDiagramElement, 
 			final int dx, 
 			final int dy) {
-		for(final AgeDiagramElement child : shapeDiagramElement.getDiagramElements()) {
+		for(final DiagramElement child : shapeDiagramElement.getDiagramElements()) {
 			if(child.getGraphic() instanceof AgeConnection) {
 				final List<Point> bendpoints = child.getBendpoints();
 				if(bendpoints.size() > 0) {

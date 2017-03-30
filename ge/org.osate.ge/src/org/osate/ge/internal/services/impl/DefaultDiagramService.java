@@ -166,7 +166,7 @@ public class DefaultDiagramService implements DiagramService {
 		
 		@Override
 		public IProject getProject() {
-			return SelectionHelper.getProject(getDiagram().eResource());
+			return ((AgeDiagramBehavior)editor.getDiagramBehavior()).getProject();
 		}
 	}
 	
@@ -333,6 +333,9 @@ public class DefaultDiagramService implements DiagramService {
 	 * @return the new resource containing the created diagram
 	 */
 	private Resource createNewDiagram(final Object bo) {
+		// TODO: Migrate 
+		throw new RuntimeException("TODO: Migrate");
+		/*
 		// Determine the diagram type id
 		final String diagramTypeId = GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID;
 		Log.info("Creating diagram of type '" + diagramTypeId + "' for business object '" + bo + "'");
@@ -357,7 +360,7 @@ public class DefaultDiagramService implements DiagramService {
 			}
 			
 			final Diagram diagram = peService.createDiagram(diagramTypeId, diagramName, true);
-			GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo);
+			//GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo); // TODO: Link no longer supported
 			
 			// Create a resource to hold the diagram
 			final IProject project = getProject(bo);
@@ -387,6 +390,7 @@ public class DefaultDiagramService implements DiagramService {
 				editingDomain.dispose();
 			}
 		}
+		*/
 	}
 	
 	/**

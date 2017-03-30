@@ -58,7 +58,7 @@ import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.util.ImageHelper;
@@ -105,8 +105,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object getParent(final Object element) {
-				if(element instanceof AgeDiagramElement) {
-					return ((AgeDiagramElement) element).getContainer();
+				if(element instanceof DiagramElement) {
+					return ((DiagramElement) element).getContainer();
 				}
 
 				return null;

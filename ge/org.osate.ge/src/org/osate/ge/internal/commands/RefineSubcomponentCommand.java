@@ -8,16 +8,15 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.DiagramElement;
-import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.util.SubcomponentUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 @ModifiesBusinessObjects
 public class RefineSubcomponentCommand {
-	private static final StandaloneDiagramElementQuery parentQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestor(1));
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 
 	@GetLabel
 	public String getLabel() {
@@ -26,9 +25,9 @@ public class RefineSubcomponentCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc,
-			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, diagramElement);
+		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
 		if(diagram instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)diagram;
 			return sc.getContainingClassifier() != ci && SubcomponentUtil.canContainSubcomponentType(ci, sc.eClass());
@@ -39,9 +38,9 @@ public class RefineSubcomponentCommand {
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Subcomponent sc,
-			@Named(InternalNames.DIAGRAM_ELEMENT) final DiagramElement diagramElement,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(parentQuery, diagramElement);
+		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(parentQuery, boc);
 		// Refine the subcomponent
 		final Subcomponent newSc = SubcomponentUtil.createSubcomponent(ci, sc.eClass());
 		newSc.setRefined(sc);

@@ -29,42 +29,34 @@ import org.osate.aadl2.ThreadGroupType;
 import org.osate.aadl2.ThreadType;
 import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.di.CanDelete;
-import org.osate.ge.di.CreateParentQuery;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.internal.DiagramElement;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
-import org.osate.ge.internal.query.StandaloneDiagramElementQuery;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.QueryService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
 class FlowSpecificationHandler {
-	private static final StandaloneDiagramElementQuery componentTypeQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first());
-	private static final StandaloneDiagramElementQuery contextQuery = StandaloneDiagramElementQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof Context).first());
-		
+	private static final StandaloneQuery componentTypeQuery = StandaloneQuery.create((root) -> root.ancestors().first(2).filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first());
+	private static final StandaloneQuery contextQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof Context).first());
+	
 	// Basics
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
 		return fs.getName();
 	}
-	
-	@CreateParentQuery
-	public DiagramElementQuery<FlowSpecification> createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<FlowSpecification> srcRootQuery) {
-		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
-	}
-	
+
 	// Rename and Editing
 	@CanRename
 	@CanDelete
-	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(InternalNames.DIAGRAM_ELEMENT) DiagramElement diagramElement, final QueryService queryService) {
-		final Object containerBo = queryService.getFirstBusinessObject(componentTypeQuery, diagramElement);
+	public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+		final Object containerBo = queryService.getFirstBusinessObject(componentTypeQuery, boc);
 		return fs.getContainingClassifier() == containerBo;
 	}
 	
@@ -97,13 +89,13 @@ class FlowSpecificationHandler {
 		return namingService.buildUniqueIdentifier(ct, "new_flow_spec");		
 	}
 	
-	protected static Context getContext(final DiagramElement featureDiagramElement, final QueryService queryService) {
-		return (Context)queryService.getFirstBusinessObject(contextQuery, featureDiagramElement);
+	protected static Context getContext(final BusinessObjectContext featureBoc, final QueryService queryService) {
+		return (Context)queryService.getFirstBusinessObject(contextQuery, featureBoc);
 	}
 	
-	protected static ComponentType getComponentType(final @Named(InternalNames.TARGET_DIAGRAM_ELEMENT) DiagramElement targetDiagramElement,
+	protected static ComponentType getComponentType(BusinessObjectContext targetBoc,
 			final QueryService queryService) {
-		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, targetDiagramElement);
+		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, targetBoc);
 	}	
 
 	/**
@@ -111,7 +103,7 @@ class FlowSpecificationHandler {
 	 * feature, its direction must be IN OUT or match the specified direction
 	 */
 	protected static boolean isValidFlowEnd(final Feature feature,
-			final AgeDiagramElement featureDiagramElement, 
+			final DiagramElement featureDiagramElement, 
 			final DirectionType requiredDirection, 
 			final QueryService queryService) {
 		// Ensure that the feature is contained in a component type

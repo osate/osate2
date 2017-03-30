@@ -32,12 +32,12 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.ge.internal.di.BuildRelativeReference;
 import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
+import org.osate.ge.di.BuildRelativeReference;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {
@@ -66,7 +66,9 @@ public class DeclarativeReferenceBuilder {
 
 	@BuildRelativeReference 
 	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {		
-		if(bo instanceof Classifier) {
+		if(bo instanceof AadlPackage) {
+			return new String[] {TYPE_PACKAGE, ((AadlPackage)bo).getQualifiedName()};				
+		} if(bo instanceof Classifier) {
 			return buildSimpleRelativeReference(TYPE_CLASSIFIER, ((Classifier)bo));
 		} else if(bo instanceof Subcomponent) {
 			return buildSimpleRelativeReference(TYPE_SUBCOMPONENT, ((Subcomponent)bo));

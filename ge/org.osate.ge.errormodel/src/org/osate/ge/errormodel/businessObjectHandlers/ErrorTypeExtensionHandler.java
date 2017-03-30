@@ -1,21 +1,20 @@
 package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
-
 import org.osate.aadl2.AadlPackage;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.CreateDestinationQuery;
-import org.osate.ge.di.CreateParentQuery;
-import org.osate.ge.di.CreateSourceQuery;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.GetCreateOwner;
+import org.osate.ge.di.GetDestination;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.errormodel.ErrorModelCategories;
@@ -23,11 +22,14 @@ import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.query.DiagramElementQuery;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeExtensionHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSubtype()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSupertype()));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
@@ -46,20 +48,17 @@ public class ErrorTypeExtensionHandler {
 	public Graphic getGraphicalRepresentation() {
 		return graphic;
 	}
-	
-	@CreateParentQuery
-	public DiagramElementQuery<?> createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DiagramElementQuery<?> srcRootQuery) {
-		return srcRootQuery.ancestor(1);
+		
+	@GetSource
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
-	@CreateSourceQuery
-	public DiagramElementQuery<?> createSourceQuery(final @Named(Names.ROOT_QUERY) DiagramElementQuery<?> rootQuery) {
-		return rootQuery.children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSubtype());
-	}
-	
-	@CreateDestinationQuery
-	public DiagramElementQuery<?> createDestination(final @Named(Names.ROOT_QUERY) DiagramElementQuery<?> rootQuery) {
-		return rootQuery.children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSupertype());
+	@GetDestination
+	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 	
 	@Delete

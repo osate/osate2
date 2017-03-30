@@ -11,7 +11,7 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
-import org.osate.ge.internal.diagram.AgeDiagramElement;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
@@ -29,7 +29,7 @@ public class AgeAddBendpointFeature extends DefaultAddBendpointFeature implement
 	@Override
 	public void addBendpoint(final IAddBendpointContext ctx) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final AgeDiagramElement connectionElement = (AgeDiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
+		final DiagramElement connectionElement = (DiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
 		if(connectionElement != null) {
 			graphitiAgeDiagram.modify(new DiagramModifier() {					
 				@Override

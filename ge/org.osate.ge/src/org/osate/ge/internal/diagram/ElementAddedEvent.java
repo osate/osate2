@@ -1,9 +1,9 @@
 package org.osate.ge.internal.diagram;
 
 public class ElementAddedEvent {
-	public final AgeDiagramElement element;
+	public final DiagramElement element;
 	
-	public ElementAddedEvent(final AgeDiagramElement element) {
+	public ElementAddedEvent(final DiagramElement element) {
 		this.element = element;
 	}
 }
