@@ -42,6 +42,8 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.ViewerNotification;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 
@@ -77,6 +79,7 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 			addConnectionPropertyDescriptor(object);
 			addSourcePropertyDescriptor(object);
 			addDestinationPropertyDescriptor(object);
+			addReversePropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -142,6 +145,22 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	}
 
 	/**
+	 * This adds a property descriptor for the Reverse feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addReversePropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ConnectionReference_reverse_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ConnectionReference_reverse_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ConnectionReference_type"), //$NON-NLS-1$
+						InstancePackage.Literals.CONNECTION_REFERENCE__REVERSE, true, false, false,
+						ItemPropertyDescriptor.BOOLEAN_VALUE_IMAGE, null, null));
+	}
+
+	/**
 	 * This returns ConnectionReference.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -175,6 +194,12 @@ public class ConnectionReferenceItemProvider extends InstanceObjectItemProvider 
 	@Override
 	public void notifyChanged(Notification notification) {
 		updateChildren(notification);
+
+		switch (notification.getFeatureID(ConnectionReference.class)) {
+		case InstancePackage.CONNECTION_REFERENCE__REVERSE:
+			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+			return;
+		}
 		super.notifyChanged(notification);
 	}
 

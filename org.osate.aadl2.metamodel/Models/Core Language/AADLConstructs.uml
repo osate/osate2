@@ -1830,12 +1830,22 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QWNzNqjSEeCoIp43xtd66A" value="1"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QWNzNajSEeCoIp43xtd66A" value="1"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_P1HIMfLcEeaCy-MoY2jmxQ" name="next" type="_9cVjIKjREeCoIp43xtd66A" aggregation="composite" association="_P1BBkPLcEeaCy-MoY2jmxQ">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_idexgPLcEeaCy-MoY2jmxQ"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_idgmsPLcEeaCy-MoY2jmxQ" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Association" xmi:id="_QWNzMKjSEeCoIp43xtd66A" name="A_connectedElement_connectionEnd" memberEnd="_QWNzMajSEeCoIp43xtd66A _QWNzNKjSEeCoIp43xtd66A">
         <ownedEnd xmi:id="_QWNzMajSEeCoIp43xtd66A" name="connectedElement" visibility="public" type="_9cVjIKjREeCoIp43xtd66A" association="_QWNzMKjSEeCoIp43xtd66A">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_QWNzM6jSEeCoIp43xtd66A"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_QWNzMqjSEeCoIp43xtd66A" value="*"/>
         </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_P1BBkPLcEeaCy-MoY2jmxQ" name="A_connectedElement_next" memberEnd="_P1HIMPLcEeaCy-MoY2jmxQ _P1HIMfLcEeaCy-MoY2jmxQ">
+        <eAnnotations xmi:id="_P1GhIPLcEeaCy-MoY2jmxQ" source="org.eclipse.papyrus">
+          <details xmi:id="_P1GhIfLcEeaCy-MoY2jmxQ" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_P1HIMPLcEeaCy-MoY2jmxQ" name="connectedElement" type="_9cVjIKjREeCoIp43xtd66A" association="_P1BBkPLcEeaCy-MoY2jmxQ"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Flows" name="Flows">

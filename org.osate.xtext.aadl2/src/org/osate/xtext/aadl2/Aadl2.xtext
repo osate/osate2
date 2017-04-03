@@ -1795,6 +1795,15 @@ SubprogramProxy returns aadl2::SubprogramProxy:
 
 // ********* connections 
 
+NestedConnectedElement returns aadl2::ConnectedElement:
+	ConnectedElement |
+	context=[aadl2::Context|ID] '.' connectionEnd=[aadl2::ConnectionEnd|ID] '.' next=ConnectedElementChain
+;
+
+ConnectedElementChain returns aadl2::ConnectedElement:
+	connectionEnd=[aadl2::ConnectionEnd|ID] ('.' next=ConnectedElementChain)?
+;
+
 ConnectedElement returns aadl2::ConnectedElement:
 	(context=[aadl2::Context|ID] '.')? 
 	connectionEnd=[aadl2::ConnectionEnd|ID]
@@ -1850,9 +1859,9 @@ AccessConnection returns aadl2::AccessConnection:
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	((name=ID ':'  'feature' 'group'
-	source=ConnectedElement
+	source=NestedConnectedElement
 	( '->' | bidirectional?='<->')
-	destination=ConnectedElement )
+	destination=NestedConnectedElement )
 	|
 	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
@@ -1862,7 +1871,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 
 FeatureConnection returns aadl2::FeatureConnection:
 	((name=ID ':'  'feature' 
-			source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement )
+			source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement )
 		|
 	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?

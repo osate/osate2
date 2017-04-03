@@ -68,6 +68,7 @@ import org.osate.aadl2.instance.SystemOperationMode;
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.impl.ConnectionReferenceImpl#isReverse <em>Reverse</em>}</li>
  * </ul>
  *
  * @generated
@@ -112,6 +113,26 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * @ordered
 	 */
 	protected ConnectionInstanceEnd destination;
+
+	/**
+	 * The default value of the '{@link #isReverse() <em>Reverse</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isReverse()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean REVERSE_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isReverse() <em>Reverse</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isReverse()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean reverse = REVERSE_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -314,6 +335,31 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	 * @generated
 	 */
 	@Override
+	public boolean isReverse() {
+		return reverse;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public void setReverse(boolean newReverse) {
+		boolean oldReverse = reverse;
+		reverse = newReverse;
+		if (eNotificationRequired()) {
+			eNotify(new ENotificationImpl(this, Notification.SET, InstancePackage.CONNECTION_REFERENCE__REVERSE,
+					oldReverse, reverse));
+		}
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
 		case InstancePackage.CONNECTION_REFERENCE__CONTEXT:
@@ -336,6 +382,8 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 				return getDestination();
 			}
 			return basicGetDestination();
+		case InstancePackage.CONNECTION_REFERENCE__REVERSE:
+			return isReverse();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -359,6 +407,9 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 			return;
 		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
 			setDestination((ConnectionInstanceEnd) newValue);
+			return;
+		case InstancePackage.CONNECTION_REFERENCE__REVERSE:
+			setReverse((Boolean) newValue);
 			return;
 		}
 		super.eSet(featureID, newValue);
@@ -384,6 +435,9 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
 			setDestination((ConnectionInstanceEnd) null);
 			return;
+		case InstancePackage.CONNECTION_REFERENCE__REVERSE:
+			setReverse(REVERSE_EDEFAULT);
+			return;
 		}
 		super.eUnset(featureID);
 	}
@@ -404,8 +458,28 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 			return source != null;
 		case InstancePackage.CONNECTION_REFERENCE__DESTINATION:
 			return destination != null;
+		case InstancePackage.CONNECTION_REFERENCE__REVERSE:
+			return reverse != REVERSE_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) {
+			return super.toString();
+		}
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (reverse: "); //$NON-NLS-1$
+		result.append(reverse);
+		result.append(')');
+		return result.toString();
 	}
 
 	@Override

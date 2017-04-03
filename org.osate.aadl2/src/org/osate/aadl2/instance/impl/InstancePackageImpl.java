@@ -719,6 +719,16 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 	 * @generated
 	 */
 	@Override
+	public EAttribute getConnectionReference_Reverse() {
+		return (EAttribute) connectionReferenceEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getComponentInstance() {
 		return componentInstanceEClass;
 	}
@@ -1109,6 +1119,7 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__CONNECTION);
 		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__SOURCE);
 		createEReference(connectionReferenceEClass, CONNECTION_REFERENCE__DESTINATION);
+		createEAttribute(connectionReferenceEClass, CONNECTION_REFERENCE__REVERSE);
 
 		componentInstanceEClass = createEClass(COMPONENT_INSTANCE);
 		createEReference(componentInstanceEClass, COMPONENT_INSTANCE__FEATURE_INSTANCE);
@@ -1347,6 +1358,9 @@ public class InstancePackageImpl extends EPackageImpl implements InstancePackage
 		initEReference(getConnectionReference_Destination(), getConnectionInstanceEnd(), null, "destination", null, //$NON-NLS-1$
 				1, 1, ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE,
 				IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEAttribute(getConnectionReference_Reverse(), theAadl2Package.getBoolean(), "reverse", null, 1, 1, //$NON-NLS-1$
+				ConnectionReference.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(componentInstanceEClass, ComponentInstance.class, "ComponentInstance", !IS_ABSTRACT, !IS_INTERFACE, //$NON-NLS-1$
 				IS_GENERATED_INSTANCE_CLASS);
