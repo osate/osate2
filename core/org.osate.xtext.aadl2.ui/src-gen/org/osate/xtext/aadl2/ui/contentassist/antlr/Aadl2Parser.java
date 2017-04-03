@@ -374,6 +374,7 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFeatureGroupTypeAccess().getAlternatives_4_1(), "rule__FeatureGroupType__Alternatives_4_1");
 					put(grammarAccess.getFeatureGroupTypeAccess().getAlternatives_5_1(), "rule__FeatureGroupType__Alternatives_5_1");
 					put(grammarAccess.getFeatureGroupTypeAccess().getAlternatives_7_1(), "rule__FeatureGroupType__Alternatives_7_1");
+					put(grammarAccess.getNestedConnectedElementAccess().getAlternatives(), "rule__NestedConnectedElement__Alternatives");
 					put(grammarAccess.getAbstractConnectionEndAccess().getAlternatives(), "rule__AbstractConnectionEnd__Alternatives");
 					put(grammarAccess.getProcessorConnectionEndAccess().getAlternatives(), "rule__ProcessorConnectionEnd__Alternatives");
 					put(grammarAccess.getAccessConnectionEndAccess().getAlternatives(), "rule__AccessConnectionEnd__Alternatives");
@@ -1231,6 +1232,9 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getPortProxyAccess().getGroup_4(), "rule__PortProxy__Group_4__0");
 					put(grammarAccess.getSubprogramProxyAccess().getGroup(), "rule__SubprogramProxy__Group__0");
 					put(grammarAccess.getSubprogramProxyAccess().getGroup_4(), "rule__SubprogramProxy__Group_4__0");
+					put(grammarAccess.getNestedConnectedElementAccess().getGroup_1(), "rule__NestedConnectedElement__Group_1__0");
+					put(grammarAccess.getConnectedElementChainAccess().getGroup(), "rule__ConnectedElementChain__Group__0");
+					put(grammarAccess.getConnectedElementChainAccess().getGroup_1(), "rule__ConnectedElementChain__Group_1__0");
 					put(grammarAccess.getConnectedElementAccess().getGroup(), "rule__ConnectedElement__Group__0");
 					put(grammarAccess.getConnectedElementAccess().getGroup_0(), "rule__ConnectedElement__Group_0__0");
 					put(grammarAccess.getProcessorPortAccess().getGroup(), "rule__ProcessorPort__Group__0");
@@ -2592,6 +2596,11 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getSubprogramProxyAccess().getNameAssignment_0(), "rule__SubprogramProxy__NameAssignment_0");
 					put(grammarAccess.getSubprogramProxyAccess().getSubprogramClassifierAssignment_3(), "rule__SubprogramProxy__SubprogramClassifierAssignment_3");
 					put(grammarAccess.getSubprogramProxyAccess().getOwnedPropertyAssociationAssignment_4_1(), "rule__SubprogramProxy__OwnedPropertyAssociationAssignment_4_1");
+					put(grammarAccess.getNestedConnectedElementAccess().getContextAssignment_1_0(), "rule__NestedConnectedElement__ContextAssignment_1_0");
+					put(grammarAccess.getNestedConnectedElementAccess().getConnectionEndAssignment_1_2(), "rule__NestedConnectedElement__ConnectionEndAssignment_1_2");
+					put(grammarAccess.getNestedConnectedElementAccess().getNextAssignment_1_4(), "rule__NestedConnectedElement__NextAssignment_1_4");
+					put(grammarAccess.getConnectedElementChainAccess().getConnectionEndAssignment_0(), "rule__ConnectedElementChain__ConnectionEndAssignment_0");
+					put(grammarAccess.getConnectedElementChainAccess().getNextAssignment_1_1(), "rule__ConnectedElementChain__NextAssignment_1_1");
 					put(grammarAccess.getConnectedElementAccess().getContextAssignment_0_0(), "rule__ConnectedElement__ContextAssignment_0_0");
 					put(grammarAccess.getConnectedElementAccess().getConnectionEndAssignment_1(), "rule__ConnectedElement__ConnectionEndAssignment_1");
 					put(grammarAccess.getProcessorPortAccess().getConnectionEndAssignment_2(), "rule__ProcessorPort__ConnectionEndAssignment_2");

@@ -1246,13 +1246,22 @@ public interface InstancePackage extends EPackage {
 	int CONNECTION_REFERENCE__DESTINATION = INSTANCE_OBJECT_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>Reverse</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTION_REFERENCE__REVERSE = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+
+	/**
 	 * The number of structural features of the '<em>Connection Reference</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTION_REFERENCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 4;
+	int CONNECTION_REFERENCE_FEATURE_COUNT = INSTANCE_OBJECT_FEATURE_COUNT + 5;
 
 	/**
 	 * The meta object id for the '{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.
@@ -2448,6 +2457,17 @@ public interface InstancePackage extends EPackage {
 	EReference getConnectionReference_Destination();
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.instance.ConnectionReference#isReverse <em>Reverse</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Reverse</em>'.
+	 * @see org.osate.aadl2.instance.ConnectionReference#isReverse()
+	 * @see #getConnectionReference()
+	 * @generated
+	 */
+	EAttribute getConnectionReference_Reverse();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.instance.ComponentInstance <em>Component Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -3188,6 +3208,14 @@ public interface InstancePackage extends EPackage {
 		 * @generated
 		 */
 		EReference CONNECTION_REFERENCE__DESTINATION = eINSTANCE.getConnectionReference_Destination();
+
+		/**
+		 * The meta object literal for the '<em><b>Reverse</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute CONNECTION_REFERENCE__REVERSE = eINSTANCE.getConnectionReference_Reverse();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.instance.impl.ComponentInstanceImpl <em>Component Instance</em>}' class.

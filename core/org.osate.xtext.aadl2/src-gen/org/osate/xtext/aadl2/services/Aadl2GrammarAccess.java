@@ -21754,6 +21754,107 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public Keyword getSemicolonKeyword_5() { return cSemicolonKeyword_5; }
 	}
 
+	public class NestedConnectedElementElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.NestedConnectedElement");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cConnectedElementParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final Group cGroup_1 = (Group)cAlternatives.eContents().get(1);
+		private final Assignment cContextAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final CrossReference cContextContextCrossReference_1_0_0 = (CrossReference)cContextAssignment_1_0.eContents().get(0);
+		private final RuleCall cContextContextIDTerminalRuleCall_1_0_0_1 = (RuleCall)cContextContextCrossReference_1_0_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_1 = (Keyword)cGroup_1.eContents().get(1);
+		private final Assignment cConnectionEndAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final CrossReference cConnectionEndConnectionEndCrossReference_1_2_0 = (CrossReference)cConnectionEndAssignment_1_2.eContents().get(0);
+		private final RuleCall cConnectionEndConnectionEndIDTerminalRuleCall_1_2_0_1 = (RuleCall)cConnectionEndConnectionEndCrossReference_1_2_0.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_3 = (Keyword)cGroup_1.eContents().get(3);
+		private final Assignment cNextAssignment_1_4 = (Assignment)cGroup_1.eContents().get(4);
+		private final RuleCall cNextConnectedElementChainParserRuleCall_1_4_0 = (RuleCall)cNextAssignment_1_4.eContents().get(0);
+		
+		//// ********* connections 
+		//NestedConnectedElement aadl2::ConnectedElement:
+		//	ConnectedElement | context=[aadl2::Context] '.' connectionEnd=[aadl2::ConnectionEnd] '.' next=ConnectedElementChain;
+		@Override public ParserRule getRule() { return rule; }
+
+		//ConnectedElement | context=[aadl2::Context] '.' connectionEnd=[aadl2::ConnectionEnd] '.' next=ConnectedElementChain
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//ConnectedElement
+		public RuleCall getConnectedElementParserRuleCall_0() { return cConnectedElementParserRuleCall_0; }
+
+		//context=[aadl2::Context] '.' connectionEnd=[aadl2::ConnectionEnd] '.' next=ConnectedElementChain
+		public Group getGroup_1() { return cGroup_1; }
+
+		//context=[aadl2::Context]
+		public Assignment getContextAssignment_1_0() { return cContextAssignment_1_0; }
+
+		//[aadl2::Context]
+		public CrossReference getContextContextCrossReference_1_0_0() { return cContextContextCrossReference_1_0_0; }
+
+		//ID
+		public RuleCall getContextContextIDTerminalRuleCall_1_0_0_1() { return cContextContextIDTerminalRuleCall_1_0_0_1; }
+
+		//'.'
+		public Keyword getFullStopKeyword_1_1() { return cFullStopKeyword_1_1; }
+
+		//connectionEnd=[aadl2::ConnectionEnd]
+		public Assignment getConnectionEndAssignment_1_2() { return cConnectionEndAssignment_1_2; }
+
+		//[aadl2::ConnectionEnd]
+		public CrossReference getConnectionEndConnectionEndCrossReference_1_2_0() { return cConnectionEndConnectionEndCrossReference_1_2_0; }
+
+		//ID
+		public RuleCall getConnectionEndConnectionEndIDTerminalRuleCall_1_2_0_1() { return cConnectionEndConnectionEndIDTerminalRuleCall_1_2_0_1; }
+
+		//'.'
+		public Keyword getFullStopKeyword_1_3() { return cFullStopKeyword_1_3; }
+
+		//next=ConnectedElementChain
+		public Assignment getNextAssignment_1_4() { return cNextAssignment_1_4; }
+
+		//ConnectedElementChain
+		public RuleCall getNextConnectedElementChainParserRuleCall_1_4_0() { return cNextConnectedElementChainParserRuleCall_1_4_0; }
+	}
+
+	public class ConnectedElementChainElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.ConnectedElementChain");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cConnectionEndAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final CrossReference cConnectionEndConnectionEndCrossReference_0_0 = (CrossReference)cConnectionEndAssignment_0.eContents().get(0);
+		private final RuleCall cConnectionEndConnectionEndIDTerminalRuleCall_0_0_1 = (RuleCall)cConnectionEndConnectionEndCrossReference_0_0.eContents().get(1);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Keyword cFullStopKeyword_1_0 = (Keyword)cGroup_1.eContents().get(0);
+		private final Assignment cNextAssignment_1_1 = (Assignment)cGroup_1.eContents().get(1);
+		private final RuleCall cNextConnectedElementChainParserRuleCall_1_1_0 = (RuleCall)cNextAssignment_1_1.eContents().get(0);
+		
+		//ConnectedElementChain aadl2::ConnectedElement:
+		//	connectionEnd=[aadl2::ConnectionEnd] ('.' next=ConnectedElementChain)?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//connectionEnd=[aadl2::ConnectionEnd] ('.' next=ConnectedElementChain)?
+		public Group getGroup() { return cGroup; }
+
+		//connectionEnd=[aadl2::ConnectionEnd]
+		public Assignment getConnectionEndAssignment_0() { return cConnectionEndAssignment_0; }
+
+		//[aadl2::ConnectionEnd]
+		public CrossReference getConnectionEndConnectionEndCrossReference_0_0() { return cConnectionEndConnectionEndCrossReference_0_0; }
+
+		//ID
+		public RuleCall getConnectionEndConnectionEndIDTerminalRuleCall_0_0_1() { return cConnectionEndConnectionEndIDTerminalRuleCall_0_0_1; }
+
+		//('.' next=ConnectedElementChain)?
+		public Group getGroup_1() { return cGroup_1; }
+
+		//'.'
+		public Keyword getFullStopKeyword_1_0() { return cFullStopKeyword_1_0; }
+
+		//next=ConnectedElementChain
+		public Assignment getNextAssignment_1_1() { return cNextAssignment_1_1; }
+
+		//ConnectedElementChain
+		public RuleCall getNextConnectedElementChainParserRuleCall_1_1_0() { return cNextConnectedElementChainParserRuleCall_1_1_0; }
+	}
+
 	public class ConnectedElementElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.ConnectedElement");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -21766,7 +21867,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cConnectionEndConnectionEndCrossReference_1_0 = (CrossReference)cConnectionEndAssignment_1.eContents().get(0);
 		private final RuleCall cConnectionEndConnectionEndIDTerminalRuleCall_1_0_1 = (RuleCall)cConnectionEndConnectionEndCrossReference_1_0.eContents().get(1);
 		
-		//// ********* connections 
 		//ConnectedElement aadl2::ConnectedElement:
 		//	(context=[aadl2::Context] '.')?
 		//	connectionEnd=[aadl2::ConnectionEnd];
@@ -22367,13 +22467,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFeatureKeyword_0_0_2 = (Keyword)cGroup_0_0.eContents().get(2);
 		private final Keyword cGroupKeyword_0_0_3 = (Keyword)cGroup_0_0.eContents().get(3);
 		private final Assignment cSourceAssignment_0_0_4 = (Assignment)cGroup_0_0.eContents().get(4);
-		private final RuleCall cSourceConnectedElementParserRuleCall_0_0_4_0 = (RuleCall)cSourceAssignment_0_0_4.eContents().get(0);
+		private final RuleCall cSourceNestedConnectedElementParserRuleCall_0_0_4_0 = (RuleCall)cSourceAssignment_0_0_4.eContents().get(0);
 		private final Alternatives cAlternatives_0_0_5 = (Alternatives)cGroup_0_0.eContents().get(5);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_0_0_5_0 = (Keyword)cAlternatives_0_0_5.eContents().get(0);
 		private final Assignment cBidirectionalAssignment_0_0_5_1 = (Assignment)cAlternatives_0_0_5.eContents().get(1);
 		private final Keyword cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_0_0_5_1_0 = (Keyword)cBidirectionalAssignment_0_0_5_1.eContents().get(0);
 		private final Assignment cDestinationAssignment_0_0_6 = (Assignment)cGroup_0_0.eContents().get(6);
-		private final RuleCall cDestinationConnectedElementParserRuleCall_0_0_6_0 = (RuleCall)cDestinationAssignment_0_0_6.eContents().get(0);
+		private final RuleCall cDestinationNestedConnectedElementParserRuleCall_0_0_6_0 = (RuleCall)cDestinationAssignment_0_0_6.eContents().get(0);
 		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
 		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
 		private final CrossReference cRefinedFeatureGroupConnectionCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
@@ -22406,24 +22506,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FeatureGroupConnection aadl2::FeatureGroupConnection:
 		//	(name=ID ':' 'feature' 'group'
-		//	source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
+		//	source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement |
 		//	refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group') ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature] (','
 		//	inModeOrTransition+=[aadl2::ModeFeature])*) ')')?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
-		//(name=ID ':' 'feature' 'group' source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
-		//refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group') ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature] (','
-		//inModeOrTransition+=[aadl2::ModeFeature])*) ')')? ';'
+		//(name=ID ':' 'feature' 'group' source=NestedConnectedElement ('->' | bidirectional?='<->')
+		//destination=NestedConnectedElement | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'
+		//'group') ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
+		//(inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])*) ')')? ';'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID ':' 'feature' 'group' source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
-		//refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group'
+		//name=ID ':' 'feature' 'group' source=NestedConnectedElement ('->' | bidirectional?='<->')
+		//destination=NestedConnectedElement | refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'
+		//'group'
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
-		//name=ID ':' 'feature' 'group' source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement
+		//name=ID ':' 'feature' 'group' source=NestedConnectedElement ('->' | bidirectional?='<->')
+		//destination=NestedConnectedElement
 		public Group getGroup_0_0() { return cGroup_0_0; }
 
 		//name=ID
@@ -22441,11 +22543,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'group'
 		public Keyword getGroupKeyword_0_0_3() { return cGroupKeyword_0_0_3; }
 
-		//source=ConnectedElement
+		//source=NestedConnectedElement
 		public Assignment getSourceAssignment_0_0_4() { return cSourceAssignment_0_0_4; }
 
-		//ConnectedElement
-		public RuleCall getSourceConnectedElementParserRuleCall_0_0_4_0() { return cSourceConnectedElementParserRuleCall_0_0_4_0; }
+		//NestedConnectedElement
+		public RuleCall getSourceNestedConnectedElementParserRuleCall_0_0_4_0() { return cSourceNestedConnectedElementParserRuleCall_0_0_4_0; }
 
 		//'->' | bidirectional?='<->'
 		public Alternatives getAlternatives_0_0_5() { return cAlternatives_0_0_5; }
@@ -22459,11 +22561,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'<->'
 		public Keyword getBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_0_0_5_1_0() { return cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_0_0_5_1_0; }
 
-		//destination=ConnectedElement
+		//destination=NestedConnectedElement
 		public Assignment getDestinationAssignment_0_0_6() { return cDestinationAssignment_0_0_6; }
 
-		//ConnectedElement
-		public RuleCall getDestinationConnectedElementParserRuleCall_0_0_6_0() { return cDestinationConnectedElementParserRuleCall_0_0_6_0; }
+		//NestedConnectedElement
+		public RuleCall getDestinationNestedConnectedElementParserRuleCall_0_0_6_0() { return cDestinationNestedConnectedElementParserRuleCall_0_0_6_0; }
 
 		//refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group'
 		public Group getGroup_0_1() { return cGroup_0_1; }
@@ -22563,13 +22665,13 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cColonKeyword_0_0_1 = (Keyword)cGroup_0_0.eContents().get(1);
 		private final Keyword cFeatureKeyword_0_0_2 = (Keyword)cGroup_0_0.eContents().get(2);
 		private final Assignment cSourceAssignment_0_0_3 = (Assignment)cGroup_0_0.eContents().get(3);
-		private final RuleCall cSourceConnectedElementParserRuleCall_0_0_3_0 = (RuleCall)cSourceAssignment_0_0_3.eContents().get(0);
+		private final RuleCall cSourceNestedConnectedElementParserRuleCall_0_0_3_0 = (RuleCall)cSourceAssignment_0_0_3.eContents().get(0);
 		private final Alternatives cAlternatives_0_0_4 = (Alternatives)cGroup_0_0.eContents().get(4);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_0_0_4_0 = (Keyword)cAlternatives_0_0_4.eContents().get(0);
 		private final Assignment cBidirectionalAssignment_0_0_4_1 = (Assignment)cAlternatives_0_0_4.eContents().get(1);
 		private final Keyword cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_0_0_4_1_0 = (Keyword)cBidirectionalAssignment_0_0_4_1.eContents().get(0);
 		private final Assignment cDestinationAssignment_0_0_5 = (Assignment)cGroup_0_0.eContents().get(5);
-		private final RuleCall cDestinationConnectedElementParserRuleCall_0_0_5_0 = (RuleCall)cDestinationAssignment_0_0_5.eContents().get(0);
+		private final RuleCall cDestinationNestedConnectedElementParserRuleCall_0_0_5_0 = (RuleCall)cDestinationAssignment_0_0_5.eContents().get(0);
 		private final Group cGroup_0_1 = (Group)cAlternatives_0.eContents().get(1);
 		private final Assignment cRefinedAssignment_0_1_0 = (Assignment)cGroup_0_1.eContents().get(0);
 		private final CrossReference cRefinedFeatureConnectionCrossReference_0_1_0_0 = (CrossReference)cRefinedAssignment_0_1_0.eContents().get(0);
@@ -22601,24 +22703,24 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		
 		//FeatureConnection aadl2::FeatureConnection:
 		//	(name=ID ':' 'feature'
-		//	source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
+		//	source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement |
 		//	refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature') ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature] (','
 		//	inModeOrTransition+=[aadl2::ModeFeature])*) ')')?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
-		//(name=ID ':' 'feature' source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
+		//(name=ID ':' 'feature' source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement |
 		//refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature') ('{'
 		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature] (','
 		//inModeOrTransition+=[aadl2::ModeFeature])*) ')')? ';'
 		public Group getGroup() { return cGroup; }
 
-		//name=ID ':' 'feature' source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
+		//name=ID ':' 'feature' source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement |
 		//refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'
 		public Alternatives getAlternatives_0() { return cAlternatives_0; }
 
-		//name=ID ':' 'feature' source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement
+		//name=ID ':' 'feature' source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement
 		public Group getGroup_0_0() { return cGroup_0_0; }
 
 		//name=ID
@@ -22633,11 +22735,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'feature'
 		public Keyword getFeatureKeyword_0_0_2() { return cFeatureKeyword_0_0_2; }
 
-		//source=ConnectedElement
+		//source=NestedConnectedElement
 		public Assignment getSourceAssignment_0_0_3() { return cSourceAssignment_0_0_3; }
 
-		//ConnectedElement
-		public RuleCall getSourceConnectedElementParserRuleCall_0_0_3_0() { return cSourceConnectedElementParserRuleCall_0_0_3_0; }
+		//NestedConnectedElement
+		public RuleCall getSourceNestedConnectedElementParserRuleCall_0_0_3_0() { return cSourceNestedConnectedElementParserRuleCall_0_0_3_0; }
 
 		//'->' | bidirectional?='<->'
 		public Alternatives getAlternatives_0_0_4() { return cAlternatives_0_0_4; }
@@ -22651,11 +22753,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'<->'
 		public Keyword getBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_0_0_4_1_0() { return cBidirectionalLessThanSignHyphenMinusGreaterThanSignKeyword_0_0_4_1_0; }
 
-		//destination=ConnectedElement
+		//destination=NestedConnectedElement
 		public Assignment getDestinationAssignment_0_0_5() { return cDestinationAssignment_0_0_5; }
 
-		//ConnectedElement
-		public RuleCall getDestinationConnectedElementParserRuleCall_0_0_5_0() { return cDestinationConnectedElementParserRuleCall_0_0_5_0; }
+		//NestedConnectedElement
+		public RuleCall getDestinationNestedConnectedElementParserRuleCall_0_0_5_0() { return cDestinationNestedConnectedElementParserRuleCall_0_0_5_0; }
 
 		//refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'
 		public Group getGroup_0_1() { return cGroup_0_1; }
@@ -27592,6 +27694,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private final EventDataSourceElements pEventDataSource;
 	private final PortProxyElements pPortProxy;
 	private final SubprogramProxyElements pSubprogramProxy;
+	private final NestedConnectedElementElements pNestedConnectedElement;
+	private final ConnectedElementChainElements pConnectedElementChain;
 	private final ConnectedElementElements pConnectedElement;
 	private final ProcessorPortElements pProcessorPort;
 	private final ProcessorSubprogramElements pProcessorSubprogram;
@@ -27800,6 +27904,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		this.pEventDataSource = new EventDataSourceElements();
 		this.pPortProxy = new PortProxyElements();
 		this.pSubprogramProxy = new SubprogramProxyElements();
+		this.pNestedConnectedElement = new NestedConnectedElementElements();
+		this.pConnectedElementChain = new ConnectedElementChainElements();
 		this.pConnectedElement = new ConnectedElementElements();
 		this.pProcessorPort = new ProcessorPortElements();
 		this.pProcessorSubprogram = new ProcessorSubprogramElements();
@@ -29681,6 +29787,26 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//// ********* connections 
+	//NestedConnectedElement aadl2::ConnectedElement:
+	//	ConnectedElement | context=[aadl2::Context] '.' connectionEnd=[aadl2::ConnectionEnd] '.' next=ConnectedElementChain;
+	public NestedConnectedElementElements getNestedConnectedElementAccess() {
+		return pNestedConnectedElement;
+	}
+	
+	public ParserRule getNestedConnectedElementRule() {
+		return getNestedConnectedElementAccess().getRule();
+	}
+
+	//ConnectedElementChain aadl2::ConnectedElement:
+	//	connectionEnd=[aadl2::ConnectionEnd] ('.' next=ConnectedElementChain)?;
+	public ConnectedElementChainElements getConnectedElementChainAccess() {
+		return pConnectedElementChain;
+	}
+	
+	public ParserRule getConnectedElementChainRule() {
+		return getConnectedElementChainAccess().getRule();
+	}
+
 	//ConnectedElement aadl2::ConnectedElement:
 	//	(context=[aadl2::Context] '.')?
 	//	connectionEnd=[aadl2::ConnectionEnd];
@@ -29784,7 +29910,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FeatureGroupConnection aadl2::FeatureGroupConnection:
 	//	(name=ID ':' 'feature' 'group'
-	//	source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
+	//	source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement |
 	//	refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group') ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature] (','
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ')')?
@@ -29799,7 +29925,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 
 	//FeatureConnection aadl2::FeatureConnection:
 	//	(name=ID ':' 'feature'
-	//	source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement |
+	//	source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement |
 	//	refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature') ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' (inModeOrTransition+=[aadl2::ModeFeature] (','
 	//	inModeOrTransition+=[aadl2::ModeFeature])*) ')')?

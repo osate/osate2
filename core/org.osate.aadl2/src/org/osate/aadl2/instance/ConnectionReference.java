@@ -51,6 +51,7 @@ import org.osate.aadl2.Connection;
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getConnection <em>Connection</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getSource <em>Source</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ConnectionReference#getDestination <em>Destination</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ConnectionReference#isReverse <em>Reverse</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference()
@@ -161,5 +162,31 @@ public interface ConnectionReference extends InstanceObject {
 	 * @generated
 	 */
 	void setDestination(ConnectionInstanceEnd value);
+
+	/**
+	 * Returns the value of the '<em><b>Reverse</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Reverse</em>' attribute isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Reverse</em>' attribute.
+	 * @see #setReverse(boolean)
+	 * @see org.osate.aadl2.instance.InstancePackage#getConnectionReference_Reverse()
+	 * @model dataType="org.osate.aadl2.Boolean" required="true" ordered="false"
+	 * @generated
+	 */
+	boolean isReverse();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.ConnectionReference#isReverse <em>Reverse</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Reverse</em>' attribute.
+	 * @see #isReverse()
+	 * @generated
+	 */
+	void setReverse(boolean value);
 
 } // ConnectionReference

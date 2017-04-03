@@ -200,6 +200,11 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @generated
 	 */
 	void setRefined(Connection value);
+	
+	/**
+	 * For a refined connection, returns the original connection.  For non-refined connections, returns "this".
+	 */
+	Connection getRootConnection();
 
 	/**
 	 * get source
@@ -207,6 +212,11 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return ConnectionEnd the source (feature, data/bus access end or parameter end)
 	 */
 	ConnectionEnd getAllSource();
+	
+	/**
+	 * Gets the last element in the source chain.
+	 */
+	ConnectionEnd getAllLastSource();
 
 	/**
 	 * get destination context
@@ -221,6 +231,12 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return ConnectionEnd the destination (feature, data/bus access end or parameter end)
 	 */
 	ConnectionEnd getAllDestination();
+	
+	/**
+	 * Gets the last element in the destination chain.
+	 * @return
+	 */
+	ConnectionEnd getAllLastDestination();
 
 	/**
 	 * get source context
@@ -250,5 +266,10 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * retrieved from the refined connection.
 	 */
 	public boolean isAllBidirectional();
+
+	/**
+	 * Return whether this connection is between two subcomponents and not up/down the hierarchy.
+	 */
+	public boolean isAcross();
 
 } // Connection
