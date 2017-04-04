@@ -34,11 +34,7 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (ruleCall.getRule() == grammarAccess.getFLOWINRule())
-			return getFLOWINToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getFLOWOUTRule())
-			return getFLOWOUTToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getFULLINAMERule())
+		if (ruleCall.getRule() == grammarAccess.getFULLINAMERule())
 			return getFULLINAMEToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getIDRule())
 			return getIDToken(semanticObject, ruleCall, node);
@@ -46,26 +42,6 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 			return getPNAMEToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getSTARRule())
 			return getSTARToken(semanticObject, ruleCall, node);
-		return "";
-	}
-	
-	/**
-	 * FLOWIN: (ID '.')? ID
-	 * ;
-	 */
-	protected String getFLOWINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "";
-	}
-	
-	/**
-	 * FLOWOUT: (ID '.')? ID
-	 * ;
-	 */
-	protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
 		return "";
 	}
 	

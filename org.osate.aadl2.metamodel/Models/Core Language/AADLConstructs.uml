@@ -1912,6 +1912,8 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoODUqvbEeC0h7jzzZfZ7Q"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xoODUavbEeC0h7jzzZfZ7Q" value="*"/>
         </ownedAttribute>
+        <ownedAttribute xmi:id="_Q7EB8BifEeeiMKeUpr3PBw" name="inEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_Q65p4BifEeeiMKeUpr3PBw"/>
+        <ownedAttribute xmi:id="_WUxRkRifEeeiMKeUpr3PBw" name="outEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_WUwqgBifEeeiMKeUpr3PBw"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Flows-FlowElement" name="FlowElement" isAbstract="true">
         <ownedComment xmi:id="Flows-FlowElement-_ownedComment.0">
@@ -2094,6 +2096,24 @@ The context owns the connection end instance.</body>
         <generalization xmi:id="_pB03I9S2EeGrQ5HyNd6P4Q">
           <general xmi:type="uml:Class" href="AADLInfrastructure.uml#NamedElement"/>
         </generalization>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_Q65p4BifEeeiMKeUpr3PBw" name="A_flowImplementation_inEnd" memberEnd="_Q7EB8BifEeeiMKeUpr3PBw _Q7EpABifEeeiMKeUpr3PBw">
+        <eAnnotations xmi:id="_Q7Da4BifEeeiMKeUpr3PBw" source="org.eclipse.papyrus">
+          <details xmi:id="_Q7Da4RifEeeiMKeUpr3PBw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_Q7EpABifEeeiMKeUpr3PBw" name="owner" type="Flows-FlowImplementation" association="_Q65p4BifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_w4b9gBifEeeiMKeUpr3PBw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_w4ckkBifEeeiMKeUpr3PBw" value="1"/>
+        </ownedEnd>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Association" xmi:id="_WUwqgBifEeeiMKeUpr3PBw" name="A_flowImplementation_outEnd" memberEnd="_WUxRkRifEeeiMKeUpr3PBw _WUxRkhifEeeiMKeUpr3PBw">
+        <eAnnotations xmi:id="_WUwqgRifEeeiMKeUpr3PBw" source="org.eclipse.papyrus">
+          <details xmi:id="_WUxRkBifEeeiMKeUpr3PBw" key="nature" value="UML_Nature"/>
+        </eAnnotations>
+        <ownedEnd xmi:id="_WUxRkhifEeeiMKeUpr3PBw" name="owner" type="Flows-FlowImplementation" association="_WUwqgBifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_rtaqIBifEeeiMKeUpr3PBw"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_rteUgBifEeeiMKeUpr3PBw" value="1"/>
+        </ownedEnd>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="Modes" name="Modes">
