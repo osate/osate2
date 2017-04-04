@@ -249,8 +249,9 @@ public class InstanceParser extends AbstractContentAssistParser {
 					put(grammarAccess.getConnectionInstanceAccess().getOwnedPropertyAssociationAssignment_10_1(), "rule__ConnectionInstance__OwnedPropertyAssociationAssignment_10_1");
 					put(grammarAccess.getConnectionReferenceAccess().getSourceAssignment_0(), "rule__ConnectionReference__SourceAssignment_0");
 					put(grammarAccess.getConnectionReferenceAccess().getDestinationAssignment_2(), "rule__ConnectionReference__DestinationAssignment_2");
-					put(grammarAccess.getConnectionReferenceAccess().getConnectionAssignment_4(), "rule__ConnectionReference__ConnectionAssignment_4");
-					put(grammarAccess.getConnectionReferenceAccess().getContextAssignment_6(), "rule__ConnectionReference__ContextAssignment_6");
+					put(grammarAccess.getConnectionReferenceAccess().getReverseAssignment_4(), "rule__ConnectionReference__ReverseAssignment_4");
+					put(grammarAccess.getConnectionReferenceAccess().getConnectionAssignment_5(), "rule__ConnectionReference__ConnectionAssignment_5");
+					put(grammarAccess.getConnectionReferenceAccess().getContextAssignment_7(), "rule__ConnectionReference__ContextAssignment_7");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getNameAssignment_1(), "rule__FlowSpecificationInstance__NameAssignment_1");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getSourceAssignment_3(), "rule__FlowSpecificationInstance__SourceAssignment_3");
 					put(grammarAccess.getFlowSpecificationInstanceAccess().getDestinationAssignment_5(), "rule__FlowSpecificationInstance__DestinationAssignment_5");
