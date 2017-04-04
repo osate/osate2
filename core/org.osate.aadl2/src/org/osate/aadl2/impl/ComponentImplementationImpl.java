@@ -2190,7 +2190,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllInternalFeatures()
 	 */
 	@Override
@@ -2203,7 +2203,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllEventSources()
 	 */
 	@Override
@@ -2219,7 +2219,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllEventDataSources()
 	 */
 	@Override
@@ -2235,7 +2235,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllProcessorFeatures()
 	 */
 	@Override
@@ -2248,7 +2248,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllPortProxies()
 	 */
 	@Override
@@ -2264,7 +2264,7 @@ public abstract class ComponentImplementationImpl extends ComponentClassifierImp
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.osate.aadl2.ComponentImplementation#getAllSubprogramProxies()
 	 */
 	@Override

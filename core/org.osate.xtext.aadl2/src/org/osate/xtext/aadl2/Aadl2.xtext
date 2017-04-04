@@ -1956,7 +1956,7 @@ FlowSourceImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID] 
 	':' 'flow' kind=FlowSource 
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
-FLOWOUT
+	outEnd=FlowEnd
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
@@ -1965,7 +1965,7 @@ FLOWOUT
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowSink 
-FLOWIN
+	inEnd = FlowEnd
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
     ('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
@@ -1975,10 +1975,10 @@ FLOWIN
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowPath 
-FLOWIN
+	inEnd = FlowEnd
 	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
 	    '->' ownedFlowSegment+=ConnectionFlow )?
- '->' FLOWOUT
+ '->' outEnd=FlowEnd
  	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
 	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
@@ -2314,11 +2314,6 @@ CoreKeyWord :
 PNAME:
 	ID ('::' ID)*;
 	
-FLOWOUT: (ID '.')? ID
-;
-FLOWIN: (ID '.')? ID
-;
-
 // fully qualified classifier name (always includes package name
 FQCREF:
 	(ID '::')+ ID ('.' ID)?;
