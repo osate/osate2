@@ -3,7 +3,7 @@
 ')'=56
 '*'=15
 '+'=47
-'+=>'=86
+'+=>'=87
 ','=57
 '-'=48
 '->'=16
@@ -29,12 +29,12 @@
 'complete'=82
 'compute'=78
 'connection'=73
-'constant'=87
+'constant'=88
 'data'=31
 'dataAccess'=24
 'dataPort'=19
 'delta'=81
-'derived'=85
+'derived'=86
 'device'=32
 'end'=60
 'eventDataPort'=21
@@ -46,7 +46,7 @@
 'flow'=59
 'group'=68
 'in'=17
-'initial'=84
+'initial'=85
 'memory'=33
 'mode'=62
 'modes'=54
@@ -59,6 +59,7 @@
 'processor'=35
 'property'=74
 'reference'=67
+'reverse'=84
 'som'=65
 'subprogram'=36
 'subprogramAccess'=25
@@ -68,7 +69,7 @@
 'to'=61
 'transition'=64
 'transitions'=58
-'true'=88
+'true'=89
 'virtual'=69
 '{'=50
 '}'=51
@@ -157,3 +158,4 @@ T__85=85
 T__86=86
 T__87=87
 T__88=88
+T__89=89

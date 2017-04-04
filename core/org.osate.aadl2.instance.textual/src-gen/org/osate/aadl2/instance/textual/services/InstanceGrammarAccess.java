@@ -755,22 +755,25 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		private final CrossReference cDestinationConnectionInstanceEndCrossReference_2_0 = (CrossReference)cDestinationAssignment_2.eContents().get(0);
 		private final RuleCall cDestinationConnectionInstanceEndInstanceRefParserRuleCall_2_0_1 = (RuleCall)cDestinationConnectionInstanceEndCrossReference_2_0.eContents().get(1);
 		private final Keyword cColonKeyword_3 = (Keyword)cGroup.eContents().get(3);
-		private final Assignment cConnectionAssignment_4 = (Assignment)cGroup.eContents().get(4);
-		private final CrossReference cConnectionConnectionCrossReference_4_0 = (CrossReference)cConnectionAssignment_4.eContents().get(0);
-		private final RuleCall cConnectionConnectionDeclarativeRefParserRuleCall_4_0_1 = (RuleCall)cConnectionConnectionCrossReference_4_0.eContents().get(1);
-		private final Keyword cInKeyword_5 = (Keyword)cGroup.eContents().get(5);
-		private final Assignment cContextAssignment_6 = (Assignment)cGroup.eContents().get(6);
-		private final CrossReference cContextComponentInstanceCrossReference_6_0 = (CrossReference)cContextAssignment_6.eContents().get(0);
-		private final RuleCall cContextComponentInstanceInstanceRefParserRuleCall_6_0_1 = (RuleCall)cContextComponentInstanceCrossReference_6_0.eContents().get(1);
+		private final Assignment cReverseAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final Keyword cReverseReverseKeyword_4_0 = (Keyword)cReverseAssignment_4.eContents().get(0);
+		private final Assignment cConnectionAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final CrossReference cConnectionConnectionCrossReference_5_0 = (CrossReference)cConnectionAssignment_5.eContents().get(0);
+		private final RuleCall cConnectionConnectionDeclarativeRefParserRuleCall_5_0_1 = (RuleCall)cConnectionConnectionCrossReference_5_0.eContents().get(1);
+		private final Keyword cInKeyword_6 = (Keyword)cGroup.eContents().get(6);
+		private final Assignment cContextAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final CrossReference cContextComponentInstanceCrossReference_7_0 = (CrossReference)cContextAssignment_7.eContents().get(0);
+		private final RuleCall cContextComponentInstanceInstanceRefParserRuleCall_7_0_1 = (RuleCall)cContextComponentInstanceCrossReference_7_0.eContents().get(1);
 		
 		//ConnectionReference instance::ConnectionReference:
 		//	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef]
 		//	':'
-		//	connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef];
+		//	reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in'
+		//	context=[instance::ComponentInstance|InstanceRef];
 		@Override public ParserRule getRule() { return rule; }
 
 		//source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':'
-		//connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
+		//reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
 		public Group getGroup() { return cGroup; }
 
 		//source=[instance::ConnectionInstanceEnd|InstanceRef]
@@ -797,26 +800,32 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
+		//reverse?='reverse'
+		public Assignment getReverseAssignment_4() { return cReverseAssignment_4; }
+
+		//'reverse'
+		public Keyword getReverseReverseKeyword_4_0() { return cReverseReverseKeyword_4_0; }
+
 		//connection=[aadl2::Connection|DeclarativeRef]
-		public Assignment getConnectionAssignment_4() { return cConnectionAssignment_4; }
+		public Assignment getConnectionAssignment_5() { return cConnectionAssignment_5; }
 
 		//[aadl2::Connection|DeclarativeRef]
-		public CrossReference getConnectionConnectionCrossReference_4_0() { return cConnectionConnectionCrossReference_4_0; }
+		public CrossReference getConnectionConnectionCrossReference_5_0() { return cConnectionConnectionCrossReference_5_0; }
 
 		//DeclarativeRef
-		public RuleCall getConnectionConnectionDeclarativeRefParserRuleCall_4_0_1() { return cConnectionConnectionDeclarativeRefParserRuleCall_4_0_1; }
+		public RuleCall getConnectionConnectionDeclarativeRefParserRuleCall_5_0_1() { return cConnectionConnectionDeclarativeRefParserRuleCall_5_0_1; }
 
 		//'in'
-		public Keyword getInKeyword_5() { return cInKeyword_5; }
+		public Keyword getInKeyword_6() { return cInKeyword_6; }
 
 		//context=[instance::ComponentInstance|InstanceRef]
-		public Assignment getContextAssignment_6() { return cContextAssignment_6; }
+		public Assignment getContextAssignment_7() { return cContextAssignment_7; }
 
 		//[instance::ComponentInstance|InstanceRef]
-		public CrossReference getContextComponentInstanceCrossReference_6_0() { return cContextComponentInstanceCrossReference_6_0; }
+		public CrossReference getContextComponentInstanceCrossReference_7_0() { return cContextComponentInstanceCrossReference_7_0; }
 
 		//InstanceRef
-		public RuleCall getContextComponentInstanceInstanceRefParserRuleCall_6_0_1() { return cContextComponentInstanceInstanceRefParserRuleCall_6_0_1; }
+		public RuleCall getContextComponentInstanceInstanceRefParserRuleCall_7_0_1() { return cContextComponentInstanceInstanceRefParserRuleCall_7_0_1; }
 	}
 
 	public class FlowSpecificationInstanceElements extends AbstractParserRuleElementFinder {
@@ -2597,7 +2606,8 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//ConnectionReference instance::ConnectionReference:
 	//	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef]
 	//	':'
-	//	connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef];
+	//	reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in'
+	//	context=[instance::ComponentInstance|InstanceRef];
 	public ConnectionReferenceElements getConnectionReferenceAccess() {
 		return pConnectionReference;
 	}

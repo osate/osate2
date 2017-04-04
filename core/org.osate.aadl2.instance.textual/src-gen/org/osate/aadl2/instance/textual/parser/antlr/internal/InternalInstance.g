@@ -1159,22 +1159,37 @@ ruleConnectionReference returns [EObject current=null]
     }
 (
 (
+		lv_reverse_4_0=	'reverse' 
+    {
+        newLeafNode(lv_reverse_4_0, grammarAccess.getConnectionReferenceAccess().getReverseReverseKeyword_4_0());
+    }
+ 
+	    {
+	        if ($current==null) {
+	            $current = createModelElement(grammarAccess.getConnectionReferenceRule());
+	        }
+       		setWithLastConsumed($current, "reverse", true, "reverse");
+	    }
+
+)
+)(
+(
 		{
 			if ($current==null) {
 	            $current = createModelElement(grammarAccess.getConnectionReferenceRule());
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionCrossReference_4_0()); 
+	        newCompositeNode(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionCrossReference_5_0()); 
 	    }
 		ruleDeclarativeRef		{ 
 	        afterParserOrEnumRuleCall();
 	    }
 
 )
-)	otherlv_5='in' 
+)	otherlv_6='in' 
     {
-    	newLeafNode(otherlv_5, grammarAccess.getConnectionReferenceAccess().getInKeyword_5());
+    	newLeafNode(otherlv_6, grammarAccess.getConnectionReferenceAccess().getInKeyword_6());
     }
 (
 (
@@ -1184,7 +1199,7 @@ ruleConnectionReference returns [EObject current=null]
 	        }
         }
 		{ 
-	        newCompositeNode(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceCrossReference_6_0()); 
+	        newCompositeNode(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceCrossReference_7_0()); 
 	    }
 		ruleInstanceRef		{ 
 	        afterParserOrEnumRuleCall();
