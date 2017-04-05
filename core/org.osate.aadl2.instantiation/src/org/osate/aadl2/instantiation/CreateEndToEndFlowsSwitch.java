@@ -197,6 +197,13 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 
 	private HashMap<EndToEndFlow, List<ETEInfo>> ete2info;
 
+	/** 
+	 * The last flow implementation to match connection start
+	 * Relevant if a flow implementation goes straight through a subcomponent.
+	 * Thsi can occur only for leaf components, such that no stack is needed.
+	 */
+	private FlowImplementation lastFlowImpl;
+
 	/**
 	 * Create a new instance.
 	 *
@@ -302,8 +309,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param iter the position in the current ETE declaration
 	 * @param errorElement the model element that we attach errors to
 	 */
-	protected void processETESegment(final ComponentInstance ci, final EndToEndFlowInstance etei, final Element fs,
-			final FlowIterator iter, final NamedElement errorElement) {
+	protected void processETESegment(ComponentInstance ci, EndToEndFlowInstance etei, Element fs, FlowIterator iter,
+			NamedElement errorElement) {
 		final Element fe;
 
 		if (fs instanceof FlowSegment) {
@@ -373,9 +380,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				warning(etei, "End-to-end flow " + etei.getName() + " contains component " + ci.getName()
 						+ " with subcomponents, but no flow implementation " + fs.getName() + " to them");
 			}
-			// if (isLast()) {
-			// fillinModes(etei);
-			// }
 		} else {
 			Iterator<FlowImplementation> itt = flowImpls.iterator();
 
@@ -393,17 +397,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					eteiClone = EcoreUtil.copy(etei);
 					iterClone = iter.clone();
 					connectionsClone = new ArrayList<Connection>(connections);
-//					etei.setName(etei.getEndToEndFlow().getName());
-					;
 					eteiClone.getModesList().addAll(etei.getModesList());
 				}
 
 				// add all ete instances that continue through flow impl
 				if (!processFlowImpl(ci, etei, flowImpl)) {
-					processFlowStep(ci, etei, fs, iter);
-					// if (isLast()) {
-					// fillinModes(etei);
-					// }
+					processFlowStep(ci, etei, fs, flowImpl, iter);
 				}
 
 				if (prepareNext) {
@@ -456,6 +455,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 * @param iter the position in the current end to end flow declaration
 	 */
 	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf, FlowIterator iter) {
+		processFlowStep(ci, etei, leaf, null, iter);
+	}
+
+	protected void processFlowStep(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf,
+			FlowImplementation nextFlowImpl, FlowIterator iter) {
 		// add connection(s), will be empty when starting the ETE
 		if (connections.isEmpty()) {
 			addLeafElement(ci, etei, leaf);
@@ -464,12 +468,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
 
 			if (connis.isEmpty()) {
-//				error(etei, "Incomplete end-to-end flow instance " + etei.getName()
-//						+ ": Missing connection instance to " + ((NamedElement) leaf).getName());
 				connections.clear();
 				removeETEI.add(etei);
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
+				FlowImplementation flowFilter = lastFlowImpl;
+				lastFlowImpl = null;
 
 				while (connIter.hasNext()) {
 					EndToEndFlowInstance eteiClone = null;
@@ -477,6 +481,16 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					ConnectionInstance conni = connIter.next();
 					boolean prepareNext = connIter.hasNext();
 					FlowIterator iterClone = null;
+
+					if (flowFilter != null && !isValidContinuation(flowFilter, conni)) {
+						removeETEI.add(etei);
+						continue;
+					}
+					if (nextFlowImpl != null && !isValidContinuation(conni, nextFlowImpl)) {
+						removeETEI.add(etei);
+						continue;
+					}
+					lastFlowImpl = nextFlowImpl;
 
 					if (prepareNext) {
 						stateClone = clone(state);
@@ -530,6 +544,40 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	}
 
 	/**
+	 * Check if a connection destination is the start of a flow implementation
+	 * @param conn
+	 * @param flow
+	 * @return
+	 */
+	boolean isValidContinuation(ConnectionInstance conni, FlowImplementation fimpl) {
+		boolean result = false;
+		ConnectionInstanceEnd dst = conni.getDestination();
+		if (dst instanceof FeatureInstance) {
+			Feature flowIn = fimpl.getInEnd().getFeature();
+			Feature connDst = ((FeatureInstance) dst).getFeature();
+			result = flowIn == connDst;
+		}
+		return result;
+	}
+
+	/**
+	 * Check if a connection source is the end of a flow implementation
+	 * @param conn
+	 * @param flow
+	 * @return
+	 */
+	boolean isValidContinuation(FlowImplementation fimpl, ConnectionInstance conni) {
+		boolean result = false;
+		ConnectionInstanceEnd src = conni.getSource();
+		if (src instanceof FeatureInstance) {
+			Feature flowOut = fimpl.getOutEnd().getFeature();
+			Feature connSrc = ((FeatureInstance) src).getFeature();
+			result = flowOut == connSrc;
+		}
+		return result;
+	}
+
+	/**
 	 * Add the ETE instance that goes through a data access feature. Instead of
 	 * the data access feature, add the accessed object to the ETE instance. The
 	 * access feature uniquely determines the accessed object.
@@ -570,12 +618,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						if (target.getCategory() == ComponentCategory.DATA) {
 							leaf = target.getSubcomponent();
 						}
-//					} else if (conni.getDestination() instanceof FeatureInstance) {
-//						FeatureInstance target = (FeatureInstance) conni.getDestination();
-//
-//						if (target.getCategory() == FeatureCategory.DATA_ACCESS) {
-//							leaf = (DataAccess) target.getFeature();
-//						}
 					} else {
 						if (!errorReported) {
 							errorReported = true;
@@ -589,7 +631,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							stateClone = clone(state);
 							eteiClone = EcoreUtil.copy(etei);
 							etei.setName(etei.getEndToEndFlow().getName());
-							;
 							eteiClone.getModesList().addAll(etei.getModesList());
 						}
 
@@ -689,7 +730,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					stateClone = clone(state);
 					eteiClone = EcoreUtil.copy(etei);
 					etei.setName(etei.getEndToEndFlow().getName());
-					;
 					eteiClone.getModesList().addAll(etei.getModesList());
 				}
 
@@ -757,7 +797,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							stateClone = clone(state);
 							eteiClone = EcoreUtil.copy(etei);
 							etei.setName(etei.getEndToEndFlow().getName());
-							;
 							eteiClone.getModesList().addAll(etei.getModesList());
 						}
 
@@ -803,9 +842,14 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	private void addLeafElement(ComponentInstance ci, EndToEndFlowInstance etei, Element leaf) {
 		FlowSpecification fs;
 		FlowSpecificationInstance fsi;
-		if (leaf instanceof FlowSpecification) {
+		if (leaf instanceof FlowSpecification || leaf instanceof FlowImplementation) {
 			// append a flow specification instance
-			fs = (FlowSpecification) leaf;
+			if (leaf instanceof FlowImplementation) {
+				FlowImplementation fi = (FlowImplementation) leaf;
+				fs = fi.getSpecification();
+			} else {
+				fs = (FlowSpecification) leaf;
+			}
 			fsi = ci.findFlowSpecInstance(fs);
 			if (fsi == null) {
 				doFlowSpecInstances(ci);
@@ -839,14 +883,6 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					etei.getFlowElements().add(ci);
 				}
 			}
-//		} else if (leaf instanceof DataAccess) {
-//			if (ci != null) {
-//				// append a data instance
-//				etei.getFlowElements().add(ci);
-//			} else {
-//				error(etei, "Incomplete End-to-end flow instance " + etei.getName()
-//						+ ": No data component connected to data access feature " + ((DataAccess) leaf).getName());
-//			}
 		}
 	}
 
@@ -1047,6 +1083,11 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				lastFeature = getLastFeature((EndToEndFlowInstance) lastElement);
 			} else if (lastElement instanceof FlowSpecificationInstance) {
 				lastFeature = ((FlowSpecificationInstance) lastElement).getDestination();
+			} else if (lastElement instanceof ConnectionInstance) {
+				ConnectionInstanceEnd dst = ((ConnectionInstance) lastElement).getDestination();
+				if (dst instanceof FeatureInstance) {
+					lastFeature = (FeatureInstance) dst;
+				}
 			}
 		}
 		return lastFeature;
