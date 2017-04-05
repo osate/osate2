@@ -1912,8 +1912,14 @@ The context owns the connection end instance.</body>
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_xoODUqvbEeC0h7jzzZfZ7Q"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_xoODUavbEeC0h7jzzZfZ7Q" value="*"/>
         </ownedAttribute>
-        <ownedAttribute xmi:id="_Q7EB8BifEeeiMKeUpr3PBw" name="inEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_Q65p4BifEeeiMKeUpr3PBw"/>
-        <ownedAttribute xmi:id="_WUxRkRifEeeiMKeUpr3PBw" name="outEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_WUwqgBifEeeiMKeUpr3PBw"/>
+        <ownedAttribute xmi:id="_Q7EB8BifEeeiMKeUpr3PBw" name="inEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_Q65p4BifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_4tEBMBowEeeOJN_lhcHQhA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_4tT40BowEeeOJN_lhcHQhA" value="1"/>
+        </ownedAttribute>
+        <ownedAttribute xmi:id="_WUxRkRifEeeiMKeUpr3PBw" name="outEnd" type="_AzAPoKvVEeC0h7jzzZfZ7Q" aggregation="composite" association="_WUwqgBifEeeiMKeUpr3PBw">
+          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_7Sl5ABowEeeOJN_lhcHQhA"/>
+          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_7SmgEBowEeeOJN_lhcHQhA" value="1"/>
+        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="Flows-FlowElement" name="FlowElement" isAbstract="true">
         <ownedComment xmi:id="Flows-FlowElement-_ownedComment.0">

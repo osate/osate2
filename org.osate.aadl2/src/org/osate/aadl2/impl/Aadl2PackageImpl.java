@@ -11409,10 +11409,10 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getFlowImplementation_OwnedFlowSegment(), getFlowSegment(), null, "ownedFlowSegment", null, 0,
 				-1, FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getFlowImplementation_InEnd(), getFlowEnd(), null, "inEnd", null, 1, 1, FlowImplementation.class,
+		initEReference(getFlowImplementation_InEnd(), getFlowEnd(), null, "inEnd", null, 0, 1, FlowImplementation.class,
 				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
-		initEReference(getFlowImplementation_OutEnd(), getFlowEnd(), null, "outEnd", null, 1, 1,
+		initEReference(getFlowImplementation_OutEnd(), getFlowEnd(), null, "outEnd", null, 0, 1,
 				FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 

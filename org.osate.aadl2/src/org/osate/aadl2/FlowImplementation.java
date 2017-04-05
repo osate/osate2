@@ -130,7 +130,7 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	 * @return the value of the '<em>In End</em>' containment reference.
 	 * @see #setInEnd(FlowEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_InEnd()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	FlowEnd getInEnd();
@@ -165,7 +165,7 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	 * @return the value of the '<em>Out End</em>' containment reference.
 	 * @see #setOutEnd(FlowEnd)
 	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_OutEnd()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	FlowEnd getOutEnd();
