@@ -55,7 +55,6 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.SystemImplementation;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.codegen.checker.checks.AbstractCheck;
 import org.osate.codegen.checker.checks.DataCheck;
 import org.osate.codegen.checker.checks.MemoryCheck;
@@ -168,7 +167,6 @@ public class CheckerHandler extends AbstractHandler {
 		 * For now, we print the errors.
 		 */
 		for (ErrorReport e : errors) {
-			OsateDebug.osateDebug("error " + e.getMessage() + " on " + e.getComponent().getName());
 			try {
 				IMarker marker = getIResource(e.getComponent().eResource()).createMarker(MARKER_TYPE);
 				marker.setAttribute(IMarker.MESSAGE, e.getComponent().getName() + " - " + e.getMessage());
@@ -177,6 +175,12 @@ public class CheckerHandler extends AbstractHandler {
 			} catch (CoreException exception) {
 				exception.printStackTrace();
 			}
+		}
+
+		if (errors.isEmpty()) {
+			MessageDialog.openInformation(window.getShell(), "Code Generation Checker", "No problems found");
+		} else {
+			MessageDialog.openError(window.getShell(), "Code Generation Checker", errors.size() + " problem(s) found");
 		}
 
 		return null;
