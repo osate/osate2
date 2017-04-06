@@ -463,6 +463,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		// add connection(s), will be empty when starting the ETE
 		if (connections.isEmpty()) {
 			addLeafElement(ci, etei, leaf);
+			lastFlowImpl = nextFlowImpl;
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
 		} else {
 			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
@@ -473,6 +474,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
 				FlowImplementation flowFilter = lastFlowImpl;
+				boolean remove = false;
+
 				lastFlowImpl = null;
 
 				while (connIter.hasNext()) {
@@ -482,14 +485,12 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					boolean prepareNext = connIter.hasNext();
 					FlowIterator iterClone = null;
 
-					if (flowFilter != null && !isValidContinuation(flowFilter, conni)) {
-						removeETEI.add(etei);
+					remove = true;
+					if (flowFilter != null && !isValidContinuation(flowFilter, conni)
+							|| nextFlowImpl != null && !isValidContinuation(conni, nextFlowImpl)) {
 						continue;
 					}
-					if (nextFlowImpl != null && !isValidContinuation(conni, nextFlowImpl)) {
-						removeETEI.add(etei);
-						continue;
-					}
+					remove = false;
 					lastFlowImpl = nextFlowImpl;
 
 					if (prepareNext) {
@@ -538,6 +539,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 							created.add(myInfo = new ETEInfo(myInfo.preConns, etei));
 						}
 					}
+				}
+				if (remove) {
+					removeETEI.add(etei);
 				}
 			}
 		}
