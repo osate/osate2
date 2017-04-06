@@ -154,7 +154,7 @@ public class CheckerHandler extends AbstractHandler {
 
 		if (selectedSystemInstance == null) {
 			MessageDialog.openError(window.getShell(), "Code Generation Checker",
-					"Please select a system instance or system implementation in the outline view");
+					"Please select a system implementation in the outline view");
 			return null;
 		}
 
