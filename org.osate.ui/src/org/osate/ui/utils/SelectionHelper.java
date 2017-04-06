@@ -17,8 +17,7 @@ import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.outline.impl.EObjectNode;
 import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 
-public class SelectionHelper
-{
+public class SelectionHelper {
 	private static EObjectAtOffsetHelper eObjectAtOffsetHelper = new EObjectAtOffsetHelper();
 
 	public static XtextEditor getXtextEditor() {
@@ -30,52 +29,45 @@ public class SelectionHelper
 			throw new RuntimeException("Unexpected case. Unable to get active editor");
 		}
 
-		XtextEditor xtextEditor = (XtextEditor) activeEditor
-				.getAdapter(XtextEditor.class);
+		XtextEditor xtextEditor = activeEditor.getAdapter(XtextEditor.class);
 		if (xtextEditor == null) {
 			throw new RuntimeException("Unexpected case. Unable to get Xtext editor");
 		}
 
 		return xtextEditor;
 	}
-	
-	
-	public static EObject getEObjectFromSelection(final ISelection selection) {
-		return getXtextEditor().getDocument().readOnly(
-				new IUnitOfWork<EObject, XtextResource>() {
-					public EObject exec(XtextResource resource)
-							throws Exception {
-						EObject targetElement = null;
-						if (selection instanceof IStructuredSelection) {
-							IStructuredSelection ss = (IStructuredSelection) selection;
-							Object eon = ss.getFirstElement();
-							if (eon instanceof EObjectNode) {
-								targetElement = ((EObjectNode) eon)
-										.getEObject(resource);
-							}
-						} else {
-							targetElement = eObjectAtOffsetHelper
-									.resolveElementAt(resource,
-											((ITextSelection) selection)
-													.getOffset());
-						}
 
-						return targetElement;
+	public static EObject getEObjectFromSelection(final ISelection selection) {
+		return getXtextEditor().getDocument().readOnly(new IUnitOfWork<EObject, XtextResource>() {
+			@Override
+			public EObject exec(XtextResource resource) throws Exception {
+				EObject targetElement = null;
+				if (selection instanceof IStructuredSelection) {
+					IStructuredSelection ss = (IStructuredSelection) selection;
+					Object eon = ss.getFirstElement();
+					if (eon instanceof EObjectNode) {
+						targetElement = ((EObjectNode) eon).getEObject(resource);
 					}
-				});
-	}	
-	
-	public static EObject getSelectedObjectinOutline ()
-	{
+				} else {
+					targetElement = eObjectAtOffsetHelper.resolveElementAt(resource,
+							((ITextSelection) selection).getOffset());
+				}
+
+				return targetElement;
+			}
+		});
+	}
+
+	public static EObject getSelectedObjectinOutline() {
 		final IWorkbench workbench = PlatformUI.getWorkbench();
 		final IWorkbenchWindow workbenchWindow = workbench.getActiveWorkbenchWindow();
 		final IWorkbenchPage workbenchPage = workbenchWindow.getActivePage();
 		final IEditorPart activeEditor = workbenchPage.getActiveEditor();
 		EObject res;
-		
+
 		res = null;
-		
-		if (activeEditor == null) {
+
+		if (!(activeEditor instanceof XtextEditor)) {
 			return null;
 		}
 
