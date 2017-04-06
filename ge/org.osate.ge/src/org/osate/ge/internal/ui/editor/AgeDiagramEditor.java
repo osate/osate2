@@ -35,6 +35,7 @@ import org.eclipse.graphiti.ui.editor.DiagramEditor;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.ui.views.contentoutline.IContentOutlinePage;
 import org.osate.ge.GraphicalEditor;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 	public static final String DIAGRAM_EDITOR_ID = "org.osate.ge.editor.AgeDiagramEditor";
@@ -90,5 +91,9 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		}
 
 		setPartName(name);
+	}
+	
+	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
+		return ((AgeDiagramBehavior)getDiagramBehavior()).getGraphitiAgeDiagram();
 	}
 }

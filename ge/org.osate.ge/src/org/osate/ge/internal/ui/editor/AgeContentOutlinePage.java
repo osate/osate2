@@ -1,13 +1,15 @@
 package org.osate.ge.internal.ui.editor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
-
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
 import org.eclipse.graphiti.features.IDirectEditingFeature;
@@ -57,20 +59,17 @@ import org.eclipse.ui.IPropertyListener;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
 	private AgeDiagramEditor editor;
-	private final BusinessObjectResolutionService bor;
 	
 	public AgeContentOutlinePage(final AgeDiagramEditor editor) {
 		this.editor = Objects.requireNonNull(editor, "editor must not be null");
-		this.bor = Objects.requireNonNull((BusinessObjectResolutionService)editor.getAdapter(BusinessObjectResolutionService.class), "Unable to retrieve business object resolution service");
 	}
 
 	public void createControl(final Composite parent) {
@@ -89,17 +88,21 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 			@Override
 			public Object[] getElements(final Object inputElement) {
-				// TODO: Need access to AgeDiagram
-				// return getChildren(getAgeDiagram()));
+				if(inputElement instanceof AgeDiagramEditor) {
+					final AgeDiagramEditor editor = (AgeDiagramEditor)inputElement;
+					final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
+					return getChildren(graphitiAgeDiagram.getAgeDiagram());
+				}
+
 				return new Object[0];
 			}
 
 			@Override
 			public Object[] getChildren(final Object parentElement) {
 				if(parentElement instanceof DiagramNode) {
-					return ((DiagramNode) parentElement).getDiagramElements().toArray();
+					return ((DiagramNode) parentElement).getDiagramElements().stream().filter((de) -> de.getName() != null).toArray(); // Only show children which have names
 				}
-
+				
 				return new Object[0];
 			}
 
@@ -136,32 +139,34 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 
 		viewer.setLabelProvider(new LabelProvider() {
 			@Override
-			public String getText(Object element) {
-				final Object bo = bor.getBusinessObjectForPictogramElement((PictogramElement)element);
-				if(bo instanceof NamedElement) {
-					final NamedElement ne = (NamedElement)bo;
-
-					return StringUtil.camelCaseToUser(ne.eClass().getName()) + " " + ne.getName();
+			public String getText(final Object element) {
+				if(element instanceof DiagramElement) {
+					final DiagramElement de = (DiagramElement)element;
+					final Object bo = de.getBusinessObject();
+					final String prefix = bo instanceof EObject ? StringUtil.camelCaseToUser(((EObject)bo).eClass().getName()) + " " : "";
+					return prefix + de.getName();
 				}
-
+				
 				return super.getText(element);
 			}
 
 			@Override
 			public Image getImage(final Object element) {
-				final Object bo = bor.getBusinessObjectForPictogramElement((PictogramElement)element);
-				if(bo instanceof NamedElement) {
-					final NamedElement ne = (NamedElement)bo;
-					final ImageDescriptor imgDesc = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
-							ImageHelper.getImage(ne.eClass().getName()));
-
-					// Check if ImageDescriptor has a valid type.
-					final ImageData imageData = imgDesc.getImageData();
-					if(imageData != null && imageData.type >= 0) {
-						return imgDesc.createImage();
+				if(element instanceof DiagramElement) {
+					final DiagramElement de = (DiagramElement)element;
+					final Object bo = de.getBusinessObject();
+					if(bo instanceof EObject) {
+						final ImageDescriptor imgDesc = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
+								ImageHelper.getImage(((EObject)bo).eClass().getName()));
+	
+						// Check if ImageDescriptor has a valid type.
+						final ImageData imageData = imgDesc.getImageData();
+						if(imageData != null && imageData.type >= 0) {
+							return imgDesc.createImage();
+						}
 					}
 				}
-
+				
 				return super.getImage(element);
 			}
 		});
@@ -172,8 +177,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		menuMgr.addMenuListener(new IMenuListener() {
 			@Override
 			public void menuAboutToShow(final IMenuManager contextMenu) {
-				final Object[] ss = ((IStructuredSelection)getSelection()).toArray();
-				final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
+				final PictogramElement[] treePes = getCurrentlySelectedPictogramElements();
 				final ICustomContext context = new CustomContext(treePes);
 				final ICustomFeature[] customFeatures = diagramTypeProvider.getFeatureProvider().getCustomFeatures(context);				
 
@@ -265,27 +269,23 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			public void selectionChanged(final SelectionChangedEvent event) {
 				if(linkWithEditorAction.isChecked()) {
 					final TreeViewer treeViewer = getTreeViewer();
-					final Object[] ss = ((IStructuredSelection)getSelection()).toArray();
-					final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
-					
-					if(treeViewer != null && treeViewer.getContentProvider() != null && updateLinkWithEditor(treePes, editor.getSelectedPictogramElements())) {
-						treeViewer.setSelection(getTreeSelection());
+					final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();			
+					if(treeViewer != null && 
+							treeViewer.getContentProvider() != null && 
+							!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
+						treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
 					}
 				}
 			}
-
-			private TreeSelection getTreeSelection() {
-				final ArrayList<TreePath> treePathList = new ArrayList<>();
-				final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
-				for(final PictogramElement selectedPe : selectedPes) {
-					if(selectedPe == null || (selectedPe instanceof ConnectionDecorator)) {
-						return TreeSelection.EMPTY;
-					}
-
-					treePathList.add(new TreePath(new Object[] { selectedPe } ));
+			
+			private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
+				final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
+				if(selectedDiagramNodes == null) {
+					return TreeSelection.EMPTY;
 				}
-
-				return new TreeSelection(treePathList.toArray(new TreePath[treePathList.size()]));
+				
+				final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
+				return new TreeSelection(treePaths);
 			}
 		});
 
@@ -313,17 +313,15 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 	}
 
 	private void selectEditorPictogramElements() {
-		final Object[] ss = ((IStructuredSelection)getSelection()).toArray();
-		final PictogramElement[] treePes = Arrays.copyOf(ss, ss.length, PictogramElement[].class);
-		final PictogramElement[] editorPes = editor.getSelectedPictogramElements();
-		if(getTreeViewer() != null && getTreeViewer().getContentProvider() != null && updateLinkWithEditor(treePes, editorPes)) {
-			editor.selectPictogramElements(treePes);
+		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
+		final Set<DiagramNode>  outlineNodes = getCurrentlySelectedDiagramNodes();
+		final Set<DiagramNode> editorNodes = getSelectedDiagramNodesFromEditor();
+		if(getTreeViewer() != null && 
+				getTreeViewer().getContentProvider() != null && 
+				!outlineNodes.equals(editorNodes)) {
+			// Select pictogram elements
+			editor.selectPictogramElements(getCurrentlySelectedPictogramElements());
 		}
-	}
-
-	// Check if Link With Editor elements needs updated
-	private boolean updateLinkWithEditor(final PictogramElement[] treePes, final PictogramElement[] editorPes) {
-		return !Arrays.equals(treePes, editorPes);
 	}
 
 	@Override
@@ -377,6 +375,61 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		}
 	};
 
+	private PictogramElement[] getCurrentlySelectedPictogramElements() {
+		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
+		final List<PictogramElement> pes = new ArrayList<>();
+		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
+		for(final Object selectedDiagramNode : outlineSelection) {
+			final PictogramElement pe = graphitiAgeDiagram.getPictogramElement((DiagramNode)selectedDiagramNode);
+			if(pe != null) {
+				pes.add(pe);
+			}
+		}
+		
+		return pes.toArray(new PictogramElement[pes.size()]);
+	}
+	
+	// Sets are used in the following methods to allow correct comparison between editor and outline selection. The editor may have multiple pictogram 
+	// elements for the same diagram node.
+	/**
+	 * Will never return null. 
+	 * @return
+	 */
+	private Set<DiagramNode> getCurrentlySelectedDiagramNodes() {
+		final Object[] outlineSelection = ((IStructuredSelection)getSelection()).toArray();
+		final Set<DiagramNode> diagramNodes = new HashSet<>();
+		for(final Object diagramNode : outlineSelection) {
+			diagramNodes.add((DiagramNode)diagramNode);
+		}
+		
+		return diagramNodes;
+	}
+
+	/**
+	 * Will return null if it is unable to determine the diagram nodes for all the selected pictogram elements.
+	 * @return
+	 */
+	private Set<DiagramNode> getSelectedDiagramNodesFromEditor() {
+		final PictogramElement[] selectedPes = editor.getSelectedPictogramElements();
+		final Set<DiagramNode> selectedDiagramNodes = new HashSet<>();
+		final GraphitiAgeDiagram graphitiAgeDiagram = editor.getGraphitiAgeDiagram();
+		for(final PictogramElement selectedPe : selectedPes) {
+			if(selectedPe == null) {
+				return null;
+			}
+			
+			final DiagramNode diagramNode = graphitiAgeDiagram.getClosestDiagramElement(selectedPe);
+			if(diagramNode == null) {
+				return null;
+			}
+			
+			selectedDiagramNodes.add(diagramNode);
+		}
+		
+		return selectedDiagramNodes;
+	}
+	
+	
 	// Rename Dialog
 	private static class RenameDialog extends InputDialog {
 		public RenameDialog(final Shell parentShell, final IDirectEditingFeature directEditingFeature, final DirectEditingContext directEditingContext) {

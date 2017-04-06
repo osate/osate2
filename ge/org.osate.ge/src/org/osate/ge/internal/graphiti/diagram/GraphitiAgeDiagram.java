@@ -504,8 +504,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	}
 	
 	@Override
-	public PictogramElement getPictogramElement(final DiagramNode de) {
-		return diagramNodeToPictogramElementMap.get(de);
+	public PictogramElement getPictogramElement(final DiagramNode dn) {
+		return diagramNodeToPictogramElementMap.get(dn);
 	}
 	
 	/**
