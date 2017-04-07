@@ -6927,11 +6927,6 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             case 47:
                 {
                 switch ( input.LA(2) ) {
-                case RULE_ID:
-                    {
-                    alt21=3;
-                    }
-                    break;
                 case RULE_INTEGER_LIT:
                     {
                     alt21=2;
@@ -6940,6 +6935,11 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
                 case RULE_REAL_LIT:
                     {
                     alt21=1;
+                    }
+                    break;
+                case RULE_ID:
+                    {
+                    alt21=3;
                     }
                     break;
                 default:
@@ -13259,7 +13259,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             // InternalInstance.g:4828:1: ( rule__ConnectionReference__Group__4__Impl rule__ConnectionReference__Group__5 )
             // InternalInstance.g:4829:2: rule__ConnectionReference__Group__4__Impl rule__ConnectionReference__Group__5
             {
-            pushFollow(FOLLOW_3);
+            pushFollow(FOLLOW_30);
             rule__ConnectionReference__Group__4__Impl();
 
             state._fsp--;
@@ -13288,27 +13288,38 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
 
 
     // $ANTLR start "rule__ConnectionReference__Group__4__Impl"
-    // InternalInstance.g:4836:1: rule__ConnectionReference__Group__4__Impl : ( ( rule__ConnectionReference__ReverseAssignment_4 ) ) ;
+    // InternalInstance.g:4836:1: rule__ConnectionReference__Group__4__Impl : ( ( rule__ConnectionReference__ReverseAssignment_4 )? ) ;
     public final void rule__ConnectionReference__Group__4__Impl() throws RecognitionException {
 
         		int stackSize = keepStackSize();
             
         try {
-            // InternalInstance.g:4840:1: ( ( ( rule__ConnectionReference__ReverseAssignment_4 ) ) )
-            // InternalInstance.g:4841:1: ( ( rule__ConnectionReference__ReverseAssignment_4 ) )
+            // InternalInstance.g:4840:1: ( ( ( rule__ConnectionReference__ReverseAssignment_4 )? ) )
+            // InternalInstance.g:4841:1: ( ( rule__ConnectionReference__ReverseAssignment_4 )? )
             {
-            // InternalInstance.g:4841:1: ( ( rule__ConnectionReference__ReverseAssignment_4 ) )
-            // InternalInstance.g:4842:1: ( rule__ConnectionReference__ReverseAssignment_4 )
+            // InternalInstance.g:4841:1: ( ( rule__ConnectionReference__ReverseAssignment_4 )? )
+            // InternalInstance.g:4842:1: ( rule__ConnectionReference__ReverseAssignment_4 )?
             {
              before(grammarAccess.getConnectionReferenceAccess().getReverseAssignment_4()); 
-            // InternalInstance.g:4843:1: ( rule__ConnectionReference__ReverseAssignment_4 )
-            // InternalInstance.g:4843:2: rule__ConnectionReference__ReverseAssignment_4
-            {
-            pushFollow(FOLLOW_2);
-            rule__ConnectionReference__ReverseAssignment_4();
+            // InternalInstance.g:4843:1: ( rule__ConnectionReference__ReverseAssignment_4 )?
+            int alt38=2;
+            int LA38_0 = input.LA(1);
 
-            state._fsp--;
+            if ( (LA38_0==84) ) {
+                alt38=1;
+            }
+            switch (alt38) {
+                case 1 :
+                    // InternalInstance.g:4843:2: rule__ConnectionReference__ReverseAssignment_4
+                    {
+                    pushFollow(FOLLOW_2);
+                    rule__ConnectionReference__ReverseAssignment_4();
 
+                    state._fsp--;
+
+
+                    }
+                    break;
 
             }
 
@@ -13862,13 +13873,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getSourceAssignment_3()); 
             // InternalInstance.g:5067:1: ( rule__FlowSpecificationInstance__SourceAssignment_3 )?
-            int alt38=2;
-            int LA38_0 = input.LA(1);
+            int alt39=2;
+            int LA39_0 = input.LA(1);
 
-            if ( (LA38_0==RULE_ID||LA38_0==44||LA38_0==73) ) {
-                alt38=1;
+            if ( (LA39_0==RULE_ID||LA39_0==44||LA39_0==73) ) {
+                alt39=1;
             }
-            switch (alt38) {
+            switch (alt39) {
                 case 1 :
                     // InternalInstance.g:5067:2: rule__FlowSpecificationInstance__SourceAssignment_3
                     {
@@ -14033,13 +14044,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getDestinationAssignment_5()); 
             // InternalInstance.g:5127:1: ( rule__FlowSpecificationInstance__DestinationAssignment_5 )?
-            int alt39=2;
-            int LA39_0 = input.LA(1);
+            int alt40=2;
+            int LA40_0 = input.LA(1);
 
-            if ( (LA39_0==RULE_ID||LA39_0==44||LA39_0==73) ) {
-                alt39=1;
+            if ( (LA40_0==RULE_ID||LA40_0==44||LA40_0==73) ) {
+                alt40=1;
             }
-            switch (alt39) {
+            switch (alt40) {
                 case 1 :
                     // InternalInstance.g:5127:2: rule__FlowSpecificationInstance__DestinationAssignment_5
                     {
@@ -14204,17 +14215,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_7()); 
             // InternalInstance.g:5187:1: ( rule__FlowSpecificationInstance__Group_7__0 )?
-            int alt40=2;
-            int LA40_0 = input.LA(1);
+            int alt41=2;
+            int LA41_0 = input.LA(1);
 
-            if ( (LA40_0==17) ) {
-                int LA40_1 = input.LA(2);
+            if ( (LA41_0==17) ) {
+                int LA41_1 = input.LA(2);
 
-                if ( (LA40_1==54) ) {
-                    alt40=1;
+                if ( (LA41_1==54) ) {
+                    alt41=1;
                 }
             }
-            switch (alt40) {
+            switch (alt41) {
                 case 1 :
                     // InternalInstance.g:5187:2: rule__FlowSpecificationInstance__Group_7__0
                     {
@@ -14304,13 +14315,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_8()); 
             // InternalInstance.g:5216:1: ( rule__FlowSpecificationInstance__Group_8__0 )?
-            int alt41=2;
-            int LA41_0 = input.LA(1);
+            int alt42=2;
+            int LA42_0 = input.LA(1);
 
-            if ( (LA41_0==17) ) {
-                alt41=1;
+            if ( (LA42_0==17) ) {
+                alt42=1;
             }
-            switch (alt41) {
+            switch (alt42) {
                 case 1 :
                     // InternalInstance.g:5216:2: rule__FlowSpecificationInstance__Group_8__0
                     {
@@ -14555,13 +14566,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_11()); 
             // InternalInstance.g:5304:1: ( rule__FlowSpecificationInstance__Group_11__0 )?
-            int alt42=2;
-            int LA42_0 = input.LA(1);
+            int alt43=2;
+            int LA43_0 = input.LA(1);
 
-            if ( (LA42_0==50) ) {
-                alt42=1;
+            if ( (LA43_0==50) ) {
+                alt43=1;
             }
-            switch (alt42) {
+            switch (alt43) {
                 case 1 :
                     // InternalInstance.g:5304:2: rule__FlowSpecificationInstance__Group_11__0
                     {
@@ -14961,17 +14972,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_7_4()); 
             // InternalInstance.g:5479:1: ( rule__FlowSpecificationInstance__Group_7_4__0 )*
-            loop43:
+            loop44:
             do {
-                int alt43=2;
-                int LA43_0 = input.LA(1);
+                int alt44=2;
+                int LA44_0 = input.LA(1);
 
-                if ( (LA43_0==57) ) {
-                    alt43=1;
+                if ( (LA44_0==57) ) {
+                    alt44=1;
                 }
 
 
-                switch (alt43) {
+                switch (alt44) {
             	case 1 :
             	    // InternalInstance.g:5479:2: rule__FlowSpecificationInstance__Group_7_4__0
             	    {
@@ -14985,7 +14996,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop43;
+            	    break loop44;
                 }
             } while (true);
 
@@ -15599,17 +15610,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getGroup_8_4()); 
             // InternalInstance.g:5735:1: ( rule__FlowSpecificationInstance__Group_8_4__0 )*
-            loop44:
+            loop45:
             do {
-                int alt44=2;
-                int LA44_0 = input.LA(1);
+                int alt45=2;
+                int LA45_0 = input.LA(1);
 
-                if ( (LA44_0==57) ) {
-                    alt44=1;
+                if ( (LA45_0==57) ) {
+                    alt45=1;
                 }
 
 
-                switch (alt44) {
+                switch (alt45) {
             	case 1 :
             	    // InternalInstance.g:5735:2: rule__FlowSpecificationInstance__Group_8_4__0
             	    {
@@ -15623,7 +15634,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop44;
+            	    break loop45;
                 }
             } while (true);
 
@@ -16024,17 +16035,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getFlowSpecificationInstanceAccess().getOwnedPropertyAssociationAssignment_11_1()); 
             // InternalInstance.g:5906:1: ( rule__FlowSpecificationInstance__OwnedPropertyAssociationAssignment_11_1 )*
-            loop45:
+            loop46:
             do {
-                int alt45=2;
-                int LA45_0 = input.LA(1);
+                int alt46=2;
+                int LA46_0 = input.LA(1);
 
-                if ( (LA45_0==RULE_ID) ) {
-                    alt45=1;
+                if ( (LA46_0==RULE_ID) ) {
+                    alt46=1;
                 }
 
 
-                switch (alt45) {
+                switch (alt46) {
             	case 1 :
             	    // InternalInstance.g:5906:2: rule__FlowSpecificationInstance__OwnedPropertyAssociationAssignment_11_1
             	    {
@@ -16048,7 +16059,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop45;
+            	    break loop46;
                 }
             } while (true);
 
@@ -16585,13 +16596,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_5()); 
             // InternalInstance.g:6125:1: ( rule__EndToEndFlowInstance__Group_5__0 )?
-            int alt46=2;
-            int LA46_0 = input.LA(1);
+            int alt47=2;
+            int LA47_0 = input.LA(1);
 
-            if ( (LA46_0==RULE_ID||LA46_0==44||LA46_0==73) ) {
-                alt46=1;
+            if ( (LA47_0==RULE_ID||LA47_0==44||LA47_0==73) ) {
+                alt47=1;
             }
-            switch (alt46) {
+            switch (alt47) {
                 case 1 :
                     // InternalInstance.g:6125:2: rule__EndToEndFlowInstance__Group_5__0
                     {
@@ -16681,13 +16692,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_6()); 
             // InternalInstance.g:6154:1: ( rule__EndToEndFlowInstance__Group_6__0 )?
-            int alt47=2;
-            int LA47_0 = input.LA(1);
+            int alt48=2;
+            int LA48_0 = input.LA(1);
 
-            if ( (LA47_0==17) ) {
-                alt47=1;
+            if ( (LA48_0==17) ) {
+                alt48=1;
             }
-            switch (alt47) {
+            switch (alt48) {
                 case 1 :
                     // InternalInstance.g:6154:2: rule__EndToEndFlowInstance__Group_6__0
                     {
@@ -16932,13 +16943,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_9()); 
             // InternalInstance.g:6242:1: ( rule__EndToEndFlowInstance__Group_9__0 )?
-            int alt48=2;
-            int LA48_0 = input.LA(1);
+            int alt49=2;
+            int LA49_0 = input.LA(1);
 
-            if ( (LA48_0==50) ) {
-                alt48=1;
+            if ( (LA49_0==50) ) {
+                alt49=1;
             }
-            switch (alt48) {
+            switch (alt49) {
                 case 1 :
                     // InternalInstance.g:6242:2: rule__EndToEndFlowInstance__Group_9__0
                     {
@@ -17108,17 +17119,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_5_1()); 
             // InternalInstance.g:6319:1: ( rule__EndToEndFlowInstance__Group_5_1__0 )*
-            loop49:
+            loop50:
             do {
-                int alt49=2;
-                int LA49_0 = input.LA(1);
+                int alt50=2;
+                int LA50_0 = input.LA(1);
 
-                if ( (LA49_0==16) ) {
-                    alt49=1;
+                if ( (LA50_0==16) ) {
+                    alt50=1;
                 }
 
 
-                switch (alt49) {
+                switch (alt50) {
             	case 1 :
             	    // InternalInstance.g:6319:2: rule__EndToEndFlowInstance__Group_5_1__0
             	    {
@@ -17132,7 +17143,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop49;
+            	    break loop50;
                 }
             } while (true);
 
@@ -17676,17 +17687,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getEndToEndFlowInstanceAccess().getGroup_6_4()); 
             // InternalInstance.g:6537:1: ( rule__EndToEndFlowInstance__Group_6_4__0 )*
-            loop50:
+            loop51:
             do {
-                int alt50=2;
-                int LA50_0 = input.LA(1);
+                int alt51=2;
+                int LA51_0 = input.LA(1);
 
-                if ( (LA50_0==57) ) {
-                    alt50=1;
+                if ( (LA51_0==57) ) {
+                    alt51=1;
                 }
 
 
-                switch (alt50) {
+                switch (alt51) {
             	case 1 :
             	    // InternalInstance.g:6537:2: rule__EndToEndFlowInstance__Group_6_4__0
             	    {
@@ -17700,7 +17711,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop50;
+            	    break loop51;
                 }
             } while (true);
 
@@ -18234,13 +18245,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getModeInstanceAccess().getInitialAssignment_0()); 
             // InternalInstance.g:6767:1: ( rule__ModeInstance__InitialAssignment_0 )?
-            int alt51=2;
-            int LA51_0 = input.LA(1);
+            int alt52=2;
+            int LA52_0 = input.LA(1);
 
-            if ( (LA51_0==85) ) {
-                alt51=1;
+            if ( (LA52_0==85) ) {
+                alt52=1;
             }
-            switch (alt51) {
+            switch (alt52) {
                 case 1 :
                     // InternalInstance.g:6767:2: rule__ModeInstance__InitialAssignment_0
                     {
@@ -18330,13 +18341,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getModeInstanceAccess().getDerivedAssignment_1()); 
             // InternalInstance.g:6796:1: ( rule__ModeInstance__DerivedAssignment_1 )?
-            int alt52=2;
-            int LA52_0 = input.LA(1);
+            int alt53=2;
+            int LA53_0 = input.LA(1);
 
-            if ( (LA52_0==86) ) {
-                alt52=1;
+            if ( (LA53_0==86) ) {
+                alt53=1;
             }
-            switch (alt52) {
+            switch (alt53) {
                 case 1 :
                     // InternalInstance.g:6796:2: rule__ModeInstance__DerivedAssignment_1
                     {
@@ -18586,13 +18597,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getModeInstanceAccess().getGroup_4()); 
             // InternalInstance.g:6885:1: ( rule__ModeInstance__Group_4__0 )?
-            int alt53=2;
-            int LA53_0 = input.LA(1);
+            int alt54=2;
+            int LA54_0 = input.LA(1);
 
-            if ( (LA53_0==63) ) {
-                alt53=1;
+            if ( (LA54_0==63) ) {
+                alt54=1;
             }
-            switch (alt53) {
+            switch (alt54) {
                 case 1 :
                     // InternalInstance.g:6885:2: rule__ModeInstance__Group_4__0
                     {
@@ -18837,13 +18848,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getModeInstanceAccess().getGroup_7()); 
             // InternalInstance.g:6973:1: ( rule__ModeInstance__Group_7__0 )?
-            int alt54=2;
-            int LA54_0 = input.LA(1);
+            int alt55=2;
+            int LA55_0 = input.LA(1);
 
-            if ( (LA54_0==50) ) {
-                alt54=1;
+            if ( (LA55_0==50) ) {
+                alt55=1;
             }
-            switch (alt54) {
+            switch (alt55) {
                 case 1 :
                     // InternalInstance.g:6973:2: rule__ModeInstance__Group_7__0
                     {
@@ -19270,17 +19281,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getModeInstanceAccess().getGroup_4_1_1_2()); 
             // InternalInstance.g:7147:1: ( rule__ModeInstance__Group_4_1_1_2__0 )*
-            loop55:
+            loop56:
             do {
-                int alt55=2;
-                int LA55_0 = input.LA(1);
+                int alt56=2;
+                int LA56_0 = input.LA(1);
 
-                if ( (LA55_0==57) ) {
-                    alt55=1;
+                if ( (LA56_0==57) ) {
+                    alt56=1;
                 }
 
 
-                switch (alt55) {
+                switch (alt56) {
             	case 1 :
             	    // InternalInstance.g:7147:2: rule__ModeInstance__Group_4_1_1_2__0
             	    {
@@ -19294,7 +19305,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop55;
+            	    break loop56;
                 }
             } while (true);
 
@@ -20466,13 +20477,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getModeTransitionInstanceAccess().getGroup_8()); 
             // InternalInstance.g:7613:1: ( rule__ModeTransitionInstance__Group_8__0 )?
-            int alt56=2;
-            int LA56_0 = input.LA(1);
+            int alt57=2;
+            int LA57_0 = input.LA(1);
 
-            if ( (LA56_0==50) ) {
-                alt56=1;
+            if ( (LA57_0==50) ) {
+                alt57=1;
             }
-            switch (alt56) {
+            switch (alt57) {
                 case 1 :
                     // InternalInstance.g:7613:2: rule__ModeTransitionInstance__Group_8__0
                     {
@@ -20947,20 +20958,20 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getSystemOperationModeAccess().getGroup_2()); 
             // InternalInstance.g:7815:1: ( rule__SystemOperationMode__Group_2__0 )?
-            int alt57=2;
-            int LA57_0 = input.LA(1);
+            int alt58=2;
+            int LA58_0 = input.LA(1);
 
-            if ( (LA57_0==44||LA57_0==73) ) {
-                alt57=1;
+            if ( (LA58_0==44||LA58_0==73) ) {
+                alt58=1;
             }
-            else if ( (LA57_0==RULE_ID) ) {
-                int LA57_2 = input.LA(2);
+            else if ( (LA58_0==RULE_ID) ) {
+                int LA58_2 = input.LA(2);
 
-                if ( (LA57_2==EOF||LA57_2==RULE_ID||(LA57_2>=17 && LA57_2<=18)||(LA57_2>=29 && LA57_2<=43)||(LA57_2>=51 && LA57_2<=52)||LA57_2==57||(LA57_2>=59 && LA57_2<=60)||LA57_2==62||LA57_2==65||LA57_2==69||LA57_2==71||LA57_2==82||(LA57_2>=85 && LA57_2<=86)) ) {
-                    alt57=1;
+                if ( (LA58_2==EOF||LA58_2==RULE_ID||(LA58_2>=17 && LA58_2<=18)||(LA58_2>=29 && LA58_2<=43)||(LA58_2>=51 && LA58_2<=52)||LA58_2==57||(LA58_2>=59 && LA58_2<=60)||LA58_2==62||LA58_2==65||LA58_2==69||LA58_2==71||LA58_2==82||(LA58_2>=85 && LA58_2<=86)) ) {
+                    alt58=1;
                 }
             }
-            switch (alt57) {
+            switch (alt58) {
                 case 1 :
                     // InternalInstance.g:7815:2: rule__SystemOperationMode__Group_2__0
                     {
@@ -21130,17 +21141,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getSystemOperationModeAccess().getGroup_2_1()); 
             // InternalInstance.g:7878:1: ( rule__SystemOperationMode__Group_2_1__0 )*
-            loop58:
+            loop59:
             do {
-                int alt58=2;
-                int LA58_0 = input.LA(1);
+                int alt59=2;
+                int LA59_0 = input.LA(1);
 
-                if ( (LA58_0==57) ) {
-                    alt58=1;
+                if ( (LA59_0==57) ) {
+                    alt59=1;
                 }
 
 
-                switch (alt58) {
+                switch (alt59) {
             	case 1 :
             	    // InternalInstance.g:7878:2: rule__SystemOperationMode__Group_2_1__0
             	    {
@@ -21154,7 +21165,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop58;
+            	    break loop59;
                 }
             } while (true);
 
@@ -21633,17 +21644,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getPropertyAssociationInstanceAccess().getGroup_3()); 
             // InternalInstance.g:8063:1: ( rule__PropertyAssociationInstance__Group_3__0 )*
-            loop59:
+            loop60:
             do {
-                int alt59=2;
-                int LA59_0 = input.LA(1);
+                int alt60=2;
+                int LA60_0 = input.LA(1);
 
-                if ( (LA59_0==57) ) {
-                    alt59=1;
+                if ( (LA60_0==57) ) {
+                    alt60=1;
                 }
 
 
-                switch (alt59) {
+                switch (alt60) {
             	case 1 :
             	    // InternalInstance.g:8063:2: rule__PropertyAssociationInstance__Group_3__0
             	    {
@@ -21657,7 +21668,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop59;
+            	    break loop60;
                 }
             } while (true);
 
@@ -22126,17 +22137,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getOptionalModalPropertyValueAccess().getGroup_1()); 
             // InternalInstance.g:8254:1: ( rule__OptionalModalPropertyValue__Group_1__0 )?
-            int alt60=2;
-            int LA60_0 = input.LA(1);
+            int alt61=2;
+            int LA61_0 = input.LA(1);
 
-            if ( (LA60_0==17) ) {
-                int LA60_1 = input.LA(2);
+            if ( (LA61_0==17) ) {
+                int LA61_1 = input.LA(2);
 
-                if ( (LA60_1==54) ) {
-                    alt60=1;
+                if ( (LA61_1==54) ) {
+                    alt61=1;
                 }
             }
-            switch (alt60) {
+            switch (alt61) {
                 case 1 :
                     // InternalInstance.g:8254:2: rule__OptionalModalPropertyValue__Group_1__0
                     {
@@ -22536,17 +22547,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getOptionalModalPropertyValueAccess().getGroup_1_4()); 
             // InternalInstance.g:8409:1: ( rule__OptionalModalPropertyValue__Group_1_4__0 )*
-            loop61:
+            loop62:
             do {
-                int alt61=2;
-                int LA61_0 = input.LA(1);
+                int alt62=2;
+                int LA62_0 = input.LA(1);
 
-                if ( (LA61_0==57) ) {
-                    alt61=1;
+                if ( (LA62_0==57) ) {
+                    alt62=1;
                 }
 
 
-                switch (alt61) {
+                switch (alt62) {
             	case 1 :
             	    // InternalInstance.g:8409:2: rule__OptionalModalPropertyValue__Group_1_4__0
             	    {
@@ -22560,7 +22571,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop61;
+            	    break loop62;
                 }
             } while (true);
 
@@ -22949,13 +22960,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainmentPathElementAccess().getArrayRangeAssignment_1()); 
             // InternalInstance.g:8572:1: ( rule__ContainmentPathElement__ArrayRangeAssignment_1 )?
-            int alt62=2;
-            int LA62_0 = input.LA(1);
+            int alt63=2;
+            int LA63_0 = input.LA(1);
 
-            if ( (LA62_0==52) ) {
-                alt62=1;
+            if ( (LA63_0==52) ) {
+                alt63=1;
             }
-            switch (alt62) {
+            switch (alt63) {
                 case 1 :
                     // InternalInstance.g:8572:2: rule__ContainmentPathElement__ArrayRangeAssignment_1
                     {
@@ -23040,13 +23051,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainmentPathElementAccess().getGroup_2()); 
             // InternalInstance.g:8600:1: ( rule__ContainmentPathElement__Group_2__0 )?
-            int alt63=2;
-            int LA63_0 = input.LA(1);
+            int alt64=2;
+            int LA64_0 = input.LA(1);
 
-            if ( (LA63_0==66) ) {
-                alt63=1;
+            if ( (LA64_0==66) ) {
+                alt64=1;
             }
-            switch (alt63) {
+            switch (alt64) {
                 case 1 :
                     // InternalInstance.g:8600:2: rule__ContainmentPathElement__Group_2__0
                     {
@@ -24343,23 +24354,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getClassifierRefAccess().getGroup_0()); 
             // InternalInstance.g:9158:1: ( rule__ClassifierRef__Group_0__0 )*
-            loop64:
+            loop65:
             do {
-                int alt64=2;
-                int LA64_0 = input.LA(1);
+                int alt65=2;
+                int LA65_0 = input.LA(1);
 
-                if ( (LA64_0==RULE_ID) ) {
-                    int LA64_1 = input.LA(2);
+                if ( (LA65_0==RULE_ID) ) {
+                    int LA65_1 = input.LA(2);
 
-                    if ( (LA64_1==70) ) {
-                        alt64=1;
+                    if ( (LA65_1==70) ) {
+                        alt65=1;
                     }
 
 
                 }
 
 
-                switch (alt64) {
+                switch (alt65) {
             	case 1 :
             	    // InternalInstance.g:9158:2: rule__ClassifierRef__Group_0__0
             	    {
@@ -24373,7 +24384,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop64;
+            	    break loop65;
                 }
             } while (true);
 
@@ -24525,13 +24536,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getClassifierRefAccess().getGroup_2()); 
             // InternalInstance.g:9216:1: ( rule__ClassifierRef__Group_2__0 )?
-            int alt65=2;
-            int LA65_0 = input.LA(1);
+            int alt66=2;
+            int LA66_0 = input.LA(1);
 
-            if ( (LA65_0==71) ) {
-                alt65=1;
+            if ( (LA66_0==71) ) {
+                alt66=1;
             }
-            switch (alt65) {
+            switch (alt66) {
                 case 1 :
                     // InternalInstance.g:9216:2: rule__ClassifierRef__Group_2__0
                     {
@@ -24933,23 +24944,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getImplRefAccess().getGroup_0()); 
             // InternalInstance.g:9383:1: ( rule__ImplRef__Group_0__0 )*
-            loop66:
+            loop67:
             do {
-                int alt66=2;
-                int LA66_0 = input.LA(1);
+                int alt67=2;
+                int LA67_0 = input.LA(1);
 
-                if ( (LA66_0==RULE_ID) ) {
-                    int LA66_1 = input.LA(2);
+                if ( (LA67_0==RULE_ID) ) {
+                    int LA67_1 = input.LA(2);
 
-                    if ( (LA66_1==70) ) {
-                        alt66=1;
+                    if ( (LA67_1==70) ) {
+                        alt67=1;
                     }
 
 
                 }
 
 
-                switch (alt66) {
+                switch (alt67) {
             	case 1 :
             	    // InternalInstance.g:9383:2: rule__ImplRef__Group_0__0
             	    {
@@ -24963,7 +24974,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop66;
+            	    break loop67;
                 }
             } while (true);
 
@@ -25432,23 +25443,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getDeclarativeRefAccess().getGroup_0()); 
             // InternalInstance.g:9578:1: ( rule__DeclarativeRef__Group_0__0 )*
-            loop67:
+            loop68:
             do {
-                int alt67=2;
-                int LA67_0 = input.LA(1);
+                int alt68=2;
+                int LA68_0 = input.LA(1);
 
-                if ( (LA67_0==RULE_ID) ) {
-                    int LA67_1 = input.LA(2);
+                if ( (LA68_0==RULE_ID) ) {
+                    int LA68_1 = input.LA(2);
 
-                    if ( (LA67_1==70) ) {
-                        alt67=1;
+                    if ( (LA68_1==70) ) {
+                        alt68=1;
                     }
 
 
                 }
 
 
-                switch (alt67) {
+                switch (alt68) {
             	case 1 :
             	    // InternalInstance.g:9578:2: rule__DeclarativeRef__Group_0__0
             	    {
@@ -25462,7 +25473,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop67;
+            	    break loop68;
                 }
             } while (true);
 
@@ -25619,13 +25630,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getDeclarativeRefAccess().getGroup_2()); 
             // InternalInstance.g:9637:1: ( rule__DeclarativeRef__Group_2__0 )?
-            int alt68=2;
-            int LA68_0 = input.LA(1);
+            int alt69=2;
+            int LA69_0 = input.LA(1);
 
-            if ( (LA68_0==71) ) {
-                alt68=1;
+            if ( (LA69_0==71) ) {
+                alt69=1;
             }
-            switch (alt68) {
+            switch (alt69) {
                 case 1 :
                     // InternalInstance.g:9637:2: rule__DeclarativeRef__Group_2__0
                     {
@@ -26380,11 +26391,11 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getInstanceRefAccess().getGroup_1_0()); 
             // InternalInstance.g:9957:1: ( rule__InstanceRef__Group_1_0__0 )*
-            loop69:
+            loop70:
             do {
-                int alt69=2;
-                alt69 = dfa69.predict(input);
-                switch (alt69) {
+                int alt70=2;
+                alt70 = dfa70.predict(input);
+                switch (alt70) {
             	case 1 :
             	    // InternalInstance.g:9957:2: rule__InstanceRef__Group_1_0__0
             	    {
@@ -26398,7 +26409,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop69;
+            	    break loop70;
                 }
             } while (true);
 
@@ -26632,17 +26643,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getInstanceRefAccess().getGroup_1_0_1()); 
             // InternalInstance.g:10047:1: ( rule__InstanceRef__Group_1_0_1__0 )*
-            loop70:
+            loop71:
             do {
-                int alt70=2;
-                int LA70_0 = input.LA(1);
+                int alt71=2;
+                int LA71_0 = input.LA(1);
 
-                if ( (LA70_0==52) ) {
-                    alt70=1;
+                if ( (LA71_0==52) ) {
+                    alt71=1;
                 }
 
 
-                switch (alt70) {
+                switch (alt71) {
             	case 1 :
             	    // InternalInstance.g:10047:2: rule__InstanceRef__Group_1_0_1__0
             	    {
@@ -26656,7 +26667,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop70;
+            	    break loop71;
                 }
             } while (true);
 
@@ -27315,17 +27326,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getInstanceRefAccess().getGroup_1_1_1_1()); 
             // InternalInstance.g:10332:1: ( rule__InstanceRef__Group_1_1_1_1__0 )*
-            loop71:
+            loop72:
             do {
-                int alt71=2;
-                int LA71_0 = input.LA(1);
+                int alt72=2;
+                int LA72_0 = input.LA(1);
 
-                if ( (LA71_0==52) ) {
-                    alt71=1;
+                if ( (LA72_0==52) ) {
+                    alt72=1;
                 }
 
 
-                switch (alt71) {
+                switch (alt72) {
             	case 1 :
             	    // InternalInstance.g:10332:2: rule__InstanceRef__Group_1_1_1_1__0
             	    {
@@ -27339,7 +27350,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop71;
+            	    break loop72;
                 }
             } while (true);
 
@@ -28470,23 +28481,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getPropertyAssociationRefAccess().getGroup_0()); 
             // InternalInstance.g:10817:1: ( rule__PropertyAssociationRef__Group_0__0 )*
-            loop72:
+            loop73:
             do {
-                int alt72=2;
-                int LA72_0 = input.LA(1);
+                int alt73=2;
+                int LA73_0 = input.LA(1);
 
-                if ( (LA72_0==RULE_ID) ) {
-                    int LA72_1 = input.LA(2);
+                if ( (LA73_0==RULE_ID) ) {
+                    int LA73_1 = input.LA(2);
 
-                    if ( (LA72_1==70) ) {
-                        alt72=1;
+                    if ( (LA73_1==70) ) {
+                        alt73=1;
                     }
 
 
                 }
 
 
-                switch (alt72) {
+                switch (alt73) {
             	case 1 :
             	    // InternalInstance.g:10817:2: rule__PropertyAssociationRef__Group_0__0
             	    {
@@ -28500,7 +28511,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop72;
+            	    break loop73;
                 }
             } while (true);
 
@@ -28657,13 +28668,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getPropertyAssociationRefAccess().getGroup_2()); 
             // InternalInstance.g:10876:1: ( rule__PropertyAssociationRef__Group_2__0 )?
-            int alt73=2;
-            int LA73_0 = input.LA(1);
+            int alt74=2;
+            int LA74_0 = input.LA(1);
 
-            if ( (LA73_0==71) ) {
-                alt73=1;
+            if ( (LA74_0==71) ) {
+                alt74=1;
             }
-            switch (alt73) {
+            switch (alt74) {
                 case 1 :
                     // InternalInstance.g:10876:2: rule__PropertyAssociationRef__Group_2__0
                     {
@@ -28828,13 +28839,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getPropertyAssociationRefAccess().getGroup_4()); 
             // InternalInstance.g:10936:1: ( rule__PropertyAssociationRef__Group_4__0 )?
-            int alt74=2;
-            int LA74_0 = input.LA(1);
+            int alt75=2;
+            int LA75_0 = input.LA(1);
 
-            if ( (LA74_0==RULE_ID||LA74_0==64) ) {
-                alt74=1;
+            if ( (LA75_0==RULE_ID||LA75_0==64) ) {
+                alt75=1;
             }
-            switch (alt74) {
+            switch (alt75) {
                 case 1 :
                     // InternalInstance.g:10936:2: rule__PropertyAssociationRef__Group_4__0
                     {
@@ -29979,13 +29990,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainedPropertyAssociationAccess().getConstantAssignment_2()); 
             // InternalInstance.g:11414:1: ( rule__ContainedPropertyAssociation__ConstantAssignment_2 )?
-            int alt75=2;
-            int LA75_0 = input.LA(1);
+            int alt76=2;
+            int LA76_0 = input.LA(1);
 
-            if ( (LA75_0==88) ) {
-                alt75=1;
+            if ( (LA76_0==88) ) {
+                alt76=1;
             }
-            switch (alt75) {
+            switch (alt76) {
                 case 1 :
                     // InternalInstance.g:11414:2: rule__ContainedPropertyAssociation__ConstantAssignment_2
                     {
@@ -30160,13 +30171,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainedPropertyAssociationAccess().getGroup_4()); 
             // InternalInstance.g:11472:1: ( rule__ContainedPropertyAssociation__Group_4__0 )?
-            int alt76=2;
-            int LA76_0 = input.LA(1);
+            int alt77=2;
+            int LA77_0 = input.LA(1);
 
-            if ( (LA76_0==76) ) {
-                alt76=1;
+            if ( (LA77_0==76) ) {
+                alt77=1;
             }
-            switch (alt76) {
+            switch (alt77) {
                 case 1 :
                     // InternalInstance.g:11472:2: rule__ContainedPropertyAssociation__Group_4__0
                     {
@@ -30256,13 +30267,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainedPropertyAssociationAccess().getGroup_5()); 
             // InternalInstance.g:11501:1: ( rule__ContainedPropertyAssociation__Group_5__0 )?
-            int alt77=2;
-            int LA77_0 = input.LA(1);
+            int alt78=2;
+            int LA78_0 = input.LA(1);
 
-            if ( (LA77_0==17) ) {
-                alt77=1;
+            if ( (LA78_0==17) ) {
+                alt78=1;
             }
-            switch (alt77) {
+            switch (alt78) {
                 case 1 :
                     // InternalInstance.g:11501:2: rule__ContainedPropertyAssociation__Group_5__0
                     {
@@ -30502,17 +30513,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainedPropertyAssociationAccess().getGroup_3_1()); 
             // InternalInstance.g:11602:1: ( rule__ContainedPropertyAssociation__Group_3_1__0 )*
-            loop78:
+            loop79:
             do {
-                int alt78=2;
-                int LA78_0 = input.LA(1);
+                int alt79=2;
+                int LA79_0 = input.LA(1);
 
-                if ( (LA78_0==57) ) {
-                    alt78=1;
+                if ( (LA79_0==57) ) {
+                    alt79=1;
                 }
 
 
-                switch (alt78) {
+                switch (alt79) {
             	case 1 :
             	    // InternalInstance.g:11602:2: rule__ContainedPropertyAssociation__Group_3_1__0
             	    {
@@ -30526,7 +30537,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop78;
+            	    break loop79;
                 }
             } while (true);
 
@@ -30990,17 +31001,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getContainedPropertyAssociationAccess().getGroup_4_3()); 
             // InternalInstance.g:11788:1: ( rule__ContainedPropertyAssociation__Group_4_3__0 )*
-            loop79:
+            loop80:
             do {
-                int alt79=2;
-                int LA79_0 = input.LA(1);
+                int alt80=2;
+                int LA80_0 = input.LA(1);
 
-                if ( (LA79_0==57) ) {
-                    alt79=1;
+                if ( (LA80_0==57) ) {
+                    alt80=1;
                 }
 
 
-                switch (alt79) {
+                switch (alt80) {
             	case 1 :
             	    // InternalInstance.g:11788:2: rule__ContainedPropertyAssociation__Group_4_3__0
             	    {
@@ -31014,7 +31025,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop79;
+            	    break loop80;
                 }
             } while (true);
 
@@ -32185,17 +32196,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getRecordTermAccess().getOwnedFieldValueAssignment_1()); 
             // InternalInstance.g:12286:1: ( rule__RecordTerm__OwnedFieldValueAssignment_1 )*
-            loop80:
+            loop81:
             do {
-                int alt80=2;
-                int LA80_0 = input.LA(1);
+                int alt81=2;
+                int LA81_0 = input.LA(1);
 
-                if ( (LA80_0==RULE_ID) ) {
-                    alt80=1;
+                if ( (LA81_0==RULE_ID) ) {
+                    alt81=1;
                 }
 
 
-                switch (alt80) {
+                switch (alt81) {
             	case 1 :
             	    // InternalInstance.g:12286:2: rule__RecordTerm__OwnedFieldValueAssignment_1
             	    {
@@ -32209,7 +32220,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop80;
+            	    break loop81;
                 }
             } while (true);
 
@@ -33121,13 +33132,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getListTermAccess().getGroup_2()); 
             // InternalInstance.g:12673:1: ( rule__ListTerm__Group_2__0 )?
-            int alt81=2;
-            int LA81_0 = input.LA(1);
+            int alt82=2;
+            int LA82_0 = input.LA(1);
 
-            if ( ((LA81_0>=RULE_INTEGER_LIT && LA81_0<=RULE_REAL_LIT)||(LA81_0>=46 && LA81_0<=48)||LA81_0==52||LA81_0==55||LA81_0==67||(LA81_0>=78 && LA81_0<=79)||LA81_0==89) ) {
-                alt81=1;
+            if ( ((LA82_0>=RULE_INTEGER_LIT && LA82_0<=RULE_REAL_LIT)||(LA82_0>=46 && LA82_0<=48)||LA82_0==52||LA82_0==55||LA82_0==67||(LA82_0>=78 && LA82_0<=79)||LA82_0==89) ) {
+                alt82=1;
             }
-            switch (alt81) {
+            switch (alt82) {
                 case 1 :
                     // InternalInstance.g:12673:2: rule__ListTerm__Group_2__0
                     {
@@ -33367,17 +33378,17 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getListTermAccess().getGroup_2_1()); 
             // InternalInstance.g:12768:1: ( rule__ListTerm__Group_2_1__0 )*
-            loop82:
+            loop83:
             do {
-                int alt82=2;
-                int LA82_0 = input.LA(1);
+                int alt83=2;
+                int LA83_0 = input.LA(1);
 
-                if ( (LA82_0==57) ) {
-                    alt82=1;
+                if ( (LA83_0==57) ) {
+                    alt83=1;
                 }
 
 
-                switch (alt82) {
+                switch (alt83) {
             	case 1 :
             	    // InternalInstance.g:12768:2: rule__ListTerm__Group_2_1__0
             	    {
@@ -33391,7 +33402,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop82;
+            	    break loop83;
                 }
             } while (true);
 
@@ -34175,13 +34186,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getArrayRangeAccess().getGroup_3()); 
             // InternalInstance.g:13083:1: ( rule__ArrayRange__Group_3__0 )?
-            int alt83=2;
-            int LA83_0 = input.LA(1);
+            int alt84=2;
+            int LA84_0 = input.LA(1);
 
-            if ( (LA83_0==80) ) {
-                alt83=1;
+            if ( (LA84_0==80) ) {
+                alt84=1;
             }
-            switch (alt83) {
+            switch (alt84) {
                 case 1 :
                     // InternalInstance.g:13083:2: rule__ArrayRange__Group_3__0
                     {
@@ -34741,13 +34752,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getIntegerTermAccess().getUnitAssignment_1()); 
             // InternalInstance.g:13304:1: ( rule__IntegerTerm__UnitAssignment_1 )?
-            int alt84=2;
-            int LA84_0 = input.LA(1);
+            int alt85=2;
+            int LA85_0 = input.LA(1);
 
-            if ( (LA84_0==RULE_ID) ) {
-                alt84=1;
+            if ( (LA85_0==RULE_ID) ) {
+                alt85=1;
             }
-            switch (alt84) {
+            switch (alt85) {
                 case 1 :
                     // InternalInstance.g:13304:2: rule__IntegerTerm__UnitAssignment_1
                     {
@@ -34837,13 +34848,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getSignedIntAccess().getAlternatives_0()); 
             // InternalInstance.g:13337:1: ( rule__SignedInt__Alternatives_0 )?
-            int alt85=2;
-            int LA85_0 = input.LA(1);
+            int alt86=2;
+            int LA86_0 = input.LA(1);
 
-            if ( ((LA85_0>=47 && LA85_0<=48)) ) {
-                alt85=1;
+            if ( ((LA86_0>=47 && LA86_0<=48)) ) {
+                alt86=1;
             }
-            switch (alt85) {
+            switch (alt86) {
                 case 1 :
                     // InternalInstance.g:13337:2: rule__SignedInt__Alternatives_0
                     {
@@ -35083,13 +35094,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getRealTermAccess().getUnitAssignment_1()); 
             // InternalInstance.g:13426:1: ( rule__RealTerm__UnitAssignment_1 )?
-            int alt86=2;
-            int LA86_0 = input.LA(1);
+            int alt87=2;
+            int LA87_0 = input.LA(1);
 
-            if ( (LA86_0==RULE_ID) ) {
-                alt86=1;
+            if ( (LA87_0==RULE_ID) ) {
+                alt87=1;
             }
-            switch (alt86) {
+            switch (alt87) {
                 case 1 :
                     // InternalInstance.g:13426:2: rule__RealTerm__UnitAssignment_1
                     {
@@ -35179,13 +35190,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getSignedRealAccess().getAlternatives_0()); 
             // InternalInstance.g:13459:1: ( rule__SignedReal__Alternatives_0 )?
-            int alt87=2;
-            int LA87_0 = input.LA(1);
+            int alt88=2;
+            int LA88_0 = input.LA(1);
 
-            if ( ((LA87_0>=47 && LA87_0<=48)) ) {
-                alt87=1;
+            if ( ((LA88_0>=47 && LA88_0<=48)) ) {
+                alt88=1;
             }
-            switch (alt87) {
+            switch (alt88) {
                 case 1 :
                     // InternalInstance.g:13459:2: rule__SignedReal__Alternatives_0
                     {
@@ -35585,13 +35596,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getNumericRangeTermAccess().getGroup_3()); 
             // InternalInstance.g:13608:1: ( rule__NumericRangeTerm__Group_3__0 )?
-            int alt88=2;
-            int LA88_0 = input.LA(1);
+            int alt89=2;
+            int LA89_0 = input.LA(1);
 
-            if ( (LA88_0==81) ) {
-                alt88=1;
+            if ( (LA89_0==81) ) {
+                alt89=1;
             }
-            switch (alt88) {
+            switch (alt89) {
                 case 1 :
                     // InternalInstance.g:13608:2: rule__NumericRangeTerm__Group_3__0
                     {
@@ -35906,13 +35917,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getQPREFAccess().getGroup_1()); 
             // InternalInstance.g:13737:1: ( rule__QPREF__Group_1__0 )?
-            int alt89=2;
-            int LA89_0 = input.LA(1);
+            int alt90=2;
+            int LA90_0 = input.LA(1);
 
-            if ( (LA89_0==70) ) {
-                alt89=1;
+            if ( (LA90_0==70) ) {
+                alt90=1;
             }
-            switch (alt89) {
+            switch (alt90) {
                 case 1 :
                     // InternalInstance.g:13737:2: rule__QPREF__Group_1__0
                     {
@@ -36147,23 +36158,23 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getQCREFAccess().getGroup_0()); 
             // InternalInstance.g:13833:1: ( rule__QCREF__Group_0__0 )*
-            loop90:
+            loop91:
             do {
-                int alt90=2;
-                int LA90_0 = input.LA(1);
+                int alt91=2;
+                int LA91_0 = input.LA(1);
 
-                if ( (LA90_0==RULE_ID) ) {
-                    int LA90_1 = input.LA(2);
+                if ( (LA91_0==RULE_ID) ) {
+                    int LA91_1 = input.LA(2);
 
-                    if ( (LA90_1==70) ) {
-                        alt90=1;
+                    if ( (LA91_1==70) ) {
+                        alt91=1;
                     }
 
 
                 }
 
 
-                switch (alt90) {
+                switch (alt91) {
             	case 1 :
             	    // InternalInstance.g:13833:2: rule__QCREF__Group_0__0
             	    {
@@ -36177,7 +36188,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             	    break;
 
             	default :
-            	    break loop90;
+            	    break loop91;
                 }
             } while (true);
 
@@ -36326,13 +36337,13 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
             {
              before(grammarAccess.getQCREFAccess().getGroup_2()); 
             // InternalInstance.g:13890:1: ( rule__QCREF__Group_2__0 )?
-            int alt91=2;
-            int LA91_0 = input.LA(1);
+            int alt92=2;
+            int LA92_0 = input.LA(1);
 
-            if ( (LA91_0==71) ) {
-                alt91=1;
+            if ( (LA92_0==71) ) {
+                alt92=1;
             }
-            switch (alt91) {
+            switch (alt92) {
                 case 1 :
                     // InternalInstance.g:13890:2: rule__QCREF__Group_2__0
                     {
@@ -42228,7 +42239,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     protected DFA3 dfa3 = new DFA3(this);
     protected DFA7 dfa7 = new DFA7(this);
     protected DFA10 dfa10 = new DFA10(this);
-    protected DFA69 dfa69 = new DFA69(this);
+    protected DFA70 dfa70 = new DFA70(this);
     static final String dfa_1s = "\13\uffff";
     static final String dfa_2s = "\1\6\6\uffff\1\6\3\uffff";
     static final String dfa_3s = "\1\126\6\uffff\1\100\3\uffff";
@@ -42449,11 +42460,11 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     static final short[] dfa_32 = DFA.unpackEncodedString(dfa_32s);
     static final short[][] dfa_33 = unpackEncodedStringArray(dfa_33s);
 
-    class DFA69 extends DFA {
+    class DFA70 extends DFA {
 
-        public DFA69(BaseRecognizer recognizer) {
+        public DFA70(BaseRecognizer recognizer) {
             this.recognizer = recognizer;
-            this.decisionNumber = 69;
+            this.decisionNumber = 70;
             this.eot = dfa_27;
             this.eof = dfa_28;
             this.min = dfa_29;
@@ -42497,7 +42508,7 @@ public class InternalInstanceParser extends AbstractInternalContentAssistParser 
     public static final BitSet FOLLOW_27 = new BitSet(new long[]{0x0400000000000000L});
     public static final BitSet FOLLOW_28 = new BitSet(new long[]{0x0000000000000000L,0x0000000000000001L});
     public static final BitSet FOLLOW_29 = new BitSet(new long[]{0x0000000000010000L});
-    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000000000L,0x0000000000100000L});
+    public static final BitSet FOLLOW_30 = new BitSet(new long[]{0x0000000000000040L,0x0000000000100000L});
     public static final BitSet FOLLOW_31 = new BitSet(new long[]{0x0000000000020000L});
     public static final BitSet FOLLOW_32 = new BitSet(new long[]{0x0000100000010040L,0x0000000000000200L});
     public static final BitSet FOLLOW_33 = new BitSet(new long[]{0x0100100000000040L,0x0000000000000200L});

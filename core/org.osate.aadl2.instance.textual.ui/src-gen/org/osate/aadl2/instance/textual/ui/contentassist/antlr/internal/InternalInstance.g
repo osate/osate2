@@ -4840,7 +4840,7 @@ rule__ConnectionReference__Group__4__Impl
 :
 (
 { before(grammarAccess.getConnectionReferenceAccess().getReverseAssignment_4()); }
-(rule__ConnectionReference__ReverseAssignment_4)
+(rule__ConnectionReference__ReverseAssignment_4)?
 { after(grammarAccess.getConnectionReferenceAccess().getReverseAssignment_4()); }
 )
 

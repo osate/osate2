@@ -768,12 +768,13 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//ConnectionReference instance::ConnectionReference:
 		//	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef]
 		//	':'
-		//	reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in'
+		//	reverse?='reverse'? connection=[aadl2::Connection|DeclarativeRef] 'in'
 		//	context=[instance::ComponentInstance|InstanceRef];
 		@Override public ParserRule getRule() { return rule; }
 
 		//source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':'
-		//reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
+		//reverse?='reverse'? connection=[aadl2::Connection|DeclarativeRef] 'in'
+		//context=[instance::ComponentInstance|InstanceRef]
 		public Group getGroup() { return cGroup; }
 
 		//source=[instance::ConnectionInstanceEnd|InstanceRef]
@@ -800,7 +801,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 		//':'
 		public Keyword getColonKeyword_3() { return cColonKeyword_3; }
 
-		//reverse?='reverse'
+		//reverse?='reverse'?
 		public Assignment getReverseAssignment_4() { return cReverseAssignment_4; }
 
 		//'reverse'
@@ -2606,7 +2607,7 @@ public class InstanceGrammarAccess extends AbstractGrammarElementFinder {
 	//ConnectionReference instance::ConnectionReference:
 	//	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef]
 	//	':'
-	//	reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in'
+	//	reverse?='reverse'? connection=[aadl2::Connection|DeclarativeRef] 'in'
 	//	context=[instance::ComponentInstance|InstanceRef];
 	public ConnectionReferenceElements getConnectionReferenceAccess() {
 		return pConnectionReference;
