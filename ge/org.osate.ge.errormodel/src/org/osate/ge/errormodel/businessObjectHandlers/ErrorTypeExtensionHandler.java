@@ -1,7 +1,6 @@
 package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
-import org.osate.aadl2.AadlPackage;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
@@ -32,7 +31,7 @@ public class ErrorTypeExtensionHandler {
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSupertype()));
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
+	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] { 
 			PaletteEntryBuilder.create().connectionCreation().label("Error Type Extension").category(ErrorModelCategories.ERROR_MODEL).build()
 		};

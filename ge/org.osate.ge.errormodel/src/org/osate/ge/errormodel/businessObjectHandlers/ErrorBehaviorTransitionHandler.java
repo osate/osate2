@@ -42,7 +42,7 @@ public class ErrorBehaviorTransitionHandler {
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getTarget()));
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorBehaviorStateMachine stateMachine) {
+	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] { 
 			// Disabled until UI for creating transitions is implemented.
 			//PaletteEntryFactory.makeCreateConnectionEntry(ErrorModelCategories.ERROR_MODEL, "Transition", null, null)

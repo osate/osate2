@@ -60,8 +60,10 @@ import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.Description;
@@ -82,6 +84,7 @@ import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 public class CreateEndToEndFlowSpecificationTool {
 	private ColoringService.Coloring coloring = null;
 	private CreateFlowsToolsDialog dlg;
+	private BusinessObjectContext ciBoc;
 	private ComponentImplementation ci;
 	private IDiagramTypeProvider dtp;
 	private BusinessObjectResolutionService bor;
@@ -98,65 +101,57 @@ public class CreateEndToEndFlowSpecificationTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateEndToEndFlowSpecification.gif");
 
 	@CanActivate
-	public boolean canActivate(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {
-		return bor.getBusinessObjectForPictogramElement(graphiti.getDiagram()) instanceof ComponentImplementation
-				&& canActivate;
+	public boolean canActivate(@Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+		return ToolUtil.findComponentImplementationBoc(boc) != null	&& canActivate;
 	}
 
 	@Activate
-	public void activate(final AadlModificationService aadlModService,
+	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
+			final AadlModificationService aadlModService,
 			final UiService uiService,
 			final ColoringService highlightingService,
 			final BusinessObjectResolutionService bor, final GraphitiService graphiti, final NamingService namingService) {
-		this.dtp = graphiti.getDiagramTypeProvider();
-		this.bor = bor;
-		// Create a coloring object that will allow adjustment of pictogram
-		coloring = highlightingService.adjustColors();
-
-		ci = (ComponentImplementation)bor.getBusinessObjectForPictogramElement(dtp.getDiagram());
-		if (ci != null) {
-			canActivate = false;
-			clearSelection(dtp);
-			final Display display = Display.getCurrent();
-			dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
-			if (dlg.open() == Dialog.CANCEL) {
-				uiService.deactivateActiveTool();
-				canActivate = true;
-				previouslySelectedPes.clear();
-				return;
-			}
-
-			if (dlg != null && !dlg.getFlows().isEmpty()) {
-				aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
-					@Override
-					public Object modify(final Resource resource, final ComponentImplementation ci) {
-						for (EndToEndFlow eteFlow : dlg.getFlows()) {
-							ci.getOwnedEndToEndFlows().add(eteFlow);
-							ci.setNoFlows(false);
+		try {	
+			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
+			if (ciBoc != null) {
+				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
+				this.dtp = graphiti.getDiagramTypeProvider();
+				this.bor = bor;			
+				coloring = highlightingService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
+				
+				canActivate = false;
+				ToolUtil.clearSelection(dtp);
+				final Display display = Display.getCurrent();
+				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
+				if (dlg.open() == Dialog.CANCEL) {
+					return;
+				}
+	
+				if (dlg != null && !dlg.getFlows().isEmpty()) {
+					aadlModService.modify(ci, new AbstractModifier<ComponentImplementation, Object>() {
+						@Override
+						public Object modify(final Resource resource, final ComponentImplementation ci) {
+							for (EndToEndFlow eteFlow : dlg.getFlows()) {
+								ci.getOwnedEndToEndFlows().add(eteFlow);
+								ci.setNoFlows(false);
+							}
+							return null;
 						}
-						return null;
-					}
-				});
+					});
+				}
 			}
-			previouslySelectedPes.clear();
+		} finally {
 			uiService.deactivateActiveTool();
 		}
 	}
 
 	@Deactivate
-	public void deactivate(final GraphitiService graphiti) {
-		final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
-		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
-			@Override
-			public void execute() {
-				// Dispose of the coloring object
-				if (coloring != null) {
-					coloring.dispose();
-					coloring = null;
-				}
-				
-			}
-		});
+	public void deactivate() {
+		// Dispose of the coloring object
+		if (coloring != null) {
+			coloring.dispose();
+			coloring = null;
+		}
 		
 		if (dlg != null) {
 			dlg.close();
@@ -164,17 +159,11 @@ public class CreateEndToEndFlowSpecificationTool {
 		}
 		
 		this.dtp = null;
+		this.ciBoc = null;
 		this.ci = null;
 		this.bor = null;
 		this.previouslySelectedPes.clear();
 		canActivate = true;
-	}
-
-	/**
-	 * Clear selection for refresh
-	 */
-	private void clearSelection(final IDiagramTypeProvider dtp) {
-		dtp.getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
 	}
 
 	@SelectionChanged
@@ -626,7 +615,8 @@ public class CreateEndToEndFlowSpecificationTool {
 						editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 							@Override
 							public void execute() {
-								coloring.setForeground(removedPe, Color.BLACK);
+								// TODO
+								//coloring.setForeground(removedPe, Color.BLACK);
 							};
 						});
 						
@@ -650,7 +640,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							addFlowSegmentOrModeFeature(m);
 						}
 
-						clearSelection(dtp);
+						ToolUtil.clearSelection(dtp);
 						updateWidgets();
 					}
 				}

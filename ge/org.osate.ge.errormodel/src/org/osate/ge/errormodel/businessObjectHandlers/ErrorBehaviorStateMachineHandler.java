@@ -50,7 +50,7 @@ public class ErrorBehaviorStateMachineHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
+	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] { 
 			PaletteEntryBuilder.create().label("Error Behavior State Machine").category(ErrorModelCategories.ERROR_MODEL).build()
 		};

@@ -40,6 +40,8 @@ import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.PropertyService;
@@ -54,49 +56,40 @@ public class DefaultColoringService implements ColoringService {
 	
 	// TODO: Consider exposing functionality via the service
 	private static interface ColoringCalculator {
-		org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe);
+		java.awt.Color getForegroundColor(final BusinessObjectContext boc);
 	}
 	
 	private class SimpleColoring implements Coloring, ColoringCalculator {
-		private final Map<PictogramElement, org.eclipse.graphiti.mm.algorithms.styles.Color> foregroundColors = new HashMap<PictogramElement, org.eclipse.graphiti.mm.algorithms.styles.Color>();
+		private final Map<BusinessObjectContext, java.awt.Color> foregroundColors = new HashMap<>();
 		
 		@Override
 		public void dispose() {
 			coloringCalculators.remove(this);
 			
-			// Reapply coloring for pictogram elements
-			for(final PictogramElement pe : foregroundColors.keySet()) {
-				applyColoring(pe);
+			// Reapply coloring for diagram elements
+			for(final BusinessObjectContext boc : foregroundColors.keySet()) {
+				applyColoring(boc);
 			}
 		}
 
 		@Override
-		public void setForeground(PictogramElement pe, final java.awt.Color color) {
-			// If a transient shape is selected, it is likely a child shape and the container should be retrieved
-			while(pe instanceof Shape && propertyService.isTransient(pe)) {
-				pe = ((Shape)pe).getContainer();
-			}			
-			
-			if(pe == null || pe instanceof Diagram) {
-				return;
-			}
-			
-			// Store the color
-			final org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = Graphiti.getGaService().manageColor(getDiagram(), color.getRed(), color.getGreen(), color.getBlue());
-			foregroundColors.put(pe, foregroundColor);
-			
-			applyForeground(pe, foregroundColor);
+		public void setForeground(final BusinessObjectContext boc, final java.awt.Color color) {
+			foregroundColors.put(boc, color);
+			applyForeground(boc, color);
+			return;
 		}
 		
-		public org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe) {
-			return foregroundColors.get(pe);
+		public java.awt.Color getForegroundColor(final BusinessObjectContext boc) {
+			return foregroundColors.get(boc);
 		}
 	};	
 	
 	private class SelectedModeFlowColoringCalculator implements ColoringCalculator {
 		@Override
-		public org.eclipse.graphiti.mm.algorithms.styles.Color getForegroundColor(final PictogramElement pe) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		public java.awt.Color getForegroundColor(final BusinessObjectContext boc) {
+			// TODO: Migrate
+			/*
+			final Object bo = boc.getBusinessObject();
 			final Shape possibleContextShape;
 			if(bo instanceof Feature) {
 				return null;
@@ -220,7 +213,7 @@ public class DefaultColoringService implements ColoringService {
 	 		} else if(inSelectedFlow && isFlowInMode) {
 	 			return Graphiti.getGaService().manageColor(getDiagram(), getInSelectedFlowColor());
 	 		}
-	 		
+	 		*/
 	 		return null;
 		}
 		
@@ -257,20 +250,22 @@ public class DefaultColoringService implements ColoringService {
 	}
 	
 	@Override
-	public void applyColoring(final PictogramElement pe) {
+	public void applyColoring(final BusinessObjectContext boc) {
 		// Determine the appropriate color
-		org.eclipse.graphiti.mm.algorithms.styles.Color foregroundColor = null;
+		java.awt.Color foregroundColor = null;
 		for(final ColoringCalculator coloring : coloringCalculators) {
-			foregroundColor = coloring.getForegroundColor(pe);
+			foregroundColor = coloring.getForegroundColor(boc);
 			if(foregroundColor != null) {
 				break;
 			}			
 		}
 		
-		applyForeground(pe, foregroundColor);
+		applyForeground(boc, foregroundColor);
 	}
 	
-	private void applyForeground(final PictogramElement pe, final org.eclipse.graphiti.mm.algorithms.styles.Color color) {
+	private void applyForeground(final BusinessObjectContext boc, final java.awt.Color color) {
+		// TODO: Adjust color for appropriate graphical algorithms
+		/*
 		// Handle coloring containers
 		if(pe instanceof ContainerShape && propertyService.isColoringContainer(pe)) {
 			for(final Shape childShape : ((ContainerShape)pe).getChildren()) {
@@ -293,7 +288,7 @@ public class DefaultColoringService implements ColoringService {
 					}
 				}
 			}
-		}			
+		}*/		
 	}
 	
 	private boolean isInMode(final ModalElement modalElement, final String modeName) {

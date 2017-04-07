@@ -41,7 +41,7 @@ public class ErrorBehaviorStateHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ErrorBehaviorStateMachine stateMachine) {
+	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] { 
 			PaletteEntryBuilder.create().label("State").category(ErrorModelCategories.ERROR_MODEL).build()
 		};

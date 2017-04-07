@@ -11,6 +11,7 @@ package org.osate.ge.internal.services;
 import java.awt.Color;
 
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import org.osate.ge.BusinessObjectContext;
 
 /**
  * Contains methods to handle highlighting objects based on editor state
@@ -19,7 +20,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 public interface ColoringService {
 	interface Coloring {
 		void dispose();
-		void setForeground(PictogramElement pe, Color color);
+		void setForeground(BusinessObjectContext boc, Color color);
 	}
 	
 	/**
@@ -30,9 +31,9 @@ public interface ColoringService {
 	Coloring adjustColors();
 	
 	/**
-	 * Applies custom colors to a pictogram element based on the current state of the coloring service
+	 * Applies custom colors to a diagram element based on the current state of the coloring service
 	 * Coloring can be customized with the is coloring container and is coloring child properties.
-	 * @param pe the pictogram to color. If it is a shape it should be the root shape for a business object. 
+	 * @param boc is the diagram element to color. If it is a shape it should be the root shape for a business object. 
 	 */
-	void applyColoring(PictogramElement pe);
+	void applyColoring(BusinessObjectContext boc);
 }

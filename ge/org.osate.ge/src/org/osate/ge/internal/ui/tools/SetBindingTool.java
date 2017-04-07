@@ -91,7 +91,7 @@ public class SetBindingTool {
 
 	@CanActivate
 	public boolean canActivate(@Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
-		return currentWindow == null && boc.getBusinessObject() instanceof NamedElement && findComponentImplementationBoc(boc) != null;
+		return currentWindow == null && boc.getBusinessObject() instanceof NamedElement && ToolUtil.findComponentImplementationBoc(boc) != null;
 	}
 	
 	@Activate
@@ -101,7 +101,7 @@ public class SetBindingTool {
 			final UiService uiService) {
 		try {
 			final AgeDiagramEditor editor = (AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
-			final BusinessObjectContext componentImplementationBoc = findComponentImplementationBoc(selectedBoc);		
+			final BusinessObjectContext componentImplementationBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);		
 			
 			// Open Dialog
 			if(currentWindow == null && componentImplementationBoc != null) {
@@ -138,27 +138,6 @@ public class SetBindingTool {
 		});
 	}
 
-	/**
-	 * Looks in ancestors and returns the first BOC which is associated with a ComponentImplementation. Returns null if any ancestor is not associated with a 
-	 * NamedElement. NamedElement business objects are required to build paths to elements for the property association.
-	 * @param selectedBoc
-	 * @return
-	 */
-	private static BusinessObjectContext findComponentImplementationBoc(final BusinessObjectContext selectedBoc) {
-		BusinessObjectContext tmp = selectedBoc;
-		while(tmp != null) {
-			if(tmp.getBusinessObject() instanceof ComponentImplementation) {
-				return tmp;
-			} else if(!(tmp.getBusinessObject() instanceof NamedElement)) {
-				return null;
-			}
-			
-			tmp = tmp.getParent();
-		}
-		
-		return null;
-	}
-	
 	private static class SetBindingWindow extends TitleAreaDialog {
 		private final BusinessObjectContext componentImplementationBoc;
 		private final BusinessObjectContext bocToBind;
@@ -283,7 +262,7 @@ public class SetBindingTool {
 					validationSuccessful = true;
 					for (final BusinessObjectContext targetBoc : targetBocs) {
 						boolean boIsValid = false;
-						if(findComponentImplementationBoc(targetBoc) == componentImplementationBoc) {
+						if(ToolUtil.findComponentImplementationBoc(targetBoc) == componentImplementationBoc) {
 							final Element bo = (Element)targetBoc.getBusinessObject();
 							if (bo != null) {
 								// The root element can not be a target element

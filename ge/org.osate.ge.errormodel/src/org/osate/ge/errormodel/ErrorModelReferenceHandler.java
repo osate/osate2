@@ -36,7 +36,6 @@ public class ErrorModelReferenceHandler {
 	private final static String TYPE_BEHAVIOR_EVENT = "emv2.be";
 	private final static String TYPE_BEHAVIOR_STATE = "emv2.bs";
 	private final static String TYPE_BEHAVIOR_TRANSITION = "emv2.bt";
-	private final static String TYPE_ERROR_TYPE_LIBRARY = "emv2.etl";
 	private final static String TYPE_ERROR_TYPE = "emv2.et";
 	private final static String TYPE_ERROR_TYPE_EXT = "emv2.ete";
 	

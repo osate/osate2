@@ -472,8 +472,17 @@ public class ClassifierHandler {
 			children = Stream.concat(children, ((ComponentImplementation)classifier).getAllConnections().stream());
 		}
 		
-		if(classifier instanceof ComponentType) {			
-			children = Stream.concat(children, ((ComponentType)classifier).getAllFlowSpecifications().stream());
+		final ComponentType componentType;
+		if(classifier instanceof ComponentType) {
+			componentType = (ComponentType)classifier;
+		} else if(classifier instanceof ComponentImplementation) {
+			componentType = ((ComponentImplementation)classifier).getType();
+		} else {
+			componentType = null;
+		}
+		
+		if(componentType != null) {			
+			children = Stream.concat(children, componentType.getAllFlowSpecifications().stream());
 		}
 
 		//CI or CC? : Binding Indicators
