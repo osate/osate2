@@ -1172,7 +1172,7 @@ ruleConnectionReference returns [EObject current=null]
 	    }
 
 )
-)(
+)?(
 (
 		{
 			if ($current==null) {

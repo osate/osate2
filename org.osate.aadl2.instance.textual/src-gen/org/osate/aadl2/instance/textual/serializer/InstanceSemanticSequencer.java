@@ -289,31 +289,13 @@ public class InstanceSemanticSequencer extends PropertiesSemanticSequencer {
 	 *     (
 	 *         source=[ConnectionInstanceEnd|InstanceRef] 
 	 *         destination=[ConnectionInstanceEnd|InstanceRef] 
-	 *         reverse?='reverse' 
+	 *         reverse?='reverse'? 
 	 *         connection=[Connection|DeclarativeRef] 
 	 *         context=[ComponentInstance|InstanceRef]
 	 *     )
 	 */
 	protected void sequence_ConnectionReference(ISerializationContext context, ConnectionReference semanticObject) {
-		if (errorAcceptor != null) {
-			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE));
-			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION));
-			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__REVERSE) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__REVERSE));
-			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION));
-			if (transientValues.isValueTransient(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT) == ValueTransient.YES)
-				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT));
-		}
-		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getSourceConnectionInstanceEndInstanceRefParserRuleCall_0_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__SOURCE, false));
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getDestinationConnectionInstanceEndInstanceRefParserRuleCall_2_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__DESTINATION, false));
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getReverseReverseKeyword_4_0(), semanticObject.isReverse());
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getConnectionConnectionDeclarativeRefParserRuleCall_5_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__CONNECTION, false));
-		feeder.accept(grammarAccess.getConnectionReferenceAccess().getContextComponentInstanceInstanceRefParserRuleCall_7_0_1(), semanticObject.eGet(InstancePackage.Literals.CONNECTION_REFERENCE__CONTEXT, false));
-		feeder.finish();
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	

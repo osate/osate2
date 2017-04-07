@@ -86,7 +86,7 @@ ConnectionInstance returns instance::ConnectionInstance:
 
 ConnectionReference returns instance::ConnectionReference:
 	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':'
-	reverse?='reverse' connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
+	(reverse?='reverse')? connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
