@@ -9,7 +9,6 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
@@ -393,31 +392,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	}
 	
 	private DockArea calculateDockArea(final DiagramElement e) {
-		return determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight()).getDockArea();
-	}
-	
-	private static DockingPosition determineDockingPosition(final DiagramNode container, final int x, final int y, final int width, final int height) {
-		if(!(container instanceof DiagramElement)) {
-			return DockingPosition.ANY;
-		}		
-		
-		final DiagramElement containerElement = (DiagramElement)container;
-		
-		final int distanceToLeft = Math.max(0, x);
-		final int distanceToRight = containerElement.getWidth() - Math.min(x + width, containerElement.getWidth());
-		final int distanceToTop = Math.max(0, y);
-		final int distanceToBottom = containerElement.getHeight() - Math.min(y + height, containerElement.getHeight());
-
-		// Find the closest dock area while giving priority to the left, right, top, and bottom.
-		if(distanceToLeft <= distanceToRight && distanceToLeft <= distanceToTop && distanceToLeft <= distanceToBottom) {
-			return DockingPosition.LEFT;
-		} else if(distanceToRight <= distanceToTop && distanceToRight <= distanceToBottom) {
-			return DockingPosition.RIGHT;
-		} else if(distanceToTop <= distanceToBottom) {
-			return DockingPosition.TOP;
-		} else {
-			return DockingPosition.BOTTOM;
-		}
+		return AgeDiagramUtil.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight()).getDockArea();
 	}
 
 	@Override
@@ -425,8 +400,16 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return Collections.unmodifiableCollection(elements);
 	}
 
+	// The diagram has a business object in cases where it's children are logically owned by another object which is not shown.
 	@Override
 	public Object getBusinessObject() {
-		return null;
+		return bo;
 	}
+	
+	public void setBusinessObject(final Object value) {
+		this.bo = value;
+	}
+	
+	// TODO: Rework
+	private Object bo = null;
 }

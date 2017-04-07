@@ -12,6 +12,7 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CreateParentQuery;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
@@ -33,7 +34,7 @@ public class SubprogramCallOrderHandler {
 	}
 	
 	@CreateParentQuery
-	public Query createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		return srcRootQuery.ancestor(1);
 	}
 	

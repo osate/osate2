@@ -509,14 +509,24 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	}
 	
 	/**
-	 * Looks for a diagram element associated for the pictogram element. 
+	 * Same as getClosestDiagramNode, but returns null if result is not a DiagramElement.
+	 * @param pe
+	 * @return
+	 */
+	public DiagramElement getClosestDiagramElement(final PictogramElement pe) {
+		final DiagramNode dn = getClosestDiagramNode(pe);
+		return dn instanceof DiagramElement ? (DiagramElement)dn : null;
+	}
+	
+	/**
+	 * Looks for a diagram node associated for the pictogram element. 
 	 * If one is not available, it looks in the pictogram element ancestors until there are no more ancestors to check.
 	 * @param pe
 	 * @return
 	 */
-	public DiagramElement getClosestDiagramElement(PictogramElement pe) {
+	public DiagramNode getClosestDiagramNode(PictogramElement pe) {
 		DiagramNode result = getDiagramNode(pe);
-		while(result == null ) {
+		while(result == null) {
 			if(pe instanceof ConnectionDecorator) {
 				pe = ((ConnectionDecorator) pe).getConnection();
 			} else if(pe instanceof Shape) {
@@ -528,7 +538,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			result = getDiagramNode(pe);
 		}
 		
-		return result instanceof DiagramElement ? (DiagramElement)result : null;
+		return result;
 	}
 	
 	public Diagram getGraphitiDiagram() {

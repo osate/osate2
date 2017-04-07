@@ -24,7 +24,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
 import org.osate.ge.internal.services.NamingService;
@@ -65,7 +64,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}
 	
 	@CreateParentQuery
-	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
 	}
 	
@@ -77,11 +76,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	
 	// Creating
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
-		if(!canOwnFlowSpecification(diagramBo)) {
-			return null;
-		}
-		
+	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] {
 			PaletteEntryBuilder.create().creation().label("Flow Source").icon(ImageHelper.getImage("FlowSource")).category(Categories.FLOWS).context(FlowKind.SOURCE).build(),
 			PaletteEntryBuilder.create().creation().label("Flow Sink").icon(ImageHelper.getImage("FlowSink")).category(Categories.FLOWS).context(FlowKind.SINK).build()
@@ -90,7 +85,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) DiagramElement featureDiagramElement,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final QueryService queryService) {
 		
@@ -102,19 +97,21 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
  		} else {
  			throw new RuntimeException("Unexpected flow kind: " + flowKind);
  		}
-		return isValidFlowEnd(feature, featureDiagramElement, requiredDirection, queryService);
+ 		
+ 		final ComponentType ct = getComponentTypeByFeature(featureBoc, queryService); 		
+		return canOwnFlowSpecification(ct) && isValidFlowEnd(feature, featureBoc, requiredDirection, queryService);
 	}	
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
+	public ComponentType getCreateOwner(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService) {
-		return getComponentType(targetBoc, queryService);
+		return getComponentTypeByFeature(targetBoc, queryService);
 	}	
 
 	@Create
 	public FlowSpecification createFlowSpecification(final @Named(Names.OWNER_BO) ComponentType ct,
 			final @Named(Names.TARGET_BO) Feature feature,
-			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc,
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind, 
 			final NamingService namingService,
 			final QueryService queryService) {

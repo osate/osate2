@@ -35,7 +35,6 @@ import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
@@ -71,18 +70,18 @@ class FlowSpecificationHandler {
 	}
 	
 	// Helper functions
-	protected static boolean canOwnFlowSpecification(final Object diagramBo) {
-		return diagramBo instanceof ThreadGroupType || 
-				diagramBo instanceof ThreadType || 
-				diagramBo instanceof VirtualProcessorType || 
-				diagramBo instanceof ProcessType ||
-				diagramBo instanceof DeviceType ||
-				diagramBo instanceof AbstractType ||
-				diagramBo instanceof ProcessorType ||
-				diagramBo instanceof DataType ||
-				diagramBo instanceof SystemType ||
-				diagramBo instanceof SubprogramType ||
-				diagramBo instanceof SubprogramGroupType;
+	protected static boolean canOwnFlowSpecification(final Object bo) {
+		return bo instanceof ThreadGroupType || 
+				bo instanceof ThreadType || 
+				bo instanceof VirtualProcessorType || 
+				bo instanceof ProcessType ||
+				bo instanceof DeviceType ||
+				bo instanceof AbstractType ||
+				bo instanceof ProcessorType ||
+				bo instanceof DataType ||
+				bo instanceof SystemType ||
+				bo instanceof SubprogramType ||
+				bo instanceof SubprogramGroupType;
 	}
 	
 	protected static String getNewFlowSpecificationName(final ComponentType ct, final NamingService namingService) {
@@ -93,21 +92,21 @@ class FlowSpecificationHandler {
 		return (Context)queryService.getFirstBusinessObject(contextQuery, featureBoc);
 	}
 	
-	protected static ComponentType getComponentType(BusinessObjectContext targetBoc,
+	protected static ComponentType getComponentTypeByFeature(BusinessObjectContext featureBoc,
 			final QueryService queryService) {
-		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, targetBoc);
-	}	
+		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, featureBoc);
+	}
 
 	/**
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.
 	 * feature, its direction must be IN OUT or match the specified direction
 	 */
 	protected static boolean isValidFlowEnd(final Feature feature,
-			final DiagramElement featureDiagramElement, 
+			final BusinessObjectContext featureBoc, 
 			final DirectionType requiredDirection, 
 			final QueryService queryService) {
 		// Ensure that the feature is contained in a component type
-		if(getComponentType(featureDiagramElement, queryService) == null) {
+		if(getComponentTypeByFeature(featureBoc, queryService) == null) {
 			return false;
 		}
 		
@@ -122,7 +121,7 @@ class FlowSpecificationHandler {
 			final DirectedFeature df = (DirectedFeature)feature;
 			DirectionType direction = df.getDirection();
 	 		if(direction == DirectionType.IN || direction == DirectionType.OUT) {
-	 			if(AadlFeatureUtil.isFeatureInverted(featureDiagramElement)) {
+	 			if(AadlFeatureUtil.isFeatureInverted(featureBoc)) {
 	 				direction = (direction == DirectionType.IN) ? DirectionType.OUT : DirectionType.IN;
 	 			}
 	 		}	

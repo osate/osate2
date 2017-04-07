@@ -41,7 +41,7 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.PictogramElementUtil;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -115,6 +115,10 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		} finally {
 			eclipseContext.dispose();
 		}
+	}
+	
+	private BusinessObjectContext[] getBusinessObjectContexts(final PictogramElement[] pes) {
+		return PictogramElementUtil.getBusinessObjectContexts(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
 	}
 	
 	@Override
@@ -204,24 +208,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 			context.set(Names.BUSINESS_OBJECTS, businessObjects);
 		}
 	}
-	
-	private BusinessObjectContext[] getBusinessObjectContexts(final PictogramElement[] pes) {
-		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final BusinessObjectContext[] diagramElements = new BusinessObjectContext[pes.length];
-		for(int i = 0; i < pes.length; i++) {
-			final BusinessObjectContext boc = graphitiAgeDiagram.getClosestDiagramElement(pes[i]);
-			
-			// Return null if we are unable to get the logical pictogram element for any passed in pictogram element
-			if(boc == null) {
-				return null;
-			}
-			
-			diagramElements[i] = boc;
-		}
-
-		return diagramElements;
-	}
-	
+		
 	private Object[] getBusinessObjects(final PictogramElement[] pes) {
 		if(pes == null) {
 			 return null;

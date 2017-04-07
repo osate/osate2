@@ -14,11 +14,14 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.Deactivate;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.graphiti.PictogramElementUtil;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**
@@ -26,18 +29,24 @@ import org.osate.ge.internal.services.ExtensionService;
  *
  */
 public class ToolHandler {
+	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final DefaultPaletteBehavior paletteBehavior;
 	private final IEclipseContext context;
 	private Object activeTool = null;
 	private ActivateToolAction activeToolAction = null; // Action that was used to activate the active tool
+	private BusinessObjectContext[] bocs = null;
 	
-	public ToolHandler(final ExtensionService extensionService, final DefaultPaletteBehavior paletteBehavior) {
+	public ToolHandler(final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
+			final ExtensionService extensionService, 
+			final DefaultPaletteBehavior paletteBehavior) {
+		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.paletteBehavior = paletteBehavior;
 		this.context = Objects.requireNonNull(extensionService, "extensionService must not be null").createChildContext();
 	}
 	
 	public void dispose() {
 		this.context.dispose();
+		bocs = null;
 	}
 	
 	public boolean isToolActive() {
@@ -45,14 +54,22 @@ public class ToolHandler {
 	}
 
 	public boolean canActivate(final Object tool) {
-		final Object result = ContextInjectionFactory.invoke(tool, CanActivate.class, context, Boolean.TRUE);
-		if(!(result instanceof Boolean)) {
-			throw new RuntimeException("CanActivate method must return a Boolean value");
+		if(bocs == null) {
+			return false;
 		}
 		
-		return ((Boolean) result).booleanValue();
+		try {
+			populateContext();			
+			final Object result = ContextInjectionFactory.invoke(tool, CanActivate.class, context, Boolean.FALSE);
+			if(!(result instanceof Boolean)) {
+				throw new RuntimeException("CanActivate method must return a Boolean value");
+			}
+			return ((Boolean) result).booleanValue();
+		} finally {
+			resetContext();
+		}
 	}
-	
+		
 	public void activate(final Object tool, final ActivateToolAction action) {
 		// Deactivate the current tool
 		if(activeTool != null) {
@@ -63,7 +80,13 @@ public class ToolHandler {
 		activeToolAction = action;
 		
 		paletteBehavior.refreshPalette();
-		ContextInjectionFactory.invoke(tool, Activate.class, context);
+		
+		try {
+			populateContext();	
+			ContextInjectionFactory.invoke(tool, Activate.class, context);
+		} finally {
+			resetContext();
+		}
 	}
 	
 	public void deactivateActiveTool() {
@@ -73,7 +96,13 @@ public class ToolHandler {
 	}
 	
 	public void deactivate(final Object tool) {
-		ContextInjectionFactory.invoke(tool, Deactivate.class, context);
+		try {
+			populateContext();	
+			ContextInjectionFactory.invoke(tool, Deactivate.class, context);
+		} finally {
+			resetContext();
+		}
+		
 		activeTool = null;
 		paletteBehavior.refreshPalette();
 		
@@ -81,16 +110,31 @@ public class ToolHandler {
 		activeToolAction = null;
 	}
 	
+	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {
-		try {
-			// Update the context
-			context.set(InternalNames.SELECTED_PICTOGRAM_ELEMENTS, pes);
-			// Notify the active tool
-			if(activeTool != null) {
+		this.bocs = PictogramElementUtil.getBusinessObjectContexts(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
+		// Notify the active tool
+		if(activeTool != null) {
+			try {
+				populateContext();
 				ContextInjectionFactory.invoke(activeTool, SelectionChanged.class, context, null);
 			}
-		} finally {
-			context.set(InternalNames.SELECTED_PICTOGRAM_ELEMENTS, null);
+			finally {
+				resetContext();
+			}
 		}
+	}
+	
+	private void populateContext() {
+		// Update the context
+		if(bocs.length == 1) {
+			context.set(Names.BUSINESS_OBJECT_CONTEXT, bocs[0]);	
+		}			
+		context.set(Names.BUSINESS_OBJECT_CONTEXTS, bocs);
+	}
+	
+	private void resetContext() {
+		context.remove(Names.BUSINESS_OBJECT_CONTEXT);
+		context.remove(Names.BUSINESS_OBJECT_CONTEXTS);
 	}
 }

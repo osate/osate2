@@ -30,7 +30,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.services.impl;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
@@ -243,15 +242,23 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		final List<SimpleCategory> extensions = new ArrayList<SimpleCategory>();
 		final IExtensionPoint point = registry.getExtensionPoint(CATEGORIES_EXTENSION_POINT_ID);
 		if(point != null) {
+			// Build a list of category config elements from all extensions so that they can be sorted.
+			final List<IConfigurationElement> categoryConfigElements = new ArrayList<>();
 			for(final IExtension extension : point.getExtensions()) {
 				final IConfigurationElement[] tempConfigElements = extension.getConfigurationElements();
-				Arrays.sort(tempConfigElements, orderComparator);
 				for(final IConfigurationElement ce : tempConfigElements) {
-					final String categoryId = ce.getAttribute("id");
-					final String categoryName = ce.getAttribute("name");
-					final SimpleCategory category = new SimpleCategory(categoryId, categoryName);
-					extensions.add(category);
+					categoryConfigElements.add(ce);
 				}
+			}
+
+			categoryConfigElements.sort(orderComparator);
+			
+			// Create the category objects
+			for(final IConfigurationElement ce : categoryConfigElements) {
+				final String categoryId = ce.getAttribute("id");
+				final String categoryName = ce.getAttribute("name");
+				final SimpleCategory category = new SimpleCategory(categoryId, categoryName);
+				extensions.add(category);
 			}
 		}
 		

@@ -41,9 +41,12 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.ge.GraphicalEditor;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.diagram.AgeDiagramUtil;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.services.GraphicalEditorService;
@@ -133,9 +136,10 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 			return null;
 		}
 
-		final AgeDiagramEditor editor = (AgeDiagramEditor)editorPart;
 		final ExtensionService extService = (ExtensionService)editorPart.getAdapter(ExtensionService.class);
+		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = (GraphitiAgeDiagramProvider)editorPart.getAdapter(GraphitiAgeDiagramProvider.class);
 		final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)editorPart.getAdapter(BusinessObjectResolutionService.class);
+		final ReferenceService referenceService = (ReferenceService)editorPart.getAdapter(ReferenceService.class);
 		
 		// Services may be null if the pictogram element doesn't belong to an OSATE GE Diagram.
 		if(extService == null || bor == null) {
@@ -147,11 +151,8 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 			return null;
 		}
 		
-		final Object diagramBo = bor.getBusinessObjectForPictogramElement(editor.getDiagramTypeProvider().getDiagram());
-		if(diagramBo == null) {
-			return null;
-		}
-		
+		// Diagrams are no longer directly associated with a business object. Use the diagram configuration to determine the diagram business object.
+		final Object diagramBo = AgeDiagramUtil.getConfigurationBusinessObject(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram(), referenceService);
 		return valueGenerator.generateValue(extService, bo, diagramBo);
 	}
 }

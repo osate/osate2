@@ -6,7 +6,7 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
-package org.osate.ge.internal.services.impl;
+package org.osate.ge.internal.graphiti.services.impl;
 
 import java.util.Objects;
 
@@ -14,7 +14,8 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.osate.ge.internal.services.GraphitiService;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 
 public class DefaultGraphitiService implements GraphitiService {
@@ -44,5 +45,10 @@ public class DefaultGraphitiService implements GraphitiService {
 	@Override
 	public IProject getProject() {
 		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getProject();
+	}
+
+	@Override
+	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
+		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getGraphitiAgeDiagram();
 	}
 }

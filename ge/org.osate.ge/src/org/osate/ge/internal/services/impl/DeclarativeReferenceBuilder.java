@@ -32,7 +32,6 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;
@@ -196,8 +195,6 @@ public class DeclarativeReferenceBuilder {
 			final Classifier annexSubclauseClassifier = annexSubclause.getContainingClassifier();	
 			final int index = getAnnexSubclauseIndex(annexSubclause);
 			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclauseClassifier.getQualifiedName(), annexSubclause.getName(), Integer.toString(index)};
-		} else if(bo instanceof ProjectOverview) {
-			return new String[] {TYPE_PROJECT_OVERVIEW};				
 		} else {
 			return null;
 		}

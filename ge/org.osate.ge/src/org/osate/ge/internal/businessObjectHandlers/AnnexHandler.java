@@ -1,5 +1,8 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.EClass;
@@ -69,17 +72,14 @@ public class AnnexHandler {
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
-		if(diagramBo instanceof AadlPackage) {
-			return new PaletteEntry[] { 
-				PaletteEntryBuilder.create().label("Annex Library").icon(ImageHelper.getImage(getDefaultAnnexLibrary().getName())).category(Categories.MISC).context(getDefaultAnnexLibrary()).build()
-			};
-		} else if(diagramBo instanceof Classifier) {
-			return new PaletteEntry[] { 
-				PaletteEntryBuilder.create().label("Annex Subclause").icon(ImageHelper.getImage(getDefaultAnnexSubclause().getName())).category(Categories.MISC).context(getDefaultAnnexSubclause()).build()
-			};
-		} else {
-			return null;
+		final List<PaletteEntry> entries = new ArrayList<>();
+		if(diagramBo == null || diagramBo instanceof AadlPackage) {
+			entries.add(PaletteEntryBuilder.create().label("Annex Library").icon(ImageHelper.getImage(getDefaultAnnexLibrary().getName())).category(Categories.MISC).context(getDefaultAnnexLibrary()).build());
 		}
+		
+		entries.add(PaletteEntryBuilder.create().label("Annex Subclause").icon(ImageHelper.getImage(getDefaultAnnexSubclause().getName())).category(Categories.MISC).context(getDefaultAnnexSubclause()).build());
+		
+		return entries.toArray(new PaletteEntry[entries.size()]);
 	}
 	
 	@CanCreate

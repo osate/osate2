@@ -19,7 +19,7 @@ import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 
-public class EditorListener implements IPartListener {
+class EditorListener implements IPartListener {
 	private final String aadlXtextLanguageName = "org.osate.xtext.aadl2.Aadl2";
 	private final OpenAadlResources openAadlResources;
 	

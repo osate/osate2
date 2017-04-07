@@ -65,7 +65,6 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.model.ProjectOverview;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AadlFeatureUtil;
@@ -88,11 +87,7 @@ public class ClassifierHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
-		if(!(diagramBo instanceof AadlPackage || diagramBo instanceof ProjectOverview)) {
-			return null;
-		}
-		
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		final Aadl2Package p = Aadl2Factory.eINSTANCE.getAadl2Package();
 		return new PaletteEntry[] { 
 			createPaletteEntry(p.getAbstractType()),
@@ -184,7 +179,7 @@ public class ClassifierHandler {
 	
 	@GetCreateOwner
 	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, 
-			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
 			final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
 			return (AadlPackage)targetBo;

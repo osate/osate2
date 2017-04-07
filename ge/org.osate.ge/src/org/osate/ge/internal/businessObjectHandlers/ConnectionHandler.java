@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessConnectionEnd;
@@ -116,8 +117,8 @@ public class ConnectionHandler {
 	}
 	
 	@CreateParentQuery
-	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) DefaultQuery srcRootQuery, 
-			final @Named(Names.DESTINATION_ROOT_QUERY) DefaultQuery dstRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) DefaultQuery srcRootQuery, 
+			final @Named(InternalNames.DESTINATION_ROOT_QUERY) DefaultQuery dstRootQuery) {
 		return srcRootQuery.commonAncestors(dstRootQuery).filter((fa) -> fa.getBusinessObject() instanceof Subcomponent || fa.getBusinessObject() instanceof ComponentClassifier);
 	}
 	
@@ -250,7 +251,12 @@ public class ConnectionHandler {
 	
 	// Creating
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentImplementation ci) {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage || diagramBo instanceof ComponentImplementation;
+		if(!applicable) {
+			return null;
+		}
+		
 		final List<PaletteEntry> paletteEntries = new ArrayList<>();
 		
 		// Create palette entries for each connection type
@@ -267,16 +273,16 @@ public class ConnectionHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
 		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, srcBoc);
 	}
 	
 	@CanStartConnection
-	public boolean canStartConnection(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+	public boolean canStartConnection(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {
-		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcBoc, queryService);
+		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, queryService);
 		if(srcConnectedElement == null) {
 			return false;
 		}
@@ -292,14 +298,14 @@ public class ConnectionHandler {
 	}	
 	
 	@CanCreate
-	public boolean canCreate(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final BusinessObjectContext dstBoc, 
+	public boolean canCreate(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext dstBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {		
 
 		// Get the connection elements for the source and destination
-		final ConnectedElement srcConnectedElement = getConnectedElementForDiagramElement(srcBoc, queryService);
-		final ConnectedElement dstConnectedElement = getConnectedElementForDiagramElement(dstBoc, queryService);
+		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, queryService);
+		final ConnectedElement dstConnectedElement = getConnectedElementForBusinessObjectContext(dstBoc, queryService);
 
 		// Ensure they are valid and are not the same
 		if(dstConnectedElement == null || EcoreUtil.equals(srcConnectedElement, dstConnectedElement)) {
@@ -316,8 +322,8 @@ public class ConnectionHandler {
 
 	@Create
 	public Connection createBusinessObject(@Named(Names.OWNER_BO) final ComponentImplementation ci, 
-			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final BusinessObjectContext dstBoc, 
+			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext dstBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService,
 			final NamingService namingService) {
@@ -338,9 +344,9 @@ public class ConnectionHandler {
 		newAadlConnection.setName(newConnectionName);
 		
 		// Set the source and destination
-		final ConnectedElement src = getConnectedElementForDiagramElement(srcBoc, queryService);
+		final ConnectedElement src = getConnectedElementForBusinessObjectContext(srcBoc, queryService);
 		newAadlConnection.setSource(src);
-		final ConnectedElement dst = getConnectedElementForDiagramElement(dstBoc, queryService);
+		final ConnectedElement dst = getConnectedElementForBusinessObjectContext(dstBoc, queryService);
 		newAadlConnection.setDestination(dst);
 		
 		// Set type of access connection
@@ -360,7 +366,7 @@ public class ConnectionHandler {
 		return newAadlConnection;
 	}
 	
-	private ConnectedElement getConnectedElementForDiagramElement(final BusinessObjectContext boc, final QueryService queryService) {
+	private ConnectedElement getConnectedElementForBusinessObjectContext(final BusinessObjectContext boc, final QueryService queryService) {
 		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
 		final Object bo = queryService.getFirstBusinessObject(selfQuery, boc);
 		if(!(bo instanceof ConnectionEnd)) {

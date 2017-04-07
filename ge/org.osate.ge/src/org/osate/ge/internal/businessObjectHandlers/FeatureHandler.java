@@ -53,7 +53,6 @@ import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultDockingPosition;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -88,11 +87,12 @@ public class FeatureHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Classifier classifier) {		
-		final List<PaletteEntry> entries = new ArrayList<PaletteEntry>();
-		
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {		
+		final List<PaletteEntry> entries = new ArrayList<PaletteEntry>();		
+		final Classifier classifier = diagramBo instanceof Classifier ? (Classifier)diagramBo : null;
+
 		for(EClass featureType : AadlFeatureUtil.getFeatureTypes()) {
-			if(AadlFeatureUtil.canOwnFeatureType(classifier, featureType)) {
+			if(classifier == null || AadlFeatureUtil.canOwnFeatureType(classifier, featureType)) {
 				entries.add(createPaletteEntry(featureType));
 			}
 		}
@@ -114,7 +114,7 @@ public class FeatureHandler {
 	}
 	
 	@Create
-	public NamedElement createBusinessObject(@Named(Names.OWNER_BO) final Classifier classifier, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType, final @Named(InternalNames.DOCKING_POSITION) DockingPosition dockingPosition, final NamingService namingService) {
+	public NamedElement createBusinessObject(@Named(Names.OWNER_BO) final Classifier classifier, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType, final @Named(Names.DOCKING_POSITION) DockingPosition dockingPosition, final NamingService namingService) {
 		final String newFeatureName = namingService.buildUniqueIdentifier(classifier, "new_feature");
 		
 		final NamedElement newFeature = AadlFeatureUtil.createFeature(classifier, featureType);
@@ -177,8 +177,6 @@ public class FeatureHandler {
 	/**
 	 * 
 	 * @param feature a feature or feature specification
-	 * @param parentDiagramElement
-	 * @param featureService
 	 * @return
 	 */
 	private DirectionType getDirection(final Element feature, final BusinessObjectContext featureBoc) {

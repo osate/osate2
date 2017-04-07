@@ -96,13 +96,12 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
+import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
@@ -117,7 +116,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 
 import java.util.Map;
 
-public class AgeDiagramBehavior extends DiagramBehavior {
+public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {
 	private GraphitiAgeDiagram graphitiAgeDiagram;
 	private IProject project = null;
 	private boolean updateInProgress = false;
@@ -191,11 +190,9 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
 			
-			final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)getAdapter(BusinessObjectResolutionService.class);		
 	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
 
 			// Register mouse listeners to handle tooltips
-			final ShapeService shapeService = (ShapeService)getAdapter(ShapeService.class);
 			class ToolTipHandler implements MouseMoveListener, MouseTrackListener, IPartListener {
 				private Shell tooltipShell = null;
 				private Object tooltipBo = null;
@@ -294,7 +291,12 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 						return null;
 					}
 					
-					return pe instanceof Shape ? shapeService.getClosestBusinessObjectOfType((Shape)pe, Object.class) : bor.getBusinessObjectForPictogramElement(pe);
+					final DiagramNode dn = getGraphitiAgeDiagram().getClosestDiagramElement(pe);
+					if(dn == null) {
+						return null;
+					}
+					
+					return dn.getBusinessObject();
 				}
 				@Override
 				public void partActivated(final IWorkbenchPart part) {
@@ -332,7 +334,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			editor.getSite().getWorkbenchWindow().getPartService().addPartListener(toolTipHandler);
 
  			// Register an action for each tool
-	 		toolHandler = new ToolHandler(extService, getPaletteBehavior());
+	 		toolHandler = new ToolHandler(this, extService, getPaletteBehavior());
 	 		for(final Object tool : extService.getTools()) {
 	 			registerAction(new ActivateToolAction(editor, toolHandler, tool));
 	 		}
@@ -445,7 +447,7 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 				
 				// Update the diagram
 				final EObject contents = resource.getContents().get(0);
-				if(contents instanceof NamedElement) {
+				if(contents instanceof NamedElement) { // Filter out changes to non AADL Xtext models
 					updateIfDiagramResourceMatches(resource);
 				}
 			}					
@@ -463,14 +465,8 @@ public class AgeDiagramBehavior extends DiagramBehavior {
 			return;
 		}
 		
-		final Object bo = getDiagramTypeProvider().getFeatureProvider().getBusinessObjectForPictogramElement(getDiagramTypeProvider().getDiagram());
-		if(bo != null) {
-			final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
-			final Resource diagramBoResource = diagramService.getResource(bo);
-			if(diagramBoResource == resource) {
-				update();
-			}
-		}
+		// TODO: Migrate. Need to only update if the modified resource is somehow connected to this diagram.
+		update();
 	}
 	
 	public void updateDiagramWhenVisible() {

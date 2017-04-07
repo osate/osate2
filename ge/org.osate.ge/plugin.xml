@@ -322,20 +322,15 @@
 
     <extension
           point="org.osate.ge.categories">
-          <category
-             id="org.osate.ge.categories.connections"
-             name="Connections"
-             order="20">
-       </category>
        <category
              id="org.osate.ge.categories.classifiers"
              name="Classifiers"
              order="10">
        </category>
        <category
-             id="org.osate.ge.categories.flows"
-             name="Flows"
-             order="40">
+             id="org.osate.ge.categories.connections"
+             name="Connections"
+             order="20">
        </category>
        <category
              id="org.osate.ge.categories.features"
@@ -343,24 +338,24 @@
              order="30">
        </category>
        <category
-             id="org.osate.ge.categories.modes"
-             name="Modes"
+             id="org.osate.ge.categories.subcomponents"
+             name="Subcomponents"
+             order="40">
+       </category>
+       <category
+             id="org.osate.ge.categories.flows"
+             name="Flows"
              order="50">
        </category>
        <category
-             id="org.osate.ge.categories.subcomponents"
-             name="Subcomponents"
-             order="70">
+             id="org.osate.ge.categories.modes"
+             name="Modes"
+             order="60">
        </category>
        <category
              id="org.osate.ge.categories.subprogram_calls"
              name="Subprogram Calls"
              order="80">
-       </category>
-        <category
-             id="org.osate.ge.categories.relationships"
-             name="Relationships"
-             order="60">
        </category>
     </extension>
     <extension

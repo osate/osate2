@@ -63,7 +63,7 @@ public interface GraphicalEditorService {
 	 * @return the result of the operation. Returns null if the object could not be operated on.
 	 * The operation's activation method is a called with the standard set of objects available for injection. 
 	 * The following named values are supported:
-	 * Names.DIAGRAM_BO - The business object of the diagram in which the operand is contained.
+	 * Names.DIAGRAM_BO - The business object of the diagram in which the operand is contained. May be null.
 	 * Names.BUSINESS_OBJECT - The business object represented by the operand.
 	 * @see #canOperateOn(Object) 
 	 */

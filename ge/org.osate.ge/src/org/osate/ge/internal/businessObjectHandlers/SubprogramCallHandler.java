@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
@@ -45,7 +46,6 @@ import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
@@ -69,7 +69,12 @@ public class SubprogramCallHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentClassifier classifier) {				
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage || diagramBo instanceof BehavioredImplementation;
+		if(!applicable) {
+			return null;
+		}
+		
 		return new PaletteEntry[] {
 			PaletteEntryBuilder.create().label("Subprogram Call").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getSubprogramCall())).category(Categories.SUBPROGRAM_CALLS).build()
 		};
@@ -134,14 +139,14 @@ public class SubprogramCallHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
+	public boolean canCreate(final @Named(Names.TARGET_BO) SubprogramCallSequence cs, final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
 			final QueryService queryService) {
 		return cs.getContainingClassifier() == getBehavioredImplementation(targetBoc, queryService);
 	}
 	
 	@Create
 	public SubprogramCall createBusinessObject(@Named(Names.OWNER_BO) SubprogramCallSequence cs, 
-			final @Named(InternalNames.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
+			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final NamingService namingService,
 			final QueryService queryService) {
 		final BehavioredImplementation bi = getBehavioredImplementation(targetBoc, queryService);

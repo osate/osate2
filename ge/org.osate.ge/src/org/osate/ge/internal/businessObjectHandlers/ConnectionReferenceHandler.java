@@ -22,6 +22,7 @@ import org.osate.ge.internal.decorations.DirectionDecorationBuilder;
 import org.osate.ge.internal.decorations.ImmediateDecorationBuilder;
 import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.GetDecorations;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -103,8 +104,8 @@ public class ConnectionReferenceHandler {
 	}
 	
 	@CreateParentQuery
-	public Query createOwnerDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery, 
-			final @Named(Names.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery, 
+			final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		
 		return srcRootQuery.ancestors().filterByBusinessObject((ConnectionReference cr) -> cr.getContainingComponentInstance());
 	}

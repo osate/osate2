@@ -20,29 +20,28 @@ import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 // IDeleteFeature implementation that delegates behavior to a business object handler
 public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFeature, ICustomUndoRedoFeature {
-	private final BusinessObjectResolutionService bor;
+	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final UserInputService userInputService;
 	
 	@Inject
-	public BoHandlerDeleteFeature(final BusinessObjectResolutionService bor, 
+	public BoHandlerDeleteFeature(final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
 			final ExtensionService extService,
 			final AadlModificationService aadlModService, 
 			final UserInputService userInputService, 
 			final IFeatureProvider fp) {
 		super(fp);
-		this.bor = Objects.requireNonNull(bor, "bor must not be null");
+		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.userInputService = Objects.requireNonNull(userInputService, "userInputService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
@@ -79,7 +78,12 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 	
 	@Override
 	public boolean canDelete(final IDeleteContext context) {
-		final Object bo = (Object)bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final DiagramElement de = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());
+		if(de == null) {
+			return false;
+		}
+		
+		final Object bo = de.getBusinessObject();
 		
 		// Business object must be an EObject or an EmfContainerProvider
 		if(!(bo instanceof EObject || bo instanceof EmfContainerProvider)) {
@@ -89,8 +93,8 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 		final IEclipseContext childCtx = extService.createChildContext();
 		try {
 			childCtx.set(Names.BUSINESS_OBJECT, bo);	
-			//TODO: Migrate!childCtx.set(InternalNames.DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(AgeFeatureUtil.getLogicalPictogramElement(context.getPictogramElement(), propertyService, connectionService)));
-			final Object boHandler = extService.getApplicableBusinessObjectHandler(bo);
+			childCtx.set(Names.BUSINESS_OBJECT_CONTEXT, de);
+			final Object boHandler = de.getBusinessObjectHandler();
 			return boHandler == null ? false : (boolean)ContextInjectionFactory.invoke(boHandler, CanDelete.class, childCtx, false);
 		} finally {
 			childCtx.dispose();
@@ -104,7 +108,8 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 		}
 
 		// Remove the EObject from the model
-		final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+		final DiagramElement de = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());		
+		final Object bo = de.getBusinessObject();
 		
 		// TODO: Implement/rework propagating changes to other diagrams and packages.
 
@@ -127,7 +132,7 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 					try {
 						eclipseCtx.set(Names.BUSINESS_OBJECT, bo);
 						eclipseCtx.set(Names.OWNER_BO, ownerBo);
-						final Object boHandler = extService.getApplicableBusinessObjectHandler(bo);
+						final Object boHandler = de.getBusinessObjectHandler();
 						ContextInjectionFactory.invoke(boHandler, Delete.class, eclipseCtx);						
 					} finally {
 						eclipseCtx.dispose();

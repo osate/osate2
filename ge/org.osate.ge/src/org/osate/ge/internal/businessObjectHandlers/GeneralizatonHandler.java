@@ -34,7 +34,7 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.model.ProjectOverview;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
@@ -47,13 +47,9 @@ public class GeneralizatonHandler {
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((Generalization g) -> g.getGeneral()));
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
-		if(!(diagramBo instanceof AadlPackage || diagramBo instanceof ProjectOverview)) {
-			return null;
-		}
-		
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
 		return new PaletteEntry[] { 
-			PaletteEntryBuilder.create().connectionCreation().label("Extension").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getGeneralization().getName())).category(Categories.RELATIONSHIPS).build()
+			PaletteEntryBuilder.create().connectionCreation().label("Extension").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getGeneralization().getName())).category(Categories.CLASSIFIERS).build()
 		};
 	}
 	
@@ -73,7 +69,7 @@ public class GeneralizatonHandler {
 	}
 	
 	@CreateParentQuery
-	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery, final @Named(Names.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery, final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		// Owner will be the common ancestor for the shapes. Works for both overview and generalization diagram?
 		return srcRootQuery.commonAncestors(dstRootQuery);
 	}

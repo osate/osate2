@@ -2,6 +2,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.ge.Categories;
@@ -42,7 +43,12 @@ public class ModeHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentClassifier classifier) {				
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage || diagramBo instanceof ComponentClassifier;
+		if(!applicable) {
+			return null;
+		}
+			
 		return new PaletteEntry[] {
 			PaletteEntryBuilder.create().label("Mode").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getMode())).category(Categories.MODES).build()
 		};

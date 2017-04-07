@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import javax.inject.Named;
 
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
@@ -57,7 +58,12 @@ public class ModeTransitionHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentClassifier classifier) {				
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
+		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage || diagramBo instanceof ComponentClassifier;
+		if(!applicable) {
+			return null;
+		}
+		
 		return new PaletteEntry[] {
 			PaletteEntryBuilder.create().connectionCreation().label("Mode Transition").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getModeTransition())).category(Categories.MODES).build()
 		};
@@ -74,7 +80,7 @@ public class ModeTransitionHandler {
 	}
 	
 	@CreateParentQuery
-	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		// Find the subcomponent or component classifier that owns the mode transition connection.
 		return srcRootQuery.ancestor(1).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier || fa.getBusinessObject() instanceof Subcomponent).first();
 	}
@@ -96,14 +102,14 @@ public class ModeTransitionHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+	public ComponentClassifier getCreateConnectionOwner(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
 		return getComponentClassifier(srcBoc, queryService);
 	}
 
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Mode mode, 
-			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
 		final ComponentClassifier cc = getCreateConnectionOwner(srcBoc, queryService);
 		return cc != null && !cc.isDerivedModes();
@@ -111,9 +117,9 @@ public class ModeTransitionHandler {
 	
 	@CanCreate
 	public boolean canCreate(@Named(Names.SOURCE_BO) final Mode srcMode, 
-			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			@Named(Names.DESTINATION_BO) final Mode dstMode,
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final BusinessObjectContext dstBoc, 
+			@Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext dstBoc, 
 			final QueryService queryService) {		
 		return getComponentClassifier(srcBoc, queryService) == getComponentClassifier(dstBoc, queryService);
 	}

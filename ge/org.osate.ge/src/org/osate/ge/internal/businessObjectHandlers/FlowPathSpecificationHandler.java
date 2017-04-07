@@ -26,7 +26,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.Query;
@@ -50,7 +49,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 			
 	@CreateParentQuery
-	public Query createParentDiagramElementQuery(final @Named(Names.SOURCE_ROOT_QUERY) Query srcRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
 	}
 	
@@ -68,11 +67,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	
 	// Creating
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {
-		if(!canOwnFlowSpecification(diagramBo)) {
-			return null;
-		}
-		
+	public PaletteEntry[] getPaletteEntries() {
 		return new PaletteEntry[] {
 			PaletteEntryBuilder.create().connectionCreation().label("Flow Path").icon(ImageHelper.getImage("FlowPath")).category(Categories.FLOWS).context(FlowKind.PATH).build(),
 		};
@@ -80,36 +75,41 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Feature srcFeature, 
-			@Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) final DiagramElement srcDiagramElement, 
+			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) FlowKind flowKind,
 			final QueryService queryService) {
-		
 		if(flowKind != FlowKind.PATH) {
 			return false;
 		}
 		
-		return isValidFlowEnd(srcFeature, srcDiagramElement, DirectionType.IN, queryService);
+		return isValidFlowEnd(srcFeature, srcBoc, DirectionType.IN, queryService);
 	}	
 	
 	@CanCreate
-	public boolean canCreate(@Named(Names.DESTINATION_BO) final Feature dstFeature, 
-			@Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) final DiagramElement dstDiagramElement, 
-			final QueryService queryService) {		
-		return isValidFlowEnd(dstFeature, dstDiagramElement, DirectionType.OUT, queryService);
+	public boolean canCreate(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc,
+			@Named(Names.DESTINATION_BO) final Feature dstFeature, 
+			@Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext dstBoc, 
+			final QueryService queryService) {
+		
+		final ComponentType srcComponentType = getComponentTypeByFeature(srcBoc, queryService);
+		final ComponentType dstComponentType = getComponentTypeByFeature(dstBoc, queryService);
+		return canOwnFlowSpecification(srcComponentType) && 
+				srcComponentType == dstComponentType && 
+				isValidFlowEnd(dstFeature, dstBoc, DirectionType.OUT, queryService);
 	}
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
+	public ComponentType getCreateOwner(final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
 			final QueryService queryService) {
-		return getComponentType(srcBoc, queryService);
+		return getComponentTypeByFeature(srcBoc, queryService);
 	}	
 	
 	@Create
 	public FlowSpecification createFlowPath(final @Named(Names.OWNER_BO) ComponentType ct,
 			final @Named(Names.SOURCE_BO) Feature srcFeature,
-			final @Named(InternalNames.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
+			final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
 			final @Named(Names.DESTINATION_BO) Feature dstFeature,
-			final @Named(InternalNames.DESTINATION_DIAGRAM_ELEMENT) BusinessObjectContext dstBoc,
+			final @Named(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext dstBoc,
 			final NamingService namingService,
 			final QueryService queryService) {
 		

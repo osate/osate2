@@ -36,7 +36,6 @@ public interface Names {
 	public static final String DIAGRAM_BO = "diagram_bo";
 	public static final String BUSINESS_OBJECT = "bo";
 	public static final String DESTINATION_BO = "dst_bo";
-	public static final String DESTINATION_ROOT_QUERY = "dst_root_query";
 	public static final String NAME = "name";
 	public static final String OWNER_BO = "owner_bo";
 	public static final String PALETTE_ENTRY_CONTEXT = "palette_entry_ctx";
@@ -44,7 +43,10 @@ public interface Names {
 	public static final String BUSINESS_OBJECTS = "bos";
 	public static final String REFERENCE = "ref";
 	public static final String SOURCE_BO = "src_bo";
-	public static final String SOURCE_ROOT_QUERY = "src_root_query";
 	public static final String BUSINESS_OBJECT_CONTEXT = "boc";
 	public static final String BUSINESS_OBJECT_CONTEXTS = "bocs";
+	public static final String SOURCE_BUSINESS_OBJECT_CONTEXT = "sbocs";
+	public static final String DESTINATION_BUSINESS_OBJECT_CONTEXT = "dbocs";
+	public static final String TARGET_BUSINESS_OBJECT_CONTEXT = "tbocs";
+	public static final String DOCKING_POSITION = "docking_position";
 }

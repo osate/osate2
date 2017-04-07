@@ -188,6 +188,10 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     	 * @param diagram
     	 */
     	private void markLinkagesAsDirty(final Object bo, final CanonicalBusinessObjectReference boRef, final DiagramReference diagramReference) {
+    		// TODO: Migrate. Disabled because this method is unable to get the GraphitiAgeDiagram. Presumably because the diagram may be closed. 
+    		// Encounters a org.eclipse.graphiti.ui.internal.editor.DiagramBehaviorDummy.
+    		
+    		/*
     		final Diagram diagram = diagramReference.getDiagram();
     		if(diagram != null) {    			
 	    		// Create a feature provider and check if it is linked to the aadl element
@@ -216,6 +220,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 					}
 				}
     		}
+    		*/
     	}
     	
 		@Override

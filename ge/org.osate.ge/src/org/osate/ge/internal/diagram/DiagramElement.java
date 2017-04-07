@@ -34,19 +34,21 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private DiagramElement connectionStartElement;
 	private DiagramElement connectionEndElement;
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
-
+	
 	public DiagramElement(final DiagramNode container,
 			final Object bo, 
 			final Object boHandler,
 			final RelativeBusinessObjectReference boRelReference,
 			final CanonicalBusinessObjectReference boCanonicalReference,
-			final String name) {
+			final String name,
+			final Point position) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		this.boHandler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
 		this.boCanonicalReference = Objects.requireNonNull(boCanonicalReference, "boCanonicalReference must not be null");
 		this.name = name;
+		this.position = position;
 	}
 
 	@Override
@@ -132,7 +134,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	final void setPosition(final Point value) {
 		this.position = value;
 	}
-	
+		
 	public boolean hasSize() {
 		return size != null;
 	}

@@ -11,6 +11,7 @@ package org.osate.ge.internal.ui.tools;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Named;
 
@@ -18,10 +19,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -58,20 +55,18 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.ReferenceType;
 import org.osate.aadl2.ReferenceValue;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
+import org.osate.ge.di.Names;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.Description;
 import org.osate.ge.internal.di.Icon;
 import org.osate.ge.internal.di.Id;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.GraphitiService;
-import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -95,40 +90,37 @@ public class SetBindingTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/SetBinding.gif");
 
 	@CanActivate
-	public boolean canActivate(final GraphitiService graphiti, final BusinessObjectResolutionService bor) {
-		return getSelectedPictogramElement((AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer(), bor) != null && 
-				currentWindow == null && 
-				bor.getBusinessObjectForPictogramElement(graphiti.getDiagram()) instanceof ComponentImplementation;
+	public boolean canActivate(@Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+		return currentWindow == null && boc.getBusinessObject() instanceof NamedElement && findComponentImplementationBoc(boc) != null;
 	}
 	
 	@Activate
-	public void activate(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, final DiagramModificationService diagramModService) {
-		final AgeDiagramEditor editor = (AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
-
-		// Open Dialog
-		if (currentWindow == null) {
-			currentWindow = new SetBindingWindow(editor.getSite().getShell(), bor, getSelectedPictogramElement(editor, bor));
-			if(currentWindow.open() == Dialog.OK) {
-				createPropertyAssociation(graphiti.getDiagramTypeProvider().getDiagram(), bor, aadlModService, diagramModService);
-			}
+	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc, 
+			final GraphitiService graphiti,
+			final AadlModificationService aadlModService,
+			final UiService uiService) {
+		try {
+			final AgeDiagramEditor editor = (AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
+			final BusinessObjectContext componentImplementationBoc = findComponentImplementationBoc(selectedBoc);		
 			
-			currentWindow = null;
+			// Open Dialog
+			if(currentWindow == null && componentImplementationBoc != null) {
+				currentWindow = new SetBindingWindow(editor.getSite().getShell(), componentImplementationBoc, selectedBoc);
+				if(currentWindow.open() == Dialog.OK) {
+					createPropertyAssociation(aadlModService);
+				}
+								
+				currentWindow = null;
+			}
+		} finally {
+			uiService.deactivateActiveTool();
 		}
 	}
 	
 	@SelectionChanged
-	public void onSelectionChanged(@Named(InternalNames.SELECTED_PICTOGRAM_ELEMENTS) final PictogramElement[] selectedPes, final GraphitiService graphiti,
-			final BusinessObjectResolutionService bor, final ShapeService shapeService) {
+	public void onSelectionChanged(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs) {
 		if(currentWindow != null && currentWindow.getShell() != null && currentWindow.getShell().isVisible()) {
-			final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
-			editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
-				@Override
-				public void execute() {
-					if(currentWindow != null) {
-						currentWindow.setTargetPictogramElements(selectedPes);
-					}
-				}
-			});
+			currentWindow.setTargetBusinessObjectContexts(selectedBocs);
 		}
 	}
 	
@@ -146,14 +138,35 @@ public class SetBindingTool {
 		});
 	}
 
+	/**
+	 * Looks in ancestors and returns the first BOC which is associated with a ComponentImplementation. Returns null if any ancestor is not associated with a 
+	 * NamedElement. NamedElement business objects are required to build paths to elements for the property association.
+	 * @param selectedBoc
+	 * @return
+	 */
+	private static BusinessObjectContext findComponentImplementationBoc(final BusinessObjectContext selectedBoc) {
+		BusinessObjectContext tmp = selectedBoc;
+		while(tmp != null) {
+			if(tmp.getBusinessObject() instanceof ComponentImplementation) {
+				return tmp;
+			} else if(!(tmp.getBusinessObject() instanceof NamedElement)) {
+				return null;
+			}
+			
+			tmp = tmp.getParent();
+		}
+		
+		return null;
+	}
+	
 	private static class SetBindingWindow extends TitleAreaDialog {
-		private final BusinessObjectResolutionService bor;
-		private final PictogramElement pictogramToBind;
+		private final BusinessObjectContext componentImplementationBoc;
+		private final BusinessObjectContext bocToBind;
 		private final NamedElement elementToBind;
 		private ComboViewer bindingPropertyCombo;
 		private Label selectionStatusLabel;
 		private IStructuredSelection currentPropComboSel;
-		private PictogramElement[] targetPictogramElements = new PictogramElement[0];
+		private BusinessObjectContext[] targetBocs = new BusinessObjectContext[0];
 		private final LabelProvider propertyLabelProvider = new LabelProvider() {
 	    	@Override
 	    	public String getText(final Object element) {
@@ -166,13 +179,13 @@ public class SetBindingTool {
 	    	}
 	    };
 	    
-		public SetBindingWindow(final Shell parentShell, final BusinessObjectResolutionService bor, final PictogramElement pictogramToBind) {
+		public SetBindingWindow(final Shell parentShell, 
+				final BusinessObjectContext componentImplementationBoc,
+				final BusinessObjectContext bocToBind) {
 			super(parentShell);
-
-			this.bor = bor;
-			this.pictogramToBind = pictogramToBind;
-			this.elementToBind = (NamedElement) bor.getBusinessObjectForPictogramElement(pictogramToBind);
-
+			this.componentImplementationBoc = Objects.requireNonNull(componentImplementationBoc, "componentImplementationBoc must not be null");
+			this.bocToBind = Objects.requireNonNull(bocToBind, "bocToBind must not be null");
+			this.elementToBind = (NamedElement)bocToBind.getBusinessObject();
 			setShellStyle(SWT.RESIZE | SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE);
 			setHelpAvailable(false);
 		}
@@ -258,7 +271,7 @@ public class SetBindingTool {
 			if (((List<Property>) bindingPropertyCombo.getInput()).size() == 0) {
 				selectionStatusLabel.setText("No applicable binding properties.");
 			} else {
-				selectionStatusLabel.setText("Elements selected: " + targetPictogramElements.length);
+				selectionStatusLabel.setText("Elements selected: " + targetBocs.length);
 				final Property selectedProperty = getSelectedProperty();
 				if (selectedProperty == null) {
 					selectionStatusLabel.setText("Select a binding property.");
@@ -266,23 +279,23 @@ public class SetBindingTool {
 					final ListType listType = (ListType) selectedProperty.getPropertyType();
 					final ReferenceType refType = (ReferenceType) listType.getElementType();
 
-					// Check target pictogram elements...
+					// Check target business object context
 					validationSuccessful = true;
-					for (final PictogramElement targetPe : targetPictogramElements) {
-					
+					for (final BusinessObjectContext targetBoc : targetBocs) {
 						boolean boIsValid = false;
-						final Element bo = (Element) bor.getBusinessObjectForPictogramElement(targetPe);
-						
-						if (bo != null) {
-							// The root element can not be a target element
-							if (!(bo instanceof Classifier)) {
-								for (final MetaclassReference mcr : refType.getNamedElementReferences()) {
-									if (mcr.getMetaclass() != null && mcr.getMetaclass().isSuperTypeOf(bo.eClass())) {
-										boIsValid = true;
-										break;
+						if(findComponentImplementationBoc(targetBoc) == componentImplementationBoc) {
+							final Element bo = (Element)targetBoc.getBusinessObject();
+							if (bo != null) {
+								// The root element can not be a target element
+								if (!(bo instanceof Classifier)) {
+									for (final MetaclassReference mcr : refType.getNamedElementReferences()) {
+										if (mcr.getMetaclass() != null && mcr.getMetaclass().isSuperTypeOf(bo.eClass())) {
+											boIsValid = true;
+											break;
+										}
 									}
 								}
-							}
+							}						
 						}
 						
 						// Show an error message if the BO is not valid
@@ -315,14 +328,17 @@ public class SetBindingTool {
 
 		@Override
 		public boolean close() {
-			//closeListener.onClosed();
 			return super.close();
 		}
 
-		public PictogramElement getPictogramToBind() {
-			return pictogramToBind;
+		public BusinessObjectContext getComponentImplementationBoc() {
+			return componentImplementationBoc;
 		}
-
+		
+		public BusinessObjectContext getBocToBind() {
+			return bocToBind;
+		}		
+		
 		public Property getSelectedProperty() {
 			if (currentPropComboSel instanceof StructuredSelection) {
 				final StructuredSelection selection = (StructuredSelection) currentPropComboSel;
@@ -336,139 +352,95 @@ public class SetBindingTool {
 			currentPropComboSel = propComboSelection;
 		}
 
-		public void setTargetPictogramElements(final PictogramElement[] value) {
-			targetPictogramElements = value;
+		public void setTargetBusinessObjectContexts(final BusinessObjectContext[] value) {
+			targetBocs = value;
 			if(getShell() != null && !getShell().isDisposed()) {
 				validate();
 			}
 		}
 
-		public PictogramElement[] getTargetPictogramElements() {
-			return targetPictogramElements;
+		public BusinessObjectContext[] getTargetBocs() {
+			return targetBocs;
 		}
 	};
 
-	/**
-	 * Returns the selected pictogram element. If there is more than one pictogram element selected, or if it is a diagram, then null is returned.
-	 * @return
-	 */
-	private static PictogramElement getSelectedPictogramElement(final AgeDiagramEditor editor, final BusinessObjectResolutionService bor) {
-		if (editor.getSelectedPictogramElements().length != 1) {
-			return null;
-		}
+	private void createPropertyAssociation(final AadlModificationService aadlModService) {
+		final BusinessObjectContext ciBoc = currentWindow.getComponentImplementationBoc();
+		final ComponentImplementation ci = (ComponentImplementation)ciBoc.getBusinessObject();
+		aadlModService.modify(ci, new AbstractModifier<ComponentClassifier, Object>() {
+			@Override
+			public Object modify(final Resource resource, final ComponentClassifier cc) {
+				final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
+				
+				// Set property
+				newPa.setProperty(currentWindow.getSelectedProperty());
 
-		final PictogramElement pe = editor.getSelectedPictogramElements()[0];
-		if (pe instanceof Diagram) {
-			return null;
-		}
-
-		if (bor.getBusinessObjectForPictogramElement(pe) instanceof NamedElement) {
-			return pe;
-		}
-		
-		return null;
-	}
-
-	private void createPropertyAssociation(final Diagram diagram, final BusinessObjectResolutionService bor, final AadlModificationService aadlModService, 
-			final DiagramModificationService diagramModService) {
-		final ComponentClassifier cc = (ComponentClassifier) bor.getBusinessObjectForPictogramElement(diagram);
-
-		if (cc == null) {
-			throw new RuntimeException("Unexpected case. Unable to find component classifier");
-		} else {
-			aadlModService.modify(cc, new AbstractModifier<ComponentClassifier, Object>() {
-				private DiagramModificationService.Modification diagramMod;
-
-				@Override
-				public Object modify(final Resource resource, final ComponentClassifier cc) {
-					// Start the diagram modification
-					diagramMod = diagramModService.startModification();
-
-					final PropertyAssociation newPa = Aadl2Factory.eINSTANCE.createPropertyAssociation();
-					
-					// Set property
-					newPa.setProperty(currentWindow.getSelectedProperty());
-
-					// Set applies to
-					final Object elementToBind = bor.getBusinessObjectForPictogramElement(currentWindow.getPictogramToBind());
-					final Object diagramBo = bor.getBusinessObjectForPictogramElement(diagram);
-					if (elementToBind != null && elementToBind != diagramBo) {
-						setContainedNamedElementPath(newPa.createAppliesTo(), currentWindow.getPictogramToBind(), bor);
-					}
-
-					// Create owned values
-					final ModalPropertyValue pv = newPa.createOwnedValue();
-					final ListValue lv = (ListValue) pv.createOwnedValue(Aadl2Factory.eINSTANCE.getAadl2Package()
-							.getListValue());
-
-					for (final PictogramElement pe : currentWindow.getTargetPictogramElements()) {
-						// Ignore diagram selections
-						if (!(pe instanceof Diagram)) {
-							final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE
-									.getAadl2Package().getReferenceValue());
-							setContainedNamedElementPath(rv, pe, bor);
-						}
-					}
-
-					removeOldPropertyAssociation(cc, newPa);
-
-					// Add the property association
-					cc.setNoProperties(false);
-					cc.getOwnedPropertyAssociations().add(newPa);
-
-					diagramMod.markOpenRelatedDiagramsAsDirty(cc);
-					
-					return null;
+				// Set applies to
+				if(ciBoc != currentWindow.getBocToBind()) {
+					setContainedNamedElementPath(newPa.createAppliesTo(), ciBoc, currentWindow.getBocToBind());
 				}
 
-				// Deletes any existing property associations/removes the bound element from any property associations that matches the property association
-				// being created.
-				private void removeOldPropertyAssociation(final ComponentClassifier cc, final PropertyAssociation newPa) {
-					final List<PropertyAssociation> propertyAssociationsToDelete = new ArrayList<PropertyAssociation>();
-					for (final PropertyAssociation existingPa : cc.getOwnedPropertyAssociations()) {
-						// If Property matches
-						if (newPa.getProperty().getFullName().equals(existingPa.getProperty().getFullName())) {
-							if (existingPa.getAppliesTos().size() == 0 || newPa.getAppliesTos().size() == 0) {
-								if (existingPa.getAppliesTos().size() == 0 && newPa.getAppliesTos().size() == 0) {
-									propertyAssociationsToDelete.add(existingPa);
-								}
-							} else {
-								final List<ContainedNamedElement> containedElementsToDelete = new ArrayList<ContainedNamedElement>();
-								for (final ContainedNamedElement existingContainedElement : existingPa.getAppliesTos()) {
-									if (containmentPathsMatch(existingContainedElement.getPath(), newPa.getAppliesTos()
-											.get(0).getPath())) {
-										// Add the contained element to the list of objects to delete
-										containedElementsToDelete.add(existingContainedElement);
-									}
-								}
+				// Create owned values
+				final ModalPropertyValue pv = newPa.createOwnedValue();
+				final ListValue lv = (ListValue) pv.createOwnedValue(Aadl2Factory.eINSTANCE.getAadl2Package()
+						.getListValue());
 
-								// Delete objects
-								for (final EObject ce : containedElementsToDelete) {
-									EcoreUtil.delete(ce);
-								}
+				for (final BusinessObjectContext targetBoc : currentWindow.getTargetBocs()) {
+					// Ignore diagram selections
+					final ReferenceValue rv = (ReferenceValue) lv.createOwnedListElement(Aadl2Factory.eINSTANCE.getAadl2Package().getReferenceValue());
+					setContainedNamedElementPath(rv, ciBoc, targetBoc);
+				}
 
-								// Delete the property association of it was the last element in the applies to clause
-								if (existingPa.getAppliesTos().size() == 0) {
-									propertyAssociationsToDelete.add(existingPa);
-								}
+				removeOldPropertyAssociation(ci, newPa);
 
+				// Add the property association
+				cc.setNoProperties(false);
+				cc.getOwnedPropertyAssociations().add(newPa);
+
+				return null;
+			}
+
+			// Deletes any existing property associations/removes the bound element from any property associations that matches the property association
+			// being created.
+			private void removeOldPropertyAssociation(final ComponentClassifier cc, final PropertyAssociation newPa) {
+				final List<PropertyAssociation> propertyAssociationsToDelete = new ArrayList<PropertyAssociation>();
+				for (final PropertyAssociation existingPa : cc.getOwnedPropertyAssociations()) {
+					// If Property matches
+					if (newPa.getProperty().getFullName().equals(existingPa.getProperty().getFullName())) {
+						if (existingPa.getAppliesTos().size() == 0 || newPa.getAppliesTos().size() == 0) {
+							if (existingPa.getAppliesTos().size() == 0 && newPa.getAppliesTos().size() == 0) {
+								propertyAssociationsToDelete.add(existingPa);
 							}
+						} else {
+							final List<ContainedNamedElement> containedElementsToDelete = new ArrayList<ContainedNamedElement>();
+							for (final ContainedNamedElement existingContainedElement : existingPa.getAppliesTos()) {
+								if (containmentPathsMatch(existingContainedElement.getPath(), newPa.getAppliesTos()
+										.get(0).getPath())) {
+									// Add the contained element to the list of objects to delete
+									containedElementsToDelete.add(existingContainedElement);
+								}
+							}
+
+							// Delete objects
+							for (final EObject ce : containedElementsToDelete) {
+								EcoreUtil.delete(ce);
+							}
+
+							// Delete the property association if it was the last element in the applies to clause
+							if (existingPa.getAppliesTos().size() == 0) {
+								propertyAssociationsToDelete.add(existingPa);
+							}
+
 						}
 					}
-
-					// Delete property association(s) that are being replaced
-					for (final PropertyAssociation pa : propertyAssociationsToDelete) {
-						EcoreUtil.delete(pa);
-					}
 				}
 
-				@Override
-				public void beforeCommit(final Resource resource, final ComponentClassifier cc,
-						final Object modificationResult) {
-					diagramMod.commit();
+				// Delete property association(s) that are being replaced
+				for (final PropertyAssociation pa : propertyAssociationsToDelete) {
+					EcoreUtil.delete(pa);
 				}
-			});
-		}
+			}
+		});
 	}
 
 	private boolean containmentPathsMatch(ContainmentPathElement cp1, ContainmentPathElement cp2) {
@@ -512,40 +484,21 @@ public class SetBindingTool {
 		return cp1 == cp2; // Both should be null
 	}
 
-	private ContainmentPathElement setContainedNamedElementPath(final ContainedNamedElement c, final PictogramElement pe, final BusinessObjectResolutionService bor) {
-		// TODO
-		throw new RuntimeException("Not Implemented");
-		/*
-		if (pe == null || bor.getBusinessObjectForPictogramElement(pe) instanceof Classifier) {
+	private ContainmentPathElement setContainedNamedElementPath(final ContainedNamedElement c, final BusinessObjectContext ciBoc, BusinessObjectContext bocToAdd) {
+		if (bocToAdd == null || bocToAdd == ciBoc) {
 			return null;
 		}
 
-		// Get the container/owner
-		final PictogramElement container;
-		if (pe instanceof Connection) {
-			container = connectionService.getOwner((Connection) pe);
-		} else if (pe instanceof Shape) {
-			container = ((Shape) pe).getContainer();
-		} else {
-			container = null;
-		}
-
-		if(!(container instanceof Shape)) {
-			throw new RuntimeException("Unable to get container shape for pictogram element type: " + pe.getClass() + " : " + container);
-		}
-
 		// Create the path element for the container
-		ContainmentPathElement pathElement = setContainedNamedElementPath(c, container, bor, connectionService);
+		ContainmentPathElement pathElement = setContainedNamedElementPath(c, ciBoc, bocToAdd.getParent());
 
-		// Create the path element for the pictogram element
-		final NamedElement bo = (NamedElement) bor.getBusinessObjectForPictogramElement(pe);
+		// Create the path element for the business object context
+		final NamedElement bo = (NamedElement)bocToAdd.getBusinessObject();
 		if (bo != null) {
 			pathElement = (pathElement == null) ? c.createPath() : pathElement.createPath();
 			pathElement.setNamedElement(bo);
 		}
 
 		return pathElement;
-		*/
 	}
-
 }

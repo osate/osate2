@@ -46,8 +46,8 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.CachingService;
-import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
 public class InstanceReferenceResolver {

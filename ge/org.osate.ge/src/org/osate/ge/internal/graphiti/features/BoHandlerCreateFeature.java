@@ -7,48 +7,52 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.features.ICustomUndoRedoFeature;
 import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.features.IMoveShapeFeature;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.ICreateContext;
-import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.features.impl.AbstractCreateFeature;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
-import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.diagram.AgeDiagramUtil;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.Point;
+import org.osate.ge.internal.diagram.updating.DiagramUpdater;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.ShapeService;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 // ICreateFeature implementation that delegates behavior to a business object handler
 public class BoHandlerCreateFeature extends AbstractCreateFeature implements Categorized, ICustomUndoRedoFeature {
-	private final BusinessObjectResolutionService bor;
+	private final GraphitiService graphitiService;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
-	private final ShapeService shapeService;
-	private final PropertyService propertyService;
+	private final DiagramUpdater diagramUpdater;
+	private final ReferenceService refService;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
-	public BoHandlerCreateFeature(final BusinessObjectResolutionService bor, final ExtensionService extService, final AadlModificationService aadlModService, 
-			final ShapeService shapeService, final PropertyService propertyService, final IFeatureProvider fp, final SimplePaletteEntry paletteEntry, 
+	public BoHandlerCreateFeature(final GraphitiService graphitiService,
+			final ExtensionService extService, 
+			final AadlModificationService aadlModService,
+			final DiagramUpdater diagramUpdater,
+			final ReferenceService refService,
+			final IFeatureProvider fp, 
+			final SimplePaletteEntry paletteEntry, 
 			final Object boHandler) {
 		super(fp, paletteEntry.getLabel(), "");
-		this.bor = Objects.requireNonNull(bor, "bor must not be null");
+		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiAgeDiagramProvider must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
-		this.shapeService = Objects.requireNonNull(shapeService, "shapeService must not be null");
-		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
+		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
+		this.refService = Objects.requireNonNull(refService, "refService must not be null");
 		this.paletteEntry = Objects.requireNonNull(paletteEntry, "paletteEntry must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 	}
@@ -65,12 +69,12 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 	
 	@Override
 	public boolean canCreate(final ICreateContext context) {
-		/*
-		final PictogramElement targetPe = AgeFeatureUtil.getLogicalPictogramElement(context.getTargetContainer(), propertyService, connectionService);
-		if(targetPe == null) {
+		final DiagramNode targetNode = graphitiService.getGraphitiAgeDiagram().getClosestDiagramNode(context.getTargetContainer());
+		if(targetNode == null) {
 			return false;
-		}		
-		final Object targetBo = bor.getBusinessObjectForPictogramElement(targetPe);
+		}
+		
+		final Object targetBo = targetNode.getBusinessObject();
 		if(targetBo == null) {
 			return false;
 		}
@@ -79,32 +83,27 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetBo);
-			//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
 			return (boolean)ContextInjectionFactory.invoke(handler, CanCreate.class, eclipseCtx, false);
 		} finally {
 			eclipseCtx.dispose();
 		}
-		*/
-		//TODO: Migrate!
-		throw new RuntimeException("TODO: Migrate");
 	}
 	
 	@Override
 	public Object[] create(final ICreateContext context) {
-		/*
-		final PictogramElement targetPe = AgeFeatureUtil.getLogicalPictogramElement(context.getTargetContainer(), propertyService, connectionService);
-		if(targetPe == null) {
+		final DiagramNode targetNode = graphitiService.getGraphitiAgeDiagram().getClosestDiagramNode(context.getTargetContainer());
+		if(targetNode == null) {
 			return EMPTY;
 		}
 		
-		final Object targetBo = bor.getBusinessObjectForPictogramElement(targetPe);
-		final EObject ownerBo = getOwnerBo(targetBo, targetPe);
+		final EObject ownerBo = getOwnerBo(targetNode);
 		if(ownerBo == null) {
 			return EMPTY;
 		}
-		
-		final DockingPosition targetDockingPosition = AgeMoveShapeFeature.determineDockingPosition(context.getTargetContainer(), context.getX(), context.getY(), 0, 0);
 
+		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode, context.getX(), context.getY(), 0, 0);
+		
 		// Modify the AADL model
 		final Object newBo = aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object>() {
 			@Override
@@ -113,11 +112,17 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 				try {
 					eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 					eclipseCtx.set(Names.OWNER_BO, ownerBo);
-					eclipseCtx.set(Names.TARGET_BO, targetBo);
-					eclipseCtx.set(InternalNames.PROJECT, SelectionHelper.getProject(getDiagram().eResource())); NOT VALID.
-					eclipseCtx.set(InternalNames.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
-					//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
+					eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
+					eclipseCtx.set(InternalNames.PROJECT, graphitiService.getProject());
+					eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
+					eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
+					
+					final CanonicalBusinessObjectReference newRef = refService.getCanonicalReference(newBo);
+					if(newRef != null) {
+						diagramUpdater.addFutureElementPosition(newRef, new Point(context.getX(), context.getY()));
+					}
+					
 					return newBo == null ? EMPTY : newBo;
 				} finally {
 					eclipseCtx.dispose();
@@ -125,41 +130,24 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 			}
 		});
 		
-		final Shape newShape = shapeService.getChildShapeByReference(context.getTargetContainer(), newBo);
-		if(newShape != null) {
-			// Move the shape to the desired position
-			final MoveShapeContext moveShapeCtx = new MoveShapeContext(newShape);
-			moveShapeCtx.setLocation(context.getX(), context.getY());
-			moveShapeCtx.setSourceContainer(newShape.getContainer());
-			moveShapeCtx.setTargetContainer(newShape.getContainer());
-			
-			final IMoveShapeFeature feature = getFeatureProvider().getMoveShapeFeature(moveShapeCtx);
-			if(feature != null && feature.canMoveShape(moveShapeCtx)) {
-				feature.moveShape(moveShapeCtx);
-			}
-		}
-		
 		return newBo == null ? EMPTY : new Object[] {newBo};
-		*/
-		//TODO: Migrate!
-		throw new RuntimeException("TODO: Migrate");
 	}
 	
-	private EObject getOwnerBo(final Object targetBo, final PictogramElement targetPe) {
+	private EObject getOwnerBo(final DiagramNode targetNode) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
-			eclipseCtx.set(Names.TARGET_BO, targetBo);
-			//TODO: Migrate!eclipseCtx.set(InternalNames.TARGET_DIAGRAM_ELEMENT_PROXY, new PictogramElementProxy(targetPe));
-			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, null);
-			if(ownerBo != null) {
+			eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
+			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
+			final Object ownerBo = ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, targetNode.getBusinessObject());
+			if(ownerBo instanceof EObject) {
 				return (EObject)ownerBo;
 			}
 		} finally {
 			eclipseCtx.dispose();
 		}
 		
-		return (EObject)targetBo;
+		return null;
 	}
 	
 	// ICustomUndoRedoFeature

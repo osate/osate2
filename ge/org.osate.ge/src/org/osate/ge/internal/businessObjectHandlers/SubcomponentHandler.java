@@ -8,6 +8,7 @@ import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentImplementationReference;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectContext;
@@ -132,12 +133,18 @@ public class SubcomponentHandler {
 	
 	// Creating
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentImplementation ci) {
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {		
+		// Disable for diagrams which are bound to a ComponentType
+		if(diagramBo instanceof ComponentType) {
+			return null;
+		}
+		
 		final List<PaletteEntry> paletteEntries = new ArrayList<>();
+		final ComponentImplementation ci = diagramBo instanceof ComponentImplementation ? (ComponentImplementation)diagramBo : null;
 		
 		// Create palette entries for each subcomponent class which can be contained in the component implementation
 		for(final EClass subcomponentType : SubcomponentUtil.getSubcomponentTypes()) {
-			if(SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)) {
+			if(ci == null || SubcomponentUtil.canContainSubcomponentType(ci, subcomponentType)) { 
 				paletteEntries.add(PaletteEntryBuilder.create().
 						label(StringUtil.camelCaseToUser(subcomponentType.getName())).
 						icon(ImageHelper.getImage(subcomponentType.getName())).

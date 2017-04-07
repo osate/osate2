@@ -15,7 +15,8 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -27,7 +28,6 @@ import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.RefactoringService;
@@ -44,7 +44,6 @@ import org.osate.ge.internal.services.impl.DefaultCachingService;
 import org.osate.ge.internal.services.impl.DefaultColoringService;
 import org.osate.ge.internal.services.impl.DefaultDiagramModificationService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
-import org.osate.ge.internal.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
 import org.osate.ge.internal.services.impl.DefaultPropertyService;
 import org.osate.ge.internal.services.impl.DefaultQueryService;
@@ -53,7 +52,6 @@ import org.osate.ge.internal.services.impl.DefaultReferenceService;
 import org.osate.ge.internal.services.impl.DefaultShapeService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
-import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultReferenceResolutionService;
@@ -126,12 +124,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(QueryService.class, queryService);
 		context.set(AadlPropertyService.class, aadlPropertyService);
 		context.set(QueryRunnerFactory.class, queryRunnerFactory);
-		context.set(GraphitiAgeDiagramProvider.class, new GraphitiAgeDiagramProvider() {
-			@Override
-			public GraphitiAgeDiagram getGraphitiAgeDiagram() {
-				return ((AgeDiagramBehavior)getDiagramBehavior()).getGraphitiAgeDiagram();
-			}
-		});
+		context.set(GraphitiAgeDiagramProvider.class, graphitiService);
 		
 		// Create Public Services
 		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));

@@ -5,10 +5,10 @@ import javax.inject.Named;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Factory;
+import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
@@ -54,7 +54,12 @@ public class SubprogramCallSequenceHandler {
 	}
 	
 	@GetPaletteEntries
-	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) ComponentClassifier classifier) {				
+	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {	
+		final boolean applicable = diagramBo == null || diagramBo instanceof AadlPackage || diagramBo instanceof BehavioredImplementation;
+		if(!applicable) {
+			return null;
+		}
+		
 		return new PaletteEntry[] {
 			PaletteEntryBuilder.create().label("Subprogram Call Sequence").icon(ImageHelper.getImage(Aadl2Factory.eINSTANCE.getAadl2Package().getSubprogramCallSequence())).category(Categories.SUBPROGRAM_CALLS).build()
 		};

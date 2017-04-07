@@ -10,6 +10,7 @@ import org.eclipse.graphiti.features.IReason;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
+import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.DiagramLayoutUtil;
@@ -38,7 +39,7 @@ public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICust
 
 	@Override
 	public IReason updateNeeded(IUpdateContext context) {
-		return null;
+		return Reason.createTrueReason();
 	}
 
 	@Override

@@ -15,10 +15,12 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
@@ -32,13 +34,27 @@ public class DiagramUpdater {
 	private final DiagramElementInfoProvider infoProvider;
 	
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
-		
+	
+	// Holds the positions of diagram elements which have not been created. Uses canonical reference which isn't guaranteed to be unique but
+	// it is expected that typically this map will contain 0 or 1 entries and avoids making assumptions about containers.
+	private final Map<CanonicalBusinessObjectReference, Point> futureElementPositionMap = new HashMap<>(); 
+
 	public DiagramUpdater(final BusinessObjectTreeFactory boTreeFactory, 
 			final DiagramElementInfoProvider infoProvider) {
 		this.boTreeFactory = Objects.requireNonNull(boTreeFactory, "boTreeFactory must not be null");
 		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
 	}
 
+	/**
+	 * Add a position to be used for the initial position for the next element that is created with the specified canonical reference. 
+	 * All future positions are cleared after each update.
+	 * @param ref
+	 * @param position
+	 */
+	public void addFutureElementPosition(final CanonicalBusinessObjectReference ref, final Point position) {
+		futureElementPositionMap.put(ref, position);
+	}	
+	
 	public void updateDiagram(final AgeDiagram diagram) {
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 		final BusinessObjectTree boTree = Objects.requireNonNull(boTreeFactory.createBusinessObjectTree(diagram.getConfiguration()), "Business Object Tree Factory returned null");
@@ -46,6 +62,8 @@ public class DiagramUpdater {
 		diagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
+				diagram.setBusinessObject(boTree.getBusinessObject());
+				
 				// Update the structure. By doing this in a separate pass, updateElements() will have access to the complete diagram structure. 
 				// However, connections will later be purged from the diagram if they do not refer to valid elements.
 				updateStructure(m, diagram, boTree.getRootNodes());
@@ -54,6 +72,9 @@ public class DiagramUpdater {
 				removeInvalidConnections(m, connectionElements);
 			}			
 		});
+
+		// Remove all entries from the future elements map regardless of whether they were created or not. This ensures that unused positions aren't retained indefinitely
+		futureElementPositionMap.clear();		
 	}
 	
 	/**
@@ -71,9 +92,11 @@ public class DiagramUpdater {
 			if(element == null) {
 				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
 				if(removedGhost == null) {
-					element = new DiagramElement(container, n.getBusinessObject(), n.getBusinessObjectHandler(), n.getRelativeReference(), n.getCanonicalReference(), n.getName());
+					final Point initialPosition = futureElementPositionMap.get(n.getCanonicalReference());
+					element = new DiagramElement(container, n.getBusinessObject(), n.getBusinessObjectHandler(), n.getRelativeReference(), n.getCanonicalReference(), n.getName(), initialPosition);
 				} else {
 					element = removedGhost;
+					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
 				}
 				
 				m.addElement(element);

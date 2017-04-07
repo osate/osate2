@@ -40,15 +40,18 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 	public BusinessObjectTree createBusinessObjectTree(final DiagramConfiguration configuration) {
 		// Create nodes for each of it's children
 		final List<BusinessObjectTreeNode> rootNodes = new ArrayList<>();
-		
-		
-		if(configuration.getRootBoReference() != null) {
+		final Object rootBo;	
+		final boolean showRootBo;
+		if(configuration.getRootBoReference() == null) {
+			rootBo = null;
+			showRootBo = false;
+		} else {
 			// Get the root business object
-			final Object rootBo = refService.resolve(configuration.getRootBoReference());
+			rootBo = refService.resolve(configuration.getRootBoReference());
 			
 			// Determine whether to show the rootBO in the diagram
-			// TODO: Remove this when the configuration mechanism supports customization. Legacy diagrams should have their configuration set appropriately.
-			final boolean showRootBo = !(rootBo instanceof AadlPackage);
+			// TODO: Rework this when the configuration mechanism supports customization. 
+			showRootBo = !(rootBo instanceof AadlPackage);
 
 			if(rootBo != null) {		
 				// Refresh Child Nodes
@@ -107,7 +110,11 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 			public Collection<BusinessObjectTreeNode> getRootNodes() {
 				return unmodifiableRootNodes;
 			}
-			
+
+			@Override
+			public Object getBusinessObject() {
+				return showRootBo ? null : rootBo;
+			}			
 		};
 	}
 	

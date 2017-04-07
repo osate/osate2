@@ -58,10 +58,10 @@ import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.commands.GraphicalToTextualCommand;
 import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
@@ -178,6 +178,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 				final ArrayList<PaletteCompartmentEntry> compartmentEntries= new ArrayList<PaletteCompartmentEntry>();
 				for(final Category category : extensionService.getCategories()) {
 					final PaletteCompartmentEntry newEntry = new PaletteCompartmentEntry(((Category)category).getName(), null);
+					newEntry.setInitiallyOpen(false);
 					compartmentEntries.add(newEntry);
 				}
 

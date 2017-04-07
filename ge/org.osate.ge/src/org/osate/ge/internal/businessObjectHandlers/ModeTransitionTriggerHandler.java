@@ -11,6 +11,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.CreateParentQuery;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
@@ -49,7 +50,7 @@ public class ModeTransitionTriggerHandler {
 	}
 	
 	@CreateParentQuery
-	public Query createParentDiagramElementQuery(final @Named(Names.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
+	public Query createParentQuery(final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		return dstRootQuery.ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null, 
 				(innerRoot) -> innerRoot.ancestor(1), 
 				(innerRoot) -> innerRoot.ancestor(2)).
