@@ -60,11 +60,15 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
+import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
@@ -94,14 +98,18 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
@@ -735,6 +743,17 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		project = (IProject)projectResource;
 	}
 	
+	// TODO: Move to other class
+	private static final String legacyReferenceKey = "independentObject";
+	private static final CanonicalBusinessObjectReference getLegacyReference(final PictogramElement pe) {
+		final String refStr = Graphiti.getPeService().getPropertyValue(pe, legacyReferenceKey);
+		if(refStr == null) {
+			return null;
+		}				
+		
+		return new CanonicalBusinessObjectReference(ReferenceEncoder.decode(refStr));		
+	}
+	
 	@Override
 	protected DefaultPersistencyBehavior createPersistencyBehavior() {
 		return new DefaultPersistencyBehavior(this) {
@@ -751,16 +770,84 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				if(tmpDiagram == null) {
 					// TODO: Handle
 					throw new RuntimeException("Unable to open diagram");
-				}
+				}				
 				
-				final String rootBoRefStr = Graphiti.getPeService().getPropertyValue(tmpDiagram, "independentObject"); // TODO: Use constant
-				if(rootBoRefStr == null) {
+				final CanonicalBusinessObjectReference rootBoRef = getLegacyReference(tmpDiagram);
+				if(rootBoRef == null) {
 					throw new RuntimeException("Unable to get root business object reference");
-				}
-				
-				final CanonicalBusinessObjectReference rootBoRef = new CanonicalBusinessObjectReference(ReferenceEncoder.decode(rootBoRefStr));
+				}				
 				
 				final AgeDiagram ageDiagram = new AgeDiagram();
+				
+				ageDiagram.modify(new DiagramModifier() {
+
+					@Override
+					public void modify(DiagramModification m) {
+						// TODO: Import diagram
+						for(final Shape shape : tmpDiagram.getChildren()) {
+							// Ignore transient shapes
+							if(PropertyUtil.isTransient(shape)) {
+								continue;								
+							}
+							
+							// Get canonical reference
+							final CanonicalBusinessObjectReference ref = getLegacyReference(shape);
+							if(ref == null) {
+								continue;
+							}
+							
+							System.err.println("REF: " + ref);
+							// TODO: Business Object Handler
+							// TODO: Get business object
+							// TODO: Get relative reference
+							// TODO: How to handle not being able to find the business object? Error? Ignore?
+
+							final GraphicsAlgorithm ga = shape.getGraphicsAlgorithm();
+							
+							// Position
+							final int x = ga.getX();
+							final int y = ga.getY();							
+							
+							// TODO: Use container. Make recursive
+							//final DiagramElement de = new DiagramElement(ageDiagram, bo, boHandler, boRelReference, ref, null, new Point(x, y));
+							//m.addElement(de);
+							
+							// Set Size
+							final int width = ga.getWidth();
+							final int height = ga.getHeight();
+							//de.setSizeInternal(width, height); TODO
+							
+							// Set Dock Area
+							final DockArea dockArea = PropertyUtil.getDockArea(shape);
+							if(dockArea != null) {
+								// TODO //m.setDockArea(de, dockArea);
+							}
+							
+							if(shape instanceof ContainerShape) {
+								// TODO: Handle children
+								
+							}
+						}
+						
+						for(final Connection c: tmpDiagram.getConnections()) {
+							// TODO: Get Owner
+							
+							// TODO: Create diagram element. Need reference, etc
+							
+							// TODO: Bendpoints
+							if(c instanceof FreeFormConnection) {
+								final FreeFormConnection ffc = (FreeFormConnection)c;
+								//ffc.getBendpoints();
+							}
+							
+							// TODO: Connection Name Position
+						
+						}
+						
+						// END Import Diagram
+					}
+					
+				});
 
 				// TODO: Cleanup. Part of loading legacy diagram. Set the root business object reference
 				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).setRootBoReference(rootBoRef).build());
