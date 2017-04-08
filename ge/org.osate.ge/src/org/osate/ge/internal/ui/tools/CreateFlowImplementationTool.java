@@ -56,13 +56,14 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.Description;
 import org.osate.ge.internal.di.Icon;
 import org.osate.ge.internal.di.Id;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
@@ -87,7 +88,7 @@ public class CreateFlowImplementationTool {
 	private ComponentImplementation ci;
 	private CreateFlowImplementationDialog dlg;
 	private IFeatureProvider fp;
-	private List<BusinessObjectContext> previouslySelectedBocs = new ArrayList<>();
+	private List<DiagramElement> previouslySelectedDiagramElements = new ArrayList<>();
 	boolean canActivate = true;
 	
 	@Id
@@ -100,12 +101,12 @@ public class CreateFlowImplementationTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateFlowImplementation.gif");
 
 	@CanActivate
-	public boolean canActivate(@Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
 		return ToolUtil.findComponentImplementationBoc(boc) != null	&& canActivate;
 	}
 
 	@Activate
-	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
+	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
 			final UiService uiService,
 			final ColoringService highlightingService,
@@ -160,34 +161,34 @@ public class CreateFlowImplementationTool {
 		this.fp = null;
 		this.ciBoc = null;
 		this.ci = null;
-		this.previouslySelectedBocs.clear();
+		this.previouslySelectedDiagramElements.clear();
 		canActivate = true;
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs,
-			final GraphitiService graphiti) {
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements,
+			final GraphitiService graphiti) {		
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the flow implementation, add it		
 			if(dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-				if(selectedBocs.length > 1) {
+				if(selectedDiagramElements.length > 1) {
 					dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
-				} else if(selectedBocs.length == 1) {
+				} else if(selectedDiagramElements.length == 1) {
 					// Get the selected diagram element
-					BusinessObjectContext selectedBoc = selectedBocs[0];
+					DiagramElement selectedDiagramElement = selectedDiagramElements[0];
 
 					// Get the business object
 					String error = null;
-					if(dlg.addSelectedElement(selectedBoc)) {
-						final Object bo = selectedBoc.getBusinessObject();
+					if(dlg.addSelectedElement(selectedDiagramElement)) {
+						final Object bo = selectedDiagramElement.getBusinessObject();
 						if(areEquivalent(bo, dlg.getFlow().getSpecification())) {
-							coloring.setForeground(selectedBoc, Color.ORANGE.darker());
+							coloring.setForeground(selectedDiagramElement, Color.ORANGE.darker());
 						} else if (bo instanceof ModeFeature) {
-							coloring.setForeground(selectedBoc, Color.MAGENTA.brighter());
+							coloring.setForeground(selectedDiagramElement, Color.MAGENTA.brighter());
 						} else {
-							coloring.setForeground(selectedBoc, Color.MAGENTA.darker());
+							coloring.setForeground(selectedDiagramElement, Color.MAGENTA.darker());
 						}
-						previouslySelectedBocs.add(selectedBoc);
+						previouslySelectedDiagramElements.add(selectedDiagramElement);
 					} else {
 						error = "Invalid element selected. ";							
 					}
@@ -209,9 +210,9 @@ public class CreateFlowImplementationTool {
 	 */
 	private String getDialogMessage() {
 		String msg;
-		if (previouslySelectedBocs.size() > 0) {
+		if (previouslySelectedDiagramElements.size() > 0) {
 			//Get last element selected to determine message
-			final Object bo = previouslySelectedBocs.get(previouslySelectedBocs.size()-1).getBusinessObject();
+			final Object bo = previouslySelectedDiagramElements.get(previouslySelectedDiagramElements.size()-1).getBusinessObject();
 			if ((bo instanceof FlowSpecification && areEquivalent(bo, dlg.flowImpl.getSpecification())
 				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
 				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature.";
@@ -700,13 +701,13 @@ public class CreateFlowImplementationTool {
 			undoButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final int prevPesSize = previouslySelectedBocs.size();
+					final int prevPesSize = previouslySelectedDiagramElements.size();
 					if (prevPesSize > 0) {
-						final BusinessObjectContext removedBoc = previouslySelectedBocs.get(prevPesSize-1);
-						previouslySelectedBocs.remove(prevPesSize-1);
-						coloring.setForeground(removedBoc, Color.BLACK);
+						final DiagramElement removedDiagramElements = previouslySelectedDiagramElements.get(prevPesSize-1);
+						previouslySelectedDiagramElements.remove(prevPesSize-1);
+						coloring.setForeground(removedDiagramElements, Color.BLACK);
 						
-						final Object removedBocBo = removedBoc.getBusinessObject();
+						final Object removedBocBo = removedDiagramElements.getBusinessObject();
 						if (areEquivalent(removedBocBo, flowImpl.getSpecification()) && prevPesSize == 1) {
 							flowImpl.setSpecification(null);
 							flowImpl = null;

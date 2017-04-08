@@ -43,8 +43,7 @@ import org.osate.ge.services.QueryService;
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((Generalization g) -> g.getSpecific()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((Generalization g) -> g.getGeneral()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().ancestors().children().filterByBusinessObject((Generalization g) -> g.getGeneral()));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
@@ -70,14 +69,13 @@ public class GeneralizatonHandler {
 	
 	@CreateParentQuery
 	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery, final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
-		// Owner will be the common ancestor for the shapes. Works for both overview and generalization diagram?
-		return srcRootQuery.commonAncestors(dstRootQuery);
+		// Owner will be the source of the extension.
+		return srcRootQuery;
 	}
 	
 	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+		return boc.getParent(); // Source is the owner of the BO
 	}
 	
 	@GetDestination

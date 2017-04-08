@@ -101,12 +101,12 @@ public class CreateEndToEndFlowSpecificationTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/CreateEndToEndFlowSpecification.gif");
 
 	@CanActivate
-	public boolean canActivate(@Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
 		return ToolUtil.findComponentImplementationBoc(boc) != null	&& canActivate;
 	}
 
 	@Activate
-	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc,
+	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
 			final UiService uiService,
 			final ColoringService highlightingService,

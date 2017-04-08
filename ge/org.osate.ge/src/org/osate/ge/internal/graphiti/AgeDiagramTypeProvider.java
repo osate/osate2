@@ -16,6 +16,7 @@ import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
@@ -41,7 +42,6 @@ import org.osate.ge.internal.services.impl.DefaultAadlModificationService;
 import org.osate.ge.internal.services.impl.DefaultAadlPropertyService;
 import org.osate.ge.internal.services.impl.DefaultBusinessObjectResolutionService;
 import org.osate.ge.internal.services.impl.DefaultCachingService;
-import org.osate.ge.internal.services.impl.DefaultColoringService;
 import org.osate.ge.internal.services.impl.DefaultDiagramModificationService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
@@ -97,10 +97,10 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 			public QueryRunner create() {
 				return new QueryRunner(propertyUtil, bor, refBuilder);
 			}			
-		};
-		
-		final DefaultColoringService highlightingHelper = new DefaultColoringService(shapeHelper, propertyUtil, bor, fp);		
+		};		
+	
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
+		final DefaultColoringService highlightingHelper = new DefaultColoringService(graphitiService);
 		final DefaultQueryService queryService = new DefaultQueryService(propertyUtil, bor, refBuilder);
 		final DefaultAadlPropertyService aadlPropertyService = new DefaultAadlPropertyService(cachingService, this, propertyUtil, bor, queryRunnerFactory);
 		

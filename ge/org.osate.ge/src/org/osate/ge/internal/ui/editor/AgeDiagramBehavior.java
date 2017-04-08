@@ -29,6 +29,7 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.ui.editor;
 
+import java.awt.Color;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
@@ -96,11 +97,14 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
+import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.services.CachingService;
+import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
@@ -164,6 +168,19 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		public boolean isPrecommitOnly() {
 			return false;
 		}		
+	};
+	
+	private ColoringProvider coloringProvider = new ColoringProvider() {
+		ColoringService cs;
+		
+		@Override
+		public Color getForegroundColor(final DiagramElement de) {
+			if(cs == null) {
+				cs = (ColoringService)getAdapter(ColoringService.class);
+			}
+			
+			return cs.getForegroundColor(de);
+		}
 	};
 	
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer) {
@@ -749,7 +766,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).setRootBoReference(rootBoRef).build());
 
 				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		
-				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain());				
+				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain(), coloringProvider);				
 								
 				return graphitiAgeDiagram.getGraphitiDiagram();
 			}

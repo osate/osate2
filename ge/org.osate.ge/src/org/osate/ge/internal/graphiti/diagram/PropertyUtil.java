@@ -1,6 +1,7 @@
 package org.osate.ge.internal.graphiti.diagram;
 
 import org.eclipse.graphiti.mm.PropertyContainer;
+import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
 import org.osate.ge.internal.DockArea;
@@ -11,6 +12,8 @@ public class PropertyUtil {
 	private static final String IS_TRANSIENT_KEY = "is_transient";
 	private static final String SIDE_KEY = "side"; // Which side the shape is on
 	private static final String IS_LAYED_OUT_KEY = "is_layed_out"; // Whether the shape has been layed out by the automatic layout algorithm
+	private static final String IS_COLORING_CONTAINER_KEY = "is_coloring_container"; // True if the GA's children should be checked during highlighting
+	private static final String IS_COLORING_CHILD_KEY = "is_coloring_child"; // True if the GA's color should be adjusted during highlighting
 	
 	public static String getName(final PropertyContainer pc) {
 		return Graphiti.getPeService().getPropertyValue(pc, NAME_KEY);
@@ -61,5 +64,23 @@ public class PropertyUtil {
 
 	public static void setIsLayedOut(PictogramElement pe, boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_LAYED_OUT_KEY, value ? "true" : "false");
+	}
+	
+
+	// Coloring	
+	public static boolean isColoringContainer(final GraphicsAlgorithm ga) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(ga, IS_COLORING_CONTAINER_KEY));
+	}
+	
+	public static void setIsColoringContainer(final GraphicsAlgorithm ga, boolean value) {
+		Graphiti.getPeService().setPropertyValue(ga, IS_COLORING_CONTAINER_KEY, value ? "true" : "false");
+	}
+	
+	public static boolean isColoringChild(final GraphicsAlgorithm ga) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(ga, IS_COLORING_CHILD_KEY));		
+	}
+	
+	public static void setIsColoringChild(final GraphicsAlgorithm ga, boolean value) {
+		Graphiti.getPeService().setPropertyValue(ga, IS_COLORING_CHILD_KEY, value ? "true" : "false");
 	}
 }

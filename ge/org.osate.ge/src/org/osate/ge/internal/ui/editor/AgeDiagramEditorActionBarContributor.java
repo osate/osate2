@@ -10,19 +10,11 @@ package org.osate.ge.internal.ui.editor;
 
 import org.eclipse.gef.ui.actions.GEFActionConstants;
 import org.eclipse.graphiti.ui.internal.action.ToggleContextButtonPadAction;
-import org.eclipse.jface.action.ActionContributionItem;
-import org.eclipse.jface.action.IContributionItem;
-import org.eclipse.jface.action.IContributionManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.Separator;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.impl.DefaultPropertyService;
 import org.osate.ge.internal.util.ExtensionUtil;
 
 @SuppressWarnings({ "restriction" })
@@ -32,9 +24,8 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 	DummyContributionItem dummyItem;
 	
 	public AgeDiagramEditorActionBarContributor() {
-		final PropertyService propService = new DefaultPropertyService();
-		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode", propService);
-		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow", propService);
+		selectedModeItem = new ModeContributionItem("org.osate.ge.ui.editor.items.selected_mode");
+		selectedFlowItem = new FlowContributionItem("org.osate.ge.ui.editor.items.selected_flow");
 		dummyItem = new DummyContributionItem("org.osate.ge.ui.editor.items.dummy");
 	}
 	
@@ -93,33 +84,6 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		super.setActiveEditor(editor);
 		selectedModeItem.setActiveEditor(editor);
 		selectedFlowItem.setActiveEditor(editor);
-		
-		// Update the visibility of contribution items
-		if(editor instanceof AgeDiagramEditor) {
-			final AgeDiagramEditor ageEditor = (AgeDiagramEditor)editor;
-			if(ageEditor.getDiagramTypeProvider() != null) {
-				final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)ageEditor.getAdapter(BusinessObjectResolutionService.class);
-				final Object diagramBo = bor.getBusinessObjectForPictogramElement(ageEditor.getDiagramTypeProvider().getDiagram());
-			
-				final boolean isComponentClassifierDiagram = diagramBo instanceof ComponentClassifier;
-				final boolean isComponentImplementationDiagram = diagramBo instanceof ComponentImplementation;
-				updateItemVisibility(getActionBars().getToolBarManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
-				updateItemVisibility(getActionBars().getMenuManager(), isComponentClassifierDiagram, isComponentImplementationDiagram);
-			}
-		}
-	}
-	private void updateItemVisibility(final IContributionManager mgr, final boolean isComponentClassifierDiagram, final boolean isComponentImplementationDiagram) {
-		for(final IContributionItem item : mgr.getItems()) {
-			boolean show = true;
-			final Object markedObject = item instanceof ActionContributionItem ? ((ActionContributionItem) item).getAction() : item;
-			if(markedObject instanceof ComponentClassifierItem) {
-				show = isComponentClassifierDiagram;
-			} else if(markedObject instanceof ComponentImplementationItem) {
-				show = isComponentImplementationDiagram; 
-			}
-			item.setVisible(show);
-		}
-		mgr.update(true);
 	}
 	
 	private ExtensionRegistryService getExtensionRegistryService() {

@@ -11,6 +11,7 @@ package org.osate.ge.internal.graphiti.services.impl;
 import java.util.Objects;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -50,5 +51,10 @@ public class DefaultGraphitiService implements GraphitiService {
 	@Override
 	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
 		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getGraphitiAgeDiagram();
+	}
+
+	@Override
+	public EditingDomain getEditingDomain() {
+		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getEditingDomain();
 	}
 }

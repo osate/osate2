@@ -1,5 +1,6 @@
 package org.osate.ge.internal.query;
 
+import java.util.List;
 import java.util.function.Function;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
@@ -17,6 +18,15 @@ public class DefaultStandaloneQuery implements StandaloneQuery {
 		try {
 			this.rootNode = rootNode;
 			return qr.getFirstResult(query, rootNode.getBusinessObject());
+		} finally {
+			this.rootNode = null;
+		}
+	}
+	
+	public List<? extends Queryable> getResults(final QueryRunner qr, final Queryable rootNode) {
+		try {
+			this.rootNode = rootNode;
+			return qr.getResults(query, rootNode.getBusinessObject());
 		} finally {
 			this.rootNode = null;
 		}

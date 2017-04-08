@@ -67,6 +67,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	
 	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
+	private final ColoringProvider coloringProvider;
 	private final Map<PictogramElement, DiagramNode> pictogramElementToDiagramNodeMap = new HashMap<>();
 	private final Map<DiagramNode, PictogramElement> diagramNodeToPictogramElementMap = new HashMap<>();
 	private final GraphitiDiagramModificationListener modificationListener = new GraphitiDiagramModificationListener();
@@ -76,9 +77,12 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 * @param ageDiagram is the AgeDiagram that will be associated with the Graphiti Diagram
 	 * @param editingDomain is the editing domain to use to make modifications to the diagram. It must not contain any other diagrams.
 	 */
-	public GraphitiAgeDiagram(final AgeDiagram ageDiagram, final EditingDomain editingDomain) {
+	public GraphitiAgeDiagram(final AgeDiagram ageDiagram, 
+			final EditingDomain editingDomain,
+			final ColoringProvider coloringProvider) {
 		this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
 		Objects.requireNonNull(editingDomain, "editingDomain must not be null");
+		this.coloringProvider = Objects.requireNonNull(coloringProvider, "coloringProvider must not be null");
 				
 		this.graphitiDiagram = Graphiti.getPeService().createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
 		addMapping(ageDiagram, graphitiDiagram);
@@ -107,6 +111,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			}
 
 			@Override
+			public boolean canUndo() {
+				return false;
+			}
+			
+			@Override
 			public void redo() {
 			}						
 		});
@@ -121,7 +130,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		ensureCreatedChildren(ageDiagram, graphitiDiagram);
 		updateChildren(ageDiagram, true);
 		LayoutUtil.layoutDepthFirst(graphitiDiagram, ageDiagram, GraphitiAgeDiagram.this); // Layout
-		finishUpdatingConnections(ageDiagram);
+		finishUpdating(ageDiagram);
 	}
 	
 	@Override
@@ -369,6 +378,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
+				PropertyUtil.setIsColoringChild(text, true);
 				LabelUtil.setStyle(graphitiDiagram, text);
 				PropertyUtil.setName(textDecorator, ShapeNames.nameShapeName);						
 			    text.setValue(name);
@@ -406,6 +416,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			// Set the position of the refreshed graphics algorithm
 			final IGaService gaService = Graphiti.getGaService();
 			final GraphicsAlgorithm newGa = gaService.createInvisibleRectangle(shape);
+			PropertyUtil.setIsColoringContainer(newGa, true);
 			
 			// Set Size
 			gaService.setSize(newGa, width, height);
@@ -420,19 +431,21 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	}
 	
 	/**
-	 * Finishes updating connections for all elements contained in the diagram.
+	 * Finishes updating all elements contained in the diagram.
 	 */
-	private void finishUpdatingConnections(final AgeDiagram diagram) {
+	private void finishUpdating(final AgeDiagram diagram) {
 		for(final DiagramElement element : diagram.getDiagramElements()) {							
-			finishUpdatingConnections(element);
+			finishUpdating(element);
 		}	
 	}
 	
 	/**
+	 * Finishes updating a diagram element.
 	 * Refreshes the control points and anchors of connections related to the specified element.
 	 * This function depends on the position of connection anchors so it should be executed after layout has been performed for all relevant elements.
+	 * Applies any colors provided by the coloring provider.
 	 */
-	private void finishUpdatingConnections(final DiagramElement element) {
+	private void finishUpdating(final DiagramElement element) {
 		final PictogramElement pe = getPictogramElement(element);
 		if(pe instanceof Shape) {
 			final Shape shape = ((Shape)pe);
@@ -449,8 +462,15 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		}
 		
 		for(final DiagramElement child : element.getDiagramElements()) {
-			finishUpdatingConnections(child);
-		}		
+			finishUpdating(child);
+		}
+		
+		// Override color based on coloring provider
+		final java.awt.Color overrideAwtColor = coloringProvider.getForegroundColor(element);
+		if(overrideAwtColor != null) {
+			final Color overrideColor = Graphiti.getGaService().manageColor(graphitiDiagram, overrideAwtColor.getRed(), overrideAwtColor.getGreen(), overrideAwtColor.getBlue());
+			ColoringUtil.overrideForeground(pe, overrideColor);
+		}
 	}
 		
 	/**
@@ -484,7 +504,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					pe = peCreateService.createFreeFormConnection(graphitiDiagram);
 				}					
 				
-				Graphiti.getGaService().createPlainPolyline(pe);
+				final GraphicsAlgorithm ga = Graphiti.getGaService().createPlainPolyline(pe);
+				PropertyUtil.setIsColoringContainer(ga, true);
+				PropertyUtil.setIsColoringChild(ga, true);
 			}
 		
 		} else if(graphic instanceof AgeShape) {
@@ -549,6 +571,24 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		return ageDiagram;
 	}
 	
+	// This function assumes that the foreground color of all applicable graphics algorithms is black by default. 
+	// When the coloring is disabled, the foreground colors are reverted to black.
+	// Must be called within a transaction
+	public void refreshGraphicColoring(final DiagramElement de) {
+		final PictogramElement pe = getPictogramElement(de);
+		if(pe != null) {
+			final java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
+			final Color color; 
+			if(awtColor == null) {
+				color = Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK);
+			} else {
+				color = Graphiti.getGaService().manageColor(graphitiDiagram, awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
+			}
+
+			ColoringUtil.overrideForeground(pe, color);
+		}
+	}
+	
 	private Anchor getAnchor(final DiagramElement de) {
 		final PictogramElement pe = diagramNodeToPictogramElementMap.get(de);
 		if(pe == null) {
@@ -563,8 +603,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		} else {		
 			return null;
 		}
-	}
-	
+	}	
 	
 	private void createDecorator(final Connection connection, final AgeConnectionTerminator terminator, final double position) {
 		if(terminator != null) {
@@ -604,6 +643,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				throw new RuntimeException("Unsupported terminator type: " + terminator.type);
 			}
 			
+	        PropertyUtil.setIsColoringChild(ga, true);
+	        
 			if(terminator.reversed) {
 				AgeGraphitiGraphicsUtil.mirrorX(ga);
 			}				
@@ -760,7 +801,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						
 						// Update affected connections
 						for(final DiagramElement element : elementsToUpdate) {							
-							finishUpdatingConnections(element);
+							finishUpdating(element);
 						}			
 					}
 				} finally {

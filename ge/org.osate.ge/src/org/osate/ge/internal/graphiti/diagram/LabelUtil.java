@@ -36,12 +36,12 @@ public class LabelUtil {
         final GraphicsAlgorithm labelBackground;
         final Text labelText;
         if(includeBackground) {
-        	labelBackground = createTextBackground(diagram, labelShape);		
+        	labelBackground = createTextBackground(diagram, labelShape);
         	labelText = createLabelGraphicsAlgorithm(diagram, labelBackground, labelValue);
         } else {
         	labelBackground = null;
         	labelText = createLabelGraphicsAlgorithm(diagram, labelShape, labelValue);
-        }
+        }   
         
         // Get sizes of text graphics algorithms
         final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getFont());
@@ -69,7 +69,8 @@ public class LabelUtil {
 		background.setLineVisible(false);
 		background.setFilled(true);
 		background.setTransparency(0.2);
-	
+        PropertyUtil.setIsColoringContainer(background, true);
+        
 		return background;
 	}
 	
@@ -77,6 +78,7 @@ public class LabelUtil {
 		final IGaService gaService = Graphiti.getGaService();
 		final Text text = gaService.createPlainText(container, labelTxt);
 		TextUtil.setDefaultStyle(diagram, text);
+        PropertyUtil.setIsColoringChild(text, true);
         
         return text;
 	}

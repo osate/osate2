@@ -14,14 +14,15 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
-import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.di.Deactivate;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
+import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.graphiti.PictogramElementUtil;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ExtensionService;
 
 /**
@@ -34,7 +35,7 @@ public class ToolHandler {
 	private final IEclipseContext context;
 	private Object activeTool = null;
 	private ActivateToolAction activeToolAction = null; // Action that was used to activate the active tool
-	private BusinessObjectContext[] bocs = null;
+	private DiagramElement[] diagramElements = null;
 	
 	public ToolHandler(final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
 			final ExtensionService extensionService, 
@@ -46,7 +47,7 @@ public class ToolHandler {
 	
 	public void dispose() {
 		this.context.dispose();
-		bocs = null;
+		diagramElements = null;
 	}
 	
 	public boolean isToolActive() {
@@ -54,7 +55,7 @@ public class ToolHandler {
 	}
 
 	public boolean canActivate(final Object tool) {
-		if(bocs == null) {
+		if(diagramElements == null) {
 			return false;
 		}
 		
@@ -112,7 +113,11 @@ public class ToolHandler {
 	
 	
 	public void setSelectedPictogramElements(final PictogramElement[] pes) {
-		this.bocs = PictogramElementUtil.getBusinessObjectContexts(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
+		this.diagramElements = getDiagramElements(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
+		if(diagramElements == null) {
+			return;
+		}
+		
 		// Notify the active tool
 		if(activeTool != null) {
 			try {
@@ -126,15 +131,37 @@ public class ToolHandler {
 	}
 	
 	private void populateContext() {
-		// Update the context
-		if(bocs.length == 1) {
-			context.set(Names.BUSINESS_OBJECT_CONTEXT, bocs[0]);	
-		}			
-		context.set(Names.BUSINESS_OBJECT_CONTEXTS, bocs);
+		if(diagramElements != null) {
+			// Update the context
+			if(diagramElements.length == 1) {
+				context.set(InternalNames.SELECTED_DIAGRAM_ELEMENT, diagramElements[0]);	
+			}			
+			context.set(InternalNames.SELECTED_DIAGRAM_ELEMENTS, diagramElements);
+		}
 	}
 	
 	private void resetContext() {
-		context.remove(Names.BUSINESS_OBJECT_CONTEXT);
-		context.remove(Names.BUSINESS_OBJECT_CONTEXTS);
+		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENT);
+		context.remove(InternalNames.SELECTED_DIAGRAM_ELEMENTS);
+	}
+	
+	/**
+	 * Returns null if it is unable get the diagram element for any pictogram element
+	 * @param pes
+	 * @return
+	 */
+	private static DiagramElement[] getDiagramElements(final GraphitiAgeDiagram graphitiAgeDiagram, final PictogramElement[] pes) {
+		final DiagramElement[] diagramElements = new DiagramElement[pes.length];
+		for(int i = 0; i < pes.length; i++) {
+			final DiagramNode dn = graphitiAgeDiagram.getClosestDiagramNode(pes[i]);
+			// Return null if we are unable to get the diagram element for any passed in pictogram element
+			if(!(dn instanceof DiagramElement)) {
+				return null;
+			}
+
+			diagramElements[i] = (DiagramElement)dn;
+		}
+
+		return diagramElements;
 	}
 }

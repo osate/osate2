@@ -41,7 +41,7 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
 import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.graphiti.PictogramElementUtil;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
@@ -118,7 +118,28 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	}
 	
 	private BusinessObjectContext[] getBusinessObjectContexts(final PictogramElement[] pes) {
-		return PictogramElementUtil.getBusinessObjectContexts(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
+		return getBusinessObjectContexts(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), pes);
+	}
+	
+	/**
+	 * Returns null if it is unable get the business object context for any pictogram element
+	 * @param pes
+	 * @return
+	 */
+	private static BusinessObjectContext[] getBusinessObjectContexts(final GraphitiAgeDiagram graphitiAgeDiagram, final PictogramElement[] pes) {
+		final BusinessObjectContext[] bocs = new BusinessObjectContext[pes.length];
+		for(int i = 0; i < pes.length; i++) {
+			final BusinessObjectContext boc = graphitiAgeDiagram.getClosestDiagramNode(pes[i]);
+			
+			// Return null if we are unable to get the BOC for any passed in pictogram element
+			if(boc == null) {
+				return null;
+			}
+			
+			bocs[i] = boc;
+		}
+
+		return bocs;
 	}
 	
 	@Override

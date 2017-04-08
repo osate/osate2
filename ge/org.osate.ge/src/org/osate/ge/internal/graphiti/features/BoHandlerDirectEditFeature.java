@@ -27,7 +27,6 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.util.AnnotationUtil;
 
@@ -42,7 +41,6 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 	public BoHandlerDirectEditFeature(final IFeatureProvider fp, 
 			final GraphitiService graphitiService,
 			final ExtensionService extService,
-			final PropertyService propertyService, 
 			final AadlModificationService aadlModService, 
 			final DiagramModificationService diagramModService,	
 			final BusinessObjectResolutionService bor) {

@@ -1,5 +1,7 @@
 package org.osate.ge.services;
 
+import java.util.List;
+
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.StandaloneQuery;
 
@@ -11,4 +13,7 @@ public interface QueryService {
 	
 	// TODO: Document. boc will be query argument
 	Object getFirstBusinessObject(StandaloneQuery query, BusinessObjectContext boc);
+	
+	// TODO: Document
+	List<BusinessObjectContext> getResults(StandaloneQuery query, BusinessObjectContext boc);
 }

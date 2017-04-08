@@ -18,7 +18,6 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -58,13 +57,14 @@ import org.osate.aadl2.ReferenceValue;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.Description;
 import org.osate.ge.internal.di.Icon;
 import org.osate.ge.internal.di.Id;
+import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
+import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.UiService;
@@ -90,12 +90,12 @@ public class SetBindingTool {
 	public final static ImageDescriptor ICON = Activator.getImageDescriptor("icons/SetBinding.gif");
 
 	@CanActivate
-	public boolean canActivate(@Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+	public boolean canActivate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) BusinessObjectContext boc) {
 		return currentWindow == null && boc.getBusinessObject() instanceof NamedElement && ToolUtil.findComponentImplementationBoc(boc) != null;
 	}
 	
 	@Activate
-	public void activate(@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext selectedBoc, 
+	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc, 
 			final GraphitiService graphiti,
 			final AadlModificationService aadlModService,
 			final UiService uiService) {
@@ -118,24 +118,18 @@ public class SetBindingTool {
 	}
 	
 	@SelectionChanged
-	public void onSelectionChanged(@Named(Names.BUSINESS_OBJECT_CONTEXTS) final BusinessObjectContext[] selectedBocs) {
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {
 		if(currentWindow != null && currentWindow.getShell() != null && currentWindow.getShell().isVisible()) {
-			currentWindow.setTargetBusinessObjectContexts(selectedBocs);
+			currentWindow.setTargetBusinessObjectContexts(selectedDiagramElements);
 		}
 	}
 	
 	@Deactivate
 	public void deactivate(final GraphitiService graphiti, final UiService uiService) {
-		final TransactionalEditingDomain editingDomain = graphiti.getDiagramTypeProvider().getDiagramBehavior().getEditingDomain();
-		editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
-			@Override
-			public void execute() {
-				if(currentWindow != null) {
-					currentWindow.cancel();
-					currentWindow = null;
-				}
-			}
-		});
+		if(currentWindow != null) {
+			currentWindow.cancel();
+			currentWindow = null;
+		}
 	}
 
 	private static class SetBindingWindow extends TitleAreaDialog {

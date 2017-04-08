@@ -117,10 +117,11 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					eclipseCtx.set(Names.DOCKING_POSITION, targetDockingPosition); // Specify even if the shape will not be docked.
 					eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
-					
-					final CanonicalBusinessObjectReference newRef = refService.getCanonicalReference(newBo);
-					if(newRef != null) {
-						diagramUpdater.addFutureElementPosition(newRef, new Point(context.getX(), context.getY()));
+					if(newBo != null) {
+						final CanonicalBusinessObjectReference newRef = refService.getCanonicalReference(newBo);
+						if(newRef != null) {
+							diagramUpdater.addFutureElementPosition(newRef, new Point(context.getX(), context.getY()));
+						}
 					}
 					
 					return newBo == null ? EMPTY : newBo;

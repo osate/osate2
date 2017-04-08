@@ -1,5 +1,7 @@
 package org.osate.ge.internal.services.impl;
 
+import java.util.List;
+
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.Queryable;
@@ -26,5 +28,10 @@ public class DefaultQueryService implements QueryService {
 	public Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc) {
 		final Queryable result = ((DefaultStandaloneQuery)query).getFirstResult(queryRunner, boc);
 		return result == null ? null : result.getBusinessObject();
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<BusinessObjectContext> getResults(final StandaloneQuery query, final BusinessObjectContext boc) {
+		return (List<BusinessObjectContext>)((DefaultStandaloneQuery)query).getResults(queryRunner, boc);
 	}
 }

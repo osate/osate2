@@ -10,17 +10,9 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.Element;
-import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.GroupExtension;
-import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
-import org.osate.aadl2.Realization;
-import org.osate.aadl2.TypeExtension;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
@@ -50,11 +42,10 @@ public class PackageHandler {
 	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final ExtensionService extService, final QueryService queryService) {
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
-		final Set<Object> connectionChildren = new HashSet<>();
-		populateChildren(pkg, pkg.getPublicSection(), children, connectionChildren, extService);
-		populateChildren(pkg, pkg.getPrivateSection(), children, connectionChildren, extService);	
+		populateChildren(pkg, pkg.getPublicSection(), children, extService);
+		populateChildren(pkg, pkg.getPrivateSection(), children, extService);	
 		
-		return Stream.concat(children.stream(), connectionChildren.stream());
+		return children.stream();
 	}
 	
 	private NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
@@ -72,7 +63,7 @@ public class PackageHandler {
 		return null;
 	}
 	
-	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final Set<Object> connectionChildren, final ExtensionService extService) {
+	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final ExtensionService extService) {
 		if(ps == null) {
 			return;
 		}
@@ -90,46 +81,6 @@ public class PackageHandler {
 			} else {
 				children.add(annexLibrary);
 			}
-		}
-		
-		for(final NamedElement el : ps.getOwnedClassifiers()) {
-			if(el instanceof ComponentType) {
-				final ComponentType componentType = ((ComponentType)el);
-				final TypeExtension te = componentType.getOwnedExtension();
-				if(componentType.getOwnedExtension() != null) {
-					addIfInPackage(pkg, children, componentType.getOwnedExtension().getGeneral());
-					addIfInPackage(pkg, connectionChildren, te);
-				}
-			} else if(el instanceof ComponentImplementation) {
-				final ComponentImplementation componentImplementation = ((ComponentImplementation)el);
-	
-				// Implementation Extension
-				final ImplementationExtension ie = componentImplementation.getOwnedExtension();
-				if(ie != null) {
-					addIfInPackage(pkg, children, ie.getGeneral());
-					addIfInPackage(pkg, connectionChildren, ie);					
-				}
-				
-				// Realization
-				final Realization realization = componentImplementation.getOwnedRealization();
-				if(realization != null) {	
-					addIfInPackage(pkg, children, realization.getGeneral());
-					addIfInPackage(pkg, connectionChildren, realization);					
-				}				
-			} else if(el instanceof FeatureGroupType) {
-				final FeatureGroupType featureGroupType = ((FeatureGroupType)el);
-				final GroupExtension ge = featureGroupType.getOwnedExtension();
-				if(ge != null) {
-					addIfInPackage(pkg, children, ge.getGeneral());
-					addIfInPackage(pkg, connectionChildren, ge);
-				}
-			}
-		}
-	}
-	
-	private void addIfInPackage(final AadlPackage pkg, final Set<Object> collection, final Element element) {
-		if(pkg == element.getElementRoot()) {
-			collection.add(element);
 		}
 	}
 	

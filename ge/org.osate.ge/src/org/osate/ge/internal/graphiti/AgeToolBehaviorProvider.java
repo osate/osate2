@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
+
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.features.ICreateConnectionFeature;
 import org.eclipse.graphiti.features.ICreateFeature;
@@ -123,7 +124,7 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
 	    return defaultDoubleClickFeature;
 	 }
-	
+		
 	/**
 	 * Override of getSelection that checks the shape and containers and returns the first shape with a business object. Allows using active objects without them being
 	 * selectable.

@@ -9,6 +9,7 @@
 package org.osate.ge.internal.graphiti.services;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
@@ -23,6 +24,7 @@ public interface GraphitiService extends GraphitiAgeDiagramProvider {
 	Diagram getDiagram();
 	IDiagramTypeProvider getDiagramTypeProvider();
 	IFeatureProvider getFeatureProvider();
+	EditingDomain getEditingDomain();
 	
 	/**
 	 * Get the project containing the current diagram
