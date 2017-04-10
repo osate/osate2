@@ -12,12 +12,12 @@ platforms:
  * Select **Code Generation** in the context menu
  * Select the appropriate checker for your system: POK, DeOS, or VxWorks
 
-![Context Menu Actions](screenshots/OutlineActions.png)
+![Context Menu Actions](images/OutlineActions.png)
 
 # Results
 Any problems that the checker finds are reported in the Problems view:
 
-![Results](screenshots/CheckerResults.png)
+![Results](images/CheckerResults.png)
 
 # List of Rules
 

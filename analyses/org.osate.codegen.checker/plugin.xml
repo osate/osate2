@@ -93,4 +93,11 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_codegen_checker.xml"
+            primary="true">
+      </toc>
+   </extension>
 </plugin>
