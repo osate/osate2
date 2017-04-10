@@ -74,7 +74,7 @@ public class GeneralizatonHandler {
 	}
 	
 	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
+	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) { 
 		return boc.getParent(); // Source is the owner of the BO
 	}
 	

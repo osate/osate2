@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.aadl2.AadlPackage;
+import org.osate.aadl2.NamedValue;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetName;
@@ -20,6 +21,7 @@ import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.util.AadlPropertyResolver;
 
 /**
  * Implementation of BusinessObjectTreeFactory which use business handlers to build the tree.
@@ -104,18 +106,8 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 		}
 		
 		// Create the tree object
-		final Collection<BusinessObjectTreeNode> unmodifiableRootNodes = Collections.unmodifiableCollection(rootNodes);
-		return new BusinessObjectTree() {
-			@Override
-			public Collection<BusinessObjectTreeNode> getRootNodes() {
-				return unmodifiableRootNodes;
-			}
-
-			@Override
-			public Object getBusinessObject() {
-				return showRootBo ? null : rootBo;
-			}			
-		};
+		final SimpleBusinessObjectTree tree = new SimpleBusinessObjectTree(showRootBo ? null : rootBo, rootNodes);
+		return tree;
 	}
 	
 	private void createNode(final IEclipseContext eclipseCtx, 
@@ -170,6 +162,38 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 		    	createNode(eclipseCtx, parentBoc, childBo, nodes, depth);
 		    }					    
 		}
+	}
+	
+	private static class SimpleBusinessObjectTree implements BusinessObjectTree, Queryable {
+		private final Object rootBo;
+		private final Collection<BusinessObjectTreeNode> rootNodes;
+		
+		public SimpleBusinessObjectTree(final Object rootBo, final Collection<BusinessObjectTreeNode> rootNodes) {
+			this.rootBo = rootBo;
+			this.rootNodes = Collections.unmodifiableCollection(rootNodes);
+		}
+		
+		@Override
+		public Queryable getParent() {
+			return null;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override
+		public Collection<? extends Queryable> getChildren() {
+			return (Collection<? extends Queryable>) getRootNodes();
+		}
+
+		@Override
+		public Object getBusinessObject() {
+			return rootBo;
+		}
+
+		@Override
+		public Collection<BusinessObjectTreeNode> getRootNodes() {
+			return rootNodes;
+		}
+		
 	}
 		
 	private static class SimpleBusinessObjectTreeNode implements BusinessObjectTreeNode, BusinessObjectContext {

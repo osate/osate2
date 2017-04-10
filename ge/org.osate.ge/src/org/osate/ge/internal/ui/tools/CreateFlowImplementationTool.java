@@ -51,7 +51,6 @@ import org.osate.aadl2.FlowSegment;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.ModeFeature;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
@@ -71,6 +70,7 @@ import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
+import org.osate.ge.internal.util.AadlHelper;
 
 public class CreateFlowImplementationTool {
 	private static boolean areEquivalent(final Object bo1, final Object bo2) {
@@ -611,11 +611,7 @@ public class CreateFlowImplementationTool {
 		}
 
 		private Object getRefinedElement(final Object ce) {
-			if(ce instanceof RefinableElement) {
-				final RefinableElement refinedElement = ((RefinableElement)ce).getRefinedElement();
-				return refinedElement == null ? ce : getRefinedElement(refinedElement);
-			}
-			return ce;
+			return ce instanceof NamedElement ? AadlHelper.getRootRefinedElement((NamedElement)ce) : ce;
 		}
 
 		/**

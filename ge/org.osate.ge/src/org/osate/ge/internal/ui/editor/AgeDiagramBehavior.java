@@ -796,7 +796,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 								continue;
 							}
 							
-							System.err.println("REF: " + ref);
+							//System.err.println("REF: " + ref);
 							// TODO: Business Object Handler
 							// TODO: Get business object
 							// TODO: Get relative reference

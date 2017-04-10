@@ -4,6 +4,6 @@ import java.util.Collection;
 
 public interface Queryable {
 	Queryable getParent();
-	Collection<Queryable> getChildren();
+	Collection<? extends Queryable> getChildren();
 	Object getBusinessObject();
 }

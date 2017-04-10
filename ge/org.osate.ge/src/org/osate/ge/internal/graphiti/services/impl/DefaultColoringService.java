@@ -36,6 +36,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ColoringService;
+import org.osate.ge.internal.util.AadlHelper;
 
 public class DefaultColoringService implements ColoringService {
 	private final GraphitiService graphitiService;
@@ -284,25 +285,13 @@ public class DefaultColoringService implements ColoringService {
 		
 		return false;
 	}
-	
-	private NamedElement getRefinedElement(NamedElement ne) {
-		if(ne instanceof RefinableElement) {
-			NamedElement refined = ne;
-			do {
-				ne = refined;
-				refined = ((RefinableElement) ne).getRefinedElement();
-			} while(refined != null);
-		}
 		
-		return ne;
-	}
-	
 	private boolean doesElementMatchFlowElement(NamedElement element, NamedElement context, NamedElement flowElement, NamedElement flowContext) {
 		// Get refined element so that we can compare elements by qualified names
-		element = getRefinedElement(element);
-		context = getRefinedElement(context);
-		flowElement = getRefinedElement(flowElement);
-		flowContext = getRefinedElement(flowContext);
+		element = AadlHelper.getRootRefinedElement(element);
+		context = AadlHelper.getRootRefinedElement(context);
+		flowElement = AadlHelper.getRootRefinedElement(flowElement);
+		flowContext = AadlHelper.getRootRefinedElement(flowContext);
 		
 		if(areQualifiedNamesEqualOrBothNull(context, flowContext) && areQualifiedNamesEqualOrBothNull(element, flowElement)) {
 			return true;

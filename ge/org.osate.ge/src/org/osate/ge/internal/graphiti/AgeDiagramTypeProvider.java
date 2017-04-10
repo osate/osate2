@@ -21,7 +21,6 @@ import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.query.QueryRunner;
 import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.AadlPropertyService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
@@ -39,7 +38,6 @@ import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.impl.DefaultAadlModificationService;
-import org.osate.ge.internal.services.impl.DefaultAadlPropertyService;
 import org.osate.ge.internal.services.impl.DefaultBusinessObjectResolutionService;
 import org.osate.ge.internal.services.impl.DefaultCachingService;
 import org.osate.ge.internal.services.impl.DefaultDiagramModificationService;
@@ -102,7 +100,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(graphitiService);
 		final DefaultQueryService queryService = new DefaultQueryService(propertyUtil, bor, refBuilder);
-		final DefaultAadlPropertyService aadlPropertyService = new DefaultAadlPropertyService(cachingService, this, propertyUtil, bor, queryRunnerFactory);
 		
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 
@@ -122,7 +119,6 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(ColoringService.class, highlightingHelper);
 		context.set(GraphitiService.class, graphitiService);
 		context.set(QueryService.class, queryService);
-		context.set(AadlPropertyService.class, aadlPropertyService);
 		context.set(QueryRunnerFactory.class, queryRunnerFactory);
 		context.set(GraphitiAgeDiagramProvider.class, graphitiService);
 		

@@ -22,6 +22,7 @@ import org.osate.aadl2.InternalFeature;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.aadl2.ProcessorFeature;
+import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.SubprogramCallSequence;
 
 /**
@@ -109,5 +110,23 @@ public class AadlHelper {
 		}
 		
 		return returnList;
+	}
+	
+	/**
+	 * If the element is a refinable element, returns the root refined element. That is, it returns the refined element which is not refined.
+	 * Otherwise it returns the specified element.
+	 * @param ne
+	 * @return
+	 */
+	public static NamedElement getRootRefinedElement(NamedElement ne) {
+		if(ne instanceof RefinableElement) {
+			NamedElement refined = ne;
+			do {
+				ne = refined;
+				refined = ((RefinableElement) ne).getRefinedElement();
+			} while(refined != null);
+		}
+		
+		return ne;
 	}
 }
