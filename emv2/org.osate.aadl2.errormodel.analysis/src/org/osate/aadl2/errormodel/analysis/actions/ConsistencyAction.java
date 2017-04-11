@@ -303,9 +303,10 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					}
 				}
 
-				if (model.getAllPropagationPaths(componentInstance, ep).size() == 0) {
-					error(componentInstance,
-							"Outgoing propagation " + EMV2Util.getPrintName(ep) + " not correctly handled");
+				if (!(componentInstance instanceof SystemInstance) && ep.getDirection() == DirectionType.OUT
+						&& model.getAllPropagationPaths(componentInstance, ep).size() == 0) {
+					error(componentInstance, "Outgoing propagation " + EMV2Util.getPrintName(ep)
+							+ " is missing outgoing propagation paths");
 
 					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle OUT propagation " +
 // ep.getName());
@@ -349,9 +350,10 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			}
 			for (ErrorPropagation ep : EMV2Util
 					.getAllIncomingErrorPropagations(componentInstance.getComponentClassifier())) {
-				if (model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
-					error(componentInstance,
-							"Incoming propagation " + EMV2Util.getPrintName(ep) + " not correctly handled");
+				if (!(componentInstance instanceof SystemInstance) && ep.getDirection() == DirectionType.IN
+						&& model.getAllPropagationSourceEnds(componentInstance, ep).size() == 0) {
+					error(componentInstance, "Incoming propagation " + EMV2Util.getPrintName(ep)
+							+ " is missing incoming propagation paths");
 
 					// OsateDebug.osateDebug("Component " + componentInstance + " does not handle IN propagation " +
 // ep.getName());
