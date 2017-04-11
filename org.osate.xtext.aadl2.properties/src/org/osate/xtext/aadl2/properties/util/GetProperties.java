@@ -418,6 +418,23 @@ public class GetProperties {
 		}
 		return components;
 	}
+	
+	public static List<ComponentInstance> getAllowedConnectionBinding(final InstanceObject io) {
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		Property allowedConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_CONNECTION_BINDING);
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedConnectionBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
 
 	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
 		Property allowedProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
@@ -460,6 +477,23 @@ public class GetProperties {
 		List<? extends PropertyExpression> propertyValues;
 		try {
 			propertyValues = io.getPropertyValueList(actualMemoryBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+	
+	public static List<ComponentInstance> getAllowedMemoryBinding(final InstanceObject io) {
+		Property allowedMemoryBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_MEMORY_BINDING);
+		ArrayList<ComponentInstance> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedMemoryBinding);
 		} catch (Exception e) {
 			return components;
 		}
