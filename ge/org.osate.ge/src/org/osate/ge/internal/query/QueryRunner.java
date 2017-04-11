@@ -4,18 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 
 public class QueryRunner {
-	private final PropertyService propertyService;
-	private final BusinessObjectResolutionService bor;
 	private final InternalReferenceBuilderService refBuilder;
 	
-	public QueryRunner(final PropertyService propertyService, final BusinessObjectResolutionService bor, final InternalReferenceBuilderService refBuilder) {
-		this.propertyService = Objects.requireNonNull(propertyService, "propertyService must not be null");
-		this.bor = Objects.requireNonNull(bor, "bor must not be null");
+	public QueryRunner(final InternalReferenceBuilderService refBuilder) {
 		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
 	}
 	
@@ -43,7 +37,7 @@ public class QueryRunner {
 		}
 
 		final DefaultQuery initialQuery = queryStack.pop();
-		final QueryExecutionState state = new QueryExecutionState(this, propertyService, bor, refBuilder, arg);
+		final QueryExecutionState state = new QueryExecutionState(this, refBuilder, arg);
 		final QueryResult result = new QueryResult();
 		initialQuery.run(queryStack, null, state, result);
 		

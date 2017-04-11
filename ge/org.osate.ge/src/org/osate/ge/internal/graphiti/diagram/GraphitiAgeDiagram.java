@@ -10,8 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
-import org.eclipse.draw2d.geometry.Point;
 import org.eclipse.emf.common.command.AbstractCommand;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
@@ -353,19 +351,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			final Connection connection = (Connection)pe;
 		    final AgeConnection ageConnection = (AgeConnection)de.getGraphic();
 		    
-			// Store position of all decorators which have ID's
-			final Map<String, Point> decoratorNameToLocation = new HashMap<>();
-			
-			for(final ConnectionDecorator d : connection.getConnectionDecorators()) {
-				if(d.getGraphicsAlgorithm() instanceof Text) {
-					final String id = PropertyUtil.getName(d);
-					if(id != null) {
-						final Text text = (Text)d.getGraphicsAlgorithm();
-						decoratorNameToLocation.put(id, new Point(text.getX(), text.getY()));
-					}
-				}
-			}
-
 			// Clear decorators
 			connection.getConnectionDecorators().clear();
 
@@ -383,8 +368,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				PropertyUtil.setName(textDecorator, ShapeNames.nameShapeName);						
 			    text.setValue(name);
 
-			    final Point labelPosition = decoratorNameToLocation.get(ShapeNames.nameShapeName);
-			    if(labelPosition == null) {
+			    final org.osate.ge.internal.diagram.Point nameLabelPosition = de.getConnectionNameLabelPosition();
+			    if(nameLabelPosition == null) {
 			    	// Set default position
 			    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getFont());
 			    	if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
@@ -395,8 +380,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			    		labelY = -labelTextSize.getHeight()/2;
 			    	}
 			    } else {
-			    	labelX = labelPosition.x;
-			    	labelY = labelPosition.y;
+			    	labelX = nameLabelPosition.x;
+			    	labelY = nameLabelPosition.y;
 			    }
 			    gaService.setLocation(text, labelX, labelY);
 			}
@@ -523,6 +508,11 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	
 	public final DiagramNode getDiagramNode(final PictogramElement pe) {
 		return pictogramElementToDiagramNodeMap.get(pe);
+	}
+	
+	public final DiagramElement getDiagramElement(final PictogramElement pe) {
+		final DiagramNode dn = getDiagramNode(pe);
+		return dn instanceof DiagramElement ? (DiagramElement)dn : null;
 	}
 	
 	@Override

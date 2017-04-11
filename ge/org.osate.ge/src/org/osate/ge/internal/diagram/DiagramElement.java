@@ -34,6 +34,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private DiagramElement connectionStartElement;
 	private DiagramElement connectionEndElement;
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
+	private Point connectionNameLabelPosition; // Optional. Position of the connection label.
 	
 	public DiagramElement(final DiagramNode container,
 			final Object bo, 
@@ -226,8 +227,20 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return bendpoints == null ? Collections.emptyList() : Collections.unmodifiableList(bendpoints);
 	}
 	
-	public final void setBendpoints(final List<Point> value) {
+	final void setBendpoints(final List<Point> value) {
 		bendpoints = value == null ? null : new ArrayList<>(value);
+	}
+	
+	/**
+	 * 
+	 * @return will return null if the position has not been set.
+	 */
+	public final Point getConnectionNameLabelPosition() {
+		return connectionNameLabelPosition;
+	}
+	
+	final void setConnectionNameLabelPosition(final Point value) {
+		this.connectionNameLabelPosition = value;
 	}
 	
 	@Override

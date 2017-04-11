@@ -88,6 +88,7 @@ import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.diagram.NodePictogramBiMap;
 import org.osate.ge.internal.graphiti.features.AgeAddBendpointFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveBendpointFeature;
+import org.osate.ge.internal.graphiti.features.AgeMoveConnectionDecoratorFeature;
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
@@ -101,7 +102,6 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ReferenceService;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {	
@@ -110,12 +110,12 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private AadlModificationService aadlModService;
 	private GraphitiService graphitiService;
 	private BusinessObjectResolutionService bor;
-	private PropertyService propertyService;
 	private ReferenceService referenceService;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private AgeMoveShapeFeature defaultMoveShapeFeature;
 	private AgeResizeShapeFeature defaultResizeShapeFeature;
+	private AgeMoveConnectionDecoratorFeature defaultMoveConnectionDecoratorFeature;
 	private IMoveBendpointFeature moveBendpointFeature;
 	private IAddBendpointFeature addBendpointFeature;
 	private IRemoveBendpointFeature removeBendpointFeature;
@@ -133,7 +133,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
 		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
-		this.propertyService = Objects.requireNonNull(eclipseContext.get(PropertyService.class), "unable to retrieve property service");
 		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unable to retrieve serializable reference service");
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
@@ -141,6 +140,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		defaultDirectEditFeature = make(BoHandlerDirectEditFeature.class);
 		defaultMoveShapeFeature = make(AgeMoveShapeFeature.class);
 		defaultResizeShapeFeature = make(AgeResizeShapeFeature.class);
+		defaultMoveConnectionDecoratorFeature = make(AgeMoveConnectionDecoratorFeature.class);
 		moveBendpointFeature = make(AgeMoveBendpointFeature.class);
 		addBendpointFeature = make(AgeAddBendpointFeature.class);
 		removeBendpointFeature = make(AgeRemoveBendpointFeature.class);
@@ -371,13 +371,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	}
 	
 	@Override
-	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(IMoveConnectionDecoratorContext context) {
-		// Don't allow moving connection decorators which do not have names
-		if(context.getConnectionDecorator() == null || propertyService.getName(context.getConnectionDecorator()) == null) {
-			return null;
-		}
-		
-		return super.getMoveConnectionDecoratorFeature(context);
+	public IMoveConnectionDecoratorFeature getMoveConnectionDecoratorFeature(final IMoveConnectionDecoratorContext context) {
+		return defaultMoveConnectionDecoratorFeature;
 	}
 	
 	@Override
@@ -389,7 +384,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	public IResizeShapeFeature getResizeShapeFeature(final IResizeShapeContext context) {
 		return defaultResizeShapeFeature;
 	}
-	
+		
 	@Override
 	public ILayoutFeature getLayoutFeature(ILayoutContext context) {
 		// Layout is handled automatically

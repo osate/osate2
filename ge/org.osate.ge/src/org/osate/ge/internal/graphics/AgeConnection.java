@@ -37,4 +37,54 @@ public class AgeConnection implements Graphic {
 	public static AgeConnection createFlowIndicator(final LineStyle lineStyle, final AgeConnectionTerminator srcTerminator, final AgeConnectionTerminator dstTerminator) {
 		return new AgeConnection(lineStyle, srcTerminator, dstTerminator, false, true);
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dstTerminator == null) ? 0 : dstTerminator.hashCode());
+		result = prime * result + (isCurved ? 1231 : 1237);
+		result = prime * result + (isFlowIndicator ? 1231 : 1237);
+		result = prime * result + ((lineStyle == null) ? 0 : lineStyle.hashCode());
+		result = prime * result + ((srcTerminator == null) ? 0 : srcTerminator.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		AgeConnection other = (AgeConnection) obj;
+		if (dstTerminator == null) {
+			if (other.dstTerminator != null) {
+				return false;
+			}
+		} else if (!dstTerminator.equals(other.dstTerminator)) {
+			return false;
+		}
+		if (isCurved != other.isCurved) {
+			return false;
+		}
+		if (isFlowIndicator != other.isFlowIndicator) {
+			return false;
+		}
+		if (lineStyle != other.lineStyle) {
+			return false;
+		}
+		if (srcTerminator == null) {
+			if (other.srcTerminator != null) {
+				return false;
+			}
+		} else if (!srcTerminator.equals(other.srcTerminator)) {
+			return false;
+		}
+		return true;
+	}
 }

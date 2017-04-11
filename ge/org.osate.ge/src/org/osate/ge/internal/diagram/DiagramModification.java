@@ -29,6 +29,7 @@ public interface DiagramModification {
 	void setConnectionStart(final DiagramElement e, final DiagramElement value);
 	void setConnectionEnd(final DiagramElement e, final DiagramElement value);
 	void setBendpoints(final DiagramElement e, final List<Point> bendpoints);
+	void setConnectionNameLabelPosition(final DiagramElement e, final Point value);
 	
 	/**
 	 * Undoes a previous modification. The specified modification must be the most recently performed modification.

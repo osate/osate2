@@ -63,20 +63,17 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.PropertyService;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final static String GRAPHICAL_TO_TEXTUAL_FEATURE_HINT = "graphicalToTextualFeature";
 	
-	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
 	private final BoHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final ExtensionService extensionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
-		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;
 		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
@@ -132,13 +129,10 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public PictogramElement getSelection(PictogramElement originalPe, PictogramElement[] oldSelection) {
 		if(originalPe instanceof ConnectionDecorator) {
-			if(propertyService.isUnselectable(originalPe)) {
-				return getDiagramTypeProvider().getDiagram();
-			}
 		} else if(originalPe instanceof Shape) {					
 			// Return the first shape that has a business object
 			Shape shape = (Shape)originalPe;
-			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null || propertyService.isInnerShape(shape) || propertyService.isUnselectable(shape))) {
+			while(shape != null && (getFeatureProvider().getBusinessObjectForPictogramElement(shape) == null)) {
 				shape = shape.getContainer();
 			}
 			return shape;

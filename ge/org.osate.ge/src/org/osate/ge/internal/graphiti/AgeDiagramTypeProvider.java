@@ -93,13 +93,13 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final QueryRunnerFactory queryRunnerFactory = new QueryRunnerFactory() {
 			@Override
 			public QueryRunner create() {
-				return new QueryRunner(propertyUtil, bor, refBuilder);
+				return new QueryRunner(refBuilder);
 			}			
 		};		
 	
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final DefaultColoringService highlightingHelper = new DefaultColoringService(graphitiService);
-		final DefaultQueryService queryService = new DefaultQueryService(propertyUtil, bor, refBuilder);
+		final DefaultQueryService queryService = new DefaultQueryService(refBuilder);
 		
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 

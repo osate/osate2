@@ -29,7 +29,7 @@ public class AgeMoveBendpointFeature extends DefaultMoveBendpointFeature impleme
 	@Override
 	public boolean moveBendpoint(final IMoveBendpointContext ctx) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final DiagramElement connectionElement = (DiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
+		final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(ctx.getConnection());
 		if(connectionElement != null) {
 			graphitiAgeDiagram.modify(new DiagramModifier() {					
 				@Override

@@ -29,7 +29,7 @@ public class AgeAddBendpointFeature extends DefaultAddBendpointFeature implement
 	@Override
 	public void addBendpoint(final IAddBendpointContext ctx) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final DiagramElement connectionElement = (DiagramElement)graphitiAgeDiagram.getDiagramNode(ctx.getConnection());
+		final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(ctx.getConnection());
 		if(connectionElement != null) {
 			graphitiAgeDiagram.modify(new DiagramModifier() {					
 				@Override

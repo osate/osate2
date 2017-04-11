@@ -1,6 +1,7 @@
 package org.osate.ge.internal.graphics;
 
 import java.awt.geom.Point2D;
+import java.util.Arrays;
 import java.util.Objects;
 
 public class Polygon implements AgeShape {
@@ -16,5 +17,39 @@ public class Polygon implements AgeShape {
 	
 	public final Point2D.Double[] getPoints() {
 		return this.points;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((lineStyle == null) ? 0 : lineStyle.hashCode());
+		result = prime * result + lineWidth;
+		result = prime * result + Arrays.hashCode(points);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		Polygon other = (Polygon) obj;
+		if (lineStyle != other.lineStyle) {
+			return false;
+		}
+		if (lineWidth != other.lineWidth) {
+			return false;
+		}
+		if (!Arrays.equals(points, other.points)) {
+			return false;
+		}
+		return true;
 	}
 }

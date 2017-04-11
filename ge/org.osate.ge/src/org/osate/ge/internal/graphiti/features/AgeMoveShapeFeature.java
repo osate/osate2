@@ -17,7 +17,6 @@ import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
@@ -43,12 +42,11 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 			return false;
 		}
 		
-		final DiagramNode diagramNode = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramNode(ctx.getShape());
-		if(!(diagramNode instanceof DiagramElement)) {
+		final DiagramElement element = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getDiagramElement(ctx.getShape());
+		if(element == null) {
 			return false;
 		}
-		
-		final DiagramElement element = (DiagramElement)diagramNode;
+
 		if(!(element.getGraphic() instanceof AgeShape)) {
 			return false;
 		}
@@ -74,7 +72,7 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 	@Override
 	public void moveShape(final IMoveShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final DiagramElement diagramElement = (DiagramElement)graphitiAgeDiagram.getDiagramNode(context.getShape());
+		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
 		graphitiAgeDiagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {

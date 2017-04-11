@@ -21,7 +21,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
-
+	private Object bo = null;
+	
 	public AgeDiagram() {
 		this.diagramConfiguration = new DiagramConfiguration(null);
 	}
@@ -207,7 +208,20 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				e.setBendpoints(value);
 				afterUpdate(e, DiagramElementField.BENDPOINTS);
 			}
-		}		
+		}
+		
+		@Override
+		public void setConnectionNameLabelPosition(final DiagramElement e, final Point value) {
+			if(value == null && e.getConnectionNameLabelPosition() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getConnectionNameLabelPosition())) {
+				storeChange(e, DiagramElementField.CONNECTION_NAME_LABEL_POSITION, e.getConnectionNameLabelPosition(), value);
+				e.setConnectionNameLabelPosition(value);
+				afterUpdate(e, DiagramElementField.CONNECTION_NAME_LABEL_POSITION);
+			}
+		}
 		
 		// Notifies listeners and manages change tracking state after a field has been updated.
 		private void afterUpdate(final DiagramElement e, final DiagramElementField c) {
@@ -380,6 +394,10 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			case SIZE:
 				m.setSize(element, (Dimension)value);
 				break;
+				
+			case CONNECTION_NAME_LABEL_POSITION:
+				m.setConnectionNameLabelPosition(element, (Point)value);
+				break;
 			}
 		}
 		
@@ -409,7 +427,4 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	public void setBusinessObject(final Object value) {
 		this.bo = value;
 	}
-	
-	// TODO: Rework
-	private Object bo = null;
 }
