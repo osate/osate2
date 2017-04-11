@@ -13,7 +13,6 @@ package org.osate.ge.internal.di;
  *
  */
 public class InternalNames {
-	public static final String SELECTED_PICTOGRAM_ELEMENTS = "selected_pictogram_elements"; // TODO: Migrate away from then remove
 	public static final String PROJECT = "project";
 	public static final String SOURCE_ROOT_QUERY = "src_root_query";
 	public static final String DESTINATION_ROOT_QUERY = "dst_root_query";

@@ -60,7 +60,6 @@ import org.osate.ge.internal.commands.GraphicalToTextualCommand;
 import org.osate.ge.internal.graphiti.features.BoHandlerDoubleClickFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
 
@@ -72,11 +71,11 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	private final BoHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final ExtensionService extensionService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final ExtensionService extensionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.extensionService = extensionService;
 		this.context = context;
-		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
+		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, graphiti, getFeatureProvider());
 	}
 
 	@Override

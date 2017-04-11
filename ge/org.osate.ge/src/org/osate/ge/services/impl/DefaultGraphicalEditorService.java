@@ -42,8 +42,8 @@ import org.osate.ge.GraphicalEditor;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.AgeDiagramUtil;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -138,15 +138,15 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 
 		final ExtensionService extService = (ExtensionService)editorPart.getAdapter(ExtensionService.class);
 		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = (GraphitiAgeDiagramProvider)editorPart.getAdapter(GraphitiAgeDiagramProvider.class);
-		final BusinessObjectResolutionService bor = (BusinessObjectResolutionService)editorPart.getAdapter(BusinessObjectResolutionService.class);
 		final ReferenceService referenceService = (ReferenceService)editorPart.getAdapter(ReferenceService.class);
 		
 		// Services may be null if the pictogram element doesn't belong to an OSATE GE Diagram.
-		if(extService == null || bor == null) {
+		if(extService == null || graphitiAgeDiagramProvider == null || graphitiAgeDiagramProvider.getGraphitiAgeDiagram() == null) {
 			return null;
 		}
 		
-		final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+		final DiagramNode dn = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramNode(pe);
+		final Object bo = dn.getBusinessObject();
 		if(bo == null) {
 			return null;
 		}

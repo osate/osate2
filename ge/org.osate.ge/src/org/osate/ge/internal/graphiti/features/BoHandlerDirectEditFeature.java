@@ -24,7 +24,6 @@ import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -42,8 +41,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			final GraphitiService graphitiService,
 			final ExtensionService extService,
 			final AadlModificationService aadlModService, 
-			final DiagramModificationService diagramModService,	
-			final BusinessObjectResolutionService bor) {
+			final DiagramModificationService diagramModService) {
 		super(fp);
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");

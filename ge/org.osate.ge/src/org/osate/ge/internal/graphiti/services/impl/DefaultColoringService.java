@@ -30,7 +30,6 @@ import org.osate.aadl2.ModalElement;
 import org.osate.aadl2.ModalPath;
 import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.DiagramElement;
@@ -59,7 +58,11 @@ public class DefaultColoringService implements ColoringService {
 
 		@Override
 		public void setForeground(final DiagramElement de, final java.awt.Color color) {
-			foregroundColors.put(de, color);		
+			if(color == null) {
+				foregroundColors.remove(de);
+			} else {
+				foregroundColors.put(de, color);
+			}
 			
 			// Refresh Coloring
 			refreshColoring(Collections.singleton(de));

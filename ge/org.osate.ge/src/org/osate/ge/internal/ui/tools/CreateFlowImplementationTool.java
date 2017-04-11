@@ -65,7 +65,6 @@ import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
@@ -109,14 +108,13 @@ public class CreateFlowImplementationTool {
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
 			final UiService uiService,
-			final ColoringService highlightingService,
-			final BusinessObjectResolutionService bor,
+			final ColoringService coloringService,
 			final GraphitiService graphiti) {		
 		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
 				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
-				this.coloring = highlightingService.adjustColors();
+				this.coloring = coloringService.adjustColors();
 				this.fp = graphiti.getFeatureProvider();
 				
 				canActivate = false;
@@ -175,7 +173,7 @@ public class CreateFlowImplementationTool {
 					dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
 				} else if(selectedDiagramElements.length == 1) {
 					// Get the selected diagram element
-					DiagramElement selectedDiagramElement = selectedDiagramElements[0];
+					final DiagramElement selectedDiagramElement = selectedDiagramElements[0];
 
 					// Get the business object
 					String error = null;
@@ -697,17 +695,17 @@ public class CreateFlowImplementationTool {
 			undoButton.addSelectionListener(new SelectionAdapter() {
 				@Override
 				public void widgetSelected(final SelectionEvent e) {
-					final int prevPesSize = previouslySelectedDiagramElements.size();
-					if (prevPesSize > 0) {
-						final DiagramElement removedDiagramElements = previouslySelectedDiagramElements.get(prevPesSize-1);
-						previouslySelectedDiagramElements.remove(prevPesSize-1);
-						coloring.setForeground(removedDiagramElements, Color.BLACK);
+					final int prevDiagramElementsSize = previouslySelectedDiagramElements.size();
+					if (prevDiagramElementsSize > 0) {
+						final DiagramElement removedDiagramElement = previouslySelectedDiagramElements.get(prevDiagramElementsSize-1);
+						previouslySelectedDiagramElements.remove(prevDiagramElementsSize-1);
+						coloring.setForeground(removedDiagramElement, null);
 						
-						final Object removedBocBo = removedDiagramElements.getBusinessObject();
-						if (areEquivalent(removedBocBo, flowImpl.getSpecification()) && prevPesSize == 1) {
+						final Object removedDiagramElementBo = removedDiagramElement.getBusinessObject();
+						if (areEquivalent(removedDiagramElementBo, flowImpl.getSpecification()) && prevDiagramElementsSize == 1) {
 							flowImpl.setSpecification(null);
 							flowImpl = null;
-						} else if (!(removedBocBo instanceof ModeFeature)) {
+						} else if (!(removedDiagramElementBo instanceof ModeFeature)) {
 							final FlowSegment flowSegment = flowImpl.getOwnedFlowSegments().get(flowImpl.getOwnedFlowSegments().size()-1);
 							flowImpl.getOwnedFlowSegments().remove(flowSegment);
 							EcoreUtil.remove(flowSegment);

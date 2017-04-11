@@ -34,7 +34,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Generalization;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.DiagramService.DiagramReference;
@@ -48,12 +47,10 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	
 	private final DiagramService diagramService;
 	private final InternalReferenceBuilderService refBuilder;
-	private final BusinessObjectResolutionService bor;
 
-	public DefaultDiagramModificationService(final DiagramService diagramService, final InternalReferenceBuilderService refBuilder, final BusinessObjectResolutionService bor) {
+	public DefaultDiagramModificationService(final DiagramService diagramService, final InternalReferenceBuilderService refBuilder) {
 		this.diagramService = diagramService;
 		this.refBuilder = refBuilder;
-		this.bor = bor;
 	}
 
 	@Override
@@ -134,6 +131,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     				if(tmpDiagramReference.isOpen()) {
 	    				final Diagram tmpDiagram = tmpDiagramReference.getDiagram();
 	    				if(tmpDiagram != null) {
+	    					/*
 			    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
 			    			
 			    			boolean markDiagram = false;
@@ -143,19 +141,17 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			    			} else {
 			    				// Only check if the diagram is linked to one of the relevant classifiers.
 			    				// Creating a feature provider for every diagram is expensive.
-			    				/*
 				    			final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(tmpDiagram);
 				    			for(final AadlElementWrapper relAadlElementWrapper : relevantElements) {
 				    				if(featureProvider.getPictogramElementForBusinessObject(relAadlElementWrapper) != null) {
 				    					markDiagram = true;
 				    				}
 				    			}
-				    			*/
 			    			}
-			    			
 			    			if(markDiagram) {
 			    				dirtyDiagramReferences.add(tmpDiagramReference);
 			    			}
+			    			*/
 	    				}
     				}
     			}

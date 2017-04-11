@@ -21,6 +21,12 @@ public interface ColoringService {
 	// TODO: Should have a way to batch these changes before making API. Implementation currently creates a Graphiti command for each update.
 	interface Coloring {
 		void dispose();
+		
+		/**
+		 * 
+		 * @param de
+		 * @param color setting color to null returns the element to its default color.
+		 */
 		void setForeground(DiagramElement de, Color color);
 	}
 	

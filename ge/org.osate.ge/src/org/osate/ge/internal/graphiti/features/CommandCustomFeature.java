@@ -43,7 +43,6 @@ import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.util.AnnotationUtil;
@@ -55,7 +54,6 @@ import org.osate.ge.internal.util.AnnotationUtil;
 public class CommandCustomFeature extends AbstractCustomFeature {
 	private final Object cmd;
 	private final ExtensionService extService;
-	private final BusinessObjectResolutionService bor;
 	private final AadlModificationService aadlModificationService;
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final boolean modifiesBusinessObjects;
@@ -63,14 +61,12 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	
 	public CommandCustomFeature(final Object cmd, 
 			final ExtensionService extService,
-			final BusinessObjectResolutionService bor, 
 			final AadlModificationService aadlModificationService,
 			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
 			final IFeatureProvider fp) {
 		super(fp);
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.cmd = Objects.requireNonNull(cmd, "cmd must not be null");
-		this.bor = Objects.requireNonNull(bor, "bor must not be null");
 		this.aadlModificationService = Objects.requireNonNull(aadlModificationService, "aadlModificationService must not be null");
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.modifiesBusinessObjects = cmd.getClass().getAnnotation(ModifiesBusinessObjects.class) != null;
@@ -100,17 +96,18 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		final ICustomContext customCtx = (ICustomContext)context;
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			final Object[] bos = getBusinessObjects(customCtx.getPictogramElements());
-			if(bos == null ){
-				return false;
-				
-			}
-			final BusinessObjectContext[] bocs = getBusinessObjectContexts(customCtx.getPictogramElements());
+			final BusinessObjectContext bocs[] = getBusinessObjectContexts(customCtx.getPictogramElements());
 			if(bocs == null) {
 				return false;
 			}
 			
-			populateEclipseContext(eclipseContext, bocs, bos);
+			final Object[] businessObjects = getBusinessObjects(bocs);	
+			if(businessObjects == null){
+				return false;
+				
+			}
+			
+			populateEclipseContext(eclipseContext, bocs, businessObjects);
 			return (Boolean)ContextInjectionFactory.invoke(cmd, IsAvailable.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
@@ -149,8 +146,9 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 			return true;
 		}
 		
+		final BusinessObjectContext bocs[] = getBusinessObjectContexts(context.getPictogramElements());
+		final Object[] businessObjects = getBusinessObjects(bocs);		
 		if(modifiesBusinessObjects) {
-			final Object[] businessObjects = getBusinessObjects(context.getPictogramElements());
 			if(businessObjects.length != 1 || !(businessObjects[0] instanceof EObject)) {
 				return false;
 			}			
@@ -158,7 +156,7 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
-			populateEclipseContext(eclipseContext, getBusinessObjectContexts(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
+			populateEclipseContext(eclipseContext, bocs, businessObjects);
 			return (Boolean)ContextInjectionFactory.invoke(cmd, CanActivate.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
@@ -167,18 +165,20 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	
 	@Override
 	public void execute(final ICustomContext context) {
-		final Object[] businessObjects = getBusinessObjects(context.getPictogramElements());
+		final BusinessObjectContext bocs[] = getBusinessObjectContexts(context.getPictogramElements());
+		final Object[] businessObjects = getBusinessObjects(bocs);
+		
 		if(modifiesBusinessObjects) {
 			final EObject bo = (EObject)businessObjects[0];
 			aadlModificationService.modify(bo, new AbstractModifier<EObject, Object>() {
 				@Override
 				public Object modify(final Resource resource, final EObject bo) {
-					hasMadeChanges = activate(getBusinessObjectContexts(context.getPictogramElements()), new Object[] { bo });
+					hasMadeChanges = activate(bocs, new Object[] { bo });
 					return null;
 				}				
 			});
 		} else {		
-			hasMadeChanges = activate(getBusinessObjectContexts(context.getPictogramElements()), getBusinessObjects(context.getPictogramElements()));
+			hasMadeChanges = activate(bocs, businessObjects);
 		}
 	}
 	
@@ -230,14 +230,14 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		}
 	}
 		
-	private Object[] getBusinessObjects(final PictogramElement[] pes) {
-		if(pes == null) {
+	private Object[] getBusinessObjects(final BusinessObjectContext[] bocs) {
+		if(bocs == null) {
 			 return null;
 		}
 		
-		final Object[] bos = new Object[pes.length];
-		for(int i = 0; i < pes.length; i++) {
-			bos[i] = bor.getBusinessObjectForPictogramElement(pes[i]);
+		final Object[] bos = new Object[bocs.length];
+		for(int i = 0; i < bocs.length; i++) {
+			bos[i] = bocs[i].getBusinessObject();
 			
 			if(bos[i] == null) {
 				return null;

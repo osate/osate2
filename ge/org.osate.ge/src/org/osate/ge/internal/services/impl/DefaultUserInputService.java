@@ -9,27 +9,28 @@
 package org.osate.ge.internal.services.impl;
 
 import java.text.MessageFormat;
+import java.util.Objects;
 
+import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IDeleteContext;
 import org.eclipse.graphiti.features.context.IMultiDeleteInfo;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.NamedElement;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.UserInputService;
 
 public class DefaultUserInputService implements UserInputService {
-	private final BusinessObjectResolutionService bor;
+	private final IFeatureProvider fp;
 	
-	public DefaultUserInputService(final BusinessObjectResolutionService bor) {
-		this.bor = bor;
+	public DefaultUserInputService(final IFeatureProvider fp) {
+		this.fp = Objects.requireNonNull(fp, "fp must not be null");
 	}
 
 	@Override
 	public boolean confirmDelete(final IDeleteContext context) {
 		final IMultiDeleteInfo multiDeleteInfo = context.getMultiDeleteInfo();
 		if(multiDeleteInfo == null) {
-			final Object bo = bor.getBusinessObjectForPictogramElement(context.getPictogramElement());
+			final Object bo = fp.getBusinessObjectForPictogramElement(context.getPictogramElement());
 			if(bo == null) {
 				return false;
 			}

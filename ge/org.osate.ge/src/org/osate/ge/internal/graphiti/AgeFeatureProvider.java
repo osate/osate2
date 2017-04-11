@@ -100,7 +100,6 @@ import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
 
@@ -109,7 +108,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private ExtensionService extService;
 	private AadlModificationService aadlModService;
 	private GraphitiService graphitiService;
-	private BusinessObjectResolutionService bor;
 	private ReferenceService referenceService;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
@@ -132,7 +130,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
-		this.bor = Objects.requireNonNull(context.get(BusinessObjectResolutionService.class), "unable to retrieve business object resolution service");
 		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unable to retrieve serializable reference service");
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
@@ -279,7 +276,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 		// Commands
 		for(final Object cmd : extService.getCommands()) {
-			features.add(new CommandCustomFeature(cmd, extService, bor, aadlModService, graphitiService, this)); 		
+			features.add(new CommandCustomFeature(cmd, extService, aadlModService, graphitiService, this)); 		
 		}
 	}
 	
