@@ -1676,25 +1676,27 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * feature groups on one or the other side.
 	 */
 	private boolean isMatchingConnectionPoint(Feature fsFeature, Context fsContext, ConnectedElement connectedElement) {
-		ConnectionEnd connEnd = connectedElement.getLastConnectionEnd();
-		if (!(connEnd instanceof Feature)) {
-			return true;
+		List<NamedElement> chain = getConnectionChain(connectedElement);
+		if (!chain.isEmpty() && chain.get(0) instanceof Subcomponent) {
+			chain = chain.subList(1, chain.size());
 		}
-		Feature connFeature = (Feature) connEnd;
-		if (AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature)) {
-			return true;
+		if (fsContext instanceof RefinableElement) {
+			if (chain.size() >= 2) {
+				if (chain.get(0) instanceof RefinableElement && chain.get(1) instanceof RefinableElement) {
+					RefinableElement connContext = (RefinableElement) chain.get(0);
+					RefinableElement connFeature = (RefinableElement) chain.get(1);
+					return (AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext) || AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext))
+							&& (AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature));
+				}
+			} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
+				RefinableElement connContext = (RefinableElement) chain.get(0);
+				return AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext) || AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext);
+			}
+		} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
+			RefinableElement connFeature = (RefinableElement) chain.get(0);
+			return AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature);
 		}
-		List<FeatureGroup> chain = getConnectionChain(connectedElement).stream()
-				.filter(element -> element instanceof FeatureGroup).map(element -> (FeatureGroup) element)
-				.collect(Collectors.toList());
-		// Flow spec points to feature within feature group. Check if feature group is in connection chain.
-		return (fsContext instanceof FeatureGroup && chain.stream()
-				.anyMatch(element -> AadlUtil.isSameOrRefines(element, (FeatureGroup) fsContext)
-						|| AadlUtil.isSameOrRefines((FeatureGroup) fsContext, element)))
-				// Flow spec points to a feature group. Check if feature group is in connection chain.
-				|| (fsFeature instanceof FeatureGroup
-						&& chain.stream().anyMatch(element -> AadlUtil.isSameOrRefines(element, fsFeature)
-								|| AadlUtil.isSameOrRefines(fsFeature, element)));
+		return false;
 	}
 
 	/**
