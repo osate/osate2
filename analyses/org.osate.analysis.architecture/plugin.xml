@@ -148,6 +148,30 @@
                </or>
             </enablement>
          </action>
+         <action
+               class="org.osate.analysis.architecture.actions.CheckBindingConstraints"
+               enablesFor="1"
+               id="org.osate.analysis.architecture.actions.CheckBindingConstraints.action"
+               label="Check binding constraints"
+               menubarPath="menu.analyses/menu.semantic/stuff.grp"
+               style="push">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass
+                           name="org.eclipse.core.resources.IFile">
+                     </objectClass>
+                     <objectState
+                           name="extension"
+                           value="aaxl2">
+                     </objectState>
+                  </and>
+                  <objectClass
+                        name="org.osate.aadl2.instance.SystemInstance">
+                  </objectClass>
+               </or>
+            </enablement>
+         </action>
          
       </actionSet>
    </extension>
@@ -285,6 +309,17 @@
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
+   </extension>
+   <extension
+         id="CheckBindingConstraintsObjectMarker"
+         name="Check Binding Constraints Marker"
+         point="org.eclipse.core.resources.markers">
+      <super
+            type="org.osate.aadl2.modelsupport.AadlObjectMarker">
+      </super>
+      <persistent
+            value="true">
+      </persistent>
    </extension>
    
 </plugin>
