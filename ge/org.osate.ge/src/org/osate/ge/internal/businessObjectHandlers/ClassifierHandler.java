@@ -439,7 +439,7 @@ public class ClassifierHandler {
 	}
 	
 	static Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier,
-			boolean includeBindings) {
+			boolean includeGeneralizations) {
 		Stream<?> children = Stream.empty();
 		
 		// Shapes
@@ -483,40 +483,35 @@ public class ClassifierHandler {
 		if(componentType != null) {			
 			children = Stream.concat(children, componentType.getAllFlowSpecifications().stream());
 		}
-
-		//CI or CC? : Binding Indicators
-		if(includeBindings) {
-			if(classifier instanceof ComponentImplementation) {
-				// TODO: Bindings
-			}
-		}		
-		
-		// Add extensions
-		if(classifier instanceof ComponentType) {
-			final ComponentType ct = ((ComponentType)classifier);
-			final TypeExtension te = ct.getOwnedExtension();
-			if(te != null) {
-				children = Stream.concat(children, Stream.of(te));
-			}
-		} else if(classifier instanceof ComponentImplementation) {
-			final ComponentImplementation componentImplementation = ((ComponentImplementation)classifier);
-
-			// Implementation Extension
-			final ImplementationExtension ie = componentImplementation.getOwnedExtension();
-			if(ie != null) {
-				children = Stream.concat(children, Stream.of(ie));				
-			}
-			
-			// Realization
-			final Realization realization = componentImplementation.getOwnedRealization();
-			if(realization != null) {	
-				children = Stream.concat(children, Stream.of(realization));			
-			}				
-		} else if(classifier instanceof FeatureGroupType) {
-			final FeatureGroupType featureGroupType = ((FeatureGroupType)classifier);
-			final GroupExtension ge = featureGroupType.getOwnedExtension();
-			if(ge != null) {
-				children = Stream.concat(children, Stream.of(ge));
+	
+		// Add generalizations
+		if(includeGeneralizations) {
+			if(classifier instanceof ComponentType) {
+				final ComponentType ct = ((ComponentType)classifier);
+				final TypeExtension te = ct.getOwnedExtension();
+				if(te != null) {
+					children = Stream.concat(children, Stream.of(te));
+				}
+			} else if(classifier instanceof ComponentImplementation) {
+				final ComponentImplementation componentImplementation = ((ComponentImplementation)classifier);
+	
+				// Implementation Extension
+				final ImplementationExtension ie = componentImplementation.getOwnedExtension();
+				if(ie != null) {
+					children = Stream.concat(children, Stream.of(ie));				
+				}
+				
+				// Realization
+				final Realization realization = componentImplementation.getOwnedRealization();
+				if(realization != null) {	
+					children = Stream.concat(children, Stream.of(realization));			
+				}				
+			} else if(classifier instanceof FeatureGroupType) {
+				final FeatureGroupType featureGroupType = ((FeatureGroupType)classifier);
+				final GroupExtension ge = featureGroupType.getOwnedExtension();
+				if(ge != null) {
+					children = Stream.concat(children, Stream.of(ge));
+				}
 			}
 		}
 		

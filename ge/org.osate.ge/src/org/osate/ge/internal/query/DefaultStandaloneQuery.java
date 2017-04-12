@@ -14,19 +14,19 @@ public class DefaultStandaloneQuery implements StandaloneQuery {
 		this.query = (DefaultQuery)queryCreator.apply(rootQuery);	
 	}	
 	
-	public Queryable getFirstResult(final QueryRunner qr, final Queryable rootNode) {
+	public Queryable getFirstResult(final QueryRunner qr, final Queryable rootNode, final Object arg) {
 		try {
 			this.rootNode = rootNode;
-			return qr.getFirstResult(query, rootNode.getBusinessObject());
+			return qr.getFirstResult(query, arg);
 		} finally {
 			this.rootNode = null;
 		}
 	}
 	
-	public List<? extends Queryable> getResults(final QueryRunner qr, final Queryable rootNode) {
+	public List<? extends Queryable> getResults(final QueryRunner qr, final Queryable rootNode, final Object arg) {
 		try {
 			this.rootNode = rootNode;
-			return qr.getResults(query, rootNode.getBusinessObject());
+			return qr.getResults(query, arg);
 		} finally {
 			this.rootNode = null;
 		}

@@ -47,10 +47,15 @@ public abstract class DefaultQuery implements Query {
 	}
 	
 	@Override
-	public DefaultQuery filterByBusinessObject(final Supplier<?, Object> boSupplier) {
-		return new FilterByBusinessObjectQuery(this, boSupplier);
+	public DefaultQuery filterByBusinessObjectRelativeReference(final Supplier<?, Object> boSupplier) {
+		return new FilterByBusinessObjectRelativeReferenceQuery(this, boSupplier);
 	}
 
+	@Override
+	public DefaultQuery filterByBusinessObjectCanonicalReference(final Supplier<?, Object> boSupplier) {
+		return new FilterByBusinessObjectCanonicalReferenceQuery(this, boSupplier);
+	}
+	
 	@Override
 	public DefaultQuery children() {
 		return new ChildrenQuery(this);
@@ -88,7 +93,7 @@ public abstract class DefaultQuery implements Query {
 	}
 	
 	@Override
-	public DefaultQuery descendantsByBusinessObjects(final Supplier<?, Object[]> bosSupplier) {
-		return new DescendantsByBusinessObjectsQuery(this, bosSupplier);
+	public DefaultQuery descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier) {
+		return new DescendantsByBusinessObjectRelativeReferencesQuery(this, bosSupplier);
 	}
 }

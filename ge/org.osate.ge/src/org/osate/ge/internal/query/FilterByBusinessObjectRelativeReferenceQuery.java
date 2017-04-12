@@ -2,15 +2,15 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.query.Supplier;
 
-class FilterByBusinessObjectQuery extends DefaultQuery {
+class FilterByBusinessObjectRelativeReferenceQuery extends DefaultQuery {
 	private final Supplier<Object, Object> boSupplier;
-	private CanonicalBusinessObjectReference nullBoRef = new CanonicalBusinessObjectReference("<null>");
+	private RelativeBusinessObjectReference nullBoRef = new RelativeBusinessObjectReference("<null>");
 	
 	@SuppressWarnings("unchecked")
-	public FilterByBusinessObjectQuery(final DefaultQuery prev, final Supplier<?, Object> boSupplier) {
+	public FilterByBusinessObjectRelativeReferenceQuery(final DefaultQuery prev, final Supplier<?, Object> boSupplier) {
 		super(prev);
 		this.boSupplier = (Supplier<Object, Object>) Objects.requireNonNull(boSupplier, "boSupplier must not be null");
 	}
@@ -18,10 +18,10 @@ class FilterByBusinessObjectQuery extends DefaultQuery {
 	@Override
 	void run(final Deque<DefaultQuery> remainingQueries, final Queryable ctx, final QueryExecutionState state, final QueryResult result) {
 		// Look in the cache for the reference and build a new reference string if it is not found
-		CanonicalBusinessObjectReference boRef = (CanonicalBusinessObjectReference)state.cache.get(this);
+		RelativeBusinessObjectReference boRef = (RelativeBusinessObjectReference)state.cache.get(this);
 		if(boRef == null) {
 			final Object bo = boSupplier.get(state.arg);
-			boRef = bo == null ? nullBoRef : state.refBuilder.getCanonicalReference(bo);
+			boRef = bo == null ? nullBoRef : state.refBuilder.getRelativeReference(bo);
 			if(boRef == null) {
 				boRef = nullBoRef;
 			}
@@ -33,8 +33,8 @@ class FilterByBusinessObjectQuery extends DefaultQuery {
 		}
 		
 		// Compare references
-		final CanonicalBusinessObjectReference ctxCanonicalReference = state.refBuilder.getCanonicalReference(ctx.getBusinessObject());
-		if(ctxCanonicalReference != null && ctxCanonicalReference.equals(boRef)) {
+		final RelativeBusinessObjectReference ctxRelativeReference = state.refBuilder.getRelativeReference(ctx.getBusinessObject());
+		if(ctxRelativeReference != null && ctxRelativeReference.equals(boRef)) {
 			processResultValue(remainingQueries, ctx, state, result);
 		}
 	}

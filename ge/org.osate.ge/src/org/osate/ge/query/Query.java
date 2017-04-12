@@ -45,12 +45,20 @@ public interface Query {
 	Query filter(Predicate<FilterArguments> filter);
 	
 	/**
-	 * Returns a query whose results are all the results of this query for which the associated business object matches the business object 
-	 * provided by the specified supplier. 
+	 * Returns a query whose results are all the results of this query for which the associated business object's relative reference
+	 * matches the relative reference of the business object provided by the specified supplier. 
 	 * @param boSupplier the supplier of the business object to use for filtering. The supplier's argument is the query argument.
 	 * @return the new query
 	 */
-	Query filterByBusinessObject(Supplier<?, Object> boSupplier);
+	Query filterByBusinessObjectRelativeReference(Supplier<?, Object> boSupplier);
+	
+	/**
+	 * Returns a query whose results are all the results of this query for which the associated business object's canonical reference
+	 * matches the relative reference of the business object provided by the specified supplier. 
+	 * @param boSupplier the supplier of the business object to use for filtering. The supplier's argument is the query argument.
+	 * @return the new query
+	 */
+	Query filterByBusinessObjectCanonicalReference(Supplier<?, Object> boSupplier);
 	
 	/**
 	 * Returns a query whose results are the children of all the results of this query.
@@ -95,5 +103,5 @@ public interface Query {
 			final Supplier<Query, Query> falseQuerySupplier);
 	
 	// TODO: Review and Document
-	Query descendantsByBusinessObjects(final Supplier<?, Object[]> bosSupplier);
+	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier);
 }

@@ -9,9 +9,9 @@
 package org.osate.ge.internal.services;
 
 /**
- * Service for controlling caching
- *
- */
+ * Service for controlling caching. Primarily used for AADL declarative models.
+ * TODO: Consider reworking since the usage of this service is now limited.
+  */
 public interface CachingService {
 	interface Cache {
 		void invalidate(); // Called when the cache should invalidate

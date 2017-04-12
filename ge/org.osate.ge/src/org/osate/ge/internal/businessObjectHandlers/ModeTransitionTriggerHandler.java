@@ -23,8 +23,8 @@ public class ModeTransitionTriggerHandler {
 	// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(1).ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null, 
 			(innerRoot) -> innerRoot, 
-			(innerRoot) -> innerRoot.children().filterByBusinessObject((ModeTransitionTrigger mtt) -> mtt.getContext()).first()).
-				children().filterByBusinessObject((ModeTransitionTrigger mtt) -> mtt.getTriggerPort()));
+			(innerRoot) -> innerRoot.children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.getContext()).first()).
+				children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.getTriggerPort()));
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ModeTransitionTrigger mtt) {
@@ -54,6 +54,6 @@ public class ModeTransitionTriggerHandler {
 		return dstRootQuery.ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null, 
 				(innerRoot) -> innerRoot.ancestor(1), 
 				(innerRoot) -> innerRoot.ancestor(2)).
-					children().filterByBusinessObject((ModeTransitionTrigger mtt) -> mtt.eContainer()).first();
+					children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.eContainer()).first();
 	}
 }

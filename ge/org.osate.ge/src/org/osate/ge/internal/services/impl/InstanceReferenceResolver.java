@@ -47,17 +47,13 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
 public class InstanceReferenceResolver {
 	private final GraphitiService graphitiService;
-	private final CachingService cachingService;
 	private final SystemInstanceLoadingService systemInstanceLoader;
 	private final Map<String, SystemInstanceInfo> keyToSystemInstanceInfoMap = new HashMap<String, SystemInstanceInfo>();
-	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
-		private boolean invalidateCache = false;
-		
+	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {		
 		private IResourceDeltaVisitor deltaVisitor = new IResourceDeltaVisitor() {
 			public boolean visit(final IResourceDelta delta) {
 				final IResource resource = delta.getResource();
@@ -76,7 +72,6 @@ public class InstanceReferenceResolver {
 						// Remove the entry from the map
 						if(systemInstanceKey != null) {
 							keyToSystemInstanceInfoMap.remove(systemInstanceKey);						
-							invalidateCache = true;
 							return false;
 						}
 					}
@@ -94,11 +89,6 @@ public class InstanceReferenceResolver {
 				try {
 					// Process the resource delta
 					delta.accept(deltaVisitor);
-					
-					// Invalidate the cache
-					if(invalidateCache) {
-						cachingService.invalidate();
-					}
 				} catch (final CoreException e) {
 					throw new RuntimeException(e);
 				}
@@ -146,10 +136,10 @@ public class InstanceReferenceResolver {
 	}
 	
 	@Inject
-	public InstanceReferenceResolver(final GraphitiService graphitiService, final SystemInstanceLoadingService systemInstanceLoader, final CachingService cachingService) {
+	public InstanceReferenceResolver(final GraphitiService graphitiService, 
+			final SystemInstanceLoadingService systemInstanceLoader) {
 		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
 		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader, "systemInstanceLoader must not be null");
-		this.cachingService = Objects.requireNonNull(cachingService, "cachingService must not be null");
 		
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
 	}

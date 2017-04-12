@@ -77,10 +77,8 @@ public class AadlPropertyResolver {
 		}
 		
 		if(propertyValue == null) {
-			System.err.println("A");
 			// Return the default value
 			final Property p = GetProperties.lookupPropertyDefinition((NamedElement)queryable.getBusinessObject(), propertyQualifiedName);
-			System.err.println("B: " + p);
 			if(p == null) {
 				return null;
 			}

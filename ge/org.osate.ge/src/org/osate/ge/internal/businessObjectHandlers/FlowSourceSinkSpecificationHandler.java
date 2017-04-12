@@ -41,7 +41,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjects((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first());
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first());
 	
 	// Basics
 	@IsApplicable

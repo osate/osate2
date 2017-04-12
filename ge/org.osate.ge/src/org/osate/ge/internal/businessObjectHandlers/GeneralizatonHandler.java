@@ -43,7 +43,8 @@ import org.osate.ge.services.QueryService;
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().ancestors().children().filterByBusinessObject((Generalization g) -> g.getGeneral()));
+	private static StandaloneQuery classifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.children().filterByBusinessObjectRelativeReference((Generalization g) -> g.getGeneral()));
+	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.children().descendantsByBusinessObjectsRelativeReference((Generalization g) -> getBusinessObjectPath(g.getGeneral())));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) AadlPackage pkg) {
@@ -76,13 +77,24 @@ public class GeneralizatonHandler {
 	@GetSource
 	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) { 
 		return boc.getParent(); // Source is the owner of the BO
-	}
-	
+	}	
+
 	@GetDestination
 	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
-	}
+			final QueryService queryService) {	
+		final BusinessObjectContext pkgBoc = boc.getParent().getParent();
+		if(pkgBoc == null) {
+			return null;
+		}
+		
+		final BusinessObjectContext projectBoc = pkgBoc.getParent();
+		final StandaloneQuery query = projectBoc == null ? classifierQuery : nestedClassifierQuery;		
+		return queryService.getFirstResult(query, pkgBoc, boc.getBusinessObject());
+	}	
+	
+	private static Object[] getBusinessObjectPath(final Classifier c) {
+		return new Object[] { c.getElementRoot(), c };
+	}	
 	
 	@GetCreateOwner
 	public Classifier getCreateConnectionOwner(@Named(Names.SOURCE_BO) final Classifier subtype) {

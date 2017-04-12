@@ -27,8 +27,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorTypeExtensionHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSubtype()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ete->((ErrorTypeExtension)ete).getSupertype()));
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(ete->((ErrorTypeExtension)ete).getSubtype()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(ete->((ErrorTypeExtension)ete).getSupertype()));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {

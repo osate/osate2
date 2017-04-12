@@ -13,13 +13,20 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Namespace;
 import org.osate.ge.internal.services.NamingService;
 
 public class DefaultNamingService implements NamingService {
 	@Override
-	public String buildUniqueIdentifier(final Namespace namespace, final String baseIdentifier) {
+	public String buildUniqueIdentifier(final Namespace namespace, String baseIdentifier) {
+		// If namespace is a classifier, prepend the classifier name into the identifier to help avoid conflicting with classifiers which extend the classifier.
+		if(namespace instanceof Classifier) {
+			baseIdentifier = namespace.getName().replace('.', '_') + "_" + baseIdentifier;
+		}
+		
 		final Set<String> existingIdentifiers = buildNameSet(namespace.getMembers());
 		
 		// Resolve naming conflicts

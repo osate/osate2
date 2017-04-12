@@ -38,8 +38,8 @@ public class ErrorBehaviorTransitionHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().
 			sourceTerminator(ArrowBuilder.create().open().build()).
 			destinationTerminator(ArrowBuilder.create().filled().build()).build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getSource()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObject(ebt->((ErrorBehaviorTransition)ebt).getTarget()));
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(ebt->((ErrorBehaviorTransition)ebt).getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().children().filterByBusinessObjectRelativeReference(ebt->((ErrorBehaviorTransition)ebt).getTarget()));
 	
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {

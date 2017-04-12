@@ -1,6 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Named;
@@ -88,11 +89,8 @@ public class ConnectionHandler {
 	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
 	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
 	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
-	private static final StandaloneQuery selfQuery = StandaloneQuery.create((root) -> root);
-	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
-	private static final StandaloneQuery grandparentQuery = StandaloneQuery.create((root) -> root.ancestor(2));
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjects((Connection c) -> getBusinessObjectsPathToConnectionEnd(c.getAllSourceContext(), c.getAllSource())).first());
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjects((Connection c) -> getBusinessObjectsPathToConnectionEnd(c.getAllDestinationContext(), c.getAllDestination())).first());
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource())).first());
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(), c.getRootConnection().getDestination())).first());
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Connection c) {
@@ -128,12 +126,12 @@ public class ConnectionHandler {
 	 * @param connectionEnd
 	 * @return
 	 */
-	private static Object[] getBusinessObjectsPathToConnectionEnd(final Context ctx, final Object connectionEnd) {
-		if(connectionEnd == null) {
+	private static Object[] getBusinessObjectsPathToConnectedElement(final Context ctx, final ConnectedElement connectedElement) {
+		if(connectedElement == null) {
 			return null;
 		}
 		
-		final List<Object> path = new ArrayList<>(3);
+		final List<Object> path = new ArrayList<>(6);
 		if(ctx instanceof SubprogramCall) {
 			path.add(ctx.eContainer());
 		}
@@ -142,7 +140,9 @@ public class ConnectionHandler {
 			path.add(ctx);
 		}
 		
-		path.add(connectionEnd);
+		for(ConnectedElement tmp = connectedElement; tmp != null; tmp = tmp.getNext()) {
+			path.add(tmp.getConnectionEnd());
+		}
 
 		return path.toArray();
 	}
@@ -282,7 +282,7 @@ public class ConnectionHandler {
 	public boolean canStartConnection(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService) {
-		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, queryService);
+		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, connectionType, false);
 		if(srcConnectedElement == null) {
 			return false;
 		}
@@ -304,8 +304,8 @@ public class ConnectionHandler {
 			final QueryService queryService) {		
 
 		// Get the connection elements for the source and destination
-		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, queryService);
-		final ConnectedElement dstConnectedElement = getConnectedElementForBusinessObjectContext(dstBoc, queryService);
+		final ConnectedElement srcConnectedElement = getConnectedElementForBusinessObjectContext(srcBoc, connectionType, false);
+		final ConnectedElement dstConnectedElement = getConnectedElementForBusinessObjectContext(dstBoc, connectionType, !(srcConnectedElement.getContext() instanceof Subcomponent));
 
 		// Ensure they are valid and are not the same
 		if(dstConnectedElement == null || EcoreUtil.equals(srcConnectedElement, dstConnectedElement)) {
@@ -317,7 +317,15 @@ public class ConnectionHandler {
 			return false;
 		}
 		
+		if(getComponentImplementation(srcBoc, queryService) != getComponentImplementation(dstBoc, queryService)) {
+			return false;
+		}
+		
 		return true;
+	}
+	
+	private ComponentImplementation getComponentImplementation(final BusinessObjectContext boc, final QueryService queryService) {
+		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 	}
 
 	@Create
@@ -327,10 +335,7 @@ public class ConnectionHandler {
 			final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass connectionType,
 			final QueryService queryService,
 			final NamingService namingService) {
-		
-		// Determine the name for the new connection
-		final String newConnectionName = namingService.buildUniqueIdentifier(ci, "new_connection");
-		
+				
 		// Create the appropriate type of connection object
 		final org.osate.aadl2.Connection newAadlConnection = AadlConnectionUtil.createConnection(ci, connectionType);
 		if(newAadlConnection == null) {
@@ -339,15 +344,16 @@ public class ConnectionHandler {
 		
 		// Reset the no connections flag
 		ci.setNoConnections(false);
-
-		// Set the name
-		newAadlConnection.setName(newConnectionName);
 		
 		// Set the source and destination
-		final ConnectedElement src = getConnectedElementForBusinessObjectContext(srcBoc, queryService);
+		final ConnectedElement src = getConnectedElementForBusinessObjectContext(srcBoc, connectionType, false);
 		newAadlConnection.setSource(src);
-		final ConnectedElement dst = getConnectedElementForBusinessObjectContext(dstBoc, queryService);
+		final ConnectedElement dst = getConnectedElementForBusinessObjectContext(dstBoc, connectionType, !(src.getContext() instanceof Subcomponent));
 		newAadlConnection.setDestination(dst);
+
+		// Determine the name for the new connection
+		final String newConnectionName = namingService.buildUniqueIdentifier(ci, "new_connection");
+		newAadlConnection.setName(newConnectionName);
 		
 		// Set type of access connection
 		if(newAadlConnection instanceof AccessConnection) {
@@ -366,27 +372,74 @@ public class ConnectionHandler {
 		return newAadlConnection;
 	}
 	
-	private ConnectedElement getConnectedElementForBusinessObjectContext(final BusinessObjectContext boc, final QueryService queryService) {
-		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
-		final Object bo = queryService.getFirstBusinessObject(selfQuery, boc);
+
+	private ConnectedElement getConnectedElementForBusinessObjectContext(final BusinessObjectContext boc, 
+			final EClass connectionType,
+			final boolean disableNesting) {
+		final Object bo = boc.getBusinessObject();
 		if(!(bo instanceof ConnectionEnd)) {
 			return null;
-		} 
-		
-		ce.setConnectionEnd((ConnectionEnd)bo);
+		}
 
-		final Object parentBo = queryService.getFirstBusinessObject(parentQuery, boc);
-		if(parentBo instanceof Context) {
-			ce.setContext((Context)parentBo);
-			// Grandparent must be the root of the feature specification path. Arbitrary length feature specifications aren't supported at this time.
-			final Object grandparentBo = queryService.getFirstBusinessObject(grandparentQuery, boc);
-			if(!(grandparentBo instanceof Subcomponent || grandparentBo instanceof ComponentImplementation)) {
+		// Build a list of business objects which make up the path to the connection end.
+		int numberOfSubcomponents = 0;
+		final LinkedList<Object> path = new LinkedList<>();
+		for(BusinessObjectContext tmp = boc; tmp != null && tmp.getBusinessObject() != null && !(tmp.getBusinessObject() instanceof ComponentImplementation); tmp = tmp.getParent()) {
+			path.add(0, tmp.getBusinessObject());
+			
+			if(tmp.getBusinessObject() instanceof Subcomponent) {
+				numberOfSubcomponents++;
+			}
+		}
+		
+		if(path.size() == 0 || numberOfSubcomponents > 1) {
+			return null;
+		}		
+		
+		final Object[] pathObjects = path.toArray();
+		
+		final Object firstBo = pathObjects[0];
+		final boolean allowNested = !disableNesting &&
+				connectionType == Aadl2Factory.eINSTANCE.getAadl2Package().getFeatureConnection() && 
+				firstBo instanceof Subcomponent; // Only allow nested connections for feature connections between subcomponents and nesting is not disabled
+		
+		// If nesting is not allowed, then the number of objects must be at most 2.		
+		if(!allowNested && pathObjects.length > 2) {
+			return null;
+		}		
+
+		final ConnectedElement ce = Aadl2Factory.eINSTANCE.createConnectedElement();
+		
+		// Add the context
+		int i = 0;
+		if(pathObjects.length > 1) {
+			if(!(firstBo instanceof Context)) {
 				return null;
 			}
-		} else if(!(parentBo instanceof Subcomponent || parentBo instanceof ComponentImplementation)) {
+			
+			ce.setContext((Context)firstBo);
+			i++;
+		}
+		
+		// Add the first connection end
+		if(!(pathObjects[i] instanceof ConnectionEnd)) {
 			return null;
 		}
 		
+		ce.setConnectionEnd((ConnectionEnd)pathObjects[i]);
+		i++;
+		
+		// Add other segments
+		ConnectedElement tmp = ce;
+		for(;i < pathObjects.length; i++) {
+			tmp = tmp.createNext();
+			if(!(pathObjects[i] instanceof ConnectionEnd)) {
+				return null;
+			}
+			
+			tmp.setConnectionEnd((ConnectionEnd)pathObjects[i]);
+		}
+
 		return ce;
 	}
 	
@@ -417,7 +470,7 @@ public class ConnectionHandler {
 	// Renaming
 	@CanRename
     public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Connection c, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
-		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
+		final ComponentImplementation ci = getComponentImplementation(boc, queryService);
 		return c.getContainingClassifier() == ci && c.getRefined() == null;
     }
 	

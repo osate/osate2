@@ -34,8 +34,8 @@ public class ConnectionReferenceHandler {
 	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
 	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
 	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
-	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((ConnectionReference cr) -> cr.getSource()));
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObject((ConnectionReference cr) -> cr.getDestination()));
+	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObjectCanonicalReference((ConnectionReference cr) -> cr.getSource()));
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendants().filterByBusinessObjectCanonicalReference((ConnectionReference cr) -> cr.getDestination()));
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
@@ -107,7 +107,7 @@ public class ConnectionReferenceHandler {
 	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery, 
 			final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		
-		return srcRootQuery.ancestors().filterByBusinessObject((ConnectionReference cr) -> cr.getContainingComponentInstance());
+		return srcRootQuery.ancestors().filterByBusinessObjectRelativeReference((ConnectionReference cr) -> cr.getContainingComponentInstance());
 	}
 	
 	@GetSource
