@@ -177,6 +177,8 @@ public class EM2TypeSetUtil {
 	 */
 	public static boolean contains(ErrorType constraint, TypeSet ts) {
 		ts = EMV2Util.resolveAlias(ts);
+		if (ts == null)
+			return true;
 		for (TypeToken tselement : ts.getTypeTokens()) {
 			if (!contains(constraint, tselement)) {
 				return false;
