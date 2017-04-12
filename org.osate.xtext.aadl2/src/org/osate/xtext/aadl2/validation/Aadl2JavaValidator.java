@@ -1182,95 +1182,51 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * corresponding flow specification."
 	 */
 	private void checkOutFeatureIdentifier(FlowImplementation flow) {
-		if (Aadl2Util.isNull(flow.getSpecification()) || Aadl2Util.isNull(flow.getSpecification().getAllOutEnd())) {
-			return;
-		}
-
-		ICompositeNode n = NodeModelUtils.getNode(flow);
-
-		Optional<INode> flowOutNodeOptional = StreamSupport.stream(n.getChildren().spliterator(), true)
-				.filter(childNode -> {
-					EObject grammarElement = childNode.getGrammarElement();
-					if (grammarElement instanceof RuleCall) {
-						if (((RuleCall) grammarElement).getRule().getName().equals("FLOWOUT")) {
-							return true;
-						}
-					}
-					return false;
-				}).findAny();
-		if (!flowOutNodeOptional.isPresent() || !(flowOutNodeOptional.get() instanceof ICompositeNode)) {
-			return;
-		}
-
-		ICompositeNode flowOutNode = (ICompositeNode) flowOutNodeOptional.get();
-		List<INode> idNodes = StreamSupport.stream(flowOutNode.getChildren().spliterator(), false).filter(childNode -> {
-			EObject grammarElement = childNode.getGrammarElement();
-			if (grammarElement instanceof RuleCall) {
-				if (((RuleCall) grammarElement).getRule().getName().equals("ID")) {
-					return true;
-				}
-			}
-			return false;
-		}).collect(Collectors.toList());
-
-		String outContextName;
-		int contextOffset;
-		String outFeatureName;
-		int featureOffset;
-
-		if (idNodes.size() == 1) {
-			outContextName = null;
-			contextOffset = -99;
-			outFeatureName = idNodes.get(0).getText();
-			featureOffset = idNodes.get(0).getOffset();
-		} else if (idNodes.size() == 2) {
-			outContextName = idNodes.get(0).getText();
-			contextOffset = idNodes.get(0).getOffset();
-			outFeatureName = idNodes.get(1).getText();
-			featureOffset = idNodes.get(1).getOffset();
-		} else {
-			return;
-		}
-
 		FlowSpecification spec = flow.getSpecification();
 		if (Aadl2Util.isNull(spec)) {
 			return;
 		}
-		FlowEnd outEnd = spec.getAllOutEnd();
-		if (Aadl2Util.isNull(outEnd)) {
+		FlowEnd specOutEnd = spec.getAllOutEnd();
+		if (Aadl2Util.isNull(specOutEnd)) {
 			return;
 		}
-		Context specContext = outEnd.getContext();
-		Feature specFeature = outEnd.getFeature();
-		if (Aadl2Util.isNull(specFeature) || (specContext != null && Aadl2Util.isUnresolved(specContext))) {
-			// the feature is unresolved or null; or the context is unresolved.
-			// the context could be null but should not be unresolved for the
-			// checking to occur
+		FlowEnd implOutEnd = flow.getOutEnd();
+		if (Aadl2Util.isNull(implOutEnd)) {
 			return;
 		}
-		// if the feature names don't match
-		boolean match = false;
-		if (outFeatureName.equalsIgnoreCase(specFeature.getName())) {
-			if (outContextName != null && !Aadl2Util.isNull(specContext)) {
-				// feature and context match
-				match = outContextName.equalsIgnoreCase(specContext.getName());
-			} else if (outContextName == null && Aadl2Util.isNull(specContext)) {
-				// features match and no context specified
-				match = true;
+		Context specContext = specOutEnd.getContext();
+		Feature specFeature = specOutEnd.getFeature();
+		Context implContext = implOutEnd.getContext();
+		Feature implFeature = implOutEnd.getFeature();
+		if ((specContext != null && specContext.eIsProxy()) || (implContext != null && implContext.eIsProxy())) {
+			return;
+		}
+		if (Aadl2Util.isNull(specFeature) || Aadl2Util.isNull(implFeature)) {
+			return;
+		}
+		
+		boolean match;
+		if (specContext == null) {
+			if (implContext == null) {
+				match = specFeature == implFeature;
+			} else {
+				match = specFeature == implContext;
 			}
-		} else if (outContextName != null && Aadl2Util.isNull(specContext)) {
-			// spec has no context impl does: match spec FG with feature FG as context
-			match = outContextName.equalsIgnoreCase(specFeature.getName());
-		} else if (outContextName == null && !Aadl2Util.isNull(specContext)) {
-			// spec has FG as context, impl refers to FG only
-			// XXX: Currently not supported
+		} else {
+			if (implContext == null) {
+				match = false;
+			} else {
+				match = specContext == implContext && specFeature == implFeature;
+			}
 		}
+		
 		if (!match) {
-			String outImplName = (outContextName != null ? outContextName + '.' : "") + outFeatureName;
-			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
-			error('\'' + outImplName + "' does not match the out flow feature identifier '" + specName
-					+ "' in the flow specification.", flow, null, OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, outImplName,
-					specName, "" + featureOffset, "" + contextOffset);
+			String specName = (specContext == null ? "" : specContext.getName() + ".") + specFeature.getName();
+			String implName = (implContext == null ? "" : implContext.getName() + ".") + implFeature.getName();
+			ICompositeNode outEndNode = NodeModelUtils.getNode(implOutEnd);
+			error('\'' + implName + "' does not match the out flow feature identifier '" + specName
+					+ "' in the flow specification.", flow, null, OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, implName,
+					specName, "" + outEndNode.getLastChild().getOffset(),"" + outEndNode.getOffset());
 		}
 	}
 
@@ -1281,68 +1237,50 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * corresponding flow specification."
 	 */
 	private void checkInFeatureIdentifier(FlowImplementation flow) {
-		ICompositeNode n = NodeModelUtils.getNode(flow);
-		INode lln = n.getFirstChild();
-		while (lln instanceof HiddenLeafNode) {
-			lln = lln.getNextSibling();
-		}
-		lln = getNextNode(getNextNode(getNextNode(getNextNode(lln))));
-		String inFeatureName = lln.getText().replaceAll(" ", "").replaceAll("\t", "").replaceAll("\r", "")
-				.replaceAll("\n", "");
-		int featureOffset = lln.getOffset();
-		String inContextName = null;
-		int idx = inFeatureName.indexOf(".");
-		if (idx >= 0) {
-			inContextName = inFeatureName.substring(0, idx);
-			inFeatureName = inFeatureName.substring(idx + 1, inFeatureName.length());
-		}
 		FlowSpecification spec = flow.getSpecification();
 		if (Aadl2Util.isNull(spec)) {
 			return;
 		}
-		FlowEnd inEnd = spec.getAllInEnd();
-		if (Aadl2Util.isNull(inEnd)) {
+		FlowEnd specInEnd = spec.getAllInEnd();
+		if (Aadl2Util.isNull(specInEnd)) {
 			return;
 		}
-		Context specContext = inEnd.getContext();
-		Feature specFeature = inEnd.getFeature();
-		if (Aadl2Util.isNull(specFeature) || (specContext != null && Aadl2Util.isUnresolved(specContext))) {
-			// the feature is unresolved or null; or the context is unresolved.
-			// the context could be null but should not be unresolved for the
-			// checking to occur
+		FlowEnd implInEnd = flow.getInEnd();
+		if (Aadl2Util.isNull(implInEnd)) {
 			return;
 		}
-		// if the feature names don't match
-//		if ((!inFeatureName.equalsIgnoreCase(specFeature.getName()) ||
-//		// if the spec has a context, but the impl doesn't
-//				(inContextName == null && !Aadl2Util.isNull(specContext)) ||
-//				// if the impl has a context, but the spec doesn't
-//				(inContextName != null && Aadl2Util.isNull(specContext)) ||
-//				// if the context names don't match
-//				(inContextName != null && specContext != null
-//						&& !inContextName.equalsIgnoreCase(specContext.getName())))) {
-		boolean match = false;
-		if (inFeatureName.equalsIgnoreCase(specFeature.getName())) {
-			if (inContextName != null && !Aadl2Util.isNull(specContext)) {
-				// feature and context match
-				match = inContextName.equalsIgnoreCase(specContext.getName());
-			} else if (inContextName == null && Aadl2Util.isNull(specContext)) {
-				// features match and no context specified
-				match = true;
+		Context specContext = specInEnd.getContext();
+		Feature specFeature = specInEnd.getFeature();
+		Context implContext = implInEnd.getContext();
+		Feature implFeature = implInEnd.getFeature();
+		if ((specContext != null && specContext.eIsProxy()) || (implContext != null && implContext.eIsProxy())) {
+			return;
+		}
+		if (Aadl2Util.isNull(specFeature) || Aadl2Util.isNull(implFeature)) {
+			return;
+		}
+		
+		boolean match;
+		if (specContext == null) {
+			if (implContext == null) {
+				match = specFeature == implFeature;
+			} else {
+				match = specFeature == implContext;
 			}
-		} else if (inContextName != null && Aadl2Util.isNull(specContext)) {
-			// spec has no context impl does: match spec FG with feature FG as context
-			match = inContextName.equalsIgnoreCase(specFeature.getName());
-		} else if (inContextName == null && !Aadl2Util.isNull(specContext)) {
-			// spec has FG as context, impl refers to FG only
-			// XXX: Currently not supported
+		} else {
+			if (implContext == null) {
+				match = false;
+			} else {
+				match = specContext == implContext && specFeature == implFeature;
+			}
 		}
+		
 		if (!match) {
-			String inImplName = (inContextName != null ? inContextName + '.' : "") + inFeatureName;
-			String specName = (specContext != null ? specContext.getName() + '.' : "") + specFeature.getName();
-			error('\'' + inImplName + "' does not match the in flow feature identifier '" + specName
-					+ "' in the flow specification.", flow, null, IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, inImplName,
-					specName, "" + featureOffset);// , "" + contextOffset);
+			String specName = (specContext == null ? "" : specContext.getName() + ".") + specFeature.getName();
+			String implName = (implContext == null ? "" : implContext.getName() + ".") + implFeature.getName();
+			error('\'' + implName + "' does not match the in flow feature identifier '" + specName
+					+ "' in the flow specification.", flow, null, IN_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, implName,
+					specName, "" + NodeModelUtils.getNode(implInEnd).getOffset());
 		}
 	}
 
