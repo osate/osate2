@@ -353,8 +353,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	 */
 	protected void processSubcomponentFlow(final ComponentInstance ci, EndToEndFlowInstance etei,
 			final FlowSpecification fs, FlowIterator iter) {
-		final Subcomponent subComp = ci.getSubcomponent();
-		final ComponentImplementation subImpl = subComp.getComponentImplementation();
+		final ComponentImplementation subImpl = InstanceUtil.getComponentImplementation(ci, 0, classifierCache);
 		final EList<FlowImplementation> flowImpls = new BasicEList<FlowImplementation>(10);
 
 		// Collect flow impls for this flow spec
