@@ -1392,7 +1392,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				connectedElement = connection.getSource();
 				boolean didReverse = false;
 				if (i == 0) {
-					FlowEnd inEnd = flow.getSpecification().getAllInEnd();
+					FlowEnd inEnd = flow.getInEnd();
 					if (Aadl2Util.isNull(inEnd)) {
 						return;
 					}
@@ -1466,7 +1466,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 					connectedElement = connection.getDestination();
 				}
 				if (i == flow.getOwnedFlowSegments().size() - 1) {
-					FlowEnd outEnd = flow.getSpecification().getAllOutEnd();
+					FlowEnd outEnd = flow.getOutEnd();
 					if (Aadl2Util.isNull(outEnd)) {
 						return;
 					}
