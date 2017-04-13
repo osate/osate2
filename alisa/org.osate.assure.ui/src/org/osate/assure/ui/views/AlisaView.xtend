@@ -93,6 +93,8 @@ import static extension org.osate.assure.util.AssureUtilExtension.isZeroTotalCou
 import static extension org.osate.assure.util.AssureUtilExtension.recomputeAllCounts
 import static extension org.osate.assure.util.AssureUtilExtension.resetToTBD
 import static extension org.osate.assure.util.AssureUtilExtension.toTextLabel
+import org.eclipse.xtext.resource.XtextResource
+import org.osate.assure.ui.AssureUiModule
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -475,6 +477,8 @@ class AlisaView extends ViewPart {
 							ResultIssue: eObject.constructMessage
 							ElseResult: "else"
 							ThenResult: "then"
+							PredicateResult: eObject.constructMessage
+							
 						}
 					}
 				}

@@ -85,6 +85,8 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.eclipse.xtext.resource.XtextResource
+import org.osate.reqspec.reqSpec.InformalPredicate
 
 class AssureUtilExtension {
 
@@ -1415,6 +1417,16 @@ class AssureUtilExtension {
 			return ri.message + if (ri.exceptionType !== null) ( " [" + ri.exceptionType + "]" ) else ""
 		if (ri.exceptionType !== null) return ri.exceptionType
 		""
+	}
+	
+	def static String constructMessage(PredicateResult pr){
+		val pred = AssureUtilExtension.getPredicate(pr)
+		if (pred instanceof ValuePredicate){
+			return (pred.eResource as XtextResource).getSerializer().serialize(pred.xpression)
+		} else if (pred instanceof InformalPredicate){
+			return pred.description
+		}
+		return ""
 	}
 
 	def static String assureResultCounts(AssureResult ele) {
