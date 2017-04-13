@@ -49,6 +49,7 @@ import org.osate.alisa.common.common.Operation
 import org.osate.alisa.common.common.ValDeclaration
 
 import static extension org.osate.alisa.common.typing.InterpreterUtil.*
+import org.eclipse.emf.ecore.util.EcoreUtil
 
 system org.osate.alisa.common.typing.CommonInterpreter
 
@@ -93,6 +94,8 @@ auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
 		case 'Requirement': 
 			if (element instanceof InstanceObject)
 				element
+			else if (component !== null)
+				component
 			else
 				component.eContents.findFirst[
 					if (it instanceof InstanceObject) it.name.equalsIgnoreCase(element.name) else false
@@ -224,8 +227,8 @@ rule InterpretUnitExpression
 	G |- AUnitExpression unit ~> NumberValue number
 from {
 	G |- unit.expression ~> var PropertyValue propval
-	number = (propval as NumberValue)
-	val unit_add = !unit.drop && !unit.convert && unit.unit != null
+	number = EcoreUtil.copy((propval as NumberValue))
+	val unit_add = !unit.drop && !unit.convert && unit.unit !== null
 	if (unit.drop || unit.convert) {
 		switch (number) {
 			IntegerLiteral:
