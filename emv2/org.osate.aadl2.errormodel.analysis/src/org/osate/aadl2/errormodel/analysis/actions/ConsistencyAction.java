@@ -79,7 +79,6 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
-import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
@@ -714,91 +713,91 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 			/**
 			 * Rule C13: Composite error behavior: check compliance between component state machine and composite error state machine
 			 */
-			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)
-					&& EMV2Util.hasComponentErrorBehaviorStates(componentInstance)) {
-
-				/**
-				 * For each state, we will get all the conditions for both the error behavior
-				 * AND the composite error model.
-				 */
-				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
-					EList<ConditionElement> elementsBehavior = new BasicEList<ConditionElement>();
-					EList<ConditionElement> elementsComposite = new BasicEList<ConditionElement>();
-					double probabilityBehavior = 0;
-					double probabilityComposite = 0;
-					double tmp;
-					/**
-					 * We retrieve all the elements within the error behavior specifications
-					 */
-					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
-						if (ebt.getTarget() == ebs) {
-							elementsBehavior.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(ebt));
-						}
-					}
-
-					/**
-					 * We retrieve all the elements within the composite error behavior
-					 */
-					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
-						if (cs.getState() == ebs) {
-							elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(cs));
-						}
-					}
-
-					/**
-					 * FIXME JD
-					 *
-					 * For now, we just sum the properties but we should introduce something more intelligent to make
-					 * some consistency check and handle the different operators such as and, or, etc.
-					 */
-					for (ConditionElement ce : elementsComposite) {
-						if (ce instanceof SConditionElement) {
-							SConditionElement sce = (SConditionElement) ce;
-							for (SubcomponentElement se : EMV2Util.getSubcomponents(sce)) {
-								se.getSubcomponent();
-								// OsateDebug.osateDebug("se=" + se);
-								double res = EMV2Properties.getProbability(componentInstance, EMV2Util.getState(sce),
-										null);
-								if (res == 0) {
-									warning(componentInstance,
-											"C13: component " + componentInstance.getName()
-													+ " does not define occurrence for " + EMV2Util.getPrintName(se)
-													+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(sce)));
-								} else {
-									probabilityComposite = probabilityComposite + res;
-								}
-							}
-						}
-
-					}
-
-					for (ConditionElement ce : elementsBehavior) {
-						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
-						double res = EMV2Properties.getProbability(componentInstance, eop, null);
-						// OsateDebug.osateDebug(" PA " + PA);
-						if (res == 0) {
-							warning(componentInstance,
-									"C13: component " + componentInstance.getName()
-											+ " does not define occurrence for incoming propagation "
-											+ EMV2Util.getPrintName(eop));
-						} else {
-							probabilityBehavior = probabilityBehavior + res;
-						}
-					}
-
-					if (probabilityBehavior != probabilityComposite) {
-						error(componentInstance,
-								"C13: in component " + componentInstance.getName()
-										+ " inconsistent probability values for state " + ebs.getName()
-										+ " (for composite, probability=" + probabilityComposite
-										+ " ; for behavior, probability=" + probabilityBehavior + ")");
-					} else {
-						info(componentInstance, "C13: component " + componentInstance.getName()
-								+ " has consistent probability values for state " + ebs.getName());
-
-					}
-				}
-			}
+//			if (EMV2Util.hasCompositeErrorBehavior(componentInstance)
+//					&& EMV2Util.hasComponentErrorBehaviorStates(componentInstance)) {
+//
+//				/**
+//				 * For each state, we will get all the conditions for both the error behavior
+//				 * AND the composite error model.
+//				 */
+//				for (ErrorBehaviorState ebs : EMV2Util.getAllErrorBehaviorStates(componentInstance)) {
+//					EList<ConditionElement> elementsBehavior = new BasicEList<ConditionElement>();
+//					EList<ConditionElement> elementsComposite = new BasicEList<ConditionElement>();
+//					double probabilityBehavior = 0;
+//					double probabilityComposite = 0;
+//					double tmp;
+//					/**
+//					 * We retrieve all the elements within the error behavior specifications
+//					 */
+//					for (ErrorBehaviorTransition ebt : EMV2Util.getAllErrorBehaviorTransitions(componentInstance)) {
+//						if (ebt.getTarget() == ebs) {
+//							elementsBehavior.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(ebt));
+//						}
+//					}
+//
+//					/**
+//					 * We retrieve all the elements within the composite error behavior
+//					 */
+//					for (CompositeState cs : EMV2Util.getAllCompositeStates(componentInstance)) {
+//						if (cs.getState() == ebs) {
+//							elementsComposite.addAll(EMV2Util.getAllConditionElementsFromConditionExpression(cs));
+//						}
+//					}
+//
+//					/**
+//					 * FIXME JD
+//					 *
+//					 * For now, we just sum the properties but we should introduce something more intelligent to make
+//					 * some consistency check and handle the different operators such as and, or, etc.
+//					 */
+//					for (ConditionElement ce : elementsComposite) {
+//						if (ce instanceof SConditionElement) {
+//							SConditionElement sce = (SConditionElement) ce;
+//							for (SubcomponentElement se : EMV2Util.getSubcomponents(sce)) {
+//								se.getSubcomponent();
+//								// OsateDebug.osateDebug("se=" + se);
+//								double res = EMV2Properties.getProbability(componentInstance, EMV2Util.getState(sce),
+//										null);
+//								if (res == 0) {
+//									warning(componentInstance,
+//											"C13: component " + componentInstance.getName()
+//													+ " does not define occurrence for " + EMV2Util.getPrintName(se)
+//													+ " and state " + EMV2Util.getPrintName(EMV2Util.getState(sce)));
+//								} else {
+//									probabilityComposite = probabilityComposite + res;
+//								}
+//							}
+//						}
+//
+//					}
+//
+//					for (ConditionElement ce : elementsBehavior) {
+//						EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(ce);
+//						double res = EMV2Properties.getProbability(componentInstance, eop, null);
+//						// OsateDebug.osateDebug(" PA " + PA);
+//						if (res == 0) {
+//							warning(componentInstance,
+//									"C13: component " + componentInstance.getName()
+//											+ " does not define occurrence for incoming propagation "
+//											+ EMV2Util.getPrintName(eop));
+//						} else {
+//							probabilityBehavior = probabilityBehavior + res;
+//						}
+//					}
+//
+//					if (probabilityBehavior != probabilityComposite) {
+//						error(componentInstance,
+//								"C13: in component " + componentInstance.getName()
+//										+ " inconsistent probability values for state " + ebs.getName()
+//										+ " (for composite, probability=" + probabilityComposite
+//										+ " ; for behavior, probability=" + probabilityBehavior + ")");
+//					} else {
+//						info(componentInstance, "C13: component " + componentInstance.getName()
+//								+ " has consistent probability values for state " + ebs.getName());
+//
+//					}
+//				}
+//			}
 			/**
 			 * End of implementation of C13
 			 */
