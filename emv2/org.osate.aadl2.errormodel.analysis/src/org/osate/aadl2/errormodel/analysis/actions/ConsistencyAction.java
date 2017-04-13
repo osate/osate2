@@ -691,14 +691,18 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 
 					for (ComponentInstance ci : componentInstance.getComponentInstances()) {
 						boolean found = false;
-						for (Subcomponent s : subcomponents) {
-							if (s == ci.getSubcomponent()) {
-								found = true;
+						if (EMV2Util.hasComponentErrorBehaviorStates(ci)) {
+							for (Subcomponent s : subcomponents) {
+								if (s == ci.getSubcomponent()) {
+									found = true;
+								}
 							}
-						}
-						if (!found) {
-							error(componentInstance, "C12: component " + ci.getName() + " is not referenced for state "
-									+ EMV2Util.getPrintName(ebs) + " in component " + componentInstance.getName());
+							if (!found) {
+								error(componentInstance,
+										"C12: component " + ci.getName() + " is not referenced for state "
+												+ EMV2Util.getPrintName(ebs) + " in component "
+												+ componentInstance.getName());
+							}
 						}
 					}
 				}
