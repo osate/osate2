@@ -5367,11 +5367,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		Context srcContext = connection.getAllSourceContext();
 		Context dstContext = connection.getAllDestinationContext();
 
-		if (isInvertNeeded(connection.getRootConnection().getSource(), true)) {
+		if (isInvertNeeded(connection.getRootConnection().getSource(), true, false)) {
 			srcDirection = srcDirection.getInverseDirection();
 		}
 
-		if (isInvertNeeded(connection.getRootConnection().getDestination(), true)) {
+		if (isInvertNeeded(connection.getRootConnection().getDestination(), true, false)) {
 			dstDirection = dstDirection.getInverseDirection();
 		}
 
@@ -7447,15 +7447,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 			Context srccxt = connection.getAllSourceContext();
 			Context dstcxt = connection.getAllDestinationContext();
 
-			boolean inverseSourceContexts = isInvertNeeded(connection.getRootConnection().getSource(), false);
+			boolean inverseSourceContexts = isInvertNeeded(connection.getRootConnection().getSource(), false, false);
 			DirectionType sourceDirection = ((FeatureGroup) source).getDirection();
-			if (inverseSourceContexts) {
+			if (isInvertNeeded(connection.getRootConnection().getSource(), false, true)) {
 				sourceDirection = sourceDirection.getInverseDirection();
 			}
 
-			boolean inverseDestinationContexts = isInvertNeeded(connection.getRootConnection().getDestination(), false);
+			boolean inverseDestinationContexts = isInvertNeeded(connection.getRootConnection().getDestination(), false, false);
 			DirectionType destinationDirection = ((FeatureGroup) destination).getDirection();
-			if (inverseDestinationContexts) {
+			if (isInvertNeeded(connection.getRootConnection().getDestination(), false, true)) {
 				destinationDirection = destinationDirection.getInverseDirection();
 			}
 
@@ -7592,10 +7592,18 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * chain are considered inverses, then ignoreMembersOfLastElement should be false. This is important for the
 	 * classifier matching rule of Subset as well as checking if members of the last feature group have directions
 	 * consistent with the direction of the connection.
+	 * 
+	 * skipLast is useful when comparing declared directions of feature groups in a connection.
+	 * 
+	 * @see <a href="https://github.com/osate/osate2-core/issues/810">Issue 810</a>
 	 */
-	private boolean isInvertNeeded(ConnectedElement connectedElement, boolean ignoreMembersOfLastElement) {
+	private boolean isInvertNeeded(ConnectedElement connectedElement, boolean ignoreMembersOfLastElement, boolean skipLast) {
 		boolean chainInverts = false;
-		for (Iterator<NamedElement> iter = getConnectionChain(connectedElement).iterator(); iter.hasNext();) {
+		List<NamedElement> chain = getConnectionChain(connectedElement);
+		if (skipLast) {
+			chain = chain.subList(0, chain.size() - 1);
+		}
+		for (Iterator<NamedElement> iter = chain.iterator(); iter.hasNext();) {
 			NamedElement chainElement = iter.next();
 			if (chainElement instanceof FeatureGroup) {
 				FeatureGroup chainFg = (FeatureGroup) chainElement;
@@ -7615,9 +7623,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		return chainInverts;
 	}
-
+	
 	private DirectionType invertIfNeeded(DirectionType originalDirection, ConnectedElement connectedElement) {
-		if (isInvertNeeded(connectedElement, false)) {
+		if (isInvertNeeded(connectedElement, false, false)) {
 			return originalDirection.getInverseDirection();
 		} else {
 			return originalDirection;
@@ -7625,7 +7633,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	private AccessType invertIfNeeded(AccessType originalDirection, ConnectedElement connectedElement) {
-		if (isInvertNeeded(connectedElement, false)) {
+		if (isInvertNeeded(connectedElement, false, false)) {
 			return originalDirection.getInverseType();
 		} else {
 			return originalDirection;
@@ -7878,8 +7886,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				// ModelingProperties.CLASSIFIER_MATCH + "' instead.");
 				// }
 
-				boolean sourceIsInverse = isInvertNeeded(connection.getRootConnection().getSource(), true);
-				boolean destinationIsInverse = isInvertNeeded(connection.getRootConnection().getDestination(), true);
+				boolean sourceIsInverse = isInvertNeeded(connection.getRootConnection().getSource(), true, false);
+				boolean destinationIsInverse = isInvertNeeded(connection.getRootConnection().getDestination(), true, false);
 
 				if (sourceType == destinationType) {
 					if (sourceIsInverse != destinationIsInverse) {
@@ -7940,8 +7948,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	public boolean testIfFeatureGroupsAreInverses(ConnectedElement source, ConnectedElement destination) {
-		boolean sourceIsInverse = isInvertNeeded(source, true);
-		boolean destinationIsInverse = isInvertNeeded(destination, true);
+		boolean sourceIsInverse = isInvertNeeded(source, true, false);
+		boolean destinationIsInverse = isInvertNeeded(destination, true, false);
 		if (sourceIsInverse == destinationIsInverse) {
 			return false;
 		}
