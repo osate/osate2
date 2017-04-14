@@ -1598,10 +1598,22 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	}
 
 	private void checkEmptyFlowImplementation(FlowImplementation flow) {
-		if (flow.getContainingComponentImpl().getAllSubcomponents().isEmpty()
-				|| flow.getContainingComponentImpl().getAllConnections().isEmpty()) {
-			return;
+		FlowEnd specInEnd = flow.getSpecification().getAllInEnd();
+		FlowEnd implInEnd = flow.getInEnd();
+		if (specInEnd != null && implInEnd != null) {
+			if (specInEnd.getContext() != implInEnd.getContext() || specInEnd.getFeature() != implInEnd.getFeature()) {
+				return;
+			}
 		}
+		
+		FlowEnd specOutEnd = flow.getSpecification().getOutEnd();
+		FlowEnd implOutEnd = flow.getOutEnd();
+		if (specOutEnd != null && implOutEnd != null) {
+			if (specOutEnd.getContext() != implOutEnd.getContext() || specOutEnd.getFeature() != implOutEnd.getFeature()) {
+				return;
+			}
+		}
+		
 		if (flow.getOwnedFlowSegments().isEmpty()) {
 			warning("Flow implementation is empty and does not add value to the model", flow,
 					Aadl2Package.eINSTANCE.getFlowImplementation_Specification());
