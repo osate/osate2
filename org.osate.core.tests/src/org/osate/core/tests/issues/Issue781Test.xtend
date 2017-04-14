@@ -28,10 +28,14 @@ class Issue781Test extends OsateTest {
 				abstract a1
 					features
 						af1: feature;
+						fg1: feature group fgt1;
 					flows
 						flow1: flow source af1;
 						flow2: flow sink af1;
 						flow3: flow path af1 -> af1;
+						flow4: flow source fg1;
+						flow5: flow sink fg1;
+						flow6: flow path fg1 -> fg1;
 				end a1;
 				
 				abstract implementation a1.i
@@ -40,11 +44,19 @@ class Issue781Test extends OsateTest {
 				    s2: abstract a1;
 				  connections
 				    c1: feature s1.af1 -> s2.af1;
-					flows
-						flow1: flow source af1;
-						flow2: flow sink af1;
-						flow3: flow path af1 -> af1;
+				flows
+					flow1: flow source af1;
+					flow2: flow sink af1;
+					flow3: flow path af1 -> af1;
+					flow4: flow source fg1.af2;
+					flow5: flow sink fg1.af2;
+					flow6: flow path fg1.af2 -> fg1.af2;
 				end a1.i;
+				
+				feature group fgt1
+					features
+						af2: feature;
+				end fgt1;
 			end pkg1;
 		''')
 		suppressSerialization
