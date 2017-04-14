@@ -435,6 +435,22 @@ public class GetProperties {
 		}
 		return components;
 	}
+	
+	public static List<Classifier> getAllowedConnectionBindingClass(final InstanceObject io) {
+		Property allowedConnectionBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_CONNECTION_BINDING_CLASS);
+		ArrayList<Classifier> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedConnectionBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
 
 	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
 		Property allowedProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
@@ -453,10 +469,10 @@ public class GetProperties {
 		return components;
 	}
 
-	public static List<ComponentClassifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
+	public static List<Classifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
 		Property allowedProcessorBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-		ArrayList<ComponentClassifier> components = new ArrayList<ComponentClassifier>();
+		ArrayList<Classifier> components = new ArrayList<Classifier>();
 		List<? extends PropertyExpression> propertyValues;
 		try {
 			propertyValues = io.getPropertyValueList(allowedProcessorBindingClass);
@@ -464,8 +480,7 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add(
-					(ComponentClassifier) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
 	}
@@ -500,6 +515,22 @@ public class GetProperties {
 		for (PropertyExpression propertyExpression : propertyValues) {
 			components.add(
 					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+	
+	public static List<Classifier> getAllowedMemoryBindingClass(final InstanceObject io) {
+		Property allowedMemoryBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_MEMORY_BINDING_CLASS);
+		ArrayList<Classifier> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedMemoryBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
 	}
