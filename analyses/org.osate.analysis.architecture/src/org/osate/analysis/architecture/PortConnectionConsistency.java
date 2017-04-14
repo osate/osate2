@@ -67,6 +67,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		this.action = action;
 	}
 
+	@Override
 	public final void initSwitches() {
 
 		/* here we are creating the connection checking switches */
@@ -74,6 +75,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 			/**
 			 * check port properties for connection end points
 			 */
+			@Override
 			public Object caseConnectionInstance(ConnectionInstance conni) {
 //				monitorUpdate(conni.getName());
 				ConnectionInstanceEnd srcFI = conni.getSource();
@@ -196,7 +198,7 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 
 	private static NamedElement previousNE = null;
 
-	private void error(NamedElement el, String s) {
+	protected void error(NamedElement el, String s) {
 		super.error(el, s);
 		if (previousNE == null || previousNE != el) {
 			if (previousNE != null)
