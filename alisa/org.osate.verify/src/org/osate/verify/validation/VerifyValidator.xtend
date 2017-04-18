@@ -209,7 +209,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 		requirements.forEach [ req |
 			if (req.refinesReference.empty) {
 				if (!vp.claim.exists[claim|claim.requirement === req]) {
-					error('No claim for requirement ' + req.name, vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
+					warning('No claim for requirement ' + req.name, vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
 						MISSING_CLAIM_FOR_REQ, req.name, EcoreUtil.getURI(req).toString())
 				}
 			}
@@ -227,7 +227,7 @@ class VerifyValidator extends VerifyTypeSystemValidator {
 			}
 		]
 		if (missingRequirements.size > 1) {
-			error('Missing claims for multiple requirements', vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
+			warning('Missing claims for multiple requirements', vp, VerifyPackage.Literals.VERIFICATION_PLAN__NAME,
 				MISSING_CLAIM_FOR_MULTIPLE_REQ, missingRequirements)
 
 		}
