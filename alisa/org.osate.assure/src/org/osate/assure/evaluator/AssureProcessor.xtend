@@ -85,6 +85,7 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.eclipse.emf.common.util.EList
 import org.osate.alisa.common.common.ResultIssue
 import java.util.Collection
+import it.xsemantics.runtime.RuleFailedException
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -517,7 +518,7 @@ class AssureProcessor implements IAssureProcessor {
 			val predicate = predicateResult.predicate
 			val result = interpreter.interpretExpression(env, predicate.xpression)
 			if (result.failed) {
-				setToError(predicateResult, "Could not evaluate value predicate: " + result.ruleFailedException, null)
+				setToError(predicateResult, "Could not evaluate value predicate: " + getFailedMsg(result.ruleFailedException), null)
 			} else {
 				val success = (result.value as BooleanLiteral).getValue
 				if (success) {
@@ -539,6 +540,14 @@ class AssureProcessor implements IAssureProcessor {
 			predicateResult.eResource.save(null)
 			updateProgress(predicateResult)
 		}
+	}
+	
+	def String getFailedMsg(RuleFailedException e){
+		var tmp = e;
+		while (tmp.cause != null){
+			tmp = tmp.cause as RuleFailedException;
+		}
+		return tmp.message
 	}
 	
 	def executeJavaMethod(VerificationResult verificationResult, VerificationMethod method, InstanceObject target,

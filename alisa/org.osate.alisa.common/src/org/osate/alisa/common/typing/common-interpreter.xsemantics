@@ -50,6 +50,7 @@ import org.osate.alisa.common.common.ValDeclaration
 
 import static extension org.osate.alisa.common.typing.InterpreterUtil.*
 import org.eclipse.emf.ecore.util.EcoreUtil
+import org.osate.aadl2.PropertyConstant
 
 system org.osate.alisa.common.typing.CommonInterpreter
 
@@ -332,8 +333,8 @@ from {
 				} catch (Exception e) {
 					null
 				}
-//				PropertyConstant:
-//					namedVal.constantValue
+				PropertyConstant:
+					namedVal.constantValue
 			default: 
 				null
 	}
