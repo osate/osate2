@@ -62,8 +62,6 @@ public class DiagramUpdater {
 		diagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
-				diagram.setBusinessObject(boTree.getBusinessObject());
-				
 				// Update the structure. By doing this in a separate pass, updateElements() will have access to the complete diagram structure. 
 				// However, connections will later be purged from the diagram if they do not refer to valid elements.
 				updateStructure(m, diagram, boTree.getRootNodes());

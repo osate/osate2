@@ -14,13 +14,16 @@ import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 import org.osate.ge.di.GetChildren;
+import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
+import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphics.FolderGraphicBuilder;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -28,9 +31,16 @@ import org.osate.ge.services.GraphicalEditorService;
 import org.osate.ge.services.QueryService;
 
 public class PackageHandler {
+	private final Graphic graphic = FolderGraphicBuilder.create().build();
+	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
 		return true;
+	}
+	
+	@GetGraphic
+	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
+		return graphic;
 	}
 	
 	@HandleDoubleClick

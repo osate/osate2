@@ -9,8 +9,6 @@ import java.util.Objects;
 import java.util.stream.Stream;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.NamedValue;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetName;
@@ -21,7 +19,6 @@ import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.util.AadlPropertyResolver;
 
 /**
  * Implementation of BusinessObjectTreeFactory which use business handlers to build the tree.
@@ -42,63 +39,19 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 	public BusinessObjectTree createBusinessObjectTree(final DiagramConfiguration configuration) {
 		// Create nodes for each of it's children
 		final List<BusinessObjectTreeNode> rootNodes = new ArrayList<>();
-		final Object rootBo;	
-		final boolean showRootBo;
-		if(configuration.getRootBoReference() == null) {
-			rootBo = null;
-			showRootBo = false;
-		} else {
+		if(configuration.getRootBoReference() != null) {
 			// Get the root business object
-			rootBo = refService.resolve(configuration.getRootBoReference());
-			
-			// Determine whether to show the rootBO in the diagram
-			// TODO: Rework this when the configuration mechanism supports customization. 
-			showRootBo = !(rootBo instanceof AadlPackage);
-
+			Object rootBo = refService.resolve(configuration.getRootBoReference());
+			// TODO: How to handle not finding the root reference?
 			if(rootBo != null) {		
 				// Refresh Child Nodes
 				final IEclipseContext eclipseCtx = extService.createChildContext();
 				try {
-					if(showRootBo) {
-						createNode(eclipseCtx, 
-								null,
-								rootBo,
-								rootNodes,
-								1);
-					} else {
-						// Create a business object context for the root node
-						final BusinessObjectContext rootBoc = new BusinessObjectContext() {			
-							@Override
-							public BusinessObjectContext getParent() {
-								return null;
-							}
-							
-							@Override
-							public Object getBusinessObject() {
-								return rootBo;
-							}
-
-							@Override
-							public Collection<Queryable> getChildren() {
-								return Collections.emptyList();
-							}
-						};
-						
-						// Populate the context
-						eclipseCtx.set(Names.BUSINESS_OBJECT, rootBo);
-						eclipseCtx.set(Names.BUSINESS_OBJECT_CONTEXT, rootBoc);
-
-						// Get the BO Handler for the root BO
-						final Object rootBoHandler = extService.getApplicableBusinessObjectHandler(rootBo);
-						
-						// Create nodes for each child
-						createNodesForChildren(eclipseCtx, 
-								rootBoHandler,
-								rootBoc,
-								rootNodes,
-								1);
-					}
-
+					createNode(eclipseCtx, 
+							null,
+							rootBo,
+							rootNodes,
+							1);
 				} finally {
 					eclipseCtx.dispose();
 				}
@@ -106,7 +59,7 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 		}
 		
 		// Create the tree object
-		final SimpleBusinessObjectTree tree = new SimpleBusinessObjectTree(showRootBo ? null : rootBo, rootNodes);
+		final SimpleBusinessObjectTree tree = new SimpleBusinessObjectTree(rootNodes);
 		return tree;
 	}
 	
@@ -165,11 +118,9 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 	}
 	
 	private static class SimpleBusinessObjectTree implements BusinessObjectTree, Queryable {
-		private final Object rootBo;
 		private final Collection<BusinessObjectTreeNode> rootNodes;
 		
-		public SimpleBusinessObjectTree(final Object rootBo, final Collection<BusinessObjectTreeNode> rootNodes) {
-			this.rootBo = rootBo;
+		public SimpleBusinessObjectTree(final Collection<BusinessObjectTreeNode> rootNodes) {
 			this.rootNodes = Collections.unmodifiableCollection(rootNodes);
 		}
 		
@@ -186,7 +137,7 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 
 		@Override
 		public Object getBusinessObject() {
-			return rootBo;
+			return null;
 		}
 
 		@Override

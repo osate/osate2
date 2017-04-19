@@ -29,11 +29,6 @@ public class TestBusinessObjectModel implements BusinessObjectTreeFactory, Diagr
 			public Collection<BusinessObjectTreeNode> getRootNodes() {
 				return createNodeList(model);
 			}
-
-			@Override
-			public Object getBusinessObject() {
-				return null;
-			}
 		};
 		
 		return tree;

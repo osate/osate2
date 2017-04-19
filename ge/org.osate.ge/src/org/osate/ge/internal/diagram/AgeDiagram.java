@@ -21,7 +21,6 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
-	private Object bo = null;
 	
 	public AgeDiagram() {
 		this.diagramConfiguration = new DiagramConfiguration(null);
@@ -418,13 +417,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		return Collections.unmodifiableCollection(elements);
 	}
 
-	// The diagram has a business object in cases where it's children are logically owned by another object which is not shown.
+	// The diagram does not have a business object. However, the diagram configuration may provide a business object to scope the diagram.
 	@Override
 	public Object getBusinessObject() {
-		return bo;
-	}
-	
-	public void setBusinessObject(final Object value) {
-		this.bo = value;
+		return null;
 	}
 }
