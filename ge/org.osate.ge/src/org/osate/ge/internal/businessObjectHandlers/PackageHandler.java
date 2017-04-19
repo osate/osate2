@@ -1,19 +1,10 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Stream;
 import javax.inject.Named;
-
 import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexLibrary;
-import org.osate.aadl2.DefaultAnnexLibrary;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.PackageSection;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
@@ -24,11 +15,9 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
-import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.services.GraphicalEditorService;
-import org.osate.ge.services.QueryService;
 
 public class PackageHandler {
 	private final Graphic graphic = FolderGraphicBuilder.create().build();
@@ -46,52 +35,6 @@ public class PackageHandler {
 	@HandleDoubleClick
 	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final GraphicalEditorService editorService) {
 		editorService.openBusinessObject(pkg);
-	}
-		
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final ExtensionService extService, final QueryService queryService) {
-		// Build a list of all named elements in the public and private sections of the package
-		final Set<Object> children = new HashSet<>();
-		populateChildren(pkg, pkg.getPublicSection(), children, extService);
-		populateChildren(pkg, pkg.getPrivateSection(), children, extService);	
-		
-		return children.stream();
-	}
-	
-	private NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
-		if(annexLibrary instanceof DefaultAnnexLibrary) {
-			final NamedElement parsedLib = ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
-			
-			// Don't return libraries which inherit from DefaultAnnexLibrary
-			if(parsedLib instanceof DefaultAnnexLibrary) {
-				return null;
-			}
-			
-			return parsedLib;
-		}
-		
-		return null;
-	}
-	
-	private void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final ExtensionService extService) {
-		if(ps == null) {
-			return;
-		}
-		
-		children.addAll(ps.getOwnedClassifiers());
-		
-		for(final AnnexLibrary annexLibrary : ps.getOwnedAnnexLibraries()) {
-			//children.addAll(ps.getOwnedAnnexLibraries());
-			final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(annexLibrary);
-			final boolean specializedHandling = parsedAnnexLibrary != null && extService.getApplicableBusinessObjectHandler(parsedAnnexLibrary) != null;
-
-			// Create the generic shape if specialized handling wasn't used
-			if(specializedHandling) {
-				children.add(parsedAnnexLibrary);
-			} else {
-				children.add(annexLibrary);
-			}
-		}
 	}
 	
 	@GetName

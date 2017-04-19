@@ -1,13 +1,7 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.stream.Stream;
-
 import javax.inject.Named;
-
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.ConnectionInstance;
-import org.osate.aadl2.instance.ConnectionReference;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
@@ -39,19 +33,5 @@ public class ComponentInstanceHandler {
 	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
-	}
-	
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) ComponentInstance ci) {
-		Stream.Builder<Object> connectionReferenceStreamBuilder = Stream.builder();
-		for(final ConnectionInstance connectionInstance : ci.getConnectionInstances()) {
-			for(final ConnectionReference cr : connectionInstance.getConnectionReferences()) {
-				connectionReferenceStreamBuilder.add(cr);
-			}
-		}	
-
-		return Stream.concat(Stream.concat(ci.getComponentInstances().stream(), 
-				ci.getFeatureInstances().stream()),
-				connectionReferenceStreamBuilder.build());
 	}
 }

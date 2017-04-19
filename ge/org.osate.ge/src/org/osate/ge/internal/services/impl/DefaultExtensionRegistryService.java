@@ -34,7 +34,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
@@ -83,12 +82,14 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	private static final String TOOLTIP_EXTENSION_POINT_ID = "org.osate.ge.tooltips";
 	private static final String COMMAND_EXTENSION_POINT_ID = "org.osate.ge.commands";
 	private static final String CATEGORIES_EXTENSION_POINT_ID = "org.osate.ge.categories";
+	private static final String BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID = "org.osate.ge.businessObjectProviders";
 	
 	private final Collection<Object> tools;
 	private final Collection<Object> boHandlers;
 	private final Collection<Object> commands;	
 	private final List<Category> categories;
 	private final Collection<Object> tooltipContributors;
+	private final Collection<Object> businessObjectProviders;
 	
 	public DefaultExtensionRegistryService() {
 		final IExtensionRegistry registry = Platform.getExtensionRegistry();		
@@ -97,6 +98,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		tooltipContributors = instantiateTooltipContributors(registry);
 		commands = instantiateCommands(registry);
 		categories = instantiateCategories(registry);
+		businessObjectProviders = instantiateBusinessObjectProviders(registry);
 	}
 
 	@Override
@@ -145,6 +147,11 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	@Override
 	public Collection<Object> getCommands() {
 		return commands;
+	}	
+
+	@Override
+	public Collection<Object> getBusinessObjectProviders() {
+		return businessObjectProviders;
 	}
 	
 	private static Collection<Object> instantiateTools(final IExtensionRegistry registry) {
@@ -153,6 +160,10 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	
 	private static Collection<Object> instantiateBusinessObjectHandlers(final IExtensionRegistry registry) {
 		return Collections.unmodifiableCollection(instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler"));
+	}
+	
+	private static Collection<Object> instantiateBusinessObjectProviders(final IExtensionRegistry registry) {
+		return Collections.unmodifiableCollection(instantiateSimpleExtensions(registry, BUSINESS_OBJECT_PROVIDERS_EXTENSION_POINT_ID, "provider"));
 	}
 
 	private static Collection<Object> instantiateTooltipContributors(final IExtensionRegistry registry) {

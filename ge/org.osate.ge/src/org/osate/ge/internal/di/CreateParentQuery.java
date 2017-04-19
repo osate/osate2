@@ -14,8 +14,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.osate.ge.di.GetChildren;
-
 /**
  * <p>
  * This annotation must not be applied to more than one method per class.
@@ -37,7 +35,6 @@ import org.osate.ge.di.GetChildren;
  *   <tr><td>{@link org.osate.ge.internal.di.InternalNames#SOURCE_ROOT_QUERY}</td><td>Business Object handler</td><td>A query whose result is the source of the connection. Not valid when the source is a connection.</td></tr>
  *   <tr><td>{@link org.osate.ge.internal.di.InternalNames#DESTINATION_ROOT_QUERY}</td><td>Business Object handler</td><td>A query whose result is destination of the connection. Not valid when the source is a connection.</td></tr>
  * </table>
- * @see GetChildren
  * @see org.osate.ge.query.Query
  */
 @Documented

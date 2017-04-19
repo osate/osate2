@@ -2,7 +2,6 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 import javax.inject.Named;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentClassifier;
@@ -18,7 +17,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -38,7 +36,7 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlArrayUtil;
-import org.osate.ge.internal.util.AadlPrototypeUtil;
+import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
@@ -57,7 +55,7 @@ public class SubcomponentHandler {
 	@GetGraphic
 	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scElement) {
-		final ComponentClassifier cc = getComponentClassifier(scElement, sc);
+		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scElement, sc);
 		if(cc == null) {
 			return AadlGraphics.getGraphic(sc.getCategory(), false);
 		} else {
@@ -118,19 +116,7 @@ public class SubcomponentHandler {
 		
 		return retVal;
 	}
-	
-	// Children
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
-		final ComponentClassifier cc = getComponentClassifier(scBoc, sc);
-		if(cc == null) {
-			return null;
-		}
-		
-		return ClassifierHandler.getChildren(cc, false);
-	}
-	
+
 	// Creating
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries(final @Named(Names.DIAGRAM_BO) Object diagramBo) {		
@@ -201,18 +187,6 @@ public class SubcomponentHandler {
     }
 	
 	// Helper Methods
-	private static ComponentClassifier getComponentClassifier(final BusinessObjectContext boc, final Subcomponent sc) {
-		if(sc.getPrototype() == null) {
-			if(sc.getClassifier() == null && sc.getRefined() != null) {
-				return getComponentClassifier(boc, sc.getRefined());
-			} else {
-				return sc.getClassifier();
-			}
-		} else {
-			return AadlPrototypeUtil.getComponentClassifier(AadlPrototypeUtil.getPrototypeBindingContext(boc), sc);	
-		}
-	}	
-	
 	private static SubcomponentType getAllSubcomponentType(Subcomponent sc) {
 		SubcomponentType scType;
 		do {

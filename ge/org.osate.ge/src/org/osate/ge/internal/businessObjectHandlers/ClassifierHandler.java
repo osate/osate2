@@ -12,12 +12,8 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
-
 import javax.inject.Named;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.BasicEList;
-import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -27,10 +23,7 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexSubclause;
-import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.ComponentTypeRename;
@@ -48,7 +41,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
@@ -66,8 +58,6 @@ import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
-import org.osate.ge.internal.util.AadlFeatureUtil;
-import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -431,114 +421,5 @@ public class ClassifierHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(Names.NAME) String value) {
 		bo.setName(value);
-	}
-	
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier) {
-		return getChildren(classifier, true);
-	}
-	
-	static Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) Classifier classifier,
-			boolean includeGeneralizations) {
-		Stream<?> children = Stream.empty();
-		
-		// Shapes
-		children = Stream.concat(children, AadlFeatureUtil.getAllDeclaredFeatures(classifier).stream());
-		
-		if(classifier instanceof ComponentImplementation) {
-			final ComponentImplementation ci = (ComponentImplementation)classifier;
-			children = Stream.concat(children, AadlHelper.getAllInternalFeatures(ci).stream());
-			children = Stream.concat(children, AadlHelper.getAllProcessorFeatures(ci).stream());
-			children = Stream.concat(children, ci.getAllSubcomponents().stream());
-		}
-		
-		if(classifier instanceof BehavioredImplementation) {
-			children = Stream.concat(children, AadlHelper.getAllSubprogramCallSequences((BehavioredImplementation)classifier).stream());
-		}
-		
-		if(classifier instanceof ComponentClassifier) {
-			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModes().stream());
-		}
-		
-		children = Stream.concat(children, getAllDefaultAnnexSubclauses(classifier).stream());
-
-		// Connections
-		if(classifier instanceof ComponentClassifier) {
-			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModeTransitions().stream());
-		}
-		
-		if(classifier instanceof ComponentImplementation) {
-			children = Stream.concat(children, ((ComponentImplementation)classifier).getAllConnections().stream());
-		}
-		
-		final ComponentType componentType;
-		if(classifier instanceof ComponentType) {
-			componentType = (ComponentType)classifier;
-		} else if(classifier instanceof ComponentImplementation) {
-			componentType = ((ComponentImplementation)classifier).getType();
-		} else {
-			componentType = null;
-		}
-		
-		if(componentType != null) {			
-			children = Stream.concat(children, componentType.getAllFlowSpecifications().stream());
-		}
-	
-		// Add generalizations
-		if(includeGeneralizations) {
-			if(classifier instanceof ComponentType) {
-				final ComponentType ct = ((ComponentType)classifier);
-				final TypeExtension te = ct.getOwnedExtension();
-				if(te != null) {
-					children = Stream.concat(children, Stream.of(te));
-				}
-			} else if(classifier instanceof ComponentImplementation) {
-				final ComponentImplementation componentImplementation = ((ComponentImplementation)classifier);
-	
-				// Implementation Extension
-				final ImplementationExtension ie = componentImplementation.getOwnedExtension();
-				if(ie != null) {
-					children = Stream.concat(children, Stream.of(ie));				
-				}
-				
-				// Realization
-				final Realization realization = componentImplementation.getOwnedRealization();
-				if(realization != null) {	
-					children = Stream.concat(children, Stream.of(realization));			
-				}				
-			} else if(classifier instanceof FeatureGroupType) {
-				final FeatureGroupType featureGroupType = ((FeatureGroupType)classifier);
-				final GroupExtension ge = featureGroupType.getOwnedExtension();
-				if(ge != null) {
-					children = Stream.concat(children, Stream.of(ge));
-				}
-			}
-		}
-		
-		return children;
-	}
-	
-	/**
-	 * Returns all the default annex subclauses owned by a classifier or any extended or implemented classifiers.
-	 * @param topClassifier
-	 * @return
-	 */
-	private static EList<AnnexSubclause> getAllDefaultAnnexSubclauses(final Classifier topClassifier) {
-		final EList<AnnexSubclause> result = new BasicEList<AnnexSubclause>();
-		if(topClassifier == null) {
-			return result;
-		}
-		
-		final EList<Classifier> classifiers = topClassifier.getSelfPlusAllExtended();
-		if (topClassifier instanceof ComponentImplementation) {
-			ComponentType ct = ((ComponentImplementation) topClassifier).getType();
-			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
-			classifiers.addAll(tclassifiers);
-		}
-		
-		for (Classifier classifier : classifiers) {
-			result.addAll(classifier.getOwnedAnnexSubclauses());
-		}
-		return result;
 	}
 }

@@ -1,6 +1,5 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.stream.Stream;
 import javax.inject.Named;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
@@ -18,7 +17,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -33,7 +31,6 @@ import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
-import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
@@ -135,9 +132,4 @@ public class SubprogramCallSequenceHandler {
 			
 		return newScs;
 	}
-	
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs) {
-		return Stream.concat(cs.getOwnedSubprogramCalls().stream(), SubprogramCallOrder.getSubprogramCallOrders(cs.getOwnedSubprogramCalls()).stream());
-	}	
 }

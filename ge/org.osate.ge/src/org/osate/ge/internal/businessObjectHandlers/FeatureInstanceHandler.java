@@ -1,14 +1,10 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.stream.Stream;
-
 import javax.inject.Named;
-
 import org.osate.aadl2.Access;
 import org.osate.aadl2.AccessType;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
@@ -57,10 +53,5 @@ public class FeatureInstanceHandler {
 	@GetDefaultLabelConfiguration
 	public LabelConfiguration getNameLabelConfiguration() {
 		return nameLabelConfiguration;
-	}
-	
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureInstance fi) {
-		return fi.getFeatureInstances().stream();
 	}
 }

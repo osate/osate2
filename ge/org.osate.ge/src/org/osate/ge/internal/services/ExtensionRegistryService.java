@@ -79,6 +79,8 @@ public interface ExtensionRegistryService extends BusinessObjectHandlerProvider 
 	 */
 	List<Category> getCategories();
 	
+	Collection<Object> getBusinessObjectProviders();
+	
 	/**
 	 * Interface for palette categories
 	 */

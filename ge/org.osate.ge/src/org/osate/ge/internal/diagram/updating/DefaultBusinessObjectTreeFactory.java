@@ -3,14 +3,15 @@ package org.osate.ge.internal.diagram.updating;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.aadl2.Feature;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.di.GetChildren;
+import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
@@ -107,14 +108,41 @@ public class DefaultBusinessObjectTreeFactory implements BusinessObjectTreeFacto
 			final BusinessObjectContext parentBoc,
 			final Collection<BusinessObjectTreeNode> nodes,
 			int depth) {
-		final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(boHandler, GetChildren.class, eclipseCtx, null);
-		if(childBos != null) {
-			final Iterator<?> childIt = childBos.iterator();
-		    while(childIt.hasNext()) {
-		    	final Object childBo = childIt.next();
-		    	createNode(eclipseCtx, parentBoc, childBo, nodes, depth);
-		    }					    
+		// Use business object providers to determine the children
+		Stream<Object> allChildren = Stream.empty();
+		for(final Object bop : extService.getBusinessObjectProviders()) {
+			final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(bop, Activate.class, eclipseCtx, null);
+			if(childBos != null) {
+				allChildren = Stream.concat(allChildren, childBos);
+			}
+		};
+		
+		// TODO: Handle explicitly enabled business objects. Either single objects or properties such as show contents		
+		allChildren.distinct().sequential().forEach((childBo) -> {
+			
+			if(filterNonExplicitObjects(parentBoc, childBo)) {
+				createNode(eclipseCtx, parentBoc, childBo, nodes, depth);
+			}
+		});
+	}
+	
+	/**
+	 * Returns true if the object should be included in the business object tree.
+	 * @param parentBoc
+	 * @param childBo
+	 * @return
+	 */
+	// This is a basic implementation of filtering designed to filter objects which haven't been explicitly enabled.
+	// In the future in would be helpful to have extensions contribute features which are controlled by the user.
+	private boolean filterNonExplicitObjects(final BusinessObjectContext parentBoc, final Object childBo) {
+		// TODO: Check nesting depth
+
+		// Otherwise, don't show features inside of feature groups
+		if(childBo instanceof Feature && parentBoc.getBusinessObject() instanceof FeatureGroup) {
+			return false;
 		}
+		
+		return true;
 	}
 	
 	private static class SimpleBusinessObjectTree implements BusinessObjectTree, Queryable {

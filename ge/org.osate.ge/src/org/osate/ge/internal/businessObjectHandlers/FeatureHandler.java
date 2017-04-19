@@ -2,10 +2,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
-
 import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.AbstractFeature;
@@ -40,7 +37,6 @@ import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -231,11 +227,5 @@ public class FeatureHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
 		refactoringService.renameElement(feature, value);
-	}
-	
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) FeatureGroup fg, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
-		final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(boc, fg);
-		return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
 	}
 }

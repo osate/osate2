@@ -1,10 +1,6 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-import java.util.stream.Stream;
-
 import javax.inject.Named;
-
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.swt.widgets.Display;
 import org.osate.aadl2.Aadl2Factory;
@@ -12,25 +8,15 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.aadl2.SubprogramClassifier;
-import org.osate.aadl2.SubprogramImplementation;
-import org.osate.aadl2.SubprogramProxy;
-import org.osate.aadl2.SubprogramSubcomponent;
-import org.osate.aadl2.SubprogramSubcomponentType;
-import org.osate.aadl2.SubprogramType;
 import org.osate.ge.Categories;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetChildren;
 import org.osate.ge.di.GetGraphic;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
@@ -52,7 +38,6 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
-import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.StandaloneQuery;
@@ -193,43 +178,4 @@ public class SubprogramCallHandler {
 		
 		return false;
     }
-		
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
-		final SubprogramType subprogramType = getSubprogramType(call);
-		if(subprogramType != null) {
-			return Stream.concat(AadlFeatureUtil.getAllDeclaredFeatures(subprogramType).stream(), subprogramType.getAllFlowSpecifications().stream());
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Finds and returns the SubprogramType associated with the specified model element.
-	 * @param element
-	 * @return
-	 */
-	private SubprogramType getSubprogramType(final EObject element) {
-		if(element instanceof SubprogramType) {
-			return (SubprogramType)element;
-		} else if(element instanceof SubprogramCall) {
-			return getSubprogramType(((SubprogramCall) element).getCalledSubprogram());
-		} else if(element instanceof SubprogramImplementation) {
-			return ((SubprogramImplementation)element).getType();
-		} else if(element instanceof SubprogramSubcomponent) {
-			return getSubprogramType(((SubprogramSubcomponent) element).getSubprogramSubcomponentType());
-		} else if(element instanceof SubprogramAccess) {
-			final SubprogramSubcomponentType scType = ((SubprogramAccess) element).getSubprogramFeatureClassifier();
-			return getSubprogramType(scType);
-		} else if(element instanceof SubprogramProxy) {
-			final SubprogramClassifier scClassifier = ((SubprogramProxy) element).getSubprogramClassifier();
-			return getSubprogramType(scClassifier);
-		} else if(element instanceof ComponentPrototype) {
-			final ComponentClassifier constrainingClassifier = ((ComponentPrototype) element).getConstrainingClassifier();
-			return getSubprogramType(constrainingClassifier);
-		} else {
-			// Unsupported case. Possibly prototype
-			return null;
-		}
-	}
 }

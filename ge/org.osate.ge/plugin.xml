@@ -8,6 +8,7 @@
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
    <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
+   <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
 	   <command 
@@ -874,5 +875,11 @@
        <command
              class="org.osate.ge.internal.commands.RefineFlowSpecificationCommand">
        </command>
+    </extension>
+    <extension
+          point="org.osate.ge.businessObjectProviders">
+       <provider
+             class="org.osate.ge.internal.businessObjectProviders.AadlBusinessObjectProvider">
+       </provider>
     </extension>
 </plugin>

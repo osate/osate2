@@ -31,8 +31,11 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Stream;
 
+import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.osate.ge.di.Activate;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 
@@ -79,5 +82,10 @@ public class DefaultExtensionService implements ExtensionService {
 	@Override
 	public List<Category> getCategories() {
 		return globalExtService.getCategories();
+	}
+
+	@Override
+	public Collection<Object> getBusinessObjectProviders() {
+		return globalExtService.getBusinessObjectProviders();
 	}
 }

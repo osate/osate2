@@ -3,7 +3,7 @@
 <schema targetNamespace="org.osate.ge" xmlns="http://www.w3.org/2001/XMLSchema">
 <annotation>
       <appinfo>
-         <meta.schema plugin="org.osate.ge" id="org.osate.ge.commands" name="OSATE Graphical Editor Commands"/>
+         <meta.schema plugin="org.osate.ge" id="org.osate.ge.businessObjectProviders" name="Business Object Providers"/>
       </appinfo>
       <documentation>
          [Enter description of this extension point.]
@@ -18,8 +18,7 @@
       </annotation>
       <complexType>
          <choice minOccurs="1" maxOccurs="unbounded">
-            <element ref="command"/>
-            <element ref="commandContributor"/>
+            <element ref="provider"/>
          </choice>
          <attribute name="point" type="string" use="required">
             <annotation>
@@ -48,22 +47,7 @@
       </complexType>
    </element>
 
-   <element name="command">
-      <complexType>
-         <attribute name="class" type="string">
-            <annotation>
-               <documentation>
-                  
-               </documentation>
-               <appinfo>
-                  <meta.attribute kind="java"/>
-               </appinfo>
-            </annotation>
-         </attribute>
-      </complexType>
-   </element>
-
-   <element name="commandContributor">
+   <element name="provider">
       <complexType>
          <attribute name="class" type="string" use="required">
             <annotation>
