@@ -338,4 +338,54 @@ class CheckBindingConstraintsTest extends OsateTest {
 			]
 		]
 	}
+	
+	@Test
+	def void testWithModes() {
+		val pkg2FileName = "pkg2.aadl"
+		createFiles(pkg2FileName -> '''
+			package pkg2
+			public
+				system s1
+				end s1;
+				
+				system implementation s1.i
+					subcomponents
+						proc_sub1: processor proc1;
+						proc_sub2: processor proc1;
+						dev_sub1: device dev1;
+					properties
+						Allowed_Memory_Binding =>
+							(reference(proc_sub1)) in modes (m1),
+							(reference(proc_sub2)) in modes (m2)
+							applies to dev_sub1;
+						Actual_Memory_Binding => (reference(proc_sub2)) applies to dev_sub1;
+				end s1.i;
+				
+				processor proc1
+				end proc1;
+				
+				device dev1
+					modes
+						m1: initial mode;
+						m2: mode;
+				end dev1;
+			end pkg2;
+		''')
+		suppressSerialization
+		testFile(pkg2FileName).resource.contents.head as AadlPackage => [
+			"pkg2".assertEquals(name)
+			publicSection.ownedClassifiers.get(1) as SystemImplementation => [
+				"s1.i".assertEquals(name)
+				buildInstanceModelFile => [
+					"s1_i_Instance".assertEquals(name)
+					val issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor, it)
+					1.assertEquals(issues.size)
+					issues.head => [
+						"s1_i_Instance.dev_sub1".assertEquals(target.instanceObjectPath)
+						"Device 'dev_sub1' has a memory binding to 'proc_sub2' in mode 'dev_sub1.m1' which is not allowed by the property Allowed_Memory_Binding".assertEquals(message)
+					]
+				]
+			]
+		]
+	}
 }

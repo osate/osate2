@@ -1,5 +1,6 @@
 package org.osate.analysis.architecture.actions;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EnumSet;
@@ -29,7 +30,10 @@ import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
@@ -41,22 +45,22 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 	protected Bundle getBundle() {
 		return ArchitecturePlugin.getDefault().getBundle();
 	}
-	
+
 	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.architecture.CheckBindingConstraintsObjectMarker";
 	}
-	
+
 	@Override
 	protected void doAaxlAction(IProgressMonitor monitor, Element root) {
 		if (root instanceof ComponentInstance) {
 			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-			
-			SystemInstance si = ((ComponentInstance)root).getSystemInstance();
+
+			SystemInstance si = ((ComponentInstance) root).getSystemInstance();
 			if (si != null) {
 				runAnalysis(monitor, si).forEach(issue -> error(issue.target, issue.message));
 			}
-			
+
 			if (monitor.isCanceled()) {
 				throw new OperationCanceledException();
 			} else {
@@ -66,50 +70,56 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			Dialog.showWarning(getActionName(), "Please invoke command on an instance model");
 		}
 	}
-	
+
 	@Override
 	protected String getActionName() {
 		return "Check binding constraints";
 	}
-	
+
 	public static List<Issue> runAnalysis(IProgressMonitor monitor, SystemInstance si) {
-		//Processor binding
-		Stream<ComponentInstance> processorBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
-				ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE);
-		Stream<Issue> issues = checkBindingConstraints(processorBindingComponents, "processor",
-				GetProperties::getActualProcessorBinding, GetProperties::getAllowedProcessorBinding,
-				GetProperties::getAllowedProcessorBindingClass);
-		
-		//Memory binding
-		Stream<ComponentInstance> memoryBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
-				ComponentCategory.DEVICE, ComponentCategory.DATA, ComponentCategory.SUBPROGRAM,
-				ComponentCategory.PROCESSOR, ComponentCategory.VIRTUAL_PROCESSOR);
-		Stream<FeatureInstance> memoryBindingFeatures = getFeatures(monitor, si, FeatureCategory.DATA_PORT,
-				FeatureCategory.EVENT_DATA_PORT);
-		Stream<InstanceObject> memoryBindingElements = Stream.concat(memoryBindingComponents, memoryBindingFeatures);
-		issues = Stream.concat(issues,
-				checkBindingConstraints(memoryBindingElements, "memory", GetProperties::getActualMemoryBinding,
-						GetProperties::getAllowedMemoryBinding, GetProperties::getAllowedMemoryBindingClass));
-		
-		//Connection binding
-		Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
-				ComponentCategory.VIRTUAL_BUS);
-		Stream<FeatureInstance> connectionBindingFeatures = getFeatures(monitor, si);
-		Stream<ConnectionInstance> connectionBindingConnections = getConnections(monitor, si);
-		Stream<InstanceObject> connectionBindingElements = Stream.concat(connectionBindingComponents,
-				Stream.concat(connectionBindingFeatures, connectionBindingConnections));
-		issues = Stream.concat(issues,
-				checkBindingConstraints(connectionBindingElements, "connection",
-						GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
-						GetProperties::getAllowedConnectionBindingClass));
-		
-		return issues.collect(Collectors.toList());
+		List<Issue> issuesList = new ArrayList<>();
+
+		for (SOMIterator somIter = new SOMIterator(si); somIter.hasNext();) {
+			SystemOperationMode som = somIter.next();
+
+			// Processor binding
+			Stream<ComponentInstance> processorBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
+					ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE);
+			issuesList.addAll(checkBindingConstraints(processorBindingComponents, "processor",
+					GetProperties::getActualProcessorBinding, GetProperties::getAllowedProcessorBinding,
+					GetProperties::getAllowedProcessorBindingClass, som));
+
+			// Memory binding
+			Stream<ComponentInstance> memoryBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
+					ComponentCategory.DEVICE, ComponentCategory.DATA, ComponentCategory.SUBPROGRAM,
+					ComponentCategory.PROCESSOR, ComponentCategory.VIRTUAL_PROCESSOR);
+			Stream<FeatureInstance> memoryBindingFeatures = getFeatures(monitor, si, FeatureCategory.DATA_PORT,
+					FeatureCategory.EVENT_DATA_PORT);
+			Stream<InstanceObject> memoryBindingElements = Stream.concat(memoryBindingComponents,
+					memoryBindingFeatures);
+			issuesList.addAll(
+					checkBindingConstraints(memoryBindingElements, "memory", GetProperties::getActualMemoryBinding,
+							GetProperties::getAllowedMemoryBinding, GetProperties::getAllowedMemoryBindingClass, som));
+
+			// Connection binding
+			Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
+					ComponentCategory.VIRTUAL_BUS);
+			Stream<FeatureInstance> connectionBindingFeatures = getFeatures(monitor, si);
+			Stream<ConnectionInstance> connectionBindingConnections = getConnections(monitor, si);
+			Stream<InstanceObject> connectionBindingElements = Stream.concat(connectionBindingComponents,
+					Stream.concat(connectionBindingFeatures, connectionBindingConnections));
+			issuesList.addAll(checkBindingConstraints(connectionBindingElements, "connection",
+					GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
+					GetProperties::getAllowedConnectionBindingClass, som));
+		}
+
+		return issuesList;
 	}
-	
-	private static <T extends InstanceObject> Stream<Issue> checkBindingConstraints(Stream<T> bindingElements,
+
+	private static <T extends InstanceObject> List<Issue> checkBindingConstraints(Stream<T> bindingElements,
 			String bindingType, Function<T, List<ComponentInstance>> getActualBinding,
 			Function<T, List<ComponentInstance>> getAllowedBinding,
-			Function<T, List<Classifier>> getAllowedBindingClass) {
+			Function<T, List<Classifier>> getAllowedBindingClass, SystemOperationMode som) {
 		return bindingElements.flatMap(element -> {
 			Set<ComponentInstance> actualBinding = Collections
 					.unmodifiableSet(new HashSet<>(getActualBinding.apply(element)));
@@ -127,24 +137,42 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 					return boundElementClassifier != null && allowedBindingClasses.stream()
 							.anyMatch(allowedClass -> AadlUtil.isSameOrExtends(allowedClass, boundElementClassifier));
 				});
-				issues = Stream.concat(issues, modifiableActual.stream().map(boundElement -> new Issue(element,
-						getTitle(element) + " '" + element.getName() + "' has a " + bindingType + " binding to '"
-								+ boundElement.getName() + "' which is not allowed by the property Allowed_"
-								+ StringExtensions.toFirstUpper(bindingType) + "_Binding_Class")));
+				String propertyName = "Allowed_" + StringExtensions.toFirstUpper(bindingType) + "_Binding_Class";
+				issues = Stream.concat(issues,
+						createErrorsForBindings(modifiableActual, element, bindingType, som, propertyName));
 			}
 
 			if (!actualBinding.isEmpty() && !allowedBinding.isEmpty()) {
 				Set<ComponentInstance> modifiableActual = new HashSet<>(actualBinding);
 				modifiableActual.removeAll(allowedBinding);
-				issues = Stream.concat(issues, modifiableActual.stream().map(boundElement -> new Issue(element,
-						getTitle(element) + " '" + element.getName() + "' has a " + bindingType + " binding to '"
-								+ boundElement.getName() + "' which is not allowed by the property Allowed_"
-								+ StringExtensions.toFirstUpper(bindingType) + "_Binding")));
+				String propertyName = "Allowed_" + StringExtensions.toFirstUpper(bindingType) + "_Binding";
+				issues = Stream.concat(issues,
+						createErrorsForBindings(modifiableActual, element, bindingType, som, propertyName));
 			}
 			return issues;
+		}).collect(Collectors.toList());
+	}
+
+	private static Stream<Issue> createErrorsForBindings(Set<ComponentInstance> actualBinding, InstanceObject element,
+			String bindingType, SystemOperationMode som, String propertyName) {
+		return actualBinding.stream().map(boundElement -> {
+			StringBuilder message = new StringBuilder(getTitle(element));
+			message.append(" '");
+			message.append(element.getName());
+			message.append("' has a ");
+			message.append(bindingType);
+			message.append(" binding to '");
+			message.append(boundElement.getName());
+			if (!Aadl2Util.isNoModes(som)) {
+				message.append("' in mode '");
+				message.append(som.getName());
+			}
+			message.append("' which is not allowed by the property ");
+			message.append(propertyName);
+			return new Issue(element, message.toString());
 		});
 	}
-	
+
 	private static String getTitle(InstanceObject element) {
 		if (element instanceof ComponentInstance) {
 			return StringExtensions.toFirstUpper(((ComponentInstance) element).getCategory().getName());
@@ -156,7 +184,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			throw new AssertionError("Unhandled condition: " + element);
 		}
 	}
-	
+
 	private static Stream<ComponentInstance> getComponents(IProgressMonitor monitor, SystemInstance instance,
 			ComponentCategory... categories) {
 		Stream<EObject> stream = streamWhileNotCanceled(monitor, instance);
@@ -180,16 +208,16 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			return features.filter(element -> categoriesSet.contains(element.getCategory()));
 		}
 	}
-	
+
 	private static Stream<ConnectionInstance> getConnections(IProgressMonitor monitor, SystemInstance instance) {
 		Stream<EObject> stream = streamWhileNotCanceled(monitor, instance);
 		return filterByType(stream, ConnectionInstance.class);
 	}
-	
+
 	private static Stream<EObject> streamWhileNotCanceled(IProgressMonitor monitor, SystemInstance instance) {
 		return StreamSupport.stream(new Spliterators.AbstractSpliterator<EObject>(Long.MAX_VALUE, Spliterator.ORDERED) {
 			private final Iterator<EObject> allContentsIter = instance.eAllContents();
-			
+
 			@Override
 			public boolean tryAdvance(Consumer<? super EObject> action) {
 				if (!monitor.isCanceled() && allContentsIter.hasNext()) {
@@ -201,15 +229,15 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			}
 		}, false);
 	}
-	
+
 	private static <T> Stream<T> filterByType(Stream<?> unfiltered, Class<T> type) {
 		return unfiltered.filter(element -> type.isInstance(element)).map(element -> type.cast(element));
 	}
-	
+
 	public static class Issue {
 		public final InstanceObject target;
 		public final String message;
-		
+
 		private Issue(InstanceObject target, String message) {
 			this.target = target;
 			this.message = message;
