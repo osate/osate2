@@ -3,9 +3,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Factory;
@@ -40,6 +38,8 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
 import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
@@ -47,11 +47,9 @@ import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.GetDestination;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -86,32 +84,44 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 public class ConnectionHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private static final Graphic graphic = ConnectionBuilder.create().build();
+	private static final Graphic partialGraphic = ConnectionBuilder.create().dashed().build();
 	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
 	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
 	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource())).first());
+	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(), c.getRootConnection().getDestination())).first());
+	private static StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(), c.getRootConnection().getDestination()), 1).first());
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Connection c) {
 		return true;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
-	}
-
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Connection c,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
 			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
-	}
-	
-	@GetDestination
-	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
+		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
+		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
+		boolean partial = false;
+		
+		if(src == null) {
+			src = queryService.getFirstResult(partialSrcQuery, boc);
+			partial = true;
+		}
+		
+		if(dst == null) {
+			dst = queryService.getFirstResult(partialDstQuery, boc);
+			partial = true;
+		}
+		
+		return GraphicalConfigurationBuilder.create().
+				graphic(partial ? partialGraphic : graphic).
+				source(src).
+				destination(dst).
+				foreground(partial ? Colors.PARTIAL_CONNECTION_COLOR : null).
+				build();
 	}
 	
 	@CreateParentQuery
@@ -273,9 +283,9 @@ public class ConnectionHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+	public BusinessObjectContext getCreateConnectionOwner(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
-		return (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, srcBoc);
+		return queryService.getFirstResult(componentImplementationQuery, srcBoc);
 	}
 	
 	@CanStartConnection

@@ -316,8 +316,12 @@
     <extension
           point="org.osate.ge.tooltips">
        <tooltipContributor 
-       		class="org.osate.ge.internal.tooltips.FeatureTooltipContributor"
+       		class="org.osate.ge.internal.tooltips.FeatureInstanceTooltipContributor"
        		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
+             priority="1">
        </tooltipContributor>
     </extension>
 

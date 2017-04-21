@@ -8,9 +8,8 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import java.awt.Color;
-
 import org.osate.aadl2.NamedElement;
+import java.awt.Color;
 import org.osate.ge.internal.diagram.DiagramElement;
 
 /**

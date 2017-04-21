@@ -54,13 +54,6 @@ public interface DiagramService {
 	 * @param name
 	 */
 	public void savePersistentProperties(final Diagram diagram);
-	
-	/**
-	 * Returns a name for a diagram with the specified business object
-	 * @param bo
-	 * @return
-	 */
-	public String getDiagramNameByBusinessObject(Object bo);
-	
+		
 	public Resource getResource(Object bo);
 }

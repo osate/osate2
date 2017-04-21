@@ -15,8 +15,12 @@ import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.osate.ge.internal.Categorized;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
@@ -24,6 +28,7 @@ import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 // ICreateConnectionFeature implementation that delegates behavior to a business object handler
@@ -31,12 +36,16 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
+	private final DiagramUpdater diagramUpdater;
+	private final ReferenceService refService;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
 	public BoHandlerCreateConnectionFeature(final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
 			final ExtensionService extService,
 			final AadlModificationService aadlModService, 
+			final DiagramUpdater diagramUpdater,
+			final ReferenceService refService,
 			final IFeatureProvider fp, 
 			final SimplePaletteEntry paletteEntry, 
 			final Object boHandler) {
@@ -44,6 +53,8 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
+		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
+		this.refService = Objects.requireNonNull(refService, "refService must not be null");
 		this.paletteEntry = Objects.requireNonNull(paletteEntry, "paletteEntry must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 	}
@@ -117,17 +128,28 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			eclipseCtx.set(Names.DESTINATION_BO, dstElement.getBusinessObject());
 			eclipseCtx.set(Names.DESTINATION_BUSINESS_OBJECT_CONTEXT, dstElement);					
 			
-			final EObject ownerBo = (EObject)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
-			if(ownerBo == null) {
+			final BusinessObjectContext ownerBoc = (BusinessObjectContext)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx);
+			if(!(ownerBoc instanceof DiagramNode) || !(ownerBoc.getBusinessObject() instanceof EObject)) {
 				return null;
 			}
+			
+			final DiagramNode ownerNode = (DiagramNode)ownerBoc;			
+			final EObject ownerBo = (EObject)ownerBoc.getBusinessObject();
 			
 			// Modify the model
 			aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object>() {
 				@Override
 				public Object modify(final Resource resource, final EObject ownerBo) {					
 					eclipseCtx.set(Names.OWNER_BO, ownerBo);					
-					return ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);					
+					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
+					if(newBo != null) {
+						final RelativeBusinessObjectReference newRef = refService.getRelativeReference(newBo);
+						if(newRef != null) {
+							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
+						}
+					}
+					
+					return newBo;
 				}
 			});
 		} finally {

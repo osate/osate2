@@ -36,28 +36,29 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.TypeExtension;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
-import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
+import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.Log;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
@@ -66,7 +67,7 @@ import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class ClassifierHandler {
-	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
+	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 	private static final StandaloneQuery packageQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof AadlPackage));
 	
 	@IsApplicable
@@ -167,15 +168,15 @@ public class ClassifierHandler {
 	}
 	
 	@GetCreateOwner
-	public AadlPackage getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, 
+	public BusinessObjectContext getCreateOwner(final @Named(Names.TARGET_BO) EObject targetBo, 
 			final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc, 
 			final QueryService queryService) {
 		if(targetBo instanceof AadlPackage) {
-			return (AadlPackage)targetBo;
+			return targetBoc;
 		} else if(targetBo instanceof Classifier) {
 			// Get the AadlPackage based on the query. This ensures that the package is the one represented by the diagram rather than the one in which the
 			// target business object is contained.
-			return (AadlPackage)queryService.getFirstBusinessObject(packageQuery, targetBoc);
+			return queryService.getFirstResult(packageQuery, targetBoc);
 		}
 
 		return null;
@@ -313,9 +314,7 @@ public class ClassifierHandler {
 		
 		// Import the package if necessary
 		final AadlPackage ctPkg = (AadlPackage)ct.getNamespace().getOwner();
-		if(!section.getImportedUnits().contains(ctPkg)) {
-			section.getImportedUnits().add(ctPkg);
-		}
+		AadlImportsUtil.addImportIfNeeded(section, ctPkg);
 		
 		// Create a new component type rename
 		final String ctFullName = ct.getFullName();
@@ -339,16 +338,14 @@ public class ClassifierHandler {
 		return Aadl2Factory.eINSTANCE.getAadl2Package().getComponentImplementation().isSuperTypeOf(classifierType);
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
-		return AadlGraphics.getGraphic(bo);
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier bo) {
+		return GraphicalConfigurationBuilder.create().
+			graphic(AadlGraphics.getGraphic(bo)).
+			defaultLabelConfiguration(labelConfiguration).
+			build();
 	}
-	
-	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final QueryService queryService) {
-		return nameLabelConfiguration;
-	}
-		
+
 	@CanRename
 	public boolean canRename(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
 		return classifierIsOwnedByPackage(classifier, boc, queryService);

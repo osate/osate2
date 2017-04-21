@@ -7,7 +7,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramElementField;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModificationListener;
@@ -81,7 +80,7 @@ public class AgeDiagramTests {
 	@Test
 	public void testElementAddedEvent() {
 		// Test an add event
-		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh, new RelativeBusinessObjectReference("1"), new CanonicalBusinessObjectReference("1"), "1", null);
+		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh, new RelativeBusinessObjectReference("1"), null);
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
@@ -152,7 +151,7 @@ public class AgeDiagramTests {
 	}
 	
 	private DiagramElement addRootElementAndResetCounter(final int id) {
-		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)), new CanonicalBusinessObjectReference(Integer.toString(id)), Integer.toString(id), null);
+		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)), null);
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {

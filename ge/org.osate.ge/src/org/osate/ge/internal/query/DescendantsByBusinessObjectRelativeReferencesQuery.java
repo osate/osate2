@@ -9,11 +9,25 @@ import org.osate.ge.query.Supplier;
 public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQuery {
 	private final static RelativeBusinessObjectReference[] nullBoRefs = new RelativeBusinessObjectReference[0];
 	private final Supplier<Object, Object[]> bosSupplier;
+	private final int minSegments;
+	
+	private static class Match {
+		Queryable value;
+		int depth = -1;
+	}	
+	
+	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery prev, 
+			final Supplier<?, Object[]> bosSupplier) {
+		this(prev, bosSupplier, -1);
+	}
 	
 	@SuppressWarnings("unchecked")
-	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery prev, final Supplier<?, Object[]> bosSupplier) {
+	public DescendantsByBusinessObjectRelativeReferencesQuery(final DefaultQuery prev, 
+			final Supplier<?, Object[]> bosSupplier,
+			final int minSegments) {
 		super(prev);
 		this.bosSupplier = (Supplier<Object, Object[]>) Objects.requireNonNull(bosSupplier, "bosSupplier must not be null");
+		this.minSegments = minSegments;
 	}
 	
 	@Override
@@ -33,10 +47,34 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 			return;
 		}
 		
-		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, 0);		
+		final Match bestMatch = new Match();
+		findMatchingDescendants(remainingQueries, ctx, state, result, boRefs, bestMatch, 0);		
+		
+		// Return a partial match if a result has not been processed and a partial match was found
+		if(!result.done && 
+				allowPartialMatch() && 
+				bestMatch.depth >= minSegments && 
+				bestMatch.depth < boRefs.length) {
+			processResultValue(remainingQueries, bestMatch.value, state, result);
+		}
 	}
 	
-	void findMatchingDescendants(final Deque<DefaultQuery> remainingQueries, Queryable container, final QueryExecutionState state, final QueryResult result, final RelativeBusinessObjectReference[] boRefs, int currentDepth) {
+	private boolean allowPartialMatch() {
+		return minSegments > 0;
+	}
+	
+	void findMatchingDescendants(final Deque<DefaultQuery> remainingQueries, 
+			Queryable container, 
+			final QueryExecutionState state, 
+			final QueryResult result, 
+			final RelativeBusinessObjectReference[] boRefs,
+			final Match bestMatch, 
+			int currentDepth) {
+		if(currentDepth > bestMatch.depth) {
+			bestMatch.value = container;
+			bestMatch.depth = currentDepth;
+		}
+		
 		if(currentDepth >= boRefs.length) {
 			processResultValue(remainingQueries, container, state, result);
 		} else {		
@@ -45,7 +83,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 				// Check the business object reference
 				final RelativeBusinessObjectReference childRef = state.refBuilder.getRelativeReference(child.getBusinessObject());
 				if(boRef.equals(childRef)) {
-					findMatchingDescendants(remainingQueries, child, state, result, boRefs, currentDepth+1);
+					findMatchingDescendants(remainingQueries, child, state, result, boRefs, bestMatch, currentDepth+1);
 				}	
 
 				if(result.done) {

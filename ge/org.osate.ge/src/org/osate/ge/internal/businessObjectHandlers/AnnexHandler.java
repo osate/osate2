@@ -2,9 +2,7 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.Dialog;
@@ -23,20 +21,19 @@ import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.graphics.FolderGraphicBuilder;
-import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
@@ -45,8 +42,10 @@ import org.osate.ge.services.QueryService;
 
 public class AnnexHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
-	private static final Graphic graphic = FolderGraphicBuilder.create().lineWidth(2).build();
-	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
+	private static final GraphicalConfiguration graphicalConfig = GraphicalConfigurationBuilder.create().
+			graphic(FolderGraphicBuilder.create().lineWidth(2).build()).
+			defaultLabelConfiguration(LabelConfigurationBuilder.create().center().build()).
+			build();
 	
 	@IsApplicable
 	@CanDelete
@@ -65,9 +64,9 @@ public class AnnexHandler {
 		return bo.getContainingClassifier() == queryService.getFirstBusinessObject(parentQuery, boc);
     }
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalRepresentation() {
+		return graphicalConfig;
 	}
 	
 	@GetPaletteEntries
@@ -208,10 +207,5 @@ public class AnnexHandler {
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) NamedElement annex) {
 		return "{**" + annex.getName() + "**}"; 
-	}
-	
-	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration() {
-		return nameLabelConfiguration;
 	}
 }

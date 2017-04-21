@@ -12,12 +12,14 @@ import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
@@ -29,7 +31,6 @@ import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
-import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -45,24 +46,32 @@ import org.osate.ge.services.QueryService;
 
 public class SubcomponentHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
-	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
+	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().top().horizontalCenter().build();
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
 		return true;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
-			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scElement) {
-		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scElement, sc);
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(getGraphicalRepresentation(sc, scBoc)).
+				defaultLabelConfiguration(labelConfiguration).
+				build();
+	}
+	
+	private Graphic getGraphicalRepresentation(final Subcomponent sc, 
+			final BusinessObjectContext scBoc) {
+		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
 		if(cc == null) {
 			return AadlGraphics.getGraphic(sc.getCategory(), false);
 		} else {
 			return AadlGraphics.getGraphic(cc);
 		}
-	}
-	
+	}	
+
 	// Labels
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
@@ -71,11 +80,6 @@ public class SubcomponentHandler {
 	
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();
-	}
-		
-	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration() {
-		return nameLabelConfiguration;
 	}
 
 	@GetAnnotations

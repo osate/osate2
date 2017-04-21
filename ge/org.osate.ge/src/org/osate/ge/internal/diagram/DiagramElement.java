@@ -1,5 +1,6 @@
 package org.osate.ge.internal.diagram;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -8,8 +9,11 @@ import java.util.List;
 import java.util.Objects;
 
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.diagram.boTree.Completeness;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
@@ -17,38 +21,33 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramNode container;
 
 	private Object bo;
+	private boolean manual; // Specifies that the element was created as part of a manual process and not from an auto contnets filter or other automatic mechanism.
+	private ContentsFilter autoContentsFilter = ContentsFilter.ALLOW_FUNDAMENTAL;
+	private Completeness completeness = Completeness.UNKNOWN;
 	private final Object boHandler;
 	private final RelativeBusinessObjectReference boRelReference;
-	private final CanonicalBusinessObjectReference boCanonicalReference; // Use to determine whether two elements refer to the same business object.
 	private final DiagramElementCollection children = new DiagramElementCollection();
-	private final String name;
-	private Graphic graphic; // Required after initialization.
+	private String name;
+	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
 	
 	// Shape Specific
 	private Point position; // Optional. Relative to container.
 	private Dimension size; // Optional
 	private DockArea dockArea; // Optional
-	private AgeLabelConfiguration labelConfiguration;
 	
 	// Connection Specific
-	private DiagramElement connectionStartElement;
-	private DiagramElement connectionEndElement;
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
-	private Point connectionNameLabelPosition; // Optional. Position of the connection label.
+	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label.
 	
 	public DiagramElement(final DiagramNode container,
 			final Object bo, 
 			final Object boHandler,
 			final RelativeBusinessObjectReference boRelReference,
-			final CanonicalBusinessObjectReference boCanonicalReference,
-			final String name,
 			final Point position) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
 		this.bo = Objects.requireNonNull(bo, "bo must not be null");
 		this.boHandler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
-		this.boCanonicalReference = Objects.requireNonNull(boCanonicalReference, "boCanonicalReference must not be null");
-		this.name = name;
 		this.position = position;
 	}
 
@@ -84,6 +83,30 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return bo;
 	}
 	
+	public final boolean isManual() {
+		return manual;
+	}
+	
+	final void setManual(final boolean value) {
+		this.manual = value;
+	}
+	
+	public final ContentsFilter getAutoContentsFilter() {
+		return autoContentsFilter;
+	}
+	
+	final void setAutoContentsFilter(final ContentsFilter value) {
+		this.autoContentsFilter = Objects.requireNonNull(value, "value must not be null");
+	}
+	
+	public final Completeness getCompleteness() {
+		return completeness;
+	}
+	
+	final void setCompleteness(final Completeness value) {
+		this.completeness = Objects.requireNonNull(value, "value must not be null");
+	}
+	
 	public final Object getBusinessObjectHandler() {
 		return boHandler;
 	}
@@ -96,12 +119,12 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return boRelReference;
 	}
 	
-	public final CanonicalBusinessObjectReference getCanonicalReference() {
-		return boCanonicalReference;
-	}
-	
 	public final String getName() {
 		return name;
+	}
+	
+	final void setName(final String value) {
+		this.name = value;
 	}
 	
 	public final boolean hasPosition() {
@@ -178,14 +201,22 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		this.size = new Dimension(width, height);
 	}
 	
+	public final GraphicalConfiguration getGraphicalConfiguration() {
+		return graphicalConfig;
+	}
+
+	final void setGraphicalConfiguration(final AgeGraphicalConfiguration value) {
+		this.graphicalConfig = Objects.requireNonNull(value, "value must not be null");
+	}
+	
 	public final Graphic getGraphic() {
-		return graphic;
+		return graphicalConfig.graphic;
 	}
 	
-	final void setGraphic(final Graphic value) {
-		this.graphic = Objects.requireNonNull(value, "value must not be null");
+	public final Color getForeground() {
+		return graphicalConfig.foreground;
 	}
-	
+
 	public final DockArea getDockArea() {
 		return dockArea;
 	}
@@ -195,27 +226,15 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	public final AgeLabelConfiguration getLabelConfiguration() {
-		return labelConfiguration;
+		return graphicalConfig.defaultLabelConfiguration;
 	}
 	
-	final void setLabelConfiguration(final AgeLabelConfiguration value) {
-		this.labelConfiguration = value;
-	}
-
 	public final DiagramElement getStartElement() {
-		return connectionStartElement;
-	}
-	
-	final void setStartElement(final DiagramElement value) {
-		this.connectionStartElement = value;
+		return graphicalConfig.connectionSource;
 	}
 	
 	public final DiagramElement getEndElement() {
-		return connectionEndElement;
-	}
-	
-	final void setEndElement(final DiagramElement value) {
-		this.connectionEndElement = value;
+		return graphicalConfig.connectionDestination;
 	}
 	
 	/**
@@ -235,12 +254,12 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 * 
 	 * @return will return null if the position has not been set.
 	 */
-	public final Point getConnectionNameLabelPosition() {
-		return connectionNameLabelPosition;
+	public final Point getConnectionPrimaryLabelPosition() {
+		return connectionPrimaryLabelPosition;
 	}
 	
-	final void setConnectionNameLabelPosition(final Point value) {
-		this.connectionNameLabelPosition = value;
+	final void setConnectionPrimaryLabelPosition(final Point value) {
+		this.connectionPrimaryLabelPosition = value;
 	}
 	
 	@Override
@@ -260,15 +279,10 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		sb.append("relative reference: ");
 		sb.append(boRelReference);
 		sb.append(System.lineSeparator());
-		
+				
 		sb.append(innerIndention);
-		sb.append("canonical reference: ");
-		sb.append(boCanonicalReference);
-		sb.append(System.lineSeparator());
-		
-		sb.append(innerIndention);
-		sb.append("graphic: ");
-		sb.append(graphic);
+		sb.append("graphicalConfig: ");
+		sb.append(graphicalConfig);
 		sb.append(System.lineSeparator());
 		
 		if(position != null) {
@@ -289,20 +303,6 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 			sb.append(innerIndention);
 			sb.append("dock area: ");
 			sb.append(dockArea);
-			sb.append(System.lineSeparator());
-		}
-		
-		if(connectionStartElement != null) {
-			sb.append(innerIndention);
-			sb.append("connection start: ");
-			sb.append(connectionStartElement.getCanonicalReference());
-			sb.append(System.lineSeparator());
-		}
-		
-		if(connectionEndElement != null) {
-			sb.append(innerIndention);
-			sb.append("connection end: ");
-			sb.append(connectionEndElement.getCanonicalReference());
 			sb.append(System.lineSeparator());
 		}
 		

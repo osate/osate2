@@ -45,6 +45,7 @@ import org.osate.ge.internal.diagram.ElementAddedEvent;
 import org.osate.ge.internal.diagram.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.ElementUpdatedEvent;
 import org.osate.ge.internal.diagram.ModificationsCompletedEvent;
+import org.osate.ge.internal.diagram.boTree.Completeness;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphics.AgeShape;
@@ -62,6 +63,7 @@ import org.osate.ge.internal.diagram.DiagramElement;
  */
 public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
+	public final static String incompleteIndicator = "*";
 	
 	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
@@ -332,12 +334,14 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			updateChildren(de, recursive);
 		}
 		
-		// Get the name
-		final String name = de.getName();
+		// Build the primary label which includes the element's name
+		final String completenessSuffix = de.getCompleteness() == Completeness.INCOMPLETE ? incompleteIndicator : "";
+		final String primaryLabelStr = de.getName() == null ? null : (de.getName() + completenessSuffix);
+		
 		if(pe instanceof ContainerShape) {
 			// Create Labels
-			if(name != null) {
-				final Shape labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.nameShapeName, name, true);
+			if(primaryLabelStr != null) {
+				final Shape labelShape = LabelUtil.createLabelShape(graphitiDiagram, (ContainerShape)pe, ShapeNames.primaryLabelShapeName, primaryLabelStr, true);
 				labelShape.setActive(false);
 			}
 
@@ -359,19 +363,19 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			// Create label decorator
 			int labelX = 0;
 			int labelY = 0;
-			if(name != null) {
+			if(primaryLabelStr != null) {
 				final IPeCreateService peCreateService = Graphiti.getPeCreateService();
 				final ConnectionDecorator textDecorator = peCreateService.createConnectionDecorator(connection, true, ageConnection.isFlowIndicator ? 1.0 : 0.5, true);
 				final Text text = gaService.createDefaultText(graphitiDiagram, textDecorator);
 				PropertyUtil.setIsColoringChild(text, true);
 				LabelUtil.setStyle(graphitiDiagram, text);
-				PropertyUtil.setName(textDecorator, ShapeNames.nameShapeName);						
-			    text.setValue(name);
+				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);						
+			    text.setValue(primaryLabelStr);
 
-			    final org.osate.ge.internal.diagram.Point nameLabelPosition = de.getConnectionNameLabelPosition();
-			    if(nameLabelPosition == null) {
+			    final org.osate.ge.internal.diagram.Point primaryLabelPosition = de.getConnectionPrimaryLabelPosition();
+			    if(primaryLabelPosition == null) {
 			    	// Set default position
-			    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(name, text.getFont());
+			    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr, text.getFont());
 			    	if(ageConnection.isFlowIndicator) { // Special default position for flow indicator labels
 			    		labelX = -28; // Position the label such that it the default text does not intersect with the border when docked on the left or on the right
 			    		labelY = 5;
@@ -380,8 +384,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			    		labelY = -labelTextSize.getHeight()/2;
 			    	}
 			    } else {
-			    	labelX = nameLabelPosition.x;
-			    	labelY = nameLabelPosition.y;
+			    	labelX = primaryLabelPosition.x;
+			    	labelY = primaryLabelPosition.y;
 			    }
 			    gaService.setLocation(text, labelX, labelY);
 			}
@@ -450,12 +454,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			finishUpdating(child);
 		}
 		
-		// Override color based on coloring provider
-		final java.awt.Color overrideAwtColor = coloringProvider.getForegroundColor(element);
-		if(overrideAwtColor != null) {
-			final Color overrideColor = Graphiti.getGaService().manageColor(graphitiDiagram, overrideAwtColor.getRed(), overrideAwtColor.getGreen(), overrideAwtColor.getBlue());
-			ColoringUtil.overrideForeground(pe, overrideColor);
-		}
+		// Set the color
+		refreshGraphicColoring(pe, getFinalColor(element));
 	}
 		
 	/**
@@ -564,19 +564,25 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	// This function assumes that the foreground color of all applicable graphics algorithms is black by default. 
 	// When the coloring is disabled, the foreground colors are reverted to black.
 	// Must be called within a transaction
-	public void refreshGraphicColoring(final DiagramElement de) {
+	public final void refreshGraphicColoring(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if(pe != null) {
-			final java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-			final Color color; 
-			if(awtColor == null) {
-				color = Graphiti.getGaService().manageColor(graphitiDiagram, IColorConstant.BLACK);
-			} else {
-				color = Graphiti.getGaService().manageColor(graphitiDiagram, awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
-			}
-
-			ColoringUtil.overrideForeground(pe, color);
+			refreshGraphicColoring(pe, getFinalColor(de));
 		}
+	}
+	
+	private final void refreshGraphicColoring(final PictogramElement pe, final java.awt.Color awtColor) {		
+		final Color color = Graphiti.getGaService().manageColor(graphitiDiagram, awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
+		ColoringUtil.overrideForeground(pe, color);
+	}
+	
+	private java.awt.Color getFinalColor(final DiagramElement de) {
+		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
+		if(awtColor == null) {
+			awtColor = de.getForeground();
+		}
+		
+		return awtColor;
 	}
 	
 	private Anchor getAnchor(final DiagramElement de) {

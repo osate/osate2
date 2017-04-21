@@ -32,6 +32,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;
@@ -63,10 +64,18 @@ public class DeclarativeReferenceBuilder {
 	public final static String TYPE_ANNEX_LIBRARY = "annex_library";
 	public final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 
+	public static CanonicalBusinessObjectReference buildPackageCanonicalReference(final String qualifiedName) {
+		return new CanonicalBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
+	}
+	
+	public static String[] buildPackageReferenceSegments(final String qualifiedName) {
+		return new String[] {TYPE_PACKAGE, qualifiedName};	
+	}
+	
 	@BuildRelativeReference 
 	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {		
 		if(bo instanceof AadlPackage) {
-			return new String[] {TYPE_PACKAGE, ((AadlPackage)bo).getQualifiedName()};				
+			return buildPackageReferenceSegments(((AadlPackage)bo).getQualifiedName());				
 		} if(bo instanceof Classifier) {
 			return buildSimpleRelativeReference(TYPE_CLASSIFIER, ((Classifier)bo));
 		} else if(bo instanceof Subcomponent) {

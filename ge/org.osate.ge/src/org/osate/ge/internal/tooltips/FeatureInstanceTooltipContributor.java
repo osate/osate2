@@ -38,28 +38,28 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.Activate;
 
-public class FeatureTooltipContributor {
+/**
+ * Shows tooltip for feature instances
+ */
+public class FeatureInstanceTooltipContributor {
 	@Activate
-	public void getTooltip(final Composite parent, @Named(Names.BUSINESS_OBJECT) Object bo) {
-		if(bo instanceof FeatureInstance) {
-			final FeatureInstance featureInstance = (FeatureInstance)bo;
-			bo = featureInstance.getFeature();
-		}
-		
-		if(bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature) {
+	public void getTooltip(final Composite parent, @Named(Names.BUSINESS_OBJECT) FeatureInstance featureInstance) {
+		final Feature feature = featureInstance.getFeature();
+
+		if(feature instanceof Feature || feature instanceof InternalFeature || feature instanceof ProcessorFeature) {
 			// Determine the feature classifier
 			final Classifier featureClassifier;
-			if(bo instanceof EventDataSource) {
-				final EventDataSource aadlFeature = (EventDataSource)bo;
+			if(feature instanceof EventDataSource) {
+				final EventDataSource aadlFeature = (EventDataSource)feature;
 				featureClassifier = aadlFeature.getDataClassifier();
-			} else if(bo instanceof PortProxy) {
-				final PortProxy aadlFeature = (PortProxy)bo;
+			} else if(feature instanceof PortProxy) {
+				final PortProxy aadlFeature = (PortProxy)feature;
 				featureClassifier = aadlFeature.getDataClassifier();
-			} else if(bo instanceof SubprogramProxy) {
-				final SubprogramProxy aadlFeature = (SubprogramProxy)bo;
+			} else if(feature instanceof SubprogramProxy) {
+				final SubprogramProxy aadlFeature = (SubprogramProxy)feature;
 				featureClassifier = aadlFeature.getSubprogramClassifier();
-			} else if(bo instanceof Feature) {
-				final Feature aadlFeature = (Feature)bo;
+			} else if(feature instanceof Feature) {
+				final Feature aadlFeature = (Feature)feature;
 				featureClassifier = aadlFeature.getAllClassifier();		    	
 			} else {
 				featureClassifier = null;

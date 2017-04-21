@@ -9,14 +9,15 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -37,11 +38,23 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 			sourceTerminator(ArrowBuilder.create().small().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
+	private static final Graphic partialFlowSourceGraphic = FlowIndicatorBuilder.create().
+			dashed().
+			sourceTerminator(ArrowBuilder.create().small().build()).
+			destinationTerminator(OrthogonalLineBuilder.create().build()).
+			build();
 	private static final Graphic flowSinkGraphic = FlowIndicatorBuilder.create().
 			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
 			destinationTerminator(OrthogonalLineBuilder.create().build()).
 			build();
+	private static final Graphic partialFlowSinkGraphic = FlowIndicatorBuilder.create().
+			dashed().
+			sourceTerminator(ArrowBuilder.create().small().reverse().build()).
+			destinationTerminator(OrthogonalLineBuilder.create().build()).
+			build();
+	
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd())).first());
+	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getKind() == FlowKind.SOURCE ? fs.getAllOutEnd() : fs.getAllInEnd()), 1).first());
 	
 	// Basics
 	@IsApplicable
@@ -49,14 +62,32 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		return fs.getKind() == FlowKind.SOURCE || fs.getKind() == FlowKind.SINK;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs) {
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
+		boolean partial = false;
+		
+		if(src == null) {
+			src = queryService.getFirstResult(partialSrcQuery, boc);
+			partial = true;
+		}
+
+		return GraphicalConfigurationBuilder.create().
+				graphic(getGraphicalRepresentation(fs, partial)).
+				source(src).
+				foreground(partial ? Colors.PARTIAL_CONNECTION_COLOR : null).
+				build();
+	}
+	
+	private Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final boolean partial) {
 		switch(fs.getKind()) {
 		case SOURCE:
-			return flowSourceGraphic;
+			return partial ? partialFlowSourceGraphic : flowSourceGraphic;
 			
 		case SINK:
-			return flowSinkGraphic;
+			return partial ? partialFlowSinkGraphic : flowSinkGraphic;
 			
 		default:
 			return null;
@@ -66,12 +97,6 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	@CreateParentQuery
 	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
-	}
-	
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
 	// Creating
@@ -103,9 +128,9 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 	}	
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
+	public BusinessObjectContext getCreateOwner(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
 			final QueryService queryService) {
-		return getComponentTypeByFeature(targetBoc, queryService);
+		return getComponentTypeBocByFeature(targetBoc, queryService);
 	}	
 
 	@Create

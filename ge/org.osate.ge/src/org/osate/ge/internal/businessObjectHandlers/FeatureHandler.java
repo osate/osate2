@@ -32,12 +32,14 @@ import org.osate.aadl2.SubprogramProxy;
 import org.osate.aadl2.modelsupport.util.ResolvePrototypeUtil;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
@@ -47,8 +49,6 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetDefaultDockingPosition;
-import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -64,7 +64,7 @@ import org.osate.ge.services.QueryService;
 
 public class FeatureHandler {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestors().first());
-	private static final LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
+	private static final LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().aboveTop().left().build();
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -136,29 +136,33 @@ public class FeatureHandler {
 		return newFeature;
 	}
 	
-	@GetDefaultDockingPosition
-	public DockingPosition getDefaultDockingPosition(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureElement) {
-		return getDirection(feature, featureElement) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, 
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureBoc) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(getGraphicalRepresentation(feature, featureBoc)).
+				defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).
+				defaultLabelConfiguration(labelConfiguration).
+				build();
 	}
-		
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext featureElement) {
+	
+	private Graphic getGraphicalRepresentation(NamedElement feature, BusinessObjectContext featureBoc) {
 		// Check to see if it is a prototype feature
 		if(feature instanceof AbstractFeature) {
 			final AbstractFeature af = (AbstractFeature)feature;
 			if(af.getFeaturePrototype() != null) {
 				// Lookup the binding
 				// Get the proper context (FeatureGroupType or ComponentClassifier) - May be indirectly for example from Subcomponent...
-				final Element bindingContext = AadlPrototypeUtil.getPrototypeBindingContext(featureElement);
+				final Element bindingContext = AadlPrototypeUtil.getPrototypeBindingContext(featureBoc);
 				if(bindingContext != null) {
 					final PrototypeBinding binding = ResolvePrototypeUtil.resolveFeaturePrototype(af.getFeaturePrototype(), bindingContext);
 					if(binding instanceof FeaturePrototypeBinding) {
 						FeaturePrototypeActual actual = ((FeaturePrototypeBinding) binding).getActual();
 						if(actual instanceof PortSpecification) {
-							final DirectionType direction = getDirection(actual, featureElement);
+							final DirectionType direction = getDirection(actual, featureBoc);
 							return AadlGraphics.getFeatureGraphic(((PortSpecification)actual).getCategory(), direction);
 						} else if(actual instanceof AccessSpecification) {
-							final DirectionType direction = getDirection(actual, featureElement);
+							final DirectionType direction = getDirection(actual, featureBoc);
 							return AadlGraphics.getFeatureGraphic(((AccessSpecification)actual).getCategory(), direction);
 						}
 					}
@@ -166,9 +170,13 @@ public class FeatureHandler {
 			}
 		}
 		
-		final DirectionType direction = getDirection(feature, featureElement);
+		final DirectionType direction = getDirection(feature, featureBoc);
 		return AadlGraphics.getFeatureGraphic(feature.eClass(), direction); 
 	}	
+	
+	private DockingPosition getDefaultDockingPosition(NamedElement feature, BusinessObjectContext featureBoc) {
+		return getDirection(feature, featureBoc) == DirectionType.OUT ? DockingPosition.RIGHT : DockingPosition.LEFT;
+	}
 	
 	/**
 	 * 
@@ -212,12 +220,7 @@ public class FeatureHandler {
 		}
 		
 		return name;
-	}
-	
-	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration() {
-		return nameLabelConfiguration;
-	}
+	}	
 	
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.NAME) String value, final NamingService namingService) {

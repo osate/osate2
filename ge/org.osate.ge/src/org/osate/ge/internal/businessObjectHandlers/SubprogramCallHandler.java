@@ -12,12 +12,14 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
@@ -31,7 +33,6 @@ import org.osate.ge.internal.annotations.Annotation;
 import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetAnnotations;
-import org.osate.ge.internal.di.GetDefaultLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
@@ -46,7 +47,7 @@ import org.osate.ge.services.QueryService;
 public class SubprogramCallHandler {
 	private static final StandaloneQuery behavioredImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof BehavioredImplementation).first());
 	private Graphic graphic = EllipseBuilder.create().dashed().build();
-	private LabelConfiguration nameLabelConfiguration = LabelConfigurationBuilder.create().center().build();
+	private LabelConfiguration labelConfiguration = LabelConfigurationBuilder.create().center().build();
 		
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
@@ -65,19 +66,17 @@ public class SubprogramCallHandler {
 		};
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
-		return graphic;
-	}	
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration() {
+		return GraphicalConfigurationBuilder.create().
+				graphic(graphic).
+				defaultLabelConfiguration(labelConfiguration).
+				build();
+	}
 
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
 		return call.getName();
-	}
-		
-	@GetDefaultLabelConfiguration
-	public LabelConfiguration getNameLabelConfiguration() {
-		return nameLabelConfiguration;
 	}
 
 	@GetAnnotations

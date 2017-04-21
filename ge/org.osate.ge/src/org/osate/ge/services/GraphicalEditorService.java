@@ -43,7 +43,6 @@ public interface GraphicalEditorService {
 	 * The root business object should support retrieving its title.  
 	 * @param bo is the business object which is the root business object of the diagram that diagram to be opened.
 	 * @return the editor in which the diagram was open. Throws an exception if the editor could not be opened.
-	 * @see org.osate.ge.di.GetDiagramName
 	 */
 	GraphicalEditor openBusinessObject(Object bo);
 	

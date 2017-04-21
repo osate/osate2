@@ -317,9 +317,7 @@ public class DiagramUpdaterTests {
 			if(flags.contains(CheckFlag.CHECK_DOCK_AREA)) {
 				assertThat(e.getDockArea(), is(equalTo(dockArea)));
 			}
-			
-			assertThat(e.getCanonicalReference(), is(equalTo(testBo.getCanonicalReference())));
-			
+
 			// Check the children
 			checkElements(e.getDiagramElements(), (TestBusinessObject)e.getBusinessObject(), dockArea, flags);
 		}

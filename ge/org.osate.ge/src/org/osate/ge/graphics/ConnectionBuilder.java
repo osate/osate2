@@ -69,8 +69,7 @@ public class ConnectionBuilder {
 	public ConnectionBuilder curved() {
 		this.isCurved = true;
 		return this;
-	}
-	
+	}	
 	
 	/**
 	 * Creates a connection based on the current state of the builder.

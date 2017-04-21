@@ -7,9 +7,9 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
-import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.diagram.boTree.Completeness;
 import org.osate.ge.internal.query.Queryable;
 
 /**
@@ -126,14 +126,61 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@Override
 		public void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo) {
 			e.setBusinessObject(bo);
-			// Should listeners be notified?
+			// Do not notify listeners
+		}
+		
+		@Override
+		public void setManual(final DiagramElement e, final boolean value) {
+			if(value != e.isManual()) { 
+				storeChange(e, DiagramElementField.MANUAL, e.isManual(), value);
+				e.setManual(value);
+				afterUpdate(e, DiagramElementField.MANUAL);
+			}
+		}
+		
+		@Override
+		public void setAutoContentsFilter(final DiagramElement e, final ContentsFilter value) {
+			Objects.requireNonNull(value, "value must not be null");
+			if(!value.equals(e.getAutoContentsFilter())) { 
+				storeChange(e, DiagramElementField.AUTO_CONTENTS_FILTER, e.getAutoContentsFilter(), value);
+				e.setAutoContentsFilter(value);
+				afterUpdate(e, DiagramElementField.AUTO_CONTENTS_FILTER);
+			}
+		}
+		
+		@Override
+		public void setCompleteness(final DiagramElement e, final Completeness value) {
+			if(!value.equals(e.getCompleteness())) { 
+				storeChange(e, DiagramElementField.COMPLETENESS, e.getCompleteness(), value);
+				e.setCompleteness(value);
+				afterUpdate(e, DiagramElementField.COMPLETENESS);
+			}
+		}
+		
+		@Override 
+		public void setName(final DiagramElement e, final String value) {
+			if(value == null && e.getName() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getName())) { 
+				storeChange(e, DiagramElementField.NAME, e.getName(), value);
+				e.setName(value);
+				afterUpdate(e, DiagramElementField.NAME);
+			}
 		}
 		
 		@Override
 		public void setSize(final DiagramElement e, final Dimension value) {
-			storeChange(e, DiagramElementField.SIZE, e.getSize(), value);
-			e.setSize(value);
-			afterUpdate(e, DiagramElementField.SIZE);
+			if(value == null && e.getSize() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getSize())) {
+				storeChange(e, DiagramElementField.SIZE, e.getSize(), value);
+				e.setSize(value);
+				afterUpdate(e, DiagramElementField.SIZE);
+			}
 		}
 				
 		@Override
@@ -154,11 +201,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setGraphic(final DiagramElement e, final Graphic value) {
-			if(!value.equals(e.getGraphic())) { 
-				storeChange(e, DiagramElementField.GRAPHIC, e.getGraphic(), value);
-				e.setGraphic(value);
-				afterUpdate(e, DiagramElementField.GRAPHIC);
+		public void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value) {
+			if(!value.equals(e.getGraphicalConfiguration())) { 
+				storeChange(e, DiagramElementField.GRAPHICAL_CONFIGURATION, e.getGraphicalConfiguration(), value);
+				e.setGraphicalConfiguration(value);
+				afterUpdate(e, DiagramElementField.GRAPHICAL_CONFIGURATION);
 			}
 		}
 		
@@ -170,35 +217,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				afterUpdate(e, DiagramElementField.DOCK_AREA);
 			}
 		}
-		
-		@Override
-		public void setLabelConfiguration(final DiagramElement e, final AgeLabelConfiguration value) {
-			if(value != e.getLabelConfiguration()) { 
-				storeChange(e, DiagramElementField.LABEL_CONFIGURATION, e.getLabelConfiguration(), value);
-				e.setLabelConfiguration(value);
-				afterUpdate(e, DiagramElementField.LABEL_CONFIGURATION);
-			}
-		}
-		
-		@Override
-		public void setConnectionStart(final DiagramElement e, final DiagramElement value) {
-			if(value != e.getStartElement()) {
-				storeChange(e, DiagramElementField.CONNECTION_START, e.getStartElement(), value);
-				e.setStartElement(value);
-				afterUpdate(e, DiagramElementField.CONNECTION_START);
-			}
-		}
-		
-		@Override
-		public void setConnectionEnd(final DiagramElement e, final DiagramElement value) {
-			if(value != e.getEndElement()) {
-				storeChange(e, DiagramElementField.CONNECTION_END, e.getEndElement(), value);
-				e.setEndElement(value);
-				afterUpdate(e, DiagramElementField.CONNECTION_END);
-			}
-		}
-		
-		
+
 		@Override
 		public void setBendpoints(final DiagramElement e, final List<Point> value) {
 			if(!value.equals(e.getBendpoints())) {
@@ -210,15 +229,15 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
-		public void setConnectionNameLabelPosition(final DiagramElement e, final Point value) {
-			if(value == null && e.getConnectionNameLabelPosition() == null) {
+		public void setConnectionPrimaryLabelPosition(final DiagramElement e, final Point value) {
+			if(value == null && e.getConnectionPrimaryLabelPosition() == null) {
 				return;
 			}
 			
-			if(value == null || !value.equals(e.getConnectionNameLabelPosition())) {
-				storeChange(e, DiagramElementField.CONNECTION_NAME_LABEL_POSITION, e.getConnectionNameLabelPosition(), value);
-				e.setConnectionNameLabelPosition(value);
-				afterUpdate(e, DiagramElementField.CONNECTION_NAME_LABEL_POSITION);
+			if(value == null || !value.equals(e.getConnectionPrimaryLabelPosition())) {
+				storeChange(e, DiagramElementField.CONNECTION_PRIMARY_LABEL_POSITION, e.getConnectionPrimaryLabelPosition(), value);
+				e.setConnectionPrimaryLabelPosition(value);
+				afterUpdate(e, DiagramElementField.CONNECTION_PRIMARY_LABEL_POSITION);
 			}
 		}
 		
@@ -247,7 +266,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				notifyListeners();
 			}
 			
-			e.getModifiableContainer().getModifiableDiagramElements().remove(e);			
+			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
 			removedElement = e;
 			undoable = false;
 		}
@@ -362,28 +381,32 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		@SuppressWarnings("unchecked")
 		private void setValue(final AgeDiagramModification m, final DiagramElement element, final DiagramElementField field, final Object value) {
 			switch(field) {
+			case MANUAL:
+				m.setManual(element, (boolean)value);
+				break;
+				
+			case AUTO_CONTENTS_FILTER:
+				m.setAutoContentsFilter(element, (ContentsFilter)value);
+				break;
+		
+			case COMPLETENESS:
+				m.setCompleteness(element, (Completeness)value);
+				break;
+				
+			case NAME:
+				m.setName(element, (String)value);
+				break;
+				
 			case BENDPOINTS:
 				m.setBendpoints(element, (List<Point>)value);
 				break;
-				
-			case CONNECTION_END:
-				m.setConnectionEnd(element, (DiagramElement)value);
-				break;
-				
-			case CONNECTION_START:
-				m.setConnectionEnd(element, (DiagramElement)value);
-				break;
-				
+
 			case DOCK_AREA:
 				m.setDockArea(element, (DockArea)value);
 				break;
 				
-			case GRAPHIC:
-				m.setGraphic(element, (Graphic)value);
-				break;
-				
-			case LABEL_CONFIGURATION:
-				m.setLabelConfiguration(element, (AgeLabelConfiguration)value);
+			case GRAPHICAL_CONFIGURATION:
+				m.setGraphicalConfiguration(element, (AgeGraphicalConfiguration)value);
 				break;
 				
 			case POSITION:
@@ -394,8 +417,8 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 				m.setSize(element, (Dimension)value);
 				break;
 				
-			case CONNECTION_NAME_LABEL_POSITION:
-				m.setConnectionNameLabelPosition(element, (Point)value);
+			case CONNECTION_PRIMARY_LABEL_POSITION:
+				m.setConnectionPrimaryLabelPosition(element, (Point)value);
 				break;
 			}
 		}

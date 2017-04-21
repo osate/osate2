@@ -10,38 +10,41 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.boTree.Completeness;
+import org.osate.ge.internal.diagram.boTree.TreeExpander;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.services.DiagramModificationService.Modification;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
  * The DiagramUpdater updates the diagram using information provided by objects passed into the constructor.
  */
 public class DiagramUpdater {	
-	private final BusinessObjectTreeFactory boTreeFactory;
-	private final DiagramElementInfoProvider infoProvider;
+	private final TreeExpander boTreeExpander;
+	private final DiagramElementInformationProvider infoProvider;
 	
 	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, DiagramElement>> containerToRelativeReferenceToGhostMap = new HashMap<>();
 	
-	// Holds the positions of diagram elements which have not been created. Uses canonical reference which isn't guaranteed to be unique but
-	// it is expected that typically this map will contain 0 or 1 entries and avoids making assumptions about containers.
-	private final Map<CanonicalBusinessObjectReference, Point> futureElementPositionMap = new HashMap<>(); 
+	// Holds information regarding diagram elements which have not been created. The DiagramNode is the parent of the new element.
+	// The Point is the position. It may be null to indicate that an element should be added as a manually added element but that a position hasn't been specified.
+	private final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap = new HashMap<>(); 
 
-	public DiagramUpdater(final BusinessObjectTreeFactory boTreeFactory, 
-			final DiagramElementInfoProvider infoProvider) {
-		this.boTreeFactory = Objects.requireNonNull(boTreeFactory, "boTreeFactory must not be null");
+	public DiagramUpdater(final TreeExpander boTreeExpander, 
+			final DiagramElementInformationProvider infoProvider) {
+		this.boTreeExpander = Objects.requireNonNull(boTreeExpander, "boTreeExpander must not be null");
 		this.infoProvider = Objects.requireNonNull(infoProvider, "infoProvider must not be null"); // Adjust message after rename
 	}
 
@@ -49,24 +52,38 @@ public class DiagramUpdater {
 	 * Add a position to be used for the initial position for the next element that is created with the specified canonical reference. 
 	 * All future positions are cleared after each update.
 	 * @param ref
-	 * @param position
+	 * @param newElementPosition
 	 */
-	public void addFutureElementPosition(final CanonicalBusinessObjectReference ref, final Point position) {
-		futureElementPositionMap.put(ref, position);
+	public void addToNextUpdate(final DiagramNode parentDiagramNode, 
+			final RelativeBusinessObjectReference ref, 
+			final Point newElementPosition) {
+		Map<RelativeBusinessObjectReference, Point> m = futureElementPositionMap.get(parentDiagramNode);
+		if(m == null) {
+			m = new HashMap<>();
+			futureElementPositionMap.put(parentDiagramNode, m);
+		}
+		m.put(ref, newElementPosition);
 	}	
-	
+
 	public void updateDiagram(final AgeDiagram diagram) {
+		// Create an updated business object tree based on the current state of the diagram and pending elements
+		BusinessObjectNode tmpTree = createBusinessObjectNode(diagram, futureElementPositionMap);
+		tmpTree = BusinessObjectNode.pruneAutomaticBranches(tmpTree);		
+		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), tmpTree);
+		updateDiagram(diagram, tree);
+	}
+	
+	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode tree) {
 		final List<DiagramElement> connectionElements = new LinkedList<>();
-		final BusinessObjectTree boTree = Objects.requireNonNull(boTreeFactory.createBusinessObjectTree(diagram.getConfiguration()), "Business Object Tree Factory returned null");
 		
 		diagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
 				// Update the structure. By doing this in a separate pass, updateElements() will have access to the complete diagram structure. 
 				// However, connections will later be purged from the diagram if they do not refer to valid elements.
-				updateStructure(m, diagram, boTree.getRootNodes());
+				updateStructure(m, diagram, tree.getChildren());
 				
-				updateElements(m, diagram, boTree.getRootNodes(), connectionElements);
+				updateElements(m, diagram, tree.getChildren(), connectionElements);
 				removeInvalidConnections(m, connectionElements);
 			}			
 		});
@@ -76,13 +93,15 @@ public class DiagramUpdater {
 	}
 	
 	/**
-	 * Updates the structure of the diagram. Creates/Unghosts elements to match the business object tree. Ghosts diagram elements which are not in the diagram element tree.
+	 * Updates the structure of the diagram based on the business object tree.
+	 * Creates/Unghosts elements to match the business object tree. Ghosts diagram elements which are not in the diagram element tree.
 	 * @param m
 	 * @param container
 	 * @param bos
 	 */
-	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos) {
-		for(final BusinessObjectTreeNode n : bos) {
+	private void updateStructure(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos) {
+		final Map<RelativeBusinessObjectReference, Point> futureElementPositions = futureElementPositionMap.get(container);
+		for(final BusinessObjectNode n : bos) {
 			// Get existing element if it exists.
 			DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
 			
@@ -90,8 +109,14 @@ public class DiagramUpdater {
 			if(element == null) {
 				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
 				if(removedGhost == null) {
-					final Point initialPosition = futureElementPositionMap.get(n.getCanonicalReference());
-					element = new DiagramElement(container, n.getBusinessObject(), n.getBusinessObjectHandler(), n.getRelativeReference(), n.getCanonicalReference(), n.getName(), initialPosition);
+					final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
+					final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
+					if(boh == null) {
+						// TODO: Proper way of handling?
+						continue;
+					}
+
+					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference(), initialPosition);
 				} else {
 					element = removedGhost;
 					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
@@ -102,7 +127,7 @@ public class DiagramUpdater {
 				// Update the business object. Although the reference matches. The business object may be new.
 				m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
 			}
-									
+			
 			// Update the element's children
 			updateStructure(m, element, n.getChildren());
 		}
@@ -117,10 +142,22 @@ public class DiagramUpdater {
 			while(childrenIt.hasNext()) {
 				final DiagramElement child = childrenIt.next();
 				if(!boTreeRelativeReferenceSet.contains(child.getRelativeReference())) {
-					addGhost(child);
-					m.removeElement(child);
+					ghostAndRemove(m, child);
 				}
 			}
+		}
+	}
+	
+	/**
+	 * Ghosts and removes an element. Updates the parent's complete state.
+	 * @param m
+	 * @param e
+	 */
+	private void ghostAndRemove( final DiagramModification m, final DiagramElement e) {
+		addGhost(e);
+		m.removeElement(e);
+		if(e.getParent() instanceof DiagramElement) {
+			m.setCompleteness((DiagramElement)e.getParent(), Completeness.INCOMPLETE);
 		}
 	}
 	
@@ -130,16 +167,25 @@ public class DiagramUpdater {
 	 * @param bos 
 	 * @param connectionElements is a collection to populate with connection elements.
 	 */
-	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectTreeNode> bos, final Collection<DiagramElement> connectionElements) {
-		for(final BusinessObjectTreeNode n : bos) {
+	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos, final Collection<DiagramElement> connectionElements) {
+		for(final BusinessObjectNode n : bos) {
 			// Get existing element. The updateStructure() pass should have ensured that it exists.
 			DiagramElement element = Objects.requireNonNull(container.getByRelativeReference(n.getRelativeReference()), "unable to retrieve element");
+
+			// Set fields
+			m.setAutoContentsFilter(element, n.getAutoContentsFilter());
+			m.setManual(element, n.isManual());
+			m.setCompleteness(element, n.getCompleteness());
 			
-			// Set the graphic
-			final Graphic graphic = Objects.requireNonNull(infoProvider.getGraphic(element), "getGraphic() must not return null");
-			m.setGraphic(element, graphic);
+			// Set the name
+			m.setName(element, infoProvider.getName(element)); // TODO: Should be fetched from somewhere else
 			
-			final DockingPosition defaultDockingPosition = Objects.requireNonNull(infoProvider.getDefaultDockingPosition(element), "getDefaultDockingPosition() must not return null");
+			// Set the graphical Configuration
+			final AgeGraphicalConfiguration graphicalConfiguration = Objects.requireNonNull(infoProvider.getGraphicalConfiguration(element), "getGraphicConfiguration() must not return null");
+			m.setGraphicalConfiguration(element, graphicalConfiguration);
+			
+			// Set the dock area based on the default docking position
+			final DockingPosition defaultDockingPosition = graphicalConfiguration.defaultDockingPosition;
 			final boolean dockable = defaultDockingPosition != DockingPosition.NOT_DOCKABLE;
 			if(dockable) {
 				// If parent is docked, the child should use the group docking area
@@ -152,16 +198,8 @@ public class DiagramUpdater {
 				// Ensure the dock area is null
 				m.setDockArea(element, null);
 			}		
-			
-			// Set the label configuration
-			final AgeLabelConfiguration labelConfiguration = Objects.requireNonNull(infoProvider.getDefaultLabelConfiguration(element), "getDefaultLabelConfiguration() must not return null");
-			m.setLabelConfiguration(element, labelConfiguration);
-			
+						
 			if(element.getGraphic() instanceof AgeConnection) {
-				// Set connection ends
-				m.setConnectionStart(element, infoProvider.getConnectionStart(element));
-				m.setConnectionEnd(element, infoProvider.getConnectionEnd(element));
-
 				// Add connection elements to the list so that they can be access later.
 				connectionElements.add(element);				
 			}
@@ -186,8 +224,7 @@ public class DiagramUpdater {
 				
 				// Remove the connection from the connection collection and the diagram
 				connectionElementsIt.remove();
-				addGhost(e);
-				m.removeElement(e);
+				ghostAndRemove(m, e);
 			}
 		}
 		
@@ -201,8 +238,7 @@ public class DiagramUpdater {
 					
 					// Remove the connection from the connection collection and the diagram
 					removeConnectionAndDescendantConnections(e, connectionElements);
-					addGhost(e);
-					m.removeElement(e);
+					ghostAndRemove(m, e);
 				}
 			}
 		}
@@ -244,5 +280,39 @@ public class DiagramUpdater {
 		}
 		
 		return relativeReferenceToGhostMap.remove(relativeReference);
-	}	
+	}
+	
+	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram, 
+			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
+		final BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, false, ContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
+		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementPositionMap);
+		createBusnessObjectNodesForFutureElements(rootNode, diagram, futureElementPositionMap);
+		return rootNode;
+	}
+	
+	private static void createBusnessObjectNodesForFutureElements(final BusinessObjectNode parent, 
+			final DiagramNode diagramNode,
+			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
+		final Map<RelativeBusinessObjectReference, Point> futureElements = futureElementPositionMap.get(diagramNode);
+		if(futureElements != null) {
+			for(final RelativeBusinessObjectReference ref : futureElements.keySet()) {
+				// An incomplete node is created. The tree expander will fill in missing fields.
+				if(parent.getChild(ref) == null) {
+					new BusinessObjectNode(parent, ref, null, true, null, Completeness.UNKNOWN);
+				}
+			}
+		}
+	}
+	
+	private static void createBusinessObjectNodesForElements(final BusinessObjectNode parent, 
+			final Collection<DiagramElement> elements,
+			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
+		for(final DiagramElement e : elements) {
+			// TODO: Diagram element need something
+			final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getRelativeReference(), e.getBusinessObject(), e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
+			childNode.setAutoContentsFilter(e.getAutoContentsFilter());			
+			createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap);
+			createBusnessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);
+		}
+	}
 }

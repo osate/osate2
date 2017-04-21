@@ -1,7 +1,6 @@
 package org.osate.ge.tests;
 
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
@@ -31,10 +30,6 @@ public class TestBusinessObject {
 		return new RelativeBusinessObjectReference("test_relative", Integer.toString(value), Integer.toString(children.length));
 	}
 
-	public CanonicalBusinessObjectReference getCanonicalReference() {
-		return new CanonicalBusinessObjectReference("test_canonical", Integer.toString(value), Integer.toString(children.length));
-	}
-	
 	public Point getTestPosition() {
 		return new Point(value, children.length);
 	}	

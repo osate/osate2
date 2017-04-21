@@ -9,6 +9,8 @@ import javax.inject.Named;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -45,18 +47,35 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
+import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider {
 	@Activate
 	public Stream<?> getBusinessObjects(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final ExtensionService extService) {
+			final ExtensionService extService,
+			final GraphitiService graphitiService,
+			final ReferenceService refService) {
 		final Object bo = boc.getBusinessObject();
-		if(bo instanceof AadlPackage) {
+		if(bo == null) { // Special handling for project
+			Stream.Builder<Object> packages = Stream.builder();
+			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(graphitiService.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
+				final String pkgQualifiedName = desc.getQualifiedName().toString("::");
+				final Object resolvedPackage = refService.resolve(DeclarativeReferenceBuilder.buildPackageCanonicalReference(pkgQualifiedName));
+				if(resolvedPackage != null) {
+					packages.add(resolvedPackage);
+				}
+			}
+			
+			return packages.build();
+		} else if(bo instanceof AadlPackage) {
 			return getChildren((AadlPackage)bo, extService);
 		} else if(bo instanceof Classifier) {
 			return getChildren((Classifier)bo, true);
@@ -99,7 +118,6 @@ public class AadlBusinessObjectProvider {
 		children.addAll(ps.getOwnedClassifiers());
 		
 		for(final AnnexLibrary annexLibrary : ps.getOwnedAnnexLibraries()) {
-			//children.addAll(ps.getOwnedAnnexLibraries());
 			final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(annexLibrary);
 			final boolean specializedHandling = parsedAnnexLibrary != null && extService.getApplicableBusinessObjectHandler(parsedAnnexLibrary) != null;
 

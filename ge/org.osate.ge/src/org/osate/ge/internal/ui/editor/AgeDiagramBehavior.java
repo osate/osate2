@@ -267,7 +267,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 									context.set(Composite.class, tooltipShell);
 									context.set(Names.BUSINESS_OBJECT, tooltipBo);
 									for (final Object tooltipContributor : extService.getTooltipContributors()) {
-										ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context);
+										ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
 									}
 				                } finally {
 				                	context.dispose();
@@ -778,7 +778,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				}				
 				
 				final AgeDiagram ageDiagram = new AgeDiagram();
-				
+				/*
 				ageDiagram.modify(new DiagramModifier() {
 
 					@Override
@@ -848,7 +848,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 					
 				});
-
+*/
 				// TODO: Cleanup. Part of loading legacy diagram. Set the root business object reference
 				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).setRootBoReference(rootBoRef).build());
 

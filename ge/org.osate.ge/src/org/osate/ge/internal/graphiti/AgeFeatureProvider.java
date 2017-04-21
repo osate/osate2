@@ -78,12 +78,14 @@ import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.diagram.updating.BusinessObjectTreeFactory;
-import org.osate.ge.internal.diagram.updating.DefaultBusinessObjectTreeFactory;
-import org.osate.ge.internal.diagram.updating.DefaultDiagramElementInfoProvider;
-import org.osate.ge.internal.diagram.updating.DiagramElementInfoProvider;
+import org.osate.ge.internal.diagram.boTree.DefaultBusinessObjectNodeFactory;
+import org.osate.ge.internal.diagram.boTree.DefaultTreeExpander;
+import org.osate.ge.internal.diagram.boTree.TreeExpander;
+import org.osate.ge.internal.diagram.updating.DefaultDiagramElementGraphicalConfigurationProvider;
+import org.osate.ge.internal.diagram.updating.DiagramElementInformationProvider;
 import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.diagram.NodePictogramBiMap;
 import org.osate.ge.internal.graphiti.features.AgeAddBendpointFeature;
@@ -94,6 +96,7 @@ import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
+import org.osate.ge.internal.graphiti.features.SetAutoContentFilterFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.PaletteEntry;
@@ -143,9 +146,10 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		removeBendpointFeature = make(AgeRemoveBendpointFeature.class);
 		
 		// Create the refresh diagram feature
-		final BusinessObjectTreeFactory boTreeFactory = new DefaultBusinessObjectTreeFactory(extService, referenceService);
-		final DiagramElementInfoProvider deInfoProvider = new DefaultDiagramElementInfoProvider(context);
-		diagramUpdater = new DiagramUpdater(boTreeFactory, deInfoProvider);
+		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceService);
+		final TreeExpander boTreeExpander = new DefaultTreeExpander(extService, referenceService, nodeFactory);
+		final DiagramElementInformationProvider deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceService, extService, context);
+		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);
 	}
 
@@ -219,7 +223,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 			final List<PictogramElement> results,
 			final int limit) {
 		for(final DiagramElement child : dn.getDiagramElements()) {
-			if(searchRef.equals(child.getCanonicalReference())) {
+			if(searchRef.equals(referenceService.getCanonicalReference(child.getBusinessObject()))) {
 				final PictogramElement pe = mapping.getPictogramElement(child);
 				if(pe != null) {
 					results.add(pe);
@@ -273,6 +277,9 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(SelectAncestorFeature.class));
+		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_FUNDAMENTAL));
+		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_TYPE));
+		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_ALL));
 
 		// Commands
 		for(final Object cmd : extService.getCommands()) {
@@ -334,7 +341,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new BoHandlerCreateConnectionFeature(graphitiService, extService, aadlModService, this, simpleEntry, boHandler));
+							retList.add(new BoHandlerCreateConnectionFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceService, this, simpleEntry, boHandler));
 						}
 					}
 				}

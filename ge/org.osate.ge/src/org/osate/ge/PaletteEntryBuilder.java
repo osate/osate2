@@ -15,6 +15,7 @@ import org.osate.ge.internal.SimplePaletteEntry;
 /**
  * Builder for creating palette entries. 
  * @noextend
+ @see PaletteEntry
  */
 public final class PaletteEntryBuilder {
 	private SimplePaletteEntry.Type type = SimplePaletteEntry.Type.CREATE;

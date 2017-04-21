@@ -21,9 +21,9 @@ import java.lang.annotation.Target;
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Business Object Handler</td><td>Returns the EMF object which will be used as the owner when creating the business object. 
- *   For {@link org.osate.ge.PaletteEntryBuilder#creation()} entries, if there is not a method marked with this annotation or if the method returns null, 
- *   the target business object is used as the owner during creation.</td><td>EObject</td></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns the business object context which will be used as the owner when creating the business object. 
+ *   For {@link org.osate.ge.PaletteEntryBuilder#creation()} entries, if there is not a method marked with this annotation, 
+ *   the target business object context is used as the owner during creation.</td><td>EObject</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">

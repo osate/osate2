@@ -2,15 +2,15 @@ package org.osate.ge.internal.businessObjectHandlers;
 
 import javax.inject.Named;
 
-import org.osate.ge.di.GetDestination;
-import org.osate.ge.di.GetGraphic;
-import org.osate.ge.di.GetSource;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.model.SubprogramCallOrder;
@@ -28,9 +28,29 @@ public class SubprogramCallOrderHandler {
 		return true;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo) {
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) SubprogramCallOrder bo,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(getGraphicalRepresentation(bo)).
+				source(getSource(boc, queryService)).
+				destination(getDestination(boc, queryService)).
+				build();
+	}
+	
+	private Graphic getGraphicalRepresentation(final SubprogramCallOrder bo) {
 		return graphic;
+	}
+	
+	private BusinessObjectContext getSource(final BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
+	}
+	
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 	
 	@CreateParentQuery
@@ -38,15 +58,5 @@ public class SubprogramCallOrderHandler {
 		return srcRootQuery.ancestor(1);
 	}
 	
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
-	}
-	
-	@GetDestination
-	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
-	}
+
 }

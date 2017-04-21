@@ -72,7 +72,6 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.EmfContainerProvider;
-import org.osate.ge.di.GetDiagramName;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -512,47 +511,7 @@ public class DefaultDiagramService implements DiagramService {
 			}
 		}
 	}
-	
-	@Override
-	public String getDiagramNameByBusinessObject(Object bo) {
-		if(bo == null) {
-			return null;
-		}
-		
-		// Determine diagram title for basic types
-		if(bo instanceof AadlPackage || bo instanceof Classifier) {
-			return ((NamedElement) bo).getQualifiedName();
-		}
-		
-		if(bo instanceof SystemInstance) {
-			final SystemInstance si = (SystemInstance)bo;
-			String name = si.getQualifiedName();
-			final ComponentClassifier cc = si.getComponentClassifier();
-			if(cc != null && cc.getQualifiedName() != null) {
-				name += " - " + cc.getQualifiedName();
-			}
-			return name;
-		}
-			
-		// Find the applicable business object handler and use it to determine the diagram title
-		final Object boHandler = extRegService.getApplicableBusinessObjectHandler(bo);
-		if(boHandler != null) {
-			try {
-				// Set context fields
-				argCtx.set(Names.BUSINESS_OBJECT, bo);
-				final String title = (String)ContextInjectionFactory.invoke(boHandler, GetDiagramName.class, serviceContext, argCtx, null);
-				if(title != null) {
-					return title;
-				}
-			} finally {
-				// Remove entries from context
-				argCtx.remove(Names.BUSINESS_OBJECT);
-			}
-		}
-				
-		return null;
-	}
-	
+
 	private IProject getProject(Object bo) {
 		final Resource resource = getResource(bo);
 		if(resource != null) {

@@ -46,9 +46,8 @@ Business object handlers are classes which provide business object specific func
 * [IsApplicable](../api/org/osate/ge/di/IsApplicable.html)
 
 ##### General
-* [GetGraphic](../api/org/osate/ge/di/GetGraphic.html)
+* [GetGraphicalConfiguration](../api/org/osate/ge/GetGraphicalConfiguration.html)
 * [GetChildren](../api/org/osate/ge/di/GetChildren.html)
-* [GetDiagramName](../api/org/osate/ge/di/GetDiagramName.html)
 * [HandleDoubleClick](../api/org/osate/ge/di/HandleDoubleClick.html)
 
 ##### Business Object Creation
@@ -57,11 +56,6 @@ Business object handlers are classes which provide business object specific func
 * [GetCreateOwner](../api/org/osate/ge/di/GetCreateOwner.html)
 * [CanStartConnection](../api/org/osate/ge/di/CanStartConnection.html)
 * [Create](../api/org/osate/ge/di/Create.html)
-
-##### Connections
-* [CreateSourceQuery](../api/org/osate/ge/di/CreateSourceQuery.html)
-* [CreateDestinationQuery](../api/org/osate/ge/di/CreateDestinationQuery.html)
-* [CreateParentQuery](../api/org/osate/ge/di/CreateParentQuery.html)
 
 ##### Business Object Deletion
 * [CanDelete](../api/org/osate/ge/di/CanDelete.html)

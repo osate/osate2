@@ -9,6 +9,8 @@ import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
@@ -16,11 +18,9 @@ import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.GetDestination;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -65,9 +65,24 @@ public class ModeTransitionHandler {
 		};
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(graphic).
+				source(getSource(boc, queryService)).
+				destination(getDestination(boc, queryService)).
+				build();
+	}
+	
+	private BusinessObjectContext getSource(final BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
+	}
+	
+	private BusinessObjectContext getDestination(final BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 	
 	@GetName
@@ -80,34 +95,22 @@ public class ModeTransitionHandler {
 		// Find the subcomponent or component classifier that owns the mode transition connection.
 		return srcRootQuery.ancestor(1).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier || fa.getBusinessObject() instanceof Subcomponent).first();
 	}
-	
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
-	}
-	
-	@GetDestination
-	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
-	}
 		
 	private ComponentClassifier getComponentClassifier(final BusinessObjectContext modeBoc, final QueryService queryService) {
 		return (ComponentClassifier)queryService.getFirstBusinessObject(componentClassifierQuery, modeBoc);
 	}
 	
 	@GetCreateOwner
-	public ComponentClassifier getCreateConnectionOwner(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+	public BusinessObjectContext getCreateConnectionOwner(@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
 			final QueryService queryService) {
-		return getComponentClassifier(srcBoc, queryService);
+		return queryService.getFirstResult(componentClassifierQuery, srcBoc);
 	}
 
 	@CanStartConnection
 	public boolean canStartConnection(@Named(Names.SOURCE_BO) final Mode mode, 
-			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext srcBoc, 
+			@Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext modeBoc, 
 			final QueryService queryService) {
-		final ComponentClassifier cc = getCreateConnectionOwner(srcBoc, queryService);
+		final ComponentClassifier cc = getComponentClassifier(modeBoc, queryService);
 		return cc != null && !cc.isDerivedModes();
 	}	
 	

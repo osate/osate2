@@ -5,7 +5,9 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
@@ -27,9 +29,11 @@ public class PackageHandler {
 		return true;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg) {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration() {
+		return GraphicalConfigurationBuilder.create().
+				graphic(graphic).
+				build();
 	}
 	
 	@HandleDoubleClick

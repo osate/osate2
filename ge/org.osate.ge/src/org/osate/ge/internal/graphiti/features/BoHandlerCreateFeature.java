@@ -15,11 +15,12 @@ import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.diagram.AgeDiagramUtil;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.Point;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
@@ -97,15 +98,15 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 			return EMPTY;
 		}
 		
-		final EObject ownerBo = getOwnerBo(targetNode);
-		if(ownerBo == null) {
+		final DiagramNode ownerNode = getOwnerDiagramNode(targetNode);
+		if(ownerNode == null) {
 			return EMPTY;
 		}
 
 		final DockingPosition targetDockingPosition = AgeDiagramUtil.determineDockingPosition(targetNode, context.getX(), context.getY(), 0, 0);
 		
 		// Modify the AADL model
-		final Object newBo = aadlModService.modify(ownerBo, new AbstractModifier<EObject, Object>() {
+		final Object newBo = aadlModService.modify((EObject)ownerNode.getBusinessObject(), new AbstractModifier<EObject, Object>() {
 			@Override
 			public Object modify(Resource resource, EObject ownerBo) {
 				final IEclipseContext eclipseCtx = extService.createChildContext();
@@ -118,9 +119,9 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx);
 					if(newBo != null) {
-						final CanonicalBusinessObjectReference newRef = refService.getCanonicalReference(newBo);
+						final RelativeBusinessObjectReference newRef = refService.getRelativeReference(newBo);
 						if(newRef != null) {
-							diagramUpdater.addFutureElementPosition(newRef, new Point(context.getX(), context.getY()));
+							diagramUpdater.addToNextUpdate(ownerNode, newRef, new Point(context.getX(), context.getY()));
 						}
 					}
 					
@@ -134,15 +135,16 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 		return newBo == null ? EMPTY : new Object[] {newBo};
 	}
 	
-	private EObject getOwnerBo(final DiagramNode targetNode) {
+	// Returns null if the owner business object context's business object is not an EObject
+	private DiagramNode getOwnerDiagramNode(final DiagramNode targetNode) {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.PALETTE_ENTRY_CONTEXT, paletteEntry.getContext());
 			eclipseCtx.set(Names.TARGET_BO, targetNode.getBusinessObject());
 			eclipseCtx.set(Names.TARGET_BUSINESS_OBJECT_CONTEXT, targetNode);
-			final Object ownerBo = ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, targetNode.getBusinessObject());
-			if(ownerBo instanceof EObject) {
-				return (EObject)ownerBo;
+			final BusinessObjectContext ownerBoc = (BusinessObjectContext)ContextInjectionFactory.invoke(handler, GetCreateOwner.class, eclipseCtx, targetNode);
+			if(ownerBoc instanceof DiagramNode && ownerBoc.getBusinessObject() instanceof EObject) {
+				return (DiagramNode)ownerBoc;
 			}
 		} finally {
 			eclipseCtx.dispose();

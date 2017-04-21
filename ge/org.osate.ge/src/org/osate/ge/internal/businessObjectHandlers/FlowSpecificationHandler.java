@@ -96,6 +96,11 @@ class FlowSpecificationHandler {
 			final QueryService queryService) {
 		return (ComponentType)queryService.getFirstBusinessObject(componentTypeQuery, featureBoc);
 	}
+	
+	protected static BusinessObjectContext getComponentTypeBocByFeature(BusinessObjectContext featureBoc,
+			final QueryService queryService) {
+		return queryService.getFirstResult(componentTypeQuery, featureBoc);
+	}
 
 	/**
 	 * Returns whether a specified feature diagram element may be used as a flow end for a flow specification.

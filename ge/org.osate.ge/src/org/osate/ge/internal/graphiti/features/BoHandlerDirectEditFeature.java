@@ -61,7 +61,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 			return false;
 		}
 		
-		if(!ShapeNames.nameShapeName.equals(PropertyUtil.getName(context.getPictogramElement()))) {
+		if(!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getPictogramElement()))) {
 			return false;
 		}
 		

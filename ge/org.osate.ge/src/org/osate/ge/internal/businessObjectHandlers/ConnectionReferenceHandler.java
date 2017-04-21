@@ -8,14 +8,14 @@ import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
-import org.osate.ge.di.GetDestination;
-import org.osate.ge.di.GetGraphic;
-import org.osate.ge.di.GetSource;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.internal.decorations.Decoration;
 import org.osate.ge.internal.decorations.DelayedDecorationBuilder;
 import org.osate.ge.internal.decorations.DirectionDecorationBuilder;
@@ -42,9 +42,22 @@ public class ConnectionReferenceHandler {
 		return true;
 	}
 		
-	@GetGraphic
-	public Graphic getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT) ConnectionReference cr) {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalRepresentation(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return GraphicalConfigurationBuilder.create().
+				graphic(graphic).
+				source(getSource(boc, queryService)).
+				destination(getDestination(boc, queryService)).
+				build();
+	}
+	
+	private BusinessObjectContext getSource(BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstResult(srcQuery, boc);
+	}
+	
+	private BusinessObjectContext getDestination(BusinessObjectContext boc, final QueryService queryService) {
+		return queryService.getFirstResult(dstQuery, boc);
 	}
 	
 	@GetDecorations
@@ -108,17 +121,5 @@ public class ConnectionReferenceHandler {
 			final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
 		
 		return srcRootQuery.ancestors().filterByBusinessObjectRelativeReference((ConnectionReference cr) -> cr.getContainingComponentInstance());
-	}
-	
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
-	}
-	
-	@GetDestination
-	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
 	}
 }

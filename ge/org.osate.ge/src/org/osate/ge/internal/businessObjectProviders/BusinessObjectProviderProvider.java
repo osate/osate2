@@ -1,4 +1,4 @@
-package org.osate.ge.internal.diagram.updating;
+package org.osate.ge.internal.businessObjectProviders;
 
 import java.util.stream.Stream;
 

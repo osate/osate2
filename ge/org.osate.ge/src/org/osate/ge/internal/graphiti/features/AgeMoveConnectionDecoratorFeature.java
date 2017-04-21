@@ -30,7 +30,7 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 		
 		// Only support moving connection decorators for connection name labels for which we can find the diagram element
 		if(context.getConnectionDecorator() == null || 
-				!ShapeNames.nameShapeName.equals(PropertyUtil.getName(context.getConnectionDecorator())) ||
+				!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getConnectionDecorator())) ||
 				graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection()) == null) {
 			return false;
 		}
@@ -45,7 +45,7 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 		graphitiAgeDiagram.modify(new DiagramModifier() {					
 			@Override
 			public void modify(final DiagramModification m) {
-				m.setConnectionNameLabelPosition(connectionElement, new Point(context.getX(), context.getY()));
+				m.setConnectionPrimaryLabelPosition(connectionElement, new Point(context.getX(), context.getY()));
 				AgeFeatureUtil.storeModificationInContext(context, m);
 			}
 		});

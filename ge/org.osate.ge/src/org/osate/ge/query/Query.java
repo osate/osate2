@@ -104,4 +104,7 @@ public interface Query {
 	
 	// TODO: Review and Document
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier);
+	
+	// TODO: Review, Document, and Rename? Allows partials
+	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier, final int minSegments);
 }

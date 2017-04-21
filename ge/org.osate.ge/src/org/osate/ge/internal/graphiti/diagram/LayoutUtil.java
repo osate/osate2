@@ -100,7 +100,7 @@ class LayoutUtil {
 		
 		final LayoutMetrics lm = new LayoutMetrics();
 		
-		final Shape nameShape = getChildShapeByName(shape, ShapeNames.nameShapeName);
+		final Shape nameShape = getChildShapeByName(shape, ShapeNames.primaryLabelShapeName);
 		final DockArea shapeDockArea = getNonGroupDockArea(element);
 		
 		// Build a list of all the labels. These labels will be positioned based on the name label configuration

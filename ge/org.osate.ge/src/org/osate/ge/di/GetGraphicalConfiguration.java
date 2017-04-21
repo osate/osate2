@@ -14,7 +14,23 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Review and Document
+/**
+ * <p>
+ * This annotation must not be applied to more than one method per class.
+ * </p>
+ * <h1>Usages</h1>
+ * <table summary="Annotation Usages">
+ *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
+ *   <tr><td>Business Object Handler</td><td>Returns the {@link org.osate.ge.GraphicalConfiguration} for representing the specified business object.</td><td>{@link org.osate.ge.GraphicalConfiguration}</td></tr>
+ * </table>
+ * <h1>Named Parameters</h1>
+ * <table summary="Named Parameters">
+ *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to return the graphical configuration.</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT_CONTEXT}</td><td>Business Object handler</td><td>The business object context for which to return the graphical configuration.</td></tr>
+ * </table>
+ * @see org.osate.ge.graphics.Graphic
+ */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)

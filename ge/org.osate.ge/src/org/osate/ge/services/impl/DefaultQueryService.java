@@ -1,4 +1,4 @@
-package org.osate.ge.internal.services.impl;
+package org.osate.ge.services.impl;
 
 import java.util.List;
 

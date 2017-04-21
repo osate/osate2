@@ -96,4 +96,9 @@ public abstract class DefaultQuery implements Query {
 	public DefaultQuery descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier) {
 		return new DescendantsByBusinessObjectRelativeReferencesQuery(this, bosSupplier);
 	}
+	
+	@Override 
+	public Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier, final int minSegments) {
+		return new DescendantsByBusinessObjectRelativeReferencesQuery(this, bosSupplier, minSegments);
+	}
 }

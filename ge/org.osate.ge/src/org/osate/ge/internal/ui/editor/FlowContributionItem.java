@@ -25,6 +25,7 @@ import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.EndToEndFlow;
 import org.osate.aadl2.FlowImplementation;
+import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.AgeDiagram;
@@ -104,7 +105,7 @@ public class FlowContributionItem extends ComboContributionItem {
 						
 						// Add both modes and mode transitions to the drop down
 						for(final FlowImplementation flow : componentImplementation.getAllFlowImplementations()) {
-							if(flow.getSpecification() != null && flow.getSpecification().getName() != null) {
+							if(getName(flow) != null) {
 								elements.add(flow);
 							}
 						}
@@ -145,7 +146,9 @@ public class FlowContributionItem extends ComboContributionItem {
 									return 1;
 								}
 							} else {
-								return e1.getName().compareToIgnoreCase(e2.getName());
+								final String n1 = getName(e1);
+								final String n2 = getName(e2);
+								return n1 == null ? -1 : n1.compareToIgnoreCase(n2);
 							}
 						}
 					});
@@ -156,6 +159,18 @@ public class FlowContributionItem extends ComboContributionItem {
 			
 			comboViewer.setSelection(new StructuredSelection(selectedValue));
 		}
+	}
+	
+	private String getName(final NamedElement bo) {
+		String name = bo.getName();
+		if(name == null && bo instanceof FlowImplementation) {
+			final FlowSpecification fs = ((FlowImplementation) bo).getSpecification();
+			if(fs != null) {
+				name = fs.getName();
+			}
+		}
+		
+		return null;
 	}
 	
 	@Override

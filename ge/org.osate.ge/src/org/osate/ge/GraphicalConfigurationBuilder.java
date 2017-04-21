@@ -1,20 +1,31 @@
 package org.osate.ge;
 
-import org.osate.ge.graphics.ArrowBuilder;
-import org.osate.ge.graphics.ConnectionBuilder;
-import org.osate.ge.graphics.ConnectionTerminator;
-import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.graphics.AgeConnectionTerminator;
-import org.osate.ge.internal.labels.LabelConfiguration;
+import java.awt.Color;
+import java.util.Objects;
 
-// TODO: Rename
+import org.osate.ge.graphics.Graphic;
+import org.osate.ge.internal.AgeGraphicalConfiguration;
+import org.osate.ge.internal.DockingPosition;
+import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.labels.AgeLabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfiguration;
+import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+
+/**
+ * Builder for creating graphical configurations.
+ * @noextend
+ * @see GraphicalConfiguration
+ */
 public class GraphicalConfigurationBuilder {
+	private final static AgeLabelConfiguration defaultDefaultLabelConfiguration = (AgeLabelConfiguration) LabelConfigurationBuilder.create().build();	
+	private final static java.awt.Color defaultForeground = Color.BLACK;
+	
 	private Graphic graphic;
-	private DockingPosition defaultDockingPosition;
-	private LabelConfiguration defaultLabelConfiguration;
-	private BusinessObjectContext connectionSource;
-	private BusinessObjectContext connectionDestination;
+	private DockingPosition defaultDockingPosition = DockingPosition.NOT_DOCKABLE;
+	private AgeLabelConfiguration defaultLabelConfiguration = defaultDefaultLabelConfiguration;
+	private DiagramElement connectionSource;
+	private DiagramElement connectionDestination;
+	private java.awt.Color foreground = defaultForeground;
 	
 	private GraphicalConfigurationBuilder() {}
 	
@@ -32,25 +43,27 @@ public class GraphicalConfigurationBuilder {
 		return this;
 	}
 	
-	public GraphicalConfigurationBuilder defaultLabelConfiguration(final LabelConfiguration value) {
-		this.defaultLabelConfiguration = value;
+	public GraphicalConfigurationBuilder defaultLabelConfiguration(final LabelConfiguration value) {		
+		this.defaultLabelConfiguration = (AgeLabelConfiguration)value;
 		return this;
 	}
 	
 	public GraphicalConfigurationBuilder source(final BusinessObjectContext value) {
-		this.connectionSource = value;
+		this.connectionSource = (DiagramElement)value;
 		return this;
 	}
 	
 	public GraphicalConfigurationBuilder destination(final BusinessObjectContext value) {
-		this.connectionDestination = value;
+		this.connectionDestination = (DiagramElement)value;
+		return this;
+	}
+	
+	public GraphicalConfigurationBuilder foreground(final Color value) {
+		this.foreground = value == null ? defaultForeground : value;
 		return this;
 	}
 	
 	public GraphicalConfiguration build() {
-		// TODO: Validate.. Other that can be done in the objects constructor
-		
-		// TODO: Create object
-		return null;
+		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, defaultLabelConfiguration, connectionSource, connectionDestination, foreground);
 	}
 }

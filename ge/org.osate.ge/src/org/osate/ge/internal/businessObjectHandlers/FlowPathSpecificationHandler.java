@@ -8,16 +8,16 @@ import org.osate.aadl2.FlowEnd;
 import org.osate.aadl2.FlowKind;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.ge.Categories;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.GetDestination;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -34,8 +34,11 @@ import org.osate.ge.services.QueryService;
 
 public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).build();
+	private static final Graphic partialGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).dashed().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first());
+	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first());
+	private static StandaloneQuery partialDstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd()), 1).first());
 	
 	// Basics
 	@IsApplicable
@@ -43,28 +46,36 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		return fs.getKind() == FlowKind.PATH;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		BusinessObjectContext src = queryService.getFirstResult(srcQuery, boc);
+		BusinessObjectContext dst = queryService.getFirstResult(dstQuery, boc);
+		boolean partial = false;
+		
+		if(src == null) {
+			src = queryService.getFirstResult(partialSrcQuery, boc);
+			partial = true;
+		}
+		
+		if(dst == null) {
+			dst = queryService.getFirstResult(partialDstQuery, boc);
+			partial = true;
+		}
+		
+		return GraphicalConfigurationBuilder.create().
+				graphic(partial ? partialGraphic : graphic).
+				source(src).
+				destination(dst).
+				foreground(partial ? Colors.PARTIAL_CONNECTION_COLOR : null).
+				build();
 	}
-			
+				
 	@CreateParentQuery
 	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
 		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
 	}
-	
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(srcQuery, boc);
-	}
-	
-	@GetDestination
-	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
-			final QueryService queryService) {
-		return queryService.getFirstResult(dstQuery, boc);
-	}
-	
+
 	// Creating
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {
@@ -99,9 +110,9 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	}
 	
 	@GetCreateOwner
-	public ComponentType getCreateOwner(final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
+	public BusinessObjectContext getCreateOwner(final @Named(Names.SOURCE_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext srcBoc,
 			final QueryService queryService) {
-		return getComponentTypeByFeature(srcBoc, queryService);
+		return getComponentTypeBocByFeature(srcBoc, queryService);
 	}	
 	
 	@Create
