@@ -200,9 +200,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 	/** 
 	 * The last flow implementation to match connection start
 	 * Relevant if a flow implementation goes straight through a subcomponent.
-	 * Thsi can occur only for leaf components, such that no stack is needed.
+	 * This can occur only for leaf components, such that no stack is needed.
 	 */
-	private FlowImplementation lastFlowImpl;
+	private Stack<FlowImplementation> lastFlowImpl = new Stack<FlowImplementation>();
 
 	/**
 	 * Create a new instance.
@@ -463,8 +463,9 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 		// add connection(s), will be empty when starting the ETE
 		if (connections.isEmpty()) {
 			addLeafElement(ci, etei, leaf);
-			lastFlowImpl = nextFlowImpl;
+			lastFlowImpl.push(nextFlowImpl);
 			continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
+			lastFlowImpl.pop();
 		} else {
 			List<ConnectionInstance> connis = collectConnectionInstances(ci, etei);
 
@@ -473,10 +474,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 				removeETEI.add(etei);
 			} else {
 				Iterator<ConnectionInstance> connIter = connis.iterator();
-				FlowImplementation flowFilter = lastFlowImpl;
+				FlowImplementation flowFilter = lastFlowImpl.isEmpty() ? null : lastFlowImpl.peek();
 				boolean remove = false;
-
-				lastFlowImpl = null;
 
 				while (connIter.hasNext()) {
 					EndToEndFlowInstance eteiClone = null;
@@ -491,7 +490,7 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 						continue;
 					}
 					remove = false;
-					lastFlowImpl = nextFlowImpl;
+					lastFlowImpl.push(nextFlowImpl);
 
 					if (prepareNext) {
 						stateClone = clone(state);
@@ -525,6 +524,8 @@ public class CreateEndToEndFlowsSwitch extends AadlProcessingSwitchWithProgress 
 					}
 
 					continueFlow(ci.getContainingComponentInstance(), etei, iter, ci);
+
+					lastFlowImpl.pop();
 
 					if (prepareNext) {
 						// add clone
