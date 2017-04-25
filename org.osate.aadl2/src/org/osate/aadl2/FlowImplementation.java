@@ -53,6 +53,8 @@ import org.eclipse.emf.common.util.EList;
  *   <li>{@link org.osate.aadl2.FlowImplementation#getKind <em>Kind</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getSpecification <em>Specification</em>}</li>
  *   <li>{@link org.osate.aadl2.FlowImplementation#getOwnedFlowSegments <em>Owned Flow Segment</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowImplementation#getInEnd <em>In End</em>}</li>
+ *   <li>{@link org.osate.aadl2.FlowImplementation#getOutEnd <em>Out End</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.Aadl2Package#getFlowImplementation()
@@ -117,6 +119,76 @@ public interface FlowImplementation extends ModalPath, ClassifierFeature, Flow {
 	 * @generated
 	 */
 	FlowSegment createOwnedFlowSegment();
+
+	/**
+	 * Returns the value of the '<em><b>In End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>In End</em>' containment reference.
+	 * @see #setInEnd(FlowEnd)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_InEnd()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	FlowEnd getInEnd();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FlowImplementation#getInEnd <em>In End</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>In End</em>' containment reference.
+	 * @see #getInEnd()
+	 * @generated
+	 */
+	void setInEnd(FlowEnd value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FlowEnd} and sets the '<em><b>In End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FlowEnd}.
+	 * @see #getInEnd()
+	 * @generated
+	 */
+	FlowEnd createInEnd();
+
+	/**
+	 * Returns the value of the '<em><b>Out End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * <!-- begin-model-doc -->
+	 * <p>From package AADLConstructs::Flows.</p>
+	 * <!-- end-model-doc -->
+	 * @return the value of the '<em>Out End</em>' containment reference.
+	 * @see #setOutEnd(FlowEnd)
+	 * @see org.osate.aadl2.Aadl2Package#getFlowImplementation_OutEnd()
+	 * @model containment="true" ordered="false"
+	 * @generated
+	 */
+	FlowEnd getOutEnd();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.FlowImplementation#getOutEnd <em>Out End</em>}' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Out End</em>' containment reference.
+	 * @see #getOutEnd()
+	 * @generated
+	 */
+	void setOutEnd(FlowEnd value);
+
+	/**
+	 * Creates a new {@link org.osate.aadl2.FlowEnd} and sets the '<em><b>Out End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return The new {@link org.osate.aadl2.FlowEnd}.
+	 * @see #getOutEnd()
+	 * @generated
+	 */
+	FlowEnd createOutEnd();
 
 	/**
 	 * Returns the value of the '<em><b>Kind</b></em>' attribute.

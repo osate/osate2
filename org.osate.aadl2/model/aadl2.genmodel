@@ -557,6 +557,10 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/specification"/>
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
           createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/ownedFlowSegment"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/inEnd"/>
+      <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
+          createChild="true" ecoreFeature="ecore:EReference aadl2.ecore#//FlowImplementation/outEnd"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="aadl2.ecore#//FlowSegment">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

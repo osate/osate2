@@ -4643,6 +4643,26 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getFlowImplementation_InEnd() {
+		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getFlowImplementation_OutEnd() {
+		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getModalPath() {
 		return modalPathEClass;
 	}
@@ -9487,6 +9507,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEAttribute(flowImplementationEClass, FLOW_IMPLEMENTATION__KIND);
 		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__SPECIFICATION);
 		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
+		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__IN_END);
+		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__OUT_END);
 
 		flowSegmentEClass = createEClass(FLOW_SEGMENT);
 		createEReference(flowSegmentEClass, FLOW_SEGMENT__FLOW_ELEMENT);
@@ -11387,6 +11409,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getFlowImplementation_OwnedFlowSegment(), getFlowSegment(), null, "ownedFlowSegment", null, 0,
 				-1, FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFlowImplementation_InEnd(), getFlowEnd(), null, "inEnd", null, 0, 1, FlowImplementation.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getFlowImplementation_OutEnd(), getFlowEnd(), null, "outEnd", null, 0, 1,
+				FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(flowSegmentEClass, FlowSegment.class, "FlowSegment", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);

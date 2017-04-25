@@ -1393,10 +1393,6 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getRealRangeAccess().getGroup(), "rule__RealRange__Group__0");
 					put(grammarAccess.getPNAMEAccess().getGroup(), "rule__PNAME__Group__0");
 					put(grammarAccess.getPNAMEAccess().getGroup_1(), "rule__PNAME__Group_1__0");
-					put(grammarAccess.getFLOWOUTAccess().getGroup(), "rule__FLOWOUT__Group__0");
-					put(grammarAccess.getFLOWOUTAccess().getGroup_0(), "rule__FLOWOUT__Group_0__0");
-					put(grammarAccess.getFLOWINAccess().getGroup(), "rule__FLOWIN__Group__0");
-					put(grammarAccess.getFLOWINAccess().getGroup_0(), "rule__FLOWIN__Group_0__0");
 					put(grammarAccess.getFQCREFAccess().getGroup(), "rule__FQCREF__Group__0");
 					put(grammarAccess.getFQCREFAccess().getGroup_0(), "rule__FQCREF__Group_0__0");
 					put(grammarAccess.getFQCREFAccess().getGroup_2(), "rule__FQCREF__Group_2__0");
@@ -2677,11 +2673,13 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSourceImplAccess().getKindAssignment_3(), "rule__FlowSourceImpl__KindAssignment_3");
 					put(grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentAssignment_4_0(), "rule__FlowSourceImpl__OwnedFlowSegmentAssignment_4_0");
 					put(grammarAccess.getFlowSourceImplAccess().getOwnedFlowSegmentAssignment_4_2(), "rule__FlowSourceImpl__OwnedFlowSegmentAssignment_4_2");
+					put(grammarAccess.getFlowSourceImplAccess().getOutEndAssignment_5(), "rule__FlowSourceImpl__OutEndAssignment_5");
 					put(grammarAccess.getFlowSourceImplAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__FlowSourceImpl__OwnedPropertyAssociationAssignment_6_1");
 					put(grammarAccess.getFlowSourceImplAccess().getInModeOrTransitionAssignment_7_3(), "rule__FlowSourceImpl__InModeOrTransitionAssignment_7_3");
 					put(grammarAccess.getFlowSourceImplAccess().getInModeOrTransitionAssignment_7_4_1(), "rule__FlowSourceImpl__InModeOrTransitionAssignment_7_4_1");
 					put(grammarAccess.getFlowSinkImplAccess().getSpecificationAssignment_0(), "rule__FlowSinkImpl__SpecificationAssignment_0");
 					put(grammarAccess.getFlowSinkImplAccess().getKindAssignment_3(), "rule__FlowSinkImpl__KindAssignment_3");
+					put(grammarAccess.getFlowSinkImplAccess().getInEndAssignment_4(), "rule__FlowSinkImpl__InEndAssignment_4");
 					put(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentAssignment_5_1(), "rule__FlowSinkImpl__OwnedFlowSegmentAssignment_5_1");
 					put(grammarAccess.getFlowSinkImplAccess().getOwnedFlowSegmentAssignment_5_3(), "rule__FlowSinkImpl__OwnedFlowSegmentAssignment_5_3");
 					put(grammarAccess.getFlowSinkImplAccess().getOwnedPropertyAssociationAssignment_6_1(), "rule__FlowSinkImpl__OwnedPropertyAssociationAssignment_6_1");
@@ -2689,9 +2687,11 @@ public class Aadl2Parser extends AbstractContentAssistParser {
 					put(grammarAccess.getFlowSinkImplAccess().getInModeOrTransitionAssignment_7_4_1(), "rule__FlowSinkImpl__InModeOrTransitionAssignment_7_4_1");
 					put(grammarAccess.getFlowPathImplAccess().getSpecificationAssignment_0(), "rule__FlowPathImpl__SpecificationAssignment_0");
 					put(grammarAccess.getFlowPathImplAccess().getKindAssignment_3(), "rule__FlowPathImpl__KindAssignment_3");
+					put(grammarAccess.getFlowPathImplAccess().getInEndAssignment_4(), "rule__FlowPathImpl__InEndAssignment_4");
 					put(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_5_0_1(), "rule__FlowPathImpl__OwnedFlowSegmentAssignment_5_0_1");
 					put(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_5_0_3(), "rule__FlowPathImpl__OwnedFlowSegmentAssignment_5_0_3");
 					put(grammarAccess.getFlowPathImplAccess().getOwnedFlowSegmentAssignment_5_2(), "rule__FlowPathImpl__OwnedFlowSegmentAssignment_5_2");
+					put(grammarAccess.getFlowPathImplAccess().getOutEndAssignment_7(), "rule__FlowPathImpl__OutEndAssignment_7");
 					put(grammarAccess.getFlowPathImplAccess().getOwnedPropertyAssociationAssignment_8_1(), "rule__FlowPathImpl__OwnedPropertyAssociationAssignment_8_1");
 					put(grammarAccess.getFlowPathImplAccess().getInModeOrTransitionAssignment_9_3(), "rule__FlowPathImpl__InModeOrTransitionAssignment_9_3");
 					put(grammarAccess.getFlowPathImplAccess().getInModeOrTransitionAssignment_9_4_1(), "rule__FlowPathImpl__InModeOrTransitionAssignment_9_4_1");
