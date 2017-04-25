@@ -136,28 +136,16 @@ class CheckBindingConstraintsTest extends OsateTest {
 						
 						--Connection Binding
 						
-						Allowed_Connection_Binding => (reference(m_sub1)) applies to dp1;
-						Actual_Connection_Binding => (reference(m_sub2)) applies to dp1;
-						
 						Allowed_Connection_Binding => (reference(m_sub1)) applies to conn1;
 						Actual_Connection_Binding => (reference(m_sub2)) applies to conn1;
-						
-						Allowed_Connection_Binding => (reference(m_sub1)) applies to ps_sub1.t_sub1;
-						Actual_Connection_Binding => (reference(m_sub2)) applies to ps_sub1.t_sub1;
 						
 						Allowed_Connection_Binding => (reference(m_sub1)) applies to vb_sub1;
 						Actual_Connection_Binding => (reference(m_sub2)) applies to vb_sub1;
 						
 						--Connection Binding Class
 						
-						Allowed_Connection_Binding_Class => (classifier(proc2)) applies to dp2;
-						Actual_Connection_Binding => (reference(proc_sub1)) applies to dp2;
-						
 						Allowed_Connection_Binding_Class => (classifier(proc2)) applies to conn2;
 						Actual_Connection_Binding => (reference(proc_sub1)) applies to conn2;
-						
-						Allowed_Connection_Binding_Class => (classifier(proc2)) applies to ps_sub1.t_sub2;
-						Actual_Connection_Binding => (reference(proc_sub1)) applies to ps_sub1.t_sub2;
 						
 						Allowed_Connection_Binding_Class => (classifier(proc2)) applies to vb_sub2;
 						Actual_Connection_Binding => (reference(proc_sub1)) applies to vb_sub2;
@@ -213,7 +201,7 @@ class CheckBindingConstraintsTest extends OsateTest {
 				buildInstanceModelFile => [
 					"s1_i_Instance".assertEquals(name)
 					val issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor, it)
-					30.assertEquals(issues.size)
+					26.assertEquals(issues.size)
 					issues.get(0) => [
 						"s1_i_Instance.dev_sub1".assertEquals(target.instanceObjectPath)
 						"Device 'dev_sub1' has a processor binding to 'proc_sub2' which is not allowed by the property Allowed_Processor_Binding".assertEquals(message)
@@ -303,34 +291,18 @@ class CheckBindingConstraintsTest extends OsateTest {
 						"Event Data Port 'edp2' has a memory binding to 'm_sub1' which is not allowed by the property Allowed_Memory_Binding_Class".assertEquals(message)
 					]
 					issues.get(22) => [
-						"s1_i_Instance.ps_sub1.t_sub1".assertEquals(target.instanceObjectPath)
-						"Thread 't_sub1' has a connection binding to 'm_sub2' which is not allowed by the property Allowed_Connection_Binding".assertEquals(message)
-					]
-					issues.get(23) => [
-						"s1_i_Instance.ps_sub1.t_sub2".assertEquals(target.instanceObjectPath)
-						"Thread 't_sub2' has a connection binding to 'proc_sub1' which is not allowed by the property Allowed_Connection_Binding_Class".assertEquals(message)
-					]
-					issues.get(24) => [
 						"s1_i_Instance.vb_sub1".assertEquals(target.instanceObjectPath)
 						"Virtual bus 'vb_sub1' has a connection binding to 'm_sub2' which is not allowed by the property Allowed_Connection_Binding".assertEquals(message)
 					]
-					issues.get(25) => [
+					issues.get(23) => [
 						"s1_i_Instance.vb_sub2".assertEquals(target.instanceObjectPath)
 						"Virtual bus 'vb_sub2' has a connection binding to 'proc_sub1' which is not allowed by the property Allowed_Connection_Binding_Class".assertEquals(message)
 					]
-					issues.get(26) => [
-						"s1_i_Instance.dp1".assertEquals(target.instanceObjectPath)
-						"Data Port 'dp1' has a connection binding to 'm_sub2' which is not allowed by the property Allowed_Connection_Binding".assertEquals(message)
-					]
-					issues.get(27) => [
-						"s1_i_Instance.dp2".assertEquals(target.instanceObjectPath)
-						"Data Port 'dp2' has a connection binding to 'proc_sub1' which is not allowed by the property Allowed_Connection_Binding_Class".assertEquals(message)
-					]
-					issues.get(28) => [
+					issues.get(24) => [
 						"s1_i_Instance.proc_sub1.af1 -> proc_sub2.af1".assertEquals(target.instanceObjectPath)
 						"Connection 'proc_sub1.af1 -> proc_sub2.af1' has a connection binding to 'm_sub2' which is not allowed by the property Allowed_Connection_Binding".assertEquals(message)
 					]
-					issues.get(29) => [
+					issues.get(25) => [
 						"s1_i_Instance.proc_sub1.af1 -> proc_sub2.af1".assertEquals(target.instanceObjectPath)
 						"Connection 'proc_sub1.af1 -> proc_sub2.af1' has a connection binding to 'proc_sub1' which is not allowed by the property Allowed_Connection_Binding_Class".assertEquals(message)
 					]

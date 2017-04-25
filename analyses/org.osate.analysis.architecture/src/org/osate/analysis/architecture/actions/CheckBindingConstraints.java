@@ -101,13 +101,12 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 					checkBindingConstraints(memoryBindingElements, "memory", GetProperties::getActualMemoryBinding,
 							GetProperties::getAllowedMemoryBinding, GetProperties::getAllowedMemoryBindingClass, som));
 
-			// Connection binding
-			Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
+			// Connection binding (only handles connection and virtual bus)
+			Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si,
 					ComponentCategory.VIRTUAL_BUS);
-			Stream<FeatureInstance> connectionBindingFeatures = getFeatures(monitor, si);
 			Stream<ConnectionInstance> connectionBindingConnections = getConnections(monitor, si);
 			Stream<InstanceObject> connectionBindingElements = Stream.concat(connectionBindingComponents,
-					Stream.concat(connectionBindingFeatures, connectionBindingConnections));
+					connectionBindingConnections);
 			issuesList.addAll(checkBindingConstraints(connectionBindingElements, "connection",
 					GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
 					GetProperties::getAllowedConnectionBindingClass, som));
