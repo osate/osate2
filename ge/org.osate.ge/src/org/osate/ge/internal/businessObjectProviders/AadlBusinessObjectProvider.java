@@ -100,8 +100,7 @@ public class AadlBusinessObjectProvider {
 	}
 	
 	// Declarative Model
-	@Activate
-	public static Stream<Object> getChildren(final AadlPackage pkg, final ExtensionService extService) {
+	private static Stream<Object> getChildren(final AadlPackage pkg, final ExtensionService extService) {
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
 		populateChildren(pkg, pkg.getPublicSection(), children, extService);

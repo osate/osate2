@@ -10,39 +10,40 @@ package org.osate.ge.errormodel.util;
 
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 public class ErrorModelBusinessObjectHelper {
+	private static final StandaloneQuery childErrorModelLibraryQuery = StandaloneQuery.create((root) -> root.children().filter((fa) -> fa.getBusinessObject() instanceof ErrorModelLibrary));
+	
 	/**
 	 * Returns the business object to be used as an owner for a error model library element. 
-	 * Attempts to return one of the following based on availability:
+	 * Attempts to return a business object context for one of the following based on availability:
 	 * ErrorModelLibrary (Parsed Annex)
-	 * DefaultAnnexLibrary (Unparsed Annex)
+	 * AadlPackage
 	 * @return
 	 */
-	public static Object getOwnerBusinessObjectForErrorModelLibraryElement(final AadlPackage pkg) {
-		if(pkg.getPublicSection() == null) {
-			return null;
-		}
-		
-		for(final AnnexLibrary lib : pkg.getPublicSection().getOwnedAnnexLibraries()) {
-			if(lib instanceof DefaultAnnexLibrary) {
-				final DefaultAnnexLibrary defaultLib = (DefaultAnnexLibrary)lib;
-				final AnnexLibrary parsedLib = defaultLib.getParsedAnnexLibrary();
-				if(parsedLib instanceof ErrorModelLibrary) {
-					final ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)defaultLib.getParsedAnnexLibrary();
-					return errorModelLibrary;
-				} else if(parsedLib == null && EMV2Util.ErrorModelAnnexName.equalsIgnoreCase(defaultLib.getName())) {
-					return defaultLib;
-				}
+	public static BusinessObjectContext getOwnerBusinessObjectForErrorModelLibraryElement(final BusinessObjectContext boc,
+			final QueryService queryService) {
+		final Object bo = boc.getBusinessObject();
+		if(bo instanceof ErrorModelLibrary) {
+			return boc;
+		} else if(bo instanceof AadlPackage) {
+			final AadlPackage pkg = (AadlPackage)bo;
+			if(pkg.getPublicSection() == null) {
+				return null;
 			}
+			
+			final BusinessObjectContext libBoc = queryService.getFirstResult(childErrorModelLibraryQuery, boc);
+			return libBoc == null ? boc : libBoc;
 		}
 		
-		return pkg;
+		return null;
 	}
 
 	/**

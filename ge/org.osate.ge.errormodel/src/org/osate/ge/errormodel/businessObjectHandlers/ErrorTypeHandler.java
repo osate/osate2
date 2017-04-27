@@ -12,22 +12,27 @@ import javax.inject.Named;
 
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
+import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.PaletteEntryBuilder;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
+import org.osate.ge.errormodel.util.ErrorModelBusinessObjectHelper;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
+import org.osate.ge.services.QueryService;
 import org.osate.ge.di.Names;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelLibrary;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
@@ -50,17 +55,20 @@ public class ErrorTypeHandler {
 	}
 	
 	@CanCreate
-	public boolean canCreate(final @Named(Names.TARGET_BO) AadlPackage pkg) {
-		return true;
+	public boolean canCreate(final @Named(Names.TARGET_BO) Object bo) {
+		return bo instanceof AadlPackage || bo instanceof ErrorModelLibrary;
 	}
 
 	@GetCreateOwner
-	public Object getOwnerBusinessObject(final @Named(Names.TARGET_BO) ErrorModelLibrary lib) {
-		return lib;
+	public BusinessObjectContext getOwnerBusinessObject(final @Named(Names.TARGET_BUSINESS_OBJECT_CONTEXT) BusinessObjectContext targetBoc,
+			final QueryService queryService) {
+		return ErrorModelBusinessObjectHelper.getOwnerBusinessObjectForErrorModelLibraryElement(targetBoc, queryService);
 	}
 	
 	@Create
-	public Object createBusinessObject(@Named(Names.OWNER_BO) final ErrorModelLibrary errorModelLibrary) {				
+	public Object createBusinessObject(@Named(Names.OWNER_BO) final Object ownerBo) {		
+		final ErrorModelLibrary errorModelLibrary = ErrorModelBusinessObjectHelper.getOrCreateErrorModelLibrary(ownerBo);
+		
 		// Create the ErrorType
 		final ErrorType newErrorType = (ErrorType)EcoreUtil.create(ErrorModelPackage.eINSTANCE.getErrorType());
 		final String newErrorTypeName = ErrorModelNamingHelper.buildUniqueIdentifier(errorModelLibrary, "NewErrorType");
@@ -72,9 +80,11 @@ public class ErrorTypeHandler {
 		return newErrorType;
 	}
 
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration() {
+		return GraphicalConfigurationBuilder.create().
+			graphic(graphic).
+			build();
 	}
 	
 	@GetName

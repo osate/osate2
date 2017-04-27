@@ -45,5 +45,11 @@
             class="org.osate.ge.errormodel.ErrorModelReferenceHandler">
       </referenceResolver>
    </extension>
+   <extension
+         point="org.osate.ge.businessObjectProviders">
+      <provider
+            class="org.osate.ge.errormodel.ErrorModelBusinessObjectProvider">
+      </provider>
+   </extension>
   
 </plugin>

@@ -8,14 +8,12 @@
  *******************************************************************************/
 package org.osate.ge.errormodel.businessObjectHandlers;
 
-import java.util.stream.Stream;
-
 import javax.inject.Named;
-
-import org.osate.ge.di.GetChildren;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
+import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.di.GetName;
 import org.osate.ge.di.IsApplicable;
-import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.di.Names;
@@ -30,17 +28,15 @@ public class ErrorModelLibraryHandler {
 		return true;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration() {
+		return GraphicalConfigurationBuilder.create().
+			graphic(graphic).
+			build();
 	}
 	
-	@GetChildren
-	public Stream<?> getChildren(final @Named(Names.BUSINESS_OBJECT) ErrorModelLibrary lib) {
-		// TODO: Type extensions should be children to the sub type?
-		return Stream.concat(lib.getTypes().stream(), 
-				lib.getTypes().stream(). // Error Type Extensions
-					filter((et) -> et.getSuperType() != null).
-					map((et) -> new ErrorTypeExtension(et.getSuperType(), et)));
+	@GetName
+	public String getName() {
+		return "Error Model Library";
 	}
 }

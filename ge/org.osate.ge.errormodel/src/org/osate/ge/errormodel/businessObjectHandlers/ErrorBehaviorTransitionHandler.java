@@ -10,16 +10,16 @@ package org.osate.ge.errormodel.businessObjectHandlers;
 
 import javax.inject.Named;
 import org.osate.ge.BusinessObjectContext;
+import org.osate.ge.GraphicalConfiguration;
+import org.osate.ge.GraphicalConfigurationBuilder;
 import org.osate.ge.PaletteEntry;
 import org.osate.ge.di.CanCreate;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
-import org.osate.ge.di.GetDestination;
-import org.osate.ge.di.GetGraphic;
+import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
-import org.osate.ge.di.GetSource;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
@@ -55,19 +55,22 @@ public class ErrorBehaviorTransitionHandler {
 		return true;
 	}
 	
-	@GetGraphic
-	public Graphic getGraphicalRepresentation() {
-		return graphic;
+	@GetGraphicalConfiguration
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		return GraphicalConfigurationBuilder.create().
+			graphic(graphic).
+			source(getSource(boc, queryService)).
+			destination(getDestination(boc, queryService)).
+			build();
 	}
 	
-	@GetSource
-	public BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+	private BusinessObjectContext getSource(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
 			final QueryService queryService) {
 		return queryService.getFirstResult(srcQuery, boc);
 	}
 	
-	@GetDestination
-	public BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+	private BusinessObjectContext getDestination(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
 			final QueryService queryService) {
 		return queryService.getFirstResult(dstQuery, boc);
 	}
