@@ -104,8 +104,15 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			ageDiagram.modify(new DiagramModifier() {
 				@Override
 				public void modify(final DiagramModification m) {
+					// If setting to allow fundamental "Hide Contents", mark all descendants as automatic. This will ensure that the contents are hidden.
+					if(newFilterValue == ContentsFilter.ALLOW_FUNDAMENTAL) {
+						for(final DiagramElement e : elements) {
+							setDescendantsAsAutomatic(m, e);
+						}
+					}
+					
 					for(DiagramElement e : elements) {
-						// Don't set teh type to something that isn't applicable to the type of business object
+						// Don't set the type to something that isn't applicable to the type of business object
 						if(isContentFilterApplicable(e.getBusinessObject())) {
 							m.setManual(e, true);
 							m.setAutoContentsFilter(e, newFilterValue);
@@ -121,6 +128,15 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		}
 	}
 	
+	private void setDescendantsAsAutomatic(final DiagramModification m, final DiagramElement e) {
+		// Set all descendants of the specified element as automatic/not manual
+		for(final DiagramElement child : e.getDiagramElements()) {
+			if(child.isManual()) {
+				m.setManual(child, false);
+			}
+			setDescendantsAsAutomatic(m, child);
+		}
+	}
 	private DiagramElement[] getDiagramElements(final PictogramElement[] pes) {
 		final DiagramElement[] elements = new DiagramElement[pes.length];
 		

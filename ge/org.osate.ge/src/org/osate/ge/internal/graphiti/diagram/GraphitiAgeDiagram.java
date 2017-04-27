@@ -787,14 +787,40 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						// Layout Nodes
 						// OPTIMIZE: It would be more efficient to only layout the nodes that need to be layed out instead of laying out all descendants of the container.
 						nodesToLayout.removeIf((n) -> collectionContainsAnyAncestor(nodesToLayout, n)); // Filter out elements whose parents are in the collection of nodes to layout
+						
+						Set<DiagramElement> elementsToCheckParentsForLayout = new HashSet<>(); // Contains the set of diagram elements whose parents need to be checked to see if they should be layed out
 						for(final DiagramNode n : nodesToLayout) {
 							if(n instanceof AgeDiagram) {
 								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram)n, GraphitiAgeDiagram.this);	
 							} else if(n instanceof DiagramElement) {
 								LayoutUtil.layoutDepthFirst(graphitiDiagram, (DiagramElement)n, GraphitiAgeDiagram.this);
+								elementsToCheckParentsForLayout.add((DiagramElement)n);
 							}
 						}
 						
+						// Check the elements to see if their parents need to be layed out
+						while(elementsToCheckParentsForLayout.size() > 0) {
+							final HashSet<DiagramElement> parentsToLayout = new HashSet<>();
+							for(final DiagramElement e : elementsToCheckParentsForLayout) {
+								// Check if the element's parent needs to be layed out.
+								if(parentNeedsLayout(e)) {
+									parentsToLayout.add((DiagramElement)e.getParent());
+								}													
+							}
+							
+							// Layout the parents
+							for(final DiagramElement parentToLayout : parentsToLayout) {								
+								// Get the pictogram element and lay it out if it is a shape
+								final PictogramElement parentPe = getPictogramElement(parentToLayout);
+								if(parentPe instanceof ContainerShape) {
+									LayoutUtil.layout(graphitiDiagram, parentToLayout, (ContainerShape)parentPe, GraphitiAgeDiagram.this);
+								}
+							}
+							
+							// Check the parents next
+							elementsToCheckParentsForLayout = parentsToLayout; // Check the parents next
+						}
+
 						// Update affected connections
 						for(final DiagramElement element : elementsToUpdate) {							
 							finishUpdating(element);
@@ -807,7 +833,28 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					elementsToUpdate.clear();
 				}
 			}
-		}		
+		}
+		
+		/**
+		 * Returns true if the parent of the specified diagram elements needs to be layed out.
+		 * @param de
+		 * @return
+		 */
+		private boolean parentNeedsLayout(final DiagramElement de) {
+			// Check if the element's parent needs to be layed out.
+			if(de.getContainer() instanceof DiagramElement) { 
+				final DiagramElement parent = (DiagramElement)de.getContainer();
+				if(!(parent.getGraphic() instanceof AgeConnection) && 
+						(de.getX() < 0 ||
+						de.getY() < 0 ||
+						parent.getWidth() < de.getX() + de.getWidth() ||
+						parent.getHeight() < de.getY() + de.getHeight())) {
+					return true;
+				}
+			}
+			
+			return false;
+		}
 		
 		private boolean collectionContainsAnyAncestor(final Collection<?> collection, final DiagramNode n) {
 			DiagramNode t = n.getContainer();

@@ -37,15 +37,13 @@ public class SimpleLayoutAlgorithm implements LayoutAlgorithm {
 
 		// Layout Children
 		for(final Shape shape : shapes) {
-			if(!shape.isLocked()) {
-				final int[] shapeSize = layoutShapes(shape.getChildren(), freeEdgeShapes, freeNonEdgeShapes, shape.hasMinimumSize() ? shape.getMinimumWidth() : 0, shape.hasMinimumSize() ? shape.getMinimumHeight() : 0);
-				
-				// Handle sizing. Handle resizable flag
-				if(shape.isResizable()) {
-					shape.setWidth(shapeSize[0]);
-					shape.setHeight(shapeSize[1]);
-				}
-			}		
+			final int[] shapeSize = layoutShapes(shape.getChildren(), freeEdgeShapes, freeNonEdgeShapes, shape.hasMinimumSize() ? shape.getMinimumWidth() : 0, shape.hasMinimumSize() ? shape.getMinimumHeight() : 0);
+			
+			// Handle sizing. Handle resizable flag
+			if(!shape.isLocked() && shape.isResizable()) {
+				shape.setWidth(shapeSize[0]);
+				shape.setHeight(shapeSize[1]);
+			}
 		}
 
 		// Ensure lists have sufficient capacity to avoid unnecessary resizing
