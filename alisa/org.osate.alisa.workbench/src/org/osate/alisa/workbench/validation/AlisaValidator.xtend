@@ -28,6 +28,7 @@ import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 
 /**
  * Custom validation rules. 
@@ -79,21 +80,32 @@ class AlisaValidator extends AbstractAlisaValidator {
 	}
 
 	def void checkModelPlanOwnForInvalid(AssurancePlan assurancePlan) {
-		val vps = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan)
-		val res = assurancePlan.assure.filter([ avp |
-			!vps.exists[vp|vp.name.equalsIgnoreCase(avp.name)]
-		])
-		res.forEach([ vp, counter |
-			val idx = assurancePlan.assure.indexOf(vp)
-			val vptargetname = vp.targetClassifier.name
-			val aptargetname = assurancePlan.target.name
+//		val vps = referenceFinder.getVerificationPlans(assurancePlan.target, assurancePlan)
+//		val res = assurancePlan.assure.filter([ avp |
+//			!vps.exists[vp|vp.name.equalsIgnoreCase(avp.name)]
+//		])
+//		res.forEach([ vp, counter |
+//			val idx = assurancePlan.assure.indexOf(vp)
+//			val vptargetname = vp.targetClassifier.name
+//			val aptargetname = assurancePlan.target.name
+//			error(
+//				"Verification Plan '" + vp.name + "' for '" + vptargetname + "' is not valid for Assurance Plan '" +
+//					assurancePlan.name + "' with target '" + aptargetname + "'", assurancePlan,
+//				AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS,
+//				vp.name, EcoreUtil.getURI(vp).toString())
+//
+//		])
+		val assTarget = assurancePlan.target
+		for (vp: assurancePlan.assure){
+			if (!assTarget.isSameorExtends(vp.targetClassifier)){
+				val idx = assurancePlan.assure.indexOf(vp)
 			error(
-				"Verification Plan '" + vp.name + "' for '" + vptargetname + "' is not valid for Assurance Plan '" +
-					assurancePlan.name + "' with target '" + aptargetname + "'", assurancePlan,
+				"Verification Plan '" + vp.name + "' for '" + vp.targetClassifier.name + "' is not valid for Assurance Plan '" +
+					assurancePlan.name + "' with target '" + assTarget.name + "'", assurancePlan,
 				AlisaPackage.Literals.ASSURANCE_PLAN__ASSURE, idx, ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS,
 				vp.name, EcoreUtil.getURI(vp).toString())
-
-		])
+			}
+		}
 	}
 
 }
