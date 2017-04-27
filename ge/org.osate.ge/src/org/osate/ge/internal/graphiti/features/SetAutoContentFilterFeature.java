@@ -146,6 +146,9 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 	@Override
 	public void postUndo(final IContext context) {
 		AgeFeatureUtil.undoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
+		
+		// Update the diagram
+		this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
 	}
 
 	@Override
@@ -160,5 +163,8 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 	@Override
 	public void postRedo(final IContext context) {
 		AgeFeatureUtil.redoModification(graphitiAgeDiagramProvider.getGraphitiAgeDiagram(), context);
+		
+		// Update the diagram
+		this.updatePictogramElement(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getGraphitiDiagram());
 	}
 }
