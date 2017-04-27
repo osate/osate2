@@ -1,4 +1,4 @@
-package org.osate.ge.internal.businessObjectProviders;
+package org.osate.ge.internal;
 
 import java.util.HashSet;
 import java.util.Set;

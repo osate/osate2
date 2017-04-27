@@ -883,7 +883,7 @@
     <extension
           point="org.osate.ge.businessObjectProviders">
        <provider
-             class="org.osate.ge.internal.businessObjectProviders.AadlBusinessObjectProvider">
+             class="org.osate.ge.internal.AadlBusinessObjectProvider">
        </provider>
     </extension>
 </plugin>
