@@ -295,8 +295,6 @@ public class PropagateErrorSources {
 				for (TypeToken typeToken : result) {
 					String failuremodeText = generateErrorPropTypeTokenText(ep, typeToken);
 					traceErrorPaths(root, ep, typeToken, 2, componentText + ", " + failuremodeText);
-//					String connText = generateComponentPropagationPointText(destci, destEP);
-//					traceErrorFlows(destci, destEP, typeToken, 0, failuremodeText + "-[incoming]->" + connText);
 				}
 			}
 		}
@@ -330,6 +328,8 @@ public class PropagateErrorSources {
 				}
 
 				traceErrorPaths(root, ep, typeToken, 2, componentText + ", " + failuremodeText);
+//				String connText = generateComponentPropagationPointText(destci, destEP);
+//				traceErrorFlows(destci, destEP, typeToken, 0, failuremodeText + "-[incoming]->" + connText);
 			}
 		}
 	}

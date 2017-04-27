@@ -54,12 +54,14 @@ import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -109,8 +111,14 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		reportHeading(report);
 		List<ComponentInstance> cilist = EcoreUtil2.getAllContentsOfType(si, ComponentInstance.class);
 		processHazards(si, report);
+		for (ConnectionInstance conni : si.getConnectionInstances()) {
+			processHazards(conni, report);
+		}
 		for (ComponentInstance componentInstance : cilist) {
 			processHazards(componentInstance, report);
+			for (ConnectionInstance conni : componentInstance.getConnectionInstances()) {
+				processHazards(conni, report);
+			}
 		}
 		report.saveToFile();
 
@@ -196,19 +204,6 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 					Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				}
 			}
-			// Will be handled in next section processing error propagations
-//			if ((HazardPA == null) || (HazardPA.isEmpty())) {
-//				// error propagation is originating hazard
-//				ts = ep.getTypeSet();
-//				if (ts == null && failureMode != null) {
-//					ts = failureMode.getTypeSet();
-//				}
-//				HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
-//				Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
-//				Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
-//				target = ep;
-//				localContext = null;
-//			}
 			if (!HazardPA.isEmpty()) {
 				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
@@ -228,6 +223,23 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			if (!HazardPA.isEmpty()) {
 				reportHazardProperty(ci, HazardPA, Sev, Like, target, ts, localContext, report);
 			}
+		}
+	}
+
+	protected void processHazards(ConnectionInstance conni, WriteToFile report) {
+		ConnectionErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(conni);
+		if (ces == null)
+			return;
+		Element localContext = null;
+		// error propagation is originating hazard
+		TypeSet ts = ces.getTypeTokenConstraint();
+		List<EMV2PropertyAssociation> HazardPA = EMV2Properties.getHazardsProperty(conni, ces, ts);
+		List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(conni, ces, ts);
+		List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(conni, ces, ts);
+		Element target = ces;
+		// XXX we may have more than one matching hazard
+		if (!HazardPA.isEmpty()) {
+			reportHazardProperty(conni, HazardPA, Sev, Like, target, ts, localContext, report);
 		}
 	}
 
@@ -254,7 +266,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		return "";
 	}
 
-	protected void reportHazardProperty(ComponentInstance ci, List<EMV2PropertyAssociation> PAList,
+	protected void reportHazardProperty(InstanceObject ci, List<EMV2PropertyAssociation> PAList,
 			List<EMV2PropertyAssociation> SevList, List<EMV2PropertyAssociation> LikeList, Element target, TypeSet ts,
 			Element localContext, WriteToFile report) {
 
@@ -334,7 +346,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 	}
 
 	protected void reportFHAEntry(WriteToFile report, EList<BasicPropertyAssociation> fields,
-			PropertyExpression Severity, PropertyExpression Likelihood, ComponentInstance ci, String failureModeName,
+			PropertyExpression Severity, PropertyExpression Likelihood, InstanceObject ci, String failureModeName,
 			String typetext) {
 		String componentName = ci.getName();
 		/*

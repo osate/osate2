@@ -168,26 +168,7 @@
                </or>
             </enablement>
          </action>       
-         <!--action
-               id="org.osate.aadl2.errormodel.analysis.actions.FMEA.action"
-               label="%FMEA.label"
-               tooltip="%FMEA.toolTip"
-               icon="%FMEA.icon"
-               class="org.osate.aadl2.errormodel.analysis.actions.FMEAAction"
-               menubarPath="menu.analyses/menu.fault/stuff.grp"
-               toolbarPath="fault.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
-               </or>
-            </enablement>
-         </action-->
-      </actionSet>
+       </actionSet>
    </extension>
 
    <extension
@@ -285,15 +266,7 @@
                class="org.osate.aadl2.errormodel.analysis.actions.ConsistencyAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>               
-         <!--action
-               id="org.osate.aadl2.errormodel.analysis.actions.FMEA.popupAction"
-               label="%FMEA.label"
-               tooltip="%FMEA.toolTip"
-               icon="%FMEA.icon"
-               class="org.osate.aadl2.errormodel.analysis.actions.FMEAAction"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
-               enablesFor="1"/-->
-      </objectContribution>
+       </objectContribution>
    </extension>
 
    <extension
