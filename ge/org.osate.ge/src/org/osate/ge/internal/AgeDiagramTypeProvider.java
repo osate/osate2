@@ -27,12 +27,12 @@ import org.osate.ge.internal.services.ComponentImplementationService;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
 import org.osate.ge.internal.services.DiagramModificationService;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.GraphicsAlgorithmCreationService;
 import org.osate.ge.internal.services.GraphicsAlgorithmManipulationService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.LabelService;
 import org.osate.ge.internal.services.LayoutService;
@@ -40,7 +40,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.PrototypeService;
 import org.osate.ge.internal.services.RefactoringService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.SerializableReferenceService;
 import org.osate.ge.internal.services.ShapeCreationService;
@@ -79,6 +79,8 @@ import org.osate.ge.internal.services.impl.DefaultSubcomponentService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
 import org.osate.ge.internal.ui.util.impl.DefaultGhostPurger;
+import org.osate.ge.services.ReferenceResolutionService;
+import org.osate.ge.services.impl.DefaultReferenceResolutionService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -100,26 +102,27 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Create objects for the context
+		final InternalReferenceBuilderService refBuilder = Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService");
 		final SavedAadlResourceService savedAadlResourceService = Objects.requireNonNull(context.get(SavedAadlResourceService.class), "Unable to retrieve SavedAadlResourceService");
 		final UiService uiService = new DefaultUiService(this);
 		final CachingService cachingService = new DefaultCachingService();
 		final BusinessObjectResolutionService bor = new DefaultBusinessObjectResolutionService(fp);
 		final ComponentImplementationService componentImplementationService = new DefaultComponentImplementationService();
-		final DiagramService diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
+		final DiagramService internalDiagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
 		final DefaultAadlArrayService arrayService = new DefaultAadlArrayService();
 		final DefaultPropertyService propertyUtil = new DefaultPropertyService();
 		final DefaultAnchorService anchorUtil = new DefaultAnchorService(propertyUtil);
-		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);		
-		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(diagramService, ghostPurger, bor);
+		final DefaultGhostPurger ghostPurger = new DefaultGhostPurger(propertyUtil);
+		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(internalDiagramService, ghostPurger, refBuilder, bor);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(bor);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final DefaultGraphicsAlgorithmManipulationService graphicsAlgorithmUtil = new DefaultGraphicsAlgorithmManipulationService();
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(ReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
+		serializableReferenceService = new DefaultSerializableReferenceService(extensionService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
 		final DefaultShapeService shapeHelper = new DefaultShapeService(serializableReferenceService, propertyUtil, bor);
-		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, fp);
+		final ConnectionService connectionService = new DefaultConnectionService(anchorUtil, serializableReferenceService, shapeHelper, propertyUtil, bor, cachingService, extensionService, refBuilder, fp);
 		final DefaultGhostingService ghostingService = new DefaultGhostingService(propertyUtil, connectionService, fp);
 		styleService = new DefaultStyleService(fp);
 		final DefaultLayoutService layoutService = new DefaultLayoutService(propertyUtil, shapeHelper, bor, fp);
@@ -166,6 +169,9 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(LabelService.class, labelService);
 		context.set(GraphitiService.class, graphitiService);
 		
+		// Create Public Services
+		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));
+				
 		return context;
 	}
 	

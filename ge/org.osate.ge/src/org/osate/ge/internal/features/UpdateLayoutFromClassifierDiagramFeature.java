@@ -37,16 +37,15 @@ import org.eclipse.graphiti.services.Graphiti;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCallSequence;
+import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.services.DiagramService.DiagramReference;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.SubcomponentService;
-import org.osate.ge.internal.services.DiagramService.DiagramReference;
 
 /**
  * Updates a subcomponent shape to duplicate the layout of the classifier diagram associated with the subcomponent's classifier.
@@ -96,7 +95,7 @@ public class UpdateLayoutFromClassifierDiagramFeature extends AbstractCustomFeat
     	}
     	
     	final Shape shape = (Shape)customContext.getPictogramElements()[0];
-    	final Object bo = (NamedElement)bor.getBusinessObjectForPictogramElement(pe);
+    	final Object bo = bor.getBusinessObjectForPictogramElement(pe);
     	return bo instanceof Subcomponent && subcomponentService.getComponentClassifier(shape, (Subcomponent)bo) != null;
 	}
 	

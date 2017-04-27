@@ -22,12 +22,12 @@ public class IndependenceProvider implements IIndependenceSolver {
 	}
 
 	@Override
-	public String getKeyForBusinessObject(Object bo) {
+	public String getKeyForBusinessObject(final Object bo) {
 		return serializableReferenceService.getReference(AadlElementWrapper.unwrap(bo));
 	}
 
 	@Override
-	public Object getBusinessObjectForKey(String key) {
+	public Object getBusinessObjectForKey(final String key) {
 		if(key == null) {
 			return null;
 		}

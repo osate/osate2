@@ -63,6 +63,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.AnchorService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ComponentImplementationService;
+import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.GhostingService;
 import org.osate.ge.internal.services.LabelService;
@@ -98,6 +99,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	private final AadlModificationService aadlModService;
 	private final DiagramModificationService diagramModService;
 	private final UserInputService userInputService;
+	private final ConnectionCreationService connectionCreationService;
 	private final BusinessObjectResolutionService bor;
 	
 	@Inject
@@ -106,7 +108,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 			final AadlFeatureService featureService, final AnchorService anchorService, final NamingService namingService,
 			final RefactoringService refactoringService, final ComponentImplementationService componentImplementationService, 
 			final AadlModificationService aadlModService, final DiagramModificationService diagramModService, final UserInputService userInputService,
-			final BusinessObjectResolutionService bor) {
+			final ConnectionCreationService connectionCreationService, final BusinessObjectResolutionService bor) {
 		this.ghostingService = ghostingService;
 		this.layoutService = layoutService;
 		this.styleService = styleService;
@@ -122,6 +124,7 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 		this.aadlModService = aadlModService;
 		this.diagramModService = diagramModService;
 		this.userInputService = userInputService;
+		this.connectionCreationService = connectionCreationService;
 		this.bor = bor;
 	}
 	
@@ -210,14 +213,17 @@ public class SubprogramCallPattern extends AgePattern implements Categorized {
 	
 	// Shared Between add and update
 	private void refresh(final ContainerShape shape, final SubprogramCall call, final int x, final int y) {
+		propertyService.setIsLogicalTreeNode(shape, true);
+		
 		// Handle ghosting
 		ghostingService.setIsGhost(shape, false);
 		ghostingService.ghostChildShapes(shape);
 		
-		// Create/Update feature shapes
+		// Create/Update feature shapes and flow specifications
 		final SubprogramType subprogramType = getSubprogramType(call);
 		if(subprogramType != null) {
 			shapeCreationService.createUpdateFeatureShapes(shape, featureService.getAllDeclaredFeatures(subprogramType));
+			connectionCreationService.createUpdateConnections(shape, subprogramType.getAllFlowSpecifications());
 		}
 
 		// Create labels

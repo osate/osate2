@@ -10,11 +10,6 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.List;
 import javax.inject.Named;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -37,34 +32,31 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.ge.di.BuildReference;
-import org.osate.ge.di.GetProject;
-import org.osate.ge.di.GetTitle;
-import org.osate.ge.di.Names;
 import org.osate.ge.internal.patterns.SubprogramCallOrder;
-import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.di.Names;
+import org.osate.ge.di.BuildReference;
 
 // Handles building references related to the AADL declarative model
 public class DeclarativeReferenceBuilder {
-	final static String TYPE_PACKAGE = "package";
-	final static String TYPE_CLASSIFIER = "classifier";
-	final static String TYPE_SUBCOMPONENT = "subcomponent";
-	final static String TYPE_REALIZATION = "realization";
-	final static String TYPE_TYPE_EXTENSION = "type_extension";
-	final static String TYPE_IMPLEMENTATION_EXTENSION = "implementation_extension";
-	final static String TYPE_GROUP_EXTENSION = "group_extension";
-	final static String TYPE_FEATURE = "feature";
-	final static String TYPE_INTERNAL_FEATURE = "internal_feature";
-	final static String TYPE_PROCESSOR_FEATURE = "processor_feature";
-	final static String TYPE_FLOW_SPECIFICATION = "flow_specification";
-	final static String TYPE_CONNECTION = "connection";
-	final static String TYPE_MODE = "mode";
-	final static String TYPE_MODE_TRANSITION = "mode_transition";
-	final static String TYPE_SUBPROGRAM_CALL_SEQUENCE = "subprogram_call_sequence";
-	final static String TYPE_SUBPROGRAM_CALL = "subprogram_call";
-	final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
-	final static String TYPE_ANNEX_LIBRARY = "annex_library";
-	final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
+	public final static String TYPE_PACKAGE = "package";
+	public final static String TYPE_CLASSIFIER = "classifier";
+	public final static String TYPE_SUBCOMPONENT = "subcomponent";
+	public final static String TYPE_REALIZATION = "realization";
+	public final static String TYPE_TYPE_EXTENSION = "type_extension";
+	public final static String TYPE_IMPLEMENTATION_EXTENSION = "implementation_extension";
+	public final static String TYPE_GROUP_EXTENSION = "group_extension";
+	public final static String TYPE_FEATURE = "feature";
+	public final static String TYPE_INTERNAL_FEATURE = "internal_feature";
+	public final static String TYPE_PROCESSOR_FEATURE = "processor_feature";
+	public final static String TYPE_FLOW_SPECIFICATION = "flow_specification";
+	public final static String TYPE_CONNECTION = "connection";
+	public final static String TYPE_MODE = "mode";
+	public final static String TYPE_MODE_TRANSITION = "mode_transition";
+	public final static String TYPE_SUBPROGRAM_CALL_SEQUENCE = "subprogram_call_sequence";
+	public final static String TYPE_SUBPROGRAM_CALL = "subprogram_call";
+	public final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
+	public final static String TYPE_ANNEX_LIBRARY = "annex_library";
+	public final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
 
 	@BuildReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {
@@ -125,7 +117,7 @@ public class DeclarativeReferenceBuilder {
 			return null;
 		}
 	}
-	
+
 	private static String getNameForSerialization(final NamedElement ne) {
 		return (ne == null || ne.getName() == null) ? "<null>" : ne.getName();
 	}
@@ -218,31 +210,5 @@ public class DeclarativeReferenceBuilder {
 
 		return -1;
 	}
-	
-	@GetTitle
-	public String getTitle(final @Named(Names.BUSINESS_OBJECT) Object bo) {
-		if(bo instanceof AadlPackage || bo instanceof Classifier) {
-			return ((NamedElement) bo).getQualifiedName();
-		}
-		
-		return null;
-	}
-	
-	/**
-	 * Handles retrieving the IProject of any EObject
-	 * @param bo
-	 * @return
-	 */
-	@GetProject
-	public IProject getProject(final @Named(Names.BUSINESS_OBJECT) EObject bo) {
-		final Resource resource = ((EObject)bo).eResource();
-		if(resource != null) {
-			final URI uri = resource.getURI();
-			if(uri != null) {
-				return SelectionHelper.getProject(uri);
-			}
-		}
-
-		return null;
-	}
 }
+

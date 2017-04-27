@@ -62,13 +62,13 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.di.Deactivate;
-import org.osate.ge.di.Description;
-import org.osate.ge.di.Icon;
-import org.osate.ge.di.Id;
-import org.osate.ge.di.SelectionChanged;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.di.Deactivate;
+import org.osate.ge.internal.di.Description;
+import org.osate.ge.internal.di.Icon;
+import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
@@ -80,6 +80,16 @@ import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.ui.util.DialogPlacementHelper;
 
 public class CreateFlowImplementationTool {
+	private static boolean areEquivalent(final Object bo1, final Object bo2) {
+		if(!(bo1 instanceof NamedElement && bo2 instanceof NamedElement)) {
+			return false;
+		}
+		
+		final String n1 = ((NamedElement)bo1).getName();
+		final String n2 = ((NamedElement)bo2).getName();
+		return n1 != null && n1.equalsIgnoreCase(n2);
+	}
+	
 	private ColoringService.Coloring coloring = null;
 	private ComponentImplementation ci;
 	private CreateFlowImplementationDialog dlg;
@@ -185,44 +195,48 @@ public class CreateFlowImplementationTool {
 					editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 						@Override
 						public void execute() {
-							if(selectedPes.length == 1 && dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-								// Get the selected pictogram
-								PictogramElement pe = selectedPes[0];
-								Shape shape = null;
-								if (pe instanceof Connection) {
-									shape = connectionService.getOwnerShape((Connection)pe);
-								} else if (pe instanceof ConnectionDecorator) {
-									final ConnectionDecorator cd = ((ConnectionDecorator)pe);
-									pe = cd.getConnection();
-									shape = connectionService.getOwnerShape((Connection)pe);
-								} else if (shape == null && pe instanceof Shape) {
-									shape = (Shape)pe;
-								}
-
-								// Get the business object
-								final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-								final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-								String error = null;
-								if (pe != null && !(pe instanceof Diagram)) {
-									if(dlg.addSelectedElement(bo, context)) {
-										if (bo == dlg.getFlow().getSpecification()) {
-											coloring.setForeground(pe, Color.ORANGE.darker());
-										} else if (bo instanceof ModeFeature) {
-											coloring.setForeground(pe, Color.MAGENTA.brighter());
-										} else {
-											coloring.setForeground(pe, Color.MAGENTA.darker());
-										}
-										previouslySelectedPes.add(pe);
-									} else {
-										error = "Invalid element selected. ";							
+							if(dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+								if(selectedPes.length > 1) {
+									dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
+								} else if(selectedPes.length == 1) {
+									// Get the selected pictogram
+									PictogramElement pe = selectedPes[0];
+									Shape shape = null;
+									if (pe instanceof Connection) {
+										shape = connectionService.getOwnerShape((Connection)pe);
+									} else if (pe instanceof ConnectionDecorator) {
+										final ConnectionDecorator cd = ((ConnectionDecorator)pe);
+										pe = cd.getConnection();
+										shape = connectionService.getOwnerShape((Connection)pe);
+									} else if (shape == null && pe instanceof Shape) {
+										shape = (Shape)pe;
 									}
-								} 
-								
-								if(error == null) {
-									dlg.setErrorMessage(null);
-									dlg.setMessage(getDialogMessage());
-								} else {
-									dlg.setErrorMessage(error + " " + getDialogMessage());
+	
+									// Get the business object
+									final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+									final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
+									String error = null;
+									if (pe != null && !(pe instanceof Diagram)) {
+										if(dlg.addSelectedElement(bo, context)) {
+											if ( areEquivalent(bo, dlg.getFlow().getSpecification())) {
+												coloring.setForeground(pe, Color.ORANGE.darker());
+											} else if (bo instanceof ModeFeature) {
+												coloring.setForeground(pe, Color.MAGENTA.brighter());
+											} else {
+												coloring.setForeground(pe, Color.MAGENTA.darker());
+											}
+											previouslySelectedPes.add(pe);
+										} else {
+											error = "Invalid element selected. ";							
+										}
+									} 
+									
+									if(error == null) {
+										dlg.setErrorMessage(null);
+										dlg.setMessage(getDialogMessage());
+									} else {
+										dlg.setErrorMessage(error + " " + getDialogMessage());
+									}
 								}
 							}
 						}
@@ -241,9 +255,9 @@ public class CreateFlowImplementationTool {
 		if (previouslySelectedPes.size() > 0) {
 			//Get last element selected to determine message
 			final Object bo = bor.getBusinessObjectForPictogramElement(previouslySelectedPes.get(previouslySelectedPes.size()-1));
-			if ((bo instanceof FlowSpecification && (FlowSpecification)bo == dlg.flowImpl.getSpecification()
+			if ((bo instanceof FlowSpecification && areEquivalent(bo, dlg.flowImpl.getSpecification())
 				&& ((FlowSpecification)bo).getKind() == FlowKind.SOURCE) || bo instanceof org.osate.aadl2.Connection) {
-				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature";
+				msg = "Select a subcomponent flow specification, subcomponent, or a data access feature.";
 			} else if (bo instanceof FlowSpecification || bo instanceof DataAccess
 					|| bo instanceof Subcomponent) {
 				msg = "Select a connection.";
@@ -292,7 +306,7 @@ public class CreateFlowImplementationTool {
 		public boolean addSelectedElement(final Object bo, final Context context) {
 			final Element selectedEle = (Element)bo;
 			if (isValid((Element)getRefinedElement(selectedEle), context)) {
-				if (selectedEle == flowImpl.getSpecification() && context == null) {
+				if (areEquivalent(selectedEle, flowImpl.getSpecification()) && context == null) {
 					return addFlowSegmentOrModeFeature(selectedEle);
 				} else if (selectedEle instanceof FlowSpecification || selectedEle instanceof DataAccess) {
 					return addFlowSegmentOrModeFeature(createOwnedFlowSegment((Element)bo, context));
@@ -346,10 +360,10 @@ public class CreateFlowImplementationTool {
 							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
 							final Feature feature = flowImpl.getSpecification().getOutEnd().getFeature();
 							if (con.isBidirectional()) {
-								return con.getDestination().getConnectionEnd() == feature
-										|| con.getSource().getConnectionEnd() == feature;
+								return areEquivalent(con.getDestination().getConnectionEnd(), feature)
+										|| areEquivalent(con.getSource().getConnectionEnd(), feature);
 							} else {
-								return con.getDestination().getConnectionEnd() == feature;
+								return areEquivalent(con.getDestination().getConnectionEnd(), feature);
 							}
 						}
 					} else {
@@ -394,7 +408,7 @@ public class CreateFlowImplementationTool {
 					} else {
 						//path
 						if (fs.getKind() == FlowKind.PATH) {
-							if (flowImpl.getSpecification() == (object)) {
+							if (flowImpl.getSpecification() == object) {
 								flowSegmentList.add(getSegmentName(flowInEnd.getContext(), flowInEnd.getFeature()) + "  ->");
 								flowSegmentList.add(getSegmentName(flowOutEnd.getContext(), flowOutEnd.getFeature()));
 							} else if (object instanceof FlowSegment) {
@@ -462,7 +476,7 @@ public class CreateFlowImplementationTool {
 			}
 			return modeString == "" ? modeString : modeString + ")";
 		}
-
+		
 		/**
 		 * Determines if the selected element is valid to be added to Flow Implementation
 		 * @param selectedEle - selected element
@@ -485,15 +499,16 @@ public class CreateFlowImplementationTool {
 							final ConnectedElement dest = con.getDestination();
 							final ConnectedElement src = con.getSource();
 							if (con.isBidirectional()) {
-								if ((inFlowFeature == dest.getConnectionEnd() && dest.getContext() == null)
-										|| (inFlowFeature == src.getConnectionEnd() && src.getContext() == null)
-										|| (outFlowFeature == dest.getConnectionEnd() && dest.getContext() == null)
-										|| (outFlowFeature == src.getConnectionEnd() && src.getContext() == null)) {
+								if (dest.getContext() == null && 
+										areEquivalent(inFlowFeature, dest.getConnectionEnd()) || 
+										areEquivalent(inFlowFeature, src.getConnectionEnd()) || 
+										areEquivalent(outFlowFeature, dest.getConnectionEnd()) || 
+										areEquivalent(outFlowFeature, src.getConnectionEnd())) {
 									return true;
 								}
 							} else {
-								if (inFlowFeature == src.getConnectionEnd()
-										|| (outFlowFeature == dest.getConnectionEnd() && dest.getContext() == null)) {
+								if (areEquivalent(inFlowFeature, src.getConnectionEnd())
+										|| (areEquivalent(outFlowFeature, dest.getConnectionEnd()) && dest.getContext() == null)) {
 									return true;
 								}
 							}
@@ -503,18 +518,17 @@ public class CreateFlowImplementationTool {
 						if(context == null && selectedEle instanceof org.osate.aadl2.Connection) {
 							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)selectedEle;
 							if (con.isBidirectional()) {
-								if ((flowImplFlowSpec.getInEnd().getFeature() == con.getDestination().getConnectionEnd() && con.getDestination().getContext() == null)
-										|| (flowImplFlowSpec.getInEnd().getFeature() == con.getSource().getConnectionEnd() && con.getSource().getContext() == null)) {
+								if ((areEquivalent(flowImplFlowSpec.getInEnd().getFeature(), con.getDestination().getConnectionEnd()) && con.getDestination().getContext() == null)
+										|| (areEquivalent(flowImplFlowSpec.getInEnd().getFeature(), con.getSource().getConnectionEnd()) && con.getSource().getContext() == null)) {
 									return true;
 								}
 							} else {
-								if (flowImplFlowSpec.getInEnd().getFeature() == con.getSource().getConnectionEnd() && con.getSource().getContext() == null) {
+								if (areEquivalent(flowImplFlowSpec.getInEnd().getFeature(), con.getSource().getConnectionEnd()) && con.getSource().getContext() == null) {
 									return true;
 								}
 							}
 						}
-					} else {
-						//Rules for FlowKind.SOURCE
+					} else if(flowKind == FlowKind.SOURCE) {
 						if (selectedEle instanceof FlowSpecification) {
 							return context != null;
 						} else if (selectedEle instanceof Subcomponent) {
@@ -531,12 +545,13 @@ public class CreateFlowImplementationTool {
 						final FlowEnd flowEnd = fs.getKind() == FlowKind.SINK ? fs.getInEnd() : fs.getOutEnd();
 						if (fs.getKind() == FlowKind.PATH) {
 							FlowEnd flowInEnd = fs.getInEnd();
-							return con.getDestination().getConnectionEnd() == flowEnd.getFeature() ||
-									con.getSource().getConnectionEnd() == flowEnd.getFeature() ||
-									con.getDestination().getConnectionEnd() == flowInEnd.getFeature() ||
-									con.getSource().getConnectionEnd() == flowInEnd.getFeature();
+							
+							return areEquivalent(con.getDestination().getConnectionEnd(), flowEnd.getFeature()) ||
+									areEquivalent(con.getSource().getConnectionEnd(), flowEnd.getFeature()) ||
+											areEquivalent(con.getDestination().getConnectionEnd(), flowInEnd.getFeature()) ||
+													areEquivalent(con.getSource().getConnectionEnd(), flowInEnd.getFeature());
 						} else {
-							return con.getSource().getConnectionEnd() == flowEnd.getFeature() || con.getDestination().getConnectionEnd() == flowEnd.getFeature();
+							return areEquivalent(con.getSource().getConnectionEnd(), flowEnd.getFeature()) || areEquivalent(con.getDestination().getConnectionEnd(), flowEnd.getFeature());
 						}
 					} else if (selectedEle instanceof org.osate.aadl2.Connection) {
 						final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)(getRefinedElement(selectedEle));
@@ -550,13 +565,13 @@ public class CreateFlowImplementationTool {
 							final ConnectionEnd destCE = con.getDestination().getConnectionEnd();
 							final ConnectionEnd srcCE = con.getSource().getConnectionEnd();
 							if (context == null) {
-								if (srcCtx == subContext && ((destCE instanceof DataAccess || isValidSubcomponent((Context)getRefinedElement(destCtx))) || (destCE == flowEndFeature && destCtx == null))
-										|| (destCtx == subContext && ((srcCE instanceof DataAccess || isValidSubcomponent(srcCtx))))) {
+								if (areEquivalent(srcCtx, subContext) && ((destCE instanceof DataAccess || isValidSubcomponent((Context)getRefinedElement(destCtx))) || (areEquivalent(destCE, flowEndFeature) && destCtx == null))
+										|| (areEquivalent(destCtx, subContext) && ((srcCE instanceof DataAccess || isValidSubcomponent(srcCtx))))) {
 									return true;
 								}
 							} else {
-								return getRefinedElement(con.getSource().getContext()) == subContext
-										&& getRefinedElement(con.getDestination().getContext()) == subContext;
+								return areEquivalent(con.getSource().getContext(), subContext)
+										&& areEquivalent(con.getDestination().getContext(), subContext);
 							}
 						} else if (prevEle instanceof DataAccess) {
 							return context == null || isValidSubcomponent((Context)getRefinedElement(context));
@@ -567,8 +582,8 @@ public class CreateFlowImplementationTool {
 						if (prevEle instanceof org.osate.aadl2.Connection) {
 							final org.osate.aadl2.Connection con = (org.osate.aadl2.Connection)prevEle;
 							final Context subContext = (Context)getRefinedElement(context);
-							return (getRefinedElement(con.getSource().getContext()) == subContext
-									|| getRefinedElement(con.getDestination().getContext()) == subContext);
+							return (areEquivalent(con.getSource().getContext(), subContext)
+									|| areEquivalent(con.getDestination().getContext(), subContext));
 						}
 					}
 				}
@@ -598,19 +613,19 @@ public class CreateFlowImplementationTool {
 				final Context srcCtx = con.getSource().getContext();
 				if (fs.getKind() == FlowKind.PATH) {
 					final Feature inFlowFeature = fs.getInEnd().getFeature();
-					if ((flowFeature == srcCE && flowImplFeature == destCE && destCtx == null)
-							|| (flowFeature == destCE && flowImplFeature == srcCE && srcCtx == null)
-							|| (inFlowFeature == srcCE && flowImplFeature == destCE && destCtx == null)
-							|| (inFlowFeature == destCE && flowImplFeature == srcCE && srcCtx == null)
+					if ((areEquivalent(flowFeature, srcCE) && areEquivalent(flowImplFeature, destCE) && destCtx == null)
+							|| (areEquivalent(flowFeature, destCE) && areEquivalent(flowImplFeature, srcCE) && srcCtx == null)
+							|| (areEquivalent(inFlowFeature, srcCE) && areEquivalent(flowImplFeature, destCE) && destCtx == null)
+							|| (areEquivalent(inFlowFeature, destCE) && areEquivalent(flowImplFeature, srcCE) && srcCtx == null)
 							|| (srcCE instanceof DataAccess && srcCtx == null)
 							|| (destCE instanceof DataAccess && destCtx == null)) {
 						return true;
 					}
 				} else {
-					if ((flowFeature == srcCE && flowImplFeature == destCE && destCtx == null)
-							|| (flowFeature == destCE && flowImplFeature == srcCE && srcCtx == null)
-							|| (srcCE == flowFeature && destCE instanceof DataAccess && destCtx == null)
-							|| (destCE == flowFeature && srcCE instanceof DataAccess && srcCtx == null)) {
+					if ((areEquivalent(flowFeature, srcCE) && areEquivalent(flowImplFeature, destCE) && destCtx == null)
+							|| (areEquivalent(flowFeature, destCE) && areEquivalent(flowImplFeature, srcCE) && srcCtx == null)
+							|| (areEquivalent(srcCE, flowFeature) && destCE instanceof DataAccess && destCtx == null)
+							|| (areEquivalent(destCE, flowFeature) && srcCE instanceof DataAccess && srcCtx == null)) {
 						return true;
 					}
 				}
@@ -628,7 +643,7 @@ public class CreateFlowImplementationTool {
 		//Checks for valid subcomponent in the diagram
 		private boolean isValidSubcomponent(final Context context) {
 			for (final Subcomponent subcomponent : ci.getAllSubcomponents()) {
-				if (getRefinedElement(subcomponent) == context) {
+				if (areEquivalent(subcomponent, context)) {
 					return true;
 				}
 			}
@@ -657,14 +672,14 @@ public class CreateFlowImplementationTool {
 			final Feature flowFeature = fs.getKind() == FlowKind.SINK ? fs.getInEnd().getFeature() : fs.getOutEnd().getFeature();
 			if (fs.getKind() == FlowKind.PATH) {
 				final FlowEnd inFlowFeature = fs.getInEnd();
-				return inFlowFeature == destCE
-						|| inFlowFeature == srcCE
-						|| flowFeature == destCE
-						|| flowFeature == srcCE;
+				return areEquivalent(inFlowFeature, destCE)
+						|| areEquivalent(inFlowFeature, srcCE)
+						|| areEquivalent(flowFeature, destCE)
+						|| areEquivalent(flowFeature, srcCE);
 			} else {
 				//Rules for source and sink
-				return flowFeature == destCE
-						|| flowFeature == srcCE;
+				return areEquivalent(flowFeature, destCE)
+						|| areEquivalent(flowFeature, srcCE);
 			}
 		}
 
@@ -681,7 +696,7 @@ public class CreateFlowImplementationTool {
 			super.configureShell(newShell);
 			newShell.setText("Create Flow Implementation");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(450, 250);
+			newShell.setSize(540, 250);
 			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(300, 215);
 		}
@@ -740,7 +755,7 @@ public class CreateFlowImplementationTool {
 						});
 						
 						final Object ob = bor.getBusinessObjectForPictogramElement(removedPe);
-						if (ob == flowImpl.getSpecification() && prevPesSize == 1) {
+						if (areEquivalent(ob, flowImpl.getSpecification()) && prevPesSize == 1) {
 							flowImpl.setSpecification(null);
 							flowImpl = null;
 						} else if (!(ob instanceof ModeFeature)) {

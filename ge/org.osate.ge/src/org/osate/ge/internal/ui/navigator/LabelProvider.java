@@ -68,7 +68,7 @@ public class LabelProvider implements ILabelProvider {
 	public LabelProvider(final IBaseLabelProvider innerLabelProvider) {
 		this.innerLabelProvider = innerLabelProvider;
 		this.diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-		
+
 		// Register to listen for workspace changes
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
 	}

@@ -90,15 +90,15 @@ public class DistributeHorizontallyAction extends SelectionAction {
 	 */
 	private Collection<MoveShapeContext> getMoveShapeContextsFromEditorSelection() {
 		final PictogramElement[] pes = editor.getSelectedPictogramElements();
-		if(pes.length<3) {
+		if(pes.length < 3) {
+			return null;
+		}
+
+		if(!LayoutUtil.areAllShapes(pes)) {
 			return null;
 		}
 		
-		final Shape[] shapes = Arrays.copyOf(editor.getSelectedPictogramElements(), pes.length, Shape[].class);
-		if(!LayoutUtil.areAllShapes(shapes)) {
-			return null;
-		}
-		
+		final Shape[] shapes = Arrays.copyOf(editor.getSelectedPictogramElements(), pes.length, Shape[].class);		
 		if(!LayoutUtil.haveSameContainerShapes(shapes)) {
 			return null;
 		}

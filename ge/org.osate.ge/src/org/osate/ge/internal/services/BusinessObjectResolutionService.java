@@ -10,13 +10,13 @@ package org.osate.ge.internal.services;
 
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 
-public interface BusinessObjectResolutionService {
+public interface BusinessObjectResolutionService {	
 	/**
 	 * Returns the business object linked to a pictogram element. Also responsible for "unwrapping" any objects.
 	 * @param pe
 	 * @return
 	 */
-	Object getBusinessObjectForPictogramElement(final PictogramElement pe);
+	Object getBusinessObjectForPictogramElement(PictogramElement pe);
 	
 	boolean areBusinessObjectsEqual(final Object o1, final Object o2);
 }

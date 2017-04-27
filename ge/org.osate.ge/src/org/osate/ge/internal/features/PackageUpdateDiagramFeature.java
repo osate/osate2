@@ -9,6 +9,7 @@
 package org.osate.ge.internal.features;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -35,6 +36,7 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
@@ -45,33 +47,38 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.internal.AadlElementWrapper;
+import org.osate.ge.internal.features.DiagramUpdateFeature;
+import org.osate.ge.internal.features.LayoutDiagramFeature;
 import org.osate.ge.internal.services.ConnectionCreationService;
 import org.osate.ge.internal.services.ConnectionService;
-import org.osate.ge.internal.services.GhostingService;
-import org.osate.ge.internal.services.ReferenceBuilderService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ShapeCreationService;
 import org.osate.ge.internal.services.ShapeService;
 import org.osate.ge.internal.services.StyleService;
+import org.osate.ge.internal.services.GhostingService;
+import org.osate.ge.internal.services.PropertyService;
 import org.osate.ge.internal.util.Log;
 
 public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implements DiagramUpdateFeature {
-	private final ReferenceBuilderService refBuilder;
+	private final DiagramService diagramService;
 	private final StyleService styleService;
 	private final ConnectionCreationService connectionCreationService;
 	private final GhostingService ghostingService;
 	private final ShapeService shapeService;
 	private final ShapeCreationService shapeCreationService;
+	private final PropertyService propertyService;
 	
 	@Inject
-	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final ReferenceBuilderService refBuilder, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
-			final ShapeCreationService shapeCreationService) {
+	public PackageUpdateDiagramFeature(final IFeatureProvider fp, final DiagramService diagramService, final StyleService styleService, final ConnectionService connectionService, final ConnectionCreationService connectionCreationService, final GhostingService ghostingService, final ShapeService shapeService, 
+			final ShapeCreationService shapeCreationService, final PropertyService propertyService) {
 		super(fp);
-		this.refBuilder = refBuilder;
+		this.diagramService = Objects.requireNonNull(diagramService, "diagramService must not be null");
 		this.styleService = styleService;
 		this.connectionCreationService = connectionCreationService;
 		this.ghostingService = ghostingService;
 		this.shapeService = shapeService;
 		this.shapeCreationService = shapeCreationService;
+		this.propertyService = propertyService;
 	}
 	
 	@Override
@@ -93,6 +100,7 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 	public boolean update(IUpdateContext context) {
 		Log.info("called with context: " + context);
 		final Diagram diagram = (Diagram)context.getPictogramElement();
+		propertyService.setIsLogicalTreeNode(diagram, true);
 		styleService.refreshStyles();
 		
 		// Get the AADL Package
@@ -105,9 +113,9 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		final AadlPackage pkg = (AadlPackage)element;
 		
 		// Update the diagram's name
-		final String newTitle = refBuilder.getTitle(pkg);
-		if(newTitle != null) {
-			diagram.setName(newTitle);
+		final String newName = diagramService.getDiagramNameByBusinessObject(pkg);
+		if(newName != null) {
+			diagram.setName(newName);
 		}
 	
 		// Ghost children
@@ -242,12 +250,38 @@ public class PackageUpdateDiagramFeature extends AbstractUpdateFeature implement
 		connectionCreationService.createUpdateConnection(diagram, generalization);
 	}
 	
+	/**
+	 * Creates and updates pictogram elements for annex libraries
+	 * If specialized handling for the parsed pictogram element is implemented, then it is used. Otherwise, generic annex handling is used.
+	 * @param elements is a collection which contains default annex libraries
+	 */
 	private void updateAnnexLibraries(final Diagram diagram, final Set<NamedElement> elements) {
 		// Create shapes for annex libraries
 		for(final NamedElement el : elements) {
 			if(el instanceof AnnexLibrary) {
-				shapeCreationService.createUpdateShapeForElement(diagram, el);				
+				final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(el);
+				final boolean specializedHandling = parsedAnnexLibrary != null && shapeCreationService.createUpdateShape(diagram, parsedAnnexLibrary);
+
+				// Create the generic shape if specialized handling wasn't used
+				if(!specializedHandling) {
+					shapeCreationService.createUpdateShape(diagram, el);
+				}
 			}
 		}
+	}
+	
+	private NamedElement getParsedAnnexLibrary(final NamedElement annexLibrary) {
+		if(annexLibrary instanceof DefaultAnnexLibrary) {
+			final NamedElement parsedLib = ((DefaultAnnexLibrary) annexLibrary).getParsedAnnexLibrary();
+			
+			// Don't return libraries which inherit from DefaultAnnexLibrary
+			if(parsedLib instanceof DefaultAnnexLibrary) {
+				return null;
+			}
+			
+			return parsedLib;
+		}
+		
+		return null;
 	}
 }

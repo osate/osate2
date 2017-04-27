@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<toc label="OSATE Graphical Editor Documentation" topic="user_guide_output/index.html">
+	<topic label="User Guide" href="user_guide_output/user_guide.html">
+		<link toc="user_guide_toc.xml" />
+	</topic>
+	<topic label="Developer Guide" href="dev_guide_output/index.html">
+		<link toc="dev_guide_toc.xml" />
+	</topic>
+	<topic label="API Reference" href="api/index.html">
+		<link toc="api.xml" />
+	</topic>
+</toc>

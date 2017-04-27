@@ -18,7 +18,6 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.NamedElement;
@@ -46,7 +45,7 @@ public class ModeContributionItem extends ComboContributionItem implements Compo
 			saveModeSelection();
 
 			// Update the editor
-			if(getElementForEditor(newEditor) instanceof ComponentClassifier) {
+			if(getBusinessObjectForEditor(newEditor) instanceof ComponentClassifier) {
 				this.editor = (AgeDiagramEditor)newEditor;
 			} else {
 				this.editor = null;
@@ -73,18 +72,16 @@ public class ModeContributionItem extends ComboContributionItem implements Compo
 		}
 	}
 	
-	private static Element getElementForEditor(final IEditorPart part) {
-		if(part instanceof AgeDiagramEditor) {
-			final AgeDiagramEditor ed = (AgeDiagramEditor)part;
-			if(ed.getDiagramTypeProvider() != null) {
-				final IFeatureProvider fp = ed.getDiagramTypeProvider().getFeatureProvider();
-				final NamedElement element = (NamedElement)AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram()));
-				return element;
-			}
+	private static Object getBusinessObjectForEditor(final IEditorPart part) {
+		if(!(part instanceof AgeDiagramEditor)) {
+			return null;
 		}
-		
-		return null;
+			
+		final AgeDiagramEditor ed = (AgeDiagramEditor)part;
+		final IFeatureProvider fp = ed.getDiagramTypeProvider().getFeatureProvider();
+		return AadlElementWrapper.unwrap(fp.getBusinessObjectForPictogramElement(ed.getDiagramTypeProvider().getDiagram()));
 	}
+	
 	/**
 	 * Get the top-level component classifier from the editor
 	 * @return

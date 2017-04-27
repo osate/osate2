@@ -12,6 +12,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
 
 /**
@@ -43,5 +44,25 @@ public class AadlHelper {
 				}
 			}
 		}
+	}
+	
+	/**
+	 * Checks whether the named elements have the same name. Ignores case.
+	 * @param ne1
+	 * @param ne2
+	 * @return
+	 */
+	public static boolean namesMatch(final NamedElement ne1, final NamedElement ne2) {
+		if(ne1 == null || ne2 == null) {
+			return ne1 == ne2;
+		}
+		
+		if(ne1 == ne2) {
+			return true;
+		}
+		
+		final String n1 = ne1.getName();
+		final String n2 = ne2.getName();
+		return n1 != null && n1.equalsIgnoreCase(n2);
 	}
 }

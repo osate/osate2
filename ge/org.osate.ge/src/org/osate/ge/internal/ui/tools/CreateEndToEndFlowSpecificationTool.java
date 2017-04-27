@@ -62,13 +62,13 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.di.Deactivate;
-import org.osate.ge.di.Description;
-import org.osate.ge.di.Icon;
-import org.osate.ge.di.Id;
-import org.osate.ge.di.SelectionChanged;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.di.Deactivate;
+import org.osate.ge.internal.di.Description;
+import org.osate.ge.internal.di.Icon;
+import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.BusinessObjectResolutionService;
 import org.osate.ge.internal.services.ColoringService;
@@ -190,41 +190,45 @@ public class CreateEndToEndFlowSpecificationTool {
 					editingDomain.getCommandStack().execute(new NonUndoableToolCommand() {
 						@Override
 						public void execute() {
-							if(selectedPes.length == 1 && dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
-								// Get the selected pictogram
-								PictogramElement pe = selectedPes[0];
-								Shape shape = null;
-								if (pe instanceof Connection) {
-									shape = connectionService.getOwnerShape((Connection)pe);
-								} else if (pe instanceof ConnectionDecorator) {
-									final ConnectionDecorator cd = ((ConnectionDecorator)pe);
-									pe = cd.getConnection();
-									shape = connectionService.getOwnerShape((Connection)pe);
-								}
-			
-								final Object bo = bor.getBusinessObjectForPictogramElement(pe);
-								final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
-			
-								if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
-									String error = null;
-									if (dlg.addSelectedElement((Element)bo, context)) {
-										if (bo instanceof ModeFeature) {
-											coloring.setForeground(pe, Color.MAGENTA.brighter());
-										} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
-											coloring.setForeground(pe, Color.ORANGE.darker());
-										} else {
-											coloring.setForeground(pe, Color.MAGENTA.darker());
-										}
-										previouslySelectedPes.add(pe);
-									} else {
-										error = "Invalid element selected. ";
+							if(dlg != null && dlg.flowSegmentComposite != null && !dlg.flowSegmentComposite.isDisposed()) {
+								if(selectedPes.length > 1) {
+									dlg.setErrorMessage("Multiple diagram elements selected. Select a single diagram element. " + " " + getDialogMessage());
+								} else if(selectedPes.length == 1) {
+									// Get the selected pictogram
+									PictogramElement pe = selectedPes[0];
+									Shape shape = null;
+									if (pe instanceof Connection) {
+										shape = connectionService.getOwnerShape((Connection)pe);
+									} else if (pe instanceof ConnectionDecorator) {
+										final ConnectionDecorator cd = ((ConnectionDecorator)pe);
+										pe = cd.getConnection();
+										shape = connectionService.getOwnerShape((Connection)pe);
 									}
-									
-									if(error == null) {
-										dlg.setErrorMessage(null);
-										dlg.setMessage(getDialogMessage());
-									} else {
-										dlg.setErrorMessage(error + " " + getDialogMessage());
+				
+									final Object bo = bor.getBusinessObjectForPictogramElement(pe);
+									final Context context = shapeService.getClosestBusinessObjectOfType(shape, Context.class);
+				
+									if (bo instanceof Element && pe != null && !(pe instanceof Diagram)) {
+										String error = null;
+										if (dlg.addSelectedElement((Element)bo, context)) {
+											if (bo instanceof ModeFeature) {
+												coloring.setForeground(pe, Color.MAGENTA.brighter());
+											} else if (dlg.eTEFlow != null && dlg.eTEFlow.getAllFlowSegments().size() == 1) {
+												coloring.setForeground(pe, Color.ORANGE.darker());
+											} else {
+												coloring.setForeground(pe, Color.MAGENTA.darker());
+											}
+											previouslySelectedPes.add(pe);
+										} else {
+											error = "Invalid element selected. ";
+										}
+										
+										if(error == null) {
+											dlg.setErrorMessage(null);
+											dlg.setMessage(getDialogMessage());
+										} else {
+											dlg.setErrorMessage(error + " " + getDialogMessage());
+										}
 									}
 								}
 							}
@@ -323,7 +327,7 @@ public class CreateEndToEndFlowSpecificationTool {
 		 */
 		private boolean isValidSubcomponent(final Context context) {
 			for (final Subcomponent subC : ci.getAllSubcomponents()) {
-				if (getRefinedElement(subC) == context) {
+				if (areEquivalent(subC, context)) {
 					return true;
 				}
 			}
@@ -455,12 +459,12 @@ public class CreateEndToEndFlowSpecificationTool {
 						final Element flowInFeature = getRefinedElement(segFs.getInEnd().getFeature());	
 						if (segFs.getKind() == FlowKind.SINK || segFs.getKind() == FlowKind.PATH) {
 							if (con.isBidirectional()) {
-								if (getRefinedElement(con.getDestination().getConnectionEnd()) == flowInFeature
-										|| getRefinedElement(con.getSource().getConnectionEnd()) == flowInFeature) {
+								if (areEquivalent(con.getDestination().getConnectionEnd(), flowInFeature)
+										|| areEquivalent(con.getSource().getConnectionEnd(), flowInFeature)) {
 									return true;
 								}
 							} else {
-								if (getRefinedElement(con.getDestination().getConnectionEnd()) == flowInFeature) {
+								if (areEquivalent(con.getDestination().getConnectionEnd(), flowInFeature)) {
 									return true;
 								}
 							}
@@ -505,21 +509,21 @@ public class CreateEndToEndFlowSpecificationTool {
 				if (fs.getKind() == FlowKind.PATH) {
 					final Feature inFlowFeature = (Feature)getRefinedElement(fs.getInEnd().getFeature());
 					if (connection.isBidirectional()) {
-						return inFlowFeature == destCE
-								|| inFlowFeature == srcCE
-								|| flowFeature == destCE
-								|| flowFeature == srcCE;
+						return areEquivalent(inFlowFeature, destCE)
+								|| areEquivalent(inFlowFeature, srcCE)
+								|| areEquivalent(flowFeature, destCE)
+								|| areEquivalent(flowFeature, srcCE);
 					} else {
-						return flowFeature == srcCE
-								|| inFlowFeature == destCE;
+						return areEquivalent(flowFeature, srcCE)
+								|| areEquivalent(inFlowFeature, destCE);
 					}
 				} else if (fs.getKind() == FlowKind.SINK) {
-					return flowFeature == srcCE || flowFeature == destCE;
+					return areEquivalent(flowFeature, srcCE) || areEquivalent(flowFeature, destCE);
 				} else {
 					if (connection.isBidirectional()) {
-						return flowFeature == destCE || flowFeature == srcCE;
+						return areEquivalent(flowFeature, destCE) || areEquivalent(flowFeature, srcCE);
 					}
-					return flowFeature == srcCE;
+					return areEquivalent(flowFeature, srcCE);
 				}
 			}
 			return false;
@@ -531,7 +535,7 @@ public class CreateEndToEndFlowSpecificationTool {
 			super.configureShell(newShell);
 			newShell.setText("Create End To End Flow Specification");
 			newShell.setLocation(DialogPlacementHelper.getOffsetRectangleLocation(Display.getCurrent().getActiveShell().getBounds(), 50, 50));
-			newShell.setSize(475, 275);
+			newShell.setSize(575, 275);
 			newShell.setImage(ICON.createImage());
 			newShell.setMinimumSize(460, 215);
 		}
@@ -673,8 +677,15 @@ public class CreateEndToEndFlowSpecificationTool {
 			return buttonBar;
 		}
 	}
-
-
-
+	
+	private static boolean areEquivalent(final Object bo1, final Object bo2) {
+		if(!(bo1 instanceof NamedElement && bo2 instanceof NamedElement)) {
+			return false;
+		}
+		
+		final String n1 = ((NamedElement)bo1).getName();
+		final String n2 = ((NamedElement)bo2).getName();
+		return n1 != null && n1.equalsIgnoreCase(n2);
+	}
 }
 

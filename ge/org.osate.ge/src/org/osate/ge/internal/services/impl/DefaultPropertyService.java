@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -8,6 +29,7 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
+import org.eclipse.graphiti.mm.PropertyContainer;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
@@ -28,26 +50,31 @@ public class DefaultPropertyService implements PropertyService {
 	private static final String IS_INNER_SHAPE_KEY = "is_inner_shape"; // Inner shapes are shapes that are a child of an are considered part of another shape. They may be related to the same business object. They may be active for practical reasons 
 	private static final String IS_UNSELECTABLE_KEY = "is_unselectable";
 	private static final String IS_TRANSIENT_KEY = "is_transient";
+	private static final String IS_LOGICAL_TREE_NODE = "is_lt_node";
 	private static final String IS_BACKGROUND_KEY = "is_background";
 	private static final String IS_COLORING_CONTAINER_KEY = "is_coloring_container";
 	private static final String IS_COLORING_CHILD_KEY = "is_coloring_child";
 	private static final String BINDING_TYPE_KEY = "binding_type";
 	private static final String SHOW_BINDING_TYPE_KEY_BASE = "show_binding_type";
 
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#getName(org.eclipse.graphiti.mm.pictograms.PictogramElement)
-	 */
 	@Override
-	public final String getName(final PictogramElement pe) {
-		return Graphiti.getPeService().getPropertyValue(pe, NAME_KEY);
+	public final String getName(final PropertyContainer pc) {
+		return Graphiti.getPeService().getPropertyValue(pc, NAME_KEY);
+	}
+
+	@Override
+	public final void setName(final PropertyContainer pc, final String typeName) {
+		Graphiti.getPeService().setPropertyValue(pc, NAME_KEY, typeName);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.osate.ge.diagrams.common.util.PropertyService#setName(org.eclipse.graphiti.mm.pictograms.PictogramElement, java.lang.String)
-	 */
 	@Override
-	public final void setName(final PictogramElement pe, final String typeName) {
-		Graphiti.getPeService().setPropertyValue(pe, NAME_KEY, typeName);
+	public String getDockArea(final PictogramElement pe) {
+		return Graphiti.getPeService().getPropertyValue(pe, SIDE_KEY);
+	}
+	
+	@Override
+	public void setDockArea(final PictogramElement pe, final String value) {
+		Graphiti.getPeService().setPropertyValue(pe, SIDE_KEY, value);
 	}
 	
 	// Is on the left side of the container. Defaults to true if there isn't a value assigned to the property
@@ -56,7 +83,7 @@ public class DefaultPropertyService implements PropertyService {
 	 */
 	@Override
 	public final boolean getIsLeft(final PictogramElement pe) {
-		return !("right".equals(Graphiti.getPeService().getPropertyValue(pe, SIDE_KEY)));
+		return !("right".equals(getDockArea(pe)));
 	}
 	
 	/* (non-Javadoc)
@@ -64,7 +91,7 @@ public class DefaultPropertyService implements PropertyService {
 	 */
 	@Override
 	public final void setIsLeft(final PictogramElement pe, final boolean value) {
-		Graphiti.getPeService().setPropertyValue(pe, SIDE_KEY, value ? "left" : "right");
+		setDockArea(pe, value ? "left" : "right");
 	}
 	
 	// If it is layed out such that it is on the left side of the layout container. Defaults to true if there isn't a value assigned to the property
@@ -214,6 +241,16 @@ public class DefaultPropertyService implements PropertyService {
 	@Override
 	public void setIsTransient(final PictogramElement pe, final boolean value) {
 		Graphiti.getPeService().setPropertyValue(pe, IS_TRANSIENT_KEY, value ? "true" : "false");
+	}
+	
+	@Override
+	public boolean isLogicalTreeNode(final PictogramElement pe) {
+		return "true".equals(Graphiti.getPeService().getPropertyValue(pe, IS_LOGICAL_TREE_NODE));
+	}
+	
+	@Override
+	public void setIsLogicalTreeNode(final PictogramElement pe, final boolean value) {
+		Graphiti.getPeService().setPropertyValue(pe, IS_LOGICAL_TREE_NODE, value ? "true" : "false");
 	}
 	
 	@Override

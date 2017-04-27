@@ -19,8 +19,8 @@ import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.Mode;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.internal.AadlElementWrapper;
 import org.osate.ge.internal.services.LayoutService;
 import org.osate.ge.internal.services.PropertyService;
@@ -41,30 +41,29 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 
 	@Override
-	public void createUpdateFeatureShapes(final ContainerShape shape, final List<? extends NamedElement> features) {	
-		createUpdateShapesForElements(shape, features, 0, false, 25, 45, true, 5);
+	public void createUpdateFeatureShapes(final ContainerShape shape, final List<? extends Object> features) {	
+		createUpdateShapes(shape, features, 0, false, 25, 45, true, 5);
 	}
 
 	@Override
 	public void createUpdateModeShapes(final ContainerShape shape, final List<Mode> modes) {
-		createUpdateShapesForElements(shape, modes, 80, false, 25, 25, true, 5);
+		createUpdateShapes(shape, modes, 80, false, 25, 25, true, 5);
 	}
 	
 	@Override
-	public void createUpdateShapesForElements(final ContainerShape shape, final List<? extends NamedElement> elements, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
+	public void createUpdateShapes(final ContainerShape shape, final List<? extends Object> bos, final int startX, final boolean incX, final int xPadding, final int startY, final boolean incY, final int yPadding) {
 		int childX = startX;
 		int childY = startY;
 
-		for(final NamedElement element : elements) {
-			PictogramElement pictogramElement = shapeService.getChildShapeByReference(shape, element);
+		for(final Object bo : bos) {
+			PictogramElement pictogramElement = shapeService.getChildShapeByReference(shape, bo);
 			if(pictogramElement == null) {
 				final AddContext addContext = new AddContext();
-				addContext.setNewObject(new AadlElementWrapper(element));
+				addContext.setNewObject(bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 				addContext.setTargetContainer(shape);
 				addContext.setX(childX);
 				addContext.setY(childY);
 				final IAddFeature feature = fp.getAddFeature(addContext);
-				
 				if(feature != null && feature.canAdd(addContext)) {
 					pictogramElement = feature.add(addContext);
 					if(incX) {
@@ -88,18 +87,19 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 	}
 	
 	@Override
-	public void createUpdateShapeForElement(final ContainerShape container, final NamedElement element) {
-		final PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, element);
+	public boolean createUpdateShape(final ContainerShape container, final Object bo) {
+		final PictogramElement pictogramElement = shapeService.getChildShapeByReference(container, bo);
 		if(pictogramElement == null) {					
 			final AddContext addContext = new AddContext();
-			addContext.setNewObject(new AadlElementWrapper(element));
+			addContext.setNewObject(bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);
 			addContext.setTargetContainer(container);
 			addContext.setX(0);
 			addContext.setY(0);
 			
 			final IAddFeature addFeature = fp.getAddFeature(addContext);
-			if(addFeature != null && addFeature.canAdd(addContext)) {			
+			if(addFeature != null && addFeature.canAdd(addContext)) {
 				addFeature.add(addContext);
+				return true;
 			}
 		} else {				
 			final UpdateContext updateContext = new UpdateContext(pictogramElement);
@@ -108,24 +108,32 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			// Update the classifier regardless of whether it is "needed" or not.
 			if(updateFeature != null && updateFeature.canUpdate(updateContext)) {
 				updateFeature.update(updateContext);
+				return true;
 			}
 		}
+		
+		return false;
 	}
 	
 	@Override
-	public Shape createShape(final ContainerShape container, final NamedElement el, final int x, final int y) {
-		if(el == null) {
+	public Shape createShape(final ContainerShape container, final Object bo, final int x, final int y) {
+		return createShape(container, bo, x, y, null);
+	}
+	
+	@Override
+	public Shape createShape(final ContainerShape container, final Object bo, final int x, final int y, final PropertySetter propertySetter) {
+		if(bo == null) {
 			return null;
 		}
 			
-		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByReference(container, el);
+		Shape newShape = (ContainerShape)shapeService.getDescendantShapeByReference(container, bo);
 
 		// If the update feature hasn't been called, add the shape to the diagram. This is preferred rather than waiting because otherwise the container
 		// will be resized based on the original location for the shape.
 		if(newShape == null) {
 			final AddContext addContext = new AddContext();
 			addContext.setTargetContainer(container);
-			addContext.setNewObject(new AadlElementWrapper(el));				
+			addContext.setNewObject(bo instanceof Element ? new AadlElementWrapper((Element)bo) : bo);				
 			
 			// Execute the add feature
 			final IAddFeature addFeature = fp.getAddFeature(addContext);
@@ -134,12 +142,15 @@ public class DefaultShapeCreationService implements ShapeCreationService {
 			}
 
 			// Try to find the shape again
-			newShape = shapeService.getDescendantShapeByReference(container, el);			
+			newShape = shapeService.getDescendantShapeByReference(container, bo);			
 		}
 			
 		if(newShape != null) {
 			Graphiti.getGaService().setLocation(newShape.getGraphicsAlgorithm(), x, y);
 			propertyService.setIsLayedOut(newShape, true);
+			if(propertySetter != null) {
+				propertySetter.setProperties(newShape);
+			}
 			layoutService.checkShapeBoundsWithAncestors((ContainerShape)newShape);
 		}
 

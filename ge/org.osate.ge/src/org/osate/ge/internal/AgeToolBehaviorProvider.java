@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2013 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -11,7 +32,6 @@ package org.osate.ge.internal;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.inject.Inject;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -36,34 +56,32 @@ import org.eclipse.graphiti.pattern.CreateConnectionFeatureForPattern;
 import org.eclipse.graphiti.pattern.CreateFeatureForPattern;
 import org.eclipse.graphiti.tb.DefaultToolBehaviorProvider;
 import org.eclipse.graphiti.tb.IContextButtonPadData;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
-import org.osate.aadl2.EventDataSource;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.Generalization;
-import org.osate.aadl2.InternalFeature;
-import org.osate.aadl2.PortProxy;
-import org.osate.aadl2.ProcessorFeature;
-import org.osate.aadl2.SubprogramProxy;
 import org.osate.ge.internal.features.DrillDownFeature;
 import org.osate.ge.internal.features.GraphicalToTextualFeature;
+import org.osate.ge.internal.Categorized;
+import org.osate.ge.internal.features.BoHandlerDoubleClickFeature;
+import org.osate.ge.internal.services.BusinessObjectResolutionService;
+import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.GraphitiService;
 import org.osate.ge.internal.services.PropertyService;
-import org.osate.ge.internal.services.ExtensionRegistryService.Category;
 
 public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
+	private final static String GRAPHICAL_TO_TEXTUAL_FEATURE_HINT = "graphicalToTextualFeature";
+	
 	private final PropertyService propertyService;
 	private final IEclipseContext context;
 	private final ExtensionService extensionService;
+	private final BoHandlerDoubleClickFeature defaultDoubleClickFeature;
 	
 	@Inject
-	public AgeToolBehaviorProvider(final GraphitiService graphiti, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
+	public AgeToolBehaviorProvider(final GraphitiService graphiti, final BusinessObjectResolutionService bor, final PropertyService propertyService, final ExtensionService extensionService, final IEclipseContext context) {
 		super(graphiti.getDiagramTypeProvider());
 		this.propertyService = propertyService;
 		this.extensionService = extensionService;
 		this.context = context;
+		this.defaultDoubleClickFeature = new BoHandlerDoubleClickFeature(extensionService, bor, getFeatureProvider());
 	}
 
 	@Override
@@ -107,14 +125,15 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 		
 		return super.getAdapter(type);
 	}	
-	
+
 	@Override
 	public ICustomFeature getDoubleClickFeature(final IDoubleClickContext context) {
 	    final ICustomFeature customFeature = ContextInjectionFactory.make(DrillDownFeature.class, getContext());
 	    if(customFeature.canExecute(context)) {
 	        return customFeature;
 	    }
-	    return super.getDoubleClickFeature(context);
+	    
+	    return defaultDoubleClickFeature;
 	 }
 	
 	/**
@@ -142,11 +161,11 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	@Override
 	public ICustomFeature getCommandFeature(final CustomContext context, String hint){
 		//Use hint to verify command should be executed
-		if(GraphicalToTextualFeature.HINT.equals(hint)){
+		if(GRAPHICAL_TO_TEXTUAL_FEATURE_HINT.equals(hint)){
 			final ICustomFeature customFeature = ContextInjectionFactory.make(GraphicalToTextualFeature.class, getContext());
-				if(customFeature.canExecute(context)){	
-					return customFeature;
-				}
+			if(customFeature.canExecute(context)){	
+				return customFeature;
+			}
 		}
 		return super.getCommandFeature(context, hint);
 	}
@@ -155,44 +174,6 @@ public class AgeToolBehaviorProvider extends DefaultToolBehaviorProvider {
 	public String getTitleToolTip() {		
 		final String diagramTitle = getDiagramTypeProvider() == null ? null : getDiagramTypeProvider().getDiagramTitle();
 		return diagramTitle == null ? super.getTitleToolTip() : diagramTitle;
-	}
-	
-	@Override
-	public Object getToolTip(final GraphicsAlgorithm ga) {
-	    PictogramElement pe = ga.getPictogramElement();
-	    final Object bo = AadlElementWrapper.unwrap(getFeatureProvider().getBusinessObjectForPictogramElement(pe));
-
-	    // Use the classifier name as the tooltip for features
-	    if(bo instanceof Feature || bo instanceof InternalFeature || bo instanceof ProcessorFeature) {
-	    	final Classifier featureClassifier;
-	    	if(bo instanceof EventDataSource) {
-		    	final EventDataSource aadlFeature = (EventDataSource)bo;
-		    	featureClassifier = aadlFeature.getDataClassifier();
-		    } else if(bo instanceof PortProxy) {
-		    	final PortProxy aadlFeature = (PortProxy)bo;
-		    	featureClassifier = aadlFeature.getDataClassifier();
-		    } else if(bo instanceof SubprogramProxy) {
-		    	final SubprogramProxy aadlFeature = (SubprogramProxy)bo;
-		    	featureClassifier = aadlFeature.getSubprogramClassifier();
-		    } else if(bo instanceof Feature) {
-		    	final Feature aadlFeature = (Feature)bo;
-		    	featureClassifier = aadlFeature.getAllClassifier();		    	
-		    } else {
-		    	featureClassifier = null;
-		    }
-	    	
-	    	if(featureClassifier instanceof ComponentClassifier) {
-	    		return ((ComponentClassifier) featureClassifier).getCategory() + " " + featureClassifier.getQualifiedName();
-	    	} else if(featureClassifier instanceof FeatureGroupType) {
-	    		return  "feature group " + featureClassifier.getQualifiedName();
-	    	} else if(featureClassifier == null) {
-	    		return "No Classifier";
-	    	} else {
-	    		return featureClassifier.getQualifiedName();	
-	    	}	    	
-	    }
-	    
-	    return super.getToolTip(ga);
 	}
 	
 	@Override

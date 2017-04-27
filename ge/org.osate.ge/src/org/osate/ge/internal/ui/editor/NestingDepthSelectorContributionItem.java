@@ -23,7 +23,7 @@ import org.eclipse.swt.widgets.Control;
 import org.eclipse.ui.IEditorPart;
 import org.osate.ge.internal.services.PropertyService;
 
-public class NestingDepthSelectorContributionItem extends ComboContributionItem implements ComponentImplementationItem {
+public class NestingDepthSelectorContributionItem extends ComboContributionItem {
 	private final PropertyService propertyService;
 	private AgeDiagramEditor editor = null;	
 	private final Adapter nestingPropertyChangeListener = new AdapterImpl() {

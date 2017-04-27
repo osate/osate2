@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title></title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<h1 id="general-information">General Information</h1>
+<p>Extensions to the graphical editor are registered as Eclipse extensions. Each extension is implemented by a Java class which have a no-argument constructor and which contains annotations to mark methods which should be called by the graphical editor. Required services and other arguments are passed into annotated methods via dependency injection.</p>
+<h2 id="services">Services</h2>
+<p>The graphical editor provides a limited set of services to extensions via dependency injection. The services are designed to provide a stable interface to capabilities which are needed when implementing extensions. Services provided for use by extensions are defined in the <a href="../api/org/osate/ge/services/package-summary.html">org.osate.ge.services</a> package.</p>
+<p><strong>Unless otherwise noted, extensions may be reused between diagrams. Extensions should not retain references to services.</strong></p>
+<h2 id="annotations">Annotations</h2>
+<p>Extensions are found in the <a href="../api/org/osate/ge/di/package-summary.html">org.osate.ge.di</a> package. The applicable annotations depend on the type of extension being implemented. For details regarding each annotation, consult the API reference for the annotation.</p>
+</body>
+</html>
