@@ -1,2 +1,0 @@
-## Out of Handles Exception
-When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.
