@@ -1196,49 +1196,40 @@ public class FeatureGroupTypeImpl extends ClassifierImpl implements FeatureGroup
 	 * In case of an inverse feature group type, we returns its ports of the inverse target.
 	 * @return A list of Feature objects
 	 */
-	// XXX: [AADL 1 -> AADL 2] Added to make instantiation work.
 	@Override
 	public EList<Feature> getAllFeatures() {
-		final EList<Classifier> ancestors = getSelfPlusAllExtendedInverse();
-		final BasicEList<Feature> returnlist = new BasicEList<Feature>();
-		// Process from farthest ancestor to self
-		for (ListIterator<Classifier> li = ancestors.listIterator(ancestors.size()); li.hasPrevious();) {
-			final FeatureGroupType current = (FeatureGroupType) li.previous();
-			final EList<Feature> currentFeatures = current.getOwnedFeatures();
-			if (currentFeatures != null) {
-				for (Iterator<Feature> i = currentFeatures.iterator(); i.hasNext();) {
-					final Feature fe = i.next();
-					final Feature rfe = fe.getRefined();
-					if (rfe != null) {
-						returnlist.remove(rfe);
-					}
-					returnlist.add(fe);
-				}
-			}
-		}
-		return returnlist;
-	}
-
-	public EList<Classifier> getSelfPlusAllExtendedInverse() {
-		final EList<Classifier> result = new BasicEList<Classifier>();
+		EList<Feature> allFeatures = new BasicEList<Feature>();
+		HashSet<Feature> toRemove = new HashSet<Feature>();
+		HashSet<FeatureGroupType> seen = new HashSet<FeatureGroupType>();
 
 		FeatureGroupType current = this;
-		FeatureGroupType inverseFGT = current.getInverse();
-		if (current.getOwnedFeatures().isEmpty() && !Aadl2Util.isNull(inverseFGT)) {
-			current = inverseFGT;
+		while (current != null && !current.eIsProxy() && !seen.contains(current)) {
+			seen.add(current);
+			FeatureGroupType inverse = current.getInverse();
+			FeatureGroupType extended = current.getExtended();
+			EList<Feature> owned = current.getOwnedFeatures();
+			if (!owned.isEmpty()) {
+				allFeatures.addAll(0, owned);
+				current = extended;
+			} else {
+				if (inverse != null) {
+					allFeatures.addAll(0, inverse.getOwnedFeatures());
+				}
+				current = extended != null ? extended : inverse;
+			}
 		}
-
-		do {
-			result.add(current);
-			current = current.getExtended();
-			if (current != null) {
-				inverseFGT = current.getInverse();
-				if (current.getOwnedFeatures().isEmpty() && !Aadl2Util.isNull(inverseFGT)) {
-					current = inverseFGT;
+		for (Feature f : allFeatures) {
+			Feature r = f.getRefined();
+			if (r != null) {
+				toRemove.add(r);
+				if (!allFeatures.contains(r)) {
+					toRemove.add(f);
 				}
 			}
-		} while (current != null && !result.contains(current));
-		return result;
+		}
+		allFeatures.removeAll(toRemove);
+
+		return allFeatures;
 	}
 
 	@Override
