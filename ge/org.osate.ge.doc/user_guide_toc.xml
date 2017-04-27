@@ -161,17 +161,5 @@
       </topic>
    </topic>
    <topic href="user_guide_output/ts.html" label="Troubleshooting">
-      <topic href="user_guide_output/ts_build.html" label="Build Automatically">
-      </topic>
-      <topic href="user_guide_output/ts_font.html" label="Inconsistent Font Sizes Across Machines">
-      </topic>
-      <topic href="user_guide_output/ts_exception.html" label="Out of Handles Exception">
-      </topic>
-      <topic href="user_guide_output/ts_txtmodel.html" label="Unable to Set Properties Unless Text Model is Open">
-      </topic>
-      <topic href="user_guide_output/ts_updating.html" label="Updating a Diagram">
-      </topic>
-      <topic href="user_guide_output/ts_reporting.html" label="Reporting Bugs">
-      </topic>
    </topic>
 </toc>
