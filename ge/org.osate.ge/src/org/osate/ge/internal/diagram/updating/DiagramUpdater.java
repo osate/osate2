@@ -25,8 +25,6 @@ import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.boTree.Completeness;
 import org.osate.ge.internal.diagram.boTree.TreeExpander;
 import org.osate.ge.internal.graphics.AgeConnection;
-import org.osate.ge.internal.labels.AgeLabelConfiguration;
-import org.osate.ge.internal.services.DiagramModificationService.Modification;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.

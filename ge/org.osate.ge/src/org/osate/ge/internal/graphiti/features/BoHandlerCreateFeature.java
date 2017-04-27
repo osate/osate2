@@ -121,7 +121,11 @@ public class BoHandlerCreateFeature extends AbstractCreateFeature implements Cat
 					if(newBo != null) {
 						final RelativeBusinessObjectReference newRef = refService.getRelativeReference(newBo);
 						if(newRef != null) {
-							diagramUpdater.addToNextUpdate(ownerNode, newRef, new Point(context.getX(), context.getY()));
+							if(ownerNode == targetNode) {
+								diagramUpdater.addToNextUpdate(ownerNode, newRef, new Point(context.getX(), context.getY()));
+							} else {
+								diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
+							}
 						}
 					}
 					
