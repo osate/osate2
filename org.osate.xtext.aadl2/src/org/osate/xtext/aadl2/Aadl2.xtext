@@ -1133,12 +1133,7 @@ SubprogramCall returns aadl2::SubprogramCall:
 //******* Prototypes
 
 Prototype returns aadl2::Prototype:
-	((ComponentPrototype
-	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
-	( array?='[' ']')?
-	) | FeatureGroupPrototype | FeaturePrototype)
-	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	';'
+	ComponentPrototype | FeatureGroupPrototype | FeaturePrototype
 ;
 
 ComponentPrototype returns aadl2::ComponentPrototype:
@@ -1150,86 +1145,142 @@ ComponentPrototype returns aadl2::ComponentPrototype:
 AbstractPrototype returns aadl2::AbstractPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'abstract' 
+	'abstract'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 BusPrototype returns aadl2::BusPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'bus' 
+	'bus'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 DataPrototype returns aadl2::DataPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'data' 
+	'data'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 DevicePrototype returns aadl2::DevicePrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'device' 
+	'device'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 MemoryPrototype returns aadl2::MemoryPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'memory' 
+	'memory'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 ProcessPrototype returns aadl2::ProcessPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'process' 
+	'process'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 ProcessorPrototype returns aadl2::ProcessorPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'processor' 
+	'processor'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 SubprogramPrototype returns aadl2::SubprogramPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'subprogram' 
+	'subprogram'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 SubprogramGroupPrototype returns aadl2::SubprogramGroupPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'subprogram' 'group'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 SystemPrototype returns aadl2::SystemPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'system' 
+	'system'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 
 ThreadPrototype returns aadl2::ThreadPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
-	'thread' 
+	'thread'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 ThreadGroupPrototype returns aadl2::ThreadGroupPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'thread' 'group'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 VirtualBusPrototype returns aadl2::VirtualBusPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'bus'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 VirtualProcessorPrototype returns aadl2::VirtualProcessorPrototype:
 	((name=ID ':' )|
 	(refined=[aadl2::ComponentPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'virtual' 'processor'
+	constrainingClassifier=[aadl2::ComponentClassifier|QCREF]?
+	(array?='[' ']')?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 
@@ -1238,6 +1289,8 @@ FeatureGroupPrototype returns aadl2::FeatureGroupPrototype:
 	(refined=[aadl2::FeatureGroupPrototype|REFINEDNAME] ':' 'refined' 'to'))
 	'feature' 'group'
 	(constrainingFeatureGroupType=[aadl2::FeatureGroupType|QCREF])?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 FeaturePrototype returns aadl2::FeaturePrototype:
@@ -1246,6 +1299,8 @@ FeaturePrototype returns aadl2::FeaturePrototype:
 	(in ?= 'in' | out ?= 'out')? // only in or out not inout
 	'feature'
 	(constrainingClassifier=[aadl2::ComponentClassifier|QCREF])?
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	';'
 	;
 
 /*
@@ -1689,22 +1744,6 @@ FeatureGroupType returns aadl2::FeatureGroupType:
 
 // ********* internal features
 
-//This rule is dead code in the grammar, but it is needed by the formatter.
-InternalFeature returns aadl2::InternalFeature:
-	(
-		EventSource | EventDataSource
-	)
-	';' 
-;
-
-//This rule is dead code in the grammar, but it is needed by the formatter.
-ProcessorFeature returns aadl2::ProcessorFeature:
-	(
-		PortProxy | SubprogramProxy
-	)
-	';'
-;
-
 EventSource returns aadl2::EventSource:
 	name = ID ':' 'event'
 	(
@@ -1755,6 +1794,15 @@ SubprogramProxy returns aadl2::SubprogramProxy:
 ;
 
 // ********* connections 
+
+NestedConnectedElement returns aadl2::ConnectedElement:
+	ConnectedElement |
+	context=[aadl2::Context|ID] '.' connectionEnd=[aadl2::ConnectionEnd|ID] '.' next=ConnectedElementChain
+;
+
+ConnectedElementChain returns aadl2::ConnectedElement:
+	connectionEnd=[aadl2::ConnectionEnd|ID] ('.' next=ConnectedElementChain)?
+;
 
 ConnectedElement returns aadl2::ConnectedElement:
 	(context=[aadl2::Context|ID] '.')? 
@@ -1811,9 +1859,9 @@ AccessConnection returns aadl2::AccessConnection:
 
 FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 	((name=ID ':'  'feature' 'group'
-	source=ConnectedElement
+	source=NestedConnectedElement
 	( '->' | bidirectional?='<->')
-	destination=ConnectedElement )
+	destination=NestedConnectedElement )
 	|
 	(refined=[aadl2::FeatureGroupConnection|REFINEDNAME] ':' 'refined' 'to' 'feature' 'group'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
@@ -1823,7 +1871,7 @@ FeatureGroupConnection returns aadl2::FeatureGroupConnection:
 
 FeatureConnection returns aadl2::FeatureConnection:
 	((name=ID ':'  'feature' 
-			source=ConnectedElement ('->' | bidirectional?='<->') destination=ConnectedElement )
+			source=NestedConnectedElement ('->' | bidirectional?='<->') destination=NestedConnectedElement )
 		|
 	(refined=[aadl2::FeatureConnection|REFINEDNAME] ':' 'refined' 'to' 'feature'))
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
@@ -1857,17 +1905,15 @@ FlowSink returns aadl2::FlowKind: 'sink';
 FlowPath returns aadl2::FlowKind: 'path';
 
 FlowSpecification returns aadl2::FlowSpecification:
-	(FlowSourceSpec | FlowSinkSpec | FlowPathSpec 
-		| FlowSpecRefinement
-	)
+	FlowSourceSpec | FlowSinkSpec | FlowPathSpec | FlowSpecRefinement
 	;
 
 FlowSourceSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSource 
 	outEnd=FlowEnd
-		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 ;
 
@@ -1875,8 +1921,8 @@ FlowSinkSpec returns aadl2::FlowSpecification:
 	name=ID ':' 
 	'flow' kind=FlowSink 
 	InEnd=FlowEnd
-		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 ;
 
@@ -1885,8 +1931,8 @@ FlowPathSpec returns aadl2::FlowSpecification:
 	'flow' kind=FlowPath 
 	InEnd=FlowEnd
 	'->' 	outEnd=FlowEnd
-		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 ;
 
@@ -1896,45 +1942,45 @@ FlowEnd returns aadl2::FlowEnd:
 
 FlowSpecRefinement returns aadl2::FlowSpecification:
 	refined=[aadl2::FlowSpecification|REFINEDNAME] 
-	':' 'refined' 'to' 'flow' kind=FlowKind 
-		('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID](',' inModeOrTransition+=[aadl2::ModeFeature|ID] )* ')')? 
+	':' 'refined' 'to' 'flow' kind=FlowKind
+	('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+	('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID] (',' inModeOrTransition+=[aadl2::ModeFeature|ID])* ')')?
 	';'
 	;
 
 FlowImplementation returns aadl2::FlowImplementation:
-	( FlowSourceImpl | FlowSinkImpl | FlowPathImpl )
+	FlowSourceImpl | FlowSinkImpl | FlowPathImpl
 ;
 
 FlowSourceImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID] 
 	':' 'flow' kind=FlowSource 
     (  ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->' )*
-FLOWOUT
+	outEnd=FlowEnd
 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
 ;
 
 FlowSinkImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowSink 
-FLOWIN
+	inEnd = FlowEnd
     ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow  )*
-	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+    ('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
 ;
 
 FlowPathImpl returns aadl2::FlowImplementation:
 	specification=[aadl2::FlowSpecification|ID]//name=ID 
 	':' 'flow' kind=FlowPath 
-FLOWIN
+	inEnd = FlowEnd
 	(  ( '->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow   )*
 	    '->' ownedFlowSegment+=ConnectionFlow )?
- '->' FLOWOUT
-	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
-	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')? 
+ '->' outEnd=FlowEnd
+ 	('{' (ownedPropertyAssociation+=PropertyAssociation)+ '}')?
+	( 'in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature|ID]( ',' inModeOrTransition+=[aadl2::ModeFeature|ID])*  ')')?
 	';'
 ;
 
@@ -2268,11 +2314,6 @@ CoreKeyWord :
 PNAME:
 	ID ('::' ID)*;
 	
-FLOWOUT: (ID '.')? ID
-;
-FLOWIN: (ID '.')? ID
-;
-
 // fully qualified classifier name (always includes package name
 FQCREF:
 	(ID '::')+ ID ('.' ID)?;

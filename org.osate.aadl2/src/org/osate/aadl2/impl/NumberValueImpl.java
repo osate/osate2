@@ -45,7 +45,6 @@ import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.UnitsType;
 import org.osate.aadl2.operations.NumberValueOperations;
-import org.osate.aadl2.util.Aadl2Util;
 
 /**
  * <!-- begin-user-doc -->
@@ -212,34 +211,6 @@ public abstract class NumberValueImpl extends PropertyValueImpl implements Numbe
 			return unit != null;
 		}
 		return super.eIsSet(featureID);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-
-		if (!Aadl2Util.getUseTunedEqualsMethods()) {
-			return super.equals(obj);
-		}
-
-		if (this == obj) {
-			return true;
-		}
-
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		NumberValueImpl other = (NumberValueImpl) obj;
-		if (unit == null) {
-			if (other.unit != null) {
-				return false;
-			}
-		} else if (!unit.equals(other.unit)) {
-			return false;
-		}
-		return true;
 	}
 
 	/*

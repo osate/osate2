@@ -109,7 +109,7 @@ public class ReferenceValueImpl extends ContainedNamedElementImpl implements Ref
 
 	// TODO: LW features can have reference properties too
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		return new EvaluatedProperty(this);
 	}
 

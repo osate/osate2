@@ -83,6 +83,7 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 			addInModePropertyDescriptor(object);
 			addSubcomponentPropertyDescriptor(object);
 			addIndexPropertyDescriptor(object);
+			addClassifierPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -147,6 +148,21 @@ public class ComponentInstanceItemProvider extends ConnectionInstanceEndItemProv
 								"_UI_ComponentInstance_type"), //$NON-NLS-1$
 						InstancePackage.Literals.COMPONENT_INSTANCE__INDEX, true, false, false,
 						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Classifier feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addClassifierPropertyDescriptor(Object object) {
+		itemPropertyDescriptors
+				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
+						getResourceLocator(), getString("_UI_ComponentInstance_classifier_feature"), //$NON-NLS-1$
+						getString("_UI_PropertyDescriptor_description", "_UI_ComponentInstance_classifier_feature", //$NON-NLS-1$//$NON-NLS-2$
+								"_UI_ComponentInstance_type"), //$NON-NLS-1$
+						InstancePackage.Literals.COMPONENT_INSTANCE__CLASSIFIER, true, false, true, null, null, null));
 	}
 
 	/**

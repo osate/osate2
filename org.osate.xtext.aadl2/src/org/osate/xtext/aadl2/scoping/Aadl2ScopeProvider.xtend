@@ -153,7 +153,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	def scope_SubprogramCall_calledSubprogram(Element context, EReference reference) {
 		var scope = scope_Classifier(context, reference)
 		val callContext = context.getContainerOfType(SubprogramCall)?.context
-		if (callContext == null) {
+		if (callContext === null) {
 			//No call context.  Add prototypes, subprogram accesses, and subprogram subcomponents from the classifier to the scope.
 			scope = context.getContainerOfType(Classifier).members.filter(CalledSubprogram).filterRefined.scopeFor(scope)
 		} else {
@@ -416,25 +416,14 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 		context.allContexts.filterRefined.scopeFor
 	}
 	
-	/*
-	 * Reference is from ConnectedElement in Aadl2.xtext
-	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ConnectedElement.  When the
-	 * ConnectedElement is a single identifier, e.g. "port1", then the passed context is a Connection.  In this case, we know that the ConnectedElement's
-	 * Context is null even though we can't access it and check it here.  In all other cases, the passed context is a ConnectedElement, thus calling the other
-	 * scope method.
-	 */
-	def scope_ConnectedElement_connectionEnd(Connection context, EReference reference) {
-		context.getContainerOfType(Classifier).allConnectionEnds.filterRefined.scopeFor
-	}
-	
-	/*
-	 * Reference is from ConnectedElement, ProcessorPort, ProcessorSubprogram, and InternalEvent in Aadl2.xtext
-	 * There are two methods for this scope because we can be given one of two possible context objects based upon the form of the ConnectedElement.  When the
-	 * ConnectedElement is a qualified reference, e.g. "subcomponent1.port1" or "processor.portproxy1", then the passed context is a ConnectedElement and we
-	 * can access and check the ConnectedElement's Context object.
-	 */
+	//Reference is from ConnectedElement in Aadl2.xtext
 	def scope_ConnectedElement_connectionEnd(ConnectedElement context, EReference reference) {
-		context.context?.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allConnectionEnds.filterRefined]) ?: scope_ConnectedElement_connectionEnd(context.owner as Connection, reference)
+		val previous = context.connectionEnd
+		if (previous instanceof Context) {
+			previous.scopeForElementsOfContext(context.getContainerOfType(Classifier), [allConnectionEnds.filterRefined])
+		} else {
+			IScope.NULLSCOPE
+		}
 	}
 	
 	//Reference is from PortConnection, AccessConnection, FeatureGroupConnection, FeatureConnection, and ParameterConnection in Aadl2.xtext
@@ -694,7 +683,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	def private static allSubprogramProxies(ComponentImplementation implementation) {
 		val allSubprogramProxies = newArrayList
-		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation !== null; currentImplementation = currentImplementation.extended) {
 			allSubprogramProxies.addAll(currentImplementation.ownedSubprogramProxies)
 		}
 		allSubprogramProxies
@@ -702,7 +691,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	def private static allPortProxies(ComponentImplementation implementation) {
 		val allPortProxies = newArrayList
-		for (var ComponentImplementation currentImplementation = implementation; currentImplementation != null; currentImplementation = currentImplementation.extended) {
+		for (var ComponentImplementation currentImplementation = implementation; currentImplementation !== null; currentImplementation = currentImplementation.extended) {
 			allPortProxies.addAll(currentImplementation.ownedPortProxies)
 		}
 		allPortProxies
@@ -710,7 +699,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 	
 	def private static allFeatureClassifier(Feature feature) {
 		var refinedFeature = feature
-		while (refinedFeature.featureClassifier == null && refinedFeature.refined != null) {
+		while (refinedFeature.featureClassifier === null && refinedFeature.refined !== null) {
 			refinedFeature = refinedFeature.refined
 		}
 		refinedFeature.featureClassifier
@@ -781,7 +770,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 											FeatureGroupPrototype:
 												callContextFeatureType.findFeatureGroupTypeForFeatureGroupPrototype(containingClassifier)
 										}
-										if (prototypeContext != null) {
+										if (prototypeContext !== null) {
 											accessFeatureClassifier.findClassifierForComponentPrototype(prototypeContext)
 										}
 									}
@@ -792,13 +781,13 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 											ComponentPrototype:
 												callContextFeatureClassifier.findClassifierForComponentPrototype(containingClassifier)
 										}
-										if (prototypeContext != null) {
+										if (prototypeContext !== null) {
 											accessFeatureClassifier.findClassifierForComponentPrototype(prototypeContext)
 										}
 									}
 									SubprogramGroupSubcomponent: {
 										var Subcomponent callContextSubcomponent = callContext
-										while (callContextSubcomponent.subcomponentType == null && callContextSubcomponent.refined != null) {
+										while (callContextSubcomponent.subcomponentType === null && callContextSubcomponent.refined !== null) {
 											callContextSubcomponent = callContextSubcomponent.refined
 										}
 										switch callContextSubcomponentType : callContextSubcomponent.subcomponentType {
@@ -811,7 +800,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 											}
 											ComponentPrototype: {
 												var prototypeContext = callContextSubcomponentType.findClassifierForComponentPrototype(containingClassifier)
-												if (prototypeContext != null) {
+												if (prototypeContext !== null) {
 													accessFeatureClassifier.findClassifierForComponentPrototype(prototypeContext)
 												}
 											}
@@ -828,7 +817,7 @@ public class Aadl2ScopeProvider extends PropertiesScopeProvider {
 				}
 			}
 		}
-		if (contextClassifier != null) {
+		if (contextClassifier !== null) {
 			validMemberCollector.apply(contextClassifier).scopeFor
 		} else {
 			IScope::NULLSCOPE

@@ -73,7 +73,7 @@ public interface ClassifierType extends NonListType {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Classifier Reference</em>' containment reference list.
 	 * @see org.osate.aadl2.Aadl2Package#getClassifierType_ClassifierReference()
-	 * @model containment="true" required="true" ordered="false"
+	 * @model containment="true" ordered="false"
 	 * @generated
 	 */
 	EList<MetaclassReference> getClassifierReferences();

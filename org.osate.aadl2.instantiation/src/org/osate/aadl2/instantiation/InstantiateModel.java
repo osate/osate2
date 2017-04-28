@@ -145,9 +145,9 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
-	private static final int SOM_LIMIT = 1000;
-	private final AnalysisErrorReporterManager errManager;
-	private final IProgressMonitor monitor;
+	protected static final int SOM_LIMIT = 1000;
+	protected final AnalysisErrorReporterManager errManager;
+	protected final IProgressMonitor monitor;
 
 	/**
 	 * A classifier for an instance object when it is a prototype in the
@@ -157,13 +157,13 @@ public class InstantiateModel {
 	 * feature or subprogram call. If the classifier is anonymous, then its
 	 * bindings are included also.
 	 */
-	private HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
+	protected HashMap<InstanceObject, InstantiatedClassifier> classifierCache;
 
-	private SCProperties scProps = new SCProperties();
+	protected SCProperties scProps = new SCProperties();
 	/**
 	 * Maps mode instances to SOMs that contain this mode instance
 	 */
-	private HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
+	protected HashMap<ModeInstance, List<SystemOperationMode>> mode2som;
 
 	/*
 	 * An error message that is filled by potential methods that
@@ -466,6 +466,25 @@ public class InstantiateModel {
 //			return null;
 //		}
 
+		getUsedPropertyDefinitions(root);
+		// handle connection patterns
+		processConnections(root);
+
+//		OsateResourceManager.save(aadlResource);
+//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
+		// Run some checks over the model.
+//		final SOMIterator soms = new SOMIterator(root);
+//		while (soms.hasNext()) {
+//			final SystemOperationMode som = soms.nextSOM();
+//			monitor.subTask("Checking model semantics for mode " + som.getName());
+//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
+//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
+//			semanticsSwitch.processPostOrderAll(root);
+//		}
+		return;
+	}
+
+	protected void getUsedPropertyDefinitions(SystemInstance root) throws InterruptedException {
 		/*
 		 * We now cache the property associations. First we cache the contained
 		 * property associations. In a second pass we cache regular property
@@ -488,21 +507,6 @@ public class InstantiateModel {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
-		// handle connection patterns
-		processConnections(root);
-
-//		OsateResourceManager.save(aadlResource);
-//		OsateResourceManager.getResourceSet().setPropagateNameChange(oldProp);
-		// Run some checks over the model.
-//		final SOMIterator soms = new SOMIterator(root);
-//		while (soms.hasNext()) {
-//			final SystemOperationMode som = soms.nextSOM();
-//			monitor.subTask("Checking model semantics for mode " + som.getName());
-//			final CheckInstanceSemanticsSwitch semanticsSwitch = new CheckInstanceSemanticsSwitch(som, soms
-//					.getSOMasModeBindings(), cpas.getSemanticConnectionProperties(), errManager);
-//			semanticsSwitch.processPostOrderAll(root);
-//		}
-		return;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -712,6 +716,7 @@ public class InstantiateModel {
 //					errManager.warning(newInstance, "Instantiated subcomponent has a component type only");
 //				}
 //			}
+			newInstance.setClassifier(cc);
 			newInstance.setCategory(cc.getCategory());
 		}
 
@@ -1007,24 +1012,45 @@ public class InstantiateModel {
 	 */
 	protected void instantiateFGFeatures(final FeatureInstance fgi, List<Feature> flist, final boolean inverse) {
 		for (final Feature feature : flist) {
-			final EList<ArrayDimension> dims = feature.getArrayDimensions();
-
-			if (dims.isEmpty()) {
-				fillFeatureInstance(fgi, feature, inverse, 0);
+			if (hasFeatureInstance(fgi, feature)) {
+				errManager.error(fgi, "Cyclic containment dependency: Feature '" + feature.getName()
+						+ "' has already been instantiated as enclosing feature group.");
 			} else {
-				class ArrayInstantiator {
-					void process(int dim) {
-						ArraySize arraySize = dims.get(dim).getSize();
-						long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
+				final EList<ArrayDimension> dims = feature.getArrayDimensions();
 
-						for (int i = 0; i < count; i++) {
-							fillFeatureInstance(fgi, feature, inverse, i + 1);
+				if (dims.isEmpty()) {
+					fillFeatureInstance(fgi, feature, inverse, 0);
+				} else {
+					class ArrayInstantiator {
+						void process(int dim) {
+							ArraySize arraySize = dims.get(dim).getSize();
+							long count = getElementCount(arraySize, fgi.getContainingComponentInstance());
+
+							for (int i = 0; i < count; i++) {
+								fillFeatureInstance(fgi, feature, inverse, i + 1);
+							}
 						}
 					}
+					new ArrayInstantiator().process(0);
 				}
-				new ArrayInstantiator().process(0);
 			}
 		}
+	}
+
+	/*
+	 * check to see if the specified feature already exists as feature
+	 * instance in the ancestry
+	 */
+	private boolean hasFeatureInstance(FeatureInstance fi, Feature f) {
+		EObject parent = fi;
+		while (parent instanceof FeatureInstance) {
+			Feature df = ((FeatureInstance) parent).getFeature();
+			if (df == f) {
+				return true;
+			}
+			parent = parent.eContainer();
+		}
+		return false;
 	}
 
 	// --------------------------------------------------------------------------------------------
@@ -1976,7 +2002,7 @@ public class InstantiateModel {
 	 * @param result EList holding the used property definitions
 	 * @return List holding the used property definitions
 	 */
-	private void addUsedPropertyDefinitions(Element root, List<Property> result) {
+	protected void addUsedPropertyDefinitions(Element root, List<Property> result) {
 //		OsateDebug.osateDebug ("[InstantiateModel] addUsedPropertyDefinitions=" + root);
 
 		TreeIterator<Element> it = EcoreUtil.getAllContents(Collections.singleton(root));

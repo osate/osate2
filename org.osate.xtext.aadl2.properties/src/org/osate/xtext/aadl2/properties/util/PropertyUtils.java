@@ -392,7 +392,7 @@ public class PropertyUtils {
 		try {
 			final PropertyExpression pv = checkUnitsAndGetSimplePropertyValue(ne, pd, unit);
 			final RangeValue rv = (RangeValue) pv;
-			PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+			PropertyExpression maximum = rv.getMaximum().evaluate(null, 0).first().getValue();
 
 			if (maximum instanceof NumberValue) {
 				return ((NumberValue) maximum).getScaledValue(unit);
@@ -435,7 +435,7 @@ public class PropertyUtils {
 			ClassCastException {
 		final PropertyExpression pv = checkUnitsAndGetSimplePropertyValue(ph, pd, unit);
 		RangeValue rv = (RangeValue) pv;
-		PropertyExpression maximum = rv.getMaximum().evaluate(null).first().getValue();
+		PropertyExpression maximum = rv.getMaximum().evaluate(null, 0).first().getValue();
 
 		if (maximum instanceof NumberValue) {
 			return ((NumberValue) maximum).getScaledValue(unit);

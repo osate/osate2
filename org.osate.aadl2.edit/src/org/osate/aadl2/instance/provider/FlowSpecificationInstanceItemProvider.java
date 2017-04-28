@@ -40,8 +40,10 @@ import java.util.List;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
 
@@ -176,11 +178,12 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 	 * This returns the label text for the adapted class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((FlowSpecificationInstance) object).getName();
+		String label = ((ComponentInstance) ((EObject) object).eContainer()).getName() + "."
+				+ ((FlowSpecificationInstance) object).getName();
 		return label == null || label.length() == 0 ? getString("_UI_FlowSpecificationInstance_type") : //$NON-NLS-1$
 				getString("_UI_FlowSpecificationInstance_type") + " " + label; //$NON-NLS-1$ //$NON-NLS-2$
 	}

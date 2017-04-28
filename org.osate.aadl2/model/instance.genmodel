@@ -140,6 +140,7 @@
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionReference/source"/>
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ConnectionReference/destination"/>
+      <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//ConnectionReference/reverse"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//ComponentInstance">
       <genFeatures xsi:type="genmodel:GenFeature" property="None" children="true"
@@ -162,6 +163,8 @@
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
           propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ComponentInstance/subcomponent"/>
       <genFeatures xsi:type="genmodel:GenFeature" createChild="false" ecoreFeature="ecore:EAttribute instance.ecore#//ComponentInstance/index"/>
+      <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"
+          propertySortChoices="true" ecoreFeature="ecore:EReference instance.ecore#//ComponentInstance/classifier"/>
     </genClasses>
     <genClasses xsi:type="genmodel:GenClass" ecoreClass="instance.ecore#//FlowSpecificationInstance">
       <genFeatures xsi:type="genmodel:GenFeature" notify="false" createChild="false"

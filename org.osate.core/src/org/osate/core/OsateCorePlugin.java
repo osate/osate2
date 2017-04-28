@@ -71,8 +71,6 @@ public class OsateCorePlugin extends AbstractUIPlugin {
 	 */
 	public static final String PLUGIN_ID = "org.osate.core";
 
-	private static final String RESOURCE_NAME = PLUGIN_ID + ".messages";
-
 	// The shared instance.
 	private static OsateCorePlugin plugin;
 

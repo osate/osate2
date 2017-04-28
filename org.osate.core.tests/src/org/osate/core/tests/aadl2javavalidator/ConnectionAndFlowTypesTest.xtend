@@ -2659,6 +2659,10 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in a 'data port' is not a valid port connection end.")
 				]
+				ownedPortConnections.get(15) => [
+					"portconn16".assertEquals(name)
+					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
+				]
 				ownedPortConnections.get(16) => [
 					"portconn17".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
@@ -2723,6 +2727,10 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 					"portconn29".assertEquals(name)
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "A 'bus subcomponent' in an 'event data port' is not a valid port connection end.")
+				]
+				ownedPortConnections.get(29) => [
+					"portconn30".assertEquals(name)
+					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 				]
 				ownedPortConnections.get(30) => [
 					"portconn31".assertEquals(name)
@@ -3267,6 +3275,7 @@ class ConnectionAndFlowTypesTest extends OsateTest {
 				]
 				ownedPortConnections.get(2) => [
 					"portconn94".assertEquals(name)
+					source.assertWarning(testFileResult.issues, issueCollection, "Aggregate data ports not supported by instantiator.")
 					//Tests typeCheckPortConnectionEnd
 					source.assertError(testFileResult.issues, issueCollection, "Anything in a 'parameter' is not a valid port connection end.")
 				]

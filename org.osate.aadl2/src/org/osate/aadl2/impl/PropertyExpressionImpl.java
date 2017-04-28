@@ -69,7 +69,7 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 	}
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx) {
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
 		return new EvaluatedProperty(this);
 	}
 

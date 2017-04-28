@@ -37,8 +37,8 @@
 </ul></li>
 <li><strong>Worst-case processing time</strong>: Users can choose between deadline and worst-case execution time as worst case processing time.
 <ul>
-<li><strong>Maximum Compute Execution Time (ET) [default]</strong>: Maximum compute execution time represents the completion time on the assumption that the task has immediate access to the processor and is not preempted. Useful when tasks execute on a static time line.</li>
-<li><strong>Deadline (DL)</strong>: Deadline represents the worst-case completion time assuming the tasks are schedulable.</li>
+<li><strong>Deadline (DL) [default]</strong>: Deadline represents the worst-case completion time assuming the tasks are schedulable.</li>
+<li><strong>Maximum Compute Execution Time (ET)</strong>: Maximum compute execution time. This assumes the task executes as highest priority task and is not preempted.</li>
 </ul></li>
 <li><strong>Queuing latency on incoming ports</strong>: Affects how the best case queuing delay is determined.
 <ul>
@@ -82,7 +82,7 @@
 </ul>
 <p>Users can perform end-to-end latency analysis on a system based on these latency specifications. They can do so for a system with one layer of subsystems, or subsystems expanded by additional layers of the architecture hierarchy. Different subsystems can be expanded to different levels of the hierarchy. Examples of such models are representing conceptual, functional, and task architectures.</p>
 <p>The analysis will calculate the minimum and the maximum end-to-end latency by adding up the specified latencies of all the component flow specifications and of the connections. Absence of a latency property on connections or flow specifications (or the absence of a flow specification on a component) is interpreted as a latency value of zero unless the model includes additional information from which to derive the latency contributions (see next sections).</p>
-<p><strong>Note</strong>: This simple end-to-end flow latency model does not take into account any sampling, queuing, or partition latency contributions.</p>
+<p><strong>Note</strong>: If the model only includes flow latency values then the analysis does not take into account any sampling, queuing, or partition latency contributions. Once partition information, thread periods and periodic process, queue sizes are added to the model those latency contributions are accounted for as well.</p>
 <h1 id="latency-contributions-by-periodic-sampling-processing">Latency Contributions by Periodic Sampling Processing</h1>
 <p>In embedded systems it is common to perform periodic processing. Examples are displays refreshing at a specified rate, sensors sampling the physical environment at a given rate, application systems processing their input periodically (periodic threads), networks transferring data periodically (e.g., CANBus).</p>
 <p>The <em>Period</em> property allows users to specify the time interval at which a component executes. We can annotate a system, abstract, process, thread group, thread, device, component with a period. Note that hardware components can also contribute sampling latency (see later section).</p>
@@ -105,8 +105,9 @@
 <p>Users may have specified a <em>Deadline</em> property value for components. This property represents the upper bound of worst-case completion time as long as the component is deemed as schedulable.</p>
 <p>Users can specify <em>Compute_Execution_Time</em> property values for threads and devices. The maximum value is used if the preference setting is set accordingly (see below). The minimum value is used for best-case latency analysis.</p>
 <p><strong>Note</strong>: The compute execution time value does not necessarily represent the best/worst-case completion time. It represents the best case scenario of a thread executing first, without preemption, and without executing a recovery handler, in other words a best case lower bound.</p>
-<p><strong>Note</strong>: The latency analysis tool only considers explicitly set Deadline values. By default the Deadline is set to be the Period value - the latency analysis interprets this as if the deadline is not set.</p>
-<p><strong>Preference note</strong>: The preference setting lets the user choose between using maximum execution time and deadline as the worst-case latency contribution.</p>
+<p><strong>Note</strong>: The latency analysis tool only considers explicitly set Deadline values. The default value of the Deadline is that of the Period value. The latency analysis does not include the default value.</p>
+<p><strong>Note</strong>: The flow specification latency is used as processing latency contribution if the execution time (in ET) or deadline (in DL) is not set.</p>
+<p><strong>Preference note</strong>: The preference setting lets the user choose between using maximum execution time and deadline as the worst-case processing latency contribution.</p>
 <h1 id="mid-frame-and-frame-delayed-communication">Mid-frame and Frame-delayed Communication</h1>
 <p>The AADL thread model supports specification of immediate, and delayed connections between sampling units (periodic threads and devices).</p>
 <ul>

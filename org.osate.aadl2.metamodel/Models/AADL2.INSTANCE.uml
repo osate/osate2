@@ -316,6 +316,11 @@ For efficiency reasons, this list may be ordered, e.g., by obtaining the modes v
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_TYhaIFn3Ed-39ebAzHAVCA"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_TxZ0MFn3Ed-39ebAzHAVCA" value="*"/>
       </ownedAttribute>
+      <ownedAttribute xmi:id="_frNpIObyEeahuYwEa-avYQ" name="classifier" association="_frFGQObyEeahuYwEa-avYQ">
+        <type xmi:type="uml:Class" href="AADL2.EMF.merged.uml#ComponentClassifier"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_-9MeUObyEeahuYwEa-avYQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_-9NscObyEeahuYwEa-avYQ" value="1"/>
+      </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_packagedElement.16" visibility="private" memberEnd="_packagedElement.16-_ownedEnd.0 ComponentInstance-featureInstance">
       <ownedEnd xmi:id="_packagedElement.16-_ownedEnd.0" name="owner" visibility="public" type="ComponentInstance" association="_packagedElement.16"/>
@@ -578,6 +583,7 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <ownedComment xmi:id="_YfJjcFn8Ed-39ebAzHAVCA">
           <body>The ordered sequence of instantiated subcomponents, where the k-th subcomponent owns the k-th declarative connection referenced in attribute 'connection.'</body>
         </ownedComment>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_UyVZYA8mEee2ZpSQV5RAWw" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="ConnectionInstance-connectionContext-_upperValue" value="1"/>
       </ownedAttribute>
       <ownedAttribute xmi:id="_XQA_YFhmEd-rYOZ3UaShDA" name="connection" visibility="public" isUnique="false" association="_XQA_XFhmEd-rYOZ3UaShDA">
@@ -595,6 +601,9 @@ These are those SOMs in which all of this flow's elements  are active.</body>
       <ownedAttribute xmi:id="_lbgcZAZpEeKg0o0PHpVqpA" name="destination" visibility="public" type="ConnectionInstanceEnd" association="_lbgcYAZpEeKg0o0PHpVqpA">
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_lbgcZgZpEeKg0o0PHpVqpA" value="1"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_lbgcZQZpEeKg0o0PHpVqpA" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_zB_rYA8lEee2ZpSQV5RAWw" name="reverse">
+        <type xmi:type="uml:PrimitiveType" href="AADL2.EMF.merged.uml#Boolean"/>
       </ownedAttribute>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_mRe8kHV0Ed-5Z-hOGUPk8w" name="A_connectionInstance_connectionReference" memberEnd="_mRe8kXV0Ed-5Z-hOGUPk8w _mRVLkHV0Ed-5Z-hOGUPk8w">
@@ -676,6 +685,12 @@ These are those SOMs in which all of this flow's elements  are active.</body>
         <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_K0et48X3EeWEo5A5aBge8A"/>
         <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_K0et4sX3EeWEo5A5aBge8A" value="*"/>
       </ownedEnd>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_frFGQObyEeahuYwEa-avYQ" name="A_componentInstance_classifier" visibility="public" memberEnd="_frNpIObyEeahuYwEa-avYQ _frOQMObyEeahuYwEa-avYQ">
+      <eAnnotations xmi:id="_frNCEObyEeahuYwEa-avYQ" source="org.eclipse.papyrus">
+        <details xmi:id="_frNCEebyEeahuYwEa-avYQ" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:id="_frOQMObyEeahuYwEa-avYQ" name="instance" type="ComponentInstance" association="_frFGQObyEeahuYwEa-avYQ"/>
     </packagedElement>
     <profileApplication xmi:id="_profileApplication.0">
       <eAnnotations xmi:id="_profileApplication.0-_http2F2Fwww.eclipse.org2Fuml22F2.0.02FUML" source="http://www.eclipse.org/uml2/2.0.0/UML">

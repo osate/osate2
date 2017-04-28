@@ -67,6 +67,7 @@ import org.osate.aadl2.Subcomponent;
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getConnectionInstances <em>Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getSubcomponent <em>Subcomponent</em>}</li>
  *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getIndices <em>Index</em>}</li>
+ *   <li>{@link org.osate.aadl2.instance.ComponentInstance#getClassifier <em>Classifier</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance()
@@ -178,6 +179,32 @@ public interface ComponentInstance extends ConnectionInstanceEnd, FlowElementIns
 	 * @generated
 	 */
 	EList<Long> getIndices();
+
+	/**
+	 * Returns the value of the '<em><b>Classifier</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Classifier</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Classifier</em>' reference.
+	 * @see #setClassifier(ComponentClassifier)
+	 * @see org.osate.aadl2.instance.InstancePackage#getComponentInstance_Classifier()
+	 * @model ordered="false"
+	 * @generated
+	 */
+	ComponentClassifier getClassifier();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.instance.ComponentInstance#getClassifier <em>Classifier</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Classifier</em>' reference.
+	 * @see #getClassifier()
+	 * @generated
+	 */
+	void setClassifier(ComponentClassifier value);
 
 	/**
 	 * Returns the value of the '<em><b>Mode Instance</b></em>' containment reference list.
