@@ -201,9 +201,17 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			return Collections.<EObject> emptyList();
 		} else if (Aadl2Package.eINSTANCE.getConnectionEnd() == requiredType) {
 			// resolve connection end
-			ConnectedElement connectedElement = (ConnectedElement) context;
-			ConnectionEnd ce = findElementInContext(connectedElement, connectedElement.getContext(), name,
-					ConnectionEnd.class);
+			ConnectionEnd ce = null;
+			if (context.eContainer() instanceof ConnectedElement) {
+				ConnectedElement contextParent = (ConnectedElement) context.eContainer();
+				if (contextParent.getConnectionEnd() instanceof FeatureGroup) {
+					ce = findElementInContext(contextParent, (FeatureGroup)contextParent.getConnectionEnd(), name,
+							ConnectionEnd.class);
+				}
+			} else {
+				ConnectedElement connectedElement = (ConnectedElement) context;
+				ce = findElementInContext(connectedElement, connectedElement.getContext(), name, ConnectionEnd.class);
+			}
 			if (ce != null) {
 				return Collections.singletonList((EObject) ce);
 			}

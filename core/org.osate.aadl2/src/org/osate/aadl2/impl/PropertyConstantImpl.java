@@ -496,8 +496,8 @@ public class PropertyConstantImpl extends TypedElementImpl implements PropertyCo
 	}
 
 	@Override
-	public PropertyEvaluationResult evaluate(EvaluationContext ctx) throws InvalidModelException {
-		EvaluatedProperty value = getConstantValue().evaluate(ctx);
+	public PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth) throws InvalidModelException {
+		EvaluatedProperty value = getConstantValue().evaluate(ctx, depth);
 
 		if (value.isEmpty()) {
 			throw new InvalidModelException(this, "Constant has no value");

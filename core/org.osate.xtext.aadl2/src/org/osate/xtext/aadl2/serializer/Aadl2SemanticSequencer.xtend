@@ -38,6 +38,8 @@ import com.google.inject.Inject
 import org.eclipse.emf.ecore.EObject
 import org.eclipse.emf.transaction.RecordingCommand
 import org.eclipse.emf.transaction.TransactionalEditingDomain
+import org.eclipse.xtext.serializer.ISerializationContext
+import org.eclipse.xtext.serializer.analysis.SerializationContext.RuleContext
 import org.osate.aadl2.DefaultAnnexLibrary
 import org.osate.aadl2.DefaultAnnexSubclause
 import org.osate.aadl2.FlowImplementation
@@ -58,14 +60,14 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 		unparserRegistry ?: (unparserRegistry = AnnexRegistry.getRegistry(AnnexRegistry.ANNEX_UNPARSER_EXT_ID) as AnnexUnparserRegistry)
 	}
 
-	override createSequence(EObject context, EObject semanticObject) {
+	override createSequence(ISerializationContext context, EObject semanticObject) {
 		switch semanticObject {
 			DefaultAnnexLibrary case context == grammarAccess.annexLibraryRule || context == grammarAccess.defaultAnnexLibraryRule: {
 				val parsedLibrary = semanticObject.parsedAnnexLibrary
 				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
 				// otherwise use the original annex text
-				if (parsedLibrary != null && annexUnparser != null) {
+				if (parsedLibrary !== null && annexUnparser !== null) {
 					try {
 						val text = '''{**«annexUnparser.unparseAnnexLibrary(parsedLibrary, "  ")»**}'''
 						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
@@ -85,7 +87,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
 				// otherwise use the original annex text
-				if (parsedSubclause != null && annexUnparser != null) {
+				if (parsedSubclause !== null && annexUnparser !== null) {
 					try {
 						val text = '''{**«annexUnparser.unparseAnnexSubclause(parsedSubclause, "  ")»**}'''
 						val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
@@ -104,29 +106,29 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 		}
 	}
 	
-	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement_FlowSpecification(EObject context, FlowSpecification spec) {
-		if (spec.refined != null) {
-			sequence_FlowSpecRefinement(grammarAccess.flowSpecRefinementRule, spec)
+	override protected sequence_FlowPathSpec_FlowSinkSpec_FlowSourceSpec_FlowSpecRefinement(ISerializationContext context, FlowSpecification spec) {
+		if (spec.refined !== null) {
+			sequence_FlowSpecRefinement(new RuleContext(context, grammarAccess.flowSpecRefinementRule), spec)
 		} else {
 			switch(spec.kind) {
 				case FlowKind.SOURCE:
-					sequence_FlowSourceSpec(grammarAccess.flowSourceSpecRule, spec)
+					sequence_FlowSourceSpec(new RuleContext(context, grammarAccess.flowSourceSpecRule), spec)
 				case FlowKind.PATH:
-					sequence_FlowPathSpec(grammarAccess.flowPathSpecRule, spec)
+					sequence_FlowPathSpec(new RuleContext(context, grammarAccess.flowPathSpecRule), spec)
 				case FlowKind.SINK:
-					sequence_FlowSinkSpec(grammarAccess.flowSinkSpecRule, spec)
+					sequence_FlowSinkSpec(new RuleContext(context, grammarAccess.flowSinkSpecRule), spec)
 			}
 		}
 	}
 	
-	override protected sequence_FlowImplementation_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(EObject context, FlowImplementation impl) {
+	override protected sequence_FlowPathImpl_FlowSinkImpl_FlowSourceImpl(ISerializationContext context, FlowImplementation impl) {
 		switch(impl.kind) {
 			case FlowKind.SOURCE:
-				sequence_FlowSourceImpl(grammarAccess.flowSourceImplRule, impl)
+				sequence_FlowSourceImpl(new RuleContext(context, grammarAccess.flowSourceImplRule), impl)
 			case FlowKind.PATH:
-				sequence_FlowPathImpl(grammarAccess.flowPathImplRule, impl)
+				sequence_FlowPathImpl(new RuleContext(context, grammarAccess.flowPathImplRule), impl)
 			case FlowKind.SINK:
-				sequence_FlowSinkImpl(grammarAccess.flowSinkImplRule, impl)
+				sequence_FlowSinkImpl(new RuleContext(context, grammarAccess.flowSinkImplRule), impl)
 		}
 	}
 	

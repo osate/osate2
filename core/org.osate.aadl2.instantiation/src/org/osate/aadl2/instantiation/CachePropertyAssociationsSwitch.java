@@ -77,7 +77,7 @@ import org.osate.aadl2.util.OsateDebug;
  * TODO: Add comment
  * @author lwrage
  */
-class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
+public class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 
 	/*
 	 * PropertyFilter contains all properties used in the model.
@@ -97,7 +97,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 	 */
 	final private SCProperties scProps;
 
-	CachePropertyAssociationsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
+	protected CachePropertyAssociationsSwitch(final IProgressMonitor pm, final AnalysisErrorReporterManager errManager,
 			final List<Property> filter, final HashMap<InstanceObject, InstantiatedClassifier> classifierCache,
 			final SCProperties scProps, final HashMap<ModeInstance, List<SystemOperationMode>> mode2som) {
 		super(pm, PROCESS_POST_ORDER_ALL, errManager);
@@ -175,7 +175,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 					 * declarative model. Property lookup process now corrects
 					 * reference values to instance reference values.
 					 */
-					PropertyEvaluationResult result = property.evaluate(new EvaluationContext(io, classifierCache));
+					PropertyEvaluationResult result = property.evaluate(new EvaluationContext(io, classifierCache), 0);
 					List<EvaluatedProperty> evaluated = result.getEvaluated();
 
 					if (!evaluated.isEmpty()) {
@@ -252,7 +252,7 @@ class CachePropertyAssociationsSwitch extends AadlProcessingSwitchWithProgress {
 								connRef.getConnection());
 
 						final EvaluationContext ctx = new EvaluationContext(connRef, classifierCache, propAssociation);
-						PropertyEvaluationResult result = prop.evaluate(ctx);
+						PropertyEvaluationResult result = prop.evaluate(ctx, 0);
 						List<EvaluatedProperty> evaluated = result.getEvaluated();
 
 						if (!evaluated.isEmpty()) {

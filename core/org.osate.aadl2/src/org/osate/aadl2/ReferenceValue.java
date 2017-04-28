@@ -62,6 +62,6 @@ public interface ReferenceValue extends ContainedNamedElement, PropertyValue {
 	public PropertyExpression instantiate(FeatureInstance fi) throws InvalidModelException;
 
 	@Override
-	public EvaluatedProperty evaluate(EvaluationContext ctx);
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth);
 
 } // ReferenceValue

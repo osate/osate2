@@ -60,7 +60,7 @@ FeatureInstance returns instance::FeatureInstance:
 ;
 	
 ComponentInstance returns instance::ComponentInstance:
-	category=ComponentCategory name=ID ('[' index+=Long ']')*
+	category=ComponentCategory classifier=[aadl2::ComponentClassifier|ClassifierRef]? name=ID ('[' index+=Long ']')*
 	('in' 'modes' '(' inMode+=[instance::ModeInstance] (',' inMode+=[instance::ModeInstance])*')')?
 	':' subcomponent=[aadl2::Subcomponent|DeclarativeRef] ('{' (
 		featureInstance+=FeatureInstance |
@@ -86,7 +86,7 @@ ConnectionInstance returns instance::ConnectionInstance:
 
 ConnectionReference returns instance::ConnectionReference:
 	source=[instance::ConnectionInstanceEnd|InstanceRef] '->' destination=[instance::ConnectionInstanceEnd|InstanceRef] ':'
-	connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
+	(reverse?='reverse')? connection=[aadl2::Connection|DeclarativeRef] 'in' context=[instance::ComponentInstance|InstanceRef]
 ;
 
 FlowSpecificationInstance returns instance::FlowSpecificationInstance:
@@ -158,6 +158,10 @@ ComponentCategory returns aadl2::ComponentCategory: 'abstract' | 'bus'|'data'
 ConnectionKind returns instance::ConnectionKind:
 	'featureConnection' | 'accessConnection' | 'parameterConnection' |
 	'portConnection' | 'featureGroupConnection'
+;
+
+ClassifierRef:
+	(ID '::')+ ID ('.' ID)?
 ;
 
 ImplRef:

@@ -34,38 +34,14 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if(ruleCall.getRule() == grammarAccess.getFLOWINRule())
-			return getFLOWINToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getFLOWOUTRule())
-			return getFLOWOUTToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getFULLINAMERule())
+		if (ruleCall.getRule() == grammarAccess.getFULLINAMERule())
 			return getFULLINAMEToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getIDRule())
+		else if (ruleCall.getRule() == grammarAccess.getIDRule())
 			return getIDToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getPNAMERule())
+		else if (ruleCall.getRule() == grammarAccess.getPNAMERule())
 			return getPNAMEToken(semanticObject, ruleCall, node);
-		else if(ruleCall.getRule() == grammarAccess.getSTARRule())
+		else if (ruleCall.getRule() == grammarAccess.getSTARRule())
 			return getSTARToken(semanticObject, ruleCall, node);
-		return "";
-	}
-	
-	/**
-	 * FLOWIN: (ID '.')? ID
-	 * ;
-	 */
-	protected String getFLOWINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "";
-	}
-	
-	/**
-	 * FLOWOUT: (ID '.')? ID
-	 * ;
-	 */
-	protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
 		return "";
 	}
 	
@@ -117,9 +93,9 @@ public abstract class AbstractAadl2SyntacticSequencer extends AbstractSyntacticS
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if(match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q.equals(syntax))
+			if (match_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q.equals(syntax))
 				emit_AadlPackage___PropertiesKeyword_3_0_NoneKeyword_3_1_1_0_SemicolonKeyword_3_1_1_1__q(semanticObject, getLastNavigableState(), syntaxNodes);
-			else if(match_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0.equals(syntax))
+			else if (match_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0.equals(syntax))
 				emit_AbstractFeature_FeatureKeyword_2_1_0_or_PrototypeKeyword_2_0_0(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}

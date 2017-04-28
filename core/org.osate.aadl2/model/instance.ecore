@@ -114,6 +114,8 @@
         lowerBound="1" eType="#//ConnectionInstanceEnd"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="destination" ordered="false"
         lowerBound="1" eType="#//ConnectionInstanceEnd"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="reverse" ordered="false"
+        lowerBound="1" eType="ecore:EDataType aadl2.ecore#//Boolean"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ComponentInstance" eSuperTypes="#//ConnectionInstanceEnd #//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="featureInstance" ordered="false"
@@ -138,6 +140,8 @@
         eType="ecore:EClass aadl2.ecore#//Subcomponent"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="index" ordered="false"
         unique="false" upperBound="-1" eType="ecore:EDataType aadl2.ecore#//Integer"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="classifier" ordered="false"
+        eType="ecore:EClass aadl2.ecore#//ComponentClassifier"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="FlowSpecificationInstance" eSuperTypes="#//FlowElementInstance">
     <eStructuralFeatures xsi:type="ecore:EReference" name="source" ordered="false"

@@ -49,7 +49,7 @@ import org.osate.aadl2.instance.ConnectionInstance;
  *
  * @author aarong
  */
-class SCProperties {
+public class SCProperties {
 	private final Map<ConnectionInstance, Map<Property, Map<Connection, PropertyAssociation>>> scProps;
 
 	public SCProperties() {

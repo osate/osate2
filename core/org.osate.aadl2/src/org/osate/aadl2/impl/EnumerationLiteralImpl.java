@@ -81,7 +81,7 @@ public class EnumerationLiteralImpl extends NamedElementImpl implements Enumerat
 	}
 
 	@Override
-	public PropertyEvaluationResult evaluate(EvaluationContext ctx) {
+	public PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth) {
 		NamedValueImpl nv = new NamedValueImpl();
 		nv.setNamedValue(this);
 		return new PropertyEvaluationResult(null, Collections.singletonList(new EvaluatedProperty(nv)));

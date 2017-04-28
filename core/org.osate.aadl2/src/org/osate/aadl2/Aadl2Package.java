@@ -10073,13 +10073,31 @@ public interface Aadl2Package extends EPackage {
 	int FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT = MODAL_PATH_FEATURE_COUNT + 3;
 
 	/**
+	 * The feature id for the '<em><b>In End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__IN_END = MODAL_PATH_FEATURE_COUNT + 4;
+
+	/**
+	 * The feature id for the '<em><b>Out End</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int FLOW_IMPLEMENTATION__OUT_END = MODAL_PATH_FEATURE_COUNT + 5;
+
+	/**
 	 * The number of structural features of the '<em>Flow Implementation</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 4;
+	int FLOW_IMPLEMENTATION_FEATURE_COUNT = MODAL_PATH_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -10298,13 +10316,22 @@ public interface Aadl2Package extends EPackage {
 	int CONNECTED_ELEMENT__CONNECTION_END = ELEMENT_FEATURE_COUNT + 1;
 
 	/**
+	 * The feature id for the '<em><b>Next</b></em>' containment reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int CONNECTED_ELEMENT__NEXT = ELEMENT_FEATURE_COUNT + 2;
+
+	/**
 	 * The number of structural features of the '<em>Connected Element</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int CONNECTED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 2;
+	int CONNECTED_ELEMENT_FEATURE_COUNT = ELEMENT_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Owned Element</b></em>' reference list.
@@ -38497,6 +38524,28 @@ public interface Aadl2Package extends EPackage {
 	EReference getFlowImplementation_OwnedFlowSegment();
 
 	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.FlowImplementation#getInEnd <em>In End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>In End</em>'.
+	 * @see org.osate.aadl2.FlowImplementation#getInEnd()
+	 * @see #getFlowImplementation()
+	 * @generated
+	 */
+	EReference getFlowImplementation_InEnd();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.FlowImplementation#getOutEnd <em>Out End</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Out End</em>'.
+	 * @see org.osate.aadl2.FlowImplementation#getOutEnd()
+	 * @see #getFlowImplementation()
+	 * @generated
+	 */
+	EReference getFlowImplementation_OutEnd();
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ModalPath <em>Modal Path</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -38634,6 +38683,17 @@ public interface Aadl2Package extends EPackage {
 	 * @generated
 	 */
 	EReference getConnectedElement_ConnectionEnd();
+
+	/**
+	 * Returns the meta object for the containment reference '{@link org.osate.aadl2.ConnectedElement#getNext <em>Next</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the containment reference '<em>Next</em>'.
+	 * @see org.osate.aadl2.ConnectedElement#getNext()
+	 * @see #getConnectedElement()
+	 * @generated
+	 */
+	EReference getConnectedElement_Next();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.ImplementationExtension <em>Implementation Extension</em>}'.

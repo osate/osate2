@@ -4643,6 +4643,26 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	 * @generated
 	 */
 	@Override
+	public EReference getFlowImplementation_InEnd() {
+		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(3);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getFlowImplementation_OutEnd() {
+		return (EReference) flowImplementationEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
 	public EClass getModalPath() {
 		return modalPathEClass;
 	}
@@ -4765,6 +4785,16 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 	@Override
 	public EReference getConnectedElement_ConnectionEnd() {
 		return (EReference) connectedElementEClass.getEStructuralFeatures().get(1);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public EReference getConnectedElement_Next() {
+		return (EReference) connectedElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -9477,6 +9507,8 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		createEAttribute(flowImplementationEClass, FLOW_IMPLEMENTATION__KIND);
 		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__SPECIFICATION);
 		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT);
+		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__IN_END);
+		createEReference(flowImplementationEClass, FLOW_IMPLEMENTATION__OUT_END);
 
 		flowSegmentEClass = createEClass(FLOW_SEGMENT);
 		createEReference(flowSegmentEClass, FLOW_SEGMENT__FLOW_ELEMENT);
@@ -9491,6 +9523,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		connectedElementEClass = createEClass(CONNECTED_ELEMENT);
 		createEReference(connectedElementEClass, CONNECTED_ELEMENT__CONTEXT);
 		createEReference(connectedElementEClass, CONNECTED_ELEMENT__CONNECTION_END);
+		createEReference(connectedElementEClass, CONNECTED_ELEMENT__NEXT);
 
 		implementationExtensionEClass = createEClass(IMPLEMENTATION_EXTENSION);
 		createEReference(implementationExtensionEClass, IMPLEMENTATION_EXTENSION__EXTENDED);
@@ -11376,6 +11409,12 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEReference(getFlowImplementation_OwnedFlowSegment(), getFlowSegment(), null, "ownedFlowSegment", null, 0,
 				-1, FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getFlowImplementation_InEnd(), getFlowEnd(), null, "inEnd", null, 0, 1, FlowImplementation.class,
+				!IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE,
+				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getFlowImplementation_OutEnd(), getFlowEnd(), null, "outEnd", null, 0, 1,
+				FlowImplementation.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(flowSegmentEClass, FlowSegment.class, "FlowSegment", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
@@ -11408,6 +11447,9 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 				IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 		initEReference(getConnectedElement_ConnectionEnd(), getConnectionEnd(), null, "connectionEnd", null, 1, 1,
 				ConnectedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES,
+				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
+		initEReference(getConnectedElement_Next(), getConnectedElement(), null, "next", null, 0, 1,
+				ConnectedElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES,
 				!IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(implementationExtensionEClass, ImplementationExtension.class, "ImplementationExtension",
@@ -12660,7 +12702,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(classifierTypeEClass, ClassifierType.class, "ClassifierType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getClassifierType_ClassifierReference(), getMetaclassReference(), null, "classifierReference",
-				null, 1, -1, ClassifierType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				null, 0, -1, ClassifierType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(rangeTypeEClass, RangeType.class, "RangeType", !IS_ABSTRACT, !IS_INTERFACE,
@@ -12687,7 +12729,7 @@ public class Aadl2PackageImpl extends EPackageImpl implements Aadl2Package {
 		initEClass(referenceTypeEClass, ReferenceType.class, "ReferenceType", !IS_ABSTRACT, !IS_INTERFACE,
 				IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getReferenceType_NamedElementReference(), getMetaclassReference(), null, "namedElementReference",
-				null, 1, -1, ReferenceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
+				null, 0, -1, ReferenceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE,
 				!IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, !IS_ORDERED);
 
 		initEClass(listTypeEClass, ListType.class, "ListType", !IS_ABSTRACT, !IS_INTERFACE,

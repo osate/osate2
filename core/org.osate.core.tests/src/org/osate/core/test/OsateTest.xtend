@@ -233,7 +233,7 @@ abstract class OsateTest extends XtextTest {
 	def private assertScope(IScopeProvider scopeProvider, EObject context, EReference reference,
 		boolean scopingForModelUnits, Iterable<String> expected
 	) {
-		if (pluginResourcesNames == null) {
+		if (pluginResourcesNames === null) {
 			pluginResourcesNames = pluginResources.allMembers.filter(IFile).filter[name.toLowerCase.endsWith(".aadl")].map[
 				val uri = URI.createPlatformResourceURI(it.fullPath.toString, false)
 				val modelUnit = context.eResource.resourceSet.getResource(uri, true).contents.head as ModelUnit

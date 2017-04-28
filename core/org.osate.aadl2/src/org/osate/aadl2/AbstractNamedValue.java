@@ -57,5 +57,5 @@ public interface AbstractNamedValue extends AObject {
 
 	boolean sameAs(AbstractNamedValue namedValue);
 
-	PropertyEvaluationResult evaluate(EvaluationContext ctx);
+	PropertyEvaluationResult evaluate(EvaluationContext ctx, int depth);
 } // AbstractNamedValue

@@ -76,13 +76,10 @@ settings:
         partition B is executed after partition A.
 -   **Worst-case processing time**: Users can choose between deadline
     and worst-case execution time as worst case processing time.
-    -   **Maximum Compute Execution Time (ET) \[default\]**: Maximum
-        compute execution time represents the completion time on the
-        assumption that the task has immediate access to the processor
-        and is not preempted. Useful when tasks execute on a static
-        time line.
-    -   **Deadline (DL)**: Deadline represents the worst-case completion
+    -   **Deadline (DL) \[default\]**: Deadline represents the worst-case completion
         time assuming the tasks are schedulable.
+    -   **Maximum Compute Execution Time (ET)**: Maximum compute execution time. 
+    This assumes the task executes as highest priority task and is not preempted.
 -   **Queuing latency on incoming ports**: Affects how the best case
     queuing delay is determined.
     -   **Assume empty queue (EQ) \[default\]**: No delay as the queue
@@ -208,8 +205,7 @@ specification on a component) is interpreted as a latency value of zero
 unless the model includes additional information from which to derive
 the latency contributions (see next sections).
 
-**Note**: This simple end-to-end flow latency model does not take into
-account any sampling, queuing, or partition latency contributions.
+**Note**: If the model only includes flow latency values then the analysis does not take into account any sampling, queuing, or partition latency contributions. Once partition information, thread periods and periodic process, queue sizes are added to the model those latency contributions are accounted for as well.
 
 Latency Contributions by Periodic Sampling Processing
 =====================================================
@@ -317,12 +313,12 @@ case scenario of a thread executing first, without preemption, and
 without executing a recovery handler, in other words a best case lower
 bound.
 
-**Note**: The latency analysis tool only considers explicitly set
-Deadline values. By default the Deadline is set to be the Period value -
-the latency analysis interprets this as if the deadline is not set.
+**Note**: The latency analysis tool only considers explicitly set Deadline values. The default value of the Deadline is that of the Period value. The latency analysis does not include the default value.
+
+**Note**: The flow specification latency is used as processing latency contribution if the execution time (in ET) or deadline (in DL) is not set.
 
 **Preference note**: The preference setting lets the user choose between
-using maximum execution time and deadline as the worst-case latency
+using maximum execution time and deadline as the worst-case processing latency
 contribution.
 
 Mid-frame and Frame-delayed Communication

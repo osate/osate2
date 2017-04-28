@@ -28,7 +28,7 @@ root.select("<<EPackage, Metamodel>> <Model> AADL2");
 // package merge
 print("Package merge");
 umlMenu = bot.menu("UML Editor");
-umlMenu.menu("Merge...").click();
+umlMenu.menu("Package").menu("Merge...").click();
 
 shell = bot.shell("Merge Package 'AADL2 - AADL2.EMF.uml'");
 shell.bot().button("OK").click();
@@ -39,7 +39,7 @@ bot.waitUntil(org.eclipse.swtbot.swt.finder.waits.Conditions.shellCloses(shell))
 
 // convert to metamodel
 print("Convert to metamodel");
-umlMenu.menu("Metamodel").click();
+umlMenu.menu("Convert To").menu("Metamodel").click();
 bot.sleep(1000);
 
 // save as AADL.EMF.merged.uml

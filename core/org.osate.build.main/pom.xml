@@ -11,10 +11,14 @@
 	<properties>
 		<tycho.version>0.24.0</tycho.version>
 		<tycho-extras.version>0.24.0</tycho-extras.version>
-		<xtext.version>2.8.4</xtext.version>
-		<xsemantics.version>1.8.1</xsemantics.version>
+		<xtext.version>2.11.0</xtext.version>
+		<xsemantics.version>1.11.0</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.2.2-SNAPSHOT</osate.version>
+
+		<test.logging.1>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog</test.logging.1>
+		<test.logging.2>-Dorg.apache.commons.logging.simplelog.defaultlog=error</test.logging.2>
+		<test.logging>${test.logging.1} ${test.logging.2}</test.logging>
 	</properties>
 
 	<profiles>
@@ -135,6 +139,39 @@
 				</plugins>
 			</build>
 		</profile>
+		<profile>
+			<id>macosx</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<properties>
+				<ui.test.vmargs>-XstartOnFirstThread</ui.test.vmargs>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux</id>
+			<activation>
+				<os>
+					<family>linux</family>
+				</os>
+			</activation>
+			<properties>
+				<ui.test.vmargs></ui.test.vmargs>
+			</properties>
+		</profile>
+		<profile>
+			<id>windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<ui.test.vmargs></ui.test.vmargs>
+			</properties>
+		</profile>
 	</profiles>
 
 	<build>
@@ -250,7 +287,7 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
-						<argLine>-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog -Dorg.apache.commons.logging.simplelog.defaultlog=error</argLine>
+						<argLine>${ui.test.vmargs} ${test.logging}</argLine>
 						<useUIHarness>true</useUIHarness>
 						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
 							access <useUIThread>true</useUIThread> -->

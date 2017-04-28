@@ -45,6 +45,7 @@ import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
+import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
@@ -52,6 +53,8 @@ import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
+import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializer;
+import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding;
 import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
@@ -62,7 +65,8 @@ import com.google.inject.Binder;
 import com.google.inject.name.Names;
 
 /**
- * Use this class to register components to be used at runtime / without the Equinox extension registry.
+ * Use this class to register components to be used at runtime / without the
+ * Equinox extension registry.
  */
 public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2RuntimeModule {
 	@Override
@@ -86,10 +90,11 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 
 	/*
 	 * // It has some problems. It recurses on the package in the outline view
-	 * DB: Fixing the reference problem. Reviewed getName() on PublicPackageSection to fix the recurses problem.
-	 * (non-Javadoc)
+	 * DB: Fixing the reference problem. Reviewed getName() on
+	 * PublicPackageSection to fix the recurses problem. (non-Javadoc)
 	 * 
-	 * @see org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
+	 * @see
+	 * org.eclipse.xtext.service.DefaultRuntimeModule#bindIFragmentProvider()
 	 */
 	@Override
 	public Class<? extends IFragmentProvider> bindIFragmentProvider() {
@@ -110,7 +115,8 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return org.osate.xtext.aadl2.serializer.Aadl2CrossReferenceSerializer.class;
 	}
 
-	// we are not using it for unassigned values. We use token like PNAME instead
+	// we are not using it for unassigned values. We use token like PNAME
+	// instead
 	public Class<? extends org.eclipse.xtext.parsetree.reconstr.ITokenSerializer.IValueSerializer> bindITokenSerializer$IValueSerializer() {
 		return org.osate.xtext.aadl2.serializing.Aadl2ValueSerializer.class;
 	}
@@ -155,8 +161,8 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 	}
 
 	/**
-	 * Turn this feature off because it breaks proxy resolution in OSATE. No idea why.
-	 * TODO: find root cause for breakage and re-enable fragment index
+	 * Turn this feature off because it breaks proxy resolution in OSATE. No
+	 * idea why. TODO: find root cause for breakage and re-enable fragment index
 	 */
 	@Override
 	public void configureUseIndexFragmentsForLazyLinking(com.google.inject.Binder binder) {
@@ -198,4 +204,10 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		return Aadl2DerivedStateComputer.class;
 	}
 
+	@Override
+	public void configure(Binder binder) {
+		super.configure(binder);
+		binder.bind(ISerializer.class).annotatedWith(InstanceEnabledSerializerBinding.class)
+				.to(InstanceEnabledSerializer.class);
+	}
 }
