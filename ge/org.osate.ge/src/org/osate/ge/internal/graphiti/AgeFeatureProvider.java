@@ -97,6 +97,7 @@ import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
 import org.osate.ge.internal.graphiti.features.SetAutoContentFilterFeature;
+import org.osate.ge.internal.graphiti.features.UpdateDiagramCustomFeature;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.PaletteEntry;
@@ -275,6 +276,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	 * @param features
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		features.add(make(UpdateDiagramCustomFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(SelectAncestorFeature.class));
 		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_FUNDAMENTAL));
