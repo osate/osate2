@@ -329,6 +329,18 @@ class LayoutUtil {
 			labelGa.setY(labelsY);
 			labelsY += labelGa.getHeight();
 		}
+		
+		// Update the position of child diagram elements.
+		for(final DiagramElement child : element.getDiagramElements()) {
+			final PictogramElement childPe = diagramNodeProvider.getPictogramElement(child);
+			// Only update the child's position if it already has a position. Otherwise, it may not have been layed out yet.
+			if(child.hasPosition() &&
+					childPe instanceof Shape &&
+					childPe.getGraphicsAlgorithm() != null) {
+				final GraphicsAlgorithm childGa = childPe.getGraphicsAlgorithm();
+				child.setPositionInternal(childGa.getX(), childGa.getY());
+			}
+		}
 	}
 	
 	/**

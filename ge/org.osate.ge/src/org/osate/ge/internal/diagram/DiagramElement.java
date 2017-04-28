@@ -158,6 +158,16 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	final void setPosition(final Point value) {
 		this.position = value;
 	}
+	
+	/**
+	 * Intended for internal use by platform specific code in order to update the element's position to reflect the actual position after layout.
+	 * Using this method prevents notifications from being sent.
+	 * @param x
+	 * @param y
+	 */
+	public final void setPositionInternal(final int x, final int y) {
+		this.position = new Point(x, y);
+	}
 		
 	public boolean hasSize() {
 		return size != null;
