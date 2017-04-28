@@ -36,7 +36,6 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		this.newFilterValue = Objects.requireNonNull(newFilterValue, "newFilerValue must not be null");
 	}
 	
-	// TODO
 	@Override
 	public String getName() {
 		switch(newFilterValue) {
@@ -77,7 +76,6 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		return newFilterValue != ContentsFilter.ALLOW_TYPE || (bo instanceof Subcomponent || bo instanceof Classifier);
 	}
 	
-	// TODO: Is available
 	@Override
 	public boolean canExecute(final ICustomContext context) {
 		final DiagramElement[] elements = getDiagramElements(context.getPictogramElements());
@@ -85,15 +83,24 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			return false;
 		}
 		
-		boolean alreadyMatch = true;
+		// If the selection is the "Hide Contents" selection, make the command executable if any of the descendants is manual
+		if(newFilterValue == ContentsFilter.ALLOW_FUNDAMENTAL) {
+			for(final DiagramElement e : elements) {
+				if(hasManualDescendant(e)) {
+					return true;
+				}
+			}
+			
+		}
+
+		// Make the command executable if any of the elements have a different filter value
 		for(final DiagramElement e : elements) {
 			if(e.getAutoContentsFilter() != newFilterValue) {
-				alreadyMatch = false;
-				break;
+				return true;
 			}
 		}
 		
-		return !alreadyMatch;
+		return false;
 	}
 	
 	@Override
@@ -128,6 +135,26 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		}
 	}
 	
+	/**
+	 * Returns true if any of the descendants of an element is manual.
+	 * @param m
+	 * @param e
+	 * @return
+	 */
+	private boolean hasManualDescendant(final DiagramElement e) {
+		for(final DiagramElement child : e.getDiagramElements()) {
+			if(child.isManual()) {
+				return true;
+			}
+			
+			if(hasManualDescendant(child)) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	private void setDescendantsAsAutomatic(final DiagramModification m, final DiagramElement e) {
 		// Set all descendants of the specified element as automatic/not manual
 		for(final DiagramElement child : e.getDiagramElements()) {
@@ -137,6 +164,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			setDescendantsAsAutomatic(m, child);
 		}
 	}
+	
 	private DiagramElement[] getDiagramElements(final PictogramElement[] pes) {
 		final DiagramElement[] elements = new DiagramElement[pes.length];
 		

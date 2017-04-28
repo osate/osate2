@@ -1,8 +1,6 @@
 package org.osate.ge;
 
 import java.awt.Color;
-import java.util.Objects;
-
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockingPosition;
