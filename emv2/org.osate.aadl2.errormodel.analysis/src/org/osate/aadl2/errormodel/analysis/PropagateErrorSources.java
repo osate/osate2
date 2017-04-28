@@ -308,7 +308,6 @@ public class PropagateErrorSources {
 	public void startConnectionSourceFlows(ComponentInstance root) {
 		Collection<ConnectionErrorSource> ceslist = EMV2Util
 				.getAllConnectionErrorSources(root.getComponentClassifier());
-		String componentText = generateComponentInstanceText(root);
 		if (ceslist.isEmpty()) {
 			return;
 		}
@@ -316,7 +315,7 @@ public class PropagateErrorSources {
 			EMSUtil.unsetAll(root.getSystemInstance());
 			// find connection instances that this connection is part of
 			String connName = ces.getConnection().getName();
-			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root, connName);
+			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root, ces.getConnection());
 			EList<PropagationPathEnd> ends = faultModel.getAllPropagationDestinationEnds(conni);
 			if (ends.size() == 0) {
 				return;

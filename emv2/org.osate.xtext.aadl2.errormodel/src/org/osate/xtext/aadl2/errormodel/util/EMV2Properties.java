@@ -29,6 +29,7 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PathElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
@@ -112,6 +113,9 @@ public class EMV2Properties {
 
 		if (element instanceof ErrorEvent) {
 			ts = ((ErrorEvent) element).getTypeSet();
+		}
+		if (element instanceof ConnectionErrorSource) {
+			ts = ((ConnectionErrorSource) element).getTypeTokenConstraint();
 		}
 
 		List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(relatedComponent, element, ts);

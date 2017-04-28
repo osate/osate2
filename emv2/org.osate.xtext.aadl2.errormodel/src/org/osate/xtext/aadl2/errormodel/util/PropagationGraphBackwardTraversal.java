@@ -10,12 +10,14 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.util.InstanceUtil;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2Path;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -480,8 +482,22 @@ public class PropagationGraphBackwardTraversal {
 		EObject preResult = preProcessIncomingErrorPropagation(component, errorPropagation, type);
 		if (preResult != null)
 			return preResult;
-		for (PropagationPathEnd ppe : currentAnalysisModel.getAllPropagationSourceEnds(component, errorPropagation)) {
+		for (PropagationPathRecord ppr : currentAnalysisModel.getAllReversePropagationPaths(component,
+				errorPropagation)) {
 			// traverse incoming
+			PropagationPathEnd ppe = ppr.getPathSrc();
+			if (ppr.getConnectionInstance() != null) {
+				ConnectionErrorSource ces = EMV2Util
+						.findConnectionErrorSourceForConnection(ppr.getConnectionInstance());
+				if (ces != null && EM2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
+					EObject result = processConnectionErrorSource(
+							InstanceUtil.findConnectionContext(ppr.getConnectionInstance(), ces.getConnection()), ces,
+							type);
+					if (result != null) {
+						subResults.add(result);
+					}
+				}
+			}
 			ComponentInstance componentSource = ppe.getComponentInstance();
 			ErrorPropagation propagationSource = ppe.getErrorPropagation();
 			if (propagationSource.getDirection() == DirectionType.IN) {
@@ -591,6 +607,19 @@ public class PropagationGraphBackwardTraversal {
 	 */
 	protected EObject processErrorSource(ComponentInstance component, ErrorSource errorSource,
 			TypeSet typeTokenConstraint) {
+//		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
+		return null;
+	}
+
+	/**
+	 * process connection error source as leaf of traversal
+	 * @param connection instance
+	 * @param errorSource
+	 * @param typeTokenConstraint
+	 * @return EObject (can be null)
+	 */
+	protected EObject processConnectionErrorSource(ComponentInstance component, ConnectionErrorSource errorSource,
+			ErrorTypes typeTokenConstraint) {
 //		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
 		return null;
 	}
