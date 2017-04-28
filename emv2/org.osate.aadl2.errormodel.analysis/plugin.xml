@@ -149,7 +149,7 @@
             </enablement>
          </action> 
 
-         <action
+         <!--action
                id="org.osate.aadl2.errormodel.analysis.actions.Consistency.action"
                label="%Consistency.label"
                tooltip="%Consistency.toolTip"
@@ -167,7 +167,7 @@
                    <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
                </or>
             </enablement>
-         </action>       
+         </action-->       
        </actionSet>
    </extension>
 
@@ -258,14 +258,14 @@
                class="org.osate.aadl2.errormodel.analysis.actions.ImplementationComplianceAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>    
-         <action
+         <!--action
                id="org.osate.aadl2.errormodel.analysis.actions.Consistency.popupAction"
                label="%Consistency.label"
                tooltip="%Consistency.toolTip"
                icon="icons/consistency.gif"
                class="org.osate.aadl2.errormodel.analysis.actions.ConsistencyAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
-               enablesFor="1"/>               
+               enablesFor="1"/-->               
        </objectContribution>
    </extension>
 
