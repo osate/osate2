@@ -28,27 +28,41 @@ public class AgeMoveConnectionDecoratorFeature extends DefaultMoveConnectionDeco
 	public boolean canMoveConnectionDecorator(final IMoveConnectionDecoratorContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
 		
-		// Only support moving connection decorators for connection name labels for which we can find the diagram element
-		if(context.getConnectionDecorator() == null || 
-				!ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getConnectionDecorator())) ||
-				graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection()) == null) {
-			return false;
+		// Allow moving the decorator if we can retrieve the diagram element for it.
+		if(graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator()) != null) {
+			return true;
+		}	
+	
+		// Otherwise, only support moving connection decorators for connection name labels for which we can find the diagram element
+		if(ShapeNames.primaryLabelShapeName.equals(PropertyUtil.getName(context.getConnectionDecorator())) &&
+				graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection()) != null) {
+			return true;
 		}
-		
-		return true;
+
+		return false;
 	}
 
 	public void moveConnectionDecorator(final IMoveConnectionDecoratorContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
-		final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection());
-		
-		graphitiAgeDiagram.modify(new DiagramModifier() {					
-			@Override
-			public void modify(final DiagramModification m) {
-				m.setConnectionPrimaryLabelPosition(connectionElement, new Point(context.getX(), context.getY()));
-				AgeFeatureUtil.storeModificationInContext(context, m);
-			}
-		});
+		final DiagramElement decoratorDiagramElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator());
+		if(decoratorDiagramElement == null) {
+			final DiagramElement connectionElement = graphitiAgeDiagram.getDiagramElement(context.getConnectionDecorator().getConnection());		
+			graphitiAgeDiagram.modify(new DiagramModifier() {					
+				@Override
+				public void modify(final DiagramModification m) {
+					m.setConnectionPrimaryLabelPosition(connectionElement, new Point(context.getX(), context.getY()));
+					AgeFeatureUtil.storeModificationInContext(context, m);
+				}
+			});
+		} else {
+			graphitiAgeDiagram.modify(new DiagramModifier() {					
+				@Override
+				public void modify(final DiagramModification m) {
+					m.setPosition(decoratorDiagramElement, new Point(context.getX(), context.getY()));
+					AgeFeatureUtil.storeModificationInContext(context, m);
+				}
+			});
+		}		
 	}
 
 	@Override

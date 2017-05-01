@@ -20,9 +20,11 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
+import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.ModeTransition;
@@ -48,6 +50,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.model.TaggedValue;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -55,6 +58,7 @@ import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
+import org.osate.ge.internal.util.AadlSubprogramCallUtil;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider {
@@ -94,6 +98,9 @@ public class AadlBusinessObjectProvider {
 			return getChildren((ComponentInstance)bo);
 		} else if(bo instanceof FeatureInstance) {
 			return ((FeatureInstance)bo).getFeatureInstances().stream();
+		} else if(bo instanceof Connection) {			
+		} else if(bo instanceof ConnectionInstance) {
+			
 		}
 		
 		return null;
@@ -151,16 +158,31 @@ public class AadlBusinessObjectProvider {
 			return null;
 		}
 		
-		return getChildren(cc, false);
+		Stream<?> results = getChildren(cc, false);
+		
+		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc);
+		if(scTypeTxt != null) {
+			results = Stream.concat(results, Stream.of(new TaggedValue(TaggedValue.KEY_SUBCOMPONENT_TYPE, scTypeTxt)));
+		}
+
+		return results;
 	}
 	
 	private static Stream<?> getChildren(final SubprogramCall call) {
 		final SubprogramType subprogramType = getSubprogramType(call);
+		Stream<?> results = Stream.empty();
 		if(subprogramType != null) {
-			return Stream.concat(AadlFeatureUtil.getAllDeclaredFeatures(subprogramType).stream(), subprogramType.getAllFlowSpecifications().stream());
+			results = Stream.concat(results, 
+					Stream.concat(AadlFeatureUtil.getAllDeclaredFeatures(subprogramType).stream(), 
+							subprogramType.getAllFlowSpecifications().stream()));
 		}
 		
-		return null;
+		final String calledSubprogramReference = AadlSubprogramCallUtil.getCalledSubprogramDescription(call);
+		if(calledSubprogramReference != null) {
+			results = Stream.concat(results, Stream.of(new TaggedValue(TaggedValue.KEY_SUBPROGRAM_CALL_CALLED_SUBPROGRAM, calledSubprogramReference)));
+		}
+		
+		return results;
 	}
 	
 	private static Stream<?> getChildren(final SubprogramCallSequence cs) {

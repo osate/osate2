@@ -34,6 +34,7 @@ import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
+import org.osate.ge.internal.model.TaggedValue;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildReference;
@@ -63,6 +64,7 @@ public class DeclarativeReferenceBuilder {
 	public final static String TYPE_SUBPROGRAM_CALL_ORDER = "subprogram_call_order";
 	public final static String TYPE_ANNEX_LIBRARY = "annex_library";
 	public final static String TYPE_ANNEX_SUBCLAUSE = "annex_subclause";
+	public final static String TYPE_TAGGED_VALUE = "tv";
 
 	public static CanonicalBusinessObjectReference buildPackageCanonicalReference(final String qualifiedName) {
 		return new CanonicalBusinessObjectReference(buildPackageReferenceSegments(qualifiedName));
@@ -131,6 +133,9 @@ public class DeclarativeReferenceBuilder {
 			
 			final int index = getAnnexSubclauseIndex(annexSubclause);
 			return new String[] {TYPE_ANNEX_SUBCLAUSE, annexSubclause.getName(), Integer.toString(index)};
+		} else if(bo instanceof TaggedValue) {
+			final TaggedValue uv = (TaggedValue)bo;	
+			return new String[] {TYPE_TAGGED_VALUE, uv.key};
 		} else {
 			return null;
 		}

@@ -20,23 +20,14 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.ConnectionEnd;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.DataAccess;
-import org.osate.aadl2.DirectedFeature;
-import org.osate.aadl2.DirectionType;
-import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.FeatureConnectionEnd;
 import org.osate.aadl2.FeatureGroupConnectionEnd;
-import org.osate.aadl2.ListValue;
-import org.osate.aadl2.NamedValue;
 import org.osate.aadl2.ParameterConnectionEnd;
-import org.osate.aadl2.PortConnection;
 import org.osate.aadl2.PortConnectionEnd;
-import org.osate.aadl2.Property;
-import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramAccess;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramGroupAccess;
-import org.osate.aadl2.properties.PropertyNotPresentException;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -57,16 +48,8 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.annotations.Annotation;
-import org.osate.ge.internal.annotations.AnnotationBuilder;
-import org.osate.ge.internal.decorations.Decoration;
-import org.osate.ge.internal.decorations.DelayedDecorationBuilder;
-import org.osate.ge.internal.decorations.DirectionDecorationBuilder;
-import org.osate.ge.internal.decorations.ImmediateDecorationBuilder;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.GetAnnotations;
-import org.osate.ge.internal.di.GetDecorations;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.query.DefaultQuery;
 import org.osate.ge.internal.services.NamingService;
@@ -77,17 +60,11 @@ import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
 public class ConnectionHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private static final Graphic graphic = ConnectionBuilder.create().build();
 	private static final Graphic partialGraphic = ConnectionBuilder.create().dashed().build();
-	private static final Decoration delayedDecoration = DelayedDecorationBuilder.create().build();
-	private static final Decoration immediateDecoration = ImmediateDecorationBuilder.create().build();
-	private static final Decoration directionDecoration = DirectionDecorationBuilder.create().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(), c.getRootConnection().getDestination())).first());
@@ -157,106 +134,10 @@ public class ConnectionHandler {
 		return path.toArray();
 	}
 	
-	// Decorations
-	@GetDecorations
-	public Decoration[] getDecorations(final @Named(Names.BUSINESS_OBJECT) Connection c) {
-		final ArrayList<Decoration> decorations = new ArrayList<Decoration>(3);
-		
-		// Determine which indicators should be shown
-		final boolean showImmediateDecoration;
-		final boolean showDelayedDecoration;
-		if(c instanceof PortConnection) {
-			final PortConnection pc = (PortConnection)c;
-			final EnumerationLiteral connectionTiming = GetProperties.getConnectionTiming(pc);
-			final String connectionTimingName = connectionTiming == null ? null : connectionTiming.getName();
-			if(CommunicationProperties.DELAYED.equals(connectionTimingName)) {
-				showDelayedDecoration = true;
-				showImmediateDecoration = false;
-			} else if(CommunicationProperties.IMMEDIATE.equals(connectionTimingName)) {
-				showDelayedDecoration = false;
-				showImmediateDecoration = true;
-			} else {
-			
-				showImmediateDecoration = showDelayedDecoration = false;
-			}
-		} else {
-			showImmediateDecoration = showDelayedDecoration = false;
-		}
-				
-		// Create decorations
-		if(showDelayedDecoration) {
-			decorations.add(delayedDecoration);
-		} else if(showImmediateDecoration) {
-			decorations.add(immediateDecoration);
-		}
-
-		final boolean showDirectionDecoration;
-		if(!showImmediateDecoration && !c.isBidirectional()) {
-			final ConnectionEnd src = c.getAllSource();
-			final ConnectionEnd dst = c.getAllDestination();
-			if((src != null && src instanceof DirectedFeature && (((DirectedFeature)src).getDirection() == null || ((DirectedFeature)src).getDirection() == DirectionType.IN_OUT)) ||
-			 (dst != null && dst instanceof DirectedFeature && (((DirectedFeature)dst).getDirection() == null || ((DirectedFeature)dst).getDirection() == DirectionType.IN_OUT))) {
-				showDirectionDecoration = true;
-			} else {
-				showDirectionDecoration = false;
-			}
-		} else {
-			showDirectionDecoration = false;
-		}		
-		
-		if(showDirectionDecoration) {
-			decorations.add(directionDecoration);
-		}
-		
-		return decorations.toArray(new Decoration[decorations.size()]);
-	}
-	
 	// Labels
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) Connection c) {
 		return c.getName(); 
-	}
-	
-	@GetAnnotations
-	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) Connection c) {
-		final String connectionPatterns = getConnectionPatterns(c);
-		return connectionPatterns == null ? null : new Annotation[] {AnnotationBuilder.create().text(connectionPatterns).name("connection_pattern").build()};
-	}	
-	
-	/**
-	 * Returns a string representation of the connection's connection patterns
-	 * @param aadlConnection
-	 * @return
-	 */
-	private String getConnectionPatterns(final org.osate.aadl2.Connection aadlConnection) {
-		final Property cpProperty = GetProperties.lookupPropertyDefinition(aadlConnection, CommunicationProperties._NAME, "Connection_Pattern");
-		String patterns = "";
-		try {
-			final ListValue cpValues = (ListValue)PropertyUtils.getSimplePropertyListValue(aadlConnection, cpProperty);
-			patterns = StringUtil.join(cpValues.getOwnedListElements(), ",", new StringUtil.Converter<PropertyExpression, String>() {
-				private final StringUtil.Converter<PropertyExpression, String> innerListConverter = new StringUtil.Converter<PropertyExpression, String>() {
-					@Override
-					public String convert(PropertyExpression input) {
-						if(input instanceof NamedValue) {
-							final Object v = ((NamedValue) input).getNamedValue();
-							if(v instanceof EnumerationLiteral) {
-								return ((EnumerationLiteral) v).getName();
-							}
-						}
-						
-						return "";
-					}					
-				};
-				
-				@Override
-				public String convert(PropertyExpression input) {
-					return "(" + StringUtil.join(((ListValue)input).getOwnedListElements(), ",", innerListConverter) + ")";
-				}				
-			});
-		} catch (PropertyNotPresentException e) {
-		}
-
-		return patterns;
 	}
 	
 	// Creating

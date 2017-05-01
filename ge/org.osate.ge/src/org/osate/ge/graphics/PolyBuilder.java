@@ -12,62 +12,82 @@ import java.awt.geom.Point2D;
 import java.util.Objects;
 
 import org.osate.ge.internal.graphics.LineStyle;
-import org.osate.ge.internal.graphics.Polygon;
+import org.osate.ge.internal.graphics.Poly;
+import org.osate.ge.internal.graphics.Poly.Type;
 
 /**
- * Builder for creating polygon graphics.
+ * Builder for creating polygon or polyline graphics. Builds polygon by default.
  * @noextend
  * @see Graphic
  */
-public class PolygonBuilder {
+public class PolyBuilder {
 	private Point2D.Double[] points;
 	private int lineWidth = 1;
 	private LineStyle lineStyle = LineStyle.SOLID;
+	private Type type = Type.POLYGON;
 	
-	private PolygonBuilder() {}
+	private PolyBuilder() {}
 	
 	/**
-	 * Creates a polygon builder.
-	 * @return a polygon builder
+	 * Creates a poly builder.
+	 * @return a poly builder
 	 */
-	public static PolygonBuilder create() {
-		return new PolygonBuilder();
+	public static PolyBuilder create() {
+		return new PolyBuilder();
 	}
 	
 	/**
-	 * Configures the polygon builder to build a polygon composed of the specified points.
-	 * @param points the points to use when creating the polygon. All coordinates must be in the range of [0.0, 1.0]. Polygons are scaled by the editor.
+	 * Configures the poly builder to build a poly composed of the specified points.
+	 * @param points the points to use when creating the poly. All coordinates must be in the range of [0.0, 1.0]. Polylines are scaled by the editor.
 	 * @return this builder to allow method chaining.
 	 */
-	public PolygonBuilder points(final Point2D.Double... points) {
+	public PolyBuilder points(final Point2D.Double... points) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		return this;
 	}
 	
 	/**
-	 * Sets the line width to use to create the polygon
+	 * Sets the line width to use to create the poly
 	 * @param value the new value for the line width.
 	 * @return this builder to allow method chaining.
 	 */
-	public PolygonBuilder lineWidth(int value) {
+	public PolyBuilder lineWidth(int value) {
 		this.lineWidth = value;
 		return this;
 	}
 	
 	/**
-	 * Configures the polygon builder to use dashed lines.
+	 * Configures the poly builder to use dashed lines.
 	 * @return this builder to allow method chaining.
 	 */
-	public PolygonBuilder dashed() {
+	public PolyBuilder dashed() {
 		this.lineStyle = LineStyle.DASHED;
 		return this;
 	}
 	
 	/**
-	 * Creates a polygon graphic based on the current state of the builder.
+	 * Configures the poly builder to build a polygon
+	 * @return this builder to allow method chaining.
+	 */
+	public PolyBuilder polygon() {
+		this.type = Type.POLYGON;
+		return this;
+	}
+	
+	/**
+	 * Configures the poly builder to build a polyline
+	 * @return this builder to allow method chaining.
+	 */
+	public PolyBuilder polyline() {
+		this.type = Type.POLYLINE;
+		return this;
+	}
+	
+	/**
+	 * Creates a poly graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */
 	public Graphic build() {
-		return new Polygon(points, lineWidth, lineStyle);
+		return new Poly(points, lineWidth, lineStyle, type);
 	}
 }

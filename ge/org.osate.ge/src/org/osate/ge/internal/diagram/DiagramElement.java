@@ -7,9 +7,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
@@ -211,7 +209,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		this.size = new Dimension(width, height);
 	}
 	
-	public final GraphicalConfiguration getGraphicalConfiguration() {
+	public final AgeGraphicalConfiguration getGraphicalConfiguration() {
 		return graphicalConfig;
 	}
 
@@ -227,6 +225,10 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return graphicalConfig.foreground;
 	}
 
+	public final boolean isDecoration() {
+		return graphicalConfig.isDecoration;
+	}
+	
 	public final DockArea getDockArea() {
 		return dockArea;
 	}

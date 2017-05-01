@@ -100,7 +100,8 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			@Override
 			public Object[] getChildren(final Object parentElement) {
 				if(parentElement instanceof DiagramNode) {
-					return ((DiagramNode) parentElement).getDiagramElements().stream().filter((de) -> de.getName() != null).toArray(); // Only show children which have names
+					// Only show children which have names and which are not decorations
+					return ((DiagramNode) parentElement).getDiagramElements().stream().filter((de) -> de.getName() != null && !de.isDecoration()).toArray(); 
 				}
 				
 				return new Object[0];
@@ -118,7 +119,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			@Override
 			public boolean hasChildren(final Object element) {
 				if(element instanceof DiagramNode) {
-					return ((DiagramNode) element).getDiagramElements().size() > 0;
+					return getChildren(element).length > 0;
 				}
 
 				return false;

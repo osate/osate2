@@ -7,16 +7,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
+import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Point;
+import org.eclipse.graphiti.mm.pictograms.Connection;
+import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.eclipse.graphiti.services.Graphiti;
+import org.eclipse.graphiti.services.IGaService;
+import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.graphics.Label;
+import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -74,6 +85,66 @@ class LayoutUtil {
 		final PictogramElement pe = mapping.getPictogramElement(element);
 		if(pe instanceof ContainerShape) {
 			layout(graphitiDiagram, element, (ContainerShape)pe, mapping);
+		} else if(pe instanceof Connection) {
+			final Connection connection = (Connection)pe;
+			
+			// Calculate the total non-label width
+			int totalNonLabelWidth = 0;
+			for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
+				final DiagramNode decoratorNode = mapping.getDiagramNode(cd);
+				if(decoratorNode instanceof DiagramElement) {
+					final DiagramElement decorationElement = (DiagramElement)decoratorNode;
+					if(decorationElement.getGraphic() instanceof Poly) {
+						final Poly poly = (Poly)decorationElement.getGraphic();
+						AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1, true);
+						totalNonLabelWidth += poly.right;
+					} 
+				}
+			}
+			
+			int nonLabelLabelShiftX = -totalNonLabelWidth/2;
+			int labelY = 10;			
+			for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
+				final DiagramNode decoratorNode = mapping.getDiagramNode(cd);
+				if(decoratorNode instanceof DiagramElement) {
+					final DiagramElement decorationElement = (DiagramElement)decoratorNode;
+					
+					// Special handling of labels.
+					final IGaService gaService = Graphiti.getGaService();
+					if(decorationElement.getGraphic() instanceof Label) {
+						if(decorationElement.getName() != null) {
+							final Text text = gaService.createDefaultText(graphitiDiagram, cd);
+							PropertyUtil.setIsColoringChild(text, true);
+							LabelUtil.setStyle(graphitiDiagram, text);
+							text.setValue(decorationElement.getName());
+							if(decorationElement.hasPosition()) {
+								gaService.setLocation(text, decorationElement.getX(), decorationElement.getY());
+							} else {
+								final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(decorationElement.getName(), text.getFont());
+								text.setX(-labelTextSize.getWidth()/2);
+								text.setY(labelY);
+							}
+							
+							// Set the next label position based on the position of this label
+							labelY += 15;
+						}
+					} else if(decorationElement.getGraphic() instanceof Poly) {
+						final Poly poly = (Poly)decorationElement.getGraphic();
+						final org.eclipse.graphiti.mm.algorithms.Polyline polyline = (org.eclipse.graphiti.mm.algorithms.Polyline)AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1, true);
+						for(Point p : polyline.getPoints()) {
+							p.setX(p.getX()+nonLabelLabelShiftX);
+						}
+						
+						nonLabelLabelShiftX += Math.ceil(poly.right);
+					} else {
+						throw new RuntimeException("Unsupported connection child graphic: " + decorationElement.getGraphic());
+					}
+				}
+			}
+			
+			// Center non-label decorators
+			
+			// TODO: Layout/Position decorators? Consider positions stored in the elements...
 		}
 	}	
 	
@@ -104,16 +175,26 @@ class LayoutUtil {
 		final DockArea shapeDockArea = getNonGroupDockArea(element);
 		
 		// Build a list of all the labels. These labels will be positioned based on the name label configuration
-		final List<Shape> labelShapes = new ArrayList<Shape>();
+		final List<Shape> decorationShapes = new ArrayList<Shape>();
 		if(nameShape != null) {
-			labelShapes.add(nameShape);
+			decorationShapes.add(nameShape);
 		}
-		labelShapes.addAll(getChildShapesByName(shape, ShapeNames.annotationsShapeName));
+		decorationShapes.addAll(getChildShapesByName(shape, ShapeNames.annotationShapeName));
+		
+		// Add decoration shapes to the list
+		for(final DiagramElement childElement : element.getDiagramElements()) {
+			if(childElement.isDecoration()) {
+				final PictogramElement decorationPictogramElement = diagramNodeProvider.getPictogramElement(childElement);
+				if(decorationPictogramElement instanceof Shape) {
+					decorationShapes.add((Shape)decorationPictogramElement);
+				}
+			}
+		}
 		
 		// Determine the size needs for the labels
 		int totalLabelsWidth = 0;
 		int totalLabelsHeight = 0;
-		for(final Shape labelShape : labelShapes) {
+		for(final Shape labelShape : decorationShapes) {
 			totalLabelsWidth = Math.max(totalLabelsWidth, labelShape.getGraphicsAlgorithm().getWidth());
 			totalLabelsHeight += labelShape.getGraphicsAlgorithm().getHeight();
 		}	
@@ -323,7 +404,7 @@ class LayoutUtil {
 		// Position Labels 
 		// All labels are positioned together on separate lines. 
 		// Labels are positioned horizontally based on the name label configuration.
-		for(final Shape labelShape : labelShapes) {
+		for(final Shape labelShape : decorationShapes) {
 			final GraphicsAlgorithm labelGa = labelShape.getGraphicsAlgorithm();
 			labelGa.setX(calculateLabelX(lm, nameHorizontalPosition, labelGa.getWidth()));
 			labelGa.setY(labelsY);

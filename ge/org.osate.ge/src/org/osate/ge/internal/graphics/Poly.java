@@ -4,15 +4,30 @@ import java.awt.geom.Point2D;
 import java.util.Arrays;
 import java.util.Objects;
 
-public class Polygon implements AgeShape {
+public class Poly implements AgeShape {
+	public enum Type {
+		POLYGON,
+		POLYLINE
+	}
+	
 	private final Point2D.Double[] points;
 	public final int lineWidth;
 	public final LineStyle lineStyle;
+	public final Type type;
+	public final double right;
 	
-	public Polygon(final Point2D.Double[] points, final int lineWidth, final LineStyle lineStyle) {
+	public Poly(final Point2D.Double[] points, final int lineWidth, final LineStyle lineStyle, final Type type) {
 		this.points = Objects.requireNonNull(points, "points must not be null").clone();
 		this.lineWidth = lineWidth;
 		this.lineStyle = Objects.requireNonNull(lineStyle, "lineStyle must not be null");
+		this.type = Objects.requireNonNull(type, "type must not be null");
+		
+		// Calculate bounds
+		double tmpRight = 0;
+		for(final Point2D.Double p : points) {
+			tmpRight = Math.max(tmpRight, p.x);
+		}
+		right = tmpRight;
 	}
 	
 	public final Point2D.Double[] getPoints() {
@@ -40,7 +55,7 @@ public class Polygon implements AgeShape {
 		if (getClass() != obj.getClass()) {
 			return false;
 		}
-		Polygon other = (Polygon) obj;
+		Poly other = (Poly) obj;
 		if (lineStyle != other.lineStyle) {
 			return false;
 		}

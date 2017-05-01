@@ -25,6 +25,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.model.TaggedValue;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -211,7 +212,7 @@ public class DefaultTreeExpander implements TreeExpander {
 	}
 	
 	private boolean isFundamental(final Object bo) {
-		return bo instanceof Generalization || bo instanceof ModeTransitionTrigger;
+		return bo instanceof Generalization || bo instanceof ModeTransitionTrigger || bo instanceof TaggedValue; // TODO: Remove tagged value
 	}	
 	
 	private boolean isInType(final Object bo) {
@@ -220,7 +221,8 @@ public class DefaultTreeExpander implements TreeExpander {
 				bo instanceof Feature || 
 				bo instanceof FlowSpecification || 
 				bo instanceof Mode || 
-				bo instanceof ModeTransition;
+				bo instanceof ModeTransition ||
+				bo instanceof TaggedValue;
 	}
 	
 	/**

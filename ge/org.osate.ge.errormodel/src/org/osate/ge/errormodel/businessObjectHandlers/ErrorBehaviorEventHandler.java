@@ -30,14 +30,14 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.graphics.PolygonBuilder;
+import org.osate.ge.graphics.PolyBuilder;
 import org.osate.ge.di.Names;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorStateMachine;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 public class ErrorBehaviorEventHandler {
-	private static final Graphic graphic = PolygonBuilder.create().points(new Point2D.Double(0.0, 1.0), new Point2D.Double(1.0, 1.0), new Point2D.Double(0.5, 0.0)).build();
+	private static final Graphic graphic = PolyBuilder.create().points(new Point2D.Double(0.0, 1.0), new Point2D.Double(1.0, 1.0), new Point2D.Double(0.5, 0.0)).build();
 	
 	@IsApplicable
 	@CanDelete

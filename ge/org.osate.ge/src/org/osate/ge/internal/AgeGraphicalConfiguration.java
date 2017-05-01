@@ -16,18 +16,21 @@ public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 	public final DiagramElement connectionSource;
 	public final DiagramElement connectionDestination;
 	public final Color foreground;
+	public final boolean isDecoration;
 	
 	public AgeGraphicalConfiguration(final Graphic graphic,
 			final DockingPosition defaultDockingPosition,
 			final AgeLabelConfiguration defaultLabelConfiguration,
 			final DiagramElement connectionSource,
 			final DiagramElement connectionDestination,
-			final Color foreground) {
+			final Color foreground,
+			final boolean isDecoration) {
 		this.graphic = Objects.requireNonNull(graphic, "graphic must not be null");
 		this.defaultDockingPosition = defaultDockingPosition;
 		this.defaultLabelConfiguration = defaultLabelConfiguration;
 		this.connectionSource = connectionSource;
 		this.connectionDestination = connectionDestination;
 		this.foreground = Objects.requireNonNull(foreground, "foreground must not be null");
+		this.isDecoration = isDecoration;
 	}
 }

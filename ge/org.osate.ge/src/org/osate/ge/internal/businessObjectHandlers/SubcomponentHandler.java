@@ -6,10 +6,8 @@ import javax.inject.Named;
 import org.eclipse.emf.ecore.EClass;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentImplementationReference;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Subcomponent;
-import org.osate.aadl2.SubcomponentType;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
@@ -27,10 +25,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.annotations.Annotation;
-import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
@@ -80,45 +75,6 @@ public class SubcomponentHandler {
 	
 	private String getSubcomponentName(final Subcomponent sc) {
 		return sc.getName() == null ? "" : sc.getName();
-	}
-
-	@GetAnnotations
-	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc) {
-		return new Annotation[] {AnnotationBuilder.create().text(getTypeText(sc)).build()};
-	}
-	
-	private String getTypeText(final Subcomponent sc) {
-		String retVal = "";
-        final SubcomponentType scType = getAllSubcomponentType(sc);
-        
-		if(scType != null) {
-			retVal += scType.getQualifiedName();
-		}
-
-		// Add text for each of the implementation references (for arrays)
-		final List<ComponentImplementationReference> implRefs = getArrayComponentImplementationReferences(sc);
-		if(implRefs.size() != 0) {
-			retVal += "\n(";			
-			for(int i = 0; i < implRefs.size(); i++) {
-				final ComponentImplementationReference ref = implRefs.get(i);
-				if(ref.getImplementation() != null) {
-					if(ref.getImplementation().eIsProxy()) {
-						retVal += "<unresolved>";
-					} else {
-						retVal += ref.getImplementation().getQualifiedName();
-					}
-				}
-				
-				if(i == (implRefs.size() - 1)) {
-					retVal += ")";
-				} else {
-					retVal += ",\n";					
-				}
-				
-			}
-		}
-		
-		return retVal;
 	}
 
 	// Creating
@@ -189,27 +145,4 @@ public class SubcomponentHandler {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 		return sc.getContainingClassifier() == ci;
     }
-	
-	// Helper Methods
-	private static SubcomponentType getAllSubcomponentType(Subcomponent sc) {
-		SubcomponentType scType;
-		do {
-			scType = sc.getSubcomponentType();
-			sc = sc.getRefined();
-		} while(sc != null && scType == null);
-		
-		return scType;		
-	}
-	
-	private static List<ComponentImplementationReference> getArrayComponentImplementationReferences(final Subcomponent sc) {
-		Subcomponent tmpSc = sc;
-		List<ComponentImplementationReference> refs;
-		
-		do {
-			refs = tmpSc.getImplementationReferences();
-			tmpSc = tmpSc.getRefined();
-		} while(tmpSc != null && refs.size() == 0);
-		
-		return refs;
-	}
 }

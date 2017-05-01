@@ -8,7 +8,6 @@ import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.BehavioredImplementation;
 import org.osate.aadl2.CallContext;
 import org.osate.aadl2.CalledSubprogram;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.Categories;
@@ -29,10 +28,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.EllipseBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.annotations.Annotation;
-import org.osate.ge.internal.annotations.AnnotationBuilder;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.GetAnnotations;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
@@ -77,30 +73,6 @@ public class SubprogramCallHandler {
 	@GetName
 	public String getName(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
 		return call.getName();
-	}
-
-	@GetAnnotations
-	public Annotation[] getAnnotations(final @Named(Names.BUSINESS_OBJECT) SubprogramCall call) {
-		return new Annotation[] {AnnotationBuilder.create().text(getSubprogramReferenceString(call)).build()};
-	}	
-	
-	private String getSubprogramReferenceString(final SubprogramCall call) {
-		String subprogramReferenceStr = "";
-	    if(call.getContext() instanceof NamedElement) {
-	    	final String contextTxt = ((NamedElement)call.getContext()).getName();
-	    	if(contextTxt != null) {
-	    		subprogramReferenceStr = contextTxt + ".";
-	    	}
-	    }
-	
-	    if(call.getCalledSubprogram() instanceof NamedElement) {
-	    	final String calledSubprogramTxt = ((NamedElement)call.getCalledSubprogram()).getName();
-	    	if(calledSubprogramTxt != null) {
-	    		subprogramReferenceStr += calledSubprogramTxt;
-	    	}
-	    }        
-	
-	    return subprogramReferenceStr;
 	}
 
 	@CanRename

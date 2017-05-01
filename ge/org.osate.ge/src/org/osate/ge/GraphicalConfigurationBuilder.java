@@ -24,6 +24,7 @@ public class GraphicalConfigurationBuilder {
 	private DiagramElement connectionSource;
 	private DiagramElement connectionDestination;
 	private java.awt.Color foreground = defaultForeground;
+	private boolean isDecoration = false;
 	
 	private GraphicalConfigurationBuilder() {}
 	
@@ -61,7 +62,12 @@ public class GraphicalConfigurationBuilder {
 		return this;
 	}
 	
+	public GraphicalConfigurationBuilder decoration() {
+		this.isDecoration = true;
+		return this;
+	}
+	
 	public GraphicalConfiguration build() {
-		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, defaultLabelConfiguration, connectionSource, connectionDestination, foreground);
+		return new AgeGraphicalConfiguration(graphic, defaultDockingPosition, defaultLabelConfiguration, connectionSource, connectionDestination, foreground, isDecoration);
 	}
 }

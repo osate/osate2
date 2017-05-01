@@ -26,6 +26,7 @@ import org.osate.ge.di.CanStartConnection;
 import org.osate.ge.di.Create;
 import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
+import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
@@ -35,6 +36,7 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CreateParentQuery;
 import org.osate.ge.internal.di.InternalNames;
+import org.osate.ge.internal.graphics.LabelBuilder;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.query.Query;
@@ -44,6 +46,7 @@ import org.osate.ge.services.QueryService;
 public class GeneralizatonHandler {
 	private static final Graphic extendsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).build();
 	private static final Graphic implementsGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().open().build()).dashed().build();
+	private static final Graphic labelGraphic = LabelBuilder.create().build();	
 	private static StandaloneQuery nestedClassifierQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((Generalization g) -> getBusinessObjectPath(g.getGeneral())));
 	
 	@GetPaletteEntries
@@ -67,21 +70,26 @@ public class GeneralizatonHandler {
 	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Object bo,
 			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
 			final QueryService queryService) {
-		return GraphicalConfigurationBuilder.create().
-				graphic(getGraphicalRepresentation(bo)).
-				source(getSource(boc)).
-				destination(getDestination(boc, queryService)).
-				build();
+		final BusinessObjectContext destination = getDestination(boc, queryService);
+		
+		if(destination == null) {
+			return GraphicalConfigurationBuilder.create().
+					graphic(labelGraphic).
+					decoration().
+					build();
+		} else {
+			return GraphicalConfigurationBuilder.create().
+					graphic(getConnectionGraphicalRepresentation(bo)).
+					source(boc.getParent()). // Source is the owner of the BO
+					destination(getDestination(boc, queryService)).
+					build();
+		}
 	}
 	
-	private Graphic getGraphicalRepresentation(final Object bo) {
+	private Graphic getConnectionGraphicalRepresentation(final Object bo) {
 		return bo instanceof Realization ? implementsGraphic : extendsGraphic;
 	}
 	
-	private BusinessObjectContext getSource(final BusinessObjectContext boc) { 
-		return boc.getParent(); // Source is the owner of the BO
-	}	
-
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, 
 			final QueryService queryService) {	
 		final BusinessObjectContext pkgBoc = boc.getParent().getParent();
@@ -108,6 +116,23 @@ public class GeneralizatonHandler {
 	private static Object[] getBusinessObjectPath(final Classifier c) {
 		return new Object[] { c.getElementRoot(), c };
 	}	
+	
+	@GetName
+	public String getName(final @Named(Names.BUSINESS_OBJECT) Generalization generalization,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+			final QueryService queryService) {
+		// Don't show the name when displaying as a connection
+		if(getDestination(boc, queryService) != null) {
+			return null;
+		}
+		
+		final Classifier general = generalization.getGeneral();
+		if(general == null) {
+			return null;
+		}
+		
+		return (generalization instanceof Realization ? "Implements " : "Extends ") + general.getQualifiedName();
+	}
 	
 	@GetCreateOwner
 	public BusinessObjectContext getCreateConnectionOwner(@Named(Names.SOURCE_BO) final Classifier subtype, 
