@@ -72,6 +72,8 @@ import static extension org.osate.verify.util.VerifyUtilExtension.*
 import org.osate.alisa.common.common.AFunctionCall
 import org.osate.verify.util.VerificationMethodDispatchers
 import org.eclipse.emf.common.util.UniqueEList
+import static org.osate.results.util.ResultsUtilExtension.*
+import org.osate.results.results.ResultReport
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -90,14 +92,21 @@ class AssureConstructor implements IAssureConstructor {
 	var EList<VerificationPlan> globalPlans
 
 	var EList<Claim> globalClaims
+	
+	var ResultReport issueReport
 
 	override generateFullAssuranceCase(AssuranceCase acs) {
+		issueReport = createReport("AssureGeneration",acs)
 		globalPlans = new UniqueEList()
 		globalClaims = new UniqueEList()
-		acs.constructAssuranceCaseResult
+		acs.constructAssuranceCaseResult(null)
+	}
+	
+	def ResultReport getIssueReport(){
+		issueReport
 	}
 
-	def constructAssuranceCaseResult(AssuranceCase acs) {
+	def constructAssuranceCaseResult(AssuranceCase acs, ComponentClassifier cl) {
 		var AssuranceCaseResult acr = factory.createAssuranceCaseResult
 		acr.name = acs.name
 		acr.metrics = factory.createMetrics
@@ -106,9 +115,18 @@ class AssureConstructor implements IAssureConstructor {
 		val mrs = acr.modelResult
 
 		for (acp : acs.assurancePlans) {
-			val modelResultInstance = acp.constructModelResult
-			if (modelResultInstance !== null)
-				mrs.add(modelResultInstance)
+			if (acp.target.isSameorExtends(acs.system) &&
+				cl !== null && cl.isSameorExtends(acp.target)
+			){
+				// only plans that relate to the assurance case directly
+				val modelResultInstance = acp.constructModelResult
+				if (modelResultInstance !== null) {
+					mrs.add(modelResultInstance)
+				}
+			} else {
+				addError(issueReport.issues, "Assurance plan "+acp.name+" target not for assurance case " + acs.name + " classifier " +acs.system.name,
+					acp,"")
+			}
 		}
 		acr
 	}
@@ -125,7 +143,7 @@ class AssureConstructor implements IAssureConstructor {
 			if (myplans.empty && !Aadl2Util.isNull(cc)) {
 				myplans = cc.getVerificationPlans(acp)
 			}
-			globalPlans.addAll( acp.assureGlobal)
+			globalPlans.addAll(acp.assureGlobal)
 		}
 		var ModelResult mr = factory.createModelResult
 		mr.plan = acp
@@ -198,9 +216,9 @@ class AssureConstructor implements IAssureConstructor {
 		}
 
 		for (vplan : selfPlans) {
-				for (claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
-					claim.generateAllClaimResult(cc, claimResultList)
-				}
+			for (claim : vplan.claim.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
+				claim.generateAllClaimResult(cc, claimResultList)
+			}
 		}
 
 		for (claim : selfClaims.filter[cl|cl.requirement?.componentCategory.matchingCategory(cc.category)]) {
@@ -237,13 +255,13 @@ class AssureConstructor implements IAssureConstructor {
 
 	def void generateAllClaimResult(Claim claim, ComponentClassifier cc, EList<ClaimResult> claimResultlist) {
 		val when = claim.requirement.whencondition
-		if (when !== null){
+		if (when !== null) {
 			val cond = when.condition
-			if (cond instanceof AFunctionCall){
+			if (cond instanceof AFunctionCall) {
 				val fname = cond.function
 				claim.containingRequirementSet
-				val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(fname,cc)
-				if (res instanceof Boolean){
+				val res = VerificationMethodDispatchers.eInstance.workspaceInvoke(fname, cc)
+				if (res instanceof Boolean) {
 					if (!res) return
 				}
 			}
@@ -264,7 +282,7 @@ class AssureConstructor implements IAssureConstructor {
 
 	// Add to claimResultlist for claim
 	def void generateClaimResult(Claim claim, EList<ClaimResult> claimResultlist, NamedElement forTargetElement) {
-		
+
 		val claimvas = doGenerateVA(claim)
 		if (claimvas.length == 0 && claim.subclaim === null && claim.assert === null) return
 		val ClaimResult claimResult = factory.createClaimResult
@@ -347,7 +365,7 @@ class AssureConstructor implements IAssureConstructor {
 			// This is for adding subAssuranceCases
 			for (subac : subacs) {
 
-				subAssuranceCaseList.add(subac.constructAssuranceCaseResult)
+				subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
 			}
 		}
 	}
@@ -540,7 +558,6 @@ class AssureConstructor implements IAssureConstructor {
 
 	// }
 	}
-
 
 	def VerificationResult doConstruct(VerificationCondition vc, VerificationActivity va) {
 		var VerificationResult vcr

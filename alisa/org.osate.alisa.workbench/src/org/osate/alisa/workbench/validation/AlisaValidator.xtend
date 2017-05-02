@@ -27,8 +27,8 @@ import org.osate.alisa.workbench.alisa.AlisaPackage
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
 import static extension org.osate.alisa.workbench.util.AlisaWorkbenchUtilExtension.*
-import static extension org.osate.verify.util.VerifyUtilExtension.*
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
+import static extension org.osate.verify.util.VerifyUtilExtension.*
 
 /**
  * Custom validation rules. 
@@ -39,6 +39,7 @@ class AlisaValidator extends AbstractAlisaValidator {
 
 	public static val ASSURANCE_PLAN_OWN_MISSING_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.missing.verification.plans'
 	public static val ASSURANCE_PLAN_OWN_INVALID_VERIFICATION_PLANS = 'org.osate.alisa.workbench.validation.assurance.plan.own.invalid.verification.plans'
+	public static val ASSURANCE_PLAN_TARGET_INCORRECT = 'org.osate.alisa.workbench.validation.assurance.plan.target.incorrect'
 
 //  public static val INVALID_NAME = 'invalidName'
 //
@@ -60,6 +61,7 @@ class AlisaValidator extends AbstractAlisaValidator {
 // Need to fix. Gives false error. Also needs to deal with global requirements	
 	@Check(CheckType.NORMAL)
 	def void checkAssurancePlanFast(AssurancePlan assurancePlan) {
+		checkConsistentAssurancePlanTarget(assurancePlan)
 		checkModelPlanOwnForInvalid(assurancePlan)
 	}
 
@@ -106,6 +108,18 @@ class AlisaValidator extends AbstractAlisaValidator {
 				vp.name, EcoreUtil.getURI(vp).toString())
 			}
 		}
+	}
+	def void checkConsistentAssurancePlanTarget(AssurancePlan assurancePlan) {
+		val assTarget = assurancePlan.target
+		val assCase = assurancePlan.assuranceCase
+		val caseTarget = assCase.system
+			if (!assTarget.isSameorExtends(caseTarget)){
+			error(
+				"Assurance Plan '" + assurancePlan.name + "' for '" + assTarget.name + "' is not valid for Assurance Case '" +
+					assCase.name + "' with target '" + caseTarget.name + "'", assurancePlan,
+				AlisaPackage.Literals.ASSURANCE_PLAN__TARGET,  ASSURANCE_PLAN_TARGET_INCORRECT,
+				assurancePlan.name, EcoreUtil.getURI(assurancePlan).toString())
+			}
 	}
 
 }
