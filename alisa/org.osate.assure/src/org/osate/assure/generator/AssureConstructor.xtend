@@ -116,7 +116,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		for (acp : acs.assurancePlans) {
 			if (acp.target.isSameorExtends(acs.system) &&
-				cl !== null && cl.isSameorExtends(acp.target)
+				(cl === null || cl.isSameorExtends(acp.target))
 			){
 				// only plans that relate to the assurance case directly
 				val modelResultInstance = acp.constructModelResult
