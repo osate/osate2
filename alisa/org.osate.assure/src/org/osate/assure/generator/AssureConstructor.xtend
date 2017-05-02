@@ -93,18 +93,18 @@ class AssureConstructor implements IAssureConstructor {
 
 	var EList<Claim> globalClaims
 	
-	var ResultReport issueReport
+//	var ResultReport issueReport
 
 	override generateFullAssuranceCase(AssuranceCase acs) {
-		issueReport = createReport("AssureGeneration",acs)
+//		issueReport = createReport("AssureGeneration",acs)
 		globalPlans = new UniqueEList()
 		globalClaims = new UniqueEList()
 		acs.constructAssuranceCaseResult(null)
 	}
 	
-	def ResultReport getIssueReport(){
-		issueReport
-	}
+//	def ResultReport getIssueReport(){
+//		issueReport
+//	}
 
 	def constructAssuranceCaseResult(AssuranceCase acs, ComponentClassifier cl) {
 		var AssuranceCaseResult acr = factory.createAssuranceCaseResult
@@ -123,9 +123,9 @@ class AssureConstructor implements IAssureConstructor {
 				if (modelResultInstance !== null) {
 					mrs.add(modelResultInstance)
 				}
-			} else {
-				addError(issueReport.issues, "Assurance plan "+acp.name+" target not for assurance case " + acs.name + " classifier " +acs.system.name,
-					acp,"")
+//			} else {
+//				addError(issueReport.issues, "Assurance plan "+acp.name+" target not for assurance case " + acs.name + " classifier " +acs.system.name,
+//					acp,"")
 			}
 		}
 		acr
