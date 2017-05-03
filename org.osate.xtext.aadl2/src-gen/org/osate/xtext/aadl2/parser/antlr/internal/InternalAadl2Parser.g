@@ -32367,15 +32367,25 @@ ruleFlowSourceImpl returns [EObject current=null]
     {
     	newLeafNode(otherlv_7, grammarAccess.getFlowSourceImplAccess().getHyphenMinusGreaterThanSignKeyword_4_3());
     }
-)*
-    { 
-        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getFLOWOUTParserRuleCall_5()); 
-    }
-ruleFLOWOUT
-    {
-        afterParserOrEnumRuleCall();
-    }
+)*(
 (
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSourceImplAccess().getOutEndFlowEndParserRuleCall_5_0()); 
+	    }
+		lv_outEnd_8_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSourceImplRule());
+	        }
+       		set(
+       			$current, 
+       			"outEnd",
+        		lv_outEnd_8_0, 
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
 	otherlv_9=LeftCurlyBracket
     {
     	newLeafNode(otherlv_9, grammarAccess.getFlowSourceImplAccess().getLeftCurlyBracketKeyword_6_0());
@@ -32521,15 +32531,25 @@ ruleFlowSinkImpl returns [EObject current=null]
 	    }
 
 )
-)
-    { 
-        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getFLOWINParserRuleCall_4()); 
-    }
-ruleFLOWIN
-    {
-        afterParserOrEnumRuleCall();
-    }
+)(
 (
+		{ 
+	        newCompositeNode(grammarAccess.getFlowSinkImplAccess().getInEndFlowEndParserRuleCall_4_0()); 
+	    }
+		lv_inEnd_4_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowSinkImplRule());
+	        }
+       		set(
+       			$current, 
+       			"inEnd",
+        		lv_inEnd_4_0, 
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
 	otherlv_5=HyphenMinusGreaterThanSign
     {
     	newLeafNode(otherlv_5, grammarAccess.getFlowSinkImplAccess().getHyphenMinusGreaterThanSignKeyword_5_0());
@@ -32721,15 +32741,25 @@ ruleFlowPathImpl returns [EObject current=null]
 	    }
 
 )
+)(
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getInEndFlowEndParserRuleCall_4_0()); 
+	    }
+		lv_inEnd_4_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
+	        }
+       		set(
+       			$current, 
+       			"inEnd",
+        		lv_inEnd_4_0, 
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
+
 )
-    { 
-        newCompositeNode(grammarAccess.getFlowPathImplAccess().getFLOWINParserRuleCall_4()); 
-    }
-ruleFLOWIN
-    {
-        afterParserOrEnumRuleCall();
-    }
-((
+)((
 	otherlv_5=HyphenMinusGreaterThanSign
     {
     	newLeafNode(otherlv_5, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_5_0_0());
@@ -32803,15 +32833,25 @@ ruleFLOWIN
     {
     	newLeafNode(otherlv_11, grammarAccess.getFlowPathImplAccess().getHyphenMinusGreaterThanSignKeyword_6());
     }
-
-    { 
-        newCompositeNode(grammarAccess.getFlowPathImplAccess().getFLOWOUTParserRuleCall_7()); 
-    }
-ruleFLOWOUT
-    {
-        afterParserOrEnumRuleCall();
-    }
 (
+(
+		{ 
+	        newCompositeNode(grammarAccess.getFlowPathImplAccess().getOutEndFlowEndParserRuleCall_7_0()); 
+	    }
+		lv_outEnd_12_0=ruleFlowEnd		{
+	        if ($current==null) {
+	            $current = createModelElementForParent(grammarAccess.getFlowPathImplRule());
+	        }
+       		set(
+       			$current, 
+       			"outEnd",
+        		lv_outEnd_12_0, 
+        		"org.osate.xtext.aadl2.Aadl2.FlowEnd");
+	        afterParserOrEnumRuleCall();
+	    }
+
+)
+)(
 	otherlv_13=LeftCurlyBracket
     {
     	newLeafNode(otherlv_13, grammarAccess.getFlowPathImplAccess().getLeftCurlyBracketKeyword_8_0());
@@ -37898,90 +37938,6 @@ rulePNAME returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()]
     newLeafNode(this_ID_2, grammarAccess.getPNAMEAccess().getIDTerminalRuleCall_1_1()); 
     }
 )*)
-    ;
-
-
-
-
-
-// Entry rule entryRuleFLOWOUT
-entryRuleFLOWOUT returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getFLOWOUTRule()); } 
-	 iv_ruleFLOWOUT=ruleFLOWOUT 
-	 { $current=$iv_ruleFLOWOUT.current.getText(); }  
-	 EOF 
-;
-
-// Rule FLOWOUT
-ruleFLOWOUT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-((    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getFLOWOUTAccess().getIDTerminalRuleCall_0_0()); 
-    }
-
-	kw=FullStop 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getFLOWOUTAccess().getFullStopKeyword_0_1()); 
-    }
-)?    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getFLOWOUTAccess().getIDTerminalRuleCall_1()); 
-    }
-)
-    ;
-
-
-
-
-
-// Entry rule entryRuleFLOWIN
-entryRuleFLOWIN returns [String current=null] 
-:
-	{ newCompositeNode(grammarAccess.getFLOWINRule()); } 
-	 iv_ruleFLOWIN=ruleFLOWIN 
-	 { $current=$iv_ruleFLOWIN.current.getText(); }  
-	 EOF 
-;
-
-// Rule FLOWIN
-ruleFLOWIN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] 
-    @init { enterRule(); 
-    }
-    @after { leaveRule();
-    }:
-((    this_ID_0=RULE_ID    {
-		$current.merge(this_ID_0);
-    }
-
-    { 
-    newLeafNode(this_ID_0, grammarAccess.getFLOWINAccess().getIDTerminalRuleCall_0_0()); 
-    }
-
-	kw=FullStop 
-    {
-        $current.merge(kw);
-        newLeafNode(kw, grammarAccess.getFLOWINAccess().getFullStopKeyword_0_1()); 
-    }
-)?    this_ID_2=RULE_ID    {
-		$current.merge(this_ID_2);
-    }
-
-    { 
-    newLeafNode(this_ID_2, grammarAccess.getFLOWINAccess().getIDTerminalRuleCall_1()); 
-    }
-)
     ;
 
 

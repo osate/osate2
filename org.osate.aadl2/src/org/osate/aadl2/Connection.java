@@ -200,7 +200,7 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @generated
 	 */
 	void setRefined(Connection value);
-	
+
 	/**
 	 * For a refined connection, returns the original connection.  For non-refined connections, returns "this".
 	 */
@@ -212,7 +212,7 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return ConnectionEnd the source (feature, data/bus access end or parameter end)
 	 */
 	ConnectionEnd getAllSource();
-	
+
 	/**
 	 * Gets the last element in the source chain.
 	 */
@@ -231,7 +231,7 @@ public interface Connection extends StructuralFeature, ModalPath, FlowElement {
 	 * @return ConnectionEnd the destination (feature, data/bus access end or parameter end)
 	 */
 	ConnectionEnd getAllDestination();
-	
+
 	/**
 	 * Gets the last element in the destination chain.
 	 * @return

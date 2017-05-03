@@ -23738,7 +23738,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedFlowSegmentAssignment_4_2 = (Assignment)cGroup_4.eContents().get(2);
 		private final RuleCall cOwnedFlowSegmentConnectionFlowParserRuleCall_4_2_0 = (RuleCall)cOwnedFlowSegmentAssignment_4_2.eContents().get(0);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_4_3 = (Keyword)cGroup_4.eContents().get(3);
-		private final RuleCall cFLOWOUTParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Assignment cOutEndAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cOutEndFlowEndParserRuleCall_5_0 = (RuleCall)cOutEndAssignment_5.eContents().get(0);
 		private final Group cGroup_6 = (Group)cGroup.eContents().get(6);
 		private final Keyword cLeftCurlyBracketKeyword_6_0 = (Keyword)cGroup_6.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_6_1 = (Assignment)cGroup_6.eContents().get(1);
@@ -23762,14 +23763,14 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowSourceImpl aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification]
 		//	':' 'flow' kind=FlowSource (ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->')*
-		//	FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
+		//	outEnd=FlowEnd ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 		//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] ':' 'flow' kind=FlowSource (ownedFlowSegment+=SubcomponentFlow '->'
-		//ownedFlowSegment+=ConnectionFlow '->')* FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes'
-		//'(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
+		//ownedFlowSegment+=ConnectionFlow '->')* outEnd=FlowEnd ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in'
+		//'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//specification=[aadl2::FlowSpecification]
@@ -23814,8 +23815,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'->'
 		public Keyword getHyphenMinusGreaterThanSignKeyword_4_3() { return cHyphenMinusGreaterThanSignKeyword_4_3; }
 
-		//FLOWOUT
-		public RuleCall getFLOWOUTParserRuleCall_5() { return cFLOWOUTParserRuleCall_5; }
+		//outEnd=FlowEnd
+		public Assignment getOutEndAssignment_5() { return cOutEndAssignment_5; }
+
+		//FlowEnd
+		public RuleCall getOutEndFlowEndParserRuleCall_5_0() { return cOutEndFlowEndParserRuleCall_5_0; }
 
 		//('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
 		public Group getGroup_6() { return cGroup_6; }
@@ -23885,7 +23889,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFlowKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cKindAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cKindFlowSinkParserRuleCall_3_0 = (RuleCall)cKindAssignment_3.eContents().get(0);
-		private final RuleCall cFLOWINParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cInEndAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cInEndFlowEndParserRuleCall_4_0 = (RuleCall)cInEndAssignment_4.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_5_0 = (Keyword)cGroup_5.eContents().get(0);
 		private final Assignment cOwnedFlowSegmentAssignment_5_1 = (Assignment)cGroup_5.eContents().get(1);
@@ -23916,16 +23921,16 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowSinkImpl aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification] //name=ID 
 		//	':' 'flow' kind=FlowSink
-		//	FLOWIN ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
+		//	inEnd=FlowEnd ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
 		//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (','
 		//	inModeOrTransition+=[aadl2::ModeFeature])* ')')?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] //name=ID 
-		//':' 'flow' kind=FlowSink FLOWIN ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
-		//ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (','
-		//inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
+		//':' 'flow' kind=FlowSink inEnd=FlowEnd ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
+		//('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature]
+		//(',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//specification=[aadl2::FlowSpecification]
@@ -23950,8 +23955,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowSink
 		public RuleCall getKindFlowSinkParserRuleCall_3_0() { return cKindFlowSinkParserRuleCall_3_0; }
 
-		//FLOWIN
-		public RuleCall getFLOWINParserRuleCall_4() { return cFLOWINParserRuleCall_4; }
+		//inEnd=FlowEnd
+		public Assignment getInEndAssignment_4() { return cInEndAssignment_4; }
+
+		//FlowEnd
+		public RuleCall getInEndFlowEndParserRuleCall_4_0() { return cInEndFlowEndParserRuleCall_4_0; }
 
 		//('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
 		public Group getGroup_5() { return cGroup_5; }
@@ -24042,7 +24050,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Keyword cFlowKeyword_2 = (Keyword)cGroup.eContents().get(2);
 		private final Assignment cKindAssignment_3 = (Assignment)cGroup.eContents().get(3);
 		private final RuleCall cKindFlowPathParserRuleCall_3_0 = (RuleCall)cKindAssignment_3.eContents().get(0);
-		private final RuleCall cFLOWINParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cInEndAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cInEndFlowEndParserRuleCall_4_0 = (RuleCall)cInEndAssignment_4.eContents().get(0);
 		private final Group cGroup_5 = (Group)cGroup.eContents().get(5);
 		private final Group cGroup_5_0 = (Group)cGroup_5.eContents().get(0);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_5_0_0 = (Keyword)cGroup_5_0.eContents().get(0);
@@ -24055,7 +24064,8 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cOwnedFlowSegmentAssignment_5_2 = (Assignment)cGroup_5.eContents().get(2);
 		private final RuleCall cOwnedFlowSegmentConnectionFlowParserRuleCall_5_2_0 = (RuleCall)cOwnedFlowSegmentAssignment_5_2.eContents().get(0);
 		private final Keyword cHyphenMinusGreaterThanSignKeyword_6 = (Keyword)cGroup.eContents().get(6);
-		private final RuleCall cFLOWOUTParserRuleCall_7 = (RuleCall)cGroup.eContents().get(7);
+		private final Assignment cOutEndAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cOutEndFlowEndParserRuleCall_7_0 = (RuleCall)cOutEndAssignment_7.eContents().get(0);
 		private final Group cGroup_8 = (Group)cGroup.eContents().get(8);
 		private final Keyword cLeftCurlyBracketKeyword_8_0 = (Keyword)cGroup_8.eContents().get(0);
 		private final Assignment cOwnedPropertyAssociationAssignment_8_1 = (Assignment)cGroup_8.eContents().get(1);
@@ -24079,17 +24089,17 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowPathImpl aadl2::FlowImplementation:
 		//	specification=[aadl2::FlowSpecification] //name=ID 
 		//	':' 'flow' kind=FlowPath
-		//	FLOWIN (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
+		//	inEnd=FlowEnd (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
 		//	'->' ownedFlowSegment+=ConnectionFlow)?
-		//	'->' FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
+		//	'->' outEnd=FlowEnd ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 		//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
 		//	';';
 		@Override public ParserRule getRule() { return rule; }
 
 		//specification=[aadl2::FlowSpecification] //name=ID 
-		//':' 'flow' kind=FlowPath FLOWIN (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* '->'
-		//ownedFlowSegment+=ConnectionFlow)? '->' FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes'
-		//'(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
+		//':' 'flow' kind=FlowPath inEnd=FlowEnd (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
+		//'->' ownedFlowSegment+=ConnectionFlow)? '->' outEnd=FlowEnd ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
+		//('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')? ';'
 		public Group getGroup() { return cGroup; }
 
 		//specification=[aadl2::FlowSpecification]
@@ -24114,8 +24124,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//FlowPath
 		public RuleCall getKindFlowPathParserRuleCall_3_0() { return cKindFlowPathParserRuleCall_3_0; }
 
-		//FLOWIN
-		public RuleCall getFLOWINParserRuleCall_4() { return cFLOWINParserRuleCall_4; }
+		//inEnd=FlowEnd
+		public Assignment getInEndAssignment_4() { return cInEndAssignment_4; }
+
+		//FlowEnd
+		public RuleCall getInEndFlowEndParserRuleCall_4_0() { return cInEndFlowEndParserRuleCall_4_0; }
 
 		//(('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* '->'
 		//ownedFlowSegment+=ConnectionFlow)?
@@ -24154,8 +24167,11 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		//'->'
 		public Keyword getHyphenMinusGreaterThanSignKeyword_6() { return cHyphenMinusGreaterThanSignKeyword_6; }
 
-		//FLOWOUT
-		public RuleCall getFLOWOUTParserRuleCall_7() { return cFLOWOUTParserRuleCall_7; }
+		//outEnd=FlowEnd
+		public Assignment getOutEndAssignment_7() { return cOutEndAssignment_7; }
+
+		//FlowEnd
+		public RuleCall getOutEndFlowEndParserRuleCall_7_0() { return cOutEndFlowEndParserRuleCall_7_0; }
 
 		//('{' ownedPropertyAssociation+=PropertyAssociation+ '}')?
 		public Group getGroup_8() { return cGroup_8; }
@@ -27400,62 +27416,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		public RuleCall getIDTerminalRuleCall_1_1() { return cIDTerminalRuleCall_1_1; }
 	}
 
-	public class FLOWOUTElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FLOWOUT");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		
-		//FLOWOUT:
-		//	(ID '.')? ID;
-		@Override public ParserRule getRule() { return rule; }
-
-		//(ID '.')? ID
-		public Group getGroup() { return cGroup; }
-
-		//(ID '.')?
-		public Group getGroup_0() { return cGroup_0; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
-
-		//'.'
-		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
-	}
-
-	public class FLOWINElements extends AbstractParserRuleElementFinder {
-		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FLOWIN");
-		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Group cGroup_0 = (Group)cGroup.eContents().get(0);
-		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cGroup_0.eContents().get(0);
-		private final Keyword cFullStopKeyword_0_1 = (Keyword)cGroup_0.eContents().get(1);
-		private final RuleCall cIDTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
-		
-		//FLOWIN:
-		//	(ID '.')? ID;
-		@Override public ParserRule getRule() { return rule; }
-
-		//(ID '.')? ID
-		public Group getGroup() { return cGroup; }
-
-		//(ID '.')?
-		public Group getGroup_0() { return cGroup_0; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
-
-		//'.'
-		public Keyword getFullStopKeyword_0_1() { return cFullStopKeyword_0_1; }
-
-		//ID
-		public RuleCall getIDTerminalRuleCall_1() { return cIDTerminalRuleCall_1; }
-	}
-
 	public class FQCREFElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.xtext.aadl2.Aadl2.FQCREF");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -27778,8 +27738,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	private final RealRangeElements pRealRange;
 	private final CoreKeyWordElements pCoreKeyWord;
 	private final PNAMEElements pPNAME;
-	private final FLOWOUTElements pFLOWOUT;
-	private final FLOWINElements pFLOWIN;
 	private final FQCREFElements pFQCREF;
 	private final INAMEElements pINAME;
 	private final FULLINAMEElements pFULLINAME;
@@ -27988,8 +27946,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 		this.pRealRange = new RealRangeElements();
 		this.pCoreKeyWord = new CoreKeyWordElements();
 		this.pPNAME = new PNAMEElements();
-		this.pFLOWOUT = new FLOWOUTElements();
-		this.pFLOWIN = new FLOWINElements();
 		this.pFQCREF = new FQCREFElements();
 		this.pINAME = new INAMEElements();
 		this.pFULLINAME = new FULLINAMEElements();
@@ -30094,7 +30050,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSourceImpl aadl2::FlowImplementation:
 	//	specification=[aadl2::FlowSpecification]
 	//	':' 'flow' kind=FlowSource (ownedFlowSegment+=SubcomponentFlow '->' ownedFlowSegment+=ConnectionFlow '->')*
-	//	FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
+	//	outEnd=FlowEnd ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 	//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
 	//	';';
 	public FlowSourceImplElements getFlowSourceImplAccess() {
@@ -30108,7 +30064,7 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowSinkImpl aadl2::FlowImplementation:
 	//	specification=[aadl2::FlowSpecification] //name=ID 
 	//	':' 'flow' kind=FlowSink
-	//	FLOWIN ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
+	//	inEnd=FlowEnd ('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)* ('{'
 	//	ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '(' inModeOrTransition+=[aadl2::ModeFeature] (','
 	//	inModeOrTransition+=[aadl2::ModeFeature])* ')')?
 	//	';';
@@ -30123,9 +30079,9 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	//FlowPathImpl aadl2::FlowImplementation:
 	//	specification=[aadl2::FlowSpecification] //name=ID 
 	//	':' 'flow' kind=FlowPath
-	//	FLOWIN (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
+	//	inEnd=FlowEnd (('->' ownedFlowSegment+=ConnectionFlow '->' ownedFlowSegment+=SubcomponentFlow)*
 	//	'->' ownedFlowSegment+=ConnectionFlow)?
-	//	'->' FLOWOUT ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
+	//	'->' outEnd=FlowEnd ('{' ownedPropertyAssociation+=PropertyAssociation+ '}')? ('in' 'modes' '('
 	//	inModeOrTransition+=[aadl2::ModeFeature] (',' inModeOrTransition+=[aadl2::ModeFeature])* ')')?
 	//	';';
 	public FlowPathImplElements getFlowPathImplAccess() {
@@ -30768,26 +30724,6 @@ public class Aadl2GrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getPNAMERule() {
 		return getPNAMEAccess().getRule();
-	}
-
-	//FLOWOUT:
-	//	(ID '.')? ID;
-	public FLOWOUTElements getFLOWOUTAccess() {
-		return pFLOWOUT;
-	}
-	
-	public ParserRule getFLOWOUTRule() {
-		return getFLOWOUTAccess().getRule();
-	}
-
-	//FLOWIN:
-	//	(ID '.')? ID;
-	public FLOWINElements getFLOWINAccess() {
-		return pFLOWIN;
-	}
-	
-	public ParserRule getFLOWINRule() {
-		return getFLOWINAccess().getRule();
 	}
 
 	//// fully qualified classifier name (always includes package name

@@ -40,8 +40,6 @@ import org.eclipse.xtext.nodemodel.INode
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.Classifier
 import org.osate.aadl2.ComponentImplementation
-import org.osate.aadl2.FlowImplementation
-import org.osate.aadl2.modelsupport.util.AadlUtil
 
 public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 
@@ -63,30 +61,11 @@ public class Aadl2SyntacticSequencer extends AbstractAadl2SyntacticSequencer {
 		}
 	}
 
-	// TODO phf: if we use PNAME at the end we need to fix the
 	override def protected String getPNAMEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (semanticObject instanceof AadlPackage) {
 			semanticObject.name
 		} else {
 			super.getPNAMEToken(semanticObject, ruleCall, node)
-		}
-	}
-
-	override def protected String getFLOWOUTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof FlowImplementation) {
-			val outend = semanticObject.specification.outEnd
-			AadlUtil.getFlowEndName(outend)
-		} else {
-			super.getFLOWOUTToken(semanticObject, ruleCall, node);
-		}
-	}
-
-	override def protected String getFLOWINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (semanticObject instanceof FlowImplementation) {
-			val inend = semanticObject.specification.inEnd;
-			AadlUtil.getFlowEndName(inend);
-		} else {
-			super.getFLOWINToken(semanticObject, ruleCall, node);
 		}
 	}
 
