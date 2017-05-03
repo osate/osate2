@@ -663,7 +663,7 @@ class AlisaView extends ViewPart {
 				}
 			}
 		}
-		job.rule = new MultiRule(#[assureProject, aadlProject])
+		job.rule = null//new MultiRule(#[assureProject, aadlProject])
 		job.schedule
 	}
 	
