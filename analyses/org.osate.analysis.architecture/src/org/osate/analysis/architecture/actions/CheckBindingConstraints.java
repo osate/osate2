@@ -24,6 +24,7 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -105,11 +106,40 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			Stream<ComponentInstance> connectionBindingComponents = getComponents(monitor, si,
 					ComponentCategory.VIRTUAL_BUS);
 			Stream<ConnectionInstance> connectionBindingConnections = getConnections(monitor, si);
-			Stream<InstanceObject> connectionBindingElements = Stream.concat(connectionBindingComponents,
-					connectionBindingConnections);
-			issuesList.addAll(checkBindingConstraints(connectionBindingElements, "connection",
+			List<InstanceObject> connectionBindingElements = Stream
+					.concat(connectionBindingComponents, connectionBindingConnections).collect(Collectors.toList());
+			issuesList.addAll(checkBindingConstraints(connectionBindingElements.stream(), "connection",
 					GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
 					GetProperties::getAllowedConnectionBindingClass, som));
+			
+			// Connection Quality of Service
+			issuesList.addAll(connectionBindingElements.stream().flatMap(element -> {
+				Set<EnumerationLiteral> requiredConnQos = Collections
+						.unmodifiableSet(new HashSet<>(GetProperties.getRequiredConnectionQualityOfService(element)));
+				if (!requiredConnQos.isEmpty()) {
+					return GetProperties.getActualConnectionBinding(element).stream().flatMap(boundElement -> {
+						Set<EnumerationLiteral> missingConnQos = new HashSet<>(requiredConnQos);
+						missingConnQos.removeAll(GetProperties.getProvidedConnectionQualityOfService(boundElement));
+						return missingConnQos.stream().map(missing -> {
+							StringBuilder message = new StringBuilder(getTitle(element));
+							message.append(" '");
+							message.append(element.getName());
+							message.append("' has a Required_Connection_Quality_Of_Service '");
+							message.append(missing.getName());
+							if (!Aadl2Util.isNoModes(som)) {
+								message.append("' in mode '");
+								message.append(som.getName());
+							}
+							message.append("' which is not provided by '");
+							message.append(boundElement.getName());
+							message.append("'");
+							return new Issue(element, message.toString());
+						});
+					});
+				} else {
+					return Stream.empty();
+				}
+			}).collect(Collectors.toList()));
 		}
 
 		return issuesList;
