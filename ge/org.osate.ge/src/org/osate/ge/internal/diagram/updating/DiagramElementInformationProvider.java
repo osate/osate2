@@ -6,7 +6,7 @@ import org.osate.ge.internal.diagram.DiagramElement;
 
 /**
  * Provides values used to configure diagram elements during an update.
- * Only the business object, references, and container fields are guaranteed to be initialized.
+ * Only the business object, references, and container fields of the diagram element arguments are guaranteed to be initialized.
  *
  */
 public interface DiagramElementInformationProvider extends BusinessObjectHandlerProvider {

@@ -19,8 +19,8 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramNode container;
 
 	private Object bo;
-	private boolean manual; // Specifies that the element was created as part of a manual process and not from an auto contnets filter or other automatic mechanism.
-	private ContentsFilter autoContentsFilter = ContentsFilter.ALLOW_FUNDAMENTAL;
+	private boolean manual; // Specifies that the element was created as part of a manual process and not from an auto contents filter or other automatic mechanism.
+	private ContentsFilter autoContentsFilter = ContentsFilter.ALLOW_FUNDAMENTAL; // Only applicable to manual elements.
 	private Completeness completeness = Completeness.UNKNOWN;
 	private final Object boHandler;
 	private final RelativeBusinessObjectReference boRelReference;

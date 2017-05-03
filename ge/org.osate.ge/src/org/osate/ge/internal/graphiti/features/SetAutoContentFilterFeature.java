@@ -46,7 +46,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 			return "Show Contents";
 			
 		case ALLOW_TYPE:
-			return "Show Type Elements";
+			return "Show Type Contents";
 			
 		default:
 			throw new RuntimeException("Unhandled Case: " + newFilterValue);

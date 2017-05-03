@@ -795,7 +795,7 @@
              class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationHandler">
        </handler>
        <handler
-             class="org.osate.ge.internal.businessObjectHandlers.TaggedValueHandler">
+             class="org.osate.ge.internal.businessObjectHandlers.TagHandler">
        </handler>
        <!--
        <handler

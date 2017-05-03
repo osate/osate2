@@ -72,6 +72,7 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 	@Override
 	public void moveShape(final IMoveShapeContext context) {
 		final GraphitiAgeDiagram graphitiAgeDiagram = graphitiAgeDiagramProvider.getGraphitiAgeDiagram();
+
 		final DiagramElement diagramElement = graphitiAgeDiagram.getDiagramElement(context.getShape());
 		graphitiAgeDiagram.modify(new DiagramModifier() {
 			@Override

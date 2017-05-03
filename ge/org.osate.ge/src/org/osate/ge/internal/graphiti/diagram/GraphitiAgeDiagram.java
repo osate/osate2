@@ -67,12 +67,18 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final static String AADL_DIAGRAM_TYPE_ID = "AADL Diagram";
 	public final static String incompleteIndicator = "*";
 	
+	private final UpdaterListener updateListener;
 	private final AgeDiagram ageDiagram;
 	private final Diagram graphitiDiagram;
 	private final ColoringProvider coloringProvider;
 	private final Map<PictogramElement, DiagramNode> pictogramElementToDiagramNodeMap = new HashMap<>();
 	private final Map<DiagramNode, PictogramElement> diagramNodeToPictogramElementMap = new HashMap<>();
 	private final GraphitiDiagramModificationListener modificationListener = new GraphitiDiagramModificationListener();
+	
+	public interface UpdaterListener {
+		// Called when an update is finished
+		void onUpdateFinished();
+	}
 	
 	/**
 	 * 
@@ -81,11 +87,13 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	 */
 	public GraphitiAgeDiagram(final AgeDiagram ageDiagram, 
 			final EditingDomain editingDomain,
-			final ColoringProvider coloringProvider) {
+			final ColoringProvider coloringProvider,
+			final UpdaterListener updateListener) {
 		this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
 		Objects.requireNonNull(editingDomain, "editingDomain must not be null");
 		this.coloringProvider = Objects.requireNonNull(coloringProvider, "coloringProvider must not be null");
-				
+		this.updateListener = Objects.requireNonNull(updateListener, "updateListener must not be null");
+		
 		this.graphitiDiagram = Graphiti.getPeService().createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
 		addMapping(ageDiagram, graphitiDiagram);
 		
@@ -764,7 +772,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		}
 
 		@Override
-		public void modificationsCompleted(final ModificationsCompletedEvent event) {
+		public void modificationsCompleted(final ModificationsCompletedEvent event) {			
 			if(enabled) {
 				try {				
 					// Remove elements
@@ -844,6 +852,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 					//elementsToAdd.clear();
 					elementsToRemove.clear();
 					elementsToUpdate.clear();
+					
+					updateListener.onUpdateFinished();
 				}
 			}
 		}

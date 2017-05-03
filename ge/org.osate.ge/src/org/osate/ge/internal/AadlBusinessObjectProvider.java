@@ -24,7 +24,6 @@ import org.osate.aadl2.Connection;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
-import org.osate.aadl2.Generalization;
 import org.osate.aadl2.GroupExtension;
 import org.osate.aadl2.ImplementationExtension;
 import org.osate.aadl2.ModeTransition;
@@ -50,7 +49,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
-import org.osate.ge.internal.model.TaggedValue;
+import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
@@ -98,9 +97,14 @@ public class AadlBusinessObjectProvider {
 			return getChildren((ComponentInstance)bo);
 		} else if(bo instanceof FeatureInstance) {
 			return ((FeatureInstance)bo).getFeatureInstances().stream();
-		} else if(bo instanceof Connection) {			
+		} else if(bo instanceof Connection) {	
+			if(!((Connection) bo).isAllBidirectional()) {
+				return Stream.of(new Tag(Tag.KEY_UNIDIRECTIONAL, null));
+			}
 		} else if(bo instanceof ConnectionInstance) {
-			
+			if(!((ConnectionInstance) bo).isBidirectional()) {
+				return Stream.of(new Tag(Tag.KEY_UNIDIRECTIONAL, null));
+			}
 		}
 		
 		return null;
@@ -162,7 +166,7 @@ public class AadlBusinessObjectProvider {
 		
 		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc);
 		if(scTypeTxt != null) {
-			results = Stream.concat(results, Stream.of(new TaggedValue(TaggedValue.KEY_SUBCOMPONENT_TYPE, scTypeTxt)));
+			results = Stream.concat(results, Stream.of(new Tag(Tag.KEY_SUBCOMPONENT_TYPE, scTypeTxt)));
 		}
 
 		return results;
@@ -179,7 +183,7 @@ public class AadlBusinessObjectProvider {
 		
 		final String calledSubprogramReference = AadlSubprogramCallUtil.getCalledSubprogramDescription(call);
 		if(calledSubprogramReference != null) {
-			results = Stream.concat(results, Stream.of(new TaggedValue(TaggedValue.KEY_SUBPROGRAM_CALL_CALLED_SUBPROGRAM, calledSubprogramReference)));
+			results = Stream.concat(results, Stream.of(new Tag(Tag.KEY_SUBPROGRAM_CALL_CALLED_SUBPROGRAM, calledSubprogramReference)));
 		}
 		
 		return results;

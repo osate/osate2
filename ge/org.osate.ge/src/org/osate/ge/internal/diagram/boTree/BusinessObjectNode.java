@@ -82,14 +82,20 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		this.completeness = Objects.requireNonNull(value, "value must not be null");
 	}
 	
-	// TODO: Need to return an unmodifiable collection in both cases.
+	/**
+	 * Returns an unmodifiable map. Never null.
+	 * @return
+	 */
 	public Collection<BusinessObjectNode> getChildren() {
-		return children == null ? Collections.emptyList() : children.values();
+		return children == null ? Collections.emptyList() : Collections.unmodifiableCollection(children.values());
 	}
 	
-	// TODO: Need to return an unmodiiable collection in both cases
+	/**
+	 * Returns an unmodifiable map. Never null.
+	 * @return
+	 */
 	public Map<RelativeBusinessObjectReference, BusinessObjectNode> getChildrenMap() {
-		return children == null ? Collections.emptyMap() : children;
+		return children == null ? Collections.emptyMap() : Collections.unmodifiableMap(children);
 	}
 	
 	public BusinessObjectNode getChild(final RelativeBusinessObjectReference ref) {

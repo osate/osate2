@@ -58,7 +58,7 @@ public class DistributeHorizontallyAction extends SelectionAction {
 					}	
 				}
 			}
-		});	
+		});
 	}
 
 	/**

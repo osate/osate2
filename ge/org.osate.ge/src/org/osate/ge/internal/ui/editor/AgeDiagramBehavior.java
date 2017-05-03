@@ -60,15 +60,11 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.context.impl.UpdateContext;
-import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.pictograms.Connection;
-import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.mm.pictograms.FreeFormConnection;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IPeService;
 import org.eclipse.graphiti.ui.editor.DefaultPaletteBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultPersistencyBehavior;
 import org.eclipse.graphiti.ui.editor.DefaultRefreshBehavior;
@@ -98,18 +94,15 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram.UpdaterListener;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
@@ -128,7 +121,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 
 import java.util.Map;
 
-public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {
+public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {	
 	private GraphitiAgeDiagram graphitiAgeDiagram;
 	private IProject project = null;
 	private boolean updateInProgress = false;
@@ -853,7 +846,15 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).setRootBoReference(rootBoRef).build());
 
 				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		
-				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain(), coloringProvider);				
+				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain(), coloringProvider, 
+						new UpdaterListener() {
+							@Override
+							public void onUpdateFinished() {
+								// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
+								final PictogramElement[] pes = diagramBehavior.getSelectedPictogramElements();
+								setPictogramElementsForSelection(pes);
+							}
+				});
 								
 				return graphitiAgeDiagram.getGraphitiDiagram();
 			}

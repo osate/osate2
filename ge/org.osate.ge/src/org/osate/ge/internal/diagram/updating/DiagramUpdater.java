@@ -63,6 +63,8 @@ public class DiagramUpdater {
 		m.put(ref, newElementPosition);
 	}	
 
+	// Updates the diagram.
+	// As part of the update process the auto content filter settings may be cleared for non-manual nodes.
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
 		BusinessObjectNode tmpTree = createBusinessObjectNode(diagram, futureElementPositionMap);
@@ -306,7 +308,6 @@ public class DiagramUpdater {
 			final Collection<DiagramElement> elements,
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
 		for(final DiagramElement e : elements) {
-			// TODO: Diagram element need something
 			final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getRelativeReference(), e.getBusinessObject(), e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
 			childNode.setAutoContentsFilter(e.getAutoContentsFilter());			
 			createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap);

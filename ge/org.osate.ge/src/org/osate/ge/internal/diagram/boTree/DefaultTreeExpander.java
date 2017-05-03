@@ -19,18 +19,24 @@ import org.osate.aadl2.Generalization;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.model.TaggedValue;
+import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
 
-// TODO: Rename
+/**
+ * A TreeExpander whose results contain all elements provided by registered business object providers which are already in the diagram business object tree
+ * or indicated by auto contents filter.
+ * 
+ * Diagrams which have a root business object specified will only contain the specified business object as a root.
+ */
 public class DefaultTreeExpander implements TreeExpander {	
 	// A simple business object context which is to designed to represent the project level. It has no parent and it has no business object.
 	private final BusinessObjectContext projectBoc = new BusinessObjectContext() {					
@@ -69,11 +75,12 @@ public class DefaultTreeExpander implements TreeExpander {
 	 * @return
 	 */
 	@Override
-	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, BusinessObjectNode tree) {
+	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
 		// Refresh Child Nodes
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {		
-			// TODO: DOcument special handling of potential business objects to avoid listing packages, etc.
+			// If the root business object is non-null, then only one root business object may existing in the diagram and it is restricted to the referenced object.
+			// This restriction prevents the need to retrieve all packages as potential root business objects.
 			// Determine what business objects are required based on the diagram configuration
 			final Collection<Object> potentialBusinessObjects;
 			final ContentsFilter filter;
@@ -94,7 +101,7 @@ public class DefaultTreeExpander implements TreeExpander {
 	
 			final BusinessObjectNode newRoot = nodeFactory.create(null, null, true, filter, Completeness.UNKNOWN);
 			
-			// TODO: Rename
+			// Populate the new tree
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();	
 			final Map<RelativeBusinessObjectReference, Object> boMap = getChildBusinessObjects(potentialBusinessObjects, oldNodes.keySet(), newRoot.getAutoContentsFilter());
 			createNodes(eclipseCtx, boMap, oldNodes, newRoot);
@@ -106,7 +113,6 @@ public class DefaultTreeExpander implements TreeExpander {
 		}
 	}	
 
-	// TODO: Rename oldNodeMap
 	private void createNodes(
 			final IEclipseContext eclipseCtx,
 			final Map<RelativeBusinessObjectReference, Object> newBoMap, 
@@ -127,15 +133,14 @@ public class DefaultTreeExpander implements TreeExpander {
 			final BusinessObjectNode parentNode,
 			final Object bo,
 			final RelativeBusinessObjectReference relReference) {		
-		// TODO: Check the old node map
-		final BusinessObjectNode oldNode = oldNodeMap.get(relReference); // TODO: Rename
+		// Get the node which is in the input tree from the old node map
+		final BusinessObjectNode oldNode = oldNodeMap.get(relReference);
 		
 		// Create the node
-		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == null ? ContentsFilter.ALLOW_FUNDAMENTAL : oldNode.getAutoContentsFilter();
+		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == null ? getDefaultContentsFilter(bo) : oldNode.getAutoContentsFilter();
 		final BusinessObjectNode newNode = nodeFactory.create(parentNode, bo, oldNode == null ? false : oldNode.isManual(), autoContentsFilter, Completeness.UNKNOWN);
     	
 		// Determine the business objects for which nodes in the tree should be created.
-    	// TODO: Shortcut getting the potential business objects if auto contents filter is none and there are no children..
     	final Map<RelativeBusinessObjectReference, BusinessObjectNode> childOldNodes =
     			oldNode == null ?
     			Collections.emptyMap() :
@@ -146,14 +151,22 @@ public class DefaultTreeExpander implements TreeExpander {
     	createNodes(eclipseCtx, childBoMap, childOldNodes, newNode);
 	}
 	
-	// Build a collection of all the child business objects that are needed based on children from providers, 
-	// old nodes, and the auto contents filter	
-	// TODO: Describe purpose
+	private ContentsFilter getDefaultContentsFilter(final Object bo) {
+		if(bo instanceof Subcomponent) {
+			return ContentsFilter.ALLOW_TYPE;
+		}
+		
+		return ContentsFilter.ALLOW_FUNDAMENTAL;
+	}
+	
+	// Build a collection of all the child business objects based on children from providers, old nodes, and the auto contents filter	
+	// It filters the potential business objects based on the children in the input tree and the auto contents filter.
+	// If an object is in the previous tree, it will be in the new tree.
+	// A map between the relative reference and the business object is returned.
 	private Map<RelativeBusinessObjectReference, Object> getChildBusinessObjects(final Collection<Object> potentialBusinessObjects,
-			final Collection<RelativeBusinessObjectReference> oldNodeRefs, // TODO: Rename
+			final Collection<RelativeBusinessObjectReference> oldNodeRefs,
 			final ContentsFilter contentsFilter) {
 		
-		// TODO: Rename
 		final Map<RelativeBusinessObjectReference, Object> potentialBusinessObjectsMap = potentialBusinessObjects.stream().
 				collect(Collectors.toMap(
 						(bo) -> Objects.requireNonNull(refService.getRelativeReference(bo), "Unable to build relative reference for " + bo),
@@ -166,8 +179,10 @@ public class DefaultTreeExpander implements TreeExpander {
 
 		case ALLOW_FUNDAMENTAL:
 		{
-			// TODO: Objects from old node map and filtered objects from providers			
-			final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);			
+			// Create a map containing potential business objects which existed in the input tree		
+			final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);
+			
+			// Add additional objects based based on the content filter
 			potentialBusinessObjectsMap.entrySet().stream().
 				filter((e) -> isFundamental(e.getValue())).
 				sequential().
@@ -179,8 +194,10 @@ public class DefaultTreeExpander implements TreeExpander {
 		}
 		
 		case ALLOW_TYPE: {
-			// TODO: Objects from old node map and filtered objects from providers			
+			// Create a map containing potential business objects which existed in the input tree	
 			final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);			
+						
+			// Add additional objects based based on the content filter
 			potentialBusinessObjectsMap.entrySet().stream().
 				filter((e) -> isInType(e.getValue())).
 				sequential().
@@ -197,10 +214,8 @@ public class DefaultTreeExpander implements TreeExpander {
 		}
 	}
 	
-	// TODO: Rename
-	// TODO: Describe purpose. Get up to date business objects
 	private Map<RelativeBusinessObjectReference, Object> createReferenceToBusinessObjectMapFromReferences(final Collection<RelativeBusinessObjectReference> refs,
-			Map<RelativeBusinessObjectReference, Object> potentialBusinessObjectsMap) {
+			final Map<RelativeBusinessObjectReference, Object> potentialBusinessObjectsMap) {
 		final Map<RelativeBusinessObjectReference, Object> results = new HashMap<>();
 		for(final RelativeBusinessObjectReference relRef : refs) {
 			final Object bo = potentialBusinessObjectsMap.get(relRef);
@@ -212,17 +227,41 @@ public class DefaultTreeExpander implements TreeExpander {
 	}
 	
 	private boolean isFundamental(final Object bo) {
-		return bo instanceof Generalization || bo instanceof ModeTransitionTrigger || bo instanceof TaggedValue; // TODO: Remove tagged value
+		if(bo instanceof Generalization || bo instanceof ModeTransitionTrigger) {
+			return true;
+		}
+		
+		if(bo instanceof Tag) {
+			final Tag tag = (Tag)bo;
+			if(tag.key.equals(Tag.KEY_UNIDIRECTIONAL) ||
+					tag.key.equals(Tag.KEY_SUBPROGRAM_CALL_CALLED_SUBPROGRAM)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}	
 	
 	private boolean isInType(final Object bo) {
-		return bo instanceof Classifier || 
+		if(isFundamental(bo) ||
+				bo instanceof Classifier || 
 				bo instanceof Generalization || 
 				bo instanceof Feature || 
 				bo instanceof FlowSpecification || 
 				bo instanceof Mode || 
-				bo instanceof ModeTransition ||
-				bo instanceof TaggedValue;
+				bo instanceof ModeTransition) {
+			return true;
+		}
+		
+		if(bo instanceof Tag) {
+			final Tag tag = (Tag)bo;
+			if(tag.key.equals(Tag.KEY_SUBCOMPONENT_TYPE)) {
+				return true;
+			}
+		}
+		
+		
+		return false;
 	}
 	
 	/**
