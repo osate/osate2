@@ -128,6 +128,8 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 		if (childrenFeatures == null) {
 			super.getChildrenFeatures(object);
 			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedFlowSegment());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_InEnd());
+			childrenFeatures.add(Aadl2Package.eINSTANCE.getFlowImplementation_OutEnd());
 		}
 		return childrenFeatures;
 	}
@@ -201,6 +203,8 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
 			return;
 		case Aadl2Package.FLOW_IMPLEMENTATION__OWNED_FLOW_SEGMENT:
+		case Aadl2Package.FLOW_IMPLEMENTATION__IN_END:
+		case Aadl2Package.FLOW_IMPLEMENTATION__OUT_END:
 			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), true, false));
 			return;
 		}
@@ -220,6 +224,33 @@ public class FlowImplementationItemProvider extends ModalPathItemProvider {
 
 		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowImplementation_OwnedFlowSegment(),
 				Aadl2Factory.eINSTANCE.createFlowSegment()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowImplementation_InEnd(),
+				Aadl2Factory.eINSTANCE.createFlowEnd()));
+
+		newChildDescriptors.add(createChildParameter(Aadl2Package.eINSTANCE.getFlowImplementation_OutEnd(),
+				Aadl2Factory.eINSTANCE.createFlowEnd()));
+	}
+
+	/**
+	 * This returns the label text for {@link org.eclipse.emf.edit.command.CreateChildCommand}.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String getCreateChildText(Object owner, Object feature, Object child, Collection<?> selection) {
+		Object childFeature = feature;
+		Object childObject = child;
+
+		boolean qualify = childFeature == Aadl2Package.eINSTANCE.getFlowImplementation_InEnd()
+				|| childFeature == Aadl2Package.eINSTANCE.getFlowImplementation_OutEnd();
+
+		if (qualify) {
+			return getString("_UI_CreateChild_text2",
+					new Object[] { getTypeText(childObject), getFeatureText(childFeature), getTypeText(owner) });
+		}
+		return super.getCreateChildText(owner, feature, child, selection);
 	}
 
 }

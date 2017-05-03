@@ -364,7 +364,7 @@ public class ConnectedElementImpl extends ElementImpl implements ConnectedElemen
 		}
 		return super.eIsSet(featureID);
 	}
-	
+
 	@Override
 	public ConnectionEnd getLastConnectionEnd() {
 		ConnectedElement current = this;

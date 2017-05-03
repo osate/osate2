@@ -250,6 +250,34 @@ public class InstantiateModel {
 		return buildInstanceModelFile(ci, new NullProgressMonitor());
 	}
 
+	/**
+	 * generate/build instance model without executing in a transactional Editing Domain
+	 * @param ci
+	 * @return
+	 * @throws Exception
+	 */
+	public static SystemInstance generateInstanceModelFile(final ComponentImplementation ci) throws Exception {
+		// add it to a resource; otherwise we cannot attach error messages to
+		// the instance file
+		ComponentImplementation ici = ci;
+		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(ci);
+		if (eobj instanceof ComponentImplementation) {
+			ici = (ComponentImplementation) eobj;
+		}
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
+		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
+
+		// now instantiate the rest of the model
+		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
+				new AnalysisErrorReporterManager(
+						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
+		SystemInstance root = instantiateModel.createSystemInstanceInt(ici, aadlResource);
+		if (root == null) {
+			errorMessage = InstantiateModel.getErrorMessage();
+		}
+		return root;
+	}
+
 	/*
 	 * This method will construct an instance model, save it on disk and return
 	 * its root object The method will make sure the declarative models are up
@@ -282,7 +310,7 @@ public class InstantiateModel {
 	/*
 	 * This method will regenerate all instance models in the workspace
 	 */
-	public static void rebuildAllInstanceModelFiles() throws Exception {
+	public static void rebuildAllInstanceModelFiles(final IProgressMonitor monitor) throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		List<URI> instanceRoots = new ArrayList<URI>();
 		List<IResource> instanceIResources = new ArrayList<IResource>();
@@ -303,6 +331,7 @@ public class InstantiateModel {
 		for (int i = 0; i < instanceRoots.size(); i++) {
 			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet()
 					.getEObject(instanceRoots.get(i), true);
+			monitor.subTask("Reinstantiating " + ci.getName());
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
@@ -355,17 +384,6 @@ public class InstantiateModel {
 			throw new InterruptedException();
 		}
 
-		try {
-			// We're done: Save the model.
-			// We don't respond to a cancel at this point
-			monitor.subTask("Saving instance model");
-			aadlResource.save(null);
-		} catch (IOException e) {
-			e.printStackTrace();
-			setErrorMessage(e.getMessage());
-			return null;
-		}
-
 		resultList = (List<SystemInstance>) cmd.getResult();
 		result = resultList.get(0);
 
@@ -405,6 +423,7 @@ public class InstantiateModel {
 				e.printStackTrace();
 				return null;
 			}
+			aadlResource.save(null);
 		} catch (IOException e) {
 			e.printStackTrace();
 			setErrorMessage(e.getMessage());

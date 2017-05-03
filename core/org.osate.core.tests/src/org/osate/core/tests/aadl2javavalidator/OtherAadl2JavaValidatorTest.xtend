@@ -1141,13 +1141,6 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 			"testCheckFlowPathElements".assertEquals(name)
 			publicSection.ownedClassifiers.head as SystemImplementation => [
 				"S.i".assertEquals(name)
-				ownedFlowImplementations.get(0) => [
-					"fl1".assertEquals(specification.name)
-//					assertError(testFileResult.issues, issueCollection, 
-//					"'fg_out.p' does not match the out flow feature identifier 'fg_out' in the flow specification.",
-//					"'fg_in.p' does not match the in flow feature identifier 'fg_in' in the flow specification.")
-					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")
-				]
 				ownedFlowImplementations.get(1) => [
 					"fl2".assertEquals(specification.name)
 					assertWarning(testFileResult.issues, issueCollection, "Flow implementation is empty and does not add value to the model")

@@ -48,6 +48,7 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentPrototypeActual;
 import org.osate.aadl2.ComponentPrototypeBinding;
 import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.Connection;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupPrototype;
 import org.osate.aadl2.FeatureGroupPrototypeActual;
@@ -61,6 +62,8 @@ import org.osate.aadl2.Prototype;
 import org.osate.aadl2.PrototypeBinding;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureCategory;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
@@ -453,4 +456,47 @@ public class InstanceUtil {
 	public static boolean isNoMode(SystemOperationMode som) {
 		return som.getName().equalsIgnoreCase(NORMAL_SOM_NAME) || som.getName().equalsIgnoreCase("NoModes");
 	}
+
+	/**
+	 * find connection instance with connection of name "name" in component instance
+	 * @param ci
+	 * @param name
+	 * @return
+	 */
+	public static ConnectionInstance findConnectionInstance(ComponentInstance ci, Connection conn) { // String name) {
+		for (ConnectionInstance ei : ci.getConnectionInstances()) {
+			for (ConnectionReference connref : ei.getConnectionReferences()) {
+//				Connection conn = connref.getConnection();
+				if (conn == connref.getConnection())// name.equalsIgnoreCase(conn.getName()))
+					return ei;
+			}
+		}
+		return null;
+	}
+
+	public static ComponentInstance findConnectionContext(ConnectionInstance conni, Connection conn) {
+		for (ConnectionReference connref : conni.getConnectionReferences()) {
+//			Connection conn = connref.getConnection();
+			if (conn == connref.getConnection())// name.equalsIgnoreCase(conn.getName()))
+				return connref.getContext();
+		}
+		return null;
+	}
+
+	/**
+	 * return cross connection of a connection instance
+	 * @param conni
+	 * @return Connection
+	 */
+	public static Connection getCrossConnection(ConnectionInstance conni) {
+		for (ConnectionReference connref : conni.getConnectionReferences()) {
+			Connection conn = connref.getConnection();
+			if (conn.getSource().getContext() instanceof Subcomponent
+					&& conn.getDestination().getContext() instanceof Subcomponent) {
+				return conn;
+			}
+		}
+		return null;
+	}
+
 }
