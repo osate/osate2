@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2.properties.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -450,6 +451,36 @@ public class GetProperties {
 			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
+	}
+	
+	public static List<EnumerationLiteral> getProvidedConnectionQualityOfService(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property providedConnQos = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.PROVIDED_CONNECTION_QUALITY_OF_SERVICE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(providedConnQos);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+	
+	public static List<EnumerationLiteral> getRequiredConnectionQualityOfService(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property requiredConnQos = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.REQUIRED_CONNECTION_QUALITY_OF_SERVICE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(requiredConnQos);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
 	}
 
 	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
