@@ -79,22 +79,7 @@ import org.osate.categories.categories.CategoryFilter
 import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
-import static extension org.osate.assure.util.AssureUtilExtension.assureResultCounts
-import static extension org.osate.assure.util.AssureUtilExtension.constructDescription
-import static extension org.osate.assure.util.AssureUtilExtension.constructLabel
-import static extension org.osate.assure.util.AssureUtilExtension.constructMessage
-import static extension org.osate.assure.util.AssureUtilExtension.getName
-import static extension org.osate.assure.util.AssureUtilExtension.getTarget
-import static extension org.osate.assure.util.AssureUtilExtension.isErrorTimeOut
-import static extension org.osate.assure.util.AssureUtilExtension.isFail
-import static extension org.osate.assure.util.AssureUtilExtension.isSuccessful
-import static extension org.osate.assure.util.AssureUtilExtension.isZeroCount
-import static extension org.osate.assure.util.AssureUtilExtension.isZeroTotalCount
-import static extension org.osate.assure.util.AssureUtilExtension.recomputeAllCounts
-import static extension org.osate.assure.util.AssureUtilExtension.resetToTBD
-import static extension org.osate.assure.util.AssureUtilExtension.toTextLabel
-import org.eclipse.xtext.resource.XtextResource
-import org.osate.assure.ui.AssureUiModule
+import static extension org.osate.assure.util.AssureUtilExtension.*
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -191,9 +176,9 @@ class AlisaView extends ViewPart {
 	}
 
 	override createPartControl(Composite parent) {
-		greenColor = new Color(viewSite.workbenchWindow.workbench.display, 171, 221, 164)
+		greenColor = new Color(viewSite.workbenchWindow.workbench.display, 0,153,0)//171, 221, 164)
 		yellowColor = new Color(viewSite.workbenchWindow.workbench.display, 255, 255, 191)
-		orangeColor = new Color(viewSite.workbenchWindow.workbench.display, 253, 174, 97)
+		orangeColor = new Color(viewSite.workbenchWindow.workbench.display, 255,128,0)//253, 174, 97)
 		blueColor = new Color(viewSite.workbenchWindow.workbench.display, 43, 131, 186)
 		redColor = new Color(viewSite.workbenchWindow.workbench.display, 215, 25, 28)
 
@@ -494,26 +479,26 @@ class AlisaView extends ViewPart {
 //					labelProvider = getColorColumnLabelProvider(columnIndex)
 //				]
 //			]
+//			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
+//				column.alignment = SWT.LEFT
+//				column.text = "results count"
+//				columnLayout.setColumnData(column, new ColumnWeightData(4))
+//				labelProvider = new ColumnLabelProvider {
+//					override getText(Object element) {
+//						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+//							AssureResult: eObject.assureResultCounts
+//						}
+//					}
+//				}
+//			]
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
-				column.text = "results count"
-				columnLayout.setColumnData(column, new ColumnWeightData(4))
+				column.text = "Pass"
+				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							AssureResult: eObject.assureResultCounts
-						}
-					}
-				}
-			]
-			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
-				column.alignment = SWT.LEFT
-				column.text = "Success"
-				columnLayout.setColumnData(column, new ColumnWeightData(4))
-				labelProvider = new ColumnLabelProvider {
-					override getText(Object element) {
-						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							AssureResult: eObject.metrics.successCount.toString
+							AssureResult: eObject.successToString
 						}
 					}
 
@@ -525,11 +510,11 @@ class AlisaView extends ViewPart {
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "Fail"
-				columnLayout.setColumnData(column, new ColumnWeightData(4))
+				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							AssureResult: eObject.metrics.failCount.toString
+							AssureResult: eObject.failToString
 						}
 					}
 
@@ -540,12 +525,12 @@ class AlisaView extends ViewPart {
 			]
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
-				column.text = "error"
-				columnLayout.setColumnData(column, new ColumnWeightData(4))
+				column.text = "Error"
+				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							AssureResult: eObject.metrics.errorCount.toString
+							AssureResult: eObject.errorToString
 						}
 					}
 
@@ -557,11 +542,11 @@ class AlisaView extends ViewPart {
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "tbd"
-				columnLayout.setColumnData(column, new ColumnWeightData(4))
+				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-							AssureResult: eObject.metrics.tbdCount.toString
+							AssureResult: eObject.tbdToString
 						}
 					}
 
@@ -591,22 +576,22 @@ class AlisaView extends ViewPart {
 					}
 				}
 			]
-			new TreeViewerColumn(treeViewer, SWT.LEFT) => [
-				columnLayout.setColumnData(column, new ColumnPixelData(100))
-				column.text = "Time (msec)"
-				labelProvider = new ColumnLabelProvider {
-					override getText(Object element) {
-						val vaResult = resourceSetForUI.getEObject(element as URI, true)
-						if (vaResult instanceof VerificationActivityResult) {
-							val metrics = vaResult.metrics
-							if (metrics !== null && metrics.executionTime > 0) {
-								metrics.executionTime.toString
-							}
-						} else
-							""
-					}
-				}
-			]
+//			new TreeViewerColumn(treeViewer, SWT.LEFT) => [
+//				columnLayout.setColumnData(column, new ColumnPixelData(100))
+//				column.text = "Time (msec)"
+//				labelProvider = new ColumnLabelProvider {
+//					override getText(Object element) {
+//						val vaResult = resourceSetForUI.getEObject(element as URI, true)
+//						if (vaResult instanceof VerificationActivityResult) {
+//							val metrics = vaResult.metrics
+//							if (metrics !== null && metrics.executionTime > 0) {
+//								metrics.executionTime.toString
+//							}
+//						} else
+//							""
+//					}
+//				}
+//			]
 
 			val manager = new MenuManager
 			manager.removeAllWhenShown = true
@@ -638,47 +623,47 @@ class AlisaView extends ViewPart {
 		rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE).map[EObjectURI].toList
 	}
 
-	def private getColorColumnLabelProvider(int columnIndex) {
-		new ColumnLabelProvider {
-			override getText(Object element) {
-				""
-			}
-
-			override getBackground(Object element) {
-				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-					ResultIssue:
-						switch eObject.issueType {
-							case ERROR: null
-							case SUCCESS: greenColor
-							case WARNING: yellowColor
-							case INFO: orangeColor
-							default: blueColor
-						}
-					AssureResult case eObject.successful:
-						greenColor
-					AssureResult case eObject.zeroCount:
-						orangeColor
-					ClaimResult,
-					AssuranceCaseResult,
-					ModelResult,
-					SubsystemResult:
-						AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject, blueColor, greenColor,
-							redColor).colorValues.get(columnIndex)
-					AssureResult case eObject.fail:
-						redColor
-					AssureResult case eObject.errorTimeOut:
-						null
-					VerificationActivityResult,
-					ValidationResult,
-					ThenResult,
-					ElseResult:
-						blueColor
-					default:
-						redColor
-				}
-			}
-		}
-	}
+////	def private getColorColumnLabelProvider(int columnIndex) {
+////		new ColumnLabelProvider {
+////			override getText(Object element) {
+////				""
+////			}
+//
+//			override getBackground(Object element) {
+//				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+//					ResultIssue:
+//						switch eObject.issueType {
+//							case ERROR: null
+//							case SUCCESS: greenColor
+//							case WARNING: yellowColor
+//							case INFO: orangeColor
+//							default: blueColor
+//						}
+//					AssureResult case eObject.successful:
+//						greenColor
+//					AssureResult case eObject.zeroCount:
+//						orangeColor
+//					ClaimResult,
+//					AssuranceCaseResult,
+//					ModelResult,
+//					SubsystemResult:
+//						AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject, blueColor, greenColor,
+//							redColor).colorValues.get(columnIndex)
+//					AssureResult case eObject.fail:
+//						redColor
+//					AssureResult case eObject.errorTimeOut:
+//						null
+//					VerificationActivityResult,
+//					ValidationResult,
+//					ThenResult,
+//					ElseResult:
+//						blueColor
+//					default:
+//						redColor
+//				}
+//			}
+//		}
+//	}
 
 
 	def private updateAssureViewer(URI assuranceCaseURI, boolean updateRequirementsCoverageView) {
@@ -821,4 +806,10 @@ class AlisaView extends ViewPart {
 		})
 		assureProject -> assuranceCaseResultHolder.get
 	}
+	
+		
+	def package void update(URI verificationResultURI) {
+		assureViewer.update(verificationResultURI, null)
+	}
+	
 }

@@ -1347,6 +1347,30 @@ class AssureUtilExtension {
 		if (plan.title !== null) return plan.title
 		"Verified system implementation " + plan.target.getQualifiedName()
 	}
+	
+	def static String successToString(AssureResult ar){
+		val cnt = ar.metrics.successCount
+		if (cnt == 0) return ""
+		return cnt.toString
+	}
+	
+	def static String failToString(AssureResult ar){
+		val cnt = ar.metrics.failCount
+		if (cnt == 0) return ""
+		return cnt.toString
+	}
+	
+	def static String errorToString(AssureResult ar){
+		val cnt = ar.metrics.errorCount
+		if (cnt == 0) return ""
+		return cnt.toString
+	}
+	
+	def static String tbdToString(AssureResult ar){
+		val cnt = ar.metrics.tbdCount
+		if (cnt == 0) return ""
+		return cnt.toString
+	}
 
 	def static String getName(VerificationActivityResult cr) {
 		if (!Aadl2Util.isNull(cr.target)) {
