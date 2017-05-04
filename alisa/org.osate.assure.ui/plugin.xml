@@ -229,13 +229,6 @@
        </view>
        <view
              category="org.osate.alisa.assure"
-             class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureProgressView"
-             icon="icons/claims.png"
-             id="org.osate.assure.ui.views.assureProgressView"
-             name="Assurance Progress">
-       </view>
-       <view
-             category="org.osate.alisa.assure"
              class="org.osate.assure.ui.AssureExecutableExtensionFactory:org.osate.assure.ui.views.AssureRequirementsCoverageView"
              icon="icons/claims.png"
              id="org.osate.assure.ui.views.assure.requirements.coverage.view"

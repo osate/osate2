@@ -80,6 +80,8 @@ import org.osate.verify.util.VerifyUtilExtension
 
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.assure.util.AssureUtilExtension.*
+import org.eclipse.xtext.EcoreUtil2
+import org.eclipse.emf.ecore.EObject
 
 class AlisaView extends ViewPart {
 	val static ASSURANCE_CASE_URIS_KEY = "ASSURANCE_CASE_URIS_KEY"
@@ -176,9 +178,9 @@ class AlisaView extends ViewPart {
 	}
 
 	override createPartControl(Composite parent) {
-		greenColor = new Color(viewSite.workbenchWindow.workbench.display, 0,153,0)//171, 221, 164)
+		greenColor = new Color(viewSite.workbenchWindow.workbench.display, 0, 153, 0) // 171, 221, 164)
 		yellowColor = new Color(viewSite.workbenchWindow.workbench.display, 255, 255, 191)
-		orangeColor = new Color(viewSite.workbenchWindow.workbench.display, 255,128,0)//253, 174, 97)
+		orangeColor = new Color(viewSite.workbenchWindow.workbench.display, 255, 128, 0) // 253, 174, 97)
 		blueColor = new Color(viewSite.workbenchWindow.workbench.display, 43, 131, 186)
 		redColor = new Color(viewSite.workbenchWindow.workbench.display, 215, 25, 28)
 
@@ -231,7 +233,6 @@ class AlisaView extends ViewPart {
 
 					override getChildren(Object parentElement) {
 						switch parentEObject : resourceSetForUI.getEObject(parentElement as URI, true) {
-//						AssuranceCase: parentEObject.assurancePlans.map[URI]
 							default: #[]
 						}
 					}
@@ -249,7 +250,6 @@ class AlisaView extends ViewPart {
 
 					override hasChildren(Object element) {
 						switch elementEObject : resourceSetForUI.getEObject(element as URI, true) {
-//						AssuranceCase: !elementEObject.assurancePlans.empty
 							default: false
 						}
 					}
@@ -461,40 +461,10 @@ class AlisaView extends ViewPart {
 					}
 				}
 			]
-//			(0 ..< 10).forEach [ columnIndex |
-//				new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
-//					column.alignment = switch columnIndex {
-//						case 0,
-//						case 5: SWT.LEFT
-//						case columnIndex <= 4: SWT.CENTER
-//						default: SWT.RIGHT
-//					}
-//					column.text = switch columnIndex {
-//						case 0: "0%"
-//						case 5: "50%   -"
-//						case 9: "100%"
-//						default: "-"
-//					}
-//					columnLayout.setColumnData(column, new ColumnPixelData(45))
-//					labelProvider = getColorColumnLabelProvider(columnIndex)
-//				]
-//			]
-//			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
-//				column.alignment = SWT.LEFT
-//				column.text = "results count"
-//				columnLayout.setColumnData(column, new ColumnWeightData(4))
-//				labelProvider = new ColumnLabelProvider {
-//					override getText(Object element) {
-//						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-//							AssureResult: eObject.assureResultCounts
-//						}
-//					}
-//				}
-//			]
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "Pass"
-				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
+				columnLayout.setColumnData(column, new ColumnWeightData(1, 24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
@@ -510,7 +480,7 @@ class AlisaView extends ViewPart {
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "Fail"
-				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
+				columnLayout.setColumnData(column, new ColumnWeightData(1, 24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
@@ -526,7 +496,7 @@ class AlisaView extends ViewPart {
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
 				column.text = "Error"
-				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
+				columnLayout.setColumnData(column, new ColumnWeightData(1, 24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
@@ -541,8 +511,8 @@ class AlisaView extends ViewPart {
 			]
 			new TreeViewerColumn(treeViewer, SWT.RIGHT) => [
 				column.alignment = SWT.LEFT
-				column.text = "tbd"
-				columnLayout.setColumnData(column, new ColumnWeightData(1,24))
+				column.text = "Todo"
+				columnLayout.setColumnData(column, new ColumnWeightData(1, 24))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
@@ -576,22 +546,6 @@ class AlisaView extends ViewPart {
 					}
 				}
 			]
-//			new TreeViewerColumn(treeViewer, SWT.LEFT) => [
-//				columnLayout.setColumnData(column, new ColumnPixelData(100))
-//				column.text = "Time (msec)"
-//				labelProvider = new ColumnLabelProvider {
-//					override getText(Object element) {
-//						val vaResult = resourceSetForUI.getEObject(element as URI, true)
-//						if (vaResult instanceof VerificationActivityResult) {
-//							val metrics = vaResult.metrics
-//							if (metrics !== null && metrics.executionTime > 0) {
-//								metrics.executionTime.toString
-//							}
-//						} else
-//							""
-//					}
-//				}
-//			]
 
 			val manager = new MenuManager
 			manager.removeAllWhenShown = true
@@ -623,49 +577,6 @@ class AlisaView extends ViewPart {
 		rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE).map[EObjectURI].toList
 	}
 
-////	def private getColorColumnLabelProvider(int columnIndex) {
-////		new ColumnLabelProvider {
-////			override getText(Object element) {
-////				""
-////			}
-//
-//			override getBackground(Object element) {
-//				switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-//					ResultIssue:
-//						switch eObject.issueType {
-//							case ERROR: null
-//							case SUCCESS: greenColor
-//							case WARNING: yellowColor
-//							case INFO: orangeColor
-//							default: blueColor
-//						}
-//					AssureResult case eObject.successful:
-//						greenColor
-//					AssureResult case eObject.zeroCount:
-//						orangeColor
-//					ClaimResult,
-//					AssuranceCaseResult,
-//					ModelResult,
-//					SubsystemResult:
-//						AssureColorBlockCountHolder.createAssureColorBlockCountHolder(eObject, blueColor, greenColor,
-//							redColor).colorValues.get(columnIndex)
-//					AssureResult case eObject.fail:
-//						redColor
-//					AssureResult case eObject.errorTimeOut:
-//						null
-//					VerificationActivityResult,
-//					ValidationResult,
-//					ThenResult,
-//					ElseResult:
-//						blueColor
-//					default:
-//						redColor
-//				}
-//			}
-//		}
-//	}
-
-
 	def private updateAssureViewer(URI assuranceCaseURI, boolean updateRequirementsCoverageView) {
 		val newURIs = assuranceCaseURI -> selectedFilters.get(assuranceCaseURI)
 		if (displayedCaseAndFilter != newURIs) {
@@ -687,9 +598,16 @@ class AlisaView extends ViewPart {
 				}
 
 			val expandedElements = assureViewer.expandedElements
-			assureViewer.input = if (result !== null) {
-				result.recomputeAllCounts(filter)
-				#[result.URI]
+			if (updateRequirementsCoverageView) {
+				assureViewer.input = if (result !== null) {
+					result.recomputeAllCounts(filter)
+					#[result.URI]
+				}
+			} else {
+				if (result !== null) {
+					result.recomputeAllCounts(filter)
+					updateAllAssureResult(result)
+				}
 			}
 			assureViewer.expandedElements = expandedElements
 			if (updateRequirementsCoverageView) {
@@ -704,6 +622,10 @@ class AlisaView extends ViewPart {
 				}
 			}
 		}
+	}
+
+	private def void updateAllAssureResult(AssuranceCaseResult caseResult) {
+		EcoreUtil2.eAllOfType(caseResult, AssureResult).forEach[ao|update(ao.URI)]
 	}
 
 	def private verifyAll(AssuranceCase assuranceCase, URI assuranceCaseURI) {
@@ -768,14 +690,13 @@ class AlisaView extends ViewPart {
 //				]
 				try {
 					assureProcessor.processCase(assuranceCaseResult, filter, monitor)
-//					viewSite.workbenchWindow.workbench.display.asyncExec[progressViewHolder.get.refresh]
 					Status.OK_STATUS
 				} catch (NoSuchMethodException e) {
 					Status.CANCEL_STATUS
 				}
 			}
 		}
-		job.rule = null//new MultiRule(#[assureProject, aadlProject])
+		job.rule = null // new MultiRule(#[assureProject, aadlProject])
 		job.schedule
 	}
 
@@ -806,10 +727,9 @@ class AlisaView extends ViewPart {
 		})
 		assureProject -> assuranceCaseResultHolder.get
 	}
-	
-		
+
 	def package void update(URI verificationResultURI) {
 		assureViewer.update(verificationResultURI, null)
 	}
-	
+
 }
