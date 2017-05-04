@@ -151,7 +151,7 @@ class AssureConstructor implements IAssureConstructor {
 		mr.metrics = factory.createMetrics
 		mr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase)
+		doAssurancePlanClaimResultsParts(acp, myplans, cc, mr.claimResult, mr.subsystemResult, mr.subAssuranceCase, false)
 
 		if (mr.claimResult.length == 0 && mr.subsystemResult.length == 0 && mr.subAssuranceCase.length == 0) return null
 
@@ -165,7 +165,7 @@ class AssureConstructor implements IAssureConstructor {
 		ComponentClassifier cc,
 		EList<ClaimResult> claimResultList,
 		EList<SubsystemResult> subsystemResultList,
-		EList<AssuranceCaseResult> subAssuranceCaseList
+		EList<AssuranceCaseResult> subAssuranceCaseList, boolean globalOnly
 	) {
 		// first collect any global and self includes
 		val selfPlans = new BasicEList()
@@ -237,7 +237,7 @@ class AssureConstructor implements IAssureConstructor {
 
 		if (cc instanceof ComponentImplementation) {
 			for (subc : cc.allSubcomponents) {
-				subc.generateSubsystemPlans(assurancePlan, subsystemResultList, subAssuranceCaseList)
+				subc.generateSubsystemPlans(assurancePlan, subsystemResultList, subAssuranceCaseList, globalOnly)
 			}
 		}
 
@@ -347,13 +347,13 @@ class AssureConstructor implements IAssureConstructor {
 		Subcomponent subc,
 		AssurancePlan parentap,
 		EList<SubsystemResult> subsystemResultList,
-		EList<AssuranceCaseResult> subAssuranceCaseList
+		EList<AssuranceCaseResult> subAssuranceCaseList, boolean globalOnly
 	) {
 		val cc = subc.allClassifier
 		if (cc === null) {
 			return
 		}
-		if (subc.isAssumeSubsystem(parentap)) {
+		if (globalOnly || subc.isAssumeSubsystem(parentap)) {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
 			return
 		}
@@ -389,7 +389,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult, null)
+		doAssurancePlanClaimResultsParts(mp, myplans, cc, ssr.claimResult, ssr.subsystemResult, null,false)
 		subsystemResultList.add(ssr)
 
 	}
@@ -406,7 +406,7 @@ class AssureConstructor implements IAssureConstructor {
 		ssr.metrics = factory.createMetrics
 		ssr.metrics.tbdCount = 0
 
-		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, null)
+		doAssurancePlanClaimResultsParts(mp, myplans, sub.allClassifier, ssr.claimResult, ssr.subsystemResult, null,true)
 		subsystemResultList.add(ssr)
 	}
 
