@@ -32,12 +32,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorType;
 
 public class ErrorModelReferenceHandler {
 	private final static String EMV2_REFERENCE_PREFIX = "emv2.";
-	private final static String TYPE_BEHAVIOR_STATE_MACHINE = "emv2.behavior";
-	private final static String TYPE_BEHAVIOR_EVENT = "emv2.be";
-	private final static String TYPE_BEHAVIOR_STATE = "emv2.bs";
-	private final static String TYPE_BEHAVIOR_TRANSITION = "emv2.bt";
-	private final static String TYPE_ERROR_TYPE = "emv2.et";
-	private final static String TYPE_ERROR_TYPE_EXT = "emv2.ete";
+	private final static String TYPE_BEHAVIOR_STATE_MACHINE = EMV2_REFERENCE_PREFIX + "behavior";
+	private final static String TYPE_BEHAVIOR_EVENT = EMV2_REFERENCE_PREFIX + "be";
+	private final static String TYPE_BEHAVIOR_STATE = EMV2_REFERENCE_PREFIX + "bs";
+	private final static String TYPE_BEHAVIOR_TRANSITION = EMV2_REFERENCE_PREFIX + "bt";
+	private final static String TYPE_ERROR_TYPE = EMV2_REFERENCE_PREFIX + "et";
+	private final static String TYPE_ERROR_TYPE_EXT = EMV2_REFERENCE_PREFIX + "ete";
 	
 	@BuildRelativeReference 
 	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {

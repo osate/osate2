@@ -22,6 +22,7 @@ import org.osate.aadl2.ComponentPrototype;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupType;
 import org.osate.aadl2.GroupExtension;
@@ -81,12 +82,12 @@ public class AadlBusinessObjectProvider {
 		} else if(bo instanceof AadlPackage) {
 			return getChildren((AadlPackage)bo, extService);
 		} else if(bo instanceof Classifier) {
-			return getChildren((Classifier)bo, true);
+			return getChildren((Classifier)bo, true, extService);
 		} else if(bo instanceof FeatureGroup) {
 			final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(boc, (FeatureGroup)bo);
 			return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
 		} else if(bo instanceof Subcomponent) {
-			return getChildren((Subcomponent)bo, boc);
+			return getChildren((Subcomponent)bo, boc, extService);
 		} else if(bo instanceof SubprogramCall) {
 			return getChildren((SubprogramCall)bo);
 		} else if(bo instanceof SubprogramCallSequence) {
@@ -155,14 +156,30 @@ public class AadlBusinessObjectProvider {
 		return null;
 	}
 	
+	private static AnnexSubclause getParsedAnnexSubclause(final NamedElement annexSubclause) {
+		if(annexSubclause instanceof DefaultAnnexSubclause) {
+			final AnnexSubclause parsedSubclause = ((DefaultAnnexSubclause) annexSubclause).getParsedAnnexSubclause();
+			
+			// Don't return libraries which inherit from DefaultAnnexSubclause
+			if(parsedSubclause instanceof DefaultAnnexSubclause) {
+				return null;
+			}
+			
+			return parsedSubclause;
+		}
+		
+		return null;
+	}
+	
 	private static Stream<?> getChildren(final Subcomponent sc, 
-			final BusinessObjectContext scBoc) {
+			final BusinessObjectContext scBoc,
+			final ExtensionService extService) {
 		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
 		if(cc == null) {
 			return null;
 		}
 		
-		Stream<?> results = getChildren(cc, false);
+		Stream<?> results = getChildren(cc, false, extService);
 		
 		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc);
 		if(scTypeTxt != null) {
@@ -222,7 +239,9 @@ public class AadlBusinessObjectProvider {
 		}
 	}
 	
-	private static Stream<?> getChildren(final Classifier classifier, boolean includeGeneralizations) {
+	private static Stream<?> getChildren(final Classifier classifier, 
+			final boolean includeGeneralizations,
+			final ExtensionService extService) {
 		Stream<?> children = Stream.empty();
 		
 		// Shapes
@@ -243,7 +262,20 @@ public class AadlBusinessObjectProvider {
 			children = Stream.concat(children, ((ComponentClassifier)classifier).getAllModes().stream());
 		}
 		
-		children = Stream.concat(children, getAllDefaultAnnexSubclauses(classifier).stream());
+		// Annex Subclauses
+		final Stream.Builder<AnnexSubclause> subclauseStreamBuilder = Stream.builder();
+		for(final AnnexSubclause annexSubclause : getAllDefaultAnnexSubclauses(classifier)) {
+			final AnnexSubclause parsedAnnexSubclause = getParsedAnnexSubclause(annexSubclause);
+			final boolean specializedHandling = parsedAnnexSubclause != null && extService.getApplicableBusinessObjectHandler(parsedAnnexSubclause) != null;
+
+			// Create the generic shape if specialized handling wasn't used
+			if(specializedHandling) {
+				subclauseStreamBuilder.add(parsedAnnexSubclause);
+			} else {
+				subclauseStreamBuilder.add(annexSubclause);
+			}
+		}
+		children = Stream.concat(children, subclauseStreamBuilder.build());
 
 		// Connections
 		if(classifier instanceof ComponentClassifier) {
