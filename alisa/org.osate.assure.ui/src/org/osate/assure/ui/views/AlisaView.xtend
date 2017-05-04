@@ -343,7 +343,7 @@ class AlisaView extends ViewPart {
 									verifyAll(eObject, uri)
 								}
 							})
-							add(new Action("Verify TBD") {
+							add(new Action("Verify Remaining") {
 								override run() {
 									verifyTBD(eObject, uri)
 								}
@@ -399,6 +399,7 @@ class AlisaView extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnWeightData(6))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
+						if (!(element instanceof URI)) return "??"
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							AssuranceCaseResult:
 								"Case " + eObject.name
