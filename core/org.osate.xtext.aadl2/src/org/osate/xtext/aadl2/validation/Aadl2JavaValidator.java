@@ -49,9 +49,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -65,7 +63,6 @@ import org.eclipse.emf.ecore.util.BasicInternalEList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.EcoreUtil2;
 import org.eclipse.xtext.Keyword;
-import org.eclipse.xtext.RuleCall;
 import org.eclipse.xtext.nodemodel.BidiIterable;
 import org.eclipse.xtext.nodemodel.ICompositeNode;
 import org.eclipse.xtext.nodemodel.INode;
@@ -1204,29 +1201,30 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(specFeature) || Aadl2Util.isNull(implFeature)) {
 			return;
 		}
-		
+
 		boolean match;
 		if (specContext == null) {
 			if (implContext == null) {
-				match = specFeature == implFeature;
+				match = specFeature.getName().equalsIgnoreCase(implFeature.getName());
 			} else {
-				match = specFeature == implContext;
+				match = specFeature.getName().equalsIgnoreCase(implContext.getName());
 			}
 		} else {
 			if (implContext == null) {
 				match = false;
 			} else {
-				match = specContext == implContext && specFeature == implFeature;
+				match = specContext.getName().equalsIgnoreCase(implContext.getName())
+						&& specFeature.getName().equalsIgnoreCase(implFeature.getName());
 			}
 		}
-		
+
 		if (!match) {
 			String specName = (specContext == null ? "" : specContext.getName() + ".") + specFeature.getName();
 			String implName = (implContext == null ? "" : implContext.getName() + ".") + implFeature.getName();
 			ICompositeNode outEndNode = NodeModelUtils.getNode(implOutEnd);
 			error('\'' + implName + "' does not match the out flow feature identifier '" + specName
 					+ "' in the flow specification.", flow, null, OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, implName,
-					specName, "" + outEndNode.getLastChild().getOffset(),"" + outEndNode.getOffset());
+					specName, "" + outEndNode.getLastChild().getOffset(), "" + outEndNode.getOffset());
 		}
 	}
 
@@ -1259,7 +1257,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(specFeature) || Aadl2Util.isNull(implFeature)) {
 			return;
 		}
-		
+
 		boolean match;
 		if (specContext == null) {
 			if (implContext == null) {
@@ -1274,7 +1272,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				match = specContext == implContext && specFeature == implFeature;
 			}
 		}
-		
+
 		if (!match) {
 			String specName = (specContext == null ? "" : specContext.getName() + ".") + specFeature.getName();
 			String implName = (implContext == null ? "" : implContext.getName() + ".") + implFeature.getName();
@@ -1605,15 +1603,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				return;
 			}
 		}
-		
+
 		FlowEnd specOutEnd = flow.getSpecification().getOutEnd();
 		FlowEnd implOutEnd = flow.getOutEnd();
 		if (specOutEnd != null && implOutEnd != null) {
-			if (specOutEnd.getContext() != implOutEnd.getContext() || specOutEnd.getFeature() != implOutEnd.getFeature()) {
+			if (specOutEnd.getContext() != implOutEnd.getContext()
+					|| specOutEnd.getFeature() != implOutEnd.getFeature()) {
 				return;
 			}
 		}
-		
+
 		if (flow.getOwnedFlowSegments().isEmpty()) {
 			warning("Flow implementation is empty and does not add value to the model", flow,
 					Aadl2Package.eINSTANCE.getFlowImplementation_Specification());
@@ -1635,12 +1634,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (chain.get(0) instanceof RefinableElement && chain.get(1) instanceof RefinableElement) {
 					RefinableElement connContext = (RefinableElement) chain.get(0);
 					RefinableElement connFeature = (RefinableElement) chain.get(1);
-					return (AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext) || AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext))
-							&& (AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature));
+					return (AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext)
+							|| AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext))
+							&& (AadlUtil.isSameOrRefines(fsFeature, connFeature)
+									|| AadlUtil.isSameOrRefines(connFeature, fsFeature));
 				}
 			} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
 				RefinableElement connContext = (RefinableElement) chain.get(0);
-				return AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext) || AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext);
+				return AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext)
+						|| AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext);
 			}
 		} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
 			RefinableElement connFeature = (RefinableElement) chain.get(0);
@@ -7403,7 +7405,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				sourceDirection = sourceDirection.getInverseDirection();
 			}
 
-			boolean inverseDestinationContexts = isInvertNeeded(connection.getRootConnection().getDestination(), false, false);
+			boolean inverseDestinationContexts = isInvertNeeded(connection.getRootConnection().getDestination(), false,
+					false);
 			DirectionType destinationDirection = ((FeatureGroup) destination).getDirection();
 			if (isInvertNeeded(connection.getRootConnection().getDestination(), false, true)) {
 				destinationDirection = destinationDirection.getInverseDirection();
@@ -7547,7 +7550,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	 * 
 	 * @see <a href="https://github.com/osate/osate2-core/issues/810">Issue 810</a>
 	 */
-	private boolean isInvertNeeded(ConnectedElement connectedElement, boolean ignoreMembersOfLastElement, boolean skipLast) {
+	private boolean isInvertNeeded(ConnectedElement connectedElement, boolean ignoreMembersOfLastElement,
+			boolean skipLast) {
 		boolean chainInverts = false;
 		List<NamedElement> chain = getConnectionChain(connectedElement);
 		if (skipLast) {
@@ -7573,7 +7577,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		}
 		return chainInverts;
 	}
-	
+
 	private DirectionType invertIfNeeded(DirectionType originalDirection, ConnectedElement connectedElement) {
 		if (isInvertNeeded(connectedElement, false, false)) {
 			return originalDirection.getInverseDirection();
@@ -7837,7 +7841,8 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				// }
 
 				boolean sourceIsInverse = isInvertNeeded(connection.getRootConnection().getSource(), true, false);
-				boolean destinationIsInverse = isInvertNeeded(connection.getRootConnection().getDestination(), true, false);
+				boolean destinationIsInverse = isInvertNeeded(connection.getRootConnection().getDestination(), true,
+						false);
 
 				if (sourceType == destinationType) {
 					if (sourceIsInverse != destinationIsInverse) {
