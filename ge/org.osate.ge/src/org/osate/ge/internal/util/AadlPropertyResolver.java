@@ -1,6 +1,7 @@
 package org.osate.ge.internal.util;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -32,14 +33,7 @@ import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
-import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.query.Queryable;
-import org.osate.ge.internal.services.CachingService;
-import org.osate.ge.internal.services.CachingService.Cache;
-import org.osate.xtext.aadl2.properties.util.CommunicationProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 // TODO: Properly implement "inherit" and "constant" keyword support
@@ -51,6 +45,39 @@ public class AadlPropertyResolver {
 	private static class PropertyValue {
 		boolean finalized = false;
 		Object value;
+	}
+	
+	// Need map from Queryable to property node.
+	
+	// The intent is to store all properties that are defined for elements which are in the "Queryable tree" or which may be 
+	// appropriate to depict graphically. For example, it might be beneficial to contain a binding property for an element which is not contained in the tree
+	// as long as it is bound to a child which is or whose ancestor is contained in the tree(but isn't a common parent).
+	
+	
+	// TODO: How to handle array ranges and paths? Need to have that information when retrieving things.
+	
+	// TODO: Rename
+	private static class UnprocessedProperty {
+		// TODO: Path
+		// Context
+		// ContainmentPathElement. Unresolved portion of path
+		// Property Association.
+		// TODO: Unprocessed Value.. Is that practical?  Will need context enough to resolve it
+	}
+	
+	private static class PropertyNode {
+		// TODO: Array information? Need to be able to look it up properties that apply to specific elements as well as all specific indices. 
+		// Will need nodes for specific indices or something..
+		
+		public Collection<PropertyNode> children;
+		public Queryable queryable;
+		public Map<String, PropertyValue> propertyNameToValue;
+		
+		// TODO: Unresolved property associations
+		public Map<String, UnprocessedProperty> unresolvedProperty; // TODO: Rename?
+		
+		
+		// Children List
 	}
 	
 	public AadlPropertyResolver(final Queryable topContext) {
@@ -138,22 +165,22 @@ public class AadlPropertyResolver {
 		final Element owner = ne.getOwner();
 		if(owner instanceof Classifier) {
 			final Classifier classifier = (Classifier)owner;
-			Map<NamedElement, Queryable> definedBusinessObjectToDiagramElementMap = classifierToDefinedBusinessObjectsMap.get(classifier);
+			Map<NamedElement, Queryable> definedBusinessObjectToQueryableMap = classifierToDefinedBusinessObjectsMap.get(classifier);
 			
 			// Create inner map if it doesn't exist
-			if(definedBusinessObjectToDiagramElementMap == null) {
-				definedBusinessObjectToDiagramElementMap = new HashMap<>();
-				classifierToDefinedBusinessObjectsMap.put(classifier, definedBusinessObjectToDiagramElementMap);
+			if(definedBusinessObjectToQueryableMap == null) {
+				definedBusinessObjectToQueryableMap = new HashMap<>();
+				classifierToDefinedBusinessObjectsMap.put(classifier, definedBusinessObjectToQueryableMap);
 			}
 			
-			definedBusinessObjectToDiagramElementMap.put(ne, q);
+			definedBusinessObjectToQueryableMap.put(ne, q);
 		}
 	}
 	
 	private void processClassifierPropertyAssociations(final Queryable q, final Classifier classifier) {
-		// Build a mapping between classifiers to a map of supported owned children to the corresponding diagram element. 
-		// In cases where an element is refined, a single diagram element will appear multiple times.		
-		// This mapping will be used to determine if a child is defined in both the classifier and included in the diagram.
+		// Build a mapping between classifiers to a map of supported owned children to the corresponding queryable. 
+		// In cases where an element is refined, a single queryable will appear multiple times.		
+		// This mapping will be used to determine if a child is defined in both the classifier and included in the queryable tree.
 		final Map<Classifier, Map<NamedElement, Queryable>> classifierToDefinedBusinessObjectsMap = new HashMap<>();
 		for(final Queryable childQueryable : q.getChildren()) {
 			final Object childBo = childQueryable.getBusinessObject();
@@ -170,9 +197,12 @@ public class AadlPropertyResolver {
 			}
 		}
 
-		// Process classifiers in the appropriate order while only processing elements that are included in the diagram.
+		// Process classifiers in the appropriate order while only processing elements that are included in the querable tree.
+	//	System.err.println("A : " + classifier);
 		for(final Classifier tmpClassifier : classifier.getSelfPlusAllExtended()) {
 			final Map<NamedElement, Queryable> definedElements = classifierToDefinedBusinessObjectsMap.get(tmpClassifier);
+			
+			//System.err.println("B : " + tmpClassifier);
 			
 			// Process children(Subcomponents, connections, features, etc) which are defined in this classifier. Could be refinements
 			if(definedElements != null) {
@@ -184,9 +214,10 @@ public class AadlPropertyResolver {
 			}
 
 			// Process the classifier's property associations
-			processPropertyAssociations(q, classifier.getOwnedPropertyAssociations());
+			processPropertyAssociations(q, tmpClassifier.getOwnedPropertyAssociations());
 		}
-
+	//	System.err.println("Z : " + classifier);
+		
 		// Process the subcomponent's classifiers last.
 		for(final Queryable childQueryable : q.getChildren()) {
 			if(childQueryable.getBusinessObject() instanceof Subcomponent) {
@@ -202,9 +233,10 @@ public class AadlPropertyResolver {
 	// TODO: Determine why the property association isn't being found
 	private void processPropertyAssociations(final Queryable q, final List<PropertyAssociation> propertyAssociations) {
 		for(final PropertyAssociation pa : propertyAssociations) {
-			// Get the diagram element it applies to
+			// Get the queryableelement it applies to
 			for(final Queryable referencedQueryable : getQueryableFromAppliesTo(q, pa.getAppliesTos())) {
-				System.err.println(pa.getProperty().getQualifiedName());
+				//System.err.println(q.getBusinessObject() + " : " + pa.getProperty().getQualifiedName());
+				//Thread.dumpStack();
 				//System.err.println("REFERENCED: " + referencedQueryable + " : " + pa);
 				// TODO: When storing references. Keep in mind that referenced object may not be in the diagram.. but the property value may need to be shown
 				// How to show such references?
@@ -214,6 +246,7 @@ public class AadlPropertyResolver {
 		}
 	}
 	
+	// TODO: Need to be modified to handle incomplete resolution
 	private List<Queryable> getQueryableFromAppliesTo(final Queryable q, final List<ContainedNamedElement> appliesTo) {
 		if(appliesTo.size() == 0) {
 			return Collections.singletonList(q);
@@ -237,6 +270,7 @@ public class AadlPropertyResolver {
 	 * @param containedNamedElement
 	 * @return
 	 */
+	// TODO: Need to handle not being able to completely resolve the path.
  	private Queryable getReferencedQueryable(final Queryable q, final ContainedNamedElement containedNamedElement) { 		
  		Queryable tmp = q;
 		for(final ContainmentPathElement pathElement : containedNamedElement.getContainmentPathElements()) {

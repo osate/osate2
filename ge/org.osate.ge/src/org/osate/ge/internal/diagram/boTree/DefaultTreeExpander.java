@@ -30,6 +30,7 @@ import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.util.AadlPropertyResolver;
 
 /**
  * A TreeExpander whose results contain all elements provided by registered business object providers which are already in the diagram business object tree
@@ -106,6 +107,14 @@ public class DefaultTreeExpander implements TreeExpander {
 			final Map<RelativeBusinessObjectReference, Object> boMap = getChildBusinessObjects(potentialBusinessObjects, oldNodes.keySet(), newRoot.getAutoContentsFilter());
 			createNodes(eclipseCtx, boMap, oldNodes, newRoot);
 			newRoot.setCompleteness(potentialBusinessObjects.size() == boMap.size() ? Completeness.COMPLETE : Completeness.INCOMPLETE);
+			
+			// TODO: Add Properties
+			// TODO: What to do with property objects that already exist in tree? Will need to remove if they don't exist anymore? Or they should just be hidden when drawing..
+			System.err.println("CREATING PROPERTY RESOLVER");
+			final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
+			
+			
+			
 			
 			return newRoot;
 		} finally {
