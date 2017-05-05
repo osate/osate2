@@ -136,7 +136,7 @@ public class EMFIndexRetrieval {
 	* @return AADL package
 	*/
 	public static AadlPackage getPackageInWorkspace(EObject context, String pname) {
-		return getPackageInWorkspace(context, pname, OsateResourceUtil.getResourceSet());
+		return getPackageInWorkspace(context, pname, context.eResource().getResourceSet());
 	}
 
 	/**
@@ -144,8 +144,8 @@ public class EMFIndexRetrieval {
 	* @param pname String package name
 	* @return AADL package
 	*/
-	public static AadlPackage getPackageInWorkspace(EObject context, String pname, XtextResourceSet resourceSet) {
-		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
+	public static AadlPackage getPackageInWorkspace(EObject context, String pname, ResourceSet resourceSet) {
+		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		Iterable<IEObjectDescription> packagedlist = rds
 				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
 		for (IEObjectDescription eod : packagedlist) {
@@ -199,13 +199,14 @@ public class EMFIndexRetrieval {
 	* @return PropertySet or null
 	*/
 	public static PropertySet getPropertySetInWorkspace(EObject context, String pname) {
-		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
+		ResourceSet rset = context.eResource().getResourceSet();
+		IResourceDescriptions rds = rdp.getResourceDescriptions(rset);
 		Iterable<IEObjectDescription> packagedlist = rds
 				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
 			if (eod.getName().toString("::").equalsIgnoreCase(pname)) {
 				EObject res = eod.getEObjectOrProxy();
-				res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+				res = EcoreUtil.resolve(res, rset);
 				if (!Aadl2Util.isNull(res)) {
 					return (PropertySet) res;
 				}
@@ -229,7 +230,7 @@ public class EMFIndexRetrieval {
 	* @return PropertySet or null
 	*/
 	public static PropertySet getPropertySetInWorkspace(String pname, XtextResourceSet resourceSet) {
-		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		Iterable<IEObjectDescription> packagedlist = rds
 				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
 		for (IEObjectDescription eod : packagedlist) {
@@ -286,7 +287,7 @@ public class EMFIndexRetrieval {
 			} else {
 				if (eod.getName().toString("::").equalsIgnoreCase(pdname)) {
 					EObject res = eod.getEObjectOrProxy();
-					res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+					res = EcoreUtil.resolve(res, rs);
 					if (!Aadl2Util.isNull(res)) {
 						return (Property) res;
 					}
@@ -339,7 +340,7 @@ public class EMFIndexRetrieval {
 			} else {
 				if (eod.getName().toString("::").equalsIgnoreCase(ptname)) {
 					EObject res = eod.getEObjectOrProxy();
-					res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+					res = EcoreUtil.resolve(res, rs);
 					if (!Aadl2Util.isNull(res)) {
 						return (PropertyType) res;
 					}
@@ -392,7 +393,7 @@ public class EMFIndexRetrieval {
 			} else {
 				if (eod.getName().toString("::").equalsIgnoreCase(pcname)) {
 					EObject res = eod.getEObjectOrProxy();
-					res = EcoreUtil.resolve(res, OsateResourceUtil.getResourceSet());
+					res = EcoreUtil.resolve(res, rs);
 					if (!Aadl2Util.isNull(res)) {
 						return (PropertyConstant) res;
 					}
