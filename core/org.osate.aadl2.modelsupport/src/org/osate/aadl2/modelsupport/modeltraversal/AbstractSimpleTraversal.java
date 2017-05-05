@@ -46,6 +46,7 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
@@ -84,7 +85,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
-					ResourceSet rs = OsateResourceUtil.createResourceSet();
+					ResourceSet rs = new XtextResourceSet();
 					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
 					Element target = (Element) res.getContents().get(0);
 
@@ -125,7 +126,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
-					ResourceSet rs = OsateResourceUtil.createResourceSet();
+					ResourceSet rs = new XtextResourceSet();
 					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
 					Element target = (Element) res.getContents().get(0);
 
