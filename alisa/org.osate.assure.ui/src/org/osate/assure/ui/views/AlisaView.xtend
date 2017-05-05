@@ -591,22 +591,17 @@ class AlisaView extends ViewPart {
 						val results = resultDescriptions.map [
 							resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult
 						]
-						results.findFirst[ac| ac != null && ac.name == selectedAlisaObject.name]
+						results.findFirst[ac| ac !== null && ac.name == selectedAlisaObject.name]
 					}
-				}
-			val filter = if (result !== null && displayedCaseAndFilter.value !== null) {
-					resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
 				}
 
 			val expandedElements = assureViewer.expandedElements
 			if (updateRequirementsCoverageView) {
 				assureViewer.input = if (result !== null) {
-					result.recomputeAllCounts(filter)
 					#[result.URI]
 				}
 			} else {
 				if (result !== null) {
-					result.recomputeAllCounts(filter)
 					updateAllAssureResult(result)
 				}
 			}
