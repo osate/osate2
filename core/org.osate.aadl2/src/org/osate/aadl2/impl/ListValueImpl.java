@@ -214,7 +214,7 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 		for (int i = 0; i < ownedListElements.size(); ++i) {
 			PropertyExpression pe1 = ownedListElements.get(i);
 			PropertyExpression pe2 = other.ownedListElements.get(i);
-			if (pe1 == null ? pe2 != null : !pe1.equals(pe2)) {
+			if (pe1 == null ? pe2 != null : !pe1.sameAs(pe2)) {
 				return false;
 			}
 		}
