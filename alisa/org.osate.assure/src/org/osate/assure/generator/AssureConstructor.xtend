@@ -357,17 +357,17 @@ class AssureConstructor implements IAssureConstructor {
 			subc.generateSubsystemGlobalOnly(parentap, subsystemResultList)
 			return
 		}
-		val subacs = refFinder.getAssuranceCases(cc)
-		if (subacs.empty) {
+//		val subacs = refFinder.getAssuranceCases(cc)
+//		if (subacs.empty) {
 			subc.generateSubsystemVerificationPlansGlobals(parentap, subsystemResultList)
-		} else {
-
-			// This is for adding subAssuranceCases
-			for (subac : subacs) {
-
-				subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
-			}
-		}
+//		} else {
+//
+//			// This is for adding subAssuranceCases
+//			for (subac : subacs) {
+//
+//				subAssuranceCaseList.add(subac.constructAssuranceCaseResult(cc))
+//			}
+//		}
 	}
 
 	/**

@@ -63,6 +63,9 @@ public class AssureLinkingService extends DefaultLinkingService {
 			}
 
 		}
+//		if (context.eResource() == null) {
+//			return Collections.<EObject> emptyList();
+//		}
 		return super.getLinkedObjects(context, reference, node);
 	}
 
