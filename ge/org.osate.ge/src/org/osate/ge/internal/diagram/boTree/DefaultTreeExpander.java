@@ -12,6 +12,7 @@ import java.util.stream.Stream;
 
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
+import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
@@ -19,6 +20,7 @@ import org.osate.aadl2.Generalization;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
@@ -31,6 +33,7 @@ import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.util.AadlPropertyResolver;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * A TreeExpander whose results contain all elements provided by registered business object providers which are already in the diagram business object tree
@@ -112,7 +115,7 @@ public class DefaultTreeExpander implements TreeExpander {
 			// TODO: What to do with property objects that already exist in tree? Will need to remove if they don't exist anymore? Or they should just be hidden when drawing..
 			System.err.println("CREATING PROPERTY RESOLVER");
 			final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
-			
+			testPropertyResolver(propertyResolver, newRoot);
 			
 			
 			
@@ -121,6 +124,22 @@ public class DefaultTreeExpander implements TreeExpander {
 			eclipseCtx.dispose();
 		}
 	}	
+	
+	public void testPropertyResolver(final AadlPropertyResolver pr, final Queryable q) {
+		final Object bo = q.getBusinessObject();
+		if(bo instanceof EObject) {
+			final Property testProperty = GetProperties.lookupPropertyDefinition((EObject)bo, "TIMING_properties::periOD"); // TODO: Need context
+			if(testProperty != null) {
+				for(final AadlPropertyResolver.ProcessedPropertyAssociation ppa : pr.getProcessedPropertyAssociations(q, testProperty)) {
+					System.err.println("FOUND for " + q + " : " + bo + " : " + ppa.isCompletelyProcessed());
+				}
+			}
+		}
+		
+		for(final Queryable child : q.getChildren()) {
+			testPropertyResolver(pr, child);
+		}
+	}
 
 	private void createNodes(
 			final IEclipseContext eclipseCtx,
