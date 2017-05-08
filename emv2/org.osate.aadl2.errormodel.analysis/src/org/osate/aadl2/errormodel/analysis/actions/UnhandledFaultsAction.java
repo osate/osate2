@@ -58,7 +58,7 @@ public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
+		return "org.osate.aadl2.errormodel.analysis.UnhandledFaultsMarker";
 	}
 
 	@Override
