@@ -41,7 +41,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 
-public final class FHAAction extends AaxlReadOnlyActionAsJob {
+public final class MILSTD882FHAAction extends AaxlReadOnlyActionAsJob {
 
 	@Override
 	protected String getMarkerType() {
@@ -64,7 +64,7 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		} else {
 			return;
 		}
-		FHAReport report = new FHAReport(HazardFormat.EMV2);
+		FHAReport report = new FHAReport(HazardFormat.MILSTD882);
 		report.doFHAReport(si);
 		monitor.done();
 	}

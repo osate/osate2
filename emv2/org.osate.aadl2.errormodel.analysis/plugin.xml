@@ -48,6 +48,46 @@
                </or>
             </enablement>
          </action>
+         
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.ARP4761FHA.action"
+               label="%ARP4761FHA.label"
+               tooltip="%ARP4761FHA.toolTip"
+               icon="icons/fha.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.ARP4761FHAAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
+        
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.MILSTD882FHA.action"
+               label="%MILSTD882FHA.label"
+               tooltip="%MILSTD882FHA.toolTip"
+               icon="icons/fha.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.MILSTD882FHAAction"
+               menubarPath="menu.analyses/menu.fault/stuff.grp"
+               toolbarPath="fault.toolbar"
+               enablesFor="1">
+            <enablement>
+               <or>
+                  <and>
+                     <objectClass name="org.eclipse.core.resources.IFile"/>
+                     <objectState name="extension" value="aaxl2"/>
+                  </and>
+                   <objectClass name="org.osate.aadl2.instance.ComponentInstance"/>
+               </or>
+            </enablement>
+         </action>
 
          <action
                id="org.osate.aadl2.errormodel.analysis.actions.CMA.action"
@@ -216,6 +256,22 @@
                tooltip="%FHA.toolTip"
                icon="icons/fha.png"
                class="org.osate.aadl2.errormodel.analysis.actions.FHAAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.ARP4761FHA.popupAction"
+               label="%ARP4761FHA.label"
+               tooltip="%ARP4761FHA.toolTip"
+               icon="icons/fha.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.ARP4761FHAAction"
+               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
+               enablesFor="1"/>
+         <action
+               id="org.osate.aadl2.errormodel.analysis.actions.MILSTD882FHA.popupAction"
+               label="%MILSTD882FHA.label"
+               tooltip="%MILSTD882FHA.toolTip"
+               icon="icons/fha.png"
+               class="org.osate.aadl2.errormodel.analysis.actions.MILSTD882FHAAction"
                menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.architecture.popupMenu.Fault/anal.grp"
                enablesFor="1"/>
          <action

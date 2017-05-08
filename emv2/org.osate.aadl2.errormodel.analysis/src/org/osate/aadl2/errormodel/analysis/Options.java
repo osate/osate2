@@ -1,6 +1,5 @@
 package org.osate.aadl2.errormodel.analysis;
 
-import org.osate.aadl2.errormodel.analysis.actions.FHAAction;
 import org.osate2.aadl2.errormodel.analysis.prism.ModelType;
 
 /**
@@ -16,17 +15,6 @@ public class Options {
 	 */
 	private static ModelType modelType = ModelType.DTMC;
 
-	private static int fhaReportType = FHAAction.REPORT_TYPE_ARP4761;
-
-	public static int getFhaReportType() {
-		return fhaReportType;
-	}
-
-	public static void setFhaReportType(int t) {
-		// OsateDebug.osateDebug("set report type to " + t);
-		fhaReportType = t;
-	}
-
 	public static ModelType getModelType() {
 		return modelType;
 	}
@@ -36,27 +24,4 @@ public class Options {
 		modelType = mt;
 	}
 
-	public static int getFhaReportTypeFromString(String s) {
-		if (s.equals("arp4761")) {
-			// OsateDebug.osateDebug("choose arp4761");
-			return FHAAction.REPORT_TYPE_ARP4761;
-		}
-		if (s.equals("milstd881")) {
-			// OsateDebug.osateDebug("choose mil");
-
-			return FHAAction.REPORT_TYPE_MILSTD882;
-		}
-		return FHAAction.REPORT_TYPE_ARP4761;
-
-	}
-
-	public static String getStringFromFhaReportType(int t) {
-		if (t == FHAAction.REPORT_TYPE_ARP4761) {
-			return "ARP4761";
-		}
-		if (t == FHAAction.REPORT_TYPE_MILSTD882) {
-			return "MILSTD881";
-		}
-		return "ARP4761";
-	}
 }
