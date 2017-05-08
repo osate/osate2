@@ -47,4 +47,9 @@ public class VerifyRuntimeModule extends org.osate.verify.AbstractVerifyRuntimeM
 		return org.osate.verify.scoping.VerifyScopeProvider.class;
 	}
 
+	@Override
+	public Class<? extends org.eclipse.xtext.linking.ILinkingService> bindILinkingService() {
+		return org.osate.verify.linking.VerifyLinkingService.class;
+	}
+
 }
