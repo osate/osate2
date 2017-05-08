@@ -389,10 +389,22 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 //			reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "severity", report, Severity);
+		if (hasFieldValue(fields, "Severity")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "Severity", report, Severity);
+		} else if (hasFieldValue(fields, "FailureConditionClassification")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "FailureConditionClassification", report,
+					Severity);
+		} else if (hasFieldValue(fields, "SeverityLevel")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "SeverityLevel", report, Severity);
+		}
 		// criticality
 		addComma(report);
-		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "likelihood", report, Likelihood);
+		if (hasFieldValue(fields, "Likelihood")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "Likelihood", report, Likelihood);
+		} else if (hasFieldValue(fields, "QualitativeProbability")) {
+			reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "QualitativeProbability", report,
+					Likelihood);
+		}
 //		// target severity
 //		addComma(report);
 //		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "targetseverity", report,null);
@@ -472,6 +484,10 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 			val = xref.getOwnedValue();
 		}
 		report.addOutput(EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(val));
+	}
+
+	protected boolean hasFieldValue(EList<BasicPropertyAssociation> fields, String fieldName) {
+		return GetProperties.getRecordField(fields, fieldName) != null;
 	}
 
 	protected String stripQuotes(String text) {
