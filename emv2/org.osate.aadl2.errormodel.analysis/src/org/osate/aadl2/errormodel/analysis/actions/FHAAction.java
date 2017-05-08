@@ -365,8 +365,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 				+ (failureModeName.isEmpty() ? "" : " on " + failureModeName) + "\"");
 		// description (Effect)
 		addComma(report);
-		if (!reportStringProperty(fields, "hazardtitle", report)) {
-			reportStringProperty(fields, "description", report);
+		if (!reportStringProperty(fields, "description", report)) {
+			reportStringProperty(fields, "hazardtitle", report);
 		}
 		// crossreference
 		addComma(report);
@@ -406,8 +406,8 @@ public final class FHAAction extends AaxlReadOnlyActionAsJob {
 		addComma(report);
 		reportStringProperty(fields, "verificationmethod", report);
 		// safety report
-		addComma(report);
-		reportStringProperty(fields, "safetyreport", report);
+//		addComma(report);
+//		reportStringProperty(fields, "safetyreport", report);
 		// comment
 		addComma(report);
 		reportStringProperty(fields, "comment", report);
