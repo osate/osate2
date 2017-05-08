@@ -148,7 +148,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceService);
-		final TreeExpander boTreeExpander = new DefaultTreeExpander(extService, referenceService, nodeFactory);
+		final TreeExpander boTreeExpander = new DefaultTreeExpander(graphitiService, extService, referenceService, nodeFactory);
 		final DiagramElementInformationProvider deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceService, extService, context);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);

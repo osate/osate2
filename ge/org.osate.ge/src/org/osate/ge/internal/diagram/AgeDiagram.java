@@ -23,7 +23,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	private final DiagramElementCollection elements = new DiagramElementCollection();
 	
 	public AgeDiagram() {
-		this.diagramConfiguration = new DiagramConfiguration(null);
+		this.diagramConfiguration = new DiagramConfiguration(null, Collections.emptySet());
 	}
 		
 	/**

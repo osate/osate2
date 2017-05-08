@@ -842,8 +842,15 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					
 				});
 */
-				// TODO: Cleanup. Part of loading legacy diagram. Set the root business object reference
-				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).setRootBoReference(rootBoRef).build());
+				// TODO: Cleanup. Part of loading legacy diagram. Set the root business object reference and visible properties
+				// The visible properties should be the properties supported by previous version of OSATE GE
+				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).
+						setRootBoReference(rootBoRef).
+						addAadlProperty("timing_properties::PERIOD").
+						addAadlProperty("communication_properties::DATA_RATE").
+						addAadlProperty("programming_properties::source_text").
+						addAadlProperty("test_ps2::another_test").
+						build());
 
 				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		
 				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain(), coloringProvider, 

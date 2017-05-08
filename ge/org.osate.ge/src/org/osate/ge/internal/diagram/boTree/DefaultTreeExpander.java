@@ -3,8 +3,11 @@ package org.osate.ge.internal.diagram.boTree;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -13,15 +16,22 @@ import java.util.stream.Stream;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.xtext.resource.IEObjectDescription;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
+import org.osate.aadl2.IntegerLiteral;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
@@ -31,9 +41,12 @@ import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.util.AadlPropertyResolver;
-import org.osate.xtext.aadl2.properties.util.GetProperties;
+import org.osate.ge.internal.util.PropertyResult;
+import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
+import org.osate.ge.internal.util.PropertyResult.NullReason;
 
 /**
  * A TreeExpander whose results contain all elements provided by registered business object providers which are already in the diagram business object tree
@@ -60,13 +73,16 @@ public class DefaultTreeExpander implements TreeExpander {
 		}
 	};
 	
+	private final ProjectProvider projectProvider;
 	private final ExtensionService extService;
 	private final ReferenceService refService;
 	private final DefaultBusinessObjectNodeFactory nodeFactory;
 	
-	public DefaultTreeExpander(final ExtensionService extService,
+	public DefaultTreeExpander(final ProjectProvider projectProvider,
+			final ExtensionService extService,
 			final ReferenceService refService,
 			final DefaultBusinessObjectNodeFactory nodeFactory) {
+		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.refService = Objects.requireNonNull(refService, "refService must not be null");
 		this.nodeFactory = Objects.requireNonNull(nodeFactory, "nodeFactory must not be null");
@@ -110,34 +126,66 @@ public class DefaultTreeExpander implements TreeExpander {
 			final Map<RelativeBusinessObjectReference, Object> boMap = getChildBusinessObjects(potentialBusinessObjects, oldNodes.keySet(), newRoot.getAutoContentsFilter());
 			createNodes(eclipseCtx, boMap, oldNodes, newRoot);
 			newRoot.setCompleteness(potentialBusinessObjects.size() == boMap.size() ? Completeness.COMPLETE : Completeness.INCOMPLETE);
+						
+			// Build set of the names of all properties which are enabled
+			final Set<String> enabledPropertyNames = new HashSet<>(configuration.getEnabledAadlPropertyNames());
+			enabledPropertyNames.add("communication_properties::timing"); // Add properties which are always enabled regardless of configuration setting
 			
-			// TODO: Add Properties
+			// Get the property objects
+			final Set<Property> enabledProperties = getPropertiesByLowercasePropertyNames(enabledPropertyNames);
+			System.err.println("TEST: " + enabledProperties.size()); // TODO: Remove
+			
 			// TODO: What to do with property objects that already exist in tree? Will need to remove if they don't exist anymore? Or they should just be hidden when drawing..
-			System.err.println("CREATING PROPERTY RESOLVER");
 			final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
-			testPropertyResolver(propertyResolver, newRoot);
-			
-			
+			testPropertyResolver(propertyResolver, newRoot, enabledProperties);			
 			
 			return newRoot;
 		} finally {
 			eclipseCtx.dispose();
 		}
-	}	
+	}
 	
-	public void testPropertyResolver(final AadlPropertyResolver pr, final Queryable q) {
-		final Object bo = q.getBusinessObject();
-		if(bo instanceof EObject) {
-			final Property testProperty = GetProperties.lookupPropertyDefinition((EObject)bo, "TIMING_properties::periOD"); // TODO: Need context
-			if(testProperty != null) {
-				for(final AadlPropertyResolver.ProcessedPropertyAssociation ppa : pr.getProcessedPropertyAssociations(q, testProperty)) {
-					System.err.println("FOUND for " + q + " : " + bo + " : " + ppa.isCompletelyProcessed());
+	private Set<Property> getPropertiesByLowercasePropertyNames(final Set<String> lcPropertyNames) {
+		final Set<Property> properties = new HashSet<>();
+		for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(projectProvider.getProject(), Aadl2Package.eINSTANCE.getProperty())) {
+			final String lowercasePropertyName = desc.getName().toString("::").toLowerCase();
+			if(lcPropertyNames.contains(lowercasePropertyName)) {
+				EObject property = desc.getEObjectOrProxy();
+				property = EcoreUtil.resolve(property, OsateResourceUtil.getResourceSet());
+				if(!Aadl2Util.isNull(property)) {
+					properties.add((Property)property);
+				}
+			}
+		}
+		return properties;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public void testPropertyResolver(final AadlPropertyResolver pr, final Queryable q, final Collection<Property> properties) {
+		for(final Property property : properties) {
+			final PropertyResult result = PropertyResult.getPropertyValue(pr, q, property);
+			if(result != null) {
+				final String boName = ((NamedElement)q.getBusinessObject()).getQualifiedName();
+				if(result.value != null) {
+					if(result.value instanceof IntegerLiteral) {
+						final IntegerLiteral il = (IntegerLiteral)result.value;
+						System.err.println(boName + " : " + property.getQualifiedName() + " : " + il.getValue() + " " + il.getUnit().getName());
+					} if(result.value instanceof List) {
+						final String listString = ((List<Object>)result.value).stream().map(Object::toString).collect(Collectors.joining(", "));
+						System.err.println(boName + " : " + property.getQualifiedName() + " : " + listString);							
+					} else {
+						System.err.println(boName + " : " + property.getQualifiedName() + " : " + result.value);	
+					}
+				} else {
+					if(result.nullReason != NullReason.UNDEFINED) {
+						System.err.println(boName + " : " + property.getQualifiedName() + " : " + result.nullReason);
+					}
 				}
 			}
 		}
 		
 		for(final Queryable child : q.getChildren()) {
-			testPropertyResolver(pr, child);
+			testPropertyResolver(pr, child, properties);
 		}
 	}
 
