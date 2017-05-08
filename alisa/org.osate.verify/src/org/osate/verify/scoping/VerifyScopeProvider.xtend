@@ -88,15 +88,27 @@ class VerifyScopeProvider extends CommonScopeProvider {
 	}
 
 	def scope_FunctionDefinition(ResoluteMethod context, EReference reference) {
+// Resolute functions - both calim functions and compute functions
+//		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
+//		if (foundlist.isEmpty)
+//			return IScope.NULLSCOPE
+//		val fcnsEODs = foundlist.map[f|val name = f.name.lastSegment
+//			EObjectDescription.create(name, f.EObjectOrProxy)
+//		]
+//		return new SimpleScope(IScope.NULLSCOPE, 
+//			fcnsEODs
+//			, false)
+		// Resolution is done through linking service (if scoping one fails
+		// Claim functions only for content assist
 		val foundlist = refFinder.getEObjectDescriptions(context, ResolutePackage.Literals.FUNCTION_DEFINITION, "aadl")
 		if (foundlist.isEmpty)
 			return IScope.NULLSCOPE
-		val fcnsEODs = foundlist.map[f|val name = f.name.lastSegment
-			EObjectDescription.create(name, f.EObjectOrProxy)
+		val fcns = foundlist.map[f|EcoreUtil.resolve(f.EObjectOrProxy, context) as FunctionDefinition].filter [ fd |
+			fd.body instanceof ClaimBody
 		]
-		return new SimpleScope(IScope.NULLSCOPE, 
-			fcnsEODs
-			, false)
+		return new SimpleScope(IScope.NULLSCOPE, Scopes::scopedElementsFor(fcns,
+			QualifiedName::wrapper(SimpleAttributeResolver::NAME_RESOLVER)), false)
+			
 	}
 
 	def scope_VerificationActivity(EObject context, EReference reference) {
