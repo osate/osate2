@@ -111,7 +111,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			issuesList.addAll(checkBindingConstraints(connectionBindingElements.stream(), "connection",
 					GetProperties::getActualConnectionBinding, GetProperties::getAllowedConnectionBinding,
 					GetProperties::getAllowedConnectionBindingClass, som));
-			
+
 			// Connection Quality of Service
 			issuesList.addAll(connectionBindingElements.stream().flatMap(element -> {
 				Set<EnumerationLiteral> requiredConnQos = Collections
@@ -125,6 +125,37 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 							message.append(" '");
 							message.append(element.getName());
 							message.append("' has a Required_Connection_Quality_Of_Service '");
+							message.append(missing.getName());
+							if (!Aadl2Util.isNoModes(som)) {
+								message.append("' in mode '");
+								message.append(som.getName());
+							}
+							message.append("' which is not provided by '");
+							message.append(boundElement.getName());
+							message.append("'");
+							return new Issue(element, message.toString());
+						});
+					});
+				} else {
+					return Stream.empty();
+				}
+			}).collect(Collectors.toList()));
+
+			// Virtual Bus Class
+			issuesList.addAll(connectionBindingElements.stream().flatMap(element -> {
+				Set<ComponentClassifier> requiredVBClass = Collections
+						.unmodifiableSet(new HashSet<>(GetProperties.getRequiredVirtualBusClass(element)));
+				if (!requiredVBClass.isEmpty()) {
+					return GetProperties.getActualConnectionBinding(element).stream().flatMap(boundElement -> {
+						Set<ComponentClassifier> missingVBClass = new HashSet<>(requiredVBClass);
+						missingVBClass.removeAll(GetProperties.getProvidedVirtualBusClass(boundElement));
+						missingVBClass.removeAll(boundElement.getComponentInstances().stream()
+								.map(subcomponent -> subcomponent.getClassifier()).collect(Collectors.toSet()));
+						return missingVBClass.stream().map(missing -> {
+							StringBuilder message = new StringBuilder(getTitle(element));
+							message.append(" '");
+							message.append(element.getName());
+							message.append("' has a Required_Virtual_Bus_Class '");
 							message.append(missing.getName());
 							if (!Aadl2Util.isNoModes(som)) {
 								message.append("' in mode '");
