@@ -403,49 +403,7 @@
     </key>
 	</extension>
 
-   	<!-- Debugging Save by Serialize -->
-   	<extension
-		point="org.eclipse.ui.handlers">
-		<handler 
-			class="org.osate.xtext.aadl2.ui.Aadl2ExecutableExtensionFactory:org.osate.xtext.aadl2.ui.handlers.SerializeHandler"
-			commandId="org.osate.xtext.aadl2.ui.serialize">
-		</handler>
-	</extension>
-	<extension
-		point="org.eclipse.ui.commands">
-		<command
-			description="Debugging: Save model as 'mypack.aadl'"
-			id="org.osate.xtext.aadl2.ui.serialize"
-			name="Debugging: Serialize as 'mypack.aadl' text">
-		</command>
-	</extension>
-    <extension point="org.eclipse.ui.menus">
-         <menuContribution
-		 allPopups="false"
-         locationURI="popup:#TextEditorContext?after=additions">
-        <command commandId="org.osate.xtext.aadl2.ui.serialize"
-		 tooltip="Debugging: Save existing Xtext model As 'mypack.aadl' Text by Xtext Serialize" 
-		 style="push">
-         <visibleWhen checkEnabled="false">
-               <reference
-                     definitionId="org.osate.xtext.aadl2.Aadl2.Editor.opened">
-               </reference>
-         </visibleWhen>
-        </command>
-      </menuContribution> 
-   </extension>
-    <extension point="org.eclipse.ui.menus">
-		<menuContribution
-		allPopups="false"
-		locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions ">
-		<command
-		commandId="org.osate.xtext.aadl2.ui.serialize"
-		tooltip="Debugging: Save existing Xtext model As 'mypack.aadl' Text by Xtext Serialize" 
-		style="push">
-		</command>
-	</menuContribution>
-   </extension> 
-
+ 
 <!-- Create Plugin Resource project -->
    <extension
          point="org.eclipse.ui.menus">

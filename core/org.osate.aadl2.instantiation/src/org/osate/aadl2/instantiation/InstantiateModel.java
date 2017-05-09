@@ -67,7 +67,6 @@ import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
 import org.eclipse.emf.transaction.TransactionalCommandStack;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessSpecification;
 import org.osate.aadl2.ArrayDimension;
@@ -259,7 +258,7 @@ public class InstantiateModel {
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-		ResourceSet rset = new XtextResourceSet();
+		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
 		Resource res = OsateResourceUtil.getResource(ires, rset);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
@@ -283,7 +282,7 @@ public class InstantiateModel {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		List<URI> instanceRoots = new ArrayList<URI>();
 		List<IResource> instanceIResources = new ArrayList<IResource>();
-		ResourceSet rset = new XtextResourceSet();
+		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
 		for (IFile iFile : files) {
 			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
