@@ -82,6 +82,6 @@ class Issue277Test extends OsateTest {
 			feature group TestInvExtendedFeatureGroup extends TestInvFeatureGroup
 				inverse of TestExtendedFeatureGroup
 			end TestInvExtendedFeatureGroup;
-		end issue227;
+		end issue277;
 	'''
 }
