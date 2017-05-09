@@ -1912,6 +1912,25 @@ public class GetProperties {
 
 		return res;
 	}
+	
+	public static List<ComponentClassifier> getProvidedVirtualBusClass(final NamedElement io) {
+		Property providedVirtualBusClass;
+		ArrayList<ComponentClassifier> components;
+		
+		providedVirtualBusClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.PROVIDED_VIRTUAL_BUS_CLASS);
+		components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(providedVirtualBusClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
 
 	/**
 	 * Get the virtual bus required for a connection, virtual bus, port, etc.
