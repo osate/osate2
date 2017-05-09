@@ -681,7 +681,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * @param msg The error message
 	 */
 
-	public final void error(final Element obj, final String msg) {
+	public void error(final Element obj, final String msg) {
 		errManager.error(obj, msg);
 		logError(obj, msg);
 	}
