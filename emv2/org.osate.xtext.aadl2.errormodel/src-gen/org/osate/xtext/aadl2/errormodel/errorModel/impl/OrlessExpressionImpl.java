@@ -19,7 +19,7 @@ import org.eclipse.emf.ecore.util.InternalEList;
 
 import org.osate.aadl2.impl.ElementImpl;
 
-import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
+import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 import org.osate.xtext.aadl2.errormodel.errorModel.OrlessExpression;
 
@@ -67,7 +67,7 @@ public class OrlessExpressionImpl extends ElementImpl implements OrlessExpressio
    * @generated
    * @ordered
    */
-  protected EList<ConditionElement> operands;
+  protected EList<ConditionExpression> operands;
 
   /**
    * <!-- begin-user-doc -->
@@ -118,11 +118,11 @@ public class OrlessExpressionImpl extends ElementImpl implements OrlessExpressio
    * <!-- end-user-doc -->
    * @generated
    */
-  public EList<ConditionElement> getOperands()
+  public EList<ConditionExpression> getOperands()
   {
     if (operands == null)
     {
-      operands = new EObjectContainmentEList<ConditionElement>(ConditionElement.class, this, ErrorModelPackage.ORLESS_EXPRESSION__OPERANDS);
+      operands = new EObjectContainmentEList<ConditionExpression>(ConditionExpression.class, this, ErrorModelPackage.ORLESS_EXPRESSION__OPERANDS);
     }
     return operands;
   }
@@ -177,7 +177,7 @@ public class OrlessExpressionImpl extends ElementImpl implements OrlessExpressio
         return;
       case ErrorModelPackage.ORLESS_EXPRESSION__OPERANDS:
         getOperands().clear();
-        getOperands().addAll((Collection<? extends ConditionElement>)newValue);
+        getOperands().addAll((Collection<? extends ConditionExpression>)newValue);
         return;
     }
     super.eSet(featureID, newValue);

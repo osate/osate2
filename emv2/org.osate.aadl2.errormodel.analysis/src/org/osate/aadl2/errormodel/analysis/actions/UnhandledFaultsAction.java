@@ -53,12 +53,12 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
-public final class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
+public class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
 	AnalysisModel model;
 
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
+		return "org.osate.aadl2.errormodel.analysis.UnhandledFaultsMarker";
 	}
 
 	@Override

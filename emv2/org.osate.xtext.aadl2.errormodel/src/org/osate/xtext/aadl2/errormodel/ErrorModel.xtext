@@ -524,8 +524,8 @@ OrmoreExpression returns OrmoreExpression:
 ;
   
 OrlessExpression returns OrlessExpression: 
-	count=INTVALUE 'orless' '(' operands+=ConditionElement
-	            ( ',' operands+=ConditionElement)* ')'
+	count=INTVALUE 'orless' '(' operands+=ConditionExpression
+	            ( ',' operands+=ConditionExpression)* ')'
 ;
   
 ConditionTerm returns ConditionExpression:
@@ -615,13 +615,13 @@ SAndExpression returns ConditionExpression:
   SConditionTerm ({AndExpression.operands+=current} 'and' operands+=SConditionTerm)*;
   
 SOrmoreExpression returns OrmoreExpression: 
-	count=INTVALUE 'ormore' '(' operands+=SConditionElement
-	            ( ',' operands+=SConditionElement)* ')'
+	count=INTVALUE 'ormore' '(' operands+=SConditionExpression
+	            ( ',' operands+=SConditionExpression)* ')'
 ;
   
 SOrlessExpression returns OrlessExpression: 
-	count=INTVALUE 'orless' '(' operands+=SConditionElement
-	            ( ',' operands+=SConditionElement)* ')'
+	count=INTVALUE 'orless' '(' operands+=SConditionExpression
+	            ( ',' operands+=SConditionExpression)* ')'
 ;
 
 SAllExpression returns ConditionExpression:

@@ -235,6 +235,18 @@ public class EMV2Properties {
 		return result;
 	}
 
+	public static List<EMV2PropertyAssociation> getARP4761HazardsProperty(NamedElement ci, NamedElement target,
+			TypeSet ts) {
+		List<EMV2PropertyAssociation> result = getProperty("ARP4761::hazards", ci, target, ts);
+		return result;
+	}
+
+	public static List<EMV2PropertyAssociation> getMILSTD882HazardsProperty(NamedElement ci, NamedElement target,
+			TypeSet ts) {
+		List<EMV2PropertyAssociation> result = getProperty("MILSTD882::hazards", ci, target, ts);
+		return result;
+	}
+
 	/**
 	 * Retrieve the value of the OccurenceDistribution property of the
 	 * EMV2 property. You can use it like this:

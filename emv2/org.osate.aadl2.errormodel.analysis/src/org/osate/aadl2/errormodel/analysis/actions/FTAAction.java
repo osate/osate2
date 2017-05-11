@@ -64,7 +64,7 @@ public final class FTAAction extends AaxlReadOnlyActionAsJob {
 
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.analysis.errormodel.FaultImpactMarker";
+		return "org.osate.analysis.errormodel.FaultTreeMarker";
 	}
 
 	@Override

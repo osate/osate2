@@ -1102,7 +1102,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     ConditionTerm returns OrlessExpression
 	 *
 	 * Constraint:
-	 *     (count=INTVALUE operands+=ConditionElement operands+=ConditionElement*)
+	 *     (count=INTVALUE operands+=ConditionExpression operands+=ConditionExpression*)
 	 */
 	protected void sequence_OrlessExpression(ISerializationContext context, OrlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1349,7 +1349,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     SConditionTerm returns OrlessExpression
 	 *
 	 * Constraint:
-	 *     (count=INTVALUE operands+=SConditionElement operands+=SConditionElement*)
+	 *     (count=INTVALUE operands+=SConditionExpression operands+=SConditionExpression*)
 	 */
 	protected void sequence_SOrlessExpression(ISerializationContext context, OrlessExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -1366,7 +1366,7 @@ public abstract class AbstractErrorModelSemanticSequencer extends PropertiesSema
 	 *     SConditionTerm returns OrmoreExpression
 	 *
 	 * Constraint:
-	 *     (count=INTVALUE operands+=SConditionElement operands+=SConditionElement*)
+	 *     (count=INTVALUE operands+=SConditionExpression operands+=SConditionExpression*)
 	 */
 	protected void sequence_SOrmoreExpression(ISerializationContext context, OrmoreExpression semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
