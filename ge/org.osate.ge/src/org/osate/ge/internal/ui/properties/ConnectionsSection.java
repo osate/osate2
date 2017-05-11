@@ -297,7 +297,7 @@ public class ConnectionsSection extends GFPropertySection implements ITabbedProp
 	 */
 	@Override
 	public void refresh() {
-		if(!composite.isDisposed()) {
+		if(!composite.isDisposed() && getPart() instanceof AgeDiagramEditor) {
 			setAllFalse();
 
 			pe  = getDiagramContainer().getSelectedPictogramElements()[0];
