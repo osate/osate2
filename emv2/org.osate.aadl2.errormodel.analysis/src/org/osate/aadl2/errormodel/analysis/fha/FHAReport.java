@@ -320,22 +320,22 @@ public final class FHAReport {
 
 		switch (currentFormat) {
 		case EMV2:
-			report.addOutputNewline("Component, Error," + " Hazard Title, Description, Crossreference, " + "Failure, "
-					+ "Failure Effect, " + "Operational Phases, Environment," + "Mishap/Failure Condition," + "Risk,"
-					+ " Severity, Likelihood, Probability,"
+			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment,"
+					+ "Mishap/Failure Condition," + "Risk," + " Severity, Likelihood, Probability,"
 					+ "Target Severity, Target Likelihood, Development Assurance Level, " + "Verification Method, "
 					+ "Safety Report, " + "Comment");
 			break;
 		case ARP4761:
-			report.addOutputNewline("Component, Error," + " Hazard Title, Description, Crossreference, " + "Failure, "
-					+ "Failure Effect, " + "Operational Phases, Environment,"
+			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment,"
 					+ "Risk, Failure Condition,Failure Condition Classification, "
 					+ "Qualitative Probability, Quantitative Probability, Qualitative Probability Objective, Quantitative Probability Objective, Development Assurance Level, "
 					+ "Verification Method, " + "Safety Report, " + "Comment");
 			break;
 		case MILSTD882:
-			report.addOutputNewline("Component, Error," + " Hazard Title, Description, Crossreference, " + "Failure, "
-					+ "Failure Effect, " + "Operational Phases, Environment," + " Mishap, Risk,"
+			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment," + " Mishap, Risk,"
 					+ " Severity Level, Severity Category, Qualitative Probability,Probability Level,Quantitative Probability, "
 					+ "Target Severity Level, Target Probability Level, " + "Verification Method, " + "Safety Report, "
 					+ "Comment");
