@@ -98,7 +98,6 @@ import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -213,7 +212,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			// Register mouse listeners to handle tooltips
 			class ToolTipHandler implements MouseMoveListener, MouseTrackListener, IPartListener {
 				private Shell tooltipShell = null;
-				private Object tooltipBo = null;
+				private DiagramElement tooltipElement = null;
 				private int tooltipCursorX = Integer.MIN_VALUE;
 				private int tooltipCursorY = Integer.MIN_VALUE;
 				private final int cursorMoveThreshold = 40;
@@ -225,56 +224,55 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				public void mouseExit(MouseEvent e) {
 					disposeCurrentToolTip();
 				}
-				
+								
 				@Override
 				public void mouseHover(final MouseEvent e) {
 					final PictogramElement hoverPe = getPictogramElementByControlCoordinates(e.x, e.y);
-					
-					// Don't show tooltips for the diagram pictogram element
-					if(!(hoverPe instanceof Diagram)) {
-						final Object hoverBo = getClosestBusinessObject(hoverPe);						
-						if (hoverBo != null) {
-							if(!hoverBo.equals(tooltipBo) || exceedsCursorMoveThreshold(e.x, e.y)) {
-								disposeCurrentToolTip();
-								tooltipBo = hoverBo;
-																
-								// Create new tooltip shell
-								final Display display = Display.getCurrent();
-								tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
-								tooltipShell.setVisible(false);
-								tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
-								tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
-								
-								// Configure layout
-								final RowLayout rowLayout = new RowLayout();
-								rowLayout.fill = true;
-				                rowLayout.wrap = false;
-				                rowLayout.pack = true;
-				                rowLayout.type = SWT.VERTICAL;
-				                rowLayout.spacing = 0;
-				                tooltipShell.setLayout(rowLayout);
-				                
-								// Call tooltip contributors
-								final IEclipseContext context = extService.createChildContext();
-				                try {
-									context.set(Composite.class, tooltipShell);
-									context.set(Names.BUSINESS_OBJECT, tooltipBo);
-									for (final Object tooltipContributor : extService.getTooltipContributors()) {
-										ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
-									}
-				                } finally {
-				                	context.dispose();
-				                }
-								
-								// Show tooltip shell if something was contributed
-								if (tooltipShell.getChildren().length > 0) {
-									final Point point = display.getCursorLocation();
-									tooltipShell.setLocation(point.x, point.y+20);
-									tooltipCursorX = e.x;
-									tooltipCursorY = e.y;
-									tooltipShell.pack(true);
-									tooltipShell.setVisible(true);
+					final DiagramElement hoverElement = hoverPe == null ? null : graphitiAgeDiagram.getClosestDiagramElement(hoverPe);
+
+					// Only show tooltips if a diagram element was found
+					if(hoverElement != null) {		
+						if(hoverElement != tooltipElement || exceedsCursorMoveThreshold(e.x, e.y)) {
+							disposeCurrentToolTip();
+							tooltipElement = hoverElement;
+															
+							// Create new tooltip shell
+							final Display display = Display.getCurrent();
+							tooltipShell = new Shell(display.getActiveShell(), SWT.ON_TOP | SWT.TOOL | SWT.CENTER);
+							tooltipShell.setVisible(false);
+							tooltipShell.setBackground(display.getSystemColor(SWT.COLOR_INFO_BACKGROUND));
+							tooltipShell.setBackgroundMode(SWT.INHERIT_FORCE);
+							
+							// Configure layout
+							final RowLayout rowLayout = new RowLayout();
+							rowLayout.fill = true;
+			                rowLayout.wrap = false;
+			                rowLayout.pack = true;
+			                rowLayout.type = SWT.VERTICAL;
+			                rowLayout.spacing = 0;
+			                tooltipShell.setLayout(rowLayout);
+			                
+							// Call tooltip contributors
+							final IEclipseContext context = extService.createChildContext();
+			                try {
+								context.set(Composite.class, tooltipShell);
+								context.set(Names.BUSINESS_OBJECT, tooltipElement.getBusinessObject());
+								context.set(Names.BUSINESS_OBJECT_CONTEXT, tooltipElement);
+								for (final Object tooltipContributor : extService.getTooltipContributors()) {
+									ContextInjectionFactory.invoke(tooltipContributor, org.osate.ge.di.Activate.class, context, null);
 								}
+			                } finally {
+			                	context.dispose();
+			                }
+							
+							// Show tooltip shell if something was contributed
+							if (tooltipShell.getChildren().length > 0) {
+								final Point point = display.getCursorLocation();
+								tooltipShell.setLocation(point.x, point.y+20);
+								tooltipCursorX = e.x;
+								tooltipCursorY = e.y;
+								tooltipShell.pack(true);
+								tooltipShell.setVisible(true);
 							}
 						}
 					}
@@ -283,8 +281,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				@Override
 				public void mouseMove(final MouseEvent e) {
 					final PictogramElement movePe = getPictogramElementByControlCoordinates(e.x, e.y);
-					final Object moveBo = getClosestBusinessObject(movePe);
-					if (tooltipShell != null && (movePe instanceof Diagram || !moveBo.equals(tooltipBo) || exceedsCursorMoveThreshold(e.x, e.y))) {
+					final DiagramElement moveElement = movePe == null ? null : graphitiAgeDiagram.getClosestDiagramElement(movePe);
+					if (tooltipShell != null && (movePe instanceof Diagram || moveElement != tooltipElement || exceedsCursorMoveThreshold(e.x, e.y))) {
 						disposeCurrentToolTip();
 					}
 				}
@@ -295,7 +293,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 					
 					tooltipShell = null;
-					tooltipBo = null;
+					tooltipElement = null;
 					tooltipCursorX = Integer.MIN_VALUE;
 					tooltipCursorY = Integer.MIN_VALUE;
 				}
@@ -304,18 +302,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					return (Math.abs(cursorX - tooltipCursorX) + Math.abs(cursorY - tooltipCursorY)) >= cursorMoveThreshold;
 				}
 				
-				private Object getClosestBusinessObject(final PictogramElement pe) {
-					if(pe == null) {
-						return null;
-					}
-					
-					final DiagramNode dn = getGraphitiAgeDiagram().getClosestDiagramElement(pe);
-					if(dn == null) {
-						return null;
-					}
-					
-					return dn.getBusinessObject();
-				}
 				@Override
 				public void partActivated(final IWorkbenchPart part) {
 				}
@@ -846,10 +832,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				// The visible properties should be the properties supported by previous version of OSATE GE
 				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).
 						setRootBoReference(rootBoRef).
-						addAadlProperty("timing_properties::PERIOD").
-						addAadlProperty("communication_properties::DATA_RATE").
-						addAadlProperty("programming_properties::source_text").
-						addAadlProperty("test_ps2::another_test").
+						addAadlProperty("Communication_Properties::timing").
+						addAadlProperty("Programming_Properties::Source_Text").
 						build());
 
 				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		

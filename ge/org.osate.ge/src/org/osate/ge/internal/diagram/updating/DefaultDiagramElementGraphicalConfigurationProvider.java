@@ -44,7 +44,7 @@ public class DefaultDiagramElementGraphicalConfigurationProvider implements Diag
 		final Object boh = element.getBusinessObjectHandler();
 		try {
 			updateArgumentContext(element);
-			return Objects.requireNonNull((AgeGraphicalConfiguration)ContextInjectionFactory.invoke(boh, GetGraphicalConfiguration.class, baseCtx, argCtx, null), "Unable to retrieve graphical configuration using " + boh + ".");
+			return (AgeGraphicalConfiguration)ContextInjectionFactory.invoke(boh, GetGraphicalConfiguration.class, baseCtx, argCtx, null);
 		} finally {
 			clearArgumentContext();
 		}

@@ -88,7 +88,9 @@ class LayoutUtil {
 		} else if(pe instanceof Connection) {
 			final Connection connection = (Connection)pe;
 			
+			// Center non-label decorators
 			// Calculate the total non-label width
+			final int nonLabelDecorationSpacing = 4;
 			int totalNonLabelWidth = 0;
 			for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
 				final DiagramNode decoratorNode = mapping.getDiagramNode(cd);
@@ -97,12 +99,12 @@ class LayoutUtil {
 					if(decorationElement.getGraphic() instanceof Poly) {
 						final Poly poly = (Poly)decorationElement.getGraphic();
 						AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1, true);
-						totalNonLabelWidth += poly.right;
+						totalNonLabelWidth += poly.right + nonLabelDecorationSpacing; // Extra padding is added to space decorations apart from each other
 					} 
 				}
 			}
 			
-			int nonLabelLabelShiftX = -totalNonLabelWidth/2;
+			int nonLabelShiftX = -totalNonLabelWidth/2;
 			int labelY = 10;			
 			for(final ConnectionDecorator cd : connection.getConnectionDecorators()) {
 				final DiagramNode decoratorNode = mapping.getDiagramNode(cd);
@@ -132,19 +134,15 @@ class LayoutUtil {
 						final Poly poly = (Poly)decorationElement.getGraphic();
 						final org.eclipse.graphiti.mm.algorithms.Polyline polyline = (org.eclipse.graphiti.mm.algorithms.Polyline)AgeGraphitiGraphicsUtil.createGraphicsAlgorithm(graphitiDiagram, cd, decorationElement.getGraphic(), 1, 1, true);
 						for(Point p : polyline.getPoints()) {
-							p.setX(p.getX()+nonLabelLabelShiftX);
+							p.setX(p.getX()+nonLabelShiftX);
 						}
 						
-						nonLabelLabelShiftX += Math.ceil(poly.right);
+						nonLabelShiftX += Math.ceil(poly.right) + nonLabelDecorationSpacing;
 					} else {
 						throw new RuntimeException("Unsupported connection child graphic: " + decorationElement.getGraphic());
 					}
 				}
 			}
-			
-			// Center non-label decorators
-			
-			// TODO: Layout/Position decorators? Consider positions stored in the elements...
 		}
 	}	
 	
@@ -159,7 +157,7 @@ class LayoutUtil {
 	public static void layout(final Diagram graphitiDiagram, 
 			final DiagramElement element, 
 			final ContainerShape shape,
-			final NodePictogramBiMap diagramNodeProvider) {
+			final NodePictogramBiMap diagramNodeProvider) {		
 		final AgeLabelConfiguration labelConfiguration = element.getLabelConfiguration() == null ? defaultLabelConfiguration : element.getLabelConfiguration();
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		shapeGa.setStyle(null); // Remove reference to Graphiti style.
@@ -196,15 +194,16 @@ class LayoutUtil {
 		int totalLabelsHeight = 0;
 		for(final Shape labelShape : decorationShapes) {
 			totalLabelsWidth = Math.max(totalLabelsWidth, labelShape.getGraphicsAlgorithm().getWidth());
-			totalLabelsHeight += labelShape.getGraphicsAlgorithm().getHeight();
-		}	
-		
+			totalLabelsHeight += Math.max(0, labelShape.getGraphicsAlgorithm().getHeight());
+		}
+	
 		// Adjust label position if the shape is docked
 		LabelPosition nameHorizontalPosition = getHorizontalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 		LabelPosition nameVerticalPosition = getVerticalLabelPosition(labelConfiguration.horizontalPosition, labelConfiguration.verticalPosition, shapeDockArea);
 		
 		// Update the layout metrics to ensure there is room for all the labels
-		updateLayoutMetricsForLabelPositions(lm, nameHorizontalPosition, nameVerticalPosition, totalLabelsWidth + labelPadding, totalLabelsHeight + labelPadding);
+		final int actualLabelPaddingY = element.getGraphic() instanceof Label ? 0 : labelPadding; // Don't pad vertically if the shape consists of only a label
+		updateLayoutMetricsForLabelPositions(lm, nameHorizontalPosition, nameVerticalPosition, totalLabelsWidth + labelPadding, totalLabelsHeight + actualLabelPaddingY);
 		
 		// Adjust inner width and height based on padding and current size
 		lm.innerWidth = Math.max(lm.innerWidth, shapeGa.getWidth() - lm.leftOuterPadding - lm.rightOuterPadding);
@@ -384,7 +383,7 @@ class LayoutUtil {
 		case DEFAULT:
 		case GRAPHIC_BEGINNING:
 		default:
-			labelsY = lm.topOuterPadding + labelPadding;
+			labelsY = lm.topOuterPadding + actualLabelPaddingY;
 			break;
 			
 		case GRAPHIC_CENTER:
@@ -393,7 +392,7 @@ class LayoutUtil {
 			break;
 			
 		case GRAPHIC_END:						
-			labelsY = innerBottom - totalLabelsHeight - labelPadding;
+			labelsY = innerBottom - totalLabelsHeight - actualLabelPaddingY;
 			break;
 
 		case AFTER_GRAPHIC:

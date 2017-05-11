@@ -15,6 +15,7 @@ import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.graphiti.dt.AbstractDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.tb.IToolBehaviorProvider;
+import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
@@ -109,6 +110,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(QueryService.class, queryService);
 		context.set(QueryRunnerFactory.class, queryRunnerFactory);
 		context.set(GraphitiAgeDiagramProvider.class, graphitiService);
+		context.set(AgeDiagramProvider.class, graphitiService);
 		
 		// Create Public Services
 		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));

@@ -56,4 +56,9 @@ public class FeatureGraphic implements AgeShape {
 		}
 		return true;
 	}
+	
+	@Override
+	public boolean isResizeable() {
+		return featureType == FeatureType.FEATURE_GROUP;
+	}
 }

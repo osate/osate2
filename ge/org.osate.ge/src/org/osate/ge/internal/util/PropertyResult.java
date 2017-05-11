@@ -33,7 +33,7 @@ public class PropertyResult {
 	 */
 	public static class ReferenceValueWithContext {
 		public final ReferenceValue referenceValue;
-
+		
 		/**
 		 * The property association belongs to an ancestor this many levels up from the element the Queryable is associated.
 		 * For example, a value of 1 indicates that the path begins at the parent of the Queryable.
@@ -41,11 +41,21 @@ public class PropertyResult {
 		 */
 		public final int ownerAncestorLevel;
 		
-		public ReferenceValueWithContext(final ReferenceValue referenceValue, final int ownerAncestorLevel) {
+		public ReferenceValueWithContext(final ReferenceValue referenceValue, 
+				final int ownerAncestorLevel) {
 			this.referenceValue = referenceValue;
 			this.ownerAncestorLevel = ownerAncestorLevel;
 		}
 	}
+	
+	// An object of this class will either have a non-null value or a reason why the value is null.
+	
+	/**
+	 * value is the value of the property when it is not specific to an array index, mode, or binding.
+	 * The value will be null if any of the flags are true or if there is not a value for the property 
+	 */
+	public final Object value;
+	public final NullReason nullReason;
 	
 	public PropertyResult(final NullReason nullReason) {
 		this.value = null;
@@ -56,18 +66,9 @@ public class PropertyResult {
 		this.value = Objects.requireNonNull(value, "value must not be null");
 		this.nullReason = null;
 	}
-		
-	// An object of this class will either have a non-null value or a reason why the value is null.
-	
-	/**
-	 * value is the value of the property when it is not specific to an array index, mode, or binding.
-	 * The value will be null if any of the flags are true or if there is not a value for the property 
-	 */
-	public final Object value;
-	public final NullReason nullReason;
-	
-	public static PropertyResult getPropertyValue(AadlPropertyResolver qr, final Queryable q, final Property p) {
-		return getPropertyValue(qr, q, p, 0);
+			
+	public static PropertyResult getPropertyValue(AadlPropertyResolver qr, final Queryable q, final Property p, final boolean allowDefaultValue) {
+		return getPropertyValue(qr, q, p, 0, allowDefaultValue);
 	}
 			
 	/**
@@ -80,7 +81,11 @@ public class PropertyResult {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	private static PropertyResult getPropertyValue(AadlPropertyResolver qr, final Queryable q, final Property p, final int ancestorLevelOffset) {
+	private static PropertyResult getPropertyValue(final AadlPropertyResolver qr, 
+			final Queryable q, 
+			final Property p, 
+			final int ancestorLevelOffset,
+			final boolean allowDefaultValue) {
 		// Return null if the business object isn't a named element.
 		final Object bo = q.getBusinessObject();
 		if(!(bo instanceof NamedElement)) {
@@ -141,7 +146,7 @@ public class PropertyResult {
 			if(p.isInherit() && !(q.getBusinessObject() instanceof InstanceObject)) {
 				final Queryable parent = q.getParent();
 				if(parent != null) {
-					final PropertyResult result = getPropertyValue(qr, parent, p, ancestorLevelOffset+1);
+					final PropertyResult result = getPropertyValue(qr, parent, p, ancestorLevelOffset+1, allowDefaultValue);
 					if(result != null && result.nullReason != NullReason.UNDEFINED) {
 						return result;
 					}
@@ -149,7 +154,9 @@ public class PropertyResult {
 			}
 			
 			// Use the default value
-			value = convertValue(p.getDefaultValue(), 0);
+			if(allowDefaultValue) {
+				value = convertValue(p.getDefaultValue(), 0);
+			}
 		}
 
 		return value == null ? new PropertyResult(NullReason.UNDEFINED) : new PropertyResult(value);

@@ -64,6 +64,8 @@ import org.osate.ge.internal.di.Icon;
 import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
+import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -106,7 +108,14 @@ public class SetBindingTool {
 			// Open Dialog
 			if(currentWindow == null && componentImplementationBoc != null) {
 				currentWindow = new SetBindingWindow(editor.getSite().getShell(), componentImplementationBoc, selectedBoc);
-				if(currentWindow.open() == Dialog.OK) {
+				if(currentWindow.open() == Dialog.OK) {					
+					// Ensure the diagram is configured to show the specified binding property
+					final AgeDiagram diagram = graphiti.getAgeDiagram();
+					diagram.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration()).
+							addAadlProperty(currentWindow.getSelectedProperty().getQualifiedName()).
+							build());
+					
+					// Create the property association
 					createPropertyAssociation(aadlModService);
 				}
 								

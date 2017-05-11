@@ -323,6 +323,10 @@
              class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
              priority="1">
        </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.internal.tooltips.PropertyValueTooltipContributor"
+             priority="1">
+       </tooltipContributor>
     </extension>
 
     <extension
@@ -737,6 +741,9 @@
        <referenceResolver
              class="org.osate.ge.internal.services.impl.InstanceReferenceResolver">
        </referenceResolver>
+       <referenceBuilder
+             class="org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder">
+       </referenceBuilder>
     </extension>
     <extension
           point="org.osate.ge.businessObjectHandlers">
@@ -796,6 +803,13 @@
        </handler>
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.TagHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.PropertyResultValueHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.TimingPropertyValueHandler"
+             priority="1">
        </handler>
        <!--
        <handler

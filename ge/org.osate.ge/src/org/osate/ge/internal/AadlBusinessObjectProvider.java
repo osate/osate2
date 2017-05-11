@@ -98,7 +98,7 @@ public class AadlBusinessObjectProvider {
 			return getChildren((ComponentInstance)bo);
 		} else if(bo instanceof FeatureInstance) {
 			return ((FeatureInstance)bo).getFeatureInstances().stream();
-		} else if(bo instanceof Connection) {	
+		} else if(bo instanceof Connection) {
 			if(!((Connection) bo).isAllBidirectional()) {
 				return Stream.of(new Tag(Tag.KEY_UNIDIRECTIONAL, null));
 			}

@@ -18,18 +18,18 @@ public class DefaultQueryService implements QueryService {
 	}
 	
 	@Override
-	public BusinessObjectContext getFirstResult(StandaloneQuery query, BusinessObjectContext boc, final Object arg) {
+	public final BusinessObjectContext getFirstResult(StandaloneQuery query, BusinessObjectContext boc, final Object arg) {
 		return (BusinessObjectContext)((DefaultStandaloneQuery)query).getFirstResult(queryRunner, boc, arg);
 	}
 	
 	@Override
-	public Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc, final Object arg) {
+	public final Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc, final Object arg) {
 		final Queryable result = ((DefaultStandaloneQuery)query).getFirstResult(queryRunner, boc, arg);
 		return result == null ? null : result.getBusinessObject();
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<BusinessObjectContext> getResults(final StandaloneQuery query, final BusinessObjectContext boc, final Object arg) {
+	public final List<BusinessObjectContext> getResults(final StandaloneQuery query, final BusinessObjectContext boc, final Object arg) {
 		return (List<BusinessObjectContext>)((DefaultStandaloneQuery)query).getResults(queryRunner, boc, arg);
 	}
 }

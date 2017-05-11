@@ -60,10 +60,10 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		}		
 	}
 	
-	private static class TooltipContributorInfo {
+	private static class PrioritizedExtensionInfo {
 		final private int priority;
 		final private Object object;
-		public TooltipContributorInfo(final int priority, final Object object) {
+		public PrioritizedExtensionInfo(final int priority, final Object object) {
 			this.priority = priority;
 			this.object = object;
 		}
@@ -159,7 +159,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 	
 	private static Collection<Object> instantiateBusinessObjectHandlers(final IExtensionRegistry registry) {
-		return Collections.unmodifiableCollection(instantiateSimpleExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler"));
+		return Collections.unmodifiableCollection(instantiatePrioritizedExtensions(registry, BUSINESS_OBJECT_HANDLERS_EXTENSION_POINT_ID, "handler"));
 	}
 	
 	private static Collection<Object> instantiateBusinessObjectProviders(final IExtensionRegistry registry) {
@@ -167,39 +167,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 	}
 
 	private static Collection<Object> instantiateTooltipContributors(final IExtensionRegistry registry) {
-		final Comparator<TooltipContributorInfo> tooltipContributorPriorityComparator = new Comparator<TooltipContributorInfo>() {
-			@Override
-			public int compare(final TooltipContributorInfo tooltipContributor1, final TooltipContributorInfo tooltipContributor2) {
-				return Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
-			}
-		};
-		
-		final Collection<Object> tooltipContributors = new ArrayList<Object>();
-		final IExtensionPoint tooltipContributorsExtPoint = registry.getExtensionPoint(TOOLTIP_EXTENSION_POINT_ID);
-		if(tooltipContributorsExtPoint != null) {
-			final ArrayList<TooltipContributorInfo> tooltipContributorInfos = new ArrayList<TooltipContributorInfo>();
-			for(final IExtension extension : tooltipContributorsExtPoint.getExtensions()) {
-				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-					if(ce.getName().equals("tooltipContributor")) {
-						final int priority = Integer.parseInt(ce.getAttribute("priority"));
-						try {
-							final Object contributor = (Object)ce.createExecutableExtension("class");
-							final TooltipContributorInfo tooltipContributerInfo = new TooltipContributorInfo(priority, contributor);
-							tooltipContributorInfos.add(tooltipContributerInfo);
-						} catch (final CoreException e) {
-							throw new RuntimeException(e);
-						}
-					}
-				}
-			}
-			
-			tooltipContributorInfos.sort(tooltipContributorPriorityComparator);
-			for (final TooltipContributorInfo t : tooltipContributorInfos) {
-				tooltipContributors.add(t.getObject());
-			}
-		}
-		
-		return Collections.unmodifiableCollection(tooltipContributors);
+		return Collections.unmodifiableCollection(instantiatePrioritizedExtensions(registry, TOOLTIP_EXTENSION_POINT_ID, "tooltipContributor"));
 	}
 	
 	private static Collection<Object> instantiateCommands(final IExtensionRegistry registry) {
@@ -241,6 +209,46 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 						}
 					}
 				}
+			}
+		}
+		
+		return extensions;
+	}
+	
+	// Extensions with a lower priority vlaues are sorted so that they are earlier in the resulting collection
+	private static Collection<Object> instantiatePrioritizedExtensions(final IExtensionRegistry registry, 
+			final String extensionPointId, 
+			final String elementName) {
+		final Comparator<PrioritizedExtensionInfo> priorityComparator = new Comparator<PrioritizedExtensionInfo>() {
+			@Override
+			public int compare(final PrioritizedExtensionInfo tooltipContributor1, final PrioritizedExtensionInfo tooltipContributor2) {
+				return Integer.compare(tooltipContributor1.getPriority(), tooltipContributor2.getPriority());
+			}
+		};
+		
+		final Collection<Object> extensions = new ArrayList<Object>();
+		final IExtensionPoint extPoint = registry.getExtensionPoint(extensionPointId);
+		if(extPoint != null) {
+			final ArrayList<PrioritizedExtensionInfo> prioritizedExtensionInfos = new ArrayList<>();
+			for(final IExtension extension : extPoint.getExtensions()) {
+				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
+					if(ce.getName().equals(elementName)) {
+						final String priorityStr = ce.getAttribute("priority");
+						final int priority = priorityStr == null ? Integer.MAX_VALUE : Integer.parseInt(priorityStr);
+						try {
+							final Object contributor = (Object)ce.createExecutableExtension("class");
+							final PrioritizedExtensionInfo tooltipContributerInfo = new PrioritizedExtensionInfo(priority, contributor);
+							prioritizedExtensionInfos.add(tooltipContributerInfo);
+						} catch (final CoreException e) {
+							throw new RuntimeException(e);
+						}
+					}
+				}
+			}
+			
+			prioritizedExtensionInfos.sort(priorityComparator);
+			for (final PrioritizedExtensionInfo info : prioritizedExtensionInfos) {
+				extensions.add(info.getObject());
 			}
 		}
 		

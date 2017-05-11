@@ -45,7 +45,7 @@ public class LabelUtil {
         
         // Get sizes of text graphics algorithms
         final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(labelText.getValue(), labelText.getFont());
-        
+
         // Add padding to the text size to account for rounding issues in GEF3/Graphiti
         final int paddedLabelTextWidth = labelTextSize.getWidth() + Math.max(15, labelText.getValue().length());
         final int paddedLabelTextHeight = labelTextSize.getHeight() + 5;
@@ -57,7 +57,7 @@ public class LabelUtil {
 		
         return labelShape;
 	}
-	
+		
 	public static void setStyle(final Diagram diagram, final Text text) {
 		TextUtil.setDefaultStyle(diagram, text);
 	}

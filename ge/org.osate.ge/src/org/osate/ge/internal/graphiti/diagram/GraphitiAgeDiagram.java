@@ -223,7 +223,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		
 		// Set whether the pictogram element is active based if the graphic is a decoration
 		if(de.getGraphicalConfiguration().isDecoration) {
-			pe.setActive(containerPe instanceof Connection && g instanceof Label);
+			pe.setActive(!(containerPe instanceof Connection) || g instanceof Label);
+
 			if(containerPe instanceof Connection) {
 				if(!(g instanceof Label || g instanceof Poly)) {
 					throw new RuntimeException("Unsupported connection decoration graphic: " + g);

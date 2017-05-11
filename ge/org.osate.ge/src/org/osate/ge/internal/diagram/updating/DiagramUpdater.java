@@ -181,31 +181,35 @@ public class DiagramUpdater {
 			m.setName(element, infoProvider.getName(element)); // TODO: Should be fetched from somewhere else
 			
 			// Set the graphical Configuration
-			final AgeGraphicalConfiguration graphicalConfiguration = Objects.requireNonNull(infoProvider.getGraphicalConfiguration(element), "getGraphicConfiguration() must not return null");
-			m.setGraphicalConfiguration(element, graphicalConfiguration);
-			
-			// Set the dock area based on the default docking position
-			final DockingPosition defaultDockingPosition = graphicalConfiguration.defaultDockingPosition;
-			final boolean dockable = defaultDockingPosition != DockingPosition.NOT_DOCKABLE;
-			if(dockable) {
-				// If parent is docked, the child should use the group docking area
-				if(container instanceof DiagramElement && ((DiagramElement) container).getDockArea() != null) { 								 
-					m.setDockArea(element, DockArea.GROUP);
-				} else if(element.getDockArea() == null) {
-					m.setDockArea(element, defaultDockingPosition.getDockArea());
-				}
+			final AgeGraphicalConfiguration graphicalConfiguration = infoProvider.getGraphicalConfiguration(element);
+			if(graphicalConfiguration == null) {
+				ghostAndRemove(m, element);
 			} else {
-				// Ensure the dock area is null
-				m.setDockArea(element, null);
-			}		
-						
-			if(element.getGraphic() instanceof AgeConnection) {
-				// Add connection elements to the list so that they can be access later.
-				connectionElements.add(element);				
+				m.setGraphicalConfiguration(element, graphicalConfiguration);
+				
+				// Set the dock area based on the default docking position
+				final DockingPosition defaultDockingPosition = graphicalConfiguration.defaultDockingPosition;
+				final boolean dockable = defaultDockingPosition != DockingPosition.NOT_DOCKABLE;
+				if(dockable) {
+					// If parent is docked, the child should use the group docking area
+					if(container instanceof DiagramElement && ((DiagramElement) container).getDockArea() != null) { 								 
+						m.setDockArea(element, DockArea.GROUP);
+					} else if(element.getDockArea() == null) {
+						m.setDockArea(element, defaultDockingPosition.getDockArea());
+					}
+				} else {
+					// Ensure the dock area is null
+					m.setDockArea(element, null);
+				}		
+							
+				if(element.getGraphic() instanceof AgeConnection) {
+					// Add connection elements to the list so that they can be access later.
+					connectionElements.add(element);				
+				}
+				
+				// Update the element's children
+				updateElements(m, element, n.getChildren(), connectionElements);
 			}
-			
-			// Update the element's children
-			updateElements(m, element, n.getChildren(), connectionElements);
 		}
 	}
 	

@@ -11,6 +11,6 @@ public interface AgeShape extends Graphic {
 	default String getAnnotation() { return null; }
 	
 	default boolean isResizeable() {
-		return !(this instanceof FeatureGraphic && ((FeatureGraphic)this).featureType != FeatureType.FEATURE_GROUP);
+		return true;
 	}
 }

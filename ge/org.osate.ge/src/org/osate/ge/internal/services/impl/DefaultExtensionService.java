@@ -31,11 +31,7 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Stream;
-
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-import org.osate.ge.di.Activate;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 

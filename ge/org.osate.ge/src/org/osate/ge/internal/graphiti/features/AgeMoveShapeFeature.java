@@ -20,6 +20,7 @@ import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeShape;
+import org.osate.ge.internal.graphics.Label;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
@@ -48,6 +49,11 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		}
 
 		if(!(element.getGraphic() instanceof AgeShape)) {
+			return false;
+		}
+		
+		// Don't allow moving label decorations
+		if(element.getGraphic() instanceof Label) {
 			return false;
 		}
 		
