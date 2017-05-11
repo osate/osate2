@@ -17,9 +17,20 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.xtext.nodemodel.INode;
+import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.AbstractNamedValue;
+import org.osate.aadl2.ArrayRange;
+import org.osate.aadl2.BasicPropertyAssociation;
+import org.osate.aadl2.BooleanLiteral;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ClassifierValue;
+import org.osate.aadl2.ComputedValue;
+import org.osate.aadl2.ContainmentPathElement;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.Generalization;
@@ -28,8 +39,16 @@ import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.NamedValue;
+import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.RangeValue;
+import org.osate.aadl2.RealLiteral;
+import org.osate.aadl2.RecordValue;
+import org.osate.aadl2.ReferenceValue;
+import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
@@ -47,6 +66,7 @@ import org.osate.ge.internal.util.AadlPropertyResolver;
 import org.osate.ge.internal.util.PropertyResult;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.PropertyResult.NullReason;
+import org.osate.ge.internal.util.PropertyResult.ReferenceValueWithContext;
 
 /**
  * A TreeExpander whose results contain all elements provided by registered business object providers which are already in the diagram business object tree
@@ -131,9 +151,10 @@ public class DefaultTreeExpander implements TreeExpander {
 			final Set<String> enabledPropertyNames = new HashSet<>(configuration.getEnabledAadlPropertyNames());
 			enabledPropertyNames.add("communication_properties::timing"); // Add properties which are always enabled regardless of configuration setting
 			
+			enabledPropertyNames.add("deployment_properties::actual_processor_binding"); // TODO: Remove.. added for testing
+			
 			// Get the property objects
 			final Set<Property> enabledProperties = getPropertiesByLowercasePropertyNames(enabledPropertyNames);
-			System.err.println("TEST: " + enabledProperties.size()); // TODO: Remove
 			
 			// TODO: What to do with property objects that already exist in tree? Will need to remove if they don't exist anymore? Or they should just be hidden when drawing..
 			final AadlPropertyResolver propertyResolver = new AadlPropertyResolver(newRoot);
@@ -160,22 +181,20 @@ public class DefaultTreeExpander implements TreeExpander {
 		return properties;
 	}
 	
-	@SuppressWarnings("unchecked")
 	public void testPropertyResolver(final AadlPropertyResolver pr, final Queryable q, final Collection<Property> properties) {
 		for(final Property property : properties) {
 			final PropertyResult result = PropertyResult.getPropertyValue(pr, q, property);
 			if(result != null) {
 				final String boName = ((NamedElement)q.getBusinessObject()).getQualifiedName();
 				if(result.value != null) {
-					if(result.value instanceof IntegerLiteral) {
-						final IntegerLiteral il = (IntegerLiteral)result.value;
-						System.err.println(boName + " : " + property.getQualifiedName() + " : " + il.getValue() + " " + il.getUnit().getName());
-					} if(result.value instanceof List) {
-						final String listString = ((List<Object>)result.value).stream().map(Object::toString).collect(Collectors.joining(", "));
-						System.err.println(boName + " : " + property.getQualifiedName() + " : " + listString);							
-					} else {
-						System.err.println(boName + " : " + property.getQualifiedName() + " : " + result.value);	
-					}
+					// TODO: Need a higher level function that handles the null reason
+					final StringBuilder sb = new StringBuilder();
+					appendPropertyValue(q, result.value, false, sb);
+					System.err.println("ABBR: " + boName + " : " + property.getQualifiedName() + " : " + sb.toString());
+					
+					sb.setLength(0);
+					appendPropertyValue(q, result.value, true, sb);
+					System.err.println("FULL: " + boName + " : " + property.getQualifiedName() + " : " + sb.toString());
 				} else {
 					if(result.nullReason != NullReason.UNDEFINED) {
 						System.err.println(boName + " : " + property.getQualifiedName() + " : " + result.nullReason);
@@ -186,6 +205,169 @@ public class DefaultTreeExpander implements TreeExpander {
 		
 		for(final Queryable child : q.getChildren()) {
 			testPropertyResolver(pr, child, properties);
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static void appendPropertyValue(final Queryable q, final Object value, boolean expandLists, final StringBuilder sb) {
+		if(value instanceof List) {
+			if(expandLists) {
+				sb.append('(');
+				boolean isFirst = true;
+				for(final Object element : (List<Object>)value) {
+					if(!isFirst) {
+						sb.append(", ");
+					}
+					isFirst = false;
+					
+					appendPropertyValue(q, element, expandLists, sb);
+				}
+				sb.append(')');
+			}
+			sb.append("<list>");
+		} else {
+			// TODO: Decide how to handle error cases
+			if(value instanceof BooleanLiteral) {
+				final BooleanLiteral bl = (BooleanLiteral)value;
+				sb.append(bl.getValue() ? "true" : "false");
+			} else if(value instanceof ClassifierValue) {
+				final ClassifierValue cv = (ClassifierValue)value;
+				sb.append(cv.getClassifier() == null ? "<Error>" : cv.getClassifier().getQualifiedName());
+			} else if(value instanceof ComputedValue) {
+				final ComputedValue cv = (ComputedValue)value;
+				sb.append(cv.getFunction());
+			} else if(value instanceof NamedValue) {
+				final NamedValue nv = (NamedValue)value;
+				if(nv.getNamedValue() == null) {
+					// TODO					
+				} else {
+					appendPropertyValue(q, nv.getNamedValue(), expandLists, sb);
+				}
+			} else if(value instanceof AbstractNamedValue) {
+				final AbstractNamedValue anv = (AbstractNamedValue)value;
+				sb.append(anv instanceof NamedElement ? ((NamedElement)anv).getName() : "<Error>");
+			} else if(value instanceof IntegerLiteral) {
+				final IntegerLiteral il = (IntegerLiteral)value;
+				sb.append(il.getValue());
+				if(il.getUnit() != null) {
+					sb.append(' ');
+					sb.append(il.getUnit().getName());
+				}
+			} else if(value instanceof RealLiteral) {
+				final RealLiteral rl = (RealLiteral)value;
+				sb.append(rl.getValue());
+				if(rl.getUnit() != null) {
+					sb.append(' ');
+					sb.append(rl.getUnit().getName());
+				}
+			} else if(value instanceof RangeValue) {
+				final RangeValue rv = (RangeValue)value;
+				appendPropertyValue(q, rv.getMinimum(), expandLists, sb);
+				sb.append(" .. ");
+				appendPropertyValue(q, rv.getMaximum(), expandLists, sb);
+				if(rv.getDeltaValue() != null) {
+					sb.append("delta ");
+					appendPropertyValue(q, rv.getDelta(), expandLists, sb);
+				}
+			} else if(value instanceof RecordValue) {
+				final RecordValue rv = (RecordValue)value;
+				sb.append('[');
+				for(final BasicPropertyAssociation bpa : rv.getOwnedFieldValues()) {
+					sb.append(bpa.getProperty() == null ? "<UnknownField>" : bpa.getProperty().getName());
+					sb.append(" => ");
+					appendPropertyValue(q, bpa.getValue(), expandLists, sb);
+					sb.append("; ");
+				}
+				sb.append(']');
+			} else if(value instanceof StringLiteral) {
+				final StringLiteral sl = (StringLiteral)value;
+				sb.append('"');
+				sb.append(sl.getValue());
+				sb.append('"');
+			} else if(value instanceof ReferenceValueWithContext) {
+				final ReferenceValueWithContext rv = (ReferenceValueWithContext)value;
+				
+				Queryable tmp = q;
+				for(int i = 0; i < rv.ownerAncestorLevel; i++) {
+					tmp = q.getParent();
+					if(tmp == null) {
+						// TODO: Decide what to append
+						return;
+					}
+				}
+				
+				// The reference is relative to the current value of tmp
+				// Append Each Level Until Reaching the Containing Classifier
+				String prefix = null;
+				while(tmp != null && tmp.getBusinessObject() instanceof NamedElement && !(tmp.getBusinessObject() instanceof Classifier)) {
+					final String containerName = ((NamedElement)tmp.getBusinessObject()).getName();
+					if(containerName == null) {
+						// TODO: Handle
+						return;
+					}
+					
+					if(prefix == null) {
+						prefix = containerName;
+					} else {
+						prefix = containerName + "." + prefix;
+					}
+					
+					tmp = tmp.getParent();
+				}
+				
+				System.err.println("TESTD: " + prefix);
+				
+				//rv.ownerAncestorLevel
+				// TODO: Handle relative portion.. need to add appropriate ancestors.
+				// TODO: Is there a helper for generating path?
+				if(prefix != null) {
+					sb.append(prefix);
+				}
+				boolean isFirst = prefix == null;
+				for(final ContainmentPathElement pathElement : rv.referenceValue.getContainmentPathElements()) {
+					if(!isFirst) {
+						sb.append(".");
+					}
+					isFirst = false;
+					
+					final NamedElement ne = pathElement.getNamedElement();
+					if(ne == null) {
+						// TODO: Handle null						
+					} else {
+						sb.append(ne.getName());
+					}
+					
+					for(final ArrayRange ar : pathElement.getArrayRanges()) {
+						sb.append('[');
+						sb.append(ar.getLowerBound());
+						if(ar.getUpperBound() > 0) {
+							sb.append(" .. ");
+							sb.append(ar.getUpperBound());
+						}
+						sb.append(']');
+					}
+				}
+				
+			} else if(value instanceof InstanceReferenceValue) {
+				final InstanceReferenceValue irv = (InstanceReferenceValue)value;
+				if(irv.getReferencedInstanceObject() != null) {					
+					sb.append(irv.getReferencedInstanceObject().getComponentInstancePath());
+				} else {
+					sb.append("?");
+				}
+			} else if(value instanceof EObject) {
+				final INode n = NodeModelUtils.getNode((EObject)value);
+				if(n != null) {
+					final String txt = NodeModelUtils.getTokenText(n);
+					if(txt != null) {
+						sb.append(txt);
+						return;
+					}
+				}
+				sb.append("<Unable to Retrieve>");
+			} else {
+				sb.append("<Unsupported Value Type>");
+			}
 		}
 	}
 

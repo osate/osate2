@@ -44,6 +44,6 @@ public class AadlSourceTooltipContributor {
 		}
 		
 		final Text text = new Text(parent, SWT.NONE);
-		text.setText(txt);	
+		text.setText(txt);
 	}
 }
