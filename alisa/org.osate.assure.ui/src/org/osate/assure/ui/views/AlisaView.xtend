@@ -343,7 +343,7 @@ class AlisaView extends ViewPart {
 									verifyAll(eObject, uri)
 								}
 							})
-							add(new Action("Verify TBD") {
+							add(new Action("Verify Remaining") {
 								override run() {
 									verifyTBD(eObject, uri)
 								}
@@ -399,6 +399,7 @@ class AlisaView extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnWeightData(6))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
+						if (!(element instanceof URI)) return "??"
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							AssuranceCaseResult:
 								"Case " + eObject.name
@@ -590,37 +591,21 @@ class AlisaView extends ViewPart {
 						val results = resultDescriptions.map [
 							resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult
 						]
-						results.findFirst[name == selectedAlisaObject.name]
+						results.findFirst[ac| ac !== null && ac.name == selectedAlisaObject.name]
 					}
-				}
-			val filter = if (result !== null && displayedCaseAndFilter.value !== null) {
-					resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
 				}
 
 			val expandedElements = assureViewer.expandedElements
 			if (updateRequirementsCoverageView) {
 				assureViewer.input = if (result !== null) {
-					result.recomputeAllCounts(filter)
 					#[result.URI]
 				}
 			} else {
 				if (result !== null) {
-					result.recomputeAllCounts(filter)
 					updateAllAssureResult(result)
 				}
 			}
 			assureViewer.expandedElements = expandedElements
-			if (updateRequirementsCoverageView) {
-				val coverageView = viewSite.page.findView(
-					AssureRequirementsCoverageView.ID) as AssureRequirementsCoverageView
-				if (coverageView !== null) {
-					if (result !== null) {
-						coverageView.setAssuranceCaseResult(result, filter)
-					} else {
-						coverageView.clear
-					}
-				}
-			}
 		}
 	}
 
@@ -652,8 +637,6 @@ class AlisaView extends ViewPart {
 
 	def private verifyCommon(AssuranceCase assuranceCase, URI assuranceCaseURI,
 		(ResourceSet)=>Pair<IProject, AssuranceCaseResult> getProjectAndResult) {
-		val aadlProject = ResourcesPlugin.workspace.root.getFile(
-			new Path(assuranceCase.system.URI.toPlatformString(true))).project
 		val dirtyEditors = viewSite.page.dirtyEditors
 		if (!dirtyEditors.empty &&
 			MessageDialog.openConfirm(viewSite.shell, "Save editors", "Save editors and continue?")) {
@@ -662,7 +645,6 @@ class AlisaView extends ViewPart {
 		}
 		val resourceSetForProcessing = resourceSetProvider.get(null)
 		val assureProjectAndResult = getProjectAndResult.apply(resourceSetForProcessing)
-		val assureProject = assureProjectAndResult.key
 		val assuranceCaseResult = assureProjectAndResult.value
 		val filterURI = selectedFilters.get(assuranceCaseURI)
 		val filter = if (filterURI !== null) {
@@ -672,22 +654,6 @@ class AlisaView extends ViewPart {
 			override runInWorkspace(IProgressMonitor monitor) throws CoreException {
 				VerifyUtilExtension.clearAllHasRunRecords
 				AssureUtilExtension.clearAllInstanceModels
-//				val progressViewHolder = new AtomicReference
-//				viewSite.workbenchWindow.workbench.display.syncExec[
-//					val coverageView = viewSite.page.showView(AssureRequirementsCoverageView.ID) as AssureRequirementsCoverageView
-//					coverageView.setAssuranceCaseResult(assuranceCaseResult, filter)
-//					assureProcessor.requirementsCoverageUpdater = [
-//						viewSite.workbenchWindow.workbench.display.asyncExec[coverageView.refresh]
-//					]
-//					
-//					val progressView = viewSite.page.showView(AssureProgressView.ID) as AssureProgressView
-//					progressView.setAssuranceCaseResult(assuranceCaseResult, filter)
-//					progressView.setFocus
-//					assureProcessor.progressUpdater = [vaResultURI |
-//						viewSite.workbenchWindow.workbench.display.asyncExec[progressView.update(vaResultURI)]
-//					]
-//					progressViewHolder.set(progressView)
-//				]
 				try {
 					assureProcessor.processCase(assuranceCaseResult, filter, monitor)
 					Status.OK_STATUS
@@ -696,7 +662,7 @@ class AlisaView extends ViewPart {
 				}
 			}
 		}
-		job.rule = null // new MultiRule(#[assureProject, aadlProject])
+		job.rule = null 
 		job.schedule
 	}
 

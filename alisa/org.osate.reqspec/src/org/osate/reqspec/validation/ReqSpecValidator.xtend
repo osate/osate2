@@ -430,7 +430,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		]
 	}
 	
-	@Check//(CheckType.FAST)
+	@Check(CheckType.EXPENSIVE)
 	def void checkSystemRequirementsUniqueToComponentClassifier(SystemRequirementSet sysReq) {
 		val target = sysReq.target
 		val allSystemRequirements = reqSpecrefFinder.getSystemRequirementSetsNoExtends(target)
@@ -441,7 +441,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 	
-	@Check//(CheckType.FAST)
+	@Check(CheckType.EXPENSIVE)
 	def void checkStakeholderGoalsUniqueToComponentClassifier(StakeholderGoals shg) {
 		val target = shg.target
 		val allStakeholderGoals = reqSpecrefFinder.getStakeholderGoals(target)
@@ -452,7 +452,7 @@ class ReqSpecValidator extends AbstractReqSpecValidator {
 		}
 	}
 
-	@Check//(CheckType.FAST)
+	@Check(CheckType.EXPENSIVE)
 	def void checkRequirementShadowing(Requirement req){
 		val reqName = req.name.toLowerCase
 		val reqEvolvesReferences = req.evolvesReference
