@@ -69,6 +69,7 @@ import org.osate.aadl2.DirectedFeature;
 import org.osate.aadl2.DirectionType;
 import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.FeatureConnectionEnd;
+import org.osate.aadl2.FeatureGroup;
 import org.osate.aadl2.FeatureGroupConnectionEnd;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.NamedValue;
@@ -476,9 +477,13 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		final Context srcScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getSourcePictogramElement(), Subcomponent.class, SubprogramCall.class);
 		final ConnectionEnd srcConnectionEnd = srcConnectedElement.getConnectionEnd();
 		if(srcConnectionEnd instanceof DirectedFeature) {
-			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getSourcePictogramElement(), (DirectedFeature)srcConnectionEnd);
-			if((direction == DirectionType.OUT && srcScContainer == null) || (direction == DirectionType.IN && srcScContainer != null)) {
-				return false;
+			// Disable check for feature group. This is a temporary work around for a bug in handling inverse of. It is permanently fixed in branch which transitions to
+			// business object handlers.
+			if(!(srcConnectedElement.getConnectionEnd() instanceof FeatureGroup)) {
+				final DirectionType direction = featureService.getFeatureDirection((Shape)context.getSourcePictogramElement(), (DirectedFeature)srcConnectionEnd);
+				if((direction == DirectionType.OUT && srcScContainer == null) || (direction == DirectionType.IN && srcScContainer != null)) {
+					return false;
+				}
 			}
 		}
 		
@@ -533,9 +538,13 @@ public class ConnectionPattern extends AgeConnectionPattern implements Categoriz
 		final Context dstScContainer = shapeService.getClosestBusinessObjectOfType((Shape)context.getTargetPictogramElement(), Subcomponent.class, SubprogramCall.class);
 		final ConnectionEnd dstConnectionEnd = dstConnectedElement.getConnectionEnd();
 		if(dstConnectionEnd instanceof DirectedFeature) {
-			final DirectionType direction = featureService.getFeatureDirection((Shape)context.getTargetPictogramElement(), (DirectedFeature)dstConnectionEnd);
-			if((direction == DirectionType.IN && dstScContainer == null) || (direction == DirectionType.OUT && dstScContainer != null)) {
-				return false;
+			// Disable check for feature group. This is a temporary work around for a bug in handling inverse of. It is permanently fixed in branch which transitions to
+			// business object handlers.
+			if(!(srcConnectedElement.getConnectionEnd() instanceof FeatureGroup)) {
+				final DirectionType direction = featureService.getFeatureDirection((Shape)context.getTargetPictogramElement(), (DirectedFeature)dstConnectionEnd);
+				if((direction == DirectionType.IN && dstScContainer == null) || (direction == DirectionType.OUT && dstScContainer != null)) {
+					return false;
+				}
 			}
 		}
 		
