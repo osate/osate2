@@ -37,22 +37,28 @@
       <category name="osate2"/>
    </feature>
    <feature id="com.rockwellcollins.atc.agree.feature">
-      <category name="osate2"/>
+      <category name="fmworkbench"/>
    </feature>
    <feature id="com.rockwellcollins.atc.resolute.feature">
-      <category name="osate2"/>
+      <category name="fmworkbench"/>
+   </feature>
+   <feature id="com.rockwellcollins.atc.z3.feature">
+      <category name="fmworkbench"/>
    </feature>
    <feature id="com.rockwellcollins.atc.agree.feature.source">
-      <category name="osate2source"/>
+      <category name="fmworkbenchsource"/>
    </feature>
    <feature id="com.rockwellcollins.atc.resolute.feature.source">
-      <category name="osate2source"/>
+      <category name="fmworkbenchsource"/>
+   </feature>
+   <feature id="com.rockwellcollins.atc.z3.feature.source">
+      <category name="fmworkbenchsource"/>
    </feature>
    <feature id="org.osate.alisa.workbench.sdk">
-      <category name="reqspec"/>
+      <category name="alisa"/>
    </feature>
    <feature id="org.osate.alisa.workbench.sdk.source">
-      <category name="reqspec"/>
+      <category name="alisa"/>
    </feature>
    <feature id="edu.cmu.emfta.feature">
       <category name="emfta"/>
@@ -72,7 +78,9 @@
       </description>
    </category-def>
    <category-def name="osate2source" label="OSATE2 Source Code"/>
-   <category-def name="reqspec" label="ALISA Requirements Specification and Verification"/>
+   <category-def name="fmworkbench" label="Resolute/AGREE"/>
+   <category-def name="fmworkbenchsource" label="Resolute/Agree Source Code"/>
+   <category-def name="alisa" label="ALISA Requirements Specification and Verification"/>
    <category-def name="emfta" label="EMFTA"/>
    <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true" />
 </site>
