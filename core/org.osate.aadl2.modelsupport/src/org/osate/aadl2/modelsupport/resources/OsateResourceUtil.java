@@ -152,8 +152,8 @@ public class OsateResourceUtil {
 	 * unload all aadl resources so they get reloaded for instantiation
 	 * @param rs Resource Set containing the instance model
 	 */
-	public static void refreshResourceSet() {
-		EList<Resource> rlist = getResourceSet().getResources();
+	public static void refreshResourceSet(ResourceSet rset) {
+		EList<Resource> rlist = rset.getResources();
 		for (Resource resource : rlist) {
 			URI uri = resource.getURI();
 			if (uri.fileExtension() == null) {
