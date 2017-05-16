@@ -26,6 +26,7 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolve
 import static extension org.eclipse.emf.ecore.util.EcoreUtil.resolveAll
 import static extension org.eclipse.xtext.EcoreUtil2.getContainerOfType
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.hasEMV2Subclause
+import org.osate.aadl2.Feature
 
 @ImplementedBy(AssureRequirementMetricsProcessor)
 interface IAssureRequirementMetricsProcessor {
@@ -105,8 +106,8 @@ class AssureRequirementMetricsProcessor implements IAssureRequirementMetricsProc
 		modelResult.metrics.totalQualityCategoryCount = modelResult.totalQualityCategoriesCount
 		modelResult.metrics.requirementsCount = targetReqs.map[requirements].flatten.toSet.filter[filterRequirement(categoryFilter)].size
 		modelResult.metrics.requirementsWithoutPlanClaimCount = targetReqs.map[requirements].flatten.toSet.filter[filterRequirement(categoryFilter)].filter[sysReq | !claimReqs.contains(sysReq)].size
-		modelResult.metrics.qualityCategoryRequirementsCount = targetReqs.map[requirements.filter[!(targetElement instanceof ClassifierFeature)]].flatten.filter[filterRequirement(categoryFilter)].map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("quality")].toSet.size
-		modelResult.metrics.featuresRequirementsCount = targetReqs.map[requirements].flatten.map[targetElement].filter(ClassifierFeature).toSet.size		
+		modelResult.metrics.qualityCategoryRequirementsCount = targetReqs.map[requirements.filter[!(targetElement instanceof Feature)]].flatten.filter[filterRequirement(categoryFilter)].map[category].flatten.filter[it.getContainerOfType(Categories).name.equalsIgnoreCase("quality")].toSet.size
+		modelResult.metrics.featuresRequirementsCount = targetReqs.map[requirements].flatten.map[targetElement].filter(Feature).toSet.size		
 		modelResult.metrics.noVerificationPlansCount = verificationPlans.filter[vp | vp.claim.nullOrEmpty].size
 		modelResult.metrics.exceptionsCount = exceptionReqCount + mitigatesReqCount
 		modelResult.metrics.reqTargetHasEMV2SubclauseCount = targetReqs.map[requirements.filter[target.hasEMV2Subclause]].flatten.filter[filterRequirement(categoryFilter)].size
