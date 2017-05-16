@@ -2,6 +2,7 @@ package org.osate.analysis.architecture.actions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashSet;
@@ -26,6 +27,7 @@ import org.osate.aadl2.ComponentCategory;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.EnumerationLiteral;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.FeatureCategory;
@@ -92,34 +94,7 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 					GetProperties::getAllowedProcessorBindingClass, som));
 
 			// Dispatch Protocol
-			issuesList.addAll(processorBindingComponents.stream().flatMap(element -> {
-				EnumerationLiteral dispatchProtocol = GetProperties.getDispatchProtocol(element);
-				if (dispatchProtocol != null) {
-					return GetProperties.getActualProcessorBinding(element).stream().map(boundElement -> {
-						List<EnumerationLiteral> allowedDispatchProtocol = GetProperties
-								.getAllowedDispatchProtocol(boundElement);
-						if (!allowedDispatchProtocol.isEmpty() && !allowedDispatchProtocol.contains(dispatchProtocol)) {
-							StringBuilder message = new StringBuilder(getTitle(element));
-							message.append(" '");
-							message.append(element.getName());
-							message.append("' has a Dispatch_Protocol '");
-							message.append(dispatchProtocol.getName());
-							if (!Aadl2Util.isNoModes(som)) {
-								message.append("' in mode '");
-								message.append(som.getName());
-							}
-							message.append("' which is not allowed by '");
-							message.append(boundElement.getName());
-							message.append("'");
-							return Optional.of(new Issue(element, message.toString()));
-						} else {
-							return Optional.<Issue> empty();
-						}
-					}).filter(issue -> issue.isPresent()).map(issue -> issue.get());
-				} else {
-					return Stream.empty();
-				}
-			}).collect(Collectors.toList()));
+			issuesList.addAll(checkDispatchProtocol(processorBindingComponents.stream(), som));
 
 			// Memory binding
 			Stream<ComponentInstance> memoryBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
@@ -144,64 +119,21 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 					GetProperties::getAllowedConnectionBindingClass, som));
 
 			// Connection Quality of Service
-			issuesList.addAll(connectionBindingElements.stream().flatMap(element -> {
-				Set<EnumerationLiteral> requiredConnQos = Collections
-						.unmodifiableSet(new HashSet<>(GetProperties.getRequiredConnectionQualityOfService(element)));
-				if (!requiredConnQos.isEmpty()) {
-					return GetProperties.getActualConnectionBinding(element).stream().flatMap(boundElement -> {
-						Set<EnumerationLiteral> missingConnQos = new HashSet<>(requiredConnQos);
-						missingConnQos.removeAll(GetProperties.getProvidedConnectionQualityOfService(boundElement));
-						return missingConnQos.stream().map(missing -> {
-							StringBuilder message = new StringBuilder(getTitle(element));
-							message.append(" '");
-							message.append(element.getName());
-							message.append("' has a Required_Connection_Quality_Of_Service '");
-							message.append(missing.getName());
-							if (!Aadl2Util.isNoModes(som)) {
-								message.append("' in mode '");
-								message.append(som.getName());
-							}
-							message.append("' which is not provided by '");
-							message.append(boundElement.getName());
-							message.append("'");
-							return new Issue(element, message.toString());
-						});
-					});
-				} else {
-					return Stream.empty();
-				}
-			}).collect(Collectors.toList()));
+			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
+					GetProperties::getRequiredConnectionQualityOfService, "Required_Connection_Quality_Of_Service",
+					GetProperties::getProvidedConnectionQualityOfService, qos -> qos.getName(), som));
 
 			// Virtual Bus Class
-			issuesList.addAll(connectionBindingElements.stream().flatMap(element -> {
-				Set<ComponentClassifier> requiredVBClass = Collections
-						.unmodifiableSet(new HashSet<>(GetProperties.getRequiredVirtualBusClass(element)));
-				if (!requiredVBClass.isEmpty()) {
-					return GetProperties.getActualConnectionBinding(element).stream().flatMap(boundElement -> {
-						Set<ComponentClassifier> missingVBClass = new HashSet<>(requiredVBClass);
-						missingVBClass.removeAll(GetProperties.getProvidedVirtualBusClass(boundElement));
-						missingVBClass.removeAll(boundElement.getComponentInstances().stream()
-								.map(subcomponent -> subcomponent.getClassifier()).collect(Collectors.toSet()));
-						return missingVBClass.stream().map(missing -> {
-							StringBuilder message = new StringBuilder(getTitle(element));
-							message.append(" '");
-							message.append(element.getName());
-							message.append("' has a Required_Virtual_Bus_Class '");
-							message.append(missing.getName());
-							if (!Aadl2Util.isNoModes(som)) {
-								message.append("' in mode '");
-								message.append(som.getName());
-							}
-							message.append("' which is not provided by '");
-							message.append(boundElement.getName());
-							message.append("'");
-							return new Issue(element, message.toString());
-						});
-					});
-				} else {
-					return Stream.empty();
-				}
-			}).collect(Collectors.toList()));
+			Function<ComponentInstance, Collection<ComponentClassifier>> getProvidedVBClass = boundElement -> {
+				Stream<ComponentClassifier> providedProperty = GetProperties.getProvidedVirtualBusClass(boundElement)
+						.stream();
+				Stream<ComponentClassifier> providedBySubcomponent = boundElement.getComponentInstances().stream()
+						.map(subcomponent -> subcomponent.getClassifier());
+				return Stream.concat(providedProperty, providedBySubcomponent).collect(Collectors.toSet());
+			};
+			issuesList.addAll(checkRequiredAndProvided(connectionBindingElements.stream(),
+					GetProperties::getRequiredVirtualBusClass, "Required_Virtual_Bus_Class", getProvidedVBClass,
+					vbClass -> vbClass.getName(), som));
 		}
 
 		return issuesList;
@@ -241,6 +173,72 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 						createErrorsForBindings(modifiableActual, element, bindingType, som, propertyName));
 			}
 			return issues;
+		}).collect(Collectors.toList());
+	}
+
+	private static List<Issue> checkDispatchProtocol(Stream<ComponentInstance> bindingElements,
+			SystemOperationMode som) {
+		return bindingElements.flatMap(element -> {
+			EnumerationLiteral dispatchProtocol = GetProperties.getDispatchProtocol(element);
+			if (dispatchProtocol != null) {
+				return GetProperties.getActualProcessorBinding(element).stream().map(boundElement -> {
+					List<EnumerationLiteral> allowedDispatchProtocol = GetProperties
+							.getAllowedDispatchProtocol(boundElement);
+					if (!allowedDispatchProtocol.isEmpty() && !allowedDispatchProtocol.contains(dispatchProtocol)) {
+						StringBuilder message = new StringBuilder(getTitle(element));
+						message.append(" '");
+						message.append(element.getName());
+						message.append("' has a Dispatch_Protocol '");
+						message.append(dispatchProtocol.getName());
+						if (!Aadl2Util.isNoModes(som)) {
+							message.append("' in mode '");
+							message.append(som.getName());
+						}
+						message.append("' which is not allowed by '");
+						message.append(boundElement.getName());
+						message.append("'");
+						return Optional.of(new Issue(element, message.toString()));
+					} else {
+						return Optional.<Issue> empty();
+					}
+				}).filter(issue -> issue.isPresent()).map(issue -> issue.get());
+			} else {
+				return Stream.empty();
+			}
+		}).collect(Collectors.toList());
+	}
+
+	private static <T> List<Issue> checkRequiredAndProvided(Stream<InstanceObject> bindingElements,
+			Function<NamedElement, List<T>> getRequired, String requiredPropertyName,
+			Function<ComponentInstance, Collection<T>> getProvided, Function<T, String> getName,
+			SystemOperationMode som) {
+		return bindingElements.flatMap(element -> {
+			Set<T> required = Collections.unmodifiableSet(new HashSet<>(getRequired.apply(element)));
+			if (!required.isEmpty()) {
+				return GetProperties.getActualConnectionBinding(element).stream().flatMap(boundElement -> {
+					Set<T> missingSet = new HashSet<>(required);
+					missingSet.removeAll(getProvided.apply(boundElement));
+					return missingSet.stream().map(missing -> {
+						StringBuilder message = new StringBuilder(getTitle(element));
+						message.append(" '");
+						message.append(element.getName());
+						message.append("' has a ");
+						message.append(requiredPropertyName);
+						message.append(" '");
+						message.append(getName.apply(missing));
+						if (!Aadl2Util.isNoModes(som)) {
+							message.append("' in mode '");
+							message.append(som.getName());
+						}
+						message.append("' which is not provided by '");
+						message.append(boundElement.getName());
+						message.append("'");
+						return new Issue(element, message.toString());
+					});
+				});
+			} else {
+				return Stream.empty();
+			}
 		}).collect(Collectors.toList());
 	}
 
