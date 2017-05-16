@@ -25,11 +25,13 @@ import java.util.Collections
 import java.util.List
 import org.eclipse.emf.common.util.BasicEList
 import org.eclipse.emf.common.util.EList
+import org.eclipse.emf.common.util.UniqueEList
 import org.osate.aadl2.ComponentClassifier
 import org.osate.aadl2.ComponentImplementation
 import org.osate.aadl2.NamedElement
 import org.osate.aadl2.Subcomponent
 import org.osate.aadl2.util.Aadl2Util
+import org.osate.alisa.common.common.AFunctionCall
 import org.osate.alisa.workbench.alisa.AssuranceCase
 import org.osate.alisa.workbench.alisa.AssurancePlan
 import org.osate.alisa.workbench.util.IAlisaGlobalReferenceFinder
@@ -48,12 +50,12 @@ import org.osate.assure.assure.VerificationExecutionState
 import org.osate.assure.assure.VerificationExpr
 import org.osate.assure.assure.VerificationResult
 import org.osate.assure.assure.VerificationResultState
-import org.osate.reqspec.reqSpec.GlobalRequirementSet
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.RequirementSet
 import org.osate.reqspec.reqSpec.SystemRequirementSet
 import org.osate.reqspec.reqSpec.ValuePredicate
 import org.osate.verify.util.IVerifyGlobalReferenceFinder
+import org.osate.verify.util.VerificationMethodDispatchers
 import org.osate.verify.verify.AllExpr
 import org.osate.verify.verify.ArgumentExpr
 import org.osate.verify.verify.Claim
@@ -69,11 +71,6 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.osate.alisa.common.common.AFunctionCall
-import org.osate.verify.util.VerificationMethodDispatchers
-import org.eclipse.emf.common.util.UniqueEList
-import static org.osate.results.util.ResultsUtilExtension.*
-import org.osate.results.results.ResultReport
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
