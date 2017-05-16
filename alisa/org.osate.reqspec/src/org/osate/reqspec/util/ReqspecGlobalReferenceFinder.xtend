@@ -31,6 +31,8 @@ import org.osate.reqspec.reqSpec.ReqSpecPackage
 import org.osate.reqspec.reqSpec.Requirement
 import org.osate.reqspec.reqSpec.StakeholderGoals
 import org.osate.reqspec.reqSpec.SystemRequirementSet
+import org.osate.aadl2.ComponentImplementation
+import org.osate.aadl2.ComponentType
 
 @ImplementedBy(ReqspecGlobalReferenceFinder)
 interface IReqspecGlobalReferenceFinder {
@@ -70,10 +72,25 @@ class ReqspecGlobalReferenceFinder implements IReqspecGlobalReferenceFinder {
 		val hierarchy = new ArrayList<EObject>
 		var Classifier c = cc
 		while (c !== null) {
-			hierarchy.add(c)
-			c = c.extended
+			if (! hierarchy.contains(c)) {
+				hierarchy.add(c)
+				if (c instanceof ComponentImplementation) {
+					addComponentTypeHierarchy(c.type, hierarchy)
+				}
+			}
+				c = c.extended
 		}
 		refHelper.getReferences(hierarchy, "reqspec", SystemRequirementSet)
+	}
+
+	def void addComponentTypeHierarchy(ComponentType cc, ArrayList<EObject> hierarchy) {
+		var ComponentType c = cc
+		while (c !== null) {
+			if (! hierarchy.contains(c)) {
+				hierarchy.add(c)
+			}
+			c = c.extended
+		}
 	}
 
 	override Iterable<SystemRequirementSet> getSystemRequirementSetsNoExtends(ComponentClassifier cc) {
