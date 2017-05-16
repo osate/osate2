@@ -352,6 +352,25 @@ public class EMFIndexRetrieval {
 	* get all classifiers in all packages by looking them up in EMF index 
 	* @param res resource
 	* @return list of classifiers in IEObjectDescription format
+	* 
+	* @deprecated use {@link #getAllClassifiersInWorkspace(EObject)} instead.
+	*/
+	@Deprecated
+	public static EList<IEObjectDescription> getAllClassifiersInWorkspace() {
+		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		IResourceDescriptions rds = rdp.getResourceDescriptions(OsateResourceUtil.getResourceSet());
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getClassifier());
+		for (IEObjectDescription eod : packagedlist) {
+			packlist.add(eod);
+		}
+		return packlist;
+	}
+
+	/**
+	* get all classifiers in all packages by looking them up in EMF index 
+	* @param res resource
+	* @return list of classifiers in IEObjectDescription format
 	*/
 	public static EList<IEObjectDescription> getAllClassifiersInWorkspace(EObject context) {
 		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
@@ -438,6 +457,18 @@ public class EMFIndexRetrieval {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * get the Classifier by looking it up in EMF index 
+	 * @param cname String name of classifier, which must be qualified with a package name
+	 * @return Classifier or null
+	 * 
+	 * @deprecated use {@link #getClassifierInWorkspace(ResourceSet, String)} instead
+	 */
+	@Deprecated
+	public static Classifier getClassifierInWorkspace(String cname) {
+		return getClassifierInWorkspace(OsateResourceUtil.getResourceSet(), cname);
 	}
 
 	/**
