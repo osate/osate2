@@ -1374,6 +1374,21 @@ public class GetProperties {
 			return null;
 		}
 	}
+	
+	public static List<EnumerationLiteral> getAllowedDispatchProtocol(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property allowedDispatchProtocol = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.ALLOWED_DISPATCH_PROTOCOL);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(allowedDispatchProtocol);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
 
 	public static EnumerationLiteral getOverflowHandlingProtocol(final NamedElement ne) {
 		try {
