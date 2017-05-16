@@ -53,8 +53,6 @@ import org.eclipse.swt.widgets.Shell
 import org.eclipse.swt.widgets.Text
 import org.eclipse.xtend.lib.annotations.Accessors
 
-import static org.osate.reqtrace.RequirementsReportConfigDialog.*
-
 import static extension org.eclipse.jface.dialogs.DialogSettings.getOrCreateSection
 
 class RequirementsReportConfigDialog extends TitleAreaDialog {

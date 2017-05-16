@@ -78,7 +78,7 @@ auxiliary combineNumeric(NumberType left, NumberType right) {
 			else
 				Aadl2Factory.eINSTANCE.createAadlReal
 	result.referencedUnitsType =
-			if (left.unitsType != null)
+			if (left.unitsType !== null)
 				left.unitsType
 			else
 				right.unitsType
@@ -103,7 +103,7 @@ auxiliary chooseRoot(EObject obj, RuleEnvironment G) {
 				] as InstanceObject
 		default: {
 			val parent = obj.eContainer()
-			if (parent == null) null else chooseRoot(parent, G)
+			if (parent === null) null else chooseRoot(parent, G)
 		}
 	}
 }
@@ -303,7 +303,7 @@ from {
 			ref.resolve(root)
 		}
 	{
-		resolved != null
+		resolved !== null
 		propVal = InstanceFactory.eINSTANCE.createInstanceReferenceValue
 		propVal.referencedInstanceObject = resolved
 	} or {
@@ -319,7 +319,7 @@ from {
 	// access property on instance object
 	var InstanceObject io
 	{
-		prop.modelElementReference != null
+		prop.modelElementReference !== null
 		G |- prop.modelElementReference ~> var InstanceReferenceValue element
 		io = element.referencedInstanceObject
 	} or {
@@ -340,7 +340,7 @@ from {
 	}
 	propVal = if (pexp instanceof PropertyValue) pexp else null
 
-	propVal != null
+	propVal !== null
   or {
 		fail
 			error 'cannot retrieve property value ' + 

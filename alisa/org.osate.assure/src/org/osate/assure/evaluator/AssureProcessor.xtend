@@ -27,6 +27,7 @@ import com.rockwellcollins.atc.resolute.resolute.ProveStatement
 import com.rockwellcollins.atc.resolute.resolute.ResoluteFactory
 import com.rockwellcollins.atc.resolute.resolute.ThisExpr
 import it.xsemantics.runtime.RuleEnvironment
+import it.xsemantics.runtime.RuleFailedException
 import java.util.ArrayList
 import java.util.HashMap
 import java.util.List
@@ -82,10 +83,6 @@ import static extension org.eclipse.emf.ecore.util.EcoreUtil.getURI
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.assure.util.AssureUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
-import org.eclipse.emf.common.util.EList
-import org.osate.alisa.common.common.ResultIssue
-import java.util.Collection
-import it.xsemantics.runtime.RuleFailedException
 
 @ImplementedBy(AssureProcessor)
 interface IAssureProcessor {
@@ -544,7 +541,7 @@ class AssureProcessor implements IAssureProcessor {
 	
 	def String getFailedMsg(RuleFailedException e){
 		var tmp = e;
-		while (tmp.cause != null){
+		while (tmp.cause !== null){
 			tmp = tmp.cause as RuleFailedException;
 		}
 		return tmp.message

@@ -89,7 +89,7 @@ auxiliary combineNumeric(NumberType left, NumberType right) {
 			else
 				Aadl2Factory.eINSTANCE.createAadlReal
 	result.referencedUnitsType =
-			if (left.unitsType != null)
+			if (left.unitsType !== null)
 				left.unitsType
 			else
 				right.unitsType
@@ -104,12 +104,12 @@ rule ValDeclaration
 from {
 	val declared = valDecl.getType()
 	{
-		declared != null && !valDecl.range
+		declared !== null && !valDecl.range
 		G |- declared : type
 	}
 	or
 	{
-		declared != null && valDecl.range
+		declared !== null && valDecl.range
 		var PropertyType numeric
 		G |- declared : numeric
 		if (numeric instanceof NumberType) {
@@ -124,7 +124,7 @@ from {
 	}
 	or
 	{
-		declared == null
+		declared === null
 		G |- valDecl.value : type
 	}
 }
@@ -133,7 +133,7 @@ rule ComputeDeclaration
   G |- ComputeDeclaration valDecl : PropertyType type
 from {
 	val declared = valDecl.getType()
-	declared != null
+	declared !== null
 	G |- declared : type
 }
 
@@ -254,7 +254,7 @@ from {
 					type = combineNumeric(leftNum, rightNum)
 				}
 				case MULT: {
-					if (leftNum.unitsType != null && rightNum.unitsType != null) {
+					if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
 						fail
 							error 'typing: only one operand may have a unit'
 							source binary
@@ -263,14 +263,14 @@ from {
 				}
 				case DIV: {
 					val t = Aadl2Factory.eINSTANCE.createAadlReal
-					if (leftNum.unitsType != null && rightNum.unitsType != null) {
+					if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
 						G |- leftNum ~~ rightNum
 						or {
 							fail
 								error 'typing: arguments have different unit types'
 								source binary
 						}
-					} else if (rightNum.unitsType != null) {
+					} else if (rightNum.unitsType !== null) {
 						fail
 							error 'typing: argument must have a unit when dividing by a number with unit'
 							source binary.left
@@ -302,14 +302,14 @@ from {
 			val rightNum = rightType as NumberType
 			val t = Aadl2Factory.eINSTANCE.createAadlInteger
 
-			if (leftNum.unitsType != null && rightNum.unitsType != null) {
+			if (leftNum.unitsType !== null && rightNum.unitsType !== null) {
 				G |- leftNum ~~ rightNum
 				or {
 					fail
 						error 'typing: arguments have different unit types'
 						source binary
 				}
-			} else if (rightNum.unitsType != null) {
+			} else if (rightNum.unitsType !== null) {
 				fail
 					error 'typing: argument must have a unit when dividing by a number with unit'
 					source binary.left
@@ -446,21 +446,21 @@ from {
 				G |- arg : var PropertyType argType
 				switch (argType) {
 					AadlReal: {
-						if (argType.unitsType != unitsType) {
+						if (argType.unitsType !== unitsType) {
 							fail
 								error 'typing: all arguments must have the same units type'
 								source arg
 						}
 					}
 					AadlInteger: {
-						if (argType.unitsType != unitsType) {
+						if (argType.unitsType !== unitsType) {
 							fail
 								error 'typing: all arguments must have the same units type'
 								source arg
 						}
 					}
 					RangeType: {
-						if (argType.numberType.unitsType != unitsType) {
+						if (argType.numberType.unitsType !== unitsType) {
 							fail
 								error 'typing: all arguments must have the same units type'
 								source arg
@@ -487,7 +487,7 @@ from {
 			(type as NumberType).referencedUnitsType = unitsType
 		}
 		case 'abs': {
-			call.arguments.size == 1 
+			call.arguments.size === 1 
 			or {
 				fail
 					error 'abs must have one argument'
@@ -503,7 +503,7 @@ from {
 			type = argType				
 		}
 		case 'floor', case 'ceil', case 'round': {
-			call.arguments.size == 1 
+			call.arguments.size === 1 
 			or {
 				fail
 					error 'abs must have one argument'
@@ -521,7 +521,7 @@ from {
 			}
 		}
 		case 'prev': {
-			call.arguments.size == 1 
+			call.arguments.size === 1 
 			or {
 				fail
 					error 'abs must have one argument'
@@ -538,7 +538,7 @@ from {
 			}
 		}
 		case 'atTime': {
-			call.arguments.size == 2 
+			call.arguments.size === 2 
 			or {
 				fail
 					error 'abs must have two arguments'
@@ -556,7 +556,7 @@ from {
 			  	source arg
 			}
 			if (timeType instanceof NumberType) {
-				if ( timeType.unitsType.name != 'Time_Units') {
+				if ( timeType.unitsType.name !== 'Time_Units') {
 				fail
 			  	error 'typing: second argument must have Time units'
 			  	source arg
@@ -569,7 +569,7 @@ from {
 			
 		}
 		default: {
-			if (InterpreterUtil.instance.methodExists(call.function)!=null){
+			if (InterpreterUtil.instance.methodExists(call.function) !== null) {
 			fail
 				error 'unsupported function: ' + call.function
 				source call
@@ -583,12 +583,12 @@ rule UnitExpression
 from {
 	G |- unitExp.expression : var PropertyType expType
 	
-	if (unitExp.unit == null) {
+	if (unitExp.unit === null) {
 		type = expType
 	} else if (unitExp.convert || unitExp.drop) {
 		val targetType = unitExp.unit.eContainer as UnitsType
 		if (expType instanceof NumberType) {
-			if (expType.unitsType == null) {
+			if (expType.unitsType === null) {
 				fail
 					error 'typing: expression has no unit'
 					source unitExp.expression
@@ -617,7 +617,7 @@ from {
 		}
 	} else {
 		if (expType instanceof NumberType) {
-			if (expType.unitsType != null) {
+			if (expType.unitsType !== null) {
 				fail
 					error 'typing: expression already has a unit'
 					source unitExp.expression
@@ -687,11 +687,11 @@ rule sameNumber
 	G |- NumberType left ~~ NumberType right
 from {
 	{
-		left.unitsType == null && right.unitsType == null
+		left.unitsType === null && right.unitsType === null
 	}
 	or
 	{
-		left.unitsType != null && right.unitsType != null
+		left.unitsType !== null && right.unitsType !== null
 		G |- left.unitsType ~~ right.unitsType
 	}
 }
@@ -717,12 +717,12 @@ from {
 rule sameTypeList
 	G |= EList<BasicProperty> left ~~ EList<BasicProperty> right
 from {
-	(left.length != right.length)
+	(left.length !== right.length)
 	for (var i = 0 ; i < left.length; i++) {		
 		val l = left.get(i)
 		val r = right.get(i)
 		l.name.equals(r.name)
-		l.isList() == r.isList()
+		l.isList() === r.isList()
 		G |- l.propertyType ~~ r.propertyType
 	}
 }	
@@ -752,7 +752,7 @@ axiom PrimitiveBoolean
 rule PrimitiveNumber
 	G |- NumberType left <: NumberType right
 from {
-	left.unitsType == right.unitsType
+	left.unitsType === right.unitsType
 	left instanceof AadlInteger ||	right instanceof AadlReal
 }
 
@@ -780,7 +780,7 @@ checkrule CheckValDecls for
 	ValDeclaration valDecl
 from {
  	empty |- valDecl.value : var PropertyType valueType
-	if (valDecl.getType() != null) {
+	if (valDecl.getType() !== null) {
 	  empty |- valDecl : var PropertyType valType
  		empty |- valueType <: valType
   	or {
