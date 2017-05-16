@@ -78,6 +78,11 @@ class CheckBindingConstraintsTest extends OsateTest {
 						Allowed_Processor_Binding_Class => (classifier(proc2)) applies to dev_sub2;
 						Actual_Processor_Binding => (reference(proc_sub1)) applies to dev_sub2;
 						
+						--Dispatch Protocol
+						
+						Allowed_Dispatch_Protocol => (Periodic) applies to proc_sub2;
+						Dispatch_Protocol => Sporadic applies to ps_sub1.t_sub1;
+						
 						
 						
 						--Memory Binding
@@ -226,7 +231,7 @@ class CheckBindingConstraintsTest extends OsateTest {
 				buildInstanceModelFile => [
 					"s1_i_Instance".assertEquals(name)
 					val issues = CheckBindingConstraints.runAnalysis(new NullProgressMonitor, it).sortBy[message]
-					30.assertEquals(issues.size)
+					31.assertEquals(issues.size)
 					issues.get(0) => [
 						"s1_i_Instance.proc_sub1.af1 -> proc_sub2.af1".assertEquals(target.instanceObjectPath)
 						"Connection 'proc_sub1.af1 -> proc_sub2.af1' has a Required_Connection_Quality_Of_Service 'GuaranteedDelivery' which is not provided by 'm_sub2'".assertEquals(message)
@@ -301,49 +306,53 @@ class CheckBindingConstraintsTest extends OsateTest {
 					]
 					issues.get(18) => [
 						"s1_i_Instance.ps_sub1.t_sub1".assertEquals(target.instanceObjectPath)
-						"Thread 't_sub1' has a memory binding to 'm_sub2' which is not allowed by the property Allowed_Memory_Binding".assertEquals(message)
+						"Thread 't_sub1' has a Dispatch_Protocol 'Sporadic' which is not allowed by 'proc_sub2'".assertEquals(message)
 					]
 					issues.get(19) => [
 						"s1_i_Instance.ps_sub1.t_sub1".assertEquals(target.instanceObjectPath)
-						"Thread 't_sub1' has a processor binding to 'proc_sub2' which is not allowed by the property Allowed_Processor_Binding".assertEquals(message)
+						"Thread 't_sub1' has a memory binding to 'm_sub2' which is not allowed by the property Allowed_Memory_Binding".assertEquals(message)
 					]
 					issues.get(20) => [
-						"s1_i_Instance.ps_sub1.t_sub2".assertEquals(target.instanceObjectPath)
-						"Thread 't_sub2' has a memory binding to 'm_sub1' which is not allowed by the property Allowed_Memory_Binding_Class".assertEquals(message)
+						"s1_i_Instance.ps_sub1.t_sub1".assertEquals(target.instanceObjectPath)
+						"Thread 't_sub1' has a processor binding to 'proc_sub2' which is not allowed by the property Allowed_Processor_Binding".assertEquals(message)
 					]
 					issues.get(21) => [
 						"s1_i_Instance.ps_sub1.t_sub2".assertEquals(target.instanceObjectPath)
-						"Thread 't_sub2' has a processor binding to 'proc_sub1' which is not allowed by the property Allowed_Processor_Binding_Class".assertEquals(message)
+						"Thread 't_sub2' has a memory binding to 'm_sub1' which is not allowed by the property Allowed_Memory_Binding_Class".assertEquals(message)
 					]
 					issues.get(22) => [
+						"s1_i_Instance.ps_sub1.t_sub2".assertEquals(target.instanceObjectPath)
+						"Thread 't_sub2' has a processor binding to 'proc_sub1' which is not allowed by the property Allowed_Processor_Binding_Class".assertEquals(message)
+					]
+					issues.get(23) => [
 						"s1_i_Instance.vb_sub1".assertEquals(target.instanceObjectPath)
 						"Virtual bus 'vb_sub1' has a connection binding to 'm_sub2' which is not allowed by the property Allowed_Connection_Binding".assertEquals(message)
 					]
-					issues.get(23) => [
+					issues.get(24) => [
 						"s1_i_Instance.vb_sub2".assertEquals(target.instanceObjectPath)
 						"Virtual bus 'vb_sub2' has a Required_Connection_Quality_Of_Service 'GuaranteedDelivery' which is not provided by 'proc_sub1'".assertEquals(message)
 					]
-					issues.get(24) => [
+					issues.get(25) => [
 						"s1_i_Instance.vb_sub2".assertEquals(target.instanceObjectPath)
 						"Virtual bus 'vb_sub2' has a Required_Connection_Quality_Of_Service 'SecureDelivery' which is not provided by 'proc_sub1'".assertEquals(message)
 					]
-					issues.get(25) => [
+					issues.get(26) => [
 						"s1_i_Instance.vb_sub2".assertEquals(target.instanceObjectPath)
 						"Virtual bus 'vb_sub2' has a connection binding to 'proc_sub1' which is not allowed by the property Allowed_Connection_Binding_Class".assertEquals(message)
 					]
-					issues.get(26) => [
+					issues.get(27) => [
 						"s1_i_Instance.vp_sub1".assertEquals(target.instanceObjectPath)
 						"Virtual processor 'vp_sub1' has a memory binding to 'm_sub2' which is not allowed by the property Allowed_Memory_Binding".assertEquals(message)
 					]
-					issues.get(27) => [
+					issues.get(28) => [
 						"s1_i_Instance.vp_sub1".assertEquals(target.instanceObjectPath)
 						"Virtual processor 'vp_sub1' has a processor binding to 'proc_sub2' which is not allowed by the property Allowed_Processor_Binding".assertEquals(message)
 					]
-					issues.get(28) => [
+					issues.get(29) => [
 						"s1_i_Instance.vp_sub2".assertEquals(target.instanceObjectPath)
 						"Virtual processor 'vp_sub2' has a memory binding to 'm_sub1' which is not allowed by the property Allowed_Memory_Binding_Class".assertEquals(message)
 					]
-					issues.get(29) => [
+					issues.get(30) => [
 						"s1_i_Instance.vp_sub2".assertEquals(target.instanceObjectPath)
 						"Virtual processor 'vp_sub2' has a processor binding to 'proc_sub1' which is not allowed by the property Allowed_Processor_Binding_Class".assertEquals(message)
 					]

@@ -7,6 +7,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.Spliterator;
 import java.util.Spliterators;
@@ -84,11 +85,41 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 			SystemOperationMode som = somIter.next();
 
 			// Processor binding
-			Stream<ComponentInstance> processorBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
-					ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE);
-			issuesList.addAll(checkBindingConstraints(processorBindingComponents, "processor",
+			List<ComponentInstance> processorBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
+					ComponentCategory.VIRTUAL_PROCESSOR, ComponentCategory.DEVICE).collect(Collectors.toList());
+			issuesList.addAll(checkBindingConstraints(processorBindingComponents.stream(), "processor",
 					GetProperties::getActualProcessorBinding, GetProperties::getAllowedProcessorBinding,
 					GetProperties::getAllowedProcessorBindingClass, som));
+
+			// Dispatch Protocol
+			issuesList.addAll(processorBindingComponents.stream().flatMap(element -> {
+				EnumerationLiteral dispatchProtocol = GetProperties.getDispatchProtocol(element);
+				if (dispatchProtocol != null) {
+					return GetProperties.getActualProcessorBinding(element).stream().map(boundElement -> {
+						List<EnumerationLiteral> allowedDispatchProtocol = GetProperties
+								.getAllowedDispatchProtocol(boundElement);
+						if (!allowedDispatchProtocol.isEmpty() && !allowedDispatchProtocol.contains(dispatchProtocol)) {
+							StringBuilder message = new StringBuilder(getTitle(element));
+							message.append(" '");
+							message.append(element.getName());
+							message.append("' has a Dispatch_Protocol '");
+							message.append(dispatchProtocol.getName());
+							if (!Aadl2Util.isNoModes(som)) {
+								message.append("' in mode '");
+								message.append(som.getName());
+							}
+							message.append("' which is not allowed by '");
+							message.append(boundElement.getName());
+							message.append("'");
+							return Optional.of(new Issue(element, message.toString()));
+						} else {
+							return Optional.<Issue> empty();
+						}
+					}).filter(issue -> issue.isPresent()).map(issue -> issue.get());
+				} else {
+					return Stream.empty();
+				}
+			}).collect(Collectors.toList()));
 
 			// Memory binding
 			Stream<ComponentInstance> memoryBindingComponents = getComponents(monitor, si, ComponentCategory.THREAD,
