@@ -239,7 +239,18 @@ public class PropertyUtils {
 		final EList<BasicPropertyAssociation> pvl = rv.getOwnedFieldValues();
 		for (BasicPropertyAssociation ba : pvl) {
 			if (ba.getProperty().getName().equalsIgnoreCase(fieldName)) {
-				return ba.getValue();
+				PropertyExpression temp = ba.getValue();
+				int depth = 0;
+				while (temp instanceof NamedValue && depth < 50) {
+					AbstractNamedValue nv = ((NamedValue) temp).getNamedValue();
+					if (nv instanceof PropertyConstant) {
+						temp = ((PropertyConstant) nv).getConstantValue();
+					}
+				}
+				if (temp instanceof NamedValue) {
+					return null;
+				}
+				return temp;
 			}
 		}
 		return null;
