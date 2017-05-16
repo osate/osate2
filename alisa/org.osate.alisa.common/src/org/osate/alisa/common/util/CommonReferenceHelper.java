@@ -34,13 +34,10 @@ import org.eclipse.xtext.findReferences.IReferenceFinder;
 import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
-import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.impl.DefaultReferenceDescription;
-import org.eclipse.xtext.ui.editor.findrefs.ResourceAccess;
 import org.eclipse.xtext.ui.editor.findrefs.TargetURIConverter;
 
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 @SuppressWarnings("restriction")
 public class CommonReferenceHelper {
@@ -49,13 +46,7 @@ public class CommonReferenceHelper {
 	private IReferenceFinder referenceFinder;
 
 	@Inject
-	private IResourceServiceProvider.Registry resourceServiceProviderRegistry;
-
-	@Inject
 	private TargetURIConverter targetURIConverter;
-
-	@Inject
-	private Provider<ResourceAccess> resourceAccessProvider;
 
 	@Inject
 	private IResourceDescriptions indexData;
