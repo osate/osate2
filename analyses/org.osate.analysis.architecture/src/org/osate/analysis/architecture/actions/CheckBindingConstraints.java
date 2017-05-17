@@ -21,6 +21,7 @@ import java.util.stream.StreamSupport;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
 import org.eclipse.emf.ecore.EObject;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentCategory;
@@ -62,7 +63,15 @@ public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
 
 			SystemInstance si = ((ComponentInstance) root).getSystemInstance();
 			if (si != null) {
-				runAnalysis(monitor, si).forEach(issue -> error(issue.target, issue.message));
+				List<Issue> issues = runAnalysis(monitor, si);
+				issues.forEach(issue -> error(issue.target, issue.message));
+				if (issues.isEmpty()) {
+					getShell().getDisplay().asyncExec(() -> MessageDialog.openInformation(getShell(),
+							"Check Binding Constraints", "No problems found"));
+				} else {
+					getShell().getDisplay().asyncExec(() -> MessageDialog.openError(getShell(),
+							"Check Binding Constraints", issues.size() + " problem(s) found"));
+				}
 			}
 
 			if (monitor.isCanceled()) {
