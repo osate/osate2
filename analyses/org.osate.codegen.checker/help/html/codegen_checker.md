@@ -8,10 +8,16 @@ platforms:
  * VxWorks
 
 # Invoking the Checker
- * Select a System Instance in the Outline view
- * Select **Code Generation** in the main menu
+ * Right-click on a System Implementation in the Outline view
+ * Select **Code Generation** in the context menu
  * Select the appropriate checker for your system: POK, DeOS, or VxWorks
 
+![Context Menu Actions](images/OutlineActions.png)
+
+# Results
+Any problems that the checker finds are reported in the Problems view:
+
+![Results](images/CheckerResults.png)
 
 # List of Rules
 

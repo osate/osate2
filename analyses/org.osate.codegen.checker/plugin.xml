@@ -55,7 +55,7 @@
 			</command>
          </menu>
       </menuContribution>
-      <menuContribution
+      <!--menuContribution
             locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
          <toolbar
                id="org.osate.codegen.checker.toolbars.codegenToolbar">
@@ -69,7 +69,7 @@
             	<parameter name="org.osate.codegen.checker.kind" value="pok"/>
             </command>
          </toolbar>
-      </menuContribution>
+      </menuContribution-->
 	<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 		<menu id="org.osate.codegen.checker.toolbars.codegenOutline" label="Code Generation">
 			<command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for POK">
@@ -92,5 +92,12 @@
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
+   </extension>
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_codegen_checker.xml"
+            primary="true">
+      </toc>
    </extension>
 </plugin>

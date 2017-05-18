@@ -36,7 +36,6 @@ package org.osate.codegen.checker.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
@@ -54,10 +53,8 @@ import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.SystemImplementation;
-import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instantiation.InstantiateModel;
-import org.osate.aadl2.util.OsateDebug;
 import org.osate.codegen.checker.checks.AbstractCheck;
 import org.osate.codegen.checker.checks.DataCheck;
 import org.osate.codegen.checker.checks.MemoryCheck;
@@ -66,16 +63,6 @@ import org.osate.codegen.checker.checks.ProcessorCheck;
 import org.osate.codegen.checker.checks.ThreadCheck;
 import org.osate.codegen.checker.report.ErrorReport;
 import org.osate.ui.utils.SelectionHelper;
-
-class CheckProcessor implements Consumer<ComponentInstance> {
-
-	@Override
-	public void accept(ComponentInstance t) {
-		OsateDebug.osateDebug("plop" + t);
-
-	}
-
-}
 
 /**
  * Our sample handler extends AbstractHandler, an IHandler base class.
@@ -118,6 +105,7 @@ public class CheckerHandler extends AbstractHandler {
 	 * the command has been executed, so extract extract the needed information
 	 * from the application context.
 	 */
+	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
 		final IWorkbenchWindow window;
 		int checkerkind;
@@ -165,7 +153,7 @@ public class CheckerHandler extends AbstractHandler {
 
 		if (selectedSystemInstance == null) {
 			MessageDialog.openError(window.getShell(), "Code Generation Checker",
-					"Please select a system instance of system implementation");
+					"Please select a system implementation in the outline view");
 			return null;
 		}
 
@@ -179,7 +167,6 @@ public class CheckerHandler extends AbstractHandler {
 		 * For now, we print the errors.
 		 */
 		for (ErrorReport e : errors) {
-			OsateDebug.osateDebug("error " + e.getMessage() + " on " + e.getComponent().getName());
 			try {
 				IMarker marker = getIResource(e.getComponent().eResource()).createMarker(MARKER_TYPE);
 				marker.setAttribute(IMarker.MESSAGE, e.getComponent().getName() + " - " + e.getMessage());
@@ -188,6 +175,12 @@ public class CheckerHandler extends AbstractHandler {
 			} catch (CoreException exception) {
 				exception.printStackTrace();
 			}
+		}
+
+		if (errors.isEmpty()) {
+			MessageDialog.openInformation(window.getShell(), "Code Generation Checker", "No problems found");
+		} else {
+			MessageDialog.openError(window.getShell(), "Code Generation Checker", errors.size() + " problem(s) found");
 		}
 
 		return null;
