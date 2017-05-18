@@ -470,10 +470,10 @@ public class RangeValueImpl extends PropertyValueImpl implements RangeValue {
 				}
 			}
 			RangeValue newVal = Aadl2Factory.eINSTANCE.createRangeValue();
-			newVal.setMaximum(maxNumberValue.cloneNumber());
-			newVal.setMinimum(minNumberValue.cloneNumber());
+			newVal.setMaximum(maxNumberValue);
+			newVal.setMinimum(minNumberValue);
 			if (deltaVal != null) {
-				newVal.setDelta(((NumberValue) deltaVal.first().getValue()).cloneNumber());
+				newVal.setDelta(deltaVal.first().getValue());
 			}
 			return new EvaluatedProperty(newVal);
 		} catch (NullPointerException e) {

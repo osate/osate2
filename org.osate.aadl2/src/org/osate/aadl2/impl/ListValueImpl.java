@@ -44,9 +44,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
+import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.properties.EvaluatedProperty;
+import org.osate.aadl2.properties.EvaluationContext;
+import org.osate.aadl2.properties.InvalidModelException;
 
 /**
  * <!-- begin-user-doc -->
@@ -219,6 +223,34 @@ public class ListValueImpl extends PropertyExpressionImpl implements ListValue {
 			}
 		}
 		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see org.osate.aadl2.impl.PropertyExpressionImpl#evaluate(org.osate.aadl2.properties.EvaluationContext, int)
+	 */
+	@Override
+	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
+		// evaluate each list element
+		ListValue newVal = Aadl2Factory.eINSTANCE.createListValue();
+		int i = 0;
+		for (PropertyExpression elem : getOwnedListElements()) {
+			i += 1;
+			EvaluatedProperty elemVal = elem.evaluate(ctx, depth + 1);
+			if (elemVal.isEmpty()) {
+				throw new InvalidModelException(this, "Element " + i + " has no value");
+			}
+			if (elemVal.size() > 1) {
+				throw new InvalidModelException(this, "Element " + i + " has multiple values");
+			}
+			if (elemVal.first().isModal()) {
+				throw new InvalidModelException(this, "Element " + i + ": value is modal");
+			}
+			PropertyExpression exp = elemVal.first().getValue();
+			newVal.getOwnedListElements().add(exp);
+		}
+		return new EvaluatedProperty(newVal);
 	}
 
 } // ListValueImpl
