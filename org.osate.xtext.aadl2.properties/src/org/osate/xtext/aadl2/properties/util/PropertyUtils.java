@@ -245,9 +245,6 @@ public class PropertyUtils {
 					AbstractNamedValue nv = ((NamedValue) temp).getNamedValue();
 					if (nv instanceof PropertyConstant) {
 						temp = ((PropertyConstant) nv).getConstantValue();
-						depth++;
-					} else {
-						return null;
 					}
 				}
 				if (temp instanceof NamedValue) {
