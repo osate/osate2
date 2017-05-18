@@ -321,5 +321,11 @@
             value="true">
       </persistent>
    </extension>
-   
+   <extension
+         point="org.eclipse.help.toc">
+      <toc
+            file="help/toc_check_binding_constraints.xml"
+            primary="true">
+      </toc>
+   </extension>
 </plugin>
