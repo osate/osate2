@@ -20,6 +20,7 @@
 		<module>../../org.osate.alisa.help</module>
 		<module>../../org.osate.alisa.workbench</module>
 		<module>../../org.osate.alisa.workbench.sdk</module>
+		<module>../../org.osate.alisa.workbench.tests</module>
 		<module>../../org.osate.alisa.workbench.ui</module>
 		<module>../../org.osate.assure</module>
 		<module>../../org.osate.assure.ui</module>
