@@ -19,6 +19,7 @@
 		<topic href="html/plugins/sei.html" label="SEI validation tools" />
 		<topic href="html/plugins/functional-importer.html" label="Simulink and SCADE bridges" />
 		<anchor id="_codegen_checker" />
+		<anchor id="_check_binding_constraints"/>
 	</topic>
 
 	<topic href="html/std/section-1.html" label="Reference Manual">
