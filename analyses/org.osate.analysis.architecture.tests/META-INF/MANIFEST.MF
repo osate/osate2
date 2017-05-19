@@ -1,0 +1,20 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Tests
+Bundle-SymbolicName: org.osate.analysis.architecture.tests
+Bundle-Version: 1.0.0.qualifier
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Require-Bundle: com.google.guava,
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtend.lib,
+ org.eclipse.xtend.lib.macro,
+ org.osate.core.tests;bundle-version="1.0.0",
+ org.eclipselabs.xtext.utils.unittesting;bundle-version="0.9.3",
+ org.eclipse.xtext.junit4;bundle-version="2.11.0",
+ org.eclipse.emf.ecore,
+ org.osate.aadl2,
+ org.osate.aadl2.instantiation,
+ org.osate.aadl2.modelsupport,
+ org.osate.analysis.architecture,
+ org.osate.ui
+
