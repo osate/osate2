@@ -63,6 +63,22 @@ public class EMFIndexRetrieval {
 			System.out.println("EDesc: " + eod.getQualifiedName());
 		}
 	}
+	
+	/**
+	* get all packages in workspace by looking them up in EMF index 
+	* @param res resource
+	* @return list of AADL packages in IEObjectDescription format
+	*/
+	public static EList<IEObjectDescription> getAllPackagesInWorkspace(ResourceSet resourceSet) {
+		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
+		for (IEObjectDescription eod : packagedlist) {
+			packlist.add(eod);
+		}
+		return packlist;
+	}
 
 	/**
 	* get all packages in workspace by looking them up in EMF index 
@@ -70,14 +86,7 @@ public class EMFIndexRetrieval {
 	* @return list of AADL packages in IEObjectDescription format
 	*/
 	public static EList<IEObjectDescription> getAllPackagesInWorkspace(EObject context) {
-		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds
-				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
-		for (IEObjectDescription eod : packagedlist) {
-			packlist.add(eod);
-		}
-		return packlist;
+		return getAllPackagesInWorkspace(context.eResource().getResourceSet());
 	}
 
 	/**
