@@ -236,7 +236,8 @@ class AssureProcessor implements IAssureProcessor {
 	}
 
 	def dispatch void process(PredicateResult predicateResult) {
-		evaluatePredicate(predicateResult)
+		// runVerificationMethod will set up the Environment for the predicate evaluation 
+		runVerificationMethod(predicateResult)
 	}
 
 	/**
@@ -276,6 +277,12 @@ class AssureProcessor implements IAssureProcessor {
 			}
 		env.add("component", targetComponent)
 		env.add("element", targetElement)
+		
+		if (verificationResult instanceof PredicateResult){
+			evaluatePredicate(verificationResult)
+			return
+		}
+		
 		// parameters are those specified as part of the method call in the verification activity
 		var Iterable<? extends EObject> parameters
 		if (verificationResult instanceof VerificationActivityResult) {
@@ -510,7 +517,7 @@ class AssureProcessor implements IAssureProcessor {
 		}
 	}
 
-	def evaluatePredicate(PredicateResult predicateResult) {
+	def void evaluatePredicate(PredicateResult predicateResult) {
 		try {
 			val predicate = predicateResult.predicate
 			val result = interpreter.interpretExpression(env, predicate.xpression)
