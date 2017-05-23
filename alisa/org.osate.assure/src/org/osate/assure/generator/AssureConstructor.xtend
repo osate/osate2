@@ -71,6 +71,7 @@ import org.osate.verify.verify.VerificationValidation
 import static extension org.osate.alisa.common.util.CommonUtilExtension.*
 import static extension org.osate.reqspec.util.ReqSpecUtilExtension.*
 import static extension org.osate.verify.util.VerifyUtilExtension.*
+import org.osate.aadl2.modelsupport.util.AadlUtil
 
 @ImplementedBy(AssureConstructor)
 interface IAssureConstructor {
@@ -295,7 +296,7 @@ class AssureConstructor implements IAssureConstructor {
 		claimResult.metrics = factory.createMetrics
 		claimResult.metrics.tbdCount = 0
 
-		if (forTargetElement !== null) {
+		if (!Aadl2Util.isNull(forTargetElement) ) {
 			claimResult.modelElement = forTargetElement
 		}
 
