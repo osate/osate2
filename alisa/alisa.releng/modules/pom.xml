@@ -20,6 +20,7 @@
 		<module>../../org.osate.alisa.help</module>
 		<module>../../org.osate.alisa.workbench</module>
 		<module>../../org.osate.alisa.workbench.sdk</module>
+		<module>../../org.osate.alisa.workbench.tests</module>
 		<module>../../org.osate.alisa.workbench.ui</module>
 		<module>../../org.osate.assure</module>
 		<module>../../org.osate.assure.ui</module>
@@ -30,6 +31,9 @@
 		<module>../../org.osate.reqspec</module>
 		<module>../../org.osate.reqspec.ui</module>
 		<module>../../org.osate.reqtrace</module>
+<!-- 
+		<module>../../org.osate.reqtrace.tests</module>
+-->
 		<module>../../org.osate.results</module>
 		<module>../../org.osate.results.ui</module>
 		<module>../../org.osate.verify</module>
