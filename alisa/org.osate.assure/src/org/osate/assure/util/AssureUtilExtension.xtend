@@ -771,11 +771,11 @@ class AssureUtilExtension {
 			case VerificationResultState.SUCCESS:
 				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
-				counts.preconditionfailCount = counts.preconditionfailCount + 1
+				counts.failCount = counts.failCount + 1
 			case VerificationResultState.ERROR:
-				counts.preconditionfailCount = counts.preconditionfailCount + 1
+				counts.errorCount = counts.errorCount + 1
 			case VerificationResultState.TIMEOUT:
-				counts.preconditionfailCount = counts.preconditionfailCount + 1
+				counts.timeoutCount = counts.timeoutCount + 1
 			case VerificationResultState.TBD:
 				counts.tbdCount = counts.tbdCount + 1
 		}
@@ -788,11 +788,11 @@ class AssureUtilExtension {
 			case VerificationResultState.SUCCESS:
 				counts.successCount = counts.successCount + 1
 			case VerificationResultState.FAIL:
-				counts.validationfailCount = counts.validationfailCount + 1
+				counts.failCount = counts.failCount + 1
 			case VerificationResultState.ERROR:
-				counts.validationfailCount = counts.validationfailCount + 1
+				counts.errorCount = counts.errorCount + 1
 			case VerificationResultState.TIMEOUT:
-				counts.validationfailCount = counts.validationfailCount + 1
+				counts.timeoutCount = counts.timeoutCount + 1
 			case VerificationResultState.TBD:
 				counts.tbdCount = counts.tbdCount + 1
 		}
@@ -1206,10 +1206,46 @@ class AssureUtilExtension {
 	private def static VerificationActivityResult addAllSubCounts(VerificationActivityResult vaResult) {
 		vaResult.resetCounts
 		vaResult.preconditionResult.addTo(vaResult)
+		vaResult.addPreFailCount(vaResult.preconditionResult)
 		vaResult.addOwnResultStateToCount()
 		vaResult.validationResult.addTo(vaResult)
+		vaResult.addValidationFailCount(vaResult.validationResult)
 		vaResult
 	}
+	
+	
+	private def static addPreFailCount(VerificationActivityResult ar, VerificationResult pre) {
+		if (pre === null) return ar
+		val counts = ar.metrics
+		switch (pre.resultState) {
+			case VerificationResultState.FAIL:
+				counts.preconditionfailCount = counts.preconditionfailCount + 1
+			case VerificationResultState.ERROR:
+				counts.preconditionfailCount = counts.preconditionfailCount + 1
+			case VerificationResultState.TIMEOUT:
+				counts.preconditionfailCount = counts.preconditionfailCount + 1
+				default: {
+				}
+		}
+		ar
+	}
+	
+	private def static addValidationFailCount(VerificationActivityResult ar, VerificationResult pre) {
+		if (pre === null) return ar
+		val counts = ar.metrics
+		switch (pre.resultState) {
+			case VerificationResultState.FAIL:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.ERROR:
+				counts.validationfailCount = counts.validationfailCount + 1
+			case VerificationResultState.TIMEOUT:
+				counts.validationfailCount = counts.validationfailCount + 1
+				default: {
+				}
+		}
+		ar
+	}
+	
 
 	private def static ElseResult addAllSubCounts(ElseResult vaResult) {
 		vaResult.resetCounts
