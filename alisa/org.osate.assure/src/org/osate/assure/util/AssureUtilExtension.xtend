@@ -603,6 +603,7 @@ class AssureUtilExtension {
 			VerificationActivityResult: return "evidence " + ar.name
 			ElseResult: return "Else"
 			ThenResult: return "Then"
+			PredicateResult: return "Predicate"
 		}
 		return ""
 	}
@@ -1198,6 +1199,7 @@ class AssureUtilExtension {
 		claimResult.resetCounts
 		claimResult.verificationActivityResult.forEach[e|e.addTo(claimResult)]
 		claimResult.subClaimResult.forEach[e|e.addTo(claimResult)]
+		claimResult.predicateResult.addTo(claimResult)
 		claimResult
 	}
 
@@ -1260,6 +1262,12 @@ class AssureUtilExtension {
 		preconditionResult
 	}
 
+	private def static PredicateResult addAllSubCounts(PredicateResult predicateResult) {
+		predicateResult.resetCounts
+		predicateResult.addOwnResultStateToCount()
+		predicateResult
+	}
+
 	private def static AssureResult addAllSubCounts(AssureResult assureResult) {
 		switch (assureResult) {
 			AssuranceCaseResult: assureResult.addAllSubCounts
@@ -1268,6 +1276,7 @@ class AssureUtilExtension {
 			ClaimResult: assureResult.addAllSubCounts
 			ValidationResult: assureResult.addAllSubCounts
 			PreconditionResult: assureResult.addAllSubCounts
+			PredicateResult: assureResult.addAllSubCounts
 			VerificationActivityResult: assureResult.addAllSubCounts
 			ElseResult: assureResult.addAllSubCounts
 			ThenResult: assureResult.addAllSubCounts
