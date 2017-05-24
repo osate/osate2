@@ -26,8 +26,8 @@ import org.eclipse.xtext.diagnostics.Severity
 import org.eclipse.xtext.scoping.IScopeProvider
 import org.eclipse.xtext.serializer.tokens.SerializerScopeProviderBinding
 import org.eclipse.xtext.validation.Issue
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextTest
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextTest
 import org.junit.After
 import org.junit.Before
 import org.junit.ComparisonFailure
