@@ -11,7 +11,6 @@ import org.eclipse.xtext.resource.IEObjectDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.IResourceDescriptions;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
-import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.resource.impl.ResourceDescriptionsProvider;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlPackage;
@@ -95,7 +94,7 @@ public class EMFIndexRetrieval {
 	* @param resoruceSet the resource in which the models are expected
 	* @return AADL package
 	*/
-	public static AadlPackage getPackageInWorkspace(String pname, XtextResourceSet resourceSet) {
+	public static AadlPackage getPackageInWorkspace(String pname, ResourceSet resourceSet) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		Iterable<IEObjectDescription> packagedlist = rds
 				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getAadlPackage());
@@ -185,7 +184,7 @@ public class EMFIndexRetrieval {
 	* @param pname String PropertySet name
 	* @return PropertySet or null
 	*/
-	public static PropertySet getPropertySetInWorkspace(String pname, XtextResourceSet resourceSet) {
+	public static PropertySet getPropertySetInWorkspace(String pname, ResourceSet resourceSet) {
 		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
 		Iterable<IEObjectDescription> packagedlist = rds
 				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
