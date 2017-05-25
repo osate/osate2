@@ -82,5 +82,4 @@
    <category-def name="fmworkbenchsource" label="Resolute/Agree Source Code"/>
    <category-def name="alisa" label="ALISA Requirements Specification and Verification"/>
    <category-def name="emfta" label="EMFTA"/>
-   <repository-reference location="http://download.eclipse.org/epsilon/updates" enabled="true" />
 </site>
