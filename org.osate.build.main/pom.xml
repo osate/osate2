@@ -287,6 +287,7 @@
 					<artifactId>tycho-surefire-plugin</artifactId>
 					<version>${tycho.version}</version>
 					<configuration>
+						<skipTests>false</skipTests>
 						<argLine>${ui.test.vmargs} ${test.logging}</argLine>
 						<useUIHarness>true</useUIHarness>
 						<!-- Use this if there's an org.eclipse.swt.SWTException: Invalid thread 
