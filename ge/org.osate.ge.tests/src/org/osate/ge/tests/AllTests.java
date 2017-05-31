@@ -6,7 +6,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
 @SuiteClasses({ AgeDiagramTests.class,
-	DiagramUpdaterTests.class,
-	DiagramStorageTests.class})
+	DiagramUpdaterTests.class})
 public class AllTests {
 }

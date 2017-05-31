@@ -90,7 +90,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		};		
 	
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
-		final DefaultColoringService highlightingHelper = new DefaultColoringService(graphitiService);
+		final DefaultColoringService coloringService = new DefaultColoringService(graphitiService);
 		final DefaultQueryService queryService = new DefaultQueryService(refBuilder);
 		
 		// Populate the context.
@@ -105,7 +105,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);
 		context.set(RefactoringService.class, refactoringService);
-		context.set(ColoringService.class, highlightingHelper);
+		context.set(ColoringService.class, coloringService);
 		context.set(GraphitiService.class, graphitiService);
 		context.set(QueryService.class, queryService);
 		context.set(QueryRunnerFactory.class, queryRunnerFactory);
@@ -138,8 +138,13 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	
 	@Override
 	public boolean isAutoUpdateAtStartup() {
-		return true;
+		// Disable auto updating on startup because the diagram is updated as part of the diagram loading process.
+		return false;
 	}	
+	
+	public ColoringService getColoringService() {
+		return context.get(ColoringService.class);
+	}
 	
 	@Override
     public IToolBehaviorProvider[] getAvailableToolBehaviorProviders() {

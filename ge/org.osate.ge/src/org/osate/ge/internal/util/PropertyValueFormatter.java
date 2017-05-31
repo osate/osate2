@@ -23,6 +23,7 @@ import org.osate.aadl2.RealLiteral;
 import org.osate.aadl2.RecordValue;
 import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.InstanceReferenceValue;
+import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.model.PropertyResultValue;
 import org.osate.ge.internal.query.Queryable;
@@ -44,7 +45,7 @@ public class PropertyValueFormatter {
 		}
 		
 		final StringBuilder sb = new StringBuilder();
-		sb.append(prv.getProperty().getName());
+		sb.append(AadlUtil.getPropertySetElementName(prv.getProperty()));
 		
 		// Append Indices
 		for(final Integer idx : prv.getArrayIndices()) {

@@ -49,4 +49,6 @@ Export-Package: org.osate.ge,
  org.osate.ge.graphics,
  org.osate.ge.query,
  org.osate.ge.services
+Bundle-ClassPath: lib/javax.json-1.0.4.jar,
+ .
 

@@ -163,6 +163,10 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		super.dispose();
 	}
 	
+	public DiagramUpdater getDiagramUpdater() {
+		return diagramUpdater;
+	}
+	
 	/**
 	 * Instantiates an object and injects the current context into it
 	 * @param clazz

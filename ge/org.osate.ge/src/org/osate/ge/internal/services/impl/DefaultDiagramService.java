@@ -467,48 +467,33 @@ public class DefaultDiagramService implements DiagramService {
 	@Override
 	public String getName(final IFile diagramFile) {
 		String name = null;
-		try {
-			// Check modification time stamp
-			final String modStampPropValue = diagramFile.getPersistentProperty(this.diagramNameModificationStampPropertyName);
-			if(modStampPropValue != null && modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
-				name = diagramFile.getPersistentProperty(diagramNamePropertyName);				
-			}			
-		} catch (CoreException e) {
-			e.printStackTrace();
+		if(diagramFile.exists()) {
+			try {
+				// Check modification time stamp
+				final String modStampPropValue = diagramFile.getPersistentProperty(this.diagramNameModificationStampPropertyName);
+				if(modStampPropValue != null && modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
+					name = diagramFile.getPersistentProperty(diagramNamePropertyName);				
+				}			
+			} catch (CoreException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		if(name == null) {
-			final ResourceSet resourceSet = new ResourceSetImpl();
-			// Load the EMF Resource
-			final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-			try {
-				final Resource resource = resourceSet.getResource(uri, true);
-				if(resource.getContents().size() > 0 && resource.getContents().get(0) instanceof Diagram) {
-					final Diagram diagram = (Diagram)resource.getContents().get(0);
-					name = diagram.getName();
-				}
-			} catch(final RuntimeException e) {				
-				e.printStackTrace();
-			}
+			diagramFile.getName();
 		}
 		
 		return name;
 	}
 	
 	@Override
-	public void savePersistentProperties(final Diagram diagram) {
-		// Set the persistent properties
-		final URI eUri = diagram.eResource().getURI();
-		if (eUri.isPlatformResource()) {
-			String platformString = eUri.toPlatformString(true);
-			final IResource fileResource = ResourcesPlugin.getWorkspace().getRoot().findMember(platformString);
-			
-			try {
-				fileResource.setPersistentProperty(diagramNamePropertyName, diagram.getName());
-				fileResource.setPersistentProperty(diagramNameModificationStampPropertyName, Long.toString(fileResource.getModificationStamp()));
-			} catch (CoreException e) {
-				e.printStackTrace();
-			}
+	public void clearLegacyPersistentProperties(final IResource fileResource) {
+		// Clear the persistent properties
+		try {
+			fileResource.setPersistentProperty(diagramNamePropertyName, null);
+			fileResource.setPersistentProperty(diagramNameModificationStampPropertyName, null);
+		} catch (final CoreException e) {
+			// Ignore exceptions
 		}
 	}
 

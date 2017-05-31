@@ -9,7 +9,7 @@ import java.util.List;
  * Immutable data type for relative references to a business object. 
  * A relative reference along with a containing diagram element must uniquely identify the business object.
  */
-public class RelativeBusinessObjectReference {
+public class RelativeBusinessObjectReference implements Comparable<RelativeBusinessObjectReference> {
 	private List<String> segments;
 
 	/**
@@ -65,5 +65,30 @@ public class RelativeBusinessObjectReference {
 	@Override
 	public String toString() {
 		return Arrays.toString(segments.toArray());
+	}
+	
+	@Override
+	public int compareTo(final RelativeBusinessObjectReference o) {
+		for(int i = 0; i < segments.size(); i++) {
+			// Check that the reference with which this is being compared to has at least the current number of segments.
+			if(o.segments.size() <= i) {
+				return -1;
+			}
+			
+			final int result = segments.get(i).compareTo(o.segments.get(i));
+			if(result != 0) {
+				return result;
+			}
+		}
+		
+		return 0;
+	}
+	
+	/**
+	 * Returns an array of segments. All segments will be lowercase.
+	 * @return
+	 */
+	public String[] toSegmentArray() {
+		return segments.toArray(new String[segments.size()]);
 	}
 }

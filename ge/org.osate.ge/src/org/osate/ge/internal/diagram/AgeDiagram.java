@@ -130,6 +130,12 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		}
 		
 		@Override
+		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
+			e.setBusinessObjectHandler(boh);
+			// Do not notify listeners
+		}
+		
+		@Override
 		public void setManual(final DiagramElement e, final boolean value) {
 			if(value != e.isManual()) { 
 				storeChange(e, DiagramElementField.MANUAL, e.isManual(), value);

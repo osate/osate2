@@ -83,18 +83,20 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	/**
 	 * 
 	 * @param ageDiagram is the AgeDiagram that will be associated with the Graphiti Diagram
+	 * @param graphitiDiagram is the internal graphiti diagram to associated with the Grpahiti Age Diagram. 
+	 * It is a parameter rather than creating it in the constructor to work around initializing sequence issues.
 	 * @param editingDomain is the editing domain to use to make modifications to the diagram. It must not contain any other diagrams.
 	 */
 	public GraphitiAgeDiagram(final AgeDiagram ageDiagram, 
+			final Diagram graphitiDiagram,
 			final EditingDomain editingDomain,
 			final ColoringProvider coloringProvider,
 			final UpdaterListener updateListener) {
 		this.ageDiagram = Objects.requireNonNull(ageDiagram, "ageDiagram must not be null");
 		Objects.requireNonNull(editingDomain, "editingDomain must not be null");
 		this.coloringProvider = Objects.requireNonNull(coloringProvider, "coloringProvider must not be null");
-		this.updateListener = Objects.requireNonNull(updateListener, "updateListener must not be null");
-		
-		this.graphitiDiagram = Graphiti.getPeService().createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
+		this.updateListener = Objects.requireNonNull(updateListener, "updateListener must not be null");		
+		this.graphitiDiagram = Objects.requireNonNull(graphitiDiagram, "graphitiDiagram must not be null");
 		addMapping(ageDiagram, graphitiDiagram);
 		
 		// Create a URI to use for the resource. This resource uses a scheme which does not have a registered handler.
@@ -601,7 +603,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	private java.awt.Color getFinalColor(final DiagramElement de) {
 		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
 		if(awtColor == null) {
-			awtColor = de.getForeground();
+			awtColor = de.getDefaultForeground();
 		}
 		
 		return awtColor;

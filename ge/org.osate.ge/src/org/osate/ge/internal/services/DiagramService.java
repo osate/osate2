@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
@@ -49,11 +50,10 @@ public interface DiagramService {
 	public String getName(final IFile diagramFile);
 	
 	/**
-	 * Stores persistent properties in the diagram's resource. Should be called after resource has been saved.
+	 * Clear persistent resource properties used by legacy versions of the graphical editor
 	 * @param diagram
-	 * @param name
 	 */
-	public void savePersistentProperties(final Diagram diagram);
+	public void clearLegacyPersistentProperties(final IResource fileResource);
 		
 	public Resource getResource(Object bo);
 }

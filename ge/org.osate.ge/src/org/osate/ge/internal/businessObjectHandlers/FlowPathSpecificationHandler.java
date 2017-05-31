@@ -67,7 +67,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 				graphic(partial ? partialGraphic : graphic).
 				source(src).
 				destination(dst).
-				foreground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
+				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 				build();
 	}
 				

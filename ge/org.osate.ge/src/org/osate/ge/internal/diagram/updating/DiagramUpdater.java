@@ -25,6 +25,7 @@ import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.boTree.Completeness;
 import org.osate.ge.internal.diagram.boTree.TreeExpander;
 import org.osate.ge.internal.graphics.AgeConnection;
+import org.osate.ge.internal.model.PropertyResultValue;
 
 /**
  * Updates the diagram's elements based on the diagram configuration.
@@ -115,7 +116,6 @@ public class DiagramUpdater {
 						// TODO: Proper way of handling?
 						continue;
 					}
-
 					element = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference(), initialPosition);
 				} else {
 					element = removedGhost;
@@ -128,6 +128,17 @@ public class DiagramUpdater {
 				m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
 			}
 			
+			// Set the business object handler if it is null
+			if(element.getBusinessObjectHandler() == null) {
+				final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
+				if(boh == null) { 
+					ghostAndRemove(m, element);
+					continue;
+				} else {
+					element.setBusinessObjectHandler(boh);
+				}
+			}
+						
 			// Update the element's children
 			updateStructure(m, element, n.getChildren());
 		}
@@ -153,10 +164,11 @@ public class DiagramUpdater {
 	 * @param m
 	 * @param e
 	 */
-	private void ghostAndRemove( final DiagramModification m, final DiagramElement e) {
+	private void ghostAndRemove(final DiagramModification m, final DiagramElement e) {
 		addGhost(e);
 		m.removeElement(e);
-		if(e.getParent() instanceof DiagramElement) {
+		// Ignore property result values when determining if an element completeness
+		if(e.getParent() instanceof DiagramElement && !(e.getBusinessObject() instanceof PropertyResultValue)) {
 			m.setCompleteness((DiagramElement)e.getParent(), Completeness.INCOMPLETE);
 		}
 	}
@@ -169,16 +181,19 @@ public class DiagramUpdater {
 	 */
 	private void updateElements(final DiagramModification m, final DiagramNode container, final Collection<BusinessObjectNode> bos, final Collection<DiagramElement> connectionElements) {
 		for(final BusinessObjectNode n : bos) {
-			// Get existing element. The updateStructure() pass should have ensured that it exists.
-			DiagramElement element = Objects.requireNonNull(container.getByRelativeReference(n.getRelativeReference()), "unable to retrieve element");
-
+			// Get existing element. The updateStructure() pass should have ensured that it exists if a valid element could be created.
+			final DiagramElement element = container.getByRelativeReference(n.getRelativeReference());
+			if(element == null) {
+				continue;
+			}			
+			
 			// Set fields
 			m.setAutoContentsFilter(element, n.getAutoContentsFilter());
 			m.setManual(element, n.isManual());
 			m.setCompleteness(element, n.getCompleteness());
 			
 			// Set the name
-			m.setName(element, infoProvider.getName(element)); // TODO: Should be fetched from somewhere else
+			m.setName(element, infoProvider.getName(element));
 			
 			// Set the graphical Configuration
 			final AgeGraphicalConfiguration graphicalConfiguration = infoProvider.getGraphicalConfiguration(element);
@@ -313,7 +328,6 @@ public class DiagramUpdater {
 			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
 		for(final DiagramElement e : elements) {
 			final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getRelativeReference(), e.getBusinessObject(), e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
-			childNode.setAutoContentsFilter(e.getAutoContentsFilter());			
 			createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap);
 			createBusnessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);
 		}

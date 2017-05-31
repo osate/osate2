@@ -32,6 +32,6 @@ public enum DockArea {
 	
 	DockArea(final String id) {
 		this.id = id;
-	}		
+	}
 }
 

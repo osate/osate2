@@ -32,7 +32,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		this.relativeReference = relativeReference;
 		this.bo = bo;
 		this.manual = manual;
-		this.autoContentsFilter = autoContentsFilter;
+		this.autoContentsFilter = autoContentsFilter == null ? ContentsFilter.DEFAULT : autoContentsFilter;
 		this.completeness = Objects.requireNonNull(completeness, "completeness must not be null");
 		
 		if(parent != null) {
@@ -68,10 +68,6 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	
 	public ContentsFilter getAutoContentsFilter() {
 		return autoContentsFilter;
-	}
-	
-	public void setAutoContentsFilter(final ContentsFilter value) {
-		this.autoContentsFilter = value;
 	}
 
 	public Completeness getCompleteness() {

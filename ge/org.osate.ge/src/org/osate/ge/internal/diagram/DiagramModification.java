@@ -22,6 +22,14 @@ public interface DiagramModification {
 	 * @param bo
 	 */
 	void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo);
+	
+	/**
+	 * Notifications are not sent when this method is called
+	 * @param e
+	 * @param boh is the business object handler
+	 */
+	void setBusinessObjectHandler(final DiagramElement e, final Object boh);
+	
 	void setManual(final DiagramElement e, final boolean value);
 	void setAutoContentsFilter(final DiagramElement e, final ContentsFilter value);
 	void setCompleteness(final DiagramElement e, final Completeness value);

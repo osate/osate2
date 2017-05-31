@@ -19,11 +19,11 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private final DiagramNode container;
 
 	private Object bo;
-	private boolean manual; // Specifies that the element was created as part of a manual process and not from an auto contents filter or other automatic mechanism.
-	private ContentsFilter autoContentsFilter = ContentsFilter.ALLOW_FUNDAMENTAL; // Only applicable to manual elements.
-	private Completeness completeness = Completeness.UNKNOWN;
-	private final Object boHandler;
+	private Object boHandler;
 	private final RelativeBusinessObjectReference boRelReference;
+	private boolean manual = false; // Specifies that the element was created as part of a manual process and not from an auto contents filter or other automatic mechanism.
+	private ContentsFilter autoContentsFilter = ContentsFilter.DEFAULT; // Only applicable to manual elements.
+	private Completeness completeness = Completeness.UNKNOWN;
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
 	private AgeGraphicalConfiguration graphicalConfig; // Required after initialization.
@@ -37,14 +37,23 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private List<Point> bendpoints; // Optional. Diagram coordinate system.
 	private Point connectionPrimaryLabelPosition; // Optional. Position of the connection label.
 	
+	/**
+	 * It is intended that bo and boHandler will not be null except for during the diagram loading process. 
+	 * Once the diagram is updated, these fields should be non-null 
+	 * @param container
+	 * @param bo
+	 * @param boHandler
+	 * @param boRelReference
+	 * @param position
+	 */
 	public DiagramElement(final DiagramNode container,
 			final Object bo, 
 			final Object boHandler,
 			final RelativeBusinessObjectReference boRelReference,
 			final Point position) {
 		this.container = Objects.requireNonNull(container, "container must not be null");
-		this.bo = Objects.requireNonNull(bo, "bo must not be null");
-		this.boHandler = Objects.requireNonNull(boHandler, "boHandler must not be null");
+		this.bo = bo;
+		this.boHandler = boHandler;
 		this.boRelReference = Objects.requireNonNull(boRelReference, "boRelReference must not be null");
 		this.position = position;
 	}
@@ -111,6 +120,10 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	
 	final void setBusinessObject(final Object value) {
 		this.bo = Objects.requireNonNull(value, "value must not be null");
+	}
+	
+	public final void setBusinessObjectHandler(final Object value) {
+		this.boHandler = value;
 	}
 	
 	public final RelativeBusinessObjectReference getRelativeReference() {
@@ -221,8 +234,8 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return graphicalConfig.graphic;
 	}
 	
-	public final Color getForeground() {
-		return graphicalConfig.foreground;
+	public final Color getDefaultForeground() {
+		return graphicalConfig.defaultForeground;
 	}
 
 	public final boolean isDecoration() {

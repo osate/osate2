@@ -30,6 +30,15 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.ui.editor;
 
 import java.awt.Color;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
 import java.util.List;
@@ -41,8 +50,6 @@ import org.eclipse.emf.common.command.CommandStackListener;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.transaction.NotificationFilter;
 import org.eclipse.emf.transaction.ResourceSetChangeEvent;
 import org.eclipse.emf.transaction.ResourceSetListener;
@@ -72,6 +79,7 @@ import org.eclipse.graphiti.ui.editor.DefaultUpdateBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramBehavior;
 import org.eclipse.graphiti.ui.editor.DiagramEditorContextMenuProvider;
 import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
+import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
@@ -94,10 +102,13 @@ import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.DiagramSerialization;
+import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
+import org.osate.ge.internal.graphiti.AgeFeatureProvider;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
@@ -105,19 +116,27 @@ import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram.UpdaterListener
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
 import org.osate.ge.internal.util.Log;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.IResourceChangeEvent;
+import org.eclipse.core.resources.IResourceChangeListener;
+import org.eclipse.core.resources.IResourceDelta;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
-
 import java.util.Map;
 
 public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDiagramProvider {	
@@ -128,6 +147,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private boolean forceNotDirty = false;
 	private boolean updatingFeatureWhileForcingNotDirty = false;
 	private ToolHandler toolHandler;
+	private IResourceChangeListener resourceChangeListener;
+	private AgeDiagram ageDiagram;
 	private PaintListener paintListener = new PaintListener() {
 		@Override
 		public void paintControl(PaintEvent e) {
@@ -168,19 +189,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		public boolean isPrecommitOnly() {
 			return false;
 		}		
-	};
-	
-	private ColoringProvider coloringProvider = new ColoringProvider() {
-		ColoringService cs;
-		
-		@Override
-		public Color getForegroundColor(final DiagramElement de) {
-			if(cs == null) {
-				cs = (ColoringService)getAdapter(ColoringService.class);
-			}
-			
-			return cs.getForegroundColor(de);
-		}
 	};
 	
 	public AgeDiagramBehavior(final IDiagramContainerUI diagramContainer) {
@@ -452,27 +460,12 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				// Update the diagram
 				final EObject contents = resource.getContents().get(0);
 				if(contents instanceof NamedElement) { // Filter out changes to non AADL Xtext models
-					updateIfDiagramResourceMatches(resource);
+					updateDiagramWhenVisible(); // Queue a diagram update for when the editor is visible. Ideally we would only update related diagrams but it is non-trivial to determine affected diagrams.
 				}
 			}					
 		}	
 	};
 
-	private void updateIfDiagramResourceMatches(final Resource resource) {
-		// Ensure the method is called in the UI thread
-		if (Display.getCurrent() == null) {
-			Display.getDefault().asyncExec(new Runnable() {
-				public void run() {
-					updateIfDiagramResourceMatches(resource);
-				}
-			});
-			return;
-		}
-		
-		// TODO: Migrate. Need to only update if the modified resource is somehow connected to this diagram.
-		update();
-	}
-	
 	public void updateDiagramWhenVisible() {
 		update();
 	}
@@ -722,15 +715,72 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		project = (IProject)projectResource;
 	}
 	
-	// TODO: Move to other class
+	// TODO: Move to other class as part of conversion process
 	private static final String legacyReferenceKey = "independentObject";
 	private static final CanonicalBusinessObjectReference getLegacyReference(final PictogramElement pe) {
 		final String refStr = Graphiti.getPeService().getPropertyValue(pe, legacyReferenceKey);
 		if(refStr == null) {
 			return null;
 		}				
-		
+
 		return new CanonicalBusinessObjectReference(ReferenceEncoder.decode(refStr));		
+	}
+	
+	@Override
+	public void setInput(final IDiagramEditorInput input) {
+		super.setInput(input);
+		
+		if(resourceChangeListener == null) {
+			// Create and register a resource change listener. This listener is needed to handle moving and deleting of the resource file.
+			// Graphiti's built-in support cannot be used because the editor has a custom persistency behavior that doesn't use EMF
+			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			resourceChangeListener = new IResourceChangeListener() {
+				public void resourceChanged(final IResourceChangeEvent event) {
+					if(event.getType() != IResourceChangeEvent.POST_CHANGE) {
+						return;
+					}
+					
+					final IResourceDelta rootDelta = event.getDelta();
+					final IResourceDelta diagramDelta = rootDelta.findMember(getPath(getInput().getUri()));
+					if (diagramDelta == null) {
+			            return;
+					}
+					
+					if(diagramDelta.getKind() == IResourceDelta.REMOVED) {
+						Display.getDefault().asyncExec(new Runnable() {							
+							@Override
+							public void run() {
+								if((diagramDelta.getFlags() & IResourceDelta.MOVED_TO) == 0) {
+									// Close editor
+									getDiagramContainer().close();
+								} else {
+									// Update the input's URI and refresh the title
+									final IPath newPath = diagramDelta.getMovedToPath();
+									getInput().updateUri(URI.createPlatformResourceURI(newPath.toString(), true));
+									getDiagramContainer().refreshTitle();								
+								}
+							}
+						});
+					} 
+				}
+		   };
+		   workspace.addResourceChangeListener(resourceChangeListener);
+		}
+	}
+	
+	@Override
+	protected void disposeBeforeGefDispose() {
+		// Unregister our resource change listener
+		if(resourceChangeListener != null) {
+			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
+			workspace.removeResourceChangeListener(resourceChangeListener);
+		}
+		
+		super.disposeBeforeGefDispose();	
+	}
+
+	private static Path getPath(final URI uri) {
+		return new Path(uri.toPlatformString(true));
 	}
 	
 	@Override
@@ -738,8 +788,39 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		return new DefaultPersistencyBehavior(this) {
 			@Override
 			public Diagram loadDiagram(final URI uri) {
-				updateProjectByUri(uri);
+				final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(getInput().getUri()));
+				if(!(resource instanceof IFile)) {
+					throw new RuntimeException("Unable to retrieve file for resource.");
+				}
 
+				updateProjectByUri(uri);
+				
+				// Load the file
+				ageDiagram = new AgeDiagram();
+				final File file = resource.getLocation().toFile();
+				try(final FileInputStream is = new FileInputStream(file)) {
+					final Reader reader = new InputStreamReader(is);
+					final char[] xmlStart = "<?xml".toCharArray();
+					final char[] buf = new char[xmlStart.length];
+					if(reader.read(buf) == buf.length) {
+						if(Arrays.equals(xmlStart, buf)) {
+							// TODO
+							throw new RuntimeException("XML File Detected. Need to prompt user to convert");
+						}
+					}
+					
+					// Move to the start of the file
+					is.getChannel().position(0);
+					DiagramSerialization.read(ageDiagram, is);					
+				} catch (final IOException e) {
+					throw new RuntimeException(e);
+				}
+				
+				// Create an empty Graphiti diagram. It will be updated after in initDiagramTypeProvider() after the diagram type provider is initialized and 
+				// the required services are available.
+				return Graphiti.getPeService().createDiagram(GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID, "", true);
+				
+				/*
 				// TODO: Replace with something that supports loading the the native format and loading and converting a legacy(Graphiti) format diagram
 				// TODO: Should consider a custom resource implementation which would handle the conversion and saving at the EMF resource level.
 				
@@ -756,7 +837,17 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					throw new RuntimeException("Unable to get root business object reference");
 				}				
 				
-				final AgeDiagram ageDiagram = new AgeDiagram();
+				ageDiagram = new AgeDiagram();
+				ageDiagram.modify(new DiagramModifier() {
+					@Override
+					public void modify(final DiagramModification m) {
+						final DiagramElement container = null; // TODO
+						//final DiagramElement newElement = new DiagramElement(container, n.getBusinessObject(), boh, n.getRelativeReference(), null);
+						
+						//m.addElement(newElement);
+					}
+				});
+				*/
 				/*
 				ageDiagram.modify(new DiagramModifier() {
 
@@ -828,6 +919,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					
 				});
 */
+				/*
 				// TODO: Cleanup. Part of loading legacy diagram. Set the root business object reference and visible properties
 				// The visible properties should be the properties supported by previous version of OSATE GE
 				ageDiagram.setDiagramConfiguration(new DiagramConfigurationBuilder(ageDiagram.getConfiguration()).
@@ -836,43 +928,68 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 						addAadlProperty("Programming_Properties::Source_Text").
 						build());
 
+*/
+				
+				/*
 				// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram		
 				graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, diagramBehavior.getEditingDomain(), coloringProvider, 
-						new UpdaterListener() {
-							@Override
-							public void onUpdateFinished() {
-								// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
-								final PictogramElement[] pes = diagramBehavior.getSelectedPictogramElements();
-								setPictogramElementsForSelection(pes);
-							}
+					new UpdaterListener() {
+						@Override
+						public void onUpdateFinished() {
+							// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
+							final PictogramElement[] pes = diagramBehavior.getSelectedPictogramElements();
+							setPictogramElementsForSelection(pes);
+						}
 				});
-								
+
+				
 				return graphitiAgeDiagram.getGraphitiDiagram();
+				*/
 			}
 			
 			protected Set<Resource> save(final TransactionalEditingDomain editingDomain, final Map<Resource, Map<?, ?>> saveOptions, final IProgressMonitor monitor) {
-				// TODO: Implement saving to native format
-				/*
-				final Diagram diagram = getDiagramTypeProvider().getDiagram();
-
-				editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-					@Override
-					protected void doExecute() {
-						// Delete all the ghosts
-						ghostPurger.purgeGhosts(diagram);
-					}				
-				});				
-				
-				// Save the diagram				
-				final Set<Resource> retValue = super.save(editingDomain, saveOptions, monitor);
-
-				// Set the persistent properties
-				diagramService.savePersistentProperties(diagram);
-				
-				return retValue;
-				*/
-				//TODO: Migrate!
-				throw new RuntimeException("TODO: Migrate");
+				try {
+					final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(getInput().getUri().toPlatformString(true)));
+					if(!(resource instanceof IFile)) {
+						throw new RuntimeException("Unable to retrieve file for resource."); // TODO: Need to throw in a way that it will be presented to the user
+					}
+					
+					// Save the file
+					final IFile file = (IFile)resource;
+					try(final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
+			            DiagramSerialization.write(ageDiagram, os);
+			            
+			            final byte[] data = os.toByteArray();
+			            if(data.length == 0) {
+			            	throw new RuntimeException("Unexpected error saving diagram. Data size is 0.");
+			            }
+			            
+			            try(final ByteArrayInputStream is = new ByteArrayInputStream(data)) {
+			            	file.setContents(is, IFile.FORCE | IFile.KEEP_HISTORY, null);
+			    		}			            
+					} catch (final IOException | CoreException e) {
+						throw new RuntimeException(e);
+					}
+	
+					// Clear legacy persistent properties
+					final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
+					diagramService.clearLegacyPersistentProperties(resource);
+					
+					// Clear Ghosts
+					final AgeFeatureProvider fp = (AgeFeatureProvider)getDiagramTypeProvider().getFeatureProvider();
+					fp.getDiagramUpdater().clearGhosts();
+					
+					// Return a set containing the diagram resource
+					if(editingDomain.getResourceSet().getResources().size() == 1) {
+						return Collections.singleton(editingDomain.getResourceSet().getResources().get(0));
+					} else {
+						return Collections.emptySet();
+					}
+				} catch(final Exception e) {
+					Status errorStatus = new Status(IStatus.ERROR, Activator.PLUGIN_ID, 0, e.getMessage(), e);
+					showSaveError(errorStatus);
+					throw e;
+				}
 			}
 			
 			// Keep the forceNotDirty check
@@ -885,6 +1002,37 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				return super.isDirty();
 			}
 		};
+	}
+	
+	@Override
+	protected IDiagramTypeProvider initDiagramTypeProvider(final Diagram diagram) {
+		final IDiagramTypeProvider dtp = super.initDiagramTypeProvider(diagram);
+
+		// Update the diagram to finish initializing the diagram's fields before creating the GrpahitiAgeDiagram object
+		final AgeFeatureProvider fp = (AgeFeatureProvider)dtp.getFeatureProvider();
+		fp.getDiagramUpdater().updateDiagram(ageDiagram);
+		
+		// Set the coloring service field. It is needed 
+		final ColoringProvider coloringProvider = new ColoringProvider() {
+			private ColoringService cs = ((AgeDiagramTypeProvider)dtp).getColoringService();	;
+			@Override
+			public Color getForegroundColor(final DiagramElement de) {
+				return cs.getForegroundColor(de);
+			}
+		};		
+		
+		// Create the Graphiti AGE diagram which will own a Graphiti diagram and keep it updated with any changes to the AGE diagram
+		graphitiAgeDiagram = new GraphitiAgeDiagram(ageDiagram, dtp.getDiagram(), getEditingDomain(), coloringProvider, 
+			new UpdaterListener() {
+				@Override
+				public void onUpdateFinished() {
+					// Refresh the selection. This prevents the editor from losing the selection in some cases such as aligning shapes.
+					final PictogramElement[] pes = getSelectedPictogramElements();
+					setPictogramElementsForSelection(pes);
+				}
+		});
+
+		return dtp;
 	}
 	
 	/**

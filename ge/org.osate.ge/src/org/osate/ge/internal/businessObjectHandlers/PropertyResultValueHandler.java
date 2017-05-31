@@ -70,7 +70,7 @@ public class PropertyResultValueHandler {
 							graphic(referenceGraphic).
 							source(boc.getParent()).
 							destination(dst).
-							foreground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
+							defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 							build();
 				} else {
 					return createTextGraphicalConfiguration();

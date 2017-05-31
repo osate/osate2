@@ -83,8 +83,8 @@ public class AgeMoveShapeFeature extends AbstractMoveShapeFeature implements ICu
 		graphitiAgeDiagram.modify(new DiagramModifier() {
 			@Override
 			public void modify(final DiagramModification m) {
-				final int dx = context.getX() - diagramElement.getPosition().x;
-				final int dy = context.getY() - diagramElement.getPosition().y;
+				final int dx = context.getX() - diagramElement.getX();
+				final int dy = context.getY() - diagramElement.getY();
 				
 				m.setPosition(diagramElement, new Point(context.getX(), context.getY()));
 				updateBendpointsForContainedConnections(m, diagramElement, dx, dy);

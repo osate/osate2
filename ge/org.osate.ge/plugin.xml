@@ -240,16 +240,6 @@
 </extension>
        
  <extension
-      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-    <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">       
-		<propertyTab category="org.osate.ge" id="org.osate.ge.bindings" label="Bindings">
-    </propertyTab>
-    	<propertyTab category="org.osate.ge" id="org.osate.ge.connections" label="Connections">
-    </propertyTab>
-   </propertyTabs>
-</extension>
-     
- <extension
        point="org.eclipse.core.expressions.definitions">
     <definition
           id="oneElementSelected">

@@ -106,7 +106,7 @@ public class DefaultTreeExpander implements TreeExpander {
 			final ContentsFilter filter;
 			if(configuration.getRootBoReference() == null) {
 				// Get potential root business objects from providers
-				potentialBusinessObjects = getChildBusinessObjectsFromProviders(eclipseCtx, projectBoc);
+				potentialBusinessObjects = getChildBusinessObjectsFromProviders(extService, eclipseCtx, projectBoc);
 				filter = ContentsFilter.ALLOW_FUNDAMENTAL; // Only business objects that already exist in the business object tree should be used
 			} else{
 				// Get the root business object
@@ -233,7 +233,7 @@ public class DefaultTreeExpander implements TreeExpander {
 		final BusinessObjectNode oldNode = oldNodeMap.get(relReference);
 		
 		// Create the node
-		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == null ? getDefaultContentsFilter(bo) : oldNode.getAutoContentsFilter();
+		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == ContentsFilter.DEFAULT ? getDefaultContentsFilter(bo) : oldNode.getAutoContentsFilter();
 		final BusinessObjectNode newNode = nodeFactory.create(parentNode, bo, oldNode == null ? false : oldNode.isManual(), autoContentsFilter, Completeness.UNKNOWN);
     	
 		// Determine the business objects for which nodes in the tree should be created.
@@ -241,7 +241,7 @@ public class DefaultTreeExpander implements TreeExpander {
     			oldNode == null ?
     			Collections.emptyMap() :
     			oldNode.getChildrenMap();    	
-    	final Collection<Object> childBusinessObjectsFromProviders = getChildBusinessObjectsFromProviders(eclipseCtx, newNode);
+    	final Collection<Object> childBusinessObjectsFromProviders = getChildBusinessObjectsFromProviders(extService, eclipseCtx, newNode);
     	final Map<RelativeBusinessObjectReference, Object> childBoMap = getChildBusinessObjects(childBusinessObjectsFromProviders, childOldNodes.keySet(), autoContentsFilter);    	
     	newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE : Completeness.INCOMPLETE);
     	createNodes(eclipseCtx, childBoMap, childOldNodes, newNode);
@@ -365,7 +365,7 @@ public class DefaultTreeExpander implements TreeExpander {
 	 * @param eclipseCtx
 	 * @return
 	 */
-	private Collection<Object> getChildBusinessObjectsFromProviders(final IEclipseContext eclipseCtx, final BusinessObjectContext boc) {
+	private static Collection<Object> getChildBusinessObjectsFromProviders(final ExtensionService extService, final IEclipseContext eclipseCtx, final BusinessObjectContext boc) {
 		eclipseCtx.set(Names.BUSINESS_OBJECT, boc.getBusinessObject());
 		eclipseCtx.set(Names.BUSINESS_OBJECT_CONTEXT, boc);
 		

@@ -77,7 +77,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(fs, partial)).
 				source(src).
-				foreground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
+				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 				build();
 	}
 	
