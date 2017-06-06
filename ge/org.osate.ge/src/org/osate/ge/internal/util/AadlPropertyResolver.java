@@ -174,7 +174,7 @@ public class AadlPropertyResolver {
 						// Only process property associations without applies to. That should be the only kind contained in the PropertyAcc's list but
 						// we check just to make sure. Property associations with applies to are contained property associations and have already been
 						// processed
-						if(localPa.getAppliesTos().size() == 0) {						
+						if(localPa.getAppliesTos().size() == 0) {				
 							ppas.processedPropertyAssociations.add(new ProcessedPropertyAssociation(localPa, Collections.emptyList(), 0));
 						}
 					}

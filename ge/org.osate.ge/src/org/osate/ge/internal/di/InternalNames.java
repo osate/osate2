@@ -14,8 +14,6 @@ package org.osate.ge.internal.di;
  */
 public class InternalNames {
 	public static final String PROJECT = "project";
-	public static final String SOURCE_ROOT_QUERY = "src_root_query";
-	public static final String DESTINATION_ROOT_QUERY = "dst_root_query";
 	public static final String SELECTED_DIAGRAM_ELEMENT = "selected_diagram_element";
 	public static final String SELECTED_DIAGRAM_ELEMENTS = "selected_diagram_elements";
 }

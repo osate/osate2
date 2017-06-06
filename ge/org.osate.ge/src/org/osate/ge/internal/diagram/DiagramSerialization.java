@@ -173,13 +173,7 @@ public class DiagramSerialization {
 			generator.writeStartObject();
 			
 			final DiagramConfiguration config = diagram.getConfiguration();
-			if(config.getRootBoReference() != null) {
-				generator.writeStartArray(FIELD_ROOT_BO);
-				for(final String seg : config.getRootBoReference().toSegmentArray()) {
-					generator.write(seg);
-				}
-				generator.writeEnd();
-			}
+			writeCanonicalReference(generator, FIELD_ROOT_BO, config.getRootBoReference());
 			
 			generator.writeStartArray(FIELD_ENABLED_AADL_PROPERTIES);
 			for(final String enabledPropertyName : config.getEnabledAadlPropertyNames()) {
@@ -188,8 +182,18 @@ public class DiagramSerialization {
 			generator.writeEnd();
 			
 			writeElements(generator, diagram.getDiagramElements());			
+			generator.writeEnd();			
+		}
+	}
+	
+	// Does not write anything if the reference is null
+	private static void writeCanonicalReference(final JsonGenerator generator, final String fieldName, final CanonicalBusinessObjectReference ref) {
+		if(ref != null) {
+			generator.writeStartArray(fieldName);
+			for(final String seg : ref.toSegmentArray()) {
+				generator.write(seg);
+			}
 			generator.writeEnd();
-			
 		}
 	}
 	

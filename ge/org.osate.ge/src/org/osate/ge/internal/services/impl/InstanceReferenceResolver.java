@@ -46,11 +46,11 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveReference;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
+import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
 public class InstanceReferenceResolver {
-	private final GraphitiService graphitiService;
+	private final ProjectProvider projectProvider;
 	private final SystemInstanceLoadingService systemInstanceLoader;
 	private final Map<String, SystemInstanceInfo> keyToSystemInstanceInfoMap = new HashMap<String, SystemInstanceInfo>();
 	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {		
@@ -136,11 +136,11 @@ public class InstanceReferenceResolver {
 	}
 	
 	@Inject
-	public InstanceReferenceResolver(final GraphitiService graphitiService, 
+	public InstanceReferenceResolver(final ProjectProvider projectProvider, 
 			final SystemInstanceLoadingService systemInstanceLoader) {
-		this.graphitiService = Objects.requireNonNull(graphitiService, "graphitiService must not be null");
+		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.systemInstanceLoader = Objects.requireNonNull(systemInstanceLoader, "systemInstanceLoader must not be null");
-		
+
 		ResourcesPlugin.getWorkspace().addResourceChangeListener(resourceChangeListener);
 	}
 	
@@ -164,7 +164,7 @@ public class InstanceReferenceResolver {
 		if(!InstanceReferenceBuilder.ID.equals(refSegs[0])) {
 			return null;
 		}
-		
+
 		final String type = refSegs[1];
 		final String systemInstanceKey = refSegs[2];
 		final SystemInstanceInfo siInfo = getSystemInstanceInfo(systemInstanceKey);
@@ -187,7 +187,7 @@ public class InstanceReferenceResolver {
 			
 			// If it wasn't loaded previously, load the system instance
 			if(siInfo == null) {
-				final IProject project = graphitiService.getProject();
+				final IProject project = projectProvider.getProject();
 				final SystemInstance si = systemInstanceLoader.loadSystemInstance(project, key);
 				if(si != null) {
 					siInfo = new SystemInstanceInfo(si);

@@ -337,38 +337,38 @@ class LayoutUtil {
 		
 		// Create an anchor which is used for flow specifications
 		if(shapeDockArea != null) {
-			final int flowSpecAnchorOffsetX;
+			final int flowSpecAnchorX;
 			final int flowSpecAnchorOffsetY;
 			final int flowSpecOffsetLength = 50;
 			switch(shapeDockArea) {
 			case LEFT:
-				flowSpecAnchorOffsetX = flowSpecOffsetLength;
+				flowSpecAnchorX = innerGa.getX() + innerGa.getWidth() + flowSpecOffsetLength;
 				flowSpecAnchorOffsetY = 0;
 				break;
 				
 			case RIGHT:
-				flowSpecAnchorOffsetX = -flowSpecOffsetLength;
+				flowSpecAnchorX = innerGa.getX() - flowSpecOffsetLength;
 				flowSpecAnchorOffsetY = 0;
 				break;
 				
 			case TOP:
-				flowSpecAnchorOffsetX = 0;
+				flowSpecAnchorX = innerGa.getX() + (innerGa.getWidth()/2);
 				flowSpecAnchorOffsetY = flowSpecOffsetLength;
 				break;
 				
 			case BOTTOM:
-				flowSpecAnchorOffsetX = 0;
+				flowSpecAnchorX = innerGa.getX() + (innerGa.getWidth()/2);
 				flowSpecAnchorOffsetY = -flowSpecOffsetLength;
 				break;
 				
 			default:
-				flowSpecAnchorOffsetX = 0;
+				flowSpecAnchorX = 0;
 				flowSpecAnchorOffsetY = 0;
 				break;
 			}
 
 			AnchorUtil.createOrUpdateFixPointAnchor(shape, AnchorNames.FLOW_SPECIFICATION, 
-					innerGa.getX() + (innerGa.getWidth()/2) + flowSpecAnchorOffsetX, 
+					flowSpecAnchorX, 
 					innerGa.getY() + (innerGa.getHeight()/2) + flowSpecAnchorOffsetY, true);
 			
 		}

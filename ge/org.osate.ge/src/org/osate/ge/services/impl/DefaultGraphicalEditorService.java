@@ -146,6 +146,10 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 		}
 		
 		final DiagramNode dn = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramNode(pe);
+		if(dn == null) {
+			return null;
+		}
+		
 		final Object bo = dn.getBusinessObject();
 		if(bo == null) {
 			return null;

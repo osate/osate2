@@ -265,42 +265,44 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		final Menu menu = menuMgr.createContextMenu(tree);
 		tree.setMenu(menu);
 
-		editor.getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
-			@Override
-			public void selectionChanged(final SelectionChangedEvent event) {
-				if(linkWithEditorAction.isChecked()) {
-					final TreeViewer treeViewer = getTreeViewer();
-					final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();			
-					if(treeViewer != null && 
-							treeViewer.getContentProvider() != null && 
-							!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
-						treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
+		if(editor.getGraphicalViewer() != null) {
+			editor.getGraphicalViewer().addSelectionChangedListener(new ISelectionChangedListener() {
+				@Override
+				public void selectionChanged(final SelectionChangedEvent event) {
+					if(linkWithEditorAction.isChecked()) {
+						final TreeViewer treeViewer = getTreeViewer();
+						final Set<DiagramNode> outlineNodes = getCurrentlySelectedDiagramNodes();			
+						if(treeViewer != null && 
+								treeViewer.getContentProvider() != null && 
+								!outlineNodes.equals(getSelectedDiagramNodesFromEditor())) {
+							treeViewer.setSelection(buildDiagramNodeTreeSelectionFromEditor());
+						}
 					}
 				}
-			}
-			
-			private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
-				final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
-				if(selectedDiagramNodes == null) {
-					return TreeSelection.EMPTY;
-				}
 				
-				final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
-				return new TreeSelection(treePaths);
-			}
-		});
-
-		editor.addPropertyListener(new IPropertyListener() {
-			@Override
-			public void propertyChanged(Object source, int propId) {
-				if(!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
-					getTreeViewer().refresh();
+				private TreeSelection buildDiagramNodeTreeSelectionFromEditor() {
+					final Set<DiagramNode> selectedDiagramNodes = getSelectedDiagramNodesFromEditor();
+					if(selectedDiagramNodes == null) {
+						return TreeSelection.EMPTY;
+					}
+					
+					final TreePath[] treePaths = selectedDiagramNodes.stream().map((dn) -> new TreePath(new Object[] { dn } )).toArray(TreePath[]::new);
+					return new TreeSelection(treePaths);
 				}
-			}
-		});
-
-		viewer.addSelectionChangedListener(this);
-		viewer.setInput(editor);
+			});
+	
+			editor.addPropertyListener(new IPropertyListener() {
+				@Override
+				public void propertyChanged(Object source, int propId) {
+					if(!getTreeViewer().getTree().isDisposed() && getTreeViewer() != null) {
+						getTreeViewer().refresh();
+					}
+				}
+			});
+	
+			viewer.addSelectionChangedListener(this);
+			viewer.setInput(editor);
+		}
 	}
 
 	// Link With Editor action added to Outline menu

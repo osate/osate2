@@ -13,7 +13,6 @@ import org.osate.aadl2.AccessCategory;
 import org.osate.aadl2.AccessConnection;
 import org.osate.aadl2.AccessConnectionEnd;
 import org.osate.aadl2.BusAccess;
-import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ConnectedElement;
 import org.osate.aadl2.Connection;
@@ -49,15 +48,11 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.query.DefaultQuery;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlConnectionUtil;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.StringUtil;
-import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -100,13 +95,7 @@ public class ConnectionHandler {
 				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 				build();
 	}
-	
-	@CreateParentQuery
-	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) DefaultQuery srcRootQuery, 
-			final @Named(InternalNames.DESTINATION_ROOT_QUERY) DefaultQuery dstRootQuery) {
-		return srcRootQuery.commonAncestors(dstRootQuery).filter((fa) -> fa.getBusinessObject() instanceof Subcomponent || fa.getBusinessObject() instanceof ComponentClassifier);
-	}
-	
+		
 	/**
 	 * Gets an array of business objects which describes the logical diagram element path to the connection end.
 	 * @param ctx

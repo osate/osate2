@@ -67,8 +67,8 @@ public class PropertyResult {
 		this.nullReason = null;
 	}
 			
-	public static PropertyResult getPropertyValue(AadlPropertyResolver qr, final Queryable q, final Property p, final boolean allowDefaultValue) {
-		return getPropertyValue(qr, q, p, 0, allowDefaultValue);
+	public static PropertyResult getPropertyValue(AadlPropertyResolver qr, final Queryable q, final Property p, final boolean allowDefaultValue, final boolean allowInheritedValue) {
+		return getPropertyValue(qr, q, p, 0, allowDefaultValue, allowInheritedValue);
 	}
 			
 	/**
@@ -85,7 +85,8 @@ public class PropertyResult {
 			final Queryable q, 
 			final Property p, 
 			final int ancestorLevelOffset,
-			final boolean allowDefaultValue) {
+			final boolean allowDefaultValue, 
+			final boolean allowInheritedValue) {
 		// Return null if the business object isn't a named element.
 		final Object bo = q.getBusinessObject();
 		if(!(bo instanceof NamedElement)) {
@@ -100,7 +101,7 @@ public class PropertyResult {
 				
 		// Find the value which isn't tied to a specific array element, mode, or binding
 		Object value = null;
-		for(ProcessedPropertyAssociation ppa : qr.getProcessedPropertyAssociations(q, p)) {
+		for(final ProcessedPropertyAssociation ppa : qr.getProcessedPropertyAssociations(q, p)) {
 			// Only look at property associations that are applied to the queryable
 			if(ppa.isCompletelyProcessed()) {
 				// Check for cases which result in not being able to return the property value
@@ -134,19 +135,21 @@ public class PropertyResult {
 				}
 
 				// Stop determining the value unless appending to a list.
-				if(pa.isAppend()) {
+				if(!pa.isAppend()) {
 					break;
 				}
 			}
 		}
-		
+
 		if(value == null) {
-			// Handle inherited properties
+			// Handle inherited properties if requested
 			// Don't process inherit for instance objects. The instance model already contains the property associations
-			if(p.isInherit() && !(q.getBusinessObject() instanceof InstanceObject)) {
+			if(allowInheritedValue && 
+					p.isInherit() && 
+					!(q.getBusinessObject() instanceof InstanceObject)) {
 				final Queryable parent = q.getParent();
 				if(parent != null) {
-					final PropertyResult result = getPropertyValue(qr, parent, p, ancestorLevelOffset+1, allowDefaultValue);
+					final PropertyResult result = getPropertyValue(qr, parent, p, ancestorLevelOffset+1, allowDefaultValue, allowInheritedValue);
 					if(result != null && result.nullReason != NullReason.UNDEFINED) {
 						return result;
 					}

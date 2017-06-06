@@ -33,9 +33,11 @@ class FilterByBusinessObjectRelativeReferenceQuery extends DefaultQuery {
 		}
 		
 		// Compare references
-		final RelativeBusinessObjectReference ctxRelativeReference = state.refBuilder.getRelativeReference(ctx.getBusinessObject());
-		if(ctxRelativeReference != null && ctxRelativeReference.equals(boRef)) {
-			processResultValue(remainingQueries, ctx, state, result);
+		if(ctx.getBusinessObject() != null) {
+			final RelativeBusinessObjectReference ctxRelativeReference = state.refBuilder.getRelativeReference(ctx.getBusinessObject());
+			if(ctxRelativeReference != null && ctxRelativeReference.equals(boRef)) {
+				processResultValue(remainingQueries, ctx, state, result);
+			}
 		}
 	}
 }

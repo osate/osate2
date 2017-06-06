@@ -70,7 +70,12 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 				outlinePage = new AgeContentOutlinePage(this);
 			}
 			return outlinePage;
-		}
+		} else if(required == org.eclipse.ui.views.properties.IPropertySheetPage.class) {
+			// Return null if initialization failed. This is a workaround for an exception being thrown by the super implementation of getAdapter() in cases where initialization isn't completed
+			if(((AgeDiagramBehavior)getDiagramBehavior()).initializationFailed()) {
+				return null;
+			}
+		};
 		
 		return super.getAdapter(required);
 	}

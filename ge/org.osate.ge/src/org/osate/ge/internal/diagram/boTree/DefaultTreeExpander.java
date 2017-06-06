@@ -38,6 +38,7 @@ import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.model.PropertyResultValue;
+import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
@@ -162,9 +163,9 @@ public class DefaultTreeExpander implements TreeExpander {
 	public void processProperties(final AadlPropertyResolver pr, final BusinessObjectNode node, final Collection<Property> properties) {
 		final Deque<Integer> indicesStack = new ArrayDeque<Integer>();
 		for(final Property property : properties) {
-			final PropertyResult result = PropertyResult.getPropertyValue(pr, node, property, false);
+			final PropertyResult result = PropertyResult.getPropertyValue(pr, node, property, false, false); // Don't include default property values
 			if(result != null) {
-				// Don't show undefined or default property values
+				// Don't show undefined or inherited property values
 				if(result.nullReason != NullReason.UNDEFINED) {
 					// Loop test
 					indicesStack.clear();
@@ -323,7 +324,9 @@ public class DefaultTreeExpander implements TreeExpander {
 	}
 	
 	private boolean isFundamental(final Object bo) {
-		if(bo instanceof Generalization || bo instanceof ModeTransitionTrigger) {
+		if(bo instanceof Generalization || 
+				bo instanceof ModeTransitionTrigger ||
+				bo instanceof SubprogramCallOrder) {
 			return true;
 		}
 		

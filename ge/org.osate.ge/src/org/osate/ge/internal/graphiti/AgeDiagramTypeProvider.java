@@ -19,8 +19,6 @@ import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
-import org.osate.ge.internal.query.QueryRunner;
-import org.osate.ge.internal.query.QueryRunnerFactory;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
@@ -29,6 +27,7 @@ import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.NamingService;
+import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
@@ -80,15 +79,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
 		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		serializableReferenceService = new DefaultReferenceService(extensionService, cachingService, Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService"));
-	
-		final QueryRunnerFactory queryRunnerFactory = new QueryRunnerFactory() {
-			@Override
-			public QueryRunner create() {
-				return new QueryRunner(refBuilder);
-			}			
-		};		
-	
+		serializableReferenceService = new DefaultReferenceService(extensionService, cachingService, refBuilder);
+		
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
 		final DefaultColoringService coloringService = new DefaultColoringService(graphitiService);
 		final DefaultQueryService queryService = new DefaultQueryService(refBuilder);
@@ -107,8 +99,8 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(RefactoringService.class, refactoringService);
 		context.set(ColoringService.class, coloringService);
 		context.set(GraphitiService.class, graphitiService);
+		context.set(ProjectProvider.class, graphitiService);
 		context.set(QueryService.class, queryService);
-		context.set(QueryRunnerFactory.class, queryRunnerFactory);
 		context.set(GraphitiAgeDiagramProvider.class, graphitiService);
 		context.set(AgeDiagramProvider.class, graphitiService);
 		

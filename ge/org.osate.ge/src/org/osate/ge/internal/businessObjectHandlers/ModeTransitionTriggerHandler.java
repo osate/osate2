@@ -8,12 +8,9 @@ import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -21,7 +18,7 @@ public class ModeTransitionTriggerHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().dashed().build();
 	
 	// If context is null look for the port under the trigger's ancestor. if context is not null use ancestor(1).children().filterByBo(context);
-	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(1).ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null, 
+	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.ancestor(2).ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null, 
 			(innerRoot) -> innerRoot, 
 			(innerRoot) -> innerRoot.children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.getContext()).first()).
 				children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.getTriggerPort()));
@@ -50,13 +47,5 @@ public class ModeTransitionTriggerHandler {
 	private BusinessObjectContext getDestination(final BusinessObjectContext boc, 
 			final QueryService queryService) {
 		return queryService.getFirstResult(dstQuery, boc);
-	}
-	
-	@CreateParentQuery
-	public Query createParentQuery(final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
-		return dstRootQuery.ifElse((ca) -> ((ModeTransitionTrigger)ca.getQueryArgument()).getContext() == null, 
-				(innerRoot) -> innerRoot.ancestor(1), 
-				(innerRoot) -> innerRoot.ancestor(2)).
-					children().filterByBusinessObjectRelativeReference((ModeTransitionTrigger mtt) -> mtt.eContainer()).first();
 	}
 }

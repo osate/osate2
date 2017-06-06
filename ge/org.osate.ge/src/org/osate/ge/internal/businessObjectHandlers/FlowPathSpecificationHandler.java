@@ -24,11 +24,8 @@ import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -71,11 +68,6 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 				build();
 	}
 				
-	@CreateParentQuery
-	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
-		return srcRootQuery.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentType).first();
-	}
-
 	// Creating
 	@GetPaletteEntries
 	public PaletteEntry[] getPaletteEntries() {

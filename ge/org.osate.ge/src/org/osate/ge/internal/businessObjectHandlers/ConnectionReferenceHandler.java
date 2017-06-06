@@ -14,9 +14,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
-import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -57,14 +54,7 @@ public class ConnectionReferenceHandler {
 				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 				build();
 	}
-	
-	@CreateParentQuery
-	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery, 
-			final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
-		
-		return srcRootQuery.ancestors().filterByBusinessObjectRelativeReference((ConnectionReference cr) -> cr.getContainingComponentInstance());
-	}
-	
+
 	/**
 	 * Gets an array of business objects which describes the logical diagram element path to the connection instance end
 	 * @param ctx

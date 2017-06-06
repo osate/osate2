@@ -34,12 +34,9 @@ import org.osate.ge.graphics.ArrowBuilder;
 import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.LabelBuilder;
 import org.osate.ge.internal.util.AadlImportsUtil;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -106,13 +103,7 @@ public class GeneralizatonHandler {
 		
 		return queryService.getFirstResult(nestedClassifierQuery, packageParentBoc, boc.getBusinessObject());
 	}	
-	
-	@CreateParentQuery
-	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery, final @Named(InternalNames.DESTINATION_ROOT_QUERY) Query dstRootQuery) {
-		// Owner will be the source of the extension.
-		return srcRootQuery;
-	}
-	
+		
 	private static Object[] getBusinessObjectPath(final Classifier c) {
 		return new Object[] { c.getElementRoot(), c };
 	}	

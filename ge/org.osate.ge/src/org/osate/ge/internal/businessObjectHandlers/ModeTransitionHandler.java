@@ -7,7 +7,6 @@ import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.Mode;
 import org.osate.aadl2.ModeTransition;
 import org.osate.aadl2.ModeTransitionTrigger;
-import org.osate.aadl2.Subcomponent;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.GraphicalConfigurationBuilder;
@@ -30,14 +29,11 @@ import org.osate.ge.graphics.ConnectionBuilder;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
-import org.osate.ge.internal.di.CreateParentQuery;
-import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.util.ImageHelper;
-import org.osate.ge.query.Query;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -89,13 +85,7 @@ public class ModeTransitionHandler {
 	public String getName(final @Named(Names.BUSINESS_OBJECT) ModeTransition mt) {
 		return mt.getName() == null ? "" : mt.getName(); 
 	}
-	
-	@CreateParentQuery
-	public Query createParentQuery(final @Named(InternalNames.SOURCE_ROOT_QUERY) Query srcRootQuery) {
-		// Find the subcomponent or component classifier that owns the mode transition connection.
-		return srcRootQuery.ancestor(1).filter((fa) -> fa.getBusinessObject() instanceof ComponentClassifier || fa.getBusinessObject() instanceof Subcomponent).first();
-	}
-		
+			
 	private ComponentClassifier getComponentClassifier(final BusinessObjectContext modeBoc, final QueryService queryService) {
 		return (ComponentClassifier)queryService.getFirstBusinessObject(componentClassifierQuery, modeBoc);
 	}
