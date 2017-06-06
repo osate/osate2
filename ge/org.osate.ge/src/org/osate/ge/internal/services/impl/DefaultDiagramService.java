@@ -31,11 +31,13 @@ package org.osate.ge.internal.services.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
@@ -85,11 +87,14 @@ import org.osate.ge.internal.util.Log;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
-public class DefaultDiagramService implements DiagramService {
+public class DefaultDiagramService implements DiagramService {	
+	private static final Pattern uuidFilenamePattern = Pattern.compile("[0-9a-f]{4,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{6,}\\.aadl_diagram");
 	private final InternalReferenceBuilderService referenceBuilder;
 	private final ExtensionRegistryService extRegService;
 	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
 	private final IEclipseContext serviceContext;
+	private final QualifiedName legacyDiagramNameModificationStampPropertyName = new QualifiedName("org.osate.ge", "diagram_name_modification_stamp");
+	private final QualifiedName legacyDiagramNamePropertyName = new QualifiedName("org.osate.ge", "diagram_name");
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
@@ -468,19 +473,53 @@ public class DefaultDiagramService implements DiagramService {
 	public String getName(final IFile diagramFile) {
 		String name = null;
 		if(diagramFile.exists()) {
-			try {
-				// Check modification time stamp
-				final String modStampPropValue = diagramFile.getPersistentProperty(this.diagramNameModificationStampPropertyName);
-				if(modStampPropValue != null && modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
-					name = diagramFile.getPersistentProperty(diagramNamePropertyName);				
-				}			
-			} catch (CoreException e) {
-				e.printStackTrace();
+			// Handle legacy diagram files which have names based on UUIDs
+			if(uuidFilenamePattern.matcher(diagramFile.getName()).matches()) {
+				// Attempt to use the name from the persistent property
+				try {
+					// Check modification time stamp
+					final String modStampPropValue = diagramFile.getPersistentProperty(this.legacyDiagramNameModificationStampPropertyName);
+					if(modStampPropValue != null && modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
+						name = diagramFile.getPersistentProperty(legacyDiagramNamePropertyName);
+					}			
+				} catch (CoreException e) {
+					e.printStackTrace();
+				}
+				
+				if(name == null) {
+					final ResourceSet resourceSet = new ResourceSetImpl();
+					// Load the EMF Resource
+					final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
+					try {
+						final Resource resource = resourceSet.getResource(uri, true);
+						if(resource.getContents().size() > 0 && resource.getContents().get(0) instanceof Diagram) {
+							final Diagram diagram = (Diagram)resource.getContents().get(0);
+							name = diagram.getName() + " (Legacy)";
+						}
+					} catch(final RuntimeException e) {				
+						// Ignore. Print to stderr
+						e.printStackTrace();
+					}
+					
+					// Use the diagram file's name if the name could not be determined for any reason
+					if(name == null) {
+						name = diagramFile.getName();
+					}
+					
+					// Update persistent properties.
+					try {
+						diagramFile.setPersistentProperty(legacyDiagramNamePropertyName, name);
+						diagramFile.setPersistentProperty(legacyDiagramNameModificationStampPropertyName, Long.toString(diagramFile.getModificationStamp()));
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}
+				}
 			}
-		}
-		
-		if(name == null) {
-			diagramFile.getName();
+
+			// Default to the diagram's filename
+			if(name == null) {
+				name = diagramFile.getName();
+			}
 		}
 		
 		return name;
@@ -490,8 +529,8 @@ public class DefaultDiagramService implements DiagramService {
 	public void clearLegacyPersistentProperties(final IResource fileResource) {
 		// Clear the persistent properties
 		try {
-			fileResource.setPersistentProperty(diagramNamePropertyName, null);
-			fileResource.setPersistentProperty(diagramNameModificationStampPropertyName, null);
+			fileResource.setPersistentProperty(legacyDiagramNamePropertyName, null);
+			fileResource.setPersistentProperty(legacyDiagramNameModificationStampPropertyName, null);
 		} catch (final CoreException e) {
 			// Ignore exceptions
 		}
@@ -529,7 +568,4 @@ public class DefaultDiagramService implements DiagramService {
 
 		return eObject.eResource();
 	}
-	
-	private final QualifiedName diagramNameModificationStampPropertyName = new QualifiedName("org.osate.ge", "diagram_name_modification_stamp");
-	private final QualifiedName diagramNamePropertyName = new QualifiedName("org.osate.ge", "diagram_name");
 }
