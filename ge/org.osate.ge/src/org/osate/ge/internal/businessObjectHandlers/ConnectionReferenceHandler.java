@@ -19,7 +19,7 @@ import org.osate.ge.services.QueryService;
 
 public class ConnectionReferenceHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Graphic partialGraphic = ConnectionBuilder.create().dashed().build();
+	private static final Graphic partialGraphic = ConnectionBuilder.create().dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((ConnectionReference cr) -> getBusinessObjectsPathToConnectionInstanceEnd(cr.getComponentInstance(), cr.getSource())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((ConnectionReference cr) -> getBusinessObjectsPathToConnectionInstanceEnd(cr.getComponentInstance(), cr.getSource()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((ConnectionReference cr) -> getBusinessObjectsPathToConnectionInstanceEnd(cr.getComponentInstance(), cr.getDestination())).first());
@@ -51,7 +51,6 @@ public class ConnectionReferenceHandler {
 				graphic(partial ? partialGraphic : graphic).
 				source(src).
 				destination(dst).
-				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 				build();
 	}
 

@@ -34,6 +34,7 @@ import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog;
 import org.osate.ge.internal.ui.dialogs.ModeTransitionTriggerSelectionDialog.ModeTransitionTriggerInfo;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -68,6 +69,7 @@ public class ModeTransitionHandler {
 				graphic(graphic).
 				source(getSource(boc, queryService)).
 				destination(getDestination(boc, queryService)).
+				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 	

@@ -58,6 +58,7 @@ import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -143,6 +144,7 @@ public class FeatureHandler {
 				graphic(getGraphicalRepresentation(feature, featureBoc)).
 				defaultDockingPosition(getDefaultDockingPosition(feature, featureBoc)).
 				defaultLabelConfiguration(labelConfiguration).
+				defaultForeground(AadlInheritanceUtil.isInherited(featureBoc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 	

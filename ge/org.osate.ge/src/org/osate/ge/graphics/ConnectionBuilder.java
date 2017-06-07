@@ -63,6 +63,15 @@ public class ConnectionBuilder {
 	}
 	
 	/**
+	 * Configures the connection builder to create a dotted connection.
+	 * @return this builder to allow method chaining.
+	 */
+	public ConnectionBuilder dotted() {
+		this.lineStyle = LineStyle.DOTTED;
+		return this;
+	}
+	
+	/**
 	 * Configures the connection builder to create a curved connection.
 	 * @return this builder to allow method chaining.
 	 */

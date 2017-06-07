@@ -79,6 +79,9 @@ public class AgeGraphitiGraphicsUtil {
 		case SOLID:
 			return org.eclipse.graphiti.mm.algorithms.styles.LineStyle.SOLID;
 			
+		case DOTTED:
+			return org.eclipse.graphiti.mm.algorithms.styles.LineStyle.DOT;
+			
 		default:
 			return  org.eclipse.graphiti.mm.algorithms.styles.LineStyle.SOLID;	        
 	    }

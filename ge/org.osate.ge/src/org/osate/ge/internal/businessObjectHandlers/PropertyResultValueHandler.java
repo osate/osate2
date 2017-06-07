@@ -28,6 +28,10 @@ public class PropertyResultValueHandler {
 			dashed().
 			destinationTerminator(ArrowBuilder.create().filled().small().build()).
 			build();
+	private static final Graphic partialGraphic = ConnectionBuilder.create().
+			dotted().
+			destinationTerminator(ArrowBuilder.create().filled().small().build()).
+			build();
 	private static StandaloneQuery cneQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((ContainedNamedElement cne) -> getBusinessObjectsPath(cne)).first());
 	private static StandaloneQuery partialCneQuery = StandaloneQuery.create((rootQuery) -> rootQuery.descendantsByBusinessObjectsRelativeReference((ContainedNamedElement cne) -> getBusinessObjectsPath(cne), 1).first());
 	
@@ -67,10 +71,9 @@ public class PropertyResultValueHandler {
 					final BusinessObjectContext referencedQueryable = queryService.getFirstResult(cneQuery, tmp, rvc.referenceValue);
 					final boolean partial = dst != referencedQueryable || containsArrayElementReference(rvc.referenceValue);
 					return GraphicalConfigurationBuilder.create().
-							graphic(referenceGraphic).
+							graphic(partial ? partialGraphic : referenceGraphic).
 							source(boc.getParent()).
 							destination(dst).
-							defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
 							build();
 				} else {
 					return createTextGraphicalConfiguration();

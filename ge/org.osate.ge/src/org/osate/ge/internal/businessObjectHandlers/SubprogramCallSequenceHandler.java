@@ -38,6 +38,7 @@ import org.osate.ge.internal.ui.dialogs.DefaultSelectSubprogramDialogModel;
 import org.osate.ge.internal.ui.dialogs.SelectSubprogramDialog;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -64,10 +65,11 @@ public class SubprogramCallSequenceHandler {
 	}
 	
 	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration() {
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(graphic).
 				defaultLabelConfiguration(labelConfiguration).
+				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 	
@@ -78,7 +80,9 @@ public class SubprogramCallSequenceHandler {
 	
 	@CanRename
 	@CanDelete
-    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs, final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, final QueryService queryService) {
+    public boolean canEdit(final @Named(Names.BUSINESS_OBJECT) SubprogramCallSequence cs, 
+    		final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc, 
+    		final QueryService queryService) {
 		return cs.getContainingClassifier() == getComponentImplementation(boc, queryService);
     }
     

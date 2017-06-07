@@ -50,6 +50,15 @@ public class EllipseBuilder {
 	}
 	
 	/**
+	 * Configures the ellipse builder to use dotted lines.
+	 * @return this builder to allow method chaining.
+	 */
+	public EllipseBuilder dotted() {
+		this.lineStyle = LineStyle.DOTTED;
+		return this;
+	}
+	
+	/**
 	 * Creates an ellipse graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */

@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import org.eclipse.graphiti.datatypes.IDimension;
 import org.eclipse.graphiti.mm.algorithms.GraphicsAlgorithm;
 import org.eclipse.graphiti.mm.algorithms.Text;
+import org.eclipse.graphiti.mm.algorithms.styles.Color;
 import org.eclipse.graphiti.mm.algorithms.styles.Point;
 import org.eclipse.graphiti.mm.pictograms.Connection;
 import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
@@ -68,23 +69,27 @@ class LayoutUtil {
 		}
 	}
 	
-	public static void layoutDepthFirst(final Diagram graphitiDiagram, final AgeDiagram ageDiagram, final NodePictogramBiMap mapping) {
+	public static void layoutDepthFirst(final Diagram graphitiDiagram, 
+			final AgeDiagram ageDiagram, 
+			final NodePictogramBiMap mapping,
+			final ColoringProvider coloringProvider) {
 		for(final DiagramElement child : ageDiagram.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, child, mapping);				
+			layoutDepthFirst(graphitiDiagram, child, mapping, coloringProvider);				
 		}
 	}
 	
 	public static void layoutDepthFirst(final Diagram graphitiDiagram, 
 			final DiagramElement element, 
-			final NodePictogramBiMap mapping) {
+			final NodePictogramBiMap mapping,
+			final ColoringProvider coloringProvider) {
 		for(final DiagramElement child : element.getDiagramElements()) {
-			layoutDepthFirst(graphitiDiagram, child, mapping);				
+			layoutDepthFirst(graphitiDiagram, child, mapping, coloringProvider);				
 		}
 		
 		// Get the pictogram element and lay it out if it is a shape
 		final PictogramElement pe = mapping.getPictogramElement(element);
 		if(pe instanceof ContainerShape) {
-			layout(graphitiDiagram, element, (ContainerShape)pe, mapping);
+			layout(graphitiDiagram, element, (ContainerShape)pe, mapping, coloringProvider);
 		} else if(pe instanceof Connection) {
 			final Connection connection = (Connection)pe;
 			
@@ -142,6 +147,9 @@ class LayoutUtil {
 						throw new RuntimeException("Unsupported connection child graphic: " + decorationElement.getGraphic());
 					}
 				}
+				
+				// Set the color
+				refreshGraphicColoring(graphitiDiagram, pe, getFinalColor(element, coloringProvider));
 			}
 		}
 	}	
@@ -157,7 +165,8 @@ class LayoutUtil {
 	public static void layout(final Diagram graphitiDiagram, 
 			final DiagramElement element, 
 			final ContainerShape shape,
-			final NodePictogramBiMap diagramNodeProvider) {		
+			final NodePictogramBiMap diagramNodeProvider,
+			final ColoringProvider coloringProvider) {		
 		final AgeLabelConfiguration labelConfiguration = element.getLabelConfiguration() == null ? defaultLabelConfiguration : element.getLabelConfiguration();
 		final GraphicsAlgorithm shapeGa = shape.getGraphicsAlgorithm();
 		shapeGa.setStyle(null); // Remove reference to Graphiti style.
@@ -421,6 +430,9 @@ class LayoutUtil {
 				child.setPositionInternal(childGa.getX(), childGa.getY());
 			}
 		}
+		
+		// Set the color
+		refreshGraphicColoring(graphitiDiagram, shape, getFinalColor(element, coloringProvider));
 	}
 	
 	/**
@@ -712,4 +724,19 @@ class LayoutUtil {
 		
 		return results;
 	}
+	
+	public static void refreshGraphicColoring(final Diagram graphitiDiagram, final PictogramElement pe, final java.awt.Color awtColor) {		
+		final Color color = Graphiti.getGaService().manageColor(graphitiDiagram, awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
+		ColoringUtil.overrideForeground(pe, color);
+	}
+	
+	public static java.awt.Color getFinalColor(final DiagramElement de, final ColoringProvider coloringProvider) {
+		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
+		if(awtColor == null) {
+			awtColor = de.getDefaultForeground();
+		}
+		
+		return awtColor;
+	}
+	
 }

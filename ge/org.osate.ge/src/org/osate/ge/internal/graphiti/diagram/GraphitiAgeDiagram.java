@@ -141,7 +141,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	private void createUpdateElementsFromAgeDiagram() {
 		ensureCreatedChildren(ageDiagram, graphitiDiagram);
 		updateChildren(ageDiagram, true);
-		LayoutUtil.layoutDepthFirst(graphitiDiagram, ageDiagram, GraphitiAgeDiagram.this); // Layout
+		LayoutUtil.layoutDepthFirst(graphitiDiagram, ageDiagram, GraphitiAgeDiagram.this, coloringProvider); // Layout
 		finishUpdating(ageDiagram);
 	}
 	
@@ -470,9 +470,6 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		for(final DiagramElement child : element.getDiagramElements()) {
 			finishUpdating(child);
 		}
-		
-		// Set the color
-		refreshGraphicColoring(pe, getFinalColor(element));
 	}
 		
 	/**
@@ -591,22 +588,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	public final void refreshGraphicColoring(final DiagramElement de) {
 		final PictogramElement pe = getPictogramElement(de);
 		if(pe != null) {
-			refreshGraphicColoring(pe, getFinalColor(de));
+			LayoutUtil.refreshGraphicColoring(graphitiDiagram, pe, LayoutUtil.getFinalColor(de, coloringProvider));
 		}
-	}
-	
-	private final void refreshGraphicColoring(final PictogramElement pe, final java.awt.Color awtColor) {		
-		final Color color = Graphiti.getGaService().manageColor(graphitiDiagram, awtColor.getRed(), awtColor.getGreen(), awtColor.getBlue());
-		ColoringUtil.overrideForeground(pe, color);
-	}
-	
-	private java.awt.Color getFinalColor(final DiagramElement de) {
-		java.awt.Color awtColor = coloringProvider.getForegroundColor(de);
-		if(awtColor == null) {
-			awtColor = de.getDefaultForeground();
-		}
-		
-		return awtColor;
 	}
 	
 	private Anchor getAnchor(final DiagramElement de) {
@@ -815,9 +798,9 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 						Set<DiagramElement> elementsToCheckParentsForLayout = new HashSet<>(); // Contains the set of diagram elements whose parents need to be checked to see if they should be layed out
 						for(final DiagramNode n : nodesToLayout) {
 							if(n instanceof AgeDiagram) {
-								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram)n, GraphitiAgeDiagram.this);	
+								LayoutUtil.layoutDepthFirst(graphitiDiagram, (AgeDiagram)n, GraphitiAgeDiagram.this, coloringProvider);	
 							} else if(n instanceof DiagramElement) {
-								LayoutUtil.layoutDepthFirst(graphitiDiagram, (DiagramElement)n, GraphitiAgeDiagram.this);
+								LayoutUtil.layoutDepthFirst(graphitiDiagram, (DiagramElement)n, GraphitiAgeDiagram.this, coloringProvider);
 								elementsToCheckParentsForLayout.add((DiagramElement)n);
 							}
 						}
@@ -837,7 +820,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 								// Get the pictogram element and lay it out if it is a shape
 								final PictogramElement parentPe = getPictogramElement(parentToLayout);
 								if(parentPe instanceof ContainerShape) {
-									LayoutUtil.layout(graphitiDiagram, parentToLayout, (ContainerShape)parentPe, GraphitiAgeDiagram.this);
+									LayoutUtil.layout(graphitiDiagram, parentToLayout, (ContainerShape)parentPe, GraphitiAgeDiagram.this, coloringProvider);
 								}
 							}
 							

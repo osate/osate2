@@ -66,6 +66,15 @@ public class PolyBuilder {
 	}
 	
 	/**
+	 * Configures the poly builder to use dotted lines.
+	 * @return this builder to allow method chaining.
+	 */
+	public PolyBuilder dotted() {
+		this.lineStyle = LineStyle.DOTTED;
+		return this;
+	}
+	
+	/**
 	 * Configures the poly builder to build a polygon
 	 * @return this builder to allow method chaining.
 	 */

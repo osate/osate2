@@ -27,6 +27,7 @@ import org.osate.ge.internal.graphics.FlowIndicatorBuilder;
 import org.osate.ge.internal.graphics.OrthogonalLineBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -74,7 +75,7 @@ public class FlowSourceSinkSpecificationHandler extends FlowSpecificationHandler
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(fs, partial)).
 				source(src).
-				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
+				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 	

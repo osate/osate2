@@ -60,6 +60,15 @@ public class RectangleBuilder {
 	}
 	
 	/**
+	 * Configures the rectangle builder to use dotted lines.
+	 * @return this builder to allow method chaining.
+	 */
+	public RectangleBuilder dotted() {
+		this.lineStyle = LineStyle.DASHED;
+		return this;
+	}
+	
+	/**
 	 * Creates a rectangle graphic based on the current state of the builder.
 	 * @return the newly created graphic
 	 */

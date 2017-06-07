@@ -36,6 +36,7 @@ import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.internal.util.SubcomponentUtil;
 import org.osate.ge.query.StandaloneQuery;
@@ -56,6 +57,7 @@ public class SubcomponentHandler {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(sc, scBoc)).
 				defaultLabelConfiguration(labelConfiguration).
+				defaultForeground(AadlInheritanceUtil.isInherited(scBoc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 	

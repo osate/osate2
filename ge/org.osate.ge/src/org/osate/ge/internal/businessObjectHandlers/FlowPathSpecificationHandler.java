@@ -26,12 +26,13 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
 public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 	private static final Graphic graphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).build();
-	private static final Graphic partialGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).dashed().build();
+	private static final Graphic partialGraphic = ConnectionBuilder.create().destinationTerminator(ArrowBuilder.create().small().build()).dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllInEnd()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((FlowSpecification fs) -> getBusinessObjectsPathToFlowEnd(fs.getAllOutEnd())).first());
@@ -64,7 +65,7 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 				graphic(partial ? partialGraphic : graphic).
 				source(src).
 				destination(dst).
-				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
+				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 				

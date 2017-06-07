@@ -52,6 +52,7 @@ import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlConnectionUtil;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -59,7 +60,7 @@ import org.osate.ge.services.QueryService;
 public class ConnectionHandler {
 	private static final StandaloneQuery componentImplementationQuery = StandaloneQuery.create((root) -> root.ancestors().filter((fa) -> fa.getBusinessObject() instanceof ComponentImplementation).first());
 	private static final Graphic graphic = ConnectionBuilder.create().build();
-	private static final Graphic partialGraphic = ConnectionBuilder.create().dashed().build();
+	private static final Graphic partialGraphic = ConnectionBuilder.create().dotted().build();
 	private static StandaloneQuery srcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource())).first());
 	private static StandaloneQuery partialSrcQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllSourceContext(), c.getRootConnection().getSource()), 1).first());
 	private static StandaloneQuery dstQuery = StandaloneQuery.create((rootQuery) -> rootQuery.parent().descendantsByBusinessObjectsRelativeReference((Connection c) -> getBusinessObjectsPathToConnectedElement(c.getAllDestinationContext(), c.getRootConnection().getDestination())).first());
@@ -87,12 +88,12 @@ public class ConnectionHandler {
 			dst = queryService.getFirstResult(partialDstQuery, boc);
 			partial = true;
 		}
-		
+			
 		return GraphicalConfigurationBuilder.create().
 				graphic(partial ? partialGraphic : graphic).
 				source(src).
 				destination(dst).
-				defaultForeground(partial ? Colors.IMPRECISE_CONNECTION_COLOR : null).
+				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 		

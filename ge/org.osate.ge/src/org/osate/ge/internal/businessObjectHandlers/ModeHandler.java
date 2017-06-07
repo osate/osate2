@@ -29,6 +29,7 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
@@ -56,10 +57,12 @@ public class ModeHandler {
 	}
 	
 	@GetGraphicalConfiguration
-	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Mode mode) {
+	public GraphicalConfiguration getGraphicalConfiguration(final @Named(Names.BUSINESS_OBJECT) Mode mode,
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc) {
 		return GraphicalConfigurationBuilder.create().
 				graphic(getGraphicalRepresentation(mode)).
 				defaultLabelConfiguration(labelConfiguration).
+				defaultForeground(AadlInheritanceUtil.isInherited(boc) ? Colors.INHERITED_ELEMENT_COLOR : null).
 				build();
 	}
 	
