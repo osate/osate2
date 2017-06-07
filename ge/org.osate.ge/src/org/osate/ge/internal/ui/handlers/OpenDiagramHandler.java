@@ -38,10 +38,10 @@ public class OpenDiagramHandler extends AbstractHandler {
 				//Open top level even when element is not selected
 				final AadlPackage pkg = getSelectedPackage();
 				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-				diagramService.openOrCreateDiagramForRootBusinessObject(pkg);
+				diagramService.openOrCreateDiagramForBusinessObject(pkg);
 			} else {
 				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-				diagramService.openOrCreateDiagramForRootBusinessObject(classifier);
+				diagramService.openOrCreateDiagramForBusinessObject(classifier);
 			}
 			Log.ok(getClass().getSimpleName() + " Finished");
 		} catch(RuntimeException e) {

@@ -53,7 +53,7 @@ import org.osate.ge.internal.util.PropertyResult.NullReason;
  * A TreeExpander whose results contain all elements provided by registered business object providers which are already in the diagram business object tree
  * or indicated by auto contents filter.
  * 
- * Diagrams which have a root business object specified will only contain the specified business object as a root.
+ * Diagrams which have a context business object specified will only contain the specified business object as a root.
  */
 public class DefaultTreeExpander implements TreeExpander {	
 	// A simple business object context which is to designed to represent the project level. It has no parent and it has no business object.
@@ -97,26 +97,32 @@ public class DefaultTreeExpander implements TreeExpander {
 	 */
 	@Override
 	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
+		if(configuration.getContextBoReference() == null) {
+			// Contextless diagrams are not currently supported. While this class may have appropriate support,
+			// Such diagrams have not been adequately tested and other parts of the editor do not support them.
+			throw new RuntimeException("Contextless diagrams are not supported");
+		}
+		
 		// Refresh Child Nodes
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {		
-			// If the root business object is non-null, then only one root business object may existing in the diagram and it is restricted to the referenced object.
-			// This restriction prevents the need to retrieve all packages as potential root business objects.
+			// If the context business object is non-null, then only one business object may exist at the root of the resulting tree and it must be the context business object. 
+			// This restriction prevents the need to retrieve all packages as potential top level business objects.
 			// Determine what business objects are required based on the diagram configuration
 			final Collection<Object> potentialBusinessObjects;
-			final ContentsFilter filter;
-			if(configuration.getRootBoReference() == null) {
-				// Get potential root business objects from providers
+			final ContentsFilter filter;			
+			if(configuration.getContextBoReference() == null) {			
+				// Get potential top level business objects from providers
 				potentialBusinessObjects = getChildBusinessObjectsFromProviders(extService, eclipseCtx, projectBoc);
 				filter = ContentsFilter.ALLOW_FUNDAMENTAL; // Only business objects that already exist in the business object tree should be used
 			} else{
-				// Get the root business object
-				Object rootBo = refService.resolve(configuration.getRootBoReference());
-				if(rootBo == null) {
-					throw new RuntimeException("Unable to find root business object");
+				// Get the context business object
+				Object contextBo = refService.resolve(configuration.getContextBoReference());
+				if(contextBo == null) {
+					throw new RuntimeException("Unable to find context business object");
 				}
 				
-				potentialBusinessObjects = Collections.singleton(rootBo);
+				potentialBusinessObjects = Collections.singleton(contextBo);
 				filter = ContentsFilter.ALLOW_ALL; // Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
 			}
 	

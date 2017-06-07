@@ -11,16 +11,16 @@ import java.util.Set;
  * @see DiagramConfigurationBuilder
  */
 public class DiagramConfiguration {
-	private final CanonicalBusinessObjectReference rootBoReference;
+	private final CanonicalBusinessObjectReference contextBoReference;
 	private final Set<String> lcEnabledAadlPropertyNames; // Lowercase AADL property names
 	
-	DiagramConfiguration(final CanonicalBusinessObjectReference rootBoReference, final Set<String> displayedAadlPropertyNames) {
-		this.rootBoReference = rootBoReference == null ? null : rootBoReference;
+	DiagramConfiguration(final CanonicalBusinessObjectReference contextBoReference, final Set<String> displayedAadlPropertyNames) {
+		this.contextBoReference = contextBoReference == null ? null : contextBoReference;
 		this.lcEnabledAadlPropertyNames = Collections.unmodifiableSet(new HashSet<String>(Objects.requireNonNull(displayedAadlPropertyNames, "displayedAadlPropertyNames must not be null")));
 	}
 	
-	public CanonicalBusinessObjectReference getRootBoReference() {
-		return rootBoReference;
+	public CanonicalBusinessObjectReference getContextBoReference() {
+		return contextBoReference;
 	}
 	
 	/**
@@ -33,6 +33,6 @@ public class DiagramConfiguration {
 	
 	@Override
 	public String toString() {
-		return "{ root business object reference: " + rootBoReference + " } ";
+		return "{ context business object reference: " + contextBoReference + " } ";
 	}
 }

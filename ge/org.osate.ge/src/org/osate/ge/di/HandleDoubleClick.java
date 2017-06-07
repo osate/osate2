@@ -27,6 +27,7 @@ import java.lang.annotation.Target;
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object Handler</td><td>The business object of the diagram element which was double clicked.</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT_CONTEXT}</td><td>Business Object handler</td><td>The business object context of the diagram element which was double clicked.</td></tr>
  * </table>
  */
 @Documented

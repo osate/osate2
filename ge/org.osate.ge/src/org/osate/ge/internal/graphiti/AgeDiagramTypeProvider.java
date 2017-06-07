@@ -51,6 +51,7 @@ import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
+	public static final String id = "org.osate.ge.aadlDiagramTypeProvider";	
 	private final IEclipseContext context;
 	private DefaultReferenceService serializableReferenceService;
 	private IToolBehaviorProvider[] toolBehaviorProviders;
@@ -122,12 +123,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		
 		super.dispose();
 	}
-	
-	@Override 
-	public String getDiagramTitle() {
-		return super.getDiagramTitle();
-	}
-	
+		
 	@Override
 	public boolean isAutoUpdateAtStartup() {
 		// Disable auto updating on startup because the diagram is updated as part of the diagram loading process.

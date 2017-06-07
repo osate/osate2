@@ -86,7 +86,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 	
 	@Override
 	public GraphicalEditor openBusinessObject(final Object bo) {
-		return diagramService.openOrCreateDiagramForRootBusinessObject(bo);
+		return diagramService.openOrCreateDiagramForBusinessObject(bo);
 	}
 
 	@Override
@@ -156,7 +156,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 		}
 		
 		// Diagrams are no longer directly associated with a business object. Use the diagram configuration to determine the diagram business object.
-		final Object diagramBo = AgeDiagramUtil.getConfigurationBusinessObject(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram(), referenceService);
+		final Object diagramBo = AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getAgeDiagram(), referenceService);
 		return valueGenerator.generateValue(extService, bo, diagramBo);
 	}
 }

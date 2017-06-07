@@ -47,6 +47,7 @@ import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -56,6 +57,7 @@ import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.AadlImportsUtil;
@@ -418,5 +420,10 @@ public class ClassifierHandler {
 	@SetName
 	public void setName(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(Names.NAME) String value) {
 		bo.setName(value);
+	}
+	
+	@HandleDoubleClick
+	public static void openAssociatedDiagram(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final DiagramService diagramService) {
+		diagramService.openOrCreateDiagramForBusinessObject(bo);
 	}
 }

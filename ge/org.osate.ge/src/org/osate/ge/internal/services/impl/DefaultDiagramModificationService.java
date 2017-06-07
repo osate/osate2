@@ -61,18 +61,20 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 	class DefaultModification implements Modification {
 		private final Map<Diagram, Map<Object, PictogramElement[]>> diagramToDirtyLinkages = new HashMap<>();
 		private final Set<DiagramReference> dirtyDiagramReferences = new HashSet<DiagramReference>();
-		private List<DiagramReference> diagramReferences = null;
+		private List<? extends DiagramReference> diagramReferences = null;
 		
 		/**
 		 * Lazy initialize diagram list
 		 * @return
 		 */
-		private List<DiagramReference> getDiagramReferences() {
+		/*
+		private List<? extends DiagramReference> getDiagramReferences() {
 			if(diagramReferences == null) {
 				diagramReferences = diagramService.findDiagrams();
 			}
 			return diagramReferences;
 		}
+		*/
 		
 		private Map<Object, PictogramElement[]> getDirtyLinkages(final Diagram diagram) {
     		Map<Object, PictogramElement[]> dirtyLinkages = diagramToDirtyLinkages.get(diagram);
@@ -127,11 +129,11 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
     			final List<Classifier> relevantClassifiers = getSelfAndSpecificClassifiers(c);
     			final Set<AadlPackage> relevantPackages = getPackages(relevantClassifiers);
     			
+    			/*
     			for(final DiagramReference tmpDiagramReference : getDiagramReferences()) {
     				if(tmpDiagramReference.isOpen()) {
 	    				final Diagram tmpDiagram = tmpDiagramReference.getDiagram();
 	    				if(tmpDiagram != null) {
-	    					/*
 			    			final Object tmpDiagramBo = bor.getBusinessObjectForPictogramElement(tmpDiagram);
 			    			
 			    			boolean markDiagram = false;
@@ -151,31 +153,35 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 			    			if(markDiagram) {
 			    				dirtyDiagramReferences.add(tmpDiagramReference);
 			    			}
-			    			*/
 	    				}
     				}
     			}
+    			*/
     		}
     	}
     	
     	@Override
     	public void markLinkagesAsDirty(final Object bo) {    		
     		// For each diagram
+    		/*
     		final CanonicalBusinessObjectReference boRef = refBuilder.getCanonicalReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			markLinkagesAsDirty(bo, boRef, diagramRef);
     		}
+    		*/
     	}
     	
     	@Override
 		public void markOpenLinkagesAsDirty(final Object bo) {
     		// For each diagram
+    		/*
     		final CanonicalBusinessObjectReference boRef = refBuilder.getCanonicalReference(bo);
     		for(final DiagramReference diagramRef : getDiagramReferences()) {
     			if(diagramRef.isOpen()) {
 	    			markLinkagesAsDirty(bo, boRef, diagramRef);
     			}
     		}
+    		*/
     	}
     	
     	/**
@@ -249,6 +255,8 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 		}
 
 		private void updateDiagram(final DiagramReference diagramReference, final DiagramCallback cb) {
+			//TODO:Migrate!
+			/*
 			final Diagram diagram = diagramReference.getDiagram();
     		final Resource resource = diagram.eResource();
     		final ResourceSet resourceSet = resource.getResourceSet();
@@ -290,6 +298,7 @@ public class DefaultDiagramModificationService implements DiagramModificationSer
 				editingDomain.getCommandStack().flush();
 				editingDomain.dispose();
 			}
+			*/
     	}
 	}
 }

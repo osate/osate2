@@ -376,7 +376,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	private IEclipseContext createGetPaletteEntriesContext() {
 		final IEclipseContext childCtx = extService.createChildContext();
-		childCtx.set(Names.DIAGRAM_BO, AgeDiagramUtil.getConfigurationBusinessObject(graphitiService.getGraphitiAgeDiagram().getAgeDiagram(), referenceService));
+		childCtx.set(Names.DIAGRAM_BO, AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiService.getGraphitiAgeDiagram().getAgeDiagram(), referenceService));
 		return childCtx;
 	}
 	

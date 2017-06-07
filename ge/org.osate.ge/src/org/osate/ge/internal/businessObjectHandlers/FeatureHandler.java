@@ -103,7 +103,7 @@ public class FeatureHandler {
 	@CanCreate
 	public boolean canCreate(final @Named(Names.TARGET_BO) EObject targetBo, final @Named(Names.PALETTE_ENTRY_CONTEXT) EClass featureType) {		
 		// The container must be a Feature Group Type or a ComponentType and it must have a method to create the feature type that is controlled by this pattern
-		return 	(targetBo instanceof FeatureGroupType || 
+		return (targetBo instanceof FeatureGroupType || 
 					targetBo instanceof ComponentType || 
 					targetBo instanceof ComponentImplementation) && 
 				AadlFeatureUtil.canOwnFeatureType((Classifier)targetBo, featureType);

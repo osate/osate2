@@ -29,382 +29,360 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Base64;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
+import java.util.Set;
 import java.util.regex.Pattern;
-
+import java.util.stream.Collectors;
 import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.transaction.RecordingCommand;
-import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.emf.transaction.util.TransactionUtil;
-import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.eclipse.graphiti.services.Graphiti;
-import org.eclipse.graphiti.services.IPeService;
-import org.eclipse.graphiti.ui.editor.DiagramEditorInput;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.viewers.ArrayContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
-import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
-import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.ComponentClassifier;
+import org.eclipse.ui.dialogs.ListDialog;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.EmfContainerProvider;
-import org.osate.ge.di.Names;
+import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
+import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
+import org.osate.ge.internal.diagram.DiagramSerialization;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.InternalReferenceBuilderService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
+import org.osate.ge.internal.ui.util.EditorUtil;
 import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.internal.util.Log;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.FrameworkUtil;
 
-public class DefaultDiagramService implements DiagramService {	
+public class DefaultDiagramService implements DiagramService {
+	private static final QualifiedName LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP = new QualifiedName("org.osate.ge", "diagram_name_modification_stamp");
+	private static final QualifiedName LEGACY_PROPERTY_DIAGRAM_NAME = new QualifiedName("org.osate.ge", "diagram_name");
 	private static final Pattern uuidFilenamePattern = Pattern.compile("[0-9a-f]{4,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{6,}\\.aadl_diagram");
+
 	private final InternalReferenceBuilderService referenceBuilder;
-	private final ExtensionRegistryService extRegService;
-	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
-	private final IEclipseContext serviceContext;
-	private final QualifiedName legacyDiagramNameModificationStampPropertyName = new QualifiedName("org.osate.ge", "diagram_name_modification_stamp");
-	private final QualifiedName legacyDiagramNamePropertyName = new QualifiedName("org.osate.ge", "diagram_name");
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
 		public DiagramService createService(final IEclipseContext context) {
-			return new DefaultDiagramService(context.get(InternalReferenceBuilderService.class), context.get(ExtensionRegistryService.class));
+			return new DefaultDiagramService(context.get(InternalReferenceBuilderService.class));
 		}		
 	}
 	
-	private static class ClosedDiagramReference implements DiagramReference {
-		private final ResourceSet rs;
-		private final URI uri;
-		private Diagram diagram = null;
-		
-		public ClosedDiagramReference(final ResourceSet rs, final URI uri) {
-			this.rs = rs;
-			this.uri = uri;
-		}
-		
-		@Override
-		public boolean isOpen() {
-			return false;
-		}
-
-		@Override
-		public Diagram getDiagram() {
-			if(diagram == null) {
-				final Resource resource = rs.getResource(uri, true);
-				if(resource != null) {
-					for(final EObject obj : resource.getContents()) {
-						if(obj instanceof Diagram) {
-							diagram = (Diagram)obj;
-							break;		
-						}											
-					}
-				}
-			}
-			
-			return diagram;
-		}
-
-		@Override
-		public AgeDiagramEditor getEditor() {
-			return null;
-		}
-		
-		@Override
-		public IProject getProject() {
-			return SelectionHelper.getProject(uri);
-		}
-	}	
-	
-	private static class OpenDiagramReference implements DiagramReference {
+	// Implementation of DiagramReference
+	private static class InternalDiagramReference implements DiagramReference {		
+		private final IFile fileResource;
 		private final AgeDiagramEditor editor;
+		private final boolean isOpen;
 		
-		public OpenDiagramReference(final AgeDiagramEditor editor) {
+		public static InternalDiagramReference createOpen(final IFile file,
+				final AgeDiagramEditor editor) {
+			return new InternalDiagramReference(file, editor, true);
+		}
+		
+		public static InternalDiagramReference createClosed(final IFile file) {
+			return new InternalDiagramReference(file, null, false);
+		}
+		
+		private InternalDiagramReference(final IFile file, 
+				final AgeDiagramEditor editor,
+				final boolean isOpen) {
+			this.fileResource = Objects.requireNonNull(file, "file must not be null");
+			this.isOpen = isOpen;
 			this.editor = editor;
+			
+			if(isOpen) {
+				Objects.requireNonNull(editor, "editor must not be null if the diagram is open");
+			}
+		}
+
+		public IFile getFile() {
+			return fileResource;
 		}
 		
-		@Override
-		public boolean isOpen() {
-			return true;
-		}
-
-		@Override
-		public Diagram getDiagram() {
-			return editor.getDiagramBehavior().getDiagramTypeProvider().getDiagram();
-		}
-
 		@Override
 		public AgeDiagramEditor getEditor() {
 			return editor;
 		}
 		
 		@Override
-		public IProject getProject() {
-			return ((AgeDiagramBehavior)editor.getDiagramBehavior()).getProject();
+		public boolean isOpen() {
+			return isOpen;
+		}	
+		
+		public CanonicalBusinessObjectReference getCanonicalReference() {
+			// Attempt to use the reference which is stored as a persistent property
+			final MetadataValue contextRefSegsValue = MetadataValue.get(fileResource, MetadataValue.PROPERTY_DIAGRAM_CONTEXT_REFERENCE);
+			if(contextRefSegsValue != null) {
+				final String[] contextRefSegs = (String[])contextRefSegsValue.value;				
+				if(contextRefSegs== null) {
+					return null;
+				} else {			
+					return new CanonicalBusinessObjectReference(contextRefSegs);
+				}
+			}			
+
+			// If the reference wasn't loaded from cache, read from file
+			// Process canonical reference for both legacy and native diagrams
+			CanonicalBusinessObjectReference ref = null;
+			try {
+				if(DiagramUtil.isLegacy(fileResource)) {
+					// Load the graphiti diagram
+					final ResourceSet resourceSet = new ResourceSetImpl();
+					final URI uri = URI.createPlatformResourceURI(fileResource.getFullPath().toString(), true);
+					final Resource resource = resourceSet.getResource(uri, true);
+					if(resource != null && 
+							resource.getContents().size() > 0 && 
+							resource.getContents().get(0) instanceof Diagram) {
+						final Diagram tmpDiagram = (Diagram)resource.getContents().get(0);
+						ref = DiagramUtil.getLegacyReference(tmpDiagram);
+					}
+				} else {
+					if(fileResource.getLocation() != null) {
+						final File file = fileResource.getLocation().toFile();
+						try(final FileInputStream is = new FileInputStream(file)) {
+							ref = DiagramSerialization.getCanonicalObjectReference(is);
+						} 
+					}
+				}
+			} catch (final IOException e) {
+				// Ignore exception. Non-critical error. Print stack trace.
+            	e.printStackTrace();
+            	
+            	// Return null so that the value will not be stored as a persistent property.
+            	return null;
+			}
+				
+			//  Serialize the reference segments
+			MetadataValue.set(fileResource, MetadataValue.PROPERTY_DIAGRAM_CONTEXT_REFERENCE, ref == null ? null : ref.toSegmentArray());
+			
+			return ref;
+		}
+	}	
+	
+	// Wrapper class for metadata serialized to persistent properties. Allows distinguishing between an unspecified/unreadable value and a null value.
+	private static class MetadataValue {
+		private static final QualifiedName PROPERTY_METADATA_MODIFICATION_TIMESTAMP = new QualifiedName("org.osate.ge", "metadata_modification_timestamp");
+		public static final QualifiedName PROPERTY_DIAGRAM_CONTEXT_REFERENCE = new QualifiedName("org.osate.ge", "context_reference");
+		
+		public final Object value;
+		
+		public MetadataValue(final Object value) {
+			this.value = value;
+		}
+		
+		/**
+		 * Will return null if and only if the property could not be read or was not previously set.
+		 */
+		public static MetadataValue get(final IFile fileResource, final QualifiedName propertyName) {
+			// Attempt to use the reference which is stored as a persistent property
+			try {
+				// Check modification time stamp
+				final String metadataTimestampPropValue = fileResource.getPersistentProperty(PROPERTY_METADATA_MODIFICATION_TIMESTAMP);
+				if(metadataTimestampPropValue != null && metadataTimestampPropValue.equals(Long.toString(fileResource.getModificationStamp()))) {
+					final String cachedDiagramContextStr = fileResource.getPersistentProperty(propertyName);
+					if(cachedDiagramContextStr != null) {
+	                    try(final ByteArrayInputStream bi = new ByteArrayInputStream(Base64.getDecoder().decode(cachedDiagramContextStr))) {
+	                    	final ObjectInputStream si = new ObjectInputStream(bi);
+	                        return new MetadataValue(si.readObject());	
+	                    }
+					}
+				}
+			} catch (final Exception e) {
+				// Ignore exception. Non-critical error. Print stack trace.
+	        	e.printStackTrace();
+			}
+			
+			return null;						
+		}
+		
+		public static void set(final IFile fileResource, final QualifiedName propertyName, final Object value) {
+			try {
+				 try(final ByteArrayOutputStream bs = new ByteArrayOutputStream()) {
+	                 final ObjectOutputStream so = new ObjectOutputStream(bs);
+	                 so.writeObject(value);
+	                 so.flush();
+	                 final String encodedString = Base64.getEncoder().encodeToString(bs.toByteArray()); 	                 
+	                 fileResource.setPersistentProperty(propertyName, encodedString);
+				 }
+				 
+				 fileResource.setPersistentProperty(PROPERTY_METADATA_MODIFICATION_TIMESTAMP, Long.toString(fileResource.getModificationStamp()));
+			} catch (Exception e) {
+				// Ignore exception. Non-critical error. Print stack trace.
+				e.printStackTrace();
+			}
 		}
 	}
 	
-	public DefaultDiagramService(final InternalReferenceBuilderService referenceBuilder, final ExtensionRegistryService extRegService) {
+	public DefaultDiagramService(final InternalReferenceBuilderService referenceBuilder) {
 		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "unable to retrieve internal reference builder service");
-		this.extRegService = Objects.requireNonNull(extRegService, "extRegService must not be null");
-		
-		final Bundle bundle = FrameworkUtil.getBundle(getClass());
-		this.serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 	}
 		
 	@Override
-	public DiagramReference findFirstDiagramByRootBusinessObject(final Object bo) {
+	public List<InternalDiagramReference> findDiagramsByContextBusinessObject(final Object bo) {
 		final CanonicalBusinessObjectReference boReference = referenceBuilder.getCanonicalReference(bo);
-		final List<DiagramReference> diagramRefs = findDiagrams();
+		if(boReference == null) {
+			throw new RuntimeException("Unable to get canonical reference for business object : " + bo);
+		}
+		
 		final IProject project = getProject(bo);
 		if(project == null) {
 			throw new RuntimeException("Unable to get project for business object: " + bo);
 		}
 
-		// Check open diagrams first
-		for(final DiagramReference diagramRef : diagramRefs) {
-			if(project == diagramRef.getProject()) {
-				if(diagramRef.isOpen()) {
-					final IFeatureProvider featureProvider = diagramRef.getEditor().getDiagramTypeProvider().getFeatureProvider();
-					if(featureProvider != null) {
-						final Object tmpDiagramBo = featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram());
-						if(tmpDiagramBo != null) {
-							if(boReference.equals(referenceBuilder.getCanonicalReference(tmpDiagramBo))) {
-								return diagramRef;
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		// Check closed diagrams
-		for(final DiagramReference diagramRef : diagramRefs) {
-			if(project == diagramRef.getProject()) {
-				if(!diagramRef.isOpen()) {
-					// Create a feature provider and check if it is linked to the aadl element
-					final Diagram diagram = diagramRef.getDiagram();
-					if(diagram != null) {
-						final IFeatureProvider featureProvider = GraphitiUi.getExtensionManager().createFeatureProvider(diagram);
-						if(featureProvider != null) {
-							final Object tmpDiagramBo = featureProvider.getBusinessObjectForPictogramElement(diagramRef.getDiagram());
-							if(tmpDiagramBo != null) {
-								if(boReference.equals(referenceBuilder.getCanonicalReference(tmpDiagramBo))) {
-									return diagramRef;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		
-		return null;
+		// Build a set containing the project containing the business object and all projects which reference that project.
+		final HashSet<IProject> relevantProjects = new HashSet<>();
+		relevantProjects.add(project);
+		relevantProjects.addAll(Arrays.asList(project.getReferencingProjects()));
+
+		// Return diagrams which have a root context matching the specified business object		
+		return findDiagrams(relevantProjects).stream().filter((dr) -> boReference.equals(dr.getCanonicalReference())).collect(Collectors.toList());
 	}
 
 	@Override
-	public AgeDiagramEditor openOrCreateDiagramForRootBusinessObject(final Object bo) {
-		final AgeDiagramEditor editor = openExistingDiagramForRootBusinessObject(bo);
-		if(editor != null) {
-			return editor;
-		}
-		
-		// If a diagram can not be found, create a new diagram
-		Log.info("Existing diagram not found.");
-			
-		// Create and open the new resource
-		final Resource diagramResource = createNewDiagram(bo);
-		return openEditor((Diagram)diagramResource.getContents().get(0));
-	}
-	
-	private AgeDiagramEditor openExistingDiagramForRootBusinessObject(final Object bo) {
+	public AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate) {
 		// Look for an existing diagram
-		final DiagramReference diagramRef = findFirstDiagramByRootBusinessObject(bo);
-		if(diagramRef != null) {
+		final List<InternalDiagramReference> diagramRefs = findDiagramsByContextBusinessObject(bo);
+		
+		// If there is just one diagram, open it 
+		if(diagramRefs.size() == 1) {
+			final InternalDiagramReference diagramRef = diagramRefs.get(0);
 			if(diagramRef.isOpen()) {
 				Log.info("Existing diagram found. Activating existing editor...");
 				PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().activate(diagramRef.getEditor());
 				return diagramRef.getEditor();
-			} else {
-				final Diagram diagram = diagramRef.getDiagram();
-				if(diagram != null) {
-					Log.info("Existing diagram found. Opening new editor...");
-					return openEditor(diagram);
-				}
+			} else {				
+				Log.info("Existing diagram found. Opening new editor...");
+				return EditorUtil.openEditor(diagramRef.getFile());
 			}
-		}
-		
-		return null;
+		} else if(diagramRefs.size() == 0) {
+			// Prompt user to determine whether a new diagram should be created
+			if(!promptForCreate || MessageDialog.openQuestion(null, "Create New Diagram?", "An existing diagram was not found for the specified model element.\nCreate new diagram?")) {
+				// Create and open a new diagram
+				final IFile diagramFile = createDiagram(bo);
+				return EditorUtil.openEditor(diagramFile);
+			} else {
+				return null;
+			}
+		} else {
+			final InternalDiagramReference diagramRef = promptForDiagram(diagramRefs);
+			return diagramRef == null ? null : EditorUtil.openEditor(diagramRef.getFile());
+		}				
 	}
-	/**
-	 * Opens a diagram editor for the specified resource.
-	 * @param resource the resource to edit. Must contain a diagram object.
-	 */
-	private AgeDiagramEditor openEditor(final Diagram diagram) {
-		final String providerId = GraphitiUi.getExtensionManager().getDiagramTypeProviderId(diagram.getDiagramTypeId());	
-		final DiagramEditorInput editorInput = DiagramEditorInput.createEditorInput(diagram, providerId);
-		try {
-			final IEditorPart editor = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().openEditor(editorInput, AgeDiagramEditor.DIAGRAM_EDITOR_ID);
-			if(editor instanceof AgeDiagramEditor) {
-				return (AgeDiagramEditor)editor;
-			} else {
-				throw new RuntimeException("Unexpected editor: " + editor);
+	
+	private InternalDiagramReference promptForDiagram(final List<InternalDiagramReference> diagramRefs) {
+		// Sort the diagram references
+		final InternalDiagramReference[] sortedDiagramRefs = diagramRefs.stream().sorted((r1, r2) -> getName(r1.getFile()).compareToIgnoreCase(getName(r2.getFile()))).toArray(InternalDiagramReference[]::new);
+		
+		// Prompt user to select a single dialog reference
+		final ListDialog dialog = new ListDialog(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell());				
+		dialog.setAddCancelButton(true);
+		dialog.setTitle("Select Diagram");
+		dialog.setMessage("Select a Diagram to Open");
+		dialog.setLabelProvider(new LabelProvider() {
+			@Override
+			public String getText(final Object element) {
+				if(element instanceof InternalDiagramReference) {
+					final InternalDiagramReference diagramRef = (InternalDiagramReference)element;
+					return getName(diagramRef.getFile());
+				}
+				
+				return super.getText(element);
 			}
-		} catch (PartInitException e) {
-			throw new RuntimeException(e);
-		}
+		});
+		dialog.setContentProvider(new ArrayContentProvider());
+		dialog.setInput(sortedDiagramRefs);
+		dialog.open();
+		
+		final Object[] result = dialog.getResult();
+		return (result != null && result.length > 0) ? (InternalDiagramReference)result[0] : null;
 	}
 	
 	/**
-	 * Creates a new resource to hold a new diagram.  
+	 * Gets a new IFile for a new diagram. 
 	 * @param resourceSet the resource set that will contain the new resource.
-	 * @param baseFilename the desired filename of the file that will store the resource. The method will adjust the filename to avoid overwriting an existing file.
-	 * @return the resource containing the new diagram
+	 * @param baseFilename the desired filename of the file that will store the resource. The method will adjust the filename to avoid returning an existing file resource
+	 * @return the file resource for the new diagram. The file resource will be one which does not exist.
 	 */
-	private Resource createDiagramResource(final ResourceSet resourceSet, final IProject project, final String baseFilename) { 
-		boolean retry;
-		String suffix = "";
-		int tryCount = 1;
-		Resource createdResource = null;
-		
+	private IFile getNewDiagramFile(final IProject project, final String baseFilename) { 
+		int nameCount = 1;
+		IFile diagramFile;
 		do
 		{
-			retry = false;
 			final IFolder diagramFolder = project.getFolder("diagrams/");
-			final IFile diagramFile = diagramFolder.getFile(baseFilename + suffix + AgeDiagramEditor.EXTENSION);
-			final URI uri = URI.createPlatformResourceURI(diagramFile.getFullPath().toString(), true);
-			
-			// Try to get the resource in case it is already in the resource set, otherwise create a new one
-			createdResource = resourceSet.getResource(uri, false);
-			if(createdResource == null) {
-				createdResource = resourceSet.createResource(uri);	
-			} else {
-				if(createdResource.isLoaded()) {
-					if(resourceSet.getURIConverter().exists(uri, null)) {
-						retry = true;
-						tryCount++;
-						suffix = Integer.toString(tryCount);
-						continue;
-					}
-				}
-				createdResource.unload();
-			}
-		} while(retry);
+			final String suffix = nameCount == 1 ? "" : "(" + nameCount + ")";
+			diagramFile = diagramFolder.getFile(baseFilename + suffix + AgeDiagramEditor.EXTENSION);
+			nameCount++;
+		} while(diagramFile.exists());
 		
-		return createdResource;
+		return diagramFile;
 	}
-	
-	/**
-	 * Builds a unique filename for a diagram. Does not include the extension.
-	 */
-	private String buildUniqueFilename() {
-		return UUID.randomUUID().toString();
-	}
-	
-	/**
-	 * Creates a new diagram for the specified element
-	 * @param bo is the business object for which to create the diagram 
-	 * @return the new resource containing the created diagram
-	 */
-	private Resource createNewDiagram(final Object bo) {
-		// TODO: Migrate 
-		throw new RuntimeException("TODO: Migrate");
-		/*
-		// Determine the diagram type id
-		final String diagramTypeId = GraphitiAgeDiagram.AADL_DIAGRAM_TYPE_ID;
-		Log.info("Creating diagram of type '" + diagramTypeId + "' for business object '" + bo + "'");
 		
-		// Get the default resource set to hold the new resource
-		final ResourceSet resourceSet = new ResourceSetImpl();
-		TransactionalEditingDomain editingDomain = TransactionUtil.getEditingDomain(resourceSet);
-		boolean editingDomainCreated = false;
-		try {
-			if(editingDomain == null) {
-				Log.info("Creating a editing domain");
-				editingDomain = TransactionalEditingDomain.Factory.INSTANCE.createEditingDomain(resourceSet);
-				editingDomainCreated = true;
-			}
-	
-			// Create the diagram and its file
-			final IPeService peService = Graphiti.getPeService();
-			final String diagramName = getDiagramNameByBusinessObject(bo);
-			if(diagramName == null) {
-				Log.error("Unable to get title for business object: " + bo);
-				throw new RuntimeException("Unable to get title for business object: " + bo);
-			}
-			
-			final Diagram diagram = peService.createDiagram(diagramTypeId, diagramName, true);
-			//GraphitiUi.getExtensionManager().createFeatureProvider(diagram).link(diagram, bo); // TODO: Link no longer supported
-			
-			// Create a resource to hold the diagram
-			final IProject project = getProject(bo);
-			if(project == null) {
-				throw new RuntimeException("Unable to get project for business object: " + bo);
-			}
-			final Resource createdResource = createDiagramResource(editingDomain.getResourceSet(), project, buildUniqueFilename());
+	@Override
+	public IFile createDiagram(final Object contextBo) {
+		// Create an AgeDiagram object. This object doesn't have to be completely valid. It just needs to be able to be written.
+		final AgeDiagram diagram = new AgeDiagram();
+		
+		// Build diagram configuration
+		final CanonicalBusinessObjectReference contextBoRef = Objects.requireNonNull(referenceBuilder.getCanonicalReference(contextBo), "Unable to build canonical reference for business object: " + contextBo);
+		diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(contextBoRef).build());			
+		
+		final IProject project = Objects.requireNonNull(getProject(contextBo), "Unable to get project for business object: " + contextBo);
+		
+		// Determine the filename to use for the new diagram
+		final String baseDiagramName = contextBo instanceof NamedElement ? ((NamedElement)contextBo).getQualifiedName().replaceAll("::|:|\\.", "_") : "untitled_diagram";
+		final IFile newDiagramFile = getNewDiagramFile(project, baseDiagramName);
 
-			// Store the diagram in the resource
-			editingDomain.getCommandStack().execute(new RecordingCommand(editingDomain) {
-				@Override
-				protected void doExecute() {
-					createdResource.getContents().add(diagram);
-				}			
-			});		
-
-			try {
-				createdResource.save(null);
-			} catch (IOException e) {
-				throw new RuntimeException("Error saving new diagram", e);
-			}
-			
-			return createdResource;
-		} finally {		
-			// Dispose of the editing domain if we created it
-			if(editingDomainCreated) {
-				editingDomain.dispose();
-			}
+		try(final FileOutputStream os = new FileOutputStream(newDiagramFile.getLocation().toFile())) {
+			DiagramSerialization.write(diagram, os);	
+		} catch (final IOException e) {
+			throw new RuntimeException(e);
 		}
-		*/
+		
+		try {
+			newDiagramFile.refreshLocal(IResource.DEPTH_INFINITE, null);
+		} catch (final CoreException e) {
+			throw new RuntimeException(e);
+		}
+
+		return newDiagramFile;
 	}
 	
 	/**
-	 * Returns all diagrams. If a diagram is open it returns the open diagram
+	 * Returns all diagrams in the specified projects. If a diagram is open it returns the open diagram
 	 * @return
 	 */
 	@Override
-	public List<DiagramReference> findDiagrams() {
-		final List<DiagramReference> diagramRefs = new ArrayList<DiagramReference>();
-		final Map<URI, Diagram> openDiagrams = new HashMap<URI, Diagram>();		
+	public List<InternalDiagramReference> findDiagrams(final Set<IProject> projects) {
+		final List<InternalDiagramReference> diagramRefs = new ArrayList<>();
+		final Set<IFile> openDiagramFiles = new HashSet<>();		
 
 		for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
 			final IEditorPart editor = editorRef.getEditor(false); // If restore is true then the editor is automatically updated
@@ -412,25 +390,29 @@ public class DefaultDiagramService implements DiagramService {
 				final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editor;
 				final AgeDiagramBehavior behavior = (AgeDiagramBehavior)diagramEditor.getDiagramBehavior();
 
-				if(behavior != null && behavior.getDiagramTypeProvider() != null) {
-					final Diagram diagram = behavior.getDiagramTypeProvider().getDiagram();
-					if(diagram != null && diagram.eResource() != null) {
-						openDiagrams.put(diagram.eResource().getURI(), diagram);
-						diagramRefs.add(new OpenDiagramReference(diagramEditor));
+				if(behavior != null) {
+					if(projects.contains(behavior.getProject())) {
+						final IFile file = behavior.getFile();
+						if(file != null) {
+							openDiagramFiles.add(file);
+							diagramRefs.add(InternalDiagramReference.createOpen(file, diagramEditor));
+						}
 					}
 				}
 			}
 		}
 		
-		final List<IFile> files = findDiagramFiles(ResourcesPlugin.getWorkspace().getRoot(), null);
-		final ResourceSet resourceSet = new ResourceSetImpl();
-		for(final IFile file : files) {
-			// Load the EMF Resource
-			final URI uri = URI.createPlatformResourceURI(file.getFullPath().toString(), true);
-			
+		// Build list of all files
+		final List<IFile> files = new ArrayList<>();
+		for(final IProject project : projects) {
+			findDiagramFiles(project, files);			
+		}
+		
+		// Create diagram references as appropriate
+		for(final IFile file : files) {			
 			// Check if the diagram is already open
-			if(!openDiagrams.containsKey(uri)) {
-				diagramRefs.add(new ClosedDiagramReference(resourceSet, uri));		
+			if(!openDiagramFiles.contains(file)) {
+				diagramRefs.add(InternalDiagramReference.createClosed(file));		
 			}
 		}
 		
@@ -478,9 +460,9 @@ public class DefaultDiagramService implements DiagramService {
 				// Attempt to use the name from the persistent property
 				try {
 					// Check modification time stamp
-					final String modStampPropValue = diagramFile.getPersistentProperty(this.legacyDiagramNameModificationStampPropertyName);
+					final String modStampPropValue = diagramFile.getPersistentProperty(LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP);
 					if(modStampPropValue != null && modStampPropValue.equals(Long.toString(diagramFile.getModificationStamp()))) {
-						name = diagramFile.getPersistentProperty(legacyDiagramNamePropertyName);
+						name = diagramFile.getPersistentProperty(LEGACY_PROPERTY_DIAGRAM_NAME);
 					}			
 				} catch (CoreException e) {
 					e.printStackTrace();
@@ -508,8 +490,8 @@ public class DefaultDiagramService implements DiagramService {
 					
 					// Update persistent properties.
 					try {
-						diagramFile.setPersistentProperty(legacyDiagramNamePropertyName, name);
-						diagramFile.setPersistentProperty(legacyDiagramNameModificationStampPropertyName, Long.toString(diagramFile.getModificationStamp()));
+						diagramFile.setPersistentProperty(LEGACY_PROPERTY_DIAGRAM_NAME, name);
+						diagramFile.setPersistentProperty(LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP, Long.toString(diagramFile.getModificationStamp()));
 					} catch (CoreException e) {
 						e.printStackTrace();
 					}
@@ -529,8 +511,8 @@ public class DefaultDiagramService implements DiagramService {
 	public void clearLegacyPersistentProperties(final IResource fileResource) {
 		// Clear the persistent properties
 		try {
-			fileResource.setPersistentProperty(legacyDiagramNamePropertyName, null);
-			fileResource.setPersistentProperty(legacyDiagramNameModificationStampPropertyName, null);
+			fileResource.setPersistentProperty(LEGACY_PROPERTY_DIAGRAM_NAME, null);
+			fileResource.setPersistentProperty(LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP, null);
 		} catch (final CoreException e) {
 			// Ignore exceptions
 		}
@@ -548,8 +530,7 @@ public class DefaultDiagramService implements DiagramService {
 		return null;
 	}
 	
-	@Override
-	public Resource getResource(Object bo) {		
+	private Resource getResource(Object bo) {		
 		final EObject eObject;
 		
 		// Handle EObject instances without delegating to specialized handlers

@@ -811,6 +811,10 @@
     </extension>
     <extension
           point="org.osate.ge.commands">
+       <command
+             class="org.osate.ge.internal.commands.OpenAssociatedDiagramCommand"></command>
+       <command
+             class="org.osate.ge.internal.commands.CreateNewDiagramCommand"></command>
        <commandContributor
              class="org.osate.ge.internal.commands.SetInitialModeCommandContributor">
        </commandContributor>

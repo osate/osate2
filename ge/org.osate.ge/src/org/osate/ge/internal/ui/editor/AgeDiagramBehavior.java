@@ -35,9 +35,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
@@ -106,6 +103,9 @@ import org.osate.ge.di.Names;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.DiagramLayoutUtil;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
 import org.osate.ge.internal.diagram.DiagramSerialization;
 import org.osate.ge.internal.graphiti.AgeDiagramTypeProvider;
 import org.osate.ge.internal.graphiti.AgeFeatureProvider;
@@ -120,6 +120,7 @@ import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.internal.util.Log;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
@@ -705,6 +706,25 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		return project;
 	}
 	
+	public IFile getFile() {
+		final IDiagramEditorInput input = getInput();
+		if(input == null) {
+			return null;
+		}
+		
+		final URI uri = input.getUri();
+		if(uri == null) {
+			return null;
+		}
+		
+		final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(uri));
+		if(!(resource instanceof IFile)) {
+			return null;
+		}
+		
+		return (IFile)resource;
+	}
+	
 	private void updateProjectByUri(final URI uri) {
 		final IPath projectPath = new Path(uri.toPlatformString(true)).uptoSegment(1);
 		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
@@ -723,38 +743,22 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				throw new RuntimeException("Unable to retrieve file for resource.");
 			}
 			
-			IResource resourceToDelete = null;
-			final File file = resource.getLocation().toFile();				
-			try(final FileInputStream is = new FileInputStream(file)) {
-				final Reader reader = new InputStreamReader(is);
-				final char[] xmlStart = "<?xml".toCharArray();
-				final char[] buf = new char[xmlStart.length];
-				if(reader.read(buf) == buf.length) {
-					if(Arrays.equals(xmlStart, buf)) {
-						// The file is a legacy file
-						// Prompt user as to whether to convert the file
-						if(MessageDialog.openQuestion(null, "Conversion Required", "This diagram file uses a legacy file format which is not supported by this version of OSATE.\nDo you wish to convert the file to the latest format?\n\nConverted files will not be compatible with older versions of OSATE.\nThe original file will be removed after conversion.")) {								
-							final IFile newResource = new LegacyGraphitiDiagramConverter().convertLegacyDiagram(input.getUri());
-							input.updateUri(URI.createPlatformResourceURI(newResource.getFullPath().toString(), true));
-							
-							// Store the resource so that is can be deleted
-							resourceToDelete = resource;
-						} else {
-							setEditorInitializationError("Unable to load diagram. This diagram file is stored in a legacy format. The diagram must be converted before it can be edited with this version of the OSATE Graphical Editor.");
-							return;
-						}
+			if(DiagramUtil.isLegacy((IFile)resource)) {
+				// The file is a legacy file
+				// Prompt user as to whether to convert the file
+				if(MessageDialog.openQuestion(null, "Conversion Required", "This diagram file uses a legacy file format which is not supported by this version of OSATE.\nDo you wish to convert the file to the latest format?\n\nConverted files will not be compatible with older versions of OSATE.\nThe original file will be removed after conversion.")) {								
+					final IFile newResource = new LegacyGraphitiDiagramConverter().convertLegacyDiagram(input.getUri());
+					input.updateUri(URI.createPlatformResourceURI(newResource.getFullPath().toString(), true));
+					
+					// If the resource was converted, delete the old resource
+					try {
+						resource.delete(true, null);
+					} catch (CoreException e) {
+						throw new RuntimeException(e);
 					}
-				}
-			} catch (final IOException e) {
-				throw new RuntimeException(e);
-			}
-			
-			// If the resource was converted, delete the old resource
-			if(resourceToDelete != null) {
-				try {
-					resourceToDelete.delete(true, null);
-				} catch (CoreException e) {
-					throw new RuntimeException(e);
+				} else {
+					setEditorInitializationError("Unable to load diagram. This diagram file is stored in a legacy format. The diagram must be converted before it can be edited with this version of the OSATE Graphical Editor.");
+					return;
 				}
 			}
 		}				
@@ -801,7 +805,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 								} else {
 									// Update the input's URI and refresh the title
 									final IPath newPath = diagramDelta.getMovedToPath();
-									getInput().updateUri(URI.createPlatformResourceURI(newPath.toString(), true));
+									final URI newUri = URI.createPlatformResourceURI(newPath.toString(), true);
+									getInput().updateUri(newUri);
+									updateProjectByUri(newUri);
 									getDiagramContainer().refreshTitle();								
 								}
 							}
@@ -916,9 +922,17 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		final AgeFeatureProvider fp = (AgeFeatureProvider)dtp.getFeatureProvider();
 		fp.getDiagramUpdater().updateDiagram(ageDiagram);
 		
+		// Perform incremental layout
+		ageDiagram.modify(new DiagramModifier() {
+			@Override
+			public void modify(final DiagramModification m) {
+				DiagramLayoutUtil.layout(ageDiagram, m, false);	
+			}						
+		});
+				
 		// Set the coloring service field. It is needed 
 		final ColoringProvider coloringProvider = new ColoringProvider() {
-			private ColoringService cs = ((AgeDiagramTypeProvider)dtp).getColoringService();	;
+			private ColoringService cs = ((AgeDiagramTypeProvider)dtp).getColoringService();
 			@Override
 			public Color getForegroundColor(final DiagramElement de) {
 				return cs.getForegroundColor(de);

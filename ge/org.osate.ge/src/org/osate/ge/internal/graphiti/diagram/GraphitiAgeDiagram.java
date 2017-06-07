@@ -293,7 +293,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			
 			// Delete Transient Shapes
 			if(shape instanceof ContainerShape) {
-				List<Shape> shapesToDelete = null; // Shapes that should be deleted .
+				List<Shape> shapesToDelete = null; // Shapes that should be deleted
 				final ContainerShape containerShape = (ContainerShape)shape;
 				for(final Shape childShape : containerShape.getChildren()) {
 					if(PropertyUtil.isTransient(childShape)) {

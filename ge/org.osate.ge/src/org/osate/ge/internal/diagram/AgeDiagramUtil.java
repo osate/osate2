@@ -28,16 +28,17 @@ public class AgeDiagramUtil {
 		}
 	}
 
-	// Diagrams are no longer directly associated with a business object. Use the diagram configuration to determine the diagram business object.
-	// This function returns the business object references by the diagram's configuration. Will return null if the object cannot be found
+	// Diagrams are no longer directly associated with a business object. However, diagram configurations have an optional business object which
+	// provides a context for the diagram.
+	// This function returns the context business object referenced by the diagram's configuration. Will return null if the object cannot be found
 	// or if the configuration does not reference a business object.
-	public static Object getConfigurationBusinessObject(final AgeDiagram diagram, final ReferenceService referenceService) {
-		final CanonicalBusinessObjectReference rootBoReference = diagram.getConfiguration().getRootBoReference();
+	public static Object getConfigurationContextBusinessObject(final AgeDiagram diagram, final ReferenceService referenceService) {
+		final CanonicalBusinessObjectReference contextBoReference = diagram.getConfiguration().getContextBoReference();
 		final Object diagramBo;
-		if(rootBoReference == null) {
+		if(contextBoReference == null) {
 			diagramBo = null;
 		} else {
-			diagramBo = referenceService.resolve(rootBoReference);
+			diagramBo = referenceService.resolve(contextBoReference);
 		}
 		
 		return diagramBo;

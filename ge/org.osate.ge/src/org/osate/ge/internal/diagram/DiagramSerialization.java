@@ -15,6 +15,9 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonGenerator;
 import javax.json.stream.JsonGeneratorFactory;
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
+
 import org.osate.ge.internal.DockArea;
 
 /**
@@ -22,7 +25,7 @@ import org.osate.ge.internal.DockArea;
  *
  */
 public class DiagramSerialization {
-	private final static String FIELD_ROOT_BO = "root_bo";
+	private final static String FIELD_CONTEXT_BO = "context_bo";
 	private final static String FIELD_ENABLED_AADL_PROPERTIES = "enabled_aadl_properties";
 	private final static String FIELD_ELEMENTS = "elements";
 	private final static String FIELD_BO = "bo";
@@ -53,10 +56,10 @@ public class DiagramSerialization {
 			// Read the diagram configuration
 			final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(ageDiagram.getConfiguration());
 
-			final JsonArray rootBoRefSegs = jsonDiagram.getJsonArray(FIELD_ROOT_BO);
-			if(rootBoRefSegs != null) {
-				final String[] segs = rootBoRefSegs.stream().map(v -> ((JsonString)v).getString()).toArray(String[]::new);
-				configBuilder.setRootBoReference(new CanonicalBusinessObjectReference(segs));
+			final JsonArray contextBoRefSegs = jsonDiagram.getJsonArray(FIELD_CONTEXT_BO);
+			if(contextBoRefSegs != null) {
+				final String[] segs = contextBoRefSegs.stream().map(v -> ((JsonString)v).getString()).toArray(String[]::new);
+				configBuilder.setContextBoReference(new CanonicalBusinessObjectReference(segs));
 			}
 			
 			final JsonArray enabledAadlProperties = jsonDiagram.getJsonArray(FIELD_ENABLED_AADL_PROPERTIES);
@@ -65,8 +68,13 @@ public class DiagramSerialization {
 					configBuilder.addAadlProperty(enabledAadlProperties.getString(i));
 				}
 			}
-
+			
 			ageDiagram.setDiagramConfiguration(configBuilder.build());
+			
+			// Require a context business object
+			if(ageDiagram.getConfiguration().getContextBoReference() == null) {
+				throw new RuntimeException("Contextless diagrams are not supported");
+			}
 			
 			//  Read elements
 			ageDiagram.modify(new DiagramModifier() {
@@ -87,8 +95,7 @@ public class DiagramSerialization {
 				createElement(m, container, jsonContainer, jsonChild);
 			}
 		}
-	}
-	
+	}	
 	
 	private static void createElement(final DiagramModification m, final DiagramNode container, final JsonObject jsonContainer, final JsonObject jsonChild) {
 		final JsonArray boRefSegs = jsonChild.getJsonArray(FIELD_BO);
@@ -173,7 +180,7 @@ public class DiagramSerialization {
 			generator.writeStartObject();
 			
 			final DiagramConfiguration config = diagram.getConfiguration();
-			writeCanonicalReference(generator, FIELD_ROOT_BO, config.getRootBoReference());
+			writeCanonicalReference(generator, FIELD_CONTEXT_BO, config.getContextBoReference());
 			
 			generator.writeStartArray(FIELD_ENABLED_AADL_PROPERTIES);
 			for(final String enabledPropertyName : config.getEnabledAadlPropertyNames()) {
@@ -274,5 +281,69 @@ public class DiagramSerialization {
 		writeElements(generator, e.getDiagramElements());
 		
 		generator.writeEnd();
+	}
+	
+	// TODO: Rename
+	public static CanonicalBusinessObjectReference getCanonicalObjectReference(final InputStream is) {
+		final List<String> referenceSegments = new ArrayList<>();
+		try(final JsonParser parser = Json.createParser(is)) {
+			int objectDepth = 0;
+			String name = null;
+			boolean processingRootReference = false;
+			while(parser.hasNext()) {
+				final Event e = parser.next();
+				switch(e) {
+				case START_OBJECT:
+					objectDepth++;
+					break;
+					
+				case END_OBJECT:
+					objectDepth--;
+					break;
+					
+				case START_ARRAY:
+					if(objectDepth == 1) {
+						if(FIELD_CONTEXT_BO.equals(name)) {
+							processingRootReference = true;
+						}
+					}
+					break;
+					
+				case END_ARRAY:
+					if(processingRootReference) {
+						processingRootReference = false;
+					}
+					break;
+					
+				case KEY_NAME:
+					name = parser.getString();
+					break;
+					
+				case VALUE_STRING:
+					if(processingRootReference) {
+						referenceSegments.add(parser.getString());
+					}
+					break;
+					
+				case VALUE_NUMBER:
+					break;
+					
+				case VALUE_TRUE:
+					break;
+					
+				case VALUE_FALSE:
+					break;
+					
+				case VALUE_NULL:
+					break;						
+				}
+			}
+		}
+		
+		if(referenceSegments.size() == 0) {
+			return null;
+		}
+		
+		return new CanonicalBusinessObjectReference(referenceSegments.toArray(new String[referenceSegments.size()]));
 	}
 }

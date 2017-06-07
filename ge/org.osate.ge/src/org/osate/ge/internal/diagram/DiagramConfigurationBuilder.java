@@ -4,20 +4,20 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class DiagramConfigurationBuilder {
-	private CanonicalBusinessObjectReference rootBoReference;
+	private CanonicalBusinessObjectReference contextBoReference;
 	private final Set<String> lcEnabledAadlPropertyNames = new HashSet<>();
 	
 	public DiagramConfigurationBuilder() {
-		this.rootBoReference = null;
+		this.contextBoReference = null;
 	}
 	
 	public DiagramConfigurationBuilder(final DiagramConfiguration config) {
-		this.rootBoReference = config.getRootBoReference();
+		this.contextBoReference = config.getContextBoReference();
 		this.lcEnabledAadlPropertyNames.addAll(config.getEnabledAadlPropertyNames());
 	}
 	
-	public DiagramConfigurationBuilder setRootBoReference(final CanonicalBusinessObjectReference value) {
-		this.rootBoReference = value;
+	public DiagramConfigurationBuilder setContextBoReference(final CanonicalBusinessObjectReference value) {
+		this.contextBoReference = value;
 		return this;
 	}
 	
@@ -32,6 +32,6 @@ public class DiagramConfigurationBuilder {
 	}
 	
 	public DiagramConfiguration build() {
-		return new DiagramConfiguration(rootBoReference, lcEnabledAadlPropertyNames);
+		return new DiagramConfiguration(contextBoReference, lcEnabledAadlPropertyNames);
 	}
 }

@@ -39,7 +39,7 @@ public class GoToPackageDiagramCommand {
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final NamedElement namedElement,
 			final DiagramService diagramService) {
 		final Element element = getElement(namedElement);		
-		diagramService.openOrCreateDiagramForRootBusinessObject(element.getElementRoot());
+		diagramService.openOrCreateDiagramForBusinessObject(element.getElementRoot());
 		return true;
 	}
 }

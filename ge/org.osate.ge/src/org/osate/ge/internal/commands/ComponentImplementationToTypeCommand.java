@@ -26,7 +26,7 @@ public class ComponentImplementationToTypeCommand {
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final NamedElement namedElement,
 			final DiagramService diagramService) {
 		final Classifier componentType = ((ComponentImplementation)namedElement).getType();
-		diagramService.openOrCreateDiagramForRootBusinessObject(componentType);
+		diagramService.openOrCreateDiagramForBusinessObject(componentType);
 		return true;
 	}
 }

@@ -1,8 +1,5 @@
 package org.osate.ge.internal.ui.dialogs;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.swt.widgets.Shell;
 

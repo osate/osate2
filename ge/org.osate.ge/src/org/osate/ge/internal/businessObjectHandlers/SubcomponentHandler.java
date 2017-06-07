@@ -20,6 +20,7 @@ import org.osate.ge.di.Create;
 import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
+import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
@@ -29,6 +30,7 @@ import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
+import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlArrayUtil;
@@ -145,4 +147,14 @@ public class SubcomponentHandler {
 		final ComponentImplementation ci = (ComponentImplementation)queryService.getFirstBusinessObject(componentImplementationQuery, boc);
 		return sc.getContainingClassifier() == ci;
     }
+	
+	@HandleDoubleClick
+	public static void openAssociatedDiagram(final @Named(Names.BUSINESS_OBJECT) Subcomponent sc, 
+			final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext scBoc,
+			final DiagramService diagramService) {
+		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
+		if(cc != null) {
+			diagramService.openOrCreateDiagramForBusinessObject(cc);
+		}
+	}
 }

@@ -55,7 +55,7 @@ public class DiagramLayoutUtil {
 				}				
 			}
 		}
-				
+	
 		// Don't perform any automatic layout if there is not more than 1 child shape
 		if(!hasUnlockedShapes(rootLayoutShapes)) {
 			return false;

@@ -70,7 +70,7 @@ public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
 					final NamedElement ne = (NamedElement)element;
 					final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getService(DiagramService.class);
-					diagramService.openOrCreateDiagramForRootBusinessObject(ne);
+					diagramService.openOrCreateDiagramForBusinessObject(ne);
 				} 
 			}
 		} catch (RuntimeException e) {

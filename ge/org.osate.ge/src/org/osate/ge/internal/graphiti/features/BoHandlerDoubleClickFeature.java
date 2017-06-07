@@ -45,6 +45,7 @@ public class BoHandlerDoubleClickFeature extends AbstractCustomFeature {
 		final IEclipseContext eclipseCtx = extService.createChildContext();
 		try {
 			eclipseCtx.set(Names.BUSINESS_OBJECT, element.getBusinessObject());
+			eclipseCtx.set(Names.BUSINESS_OBJECT_CONTEXT, element);
 			
 			// Call the double-click handler method
 			ContextInjectionFactory.invoke(element.getBusinessObjectHandler(), HandleDoubleClick.class, eclipseCtx);

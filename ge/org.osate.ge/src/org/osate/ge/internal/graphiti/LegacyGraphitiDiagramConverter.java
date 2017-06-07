@@ -75,8 +75,8 @@ import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.impl.DefaultCachingService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultReferenceService;
-import org.osate.ge.internal.services.impl.ReferenceEncoder;
 import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.query.Query;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultReferenceResolutionService;
@@ -85,7 +85,6 @@ import org.osgi.framework.FrameworkUtil;
 
 // Handles converting legacy Graphiti diagrams to the native format.
 public class LegacyGraphitiDiagramConverter {
-	private static final String legacyReferenceKey = "independentObject";	
 	private static final Graphic unusedGraphic = RectangleBuilder.create().build(); // Graphic required for graphical configuration. Not actually used.
 	private static final String isLogicalTreeNodePropertyName = "is_lt_node";
 	private static final String showBindingPropertyKeyBase = "show_binding_type";
@@ -139,9 +138,9 @@ public class LegacyGraphitiDiagramConverter {
 	}
 	
 	public void convertLegacyDiagram(final Diagram legacyDiagram, final OutputStream os) {
-		final CanonicalBusinessObjectReference rootBoRef = getLegacyReference(legacyDiagram);
-		if(rootBoRef == null) {
-			throw new RuntimeException("Unable to get root business object reference");
+		final CanonicalBusinessObjectReference contextBoRef = DiagramUtil.getLegacyReference(legacyDiagram);
+		if(contextBoRef == null) {
+			throw new RuntimeException("Unable to get context business object reference from legacy diagram.");
 		}
 		
 		final IProject project = SelectionHelper.getProject(legacyDiagram.eResource());
@@ -176,17 +175,17 @@ public class LegacyGraphitiDiagramConverter {
 				public void modify(final DiagramModification m) {
 					DiagramNode container = diagram;
 					
-					if(rootBoRef != null) {
-						final Object rootBo = referenceService.resolve(rootBoRef);
+					if(contextBoRef != null) {
+						final Object contextBo = referenceService.resolve(contextBoRef);
 						
 						// Special handling for package diagrams 
-						if(rootBo instanceof AadlPackage) {
-							final RelativeBusinessObjectReference rootRelRef = referenceService.getRelativeReference(rootBo);
-							if(rootRelRef == null) {
-								throw new RuntimeException("Unable to retrieve relative reference for root business object");
+						if(contextBo instanceof AadlPackage) {
+							final RelativeBusinessObjectReference contextRelRef = referenceService.getRelativeReference(contextBo);
+							if(contextRelRef == null) {
+								throw new RuntimeException("Unable to retrieve relative reference for context business object");
 							}
 							
-							final DiagramElement newElement = new DiagramElement(container, rootBo, null, rootRelRef, null);
+							final DiagramElement newElement = new DiagramElement(container, contextBo, null, contextRelRef, null);
 							m.addElement(newElement);
 							m.setGraphicalConfiguration(newElement,(AgeGraphicalConfiguration)GraphicalConfigurationBuilder.create().graphic(unusedGraphic).build());
 							m.setAutoContentsFilter(newElement, ContentsFilter.ALLOW_ALL);
@@ -196,8 +195,8 @@ public class LegacyGraphitiDiagramConverter {
 						} 
 						
 						// Build diagram configuration
-						final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder().setRootBoReference(rootBoRef);						
-						if(!(rootBo instanceof ComponentInstance)) {							
+						final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder().setContextBoReference(contextBoRef);						
+						if(!(contextBo instanceof ComponentInstance)) {							
 							// Add deployment properties based on whether they are enabled in the graphiti diagram
 							addDeploymentBindingPropertyIfEnabled(configBuilder, legacyDiagram, "actual_connection");
 							addDeploymentBindingPropertyIfEnabled(configBuilder, legacyDiagram, "actual_function");
@@ -220,7 +219,7 @@ public class LegacyGraphitiDiagramConverter {
 						}
 						
 						// Get canonical reference
-						final CanonicalBusinessObjectReference canonicalRef = getLegacyReference(c);
+						final CanonicalBusinessObjectReference canonicalRef = DiagramUtil.getLegacyReference(c);
 						if(canonicalRef == null) {
 							// Skip
 							continue;
@@ -279,8 +278,7 @@ public class LegacyGraphitiDiagramConverter {
 			DiagramSerialization.write(diagram, os);
 		} finally {
 			context.dispose();
-		}
-		
+		}		
 	}
 
 	private DiagramElement findParent(final AgeDiagram diagram, 
@@ -348,15 +346,6 @@ public class LegacyGraphitiDiagramConverter {
 		return tempBo instanceof Subcomponent || tempBo instanceof ComponentType || tempBo instanceof ComponentImplementation || tempBo instanceof SubprogramCall;
 	}
 
-	private static final CanonicalBusinessObjectReference getLegacyReference(final PictogramElement pe) {
-		final String refStr = Graphiti.getPeService().getPropertyValue(pe, legacyReferenceKey);
-		if(refStr == null) {
-			return null;
-		}				
-
-		return new CanonicalBusinessObjectReference(ReferenceEncoder.decode(refStr));		
-	}	
-
 	private static boolean getShowConnectionBindingType(final Diagram diagram, final String bindingId) {
 		return !"false".equals(Graphiti.getPeService().getPropertyValue(diagram, showBindingPropertyKeyBase + bindingId));
 	}
@@ -380,7 +369,7 @@ public class LegacyGraphitiDiagramConverter {
 			}
 
 			// Get canonical reference
-			final CanonicalBusinessObjectReference canonicalRef = getLegacyReference(child);
+			final CanonicalBusinessObjectReference canonicalRef = DiagramUtil.getLegacyReference(child);
 			if(canonicalRef == null) {
 				// Ignore shapes for which a reference cannot be retrieved.
 				continue;

@@ -87,7 +87,7 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		if(input != null) {
 			final URI uri = input.getUri();
 			if(uri != null) {
-				name = uri.lastSegment();
+				name = URI.decode(uri.lastSegment());
 			}
 		}
 		
