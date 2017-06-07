@@ -139,6 +139,22 @@ public class EMFIndexRetrieval {
 		}
 		return null;
 	}
+	
+	/**
+	* get all property sets in workspace by looking them up in EMF index 
+	* @param res resource
+	* @return list of property sets in IEObjectDescription format
+	*/
+	public static EList<IEObjectDescription> getAllPropertySetsInWorkspace(ResourceSet resourceSet) {
+		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
+		IResourceDescriptions rds = rdp.getResourceDescriptions(resourceSet);
+		Iterable<IEObjectDescription> packagedlist = rds
+				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
+		for (IEObjectDescription eod : packagedlist) {
+			packlist.add(eod);
+		}
+		return packlist;
+	}
 
 	/**
 	* get all property sets in workspace by looking them up in EMF index 
@@ -146,14 +162,7 @@ public class EMFIndexRetrieval {
 	* @return list of property sets in IEObjectDescription format
 	*/
 	public static EList<IEObjectDescription> getAllPropertySetsInWorkspace(EObject context) {
-		EList<IEObjectDescription> packlist = new BasicEList<IEObjectDescription>();
-		IResourceDescriptions rds = rdp.getResourceDescriptions(context.eResource().getResourceSet());
-		Iterable<IEObjectDescription> packagedlist = rds
-				.getExportedObjectsByType(Aadl2Package.eINSTANCE.getPropertySet());
-		for (IEObjectDescription eod : packagedlist) {
-			packlist.add(eod);
-		}
-		return packlist;
+		return getAllPropertySetsInWorkspace(context.eResource().getResourceSet());
 	}
 
 	/**
