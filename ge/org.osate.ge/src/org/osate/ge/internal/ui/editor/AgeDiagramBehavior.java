@@ -79,6 +79,7 @@ import org.eclipse.graphiti.ui.editor.IDiagramContainerUI;
 import org.eclipse.graphiti.ui.editor.IDiagramEditorInput;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.action.IMenuManager;
+import org.eclipse.jface.dialogs.ErrorDialog;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.SelectionChangedEvent;
@@ -888,7 +889,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					// Clear Ghosts
 					final AgeFeatureProvider fp = (AgeFeatureProvider)getDiagramTypeProvider().getFeatureProvider();
 					fp.getDiagramUpdater().clearGhosts();
-					
+
 					// Return a set containing the diagram resource
 					if(editingDomain.getResourceSet().getResources().size() == 1) {
 						return Collections.singleton(editingDomain.getResourceSet().getResources().get(0));
@@ -897,8 +898,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 				} catch(final Exception e) {
 					Status errorStatus = new Status(IStatus.ERROR, Activator.PLUGIN_ID, 0, e.getMessage(), e);
-					// TODO
-					//showSaveError(errorStatus);
+					Display.getDefault().asyncExec(new Runnable() {
+						@Override
+						public void run() {
+							new ErrorDialog(Display.getDefault().getActiveShell(), "Error Saving Diagram",
+									"Unable to save diagram.", errorStatus, IStatus.ERROR).open();
+						}
+					});
 					throw e;
 				}
 			}
