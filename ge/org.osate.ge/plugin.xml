@@ -16,6 +16,11 @@
 			name="Open Diagram" 
 			description="Open Diagram">
 		</command>
+			   <command 
+	   		id="org.osate.ge.commands.create.diagram.from.navigator"
+			name="Create Diagram" 
+			description="Create Diagram">
+		</command>
    </extension>
        
    <extension point="org.eclipse.ui.menus">
@@ -33,6 +38,17 @@
              tooltip="Open Diagram" 
              style="push"
              mnemonic="O">
+          <visibleWhen>
+            <reference definitionId="org.osate.ge.compatibleElementSelected">
+            </reference>
+         </visibleWhen>
+         </command>
+         
+         <command
+             commandId="org.osate.ge.commands.create.diagram.from.navigator"
+             label="Create Diagram"
+             tooltip="Create Diagram" 
+             style="push">
           <visibleWhen>
             <reference definitionId="org.osate.ge.compatibleElementSelected">
             </reference>
@@ -257,6 +273,16 @@
       <handler
             class="org.osate.ge.internal.ui.handlers.OpenDiagramFromNavigatorHandler"
             commandId="org.osate.ge.commands.open.diagram.from.navigator">
+         <enabledWhen>
+            <reference
+                  definitionId="org.osate.ge.compatibleElementSelected">
+            </reference>
+         </enabledWhen>
+      </handler>
+      
+      <handler
+            class="org.osate.ge.internal.ui.handlers.CreateDiagramFromNavigatorHandler"
+            commandId="org.osate.ge.commands.create.diagram.from.navigator">
          <enabledWhen>
             <reference
                   definitionId="org.osate.ge.compatibleElementSelected">

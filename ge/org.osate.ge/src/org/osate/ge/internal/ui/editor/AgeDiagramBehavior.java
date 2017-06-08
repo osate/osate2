@@ -897,7 +897,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 				} catch(final Exception e) {
 					Status errorStatus = new Status(IStatus.ERROR, Activator.PLUGIN_ID, 0, e.getMessage(), e);
-					showSaveError(errorStatus);
+					// TODO
+					//showSaveError(errorStatus);
 					throw e;
 				}
 			}
