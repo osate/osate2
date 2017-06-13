@@ -15,12 +15,12 @@ import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 
 public class BusinessObjectNode implements BusinessObjectContext {
 	private BusinessObjectNode parent;
-	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes
+	private final RelativeBusinessObjectReference relativeReference; // May be null only for root nodes.
 	private Object bo; // May be null for root nodes
 	private boolean manual = false; // Species whether the object was manually specified(true) or if it was created automatically based on the auto contents filter or other mechanism.
 	private ContentsFilter autoContentsFilter;
 	private Map<RelativeBusinessObjectReference, BusinessObjectNode> children;
-	private Completeness completeness = Completeness.UNKNOWN;
+	private Completeness completeness = Completeness.UNKNOWN; // DefaultTreeExpander populates this field.
 	
 	public BusinessObjectNode(final BusinessObjectNode parent, 
 			final RelativeBusinessObjectReference relativeReference, 
@@ -69,6 +69,10 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	public ContentsFilter getAutoContentsFilter() {
 		return autoContentsFilter;
 	}
+	
+	public void setAutoContentsFilter(final ContentsFilter value) {
+		this.autoContentsFilter = Objects.requireNonNull(value, "value must not be null");
+	}
 
 	public Completeness getCompleteness() {
 		return completeness;
@@ -103,10 +107,12 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	}
 	
 	private void addChild(final BusinessObjectNode node) {
+		Objects.requireNonNull(node.relativeReference, "relativeReference must not be null");
+		
 		if(children == null) {
 			children = new HashMap<>();
 		}
-		
+
 		if(children.containsKey(node)) {
 			throw new RuntimeException("Node already has a child with reference: " + node.relativeReference);
 		}

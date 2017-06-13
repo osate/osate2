@@ -30,7 +30,6 @@ public class DefaultBusinessObjectNodeFactory {
 				throw new RuntimeException("Root nodes must have a null business object");
 			}
 		} else {
-			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
 			Objects.requireNonNull(bo, "bo must not be null");
 		}
 		

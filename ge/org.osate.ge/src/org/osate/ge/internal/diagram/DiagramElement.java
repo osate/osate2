@@ -22,7 +22,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	private Object boHandler;
 	private final RelativeBusinessObjectReference boRelReference;
 	private boolean manual = false; // Specifies that the element was created as part of a manual process and not from an auto contents filter or other automatic mechanism.
-	private ContentsFilter autoContentsFilter = ContentsFilter.DEFAULT; // Ignored unless manual is true
+	private ContentsFilter autoContentsFilter = ContentsFilter.DEFAULT;
 	private Completeness completeness = Completeness.UNKNOWN;
 	private final DiagramElementCollection children = new DiagramElementCollection();
 	private String name;
