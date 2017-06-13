@@ -1,99 +1,160 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-     <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.osate.reporter.actionSet"
-            label="Reporter"
-            visible="false">
-
-         
-
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.reporter.category"
+            name="Reporter">
+      </category>
+      <command
+            categoryId="org.osate.reporter.category"
+            id="org.osate.reporter.reporter"
+            name="Generate Marker Report">
+      </command>
+      <command
+            categoryId="org.osate.reporter.category"
+            id="org.osate.reporter.reporterSettings"
+            name="Report Generator Settings">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.reporter.ReporterHandler"
+            commandId="org.osate.reporter.reporter">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <instanceof
+                           value="org.eclipse.core.resources.IResource">
+                     </instanceof>
+                  </iterate>
+               </and>
+            </with>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.reporter.ReporterSettingsHandler"
+            commandId="org.osate.reporter.reporterSettings">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <and>
+                  <count
+                        value="1">
+                  </count>
+                  <iterate>
+                     <instanceof
+                           value="org.eclipse.core.resources.IResource">
+                     </instanceof>
+                  </iterate>
+               </and>
+            </with>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.reporter.reporter"
+            icon="icons/gr.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
          <menu
                id="menu.osate"
-               label="OSATE"
-               path="project">
-            <groupMarker name="reporter.grp"/>
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
+               label="OSATE">
+            <command
+                  commandId="org.osate.reporter.reporter"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.osate.reporter.reporterSettings"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
-
-        
-         <action
-               id="org.osate.ui.actions.Reporter.action"
-               label="Generate Marker Report"
-               tooltip="Generate Marker Report"
-               icon="icons/gr.gif"
-               class="org.osate.reporter.ReporterAction"
-               menubarPath="menu.osate/reporter.grp"
-               toolbarPath="OSATE.toolbar/general.grp"
-               enablesFor="1">
-            <enablement>
-                  <objectClass name="org.eclipse.core.resources.IResource"/>
-            </enablement>
-         </action>
-         
-         <action
-         		id="org.osate.ui.actions.Reporter.ReporterSettingsAction"
-         		label="Report Generator Settings"
-         		tooltip="Report Generator Settings"
-         		class="org.osate.reporter.ReporterSettingsAction"
-         		menubarPath="menu.osate/reporter.grp">
-         	<enablement>
-         		<objectClass name="org.eclipse.core.resources.IResource"/>
-         	</enablement>
-         </action>
-      </actionSet>
-   </extension>
-   
-   <extension
-   	   point="org.eclipse.ui.perspectiveExtensions">
-   	   <perspectiveExtension
-   		   targetID="org.osate.ui.perspective.AadlPerspective">
-   		   <actionSet
-   		 	   id="org.osate.reporter.actionSet"/>
-   	   </perspectiveExtension>
-   </extension>
-
-
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="org.aadl.toMetaH.oc1"
-            objectClass="java.lang.Object">
-         <visibility>
-       		<objectClass name="org.eclipse.core.resources.IResource"/>
-         </visibility>
-         
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="OSATE.toolbar">
+            <command
+                  commandId="org.osate.reporter.reporter"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
          <menu
                id="org.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
+               label="%popupMenu.aadl.label">
+            <command
+                  commandId="org.osate.reporter.reporter"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.osate.reporter.reporterSettings"
+                  style="push">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
-
-         <action
-               id="org.osate.ui.actions.Reporter.popupAction"
-               label="Generate Marker Report"
-               tooltip="Generate Marker Report"
-               icon="icons/gr.gif"
-               class="org.osate.reporter.ReporterAction"
-               menubarPath="org.osate.ui.popupMenu.Aadl/general.grp"
-               enablesFor="1"/>
-
-         <action
-               id="org.osate.ui.actions.Reporter.ReporterSettingsAction.popupAction"
-               label="Report Generator Settings"
-               tooltip="Report Generator Settings"
-               class="org.osate.reporter.ReporterSettingsAction"
-               menubarPath="org.osate.ui.popupMenu.Aadl/general.grp"
-               enablesFor="1"/>
-      </objectContribution>
+      </menuContribution>
    </extension>
 </plugin>

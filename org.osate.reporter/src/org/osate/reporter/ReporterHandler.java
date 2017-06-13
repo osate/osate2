@@ -33,87 +33,41 @@
  */
 package org.osate.reporter;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.action.IAction;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.OsateUiPlugin;
 
-/**
- * @author phf
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
- */
-public class ReporterSettingsAction implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-	/** the current selection in the AADL model
-	 *
-	 */
-	private IResource currentSelection = null;
-	private IWorkbenchWindow workbenchWindow = null;
-
-	/**
-	 * The constructor.
-	 */
-	public ReporterSettingsAction() {
-	}
-
-	/**
-	 * The action has been activated. The argument of the
-	 * method represents the 'real' action sitting
-	 * in the workbench UI.
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-	 */
+public class ReporterHandler extends AbstractHandler {
 	@Override
-	public void run(IAction action) {
-		new ReporterSettingsDialog((workbenchWindow == null) ? null : workbenchWindow.getShell(),
-				currentSelection.getProject()).open();
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IResource currentSelection = getCurrentSelection(event);
+		if (currentSelection == null) {
+			MessageDialog.openError(null, "Reporter Errror", "No resource selected.");
+			return null;
+		}
+		try {
+			Reporter.report(currentSelection, HandlerUtil.getActiveWorkbenchWindow(event));
+		} catch (CoreException e1) {
+			OsateUiPlugin.log(e1);
+		}
+		return null;
 	}
-
-	/**
-		 * Selection in the workbench has been changed. We
-		 * can change the state of the 'real' action here
-		 * if we want, but this can only happen after
-		 * the delegate has been created.
-		 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-		 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
+	
+	private IResource getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
 			if (object != null && object instanceof IResource) {
-				currentSelection = (IResource) object;
+				return (IResource) object;
 			}
 		}
-	}
-
-	/**
-	 * We can use this method to dispose of any system
-	 * resources we previously allocated.
-	 * @see IWorkbenchWindowActionDelegate#dispose
-	 */
-	@Override
-	public void dispose() {
-	}
-
-	/**
-	 * We will cache window object in order to
-	 * be able to provide parent shell for the message dialog.
-	 * @see IWorkbenchWindowActionDelegate#init
-	 */
-	@Override
-	public void init(IWorkbenchWindow window) {
-		workbenchWindow = window;
-	}
-
-	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
-	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		workbenchWindow = targetPart.getSite().getWorkbenchWindow();
+		return null;
 	}
 }
