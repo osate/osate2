@@ -1,5 +1,6 @@
 package org.osate.ge.internal.diagram;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,6 +16,10 @@ public class DiagramConfigurationBuilder {
 		this.contextBoReference = config.getContextBoReference();
 		this.lcEnabledAadlPropertyNames.addAll(config.getEnabledAadlPropertyNames());
 	}
+
+	public CanonicalBusinessObjectReference getContextBoReference() {
+		return this.contextBoReference;
+	}
 	
 	public DiagramConfigurationBuilder setContextBoReference(final CanonicalBusinessObjectReference value) {
 		this.contextBoReference = value;
@@ -29,6 +34,10 @@ public class DiagramConfigurationBuilder {
 	public DiagramConfigurationBuilder removeAadlProperty(final String qualifiedPropertyName) {
 		lcEnabledAadlPropertyNames.remove(qualifiedPropertyName.toLowerCase());
 		return this;
+	}
+	
+	public Set<String> getEnabledAadlPropertiesLowercase() {
+		return Collections.unmodifiableSet(lcEnabledAadlPropertyNames);
 	}
 	
 	public DiagramConfiguration build() {

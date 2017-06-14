@@ -20,15 +20,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
 import org.osate.aadl2.Aadl2Package;
-import org.osate.aadl2.Classifier;
-import org.osate.aadl2.Feature;
-import org.osate.aadl2.FlowSpecification;
-import org.osate.aadl2.Generalization;
-import org.osate.aadl2.Mode;
-import org.osate.aadl2.ModeTransition;
-import org.osate.aadl2.ModeTransitionTrigger;
 import org.osate.aadl2.Property;
-import org.osate.aadl2.Subcomponent;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
@@ -38,8 +30,6 @@ import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.model.PropertyResultValue;
-import org.osate.ge.internal.model.SubprogramCallOrder;
-import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
@@ -240,7 +230,7 @@ public class DefaultTreeExpander implements TreeExpander {
 		final BusinessObjectNode oldNode = oldNodeMap.get(relReference);
 		
 		// Create the node
-		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == ContentsFilter.DEFAULT ? getDefaultContentsFilter(bo) : oldNode.getAutoContentsFilter();
+		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == null ? ContentsFilter.getDefault(bo) : oldNode.getAutoContentsFilter();
 		final BusinessObjectNode newNode = nodeFactory.create(parentNode, bo, oldNode == null ? false : oldNode.isManual(), autoContentsFilter, Completeness.UNKNOWN);
     	
 		// Determine the business objects for which nodes in the tree should be created.
@@ -253,15 +243,7 @@ public class DefaultTreeExpander implements TreeExpander {
     	newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE : Completeness.INCOMPLETE);
     	createNodes(eclipseCtx, childBoMap, childOldNodes, newNode);
 	}
-	
-	private ContentsFilter getDefaultContentsFilter(final Object bo) {
-		if(bo instanceof Subcomponent) {
-			return ContentsFilter.ALLOW_TYPE;
-		}
 		
-		return ContentsFilter.ALLOW_FUNDAMENTAL;
-	}
-	
 	// Build a collection of all the child business objects based on children from providers, old nodes, and the auto contents filter	
 	// It filters the potential business objects based on the children in the input tree and the auto contents filter.
 	// If an object is in the previous tree, it will be in the new tree.
@@ -276,45 +258,18 @@ public class DefaultTreeExpander implements TreeExpander {
 						Function.identity(),
 						(k1, k2) -> k1));
 		
-		switch(contentsFilter) {
-		case ALLOW_ALL:
-			return potentialBusinessObjectsMap;			
-
-		case ALLOW_FUNDAMENTAL:
-		{
-			// Create a map containing potential business objects which existed in the input tree		
-			final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);
-			
-			// Add additional objects based based on the content filter
-			potentialBusinessObjectsMap.entrySet().stream().
-				filter((e) -> isFundamental(e.getValue())).
-				sequential().
-				forEach((e) -> {
-					results.put(e.getKey(), e.getValue());
-				});
-
-			return results;
-		}
+		// Create a map containing potential business objects which existed in the input tree		
+		final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);
 		
-		case ALLOW_TYPE: {
-			// Create a map containing potential business objects which existed in the input tree	
-			final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);			
-						
-			// Add additional objects based based on the content filter
-			potentialBusinessObjectsMap.entrySet().stream().
-				filter((e) -> isInType(e.getValue())).
-				sequential().
-				forEach((e) -> {
-					results.put(e.getKey(), e.getValue());
-				});
+		// Add additional objects based based on the content filter
+		potentialBusinessObjectsMap.entrySet().stream().
+			filter((e) -> contentsFilter.filter.test(e.getValue())).
+			sequential().
+			forEach((e) -> {
+				results.put(e.getKey(), e.getValue());
+			});
 
-			return results;
-		}
-			
-		default:
-			throw new RuntimeException("Unhandled contents filter: " + contentsFilter);
-		
-		}
+		return results;
 	}
 	
 	private Map<RelativeBusinessObjectReference, Object> createReferenceToBusinessObjectMapFromReferences(final Collection<RelativeBusinessObjectReference> refs,
@@ -328,47 +283,7 @@ public class DefaultTreeExpander implements TreeExpander {
 		}
 		return results;
 	}
-	
-	private boolean isFundamental(final Object bo) {
-		if(bo instanceof Generalization || 
-				bo instanceof ModeTransitionTrigger ||
-				bo instanceof SubprogramCallOrder) {
-			return true;
-		}
 		
-		if(bo instanceof Tag) {
-			final Tag tag = (Tag)bo;
-			if(tag.key.equals(Tag.KEY_UNIDIRECTIONAL) ||
-					tag.key.equals(Tag.KEY_SUBPROGRAM_CALL_CALLED_SUBPROGRAM)) {
-				return true;
-			}
-		}
-		
-		return false;
-	}	
-	
-	private boolean isInType(final Object bo) {
-		if(isFundamental(bo) ||
-				bo instanceof Classifier || 
-				bo instanceof Generalization || 
-				bo instanceof Feature || 
-				bo instanceof FlowSpecification || 
-				bo instanceof Mode || 
-				bo instanceof ModeTransition) {
-			return true;
-		}
-		
-		if(bo instanceof Tag) {
-			final Tag tag = (Tag)bo;
-			if(tag.key.equals(Tag.KEY_SUBCOMPONENT_TYPE)) {
-				return true;
-			}
-		}
-		
-		
-		return false;
-	}
-	
 	/**
 	 * The eclipse context must contain the arguments for the business object providers
 	 * @param eclipseCtx

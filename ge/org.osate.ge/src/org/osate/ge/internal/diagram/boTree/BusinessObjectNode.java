@@ -8,7 +8,6 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
@@ -32,7 +31,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		this.relativeReference = relativeReference;
 		this.bo = bo;
 		this.manual = manual;
-		this.autoContentsFilter = autoContentsFilter == null ? ContentsFilter.DEFAULT : autoContentsFilter;
+		this.autoContentsFilter = autoContentsFilter;
 		this.completeness = Objects.requireNonNull(completeness, "completeness must not be null");
 		
 		if(parent != null) {
@@ -71,7 +70,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	}
 	
 	public void setAutoContentsFilter(final ContentsFilter value) {
-		this.autoContentsFilter = Objects.requireNonNull(value, "value must not be null");
+		this.autoContentsFilter = value;
 	}
 
 	public Completeness getCompleteness() {
@@ -121,6 +120,28 @@ public class BusinessObjectNode implements BusinessObjectContext {
 	}
 	
 	/**
+	 * Copies the node. The new node will be the root of a new tree
+	 * @return
+	 */
+	public BusinessObjectNode copy() {		
+		return copy(null);
+	}
+	
+	/**
+	 * Copies the node. The new node will be a child of the specified parent.
+	 * @param newParent
+	 * @return
+	 */
+	private BusinessObjectNode copy(final BusinessObjectNode newParent) {
+		final BusinessObjectNode newNode = new BusinessObjectNode(newParent, relativeReference, bo, manual, autoContentsFilter, completeness);
+		for(final BusinessObjectNode child : getChildren()) {
+			child.copy(newNode);
+		}
+
+		return newNode;
+	}
+	
+	/**
 	 * Looks for a node in tree which has the same relative reference path as searchNode.
 	 * @param tree
 	 * @param searchNode
@@ -141,6 +162,21 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		}
 		
 		return t;
+	}
+	
+	/**
+	 * Returns true if any of the descendants of the node are manual.
+	 * @param n
+	 * @return
+	 */
+	public static boolean hasManualDescendant(final BusinessObjectNode n) {
+		for(final BusinessObjectNode child : n.getChildren()) {
+			if(child.isManual() || hasManualDescendant(child)) {
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	/**
@@ -167,7 +203,7 @@ public class BusinessObjectNode implements BusinessObjectContext {
 		
 	}
 	
-	public static BusinessObjectNode pruneAutomaticChild(final BusinessObjectNode n) {
+	private static BusinessObjectNode pruneAutomaticChild(final BusinessObjectNode n) {
 		// Prune Children
 		final Collection<BusinessObjectNode> prunedChildren = new ArrayList<>();		
 		for(final BusinessObjectNode child : n.getChildren()) {

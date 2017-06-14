@@ -229,7 +229,7 @@ public class DiagramSerialization {
 		}
 		generator.writeEnd();
 		
-		if(e.getAutoContentsFilter() != ContentsFilter.DEFAULT) {
+		if(e.getAutoContentsFilter() != null) {
 			generator.write(FIELD_AUTO_CONTENTS_FILTER, e.getAutoContentsFilter().id);
 		}
 		
