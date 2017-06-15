@@ -54,11 +54,6 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  * @author phf
  */
 public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
-	/*
-	 * Counters to keep track of occurrences of different
-	 * objects in the model.
-	 */
-	private double WeightSum = 0.0;
 	private AbstractAaxlAction action;
 
 	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlAction action) {
@@ -75,28 +70,36 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 
 	}
 
-	public final double calcWeight(ComponentInstance ci) {
-//		String header = "Element,type,net weight, net/gross\n\r";
-//		csvlog(header);
-//		action.setIssuePrefix(",,,,");
-		double total = doCalcWeight(ci, true, "");
-		return total;
-
+	public final double getPrice(ComponentInstance ci) {
+		return calcPrice(ci);
 	}
 
-	private double doCalcWeight(ComponentInstance ci, boolean needWeight, String indent) {
+	private double calcPrice(ComponentInstance ci) {
+		double price = 0.0;
+		EList<ComponentInstance> cil = ci.getComponentInstances();
+		for (ComponentInstance subi : cil) {
+			price += calcPrice(subi);
+		}
+		price += GetProperties.getPrice(ci, 0.0);
+		return price;
+	}
+
+	public final double getWeight(ComponentInstance ci) {
+		return calcWeight(ci, true, "");
+	}
+
+	private double calcWeight(ComponentInstance ci, boolean needWeight, String indent) {
 
 		double net = GetProperties.getNetWeight(ci, 0.0);
 		double weight = 0.0;
 		double gross = GetProperties.getGrossWeight(ci, 0.0);
 		double sublimit = 0.0;
-		reportWeight(getPrintName(ci), ci.getCategory().getName(), net > 0.0 ? net : gross, net > 0.0);
 		EList<ComponentInstance> cil = ci.getComponentInstances();
 		for (ComponentInstance subi : cil) {
 			ComponentCategory subcat = subi.getCategory();
 			if (!(subcat.equals(ComponentCategory.PROCESS) || subcat.equals(ComponentCategory.VIRTUAL_BUS)
 					|| subcat.equals(ComponentCategory.VIRTUAL_PROCESSOR))) {
-				double subweight = doCalcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)), indent + " ");
+				double subweight = calcWeight(subi, (needWeight && (gross == 0.0 || net > 0.0)), indent + " ");
 				weight += subweight;
 				sublimit += GetProperties.getWeightLimit(subi, 0.0);
 			}
@@ -106,7 +109,6 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			double netconn = GetProperties.getNetWeight(connectionInstance, 0.0);
 			double grossconn = GetProperties.getGrossWeight(connectionInstance, 0.0);
 			weight += netconn > 0 ? netconn : grossconn;
-			reportWeight(connectionInstance.getName(), "Connection ", netconn > 0 ? netconn : grossconn, netconn > 0);
 			if (netconn > 0 || grossconn > 0) {
 				String ResultMsg = String.format(
 						connectionInstance.getName() + ": Weight of access connection is %.3f kg",
@@ -189,15 +191,6 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 			}
 		}
 		return res;
-	}
-
-	private void csvlog(String s) {
-		action.logInfo(s);
-	}
-
-	private void reportWeight(String ownerStr, String elementType, double elementWeight, boolean net) {
-//		if (elementWeight > 0)
-//			csvlog(ownerStr + "," + elementType + "," + elementWeight + ", " + (net ? "net" : "gross"));
 	}
 
 	private void reportwarning(final NamedElement obj, final String msg) {

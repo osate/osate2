@@ -105,7 +105,7 @@ public final class DoPropertyTotals extends AaxlReadOnlyActionAsJob {
 		 * that too.
 		 */
 		PropertyTotals stats = new PropertyTotals(monitor, this);
-		stats.calcWeight(si);
+		stats.getWeight(si);
 		monitor.done();
 
 		/*
