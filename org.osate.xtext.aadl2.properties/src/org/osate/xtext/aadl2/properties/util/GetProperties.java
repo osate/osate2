@@ -36,7 +36,6 @@ package org.osate.xtext.aadl2.properties.util;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
@@ -419,7 +418,7 @@ public class GetProperties {
 		}
 		return components;
 	}
-	
+
 	public static List<ComponentInstance> getAllowedConnectionBinding(final InstanceObject io) {
 		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
 		Property allowedConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
@@ -436,7 +435,7 @@ public class GetProperties {
 		}
 		return components;
 	}
-	
+
 	public static List<Classifier> getAllowedConnectionBindingClass(final InstanceObject io) {
 		Property allowedConnectionBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_CONNECTION_BINDING_CLASS);
@@ -452,7 +451,7 @@ public class GetProperties {
 		}
 		return components;
 	}
-	
+
 	public static List<EnumerationLiteral> getProvidedConnectionQualityOfService(NamedElement ne) {
 		try {
 			List<EnumerationLiteral> res = new ArrayList<>();
@@ -467,7 +466,7 @@ public class GetProperties {
 			return Collections.emptyList();
 		}
 	}
-	
+
 	public static List<EnumerationLiteral> getRequiredConnectionQualityOfService(NamedElement ne) {
 		try {
 			List<EnumerationLiteral> res = new ArrayList<>();
@@ -532,7 +531,7 @@ public class GetProperties {
 		}
 		return components;
 	}
-	
+
 	public static List<ComponentInstance> getAllowedMemoryBinding(final InstanceObject io) {
 		Property allowedMemoryBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_MEMORY_BINDING);
@@ -549,7 +548,7 @@ public class GetProperties {
 		}
 		return components;
 	}
-	
+
 	public static List<Classifier> getAllowedMemoryBindingClass(final InstanceObject io) {
 		Property allowedMemoryBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_MEMORY_BINDING_CLASS);
@@ -1374,7 +1373,7 @@ public class GetProperties {
 			return null;
 		}
 	}
-	
+
 	public static List<EnumerationLiteral> getAllowedDispatchProtocol(NamedElement ne) {
 		try {
 			List<EnumerationLiteral> res = new ArrayList<>();
@@ -1927,11 +1926,11 @@ public class GetProperties {
 
 		return res;
 	}
-	
+
 	public static List<ComponentClassifier> getProvidedVirtualBusClass(final NamedElement io) {
 		Property providedVirtualBusClass;
 		ArrayList<ComponentClassifier> components;
-		
+
 		providedVirtualBusClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.PROVIDED_VIRTUAL_BUS_CLASS);
 		components = new ArrayList<>();
@@ -2106,6 +2105,10 @@ public class GetProperties {
 		Property memorySize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.MEMORY_SIZE);
 		UnitLiteral KBytes = findUnitLiteral(memorySize, AadlProject.KB_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, memorySize, KBytes, 0.0);
+	}
+
+	public static double getPrice(final NamedElement ne, final double defaultValue) {
+		return PropertyUtils.getRealValue(ne, lookupPropertyDefinition(ne, SEI._NAME, SEI.PRICE), defaultValue);
 	}
 
 }
