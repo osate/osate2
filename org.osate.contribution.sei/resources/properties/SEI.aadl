@@ -101,6 +101,8 @@ property set SEI is
   
   Platform : aadlstring applies to (processor, virtual processor);
 
+  Price : aadlreal applies to (all);
+
   Reference_Kind_Type      : type enumeration (any,exist,component,connection,behavior,unknown);
   Model_Source_Type        : type enumeration (simulink,scade,geometry_stp,sysml);
   
