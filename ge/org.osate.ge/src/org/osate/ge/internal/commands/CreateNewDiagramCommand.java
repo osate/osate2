@@ -27,7 +27,7 @@ public class CreateNewDiagramCommand {
 			final DiagramService diagramService) {
 		final IFile file = diagramService.createDiagram(bo);
 		if(file != null) {
-			EditorUtil.openEditor(file);
+			EditorUtil.openEditor(file, true);
 		}
 	}
 }

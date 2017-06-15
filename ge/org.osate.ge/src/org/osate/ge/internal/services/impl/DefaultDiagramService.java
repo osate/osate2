@@ -267,7 +267,7 @@ public class DefaultDiagramService implements DiagramService {
 	}
 
 	@Override
-	public AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate) {
+	public AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate, final boolean promptForConfigureAfterCreate) {
 		// Look for an existing diagram
 		final List<InternalDiagramReference> diagramRefs = findDiagramsByContextBusinessObject(bo);
 		
@@ -280,20 +280,21 @@ public class DefaultDiagramService implements DiagramService {
 				return diagramRef.getEditor();
 			} else {				
 				Log.info("Existing diagram found. Opening new editor...");
-				return EditorUtil.openEditor(diagramRef.getFile());
+				return EditorUtil.openEditor(diagramRef.getFile(), false);
 			}
 		} else if(diagramRefs.size() == 0) {
 			// Prompt user to determine whether a new diagram should be created
 			if(!promptForCreate || MessageDialog.openQuestion(null, "Create New Diagram?", "An existing diagram was not found for the specified model element.\nCreate new diagram?")) {
 				// Create and open a new diagram
 				final IFile diagramFile = createDiagram(bo);
-				return EditorUtil.openEditor(diagramFile);
+				final AgeDiagramEditor editor = EditorUtil.openEditor(diagramFile, promptForConfigureAfterCreate);				
+				return editor;				
 			} else {
 				return null;
 			}
 		} else {
 			final InternalDiagramReference diagramRef = promptForDiagram(diagramRefs);
-			return diagramRef == null ? null : EditorUtil.openEditor(diagramRef.getFile());
+			return diagramRef == null ? null : EditorUtil.openEditor(diagramRef.getFile(), false);
 		}				
 	}
 	

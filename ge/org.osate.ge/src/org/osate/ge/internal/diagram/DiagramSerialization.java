@@ -108,7 +108,7 @@ public class DiagramSerialization {
 		final DiagramElement newElement = new DiagramElement(container, null, null, relReference, null);
 		final String autoContentsFilterId = jsonChild.getString(FIELD_AUTO_CONTENTS_FILTER, null);
 		if(autoContentsFilterId != null) {
-			final ContentsFilter autoContentsFilter = ContentsFilter.getById(autoContentsFilterId);
+			final BuiltinContentsFilter autoContentsFilter = BuiltinContentsFilter.getById(autoContentsFilterId);
 			if(autoContentsFilter != null) {
 				newElement.setAutoContentsFilter(autoContentsFilter);
 			}
@@ -230,7 +230,7 @@ public class DiagramSerialization {
 		generator.writeEnd();
 		
 		if(e.getAutoContentsFilter() != null) {
-			generator.write(FIELD_AUTO_CONTENTS_FILTER, e.getAutoContentsFilter().id);
+			generator.write(FIELD_AUTO_CONTENTS_FILTER, e.getAutoContentsFilter().id());
 		}
 		
 		if(e.isManual()) {

@@ -50,7 +50,7 @@ import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.ContentsFilter;
+import org.osate.ge.internal.diagram.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
@@ -188,7 +188,7 @@ public class LegacyGraphitiDiagramConverter {
 							final DiagramElement newElement = new DiagramElement(container, contextBo, null, contextRelRef, null);
 							m.addElement(newElement);
 							m.setGraphicalConfiguration(newElement,(AgeGraphicalConfiguration)GraphicalConfigurationBuilder.create().graphic(unusedGraphic).build());
-							m.setAutoContentsFilter(newElement, ContentsFilter.ALLOW_ALL);
+							m.setAutoContentsFilter(newElement, BuiltinContentsFilter.ALLOW_ALL);
 							m.setManual(newElement, true);
 							
 							container = newElement;
@@ -400,7 +400,7 @@ public class LegacyGraphitiDiagramConverter {
 			
 			// For top level classifiers, show all contents. Will be true for classifier diagrams
 			if(convertedContainer instanceof AgeDiagram) {
-				m.setAutoContentsFilter(newElement, ContentsFilter.ALLOW_ALL);
+				m.setAutoContentsFilter(newElement, BuiltinContentsFilter.ALLOW_ALL);
 				m.setManual(newElement, true);				
 			} else {
 				// Otherwise, specify that the shape is manually shown.
@@ -408,9 +408,9 @@ public class LegacyGraphitiDiagramConverter {
 				
 				// Special handling of certain elements
 				if(bo instanceof Subcomponent) {
-					m.setAutoContentsFilter(newElement, ContentsFilter.ALLOW_TYPE);
+					m.setAutoContentsFilter(newElement, BuiltinContentsFilter.ALLOW_TYPE);
 				} else if(bo instanceof SubprogramCallSequence || bo instanceof SubprogramCall || bo instanceof ComponentInstance) {
-					m.setAutoContentsFilter(newElement, ContentsFilter.ALLOW_ALL);
+					m.setAutoContentsFilter(newElement, BuiltinContentsFilter.ALLOW_ALL);
 				}
 			}
 			

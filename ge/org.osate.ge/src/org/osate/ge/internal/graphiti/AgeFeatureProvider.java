@@ -78,14 +78,13 @@ import org.osate.ge.internal.SimplePaletteEntry;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.AgeDiagramUtil;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.ContentsFilter;
+import org.osate.ge.internal.diagram.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.boTree.DefaultBusinessObjectNodeFactory;
 import org.osate.ge.internal.diagram.boTree.DefaultTreeExpander;
 import org.osate.ge.internal.diagram.boTree.TreeExpander;
 import org.osate.ge.internal.diagram.updating.DefaultDiagramElementGraphicalConfigurationProvider;
-import org.osate.ge.internal.diagram.updating.DiagramElementInformationProvider;
 import org.osate.ge.internal.diagram.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.diagram.NodePictogramBiMap;
 import org.osate.ge.internal.graphiti.features.AgeAddBendpointFeature;
@@ -94,6 +93,7 @@ import org.osate.ge.internal.graphiti.features.AgeMoveConnectionDecoratorFeature
 import org.osate.ge.internal.graphiti.features.AgeMoveShapeFeature;
 import org.osate.ge.internal.graphiti.features.AgeRemoveBendpointFeature;
 import org.osate.ge.internal.graphiti.features.CommandCustomFeature;
+import org.osate.ge.internal.graphiti.features.ConfigureDiagramFeature;
 import org.osate.ge.internal.graphiti.features.LayoutDiagramFeature;
 import org.osate.ge.internal.graphiti.features.SelectAncestorFeature;
 import org.osate.ge.internal.graphiti.features.SetAutoContentFilterFeature;
@@ -123,6 +123,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	private IRemoveBendpointFeature removeBendpointFeature;
 	private UpdateDiagramFeature updateDiagramFeature;
 	private DiagramUpdater diagramUpdater;
+	private ConfigureDiagramFeature configureDiagramFeature;
+	private DefaultDiagramElementGraphicalConfigurationProvider deInfoProvider;
 	
 	public AgeFeatureProvider(final IDiagramTypeProvider dtp) {
 		super(dtp);
@@ -149,13 +151,20 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceService);
 		final TreeExpander boTreeExpander = new DefaultTreeExpander(graphitiService, extService, referenceService, nodeFactory);
-		final DiagramElementInformationProvider deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceService, extService, context);
+		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceService, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);
+		
+		// Create the configure diagram feature
+		this.configureDiagramFeature = new ConfigureDiagramFeature(this, diagramUpdater, graphitiService, referenceService, extService, graphitiService);
 	}
 
 	@Override
 	public void dispose() {
+		if(deInfoProvider != null) {
+			deInfoProvider.close();
+		}
+		
 		if(eclipseContext != null) {
 			eclipseContext.dispose();
 		}
@@ -165,6 +174,10 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	
 	public DiagramUpdater getDiagramUpdater() {
 		return diagramUpdater;
+	}
+	
+	public ICustomFeature getConfigureDiagramFeature() {
+		return configureDiagramFeature;
 	}
 	
 	/**
@@ -280,12 +293,13 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	 * @param features
 	 */
 	protected void addCustomFeatures(final List<ICustomFeature> features) {
+		features.add(configureDiagramFeature);
 		features.add(make(UpdateDiagramCustomFeature.class));
 		features.add(make(LayoutDiagramFeature.class));
 		features.add(make(SelectAncestorFeature.class));
-		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_FUNDAMENTAL));
-		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_TYPE));
-		features.add(new SetAutoContentFilterFeature(this, graphitiService, ContentsFilter.ALLOW_ALL));
+		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_FUNDAMENTAL));
+		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_TYPE));
+		features.add(new SetAutoContentFilterFeature(this, graphitiService, BuiltinContentsFilter.ALLOW_ALL));
 
 		// Commands
 		for(final Object cmd : extService.getCommands()) {

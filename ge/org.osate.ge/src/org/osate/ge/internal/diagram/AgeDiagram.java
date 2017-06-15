@@ -146,8 +146,11 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		
 		@Override
 		public void setAutoContentsFilter(final DiagramElement e, final ContentsFilter value) {
-			Objects.requireNonNull(value, "value must not be null");
-			if(!value.equals(e.getAutoContentsFilter())) { 
+			if(value == null && e.getAutoContentsFilter() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getAutoContentsFilter())) { 
 				storeChange(e, DiagramElementField.AUTO_CONTENTS_FILTER, e.getAutoContentsFilter(), value);
 				e.setAutoContentsFilter(value);
 				afterUpdate(e, DiagramElementField.AUTO_CONTENTS_FILTER);

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IDeleteFeature;
@@ -26,7 +25,6 @@ import org.eclipse.graphiti.mm.pictograms.ConnectionDecorator;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
-import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -36,7 +34,6 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IInputValidator;
 import org.eclipse.jface.dialogs.InputDialog;
-import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.viewers.ITreeContentProvider;
@@ -49,7 +46,6 @@ import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.graphics.ImageData;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
@@ -62,7 +58,7 @@ import org.eclipse.ui.views.contentoutline.ContentOutlinePage;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
-import org.osate.ge.internal.util.ImageHelper;
+import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.util.StringUtil;
 
 public class AgeContentOutlinePage extends ContentOutlinePage {
@@ -156,19 +152,10 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 				if(element instanceof DiagramElement) {
 					final DiagramElement de = (DiagramElement)element;
 					final Object bo = de.getBusinessObject();
-					if(bo instanceof EObject) {
-						final ImageDescriptor imgDesc = GraphitiUi.getImageService().getImageDescriptorForId(diagramTypeProvider.getProviderId(),
-								ImageHelper.getImage(((EObject)bo).eClass().getName()));
-	
-						// Check if ImageDescriptor has a valid type.
-						final ImageData imageData = imgDesc.getImageData();
-						if(imageData != null && imageData.type >= 0) {
-							return imgDesc.createImage();
-						}
-					}
+					return ImageUiHelper.getImage(bo);
 				}
-				
-				return super.getImage(element);
+
+				return null;
 			}
 		});
 

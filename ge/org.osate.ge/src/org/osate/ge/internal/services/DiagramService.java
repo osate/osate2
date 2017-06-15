@@ -37,20 +37,21 @@ public interface DiagramService {
 	
 
 	/**
-	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after prompting the user..
+	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after prompting the user.
 	 * @param bo
 	 * @return
 	 */
 	default AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo) {
-		return openOrCreateDiagramForBusinessObject(bo, true);
+		return openOrCreateDiagramForBusinessObject(bo, true, true);
 	}
 	
 	/**
 	 * Opens the first existing diagram found for a business object. If a diagram is not found, a diagram may be created after optionally prompting the user.
 	 * @param bo the business object for which to open/create the diagram
 	 * @param promptForCreate is whether the user should be prompted before a diagram is created. If false, the diagram will be created.
+	 * @param promptForConfigureAfterCreate is whether the user should be prompted to configure the diagram if a new diagram is created.
 	 */
-	AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate);
+	AgeDiagramEditor openOrCreateDiagramForBusinessObject(final Object bo, final boolean promptForCreate, final boolean promptForConfigureAfterCreate);
 	
 	/**
 	 * Create a new diagram which uses the specified business object as the context business object

@@ -33,6 +33,6 @@ public class DiagramConfiguration {
 	
 	@Override
 	public String toString() {
-		return "{ context business object reference: " + contextBoReference + " } ";
+		return "{ contextBoReference: " + contextBoReference + ", enabledAadlPropertyNames: " + lcEnabledAadlPropertyNames + " } ";
 	}
 }

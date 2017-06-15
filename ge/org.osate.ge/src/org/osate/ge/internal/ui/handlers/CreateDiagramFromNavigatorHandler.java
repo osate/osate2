@@ -73,13 +73,13 @@ public class CreateDiagramFromNavigatorHandler extends AbstractHandler {
 							.getActiveWorkbenchWindow().getService(DiagramService.class);
 					final IFile file = diagramService.createDiagram(ne);
 					if(file != null) {
-						EditorUtil.openEditor(file);
+						EditorUtil.openEditor(file, true);
 					}
 				} 
 			}
 		} catch (RuntimeException e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
-					Activator.PLUGIN_ID, "Error opening diagram: " + e.getMessage());
+					Activator.PLUGIN_ID, "Error creating and opening diagram: " + e.getMessage());
 			throw e;
 		}
 

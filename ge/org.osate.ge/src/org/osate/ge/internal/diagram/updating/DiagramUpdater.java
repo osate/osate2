@@ -14,7 +14,6 @@ import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
@@ -24,6 +23,7 @@ import org.osate.ge.internal.diagram.Point;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.boTree.Completeness;
+import org.osate.ge.internal.diagram.boTree.DiagramToBusinessObjectTreeConverter;
 import org.osate.ge.internal.diagram.boTree.TreeExpander;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.model.PropertyResultValue;
@@ -69,13 +69,18 @@ public class DiagramUpdater {
 	// As part of the update process the auto content filter settings may be cleared for non-manual nodes.
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
-		BusinessObjectNode tmpTree = createBusinessObjectNode(diagram, futureElementPositionMap);
-		tmpTree = BusinessObjectNode.pruneAutomaticBranches(tmpTree);		
-		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), tmpTree);
+		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementPositionMap);
 		updateDiagram(diagram, tree);
 	}
 	
-	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode tree) {
+	/**
+	 * 
+	 * @param diagram
+	 * @param inputTree is the input business object tree. A copy will be made and automatic branches will be pruned and then the tree will be expanded before updating the diagram.
+	 */
+	public void updateDiagram(final AgeDiagram diagram, final BusinessObjectNode inputTree) {
+		final BusinessObjectNode tmpTree = BusinessObjectNode.pruneAutomaticBranches(inputTree);		
+		final BusinessObjectNode tree = boTreeExpander.expandTree(diagram.getConfiguration(), tmpTree);
 		final List<DiagramElement> connectionElements = new LinkedList<>();
 		
 		diagram.modify(new DiagramModifier() {
@@ -305,37 +310,5 @@ public class DiagramUpdater {
 		}
 		
 		return relativeReferenceToGhostMap.remove(relativeReference);
-	}
-	
-	public static BusinessObjectNode createBusinessObjectNode(final AgeDiagram diagram, 
-			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
-		final BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, false, ContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
-		createBusinessObjectNodesForElements(rootNode, diagram.getDiagramElements(), futureElementPositionMap);
-		createBusnessObjectNodesForFutureElements(rootNode, diagram, futureElementPositionMap);
-		return rootNode;
-	}
-	
-	private static void createBusnessObjectNodesForFutureElements(final BusinessObjectNode parent, 
-			final DiagramNode diagramNode,
-			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
-		final Map<RelativeBusinessObjectReference, Point> futureElements = futureElementPositionMap.get(diagramNode);
-		if(futureElements != null) {
-			for(final RelativeBusinessObjectReference ref : futureElements.keySet()) {
-				// An incomplete node is created. The tree expander will fill in missing fields.
-				if(parent.getChild(ref) == null) {
-					new BusinessObjectNode(parent, ref, null, true, null, Completeness.UNKNOWN);
-				}
-			}
-		}
-	}
-	
-	private static void createBusinessObjectNodesForElements(final BusinessObjectNode parent, 
-			final Collection<DiagramElement> elements,
-			final Map<DiagramNode, Map<RelativeBusinessObjectReference, Point>> futureElementPositionMap) {
-		for(final DiagramElement e : elements) {
-			final BusinessObjectNode childNode = new BusinessObjectNode(parent, e.getRelativeReference(), e.getBusinessObject(), e.isManual(), e.getAutoContentsFilter(), Completeness.UNKNOWN);
-			createBusinessObjectNodesForElements(childNode, e.getDiagramElements(), futureElementPositionMap);
-			createBusnessObjectNodesForFutureElements(childNode, e, futureElementPositionMap);
-		}
 	}
 }

@@ -13,9 +13,6 @@ import java.util.Set;
 import java.util.Map.Entry;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import org.eclipse.e4.core.contexts.ContextInjectionFactory;
-import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -24,8 +21,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.di.Activate;
-import org.osate.ge.di.Names;
+import org.osate.ge.internal.diagram.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
@@ -35,6 +31,7 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.util.AadlPropertyResolver;
+import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.PropertyResult;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.PropertyResult.NullReason;
@@ -45,7 +42,7 @@ import org.osate.ge.internal.util.PropertyResult.NullReason;
  * 
  * Diagrams which have a context business object specified will only contain the specified business object as a root.
  */
-public class DefaultTreeExpander implements TreeExpander {	
+public class DefaultTreeExpander implements TreeExpander {
 	// A simple business object context which is to designed to represent the project level. It has no parent and it has no business object.
 	private final BusinessObjectContext projectBoc = new BusinessObjectContext() {					
 		@Override
@@ -94,17 +91,16 @@ public class DefaultTreeExpander implements TreeExpander {
 		}
 		
 		// Refresh Child Nodes
-		final IEclipseContext eclipseCtx = extService.createChildContext();
-		try {		
+		try(final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extService)) {		
 			// If the context business object is non-null, then only one business object may exist at the root of the resulting tree and it must be the context business object. 
 			// This restriction prevents the need to retrieve all packages as potential top level business objects.
 			// Determine what business objects are required based on the diagram configuration
 			final Collection<Object> potentialBusinessObjects;
-			final ContentsFilter filter;			
+			final BuiltinContentsFilter filter;			
 			if(configuration.getContextBoReference() == null) {			
 				// Get potential top level business objects from providers
-				potentialBusinessObjects = getChildBusinessObjectsFromProviders(extService, eclipseCtx, projectBoc);
-				filter = ContentsFilter.ALLOW_FUNDAMENTAL; // Only business objects that already exist in the business object tree should be used
+				potentialBusinessObjects = bopHelper.getChildBusinessObjects(projectBoc);
+				filter = BuiltinContentsFilter.ALLOW_FUNDAMENTAL; // Only business objects that already exist in the business object tree should be used
 			} else{
 				// Get the context business object
 				Object contextBo = refService.resolve(configuration.getContextBoReference());
@@ -113,7 +109,7 @@ public class DefaultTreeExpander implements TreeExpander {
 				}
 				
 				potentialBusinessObjects = Collections.singleton(contextBo);
-				filter = ContentsFilter.ALLOW_ALL; // Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
+				filter = BuiltinContentsFilter.ALLOW_ALL; // Require the use of the business object specified in the diagram along with any other business objects which are already in the diagram.
 			}
 	
 			final BusinessObjectNode newRoot = nodeFactory.create(null, null, true, filter, Completeness.UNKNOWN);
@@ -121,7 +117,7 @@ public class DefaultTreeExpander implements TreeExpander {
 			// Populate the new tree
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodes = tree.getChildrenMap();	
 			final Map<RelativeBusinessObjectReference, Object> boMap = getChildBusinessObjects(potentialBusinessObjects, oldNodes.keySet(), newRoot.getAutoContentsFilter());
-			createNodes(eclipseCtx, boMap, oldNodes, newRoot);
+			createNodes(bopHelper, boMap, oldNodes, newRoot);
 			newRoot.setCompleteness(potentialBusinessObjects.size() == boMap.size() ? Completeness.COMPLETE : Completeness.INCOMPLETE);
 						
 			// Build set of the names of all properties which are enabled
@@ -136,8 +132,6 @@ public class DefaultTreeExpander implements TreeExpander {
 			processProperties(propertyResolver, newRoot, enabledProperties);			
 			
 			return newRoot;
-		} finally {
-			eclipseCtx.dispose();
 		}
 	}
 	
@@ -201,13 +195,13 @@ public class DefaultTreeExpander implements TreeExpander {
 			nodeFactory.create(node, 
 				new PropertyResultValue(property, node.getBusinessObject(), propertyResult, value, indicesStack), 
 				false, 
-				ContentsFilter.ALLOW_FUNDAMENTAL, 
+				BuiltinContentsFilter.ALLOW_FUNDAMENTAL, 
 				Completeness.COMPLETE);
 		}
 	}
 	
 	private void createNodes(
-			final IEclipseContext eclipseCtx,
+			final BusinessObjectProviderHelper bopHelper,
 			final Map<RelativeBusinessObjectReference, Object> newBoMap, 
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodeMap,
 			final BusinessObjectNode parentNode) {
@@ -215,12 +209,12 @@ public class DefaultTreeExpander implements TreeExpander {
 			// Create node	
 			final Object childBo = childEntry.getValue();
 			final RelativeBusinessObjectReference childRelReference = childEntry.getKey();			
-			createNode(eclipseCtx, newBoMap, oldNodeMap, parentNode, childBo, childRelReference);			
+			createNode(bopHelper, newBoMap, oldNodeMap, parentNode, childBo, childRelReference);			
 		}
 	}
 	
 	private void createNode(
-			final IEclipseContext eclipseCtx,
+			final BusinessObjectProviderHelper bopHelper,
 			final Map<RelativeBusinessObjectReference, Object> newBoMap, 
 			final Map<RelativeBusinessObjectReference, BusinessObjectNode> oldNodeMap,
 			final BusinessObjectNode parentNode,
@@ -230,7 +224,7 @@ public class DefaultTreeExpander implements TreeExpander {
 		final BusinessObjectNode oldNode = oldNodeMap.get(relReference);
 		
 		// Create the node
-		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == null ? ContentsFilter.getDefault(bo) : oldNode.getAutoContentsFilter();
+		final ContentsFilter autoContentsFilter = oldNode == null || oldNode.getAutoContentsFilter() == null ? BuiltinContentsFilter.getDefault(bo) : oldNode.getAutoContentsFilter();
 		final BusinessObjectNode newNode = nodeFactory.create(parentNode, bo, oldNode == null ? false : oldNode.isManual(), autoContentsFilter, Completeness.UNKNOWN);
     	
 		// Determine the business objects for which nodes in the tree should be created.
@@ -238,10 +232,10 @@ public class DefaultTreeExpander implements TreeExpander {
     			oldNode == null ?
     			Collections.emptyMap() :
     			oldNode.getChildrenMap();    	
-    	final Collection<Object> childBusinessObjectsFromProviders = getChildBusinessObjectsFromProviders(extService, eclipseCtx, newNode);
+    	final Collection<Object> childBusinessObjectsFromProviders = bopHelper.getChildBusinessObjects(newNode);
     	final Map<RelativeBusinessObjectReference, Object> childBoMap = getChildBusinessObjects(childBusinessObjectsFromProviders, childOldNodes.keySet(), autoContentsFilter);    	
     	newNode.setCompleteness(childBusinessObjectsFromProviders.size() == childBoMap.size() ? Completeness.COMPLETE : Completeness.INCOMPLETE);
-    	createNodes(eclipseCtx, childBoMap, childOldNodes, newNode);
+    	createNodes(bopHelper, childBoMap, childOldNodes, newNode);
 	}
 		
 	// Build a collection of all the child business objects based on children from providers, old nodes, and the auto contents filter	
@@ -263,7 +257,7 @@ public class DefaultTreeExpander implements TreeExpander {
 		
 		// Add additional objects based based on the content filter
 		potentialBusinessObjectsMap.entrySet().stream().
-			filter((e) -> contentsFilter.filter.test(e.getValue())).
+			filter((e) -> contentsFilter.test(e.getValue())).
 			sequential().
 			forEach((e) -> {
 				results.put(e.getKey(), e.getValue());
@@ -282,27 +276,5 @@ public class DefaultTreeExpander implements TreeExpander {
 			}
 		}
 		return results;
-	}
-		
-	/**
-	 * The eclipse context must contain the arguments for the business object providers
-	 * @param eclipseCtx
-	 * @return
-	 */
-	private static Collection<Object> getChildBusinessObjectsFromProviders(final ExtensionService extService, final IEclipseContext eclipseCtx, final BusinessObjectContext boc) {
-		eclipseCtx.set(Names.BUSINESS_OBJECT, boc.getBusinessObject());
-		eclipseCtx.set(Names.BUSINESS_OBJECT_CONTEXT, boc);
-		
-		// Use business object providers to determine the children
-		Stream<Object> allChildren = Stream.empty();
-		for(final Object bop : extService.getBusinessObjectProviders()) {
-			final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(bop, Activate.class, eclipseCtx, null);
-			if(childBos != null) {
-				allChildren = Stream.concat(allChildren, childBos);
-			}
-		};
-		
-	
-		return allChildren.distinct().collect(Collectors.toList());
 	}
 }

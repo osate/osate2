@@ -13,7 +13,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.ContentsFilter;
+import org.osate.ge.internal.diagram.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.diagram.DiagramModification;
 import org.osate.ge.internal.diagram.DiagramModifier;
@@ -26,12 +26,12 @@ import org.osate.ge.internal.model.PropertyResultValue;
  */
 public class SetAutoContentFilterFeature extends AbstractCustomFeature implements ICustomUndoRedoFeature {
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
-	private final ContentsFilter newFilterValue;
+	private final BuiltinContentsFilter newFilterValue;
 	
 	@Inject
 	public SetAutoContentFilterFeature (final IFeatureProvider fp,
 			final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider,
-			final ContentsFilter newFilterValue) {
+			final BuiltinContentsFilter newFilterValue) {
 		super(fp);
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 		this.newFilterValue = Objects.requireNonNull(newFilterValue, "newFilerValue must not be null");
@@ -74,8 +74,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 	}
 	
 	private boolean isContentFilterApplicable(final Object bo) {
-		return (newFilterValue != ContentsFilter.ALLOW_TYPE || 
-				(bo instanceof Subcomponent || bo instanceof Classifier)) &&
+		return (newFilterValue != BuiltinContentsFilter.ALLOW_TYPE || (bo instanceof Subcomponent || bo instanceof Classifier)) &&
 				!(bo instanceof PropertyResultValue); // Don't allow setting the content filter for property values
 	}
 	
@@ -87,7 +86,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 		}
 		
 		// If the selection is the "Hide Contents" selection, make the command executable if any of the descendants is manual
-		if(newFilterValue == ContentsFilter.ALLOW_FUNDAMENTAL) {
+		if(newFilterValue == BuiltinContentsFilter.ALLOW_FUNDAMENTAL) {
 			for(final DiagramElement e : elements) {
 				if(hasManualDescendant(e)) {
 					return true;
@@ -115,7 +114,7 @@ public class SetAutoContentFilterFeature extends AbstractCustomFeature implement
 				@Override
 				public void modify(final DiagramModification m) {
 					// If setting to allow fundamental "Hide Contents", mark all descendants as automatic. This will ensure that the contents are hidden.
-					if(newFilterValue == ContentsFilter.ALLOW_FUNDAMENTAL) {
+					if(newFilterValue == BuiltinContentsFilter.ALLOW_FUNDAMENTAL) {
 						for(final DiagramElement e : elements) {
 							setDescendantsAsAutomatic(m, e);
 						}

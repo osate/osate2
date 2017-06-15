@@ -215,7 +215,7 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 				final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getService(DiagramService.class);
 				diagramService
-						.openOrCreateDiagramForBusinessObject((NamedElement) pkgResource.getContents().get(0), false);
+						.openOrCreateDiagramForBusinessObject((NamedElement) pkgResource.getContents().get(0), false, false);
 			} else {
 				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(),
 						"Unable to retrieve package from resource.", null);

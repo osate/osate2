@@ -1,7 +1,6 @@
 package org.osate.ge.internal.diagram.boTree;
 
 import java.util.Objects;
-
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ReferenceService;

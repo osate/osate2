@@ -117,7 +117,7 @@ public class DiagramLayoutUtil {
 		// Determine whether the shape may be moved 			
 		// Don't change the position of shapes that have already been positioned if not repositioning all shapes
 		final boolean locked;
-		if(((shapeElement.hasSize() && shapeElement.hasPosition()) && !fullLayout) || shapeElement.isDecoration()) {
+		if(((shapeElement.hasSize() && shapeElement.hasPosition()) && !fullLayout)) {
 			locked = true;			
 		} else {
 			locked = false;
@@ -144,7 +144,7 @@ public class DiagramLayoutUtil {
 
 		// Create layout shape for the diagram shape's children
 		for(final DiagramElement child : shapeElement.getDiagramElements()) {
-			if(child.getGraphic() instanceof AgeShape) {
+			if(child.getGraphic() instanceof AgeShape && !child.isDecoration()) {
 				createLayoutShape(child, shapeMap, newLayoutShape, fullLayout);
 			}
 		}

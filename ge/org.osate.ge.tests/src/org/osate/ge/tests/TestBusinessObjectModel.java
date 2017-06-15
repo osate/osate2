@@ -7,7 +7,7 @@ import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockingPosition;
 import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.ContentsFilter;
+import org.osate.ge.internal.diagram.BuiltinContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.boTree.Completeness;
@@ -21,14 +21,14 @@ public class TestBusinessObjectModel implements DiagramElementInformationProvide
 	// BusinessObjectTreeFactory
 	@Override
 	public BusinessObjectNode expandTree(final DiagramConfiguration configuration, final BusinessObjectNode tree) {
-		final BusinessObjectNode newTree = new BusinessObjectNode(null, null, null, false, ContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
+		final BusinessObjectNode newTree = new BusinessObjectNode(null, null, null, false, BuiltinContentsFilter.ALLOW_FUNDAMENTAL, Completeness.UNKNOWN);
 		createNodes(newTree, model.children);
 		return newTree;
 	}
 	
 	private void createNodes(final BusinessObjectNode parent, final TestBusinessObject[] bos) {
 		for(final TestBusinessObject bo : bos) {
-			final BusinessObjectNode newNode = new BusinessObjectNode(parent, bo.getRelativeReference(), bo, false, ContentsFilter.ALLOW_ALL, Completeness.UNKNOWN);
+			final BusinessObjectNode newNode = new BusinessObjectNode(parent, bo.getRelativeReference(), bo, false, BuiltinContentsFilter.ALLOW_ALL, Completeness.UNKNOWN);
 			createNodes(newNode, bo.children);
 		}
 	}

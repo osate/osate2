@@ -41,6 +41,7 @@ import org.eclipse.swt.events.MenuAdapter;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
@@ -51,6 +52,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.DiagramConfiguration;
@@ -60,21 +62,16 @@ import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
 import org.osate.ge.internal.diagram.boTree.Completeness;
 
 public class DiagramConfigurationDialog {
-	// TODO: Rename
-	public interface ContentsFilterBase {
-		
-	}
-	
-	// TODO: Rename?
-	interface Model {
-		Collection<Object> getPotentialChildBusinessObjects(final Object bo); // TODO: Rename?
+	public interface Model {
+		Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc);
 		RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo);
-		String getName(Object bo);
-		Collection<ContentsFilterBase> getContentsFilters();
-		ContentsFilterBase getDefaultContentsFilter(Object bo);
+		String getName(BusinessObjectContext boc);
+		Collection<ContentsFilter> getContentsFilters();
+		ContentsFilter getDefaultContentsFilter(Object bo);
 		boolean showBusinessObject(Object bo);
 		Map<String, Collection<String>> getAadlProperties();
 		Object getBusinessObject(CanonicalBusinessObjectReference ref);
+		Image getImage(Object bo);
 		
 		/**
 		 * 
@@ -82,6 +79,25 @@ public class DiagramConfigurationDialog {
 		 * @return
 		 */
 		String getContextDescription(Object contextBo);
+	}
+	
+	public class Result {
+		private final DiagramConfiguration diagramConfiguration;
+		private final BusinessObjectNode businessObjectTree;
+		
+		public Result(final DiagramConfiguration diagramConfiguration,
+				final BusinessObjectNode businessObjectTree) {
+			this.diagramConfiguration = Objects.requireNonNull(diagramConfiguration, "diagramConfiguration must not be null");
+			this.businessObjectTree = Objects.requireNonNull(businessObjectTree, "businessObjectTree must not be null");
+		}
+		
+		public DiagramConfiguration getDiagramConfiguration() {
+			return diagramConfiguration;
+		}
+		
+		public BusinessObjectNode getBusinessObjectTree() {
+			return businessObjectTree;
+		}
 	}
 	
 	private class InnerDialog extends Dialog {
@@ -96,8 +112,8 @@ public class DiagramConfigurationDialog {
 		protected void configureShell(final Shell newShell) {
 			super.configureShell(newShell);
 			newShell.setText("Configure Diagram");
-			newShell.setMinimumSize(250, 140);
-			newShell.setSize(500, 500);
+			newShell.setMinimumSize(250, 400);
+			newShell.setSize(800, 550);
 		}
 		
 		@Override
@@ -116,7 +132,7 @@ public class DiagramConfigurationDialog {
 		    } else {
 		    	final Object contextBo = model.getBusinessObject(diagramConfigBuilder.getContextBoReference());
 		    	if(contextBo == null) {
-		    		contextBoDesc = "<Unable to Retrieve>";
+		    		contextBoDesc = "<Unable to Retrieve Context>";
 		    	} else {
 		    		contextBoDesc = model.getContextDescription(contextBo);
 		    	}		    	
@@ -138,13 +154,23 @@ public class DiagramConfigurationDialog {
 				public void checkStateChanged(final CheckStateChangedEvent event) {
 					// Set is manual
 					final BusinessObjectNode node = (BusinessObjectNode)event.getElement();
-					node.setManual(event.getChecked());
 
+					if(event.getChecked()) {
+						// Set the node and all ancestors as being manual 
+						BusinessObjectNode tmp;
+						for(tmp = node; tmp.getParent() != null; tmp = tmp.getParent()) {
+							tmp.setManual(true);
+						}					
+					} else {
+						// Set the node and all descendants as being automatic
+						setBranchIsManual(node, false);
+					}
+					
 					// Refresh the top level of the branch
 					BusinessObjectNode refreshNode;
 					for(refreshNode = node; refreshNode.getParent() != null; refreshNode = refreshNode.getParent()) {
 					}
-					
+										
 					treeViewer.refresh(refreshNode);					
 				}		    	
 		    });
@@ -168,33 +194,34 @@ public class DiagramConfigurationDialog {
 		    
 		    // Name Column
 		    final TreeViewerColumn nameColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
-		    nameColumn.getColumn().setWidth(300);
+		    nameColumn.getColumn().setWidth(600);
 		    nameColumn.getColumn().setText("Name");
 		    nameColumn.setLabelProvider(new StyledCellLabelProvider(StyledCellLabelProvider.COLORS_ON_SELECTION) {
 				@Override
 				public void update(final ViewerCell cell) {
 					final BusinessObjectNode node = (BusinessObjectNode)cell.getElement();
-					cell.setText(model.getName(node.getBusinessObject()));
+					cell.setText(model.getName(node));
 					cell.setForeground(isEnabled(node) ? null : Display.getCurrent().getSystemColor(SWT.COLOR_GRAY));
+					cell.setImage(model.getImage(node.getBusinessObject()));
 				}
 		    });
 		    
 		    // Dropdown Column for Auto Contents Filter
 		    final TreeViewerColumn autoContentsFilterColumn = new TreeViewerColumn(treeViewer, SWT.NONE);
 		    autoContentsFilterColumn.getColumn().setWidth(100);
-		    autoContentsFilterColumn.getColumn().setText("Children"); // TODO: Change Label
+		    autoContentsFilterColumn.getColumn().setText("Auto Children");
 		    autoContentsFilterColumn.setLabelProvider(new CellLabelProvider() {		    	
 				@Override
 				public void update(final ViewerCell cell) {
 					final BusinessObjectNode node = (BusinessObjectNode)cell.getElement();
-					cell.setText(isAutoContentsFilterEditable(node) && node.getAutoContentsFilter() != null ? node.getAutoContentsFilter().description : "");	
+					cell.setText(isAutoContentsFilterEditable(node) && node.getAutoContentsFilter() != null ? node.getAutoContentsFilter().description() : "");	
 				}
 		    });
 
 		    autoContentsFilterColumn.setEditingSupport(new AutoContentsFilterEditingSupport(treeViewer));
 		    
 		    final Tree tree = treeViewer.getTree();
-		    tree.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).create());
+		    tree.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).minSize(SWT.DEFAULT, 100).create());
 			tree.setHeaderVisible(true);
 			tree.setLinesVisible(true);
 		    
@@ -207,7 +234,7 @@ public class DiagramConfigurationDialog {
 		    	public int compare(final Viewer viewer, final Object e1, final Object e2) {
 		    		final BusinessObjectNode n1 = (BusinessObjectNode)e1;
 			    	final BusinessObjectNode n2 = (BusinessObjectNode)e2;
-			    	return model.getName(n1.getBusinessObject()).compareToIgnoreCase(model.getName(n2.getBusinessObject()));	
+			    	return model.getName(n1).compareToIgnoreCase(model.getName(n2));	
 		    	}
 		    });
 		    
@@ -220,7 +247,7 @@ public class DiagramConfigurationDialog {
 		    aadlPropertiesLabel.setLayoutData(GridDataFactory.swtDefaults().span(2, 1).create());
 		    
 		    final ListViewer enabledAadlPropertiesViewer = new ListViewer(container);
-		    enabledAadlPropertiesViewer.getList().setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
+		    enabledAadlPropertiesViewer.getList().setLayoutData(GridDataFactory.fillDefaults().grab(true, false).hint(SWT.DEFAULT, 100).create());
 		    enabledAadlPropertiesViewer.setContentProvider(new IStructuredContentProvider() { // Content provider uses a DiagramConfigurationBuilder as input			
 				@Override
 				public void inputChanged(final Viewer viewer, final Object oldInput, final Object newInput) {
@@ -271,17 +298,17 @@ public class DiagramConfigurationDialog {
 					final String propertySetName = (String)menu.getData();					
 					
 					// Create new menu items
-					final Collection<String> propertySetProperties = aadlPropertySetToPropertiesMap.get(e.widget.getData()); // TODO: Fetch once
-						if(propertySetProperties != null) {
-							for(final String propertyName : (Iterable<String>)propertySetProperties.stream().sorted()::iterator) {					
-								final MenuItem propertyMenuItem = new MenuItem(menu, SWT.NONE);
-								propertyMenuItem.setText(propertyName);
-								final String qualifiedPropertyName = propertySetName + "::" + propertyName;
-								propertyMenuItem.setData(qualifiedPropertyName);
-								propertyMenuItem.addSelectionListener(propertyMenuItemSelectionListener);
-								
-								// Set enabled based on whether it is already in the list
-								propertyMenuItem.setEnabled(!diagramConfigBuilder.getEnabledAadlPropertiesLowercase().contains(qualifiedPropertyName.toLowerCase()));
+					final Collection<String> propertySetProperties = aadlPropertySetToPropertiesMap.get(e.widget.getData());
+					if(propertySetProperties != null) {
+						for(final String propertyName : (Iterable<String>)propertySetProperties.stream().sorted()::iterator) {					
+							final MenuItem propertyMenuItem = new MenuItem(menu, SWT.NONE);
+							propertyMenuItem.setText(propertyName);
+							final String qualifiedPropertyName = propertySetName + "::" + propertyName;
+							propertyMenuItem.setData(qualifiedPropertyName);
+							propertyMenuItem.addSelectionListener(propertyMenuItemSelectionListener);
+							
+							// Set enabled based on whether it is already in the list
+							propertyMenuItem.setEnabled(!diagramConfigBuilder.getEnabledAadlPropertiesLowercase().contains(qualifiedPropertyName.toLowerCase()));
 						}
 					}
 				}
@@ -327,18 +354,48 @@ public class DiagramConfigurationDialog {
 				}		    	
 		    });
 		    
+		    // Set the initial selection
+		    if(initialSelectionBoPath != null) {
+		    	setSelection(initialSelectionBoPath);
+		    }
+
 		    return area;
+		}
+		
+		private void setBranchIsManual(final BusinessObjectNode node, final boolean value) {
+			node.setManual(value);
+			for(final BusinessObjectNode child : node.getChildren()) {
+				setBranchIsManual(child, value);
+			}
 		}
 		
 		private void refresh(final Object element) {
 			treeViewer.refresh(element);
 		}
+		
+		private void setSelection(final Object[] boPath) {
+			// The tree is populated lazily so we need to reveal each level to ensure that the desired node exists.
+		    BusinessObjectNode tmpNode = businessObjectTree;
+		    for(final Object bo : boPath) {
+		    	final RelativeBusinessObjectReference relRef = model.getRelativeBusinessObjectReference(bo);
+		    	final BusinessObjectNode newNode = relRef == null ? null : tmpNode.getChild(relRef);
+		    	if(newNode == null) {
+		    		break;
+		    	} else {
+		    		tmpNode = newNode;
+		    		treeViewer.expandToLevel(tmpNode, 1);
+		    	}
+		    }
+		    
+		    if(tmpNode != businessObjectTree) {
+		    	treeViewer.setSelection(new StructuredSelection(tmpNode), true);
+		    }		    
+		}
 	}
 	
-	// TODO: Describe meaning of each value
 	private enum EnabledState {
-		NOT_ENABLED,
-		IMPLICITLY_ENABLED,
+		NOT_ENABLED, // Not enabled. Will not be in the final diagram.
+		IMPLICITLY_ENABLED, // Enabled because of other rules. For example if one of its descendants is enabled.
 		MANUALLY_ENABLED
 	}
 	
@@ -353,12 +410,10 @@ public class DiagramConfigurationDialog {
 			cellEditor.setLabelProvider(new LabelProvider() {		    	
 				@Override
 				public String getText(final Object o) {
-					final ContentsFilterBase filter = (ContentsFilterBase)o;
-					return filter == null ? "" : filter.description;
+					final ContentsFilter filter = (ContentsFilter)o;
+					return filter == null ? "" : filter.description();
 				}
 		    });
-			
-			// TODO: Create a label provider to allow for specialized labels for contents filter options
 		}
 
 		@Override
@@ -380,7 +435,7 @@ public class DiagramConfigurationDialog {
 		protected void setValue(final Object element, final Object value) {
 			// Set the value
 			final BusinessObjectNode node = (BusinessObjectNode)element;
-			node.setAutoContentsFilter((ContentsFilter)value); // TODO
+			node.setAutoContentsFilter((ContentsFilter)value);
 			dlg.refresh(element);
 		}		
 	}
@@ -423,7 +478,7 @@ public class DiagramConfigurationDialog {
 			final BusinessObjectNode node = (BusinessObjectNode)element;
 			if(!populatedNodes.contains(node)) {
 				// Create new business object nodes as needed
-				for(final Object childBo : model.getPotentialChildBusinessObjects(node.getBusinessObject())) {
+				for(final Object childBo : model.getChildBusinessObjects(node)) {
 					final RelativeBusinessObjectReference childRef = model.getRelativeBusinessObjectReference(childBo);
 					// Create a child node if it doesn't exist
 					if(node.getChild(childRef) == null) {
@@ -441,21 +496,26 @@ public class DiagramConfigurationDialog {
 	private final InnerDialog dlg;
 	private final DiagramConfigurationBuilder diagramConfigBuilder;
 	private final BusinessObjectNode businessObjectTree;
-	
+	private final Object[] initialSelectionBoPath;
+
 	protected DiagramConfigurationDialog(final Shell parentShell, 
 			final Model model, 
 			final DiagramConfiguration diagramConfig, 
-			final BusinessObjectNode businessObjectTree) {
+			final BusinessObjectNode businessObjectTree,
+			final Object[] initialSelectionBoPath) {
 		this.model = Objects.requireNonNull(model);
 		this.dlg = new InnerDialog(parentShell);
 		this.diagramConfigBuilder = new DiagramConfigurationBuilder(Objects.requireNonNull(diagramConfig, "diagramConfig must not be null"));
 		this.businessObjectTree = Objects.requireNonNull(businessObjectTree, "businessObjectTree must not be null").copy();
+		this.initialSelectionBoPath = initialSelectionBoPath;
 	}
 	
-	private void open() {
-		// TODO: Return value
-		/* == Dialog.OK*/
-		dlg.open();
+	/**
+	 * A null return value indicates that the dialog was canceled.
+	 * @return
+	 */
+	private Result open() {
+		return dlg.open() == Dialog.OK ? new Result(diagramConfigBuilder.build(), businessObjectTree) : null;		
 	}
 	
 	// Returns whether the node is either manually or automatically enabled
@@ -463,7 +523,6 @@ public class DiagramConfigurationDialog {
 		return getEnabledState(node) != EnabledState.NOT_ENABLED;
 	}
 	
-	// TODO: Describe result
 	private EnabledState getEnabledState(final BusinessObjectNode node) {
 		if(node.isManual()) {
 			return EnabledState.MANUALLY_ENABLED;
@@ -477,32 +536,69 @@ public class DiagramConfigurationDialog {
 				return EnabledState.IMPLICITLY_ENABLED;
 			}
 		}
+		
+		// Implicitly enabled because it is a top level node in a diagram with a context. In such diagrams, the root nodes are automatically added.
+		if(diagramConfigBuilder.getContextBoReference() != null && node.getParent() != null && node.getParent().getParent() == null) {
+			return EnabledState.IMPLICITLY_ENABLED;
+		}
+		
 		return EnabledState.NOT_ENABLED;
 	}
 	
+	// Only allow editing the auto contents filter if the node is a manual node.
 	private static boolean isAutoContentsFilterEditable(final BusinessObjectNode node) {
-		// Only allow editing of the auto contents filter if it is part of a manual branch. Automatic branches will be pruned.
-		return node.isManual() || BusinessObjectNode.hasManualDescendant(node);
+		return node.isManual();
 	}
 	
-	public static void show(final Shell parentShell, 
+	/**
+	 * A null return value indicates that the dialog was canceled.
+	 * @param initialSelectionBoPath is an array of business objects which form a path to the node that should be selected. May be null
+	 * @return
+	 */
+	public static Result show(final Shell parentShell, 
 			final Model model, 
 			final DiagramConfiguration diagramConfig, 
-			final BusinessObjectNode businessObjectTree) {
-		// TODO: Return value
-		final DiagramConfigurationDialog dlg = new DiagramConfigurationDialog(parentShell, model, diagramConfig, businessObjectTree);
-		/*return */dlg.open();
+			final BusinessObjectNode businessObjectTree,
+			final Object[] initialSelectionBoPath) {
+		final DiagramConfigurationDialog dlg = new DiagramConfigurationDialog(parentShell, model, diagramConfig, businessObjectTree, initialSelectionBoPath);
+		return dlg.open();
+	}
+
+	enum TestContentsFilter implements ContentsFilter {
+		FILTER1,
+		FILTER2,
+		NO_C1;
+
+		@Override
+		public String id() {
+			return this.toString();
+		}
+		
+		@Override
+		public String description() {
+			return this.toString() + " Desc";
+		}		
+
+		@Override
+		public boolean test(final Object t) {
+			if(this == NO_C1 && t.equals("C1")) {
+				return false;
+			}
+			
+			return true;
+		}
+
 	}
 	
 	public static void main (String [] args) {
-		final Model testModel = new Model() {			
+		final Model model = new Model() {			
 			@Override
 			public RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
 				return new RelativeBusinessObjectReference(bo.toString());
 			}
 			
 			@Override
-			public Collection<Object> getPotentialChildBusinessObjects(final Object bo) {
+			public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
 				final Collection<Object> children = new ArrayList<>();
 				children.add("C1");
 				children.add("C2");
@@ -512,18 +608,18 @@ public class DiagramConfigurationDialog {
 			}
 			
 			@Override
-			public String getName(final Object bo) {
-				return bo.toString();
+			public String getName(final BusinessObjectContext boc) {
+				return boc.getBusinessObject().toString();
 			}
 
 			@Override
-			public Collection<ContentsFilterBase> getContentsFilters() {
-				return Arrays.asList(ContentsFilter.values());
+			public Collection<ContentsFilter> getContentsFilters() {
+				return Arrays.asList(TestContentsFilter.values());
 			}
 			
 			@Override
-			public ContentsFilterBase getDefaultContentsFilter(final Object bo) {
-				return ContentsFilterBase.getDefault(bo);
+			public ContentsFilter getDefaultContentsFilter(final Object bo) {
+				return TestContentsFilter.FILTER1;
 			}
 			
 			@Override
@@ -547,7 +643,12 @@ public class DiagramConfigurationDialog {
 			
 			@Override
 			public boolean showBusinessObject(final Object bo) {
-				return !ContentsFilter.ALLOW_FUNDAMENTAL.test(bo);
+				return !bo.equals("C3");
+			}
+			
+			@Override 
+			public Image getImage(final Object bo) {
+				return null;
 			}
 		};
 		
@@ -565,6 +666,12 @@ public class DiagramConfigurationDialog {
 	    new BusinessObjectNode(rootNode, new RelativeBusinessObjectReference("D"), "D", true, null, Completeness.UNKNOWN);	    
 		
 	    // Show the dialog
-		DiagramConfigurationDialog.show(null, testModel, diagramConfig, rootNode);
+		final Result result = DiagramConfigurationDialog.show(null, model, diagramConfig, rootNode, new Object[] { "A", "C1", "C2", "C4"});
+		if(result == null) {
+			System.out.println("Dialog was canceled.");
+		} else {
+			System.out.println(result.getDiagramConfiguration());
+			System.out.println(result.getBusinessObjectTree());
+		}
 	}
 }
