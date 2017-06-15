@@ -933,7 +933,7 @@
              <with
                    variable="element">
                 <instanceof
-                      value="org.osate.aadl2.Element">
+                      value="org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext">
                 </instanceof>
              </with></enablement>
        </renameParticipant>
