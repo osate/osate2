@@ -923,4 +923,19 @@
              class="org.osate.ge.internal.AadlBusinessObjectProvider">
        </provider>
     </extension>
+    <extension
+          point="org.eclipse.ltk.core.refactoring.renameParticipants">
+       <renameParticipant
+             class="org.osate.ge.internal.ltk.AgeRenameParticipant"
+             id="org.osate.ge.ltk.ageRenameParticipant"
+             name="OSATE Graphical Editor Rename Participant">
+          <enablement>
+             <with
+                   variable="element">
+                <instanceof
+                      value="org.osate.aadl2.Element">
+                </instanceof>
+             </with></enablement>
+       </renameParticipant>
+    </extension>
 </plugin>
