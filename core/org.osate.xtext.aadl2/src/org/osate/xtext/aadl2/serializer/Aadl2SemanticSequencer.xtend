@@ -62,7 +62,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 
 	override createSequence(ISerializationContext context, EObject semanticObject) {
 		switch semanticObject {
-			DefaultAnnexLibrary case context == grammarAccess.annexLibraryRule || context == grammarAccess.defaultAnnexLibraryRule: {
+			DefaultAnnexLibrary case context.parserRule == grammarAccess.annexLibraryRule || context.parserRule == grammarAccess.defaultAnnexLibraryRule: {
 				val parsedLibrary = semanticObject.parsedAnnexLibrary
 				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
@@ -82,7 +82,7 @@ class Aadl2SemanticSequencer extends AbstractAadl2SemanticSequencer {
 				}
 				sequence_DefaultAnnexLibrary(context, semanticObject)
 			}
-			DefaultAnnexSubclause case context == grammarAccess.annexSubclauseRule || context == grammarAccess.defaultAnnexSubclauseRule: {
+			DefaultAnnexSubclause case context.parserRule == grammarAccess.annexSubclauseRule || context.parserRule == grammarAccess.defaultAnnexSubclauseRule: {
 				val parsedSubclause = semanticObject.parsedAnnexSubclause
 				val annexUnparser = annexUnparserRegistry.getAnnexUnparser(semanticObject.name)
 				// serialize if there is an unparser and the annex has been parsed
