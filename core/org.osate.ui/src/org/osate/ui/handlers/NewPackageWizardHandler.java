@@ -1,6 +1,6 @@
-/**
+/*
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -29,52 +29,15 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
- *
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
-import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.osate.ui.wizards.AadlProjectWizard;
+import org.osate.ui.wizards.NewModelWizard;
 
-/**
- * Launches a "new Aadl project wizard" when the user clicks on the
- * "new Aadl project" button on the toolbar.
- *
- * @author jseibel
- */
-public class WizardLauncherAction implements IWorkbenchWindowActionDelegate {
-	// workbench and selection required for instanciating the wizard.
-	private IWorkbench workbench = null;
-	private IStructuredSelection selection = null;
-
+public class NewPackageWizardHandler extends NewModelWizardLauncherHandler {
 	@Override
-	public void dispose() {
-	}
-
-	@Override
-	public void init(IWorkbenchWindow window) {
-		workbench = window.getWorkbench();
-	}
-
-	@Override
-	public void run(IAction action) {
-		AadlProjectWizard wizard = new AadlProjectWizard();
-		wizard.init(workbench, selection);
-		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
-		dialog.open();
-	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			this.selection = (IStructuredSelection) selection;
-		}
+	protected void setInitialObjectType(NewModelWizard wizard) {
+		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PACKAGE);
 	}
 }
