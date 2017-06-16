@@ -37,13 +37,15 @@
  *
  * @version $Id$
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.resources.WorkspaceJob;
@@ -52,13 +54,9 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.instantiation.InstantiateModel;
 import org.osate.core.AadlNature;
 import org.osate.workspace.IResourceUtility;
@@ -67,40 +65,20 @@ import org.osate.workspace.IResourceUtility;
  * Scans the workspace for AADL system instances and rebuilds them, or
  * removes them if the instantiated system component no longer exists.
  */
-public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-
-	/** Set of currently selected instance models as IResources.
-	 *   If the set is empty then the action will run on
-	 * all instance models in open AADL projects in the workspace.
-	 */
-	private Set currentSelection = Collections.EMPTY_SET;
-
-	/**
-	 * The constructor.
-	 */
-	public ReinstantiateAadl() {
-	}
-
-	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
+public class ReinstantiateAadl extends AbstractHandler {
 	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-	}
-
-	@Override
-	public void run(final IAction action) {
-
-		final Job job = new ReinstantiateJob(currentSelection);
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		final Job job = new ReinstantiateJob(getCurrentSelection(event));
 		job.setRule(ResourcesPlugin.getWorkspace().getRoot());
 		job.setUser(true); // important!
 		job.schedule();
+		return null;
 	}
-
+	
 	private final class ReinstantiateJob extends WorkspaceJob {
-		private final Set selection;
+		private final Set<IResource> selection;
 
-		public ReinstantiateJob(final Set selection) {
+		public ReinstantiateJob(final Set<IResource> selection) {
 			super("Reinstantiate models");
 			this.selection = selection;
 		}
@@ -108,30 +86,11 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 		@Override
 		public IStatus runInWorkspace(final IProgressMonitor monitor) {
 			monitor.beginTask("Reinstantiate all instance models", IProgressMonitor.UNKNOWN);
-//			IWorkbench wb = PlatformUI.getWorkbench();
-//			IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-//			IWorkbenchPage page = win.getActivePage();
-//			HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
-//			for (IFile iFile : files) {
-//			IEditorReference[] editorRefs = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences();
-//			for (int i = 0; i < editorRefs.length; i++) {
-//				IEditorReference edref = editorRefs[i];
-//				IEditorPart edpart = edref.getEditor(false);
-//				String me = edpart.getEditorInput().getName();
-//				String fname = ((IResource) iFile).getName();
-//				if (me.equals(fname)){
-//					page.closeEditor(edpart, true);
-//				}
-//			}
-//			}
 			try {
 				if (!selection.isEmpty()) {
-					Iterator selit = selection.iterator();
-					for (Iterator iterator = selection.iterator(); iterator.hasNext();) {
-						Object obj = iterator.next();
-						if (obj instanceof IResource) {
-							InstantiateModel.rebuildInstanceModelFile((IResource) obj);
-						}
+					for (Iterator<IResource> iterator = selection.iterator(); iterator.hasNext();) {
+						IResource obj = iterator.next();
+						InstantiateModel.rebuildInstanceModelFile(obj);
 					}
 				} else {
 					InstantiateModel.rebuildAllInstanceModelFiles(monitor);
@@ -144,19 +103,23 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 			return Status.OK_STATUS;
 		}
 	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
+	
+	/** Set of currently selected instance models as IResources.
+	 *   If the set is empty then the action will run on
+	 * all instance models in open AADL projects in the workspace.
+	 */
+	private Set<IResource> getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		Set<IResource> currentSelection = new HashSet<>();
 		if (selection instanceof IStructuredSelection) {
-			currentSelection = new HashSet();
-			for (final Iterator elts = ((IStructuredSelection) selection).iterator(); elts.hasNext();) {
+			for (final Iterator<?> elts = ((IStructuredSelection) selection).iterator(); elts.hasNext();) {
 				final Object object = elts.next();
 				if (object != null) {
 					IResource p = null;
 					if (object instanceof IResource) {
 						p = (IResource) object;
 					} else if (object instanceof IAdaptable) {
-						p = (IResource) ((IAdaptable) object).getAdapter(IResource.class);
+						p = ((IAdaptable) object).getAdapter(IResource.class);
 					}
 					if (p != null && IResourceUtility.isInstanceFile(p) && AadlNature.hasNature(p.getProject())) {
 						currentSelection.add(p);
@@ -164,23 +127,6 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 				}
 			}
 		}
-	}
-
-	/**
-	 * We can use this method to dispose of any system
-	 * resources we previously allocated.
-	 * @see IWorkbenchWindowActionDelegate#dispose
-	 */
-	@Override
-	public void dispose() {
-	}
-
-	/**
-	 * We will cache window object in order to
-	 * be able to provide parent shell for the message dialog.
-	 * @see IWorkbenchWindowActionDelegate#init
-	 */
-	@Override
-	public void init(IWorkbenchWindow window) {
+		return currentSelection;
 	}
 }
