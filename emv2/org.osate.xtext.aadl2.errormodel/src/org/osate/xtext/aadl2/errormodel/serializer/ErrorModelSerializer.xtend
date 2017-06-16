@@ -10,11 +10,11 @@ import org.osate.xtext.aadl2.errormodel.services.ErrorModelGrammarAccess
 class ErrorModelSerializer extends Serializer {
 	@Inject ErrorModelGrammarAccess grammarAccess
 	
-	override protected getContext(EObject semanticObject) {
+	override protected getIContext(EObject semanticObject) {
 		switch semanticObject {
-			ErrorModelLibrary: grammarAccess.errorModelLibraryRule
-			ErrorModelSubclause: grammarAccess.errorModelSubclauseRule
-			default: super.getContext(semanticObject)
+			ErrorModelLibrary: contextFinder.findByContents(semanticObject, null).findFirst[parserRule == grammarAccess.errorModelLibraryRule]
+			ErrorModelSubclause: contextFinder.findByContents(semanticObject, null).findFirst[parserRule == grammarAccess.errorModelSubclauseRule]
+			default: super.getIContext(semanticObject)
 		}
 	}
 }
