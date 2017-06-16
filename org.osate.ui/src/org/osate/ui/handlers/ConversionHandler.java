@@ -1,6 +1,6 @@
-/*
+/**
  * <copyright>
- * Copyright  2005 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -30,52 +30,52 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
+ *
+ * @version $Id: ConversionAction.java,v 1.5 2007-06-28 22:02:52 jseibel Exp $
  */
-package org.osate.ui.perspective;
+package org.osate.ui.handlers;
 
-import org.eclipse.ui.IFolderLayout;
-import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IPerspectiveFactory;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.core.AadlNature;
 
-public class AadlPerspectiveFactory implements IPerspectiveFactory {
-	public AadlPerspectiveFactory() {
-		super();
-	}
-
+/**
+ * ConversionAction en- and disables the Aadl Nature.
+ */
+public class ConversionHandler extends AbstractHandler {
+	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	
 	@Override
-	public void createInitialLayout(IPageLayout layout) {
-
-		String editorArea = layout.getEditorArea();
-
-		IFolderLayout left = layout.createFolder("left", IPageLayout.LEFT, (float) 0.25, editorArea);
-		left.addView("org.osate.ui.navigator.AadlNavigator");
-		left.addPlaceholder(IPageLayout.ID_RES_NAV);
-
-		IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, (float) 0.75, editorArea);
-		bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
-		bottom.addView(IPageLayout.ID_PROP_SHEET);
-		bottom.addView("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
-
-		layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float) 0.75, editorArea);
-
-		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
-
-//		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
-		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
-		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
-		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
-
-		layout.addShowViewShortcut("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
-		layout.addShowViewShortcut("org.osate.ui.navigator.AadlNavigator");
-
-		layout.addNewWizardShortcut("org.osate.ui.wizards.AadlProjectWizard");
-		layout.addNewWizardShortcut("org.osate.ui.wizards.NewModelWizardID");
-		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.folder");
-		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.file");
-		layout.addNewWizardShortcut("org.eclipse.ui.editors.wizards.UntitledTextFileWizard");
-
-		layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective");
-		layout.addPerspectiveShortcut("org.eclipse.team.cvs.ui.cvsPerspective");
-		layout.addPerspectiveShortcut("org.eclipse.team.ui.TeamSynchronizingPerspective");
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IProject project = getProject(event);
+		Assert.isNotNull(project);
+		if (AadlNature.hasNature(project)) {
+			AadlNature.removeNature(project, null);
+		} else {
+			AadlNature.addNature(project, null);
+		}
+		return null;
+	}
+	
+	private IProject getProject(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection) {
+			Object obj = ((IStructuredSelection) selection).getFirstElement();
+			if (obj instanceof IProject) {
+				return (IProject) obj;
+			} else {
+				// In plugin.xml is configured to allow IResource instances
+				// which are adaptable to IProject
+				return ((IAdaptable) obj).getAdapter(IProject.class);
+			}
+		}
+		return null;
 	}
 }

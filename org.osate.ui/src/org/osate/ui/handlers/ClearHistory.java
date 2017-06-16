@@ -1,4 +1,6 @@
-/**
+/*
+ * Created on Jan 30, 2004
+ *
  * <copyright>
  * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
@@ -29,83 +31,66 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
+ *
  * </copyright>
  *
- * @version $Id: ConversionAction.java,v 1.5 2007-06-28 22:02:52 jseibel Exp $
+ *
+ * @version $Id: ClearHistory.java,v 1.1 2006-01-16 03:53:56 phf Exp $
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.action.IAction;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
-import org.osate.core.AadlNature;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.OsateUiPlugin;
 
 /**
- * ConversionAction implements workbench action delegate.
- * The action proxy will be created by the workbench and
- * shown in the UI. When the user tries to use the action,
- * this delegate will be created and execution will be
- * delegated to it.
- * <p>
- * ConversionAction en- and disables the Aadl Nature.
- * @see org.eclipse.ui.IWorkbenchWindowActionDelegate
+ * ClearHistory removes any history of the selected Resource in the E#clipse Navigator.
  */
-public class ConversionAction implements IObjectActionDelegate {
-
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
-
-	private IProject project;
-
-	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
+public class ClearHistory extends AbstractHandler {
 	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		// do nothing
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		Set<IResource> currentSelection = getCurrentSelection(event);
+		if (currentSelection.isEmpty()) {
+			MessageDialog.openError(HandlerUtil.getActiveShell(event), "Clear History Error",
+					"No resource(s) selected.");
+			return null;
+		}
+		for (final Iterator<IResource> rsrcs = currentSelection.iterator(); rsrcs.hasNext();) {
+			final IResource rsrc = rsrcs.next();
+			try {
+				rsrc.clearHistory(null);
+			} catch (CoreException e1) {
+				OsateUiPlugin.log(e1);
+			}
+		}
+		return null;
 	}
-
-	/**
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(IAction, ISelection)
+	
+	/** the current selection in the AADL model
+	 *
 	 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
+	private Set<IResource> getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		Set<IResource> currentSelection = new HashSet<>();
 		if (selection instanceof IStructuredSelection) {
-			boolean enabled = false;
-			Object obj = (((IStructuredSelection) selection).getFirstElement());
-			if (obj == null) {
-				project = null;
-			} else {
-				if (obj instanceof IProject) {
-					project = (IProject) obj;
-				} else {
-
-					// In plugin.xml is configured to allow IResource instances
-					// which are adaptable to IProject
-					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-				}
-				if (project != null && project.isOpen()) {
-					enabled = true;
+			for (final Iterator<?> elts = ((IStructuredSelection) selection).iterator(); elts.hasNext();) {
+				final Object object = elts.next();
+				if (object instanceof IResource) {
+					currentSelection.add((IResource) object);
 				}
 			}
-			action.setEnabled(enabled);
 		}
-	}
-
-	/**
-	 * @see org.eclipse.ui.IActionDelegate#run(IAction)
-	 */
-	@Override
-	public void run(IAction action) {
-		Assert.isNotNull(project);
-		if (AadlNature.hasNature(project)) {
-			AadlNature.removeNature(project, null);
-		} else {
-			AadlNature.addNature(project, null);
-		}
+		return currentSelection;
 	}
 }
