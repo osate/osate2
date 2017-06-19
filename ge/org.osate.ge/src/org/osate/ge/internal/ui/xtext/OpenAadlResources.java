@@ -101,6 +101,16 @@ public class OpenAadlResources {
 		return null;
 	}
 	
+	public IXtextDocument getDocument(final IResource res) {
+		final OpenAadlResource openResource = resourceToOpenResourceMap.get(res);
+		return openResource == null || openResource.documents.size() == 0? null : openResource.documents.get(0);
+	}
+	
+	public XtextResource getXtextResource(final IResource res) {
+		final OpenAadlResource openResource = resourceToOpenResourceMap.get(res);
+		return openResource == null ? null : openResource.xtextResource;
+	}
+	
 	public void onXtextDocumentOpened(final IXtextDocument document) {
 		// Get the file associate with the document
 		final IFile file = document.readOnly(new IUnitOfWork<IFile, XtextResource>() {

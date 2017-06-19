@@ -1,9 +1,13 @@
 package org.osate.ge.internal.graphiti.features;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 
 import javax.inject.Inject;
 
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.ecore.EObject;
@@ -14,6 +18,19 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IDirectEditingContext;
 import org.eclipse.graphiti.features.impl.AbstractDirectEditingFeature;
+import org.eclipse.ltk.core.refactoring.Change;
+import org.eclipse.ltk.core.refactoring.Refactoring;
+import org.eclipse.ltk.core.refactoring.RefactoringStatus;
+import org.eclipse.ltk.core.refactoring.participants.ProcessorBasedRefactoring;
+import org.eclipse.ltk.core.refactoring.participants.RenameRefactoring;
+import org.eclipse.ui.actions.WorkspaceModifyOperation;
+import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.refactoring.IRenameRefactoringProvider;
+import org.eclipse.xtext.ui.refactoring.IRenamedElementTracker;
+import org.eclipse.xtext.ui.refactoring.impl.AbstractRenameProcessor;
+import org.eclipse.xtext.ui.refactoring.impl.RenameElementProcessor;
+import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
+import org.osate.aadl2.Aadl2Package;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
@@ -28,6 +45,8 @@ import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 import org.osate.ge.internal.util.AnnotationUtil;
+
+import com.google.inject.Injector;
 
 // Direct Editing Feature implementation that delegates behavior to a business object handler
 public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature implements ICustomUndoRedoFeature {
@@ -115,11 +134,50 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
     	return de.getName();
 	}
 	
+	@SuppressWarnings("restriction")
 	public void setValue(final String value, final IDirectEditingContext context) {
+		// TODO: Finish reworking. Use LTK if possible but support other mechanism as backup? 
+		// Backup still needs to handle renaming element in other diagrams?		
 		final DiagramElement de = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());		
     	final EObject bo = (EObject)de.getBusinessObject();
-		final Object handler = de.getBusinessObjectHandler();		
-	
+    	
+    	// TODO
+    	if(bo.eResource() instanceof XtextResource) {
+    		// TODO: Check element type..
+    		System.err.println("A1");
+    		final XtextResource res = (XtextResource)bo.eResource();
+    		IRenameRefactoringProvider renameRefactoringProvider = res.getResourceServiceProvider().get(IRenameRefactoringProvider.class);
+    		
+    		// TODO: Need to save resources before trying to rename otherwise the refactoring won't be able to get the correct element..
+    		// TODO: Problem doesn't seem to be occuring now? SOMETIMES is does.. Need to investigate
+    		// Could also be handled by using the other IRenameElementContext.Impl constructor?
+    		
+    		final ProcessorBasedRefactoring renameRefactoring = renameRefactoringProvider.getRenameRefactoring(new IRenameElementContext.Impl(EcoreUtil.getURI(bo), Aadl2Package.eINSTANCE.getNamedElement()));
+    		((AbstractRenameProcessor) renameRefactoring.getProcessor()).setNewName("abc");
+		    try {
+	    		RefactoringStatus initialStatus = renameRefactoring.checkInitialConditions(new NullProgressMonitor());
+	    		if(initialStatus.isOK()) {
+	    			RefactoringStatus finalStatus = renameRefactoring.checkFinalConditions(new NullProgressMonitor());
+	    			if(finalStatus.isOK()) {
+		    		    final Change change = renameRefactoring.createChange(new NullProgressMonitor());
+						new WorkspaceModifyOperation() {
+							@Override
+							protected void execute(IProgressMonitor monitor) throws CoreException, InvocationTargetException, InterruptedException {
+								change.perform(monitor);
+							}
+						}.run(null);
+	    			}
+	    		}
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				System.err.println("A6");
+				e.printStackTrace();
+			} 
+		    
+    		System.err.println("A8");
+    	}
+    	/*
+		final Object handler = de.getBusinessObjectHandler();	
 		aadlModService.modify(bo, new AbstractModifier<EObject, Object>() {
 			private DiagramModificationService.Modification diagramMod;   
 			
@@ -154,6 +212,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
     			diagramMod.commit();
     		}
      	});
+		*/
     }
 	
 	// ICustomUndoRedoFeature
