@@ -19,10 +19,10 @@ package org.osate.verify.analysisplugins
 import org.eclipse.core.runtime.NullProgressMonitor
 import org.osate.aadl2.instance.InstanceObject
 import org.osate.aadl2.instance.SystemInstance
-import org.osate.analysis.architecture.actions.CheckA429PortConnectionConsistency
-import org.osate.analysis.architecture.actions.CheckConnectionBindingConsistency
-import org.osate.analysis.architecture.actions.DoPortConnectionConsistency
-import org.osate.analysis.architecture.actions.DoPropertyTotals
+import org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsistency
+import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency
+import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
+import org.osate.analysis.architecture.handlers.DoPropertyTotals
 import org.osate.analysis.flows.actions.CheckFlowLatency
 import org.osate.analysis.flows.preferences.Values
 import org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis
