@@ -37,61 +37,77 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.architecture.actions;
+package org.osate.analysis.architecture.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.core.runtime.OperationCanceledException;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.architecture.ArchitecturePlugin;
-import org.osate.analysis.architecture.ConnectionBindingConsistency;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.analysis.architecture.PropertyTotals;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class CheckConnectionBindingConsistency extends AaxlReadOnlyActionAsJob {
-
-	protected Bundle getBundle() {
-		return ArchitecturePlugin.getDefault().getBundle();
-	}
-
+public final class DoPropertyTotals extends AaxlReadOnlyHandlerAsJob {
+	@Override
 	public String getMarkerType() {
-		return "org.osate.analysis.architecture.ConnectionBindingConsistencyObjectMarker";
+		return "org.osate.analysis.architecture.WeightTotalObjectMarker";
 	}
 
 	@Override
-	protected boolean initializeAction(NamedElement obj) {
-		setCSVLog("ConnectionBindingConsistency", obj);
+	protected String getActionName() {
+		return "Weight totals";
+	}
+
+	@Override
+	public boolean initializeAction(NamedElement obj) {
+		setCSVLog("WeightAnalysis", obj);
 		return true;
 	}
 
-	@Override
-	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-		if (!(obj instanceof ComponentInstance)) {
-			Dialog.showWarning(getActionName(), "Please invoke command on an instance model");
-			return;
-		}
-		SystemInstance si = ((ComponentInstance) obj).getSystemInstance();
-
-		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		ConnectionBindingConsistency anal = new ConnectionBindingConsistency(monitor, this);
-		if (si != null) {
-			anal.defaultTraversal(si);
-		}
-		if (anal.cancelled()) {
-			throw new OperationCanceledException();
-		}
-		monitor.done();
+	public void setErrManager() {
+		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
 	}
 
-	protected String getActionName() {
-		return "Check connection binding consistency";
+	public void saveReport() {
+		this.getCSVLog().saveToFile();
+	}
+
+	@Override
+	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
+		/*
+		 * Doesn't make sense to set the number of work units, because
+		 * the whole point of this action is count the number of elements.
+		 * To set the work units we would effectively have to count everything
+		 * twice.
+		 */
+		monitor.beginTask("Gathering weight summaries", IProgressMonitor.UNKNOWN);
+
+		if (!(obj instanceof ComponentInstance)) {
+			warning(obj, "Weight totals: Please invoke command on an instance model");
+			monitor.done();
+			return;
+		}
+
+		// Get the system instance (if any)
+		SystemInstance si = ((ComponentInstance) obj).getSystemInstance();
+
+		/*
+		 * Create a new model statistics analysis object and run it over
+		 * the declarative model. If an instance model exists, run it over
+		 * that too.
+		 */
+		PropertyTotals stats = new PropertyTotals(monitor, this);
+		stats.getWeight(si);
+		monitor.done();
+
+		/*
+		 * Accumulate the results in a StringBuffer, but also report them
+		 * using info markers attached to the root model object.
+		 */
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}
-
 }

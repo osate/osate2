@@ -37,7 +37,7 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.architecture.actions;
+package org.osate.analysis.architecture.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -45,54 +45,47 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.architecture.ARINC429ConnectionConsistency;
-import org.osate.analysis.architecture.ArchitecturePlugin;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.analysis.architecture.ConnectionBindingConsistency;
 import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class CheckA429PortConnectionConsistency extends AaxlReadOnlyActionAsJob {
-
-	protected Bundle getBundle() {
-		return ArchitecturePlugin.getDefault().getBundle();
-	}
-
+public final class CheckConnectionBindingConsistency extends AaxlReadOnlyHandlerAsJob {
+	@Override
 	public String getMarkerType() {
-		return "org.osate.analysis.architecture.A429ConnectionConsistencyObjectMarker";
+		return "org.osate.analysis.architecture.ConnectionBindingConsistencyObjectMarker";
 	}
 
+	@Override
+	protected boolean initializeAction(NamedElement obj) {
+		setCSVLog("ConnectionBindingConsistency", obj);
+		return true;
+	}
+
+	@Override
 	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		if (!(obj instanceof ComponentInstance)) {
 			Dialog.showWarning(getActionName(), "Please invoke command on an instance model");
-			monitor.done();
 			return;
 		}
-
-		// Get the system instance (if any)
 		SystemInstance si = ((ComponentInstance) obj).getSystemInstance();
 
 		monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-		ARINC429ConnectionConsistency pcc = new ARINC429ConnectionConsistency(monitor, this);
-		pcc.doHeaders();
-		pcc.processPreOrderAll(si);
-		if (pcc.cancelled()) {
+		ConnectionBindingConsistency anal = new ConnectionBindingConsistency(monitor, this);
+		if (si != null) {
+			anal.defaultTraversal(si);
+		}
+		if (anal.cancelled()) {
 			throw new OperationCanceledException();
 		}
 		monitor.done();
 	}
 
-	protected String getActionName() {
-		return "ARINC429 Connection Consistency";
-	}
-
 	@Override
-	protected boolean initializeAction(NamedElement obj) {
-		setCSVLog("ARINC429Consistency", obj);
-		return true;
+	protected String getActionName() {
+		return "Check connection binding consistency";
 	}
 
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}
-
 }

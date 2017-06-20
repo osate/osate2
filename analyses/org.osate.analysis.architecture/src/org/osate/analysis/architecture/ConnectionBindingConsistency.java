@@ -42,14 +42,12 @@ package org.osate.analysis.architecture;
 import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionKind;
-import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
 /**
@@ -60,11 +58,11 @@ import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
  */
 public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgress {
 
-	private AbstractAaxlAction action;
+	private AbstractAaxlHandler handler;
 
-	public ConnectionBindingConsistency(final IProgressMonitor pm, final AbstractAaxlAction action) {
+	public ConnectionBindingConsistency(final IProgressMonitor pm, final AbstractAaxlHandler handler) {
 		super(pm, PROCESS_PRE_ORDER_ALL);
-		this.action = action;
+		this.handler = handler;
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -78,33 +76,31 @@ public class ConnectionBindingConsistency extends AadlProcessingSwitchWithProgre
 			 */
 			public Object caseConnectionInstance(ConnectionInstance conni) {
 				if (conni.getKind().equals(ConnectionKind.PORT_CONNECTION)) {
-					ComponentInstance srcHW = InstanceModelUtil
-							.getHardwareComponent((FeatureInstance) conni.getSource());
-					ComponentInstance dstHW = InstanceModelUtil
-							.getHardwareComponent((FeatureInstance) conni.getDestination());
+					ComponentInstance srcHW = InstanceModelUtil.getHardwareComponent(conni.getSource());
+					ComponentInstance dstHW = InstanceModelUtil.getHardwareComponent(conni.getDestination());
 					if (srcHW == null || dstHW == null) {
-						action.warning(conni, "Connection " + conni.getComponentInstancePath()
+						handler.warning(conni, "Connection " + conni.getComponentInstancePath()
 								+ " source or destination is not bound to hardware");
 					}
 					List<ComponentInstance> bindings = InstanceModelUtil.getPhysicalConnectionBinding(conni);
 					if (bindings.isEmpty()) {
-						action.warning(conni, "Connection " + conni.getComponentInstancePath()
+						handler.warning(conni, "Connection " + conni.getComponentInstancePath()
 								+ " has no actual connection binding to hardware");
 						List<ComponentInstance> result = InstanceModelUtil.connectedByBus(srcHW, dstHW);
 						if (result.isEmpty()) {
-							action.error(conni,
+							handler.error(conni,
 									"Hardware (processor or device) of connection " + conni.getComponentInstancePath()
 											+ " source and destination are not physically connected");
 						}
 					} else {
 						ComponentInstance ci = bindings.get(0);
 						if (srcHW != null && !InstanceModelUtil.connectedToBus(srcHW, ci)) {
-							action.warning(conni, "Connection " + conni.getComponentInstancePath()
+							handler.warning(conni, "Connection " + conni.getComponentInstancePath()
 									+ " source bound hardware is not connected to the first bus in the actual binding");
 						}
 						ci = bindings.get(bindings.size() - 1);
 						if (dstHW != null && !InstanceModelUtil.connectedToBus(srcHW, ci)) {
-							action.warning(conni, "Connection " + conni.getComponentInstancePath()
+							handler.warning(conni, "Connection " + conni.getComponentInstancePath()
 									+ " destination bound hardware is not connected to the last bus in the actual binding");
 						}
 					}

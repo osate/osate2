@@ -47,18 +47,18 @@ import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * @author phf
  */
 public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
-	private AbstractAaxlAction action;
+	private AbstractAaxlHandler handler;
 
-	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlAction action) {
+	public PropertyTotals(final IProgressMonitor monitor, AbstractAaxlHandler handler) {
 		super(monitor, PROCESS_PRE_ORDER_ALL);
-		this.action = action;
+		this.handler = handler;
 	}
 
 	@Override
@@ -194,15 +194,15 @@ public/* final */class PropertyTotals extends AadlProcessingSwitchWithProgress {
 	}
 
 	private void reportwarning(final NamedElement obj, final String msg) {
-		action.warning(obj, msg);
+		handler.warning(obj, msg);
 	}
 
 	private void reporterror(final NamedElement obj, final String msg) {
-		action.error(obj, msg);
+		handler.error(obj, msg);
 	}
 
 	private void reportinfo(final NamedElement obj, final String msg) {
-		action.info(obj, msg);
+		handler.info(obj, msg);
 	}
 
 }

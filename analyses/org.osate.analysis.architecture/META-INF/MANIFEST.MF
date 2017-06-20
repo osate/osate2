@@ -9,7 +9,8 @@ Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
 Export-Package: 
  org.osate.analysis.architecture,
- org.osate.analysis.architecture.actions
+ org.osate.analysis.architecture.actions,
+ org.osate.analysis.architecture.handlers
 Require-Bundle: org.osate.aadl2,
  org.osate.ui,
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0",

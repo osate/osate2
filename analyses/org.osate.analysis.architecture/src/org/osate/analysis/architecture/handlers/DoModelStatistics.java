@@ -37,28 +37,24 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.architecture.actions;
+package org.osate.analysis.architecture.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.analysis.architecture.ArchitecturePlugin;
 import org.osate.analysis.architecture.ModelStatistics;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
-	protected Bundle getBundle() {
-		return ArchitecturePlugin.getDefault().getBundle();
-	}
-
+public final class DoModelStatistics extends AaxlReadOnlyHandlerAsJob {
+	@Override
 	public String getMarkerType() {
 		return "org.osate.analysis.architecture.ModelStatisticsObjectMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Model statistics";
 	}
@@ -69,6 +65,7 @@ public final class DoModelStatistics extends AaxlReadOnlyActionAsJob {
 		return true;
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 		/*
 		 * Doesn't make sense to set the number of work units, because the whole

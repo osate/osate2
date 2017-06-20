@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.analysis.architecture.actions;
+package org.osate.analysis.architecture.handlers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -72,18 +72,11 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.analysis.architecture.ArchitecturePlugin;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
-import org.osgi.framework.Bundle;
 
-public class CheckBindingConstraints extends AaxlReadOnlyActionAsJob {
-	@Override
-	protected Bundle getBundle() {
-		return ArchitecturePlugin.getDefault().getBundle();
-	}
-
+public class CheckBindingConstraints extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.architecture.CheckBindingConstraintsObjectMarker";

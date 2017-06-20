@@ -40,7 +40,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.SystemImplementation
-import org.osate.analysis.architecture.actions.CheckBindingConstraints
+import org.osate.analysis.architecture.handlers.CheckBindingConstraints
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
