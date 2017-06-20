@@ -13,7 +13,7 @@ package org.osate.ge.services;
  * @noextend
  * @noimplement
  * @see ReferenceResolutionService
- * @see org.osate.ge.di.BuildReference
+ * @see org.osate.ge.di.BuildCanonicalReference
  */
 public interface ReferenceBuilderService {
 	/**

@@ -22,7 +22,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.BuildReference;
+import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
@@ -98,7 +98,7 @@ public class DefaultInternalReferenceBuilderService implements InternalReference
 			// Set context fields
 			argCtx.set(Names.BUSINESS_OBJECT, bo);
 			for(final Object refBuilder : referenceBuilders) {
-				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildReference.class, serviceContext, argCtx, null);
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildCanonicalReference.class, serviceContext, argCtx, null);
 				if(ref != null) {
 					return new CanonicalBusinessObjectReference(ref);
 				}

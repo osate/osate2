@@ -58,7 +58,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ResolveReference;
+import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
@@ -239,7 +239,7 @@ public class DeclarativeReferenceResolver {
 		declarativeCache.dispose();
 	}
 
-	@ResolveReference
+	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");
 		if(refSegs.length < 2) {

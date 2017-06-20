@@ -30,11 +30,6 @@ ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS
 package org.osate.ge.internal.ui.editor;
 
 import java.awt.Color;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.Collections;
 import java.util.EventObject;
 import java.util.Iterator;
@@ -96,6 +91,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
@@ -739,27 +735,37 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	// Prompts the user to convert the file if the input is a legacy(Graphiti) file.
 	private void handleLegacyDiagramConversion(final IDiagramEditorInput input) {
 		if(input != null) {
-			IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(input.getUri()));
+			final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(input.getUri()));
 			if(!(resource instanceof IFile)) {
 				throw new RuntimeException("Unable to retrieve file for resource.");
 			}
-			
+
 			if(DiagramUtil.isLegacy((IFile)resource)) {
-				// The file is a legacy file
-				// Prompt user as to whether to convert the file
-				if(MessageDialog.openQuestion(null, "Conversion Required", "This diagram file uses a legacy file format which is not supported by this version of OSATE.\nDo you wish to convert the file to the latest format?\n\nConverted files will not be compatible with older versions of OSATE.\nThe original file will be removed after conversion.")) {								
-					final IFile newResource = new LegacyGraphitiDiagramConverter().convertLegacyDiagram(input.getUri());
-					input.updateUri(URI.createPlatformResourceURI(newResource.getFullPath().toString(), true));
-					
-					// If the resource was converted, delete the old resource
-					try {
-						resource.delete(true, null);
-					} catch (CoreException e) {
-						throw new RuntimeException(e);
+				// Only prompt for converting if the workbench window is already visible. 
+				// The primary purpose is to be prevent confusion by not prompting for conversion on the first load of the workspace after upgrading.
+				if(PlatformUI.getWorkbench() !=  null &&
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow() != null &&
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell() != null &&
+					PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell().isVisible()) {
+					// The file is a legacy file
+					// Prompt user as to whether to convert the file
+					if(MessageDialog.openQuestion(null, "Conversion Required", "This diagram file uses a legacy file format which is not supported by this version of OSATE.\nDo you wish to convert the file to the latest format?\n\nConverted files will not be compatible with older versions of OSATE.\nThe original file will be removed after conversion.")) {								
+						final URI convertedDiagramUri = new LegacyGraphitiDiagramConverter().convertLegacyDiagram(input.getUri());
+						input.updateUri(convertedDiagramUri);
+						
+						// If the resource was converted, delete the old resource
+						try {
+							resource.delete(true, null);
+						} catch (CoreException e) {
+							throw new RuntimeException(e);
+						}
+					} else {
+						setEditorInitializationError("Unable to load diagram. This diagram file is stored in a legacy format. The diagram must be converted before it can be edited with this version of the OSATE Graphical Editor.");
+						return;
 					}
 				} else {
-					setEditorInitializationError("Unable to load diagram. This diagram file is stored in a legacy format. The diagram must be converted before it can be edited with this version of the OSATE Graphical Editor.");
-					return;
+					// Close the editor if the window isn't open. This usually occurs when eclipse is loading with legacy diagrams opened.
+					getDiagramContainer().close();
 				}
 			}
 		}				
@@ -836,21 +842,9 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		return new DefaultPersistencyBehavior(this) {
 			@Override
 			public Diagram loadDiagram(final URI uri) {
-				IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(getPath(uri));
-				if(!(resource instanceof IFile)) {
-					throw new RuntimeException("Unable to retrieve file for resource.");
-				}
-
 				updateProjectByUri(uri);
-				
-				// Load the file
-				final File file = resource.getLocation().toFile();
 				ageDiagram = new AgeDiagram();
-				try(final FileInputStream is = new FileInputStream(file)) {
-					DiagramSerialization.read(ageDiagram, is);
-				} catch (final IOException e) {
-					throw new RuntimeException(e);
-				}
+				DiagramSerialization.read(ageDiagram, uri);
 				
 				// Create an empty Graphiti diagram. It will be updated after in initDiagramTypeProvider() after the diagram type provider is initialized and 
 				// the required services are available.
@@ -866,22 +860,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 					}
 					
 					// Save the file
-					final IFile file = (IFile)resource;
-					try(final ByteArrayOutputStream os = new ByteArrayOutputStream()) {
-			            DiagramSerialization.write(ageDiagram, os);
-			            
-			            final byte[] data = os.toByteArray();
-			            if(data.length == 0) {
-			            	throw new RuntimeException("Unexpected error saving diagram. Data size is 0.");
-			            }
-			            
-			            try(final ByteArrayInputStream is = new ByteArrayInputStream(data)) {
-			            	file.setContents(is, IFile.FORCE | IFile.KEEP_HISTORY, null);
-			    		}			            
-					} catch (final IOException | CoreException e) {
-						throw new RuntimeException(e);
-					}
-	
+		            DiagramSerialization.write(ageDiagram, getInput().getUri());
+		            
 					// Clear legacy persistent properties
 					final DiagramService diagramService = Objects.requireNonNull((DiagramService)getAdapter(DiagramService.class), "unable to retrieve diagram service");
 					diagramService.clearLegacyPersistentProperties(resource);

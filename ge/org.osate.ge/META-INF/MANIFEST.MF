@@ -29,7 +29,8 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.resources,
  org.eclipse.core.expressions,
  org.osate.aadl2.instantiation,
- org.osate.annexsupport
+ org.osate.annexsupport,
+ org.osate.ge.mm
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Import-Package: 
@@ -49,6 +50,5 @@ Export-Package: org.osate.ge,
  org.osate.ge.graphics,
  org.osate.ge.query,
  org.osate.ge.services
-Bundle-ClassPath: lib/javax.json-1.0.4.jar,
- .
+Bundle-ClassPath: .
 

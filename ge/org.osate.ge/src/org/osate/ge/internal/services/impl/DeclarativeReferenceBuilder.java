@@ -36,7 +36,7 @@ import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.BuildReference;
+import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 
 // Handles building references related to the AADL declarative model
@@ -140,7 +140,7 @@ public class DeclarativeReferenceBuilder {
 		return new String[] {type, getNameForSerialization(bo)};
 	}
 	
-	@BuildReference
+	@BuildCanonicalReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
 		if(bo instanceof AadlPackage) {
 			return new String[] {TYPE_PACKAGE, ((AadlPackage)bo).getQualifiedName()};				

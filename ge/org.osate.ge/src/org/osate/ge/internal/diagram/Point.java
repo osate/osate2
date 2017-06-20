@@ -53,6 +53,13 @@ public class Point {
 		return "(" + x + "," + y + ")";
 	}
 	
+	public org.osate.ge.mm.diagram.Point toMetamodel() {
+		final org.osate.ge.mm.diagram.Point newPoint = new org.osate.ge.mm.diagram.Point();
+		newPoint.setX(x);
+		newPoint.setY(y);
+		return newPoint;
+	}
+	
 	public final int x;
 	public final int y;
 }

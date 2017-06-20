@@ -28,7 +28,7 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
-import org.osate.ge.di.BuildReference;
+import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 
 public class InstanceReferenceBuilder {
@@ -61,7 +61,7 @@ public class InstanceReferenceBuilder {
 		return null;
 	}
 	
-	@BuildReference
+	@BuildCanonicalReference
 	public String[] getReference(final SystemInstanceLoadingService systemInstanceLoader, final @Named(Names.BUSINESS_OBJECT) Object bo) {
 		if(bo instanceof InstanceObject) {
 			final InstanceObject io = (InstanceObject)bo;

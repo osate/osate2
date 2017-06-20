@@ -31,15 +31,13 @@ package org.osate.ge.internal.services.impl;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -166,10 +164,16 @@ public class DefaultDiagramService implements DiagramService {
 					}
 				} else {
 					if(fileResource.getLocation() != null) {
-						final File file = fileResource.getLocation().toFile();
-						try(final FileInputStream is = new FileInputStream(file)) {
-							ref = DiagramSerialization.getCanonicalObjectReference(is);
-						} 
+						final ResourceSet rs = new ResourceSetImpl();
+						final URI diagramUri = URI.createPlatformResourceURI(fileResource.getFullPath().toString(), true);
+						final Resource resource = rs.createResource(diagramUri);
+						resource.load(Collections.emptyMap());
+						if(resource.getContents().size() != 0 && resource.getContents().get(0) instanceof org.osate.ge.mm.diagram.Diagram) {
+							final org.osate.ge.mm.diagram.Diagram mmDiagram = (org.osate.ge.mm.diagram.Diagram)resource.getContents().get(0);
+							if(mmDiagram.getConfig() != null) {
+								ref = DiagramSerialization.convert(mmDiagram.getConfig().getContext());
+							}
+						}
 					}
 				}
 			} catch (final IOException e) {
@@ -320,6 +324,7 @@ public class DefaultDiagramService implements DiagramService {
 		});
 		dialog.setContentProvider(new ArrayContentProvider());
 		dialog.setInput(sortedDiagramRefs);
+		dialog.setInitialElementSelections(Collections.singletonList(sortedDiagramRefs[0]));
 		dialog.open();
 		
 		final Object[] result = dialog.getResult();
@@ -361,12 +366,9 @@ public class DefaultDiagramService implements DiagramService {
 		final String baseDiagramName = contextBo instanceof NamedElement ? ((NamedElement)contextBo).getQualifiedName().replaceAll("::|:|\\.", "_") : "untitled_diagram";
 		final IFile newDiagramFile = getNewDiagramFile(project, baseDiagramName);
 
-		try(final FileOutputStream os = new FileOutputStream(newDiagramFile.getLocation().toFile())) {
-			DiagramSerialization.write(diagram, os);	
-		} catch (final IOException e) {
-			throw new RuntimeException(e);
-		}
-		
+		final URI newDiagramUri = URI.createPlatformResourceURI(newDiagramFile.getFullPath().toString(), true);
+		DiagramSerialization.write(diagram, newDiagramUri);
+				
 		try {
 			newDiagramFile.refreshLocal(IResource.DEPTH_INFINITE, null);
 		} catch (final CoreException e) {

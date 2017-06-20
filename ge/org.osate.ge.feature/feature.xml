@@ -63,4 +63,11 @@ to the terms of the license set forth at http://www.aadl.info/OSATELicense.html.
          version="1.0.0.qualifier"
          unpack="false"/>
 
+   <plugin
+         id="org.osate.ge.mm"
+         download-size="0"
+         install-size="0"
+         version="1.0.0.qualifier"
+         unpack="false"/>
+
 </feature>

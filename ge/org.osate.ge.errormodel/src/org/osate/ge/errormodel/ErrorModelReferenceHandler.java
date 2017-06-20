@@ -16,10 +16,10 @@ import javax.inject.Named;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.Element;
-import org.osate.ge.di.BuildReference;
+import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ResolveReference;
+import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.errormodel.model.ErrorTypeExtension;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.services.ReferenceResolutionService;
@@ -58,7 +58,7 @@ public class ErrorModelReferenceHandler {
 		return null;
 	}
 	
-	@BuildReference
+	@BuildCanonicalReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
 		if(bo instanceof Element) {
 			final Element el = (Element)bo;
@@ -92,7 +92,7 @@ public class ErrorModelReferenceHandler {
 		return null;
 	}
 	
-	@ResolveReference
+	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] ref, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(ref, "ref must not be null");
 		// Handle references with 2 or more segments

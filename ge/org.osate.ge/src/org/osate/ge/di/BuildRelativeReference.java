@@ -26,8 +26,8 @@ import java.lang.annotation.Target;
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Reference Builder</td><td>The business object for which to return reference segments.</td></tr>
  * </table>
- * @see org.osate.ge.di.BuildReference
- * @see org.osate.ge.di.ResolveReference
+ * @see org.osate.ge.di.BuildCanonicalReference
+ * @see org.osate.ge.di.ResolveCanonicalReference
  */
 @Documented
 @Target({ElementType.METHOD})

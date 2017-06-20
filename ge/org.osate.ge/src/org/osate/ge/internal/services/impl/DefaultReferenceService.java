@@ -23,7 +23,7 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ResolveReference;
+import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.CachingService;
@@ -120,7 +120,7 @@ public class DefaultReferenceService implements ReferenceService {
 			argCtx.set(Names.REFERENCE, reference.toSegmentArray());	
 			
 			for(final Object refResolver : referenceResolvers) {
-				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveReference.class, ctx, argCtx, null);
+				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveCanonicalReference.class, ctx, argCtx, null);
 				if(referencedObject != null) {
 					return referencedObject;
 				}

@@ -91,4 +91,12 @@ public class RelativeBusinessObjectReference implements Comparable<RelativeBusin
 	public String[] toSegmentArray() {
 		return segments.toArray(new String[segments.size()]);
 	}
+	
+	public org.osate.ge.mm.diagram.RelativeBusinessObjectReference toMetamodel() {
+		final org.osate.ge.mm.diagram.RelativeBusinessObjectReference newValue = new org.osate.ge.mm.diagram.RelativeBusinessObjectReference();
+		for(final String seg : segments) {
+			newValue.getSeg().add(seg);
+		}
+		return newValue;
+	}
 }

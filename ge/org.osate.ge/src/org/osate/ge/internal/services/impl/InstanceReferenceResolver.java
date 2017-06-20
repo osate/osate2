@@ -45,7 +45,7 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ResolveReference;
+import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.SystemInstanceLoadingService;
 
@@ -155,7 +155,7 @@ public class InstanceReferenceResolver {
 		}
 	}
 	
-	@ResolveReference
+	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs) {
 		if(refSegs.length < 3) {
 			return null;

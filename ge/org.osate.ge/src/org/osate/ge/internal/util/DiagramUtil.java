@@ -1,11 +1,10 @@
 package org.osate.ge.internal.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Arrays;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
@@ -14,6 +13,7 @@ import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
 public class DiagramUtil {
 	private static final String legacyReferenceKey = "independentObject";	
+	private static final String legacyDiagramIndicator = "graphiti";
 	
 	/**
 	 * Returns whether a resource is a legacy diagram file.
@@ -21,13 +21,15 @@ public class DiagramUtil {
 	 * @return
 	 */
 	public static boolean isLegacy(final IFile diagramResource) {
+		// Read the first couple of lines and look for the indicator that it is a Graphiti diagram.
+		// If it is included, then we assume it is a legacy diagram. The indicator should be included in the Graphiti namespace reference.
 		final File file = diagramResource.getLocation().toFile();				
 		try(final FileInputStream is = new FileInputStream(file)) {
-			final Reader reader = new InputStreamReader(is);
-			final char[] xmlStart = "<?xml".toCharArray();
-			final char[] buf = new char[xmlStart.length];
-			if(reader.read(buf) == buf.length) {
-				return Arrays.equals(xmlStart, buf);
+			final BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+			final String line1 = reader.readLine();
+			final String line2 = reader.readLine();
+			if((line1 != null && line1.contains(legacyDiagramIndicator)) || (line2 != null && line2.contains(legacyDiagramIndicator))) {
+				return true;
 			}
 		} catch (final IOException e) {
 			throw new RuntimeException(e);

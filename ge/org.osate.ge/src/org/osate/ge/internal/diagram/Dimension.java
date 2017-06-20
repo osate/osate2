@@ -48,6 +48,13 @@ public class Dimension {
 		return true;
 	}
 
+	public org.osate.ge.mm.diagram.Dimension toMetamodel() {
+		final org.osate.ge.mm.diagram.Dimension newDimension = new org.osate.ge.mm.diagram.Dimension();
+		newDimension.setWidth(width);
+		newDimension.setHeight(height);
+		return newDimension;
+	}	
+	
 	public final int width;
 	public final int height;
 }

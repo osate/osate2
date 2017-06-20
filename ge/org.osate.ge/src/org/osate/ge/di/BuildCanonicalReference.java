@@ -14,24 +14,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+// TODO: Review and Document. Canonical reference.
 /**
- * <p>
- * This annotation must not be applied to more than one method per class.
- * </p>
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">
  *   <tr><th>Usage</th><th>Description</th><th>Return Value</th></tr>
- *   <tr><td>Reference Resolver</td><td>Returns the referenced business object. Returns null if the business object could not be returned.</td><td>Object</td></tr>
+ *   <tr><td>Reference Builder</td><td>Returns a canonical reference for a business object. A reference is an array of strings.</td><td>String[]</td></tr>
  * </table>
  * <h1>Named Parameters</h1>
  * <table summary="Named Parameters">
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
- *   <tr><td>{@link org.osate.ge.di.Names#REFERENCE}</td><td>Reference Resolver</td><td>The reference for which to retrieve the business object.</td></tr>
+ *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Reference Builder</td><td>The business object for which to return reference segments.</td></tr>
  * </table>
- * @see BuildReference
+ * @see ResolveCanonicalReference
  */
 @Documented
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
-public @interface ResolveReference {
+public @interface BuildCanonicalReference {
 }
