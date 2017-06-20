@@ -59,4 +59,6 @@ public final class SEI {
 
 	public static final String MODEL_REFERENCES = "model_references";
 	public static final String PLATFORM = "platform";
+
+	public static final String PRICE = "price";
 }
