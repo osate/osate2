@@ -23,7 +23,7 @@ import org.osate.analysis.architecture.handlers.CheckA429PortConnectionConsisten
 import org.osate.analysis.architecture.handlers.CheckConnectionBindingConsistency
 import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
-import org.osate.analysis.flows.actions.CheckFlowLatency
+import org.osate.analysis.flows.handlers.CheckFlowLatency
 import org.osate.analysis.flows.preferences.Values
 import org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis
 import org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis
