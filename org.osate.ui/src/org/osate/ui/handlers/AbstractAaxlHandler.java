@@ -449,6 +449,23 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	}
 	
 	/**
+	 * Initialize the state of analysis.  For example,
+	 * this can open a dialog box to get additional parameters to the
+	 * analysis.  The analysis state should be initialized by setting
+	 * fields that are then used by {@link #analyzeDeclarativeModel}
+	 * and {@link #analyzeInstanceModel}.
+	 *
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 *
+	 * @return <code>true</code> if the analysis should proceed or
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean initializeAnalysis(NamedElement object) {
+		return true;
+	}
+	
+	/**
 	 * Initialize the state of the action.  For example,
 	 * this can open a dialog box to get additional parameters to the
 	 * analysis.  The analysis state should be initialized by setting
@@ -462,6 +479,19 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	 * <code>false</code> if the user cancelled the analysis.
 	 */
 	protected boolean initializeAction(NamedElement object) {
+		return true;
+	}
+	
+	/**
+	 * finalize the state of analysis.  For example,
+	 * this can close a report being generated.
+	 * <p>The default implementation of this method simply returns
+	 * <code>true</code>.
+	 *
+	 * @return <code>true</code> if the analysis should proceed or
+	 * <code>false</code> if the user cancelled the analysis.
+	 */
+	protected boolean finalizeAnalysis() {
 		return true;
 	}
 	
