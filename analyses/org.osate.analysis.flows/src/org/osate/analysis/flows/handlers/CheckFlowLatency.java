@@ -37,7 +37,7 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.flows.actions;
+package org.osate.analysis.flows.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
@@ -46,26 +46,15 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.flows.FlowLatencyAnalysisSwitch;
-import org.osate.analysis.flows.FlowanalysisPlugin;
 import org.osate.analysis.flows.model.LatencyReport;
 import org.osate.analysis.flows.reporting.exporters.CsvExport;
 import org.osate.analysis.flows.reporting.exporters.ExcelExport;
 import org.osate.analysis.flows.reporting.model.Report;
-import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelReadOnlyAction;
 import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
-public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyAction {
+public final class CheckFlowLatency extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
 	protected static LatencyReport latreport = null;
-
-	@Override
-	protected void initPropertyReferences() {
-	}
-
-	@Override
-	protected Bundle getBundle() {
-		return FlowanalysisPlugin.getDefault().getBundle();
-	}
 
 	@Override
 	protected String getActionName() {
