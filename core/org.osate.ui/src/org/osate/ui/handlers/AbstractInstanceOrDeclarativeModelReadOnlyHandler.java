@@ -37,7 +37,7 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.window.Window;
@@ -51,31 +51,21 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.dialogs.SOMChooserDialog;
 
-/**
- * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler}.
- */
-@Deprecated
-public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends AaxlReadOnlyActionAsJob {
+public abstract class AbstractInstanceOrDeclarativeModelReadOnlyHandler extends AaxlReadOnlyHandlerAsJob {
 	private static final String INITIAL_MODE_LABEL = "Initial Mode";
 	private static final String CHOOSE_MODE_LABEL = "Choose Mode...";
 	private static final String ALL_MODES_LABEL = "All Modes";
-
+	
 	private static final String[] ALL_MODE_CHOICE_LABELS = { INITIAL_MODE_LABEL, CHOOSE_MODE_LABEL, ALL_MODES_LABEL };
 	private static final String[] SINGLE_MODE_CHOICE_LABELS = { INITIAL_MODE_LABEL, CHOOSE_MODE_LABEL };
-
+	
 	private static final int INITIAL_MODE = 0;
 	private static final int CHOOSE_MODE = 1;
-	private static final int ALL_MODES = 2;
-
+	
 	private static final int DEFAULT_MODE_CHOICE = INITIAL_MODE;
-
+	
 	private int lastDefaultModeChoice = DEFAULT_MODE_CHOICE;
-
-	protected AbstractInstanceOrDeclarativeModelReadOnlyAction() {
-		super();
-	}
-
+	
 	/**
 	 * Should instance models be analyzed in a single mode only?  If this
 	 * returns <code>true</code>, then the user is not allowed to choose
@@ -86,7 +76,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 	protected boolean analyzeInSingleModeOnly() {
 		return false;
 	}
-
+	
 	@Override
 	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
 		final NamedElement root = ((NamedElement) obj).getElementRoot();
@@ -143,7 +133,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 			}
 		}
 	}
-
+	
 	private void analyzeInstanceModelInMode(final IProgressMonitor monitor,
 			final AnalysisErrorReporterManager errManager, final SystemInstance si, final SystemOperationMode som) {
 		errManager.addPrefix(Aadl2Util.getPrintableSOMName(som) + ": ");
@@ -151,7 +141,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 		si.clearCurrentSystemOperationMode();
 		errManager.removePrefix();
 	}
-
+	
 	/**
 	 * Analyze the model starting from a declarative model element.
 	 * @param monitor The progress monitor to use.
@@ -162,7 +152,7 @@ public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends A
 	 */
 	protected abstract void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject);
-
+	
 	/**
 	 * Analyze a system instance model in a particular system operation mode.
 	 * The model is already projected into the given SOM, and the error
