@@ -25,10 +25,10 @@ import org.osate.analysis.architecture.handlers.DoPortConnectionConsistency
 import org.osate.analysis.architecture.handlers.DoPropertyTotals
 import org.osate.analysis.flows.handlers.CheckFlowLatency
 import org.osate.analysis.flows.preferences.Values
-import org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis
-import org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis
-import org.osate.analysis.resource.budgets.actions.DoPowerAnalysis
-import org.osate.analysis.resource.budgets.actions.DoResourceBudget
+import org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
+import org.osate.analysis.resource.budgets.handlers.DoResourceBudget
 import org.osate.analysis.resource.management.actions.Binpack
 import org.osate.analysis.security.actions.CheckSafety
 import org.osate.analysis.security.actions.CheckSecurity
