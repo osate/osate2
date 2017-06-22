@@ -52,6 +52,7 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.AadlConstants;
 import org.osate.aadl2.modelsupport.WriteToFile;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterFactory;
@@ -446,6 +447,37 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 			logInfo((NamedElement) obj, msg);
 		else
 			logInfo(msg);
+	}
+	
+	public void errorSummary(final NamedElement obj, String somName, String msg) {
+		if (somName != null && !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.error(obj, msg);
+		summaryReport.append("** " + msg + "\n");
+	}
+	
+	public void warningSummary(final NamedElement obj, String somName, String msg) {
+		if (somName != null && !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + somName + ": " + msg;
+		}
+		errManager.warning(obj, msg);
+		summaryReport.append("* " + msg + "\n");
+	}
+	
+	public void infoSummary(final NamedElement obj, String somName, String msg) {
+		if (somName != null && !somName.isEmpty() && !somName.equalsIgnoreCase("No Modes")) {
+			msg = " in SystemMode " + somName + ": " + msg;
+		}
+		errManager.info(obj, msg);
+		summaryReport.append(msg + "\n");
+	}
+	
+	public void infoSummaryReportOnly(Element obj, SystemOperationMode som, String msg) {
+		if (som != null && !som.getName().equalsIgnoreCase("No Modes")) {
+			msg = "In SystemMode " + som.getName() + ": " + msg;
+		}
+		summaryReport.append(msg + "\n");
 	}
 	
 	/**
