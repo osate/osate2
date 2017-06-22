@@ -39,14 +39,15 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
-import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 
 public class DoBoundSwitchBandWidthAnalysisLogic extends DoBoundResourceAnalysisLogic {
-	public DoBoundSwitchBandWidthAnalysisLogic(final String actionName, final AbstractAaxlAction errManager) {
+	public DoBoundSwitchBandWidthAnalysisLogic(final String actionName, final AbstractAaxlHandler errManager) {
 		super(actionName, errManager);
 	}
 
+	@Override
 	public void analysisBody(final IProgressMonitor monitor, final Element obj) {
 		if (obj instanceof InstanceObject) {
 			SystemInstance root = ((InstanceObject) obj).getSystemInstance();

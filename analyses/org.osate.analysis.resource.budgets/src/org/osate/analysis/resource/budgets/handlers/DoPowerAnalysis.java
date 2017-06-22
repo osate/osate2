@@ -37,44 +37,69 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.resource.budgets.actions;
+package org.osate.analysis.resource.budgets.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
+import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
-import org.osate.analysis.architecture.InstanceValidation;
-import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
-import org.osate.analysis.resource.budgets.logic.DoResourceBudgetLogic;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.analysis.flows.reporting.exporters.CsvExport;
+import org.osate.analysis.flows.reporting.exporters.ExcelExport;
+import org.osate.analysis.flows.reporting.model.Report;
+import org.osate.analysis.flows.reporting.model.Report.ReportType;
+import org.osate.analysis.resource.budgets.logic.DoPowerAnalysisLogic;
 import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler;
 
-public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
+public final class DoPowerAnalysis extends AbstractInstanceOrDeclarativeModelReadOnlyHandler {
+	Report powerReport;
 
-	protected Bundle getBundle() {
-		return ResourceBudgetPlugin.getDefault().getBundle();
-	}
-
-	protected String getActionName() {
-		return "Resource Budget Analysis";
-	}
-
+	@Override
 	public String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.ResourceAnalysisMarker";
-	}
-
-	protected void initPropertyReferences() {
+		return "org.osate.analysis.resource.budgets.PowerAnalysisMarker";
 	}
 
 	@Override
-	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("ResourceBudgets", obj);
-		return true;
+	protected String getActionName() {
+		return "Analyze power consumption";
 	}
+
+	@Override
+	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			Element declarativeObject) {
+		Dialog.showError("Power Analysis Error", "Please select an instance model");
+	}
+
+	@Override
+	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
+			SystemInstance root, SystemOperationMode som) {
+		monitor.beginTask(getActionName(), 1);
+		DoPowerAnalysisLogic pas = new DoPowerAnalysisLogic(errManager);
+
+		pas.analyzePowerBudget(root, powerReport, som);
+
+		monitor.done();
+	}
+
+	@Override
+	protected boolean initializeAnalysis(NamedElement object) {
+		if (object instanceof SystemInstance) {
+			powerReport = new Report(object, "Power", "Power", ReportType.TABLE);
+			return true;
+		}
+		return false;
+	};
+
+	@Override
+	protected boolean finalizeAnalysis() {
+		CsvExport csvExport = new CsvExport(powerReport);
+		csvExport.save();
+		ExcelExport excelExport = new ExcelExport(powerReport);
+		excelExport.save();
+		return true;
+	};
 
 	public void setErrManager() {
 		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
@@ -88,40 +113,12 @@ public class DoResourceBudget extends AaxlReadOnlyActionAsJob {
 		this.getCSVLog().saveToFile();
 	}
 
-	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-
-		// Get the system instance (if any)
-		final SystemInstance si = (obj instanceof InstanceObject) ? ((InstanceObject) obj).getSystemInstance() : null;
-
-		if (si != null) {
-			monitor.beginTask(getActionName(), IProgressMonitor.UNKNOWN);
-			DoResourceBudgetLogic logic = null;
-
-			InstanceValidation iv = new InstanceValidation(this);
-			if (!iv.checkReferenceProcessor(si)) {
-				Dialog.showWarning("Resource Budget Analysis",
-						"Model contains thread execution times without reference processor.");
-				return;
-			}
-
-//			actionBody(monitor, si);
-
-			logic = new DoResourceBudgetLogic(this);
-			final SOMIterator soms = new SOMIterator(si);
-			while (soms.hasNext()) {
-				logic.analyzeResourceBudget(si, soms.next());
-			}
-			monitor.done();
-
-//			if (si.getSystemOperationModes().size() == 1) {
-//				// Also report the results using a message dialog
-//				Dialog.showInfo("Resource Budget Statistics", getResultsMessages());
-//			}
-		}
-	}
-
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}
 
+	public Report invokeAndGetReport(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+		return powerReport;
+	}
 }

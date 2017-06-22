@@ -37,76 +37,33 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.resource.budgets.actions;
+package org.osate.analysis.resource.budgets.handlers;
 
-import org.eclipse.core.runtime.IProgressMonitor;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
-import org.osate.analysis.architecture.InstanceValidation;
-import org.osate.analysis.resource.budgets.ResourceBudgetPlugin;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
-import org.osgi.framework.Bundle;
 
-/**
- * @author lwrage
- *
- */
-public class DoBoundResourceAnalysis extends AaxlReadOnlyActionAsJob {
-
-	protected void initPropertyReferences() {
-	}
-
-	protected Bundle getBundle() {
-		return ResourceBudgetPlugin.getDefault().getBundle();
-	}
-
-	public String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.BoundResourceAnalysisMarker";
-	}
-
+public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
+	@Override
 	protected String getActionName() {
-		return "Bound Resource Budget Analysis";
+		return "Bound Bus Bandwidth Analysis";
+	}
+
+	@Override
+	public String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.BoundBandwidthAnalysisMarker";
 	}
 
 	@Override
 	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("BoundResourceBudgets", obj);
+		setCSVLog("Bandwidth", obj);
 		return true;
 	}
 
-	public void setErrManager() {
-		this.errManager = new AnalysisErrorReporterManager(this.getAnalysisErrorReporterFactory());
-	}
-
-	public void setSummaryReport() {
-		this.summaryReport = new StringBuffer();
-	}
-
-	public void saveReport() {
-		this.getCSVLog().saveToFile();
-	}
-
-	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-		InstanceModelUtil.clearCache();
-		InstanceValidation iv = new InstanceValidation(this);
-		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
-			errManager.error(obj, "Model contains thread execution times without reference processor.");
-			return;
-		}
-		getLogicObject().analysisBody(monitor, obj);
-	}
-
+	@Override
 	protected DoBoundResourceAnalysisLogic getLogicObject() {
-		return new DoBoundResourceAnalysisLogic(getActionName(), this);
+		InstanceModelUtil.clearCache();
+		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
 	}
-
-	public void invoke(IProgressMonitor monitor, SystemInstance root) {
-		actionBody(monitor, root);
-	}
-
 }

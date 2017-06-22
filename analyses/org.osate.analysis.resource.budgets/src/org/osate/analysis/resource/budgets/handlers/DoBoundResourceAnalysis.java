@@ -37,41 +37,38 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.resource.budgets.actions;
+package org.osate.analysis.resource.budgets.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
+import org.osate.analysis.architecture.InstanceValidation;
 import org.osate.analysis.resource.budgets.logic.DoBoundResourceAnalysisLogic;
-import org.osate.analysis.resource.budgets.logic.DoBoundSwitchBandWidthAnalysisLogic;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 
-public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
+/**
+ * @author lwrage
+ *
+ */
+public class DoBoundResourceAnalysis extends AaxlReadOnlyHandlerAsJob {
 	@Override
-	protected String getActionName() {
-		return "Bound Bus Bandwidth Analysis";
+	public String getMarkerType() {
+		return "org.osate.analysis.resource.budgets.BoundResourceAnalysisMarker";
 	}
 
 	@Override
-	public String getMarkerType() {
-		return "org.osate.analysis.resource.budgets.BoundBandwidthAnalysisMarker";
+	protected String getActionName() {
+		return "Bound Resource Budget Analysis";
 	}
 
 	@Override
 	public boolean initializeAction(NamedElement obj) {
-		setCSVLog("Bandwidth", obj);
+		setCSVLog("BoundResourceBudgets", obj);
 		return true;
-	}
-
-	@Override
-	protected DoBoundResourceAnalysisLogic getLogicObject() {
-		InstanceModelUtil.clearCache();
-		return new DoBoundSwitchBandWidthAnalysisLogic(getActionName(), this);
-	}
-
-	public void invoke(IProgressMonitor monitor, SystemInstance root) {
-		actionBody(monitor, root);
 	}
 
 	public void setErrManager() {
@@ -86,4 +83,22 @@ public class DoBoundSwitchBandWidthAnalysis extends DoBoundResourceAnalysis {
 		this.getCSVLog().saveToFile();
 	}
 
+	@Override
+	public final void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
+		InstanceModelUtil.clearCache();
+		InstanceValidation iv = new InstanceValidation(this);
+		if (!iv.checkReferenceProcessor(((InstanceObject) obj).getSystemInstance())) {
+			errManager.error(obj, "Model contains thread execution times without reference processor.");
+			return;
+		}
+		getLogicObject().analysisBody(monitor, obj);
+	}
+
+	protected DoBoundResourceAnalysisLogic getLogicObject() {
+		return new DoBoundResourceAnalysisLogic(getActionName(), this);
+	}
+
+	public void invoke(IProgressMonitor monitor, SystemInstance root) {
+		actionBody(monitor, root);
+	}
 }

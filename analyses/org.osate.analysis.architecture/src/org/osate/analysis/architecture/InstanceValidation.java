@@ -6,15 +6,15 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
-import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class InstanceValidation {
-	private final AbstractAaxlAction action;
+	private final AbstractAaxlHandler handler;
 	private boolean isOK = true;
 
-	public InstanceValidation(final AbstractAaxlAction action) {
-		this.action = action;
+	public InstanceValidation(final AbstractAaxlHandler handler) {
+		this.handler = handler;
 	}
 
 	public boolean checkReferenceProcessor(SystemInstance root) {
@@ -37,7 +37,7 @@ public class InstanceValidation {
 				ComponentClassifier refproc = GetProperties.getReferenceProcessor(ci);
 				if (refproc == null) {
 					isOK = false;
-					action.error(ci, "Thread instance " + ci.getComponentInstancePath()
+					handler.error(ci, "Thread instance " + ci.getComponentInstancePath()
 							+ " has execution time, but no Reference_Processor. Please this property.");
 				}
 			}

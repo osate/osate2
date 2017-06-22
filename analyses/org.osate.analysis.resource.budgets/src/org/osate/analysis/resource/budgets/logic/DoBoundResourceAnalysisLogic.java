@@ -56,8 +56,8 @@ import org.osate.aadl2.modelsupport.modeltraversal.SOMIterator;
 import org.osate.aadl2.modelsupport.util.ConnectionGroupIterator;
 import org.osate.aadl2.properties.PropertyDoesNotApplyToHolderException;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.ui.actions.AbstractAaxlAction;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.AadlProject;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
@@ -72,7 +72,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 
 	private int count = 0;
 
-	public DoBoundResourceAnalysisLogic(final String actionName, final AbstractAaxlAction errManager) {
+	public DoBoundResourceAnalysisLogic(final String actionName, final AbstractAaxlHandler errManager) {
 		super(errManager);
 		this.actionName = actionName;
 	}
@@ -189,7 +189,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		}
 		double totalMIPS = 0.0;
 		for (Iterator<ComponentInstance> it = boundComponents.iterator(); it.hasNext();) {
-			ComponentInstance bci = (ComponentInstance) it.next();
+			ComponentInstance bci = it.next();
 
 			double actualmips = sumBudgets(bci, ResourceKind.MIPS, mipsliteral, som, "");
 			if (actualmips > 0) {
@@ -251,8 +251,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	 * @param curMemory Component Instance of memory
 	 */
 	protected void checkMemoryLoad(ComponentInstance curMemory, final SystemOperationMode som) {
-		SystemInstance root = curMemory.getSystemInstance();
-
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(curMemory);
 		EList<ComponentInstance> boundComponents = InstanceModelUtil.getBoundSWComponents(curMemory);
 		double MemoryCapacity = GetProperties.getMemorySize(curMemory, kbliteral);
@@ -296,7 +294,7 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		logHeader("\n\nDetailed Workload Report: " + Aadl2Util.getPrintableSOMName(som) + " for memory "
 				+ curMemory.getComponentInstancePath() + " with Capacity "
 				+ GetProperties.toStringScaled(Memorycapacity, kbliteral) + "\n\nComponent,Budget,Actual");
-		Set budgeted = new HashSet();
+		Set<ComponentInstance> budgeted = new HashSet<>();
 		for (ComponentInstance bci : boundComponents) {
 			String notes = "";
 			double totalactual = sumMemoryActualPropertyValue(bci, isROM);
@@ -471,7 +469,6 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 		UnitLiteral kbspsliteral = GetProperties.getKBytespsUnitLiteral(curBus);
 		double Buscapacity = GetProperties.getBandWidthCapacityInKBytesps(curBus, 0.0);
 		boolean doBroadcast = GetProperties.isBroadcastProtocol(curBus);
-		SystemInstance root = curBus.getSystemInstance();
 		double totalBandWidth = 0.0;
 		EList<ConnectionInstance> budgetedConnections = InstanceModelUtil.getBoundConnections(curBus);
 
@@ -571,11 +568,11 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 			double datasize = GetProperties.getSourceDataSize(fi, GetProperties.getKBUnitLiteral(fi));
 			double srcRate = GetProperties.getOutgoingMessageRatePerSecond(fi);
 			res = datasize * srcRate;
-			EList fil = fi.getFeatureInstances();
+			EList<FeatureInstance> fil = fi.getFeatureInstances();
 			if (fil.size() > 0) {
 				double subres = 0;
-				for (Iterator it = fil.iterator(); it.hasNext();) {
-					FeatureInstance sfi = (FeatureInstance) it.next();
+				for (Iterator<FeatureInstance> it = fil.iterator(); it.hasNext();) {
+					FeatureInstance sfi = it.next();
 					subres = subres + calcBandwidthKBytesps(sfi);
 				}
 				if (subres > res) {
@@ -608,9 +605,9 @@ public class DoBoundResourceAnalysisLogic extends DoResourceBudgetLogic {
 	protected double sumMemoryActualPropertyValue(ComponentInstance ci, boolean isROM) {
 		try {
 			double total = isROM ? GetProperties.getROMActualInKB(ci, 0.0) : GetProperties.getRAMActualInKB(ci, 0.0);
-			EList subcis = ci.getComponentInstances();
-			for (Iterator it = subcis.iterator(); it.hasNext();) {
-				ComponentInstance subci = (ComponentInstance) it.next();
+			EList<ComponentInstance> subcis = ci.getComponentInstances();
+			for (Iterator<ComponentInstance> it = subcis.iterator(); it.hasNext();) {
+				ComponentInstance subci = it.next();
 				total += sumMemoryActualPropertyValue(subci, isROM);
 			}
 			return total;
