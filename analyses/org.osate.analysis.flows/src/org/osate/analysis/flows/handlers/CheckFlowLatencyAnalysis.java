@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.analysis.flows.actions;
+package org.osate.analysis.flows.handlers;
 
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.ui.actions.AbstractAnalysis;

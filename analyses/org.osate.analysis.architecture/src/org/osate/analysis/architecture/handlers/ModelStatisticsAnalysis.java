@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.analysis.architecture.actions;
+package org.osate.analysis.architecture.handlers;
 
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.osate.aadl2.instance.InstanceObject;
