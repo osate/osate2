@@ -1,6 +1,6 @@
 /* Created on Oct 18, 2004
  */
-package org.osate.analysis.resource.management.actions;
+package org.osate.analysis.resource.management.handlers;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.properties.PropertyNotPresentException;

@@ -37,7 +37,7 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.resource.management.actions;
+package org.osate.analysis.resource.management.handlers;
 
 import java.util.List;
 
@@ -52,28 +52,20 @@ import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.analysis.resource.management.ResourcemanagementPlugin;
 import org.osate.analysis.scheduling.RuntimeProcessWalker;
 import org.osate.ui.UiUtil;
-import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
-import org.osgi.framework.Bundle;
 
-public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActionAction {
-
-	protected void initPropertyReferences() {
-	}
-
-	protected Bundle getBundle() {
-		return ResourcemanagementPlugin.getDefault().getBundle();
-	}
-
+public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyHandler {
+	@Override
 	protected String getActionName() {
 		return "Test scheduability";
 	}
 
+	@Override
 	public String getMarkerType() {
 		return "org.osate.analysis.resource.management.ScheduleObjectMarker";
 	}
@@ -149,7 +141,6 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 			protected boolean suchThat(Element obj) {
 				if (!InstanceModelUtil.isPeriodicThread((ComponentInstance) obj))
 					return false;
-				List<ComponentInstance> boundProcessor;
 				return InstanceModelUtil.isBoundToProcessor((ComponentInstance) obj, processor);
 			}
 		}.processPreOrderComponentInstance(processor.getSystemInstance(), ComponentCategory.THREAD);
@@ -222,5 +213,4 @@ public final class Schedule extends AbstractInstanceOrDeclarativeModelModifyActi
 	public void invoke(IProgressMonitor monitor, SystemInstance root) {
 		actionBody(monitor, root);
 	}
-
 }

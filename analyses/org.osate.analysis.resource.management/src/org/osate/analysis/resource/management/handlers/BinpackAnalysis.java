@@ -31,32 +31,14 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.analysis.resource.management.actions;
+package org.osate.analysis.resource.management.handlers;
 
-import org.osate.aadl2.instance.InstanceObject;
-import org.osate.aadl2.instance.SystemInstance;
-import org.osate.aadl2.properties.InvalidModelException;
-import org.osate.analysis.resource.management.ResourcemanagementPlugin;
-import org.osate.analysis.scheduling.inversion.PriorityInversion;
 import org.osate.ui.actions.AbstractAnalysis;
 
-public class CheckPriorityInversionAnalysis extends AbstractAnalysis {
+public class BinpackAnalysis extends AbstractAnalysis {
 
 	protected boolean runImpl() {
-		if (getParameter() instanceof InstanceObject) {
-			try {
-				SystemInstance root = ((InstanceObject) getParameter()).getSystemInstance();
-				final PriorityInversion pi = new PriorityInversion(getErrorManager());
-				pi.checkSystemPriorityInversion(root);
-			} catch (InvalidModelException e) {
-				// Should never happen. We already check for SEI::Priority
-				ResourcemanagementPlugin.logThrowable(e);
-			}
-		} else
-			// Should never happen.
-			ResourcemanagementPlugin
-					.logErrorMessage("The object passed to CheckPriorityInversionAnalysis is not a System Instance.");
-		return getErrorManager().getNumErrors() == 0;
+		return true;
 	}
 
 	protected boolean readyToRunImpl() {
@@ -64,6 +46,6 @@ public class CheckPriorityInversionAnalysis extends AbstractAnalysis {
 	}
 
 	public String getMarkerType() {
-		return "org.osate.analysis.resource.management.InversionObjectMarker";
+		return "org.osate.analysis.resource.management.BinpackObjectMarker";
 	}
 }

@@ -51,7 +51,7 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.QuickSort;
 import org.osate.aadl2.properties.PropertyNotPresentException;
-import org.osate.analysis.resource.management.actions.Schedule;
+import org.osate.analysis.resource.management.handlers.Schedule;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.InstanceModelUtil;
 

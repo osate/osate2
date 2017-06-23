@@ -1,6 +1,6 @@
 /* Created on Aug 26, 2005
  */
-package org.osate.analysis.resource.management.actions;
+package org.osate.analysis.resource.management.handlers;
 
 import java.util.HashMap;
 import java.util.Iterator;

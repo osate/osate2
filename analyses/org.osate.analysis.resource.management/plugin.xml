@@ -1,173 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-     <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.osate.analysis.resource.management.actionSet"
-            label="%actionSet.label"
-            visible="false">
-
-         <menu
-               id="menu.osate"
-               label="%menu.osate.label"
-               path="project">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-         </menu>
-
-         <menu
-               id="menu.analyses"
-               label="%menu.analyses.label"
-               path="menu.osate">
-            <groupMarker name="top.grp"/>
-            <groupMarker name="bottom.grp"/>
-         </menu>
-
-         <menu
-               id="menu.rsrc"
-               label="%menu.rsrc.label"
-               path="menu.analyses/top.grp">
-            <groupMarker name="stuff.grp"/>
-         </menu>
-         
-         <action
-               id="org.osate.analysis.resource.management.actions.CheckPriorityInversion.action"
-               label="%CheckPriorityInversion.label"
-               tooltip="%CheckPriorityInversion.toolTip"
-               icon="%CheckPriorityInversion.icon"
-               disabledIcon="%CheckPriorityInversion.disabledIcon"
-               class="org.osate.analysis.resource.management.actions.CheckPriorityInversion"
-               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
-               toolbarPath="rsrc.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-         
-         <!--
-         <action
-               id="org.osate.analysis.resource.management.actions.Schedule.action"
-               label="%Schedule.label"
-               tooltip="%Schedule.toolTip"
-               icon="%Schedule.icon"
-               disabledIcon="%Schedule.disabledIcon"
-               class="org.osate.analysis.resource.management.actions.Schedule"
-               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
-               toolbarPath="rsrc.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                   <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-         -->
-         
-         <action
-               id="org.osate.analysis.resource.management.actions.Binpack.action"
-               label="%Binpack.label"
-               tooltip="%Binpack.toolTip"
-               icon="%Binpack.icon"
-               disabledIcon="%Binpack.disabledIcon"
-               class="org.osate.analysis.resource.management.actions.Binpack"
-               menubarPath="menu.analyses/menu.rsrc/stuff.grp"
-               toolbarPath="rsrc.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-      </actionSet>
-   </extension>
-   
-   <extension
-   	   point="org.eclipse.ui.perspectiveExtensions">
-   	   <perspectiveExtension
-   		   targetID="org.osate.ui.perspective.AadlPerspective">
-   		   <actionSet
-   		 	   id="org.osate.analysis.resource.management.actionSet"/>
-   	   </perspectiveExtension>
-   </extension>
-
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="org.osate.analysis.resource.management.oc1"
-            objectClass="java.lang.Object">
-         <visibility>
-            <or>
-               <and>
-                  <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl2"/>
-               </and>
-               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-            </or>
-         </visibility>
-         
-         <menu
-               id="org.osate.ui.popupMenu.Analyses"
-               label="%popupMenu.analyses.label"
-               path="additions">
-            <groupMarker name="anal.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-
-         <menu
-               id="org.osate.analysis.resource.management.popupMenu.Rsrc"
-               label="%popupMenu.Rsrc.label"
-               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
-            <groupMarker name="anal.grp"/>
-         </menu>
-
-         <action
-               id="org.osate.analysis.resource.management.actions.CheckPriorityInversion.popupAction"
-               label="%CheckPriorityInversion.label"
-               tooltip="%CheckPriorityInversion.toolTip"
-               icon="%CheckPriorityInversion.icon"
-               class="org.osate.analysis.resource.management.actions.CheckPriorityInversion"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupMenu.Rsrc/anal.grp"
-               enablesFor="1"/>
-         
-         <action
-               id="org.osate.analysis.resource.management.actions.Schedule.popupAction"
-               label="%Schedule.label"
-               tooltip="%Schedule.toolTip"
-               icon="%Schedule.icon"
-               class="org.osate.analysis.resource.management.actions.Schedule"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupMenu.Rsrc/anal.grp"
-               enablesFor="1"/>
-         
-         <action
-               id="org.osate.analysis.resource.management.actions.Binpack.popupAction"
-               label="%Binpack.label"
-               tooltip="%Binpack.toolTip"
-               icon="%Binpack.icon"
-               class="org.osate.analysis.resource.management.actions.Binpack"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupMenu.Rsrc/anal.grp"
-               enablesFor="1"/>
-      </objectContribution>
-   </extension>
-   
    <extension
          id="BinpackObjectMarker"
          name="Thread Binding Analysis Marker"
@@ -190,5 +23,277 @@
          point="org.eclipse.core.resources.markers">
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
+   </extension>
+   
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.resource.management.category"
+            name="%actionSet.label">
+      </category>
+      <command
+            categoryId="org.osate.analysis.resource.management.category"
+            id="org.osate.analysis.resource.management.checkPriorityInversion"
+            name="%CheckPriorityInversion.label">
+      </command>
+      <command
+            categoryId="org.osate.analysis.resource.management.category"
+            id="org.osate.analysis.resource.management.schedule"
+            name="%Schedule.label">
+      </command>
+      <command
+            categoryId="org.osate.analysis.resource.management.category"
+            id="org.osate.analysis.resource.management.binpack"
+            name="%Binpack.label">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.analysis.resource.management.handlers.CheckPriorityInversion"
+            commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.analysis.resource.management.handlers.Schedule"
+            commandId="org.osate.analysis.resource.management.schedule">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.analysis.resource.management.handlers.Binpack"
+            commandId="org.osate.analysis.resource.management.binpack">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.analysis.resource.management.checkPriorityInversion"
+            icon="icons/inversion.gif"
+            disabledIcon="icons/noInversion.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.resource.management.schedule"
+            icon="icons/schedule.gif"
+            disabledIcon="icons/noSchedule.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.resource.management.binpack"
+            icon="icons/binpack.gif"
+            disabledIcon="icons/noBinpack.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label">
+            <menu
+                  id="menu.rsrc"
+                  label="%menu.rsrc.label">
+               <command
+                     commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="activeWorkbenchWindow.activePerspective">
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                     </with>
+                  </visibleWhen>
+               </command>
+               <command
+                     commandId="org.osate.analysis.resource.management.binpack">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="activeWorkbenchWindow.activePerspective">
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                     </with>
+                  </visibleWhen>
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="rsrc.toolbar">
+            <command
+                  commandId="org.osate.analysis.resource.management.checkPriorityInversion"
+                  tooltip="%CheckPriorityInversion.toolTip">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.osate.analysis.resource.management.binpack"
+                  tooltip="%Binpack.toolTip">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               id="org.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label">
+            <menu
+                  id="org.osate.analysis.resource.management.popupMenu.Rsrc"
+                  label="%popupMenu.Rsrc.label">
+               <command
+                     commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="selection">
+                        <iterate
+                              operator="and"
+                              ifEmpty="false">
+                           <or>
+                              <instanceof
+                                    value="org.osate.aadl2.instance.SystemInstance">
+                              </instanceof>
+                              <adapt
+                                    type="org.eclipse.core.resources.IFile">
+                                 <test
+                                       property="org.eclipse.core.resources.contentTypeId"
+                                       value="org.osate.core.instanceModelFile">
+                                 </test>
+                              </adapt>
+                           </or>
+                        </iterate>
+                     </with>
+                  </visibleWhen>
+               </command>
+               <command
+                     commandId="org.osate.analysis.resource.management.schedule">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="selection">
+                        <iterate
+                              operator="and"
+                              ifEmpty="false">
+                           <or>
+                              <instanceof
+                                    value="org.osate.aadl2.instance.SystemInstance">
+                              </instanceof>
+                              <adapt
+                                    type="org.eclipse.core.resources.IFile">
+                                 <test
+                                       property="org.eclipse.core.resources.contentTypeId"
+                                       value="org.osate.core.instanceModelFile">
+                                 </test>
+                              </adapt>
+                           </or>
+                        </iterate>
+                     </with>
+                  </visibleWhen>
+               </command>
+               <command
+                     commandId="org.osate.analysis.resource.management.binpack">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="selection">
+                        <iterate
+                              operator="and"
+                              ifEmpty="false">
+                           <or>
+                              <instanceof
+                                    value="org.osate.aadl2.instance.SystemInstance">
+                              </instanceof>
+                              <adapt
+                                    type="org.eclipse.core.resources.IFile">
+                                 <test
+                                       property="org.eclipse.core.resources.contentTypeId"
+                                       value="org.osate.core.instanceModelFile">
+                                 </test>
+                              </adapt>
+                           </or>
+                        </iterate>
+                     </with>
+                  </visibleWhen>
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
    </extension>
 </plugin>

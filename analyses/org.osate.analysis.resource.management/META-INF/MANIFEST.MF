@@ -8,7 +8,7 @@ Bundle-Activator: org.osate.analysis.resource.management.ResourcemanagementPlugi
 Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
 Export-Package: org.osate.analysis.resource.management,
- org.osate.analysis.resource.management.actions,
+ org.osate.analysis.resource.management.handlers,
  org.osate.analysis.scheduling,
  org.osate.analysis.scheduling.inversion
 Require-Bundle: org.osate.analysis.binpacking,
@@ -17,4 +17,3 @@ Require-Bundle: org.osate.analysis.binpacking,
  org.osate.ui;bundle-version="1.0.0",
  org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
 Eclipse-LazyStart: true
-Import-Package: org.osate.analysis.resource.management.actions

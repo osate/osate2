@@ -1,4 +1,4 @@
-package org.osate.analysis.resource.management.actions;
+package org.osate.analysis.resource.management.handlers;
 
 import org.osate.aadl2.NumberValue;
 import org.osate.aadl2.RangeValue;
