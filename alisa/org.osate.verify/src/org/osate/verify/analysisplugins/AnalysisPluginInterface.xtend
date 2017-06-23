@@ -29,7 +29,7 @@ import org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoResourceBudget
-import org.osate.analysis.resource.management.actions.Binpack
+import org.osate.analysis.resource.management.handlers.Binpack
 import org.osate.analysis.security.actions.CheckSafety
 import org.osate.analysis.security.actions.CheckSecurity
 
