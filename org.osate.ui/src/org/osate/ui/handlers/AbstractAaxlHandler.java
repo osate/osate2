@@ -281,7 +281,7 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	/** the current selection in the AADL model
 	 *
 	 */
-	private Object getCurrentSelection(ExecutionEvent event) {
+	protected Object getCurrentSelection(ExecutionEvent event) {
 		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
@@ -291,7 +291,7 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 		}
 	}
 	
-	protected final Shell getShell() {
+	protected Shell getShell() {
 		return HandlerUtil.getActiveShell(event);
 	}
 	
@@ -478,6 +478,13 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 			msg = "In SystemMode " + som.getName() + ": " + msg;
 		}
 		summaryReport.append(msg + "\n");
+	}
+	
+	/**
+	 * Report an internal error in the operation of the action.
+	 */
+	protected final void internalError(final String msg) {
+		errManager.internalError(msg);
 	}
 	
 	/**
