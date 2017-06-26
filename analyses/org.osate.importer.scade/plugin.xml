@@ -1,107 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            label="Sample Action Set"
-            visible="false"
-            id="org.osate.importer.scade.actionSet">
-         <menu
-               id="menu.osate"
-               label="%menu.osate.label"
-               path="project">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-         </menu>
-
-         <menu
-               id="menu.analyses"
-               label="%menu.analyses.label"
-               path="menu.osate">
-            <groupMarker name="top.grp"/>
-            <groupMarker name="bottom.grp"/>
-         </menu>
-
-         <menu
-               id="menu.importer"
-               label="Import/Export Models"
-               path="menu.analyses/top.grp">
-            <groupMarker name="stuff.grp"/>
-                         <visibleWhen checkEnabled="false">
-            <with variable="activeWorkbenchWindow.activePerspective">
-                <equals value="AADL"/>
-            </with>
-         </visibleWhen>
-         </menu>
-
-         <action
-               class="org.osate.importer.scade.actions.DoImportModel"
-               enablesFor="1"
-               icon="icons/scade.gif"
-               id="org.osate.actions.DoImportScade"
-               label="Import Scade model"
-               menubarPath="menu.analyses/menu.importer/stuff.grp"
-               toolbarPath="rsrc.toolbar"
-               tooltip="Import a Scade model into AADL">
-         </action>
-      </actionSet>
-   </extension>
-
-   <extension
-   	   point="org.eclipse.ui.perspectiveExtensions">
-   	   <perspectiveExtension
-   		   targetID="org.osate.ui.perspective.AadlPerspective">
-   		   <actionSet
-   		 	   id="org.osate.importer.scade.actionSet"/>
-   	   </perspectiveExtension>
-   </extension>
-
-
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="edu.cmu.sei.vdid.dsm.oc1"
-            objectClass="java.lang.Object">
-         <visibility>
-            <or>
-               <and>
-                  <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl2"/>
-               </and>
-               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-            </or>
-         </visibility> 
-
-         <menu
-               id="org.osate.ui.popupMenu.Analyses"
-               label="%popupMenu.analyses.label"
-               path="additions">
-            <groupMarker name="anal.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-
-         <menu
-               id="org.osate.analysis.resource.management.popupmenu.importer"
-               label="Import/Export Models"
-               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
-            <groupMarker name="anal.grp"/>
-         </menu>
-         <action
-               id="org.osate.actions.DoImportScade"
-               label="Scade model import"
-               tooltip="Import a Scade model as an AADL model"
-               class="org.osate.importer.scade.actions.DoImportModel"
-               menubarPath="org.osate.ui.popupMenu.Analyses/org.osate.analysis.resource.management.popupmenu.importer/anal.grp"
-               enablesFor="1"/>
-
-      </objectContribution>
-
-   </extension>
-
    <extension
          id="org.osate.importer.ScadeImporterMarker"
          name="Scade Importer Marker"
@@ -109,7 +8,115 @@
       <super type="org.osate.aadl2.modelsupport.AadlObjectMarker"/>
       <persistent value="true"/>
    </extension>
-
-
    
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="org.osate.importer.scade.doImportScade"
+            name="Import Scade model">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.importer.scade.handlers.DoImportModel"
+            commandId="org.osate.importer.scade.doImportScade">
+         <enabledWhen>
+            <with
+                  variable="selection">
+               <count
+                     value="1">
+               </count>
+            </with>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.importer.scade.doImportScade"
+            icon="icons/scade.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+         <menu
+               id="menu.analyses"
+               label="%menu.analyses.label">
+            <menu
+                  id="menu.importer"
+                  label="Import/Export Models">
+               <command
+                     commandId="org.osate.importer.scade.doImportScade">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="activeWorkbenchWindow.activePerspective">
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                     </with>
+                  </visibleWhen>
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.eclipse.ui.main.toolbar">
+         <toolbar
+               id="rsrc.toolbar">
+            <command
+                  commandId="org.osate.importer.scade.doImportScade"
+                  tooltip="Import a Scade model into AADL">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
+         </toolbar>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
+         <menu
+               id="org.osate.ui.popupMenu.Analyses"
+               label="%popupMenu.analyses.label">
+            <menu
+                  id="org.osate.analysis.resource.management.popupmenu.importer"
+                  label="Import/Export Models">
+               <command
+                     commandId="org.osate.importer.scade.doImportScade">
+                  <visibleWhen
+                        checkEnabled="false">
+                     <with
+                           variable="selection">
+                        <iterate
+                              operator="and"
+                              ifEmpty="false">
+                           <or>
+                              <instanceof
+                                    value="org.osate.aadl2.instance.SystemInstance">
+                              </instanceof>
+                              <adapt
+                                    type="org.eclipse.core.resources.IFile">
+                                 <test
+                                       property="org.eclipse.core.resources.contentTypeId"
+                                       value="org.osate.core.instanceModelFile">
+                                 </test>
+                              </adapt>
+                           </or>
+                        </iterate>
+                     </with>
+                  </visibleWhen>
+               </command>
+            </menu>
+         </menu>
+      </menuContribution>
+   </extension>
 </plugin>
