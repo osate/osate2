@@ -35,79 +35,45 @@
  * 
  */
 
-package org.osate.importer.simulink.actions;
+package org.osate.importer.simulink.handlers;
 
-import java.io.File;
-import java.util.List;
-
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.osate.importer.Utils;
 import org.osate.importer.model.Model;
-import org.osate.importer.simulink.Activator;
 import org.osate.importer.simulink.FileImport;
 import org.osate.importer.simulink.generator.AadlProjectCreator;
-import org.osgi.framework.Bundle;
 
-public final class DoImportModel implements IWorkbenchWindowActionDelegate {
-
+public final class DoImportModel extends AbstractHandler {
 	private String inputFile;
 	private String outputDirectory;
-	List<String> selectedModules;
-	private static String workingDirectory;
-	private static boolean filterSystem = false;
-
-	public static boolean filterSystem() {
-		return filterSystem;
-	}
-
-	public static void setFilterSystem(boolean f) {
-		filterSystem = f;
-	}
-
-	public static String getWorkingDirectory() {
-		return workingDirectory;
-	}
-
-	protected Bundle getBundle() {
-		return Activator.getDefault().getBundle();
-	}
-
-	public String getMarkerType() {
-		return "org.osate.importer.SimulinkImporterMarker";
-	}
-
-	protected String getActionName() {
-		return "Simulink Importer";
-	}
-
-	public void run(IAction action) {
-
+	
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		outputDirectory = Utils.getSelectedDirectory();
 
 		if (outputDirectory == null) {
 			org.osate.ui.dialogs.Dialog.showInfo("Simulink Importer",
 					"Please select a directory where the model will be created");
 
-//			System.out.println("Selection is not a directory" + outputDirectory);
-			return;
+			return null;
 		}
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 
 		d.syncExec(new Runnable() {
-
+			@Override
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
@@ -117,20 +83,11 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 
 				FileDialog fd = new FileDialog(sh, SWT.OPEN);
 				inputFile = fd.open();
-				String parentDirectory = new File(inputFile).getParent();
-				workingDirectory = parentDirectory;
-				/**
-				 * Then, we open a new window 
-				 * to choose the module to be included
-				 * in the model. The result
-				 * is stored in the list selectedModules that is
-				 * then reused by the generator to filter the
-				 * used nodules.
-				 */
 			}
 		});
 
 		Job aadlGenerator = new Job("SIMULINK2AADL") {
+			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Generating AADL files from Simulink model", 100);
 
@@ -147,18 +104,6 @@ public final class DoImportModel implements IWorkbenchWindowActionDelegate {
 			}
 		};
 		aadlGenerator.schedule();
-
-	}
-
-	public void selectionChanged(IAction action, ISelection selection) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void dispose() {
-
-	}
-
-	public void init(IWorkbenchWindow window) {
+		return null;
 	}
 }
