@@ -9,27 +9,27 @@
  *                                                                                  *
  ************************************************************************************/
 
-package org.osate.imv.ui.actions;
+package org.osate.imv.ui.handlers;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.ui.IEditorInput;
-import org.eclipse.ui.IObjectActionDelegate;
 import org.eclipse.ui.IPerspectiveDescriptor;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPage;
-import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.WorkbenchException;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.part.FileEditorInput;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Element;
@@ -37,41 +37,17 @@ import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
-import org.osate.imv.ui.ImvUiPlugin;
 import org.osate.imv.ui.editor.ImvInstanceEditor;
 import org.osate.imv.ui.perspective.ImvPerspectiveFactory;
 import org.osate.workspace.WorkspacePlugin;
 import org.osate.xtext.aadl2.ui.internal.Aadl2Activator;
-import org.osgi.framework.Bundle;
 
-public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-
-	private static final String ID = "org.osate.imv.ui.actions.OpenImvEditor";
-
-	private IWorkbenchWindow window;
-
-	/**
-	 * the current selection in the AADL model
-	 */
-	private Object currentSelection = null;
-
-	public OpenImvEditor() {
-		super();
-	}
-
-	protected Bundle getBundle() {
-		return ImvUiPlugin.getDefault().getBundle();
-	}
-
-	protected String getActionName() {
-		return "Explore Instance or Implementations in IMV";
-	}
-
-	private void openImvEditor(NamedElement si) {
+public final class OpenImvEditor extends AbstractHandler {
+	private void openImvEditor(NamedElement si, ExecutionEvent event) {
 		// Create the editor input object.
 		IEditorInput input = createEditorInput(si);
 		if (input != null) {
-			IWorkbenchPage page = window.getActivePage();
+			IWorkbenchPage page = HandlerUtil.getActiveWorkbenchWindow(event).getActivePage();
 			try {
 				page.openEditor(input, ImvInstanceEditor.ID);
 				openImvPerspective();
@@ -105,15 +81,15 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 	}
 
 	@Override
-	public void run(IAction action) {
+	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		Element root = null;
 
 		// We need to invoke the static 'getInstance' method here before we attempt to get the ResourceSet because
 		// the Aadl2Activator must be instantiated before we get the ResourceSet.
 		Aadl2Activator.getInstance();
-		root = AadlUtil.getElement(currentSelection);
+		root = AadlUtil.getElement(getCurrentSelection(event));
 		if (root == null) {
-			Resource resource = OsateResourceUtil.getResource((IResource) currentSelection);
+			Resource resource = OsateResourceUtil.getResource((IResource) getCurrentSelection(event));
 			EObject eobj = resource.getContents().get(0);
 			if (eobj instanceof Element)
 				root = (Element) eobj;
@@ -124,19 +100,19 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 			final NamedElement si = (NamedElement) root;
 
 			// We MUST open the IMV editor from the UI thread!
-			window.getShell().getDisplay().syncExec(new Runnable() {
-
+			HandlerUtil.getActiveShell(event).getDisplay().syncExec(new Runnable() {
+				@Override
 				public void run() {
 					// Open the IMV editor for the currently selected instance model or Aadl Package.
-					openImvEditor(si);
+					openImvEditor(si, event);
 				}
 			});
 		} else {
 			System.err.println("Action should NOT be enabled: OpenImvEditor");
 		}
-
+		return null;
 	}
-
+	
 	private void openImvPerspective() {
 		IWorkbench workbench = PlatformUI.getWorkbench();
 		IWorkbenchWindow window = workbench.getActiveWorkbenchWindow();
@@ -157,23 +133,16 @@ public final class OpenImvEditor implements IWorkbenchWindowActionDelegate, IObj
 		}
 	}
 
-	public void dispose() {
-		// Nothing to dispose of.
-	}
-
-	public void selectionChanged(IAction action, ISelection selection) {
+	/**
+	 * the current selection in the AADL model
+	 */
+	private Object getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
-			currentSelection = object;
+			return object;
+		} else {
+			return null;
 		}
 	}
-
-	public void init(IWorkbenchWindow window) {
-		this.window = window;
-	}
-
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		this.window = targetPart.getSite().getWorkbenchWindow();
-	}
-
 }
