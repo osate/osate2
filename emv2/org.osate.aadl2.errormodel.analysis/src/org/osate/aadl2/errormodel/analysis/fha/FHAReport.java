@@ -329,7 +329,7 @@ public final class FHAReport {
 		case ARP4761:
 			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
 					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment,"
-					+ "Risk, Failure Condition,Failure Condition Classification, "
+					+ " Mishap, Risk, Failure Condition,Failure Condition Classification, "
 					+ "Qualitative Probability, Quantitative Probability, Qualitative Probability Objective, Quantitative Probability Objective, Development Assurance Level, "
 					+ "Verification Method, " + "Safety Report, " + "Comment");
 			break;
@@ -479,19 +479,17 @@ public final class FHAReport {
 		// failure effect
 		addComma(report);
 		reportStringProperty(fields, "failureeffect", report);
-		// phase
 		addComma(report);
 		reportStringProperty(fields, "phases", report);
-		// phase
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
-		// phase
+		addComma(report);
+		reportStringProperty(fields, "mishap", report);
 		addComma(report);
 		reportStringProperty(fields, "risk", report);
 		// mishap/failure condition
 		addComma(report);
-		if (!reportStringProperty(fields, "failurecondition", report))
-			reportStringProperty(fields, "mishap", report);
+		reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
 		reportEnumerationOrIntegerPropertyConstantPropertyValue(fields, "FailureConditionClassification", report,
