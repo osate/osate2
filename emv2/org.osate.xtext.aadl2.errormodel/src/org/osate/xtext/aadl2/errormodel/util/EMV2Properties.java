@@ -64,6 +64,8 @@ public class EMV2Properties {
 			}
 		} else if (val instanceof IntegerLiteral) {
 			return "" + ((IntegerLiteral) val).getValue();
+		} else if (val instanceof RealLiteral) {
+			return "" + ((RealLiteral) val).getValue();
 		}
 		return "";
 	}
