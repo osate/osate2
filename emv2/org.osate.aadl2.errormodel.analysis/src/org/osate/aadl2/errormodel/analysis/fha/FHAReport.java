@@ -119,7 +119,7 @@ public final class FHAReport {
 				EventOrPropagation eop = EMV2Util.getErrorEventOrPropagation(condElement);
 				if (eop instanceof ErrorEvent) {
 					ErrorEvent errorEvent = (ErrorEvent) eop;
-					List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(ci, errorEvent,
+					List<EMV2PropertyAssociation> PA = getHazardsPropertyInCurrentFormat(ci, errorEvent,
 							errorEvent.getTypeSet());
 					List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, errorEvent,
 							errorEvent.getTypeSet());
@@ -134,7 +134,7 @@ public final class FHAReport {
 
 		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(ci)) {
 
-			List<EMV2PropertyAssociation> PA = EMV2Properties.getHazardsProperty(ci, state, state.getTypeSet());
+			List<EMV2PropertyAssociation> PA = getHazardsPropertyInCurrentFormat(ci, state, state.getTypeSet());
 			List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, state, state.getTypeSet());
 			List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, state, state.getTypeSet());
 			reportHazardProperty(ci, PA, Sev, Like, state, state.getTypeSet(), state, report);
@@ -158,7 +158,7 @@ public final class FHAReport {
 				// state is originating hazard, possibly with a type set
 				ts = failureMode.getTypeSet();
 				// error source a local context
-				HazardPA = EMV2Properties.getHazardsProperty(ci, failureMode, ts);
+				HazardPA = getHazardsPropertyInCurrentFormat(ci, failureMode, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, failureMode, ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, failureMode, ts);
 				target = failureMode;
@@ -173,14 +173,14 @@ public final class FHAReport {
 				if (ts == null && failureMode != null) {
 					ts = failureMode.getTypeSet();
 				}
-				HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
+				HazardPA = getHazardsPropertyInCurrentFormat(ci, errorSource, ts);
 				Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
 				Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				target = errorSource;
 				localContext = null;
 				if (HazardPA.isEmpty() && errorSource.getFailureModeType() != null) {
 					ts = errorSource.getFailureModeType();
-					HazardPA = EMV2Properties.getHazardsProperty(ci, errorSource, ts);
+					HazardPA = getHazardsPropertyInCurrentFormat(ci, errorSource, ts);
 					Sev = EMV2Properties.getSeverityProperty(ci, errorSource, ts);
 					Like = EMV2Properties.getLikelihoodProperty(ci, errorSource, ts);
 				}
@@ -195,7 +195,7 @@ public final class FHAReport {
 			Element localContext = null;
 			// error propagation is originating hazard
 			ts = ep.getTypeSet();
-			List<EMV2PropertyAssociation> HazardPA = EMV2Properties.getHazardsProperty(ci, ep, ts);
+			List<EMV2PropertyAssociation> HazardPA = getHazardsPropertyInCurrentFormat(ci, ep, ts);
 			List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(ci, ep, ts);
 			List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(ci, ep, ts);
 			target = ep;
@@ -214,7 +214,7 @@ public final class FHAReport {
 		Element localContext = null;
 		// error propagation is originating hazard
 		TypeSet ts = ces.getTypeTokenConstraint();
-		List<EMV2PropertyAssociation> HazardPA = EMV2Properties.getHazardsProperty(conni, ces, ts);
+		List<EMV2PropertyAssociation> HazardPA = getHazardsPropertyInCurrentFormat(conni, ces, ts);
 		List<EMV2PropertyAssociation> Sev = EMV2Properties.getSeverityProperty(conni, ces, ts);
 		List<EMV2PropertyAssociation> Like = EMV2Properties.getLikelihoodProperty(conni, ces, ts);
 		Element target = ces;
@@ -672,7 +672,8 @@ public final class FHAReport {
 		return text;
 	}
 
-	protected List<EMV2PropertyAssociation> getHazardsProperty(NamedElement ci, NamedElement target, TypeSet ts) {
+	protected List<EMV2PropertyAssociation> getHazardsPropertyInCurrentFormat(NamedElement ci, NamedElement target,
+			TypeSet ts) {
 		switch (currentFormat) {
 		case EMV2:
 			return EMV2Properties.getHazardsProperty(ci, target, ts);
