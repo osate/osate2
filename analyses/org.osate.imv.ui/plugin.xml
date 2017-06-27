@@ -18,24 +18,6 @@
                id="org.osate.imv.ui.perspective.ImvPerspective">
          </perspectiveShortcut>
       </perspectiveExtension>
-      <perspectiveExtension
-            targetID="org.osate.imv.ui.perspective.ImvPerspective">
-         <actionSet
-               id="org.osate.analysis.security.actionSet">
-         </actionSet>
-         <actionSet
-               id="org.osate.analysis.resource.budgets.actionSet">
-         </actionSet>
-         <actionSet
-               id="org.osate.analysis.architecture.actionSet">
-         </actionSet>
-         <actionSet
-               id="org.osate.analysis.resource.management.actionSet">
-         </actionSet>
-         <actionSet
-               id="org.osate.analysis.flows.actionSet">
-         </actionSet>
-      </perspectiveExtension>
    </extension>
    <extension
          point="org.eclipse.ui.views">

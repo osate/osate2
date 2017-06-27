@@ -156,9 +156,14 @@
                         checkEnabled="false">
                      <with
                            variable="activeWorkbenchWindow.activePerspective">
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
+                        <or>
+                           <equals
+                                 value="org.osate.ui.perspective.AadlPerspective">
+                           </equals>
+                           <equals
+                                 value="org.osate.imv.ui.perspective.ImvPerspective">
+                           </equals>
+                        </or>
                      </with>
                   </visibleWhen>
                </command>
@@ -168,9 +173,14 @@
                         checkEnabled="false">
                      <with
                            variable="activeWorkbenchWindow.activePerspective">
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
+                        <or>
+                           <equals
+                                 value="org.osate.ui.perspective.AadlPerspective">
+                           </equals>
+                           <equals
+                                 value="org.osate.imv.ui.perspective.ImvPerspective">
+                           </equals>
+                        </or>
                      </with>
                   </visibleWhen>
                </command>
@@ -188,9 +198,14 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
+                     <or>
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                        <equals
+                              value="org.osate.imv.ui.perspective.ImvPerspective">
+                        </equals>
+                     </or>
                   </with>
                </visibleWhen>
             </command>
@@ -201,9 +216,14 @@
                      checkEnabled="false">
                   <with
                         variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
+                     <or>
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                        <equals
+                              value="org.osate.imv.ui.perspective.ImvPerspective">
+                        </equals>
+                     </or>
                   </with>
                </visibleWhen>
             </command>
