@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,8 +48,8 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionExpression;
@@ -59,8 +59,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-public final class RBDAction extends AaxlReadOnlyActionAsJob {
-
+public final class RBDHandler extends AaxlReadOnlyHandlerAsJob {
 	private double finalResult;
 	private List<ComponentInstance> componentsNames;
 	private static String ERROR_STATE_NAME = null;
@@ -82,7 +81,6 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 
 		ComponentInstance relatedInstance = EMV2Util.getLastComponentInstance(conditionElement.getQualifiedState(),
 				root);
-//		OsateDebug.osateDebug("         instance " + relatedInstance);
 
 		if (relatedInstance != null) {
 			if (!componentsNames.contains(relatedInstance)) {
@@ -154,14 +152,12 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 
 	public double processComponent(ComponentInstance component, String errorStateName) {
 		double probabilityTemp;
-		double toRemove;
 		double result;
 		double inverseProb = 1; // Probability fix attempt - DD 06/23/15
 
 		EList<CompositeState> states = EMV2Util.getAllCompositeStates(component);
 		result = 0;
 		probabilityTemp = 0;
-		toRemove = 0;
 		for (CompositeState state : states) {
 			if (state.getState().getName().equalsIgnoreCase(errorStateName)) {
 				probabilityTemp = handleCondition(state.getCondition(), component);
@@ -250,5 +246,4 @@ public final class RBDAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
 }

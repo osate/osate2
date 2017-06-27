@@ -31,21 +31,15 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
-/**
- * Also, this class implement the following consistency rule from
- * the official documentation:
- * C1, C5, C7, C11, C12
- *
- */
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorEvent;
@@ -54,8 +48,13 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
-public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJob {
-
+/**
+ * Also, this class implement the following consistency rule from
+ * the official documentation:
+ * C1, C5, C7, C11, C12
+ *
+ */
+public final class ImplementationComplianceHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
 		return "org.osate.aadl2.errormodel.analysis.FaultImpactMarker";
@@ -121,7 +120,6 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 						error(obj, "Failure rate on the implementation is higher than on the classifier ("
 								+ probImplementation + " vs " + probClassifier + ")");
 					}
-//					OsateDebug.osateDebug("impl="+probImplementation + ";class=" + probClassifier);
 				}
 			}
 
@@ -216,5 +214,4 @@ public final class ImplementationComplianceAction extends AaxlReadOnlyActionAsJo
 
 		monitor.done();
 	}
-
 }

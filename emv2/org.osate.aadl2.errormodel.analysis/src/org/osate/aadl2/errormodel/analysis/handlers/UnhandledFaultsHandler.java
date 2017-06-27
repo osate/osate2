@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2012 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2012-2013 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,31 +31,37 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
+
+import java.util.Collection;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
-import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
+import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
+import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
-public final class MILSTD882FHAAction extends AaxlReadOnlyActionAsJob {
+public class UnhandledFaultsHandler extends AaxlReadOnlyHandlerAsJob {
+	AnalysisModel model;
 
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.analysis.errormodel.FunctionalHazardMarker";
+		return "org.osate.aadl2.errormodel.analysis.UnhandledFaultsMarker";
 	}
 
 	@Override
 	protected String getActionName() {
-		return "FHA";
+		return "UnhandledFaults";
 	}
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		monitor.beginTask("FHA", IProgressMonitor.UNKNOWN);
+		monitor.beginTask("UnhandledFaults", IProgressMonitor.UNKNOWN);
 
 		// Get the system instance (if any)
 		SystemInstance si;
@@ -64,9 +70,34 @@ public final class MILSTD882FHAAction extends AaxlReadOnlyActionAsJob {
 		} else {
 			return;
 		}
-		FHAReport report = new FHAReport(HazardFormat.MILSTD882);
-		report.doFHAReport(si);
+
+		setCSVLog("UnhandledFaults", si);
+		model = new AnalysisModel(si);
+		Collection<PropagationPathRecord> pathlist = model.getPropagationPaths();
+		for (PropagationPathRecord path : pathlist) {
+			checkPropagationPathErrorTypes(path);
+		}
+
 		monitor.done();
 	}
 
+	protected void checkPropagationPathErrorTypes(PropagationPathRecord path) {
+		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
+		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
+		if (srcprop != null && dstprop != null) {
+			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
+				error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
+						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
+								+ EMV2Util.getPrintName(srcprop.getTypeSet())
+								+ " has error types not handled by incoming propagation "
+								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
+			}
+		}
+		if (dstprop == null && srcprop != null) {
+			// has an EMV2 subclause but no propagation specification for the feature
+			error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
+					"Connection target has no error propagation/containment but source does: "
+							+ EMV2Util.getPrintName(srcprop));
+		}
+	}
 }

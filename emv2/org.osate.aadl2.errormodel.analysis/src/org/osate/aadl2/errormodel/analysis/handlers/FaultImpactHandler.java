@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import java.util.Collection;
 
@@ -41,9 +41,9 @@ import org.osate.aadl2.errormodel.analysis.PropagateErrorSources;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
+public final class FaultImpactHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FaultImpactMarker";
@@ -91,5 +91,4 @@ public final class FaultImpactAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
 }
