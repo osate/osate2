@@ -321,15 +321,15 @@ public final class FHAReport {
 		switch (currentFormat) {
 		case EMV2:
 			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
-					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment,"
-					+ "Mishap/Failure Condition," + "Risk," + " Severity, Likelihood, Probability,"
+					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment," + "Risk,"
+					+ "Mishap, Failure Condition," + " Severity, Likelihood, Probability,"
 					+ "Target Severity, Target Likelihood, Development Assurance Level, " + "Verification Method, "
 					+ "Safety Report, " + "Comment");
 			break;
 		case ARP4761:
 			report.addOutputNewline("Component, Error Model Element," + " Hazard Title, Description, Crossreference, "
 					+ "Failure, " + "Failure Effect, " + "Operational Phases, Environment,"
-					+ " Mishap, Risk, Failure Condition,Failure Condition Classification, "
+					+ "  Risk, Mishap, Failure Condition,Failure Condition Classification, "
 					+ "Qualitative Probability, Quantitative Probability, Qualitative Probability Objective, Quantitative Probability Objective, Development Assurance Level, "
 					+ "Verification Method, " + "Safety Report, " + "Comment");
 			break;
@@ -398,13 +398,14 @@ public final class FHAReport {
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
-		// mishap/failure condition
-		addComma(report);
-		if (!reportStringProperty(fields, "mishap", report))
-			reportStringProperty(fields, "failurecondition", report);
 		// phase
 		addComma(report);
 		reportStringProperty(fields, "risk", report);
+		// mishap/failure condition
+		addComma(report);
+		reportStringProperty(fields, "mishap", report);
+		addComma(report);
+		reportStringProperty(fields, "failurecondition", report);
 		// severity
 		addComma(report);
 		if (hasFieldValue(fields, "Severity")) {
@@ -484,9 +485,9 @@ public final class FHAReport {
 		addComma(report);
 		reportStringProperty(fields, "environment", report);
 		addComma(report);
-		reportStringProperty(fields, "mishap", report);
-		addComma(report);
 		reportStringProperty(fields, "risk", report);
+		addComma(report);
+		reportStringProperty(fields, "mishap", report);
 		// mishap/failure condition
 		addComma(report);
 		reportStringProperty(fields, "failurecondition", report);
