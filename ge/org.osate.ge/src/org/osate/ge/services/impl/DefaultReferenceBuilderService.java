@@ -13,31 +13,31 @@ import java.util.Objects;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
-import org.osate.ge.internal.services.impl.ReferenceEncoder;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
 
 public class DefaultReferenceBuilderService implements ReferenceBuilderService {
-	private final InternalReferenceBuilderService internalService;
+	private final ReferenceService internalService;
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceBuilderService> {
 		@Override
 		public ReferenceBuilderService createService(final IEclipseContext context) {
-			return new DefaultReferenceBuilderService(context.get(InternalReferenceBuilderService.class));
+			return new DefaultReferenceBuilderService(context.get(ReferenceService.class));
 		}		
 	}
 	
-	public DefaultReferenceBuilderService(final InternalReferenceBuilderService internalService) {
+	public DefaultReferenceBuilderService(final ReferenceService internalService) {
 		this.internalService = Objects.requireNonNull(internalService, "internalService must not be null");
 	}
-	
+
 	@Override
-	public String getReference(final Object bo) {
-		final CanonicalBusinessObjectReference ref = internalService.getCanonicalReference(bo);
-		if(ref != null) {
-			return ReferenceEncoder.encode(ref.toSegmentArray());
-		}
-		
-		return null;
+	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
+		return this.internalService.getCanonicalReference(bo);
+	}
+
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final Object bo) {
+		return this.internalService.getRelativeReference(bo);
 	}
 }

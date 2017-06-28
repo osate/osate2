@@ -14,12 +14,11 @@ import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public class SetFeatureDirectionCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 	final DirectionType featDir;
@@ -54,6 +53,11 @@ public class SetFeatureDirectionCommand {
 		return featDir != feat.getDirection();
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
+		return bo;
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final DirectedFeature feat) {
 		if(feat instanceof AbstractFeature || feat instanceof FeatureGroup) {

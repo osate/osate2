@@ -12,7 +12,6 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.di.InternalNames;
@@ -73,10 +72,5 @@ public class PackageHandler {
 		
         // The value is valid
         return null;        
-	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) AadlPackage pkg, final @Named(Names.NAME) String value) {
-		pkg.setName(value);
 	}
 }

@@ -14,12 +14,11 @@ import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public class RefineFeatureCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 
@@ -32,20 +31,28 @@ public class RefineFeatureCommand {
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Feature feature,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
-		if(!(diagram instanceof Classifier)) {
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
+		if(!(parent instanceof Classifier)) {
 			return false;
 		}
 
-		return feature.getContainingClassifier() != diagram &&
-				(diagram instanceof FeatureGroupType || diagram instanceof ComponentType);
+		return feature.getContainingClassifier() != parent &&
+				(parent instanceof FeatureGroupType || parent instanceof ComponentType);
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Feature feature,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
+			final QueryService queryService) {
+		return queryService.getFirstBusinessObject(parentQuery, boc);
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Feature feature,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
 		final Object featureOwner = queryService.getFirstBusinessObject(parentQuery, boc);
+		
 		// Refine the feature
 		final NamedElement newFeatureEl = AadlFeatureUtil.createFeature((Classifier)featureOwner, feature.eClass());
 		final Feature newFeature = (Feature)newFeatureEl;

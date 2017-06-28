@@ -32,6 +32,7 @@ import org.osate.aadl2.NamedElement;
 /**
  * Data structure for tracking open AADL resources  and listening for changes. 
  * If multiple Xtext editors are open for a single AADL resource, it is treated as a single open document.
+ * This structure actually tracks all xtext resources, not just AADL files.
  */
 public class OpenAadlResources {
 	private final Map<IResource, OpenAadlResource> resourceToOpenResourceMap = new HashMap<>();
@@ -112,7 +113,7 @@ public class OpenAadlResources {
 	}
 	
 	public void onXtextDocumentOpened(final IXtextDocument document) {
-		// Get the file associate with the document
+		// Get the file associated with the document
 		final IFile file = document.readOnly(new IUnitOfWork<IFile, XtextResource>() {
 			@Override
 			public IFile exec(final XtextResource resource) throws Exception {
@@ -134,8 +135,7 @@ public class OpenAadlResources {
 			resourceToOpenResourceMap.put(file, openResource);
 		} else {
 			openResource.documents.addFirst(document);
-		}
-		
+		}		
 		
 		// Add the IXtextDocument -> OpenAadlResource mapping
 		documentToOpenResourceMap.put(document, openResource);		

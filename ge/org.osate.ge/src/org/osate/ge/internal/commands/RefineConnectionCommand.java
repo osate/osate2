@@ -4,31 +4,49 @@ import javax.inject.Named;
 
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Connection;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.util.AadlConnectionUtil;
+import org.osate.ge.query.StandaloneQuery;
+import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public class RefineConnectionCommand {
-
+	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
+	
 	@GetLabel
 	public String getLabel() {
 		return "Refine";
 	}
 
 	@IsAvailable
-	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Connection connection) {
-		// Check that the shape represents a subcomponent and that the subcomponent is not owned by the classifier represented by the shape's container
-		final ComponentImplementation ci = connection.getSource().getContainingComponentImpl();
-		return ci != null && connection.getContainingClassifier() != ci && ci.getAllConnections().contains(connection);
+	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Connection connection, 
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
+			final QueryService queryService) {
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
+		if(parent instanceof ComponentImplementation) {
+			final ComponentImplementation ci = (ComponentImplementation)parent;
+			return ci.getContainingClassifier() != ci;
+		}
+
+		return false;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Connection connection,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
+			final QueryService queryService) {
+		return queryService.getFirstBusinessObject(parentQuery, boc);
+	}
+		
 	@Activate
-	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Connection connection) {
-		final ComponentImplementation containerComponentImplementation = connection.getSource().getContainingComponentImpl();
+	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Connection connection,
+			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
+			final QueryService queryService) {
+		final ComponentImplementation containerComponentImplementation = (ComponentImplementation)queryService.getFirstBusinessObject(parentQuery, boc);
 
 		// Set the classifier
 		final org.osate.aadl2.Connection newAadlConnection = AadlConnectionUtil.createConnection(containerComponentImplementation, connection.eClass());

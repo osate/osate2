@@ -8,6 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.services.impl.ReferenceEncoder;
+
 /**
  * Service for retrieving a business object using a reference created using ReferenceBuilderService.
  * @noextend
@@ -22,5 +25,15 @@ public interface ReferenceResolutionService {
 	 * @return the referenced business object or null if the business object could not be retrieved
 	 * @see ReferenceBuilderService#getReference(Object)
 	 */
-	Object getReferencedObject(String reference);
+	default Object getReferencedObject(String reference) {
+		// Break the reference into segments
+		final String[] ref = ReferenceEncoder.decode(reference);
+		if(ref == null) {
+			return null;
+		}
+				
+		return resolve(new CanonicalBusinessObjectReference(ref));
+	}
+	
+	Object resolve(final CanonicalBusinessObjectReference reference);
 }

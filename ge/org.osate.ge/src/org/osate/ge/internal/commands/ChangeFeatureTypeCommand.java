@@ -23,13 +23,12 @@ import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.StringUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public class ChangeFeatureTypeCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 	private final EClass featureType;	
@@ -42,19 +41,18 @@ public class ChangeFeatureTypeCommand {
 	public String getLabel() {
 		return "Convert to " + StringUtil.camelCaseToUser(featureType.getName());
 	}
-
+	
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final NamedElement feature,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		// Check that the shape represents a feature and that the feature is owned by the classifier represented by the shape's diagram, and that the classifier can
-		// contain features of the type this feature changes features into.
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
-		if(!((feature instanceof Feature || feature instanceof InternalFeature || feature instanceof ProcessorFeature) && diagram instanceof Classifier)) {
+		// Check that the shape represents a feature and that the classifier can contain features of the type this feature changes features into.
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
+		if(!((feature instanceof Feature || feature instanceof InternalFeature || feature instanceof ProcessorFeature) && parent instanceof Classifier)) {
 			return false;
 		}
 		
-		return feature.getContainingClassifier() == diagram &&
+		return feature.getContainingClassifier() == parent &&
 				AadlFeatureUtil.canOwnFeatureType(feature.getContainingClassifier(), featureType) &&
 				(!(feature instanceof Feature) || (((Feature)feature).getRefined() == null || ((Feature)feature).getRefined() instanceof AbstractFeature));
 	}
@@ -68,6 +66,11 @@ public class ChangeFeatureTypeCommand {
 		return feature.eClass() != featureType;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final NamedElement feature) {
+		return feature.getContainingClassifier();
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final NamedElement feature) {
 		final Classifier featureOwner = feature.getContainingClassifier();

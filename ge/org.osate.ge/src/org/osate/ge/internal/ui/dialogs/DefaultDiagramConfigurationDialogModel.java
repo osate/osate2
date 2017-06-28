@@ -23,7 +23,7 @@ import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.ImageUiHelper;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
@@ -31,13 +31,13 @@ import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 import org.osate.ge.internal.util.StringUtil;
 
 public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurationDialog.Model, AutoCloseable {
-	private final ReferenceService referenceService;
+	private final ProjectReferenceService referenceService;
 	private final ExtensionService extService;
 	private final ProjectProvider projectProvider;
 	private final BusinessObjectProviderHelper bopHelper;
 	private final BusinessObjectContextHelper bocHelper;
 
-	public DefaultDiagramConfigurationDialogModel(final ReferenceService referenceService,
+	public DefaultDiagramConfigurationDialogModel(final ProjectReferenceService referenceService,
 			final ExtensionService extService,
 			final ProjectProvider projectProvider) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
@@ -56,7 +56,8 @@ public class DefaultDiagramConfigurationDialogModel implements DiagramConfigurat
 	
 	@Override
 	public RelativeBusinessObjectReference getRelativeBusinessObjectReference(final Object bo) {
-		return referenceService.getRelativeReference(bo);
+		final RelativeBusinessObjectReference result = referenceService.getRelativeReference(bo);
+		return result;
 	}
 	
 	@Override

@@ -8,9 +8,8 @@ import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 
-@ModifiesBusinessObjects
 public class SetDerivedModesCommand {
 	private final boolean derivedModes;
 
@@ -36,6 +35,11 @@ public class SetDerivedModesCommand {
 		return !derivedModes || cc.getOwnedModeTransitions().size() == 0;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
+		return bo;
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ComponentClassifier cc) {			
 		cc.setDerivedModes(derivedModes);

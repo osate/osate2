@@ -28,7 +28,7 @@ import org.osate.ge.di.GetCreateOwner;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
 
 // ICreateConnectionFeature implementation that delegates behavior to a business object handler
@@ -37,7 +37,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModService;
 	private final DiagramUpdater diagramUpdater;
-	private final ReferenceService refService;
+	private final ReferenceBuilderService refBuilder;
 	private final SimplePaletteEntry paletteEntry;
 	private final Object handler;
 	
@@ -45,7 +45,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 			final ExtensionService extService,
 			final AadlModificationService aadlModService, 
 			final DiagramUpdater diagramUpdater,
-			final ReferenceService refService,
+			final ReferenceBuilderService refBuilder,
 			final IFeatureProvider fp, 
 			final SimplePaletteEntry paletteEntry, 
 			final Object boHandler) {
@@ -54,7 +54,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
 		this.aadlModService = Objects.requireNonNull(aadlModService, "aadlModService must not be null");
 		this.diagramUpdater = Objects.requireNonNull(diagramUpdater, "diagramUpdater must not be null");
-		this.refService = Objects.requireNonNull(refService, "refService must not be null");
+		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
 		this.paletteEntry = Objects.requireNonNull(paletteEntry, "paletteEntry must not be null");
 		this.handler = Objects.requireNonNull(boHandler, "boHandler must not be null");
 	}
@@ -143,7 +143,7 @@ public class BoHandlerCreateConnectionFeature extends AbstractCreateConnectionFe
 					eclipseCtx.set(Names.OWNER_BO, ownerBo);					
 					final Object newBo = ContextInjectionFactory.invoke(handler, Create.class, eclipseCtx, null);
 					if(newBo != null) {
-						final RelativeBusinessObjectReference newRef = refService.getRelativeReference(newBo);
+						final RelativeBusinessObjectReference newRef = refBuilder.getRelativeReference(newBo);
 						if(newRef != null) {
 							diagramUpdater.addToNextUpdate(ownerNode, newRef, null);
 						}

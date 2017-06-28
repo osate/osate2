@@ -14,7 +14,7 @@ import org.osate.aadl2.AadlPackage;
 
 // Low level service for retrieving and working with AADL Packages that must be loaded by the editor rather than
 // loaded by Xtext. Ensures that only one copy of the package is open at a time. That version is shared between all editors
-// that need access o the package.
+// that need access to the package.
 public interface SavedAadlResourceService {
 	public interface AadlPackageReference {
 		AadlPackage getAadlPackage();

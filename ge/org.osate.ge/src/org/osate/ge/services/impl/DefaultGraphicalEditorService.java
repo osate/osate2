@@ -46,7 +46,7 @@ import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.impl.SimpleServiceContextFunction;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.services.GraphicalEditorService;
@@ -138,7 +138,7 @@ public class DefaultGraphicalEditorService implements GraphicalEditorService {
 
 		final ExtensionService extService = (ExtensionService)editorPart.getAdapter(ExtensionService.class);
 		final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider = (GraphitiAgeDiagramProvider)editorPart.getAdapter(GraphitiAgeDiagramProvider.class);
-		final ReferenceService referenceService = (ReferenceService)editorPart.getAdapter(ReferenceService.class);
+		final ProjectReferenceService referenceService = (ProjectReferenceService)editorPart.getAdapter(ProjectReferenceService.class);
 		
 		// Services may be null if the pictogram element doesn't belong to an OSATE GE Diagram.
 		if(extService == null || graphitiAgeDiagramProvider == null || graphitiAgeDiagramProvider.getGraphitiAgeDiagram() == null) {

@@ -20,29 +20,22 @@ import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultColoringService;
 import org.osate.ge.internal.graphiti.services.impl.DefaultGraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
-import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
-import org.osate.ge.internal.services.DiagramModificationService;
 import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.NamingService;
 import org.osate.ge.internal.services.ProjectProvider;
-import org.osate.ge.internal.services.RefactoringService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
-import org.osate.ge.internal.services.SavedAadlResourceService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.SavedAadlResourceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.UserInputService;
 import org.osate.ge.internal.services.impl.DefaultAadlModificationService;
-import org.osate.ge.internal.services.impl.DefaultCachingService;
-import org.osate.ge.internal.services.impl.DefaultDiagramModificationService;
 import org.osate.ge.internal.services.impl.DefaultExtensionService;
 import org.osate.ge.internal.services.impl.DefaultNamingService;
-import org.osate.ge.internal.services.impl.DefaultRefactoringService;
-import org.osate.ge.internal.services.impl.DefaultReferenceService;
 import org.osate.ge.internal.services.impl.DefaultUiService;
 import org.osate.ge.internal.services.impl.DefaultUserInputService;
+import org.osate.ge.internal.services.impl.ProjectReferenceServiceProxy;
 import org.osate.ge.services.QueryService;
 import org.osate.ge.services.ReferenceResolutionService;
 import org.osate.ge.services.impl.DefaultQueryService;
@@ -53,7 +46,7 @@ import org.osgi.framework.FrameworkUtil;
 public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 	public static final String id = "org.osate.ge.aadlDiagramTypeProvider";	
 	private final IEclipseContext context;
-	private DefaultReferenceService serializableReferenceService;
+	private ProjectReferenceServiceProxy projectReferenceService;
 	private IToolBehaviorProvider[] toolBehaviorProviders;
 	
 	public AgeDiagramTypeProvider() {	
@@ -69,35 +62,28 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		
 		// Create objects for the context
-		final InternalReferenceBuilderService refBuilder = Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService");
+		final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
 		final SavedAadlResourceService savedAadlResourceService = Objects.requireNonNull(context.get(SavedAadlResourceService.class), "Unable to retrieve SavedAadlResourceService");
 		final UiService uiService = new DefaultUiService(this);
-		final CachingService cachingService = new DefaultCachingService();
-		final DiagramService internalDiagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to retrieve DiagramService");
-		final DefaultDiagramModificationService diagramModificationService = new DefaultDiagramModificationService(internalDiagramService, refBuilder);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(fp);
 		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
-		final DefaultRefactoringService refactoringService = new DefaultRefactoringService(modificationService, diagramModificationService);
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-		serializableReferenceService = new DefaultReferenceService(extensionService, cachingService, refBuilder);
 		
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);
+		projectReferenceService = new ProjectReferenceServiceProxy(globalReferenceService, graphitiService);
 		final DefaultColoringService coloringService = new DefaultColoringService(graphitiService);
-		final DefaultQueryService queryService = new DefaultQueryService(refBuilder);
+		final DefaultQueryService queryService = new DefaultQueryService(globalReferenceService);
 		
 		// Populate the context.
 		// This context is used by extensions so it should only contain objects which are part of the graphical editor's API or which 
 		// are in internal package. It should not include Graphiti objects.
 		context.set(ExtensionService.class, extensionService);
 		context.set(UiService.class, uiService);
-		context.set(CachingService.class, cachingService);
-		context.set(ReferenceService.class, serializableReferenceService);
-		context.set(DiagramModificationService.class, diagramModificationService);
+		context.set(ProjectReferenceService.class, projectReferenceService);
 		context.set(NamingService.class, namingService);
 		context.set(UserInputService.class, userInputService);
 		context.set(AadlModificationService.class, modificationService);
-		context.set(RefactoringService.class, refactoringService);
 		context.set(ColoringService.class, coloringService);
 		context.set(GraphitiService.class, graphitiService);
 		context.set(ProjectProvider.class, graphitiService);
@@ -106,17 +92,15 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		context.set(AgeDiagramProvider.class, graphitiService);
 		
 		// Create Public Services
-		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(serializableReferenceService));
+		context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(projectReferenceService));
 
 		return context;
 	}
 	
 	@Override
 	public void dispose() {
-		if(serializableReferenceService != null) {
-			serializableReferenceService.dispose();
-		}
-
+		projectReferenceService.dispose();
+		
 		if(context != null) {
 			context.dispose();
 		}

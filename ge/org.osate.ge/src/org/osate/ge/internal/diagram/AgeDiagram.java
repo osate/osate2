@@ -124,6 +124,24 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		private ArrayList<FieldChange> fieldChanges = new ArrayList<>(); // Used for undoing the modification
 		
 		@Override
+		public void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference) {
+			storeChange(e, DiagramElementField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
+			
+			Objects.requireNonNull(e, "e must not be null");
+			Objects.requireNonNull(bo, "bo must not be null");
+			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
+			
+			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			e.setBusinessObject(bo);
+			e.setRelativeReference(relativeReference);
+			e.getModifiableContainer().getModifiableDiagramElements().add(e);
+			
+			updatedElement = e;
+			undoable = false;
+			afterUpdate(e, DiagramElementField.RELATIVE_REFERENCE);
+		}
+		
+		@Override
 		public void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo) {
 			e.setBusinessObject(bo);
 			// Do not notify listeners
@@ -429,6 +447,9 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 			case CONNECTION_PRIMARY_LABEL_POSITION:
 				m.setConnectionPrimaryLabelPosition(element, (Point)value);
 				break;
+				
+			case RELATIVE_REFERENCE:
+				throw new RuntimeException("Setting the relative reference is not undoable");
 			}
 		}
 		

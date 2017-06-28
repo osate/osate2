@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
+ * Copyright (C) 2016-2017 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -8,12 +8,12 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.eclipse.core.resources.IProject;
+import org.osate.ge.services.ReferenceBuilderService;
 
 /**
- * Service for referencing business objects using a string value.
- *
+ * Service for building and resolving references to business objects
  */
-public interface ReferenceService extends InternalReferenceBuilderService {
-	Object resolve(final CanonicalBusinessObjectReference reference);
+public interface ReferenceService extends ReferenceBuilderService {
+	ProjectReferenceService getProjectReferenceService(IProject project);
 }

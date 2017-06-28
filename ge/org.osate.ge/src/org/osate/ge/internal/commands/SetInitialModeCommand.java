@@ -8,12 +8,11 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public class SetInitialModeCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 	final boolean isInitial;
@@ -31,10 +30,15 @@ public class SetInitialModeCommand {
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Mode mode,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
-		return diagram instanceof ComponentClassifier && mode.getContainingClassifier() == diagram && mode.isInitial() != isInitial;
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
+		return parent instanceof ComponentClassifier && mode.getContainingClassifier() == parent && mode.isInitial() != isInitial;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Mode mode) {
+		return mode.getContainingClassifier();
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Mode mode) {
 		// Reset the current initial mode. Only look in the current classifier and not in classifiers that have been extended

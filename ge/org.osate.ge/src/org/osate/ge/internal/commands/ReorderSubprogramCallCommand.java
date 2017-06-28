@@ -9,11 +9,9 @@ import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public abstract class ReorderSubprogramCallCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 	private static final StandaloneQuery grandparentQuery = StandaloneQuery.create((root) -> root.ancestor(2));
@@ -27,8 +25,8 @@ public abstract class ReorderSubprogramCallCommand {
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final SubprogramCall subprogramCall,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
-		return diagram instanceof SubprogramCallSequence && subprogramCall.eContainer() instanceof SubprogramCallSequence &&
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
+		return parent instanceof SubprogramCallSequence && subprogramCall.eContainer() instanceof SubprogramCallSequence &&
 				subprogramCall.getContainingClassifier() == queryService.getFirstBusinessObject(grandparentQuery, boc);
 	}
 

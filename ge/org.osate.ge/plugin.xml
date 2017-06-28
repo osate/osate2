@@ -926,7 +926,7 @@
     <extension
           point="org.eclipse.ltk.core.refactoring.renameParticipants">
        <renameParticipant
-             class="org.osate.ge.internal.ltk.AgeRenameParticipant"
+             class="org.osate.ge.internal.refactoring.AgeRenameParticipant"
              id="org.osate.ge.ltk.ageRenameParticipant"
              name="OSATE Graphical Editor Rename Participant">
           <enablement>

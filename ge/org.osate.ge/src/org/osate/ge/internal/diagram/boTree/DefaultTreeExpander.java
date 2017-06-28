@@ -11,8 +11,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.Map.Entry;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.IEObjectDescription;
@@ -29,7 +27,7 @@ import org.osate.ge.internal.model.PropertyResultValue;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectProvider;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.util.AadlPropertyResolver;
 import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.PropertyResult;
@@ -63,12 +61,12 @@ public class DefaultTreeExpander implements TreeExpander {
 	
 	private final ProjectProvider projectProvider;
 	private final ExtensionService extService;
-	private final ReferenceService refService;
+	private final ProjectReferenceService refService;
 	private final DefaultBusinessObjectNodeFactory nodeFactory;
 	
 	public DefaultTreeExpander(final ProjectProvider projectProvider,
 			final ExtensionService extService,
-			final ReferenceService refService,
+			final ProjectReferenceService refService,
 			final DefaultBusinessObjectNodeFactory nodeFactory) {
 		this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
 		this.extService = Objects.requireNonNull(extService, "extService must not be null");
@@ -245,13 +243,16 @@ public class DefaultTreeExpander implements TreeExpander {
 	private Map<RelativeBusinessObjectReference, Object> getChildBusinessObjects(final Collection<Object> potentialBusinessObjects,
 			final Collection<RelativeBusinessObjectReference> oldNodeRefs,
 			final ContentsFilter contentsFilter) {
-		
-		final Map<RelativeBusinessObjectReference, Object> potentialBusinessObjectsMap = potentialBusinessObjects.stream().
-				collect(Collectors.toMap(
-						(bo) -> Objects.requireNonNull(refService.getRelativeReference(bo), "Unable to build relative reference for " + bo),
-						Function.identity(),
-						(k1, k2) -> k1));
-		
+				
+		// Create a mapping between relative references and potential business objects. Remove any objects for which a relative reference could not be retrieved.
+		final Map<RelativeBusinessObjectReference, Object> potentialBusinessObjectsMap = new HashMap<>();
+		for(final Object potentialBusinessObject : potentialBusinessObjects) {
+			final RelativeBusinessObjectReference relativeReference = refService.getRelativeReference(potentialBusinessObject);
+			if(relativeReference != null) {
+				potentialBusinessObjectsMap.put(relativeReference, potentialBusinessObject);
+			}
+		}
+
 		// Create a map containing potential business objects which existed in the input tree		
 		final Map<RelativeBusinessObjectReference, Object> results = createReferenceToBusinessObjectMapFromReferences(oldNodeRefs, potentialBusinessObjectsMap);
 		

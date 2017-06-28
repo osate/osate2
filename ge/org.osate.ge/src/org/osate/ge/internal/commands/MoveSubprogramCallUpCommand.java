@@ -1,11 +1,13 @@
 package org.osate.ge.internal.commands;
 
+import javax.inject.Named;
+
 import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.ge.di.GetLabel;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.di.Names;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 
-@ModifiesBusinessObjects
 public class MoveSubprogramCallUpCommand extends ReorderSubprogramCallCommand {
 	public MoveSubprogramCallUpCommand() {
 		super();
@@ -14,6 +16,11 @@ public class MoveSubprogramCallUpCommand extends ReorderSubprogramCallCommand {
 	@GetLabel
 	public String getLabel() {
 		return "Move Up";
+	}
+	
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final SubprogramCall call) {
+		return call.eContainer();
 	}
 
 	protected int getNewIndex(final SubprogramCall call) {

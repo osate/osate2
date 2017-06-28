@@ -9,8 +9,6 @@ import javax.inject.Named;
 import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.eclipse.xtext.resource.IEObjectDescription;
-import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
@@ -49,25 +47,22 @@ import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.model.Tag;
 import org.osate.ge.internal.model.SubprogramCallOrder;
-import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder;
+import org.osate.ge.internal.services.ExtensionRegistryService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlHelper;
 import org.osate.ge.internal.util.AadlSubcomponentUtil;
 import org.osate.ge.internal.util.AadlSubprogramCallUtil;
-import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
 public class AadlBusinessObjectProvider {
 	@Activate
 	public Stream<?> getBusinessObjects(final @Named(Names.BUSINESS_OBJECT_CONTEXT) BusinessObjectContext boc,
-			final ExtensionService extService,
-			final GraphitiService graphitiService,
-			final ReferenceService refService) {
+			final ExtensionRegistryService extRegistryService) {
 		final Object bo = boc.getBusinessObject();
+		// Disabled for now. A null business object is not supported. Retrieving packages will need to be reworked because Business Object Providers
+		// only have access to global services and not diagram specific services.
+		/*
 		if(bo == null) { // Special handling for project
 			Stream.Builder<Object> packages = Stream.builder();
 			for(final IEObjectDescription desc : ScopedEMFIndexRetrieval.getAllEObjectsByType(graphitiService.getProject(), Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage())) {
@@ -79,15 +74,15 @@ public class AadlBusinessObjectProvider {
 			}
 			
 			return packages.build();
-		} else if(bo instanceof AadlPackage) {
-			return getChildren((AadlPackage)bo, extService);
+		} else */if(bo instanceof AadlPackage) {
+			return getChildren((AadlPackage)bo, extRegistryService);
 		} else if(bo instanceof Classifier) {
-			return getChildren((Classifier)bo, true, extService);
+			return getChildren((Classifier)bo, true, extRegistryService);
 		} else if(bo instanceof FeatureGroup) {
 			final FeatureGroupType fgt = AadlFeatureUtil.getFeatureGroupType(boc, (FeatureGroup)bo);
 			return fgt == null ? null : AadlFeatureUtil.getAllFeatures(fgt).stream();
 		} else if(bo instanceof Subcomponent) {
-			return getChildren((Subcomponent)bo, boc, extService);
+			return getChildren((Subcomponent)bo, boc, extRegistryService);
 		} else if(bo instanceof SubprogramCall) {
 			return getChildren((SubprogramCall)bo);
 		} else if(bo instanceof SubprogramCallSequence) {
@@ -112,16 +107,16 @@ public class AadlBusinessObjectProvider {
 	}
 	
 	// Declarative Model
-	private static Stream<Object> getChildren(final AadlPackage pkg, final ExtensionService extService) {
+	private static Stream<Object> getChildren(final AadlPackage pkg, final ExtensionRegistryService extRegistryService) {
 		// Build a list of all named elements in the public and private sections of the package
 		final Set<Object> children = new HashSet<>();
-		populateChildren(pkg, pkg.getPublicSection(), children, extService);
-		populateChildren(pkg, pkg.getPrivateSection(), children, extService);	
+		populateChildren(pkg, pkg.getPublicSection(), children, extRegistryService);
+		populateChildren(pkg, pkg.getPrivateSection(), children, extRegistryService);	
 		
 		return children.stream();
 	}
 	
-	private static void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final ExtensionService extService) {
+	private static void populateChildren(final AadlPackage pkg, final PackageSection ps, final Set<Object> children, final ExtensionRegistryService extRegistryService) {
 		if(ps == null) {
 			return;
 		}
@@ -130,7 +125,7 @@ public class AadlBusinessObjectProvider {
 		
 		for(final AnnexLibrary annexLibrary : ps.getOwnedAnnexLibraries()) {
 			final NamedElement parsedAnnexLibrary = getParsedAnnexLibrary(annexLibrary);
-			final boolean specializedHandling = parsedAnnexLibrary != null && extService.getApplicableBusinessObjectHandler(parsedAnnexLibrary) != null;
+			final boolean specializedHandling = parsedAnnexLibrary != null && extRegistryService.getApplicableBusinessObjectHandler(parsedAnnexLibrary) != null;
 
 			// Create the generic shape if specialized handling wasn't used
 			if(specializedHandling) {
@@ -173,13 +168,13 @@ public class AadlBusinessObjectProvider {
 	
 	private static Stream<?> getChildren(final Subcomponent sc, 
 			final BusinessObjectContext scBoc,
-			final ExtensionService extService) {
+			final ExtensionRegistryService extRegistryService) {
 		final ComponentClassifier cc = AadlSubcomponentUtil.getComponentClassifier(scBoc, sc);
 		if(cc == null) {
 			return null;
 		}
 		
-		Stream<?> results = getChildren(cc, false, extService);
+		Stream<?> results = getChildren(cc, false, extRegistryService);
 		
 		final String scTypeTxt = AadlSubcomponentUtil.getSubcomponentTypeDescription(sc);
 		if(scTypeTxt != null) {
@@ -241,7 +236,7 @@ public class AadlBusinessObjectProvider {
 	
 	private static Stream<?> getChildren(final Classifier classifier, 
 			final boolean includeGeneralizations,
-			final ExtensionService extService) {
+			final ExtensionRegistryService extRegistryService) {
 		Stream<?> children = Stream.empty();
 		
 		// Shapes
@@ -266,7 +261,7 @@ public class AadlBusinessObjectProvider {
 		final Stream.Builder<AnnexSubclause> subclauseStreamBuilder = Stream.builder();
 		for(final AnnexSubclause annexSubclause : getAllDefaultAnnexSubclauses(classifier)) {
 			final AnnexSubclause parsedAnnexSubclause = getParsedAnnexSubclause(annexSubclause);
-			final boolean specializedHandling = parsedAnnexSubclause != null && extService.getApplicableBusinessObjectHandler(parsedAnnexSubclause) != null;
+			final boolean specializedHandling = parsedAnnexSubclause != null && extRegistryService.getApplicableBusinessObjectHandler(parsedAnnexSubclause) != null;
 
 			// Create the generic shape if specialized handling wasn't used
 			if(specializedHandling) {

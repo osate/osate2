@@ -8,12 +8,15 @@
  *******************************************************************************/
 package org.osate.ge.internal.services.impl;
 
+import java.lang.ref.ReferenceQueue;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
-
+import java.util.WeakHashMap;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IConfigurationElement;
 import org.eclipse.core.runtime.IExtension;
 import org.eclipse.core.runtime.IExtensionPoint;
@@ -23,122 +26,209 @@ import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.ResolveCanonicalReference;
+import org.osate.ge.di.BuildCanonicalReference;
+import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.services.CachingService;
-import org.osate.ge.internal.services.CachingService.Cache;
-import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 public class DefaultReferenceService implements ReferenceService {
-	private static final String REFERENCE_RESOLVER_ELEMENT_NAME = "referenceResolver";
-	private final InternalReferenceBuilderService referenceBuilderService;
-	private final IEclipseContext ctx;
-	//private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
-	private List<Object> referenceResolvers = null;
-	private DeclarativeReferenceResolver declarativeReferenceResolver;
-	private Map<CanonicalBusinessObjectReference, Object> keyToBusinessObjectMap = new HashMap<CanonicalBusinessObjectReference, Object>();
+	public static final String REFERENCES_EXTENSION_POINT_ID = "org.osate.ge.references";
+	private static final String REFERENCE_BUILDER_ELEMENT_NAME = "referenceBuilder";
 	
-	public DefaultReferenceService(final ExtensionService extService, 
-			final CachingService cachingService,
-			final InternalReferenceBuilderService referenceBuilderService) {
-		this.referenceBuilderService = referenceBuilderService;
-		ctx = extService.createChildContext();
-		
-		// Register the cache with the caching service so it can be invalidated.
-		cachingService.registerCache(new Cache() {
+	private final static ReferenceQueue<ProjectReferenceService> serviceReferenceQueue = new ReferenceQueue<>();
+	
+	// Start a thread which will monitor the service reference queue and call the dispose method of the reference.
+	static {
+		final Thread referenceDisposalThread = new Thread(new Runnable() {			
 			@Override
-			public void invalidate() {
-				keyToBusinessObjectMap.clear();
-			}			
+			public void run() {
+				while(!Thread.currentThread().isInterrupted()) {
+					ProjectReferenceServiceReference ref;
+					try {
+						while((ref = (ProjectReferenceServiceReference)serviceReferenceQueue.remove()) != null) {
+							ref.dispose();
+						}
+					} catch (InterruptedException e) {
+						Thread.currentThread().interrupt();
+					}
+				}
+			}
 		});
+		referenceDisposalThread.setDaemon(true);
+		referenceDisposalThread.start();
+	}
+	
+	// A weak reference that holds the IEclipesContext used by the referenced service.
+	private static class ProjectReferenceServiceReference extends WeakReference<DefaultProjectReferenceService> {
+		private final IEclipseContext ctx;
+		
+		public ProjectReferenceServiceReference(final DefaultProjectReferenceService service,
+				final ReferenceQueue<? super ProjectReferenceService> queue,
+				final IEclipseContext ctx) {
+			super(service, queue);
+			this.ctx = Objects.requireNonNull(ctx, "ctx must not be null");
+		}
+		
+		public void dispose() {
+			// Dispose of the context
+			ctx.dispose();
+		}
+	}
+	
+	public static class ContextFunction extends SimpleServiceContextFunction<ReferenceService> {
+		@Override
+		public ReferenceService createService(final IEclipseContext context) {
+			return new DefaultReferenceService(context.get(ModelChangeNotifier.class));
+		}	
+		
+		@Override
+		protected void deactivate() {
+			// Dispose the service if it is valid
+			final ReferenceService service = getService();
+			if(service instanceof DefaultReferenceService) {
+				((DefaultReferenceService)service).dispose();
+			}
+			
+			super.deactivate();
+		}
+	}
+	
+	private List<Object> referenceBuilders = null;
+	private final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
+	private final IEclipseContext serviceContext;
+	private final WeakHashMap<IProject, ProjectReferenceServiceReference> projectToProjectReferenceService = new WeakHashMap<>();	
+	private final ModelChangeNotifier modelChangeNotifier;
+
+	private ModelChangeNotifier.ChangeListener modelChangeListener = new ModelChangeNotifier.ChangeListener() {		
+		@Override
+		public void modelChanged() {
+			// Notify project referece services of the model change
+			for(final ProjectReferenceServiceReference ref : projectToProjectReferenceService.values()) {
+				final DefaultProjectReferenceService projectReferenceService = ref.get();
+				if(projectReferenceService != null) {
+					projectReferenceService.onModelChanged();
+				}
+			}
+		}
+	};
+	
+	public DefaultReferenceService(final ModelChangeNotifier modelChangeNotifier) {
+		this.modelChangeNotifier = Objects.requireNonNull(modelChangeNotifier, "modelChangeNotifier must not be null");
+		referenceBuilders = instantiateReferenceBuilders();
+		
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		serviceContext = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+		
+		// Start listening to model changes
+		modelChangeNotifier.addChangeListener(modelChangeListener);
 	}
 	
 	public void dispose() {
-		// Disposing of the context will dispose of reference resolvers
-		ctx.dispose();
-		//argCtx.dispose();
+		// Stop listening to model changes
+		modelChangeNotifier.removeChangeListener(modelChangeListener);
+		
+		argCtx.dispose();
 	}
 	
-	/**
-	 * Lazy instantiate reference resolvers. Ensures that all services are available.
-	 */
-	private void ensureReferenceResolversHaveBeenInstantiated() {
-		if(referenceResolvers == null) {
-			// Instantiate reference resolvers
-			referenceResolvers = new ArrayList<>();
-
-			// Create the declarative reference handler. It is not registered with plugin.xml because an explicit reference to it is needed
-			this.declarativeReferenceResolver = ContextInjectionFactory.make(DeclarativeReferenceResolver.class, ctx);
-			referenceResolvers.add(declarativeReferenceResolver);
-			
-			// Instantiate other reference handlers
-			
-			final IExtensionRegistry registry = Platform.getExtensionRegistry();	
-			final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultInternalReferenceBuilderService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
-			for(final IExtension extension : point.getExtensions()) {
-				for(final IConfigurationElement ce : extension.getConfigurationElements()) {
-					if(ce.getName().equals(REFERENCE_RESOLVER_ELEMENT_NAME)) {
-						try {
-							final String className = ce.getAttribute("class");
-							final Class<?> resolverClass = Platform.getBundle(ce.getContributor().getName()).loadClass(className);
-							referenceResolvers.add(ContextInjectionFactory.make(resolverClass, ctx));
-						} catch(final ClassNotFoundException ex) {
-							throw new RuntimeException(ex);
-						}
+	private static List<Object> instantiateReferenceBuilders() {		
+		final List<Object> referenceBuilders = new ArrayList<>();
+		
+		final IExtensionRegistry registry = Platform.getExtensionRegistry();	
+		final IExtensionPoint point = Objects.requireNonNull(registry.getExtensionPoint(DefaultReferenceService.REFERENCES_EXTENSION_POINT_ID), "unable to retrieve references extension point");
+		for(final IExtension extension : point.getExtensions()) {
+			for(final IConfigurationElement ce : extension.getConfigurationElements()) {
+				if(ce.getName().equals(REFERENCE_BUILDER_ELEMENT_NAME)) {
+					try {								
+						final Object ext = (Object)ce.createExecutableExtension("class");
+						referenceBuilders.add(ext);
+					} catch(final CoreException ex) {
+						throw new RuntimeException(ex);
 					}
 				}
 			}
 		}
+		
+		return Collections.unmodifiableList(referenceBuilders);
 	}
-	
+		
 	@Override
-	public Object resolve(final CanonicalBusinessObjectReference reference) {
-		Objects.requireNonNull(reference, "reference must not be null");
-		
-		// Look in the cache first. Don't return null objects even if they have been stored in the cache.
-		Object bo = keyToBusinessObjectMap.get(reference);
-		if(bo != null) {
-			return bo;
-		}
-		
-		// Retrieve the value and add it to the cache
-		bo = resolveUncachedAbsoluteReference(reference);
-		keyToBusinessObjectMap.put(reference, bo);
-		
-		return bo;
-	}
-	
-	private Object resolveUncachedAbsoluteReference(final CanonicalBusinessObjectReference reference) {	
-		ensureReferenceResolversHaveBeenInstantiated();
-		
-		final IEclipseContext argCtx = EclipseContextFactory.create(); // Used for method arguments
+	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
+		Objects.requireNonNull(bo, "bo must not be null");
 		try {
 			// Set context fields
-			argCtx.set(Names.REFERENCE, reference.toSegmentArray());	
-			
-			for(final Object refResolver : referenceResolvers) {
-				final Object referencedObject = ContextInjectionFactory.invoke(refResolver, ResolveCanonicalReference.class, ctx, argCtx, null);
-				if(referencedObject != null) {
-					return referencedObject;
+			argCtx.set(Names.BUSINESS_OBJECT, bo);
+			for(final Object refBuilder : referenceBuilders) {
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildCanonicalReference.class, serviceContext, argCtx, null);
+				if(ref != null) {
+					// Return null if any segment is null. 
+					// This is done to prevent the reference builder from having to check all fields such as qualified name for null values.
+					for(final String seg : ref) {
+						if(seg == null) {
+							return null;
+						}
+					}
+					
+					return new CanonicalBusinessObjectReference(ref);
 				}
 			}
 		} finally {
-			argCtx.dispose();
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public RelativeBusinessObjectReference getRelativeReference(final Object bo) {
+		Objects.requireNonNull(bo, "bo must not be null");
+		try {
+			// Set context fields
+			argCtx.set(Names.BUSINESS_OBJECT, bo);
+			for(final Object refBuilder : referenceBuilders) {
+				final String[] ref = (String[])ContextInjectionFactory.invoke(refBuilder, BuildRelativeReference.class, serviceContext, argCtx, null);
+				if(ref != null) {
+					// Return null if any segment is null. 
+					// This is done to prevent the reference builder from having to check all fields such as qualified name for null values.
+					for(final String seg : ref) {
+						if(seg == null) {
+							return null;
+						}
+					}
+					
+					return new RelativeBusinessObjectReference(ref);
+				}
+			}
+		} finally {
+			// Remove entries from context
+			argCtx.remove(Names.BUSINESS_OBJECT);
 		}
 		
 		return null;
 	}
 
 	@Override
-	public CanonicalBusinessObjectReference getCanonicalReference(final Object bo) {
-		return referenceBuilderService.getCanonicalReference(bo);
-	}
+	public ProjectReferenceService getProjectReferenceService(final IProject project) {		
+		ProjectReferenceServiceReference serviceRef = projectToProjectReferenceService.get(project);
+		DefaultProjectReferenceService result = serviceRef == null ? null : serviceRef.get();
+		if(result == null) {
+			// Create a new context
+			final Bundle bundle = FrameworkUtil.getBundle(getClass());	
+			final IEclipseContext ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+			
+			// Create the reference service
+			result = new DefaultProjectReferenceService(this, project, ctx);
+			
+			// Create the reference
+			final ProjectReferenceServiceReference newServiceRef = new ProjectReferenceServiceReference(result, serviceReferenceQueue, ctx);
+			projectToProjectReferenceService.put(project, newServiceRef);
+		}
 
-	@Override
-	public RelativeBusinessObjectReference getRelativeReference(Object bo) {
-		return referenceBuilderService.getRelativeReference(bo);
+		return result;
 	}
 }

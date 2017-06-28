@@ -22,7 +22,6 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
@@ -85,12 +84,7 @@ public class ErrorBehaviorStateMachineHandler {
 		final ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)stateMachine.eContainer();
 		return ErrorModelNamingHelper.validateName(errorModelLibrary, stateMachine.getName(), value);
 	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine, final @Named(Names.NAME) String value) {
-		stateMachine.setName(value);
-	}
-	
+		
 	@HandleDoubleClick
 	public void onDoubleclick(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorStateMachine stateMachine, final GraphicalEditorService editorService) {
 		editorService.openBusinessObject(stateMachine);

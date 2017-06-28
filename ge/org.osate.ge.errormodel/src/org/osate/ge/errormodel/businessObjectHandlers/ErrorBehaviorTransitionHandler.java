@@ -21,7 +21,6 @@ import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
 import org.osate.ge.graphics.ArrowBuilder;
@@ -84,11 +83,6 @@ public class ErrorBehaviorTransitionHandler {
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition transition, final @Named(Names.NAME) String value) {
 		final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)transition.eContainer();
 		return ErrorModelNamingHelper.validateName(stateMachine, transition.getName(), value);
-	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) ErrorBehaviorTransition bo, final @Named(Names.NAME) String value) {
-		bo.setName(value);
 	}
 		
 	// TODO

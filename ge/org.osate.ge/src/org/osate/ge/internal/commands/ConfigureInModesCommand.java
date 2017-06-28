@@ -25,12 +25,11 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.ui.dialogs.SetInModeFeaturesDialog;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 
-@ModifiesBusinessObjects
 public class ConfigureInModesCommand {
 	private static final StandaloneQuery parentQuery = StandaloneQuery.create((root) -> root.ancestor(1));
 
@@ -43,11 +42,16 @@ public class ConfigureInModesCommand {
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ModalElement modalElement,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
 		return (modalElement instanceof Subcomponent || modalElement instanceof Connection || modalElement instanceof FlowSpecification) && 
-				modalElement.getContainingClassifier() instanceof ComponentClassifier && modalElement.getContainingClassifier() == diagram;
+				modalElement.getContainingClassifier() instanceof ComponentClassifier && modalElement.getContainingClassifier() == parent;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
+		return bo;
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ModalElement modalElement) {
 		// Build a list of all modes in the containing classifier

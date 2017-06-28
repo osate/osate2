@@ -20,7 +20,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 
 	private Object bo;
 	private Object boHandler;
-	private final RelativeBusinessObjectReference boRelReference;
+	private RelativeBusinessObjectReference boRelReference;
 	private boolean manual = false; // Specifies that the element was created as part of a manual process and not from an auto contents filter or other automatic mechanism.
 	private ContentsFilter autoContentsFilter;
 	private Completeness completeness = Completeness.UNKNOWN;
@@ -120,6 +120,10 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	
 	final void setBusinessObject(final Object value) {
 		this.bo = Objects.requireNonNull(value, "value must not be null");
+	}
+	
+	final void setRelativeReference(final RelativeBusinessObjectReference value) {
+		this.boRelReference = Objects.requireNonNull(value, "value must not be null");
 	}
 	
 	public final void setBusinessObjectHandler(final Object value) {

@@ -18,7 +18,6 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.BusinessObjectContext;
@@ -27,7 +26,6 @@ import org.osate.ge.internal.graphics.ModeGraphicBuilder;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.ImageHelper;
 import org.osate.ge.internal.util.AadlInheritanceUtil;
 import org.osate.ge.query.StandaloneQuery;
@@ -105,9 +103,4 @@ public class ModeHandler {
 		final Object containerBo = queryService.getFirstBusinessObject(parentQuery, boc);
 		return mode.getContainingClassifier() == containerBo;
     }
-    
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) Mode mode, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
-		refactoringService.renameElement(mode, value);
-	}
 }

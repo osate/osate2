@@ -44,7 +44,6 @@ import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.DockingPosition;
@@ -53,7 +52,6 @@ import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlArrayUtil;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.internal.util.AadlPrototypeUtil;
@@ -227,10 +225,5 @@ public class FeatureHandler {
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.NAME) String value, final NamingService namingService) {
 		return namingService.checkNameValidity(feature, value);
-	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) NamedElement feature, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
-		refactoringService.renameElement(feature, value);
 	}
 }

@@ -105,14 +105,16 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {	
 	private IEclipseContext eclipseContext;
+	private ReferenceService referenceService;
 	private ExtensionService extService;
 	private AadlModificationService aadlModService;
 	private GraphitiService graphitiService;
-	private ReferenceService referenceService;
+	private ProjectReferenceService referenceResolver;
 	private BoHandlerDeleteFeature defaultDeleteFeature;
 	private BoHandlerDirectEditFeature defaultDirectEditFeature;
 	private AgeMoveShapeFeature defaultMoveShapeFeature;
@@ -133,10 +135,13 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 	public void initialize(final IEclipseContext context) {
 		this.eclipseContext = context.createChild();
 		this.eclipseContext.set(IFeatureProvider.class, this);
+		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unablet to retrieve reference service service");
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
-		this.referenceService = Objects.requireNonNull(eclipseContext.get(ReferenceService.class), "unable to retrieve serializable reference service");
+
+		// TODO: Get from global reference service
+		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.
 		defaultDeleteFeature = make(BoHandlerDeleteFeature.class);
@@ -149,14 +154,14 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		removeBendpointFeature = make(AgeRemoveBendpointFeature.class);
 		
 		// Create the refresh diagram feature
-		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceService);
-		final TreeExpander boTreeExpander = new DefaultTreeExpander(graphitiService, extService, referenceService, nodeFactory);
-		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceService, extService);
+		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
+		final TreeExpander boTreeExpander = new DefaultTreeExpander(graphitiService, extService, referenceResolver, nodeFactory);
+		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);
 		
 		// Create the configure diagram feature
-		this.configureDiagramFeature = new ConfigureDiagramFeature(this, diagramUpdater, graphitiService, referenceService, extService, graphitiService);
+		this.configureDiagramFeature = new ConfigureDiagramFeature(this, boTreeExpander, diagramUpdater, graphitiService, referenceResolver, extService, graphitiService);
 	}
 
 	@Override
@@ -323,7 +328,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry .getType() == SimplePaletteEntry.Type.CREATE) {
-							features.add(new BoHandlerCreateFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceService, this, simpleEntry, boHandler));
+							features.add(new BoHandlerCreateFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
 						}
 					}
 				}
@@ -361,7 +366,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 					for(final PaletteEntry entry : extPaletteEntries) {
 						final SimplePaletteEntry simpleEntry = (SimplePaletteEntry)entry;
 						if(simpleEntry.getType() == SimplePaletteEntry.Type.CREATE_CONNECTION) {
-							retList.add(new BoHandlerCreateConnectionFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceService, this, simpleEntry, boHandler));
+							retList.add(new BoHandlerCreateConnectionFeature(graphitiService, extService, aadlModService, diagramUpdater, referenceResolver, this, simpleEntry, boHandler));
 						}
 					}
 				}
@@ -390,7 +395,7 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 
 	private IEclipseContext createGetPaletteEntriesContext() {
 		final IEclipseContext childCtx = extService.createChildContext();
-		childCtx.set(Names.DIAGRAM_BO, AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiService.getGraphitiAgeDiagram().getAgeDiagram(), referenceService));
+		childCtx.set(Names.DIAGRAM_BO, AgeDiagramUtil.getConfigurationContextBusinessObject(graphitiService.getGraphitiAgeDiagram().getAgeDiagram(), referenceResolver));
 		return childCtx;
 	}
 	

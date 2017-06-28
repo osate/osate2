@@ -50,9 +50,9 @@ import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.IsApplicable;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.di.CanRename;
+import org.osate.ge.internal.di.GetNameForEditing;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.graphics.AadlGraphics;
 import org.osate.ge.internal.labels.LabelConfiguration;
@@ -358,6 +358,11 @@ public class ClassifierHandler {
 		return classifier.getName(); 
 	}
 	
+	@GetNameForEditing
+	public String getName(final @Named(Names.BUSINESS_OBJECT) ComponentImplementation ci) {
+		return ci.getImplementationName();
+	}
+	
 	// Returns whether the classifier is owned by the package in which the diagram element is contained.
 	private boolean classifierIsOwnedByPackage(final Classifier classifier, final BusinessObjectContext boc, final QueryService queryService) {
 		final AadlPackage containingAadlPackage = (AadlPackage)queryService.getFirstBusinessObject(packageQuery, boc);
@@ -370,56 +375,36 @@ public class ClassifierHandler {
 	
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) Classifier classifier, final @Named(Names.NAME) String value, final NamingService namingService) {
+		final String newQualifiedName;
+		final String oldName;
+		
+		// Transform value so that is is the full name
+		if(classifier instanceof ComponentImplementation) {
+    		final ComponentImplementation ci = (ComponentImplementation)classifier;
+    		newQualifiedName = ci.getTypeName() + "." + value;
+    		oldName = ci.getImplementationName();
+		} else {
+			newQualifiedName = value;
+			oldName = classifier.getName();
+		}
+		
     	// If the name hasn't changed or has only changed case
-    	if(value.equalsIgnoreCase(classifier.getName())) {
+    	if(value.equalsIgnoreCase(oldName)) {
     		return null;
     	}
     	    
     	// Check if the value matches the format for AADL identifiers
-    	if(classifier instanceof ComponentImplementation) {
-    		// Check that the name specified both a type and implementation name
-    		final String[] segs = value.split("\\.");
-    		if(segs.length != 2) {
-    			return "The name is not a valid name for a component implementation";
-    		}
-    		
-    		// Ensure both segments are valid identifiers
-    		if(!namingService.isValidIdentifier(segs[0]) || !namingService.isValidIdentifier(segs[1])) {
-    			return "The specified name is not a valid AADL identifier";
-    		}    		
-    		
-    		// Check the new type name...
-    		final String typeName = segs[0];
-    		NamedElement ctElement = null; // Either a ComponentType or a ComponentTypeRename    		
-    		if(classifier.getNamespace() != null) {
-				for(final NamedElement el : classifier.getNamespace().getMembers()) {
-					if(typeName.equalsIgnoreCase(el.getName()) && (el instanceof ComponentType || el instanceof ComponentTypeRename)) {
-						ctElement = el;
-					}
-				}
-    		}
-    		
-    		if(ctElement == null) {
-    			return segs[0] + " does not name a Component Type.";
-    		}
-    	} else {
-    		if(!namingService.isValidIdentifier(value)) {
-	    		return "The specified name is not a valid AADL identifier";
-	    	}
-    	}
+   		if(!namingService.isValidIdentifier(value)) {
+	    	return "The specified name is not a valid AADL identifier";
+	    }
     	
     	// Check for conflicts in the namespace
-    	if(namingService.isNameInUse(classifier.getNamespace(), value)) {
+    	if(namingService.isNameInUse(classifier.getNamespace(), newQualifiedName)) {
     		return "The specified name conflicts with an existing member of the namespace.";
     	}
 
         // The value is valid
         return null;        
-	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) Classifier bo, final @Named(Names.NAME) String value) {
-		bo.setName(value);
 	}
 	
 	@HandleDoubleClick

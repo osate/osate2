@@ -37,9 +37,13 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
@@ -51,12 +55,15 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.QualifiedName;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ArrayContentProvider;
@@ -65,32 +72,55 @@ import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.IEditorReference;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.dialogs.ListDialog;
+import org.eclipse.xtext.resource.XtextResourceSet;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.EmfContainerProvider;
+import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.diagram.AgeDiagram;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.DiagramConfiguration;
 import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
+import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.DiagramModification;
+import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.DiagramNode;
 import org.osate.ge.internal.diagram.DiagramSerialization;
+import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.DiagramService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
+import org.osate.ge.internal.services.SavedAadlResourceService;
+import org.osate.ge.internal.services.UiService;
+import org.osate.ge.internal.services.DiagramService.ReferenceCollection;
+import org.osate.ge.internal.services.DiagramService.DiagramReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.ge.internal.ui.util.EditorUtil;
 import org.osate.ge.internal.ui.util.SelectionHelper;
+import org.osate.ge.internal.util.BusinessObjectProviderHelper;
 import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.internal.util.Log;
+import org.osate.ge.internal.util.NonUndoableToolCommand;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 public class DefaultDiagramService implements DiagramService {
 	private static final QualifiedName LEGACY_PROPERTY_NAME_MODIFICATION_TIMESTAMP = new QualifiedName("org.osate.ge", "diagram_name_modification_stamp");
 	private static final QualifiedName LEGACY_PROPERTY_DIAGRAM_NAME = new QualifiedName("org.osate.ge", "diagram_name");
 	private static final Pattern uuidFilenamePattern = Pattern.compile("[0-9a-f]{4,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{2,}-[0-9a-f]{6,}\\.aadl_diagram");
 
-	private final InternalReferenceBuilderService referenceBuilder;
+	private final ReferenceService referenceBuilder;
+	private final ExtensionRegistryService extRegistry;
 	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
 		public DiagramService createService(final IEclipseContext context) {
-			return new DefaultDiagramService(context.get(InternalReferenceBuilderService.class));
+			return new DefaultDiagramService(context.get(ReferenceService.class), context.get(ExtensionRegistryService.class));
 		}		
 	}
 	
@@ -245,8 +275,10 @@ public class DefaultDiagramService implements DiagramService {
 		}
 	}
 	
-	public DefaultDiagramService(final InternalReferenceBuilderService referenceBuilder) {
-		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "unable to retrieve internal reference builder service");
+	public DefaultDiagramService(final ReferenceService referenceBuilder,
+			final ExtensionRegistryService extRegistry) {
+		this.referenceBuilder = Objects.requireNonNull(referenceBuilder, "referenceBuilder must not be null");
+		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
 	}
 		
 	@Override
@@ -379,7 +411,7 @@ public class DefaultDiagramService implements DiagramService {
 	}
 	
 	/**
-	 * Returns all diagrams in the specified projects. If a diagram is open it returns the open diagram
+	 * Returns all diagrams in the specified projects.
 	 * @return
 	 */
 	@Override
@@ -551,5 +583,270 @@ public class DefaultDiagramService implements DiagramService {
 		}
 
 		return eObject.eResource();
+	}
+	
+	// TODO: Will an open diagram reference have a separate closed diagram reference?
+	class InternalReferencesToUpdate implements ReferenceCollection {
+		// TODO: Rename. Mapping from internal diagram references to a mapping from original diagram reference to lists of references to update
+		private final Map<InternalDiagramReference, Map<CanonicalBusinessObjectReference, Collection<ReferenceToUpdate>>> info = new HashMap<>();
+		
+		@Override
+		// TODO: Decide how much needs to be in the service
+		public void update(final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap) {
+			// TODO: Rename variable
+			for(final Entry<InternalDiagramReference, Map<CanonicalBusinessObjectReference, Collection<ReferenceToUpdate>>> a : info.entrySet()) {
+				final InternalDiagramReference diagramRef = a.getKey();
+				if(diagramRef.isOpen()) {
+					final AgeDiagramEditor editor = diagramRef.getEditor();
+					final AgeDiagramProvider diagramProvider = (AgeDiagramProvider)editor.getAdapter(AgeDiagramProvider.class);
+					// TODO: Check for null
+					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
+					
+					//NonUndoableToolCommand
+					editor.getEditingDomain().getCommandStack().execute(new NonUndoableToolCommand() {	
+						@Override
+						public void execute() {
+							diagram.modify(new DiagramModifier() {					
+								@Override
+								public void modify(final DiagramModification m) {
+									try {
+										referenceUpdateModification = m;
+										for(final Entry<CanonicalBusinessObjectReference, Collection<ReferenceToUpdate>> originalCanonicaLRefToReferencesToUpdateEntry : a.getValue().entrySet()) {
+											final CanonicalBusinessObjectReference originalCanonicalReference = originalCanonicaLRefToReferencesToUpdateEntry.getKey();
+											final Object newBo = originalCanonicalReferenceToNewObjectMap.get(originalCanonicalReference);
+											if(newBo != null) {
+												for(final ReferenceToUpdate referenceToUpdate : originalCanonicaLRefToReferencesToUpdateEntry.getValue()) {
+													System.err.println("UPDATE REF");
+													referenceToUpdate.update(newBo);
+												}
+											}
+										}
+									} finally {
+										referenceUpdateModification = null;
+									}
+								}
+							});
+						}
+					});
+				} else {
+					// TODO
+				}
+				
+				// Will open diagrams have both open and closed references
+			}		
+		}
+		
+		public void addReference(final InternalDiagramReference diagramRef, 
+				final CanonicalBusinessObjectReference originalCanonicalReference,
+				final ReferenceToUpdate reference) {
+			// TODO: Rename
+			Map<CanonicalBusinessObjectReference, Collection<ReferenceToUpdate>> canonicalReferenceToUpdateableReferenceMap = info.get(diagramRef);
+			if(canonicalReferenceToUpdateableReferenceMap == null) {
+				canonicalReferenceToUpdateableReferenceMap = new HashMap<>();
+				info.put(diagramRef, canonicalReferenceToUpdateableReferenceMap);
+			}
+			
+			Collection<ReferenceToUpdate> updateableReferences = canonicalReferenceToUpdateableReferenceMap.get(originalCanonicalReference);
+			if(updateableReferences == null) {
+				updateableReferences = new ArrayList<>();
+				canonicalReferenceToUpdateableReferenceMap.put(originalCanonicalReference, updateableReferences);
+			}
+			
+			updateableReferences.add(reference);
+		}
+		
+		public Collection<Entry<CanonicalBusinessObjectReference, Collection<ReferenceToUpdate>>> getReferences(final InternalDiagramReference ref) {
+			final Map<CanonicalBusinessObjectReference, Collection<ReferenceToUpdate>> canonicalReferenceToUpdateableReferenceMap = info.get(ref); // TODO
+			if(canonicalReferenceToUpdateableReferenceMap == null) {
+				return Collections.emptyList();
+			}
+			
+			return canonicalReferenceToUpdateableReferenceMap.entrySet();
+		}
+	}
+	
+	interface ReferenceToUpdate {
+		void update(Object newBo);
+	}
+	
+	private DiagramModification referenceUpdateModification; // TODO: Rework?
+	
+	class OpenDiagramElementReference implements ReferenceToUpdate {
+		private final DiagramElement diagramElement;
+		
+		public OpenDiagramElementReference(final DiagramElement diagramElement) {
+			this.diagramElement = Objects.requireNonNull(diagramElement, "diagramElement must not be null");
+		}
+		
+		@Override
+		public void update(final Object newBo) {
+			// TODO: Should update be passed in the relative reference or something to avoid repeated lookups of the relative reference?
+			final RelativeBusinessObjectReference newRelRef = referenceBuilder.getRelativeReference(newBo);
+			if(newRelRef != null) {
+				referenceUpdateModification.updateBusinessObject(diagramElement, newBo, newRelRef);
+			}
+		}
+		
+	}
+	
+	@Override
+	public ReferenceCollection getReferences(final HashSet<IProject> relevantProjects, 
+			final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences) {
+		final InternalReferencesToUpdate references = new InternalReferencesToUpdate();
+		try(final BusinessObjectProviderHelper bopHelper = new BusinessObjectProviderHelper(extRegistry)) {
+			// TODO: See notes
+			
+			// TODO: Create services that will be needed to resolve references...
+			// TODO: Dispose of appropriate services and contexts...
+			// TODO: Is there a better way to do all of this? In final version this will be needed by indexer..
+			/*
+			final Bundle bundle = FrameworkUtil.getBundle(getClass());	
+			final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
+			
+			// TODO: Shouldn't look things up from the context?
+			final InternalReferenceBuilderService refBuilder = Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService");
+			final CachingService cachingService = new DefaultCachingService();
+			final ExtensionService extensionService = new DefaultExtensionService(extRegistry, context);
+			final ReferenceService referenceService = new DefaultReferenceService(extensionService, cachingService, refBuilder);
+			
+			*/
+			// TODO: Need an indexing mechanism to improve performance
+			
+			// TODO: Need to get separate objects for closed and open..
+	
+			final Collection<InternalDiagramReference> diagrams = findDiagrams(relevantProjects);
+			for(final InternalDiagramReference diagramRef : diagrams) {
+				if(diagramRef.isOpen()) {				
+					// TODO
+					// TODO: Check for null? 
+					final AgeDiagramEditor editor = diagramRef.getEditor();
+					final AgeDiagramProvider diagramProvider = (AgeDiagramProvider)editor.getAdapter(AgeDiagramProvider.class);
+					// TODO: Check for null
+					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
+	
+					// TODO: Check context
+
+					// Get references from the diagram elements
+					getRuntimeReferencesFromChildren(diagramRef, diagram, originalCanonicalReferences, references);
+				}
+				
+				// Handle closed diagrams
+				final ResourceSet rs = new ResourceSetImpl();
+				final URI diagramUri = URI.createPlatformResourceURI(diagramRef.getFile().getFullPath().toString(), true);
+				final Resource resource = rs.createResource(diagramUri);
+				try {
+					resource.load(Collections.emptyMap());
+					if(resource.getContents().size() == 1) {
+						if(resource.getContents().get(0) instanceof org.osate.ge.mm.diagram.Diagram) {
+							final org.osate.ge.mm.diagram.Diagram mmDiagram = (org.osate.ge.mm.diagram.Diagram)resource.getContents().get(0);
+							System.err.println("TODO: " + mmDiagram);
+							
+							// TODO: Check config
+							final org.osate.ge.mm.diagram.DiagramConfiguration config = mmDiagram.getConfig();
+							Object contextBo = null;
+							if(config != null) {
+								final CanonicalBusinessObjectReference contextRef = DiagramSerialization.convert(config.getContext());
+								if(contextRef != null) {
+									//contextBo = referenceService.resolve(contextRef);
+								}
+							}
+							
+							System.err.println("CONTEXT BO: " + contextBo);
+							
+							
+							// TODO: Get references from the tree
+							getStoredReferencesFromChildren(diagramRef, mmDiagram, originalCanonicalReferences, bopHelper, references);
+						}		
+					}
+				} catch (IOException e) {
+					// Ignore. Continue with next file
+				}
+			}
+		}
+				
+		return references;
+	}
+	
+	// TODO: Rename
+	// TODO: Document parameters., In vs out
+	// TODO: Rename... only for live version 
+	private void getRuntimeReferencesFromChildren(final InternalDiagramReference diagramRef,
+			final DiagramNode node, 
+			final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences,
+			final InternalReferencesToUpdate references) {
+		for(final DiagramElement child : node.getDiagramElements()) {
+			final Object currentBo = child.getBusinessObject();
+			
+			// TODO: do more testing and determine if this is needed
+			if(currentBo instanceof EObject) {
+				final EObject test = (EObject)currentBo;
+				//if(test != null && test.eContainer() != null && test.eContainer().eIsProxy() || test.eIsProxy()) {
+				if(test != null && test.eIsProxy()) {
+					final XtextResourceSet testResourceSet = OsateResourceUtil.createXtextResourceSet();
+					final EObject test3 = EcoreUtil.resolve(test, testResourceSet);
+					
+				//	EcoreUtil.resolveAll(test);
+					System.err.println("TADA");
+				//	System.err.println(test.eContainer() + " : " + test3);
+					// TODO: Technically resolving things this way works.. However, the updated object is retrieved and not the one before it was modified.
+					// Could result in an incorrect reference being retrieved.
+					// How to handle.. Could store canonical references at all times.. Either in index or in the model... 
+					// Alternatively, would need a function that is called at the start of the renaming process...
+				}
+			}
+						
+			final CanonicalBusinessObjectReference currentCanonicalRef = currentBo == null ? null : referenceBuilder.getCanonicalReference(currentBo);
+			if(currentCanonicalRef != null) {
+				if(originalCanonicalReferences.contains(currentCanonicalRef)) {
+					System.err.println("ADD REFERENCE");
+					references.addReference(diagramRef, currentCanonicalRef, new OpenDiagramElementReference(child));
+				}
+			}			
+			
+			getRuntimeReferencesFromChildren(diagramRef, child, originalCanonicalReferences, references);
+		}
+	}
+	
+	private void getStoredReferencesFromChildren(final InternalDiagramReference diagramRef,
+			final org.osate.ge.mm.diagram.DiagramNode node, 
+			final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences,
+			final BusinessObjectProviderHelper bopHelper,
+			final InternalReferencesToUpdate references) {
+		
+		// TODO: Need to build a business object context for this...
+		
+		for(final org.osate.ge.mm.diagram.DiagramElement child : node.getElement()) {
+			//System.err.println("CHILD: " + child);
+			//bopHelper.getChildBusinessObjects(boc)
+			/*
+			final Object currentBo = child.getBusinessObject();
+			if(currentBo instanceof EObject) {
+				final EObject test = (EObject)currentBo;
+				//if(test != null && test.eContainer() != null && test.eContainer().eIsProxy() || test.eIsProxy()) {
+				if(test != null && test.eIsProxy()) {
+					final XtextResourceSet testResourceSet = OsateResourceUtil.createXtextResourceSet();
+					final EObject test3 = EcoreUtil.resolve(test, testResourceSet);
+					
+				//	EcoreUtil.resolveAll(test);
+					System.err.println("TADA");
+				//	System.err.println(test.eContainer() + " : " + test3);
+					// TODO: Technically resolving things this way works.. However, the updated object is retrieved and not the one before it was modified.
+					// Could result in an incorrect reference being retrieved.
+					// How to handle.. Could store canonical references at all times.. Either in index or in the model... 
+					// Alternatively, would need a function that is called at the start of the renaming process...
+				}
+			}
+						
+			final CanonicalBusinessObjectReference currentCanonicalRef = currentBo == null ? null : referenceBuilder.getCanonicalReference(currentBo);
+			if(currentCanonicalRef != null) {
+				if(originalCanonicalReferences.contains(currentCanonicalRef)) {
+					System.err.println("ADD REFERENCE");
+					references.addReference(diagramRef, currentCanonicalRef, new OpenDiagramElementReference(child));
+				}
+			}			
+			*/
+			
+			getStoredReferencesFromChildren(diagramRef, child, originalCanonicalReferences, bopHelper, references);
+		}
 	}
 }

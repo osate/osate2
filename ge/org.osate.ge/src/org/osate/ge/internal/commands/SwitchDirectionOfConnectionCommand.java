@@ -8,9 +8,8 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 
-@ModifiesBusinessObjects
 public class SwitchDirectionOfConnectionCommand {
 
 	@GetLabel
@@ -24,6 +23,11 @@ public class SwitchDirectionOfConnectionCommand {
 		return ci != null && connection.getContainingClassifier() == ci && connection.getRefined() == null;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
+		return bo;
+	}
+	
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Connection connection) {
 		final ConnectedElement ceSource = connection.getSource();

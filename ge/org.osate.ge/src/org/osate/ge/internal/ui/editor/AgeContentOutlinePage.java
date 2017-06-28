@@ -302,6 +302,11 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 		toolBarManager.add(linkWithEditorAction);
 	}
 
+	@Override
+	public void dispose() {
+		super.dispose();
+	}
+	
 	private void selectEditorPictogramElements() {
 		// Compare using diagram nodes to allow selecting labels when link with editor is enabled
 		final Set<DiagramNode>  outlineNodes = getCurrentlySelectedDiagramNodes();

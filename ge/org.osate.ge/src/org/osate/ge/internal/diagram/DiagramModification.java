@@ -14,6 +14,8 @@ public interface DiagramModification {
 	void addElement(final DiagramElement e);
 	void removeElement(final DiagramElement e);
 	
+	void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference);
+	
 	/**
 	 * Updates the business object for a diagram element. The business object must have the same relative reference as the current business object.
 	 * It is intended that this method be used to update an element to reflect an updated model when refreshing the diagram.

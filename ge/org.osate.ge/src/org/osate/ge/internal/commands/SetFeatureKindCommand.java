@@ -33,9 +33,9 @@ public class SetFeatureKindCommand {
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Access af,
 			@Named(Names.BUSINESS_OBJECT_CONTEXT) final BusinessObjectContext boc,
 			final QueryService queryService) {
-		final Object diagram = queryService.getFirstBusinessObject(parentQuery, boc);
+		final Object parent = queryService.getFirstBusinessObject(parentQuery, boc);
 		final Classifier classifier = af.getContainingClassifier();
-		return classifier == diagram && (classifier instanceof FeatureGroupType || classifier instanceof ComponentType);
+		return classifier == parent && (classifier instanceof FeatureGroupType || classifier instanceof ComponentType);
 	}
 
 	@CanActivate

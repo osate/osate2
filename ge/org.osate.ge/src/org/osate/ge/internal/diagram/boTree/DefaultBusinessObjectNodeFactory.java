@@ -3,12 +3,12 @@ package org.osate.ge.internal.diagram.boTree;
 import java.util.Objects;
 import org.osate.ge.internal.diagram.ContentsFilter;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class DefaultBusinessObjectNodeFactory {
-	private final ReferenceService referenceService;
+	private final ProjectReferenceService referenceService;
 	
-	public DefaultBusinessObjectNodeFactory(final ReferenceService referenceService) {
+	public DefaultBusinessObjectNodeFactory(final ProjectReferenceService referenceService) {
 		this.referenceService = Objects.requireNonNull(referenceService, "referenceService must not be null");
 	}
 	

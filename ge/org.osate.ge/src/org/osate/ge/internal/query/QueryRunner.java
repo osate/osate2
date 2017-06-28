@@ -4,12 +4,12 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
 import java.util.Objects;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.ReferenceService;
 
 public class QueryRunner {
-	private final InternalReferenceBuilderService refBuilder;
+	private final ReferenceService refBuilder;
 	
-	public QueryRunner(final InternalReferenceBuilderService refBuilder) {
+	public QueryRunner(final ReferenceService refBuilder) {
 		this.refBuilder = Objects.requireNonNull(refBuilder, "refBuilder must not be null");
 	}
 	

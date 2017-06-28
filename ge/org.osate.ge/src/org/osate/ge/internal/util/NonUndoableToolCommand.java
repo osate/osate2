@@ -6,17 +6,26 @@
  * http://www.eclipse.org/legal/epl-v10.html
  * The US Government has unlimited rights in this work in accordance with W31P4Q-10-D-0092 DO 0105.
  *******************************************************************************/
-package org.osate.ge.internal.services;
+package org.osate.ge.internal.util;
 
-/**
- * Service for controlling caching. Primarily used for AADL declarative models.
- * TODO: Consider reworking since the usage of this service is now limited.
-  */
-public interface CachingService {
-	interface Cache {
-		void invalidate(); // Called when the cache should invalidate
+import org.eclipse.emf.common.command.AbstractCommand;
+
+// An abstract command class which is always prepared for execution and cannot be undone.
+public abstract class NonUndoableToolCommand extends AbstractCommand {
+	public NonUndoableToolCommand() {
+		super("Tool");
 	}
 	
-	void registerCache(final Cache cache);
-	void invalidate(); // Invalidates all caches under the control of the caching service
+	@Override
+	public boolean prepare() {
+		return true;
+	}
+
+	@Override
+	public boolean canUndo() {
+		return false;
+	}
+	
+	@Override
+	public void redo() {}
 }

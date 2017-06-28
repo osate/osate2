@@ -489,7 +489,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			
 			// Remove the PE If it is of the wrong type...
 			if(pe != null) {
-				if((ac.isCurved && !(pe instanceof CurvedConnection)) || (!ac.isCurved && !(pe instanceof FreeFormConnection))) {
+				if(!(pe instanceof Connection) || (ac.isCurved && !(pe instanceof CurvedConnection)) || (!ac.isCurved && !(pe instanceof FreeFormConnection))) {
 					EcoreUtil.delete(pe, true);
 					pe = null;
 				}
@@ -509,6 +509,14 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			}
 		
 		} else if(graphic instanceof AgeShape) {
+			// Remove the PE If it is of the wrong type...
+			if(pe != null) {
+				if(!(pe instanceof Shape)) {
+					EcoreUtil.delete(pe, true);
+					pe = null;
+				}
+			}
+			
 			if(pe == null) {
 				if(containerPe instanceof ContainerShape) {
 					// Create the container shape
@@ -724,12 +732,14 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		@Override
 		public void elementAdded(final ElementAddedEvent e) {
 			if(enabled) {
-				elementsToRemove.remove(e.element);
-				elementAdded = true;
-				//elementsToAdd.add(e.element);
-				//elementsToUpdate.add(e.element);
-				elementsToUpdate.clear(); // Clear all elements to update. They will not be processed if an element has been added.
+				onElementAdded(e.element);
 			}
+		}
+		
+		private void onElementAdded(final DiagramElement element) {
+			elementsToRemove.remove(element);
+			elementAdded = true;
+			elementsToUpdate.clear(); // Clear all elements to update. They will not be processed if an element has been added.
 		}
 
 		@Override
@@ -745,14 +755,22 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		public void elementUpdated(final ElementUpdatedEvent e) {
 			// Don't store updated elements when an element has been added. The add will trigger a complete update.
 			if(enabled && !elementAdded) {
-				// All updates are treated the same at this point. Each element is updated and containers are layed out.
-				if(!elementsToRemove.contains(e.element)) {
-					// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
-					if(elementsToUpdate.contains(e.element)) {
-						elementsToUpdate.remove(e.element);
+				// If the pictogram element type and the graphic type do not agree on whether the element is a connection, treat the update as an addition.
+				// This ensures the the pictogram element is recreated.
+				final boolean peIsConnection = getPictogramElement(e.element) instanceof Connection;
+				final boolean graphicIsConnection = e.element.getGraphic() instanceof AgeConnection; 
+				if(peIsConnection == graphicIsConnection) {
+					// All updates are treated the same at this point. Each element is updated and containers are layed out.
+					if(!elementsToRemove.contains(e.element)) {
+						// If the element is already in the elements to update set, remove it so that it will be inserted at the end of the set
+						if(elementsToUpdate.contains(e.element)) {
+							elementsToUpdate.remove(e.element);
+						}
+						
+						elementsToUpdate.add(e.element);
 					}
-					
-					elementsToUpdate.add(e.element);
+				} else {
+					onElementAdded(e.element);
 				}
 			}
 		}

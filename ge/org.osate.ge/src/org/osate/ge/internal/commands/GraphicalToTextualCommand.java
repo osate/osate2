@@ -24,17 +24,22 @@ public class GraphicalToTextualCommand {
 
 	@IsAvailable
 	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final Object selElement) {
-		return (selElement instanceof EObject || selElement instanceof EmfContainerProvider) && !(selElement instanceof InstanceObject);
+		final EObject boEObj = getEObject(selElement);
+		if(boEObj == null) {
+			return false;
+		}
+		
+		if(boEObj instanceof InstanceObject) {
+			return false;
+		}
+		
+		return boEObj.eResource() instanceof XtextResource && EcoreUtil.getURI(boEObj) != null;
 	}
 
 	@Activate
 	public boolean activate(@Named(Names.BUSINESS_OBJECT) final Object selElement) {
-		final EObject boEObj;
-		if(selElement instanceof EObject) {
-			boEObj = (EObject)selElement;
-		} else if(selElement instanceof EmfContainerProvider) {
-			boEObj = ((EmfContainerProvider)selElement).getEmfContainer();
-		} else {
+		final EObject boEObj = getEObject(selElement);
+		if(boEObj == null) {
 			throw new RuntimeException("Unsupported type: " + selElement);
 		}
 		
@@ -47,5 +52,15 @@ public class GraphicalToTextualCommand {
 		final GlobalURIEditorOpener opener = Objects.requireNonNull((GlobalURIEditorOpener)res.getResourceServiceProvider().get(GlobalURIEditorOpener.class), "unable to get global URI Editor opener");
 		opener.open(uri, true);
 		return true;
+	}
+	
+	private static EObject getEObject(final Object bo) {
+		if(bo instanceof EObject) {
+			return (EObject)bo;
+		} else if(bo instanceof EmfContainerProvider) {
+			return ((EmfContainerProvider)bo).getEmfContainer();
+		} else {
+			return null;
+		}
 	}
 }

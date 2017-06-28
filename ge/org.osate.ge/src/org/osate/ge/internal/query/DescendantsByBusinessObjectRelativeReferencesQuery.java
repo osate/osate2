@@ -3,7 +3,7 @@ package org.osate.ge.internal.query;
 import java.util.Deque;
 import java.util.Objects;
 import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
+import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.query.Supplier;
 
 public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQuery {
@@ -99,7 +99,7 @@ public class DescendantsByBusinessObjectRelativeReferencesQuery extends DefaultQ
 	 * @param refBuilder
 	 * @return an array of references. null if any of the business objects or their references are null.
 	 */
-	private static RelativeBusinessObjectReference[] getReferences(final Object[] bos, final InternalReferenceBuilderService refBuilder) {
+	private static RelativeBusinessObjectReference[] getReferences(final Object[] bos, final ReferenceService refBuilder) {
 		if(bos == null) {
 			return null;
 		}

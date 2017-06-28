@@ -28,7 +28,6 @@ import java.lang.annotation.Target;
  *   <tr><th>Parameter</th><th>Usage</th><th>Description</th></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to return the name.</td></tr>
  * </table>
- * @see SetName
  * @see ValidateName
  */
 @Documented

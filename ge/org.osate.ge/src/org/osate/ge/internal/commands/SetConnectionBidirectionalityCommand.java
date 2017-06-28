@@ -10,9 +10,8 @@ import org.osate.ge.di.CanActivate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 
-@ModifiesBusinessObjects
 public class SetConnectionBidirectionalityCommand {
 	final boolean bidirectionalValue;
 	public SetConnectionBidirectionalityCommand(boolean bidirectionalValue) {
@@ -41,6 +40,11 @@ public class SetConnectionBidirectionalityCommand {
 		}
 
 		return true;
+	}
+	
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
+		return bo;
 	}
 
 	@Activate

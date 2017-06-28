@@ -19,13 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IResourceChangeEvent;
-import org.eclipse.core.resources.IResourceChangeListener;
-import org.eclipse.core.resources.IResourceDelta;
-import org.eclipse.core.resources.IResourceDeltaVisitor;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -60,9 +53,7 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.di.Names;
 import org.osate.ge.di.ResolveCanonicalReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
-import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.SavedAadlResourceService;
-import org.osate.ge.internal.services.CachingService.Cache;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.SavedAadlResourceService.AadlPackageReference;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
@@ -73,67 +64,27 @@ import org.osate.ge.services.ReferenceResolutionService;
 // Handles resolving references related to the AADL declarative model
 public class DeclarativeReferenceResolver {
 	// Cache for items that should not change unless models have changed.
-	private static class DeclarativeCache implements Cache {
+	private static class DeclarativeCache {
 		private static final EClass aadlPackageEClass = Aadl2Factory.eINSTANCE.getAadl2Package().getAadlPackage();
 		private final ProjectProvider projectProvider;
-		private final CachingService cachingService;
 		private final Map<String, Object> packageNameToPackageMap = new HashMap<>(); // Map for caching. Cleared when cache is invalidated
 		private final Set<AadlPackageReference> pkgReferences = new HashSet<>(); // Collection of package references. Not cleared to ensure strong references to the EObjectReference objects exist during the lifetime of the service 
 		private Set<IResourceDescription> resourceDescriptions = null; // Resource descriptions for resources which are in the project references path
 		private SavedAadlResourceService savedAadlResourceService;
 		
-		private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
-			@Override
-			public void resourceChanged(final IResourceChangeEvent event) {
-				final IResourceDelta delta = event.getDelta();
-				if(delta != null) {
-					try {
-						delta.accept(visitor);
-					} catch (CoreException e) {
-					}
-				}
-			}
-		};
-		
-		private IResourceDeltaVisitor visitor = new IResourceDeltaVisitor() {
-	        public boolean visit(final IResourceDelta delta) {
-	           // If the resource's contents has changed changed
-	           if(delta.getKind() != IResourceDelta.CHANGED || (delta.getFlags() & IResourceDelta.CONTENT) == 0)
-	              return true;
-
-	           // Check AADL files
-	           final IResource resource = delta.getResource();
-	           if (resource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(resource.getFileExtension())) {
-	        	   // Invalidate all caches
-        		   cachingService.invalidate();
-	           }
-	           return true;
-	        }
-	    };
-	    	    
-	    public DeclarativeCache(final ProjectProvider projectProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
+	    public DeclarativeCache(final ProjectProvider projectProvider, final SavedAadlResourceService savedAadlResourceService) {
 			this.projectProvider = Objects.requireNonNull(projectProvider, "projectProvider must not be null");
-	    	this.cachingService = Objects.requireNonNull(cachingService, "cachingService must not be null");
 			this.savedAadlResourceService = Objects.requireNonNull(savedAadlResourceService, "savedAadlResourceService must not be null");
-			
-			// Register a resource change listener
-			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-			workspace.addResourceChangeListener(resourceChangeListener);
 	    }
 		
 	    public void dispose() {
-	    	// Remove the resource change listener
-			final IWorkspace workspace = ResourcesPlugin.getWorkspace();
-			workspace.removeResourceChangeListener(resourceChangeListener);
-			
 	    	invalidate();
 	    	
 	    	// Remove object reference
 	    	pkgReferences.clear();
 	    }
 	    
-		@Override
-		public void invalidate() {
+		private void invalidate() {
 			resourceDescriptions = null;
 			packageNameToPackageMap.clear();
 		}			
@@ -229,9 +180,8 @@ public class DeclarativeReferenceResolver {
 	private final DeclarativeCache declarativeCache;
          
 	@Inject
-	public DeclarativeReferenceResolver(final ProjectProvider projectProvider, final CachingService cachingService, final SavedAadlResourceService savedAadlResourceService) {
-		this.declarativeCache = new DeclarativeCache(projectProvider, cachingService, savedAadlResourceService);		
-		cachingService.registerCache(declarativeCache);
+	public DeclarativeReferenceResolver(final ProjectProvider projectProvider, final SavedAadlResourceService savedAadlResourceService) {
+		this.declarativeCache = new DeclarativeCache(projectProvider, savedAadlResourceService);		
 	}
 		
 	@PreDestroy
@@ -239,6 +189,10 @@ public class DeclarativeReferenceResolver {
 		declarativeCache.dispose();
 	}
 
+	void invalidateCache() {
+		declarativeCache.invalidate();
+	}
+	
 	@ResolveCanonicalReference
 	public Object getReferencedObject(final @Named(Names.REFERENCE) String[] refSegs, final ReferenceResolutionService refService) {
 		Objects.requireNonNull(refSegs, "refSegs must not be null");

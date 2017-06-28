@@ -1,7 +1,7 @@
 package org.osate.ge.internal.diagram;
 
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class AgeDiagramUtil {
 	public static DockingPosition determineDockingPosition(final DiagramNode container, final int x, final int y, final int width, final int height) {
@@ -32,7 +32,7 @@ public class AgeDiagramUtil {
 	// provides a context for the diagram.
 	// This function returns the context business object referenced by the diagram's configuration. Will return null if the object cannot be found
 	// or if the configuration does not reference a business object.
-	public static Object getConfigurationContextBusinessObject(final AgeDiagram diagram, final ReferenceService referenceService) {
+	public static Object getConfigurationContextBusinessObject(final AgeDiagram diagram, final ProjectReferenceService referenceService) {
 		final CanonicalBusinessObjectReference contextBoReference = diagram.getConfiguration().getContextBoReference();
 		final Object diagramBo;
 		if(contextBoReference == null) {

@@ -29,7 +29,6 @@ import java.lang.annotation.Target;
  *   <tr><td>{@link org.osate.ge.di.Names#BUSINESS_OBJECT}</td><td>Business Object handler</td><td>The business object for which to check the name.</td></tr>
  *   <tr><td>{@link org.osate.ge.di.Names#NAME}</td><td>Business Object handler</td><td>The name to check for validity.</td></tr>
  * </table>
- * @see SetName
  */
 @Documented
 @Target({ElementType.METHOD})

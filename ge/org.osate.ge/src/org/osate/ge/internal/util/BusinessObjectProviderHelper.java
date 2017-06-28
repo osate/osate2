@@ -5,23 +5,27 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
+import org.eclipse.e4.core.contexts.EclipseContextFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.services.ExtensionService;
+import org.osate.ge.internal.services.ExtensionRegistryService;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * Helper class for invoking business object providers.
  *
  */
 public class BusinessObjectProviderHelper implements AutoCloseable {
-	private final ExtensionService extService;
+	private final ExtensionRegistryService extRegistry;
 	private final IEclipseContext ctx;
 	
-	public BusinessObjectProviderHelper(final ExtensionService extService) {
-		this.extService = Objects.requireNonNull(extService, "extService must not be null");
-		this.ctx = extService.createChildContext();
+	public BusinessObjectProviderHelper(final ExtensionRegistryService extRegistry) {
+		this.extRegistry = Objects.requireNonNull(extRegistry, "extRegistry must not be null");
+		final Bundle bundle = FrameworkUtil.getBundle(getClass());
+		this.ctx = EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 	}
 	
 	@Override
@@ -40,13 +44,12 @@ public class BusinessObjectProviderHelper implements AutoCloseable {
 			
 			// Use business object providers to determine the children
 			Stream<Object> allChildren = Stream.empty();
-			for(final Object bop : extService.getBusinessObjectProviders()) {
+			for(final Object bop : extRegistry.getBusinessObjectProviders()) {
 				final Stream<?> childBos = (Stream<?>)ContextInjectionFactory.invoke(bop, Activate.class, ctx, null);
 				if(childBos != null) {
 					allChildren = Stream.concat(allChildren, childBos);
 				}
-			};
-			
+			};			
 		
 			return allChildren.distinct().collect(Collectors.toList());
 		} finally {

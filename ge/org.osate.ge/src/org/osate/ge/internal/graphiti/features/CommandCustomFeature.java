@@ -39,7 +39,7 @@ import org.osate.ge.di.Names;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.AadlModificationService;
@@ -56,7 +56,6 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	private final ExtensionService extService;
 	private final AadlModificationService aadlModificationService;
 	private final GraphitiAgeDiagramProvider graphitiAgeDiagramProvider;
-	private final boolean modifiesBusinessObjects;
 	private boolean hasMadeChanges = false;
 	
 	public CommandCustomFeature(final Object cmd, 
@@ -69,7 +68,6 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		this.cmd = Objects.requireNonNull(cmd, "cmd must not be null");
 		this.aadlModificationService = Objects.requireNonNull(aadlModificationService, "aadlModificationService must not be null");
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
-		this.modifiesBusinessObjects = cmd.getClass().getAnnotation(ModifiesBusinessObjects.class) != null;
 	}
 
 	public Object getCommand() {
@@ -148,16 +146,11 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 		
 		final BusinessObjectContext bocs[] = getBusinessObjectContexts(context.getPictogramElements());
 		final Object[] businessObjects = getBusinessObjects(bocs);		
-		if(modifiesBusinessObjects) {
-			if(businessObjects.length != 1 || !(businessObjects[0] instanceof EObject)) {
-				return false;
-			}			
-		}
-
+		
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
 			populateEclipseContext(eclipseContext, bocs, businessObjects);
-			return (Boolean)ContextInjectionFactory.invoke(cmd, CanActivate.class, eclipseContext, Boolean.FALSE);
+			return (boolean)ContextInjectionFactory.invoke(cmd, CanActivate.class, eclipseContext, Boolean.FALSE);
 		} finally {
 			eclipseContext.dispose();
 		}
@@ -167,22 +160,43 @@ public class CommandCustomFeature extends AbstractCustomFeature {
 	public void execute(final ICustomContext context) {
 		final BusinessObjectContext bocs[] = getBusinessObjectContexts(context.getPictogramElements());
 		final Object[] businessObjects = getBusinessObjects(bocs);
-		
-		if(modifiesBusinessObjects) {
-			final EObject bo = (EObject)businessObjects[0];
-			aadlModificationService.modify(bo, new AbstractModifier<EObject, Object>() {
+		final EObject objectToModify = getObjectToModify(bocs, businessObjects);
+		if(objectToModify  != null) {
+			final Object bo = businessObjects[0];
+			if(!(bo instanceof EObject)) { 
+				throw new RuntimeException("Only EObject instances may be modified");
+			}
+			
+			aadlModificationService.modify(objectToModify, new AbstractModifier<EObject, Object>() {
 				@Override
-				public Object modify(final Resource resource, final EObject bo) {
-					hasMadeChanges = activate(bocs, new Object[] { bo });
+				public Object modify(final Resource resource, final EObject objectToModify) {
+					// MOTE: Should the bo and bocs be transformed to ensure they are in the same resource set as the objectToModify? 
+					// Currently seems to work without issue. The object is the same as would be retrieved from the resource set.
+					hasMadeChanges = activate(bocs, new Object[] { bo }, true);
 					return null;
 				}				
 			});
 		} else {		
-			hasMadeChanges = activate(bocs, businessObjects);
+			hasMadeChanges = activate(bocs, businessObjects, false);
 		}
 	}
 	
-	private boolean activate(final BusinessObjectContext[] bocs, final Object[] businessObjects) {
+	private EObject getObjectToModify(final BusinessObjectContext[] bocs, final Object[] businessObjects) {
+		final IEclipseContext eclipseContext = extService.createChildContext();
+		try {
+			populateEclipseContext(eclipseContext, bocs, businessObjects);
+			final Object obj = ContextInjectionFactory.invoke(cmd, GetBusinessObjectToModify.class, eclipseContext, null);
+			if(obj != null && !(obj instanceof EObject)) {
+				throw new RuntimeException("Only EObject instances may be modified by commands");
+			}
+			
+			return (EObject)obj;
+		} finally {
+			eclipseContext.dispose();
+		}
+	}
+	
+	private boolean activate(final BusinessObjectContext[] bocs, final Object[] businessObjects, final boolean modifiesBusinessObjects) {
 		final IEclipseContext eclipseContext = extService.createChildContext();
 		try {
 			populateEclipseContext(eclipseContext, bocs, businessObjects);

@@ -93,9 +93,6 @@ import org.eclipse.ui.IPartListener;
 import org.eclipse.ui.IWorkbenchPart;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.part.EditorPart;
-import org.eclipse.xtext.resource.XtextResource;
-import org.eclipse.xtext.ui.editor.model.IXtextModelListener;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Names;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.diagram.AgeDiagram;
@@ -112,11 +109,11 @@ import org.osate.ge.internal.graphiti.diagram.ColoringProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram.UpdaterListener;
 import org.osate.ge.internal.graphiti.features.UpdateDiagramFeature;
-import org.osate.ge.internal.services.CachingService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
+import org.osate.ge.internal.services.ModelChangeNotifier;
+import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.internal.util.Log;
 import org.eclipse.core.resources.IFile;
@@ -156,6 +153,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			}
 		}			
 	};
+	
+	private ChangeListener modelChangeListener = new ChangeListener() {		
+		@Override
+		public void afterModelChangeNotification() {
+			updateDiagramWhenVisible();
+		}
+	};	
 	
 	// Diagram change listener which refreshes the entire diagram. This is needed because there are cases where graphiti does not 
 	// correctly update the diagram after shapes are moved.
@@ -321,6 +325,16 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				public void partClosed(final IWorkbenchPart part) {
 					 if(part == editor) {
 						 disposeCurrentToolTip();
+
+						 // Unregister listeners
+						 if(editor.getGraphicalViewer() != null && editor.getGraphicalViewer().getControl() != null) {
+							 editor.getGraphicalViewer().getControl().removeMouseMoveListener(this);
+							 editor.getGraphicalViewer().getControl().removeMouseTrackListener(this);
+						 }	
+ 
+						 if(editor.getSite() != null && editor.getSite().getWorkbenchWindow() != null && editor.getSite().getWorkbenchWindow().getPartService() != null) {
+							 editor.getSite().getWorkbenchWindow().getPartService().removePartListener(this);	 
+						 }				 
 					 }
 				}
 				
@@ -445,25 +459,6 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	}
 	
-	private IXtextModelListener modelListener = new IXtextModelListener() {
-		@Override
-		public void modelChanged(final XtextResource resource) {
-			if(resource.getContents().size() > 0) {
-				// Invalidate the cache
-				final CachingService cachingService = (CachingService)getAdapter(CachingService.class);
-				if(cachingService != null) {
-					cachingService.invalidate();
-				}
-				
-				// Update the diagram
-				final EObject contents = resource.getContents().get(0);
-				if(contents instanceof NamedElement) { // Filter out changes to non AADL Xtext models
-					updateDiagramWhenVisible(); // Queue a diagram update for when the editor is visible. Ideally we would only update related diagrams but it is non-trivial to determine affected diagrams.
-				}
-			}					
-		}	
-	};
-
 	public void updateDiagramWhenVisible() {
 		update();
 	}
@@ -558,19 +553,25 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			}
 		}
 	}
-	
+
 	@Override
 	protected void registerBusinessObjectsListener() {
 		// Do not call super method
 		
-		AgeXtextUtil.addModelListener(modelListener);
+		// Add listener
+		getModelChangeNotifier().addChangeListener(modelChangeListener);
 	}
 	
 	@Override
 	protected void unregisterBusinessObjectsListener() {
-		AgeXtextUtil.removeModelListener(modelListener);
-		
 		// Do not call super method
+		
+		// Remove listener
+		getModelChangeNotifier().removeChangeListener(modelChangeListener);
+	}
+	
+	private ModelChangeNotifier getModelChangeNotifier() {
+		return Objects.requireNonNull((ModelChangeNotifier)getAdapter(ModelChangeNotifier.class), "unable to retrieve model change notifier");
 	}
 	
 	@Override

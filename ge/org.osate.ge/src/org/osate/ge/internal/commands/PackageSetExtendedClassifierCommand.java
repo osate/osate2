@@ -21,11 +21,10 @@ import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.di.ModifiesBusinessObjects;
+import org.osate.ge.internal.di.GetBusinessObjectToModify;
 import org.osate.ge.internal.ui.dialogs.ElementSelectionDialog;
 import org.osate.ge.internal.util.ScopedEMFIndexRetrieval;
 
-@ModifiesBusinessObjects
 public class PackageSetExtendedClassifierCommand {
 	@GetLabel
 	public String getLabel() {
@@ -37,6 +36,11 @@ public class PackageSetExtendedClassifierCommand {
 		return classifier instanceof ComponentType || classifier instanceof ComponentImplementation || classifier instanceof FeatureGroupType;
 	}
 
+	@GetBusinessObjectToModify
+	public Object getBusinessObjectToModify(@Named(Names.BUSINESS_OBJECT) final Object bo) {
+		return bo;
+	}
+	
 	@Activate
 	public boolean Activate(@Named(Names.BUSINESS_OBJECT) final Classifier classifier) {		
 		// Prompt the user for the element

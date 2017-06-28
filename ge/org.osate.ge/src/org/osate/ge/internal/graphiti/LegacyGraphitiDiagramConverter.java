@@ -45,22 +45,14 @@ import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.BuiltinContentsFilter;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.model.SubprogramCallOrder;
-import org.osate.ge.internal.services.CachingService;
-import org.osate.ge.internal.services.ExtensionRegistryService;
-import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.InternalReferenceBuilderService;
-import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ReferenceService;
-import org.osate.ge.internal.services.impl.DefaultCachingService;
-import org.osate.ge.internal.services.impl.DefaultExtensionService;
-import org.osate.ge.internal.services.impl.DefaultReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.util.DiagramUtil;
 import org.osate.ge.mm.diagram.AadlPropertiesSet;
 import org.osate.ge.mm.diagram.DiagramConfiguration;
 import org.osate.ge.mm.diagram.Dimension;
-import org.osate.ge.services.ReferenceResolutionService;
-import org.osate.ge.services.impl.DefaultReferenceResolutionService;
+import org.osate.ge.services.ReferenceBuilderService;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.FrameworkUtil;
 
@@ -113,20 +105,8 @@ public class LegacyGraphitiDiagramConverter {
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
 		try {
-			final InternalReferenceBuilderService refBuilder = Objects.requireNonNull(context.get(InternalReferenceBuilderService.class), "Unable to retrieve ReferenceBuilderService");
-			final CachingService cachingService = new DefaultCachingService();
-			final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
-			final ReferenceService referenceService = new DefaultReferenceService(extensionService, cachingService, refBuilder);
-			context.set(CachingService.class, cachingService);
-			context.set(ExtensionService.class, extensionService);
-			context.set(ProjectProvider.class, new ProjectProvider() { // Needed by declarative reference resolver
-				@Override
-				public IProject getProject() {
-					return project;
-				}				
-			});
-			context.set(ReferenceResolutionService.class, new DefaultReferenceResolutionService(referenceService));
-			
+			final ReferenceService globalReferenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to retrieve global reference service");
+			final ProjectReferenceService referenceService = globalReferenceService.getProjectReferenceService(project);
 			final Map<org.osate.ge.mm.diagram.DiagramElement, Object> diagramElementToBoMap = new HashMap<>();
 			
 			// Convert to a metamodel diagram object
@@ -200,7 +180,7 @@ public class LegacyGraphitiDiagramConverter {
 					continue;
 				}
 				
-				final org.osate.ge.mm.diagram.DiagramElement connectionParent = findParent(diagram, c, bo, shapeToDiagramElementMap, diagramElementToBoMap, refBuilder);
+				final org.osate.ge.mm.diagram.DiagramElement connectionParent = findParent(diagram, c, bo, shapeToDiagramElementMap, diagramElementToBoMap, referenceService);
 				if(connectionParent != null) {
 					final org.osate.ge.mm.diagram.DiagramElement newElement = new org.osate.ge.mm.diagram.DiagramElement();
 					newElement.setBo(relRef.toMetamodel());
@@ -259,7 +239,7 @@ public class LegacyGraphitiDiagramConverter {
 			final Object bo,
 			final Map<Shape, org.osate.ge.mm.diagram.DiagramElement> shapeToDiagramElementMap,
 			final Map<org.osate.ge.mm.diagram.DiagramElement, Object> diagramElementToBoMap,
-			final InternalReferenceBuilderService refBuilder) {
+			final ReferenceBuilderService refBuilder) {
 		AnchorContainer src = c.getStart().getParent();			
 		AnchorContainer dst = c.getEnd().getParent();
 		
@@ -363,7 +343,7 @@ public class LegacyGraphitiDiagramConverter {
 	
 	private static void convertChildren(final org.osate.ge.mm.diagram.DiagramNode convertedContainer, 
 			final ContainerShape containerShape, 
-			final ReferenceService referenceService,
+			final ProjectReferenceService referenceService,
 			final Map<Shape, org.osate.ge.mm.diagram.DiagramElement> shapeToDiagramElementMap,
 			final Map<org.osate.ge.mm.diagram.DiagramElement, Object> diagramElementToBoMap) {
 		// Handle children

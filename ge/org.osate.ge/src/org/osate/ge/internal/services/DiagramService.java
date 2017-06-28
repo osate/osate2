@@ -8,12 +8,16 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
 /**
@@ -70,4 +74,12 @@ public interface DiagramService {
 	 * @param diagram
 	 */
 	void clearLegacyPersistentProperties(final IResource fileResource);
+	
+	// TODO: Rename
+	interface ReferenceCollection {
+		void update(Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap);
+	}
+	
+	// TODO: Rename
+	ReferenceCollection getReferences(final HashSet<IProject> relevantProjects, final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences);
 }

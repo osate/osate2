@@ -5,7 +5,7 @@ import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.businessObjectHandlers.BusinessObjectHandlerProvider;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.services.ExtensionService;
-import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.util.BusinessObjectContextHelper;
 
 /**
@@ -16,7 +16,7 @@ public class DefaultDiagramElementGraphicalConfigurationProvider implements Diag
 	private final BusinessObjectHandlerProvider bohProvider;
 	private final BusinessObjectContextHelper bocHelper;
 	
-	public DefaultDiagramElementGraphicalConfigurationProvider(final ReferenceService refService,
+	public DefaultDiagramElementGraphicalConfigurationProvider(final ProjectReferenceService refService,
 			final ExtensionService extService) {
 		this.bohProvider = Objects.requireNonNull(extService, "extService must not be null");
 		this.bocHelper = new BusinessObjectContextHelper(extService);

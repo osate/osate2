@@ -31,12 +31,10 @@ import org.osate.aadl2.VirtualProcessorType;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.Names;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.services.NamingService;
-import org.osate.ge.internal.services.RefactoringService;
 import org.osate.ge.internal.util.AadlFeatureUtil;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
@@ -62,11 +60,6 @@ class FlowSpecificationHandler {
 	@ValidateName
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(Names.NAME) String value, final NamingService namingService) {
 		return namingService.checkNameValidity(fs, value);
-	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) FlowSpecification fs, final @Named(Names.NAME) String value, final RefactoringService refactoringService) {
-		refactoringService.renameElement(fs, value);
 	}
 	
 	// Helper functions

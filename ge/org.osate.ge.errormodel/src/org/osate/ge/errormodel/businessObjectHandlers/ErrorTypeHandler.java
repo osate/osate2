@@ -22,7 +22,6 @@ import org.osate.ge.di.GetGraphicalConfiguration;
 import org.osate.ge.di.GetName;
 import org.osate.ge.di.GetPaletteEntries;
 import org.osate.ge.di.IsApplicable;
-import org.osate.ge.di.SetName;
 import org.osate.ge.di.ValidateName;
 import org.osate.ge.errormodel.ErrorModelCategories;
 import org.osate.ge.errormodel.util.ErrorModelNamingHelper;
@@ -83,10 +82,5 @@ public class ErrorTypeHandler {
 	public String validateName(final @Named(Names.BUSINESS_OBJECT) ErrorType errorType, final @Named(Names.NAME) String value) {
 		final ErrorModelLibrary errorModelLibrary = (ErrorModelLibrary)errorType.eContainer();
 		return ErrorModelNamingHelper.validateName(errorModelLibrary, errorType.getName(), value);
-	}
-	
-	@SetName
-	public void setName(final @Named(Names.BUSINESS_OBJECT) ErrorType bo, final @Named(Names.NAME) String value) {
-		bo.setName(value);
 	}
 }

@@ -137,9 +137,19 @@ public class DeclarativeReferenceBuilder {
 	}
 	
 	private String[] buildSimpleRelativeReference(final String type, final NamedElement bo) {
-		return new String[] {type, getNameForSerialization(bo)};
+		if(bo == null) {
+			return null;
+		}
+		
+		// Don't allow null or empty names for simple relative references
+		final String name = bo.getName();
+		if(name == null || name.length() == 0) {
+			return null;
+		}
+		
+		return new String[] {type, name};
 	}
-	
+
 	@BuildCanonicalReference
 	public String[] getReference(final @Named(Names.BUSINESS_OBJECT) Object bo, final ReferenceBuilderService refBuilder) {
 		if(bo instanceof AadlPackage) {
