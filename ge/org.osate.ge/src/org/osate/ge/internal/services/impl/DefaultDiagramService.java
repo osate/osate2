@@ -119,6 +119,127 @@ public class DefaultDiagramService implements DiagramService {
 	private final ReferenceService referenceService;
 	private final ExtensionRegistryService extRegistry;
 	
+	private static class DiagramIndex {
+		private final Map<IProject, ProjectDiagramIndex> projectToProjectDiagramIndexMap = new HashMap<>();
+		
+		public void rebuild(final IProject project) {
+			projectToProjectDiagramIndexMap.remove(project);
+			
+			// TODO: Need to break this up into smaller portions to allow updating just part of the index
+			// TODO: Need to allow indexing all the elements in the diagrams. Only for closed?
+			// TODO: Need refreshing
+			
+			final ProjectDiagramIndex projectDiagramIndex = new ProjectDiagramIndex();
+			
+			// Get diagram references
+			final List<InternalDiagramReference> newDiagramReferences = new ArrayList<>();
+			
+			// Get references for open diagrams
+			final Set<IFile> openDiagramFiles = new HashSet<>();
+			for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
+				final IEditorPart editor = editorRef.getEditor(false); // If restore is true then the editor is automatically updated
+				if(editor instanceof AgeDiagramEditor) {
+					final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editor;
+					final AgeDiagramBehavior behavior = (AgeDiagramBehavior)diagramEditor.getDiagramBehavior();
+
+					if(behavior != null) {
+						if(project.equals(behavior.getProject())) {
+							final IFile file = behavior.getFile();
+							if(file != null) {
+								openDiagramFiles.add(file);
+								newDiagramReferences.add(InternalDiagramReference.createOpen(file, diagramEditor));
+							}
+						}
+					}
+				}
+			}
+			
+			// Build list of all files
+			final List<IFile> files = new ArrayList<>();
+			findDiagramFiles(project, files);
+			
+			// Create diagram references as appropriate
+			for(final IFile file : files) {			
+				// Check if the diagram is already open
+				if(!openDiagramFiles.contains(file)) {
+					newDiagramReferences.add(InternalDiagramReference.createClosed(file));		
+				}
+			}
+			
+			// Add the new diagram references to the index
+			for(final InternalDiagramReference diagramRef : newDiagramReferences) {
+				final CanonicalBusinessObjectReference canonicalBusinessObjectReference = diagramRef.getCanonicalReference();
+				if(canonicalBusinessObjectReference != null) {
+					projectDiagramIndex.add(canonicalBusinessObjectReference, diagramRef);
+				}
+			}
+			
+			projectToProjectDiagramIndexMap.put(project,  projectDiagramIndex);
+		}
+		
+		/**
+		 * Finds all files with the diagram extension in the specified container and its children
+		 * @param container the container in which to look for diagrams
+		 * @param diagramFiles a list to which to add the results. Optional.
+		 * @return diagramFiles if specified otherwise, a newly created list containing the results
+		 */
+		private static List<IFile> findDiagramFiles(final IContainer container, List<IFile> diagramFiles) {
+			if(diagramFiles == null) {
+				diagramFiles = new ArrayList<IFile>();
+			}
+			
+			try {
+				if(container.isAccessible()) {
+					for(final IResource resource : container.members()) {
+						 if (resource instanceof IContainer) {
+					         findDiagramFiles((IContainer)resource, diagramFiles);
+					     } else if (resource instanceof IFile) {
+					         final IFile file = (IFile) resource;
+					         if (file.getName().endsWith(AgeDiagramEditor.EXTENSION)) {
+					              diagramFiles.add(file);
+					         }
+					     }
+					}
+				}
+			} catch (CoreException e) {
+				Log.error("Error finding diagrams", e);
+				throw new RuntimeException(e);
+			}
+			
+			return diagramFiles;
+		}
+		
+		public List<InternalDiagramReference> findDiagrams(final IProject project) {
+			final List<InternalDiagramReference> diagramRefs = new ArrayList<>();
+			final ProjectDiagramIndex projectDiagramIndex = projectToProjectDiagramIndexMap.get(project);
+			if(projectDiagramIndex != null) {
+				for(final List<InternalDiagramReference> projectDiagrams : projectDiagramIndex.contextRefToDiagramMap.values()) {
+					diagramRefs.addAll(projectDiagrams);
+				}				
+			}
+			
+			return diagramRefs;
+		}
+	}
+	
+	private static class ProjectDiagramIndex {
+		private final Map<CanonicalBusinessObjectReference, List<InternalDiagramReference>> contextRefToDiagramMap = new HashMap<>();
+		
+		public void add(final CanonicalBusinessObjectReference contextRef, final InternalDiagramReference ref) {
+			if(contextRef != null) {
+				List<InternalDiagramReference> diagramReferences = contextRefToDiagramMap.get(contextRef);
+				
+				// Create the list of references for the specified context if necessary
+				if(diagramReferences == null) {
+					diagramReferences = new ArrayList<>();
+					contextRefToDiagramMap.put(contextRef, diagramReferences);
+				}
+				
+				diagramReferences.add(ref);
+			}
+		}
+	}
+	
 	public static class ContextFunction extends SimpleServiceContextFunction<DiagramService> {
 		@Override
 		public DiagramService createService(final IEclipseContext context) {
@@ -422,76 +543,21 @@ public class DefaultDiagramService implements DiagramService {
 	 */
 	@Override
 	public List<InternalDiagramReference> findDiagrams(final Set<IProject> projects) {
-		final List<InternalDiagramReference> diagramRefs = new ArrayList<>();
-		final Set<IFile> openDiagramFiles = new HashSet<>();		
-
-		for(final IEditorReference editorRef : PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getEditorReferences()) {
-			final IEditorPart editor = editorRef.getEditor(false); // If restore is true then the editor is automatically updated
-			if(editor instanceof AgeDiagramEditor) {
-				final AgeDiagramEditor diagramEditor = (AgeDiagramEditor)editor;
-				final AgeDiagramBehavior behavior = (AgeDiagramBehavior)diagramEditor.getDiagramBehavior();
-
-				if(behavior != null) {
-					if(projects.contains(behavior.getProject())) {
-						final IFile file = behavior.getFile();
-						if(file != null) {
-							openDiagramFiles.add(file);
-							diagramRefs.add(InternalDiagramReference.createOpen(file, diagramEditor));
-						}
-					}
-				}
-			}
+		// TODO: Use existing index after implementation
+		final DiagramIndex index = new DiagramIndex();
+		for(final IProject project : projects) {			
+			index.rebuild(project);			
 		}
 		
-		// Build list of all files
-		final List<IFile> files = new ArrayList<>();
-		for(final IProject project : projects) {
-			findDiagramFiles(project, files);			
+		// Build list of references from the index
+		final List<InternalDiagramReference> results = new ArrayList<>();
+		for(final IProject project : projects) {			
+			results.addAll(index.findDiagrams(project));
 		}
 		
-		// Create diagram references as appropriate
-		for(final IFile file : files) {			
-			// Check if the diagram is already open
-			if(!openDiagramFiles.contains(file)) {
-				diagramRefs.add(InternalDiagramReference.createClosed(file));		
-			}
-		}
-		
-		return diagramRefs;
+		return results;
 	}
 	
-	/**
-	 * Finds all files with the diagram extension in the specified container and its children
-	 * @param container the container in which to look for diagrams
-	 * @param diagramFiles a list to which to add the results. Optional.
-	 * @return diagramFiles if specified otherwise, a newly created list containing the results
-	 */
-	private List<IFile> findDiagramFiles(final IContainer container, List<IFile> diagramFiles) {
-		if(diagramFiles == null) {
-			diagramFiles = new ArrayList<IFile>();
-		}
-		
-		try {
-			if(container.isAccessible()) {
-				for(final IResource resource : container.members()) {
-					 if (resource instanceof IContainer) {
-				         findDiagramFiles((IContainer)resource, diagramFiles);
-				     } else if (resource instanceof IFile) {
-				         final IFile file = (IFile) resource;
-				         if (file.getName().endsWith(AgeDiagramEditor.EXTENSION)) {
-				              diagramFiles.add(file);
-				         }
-				     }
-				}
-			}
-		} catch (CoreException e) {
-			Log.error("Error finding diagrams", e);
-			throw new RuntimeException(e);
-		}
-		
-		return diagramFiles;
-	}
-
 	@Override
 	public String getName(final IFile diagramFile) {
 		String name = null;
