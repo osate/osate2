@@ -37,38 +37,37 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.security.actions;
+package org.osate.analysis.security.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.analysis.security.LevelComparator;
-import org.osate.analysis.security.SecurityPlugin;
 import org.osate.contribution.sei.names.SEI;
-import org.osgi.framework.Bundle;
 
 public final class CheckSecurity extends AbstractLevelChecker {
-	protected Bundle getBundle() {
-		return SecurityPlugin.getDefault().getBundle();
-	}
-
+	@Override
 	public String getMarkerType() {
 		return "org.osate.analysis.security.SecurityCheckerObjectMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Check security levels";
 	}
 
+	@Override
 	protected String getLevelPropertyPropertySet() {
 		return SEI._NAME;
 	}
 
+	@Override
 	protected String getLevelPropertyName() {
 		return SEI.SECURITY_LEVEL;
 	}
 
+	@Override
 	protected LevelComparator getLevelComparator() {
 		return destMustBeGreater;
 	}
@@ -83,5 +82,4 @@ public final class CheckSecurity extends AbstractLevelChecker {
 				: new AnalysisErrorReporterManager(getAnalysisErrorReporterFactory());
 		analyzeInstanceModel(monitor, this.errManager, root, som);
 	}
-
 }

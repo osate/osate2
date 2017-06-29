@@ -37,7 +37,7 @@
  * %W%
  * @version %I% %H%
  */
-package org.osate.analysis.security.actions;
+package org.osate.analysis.security.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.OperationCanceledException;
@@ -52,10 +52,10 @@ import org.osate.analysis.security.ComponentLevelChecker;
 import org.osate.analysis.security.ConnectionInstanceLevelChecker;
 import org.osate.analysis.security.ConnectionLevelChecker;
 import org.osate.analysis.security.LevelComparator;
-import org.osate.ui.actions.AbstractInstanceOrDeclarativeModelModifyActionAction;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelModifyHandler;
 
-public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarativeModelModifyActionAction {
+public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarativeModelModifyHandler {
 	private boolean initialized = false;
 
 	/**
@@ -63,6 +63,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 	 * connection source.
 	 */
 	protected static final LevelComparator sourceMustBeGreater = new LevelComparator() {
+		@Override
 		public boolean compareLevels(final long src, final long dest) {
 			return src >= dest;
 		}
@@ -73,6 +74,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 	 * connection destination.
 	 */
 	protected static final LevelComparator destMustBeGreater = new LevelComparator() {
+		@Override
 		public boolean compareLevels(final long src, final long dest) {
 			return dest >= src;
 		}
@@ -87,6 +89,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 	 * Empty implementation to prevent subclasses from mistakenly overridding
 	 * this method as they normally would.
 	 */
+	@Override
 	protected final void initPropertyReferences() {
 	}
 
@@ -94,13 +97,8 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 	 * Make this method abstract to force subclasses to differentiate
 	 * their markers.
 	 */
+	@Override
 	protected abstract String getMarkerType();
-
-	/**
-	 * Make this abstract to force subclasses to differentiate there
-	 * action noame.
-	 */
-	protected abstract String getActionName();
 
 	/**
 	 * Return the name of the property set in which the level property
@@ -134,6 +132,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		}
 	}
 
+	@Override
 	protected void analyzeDeclarativeModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			Element declarativeObject) {
 		final Element as;
@@ -174,6 +173,7 @@ public abstract class AbstractLevelChecker extends AbstractInstanceOrDeclarative
 		monitor.done();
 	}
 
+	@Override
 	protected void analyzeInstanceModel(IProgressMonitor monitor, AnalysisErrorReporterManager errManager,
 			SystemInstance root, SystemOperationMode som) {
 		/*
