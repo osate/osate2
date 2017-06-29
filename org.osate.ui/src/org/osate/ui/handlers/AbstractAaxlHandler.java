@@ -51,6 +51,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.Property;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -60,6 +61,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
  * Abstract superclass for {@link org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob}.
@@ -178,6 +180,19 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	 */
 	protected void initPropertyReferences() {
 		// Default implementation does nothing.
+	}
+	
+	/**
+	 * Lookup a particular optional property definition. Does not update the
+	 * error list if the definition is not found. It is assumed the plug-in is
+	 * written in such a way that it works correctly even when the definition is
+	 * absent.
+	 *
+	 * @return The property definition or <code>null</code> if it is not
+	 *         found.
+	 */
+	protected final Property lookupOptionalPropertyDefinition(final String ps, final String name) {
+		return GetProperties.lookupPropertyDefinition(context, ps, name);
 	}
 	
 	/**
