@@ -51,7 +51,11 @@ import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 
 /**
  * AaxlModifyAction defines an action framework for processing Aadl object model with modifications
+ * 
+ * @deprecated Usage of this class should be replaced with
+ * {@link org.osate.ui.handlers.AaxlModifyHandlerAsJob}.
  */
+@Deprecated
 public abstract class AaxlModifyActionAsJob extends AaxlReadOnlyActionAsJob {
 
 	/**
