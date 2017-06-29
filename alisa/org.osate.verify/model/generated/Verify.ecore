@@ -111,7 +111,7 @@
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="MethodKind"/>
   <eClassifiers xsi:type="ecore:EClass" name="ResoluteMethod" eSuperTypes="#//MethodKind">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="methodReference" eType="ecore:EClass platform:/resource/com.rockwellcollins.atc.resolute/src-gen/com/rockwellcollins/atc/resolute/Resolute.ecore#//FunctionDefinition"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="methodReference" eType="ecore:EClass platform:/resource/com.rockwellcollins.atc.resolute/model/generated/Resolute.ecore#//FunctionDefinition"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="JavaMethod" eSuperTypes="#//MethodKind">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="methodPath" eType="ecore:EDataType platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore#//EString"/>
