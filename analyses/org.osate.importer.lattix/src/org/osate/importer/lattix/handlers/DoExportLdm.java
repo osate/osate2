@@ -1,7 +1,7 @@
 /*
  * Copyright 2013 Carnegie Mellon University
  * 
- * The AADL/DSM Bridge (org.osate.importer.lattix ) (the “Content” or “Material”) 
+ * The AADL/DSM Bridge (org.osate.importer.lattix ) (the ï¿½Contentï¿½ or ï¿½Materialï¿½) 
  * is based upon work funded and supported by the Department of Defense under 
  * Contract No. FA8721-05-C-0003 with Carnegie Mellon University for the operation 
  * of the Software Engineering Institute, a federally funded research and development 
@@ -12,7 +12,7 @@
  * views of the United States Department of Defense. 
 
  * NO WARRANTY. THIS CARNEGIE MELLON UNIVERSITY AND SOFTWARE ENGINEERING 
- * INSTITUTE MATERIAL IS FURNISHED ON AN “AS-IS” BASIS. CARNEGIE MELLON 
+ * INSTITUTE MATERIAL IS FURNISHED ON AN ï¿½AS-ISï¿½ BASIS. CARNEGIE MELLON 
  * UNIVERSITY MAKES NO WARRANTIES OF ANY KIND, EITHER EXPRESSED OR IMPLIED, 
  * AS TO ANY MATTER INCLUDING, BUT NOT LIMITED TO, WARRANTY OF FITNESS FOR 
  * PURPOSE OR MERCHANTABILITY, EXCLUSIVITY, OR RESULTS OBTAINED FROM USE OF 
@@ -28,14 +28,14 @@
  * provided with this Content and is also available at 
  * http://www.eclipse.org/legal/epl-v10.html.
  * 
- * Carnegie Mellon® is registered in the U.S. Patent and Trademark 
+ * Carnegie Mellonï¿½ is registered in the U.S. Patent and Trademark 
  * Office by Carnegie Mellon University. 
  * 
  * DM-0000232
  * 
  */
 
-package org.osate.importer.lattix.actions;
+package org.osate.importer.lattix.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
@@ -51,30 +51,24 @@ import org.osate.aadl2.Element;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.importer.lattix.ldmexporter.LdmExporter;
-import org.osate.importer.lattix.vdid.Activator;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class DoExportLdm extends AaxlReadOnlyActionAsJob {
-
+public final class DoExportLdm extends AaxlReadOnlyHandlerAsJob {
 	private String outputFile;
-	private IWorkbenchWindow window;
 
-	protected Bundle getBundle() {
-		return Activator.getDefault().getBundle();
-	}
-
+	@Override
 	public String getMarkerType() {
 		return "edu.cmu.sei.vdid.dsm.ExcelReportGeneratorObjectMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "Lattix Exporter";
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		boolean canRun;
 		Display d;
 		final SystemInstance si;
 
@@ -94,6 +88,7 @@ public final class DoExportLdm extends AaxlReadOnlyActionAsJob {
 		}
 
 		Job ldmGenerator = new Job("AADL2LDM") {
+			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Generating LDM file from AADL", 100);
 
@@ -110,7 +105,7 @@ public final class DoExportLdm extends AaxlReadOnlyActionAsJob {
 		};
 
 		d.syncExec(new Runnable() {
-
+			@Override
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
@@ -123,13 +118,4 @@ public final class DoExportLdm extends AaxlReadOnlyActionAsJob {
 		ldmGenerator.schedule();
 
 	}
-
-	public void dispose() {
-
-	}
-
-	public void init(IWorkbenchWindow window) {
-		this.window = window;
-	}
-
 }

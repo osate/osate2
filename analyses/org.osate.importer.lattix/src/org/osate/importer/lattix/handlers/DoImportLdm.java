@@ -35,11 +35,14 @@
  * 
  */
 
-package org.osate.importer.lattix.actions;
+package org.osate.importer.lattix.handlers;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.ResourcesPlugin;
@@ -48,8 +51,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
@@ -64,7 +65,6 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.util.OsateDebug;
 import org.osate.importer.Utils;
@@ -161,6 +161,7 @@ class ModulesSelectionDialog extends Dialog {
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		ok.setLayoutData(data);
 		ok.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				for (TableItem ti : table.getItems()) {
 					if (ti.getChecked()) {
@@ -178,6 +179,7 @@ class ModulesSelectionDialog extends Dialog {
 		data = new GridData(GridData.FILL_HORIZONTAL);
 		cancel.setLayoutData(data);
 		cancel.addSelectionListener(new SelectionAdapter() {
+			@Override
 			public void widgetSelected(SelectionEvent event) {
 				selectedModules = null;
 				shell.close();
@@ -191,7 +193,7 @@ class ModulesSelectionDialog extends Dialog {
 	}
 }
 
-public final class DoImportLdm implements IWorkbenchWindowActionDelegate {
+public final class DoImportLdm extends AbstractHandler {
 
 	private String inputFile;
 	private String outputDirectory;
@@ -208,19 +210,20 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate {
 	protected String getActionName() {
 		return "Lattix Importer";
 	}
-
-	public void run(IAction action) {
-
+	
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		outputDirectory = Utils.getSelectedDirectory();
 
 		if (outputDirectory == null) {
 			System.out.println("Selection is not a directory" + outputDirectory);
-			return;
+			return null;
 		}
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 
 		Job aadlGenerator = new Job("LDM2AADL") {
+			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				monitor.beginTask("Generating AADL files from LDM", 100);
 
@@ -245,7 +248,7 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate {
 		};
 
 		d.syncExec(new Runnable() {
-
+			@Override
 			public void run() {
 				IWorkbenchWindow window;
 				Shell sh;
@@ -288,17 +291,6 @@ public final class DoImportLdm implements IWorkbenchWindowActionDelegate {
 			aadlGenerator.schedule();
 		}
 
-	}
-
-	public void selectionChanged(IAction action, ISelection selection) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void dispose() {
-
-	}
-
-	public void init(IWorkbenchWindow window) {
+		return null;
 	}
 }

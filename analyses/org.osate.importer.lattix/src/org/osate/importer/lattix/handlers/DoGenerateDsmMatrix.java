@@ -34,7 +34,7 @@
  * DM-0000232
  * 
  */
-package org.osate.importer.lattix.actions;
+package org.osate.importer.lattix.handlers;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,25 +55,20 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.importer.Utils;
-import org.osate.importer.lattix.vdid.Activator;
 import org.osate.importer.lattix.vdid.LdmGenerator;
 import org.osate.importer.lattix.vdid.MatrixGenerator;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
-import org.osgi.framework.Bundle;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class DoGenerateDsmMatrix extends AaxlReadOnlyActionAsJob {
-
+public final class DoGenerateDsmMatrix extends AaxlReadOnlyHandlerAsJob {
 	private static String path;
 
-	protected Bundle getBundle() {
-		return Activator.getDefault().getBundle();
-	}
-
+	@Override
 	public String getMarkerType() {
 		return "edu.cmu.sei.vdid.dsm.DSMGeneratorMatrixObjectMarker";
 	}
 
+	@Override
 	protected String getActionName() {
 		return "DSM Matrix Generator";
 	}
@@ -85,11 +80,12 @@ public final class DoGenerateDsmMatrix extends AaxlReadOnlyActionAsJob {
 		return OsateResourceUtil.getEmptyAaxl2Resource(resourceURI);
 	}
 
+	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
 
 		final Display d = PlatformUI.getWorkbench().getDisplay();
 		d.syncExec(new Runnable() {
-
+			@Override
 			public void run() {
 				IWorkbenchWindow window = PlatformUI.getWorkbench().getActiveWorkbenchWindow();
 
