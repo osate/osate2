@@ -33,6 +33,9 @@
  */
 package org.osate.ui.handlers;
 
+import java.text.MessageFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,10 +51,15 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.EnumerationLiteral;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Property;
+import org.osate.aadl2.PropertyConstant;
+import org.osate.aadl2.PropertyType;
+import org.osate.aadl2.UnitLiteral;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.AadlConstants;
@@ -60,6 +68,7 @@ import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterFactory;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.modelsupport.errorreporting.MarkerAnalysisErrorReporter;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
+import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -82,6 +91,11 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
 public abstract class AbstractAaxlHandler extends AbstractHandler {
 	private static final String ERROR_SEPARATOR = ", ";
 	private static final String ERROR_MESSAGE = "Unable to find ";
+	private static final String PREDECLARED = "predeclared ";
+	private static final String PROP_DEF = "property definition ";
+	private static final String PROP_CONST = "property constant ";
+	private static final String PROP_TYPE = "property type ";
+	private static final String COLON_COLON = "::";
 	private static final String ERROR_TITLE = "Plug-in Initialization Error";
 	
 	private ExecutionEvent event;
@@ -106,7 +120,18 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 		csvlog = new WriteToFile(reporttype, root);
 	}
 	
+	/**
+	 * sets up a CSV log in the report folder using report type as subfolder
+	 */
+	public void setTXTLog(String reporttype, EObject root) {
+		csvlog = new WriteToFile(reporttype, root, "txt");
+	}
+	
 	private String issuePrefix = "";
+	
+	public void setIssuePrefix(String prefix) {
+		issuePrefix = prefix;
+	}
 	
 	/**
 	 * Use by the property reference initialization process to keep track
@@ -183,6 +208,21 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	}
 	
 	/**
+	 * Lookup a particular property definition, updating the error list if it is
+	 * not found.
+	 *
+	 * @return The property defintion, or <code>null</code> if it is not
+	 *         found.
+	 */
+	protected final Property lookupPropertyDefinition(final String ps, final String name) {
+		final Property pd = GetProperties.lookupPropertyDefinition(context, ps, name);
+		if (Aadl2Util.isNull(pd)) {
+			notFound.add(PROP_DEF + ps + COLON_COLON + name);
+		}
+		return pd;
+	}
+	
+	/**
 	 * Lookup a particular optional property definition. Does not update the
 	 * error list if the definition is not found. It is assumed the plug-in is
 	 * written in such a way that it works correctly even when the definition is
@@ -196,10 +236,182 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	}
 	
 	/**
+	 * Lookup a particular predeclared property definition, updating the error
+	 * list if it is not found.
+	 *
+	 * @return The property defintion, or <code>null</code> if it is not
+	 *         found.
+	 */
+	protected final Property lookupPropertyDefinition(final String name) {
+		final Property pd = GetProperties.lookupPropertyDefinition(context, null, name);
+		if (pd == null) {
+			notFound.add(PREDECLARED + PROP_DEF + name);
+		}
+		return pd;
+	}
+	
+	/**
+	 * Lookup a particular property type, updating the error list if it is not
+	 * found.
+	 *
+	 * @return The property type, or <code>null</code> if it is not found.
+	 */
+	protected final PropertyType lookupPropertyType(final String ps, final String name) {
+		final PropertyType pt = GetProperties.lookupPropertyType(context, ps, name);
+		if (pt == null) {
+			notFound.add(PROP_TYPE + ps + COLON_COLON + name);
+		}
+		return pt;
+	}
+	
+	/**
+	 * Lookup a particular unit literal, updating the error list if it or its
+	 * declaring unit type is not found.
+	 *
+	 * @return The unit literal, or <code>null</code> if it or it's
+	 * declaring unit type is not found.
+	 */
+	protected final UnitLiteral lookupUnitLiteral(final String ps, final String unitType, final String literalName) {
+		final UnitLiteral literal = GetProperties.findUnitLiteral(context, ps + "::" + unitType, literalName);
+		if (literal == null) {
+			notFound.add(MessageFormat.format("unit literal {0} in type {1}::{2}",
+					new Object[] { literalName, ps, unitType }));
+		}
+		return literal;
+	}
+	
+	/**
+	 * Lookup a particular enumeration literal, updating the error list if it or its
+	 * declaring enumeration type is not found.
+	 *
+	 * @return The enumeration literal, or <code>null</code> if it or it's
+	 * declaring enumeration type is not found.
+	 */
+	protected final EnumerationLiteral lookupEnumerationLiteral(final String ps, final String enumType,
+			final String literalName) {
+		final EnumerationLiteral literal = GetProperties.findEnumerationLiteral(context, ps + "::" + enumType,
+				literalName);
+		if (literal == null) {
+			notFound.add(MessageFormat.format("enumeration literal {0} in type {1}::{2}",
+					new Object[] { literalName, ps, enumType }));
+		}
+		return literal;
+	}
+	
+	/**
+	 * Lookup a particular optional property type definition. Does not update
+	 * the error list if the type is not found. It is assumed the plug-in is
+	 * written in such a way that it works correctly even when the type is
+	 * absent.
+	 *
+	 * @return The property type or <code>null</code> if it is not found.
+	 */
+	protected final PropertyType lookupOptionalPropertyType(final String ps, final String name) {
+		return GetProperties.lookupPropertyType(context, ps, name);
+	}
+	
+	/**
+	 * Lookup a particular predeclared property type, updating the error list
+	 * if it is not found.
+	 *
+	 * @return The property type or <code>null</code> if it is not found.
+	 */
+	protected final PropertyType lookupPropertyType(final String name) {
+		final PropertyType pt = GetProperties.lookupPropertyType(context, name);
+		if (pt == null) {
+			notFound.add(PREDECLARED + PROP_TYPE + name);
+		}
+		return pt;
+	}
+	
+	/**
+	 * Lookup a particular unit literal from a predeclared property type,
+	 * updating the error list if it or its declaring unit type is not found.
+	 *
+	 * @return The unit literal, or <code>null</code> if it or it's
+	 * declaring unit type is not found.
+	 */
+	protected final UnitLiteral lookupUnitLiteral(final String unitType, final String literalName) {
+		final UnitLiteral literal = GetProperties.findUnitLiteral(context, unitType, literalName);
+		if (literal == null) {
+			notFound.add(MessageFormat.format("unit literal {0} in predeclared type {1}",
+					new Object[] { literalName, unitType }));
+		}
+		return literal;
+	}
+	
+	/**
+	 * Lookup a particular enumeration literal from a predeclared property type,
+	 * updating the error list if it or its declaring enumeration type is not
+	 * found.
+	 *
+	 * @return The enumeration literal, or <code>null</code> if it or it's
+	 * declaring enumeration type is not found.
+	 */
+	protected final EnumerationLiteral lookupEnumerationLiteral(final String enumType, final String literalName) {
+		final EnumerationLiteral literal = GetProperties.findEnumerationLiteral(context, enumType, literalName);
+		if (literal == null) {
+			notFound.add(MessageFormat.format("enumeration literal {0} in predeclared type {1}",
+					new Object[] { literalName, enumType }));
+		}
+		return literal;
+	}
+	
+	/**
+	 * Lookup a particular property constant, updating the error list if it is
+	 * not found.
+	 *
+	 * @return The property constant or <code>null</code> if it is not found.
+	 */
+	protected final PropertyConstant lookupPropertyConstant(final String name) {
+		final PropertyConstant pc = GetProperties.lookupPropertyConstant(context, name);
+		if (pc == null) {
+			notFound.add(PREDECLARED + PROP_CONST + name);
+		}
+		return pc;
+	}
+	
+	/**
+	 * Lookup a particular predeclared property constant, updating the error
+	 * list if it is not found.
+	 *
+	 * @return The property constant or <code>null</code> if it is not found.
+	 */
+	protected final PropertyConstant lookupPropertyConstant(final String ps, final String name) {
+		final PropertyConstant pc = GetProperties.lookupPropertyConstant(context, ps, name);
+		if (pc == null) {
+			notFound.add(PROP_CONST + ps + COLON_COLON + name);
+		}
+		return pc;
+	}
+	
+	/**
+	 * Lookup a particular optional property constant definition. Does not
+	 * update the error list if the type is not found. It is assumed the plug-in
+	 * is written in such a way that it works correctly even when the constant
+	 * is absent.
+	 *
+	 * @return The property constant or <code>null</code> if it is not found.
+	 */
+	protected final PropertyConstant lookupOptionalPropertyConstant(final String ps, final String name) {
+		return GetProperties.lookupPropertyConstant(context, ps, name);
+	}
+	
+	/**
 	 * Find out if there were any errors initializing the property references.
 	 */
 	protected final boolean hasPropertyLookupErrors() {
 		return !notFound.isEmpty();
+	}
+	
+	/**
+	 * Get the property lookup errors.
+	 * @return A List of strings, where each string names the property
+	 * refernece or property constant that could not be found.  Meant
+	 * to be used to construct a larger error message.
+	 */
+	protected final List<String> getPropertyLookupErrors() {
+		return Collections.unmodifiableList(new ArrayList<>(notFound));
 	}
 	
 	/**
@@ -306,6 +518,10 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 		}
 	}
 	
+	protected final IWorkbenchWindow getWindow() {
+		return HandlerUtil.getActiveWorkbenchWindow(event);
+	}
+	
 	protected Shell getShell() {
 		return HandlerUtil.getActiveShell(event);
 	}
@@ -387,6 +603,16 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	public void error(final Element obj, final String msg) {
 		errManager.error(obj, msg);
 		logError(obj, msg);
+	}
+	
+	/**
+	 * log error message on object as result of action.
+	 * @param msg The error message
+	 */
+	public final void logError(final String msg) {
+		if (csvlog != null) {
+			csvlog.addOutputNewline(issuePrefix + "ERROR: " + msg);
+		}
 	}
 	
 	public final void logError(Element ci, final String msg) {
@@ -495,6 +721,12 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 		summaryReport.append(msg + "\n");
 	}
 	
+	public String getResultsMessages() {
+		synchronized (summaryReport) {
+			return summaryReport.toString();
+		}
+	}
+	
 	/**
 	 * Report an internal error in the operation of the action.
 	 */
@@ -503,20 +735,10 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	}
 	
 	/**
-	 * Initialize the state of analysis.  For example,
-	 * this can open a dialog box to get additional parameters to the
-	 * analysis.  The analysis state should be initialized by setting
-	 * fields that are then used by {@link #analyzeDeclarativeModel}
-	 * and {@link #analyzeInstanceModel}.
-	 *
-	 * <p>The default implementation of this method simply returns
-	 * <code>true</code>.
-	 *
-	 * @return <code>true</code> if the analysis should proceed or
-	 * <code>false</code> if the user cancelled the analysis.
+	 * Report an internal error in the operation of the action.
 	 */
-	protected boolean initializeAnalysis(NamedElement object) {
-		return true;
+	protected final void internalError(final Exception e) {
+		errManager.internalError(e);
 	}
 	
 	/**
@@ -545,23 +767,14 @@ public abstract class AbstractAaxlHandler extends AbstractHandler {
 	 * @return <code>true</code> if the analysis should proceed or
 	 * <code>false</code> if the user cancelled the analysis.
 	 */
-	protected boolean finalizeAnalysis() {
-		return true;
-	}
-	
-	/**
-	 * finalize the state of analysis.  For example,
-	 * this can close a report being generated.
-	 * <p>The default implementation of this method simply returns
-	 * <code>true</code>.
-	 *
-	 * @return <code>true</code> if the analysis should proceed or
-	 * <code>false</code> if the user cancelled the analysis.
-	 */
 	protected boolean finalizeAction() {
 		if (csvlog != null) {
 			csvlog.saveToFile(getActionName() + " Report\n\n" + summaryReport.toString());
 		}
 		return true;
+	}
+	
+	public String getAnalysisMarkerType() {
+		return getMarkerType();
 	}
 }
