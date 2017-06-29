@@ -30,8 +30,8 @@ import org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalys
 import org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis
 import org.osate.analysis.resource.budgets.handlers.DoResourceBudget
 import org.osate.analysis.resource.management.handlers.Binpack
-import org.osate.analysis.security.actions.CheckSafety
-import org.osate.analysis.security.actions.CheckSecurity
+import org.osate.analysis.security.handlers.CheckSafety
+import org.osate.analysis.security.handlers.CheckSecurity
 
 import static org.osate.verify.util.VerifyUtilExtension.*
 
