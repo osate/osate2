@@ -5,24 +5,22 @@ import java.util.List;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.query.StandaloneQuery;
 
-// TODO: Make API once stabilized.
-// TODO: Document
 public interface QueryService {
-	// TODO: Document. boc BO  will be argument
+	// boc's BO will be query argument
 	default BusinessObjectContext getFirstResult(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getFirstResult(query, boc, boc.getBusinessObject());
 	}
 	
 	BusinessObjectContext getFirstResult(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
 	
-	// TODO: Document. boc BO  will be argument
+	// boc's BO will be query argument
 	default Object getFirstBusinessObject(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getFirstBusinessObject(query, boc, boc.getBusinessObject());
 	}
 	
 	Object getFirstBusinessObject(StandaloneQuery query, BusinessObjectContext boc, final Object arg);
 	
-	// TODO: Document. boc BO  will be argument	
+	// boc's BO will be query argument	
 	default List<BusinessObjectContext> getResults(final StandaloneQuery query, final BusinessObjectContext boc) {
 		return getResults(query, boc, boc.getBusinessObject());
 	}

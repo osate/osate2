@@ -155,11 +155,7 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 		final DiagramElement de = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());		
     	final Object bo = de.getBusinessObject();
     	
-    	// TODO
-		// TODO: Need to save resources before trying to rename otherwise the refactoring won't be able to get the correct element..
-		// TODO: Problem doesn't seem to be occuring now? SOMETIMES is does.. Need to investigate
-		// Could also be handled by using the other IRenameElementContext.Impl constructor?
-		
+    	// Rename the element using LTK
 		final ProcessorBasedRefactoring renameRefactoring = getRenameRefactoring(bo);
 		final RefactoringStatus refactoringStatus = prepareAndCheck(renameRefactoring, value);
 		if(!refactoringStatus.isOK()) {

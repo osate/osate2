@@ -139,8 +139,6 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		this.extService = Objects.requireNonNull(eclipseContext.get(ExtensionService.class), "unable to retrieve extension service");
 		this.aadlModService = Objects.requireNonNull(eclipseContext.get(AadlModificationService.class), "unable to retrieve AADL modification service");
 		this.graphitiService = Objects.requireNonNull(eclipseContext.get(GraphitiService.class), "unablet to retrieve Graphiti service");
-
-		// TODO: Get from global reference service
 		this.referenceResolver = Objects.requireNonNull(eclipseContext.get(ProjectReferenceService.class), "unable to retrieve internal reference resolution service");
 		
 		// Create the feature to use for pictograms which do not have a specialized feature. Delegates to business object handlers.

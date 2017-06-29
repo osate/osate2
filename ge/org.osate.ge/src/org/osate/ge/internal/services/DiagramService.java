@@ -81,5 +81,5 @@ public interface DiagramService {
 	}
 	
 	// TODO: Rename
-	ReferenceCollection getReferences(final HashSet<IProject> relevantProjects, final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences);
+	ReferenceCollection getReferences(final Set<IProject> relevantProjects, final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences);
 }

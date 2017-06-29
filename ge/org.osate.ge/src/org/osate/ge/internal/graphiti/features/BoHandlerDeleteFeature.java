@@ -111,8 +111,6 @@ public class BoHandlerDeleteFeature extends AbstractFeature implements IDeleteFe
 		final DiagramElement de = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());		
 		final Object bo = de.getBusinessObject();
 		
-		// TODO: Implement/rework propagating changes to other diagrams and packages.
-
 		if(bo instanceof EObject) {
 			final EObject boEObj = (EObject)bo;
 			aadlModService.modify(boEObj, new AbstractModifier<EObject, Object>() {

@@ -1,12 +1,12 @@
 package org.osate.ge.internal.refactoring;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Map.Entry;
 import java.util.Set;
 import org.eclipse.core.resources.IProject;
@@ -36,17 +36,16 @@ import org.eclipse.xtext.resource.IReferenceDescription;
 import org.eclipse.xtext.resource.IResourceDescription;
 import org.eclipse.xtext.resource.XtextResource;
 import org.eclipse.xtext.resource.XtextResourceSet;
-import org.eclipse.xtext.ui.editor.model.IXtextDocument;
 import org.eclipse.xtext.ui.refactoring.impl.RefactoringResourceSetProvider;
 import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
-import org.eclipse.xtext.util.concurrent.IUnitOfWork;
 import org.osate.aadl2.Aadl2Package;
+import org.osate.aadl2.ComponentType;
+import org.osate.aadl2.ComponentTypeRename;
 import org.osate.aadl2.Feature;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
@@ -56,13 +55,12 @@ import org.osgi.framework.FrameworkUtil;
 
 @SuppressWarnings("restriction")
 public class AgeRenameParticipant extends RenameParticipant {
-	// TODO: Don't store variables like this? Or is it okay.. Is a new object used each time?
 	private IRenameElementContext ctx;
-	private EObject targetObject; // TODO: Rename
-	private ReferenceService refBuilder;
+	private EObject targetObject;
+	private ReferenceService referenceService;
 	private DiagramService diagramService;
-	private final Map<CanonicalBusinessObjectReference, URI> originalCanonicalReferenceToNewUriMap = new HashMap<>(); // TODO: Move
-	private ResourceSet refactoringResourcSet;
+	private final Map<CanonicalBusinessObjectReference, URI> originalCanonicalReferenceToNewUriMap = new HashMap<>();
+	private ResourceSet refactoringResourceSet;
 	private IProject project;
 	private DiagramService.ReferenceCollection references;
 	
@@ -73,56 +71,169 @@ public class AgeRenameParticipant extends RenameParticipant {
 		if(!(element instanceof IRenameElementContext)) {
 			return false;
 		}
-		
+
 		ctx = (IRenameElementContext)element;
 
-		// TODO: Needs lots of error checking
 		final URI targetElementUri = ctx.getTargetElementURI();
+		if(targetElementUri == null) {
+			return false;
+		}
 		
 		final IResource resource = ResourcesPlugin.getWorkspace().getRoot().findMember(new Path(targetElementUri.toPlatformString(true)));
+		if(resource == null) {
+			return false;
+		}
 		
 		XtextResource xtextResource = AgeXtextUtil.getOpenXtextResource(resource);
-		if(xtextResource == null) {
-			// TODO: Error checking
-			final XtextResourceSet tmpRs = OsateResourceUtil.createXtextResourceSet();
-			targetObject = tmpRs.getEObject(targetElementUri, true);
-			xtextResource = (XtextResource)targetObject.eResource(); // TODO: Check type before casting
-		}  else {
-			final XtextResourceSet tmpRs = (XtextResourceSet)xtextResource.getResourceSet();
-			targetObject = tmpRs.getEObject(targetElementUri, false); // TODO: Consider this.. false? Could a method be called on the resource itself? If true then could move some code out of branches
+		final XtextResourceSet tmpRs = xtextResource == null ? OsateResourceUtil.createXtextResourceSet() : (XtextResourceSet)xtextResource.getResourceSet();
+		if(tmpRs == null) {
+			return false;			
 		}
-		// TODO: Get IResource of the element to be moved
-		// TODO: Need to get original element reference?
 		
-		// TODO: Need to use the refactoring resource set provider? Unfortunately, cna't get that without a resource which is needed to get the resource set...
+		targetObject = tmpRs.getEObject(targetElementUri, true);
+		if(targetObject == null || !(targetObject.eResource() instanceof XtextResource)) {
+			return false;				
+		}
+		
+		xtextResource = (XtextResource)targetObject.eResource();
+	
+		// Get the provider for the refactoring resource set
 		final RefactoringResourceSetProvider refactoringResourceSetProvider = xtextResource.getResourceServiceProvider().get(RefactoringResourceSetProvider.class);
-		
 		final IPath projectPath = new Path(targetElementUri.toPlatformString(true)).uptoSegment(1);
-		project = (IProject)ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath); // TODO: Check type. TODO: Check null
+		final IResource projectResource = ResourcesPlugin.getWorkspace().getRoot().findMember(projectPath);
+		if(!(projectResource instanceof IProject)) {
+			return false;
+		}
+		project = (IProject)projectResource;
 		
-		refactoringResourcSet = (XtextResourceSet)refactoringResourceSetProvider.get(project);  // TODO: have a different name?
+		// Get the refactoring resource set
+		refactoringResourceSet = (XtextResourceSet)refactoringResourceSetProvider.get(project);
+		if(refactoringResourceSet == null) {
+			return false;
+		}
 
+		// Get global services
 		final Bundle bundle = FrameworkUtil.getBundle(getClass());	
 		final IEclipseContext context =  EclipseContextFactory.getServiceContext(bundle.getBundleContext()).createChild();
-		refBuilder = context.get(ReferenceService.class); // TODO: Check for null 
-		diagramService = context.get(DiagramService.class); // TODO: Check for null
+		referenceService = Objects.requireNonNull(context.get(ReferenceService.class), "Unable to get reference service"); 
+		diagramService = Objects.requireNonNull(context.get(DiagramService.class), "Unable to get diagram service");
+			
+		// Get projects with are affected by the refactoring.
+		final Set<IProject> relevantProjects = getAffectedProjects(project, new HashSet<>());
 		
-		// TODO: Need to use a separate resource set for renames? 
-		// TODO: Should it use the one already found or should it always use a fresh one. What resource set does the index reference
-		// TODO: Will need to ensure that incorrect objects aren't modified...
-		// TODO: Will need to modify appropriate resources... Handle some files being open and some not... References between files
-		
-		// TODO: Move to separate function
 		// Build a mapping between an EObject URI and the URIs of EObjects that it affects.
-		final Map<URI, Set<URI>> externalReferencesMap = new HashMap<>(); // TODO: Rename
-		final Set<IProject> projects = Collections.singleton(project); // TODO: Get all relevant projects
+		final Map<URI, Set<URI>> externalReferencesMap = buildExternalReferenceMap(relevantProjects);
+		
+		// Find all dependent objects
+		final Set<EObject> dependentObjects = getDependentObjects(targetObject, targetObject.eResource().getResourceSet(), externalReferencesMap);
+		dependentObjects.add(targetObject);
+				
+		for(final EObject dirtyObject : dependentObjects) {
+			final URI uri = getNameIndependentUri(dirtyObject);
+			if(uri != null) {
+				final CanonicalBusinessObjectReference canonicalReference = referenceService.getCanonicalReference(dirtyObject);
+				if(canonicalReference != null) {
+					originalCanonicalReferenceToNewUriMap.put(canonicalReference, uri);
+				}
+			}
+		}
+
+		// Initialize is called many times so it would be best to do it before the change is made but not in the initialization phase
+		references = diagramService.getReferences(relevantProjects, originalCanonicalReferenceToNewUriMap.keySet());
+		
+		return true;
+	}
+	
+	/**
+	 * Get affects projects. At this point, this function returns projects which directly or indirectly reference the project containing the model element.
+	 * @param project
+	 * @param relevantProjects
+	 * @return relevantProjects
+	 */
+	private Set<IProject> getAffectedProjects(final IProject project, final Set<IProject> relevantProjects) {
+		if(project.isAccessible()) {
+			if(relevantProjects.add(project)) {
+				// Get referencing projects if the project was not already part of the relevant projects set
+				for(final IProject referencingProject : project.getReferencingProjects()) {
+					getAffectedProjects(referencingProject, relevantProjects);
+				}
+				
+				// Get referencing projects if the project was not already part of the relevant projects set
+				try {
+					for(final IProject referencedProject : project.getReferencedProjects()) {
+						// Don't handle the plugin resources project or the set of referencing and referenced projects will likely contain all AADL projects
+						if(!PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME.equalsIgnoreCase(referencedProject.getName())) {
+							getAffectedProjects(referencedProject, relevantProjects);	
+						}						
+					}
+				} catch (final CoreException e) {
+					// Ignore
+				}
+			}
+		}
+		
+		return relevantProjects;
+	}
+
+	@Override
+	public String getName() {
+		return "AgeRenameParticipant";
+	}
+
+	@Override
+	public RefactoringStatus checkConditions(IProgressMonitor pm, CheckConditionsContext context)
+			throws OperationCanceledException {
+		return null;
+	}
+
+	@Override
+	public Change createChange(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
+		return new Change() {
+			@Override
+			public String getName() {
+				return "OSATE Graphical Editor Diagram Change";
+			}
+
+			@Override
+			public void initializeValidationData(final IProgressMonitor pm) {
+			}
+
+			@Override
+			public RefactoringStatus isValid(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
+				return new RefactoringStatus();
+			}
+
+			@Override
+			public Change perform(final IProgressMonitor pm) throws CoreException {
+				// Build a mapping from the original canonical reference to the new business object
+				final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap = new HashMap<>();
+				for(final Entry<CanonicalBusinessObjectReference, URI> entry : originalCanonicalReferenceToNewUriMap.entrySet()) {
+					final EObject newObject = refactoringResourceSet.getEObject(entry.getValue(), true);
+					if(newObject != null) {
+						originalCanonicalReferenceToNewObjectMap.put(entry.getKey(), newObject);
+					}
+				}
+				
+				// Update the references
+				references.update(originalCanonicalReferenceToNewObjectMap);
+				
+				return null;
+			}
+			
+			@Override
+			public Object getModifiedElement() {
+				return null;
+			}
+			
+		};
+	}
+
+	// Builds a mapping between EObject URIs and the URIs of EObjects that it affects based on the EMF Index.
+	private static final Map<URI, Set<URI>> buildExternalReferenceMap(final Set<IProject> projects) {
+		final Map<URI, Set<URI>> externalReferencesMap = new HashMap<>();
 		for(final IResourceDescription resourceDescription : ScopedEMFIndexRetrieval.calculateResourceDescriptions(projects)) {
 			for(final IReferenceDescription refDescription : resourceDescription.getReferenceDescriptions()) {
-				final EReference ref = refDescription.getEReference();
-				// TODO: Anyway to share this condition with the other function?
-				// TODO: Implemented isn't really relevant because any objects that implement a type but are in a nother file would have a renamed object
-				// renames aren't captured graphically
-				
+				final EReference ref = refDescription.getEReference();				
 				if(isHandledRefinedReference(ref)) {
 					if(refDescription.getSourceEObjectUri() != null && refDescription.getTargetEObjectUri() != null) {
 						Set<URI> affectedUris = externalReferencesMap.get(refDescription.getTargetEObjectUri());
@@ -133,37 +244,21 @@ public class AgeRenameParticipant extends RenameParticipant {
 						
 						affectedUris.add(refDescription.getSourceEObjectUri());
 					}
-				} 
-			}
-		}
-		
-		// TODO: Rename to affected objects? Cleanup function names and terminology?
-		// Find all dependent objects
-		final Set<EObject> dirtyObjects = getDependentObjects(targetObject, targetObject.eResource().getResourceSet(), externalReferencesMap);
-		dirtyObjects.add(targetObject);
-				
-		for(final EObject dirtyObject : dirtyObjects) {
-			final URI uri = getDefaultUri(dirtyObject);
-			if(uri != null) {
-				final CanonicalBusinessObjectReference canonicalReference = refBuilder.getCanonicalReference(dirtyObject);
-				if(canonicalReference != null) {
-					originalCanonicalReferenceToNewUriMap.put(canonicalReference, uri);
 				}
 			}
 		}
-
-		// TODO: Should this an other processing take place now or should it wait until performing the actual change. 
-		// Initialize is called many times so it would be  best to do it before the change is made but not in the initialization pahse
-		final HashSet<IProject> relevantProjects = new HashSet<>();
-		relevantProjects.add(project);
-		relevantProjects.addAll(Arrays.asList(project.getReferencingProjects()));		
-		references = diagramService.getReferences(relevantProjects, originalCanonicalReferenceToNewUriMap.keySet());
 		
-		return true;
+		return externalReferencesMap;
 	}
 	
-	// TODO: Rename
-	private static URI getDefaultUri(final EObject obj) {
+	/**
+	 * Gets the URI for the object using the default referencing scheme. That is, it does not use the specialized fragment provider the resource may have.
+	 * This is needed to allow creating URIs which do not include the name of the object being referenced but rather describe the position of the object in the resource.
+	 * This type of URI is better suited to getting the new objects after renaming. 
+	 * @param obj
+	 * @return
+	 */
+	private static URI getNameIndependentUri(final EObject obj) {
 		// Set the fragment processor of the resources to null so that the URI generated will be based on ordering and not actual names
 		IFragmentProvider oldFragmentProvider = null;
 		XtextResource res = null;
@@ -188,11 +283,25 @@ public class AgeRenameParticipant extends RenameParticipant {
 
 	private static Set<EObject> getDependentObjects(final EObject obj, final ResourceSet rs, final Map<URI, Set<URI>> externalReferencesMap) {
 		final Set<EObject> results = new HashSet<>();
-		getRelatedObjects(Collections.singleton(obj), rs, results, externalReferencesMap, obj instanceof Feature);
+		final EObject objectOfInterest;
+		
+		// If the object is a component type rename, replace it with the component type it renames. This will result in additional objects being returned but it
+		// is the only known way of getting types related to the renames.
+		if(obj instanceof ComponentTypeRename) {
+			final ComponentType renamedComponentType = ((ComponentTypeRename)obj).getRenamedComponentType();
+			objectOfInterest = renamedComponentType == null ? null : renamedComponentType;
+		} else {
+			objectOfInterest = obj;
+		}
+
+		if(objectOfInterest != null) {
+			getRelatedObjects(Collections.singleton(objectOfInterest), rs, results, externalReferencesMap, obj instanceof Feature);
+		}
+		
 		return results;
 	}
 	
-	// TODO: Need to handle refactoring of renames though. For implementing types in different packages... Could be used in same package too?	
+	// Gets objects related to the specified objects of interest
 	private static void getRelatedObjects(Collection<EObject> objectsOfInterest, 
 			final ResourceSet rs, 
 			final Set<EObject> results, 
@@ -207,7 +316,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 				} else if(sf == Aadl2Package.eINSTANCE.getRealization_Implemented()) {
 					// Get the component implementation from the realization
 					final Realization realization = (Realization)s.getEObject();
-					newObjects.add(realization.getSpecific()); 
+					newObjects.add(realization.getSpecific());
 				}
 			}
 		}
@@ -215,11 +324,10 @@ public class AgeRenameParticipant extends RenameParticipant {
 		for(final EObject objectOfInterest : objectsOfInterest) {
 			final URI objectOfInterestUri = EcoreUtil.getURI(objectOfInterest);
 			if(objectOfInterestUri != null) {
-				// TODO: Rename
+				// Add objects references in the external references map
 				final Set<URI> affectedUris = externalReferencesMap.get(objectOfInterestUri);
 				if(affectedUris != null) {
 					for(final URI affectedUri : affectedUris) {
-						// TODO: Need to review use of resource set and the EMF index
 						final EObject affectedObject = rs.getEObject(affectedUri, true);
 						if(affectedObject != null) {
 							newObjects.add(affectedObject);
@@ -228,7 +336,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 				}
 			}
 		}
-
+		
 		if(results.addAll(newObjects)) {
 			if(recursive) {
 				getRelatedObjects(newObjects, rs, results, externalReferencesMap, recursive);
@@ -243,60 +351,5 @@ public class AgeRenameParticipant extends RenameParticipant {
 			sf == Aadl2Package.eINSTANCE.getSubcomponent_Refined() ||
 			sf == Aadl2Package.eINSTANCE.getFlowSpecification_Refined();
 	}
-	
-	@Override
-	public String getName() {
-		return "AgeRenameParticipant"; // TODO
-	}
-
-	@Override
-	public RefactoringStatus checkConditions(IProgressMonitor pm, CheckConditionsContext context)
-			throws OperationCanceledException {
-		//System.err.println("checkConditions()");
-		return null;
-	}
-
-	@Override
-	public Change createChange(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
-		//System.err.println("createChange()");
-		return new Change() {
-			@Override
-			public String getName() {
-				return "TODO: AGE CHANGE"; // TODO
-			}
-
-			@Override
-			public void initializeValidationData(final IProgressMonitor pm) {
-			}
-
-			@Override
-			public RefactoringStatus isValid(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
-				return new RefactoringStatus(); // TODO
-			}
-
-			@Override
-			public Change perform(final IProgressMonitor pm) throws CoreException {
-				// TODO
-				final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap = new HashMap<>();
-				for(final Entry<CanonicalBusinessObjectReference, URI> entry : originalCanonicalReferenceToNewUriMap.entrySet()) {
-					final EObject newObject = refactoringResourcSet.getEObject(entry.getValue(), true);
-					if(newObject != null) {
-						originalCanonicalReferenceToNewObjectMap.put(entry.getKey(), newObject);
-					}
-				}
-				
-				references.update(originalCanonicalReferenceToNewObjectMap);
-
-				return null;
-			}
-			
-			@Override
-			public Object getModifiedElement() {
-				// TODO
-				return null;
-			}
-			
-		};
-	}
-
+		
 }

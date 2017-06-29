@@ -54,7 +54,7 @@ public class BusinessObjectProviderHelper implements AutoCloseable {
 			return allChildren.distinct().collect(Collectors.toList());
 		} finally {
 			clearContextArguments();
-		}
+		} 
 	}
 	
 	private void updateContextArguments(final BusinessObjectContext boc) {

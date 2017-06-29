@@ -74,6 +74,11 @@ public class DiagramSerialization {
 		}
 	}
 	
+	public static RelativeBusinessObjectReference convert(final org.osate.ge.mm.diagram.RelativeBusinessObjectReference ref) {
+		final String[] segs = toReferenceSegments(ref);
+		return segs == null ? null : new RelativeBusinessObjectReference(segs);
+	}
+	
 	public static CanonicalBusinessObjectReference convert(final org.osate.ge.mm.diagram.CanonicalBusinessObjectReference ref) {
 		final String[] segs = toReferenceSegments(ref);
 		return segs == null ? null : new CanonicalBusinessObjectReference(segs);
@@ -179,7 +184,7 @@ public class DiagramSerialization {
 		final Resource resource = rs.createResource(uri);
 		resource.getContents().add(mmDiagram);
 		try {
-			resource.save(Collections.EMPTY_MAP);
+			resource.save(Collections.emptyMap());
 		} catch(IOException e) {
 			throw new RuntimeException(e);
 		}

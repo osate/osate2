@@ -14,7 +14,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-// TODO: Review and Document
 /**
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">

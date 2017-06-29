@@ -8,7 +8,6 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.diagram.DiagramElement;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
-// TODO: Rename
 public class AgeGraphicalConfiguration implements GraphicalConfiguration {
 	public final Graphic graphic;
 	public final DockingPosition defaultDockingPosition;

@@ -3,7 +3,6 @@ package org.osate.ge.internal.services.impl;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
-
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -28,9 +27,35 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 		}		
 	}
 	
+	private static class ResourceDeltaVisitor implements IResourceDeltaVisitor {
+		public boolean hasModelChanged = false;
+		
+        public boolean visit(final IResourceDelta delta) {
+        	// Invalidate cache if AADL files are changed or changes to projects besides changes.
+        	// Don't notify of AADL file changes if the xtext document is open. Wait until the xtext document modification notification.        	
+        	final IResource resource = delta.getResource();
+        	if ((resource.getType() == IResource.PROJECT && delta.getKind() != IResourceDelta.CHANGED) ||
+        		   (resource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(resource.getFileExtension()) && AgeXtextUtil.getOpenXtextResource(resource) == null)) {
+        		hasModelChanged = true;
+        	}
+           
+        	return !hasModelChanged;
+        }
+        
+        // Resets the flag which indicate whether a change occurred.
+        void reset() {
+        	hasModelChanged = false;
+        }
+    };
+    
 	private final IResourceChangeListener resourceChangeListener = new IResourceChangeListener() {
 		@Override
 		public void resourceChanged(final IResourceChangeEvent event) {
+			// Notify other resource listeners before processing the resource listener
+			for(final IResourceChangeListener childListener : childResourceChangeListeners) {
+				childListener.resourceChanged(event);
+			}
+			
 			final IResourceDelta delta = event.getDelta();
 			if(delta != null) {
 				try {
@@ -45,30 +70,12 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 				}
 			}
 		}
-	};
-	
-	private ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
-		
-	private static class ResourceDeltaVisitor implements IResourceDeltaVisitor {
-		public boolean hasModelChanged = false;
-		
-        public boolean visit(final IResourceDelta delta) {
-           // Invalidate cache if AADL files are changed or changes to projects besides changes.
-           final IResource resource = delta.getResource();
-           if ((resource.getType() == IResource.PROJECT && delta.getKind() != IResourceDelta.CHANGED) ||
-        		   (resource.getType() == IResource.FILE && "aadl".equalsIgnoreCase(resource.getFileExtension()))) {
-        	   hasModelChanged = true;
-           }
-           
-           return !hasModelChanged;
-        }
-        
-        // Resets the flag which indicate whether a change occurred.
-        void reset() {
-        	hasModelChanged = false;
-        }
-    };
+	};	
     
+	private ResourceDeltaVisitor visitor = new ResourceDeltaVisitor();
+	private final List<ChangeListener> changeListeners = new CopyOnWriteArrayList<>();
+	private final List<IResourceChangeListener> childResourceChangeListeners = new CopyOnWriteArrayList<>();	
+	
     private IXtextModelListener xtextModelListener = new IXtextModelListener() {			
 		@Override
 		public void modelChanged(final XtextResource resource) {
@@ -79,8 +86,6 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 			}
 		}
 	};
-	
-	private final List<ChangeListener> changeListeners = new CopyOnWriteArrayList<>();
 	
 	public DefaultModelChangeNotifier() {
 		// Register a resource change listener
@@ -118,7 +123,17 @@ public class DefaultModelChangeNotifier implements ModelChangeNotifier {
 	}
 
 	@Override
-	public void removeChangeListener(ChangeListener listener) {
+	public void removeChangeListener(final ChangeListener listener) {
 		changeListeners.remove(Objects.requireNonNull(listener, "listener must not be null"));		
+	}
+	
+	@Override
+	public void addResourceChangeListener(final IResourceChangeListener listener) {
+		childResourceChangeListeners.add(listener);
+	}
+	
+	@Override
+	public void removeResourceChangeListener(final IResourceChangeListener listener) {
+		childResourceChangeListeners.remove(listener);
 	}
 }

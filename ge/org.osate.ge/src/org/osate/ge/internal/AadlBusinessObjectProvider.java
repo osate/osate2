@@ -342,8 +342,10 @@ public class AadlBusinessObjectProvider {
 		final EList<Classifier> classifiers = topClassifier.getSelfPlusAllExtended();
 		if (topClassifier instanceof ComponentImplementation) {
 			ComponentType ct = ((ComponentImplementation) topClassifier).getType();
-			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
-			classifiers.addAll(tclassifiers);
+			if(ct != null) { // May be null in the case of an invalid model.
+				final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
+				classifiers.addAll(tclassifiers);
+			}
 		}
 		
 		for (Classifier classifier : classifiers) {

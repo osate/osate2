@@ -186,7 +186,7 @@ public class PropertyValueFormatter {
 				while(tmp != null && tmp.getBusinessObject() instanceof NamedElement && !(tmp.getBusinessObject() instanceof Classifier)) {
 					final String containerName = ((NamedElement)tmp.getBusinessObject()).getName();
 					if(containerName == null) {
-						// TODO: Handle
+						// Ignore
 						return;
 					}
 					

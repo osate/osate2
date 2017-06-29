@@ -222,7 +222,7 @@ public class OpenAadlResources {
 							openResources.add(openResource);
 						}
 					}
-					
+
 					// Notify others
 					for(final IXtextModelListener l : externalModelListeners) {
 						l.modelChanged(resource);

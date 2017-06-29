@@ -8,7 +8,7 @@
   <foreignModel>diagram.ecore</foreignModel>
   <genPackages prefix="Diagram" basePackage="org.osate.ge.mm" disposableProviderFactory="true"
       adapterFactory="false" contentTypeIdentifier="" fileExtensions="aadl_diagram"
-      ecorePackage="diagram.ecore#/">
+      ecorePackage="diagram.ecore#/" publicationLocation="">
     <genClasses ecoreClass="diagram.ecore#//Diagram">
       <genFeatures property="None" children="true" createChild="true" propertyCategory=""
           propertyDescription="" ecoreFeature="ecore:EReference diagram.ecore#//Diagram/config"/>

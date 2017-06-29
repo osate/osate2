@@ -97,14 +97,11 @@ public interface Query {
 	 */
 	Query commonAncestors(Query q2);
 	
-	// TODO: Review and Document
 	Query ifElse(Supplier<ConditionArguments, Boolean> cond, 
 			final Supplier<Query, Query> trueQuerySupplier,
 			final Supplier<Query, Query> falseQuerySupplier);
 	
-	// TODO: Review and Document
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier);
 	
-	// TODO: Review, Document, and Rename? Allows partials
 	Query descendantsByBusinessObjectsRelativeReference(final Supplier<?, Object[]> bosSupplier, final int minSegments);
 }
