@@ -412,13 +412,21 @@
           </menu>
        </menuContribution>
        <menuContribution
-             allPopups="false"
              locationURI="toolbar:org.eclipse.ui.main.toolbar">
           <toolbar
-                id="OSATE.toolbar">
+                id="org.osate.ui.toolbar"
+                label="OSATE">
+             <separator
+                   name="org.osate.ui.analysisSection1">
+             </separator>
+             <separator
+                   name="org.osate.ui.annexSection">
+             </separator>
+             <separator
+                   name="org.osate.ui.analysisSection2">
+             </separator>
              <command
-                   commandId="org.osate.ui.reinstantiateAllAadl"
-                   style="push">
+                   commandId="org.osate.ui.reinstantiateAllAadl">
                 <visibleWhen
                       checkEnabled="false">
                    <with
@@ -429,6 +437,10 @@
                    </with>
                 </visibleWhen>
              </command>
+             <separator
+                   name="org.osate.ui.separator1"
+                   visible="true">
+             </separator>
              <command
                    commandId="org.osate.ui.clearHistory"
                    tooltip="%ClearHistory.toolTip"
@@ -443,6 +455,10 @@
                    </with>
                 </visibleWhen>
              </command>
+             <separator
+                   name="org.osate.ui.separator2"
+                   visible="true">
+             </separator>
              <command
                    commandId="org.osate.ui.resetMarkers"
                    tooltip="%ResetMarkers.toolTip"
