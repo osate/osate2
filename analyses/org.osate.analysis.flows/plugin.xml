@@ -99,28 +99,25 @@
          </menu>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar">
-         <toolbar
-               id="arch.toolbar">
-            <command
-                  commandId="org.osate.analysis.flows.checkFlowLatency"
-                  tooltip="%CheckFlowLatency.toolTip">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-         </toolbar>
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisSection2">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency"
+               tooltip="%CheckFlowLatency.toolTip">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
       <menuContribution
             locationURI="popup:org.eclipse.ui.popup.any?after=additions">

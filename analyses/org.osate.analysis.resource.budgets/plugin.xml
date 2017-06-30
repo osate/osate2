@@ -261,82 +261,79 @@
          </menu>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar">
-         <toolbar
-               id="arch.toolbar">
-            <command
-                  commandId="org.osate.analysis.resource.budgets.doResourceBudget"
-                  tooltip="Analyze Resource Budget Totals for Processors and Memories">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
-                  tooltip="Analyze Resource Allocations for Processors and Memories">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
-                  tooltip="Make sure the system has enough power to operate">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
-                  tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-         </toolbar>
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.analysis.flows.checkFlowLatency">
+         <command
+               commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
+               tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
+               tooltip="Make sure the system has enough power to operate">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
+               tooltip="Analyze Resource Allocations for Processors and Memories">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doResourceBudget"
+               tooltip="Analyze Resource Budget Totals for Processors and Memories">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 </plugin>
