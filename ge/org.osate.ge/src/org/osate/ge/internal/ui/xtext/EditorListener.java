@@ -80,7 +80,7 @@ class EditorListener implements IPartListener {
 			final XtextEditor editor = (XtextEditor)part;
 			if(aadlXtextLanguageName.equals(editor.getLanguageName())) {
 				final IXtextDocument document = editor.getDocument();
-				openAadlResources.onXtextDocumentClosed(document);;
+				openAadlResources.onXtextDocumentClosed(document);
 			}
 		}
 	}	

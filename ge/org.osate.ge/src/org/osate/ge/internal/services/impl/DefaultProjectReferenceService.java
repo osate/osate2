@@ -132,8 +132,10 @@ public class DefaultProjectReferenceService implements ProjectReferenceService {
 	
 	// Must be called when the model changes to invalidate caches. 
 	void onModelChanged() {
-		// Notify the declarative reference resolvers of the model change. 
-		// If other resolvers need to receive the notification, an API should be created for it.
-		declarativeReferenceResolver.invalidateCache();
+		if(declarativeReferenceResolver != null) {
+			// Notify the declarative reference resolvers of the model change. 
+			// If other resolvers need to receive the notification, an API should be created for it.
+			declarativeReferenceResolver.invalidateCache();
+		}
 	}
 }

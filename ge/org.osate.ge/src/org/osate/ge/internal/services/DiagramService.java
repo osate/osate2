@@ -8,12 +8,9 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -75,11 +72,15 @@ public interface DiagramService {
 	 */
 	void clearLegacyPersistentProperties(final IResource fileResource);
 	
-	// TODO: Rename
 	interface ReferenceCollection {
 		void update(Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap);
 	}
 	
-	// TODO: Rename
-	ReferenceCollection getReferences(final Set<IProject> relevantProjects, final Collection<CanonicalBusinessObjectReference> originalCanonicalReferences);
+	/**
+	 * Gets references in saved and open resources. Used during the refactoring process to update references in open and saved diagrams.
+	 * @param relevantProjects
+	 * @param originalCanonicalReferences
+	 * @return
+	 */
+	ReferenceCollection getReferences(final Set<IProject> relevantProjects, final Set<CanonicalBusinessObjectReference> originalCanonicalReferences);
 }
