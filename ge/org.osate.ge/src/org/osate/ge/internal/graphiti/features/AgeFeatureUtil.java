@@ -1,8 +1,8 @@
 package org.osate.ge.internal.graphiti.features;
 
 import org.eclipse.graphiti.features.context.IContext;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 public class AgeFeatureUtil {

@@ -6,13 +6,13 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.graphics.RectangleBuilder;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.BuiltinContentsFilter;
-import org.osate.ge.internal.diagram.DiagramConfiguration;
-import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.boTree.Completeness;
-import org.osate.ge.internal.diagram.boTree.TreeExpander;
-import org.osate.ge.internal.diagram.updating.DiagramElementInformationProvider;
+import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
+import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.boTree.TreeExpander;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramElementInformationProvider;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
 public class TestBusinessObjectModel implements DiagramElementInformationProvider, TreeExpander {

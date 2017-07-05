@@ -1,0 +1,478 @@
+package org.osate.ge.internal.diagram.runtime;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
+import org.osate.ge.internal.AgeGraphicalConfiguration;
+import org.osate.ge.internal.DockArea;
+import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.query.Queryable;
+
+/**
+ * This class is the in-memory data structure for the diagram. 
+ * Represents the state of the diagram independent of the UI library being used to present the diagram. 
+ * Listeners are used to provide notifications when the diagram state changes. For example: when an element is moved listeners are notified.
+ */
+public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContainer {
+	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
+	private DiagramConfiguration diagramConfiguration;
+	private final DiagramElementCollection elements = new DiagramElementCollection();
+	
+	public AgeDiagram() {
+		this.diagramConfiguration = new DiagramConfiguration(null, Collections.emptySet());
+	}
+		
+	/**
+	 * Sets the diagram configuration.
+	 * @param diagramConfiguration
+	 */
+	public void setDiagramConfiguration(final DiagramConfiguration diagramConfiguration) {
+		this.diagramConfiguration = Objects.requireNonNull(diagramConfiguration, "diagramConfiguration must not be null");
+	}
+	
+	/**
+	 * Returns a copy of the diagram configuration
+	 * @return
+	 */
+	public DiagramConfiguration getConfiguration() {
+		return diagramConfiguration;
+	}
+
+	@Override
+	public DiagramNode getContainer() {
+		return null;
+	}
+	
+	@Override
+	public Collection<DiagramElement> getDiagramElements() {
+		return Collections.unmodifiableCollection(elements);
+	}
+	
+	@Override
+	public DiagramElementCollection getModifiableDiagramElements() {
+		return elements;
+	}
+	
+	@Override
+	public DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
+		return elements.getByRelativeReference(ref);
+	}
+	
+	public void addModificationListener(final DiagramModificationListener listener) {
+		this.modificationListeners.add(Objects.requireNonNull(listener, "listener must not be null"));
+	}
+	
+	public void removeModificationListener(final DiagramModificationListener listener) {
+		this.modificationListeners.remove(Objects.requireNonNull(listener, "listener must not be null"));
+	}
+	
+	public void modify(final DiagramModifier modifier) {
+		final AgeDiagramModification m = new AgeDiagramModification();
+		modifier.modify(m);
+		m.completeModification();
+	}
+	
+	@Override
+	public String toString() {
+		final StringBuilder sb = new StringBuilder();
+		String indention = "\t";
+		sb.append("{");
+		sb.append(System.lineSeparator());
+		
+		sb.append(indention);
+		sb.append("diagram configuration: ");
+		sb.append(diagramConfiguration);
+		sb.append(System.lineSeparator());
+		
+		if(elements.size() > 0) {		
+			elements.toString(sb, indention);
+		}
+		
+		sb.append("}");
+
+		return sb.toString();
+	}
+	
+	/**
+	 * Holds previous values to alllow modifications to be undone.
+	 *
+	 */
+	private static class FieldChange {
+		public final DiagramElement element;
+		public final DiagramElementField field;
+		public final Object previousValue;
+		public final Object newValue;
+		
+		public FieldChange(final DiagramElement element, final DiagramElementField field, final Object previousValue, final Object newValue) {
+			this.element = element;
+			this.field = field;
+			this.previousValue = previousValue;
+			this.newValue = newValue;
+		}
+	}
+	
+	private class AgeDiagramModification implements DiagramModification {		
+		private DiagramElement addedElement;
+		private DiagramElement updatedElement;
+		private EnumSet<DiagramElementField> updates = EnumSet.noneOf(DiagramElementField.class);
+		private DiagramElement removedElement;
+		private boolean undoable = true;
+		private ArrayList<FieldChange> fieldChanges = new ArrayList<>(); // Used for undoing the modification
+		
+		@Override
+		public void updateBusinessObject(final DiagramElement e, final Object bo, final RelativeBusinessObjectReference relativeReference) {
+			storeChange(e, DiagramElementField.RELATIVE_REFERENCE, e.getRelativeReference(), relativeReference);
+			
+			Objects.requireNonNull(e, "e must not be null");
+			Objects.requireNonNull(bo, "bo must not be null");
+			Objects.requireNonNull(relativeReference, "relativeReference must not be null");
+			
+			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			e.setBusinessObject(bo);
+			e.setRelativeReference(relativeReference);
+			e.getModifiableContainer().getModifiableDiagramElements().add(e);
+			
+			updatedElement = e;
+			undoable = false;
+			afterUpdate(e, DiagramElementField.RELATIVE_REFERENCE);
+		}
+		
+		@Override
+		public void updateBusinessObjectWithSameRelativeReference(final DiagramElement e, final Object bo) {
+			e.setBusinessObject(bo);
+			// Do not notify listeners
+		}
+		
+		@Override
+		public void setBusinessObjectHandler(final DiagramElement e, final Object boh) {
+			e.setBusinessObjectHandler(boh);
+			// Do not notify listeners
+		}
+		
+		@Override
+		public void setManual(final DiagramElement e, final boolean value) {
+			if(value != e.isManual()) { 
+				storeChange(e, DiagramElementField.MANUAL, e.isManual(), value);
+				e.setManual(value);
+				afterUpdate(e, DiagramElementField.MANUAL);
+			}
+		}
+		
+		@Override
+		public void setAutoContentsFilter(final DiagramElement e, final ContentsFilter value) {
+			if(value == null && e.getAutoContentsFilter() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getAutoContentsFilter())) { 
+				storeChange(e, DiagramElementField.AUTO_CONTENTS_FILTER, e.getAutoContentsFilter(), value);
+				e.setAutoContentsFilter(value);
+				afterUpdate(e, DiagramElementField.AUTO_CONTENTS_FILTER);
+			}
+		}
+		
+		@Override
+		public void setCompleteness(final DiagramElement e, final Completeness value) {
+			if(!value.equals(e.getCompleteness())) { 
+				storeChange(e, DiagramElementField.COMPLETENESS, e.getCompleteness(), value);
+				e.setCompleteness(value);
+				afterUpdate(e, DiagramElementField.COMPLETENESS);
+			}
+		}
+		
+		@Override 
+		public void setName(final DiagramElement e, final String value) {
+			if(value == null && e.getName() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getName())) { 
+				storeChange(e, DiagramElementField.NAME, e.getName(), value);
+				e.setName(value);
+				afterUpdate(e, DiagramElementField.NAME);
+			}
+		}
+		
+		@Override
+		public void setSize(final DiagramElement e, final Dimension value) {
+			if(value == null && e.getSize() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getSize())) {
+				storeChange(e, DiagramElementField.SIZE, e.getSize(), value);
+				e.setSize(value);
+				afterUpdate(e, DiagramElementField.SIZE);
+			}
+		}
+				
+		@Override
+		public void setPosition(final DiagramElement e, final Point value) {
+			if(!value.equals(e.getPosition())) { 
+				storeChange(e, DiagramElementField.POSITION, e.getPosition(), value);
+				e.setPosition(value);
+				afterUpdate(e, DiagramElementField.POSITION);
+				
+				// Update the dock area based on the position
+				final DockArea currentDockArea = e.getDockArea();
+				if(currentDockArea != null) {
+					if(currentDockArea != DockArea.GROUP) {
+						setDockArea(e, calculateDockArea(e));
+					}
+				}
+			}
+		}
+		
+		@Override
+		public void setGraphicalConfiguration(final DiagramElement e, final AgeGraphicalConfiguration value) {
+			if(!value.equals(e.getGraphicalConfiguration())) { 
+				storeChange(e, DiagramElementField.GRAPHICAL_CONFIGURATION, e.getGraphicalConfiguration(), value);
+				e.setGraphicalConfiguration(value);
+				afterUpdate(e, DiagramElementField.GRAPHICAL_CONFIGURATION);
+			}
+		}
+		
+		@Override
+		public void setDockArea(final DiagramElement e, final DockArea value) {
+			if(value != e.getDockArea()) { 
+				storeChange(e, DiagramElementField.DOCK_AREA, e.getDockArea(), value);
+				e.setDockArea(value);
+				afterUpdate(e, DiagramElementField.DOCK_AREA);
+			}
+		}
+
+		@Override
+		public void setBendpoints(final DiagramElement e, final List<Point> value) {
+			if(!value.equals(e.getBendpoints())) {
+				// Make copy of values because lists are not immutable.
+				storeChange(e, DiagramElementField.BENDPOINTS, new ArrayList<>(e.getBendpoints()), value == null ? Collections.emptyList() : new ArrayList<>(value));
+				e.setBendpoints(value);
+				afterUpdate(e, DiagramElementField.BENDPOINTS);
+			}
+		}
+		
+		@Override
+		public void setConnectionPrimaryLabelPosition(final DiagramElement e, final Point value) {
+			if(value == null && e.getConnectionPrimaryLabelPosition() == null) {
+				return;
+			}
+			
+			if(value == null || !value.equals(e.getConnectionPrimaryLabelPosition())) {
+				storeChange(e, DiagramElementField.CONNECTION_PRIMARY_LABEL_POSITION, e.getConnectionPrimaryLabelPosition(), value);
+				e.setConnectionPrimaryLabelPosition(value);
+				afterUpdate(e, DiagramElementField.CONNECTION_PRIMARY_LABEL_POSITION);
+			}
+		}
+		
+		// Notifies listeners and manages change tracking state after a field has been updated.
+		private void afterUpdate(final DiagramElement e, final DiagramElementField c) {
+			// Notify listeners of the previous modification
+			if((addedElement != null && addedElement != e) ||
+				(updatedElement != null && updatedElement != e) ||
+				removedElement != null) { 
+				notifyListeners();
+			}
+			
+			// Don't track updates on an element that has a pending add event
+			if(addedElement != e) {
+				updatedElement = e;
+				updates.add(c);
+			}
+		}
+		
+		@Override
+		public void removeElement(final DiagramElement e) {
+			Objects.requireNonNull(e, "e must not be null");
+			
+			// Notify listeners of the previous modification
+			if(addedElement != null || updatedElement != null || removedElement != null) { 
+				notifyListeners();
+			}
+			
+			e.getModifiableContainer().getModifiableDiagramElements().remove(e);
+			removedElement = e;
+			undoable = false;
+		}
+		
+		@Override
+		public void addElement(final DiagramElement e) {
+			// Notify listeners of the previous modification
+			if(addedElement != null || updatedElement != null || removedElement != null) { 
+				notifyListeners();
+			}			
+			
+			e.getModifiableContainer().getModifiableDiagramElements().add(e);			
+			addedElement = e;
+			undoable = false;
+		}
+
+		private void completeModification() {
+			// Send any pending events
+			notifyListeners();
+			
+			// Send the modifications complete event
+			if(modificationListeners.size() > 0) {
+				final ModificationsCompletedEvent event = new ModificationsCompletedEvent(AgeDiagram.this);
+				for(final DiagramModificationListener ml : modificationListeners) {
+					ml.modificationsCompleted(event);
+				}
+			}			
+		}
+
+		private void notifyListeners() {
+			// Notify Listeners
+			if(modificationListeners.size() > 0) {
+				if(addedElement != null) {
+					final ElementAddedEvent event = new ElementAddedEvent(addedElement);
+					for(final DiagramModificationListener ml : modificationListeners) {
+						ml.elementAdded(event);
+					}
+					
+					addedElement = null;
+				}
+				
+				if(updatedElement != null) {
+					final ElementUpdatedEvent event = new ElementUpdatedEvent(updatedElement, updates);
+					for(final DiagramModificationListener ml : modificationListeners) {
+						ml.elementUpdated(event);
+					}
+					
+					updatedElement = null;
+					updates.clear();
+				}
+				
+				if(removedElement != null) {
+					final ElementRemovedEvent event = new ElementRemovedEvent(removedElement);
+					for(final DiagramModificationListener ml : modificationListeners) {
+						ml.elementRemoved(event);
+					}
+					
+					removedElement = null;
+				}
+			}
+		}
+		
+		public void undoModification(final DiagramModification modification) {
+			if(!modification.isUndoable()) {
+				throw new RuntimeException("The modification cannot be undone.");
+			}
+			
+			if(modification instanceof AgeDiagramModification) {
+				((AgeDiagramModification) modification).undo(this);
+			}
+		}
+		
+		public void redoModification(final DiagramModification modification) {
+			if(!modification.isRedoable()) {
+				throw new RuntimeException("The modification cannot be redone.");
+			}
+			
+			if(modification instanceof AgeDiagramModification) {
+				((AgeDiagramModification) modification).redo(this);
+			}
+		}		
+		
+		public boolean isUndoable() {
+			return undoable;
+		}
+		
+		public boolean isRedoable() {
+			return undoable; // Only commands that can be undone can be redone.
+		}
+		
+		/**
+		 * Undoes the current modification. Makes modifications using the modification specified.
+		 * @param newModification
+		 */
+		private void undo(final AgeDiagramModification newModification) {
+			for(int i = fieldChanges.size()-1; i >= 0; i--) {
+				final FieldChange change = fieldChanges.get(i);
+				setValue(newModification, change.element, change.field, change.previousValue);
+			}
+		}
+		
+		/**
+		 * Undoes the current modification. Makes modifications using the modification specified.
+		 * @param newModification
+		 */
+		private void redo(final AgeDiagramModification newModification) {
+			for(final FieldChange change : fieldChanges) {
+				setValue(newModification, change.element, change.field, change.newValue);				
+			}
+		}
+
+		@SuppressWarnings("unchecked")
+		private void setValue(final AgeDiagramModification m, final DiagramElement element, final DiagramElementField field, final Object value) {
+			switch(field) {
+			case MANUAL:
+				m.setManual(element, (boolean)value);
+				break;
+				
+			case AUTO_CONTENTS_FILTER:
+				m.setAutoContentsFilter(element, (ContentsFilter)value);
+				break;
+		
+			case COMPLETENESS:
+				m.setCompleteness(element, (Completeness)value);
+				break;
+				
+			case NAME:
+				m.setName(element, (String)value);
+				break;
+				
+			case BENDPOINTS:
+				m.setBendpoints(element, (List<Point>)value);
+				break;
+
+			case DOCK_AREA:
+				m.setDockArea(element, (DockArea)value);
+				break;
+				
+			case GRAPHICAL_CONFIGURATION:
+				m.setGraphicalConfiguration(element, (AgeGraphicalConfiguration)value);
+				break;
+				
+			case POSITION:
+				m.setPosition(element, (Point)value);
+				break;
+				
+			case SIZE:
+				m.setSize(element, (Dimension)value);
+				break;
+				
+			case CONNECTION_PRIMARY_LABEL_POSITION:
+				m.setConnectionPrimaryLabelPosition(element, (Point)value);
+				break;
+				
+			case RELATIVE_REFERENCE:
+				throw new RuntimeException("Setting the relative reference is not undoable");
+			}
+		}
+		
+		/**
+		 * Stores the current value so that changes can be undone/redone
+		 */
+		private void storeChange(final DiagramElement element, final DiagramElementField field, final Object currentValue, final Object newValue) {
+			fieldChanges.add(new FieldChange(element, field, currentValue, newValue));
+		}
+	}
+	
+	private DockArea calculateDockArea(final DiagramElement e) {
+		return AgeDiagramUtil.determineDockingPosition(e.getContainer(), e.getX(), e.getY(), e.getWidth(), e.getHeight()).getDockArea();
+	}
+
+	@Override
+	public Collection<Queryable> getChildren() {
+		return Collections.unmodifiableCollection(elements);
+	}
+
+	// The diagram does not have a business object. However, the diagram configuration may provide a business object to scope the diagram.
+	@Override
+	public Object getBusinessObject() {
+		return null;
+	}
+}

@@ -11,7 +11,7 @@ package org.osate.ge.services.impl;
 import java.util.Objects;
 
 import org.osate.ge.services.ReferenceResolutionService;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectReferenceService;
 
 public class DefaultReferenceResolutionService implements ReferenceResolutionService {

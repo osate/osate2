@@ -32,7 +32,7 @@ import org.osate.aadl2.SubprogramCall;
 import org.osate.aadl2.SubprogramCallSequence;
 import org.osate.aadl2.TypeExtension;
 import org.osate.annexsupport.AnnexUtil;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
 import org.osate.ge.di.Names;

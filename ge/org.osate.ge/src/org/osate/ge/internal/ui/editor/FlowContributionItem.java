@@ -28,7 +28,7 @@ import org.osate.aadl2.FlowImplementation;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.NamedElement;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.query.StandaloneQuery;
 import org.osate.ge.services.QueryService;
 

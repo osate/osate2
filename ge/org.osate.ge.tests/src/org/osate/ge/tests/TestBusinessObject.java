@@ -1,8 +1,8 @@
 package org.osate.ge.tests;
 
 import org.osate.ge.internal.DockingPosition;
-import org.osate.ge.internal.diagram.Point;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.Point;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 

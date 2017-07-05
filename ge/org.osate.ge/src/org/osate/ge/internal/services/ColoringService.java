@@ -9,8 +9,9 @@
 package org.osate.ge.internal.services;
 
 import org.osate.aadl2.NamedElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+
 import java.awt.Color;
-import org.osate.ge.internal.diagram.DiagramElement;
 
 /**
  * Contains methods to handle highlighting objects based on editor state

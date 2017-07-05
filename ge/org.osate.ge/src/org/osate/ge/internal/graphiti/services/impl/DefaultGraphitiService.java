@@ -15,7 +15,7 @@ import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.ui.editor.AgeDiagramBehavior;

@@ -20,7 +20,7 @@ import org.osate.ge.EmfContainerProvider;
 import org.osate.ge.di.CanDelete;
 import org.osate.ge.di.Delete;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;

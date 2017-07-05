@@ -3,8 +3,8 @@ package org.osate.ge.internal.services.impl;
 import java.util.Objects;
 
 import org.eclipse.core.resources.IProject;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ProjectProvider;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;

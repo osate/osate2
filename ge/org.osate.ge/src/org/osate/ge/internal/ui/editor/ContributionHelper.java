@@ -1,6 +1,6 @@
 package org.osate.ge.internal.ui.editor;
 
-import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.services.QueryService;

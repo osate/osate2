@@ -8,7 +8,7 @@
  *******************************************************************************/
 package org.osate.ge.services;
 
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
 /**

@@ -36,7 +36,7 @@ import org.osate.ge.di.ValidateName;
 import org.osate.ge.internal.di.CanRename;
 import org.osate.ge.internal.di.GetNameForEditing;
 import org.osate.ge.internal.di.InternalNames;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.diagram.PropertyUtil;
 import org.osate.ge.internal.graphiti.services.GraphitiService;

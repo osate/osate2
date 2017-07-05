@@ -2,7 +2,8 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.query.Supplier;
 
 class FilterByBusinessObjectCanonicalReferenceQuery extends DefaultQuery {

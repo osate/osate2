@@ -32,7 +32,7 @@ import org.osate.aadl2.ModeBinding;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.Subcomponent;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.util.AadlHelper;

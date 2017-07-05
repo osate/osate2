@@ -37,15 +37,16 @@ import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.ui.services.GraphitiUi;
 import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.DiagramNode;
-import org.osate.ge.internal.diagram.DiagramModificationListener;
-import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.ElementAddedEvent;
-import org.osate.ge.internal.diagram.ElementRemovedEvent;
-import org.osate.ge.internal.diagram.ElementUpdatedEvent;
-import org.osate.ge.internal.diagram.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
+import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
+import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
+import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
+import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 import org.osate.ge.internal.graphics.AgeConnection;
 import org.osate.ge.internal.graphics.AgeConnectionTerminator;
 import org.osate.ge.internal.graphics.AgeShape;
@@ -55,7 +56,6 @@ import org.osate.ge.internal.graphics.Poly;
 import org.osate.ge.internal.graphiti.AnchorNames;
 import org.osate.ge.internal.graphiti.ShapeNames;
 import org.osate.ge.internal.graphiti.graphics.AgeGraphitiGraphicsUtil;
-import org.osate.ge.internal.diagram.DiagramElement;
 
 /**
  * Class that integrates AgeDiagram with Graphiti. 
@@ -340,7 +340,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 	        	final FreeFormConnection ffc = (FreeFormConnection)pe;
 	        	final List<org.eclipse.graphiti.mm.algorithms.styles.Point> graphitiBendpoints = ffc.getBendpoints();
 	        	graphitiBendpoints.clear();
-	        	for(final org.osate.ge.internal.diagram.Point bendpoint : de.getBendpoints()) {
+	        	for(final org.osate.ge.internal.diagram.runtime.Point bendpoint : de.getBendpoints()) {
 	        		graphitiBendpoints.add(Graphiti.getGaService().createPoint(bendpoint.x, bendpoint.y));
 	        	}
 	        }
@@ -389,7 +389,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 				PropertyUtil.setName(textDecorator, ShapeNames.primaryLabelShapeName);						
 			    text.setValue(primaryLabelStr);
 
-			    final org.osate.ge.internal.diagram.Point primaryLabelPosition = de.getConnectionPrimaryLabelPosition();
+			    final org.osate.ge.internal.diagram.runtime.Point primaryLabelPosition = de.getConnectionPrimaryLabelPosition();
 			    if(primaryLabelPosition == null) {
 			    	// Set default position
 			    	final IDimension labelTextSize = GraphitiUi.getUiLayoutService().calculateTextSize(primaryLabelStr, text.getFont());
@@ -428,7 +428,7 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 			gaService.setSize(newGa, width, height);
 			
 			// Set Position
-			final org.osate.ge.internal.diagram.Point position = de.getPosition();
+			final org.osate.ge.internal.diagram.runtime.Point position = de.getPosition();
 			if(position != null) {
 				gaService.setLocation(newGa, position.x, position.y);
 				PropertyUtil.setIsLayedOut(pe, true);

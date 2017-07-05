@@ -1,6 +1,6 @@
 package org.osate.ge.internal;
 
-import org.osate.ge.internal.diagram.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 
 public interface AgeDiagramProvider {
 	/**

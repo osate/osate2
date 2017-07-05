@@ -12,11 +12,11 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Subcomponent;
-import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.BuiltinContentsFilter;
-import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.BuiltinContentsFilter;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.model.PropertyResultValue;
 

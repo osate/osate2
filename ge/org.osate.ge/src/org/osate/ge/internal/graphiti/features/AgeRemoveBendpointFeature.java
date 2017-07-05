@@ -11,9 +11,9 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.context.IRemoveBendpointContext;
 import org.eclipse.graphiti.features.impl.DefaultRemoveBendpointFeature;
-import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
@@ -35,7 +35,7 @@ public class AgeRemoveBendpointFeature extends DefaultRemoveBendpointFeature imp
 				@Override
 				public void modify(final DiagramModification m) {
 					// Update the bendpoints
-					final List<org.osate.ge.internal.diagram.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
+					final List<org.osate.ge.internal.diagram.runtime.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
 					newBendpoints.remove(ctx.getBendpointIndex());
 					m.setBendpoints(connectionElement, newBendpoints);
 					AgeFeatureUtil.storeModificationInContext(ctx, m);

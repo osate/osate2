@@ -5,7 +5,7 @@ import java.util.Objects;
 
 import org.osate.ge.GraphicalConfiguration;
 import org.osate.ge.graphics.Graphic;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 
 public class AgeGraphicalConfiguration implements GraphicalConfiguration {

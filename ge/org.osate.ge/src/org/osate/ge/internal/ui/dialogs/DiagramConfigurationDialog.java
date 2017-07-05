@@ -53,13 +53,13 @@ import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
 import org.osate.ge.BusinessObjectContext;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
-import org.osate.ge.internal.diagram.ContentsFilter;
-import org.osate.ge.internal.diagram.DiagramConfiguration;
-import org.osate.ge.internal.diagram.DiagramConfigurationBuilder;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.boTree.BusinessObjectNode;
-import org.osate.ge.internal.diagram.boTree.Completeness;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.ContentsFilter;
+import org.osate.ge.internal.diagram.runtime.DiagramConfiguration;
+import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.boTree.BusinessObjectNode;
+import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
 
 public class DiagramConfigurationDialog {
 	public interface Model {

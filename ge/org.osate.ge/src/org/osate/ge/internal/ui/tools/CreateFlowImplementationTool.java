@@ -62,7 +62,7 @@ import org.osate.ge.internal.di.Icon;
 import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;

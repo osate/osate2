@@ -45,7 +45,7 @@ import org.osate.aadl2.Feature;
 import org.osate.aadl2.Realization;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;

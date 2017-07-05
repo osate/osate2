@@ -9,7 +9,7 @@ import org.eclipse.graphiti.features.custom.AbstractCustomFeature;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.ge.di.HandleDoubleClick;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.util.AnnotationUtil;

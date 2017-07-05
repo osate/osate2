@@ -12,11 +12,11 @@ import org.eclipse.graphiti.features.context.IUpdateContext;
 import org.eclipse.graphiti.features.impl.AbstractUpdateFeature;
 import org.eclipse.graphiti.features.impl.Reason;
 import org.eclipse.graphiti.mm.pictograms.Diagram;
-import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.DiagramLayoutUtil;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.updating.DiagramUpdater;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramLayoutUtil;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 
 public class UpdateDiagramFeature extends AbstractUpdateFeature implements ICustomUndoRedoFeature {

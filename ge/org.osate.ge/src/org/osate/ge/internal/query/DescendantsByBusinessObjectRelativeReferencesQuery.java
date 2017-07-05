@@ -2,7 +2,8 @@ package org.osate.ge.internal.query;
 
 import java.util.Deque;
 import java.util.Objects;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
+
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.query.Supplier;
 

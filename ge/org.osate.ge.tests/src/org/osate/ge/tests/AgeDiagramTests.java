@@ -6,18 +6,18 @@ import static org.hamcrest.CoreMatchers.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.internal.diagram.AgeDiagram;
-import org.osate.ge.internal.diagram.DiagramElementField;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModificationListener;
-import org.osate.ge.internal.diagram.DiagramModifier;
-import org.osate.ge.internal.diagram.ElementAddedEvent;
-import org.osate.ge.internal.diagram.ElementRemovedEvent;
-import org.osate.ge.internal.diagram.ElementUpdatedEvent;
-import org.osate.ge.internal.diagram.ModificationsCompletedEvent;
-import org.osate.ge.internal.diagram.Point;
-import org.osate.ge.internal.diagram.RelativeBusinessObjectReference;
-import org.osate.ge.internal.diagram.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.AgeDiagram;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElementField;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
+import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
+import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
+import org.osate.ge.internal.diagram.runtime.ModificationsCompletedEvent;
+import org.osate.ge.internal.diagram.runtime.Point;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 
 /**
  * Contains tests for the AgeDiagram class. 

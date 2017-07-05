@@ -21,8 +21,8 @@ import org.eclipse.graphiti.services.IGaService;
 import org.eclipse.graphiti.services.ILayoutService;
 import org.eclipse.graphiti.services.IPeCreateService;
 import org.eclipse.graphiti.services.IPeService;
-import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramNode;
 
 class AnchorUtil {	
 	public static ChopboxAnchor createOrUpdateChopboxAnchor(final AnchorContainer container) {

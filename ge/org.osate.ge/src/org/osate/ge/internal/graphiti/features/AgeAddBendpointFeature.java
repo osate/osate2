@@ -11,9 +11,9 @@ import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.context.IAddBendpointContext;
 import org.eclipse.graphiti.features.context.IContext;
 import org.eclipse.graphiti.features.impl.DefaultAddBendpointFeature;
-import org.osate.ge.internal.diagram.DiagramElement;
-import org.osate.ge.internal.diagram.DiagramModification;
-import org.osate.ge.internal.diagram.DiagramModifier;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
+import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.graphiti.GraphitiAgeDiagramProvider;
 import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
@@ -35,8 +35,8 @@ public class AgeAddBendpointFeature extends DefaultAddBendpointFeature implement
 				@Override
 				public void modify(final DiagramModification m) {
 					// Update the bendpoints
-					final List<org.osate.ge.internal.diagram.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
-					newBendpoints.add(ctx.getBendpointIndex(), new org.osate.ge.internal.diagram.Point(ctx.getX(), ctx.getY()));
+					final List<org.osate.ge.internal.diagram.runtime.Point> newBendpoints = new ArrayList<>(connectionElement.getBendpoints());
+					newBendpoints.add(ctx.getBendpointIndex(), new org.osate.ge.internal.diagram.runtime.Point(ctx.getX(), ctx.getY()));
 					m.setBendpoints(connectionElement, newBendpoints);
 					AgeFeatureUtil.storeModificationInContext(ctx, m);
 				}

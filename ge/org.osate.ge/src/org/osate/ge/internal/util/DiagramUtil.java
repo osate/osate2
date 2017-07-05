@@ -8,7 +8,7 @@ import java.io.InputStreamReader;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.services.Graphiti;
-import org.osate.ge.internal.diagram.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.services.impl.ReferenceEncoder;
 
 public class DiagramUtil {
