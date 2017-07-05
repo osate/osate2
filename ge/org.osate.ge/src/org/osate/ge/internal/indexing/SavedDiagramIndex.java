@@ -94,11 +94,11 @@ public class SavedDiagramIndex {
 				try {
 					diagramResource.load(Collections.emptyMap());
 					if(diagramResource.getContents().size() == 1) {
-						if(diagramResource.getContents().get(0) instanceof org.osate.ge.mm.diagram.Diagram) {
-							final org.osate.ge.mm.diagram.Diagram mmDiagram = (org.osate.ge.mm.diagram.Diagram)diagramResource.getContents().get(0);
+						if(diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
+							final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)diagramResource.getContents().get(0);
 
 							// Get the Context Business Object
-							final org.osate.ge.mm.diagram.DiagramConfiguration config = mmDiagram.getConfig();
+							final org.osate.ge.diagram.DiagramConfiguration config = mmDiagram.getConfig();
 							Object contextBo = null;
 							if(config != null) {
 								context = DiagramSerialization.convert(config.getContext());
@@ -127,7 +127,7 @@ public class SavedDiagramIndex {
 		}
 		
 		private void indexChildElements(final DiagramFileIndex diagramFileIndex,
-				final org.osate.ge.mm.diagram.DiagramNode node,
+				final org.osate.ge.diagram.DiagramNode node,
 				final BusinessObjectContext parentBoc,
 				final Collection<Object> potentialBusinessObjects,
 				final BusinessObjectProviderHelper bopHelper,
@@ -138,7 +138,7 @@ public class SavedDiagramIndex {
 					collect(Collectors.toMap(bo -> projectReferenceService.getRelativeReference(bo), Function.identity()));
 			
 			// Process children
-			for(final org.osate.ge.mm.diagram.DiagramElement child : node.getElement()) {
+			for(final org.osate.ge.diagram.DiagramElement child : node.getElement()) {
 				final RelativeBusinessObjectReference childRef = DiagramSerialization.convert(child.getBo());
 				if(childRef == null) {
 					continue;

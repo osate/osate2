@@ -10,8 +10,8 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.osate.ge.diagram.Diagram;
 import org.osate.ge.internal.DockArea;
-import org.osate.ge.mm.diagram.Diagram;
 
 /**
  * Class to help read and write the native JSON diagram format used by the editor.
@@ -34,20 +34,20 @@ public class DiagramSerialization {
 		final Resource resource = rs.createResource(uri);
 		try {
 			resource.load(Collections.emptyMap());
-			if(resource.getContents().size() == 0 || !(resource.getContents().get(0) instanceof org.osate.ge.mm.diagram.Diagram)) {
+			if(resource.getContents().size() == 0 || !(resource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram)) {
 				throw new RuntimeException("Unable to load diagram.");
 			}
 			
-			final org.osate.ge.mm.diagram.Diagram mmDiagram = (org.osate.ge.mm.diagram.Diagram)resource.getContents().get(0);
+			final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)resource.getContents().get(0);
 			
 			// Read the diagram configuration
 			final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(ageDiagram.getConfiguration());
 
 			if(mmDiagram.getConfig() != null) {
-				final org.osate.ge.mm.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
+				final org.osate.ge.diagram.DiagramConfiguration mmDiagramConfig = mmDiagram.getConfig();
 				configBuilder.setContextBoReference(convert(mmDiagramConfig.getContext()));
 				
-				final org.osate.ge.mm.diagram.AadlPropertiesSet enabledAadlProperties = mmDiagramConfig.getEnabledAadlProperties();
+				final org.osate.ge.diagram.AadlPropertiesSet enabledAadlProperties = mmDiagramConfig.getEnabledAadlProperties();
 				if(enabledAadlProperties != null) {
 					for(final String enabledProperty : enabledAadlProperties.getProperty()) {
 						configBuilder.addAadlProperty(enabledProperty);
@@ -74,32 +74,32 @@ public class DiagramSerialization {
 		}
 	}
 	
-	public static RelativeBusinessObjectReference convert(final org.osate.ge.mm.diagram.RelativeBusinessObjectReference ref) {
+	public static RelativeBusinessObjectReference convert(final org.osate.ge.diagram.RelativeBusinessObjectReference ref) {
 		final String[] segs = toReferenceSegments(ref);
 		return segs == null ? null : new RelativeBusinessObjectReference(segs);
 	}
 	
-	public static CanonicalBusinessObjectReference convert(final org.osate.ge.mm.diagram.CanonicalBusinessObjectReference ref) {
+	public static CanonicalBusinessObjectReference convert(final org.osate.ge.diagram.CanonicalBusinessObjectReference ref) {
 		final String[] segs = toReferenceSegments(ref);
 		return segs == null ? null : new CanonicalBusinessObjectReference(segs);
 	}
 	
-	private static String[] toReferenceSegments(final org.osate.ge.mm.diagram.Reference ref) {
+	private static String[] toReferenceSegments(final org.osate.ge.diagram.Reference ref) {
 		return ref == null || ref.getSeg().size() == 0 ? null : ref.getSeg().toArray(new String[ref.getSeg().size()]);
 	}
 	
 	private static void readElements(final DiagramModification m, 
 			final DiagramNode container, 
-			final org.osate.ge.mm.diagram.DiagramNode mmContainer) {
-		for(final org.osate.ge.mm.diagram.DiagramElement mmElement : mmContainer.getElement()) {
+			final org.osate.ge.diagram.DiagramNode mmContainer) {
+		for(final org.osate.ge.diagram.DiagramElement mmElement : mmContainer.getElement()) {
 			createElement(m, container, mmContainer, mmElement);
 		}
 	}	
 	
 	private static void createElement(final DiagramModification m, 
 			final DiagramNode container, 
-			final org.osate.ge.mm.diagram.DiagramNode mmContainer,
-			final org.osate.ge.mm.diagram.DiagramElement mmChild) {
+			final org.osate.ge.diagram.DiagramNode mmContainer,
+			final org.osate.ge.diagram.DiagramElement mmChild) {
 		final String[] refSegs = toReferenceSegments(mmChild.getBo());
 		if(refSegs == null) {
 			throw new RuntimeException("Invalid element. Business Object not specified");
@@ -130,7 +130,7 @@ public class DiagramSerialization {
 		}
 		
 		// Bendpoints
-		final org.osate.ge.mm.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
+		final org.osate.ge.diagram.BendpointList mmBendpoints = mmChild.getBendpoints();
 		if(mmBendpoints != null) {
 			newElement.setBendpoints(mmBendpoints.getPoint().stream().map(DiagramSerialization::convertPoint).collect(Collectors.toList()));
 		}
@@ -145,7 +145,7 @@ public class DiagramSerialization {
 		readElements(m, newElement, mmChild);
 	}
 	
-	private static Point convertPoint(final org.osate.ge.mm.diagram.Point mmPoint) {
+	private static Point convertPoint(final org.osate.ge.diagram.Point mmPoint) {
 		if(mmPoint == null) {
 			return null;
 		}
@@ -153,7 +153,7 @@ public class DiagramSerialization {
 		return new Point(mmPoint.getX(), mmPoint.getY());
 	}
 	
-	private static Dimension convertDimension(final org.osate.ge.mm.diagram.Dimension mmDimension) {
+	private static Dimension convertDimension(final org.osate.ge.diagram.Dimension mmDimension) {
 		if(mmDimension == null) {
 			return null;
 		}
@@ -163,15 +163,15 @@ public class DiagramSerialization {
 	
 	public static void write(final AgeDiagram diagram, final URI uri) {
 		// Convert from the runtime format to the metamodel format which is stored
-		final org.osate.ge.mm.diagram.Diagram mmDiagram = new Diagram();
-		final org.osate.ge.mm.diagram.DiagramConfiguration mmConfig = new org.osate.ge.mm.diagram.DiagramConfiguration();		
+		final org.osate.ge.diagram.Diagram mmDiagram = new Diagram();
+		final org.osate.ge.diagram.DiagramConfiguration mmConfig = new org.osate.ge.diagram.DiagramConfiguration();		
 		mmDiagram.setConfig(mmConfig);
 		
 		// Populate the diagram configuration
 		final DiagramConfiguration config = diagram.getConfiguration();
 		mmConfig.setContext(config.getContextBoReference() == null ? null : config.getContextBoReference().toMetamodel());
 			
-		final org.osate.ge.mm.diagram.AadlPropertiesSet enabledProperties = new org.osate.ge.mm.diagram.AadlPropertiesSet();
+		final org.osate.ge.diagram.AadlPropertiesSet enabledProperties = new org.osate.ge.diagram.AadlPropertiesSet();
 		mmConfig.setEnabledAadlProperties(enabledProperties);
 		for(final String enabledPropertyName : config.getEnabledAadlPropertyNames()) {
 			enabledProperties.getProperty().add(enabledPropertyName);
@@ -195,7 +195,7 @@ public class DiagramSerialization {
 	 * @param mmContainer
 	 * @param elements
 	 */
-	private static void convertElementsToMetamodel(final org.osate.ge.mm.diagram.DiagramNode mmContainer, Collection<DiagramElement> elements) {
+	private static void convertElementsToMetamodel(final org.osate.ge.diagram.DiagramNode mmContainer, Collection<DiagramElement> elements) {
 		// Filter out decorations which don't have applicable fields set. For example non-moveable decorators.
 		// Sort elements to ensure a consistent ordering after serialization
 		elements = elements.stream().filter(e -> !e.isDecoration() || e.hasPosition()).sorted(elementComparator).collect(Collectors.toList());
@@ -207,9 +207,9 @@ public class DiagramSerialization {
 		}
 	}
 	
-	private static void convertElementToMetamodel(final org.osate.ge.mm.diagram.DiagramNode mmContainer, final DiagramElement e) {
+	private static void convertElementToMetamodel(final org.osate.ge.diagram.DiagramNode mmContainer, final DiagramElement e) {
 		// Write BO Reference
-		final org.osate.ge.mm.diagram.DiagramElement newElement = new org.osate.ge.mm.diagram.DiagramElement();
+		final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 		mmContainer.getElement().add(newElement);
 		
 		newElement.setBo(e.getRelativeReference() == null ? null : e.getRelativeReference().toMetamodel());
@@ -236,7 +236,7 @@ public class DiagramSerialization {
 		
 		// Connection Specific
 		if(e.getBendpoints().size() > 0) {
-			final org.osate.ge.mm.diagram.BendpointList mmBendpoints = new org.osate.ge.mm.diagram.BendpointList();
+			final org.osate.ge.diagram.BendpointList mmBendpoints = new org.osate.ge.diagram.BendpointList();
 			newElement.setBendpoints(mmBendpoints);
 			
 			for(final Point bendpoint : e.getBendpoints()) {

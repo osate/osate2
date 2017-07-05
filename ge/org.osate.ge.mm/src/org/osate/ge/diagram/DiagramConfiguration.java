@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -21,11 +21,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramConfiguration#getContext <em>Context</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramConfiguration()
+ * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
  * @model kind="class"
  * @generated
  */
@@ -79,7 +79,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Enabled Aadl Properties</em>' containment reference.
 	 * @see #setEnabledAadlProperties(AadlPropertiesSet)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramConfiguration_EnabledAadlProperties()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_EnabledAadlProperties()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -103,7 +103,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Enabled Aadl Properties</em>' containment reference.
@@ -134,7 +134,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Context</em>' containment reference.
 	 * @see #setContext(CanonicalBusinessObjectReference)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramConfiguration_Context()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration_Context()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -158,7 +158,7 @@ public class DiagramConfiguration extends MinimalEObjectImpl.Container implement
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramConfiguration#getContext <em>Context</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Context</em>' containment reference.

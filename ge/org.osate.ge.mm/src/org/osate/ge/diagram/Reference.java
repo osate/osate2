@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import java.util.Collection;
 
@@ -22,10 +22,10 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.Reference#getSeg <em>Seg</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Reference#getSeg <em>Seg</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getReference()
+ * @see org.osate.ge.diagram.DiagramPackage#getReference()
  * @model kind="class" abstract="true"
  * @generated
  */
@@ -39,6 +39,7 @@ public abstract class Reference extends MinimalEObjectImpl.Container implements 
 	 * @ordered
 	 */
 	protected EList<String> seg;
+
 	/**
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -68,7 +69,7 @@ public abstract class Reference extends MinimalEObjectImpl.Container implements 
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Seg</em>' attribute list.
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getReference_Seg()
+	 * @see org.osate.ge.diagram.DiagramPackage#getReference_Seg()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
 	 * @generated
 	 */

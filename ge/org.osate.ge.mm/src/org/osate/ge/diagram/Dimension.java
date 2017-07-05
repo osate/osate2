@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.Dimension#getWidth <em>Width</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.Dimension#getHeight <em>Height</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Dimension#getWidth <em>Width</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Dimension#getHeight <em>Height</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getDimension()
+ * @see org.osate.ge.diagram.DiagramPackage#getDimension()
  * @model kind="class"
  * @generated
  */
@@ -97,7 +97,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Width</em>' attribute.
 	 * @see #setWidth(int)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDimension_Width()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDimension_Width()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
 	 * @generated
 	 */
@@ -106,7 +106,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.Dimension#getWidth <em>Width</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.Dimension#getWidth <em>Width</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Width</em>' attribute.
@@ -130,7 +130,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Height</em>' attribute.
 	 * @see #setHeight(int)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDimension_Height()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDimension_Height()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
 	 * @generated
 	 */
@@ -139,7 +139,7 @@ public class Dimension extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.Dimension#getHeight <em>Height</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.Dimension#getHeight <em>Height</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Height</em>' attribute.

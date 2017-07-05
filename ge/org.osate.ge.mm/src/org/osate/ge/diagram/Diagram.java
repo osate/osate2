@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
@@ -19,10 +19,10 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.Diagram#getConfig <em>Config</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Diagram#getConfig <em>Config</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagram()
+ * @see org.osate.ge.diagram.DiagramPackage#getDiagram()
  * @model kind="class"
  * @generated
  */
@@ -66,7 +66,7 @@ public class Diagram extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Config</em>' containment reference.
 	 * @see #setConfig(DiagramConfiguration)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagram_Config()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagram_Config()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -90,7 +90,7 @@ public class Diagram extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.Diagram#getConfig <em>Config</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.Diagram#getConfig <em>Config</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Config</em>' containment reference.

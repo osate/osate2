@@ -76,8 +76,8 @@ public class CanonicalBusinessObjectReference {
 		return segments.toArray(new String[segments.size()]);
 	}
 	
-	public org.osate.ge.mm.diagram.CanonicalBusinessObjectReference toMetamodel() {
-		final org.osate.ge.mm.diagram.CanonicalBusinessObjectReference newValue = new org.osate.ge.mm.diagram.CanonicalBusinessObjectReference();
+	public org.osate.ge.diagram.CanonicalBusinessObjectReference toMetamodel() {
+		final org.osate.ge.diagram.CanonicalBusinessObjectReference newValue = new org.osate.ge.diagram.CanonicalBusinessObjectReference();
 		for(final String seg : segments) {
 			newValue.getSeg().add(seg);
 		}

@@ -30,7 +30,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.expressions,
  org.osate.aadl2.instantiation,
  org.osate.annexsupport,
- org.osate.ge.mm,
+ org.osate.ge.diagram,
  org.eclipse.ltk.ui.refactoring
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8

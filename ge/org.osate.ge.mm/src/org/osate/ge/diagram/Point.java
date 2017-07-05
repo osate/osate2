@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.common.notify.Notification;
 
@@ -19,11 +19,11 @@ import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.Point#getX <em>X</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.Point#getY <em>Y</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Point#getX <em>X</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.Point#getY <em>Y</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getPoint()
+ * @see org.osate.ge.diagram.DiagramPackage#getPoint()
  * @model kind="class"
  * @generated
  */
@@ -97,7 +97,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>X</em>' attribute.
 	 * @see #setX(int)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getPoint_X()
+	 * @see org.osate.ge.diagram.DiagramPackage#getPoint_X()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
 	 * @generated
 	 */
@@ -106,7 +106,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.Point#getX <em>X</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.Point#getX <em>X</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>X</em>' attribute.
@@ -130,7 +130,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Y</em>' attribute.
 	 * @see #setY(int)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getPoint_Y()
+	 * @see org.osate.ge.diagram.DiagramPackage#getPoint_Y()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.Int"
 	 * @generated
 	 */
@@ -139,7 +139,7 @@ public class Point extends MinimalEObjectImpl.Container implements EObject {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.Point#getY <em>Y</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.Point#getY <em>Y</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Y</em>' attribute.

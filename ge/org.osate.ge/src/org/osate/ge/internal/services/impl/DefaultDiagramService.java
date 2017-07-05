@@ -453,7 +453,7 @@ public class DefaultDiagramService implements DiagramService {
 					final Resource diagramResource = rs.createResource(diagramUri);
 					try {
 						diagramResource.load(Collections.emptyMap());
-						if(diagramResource.getContents().size() == 1 && diagramResource.getContents().get(0) instanceof org.osate.ge.mm.diagram.Diagram) {
+						if(diagramResource.getContents().size() == 1 && diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
 							updateReferences(originalCanonicalReferenceToNewObjectMap, originalCanonicalRefToReferenceMap, diagramResource, null);
 						}
 					} catch (IOException e) {
@@ -584,10 +584,10 @@ public class DefaultDiagramService implements DiagramService {
 		public void update(final Object newBo) {
 			final CanonicalBusinessObjectReference newCanonicalRef = referenceService.getCanonicalReference(newBo);
 			if(newCanonicalRef != null) {
-				final org.osate.ge.mm.diagram.Diagram mmDiagram = (org.osate.ge.mm.diagram.Diagram)referenceUpdateResource.getContents().get(0);
+				final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)referenceUpdateResource.getContents().get(0);
 
 				// Get the Context Business Object
-				final org.osate.ge.mm.diagram.DiagramConfiguration config = mmDiagram.getConfig();
+				final org.osate.ge.diagram.DiagramConfiguration config = mmDiagram.getConfig();
 				if(config != null) {
 					config.setContext(newCanonicalRef.toMetamodel());
 				}
@@ -607,9 +607,9 @@ public class DefaultDiagramService implements DiagramService {
 		public void update(final Object newBo) {
 			final RelativeBusinessObjectReference newRelRef = referenceService.getRelativeReference(newBo);
 			if(newRelRef != null) {
-				final org.osate.ge.mm.diagram.RelativeBusinessObjectReference mmRelRef = newRelRef.toMetamodel();
+				final org.osate.ge.diagram.RelativeBusinessObjectReference mmRelRef = newRelRef.toMetamodel();
 				if(mmRelRef != null) {
-					final org.osate.ge.mm.diagram.DiagramElement diagramElement = (org.osate.ge.mm.diagram.DiagramElement)referenceUpdateResource.getEObject(diagramElementUri.fragment());
+					final org.osate.ge.diagram.DiagramElement diagramElement = (org.osate.ge.diagram.DiagramElement)referenceUpdateResource.getEObject(diagramElementUri.fragment());
 					 if(diagramElement == null) {
 						 throw new RuntimeException("Unable to retrieve diagram element");
 					 }

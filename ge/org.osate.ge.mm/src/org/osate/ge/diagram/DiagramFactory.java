@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
@@ -15,7 +15,7 @@ import org.eclipse.emf.ecore.plugin.EcorePlugin;
  * The <b>Factory</b> for the model.
  * It provides a create method for each non-abstract class of the model.
  * <!-- end-user-doc -->
- * @see org.osate.ge.mm.diagram.DiagramPackage
+ * @see org.osate.ge.diagram.DiagramPackage
  * @generated
  */
 public class DiagramFactory extends EFactoryImpl {

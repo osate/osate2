@@ -1,9 +1,10 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.notify.NotificationChain;
+
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
@@ -18,17 +19,17 @@ import org.eclipse.emf.ecore.impl.ENotificationImpl;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getBo <em>Bo</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#isManual <em>Manual</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getPosition <em>Position</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getSize <em>Size</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getDockArea <em>Dock Area</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}</li>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getBo <em>Bo</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#isManual <em>Manual</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getPosition <em>Position</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getSize <em>Size</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getDockArea <em>Dock Area</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement()
+ * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement()
  * @model kind="class"
  * @generated
  */
@@ -166,13 +167,13 @@ public class DiagramElement extends DiagramNode {
 	 * Returns the value of the '<em><b>Bo</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Bo</em>' containment reference list isn't clear,
+	 * If the meaning of the '<em>Bo</em>' containment reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bo</em>' containment reference.
 	 * @see #setBo(RelativeBusinessObjectReference)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_Bo()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Bo()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -196,7 +197,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getBo <em>Bo</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getBo <em>Bo</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Bo</em>' containment reference.
@@ -228,7 +229,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Manual</em>' attribute.
 	 * @see #setManual(boolean)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_Manual()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Manual()
 	 * @model default="false" dataType="org.eclipse.emf.ecore.xml.type.Boolean"
 	 * @generated
 	 */
@@ -237,7 +238,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#isManual <em>Manual</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#isManual <em>Manual</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Manual</em>' attribute.
@@ -261,7 +262,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Auto Contents Filter</em>' attribute.
 	 * @see #setAutoContentsFilter(String)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_AutoContentsFilter()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_AutoContentsFilter()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
 	 * @generated
 	 */
@@ -270,7 +271,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Auto Contents Filter</em>' attribute.
@@ -294,7 +295,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Position</em>' containment reference.
 	 * @see #setPosition(Point)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_Position()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Position()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -318,7 +319,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getPosition <em>Position</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getPosition <em>Position</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Position</em>' containment reference.
@@ -349,7 +350,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Size</em>' containment reference.
 	 * @see #setSize(Dimension)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_Size()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Size()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -373,7 +374,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getSize <em>Size</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getSize <em>Size</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Size</em>' containment reference.
@@ -404,7 +405,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Dock Area</em>' attribute.
 	 * @see #setDockArea(String)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_DockArea()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_DockArea()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.String"
 	 * @generated
 	 */
@@ -413,7 +414,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getDockArea <em>Dock Area</em>}' attribute.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getDockArea <em>Dock Area</em>}' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Dock Area</em>' attribute.
@@ -437,7 +438,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Bendpoints</em>' containment reference.
 	 * @see #setBendpoints(BendpointList)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_Bendpoints()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_Bendpoints()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -461,7 +462,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Bendpoints</em>' containment reference.
@@ -491,7 +492,7 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-model-doc -->
 	 * @return the value of the '<em>Primary Label Position</em>' containment reference.
 	 * @see #setPrimaryLabelPosition(Point)
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement_PrimaryLabelPosition()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement_PrimaryLabelPosition()
 	 * @model containment="true"
 	 * @generated
 	 */
@@ -515,7 +516,7 @@ public class DiagramElement extends DiagramNode {
 	}
 
 	/**
-	 * Sets the value of the '{@link org.osate.ge.mm.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}' containment reference.
+	 * Sets the value of the '{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @param value the new value of the '<em>Primary Label Position</em>' containment reference.
@@ -591,7 +592,6 @@ public class DiagramElement extends DiagramNode {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {

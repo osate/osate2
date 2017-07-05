@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import java.util.Collection;
 
@@ -26,10 +26,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.DiagramNode#getElement <em>Element</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.DiagramNode#getElement <em>Element</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramNode()
+ * @see org.osate.ge.diagram.DiagramPackage#getDiagramNode()
  * @model kind="class"
  * @generated
  */
@@ -65,7 +65,7 @@ public class DiagramNode extends MinimalEObjectImpl.Container implements EObject
 
 	/**
 	 * Returns the value of the '<em><b>Element</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.ge.mm.diagram.DiagramElement}.
+	 * The list contents are of type {@link org.osate.ge.diagram.DiagramElement}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Element</em>' containment reference list isn't clear,
@@ -73,7 +73,7 @@ public class DiagramNode extends MinimalEObjectImpl.Container implements EObject
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Element</em>' containment reference list.
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramNode_Element()
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramNode_Element()
 	 * @model containment="true"
 	 * @generated
 	 */

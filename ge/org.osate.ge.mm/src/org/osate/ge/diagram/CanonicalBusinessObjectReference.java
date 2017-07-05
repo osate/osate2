@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.ecore.EClass;
 
@@ -10,7 +10,7 @@ import org.eclipse.emf.ecore.EClass;
  * <!-- end-user-doc -->
  *
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
+ * @see org.osate.ge.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
  * @model kind="class"
  * @generated
  */

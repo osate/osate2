@@ -10,7 +10,7 @@
       <!-- @generated diagram -->
       <package
             uri="http://osate.org/diagram"
-            class="org.osate.ge.mm.diagram.DiagramPackage"
+            class="org.osate.ge.diagram.DiagramPackage"
             genModel="model/diagram.genmodel"/>
    </extension>
 

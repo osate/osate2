@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import java.util.Collection;
 
@@ -26,10 +26,10 @@ import org.eclipse.emf.ecore.util.InternalEList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.BendpointList#getPoint <em>Point</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.BendpointList#getPoint <em>Point</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getBendpointList()
+ * @see org.osate.ge.diagram.DiagramPackage#getBendpointList()
  * @model kind="class"
  * @generated
  */
@@ -65,7 +65,7 @@ public class BendpointList extends MinimalEObjectImpl.Container implements EObje
 
 	/**
 	 * Returns the value of the '<em><b>Point</b></em>' containment reference list.
-	 * The list contents are of type {@link org.osate.ge.mm.diagram.Point}.
+	 * The list contents are of type {@link org.osate.ge.diagram.Point}.
 	 * <!-- begin-user-doc -->
 	 * <p>
 	 * If the meaning of the '<em>Point</em>' containment reference list isn't clear,
@@ -73,7 +73,7 @@ public class BendpointList extends MinimalEObjectImpl.Container implements EObje
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Point</em>' containment reference list.
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getBendpointList_Point()
+	 * @see org.osate.ge.diagram.DiagramPackage#getBendpointList_Point()
 	 * @model containment="true"
 	 * @generated
 	 */

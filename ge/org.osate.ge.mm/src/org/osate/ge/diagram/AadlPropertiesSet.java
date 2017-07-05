@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import java.util.Collection;
 
@@ -22,10 +22,10 @@ import org.eclipse.emf.ecore.util.EDataTypeUniqueEList;
  * The following features are supported:
  * </p>
  * <ul>
- *   <li>{@link org.osate.ge.mm.diagram.AadlPropertiesSet#getProperty <em>Property</em>}</li>
+ *   <li>{@link org.osate.ge.diagram.AadlPropertiesSet#getProperty <em>Property</em>}</li>
  * </ul>
  *
- * @see org.osate.ge.mm.diagram.DiagramPackage#getAadlPropertiesSet()
+ * @see org.osate.ge.diagram.DiagramPackage#getAadlPropertiesSet()
  * @model kind="class"
  * @generated
  */
@@ -69,7 +69,7 @@ public class AadlPropertiesSet extends MinimalEObjectImpl.Container implements E
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Property</em>' attribute list.
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getAadlPropertiesSet_Property()
+	 * @see org.osate.ge.diagram.DiagramPackage#getAadlPropertiesSet_Property()
 	 * @model dataType="org.eclipse.emf.ecore.xml.type.String" ordered="false"
 	 * @generated
 	 */

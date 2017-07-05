@@ -1,6 +1,6 @@
 /**
  */
-package org.osate.ge.mm.diagram;
+package org.osate.ge.diagram;
 
 import org.eclipse.emf.ecore.EAttribute;
 import org.eclipse.emf.ecore.EClass;
@@ -23,7 +23,7 @@ import org.eclipse.emf.ecore.xml.type.XMLTypePackage;
  *   <li>and each data type</li>
  * </ul>
  * <!-- end-user-doc -->
- * @see org.osate.ge.mm.diagram.DiagramFactory
+ * @see org.osate.ge.diagram.DiagramFactory
  * @model kind="package"
  * @generated
  */
@@ -58,14 +58,14 @@ public class DiagramPackage extends EPackageImpl {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public static final DiagramPackage eINSTANCE = org.osate.ge.mm.diagram.DiagramPackage.init();
+	public static final DiagramPackage eINSTANCE = org.osate.ge.diagram.DiagramPackage.init();
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.DiagramNode <em>Node</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramNode <em>Node</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.DiagramNode
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramNode()
+	 * @see org.osate.ge.diagram.DiagramNode
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramNode()
 	 * @generated
 	 */
 	public static final int DIAGRAM_NODE = 1;
@@ -98,11 +98,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_NODE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.Diagram <em>Diagram</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.Diagram <em>Diagram</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.Diagram
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagram()
+	 * @see org.osate.ge.diagram.Diagram
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagram()
 	 * @generated
 	 */
 	public static final int DIAGRAM = 0;
@@ -144,11 +144,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_OPERATION_COUNT = DIAGRAM_NODE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.DiagramElement <em>Element</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramElement <em>Element</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.DiagramElement
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement()
+	 * @see org.osate.ge.diagram.DiagramElement
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement()
 	 * @generated
 	 */
 	public static final int DIAGRAM_ELEMENT = 2;
@@ -253,11 +253,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_ELEMENT_OPERATION_COUNT = DIAGRAM_NODE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.Point <em>Point</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.Point <em>Point</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.Point
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getPoint()
+	 * @see org.osate.ge.diagram.Point
+	 * @see org.osate.ge.diagram.DiagramPackage#getPoint()
 	 * @generated
 	 */
 	public static final int POINT = 3;
@@ -299,11 +299,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int POINT_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.Dimension <em>Dimension</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.Dimension <em>Dimension</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.Dimension
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDimension()
+	 * @see org.osate.ge.diagram.Dimension
+	 * @see org.osate.ge.diagram.DiagramPackage#getDimension()
 	 * @generated
 	 */
 	public static final int DIMENSION = 4;
@@ -345,11 +345,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIMENSION_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.BendpointList <em>Bendpoint List</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.BendpointList <em>Bendpoint List</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.BendpointList
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getBendpointList()
+	 * @see org.osate.ge.diagram.BendpointList
+	 * @see org.osate.ge.diagram.DiagramPackage#getBendpointList()
 	 * @generated
 	 */
 	public static final int BENDPOINT_LIST = 5;
@@ -382,11 +382,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int BENDPOINT_LIST_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.AadlPropertiesSet <em>Aadl Properties Set</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.AadlPropertiesSet <em>Aadl Properties Set</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.AadlPropertiesSet
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getAadlPropertiesSet()
+	 * @see org.osate.ge.diagram.AadlPropertiesSet
+	 * @see org.osate.ge.diagram.DiagramPackage#getAadlPropertiesSet()
 	 * @generated
 	 */
 	public static final int AADL_PROPERTIES_SET = 6;
@@ -419,11 +419,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int AADL_PROPERTIES_SET_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.Reference <em>Reference</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.Reference <em>Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.Reference
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getReference()
+	 * @see org.osate.ge.diagram.Reference
+	 * @see org.osate.ge.diagram.DiagramPackage#getReference()
 	 * @generated
 	 */
 	public static final int REFERENCE = 10;
@@ -456,11 +456,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int REFERENCE_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.CanonicalBusinessObjectReference
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
+	 * @see org.osate.ge.diagram.CanonicalBusinessObjectReference
+	 * @see org.osate.ge.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
 	 * @generated
 	 */
 	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE = 7;
@@ -493,11 +493,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.RelativeBusinessObjectReference
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getRelativeBusinessObjectReference()
+	 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
+	 * @see org.osate.ge.diagram.DiagramPackage#getRelativeBusinessObjectReference()
 	 * @generated
 	 */
 	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE = 8;
@@ -530,11 +530,11 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = REFERENCE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.mm.diagram.DiagramConfiguration <em>Configuration</em>}' class.
+	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.mm.diagram.DiagramConfiguration
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramConfiguration()
+	 * @see org.osate.ge.diagram.DiagramConfiguration
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
 	 * @generated
 	 */
 	public static final int DIAGRAM_CONFIGURATION = 9;
@@ -663,7 +663,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see org.eclipse.emf.ecore.EPackage.Registry
-	 * @see org.osate.ge.mm.diagram.DiagramPackage#eNS_URI
+	 * @see org.osate.ge.diagram.DiagramPackage#eNS_URI
 	 * @see #init()
 	 * @generated
 	 */
@@ -718,11 +718,11 @@ public class DiagramPackage extends EPackageImpl {
 
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.Diagram <em>Diagram</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.Diagram <em>Diagram</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Diagram</em>'.
-	 * @see org.osate.ge.mm.diagram.Diagram
+	 * @see org.osate.ge.diagram.Diagram
 	 * @generated
 	 */
 	public EClass getDiagram() {
@@ -730,11 +730,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.Diagram#getConfig <em>Config</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.Diagram#getConfig <em>Config</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Config</em>'.
-	 * @see org.osate.ge.mm.diagram.Diagram#getConfig()
+	 * @see org.osate.ge.diagram.Diagram#getConfig()
 	 * @see #getDiagram()
 	 * @generated
 	 */
@@ -743,11 +743,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.DiagramNode <em>Node</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.DiagramNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Node</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramNode
+	 * @see org.osate.ge.diagram.DiagramNode
 	 * @generated
 	 */
 	public EClass getDiagramNode() {
@@ -755,11 +755,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.ge.mm.diagram.DiagramNode#getElement <em>Element</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.ge.diagram.DiagramNode#getElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Element</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramNode#getElement()
+	 * @see org.osate.ge.diagram.DiagramNode#getElement()
 	 * @see #getDiagramNode()
 	 * @generated
 	 */
@@ -768,11 +768,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.DiagramElement <em>Element</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.DiagramElement <em>Element</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Element</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement
+	 * @see org.osate.ge.diagram.DiagramElement
 	 * @generated
 	 */
 	public EClass getDiagramElement() {
@@ -780,11 +780,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramElement#getBo <em>Bo</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getBo <em>Bo</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Bo</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getBo()
+	 * @see org.osate.ge.diagram.DiagramElement#getBo()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -793,11 +793,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.DiagramElement#isManual <em>Manual</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#isManual <em>Manual</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Manual</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#isManual()
+	 * @see org.osate.ge.diagram.DiagramElement#isManual()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -805,13 +805,12 @@ public class DiagramPackage extends EPackageImpl {
 		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(1);
 	}
 
-
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getAutoContentsFilter <em>Auto Contents Filter</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Auto Contents Filter</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getAutoContentsFilter()
+	 * @see org.osate.ge.diagram.DiagramElement#getAutoContentsFilter()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -820,11 +819,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramElement#getPosition <em>Position</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getPosition <em>Position</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Position</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getPosition()
+	 * @see org.osate.ge.diagram.DiagramElement#getPosition()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -833,11 +832,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramElement#getSize <em>Size</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getSize <em>Size</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Size</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getSize()
+	 * @see org.osate.ge.diagram.DiagramElement#getSize()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -846,11 +845,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.DiagramElement#getDockArea <em>Dock Area</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getDockArea <em>Dock Area</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Dock Area</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getDockArea()
+	 * @see org.osate.ge.diagram.DiagramElement#getDockArea()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -859,11 +858,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getBendpoints <em>Bendpoints</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Bendpoints</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getBendpoints()
+	 * @see org.osate.ge.diagram.DiagramElement#getBendpoints()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -872,11 +871,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramElement#getPrimaryLabelPosition <em>Primary Label Position</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Primary Label Position</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramElement#getPrimaryLabelPosition()
+	 * @see org.osate.ge.diagram.DiagramElement#getPrimaryLabelPosition()
 	 * @see #getDiagramElement()
 	 * @generated
 	 */
@@ -885,11 +884,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.Point <em>Point</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.Point <em>Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Point</em>'.
-	 * @see org.osate.ge.mm.diagram.Point
+	 * @see org.osate.ge.diagram.Point
 	 * @generated
 	 */
 	public EClass getPoint() {
@@ -897,11 +896,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.Point#getX <em>X</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.Point#getX <em>X</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>X</em>'.
-	 * @see org.osate.ge.mm.diagram.Point#getX()
+	 * @see org.osate.ge.diagram.Point#getX()
 	 * @see #getPoint()
 	 * @generated
 	 */
@@ -910,11 +909,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.Point#getY <em>Y</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.Point#getY <em>Y</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Y</em>'.
-	 * @see org.osate.ge.mm.diagram.Point#getY()
+	 * @see org.osate.ge.diagram.Point#getY()
 	 * @see #getPoint()
 	 * @generated
 	 */
@@ -923,11 +922,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.Dimension <em>Dimension</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.Dimension <em>Dimension</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Dimension</em>'.
-	 * @see org.osate.ge.mm.diagram.Dimension
+	 * @see org.osate.ge.diagram.Dimension
 	 * @generated
 	 */
 	public EClass getDimension() {
@@ -935,11 +934,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.Dimension#getWidth <em>Width</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.Dimension#getWidth <em>Width</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Width</em>'.
-	 * @see org.osate.ge.mm.diagram.Dimension#getWidth()
+	 * @see org.osate.ge.diagram.Dimension#getWidth()
 	 * @see #getDimension()
 	 * @generated
 	 */
@@ -948,11 +947,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute '{@link org.osate.ge.mm.diagram.Dimension#getHeight <em>Height</em>}'.
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.Dimension#getHeight <em>Height</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute '<em>Height</em>'.
-	 * @see org.osate.ge.mm.diagram.Dimension#getHeight()
+	 * @see org.osate.ge.diagram.Dimension#getHeight()
 	 * @see #getDimension()
 	 * @generated
 	 */
@@ -961,11 +960,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.BendpointList <em>Bendpoint List</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.BendpointList <em>Bendpoint List</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Bendpoint List</em>'.
-	 * @see org.osate.ge.mm.diagram.BendpointList
+	 * @see org.osate.ge.diagram.BendpointList
 	 * @generated
 	 */
 	public EClass getBendpointList() {
@@ -973,11 +972,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.ge.mm.diagram.BendpointList#getPoint <em>Point</em>}'.
+	 * Returns the meta object for the containment reference list '{@link org.osate.ge.diagram.BendpointList#getPoint <em>Point</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference list '<em>Point</em>'.
-	 * @see org.osate.ge.mm.diagram.BendpointList#getPoint()
+	 * @see org.osate.ge.diagram.BendpointList#getPoint()
 	 * @see #getBendpointList()
 	 * @generated
 	 */
@@ -986,11 +985,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.AadlPropertiesSet <em>Aadl Properties Set</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.AadlPropertiesSet <em>Aadl Properties Set</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Aadl Properties Set</em>'.
-	 * @see org.osate.ge.mm.diagram.AadlPropertiesSet
+	 * @see org.osate.ge.diagram.AadlPropertiesSet
 	 * @generated
 	 */
 	public EClass getAadlPropertiesSet() {
@@ -998,11 +997,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.osate.ge.mm.diagram.AadlPropertiesSet#getProperty <em>Property</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.osate.ge.diagram.AadlPropertiesSet#getProperty <em>Property</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Property</em>'.
-	 * @see org.osate.ge.mm.diagram.AadlPropertiesSet#getProperty()
+	 * @see org.osate.ge.diagram.AadlPropertiesSet#getProperty()
 	 * @see #getAadlPropertiesSet()
 	 * @generated
 	 */
@@ -1011,11 +1010,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Canonical Business Object Reference</em>'.
-	 * @see org.osate.ge.mm.diagram.CanonicalBusinessObjectReference
+	 * @see org.osate.ge.diagram.CanonicalBusinessObjectReference
 	 * @generated
 	 */
 	public EClass getCanonicalBusinessObjectReference() {
@@ -1023,11 +1022,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Relative Business Object Reference</em>'.
-	 * @see org.osate.ge.mm.diagram.RelativeBusinessObjectReference
+	 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
 	 * @generated
 	 */
 	public EClass getRelativeBusinessObjectReference() {
@@ -1035,11 +1034,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.DiagramConfiguration <em>Configuration</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Configuration</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramConfiguration
+	 * @see org.osate.ge.diagram.DiagramConfiguration
 	 * @generated
 	 */
 	public EClass getDiagramConfiguration() {
@@ -1047,11 +1046,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties <em>Enabled Aadl Properties</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Enabled Aadl Properties</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramConfiguration#getEnabledAadlProperties()
+	 * @see org.osate.ge.diagram.DiagramConfiguration#getEnabledAadlProperties()
 	 * @see #getDiagramConfiguration()
 	 * @generated
 	 */
@@ -1060,11 +1059,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the containment reference '{@link org.osate.ge.mm.diagram.DiagramConfiguration#getContext <em>Context</em>}'.
+	 * Returns the meta object for the containment reference '{@link org.osate.ge.diagram.DiagramConfiguration#getContext <em>Context</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the containment reference '<em>Context</em>'.
-	 * @see org.osate.ge.mm.diagram.DiagramConfiguration#getContext()
+	 * @see org.osate.ge.diagram.DiagramConfiguration#getContext()
 	 * @see #getDiagramConfiguration()
 	 * @generated
 	 */
@@ -1073,11 +1072,11 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.ge.mm.diagram.Reference <em>Reference</em>}'.
+	 * Returns the meta object for class '{@link org.osate.ge.diagram.Reference <em>Reference</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for class '<em>Reference</em>'.
-	 * @see org.osate.ge.mm.diagram.Reference
+	 * @see org.osate.ge.diagram.Reference
 	 * @generated
 	 */
 	public EClass getReference() {
@@ -1085,18 +1084,17 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
-	 * Returns the meta object for the attribute list '{@link org.osate.ge.mm.diagram.Reference#getSeg <em>Seg</em>}'.
+	 * Returns the meta object for the attribute list '{@link org.osate.ge.diagram.Reference#getSeg <em>Seg</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @return the meta object for the attribute list '<em>Seg</em>'.
-	 * @see org.osate.ge.mm.diagram.Reference#getSeg()
+	 * @see org.osate.ge.diagram.Reference#getSeg()
 	 * @see #getReference()
 	 * @generated
 	 */
 	public EAttribute getReference_Seg() {
 		return (EAttribute)referenceEClass.getEStructuralFeatures().get(0);
 	}
-
 
 	/**
 	 * Returns the factory that creates the instances of the model.
@@ -1267,11 +1265,11 @@ public class DiagramPackage extends EPackageImpl {
 	 */
 	public interface Literals {
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.Diagram <em>Diagram</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.Diagram <em>Diagram</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.Diagram
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagram()
+		 * @see org.osate.ge.diagram.Diagram
+		 * @see org.osate.ge.diagram.DiagramPackage#getDiagram()
 		 * @generated
 		 */
 		public static final EClass DIAGRAM = eINSTANCE.getDiagram();
@@ -1285,11 +1283,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EReference DIAGRAM__CONFIG = eINSTANCE.getDiagram_Config();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.DiagramNode <em>Node</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.DiagramNode <em>Node</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.DiagramNode
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramNode()
+		 * @see org.osate.ge.diagram.DiagramNode
+		 * @see org.osate.ge.diagram.DiagramPackage#getDiagramNode()
 		 * @generated
 		 */
 		public static final EClass DIAGRAM_NODE = eINSTANCE.getDiagramNode();
@@ -1303,11 +1301,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EReference DIAGRAM_NODE__ELEMENT = eINSTANCE.getDiagramNode_Element();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.DiagramElement <em>Element</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.DiagramElement <em>Element</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.DiagramElement
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramElement()
+		 * @see org.osate.ge.diagram.DiagramElement
+		 * @see org.osate.ge.diagram.DiagramPackage#getDiagramElement()
 		 * @generated
 		 */
 		public static final EClass DIAGRAM_ELEMENT = eINSTANCE.getDiagramElement();
@@ -1377,11 +1375,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EReference DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = eINSTANCE.getDiagramElement_PrimaryLabelPosition();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.Point <em>Point</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.Point <em>Point</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.Point
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getPoint()
+		 * @see org.osate.ge.diagram.Point
+		 * @see org.osate.ge.diagram.DiagramPackage#getPoint()
 		 * @generated
 		 */
 		public static final EClass POINT = eINSTANCE.getPoint();
@@ -1403,11 +1401,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute POINT__Y = eINSTANCE.getPoint_Y();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.Dimension <em>Dimension</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.Dimension <em>Dimension</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.Dimension
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getDimension()
+		 * @see org.osate.ge.diagram.Dimension
+		 * @see org.osate.ge.diagram.DiagramPackage#getDimension()
 		 * @generated
 		 */
 		public static final EClass DIMENSION = eINSTANCE.getDimension();
@@ -1429,11 +1427,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute DIMENSION__HEIGHT = eINSTANCE.getDimension_Height();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.BendpointList <em>Bendpoint List</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.BendpointList <em>Bendpoint List</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.BendpointList
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getBendpointList()
+		 * @see org.osate.ge.diagram.BendpointList
+		 * @see org.osate.ge.diagram.DiagramPackage#getBendpointList()
 		 * @generated
 		 */
 		public static final EClass BENDPOINT_LIST = eINSTANCE.getBendpointList();
@@ -1447,11 +1445,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EReference BENDPOINT_LIST__POINT = eINSTANCE.getBendpointList_Point();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.AadlPropertiesSet <em>Aadl Properties Set</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.AadlPropertiesSet <em>Aadl Properties Set</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.AadlPropertiesSet
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getAadlPropertiesSet()
+		 * @see org.osate.ge.diagram.AadlPropertiesSet
+		 * @see org.osate.ge.diagram.DiagramPackage#getAadlPropertiesSet()
 		 * @generated
 		 */
 		public static final EClass AADL_PROPERTIES_SET = eINSTANCE.getAadlPropertiesSet();
@@ -1465,31 +1463,31 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EAttribute AADL_PROPERTIES_SET__PROPERTY = eINSTANCE.getAadlPropertiesSet_Property();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.CanonicalBusinessObjectReference <em>Canonical Business Object Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.CanonicalBusinessObjectReference
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
+		 * @see org.osate.ge.diagram.CanonicalBusinessObjectReference
+		 * @see org.osate.ge.diagram.DiagramPackage#getCanonicalBusinessObjectReference()
 		 * @generated
 		 */
 		public static final EClass CANONICAL_BUSINESS_OBJECT_REFERENCE = eINSTANCE.getCanonicalBusinessObjectReference();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.RelativeBusinessObjectReference
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getRelativeBusinessObjectReference()
+		 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
+		 * @see org.osate.ge.diagram.DiagramPackage#getRelativeBusinessObjectReference()
 		 * @generated
 		 */
 		public static final EClass RELATIVE_BUSINESS_OBJECT_REFERENCE = eINSTANCE.getRelativeBusinessObjectReference();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.DiagramConfiguration <em>Configuration</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.DiagramConfiguration
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getDiagramConfiguration()
+		 * @see org.osate.ge.diagram.DiagramConfiguration
+		 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
 		 * @generated
 		 */
 		public static final EClass DIAGRAM_CONFIGURATION = eINSTANCE.getDiagramConfiguration();
@@ -1511,11 +1509,11 @@ public class DiagramPackage extends EPackageImpl {
 		public static final EReference DIAGRAM_CONFIGURATION__CONTEXT = eINSTANCE.getDiagramConfiguration_Context();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.ge.mm.diagram.Reference <em>Reference</em>}' class.
+		 * The meta object literal for the '{@link org.osate.ge.diagram.Reference <em>Reference</em>}' class.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
-		 * @see org.osate.ge.mm.diagram.Reference
-		 * @see org.osate.ge.mm.diagram.DiagramPackage#getReference()
+		 * @see org.osate.ge.diagram.Reference
+		 * @see org.osate.ge.diagram.DiagramPackage#getReference()
 		 * @generated
 		 */
 		public static final EClass REFERENCE = eINSTANCE.getReference();
