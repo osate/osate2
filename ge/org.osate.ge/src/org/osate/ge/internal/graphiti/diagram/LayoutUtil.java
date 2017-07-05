@@ -37,7 +37,7 @@ import org.osate.ge.internal.labels.LabelConfigurationBuilder;
 import org.osate.ge.internal.labels.LabelPosition;
 
 /**
- * Helper class for positioning child shapes and updating the graphics algorithm
+ * Helper class for performing layout. Layout includes positioning child shapes and updating the graphics algorithm. 
  *
  */
 class LayoutUtil {

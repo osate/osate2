@@ -806,6 +806,8 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 							if(pe instanceof ContainerShape || pe instanceof ConnectionDecorator) {
 								final DiagramNode undockedContainer = getUndockedDiagramNode(element.getContainer());
 								nodesToLayout.add(undockedContainer);
+							} else if(pe instanceof Connection) { // Relayout connections
+								nodesToLayout.add(getUndockedDiagramNode(element));
 							}
 						}
 								
