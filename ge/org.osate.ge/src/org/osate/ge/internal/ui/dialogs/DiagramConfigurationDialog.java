@@ -42,7 +42,6 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Image;
-import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
@@ -52,6 +51,7 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Tree;
+import org.eclipse.swt.widgets.TreeItem;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.ContentsFilter;
@@ -115,13 +115,13 @@ public class DiagramConfigurationDialog {
 			newShell.setMinimumSize(250, 400);
 			newShell.setSize(800, 550);
 		}
-		
+
 		@Override
 	  	protected Control createDialogArea(final Composite parent) {
 		    final Composite area = (Composite)super.createDialogArea(parent);
 		 
 		    final Composite container = new Composite(area, SWT.NONE);
-		    container.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true, true));
+		    container.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).create());
 		    container.setLayout(GridLayoutFactory.swtDefaults().numColumns(2).create());
 		    
 		    // Context Business Object
@@ -147,6 +147,7 @@ public class DiagramConfigurationDialog {
 		    modelElementsLabel.setLayoutData(GridDataFactory.swtDefaults().span(2, 1).create());
 		    
 		    treeViewer = new CheckboxTreeViewer(container, SWT.FULL_SELECTION | SWT.BORDER);
+		    treeViewer.setUseHashlookup(true);
 		    
 		    // Update item when checked
 		    treeViewer.addCheckStateListener(new ICheckStateListener() {
@@ -166,13 +167,8 @@ public class DiagramConfigurationDialog {
 						setBranchIsManual(node, false);
 					}
 					
-					// Refresh the top level of the branch
-					BusinessObjectNode refreshNode;
-					for(refreshNode = node; refreshNode.getParent() != null; refreshNode = refreshNode.getParent()) {
-					}
-										
-					treeViewer.refresh(refreshNode);					
-				}		    	
+					updateTree();	
+				}
 		    });
 		    
 		    treeViewer.setCheckStateProvider(new ICheckStateProvider() {				
@@ -221,7 +217,7 @@ public class DiagramConfigurationDialog {
 		    autoContentsFilterColumn.setEditingSupport(new AutoContentsFilterEditingSupport(treeViewer));
 		    
 		    final Tree tree = treeViewer.getTree();
-		    tree.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).minSize(SWT.DEFAULT, 100).create());
+		    tree.setLayoutData(GridDataFactory.fillDefaults().grab(true, true).span(2, 1).minSize(SWT.DEFAULT, 100).hint(200, SWT.DEFAULT).create());
 			tree.setHeaderVisible(true);
 			tree.setLinesVisible(true);
 		    
@@ -236,10 +232,7 @@ public class DiagramConfigurationDialog {
 			    	final BusinessObjectNode n2 = (BusinessObjectNode)e2;
 			    	return model.getName(n1).compareToIgnoreCase(model.getName(n2));	
 		    	}
-		    });
-		    
-		    // Set the input for the tree
-		    treeViewer.setInput(businessObjectTree);		    
+		    });	    
 
 		    // AADL Properties Widgets
 		    final Label aadlPropertiesLabel = new Label(container, SWT.NONE);
@@ -354,11 +347,14 @@ public class DiagramConfigurationDialog {
 				}		    	
 		    });
 		    
+		    // Set the input for the tree
+		    treeViewer.setInput(businessObjectTree);
+		    
 		    // Set the initial selection
 		    if(initialSelectionBoPath != null) {
 		    	setSelection(initialSelectionBoPath);
 		    }
-
+		    
 		    return area;
 		}
 		
@@ -369,8 +365,11 @@ public class DiagramConfigurationDialog {
 			}
 		}
 		
-		private void refresh(final Object element) {
-			treeViewer.refresh(element);
+		/**
+		 * Update all elements in the tree. Updating elements does not handle structural changes so it is much faster than refreshing.
+		 */
+		private void updateTree() {
+			treeViewer.update(getVisibleElements(), null);		
 		}
 		
 		private void setSelection(final Object[] boPath) {
@@ -390,6 +389,24 @@ public class DiagramConfigurationDialog {
 		    if(tmpNode != businessObjectTree) {
 		    	treeViewer.setSelection(new StructuredSelection(tmpNode), true);
 		    }		    
+		}
+		
+		
+		private Object[] getVisibleElements(){
+			final ArrayList<Object> elements = new ArrayList<>();
+			getVisibleElements(treeViewer.getTree().getItems(), elements);
+			return elements.toArray();
+		}
+		
+		private void getVisibleElements(final TreeItem[] items, final Collection<Object> elements){
+			for(final TreeItem treeItem : items) {
+				final Object element = treeItem.getData();
+				if(element != null) {
+					elements.add(element);
+				}
+				
+				getVisibleElements(treeItem.getItems(), elements);
+			}
 		}
 	}
 	
@@ -436,7 +453,7 @@ public class DiagramConfigurationDialog {
 			// Set the value
 			final BusinessObjectNode node = (BusinessObjectNode)element;
 			node.setAutoContentsFilter((ContentsFilter)value);
-			dlg.refresh(element);
+			dlg.updateTree();
 		}		
 	}
 	
@@ -600,10 +617,9 @@ public class DiagramConfigurationDialog {
 			@Override
 			public Collection<Object> getChildBusinessObjects(final BusinessObjectContext boc) {
 				final Collection<Object> children = new ArrayList<>();
-				children.add("C1");
-				children.add("C2");
-				children.add("C3");
-				children.add("C4");
+				for(int i = 1; i <= 100; i++) {
+					children.add("C" + i);	
+				}
 				return children;
 			}
 			

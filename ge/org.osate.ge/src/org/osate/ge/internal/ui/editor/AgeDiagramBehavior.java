@@ -123,11 +123,13 @@ import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
 import org.eclipse.core.resources.IResourceDelta;
 import org.eclipse.core.resources.IWorkspace;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
@@ -906,6 +908,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected IDiagramTypeProvider initDiagramTypeProvider(final Diagram diagram) {
 		final IDiagramTypeProvider dtp = super.initDiagramTypeProvider(diagram);
 
+		// Ensure the project is built. This prevents being unable to find the context due to the Xtext index not having completed.
+		try {
+			project.build(IncrementalProjectBuilder.INCREMENTAL_BUILD, new NullProgressMonitor());
+		} catch (CoreException e) {
+			throw new RuntimeException(e);
+		}
+		
 		// Update the diagram to finish initializing the diagram's fields before creating the GrpahitiAgeDiagram object
 		final AgeFeatureProvider fp = (AgeFeatureProvider)dtp.getFeatureProvider();
 		fp.getDiagramUpdater().updateDiagram(ageDiagram);

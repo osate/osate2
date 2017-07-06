@@ -60,8 +60,7 @@ public class PropertyResultValueHandler {
 					}
 				}
 				
-				// TODO: Does the DefaultTreeExpander even need to retrieve these results if we are showing the full list
-				// BOH will decide whether to show it as connection or not.
+				// Decide whether to show it as connection or not.
 				final BusinessObjectContext dst = queryService.getFirstResult(partialCneQuery, tmp, rvc.referenceValue);
 				if(dst == null) {
 					showAsConnection = false;

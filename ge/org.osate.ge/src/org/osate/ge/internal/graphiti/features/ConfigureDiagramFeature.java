@@ -91,7 +91,6 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 			// Expand the tree so that it's business objects are refreshed
 			boTree = BusinessObjectNode.pruneAutomaticBranches(boTree);		
 			boTree = boTreeExpander.expandTree(diagram.getConfiguration(), boTree);
-			
 			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model, diagram.getConfiguration(), boTree, initialSelectionBoPath);
 			if(result != null) {
 				diagram.setDiagramConfiguration(result.getDiagramConfiguration());

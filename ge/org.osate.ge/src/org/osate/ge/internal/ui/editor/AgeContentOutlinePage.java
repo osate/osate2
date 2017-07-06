@@ -134,7 +134,7 @@ public class AgeContentOutlinePage extends ContentOutlinePage {
 			}
 		});
 
-		viewer.setLabelProvider(new LabelProvider() {
+		viewer.setLabelProvider(new LabelProvider() {			
 			@Override
 			public String getText(final Object element) {
 				if(element instanceof DiagramElement) {
