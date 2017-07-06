@@ -1,4 +1,4 @@
-**The extension points for adding support for new Business Objects are experimental. The following documentation is out of date. These APIs will be changed while the extension points are refined.**
+**The extension points used for adding support for new business objects are experimental. The following documentation is out of date. These APIs will be changed while the extension points are refined.**
 
 # Adding Support for a new Business Object
 Extending the graphical editor with support for a new type of business object requires multiple extensions. A business object is a generic term used to refer to any object which is represented by a diagram element inside of a diagram. For example, a business object may be an element in the AADL declarative model or an element in an annex library.

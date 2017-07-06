@@ -10,4 +10,3 @@ Commands are registered using the **org.osate.ge.commands** extension point.
 #### Optional Annotations:
 * [IsAvailable](../api/org/osate/ge/di/IsAvailable.html)
 * [CanActivate](../api/org/osate/ge/di/CanActivate.html)
-* [HasDoneChanges](../api/org/osate/ge/di/HasDoneChanges.html)
