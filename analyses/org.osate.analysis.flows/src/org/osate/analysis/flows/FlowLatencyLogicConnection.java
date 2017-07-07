@@ -177,12 +177,8 @@ public class FlowLatencyLogicConnection {
 
 			double maxBusLatency = GetProperties.getMaximumLatencyinMilliSec(targetMedium);
 			double minBusLatency = GetProperties.getMinimumLatencyinMilliSec(targetMedium);
-			double maxBusTransferTime = 0.0;
-			double minBusTransferTime = 0.0;
-			if (datasizeinbyte > 0) {
-				maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(targetMedium, datasizeinbyte);
-				minBusTransferTime = GetProperties.getMinimumTimeToTransferData(targetMedium, datasizeinbyte);
-			}
+			double maxBusTransferTime = GetProperties.getMaximumTimeToTransferData(targetMedium, datasizeinbyte);
+			double minBusTransferTime = GetProperties.getMinimumTimeToTransferData(targetMedium, datasizeinbyte);
 			if (maxBusLatency == 0 && maxBusTransferTime == 0 && targetMedium instanceof ConnectionInstance
 					|| (targetMedium instanceof ComponentInstance && ((ComponentInstance) targetMedium).getCategory()
 							.equals(ComponentCategory.VIRTUAL_BUS))) {
@@ -195,6 +191,9 @@ public class FlowLatencyLogicConnection {
 			if (maxBusTransferTime > 0) {
 				subContributor.setMaximum(maxBusTransferTime);
 				subContributor.reportInfo("Using data transfer time");
+				if (datasizeinbyte == 0.0) {
+					subContributor.reportInfo("Data size = 0. Possibly data type on port missing");
+				}
 				subContributor.setWorstCaseMethod(LatencyContributorMethod.TRANSMISSION_TIME);
 			} else if (maxBusLatency > 0) {
 				subContributor.setMaximum(maxBusLatency);
