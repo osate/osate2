@@ -441,17 +441,11 @@ public class InstanceModelUtil {
 		if (cie instanceof FeatureInstance) {
 			FeatureInstance fi = (FeatureInstance) cie;
 			swci = fi.getContainingComponentInstance();
-			if (isDevice(swci) || isProcessor(swci) || isBus(swci) || isMemory(swci)) {
-				return swci;
-			}
 		} else if (cie instanceof ComponentInstance) {
 			swci = (ComponentInstance) cie;
-			if (isBus(swci)) {
-				return swci;
-			}
-//			// has to be a data component or subprogram component
-//			List<ComponentInstance> ciList = GetProperties.getActualMemoryBinding(swci);
-//			return ciList.isEmpty() ? null : ciList.get(0);
+		}
+		if (isDevice(swci) || isProcessor(swci) || isBus(swci) || isMemory(swci)) {
+			return swci;
 		}
 		return getBoundPhysicalProcessor(swci);
 	}
