@@ -49,5 +49,49 @@
     <genClasses ecoreClass="diagram.ecore#//Reference">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Reference/seg"/>
     </genClasses>
+    <nestedGenPackages prefix="Diagram" basePackage="org.osate.ge" disposableProviderFactory="true"
+        adapterFactory="false" contentTypeIdentifier="" fileExtensions="aadl_diagram"
+        ecorePackage="diagram.ecore#/" publicationLocation="">
+      <genClasses ecoreClass="diagram.ecore#//Diagram">
+        <genFeatures property="None" children="true" createChild="true" propertyCategory=""
+            propertyDescription="" ecoreFeature="ecore:EReference diagram.ecore#//Diagram/config"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//DiagramNode">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramNode/element"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//DiagramElement">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/bo"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/manual"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/autoContentsFilter"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/position"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/size"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//DiagramElement/dockArea"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/bendpoints"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramElement/primaryLabelPosition"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//Point">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/x"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Point/y"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//Dimension">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Dimension/width"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Dimension/height"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//BendpointList">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//BendpointList/point"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//AadlPropertiesSet">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//AadlPropertiesSet/property"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//CanonicalBusinessObjectReference"/>
+      <genClasses ecoreClass="diagram.ecore#//RelativeBusinessObjectReference"/>
+      <genClasses ecoreClass="diagram.ecore#//DiagramConfiguration">
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramConfiguration/enabledAadlProperties"/>
+        <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramConfiguration/context"/>
+      </genClasses>
+      <genClasses ecoreClass="diagram.ecore#//Reference">
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Reference/seg"/>
+      </genClasses>
+    </nestedGenPackages>
   </genPackages>
 </genmodel:GenModel>
