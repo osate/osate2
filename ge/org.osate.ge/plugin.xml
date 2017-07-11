@@ -848,6 +848,9 @@
              class="org.osate.ge.internal.commands.ComponentImplementationToTypeCommand">
        </command>
        <command
+       		 class="org.osate.ge.internal.commands.SubcomponentToTypeCommand">
+       </command>
+       <command
              class="org.osate.ge.internal.commands.GoToPackageDiagramCommand">
        </command>
        <command
