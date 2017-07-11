@@ -7,7 +7,6 @@ import javax.inject.Named;
 import org.osate.aadl2.Connection;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.NamedValue;
-import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.GraphicalConfiguration;
@@ -55,7 +54,7 @@ public class TimingPropertyValueHandler {
 	
 	@IsApplicable
 	public boolean isApplicable(final @Named(Names.BUSINESS_OBJECT) PropertyResultValue prv) {
-		return (prv.getAppliedToBo() instanceof Connection || prv.getAppliedToBo() instanceof ConnectionInstance || prv.getAppliedToBo() instanceof ConnectionReference) &&
+		return (prv.getAppliedToBo() instanceof Connection || prv.getAppliedToBo() instanceof ConnectionReference) &&
 				qualifiedTimingPropertyName.equalsIgnoreCase(prv.getProperty().getQualifiedName()) && 
 				prv.getValue() instanceof NamedValue;
 	}
