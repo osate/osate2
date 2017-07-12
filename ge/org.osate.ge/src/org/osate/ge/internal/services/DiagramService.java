@@ -9,11 +9,11 @@
 package org.osate.ge.internal.services;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 
@@ -73,7 +73,13 @@ public interface DiagramService {
 	void clearLegacyPersistentProperties(final IResource fileResource);
 	
 	interface ReferenceCollection {
-		void update(Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap);
+		void update(UpdatedReferenceValueProvider newReferenceValues);
+	}
+	
+	// Used to provide new reference values when updating a reference collection
+	interface UpdatedReferenceValueProvider {
+		CanonicalBusinessObjectReference getNewCanonicalReference(final CanonicalBusinessObjectReference originalCanonicalReference);
+		RelativeBusinessObjectReference getNewRelativeReference(final CanonicalBusinessObjectReference originalCanonicalReference);
 	}
 	
 	/**

@@ -46,6 +46,7 @@ import org.osate.aadl2.Realization;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
+import org.osate.ge.internal.diagram.runtime.RelativeBusinessObjectReference;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ge.internal.services.ReferenceService;
 import org.osate.ge.internal.ui.xtext.AgeXtextUtil;
@@ -55,18 +56,28 @@ import org.osgi.framework.FrameworkUtil;
 
 @SuppressWarnings("restriction")
 public class AgeRenameParticipant extends RenameParticipant {
+	private final Map<CanonicalBusinessObjectReference, UriAndRelativeReference> originalCanRefToNewInfoMap = new HashMap<>();
 	private IRenameElementContext ctx;
 	private EObject targetObject;
 	private ReferenceService referenceService;
 	private DiagramService diagramService;
-	private final Map<CanonicalBusinessObjectReference, URI> originalCanonicalReferenceToNewUriMap = new HashMap<>();
 	private ResourceSet refactoringResourceSet;
 	private IProject project;
-	private DiagramService.ReferenceCollection references;
+	private DiagramService.ReferenceCollection originalReferences; // The original set of references during the refactoring. They are stored before the change because the model change will have occured before the change is executed.
+	
+	private static class UriAndRelativeReference {
+		public final URI uri;
+		public final RelativeBusinessObjectReference relRef;
+		
+		public UriAndRelativeReference(final URI uri, final RelativeBusinessObjectReference relRef) {
+			this.uri = Objects.requireNonNull(uri, "uri must not be null");
+			this.relRef = Objects.requireNonNull(relRef, "relRef must not be null");			
+		}
+	}
 	
 	@Override
 	protected boolean initialize(final Object element) {
-		originalCanonicalReferenceToNewUriMap.clear();
+		originalCanRefToNewInfoMap.clear();
 		
 		if(!(element instanceof IRenameElementContext)) {
 			return false;
@@ -132,14 +143,15 @@ public class AgeRenameParticipant extends RenameParticipant {
 			final URI uri = getNameIndependentUri(dirtyObject);
 			if(uri != null) {
 				final CanonicalBusinessObjectReference canonicalReference = referenceService.getCanonicalReference(dirtyObject);
-				if(canonicalReference != null) {
-					originalCanonicalReferenceToNewUriMap.put(canonicalReference, uri);
+				final RelativeBusinessObjectReference relativeReference = referenceService.getRelativeReference(dirtyObject);
+				if(canonicalReference != null && relativeReference != null) {
+					originalCanRefToNewInfoMap.put(canonicalReference, new UriAndRelativeReference(uri, relativeReference));
 				}
 			}
 		}
 
 		// Initialize is called many times so it would be best to do it before the change is made but not in the initialization phase
-		references = diagramService.getReferences(relevantProjects, originalCanonicalReferenceToNewUriMap.keySet());
+		originalReferences = diagramService.getReferences(relevantProjects, originalCanRefToNewInfoMap.keySet());
 		
 		return true;
 	}
@@ -150,7 +162,7 @@ public class AgeRenameParticipant extends RenameParticipant {
 	 * @param relevantProjects
 	 * @return relevantProjects
 	 */
-	private Set<IProject> getAffectedProjects(final IProject project, final Set<IProject> relevantProjects) {
+	private static Set<IProject> getAffectedProjects(final IProject project, final Set<IProject> relevantProjects) {
 		if(project.isAccessible()) {
 			if(relevantProjects.add(project)) {
 				// Get referencing projects if the project was not already part of the relevant projects set
@@ -205,19 +217,34 @@ public class AgeRenameParticipant extends RenameParticipant {
 
 			@Override
 			public Change perform(final IProgressMonitor pm) throws CoreException {
+				final Map<CanonicalBusinessObjectReference, CanonicalBusinessObjectReference> originalCanRefToNewCanRefMap = new HashMap<>();
+				final Map<CanonicalBusinessObjectReference, RelativeBusinessObjectReference> originalCanRefToNewRelRefMap = new HashMap<>();
+				final Map<CanonicalBusinessObjectReference, CanonicalBusinessObjectReference> newCanRefToOriginalCanRefMap = new HashMap<>();
+				final Map<CanonicalBusinessObjectReference, RelativeBusinessObjectReference> newCanRefToOriginalRelRefMap = new HashMap<>();
+				
 				// Build a mapping from the original canonical reference to the new business object
-				final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap = new HashMap<>();
-				for(final Entry<CanonicalBusinessObjectReference, URI> entry : originalCanonicalReferenceToNewUriMap.entrySet()) {
-					final EObject newObject = refactoringResourceSet.getEObject(entry.getValue(), true);
+				//final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap = new HashMap<>();
+				for(final Entry<CanonicalBusinessObjectReference, UriAndRelativeReference> entry : originalCanRefToNewInfoMap.entrySet()) {
+					final EObject newObject = refactoringResourceSet.getEObject(entry.getValue().uri, true);
 					if(newObject != null) {
-						originalCanonicalReferenceToNewObjectMap.put(entry.getKey(), newObject);
+						final CanonicalBusinessObjectReference originalCanRef = entry.getKey();						
+						final CanonicalBusinessObjectReference newCanRef = referenceService.getCanonicalReference(newObject);
+						final RelativeBusinessObjectReference newRelRef = referenceService.getRelativeReference(newObject);
+						final RelativeBusinessObjectReference originalRelRef = entry.getValue().relRef;
+						
+						if(newCanRef != null && newRelRef != null) {
+							originalCanRefToNewCanRefMap.put(originalCanRef, newCanRef);
+							originalCanRefToNewRelRefMap.put(originalCanRef, newRelRef);			
+							newCanRefToOriginalCanRefMap.put(newCanRef, originalCanRef);
+							newCanRefToOriginalRelRefMap.put(newCanRef, originalRelRef);
+						}
 					}
 				}
 				
 				// Update the references
-				references.update(originalCanonicalReferenceToNewObjectMap);
-				
-				return null;
+				final ReversableUpdatedReferencedValueProvider mapping = new ReversableUpdatedReferencedValueProvider(originalCanRefToNewCanRefMap, originalCanRefToNewRelRefMap, newCanRefToOriginalCanRefMap, newCanRefToOriginalRelRefMap);
+				originalReferences.update(mapping);						
+				return new UndoChange(mapping.getReverse());
 			}
 			
 			@Override
@@ -352,4 +379,80 @@ public class AgeRenameParticipant extends RenameParticipant {
 			sf == Aadl2Package.eINSTANCE.getFlowSpecification_Refined();
 	}
 		
+	
+
+	private static class ReversableUpdatedReferencedValueProvider implements DiagramService.UpdatedReferenceValueProvider {
+		private final Map<CanonicalBusinessObjectReference, CanonicalBusinessObjectReference> originalCanRefToNewCanRefMap;
+		private final Map<CanonicalBusinessObjectReference, RelativeBusinessObjectReference> originalCanRefToNewRelRefMap;
+		private final Map<CanonicalBusinessObjectReference, CanonicalBusinessObjectReference> newCanRefToOriginalCanRefMap;
+		private final Map<CanonicalBusinessObjectReference, RelativeBusinessObjectReference> newCanRefToOriginalRelRefMap;
+		
+		public ReversableUpdatedReferencedValueProvider(final Map<CanonicalBusinessObjectReference, CanonicalBusinessObjectReference> originalCanRefToNewCanRefMap,
+				final Map<CanonicalBusinessObjectReference, RelativeBusinessObjectReference> originalCanRefToNewRelRefMap,
+				final Map<CanonicalBusinessObjectReference, CanonicalBusinessObjectReference> newCanRefToOriginalCanRefMap,
+				final Map<CanonicalBusinessObjectReference, RelativeBusinessObjectReference> newCanRefToOriginalRelRefMap) {
+			this.originalCanRefToNewCanRefMap = originalCanRefToNewCanRefMap;
+			this.originalCanRefToNewRelRefMap = originalCanRefToNewRelRefMap;
+			this.newCanRefToOriginalCanRefMap = newCanRefToOriginalCanRefMap;
+			this.newCanRefToOriginalRelRefMap = newCanRefToOriginalRelRefMap;
+		}
+		
+		@Override
+		public CanonicalBusinessObjectReference getNewCanonicalReference(
+				final CanonicalBusinessObjectReference originalCanonicalReference) {
+			return originalCanRefToNewCanRefMap.get(originalCanonicalReference);
+		}
+
+		@Override
+		public RelativeBusinessObjectReference getNewRelativeReference(
+				final CanonicalBusinessObjectReference originalCanonicalReference) {
+			return originalCanRefToNewRelRefMap.get(originalCanonicalReference);
+		}		
+		
+		// Result shares mappings with original
+		public ReversableUpdatedReferencedValueProvider getReverse() {
+			return new ReversableUpdatedReferencedValueProvider(newCanRefToOriginalCanRefMap, newCanRefToOriginalRelRefMap,
+					originalCanRefToNewCanRefMap, originalCanRefToNewRelRefMap);
+		}
+		
+		public Set<CanonicalBusinessObjectReference> getOriginalCanonicalReferences() {
+			return originalCanRefToNewCanRefMap.keySet();
+		}
+	};
+	
+	private class UndoChange extends Change {
+		private final ReversableUpdatedReferencedValueProvider mapping;
+		
+		public UndoChange(final ReversableUpdatedReferencedValueProvider mapping) {
+			this.mapping = Objects.requireNonNull(mapping, "mapping must not be null");
+		}
+		
+		@Override
+		public String getName() {
+			return "OSATE Graphical Editor Diagram Change";
+		}
+
+		@Override
+		public void initializeValidationData(final IProgressMonitor pm) {
+		}
+
+		@Override
+		public RefactoringStatus isValid(final IProgressMonitor pm) throws CoreException, OperationCanceledException {
+			return new RefactoringStatus();
+		}
+
+		@Override
+		public Change perform(final IProgressMonitor pm) throws CoreException {
+			final Set<IProject> relevantProjects = getAffectedProjects(project, new HashSet<>());
+			final DiagramService.ReferenceCollection references = diagramService.getReferences(relevantProjects, mapping.getOriginalCanonicalReferences());			
+			references.update(mapping);
+	
+			return new UndoChange(mapping.getReverse());
+		}
+		
+		@Override
+		public Object getModifiedElement() {
+			return null;
+		}
+	}
 }
