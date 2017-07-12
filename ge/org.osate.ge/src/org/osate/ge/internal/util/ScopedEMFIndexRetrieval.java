@@ -87,6 +87,7 @@ public class ScopedEMFIndexRetrieval {
 			for(final IProject p : projects) {
 				if(p.getFullPath().isPrefixOf(resPath)) {
 					resourceDescriptions.add(resDesc);
+					break;
 				}
 			}
 		}
