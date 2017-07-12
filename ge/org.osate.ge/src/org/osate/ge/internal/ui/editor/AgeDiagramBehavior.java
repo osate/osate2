@@ -568,12 +568,15 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected void unregisterBusinessObjectsListener() {
 		// Do not call super method
 		
-		// Remove listener
-		getModelChangeNotifier().removeChangeListener(modelChangeListener);
+		// Remove listener. Notifier may be null if there was a problem during initialization.
+		final ModelChangeNotifier modelChangeNotifier = getModelChangeNotifier();
+		if(modelChangeNotifier != null) {
+			getModelChangeNotifier().removeChangeListener(modelChangeListener);
+		}
 	}
 	
 	private ModelChangeNotifier getModelChangeNotifier() {
-		return Objects.requireNonNull((ModelChangeNotifier)getAdapter(ModelChangeNotifier.class), "unable to retrieve model change notifier");
+		return (ModelChangeNotifier)getAdapter(ModelChangeNotifier.class);
 	}
 	
 	@Override

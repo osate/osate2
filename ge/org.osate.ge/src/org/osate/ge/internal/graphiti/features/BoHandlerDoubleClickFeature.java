@@ -27,6 +27,10 @@ public class BoHandlerDoubleClickFeature extends AbstractCustomFeature {
 		this.graphitiAgeDiagramProvider = Objects.requireNonNull(graphitiAgeDiagramProvider, "graphitiAgeDiagramProvider must not be null");
 	}
 
+	public String getName() {
+		return "";
+	}
+	
 	public boolean canExecute(final ICustomContext context) {
 		final PictogramElement pe = context.getPictogramElements()[0];		
 		final DiagramElement element = graphitiAgeDiagramProvider.getGraphitiAgeDiagram().getClosestDiagramElement(pe);
@@ -53,5 +57,9 @@ public class BoHandlerDoubleClickFeature extends AbstractCustomFeature {
 			eclipseCtx.dispose();
 		}
 	}
-
+	
+	@Override
+	public boolean hasDoneChanges() {
+		return false;
+	}
 }
