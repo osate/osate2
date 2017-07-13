@@ -69,7 +69,7 @@ public class DiagramUpdater {
 	// As part of the update process the auto content filter settings may be cleared for non-manual nodes.
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
-		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementPositionMap);
+		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementPositionMap, containerToRelativeReferenceToGhostMap);
 		updateDiagram(diagram, tree);
 	}
 	
