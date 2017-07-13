@@ -143,6 +143,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private boolean updateQueued = false; // Only access by ui thread
 	private boolean updateQueuedRequireVisible = false;
 	private boolean forceNotDirty = false;
+	private volatile boolean dirtyModel = false;
+	private volatile boolean forceUpdateOnNextModelChange = false;
 	private boolean updatingFeatureWhileForcingNotDirty = false;
 	private ToolHandler toolHandler;
 	private IResourceChangeListener resourceChangeListener;
@@ -151,7 +153,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		@Override
 		public void paintControl(PaintEvent e) {
 			if(updateWhenVisible) {
-				update(true);
+				updateDiagram(true);
 				updateWhenVisible = false;
 			}
 		}			
@@ -160,7 +162,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private ChangeListener modelChangeListener = new ChangeListener() {		
 		@Override
 		public void afterModelChangeNotification() {
-			update(false);
+			final boolean requireVisible = !forceUpdateOnNextModelChange;
+			forceUpdateOnNextModelChange = false; // Reset flag
+			dirtyModel = true;
+			updateDiagram(requireVisible);
 		}
 	};	
 	
@@ -462,8 +467,26 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	}
 	
+	private final Runnable updateNowIfModelHasChangedRunnable = new Runnable() {
+		@Override
+		public void run() {
+			updateDiagram(false);
+		}		
+	};
+	
+	public void updateNowIfModelHasChanged() {
+		if(dirtyModel) {
+			final Display display = Display.getDefault();
+			if(display == null || display.getThread() == Thread.currentThread()) {
+				updateNowIfModelHasChangedRunnable.run();
+			} else {
+				display.syncExec(updateNowIfModelHasChangedRunnable);
+			}			
+		}
+	}
+	
 	public void updateDiagramWhenVisible() {
-		update(true);
+		updateDiagram(true);
 	}
 	
 	final Runnable updateDiagramRequireVisibleRunnable = new Runnable() {
@@ -478,7 +501,12 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	};
 	
-	private void update(final boolean requireVisible) {
+	public void forceDiagramUpdateOnNextModelChange() {
+		this.forceUpdateOnNextModelChange = true;
+	}
+	
+	// Updates the diagram in the current thread if it is the display thread or asynchronous if it isn't
+	private void updateDiagram(final boolean requireVisible) {
 		final Runnable updateDiagramRunnable = requireVisible ? updateDiagramRequireVisibleRunnable : updateDiagramNoRequireVisibleRunnable; 
 		
 		if(Display.getDefault().getThread() == Thread.currentThread()) {
@@ -503,6 +531,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 				// Don't update unless the diagram is visible
 				if(!requireVisible || getContentEditPart().getViewer().getControl().isVisible()) {
 					// Update the entire diagram
+					updateWhenVisible = false;
+					dirtyModel = false;
 					getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });									
 				} else {
 					// Queue the update for when the control becomes visible
@@ -515,7 +545,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			
 			// Check if an update has been queued
 			if(updateQueued) {
-				update(updateQueuedRequireVisible);
+				updateDiagram(updateQueuedRequireVisible);
 			}		
 		} else {
 			// Queue the update

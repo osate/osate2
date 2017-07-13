@@ -422,6 +422,7 @@ public class DefaultDiagramService implements DiagramService {
 
 				if(key instanceof AgeDiagramEditor) {
 					final AgeDiagramEditor editor = (AgeDiagramEditor)key;
+					
 					final AgeDiagramProvider diagramProvider = (AgeDiagramProvider)editor.getAdapter(AgeDiagramProvider.class);
 					if(diagramProvider == null) {
 						continue;
@@ -444,6 +445,9 @@ public class DefaultDiagramService implements DiagramService {
 							});
 						}
 					});
+					
+					// Ensure that the editor is updated on the next model change
+					editor.forceDiagramUpdateOnNextModelChange();
 				} else if(key instanceof IFile) {
 					final IFile diagramFile = (IFile)key;
 					
@@ -631,7 +635,10 @@ public class DefaultDiagramService implements DiagramService {
 				if(diagram == null) {
 					continue;
 				}
-
+				
+				// Update the diagram immediately. This is intended to ensure the diagram doesn't have any proxies
+				editor.updateNowIfModelHasChanged();
+				
 				final CanonicalBusinessObjectReference diagramContextRef = diagram.getConfiguration().getContextBoReference();
 				if(diagramContextRef != null) {
 					if(originalCanonicalReferences.contains(diagramContextRef)) {
@@ -674,7 +681,6 @@ public class DefaultDiagramService implements DiagramService {
 			final InternalReferencesToUpdate references) {
 		for(final DiagramElement child : node.getDiagramElements()) {
 			final Object currentBo = child.getBusinessObject();
-									
 			final CanonicalBusinessObjectReference currentCanonicalRef = currentBo == null ? null : referenceService.getCanonicalReference(currentBo);
 			if(currentCanonicalRef != null) {
 				if(originalCanonicalReferences.contains(currentCanonicalRef)) {

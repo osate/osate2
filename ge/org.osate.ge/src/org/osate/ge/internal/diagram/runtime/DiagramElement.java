@@ -118,7 +118,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 		return boHandler;
 	}
 	
-	final void setBusinessObject(final Object value) {
+	final void setBusinessObject(final Object value) {		
 		this.bo = Objects.requireNonNull(value, "value must not be null");
 	}
 	
