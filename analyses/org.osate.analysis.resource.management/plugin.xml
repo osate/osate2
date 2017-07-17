@@ -143,48 +143,44 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.flows.checkFlowLatency">
          <menu
-               id="menu.analyses"
-               label="%menu.analyses.label">
-            <menu
-                  id="menu.rsrc"
-                  label="%menu.rsrc.label">
-               <command
-                     commandId="org.osate.analysis.resource.management.checkPriorityInversion">
-                  <visibleWhen
-                        checkEnabled="false">
-                     <with
-                           variable="activeWorkbenchWindow.activePerspective">
-                        <or>
-                           <equals
-                                 value="org.osate.ui.perspective.AadlPerspective">
-                           </equals>
-                           <equals
-                                 value="org.osate.imv.ui.perspective.ImvPerspective">
-                           </equals>
-                        </or>
-                     </with>
-                  </visibleWhen>
-               </command>
-               <command
-                     commandId="org.osate.analysis.resource.management.binpack">
-                  <visibleWhen
-                        checkEnabled="false">
-                     <with
-                           variable="activeWorkbenchWindow.activePerspective">
-                        <or>
-                           <equals
-                                 value="org.osate.ui.perspective.AadlPerspective">
-                           </equals>
-                           <equals
-                                 value="org.osate.imv.ui.perspective.ImvPerspective">
-                           </equals>
-                        </or>
-                     </with>
-                  </visibleWhen>
-               </command>
-            </menu>
+               id="org.osate.analysis.resource.management.schedulingMenu"
+               label="Scheduling">
+            <command
+                  commandId="org.osate.analysis.resource.management.binpack">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <or>
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                        <equals
+                              value="org.osate.imv.ui.perspective.ImvPerspective">
+                        </equals>
+                     </or>
+                  </with>
+               </visibleWhen>
+            </command>
+            <command
+                  commandId="org.osate.analysis.resource.management.checkPriorityInversion">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <or>
+                        <equals
+                              value="org.osate.ui.perspective.AadlPerspective">
+                        </equals>
+                        <equals
+                              value="org.osate.imv.ui.perspective.ImvPerspective">
+                        </equals>
+                     </or>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
       </menuContribution>
       <menuContribution

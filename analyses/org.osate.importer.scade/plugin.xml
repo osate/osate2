@@ -41,26 +41,22 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.resource.management.schedulingMenu">
          <menu
-               id="menu.analyses"
-               label="%menu.analyses.label">
-            <menu
-                  id="menu.importer"
-                  label="Import/Export Models">
-               <command
-                     commandId="org.osate.importer.scade.doImportScade">
-                  <visibleWhen
-                        checkEnabled="false">
-                     <with
-                           variable="activeWorkbenchWindow.activePerspective">
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                     </with>
-                  </visibleWhen>
-               </command>
-            </menu>
+               id="org.osate.importer.scade.importExportModelsMenu"
+               label="Import/Export Models">
+            <command
+                  commandId="org.osate.importer.scade.doImportScade">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
       </menuContribution>
       <menuContribution

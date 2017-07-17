@@ -75,31 +75,27 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="menu.analyses"
-               label="%menu.analyses.label">
-            <command
-                  commandId="org.osate.analysis.flows.checkFlowLatency">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <or>
-                        <equals
-                              value="org.osate.ui.perspective.AadlPerspective">
-                        </equals>
-                        <equals
-                              value="org.osate.imv.ui.perspective.ImvPerspective">
-                        </equals>
-                     </or>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.architecture.semanticChecksMenu">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
       <menuContribution
-            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisSection2">
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisToolbarSection2">
          <command
                commandId="org.osate.analysis.flows.checkFlowLatency"
                tooltip="%CheckFlowLatency.toolTip">
