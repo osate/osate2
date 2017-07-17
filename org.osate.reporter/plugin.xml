@@ -69,38 +69,33 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            allPopups="false"
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
-         <menu
-               id="menu.osate"
-               label="OSATE">
-            <command
-                  commandId="org.osate.reporter.reporter"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-            <command
-                  commandId="org.osate.reporter.reporterSettings"
-                  style="push">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="activeWorkbenchWindow.activePerspective">
-                     <equals
-                           value="org.osate.ui.perspective.AadlPerspective">
-                     </equals>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="menu:org.osate.ui.osateMenu?after=org.osate.ui.clearHistory">
+         <command
+               commandId="org.osate.reporter.reporterSettings"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.reporter.reporter"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
       <menuContribution
             locationURI="toolbar:org.osate.ui.toolbar?before=org.osate.ui.reinstantiateAllAadl">

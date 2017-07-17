@@ -365,11 +365,14 @@
           </command>
        </menuContribution>
        <menuContribution
-             allPopups="false"
              locationURI="menu:org.eclipse.ui.main.menu?after=additions">
           <menu
-                id="menu.osate"
-                label="%menu.osate.label">
+                id="org.osate.ui.analysesMenu"
+                label="Analyses">
+          </menu>
+          <menu
+                id="org.osate.ui.osateMenu"
+                label="OSATE">
              <command
                    commandId="org.osate.ui.reinstantiateAllAadl"
                    style="push">
@@ -383,8 +386,12 @@
                    </with>
                 </visibleWhen>
              </command>
+             <separator
+                   name="org.osate.ui.separator1"
+                   visible="true">
+             </separator>
              <command
-                   commandId="org.osate.ui.clearHistory"
+                   commandId="org.osate.ui.resetMarkers"
                    style="push">
                 <visibleWhen
                       checkEnabled="false">
@@ -397,7 +404,7 @@
                 </visibleWhen>
              </command>
              <command
-                   commandId="org.osate.ui.resetMarkers"
+                   commandId="org.osate.ui.clearHistory"
                    style="push">
                 <visibleWhen
                       checkEnabled="false">
@@ -417,13 +424,13 @@
                 id="org.osate.ui.toolbar"
                 label="OSATE">
              <separator
-                   name="org.osate.ui.analysisSection1">
+                   name="org.osate.ui.analysisToolbarSection1">
              </separator>
              <separator
-                   name="org.osate.ui.annexSection">
+                   name="org.osate.ui.annexToolbarSection">
              </separator>
              <separator
-                   name="org.osate.ui.analysisSection2">
+                   name="org.osate.ui.analysisToolbarSection2">
              </separator>
              <command
                    commandId="org.osate.ui.reinstantiateAllAadl">
@@ -438,7 +445,7 @@
                 </visibleWhen>
              </command>
              <separator
-                   name="org.osate.ui.separator1"
+                   name="org.osate.ui.separator2"
                    visible="true">
              </separator>
              <command
@@ -456,7 +463,7 @@
                 </visibleWhen>
              </command>
              <separator
-                   name="org.osate.ui.separator2"
+                   name="org.osate.ui.separator3"
                    visible="true">
              </separator>
              <command
