@@ -25,7 +25,7 @@
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 		</menuContribution>
        <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.aadl2.instance.ui.generateTextualInstance">
          <command
              commandId="org.osate.ge.commands.open.diagram.from.navigator"
              label="Open Diagram"
