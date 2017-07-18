@@ -271,8 +271,19 @@
     <extension
           point="org.eclipse.ui.menus">
        <menuContribution
-             allPopups="false"
-             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+             locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
+          <menu
+                id="org.osate.ui.osatePopupMenu"
+                label="OSATE">
+             <command
+                   commandId="org.osate.ui.resetMarkers"
+                   style="push">
+             </command>
+          </menu>
+          <menu
+                id="org.osate.ui.aadlAnalysesPopupMenu"
+                label="AADL Analyses">
+          </menu>
           <command
                 commandId="org.osate.ui.setAadlProjectProperties"
                 label="Set as AADL_Project property set"
@@ -286,18 +297,6 @@
                 </with>
              </visibleWhen>
           </command>
-       </menuContribution>
-       <menuContribution
-             allPopups="false"
-             locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-          <menu
-                id="org.osate.ui.popupMenu.Aadl"
-                label="%popupMenu.aadl.label">
-             <command
-                   commandId="org.osate.ui.resetMarkers"
-                   style="push">
-             </command>
-          </menu>
        </menuContribution>
        <menuContribution
              allPopups="false"
