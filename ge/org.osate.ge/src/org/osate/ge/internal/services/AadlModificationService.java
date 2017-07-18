@@ -33,11 +33,6 @@ public interface AadlModificationService {
 		 * Because of this, annexes will not have been relinked prior to beforeCommit() being executed.
 		 */
 		void beforeCommit(Resource resource, E bo, R modificationResult);
-		
-		/**
-		 * Called after a modification has been made, the AADL text file has been updated, and the diagram has been updated. It is not executed if the modification is aborted.
-		 */
-		void afterCommit(Resource resource);
 	}
 	
 	public static abstract class AbstractModifier<E, R> implements Modifier<E,R> {
@@ -46,10 +41,6 @@ public interface AadlModificationService {
 		
 		@Override
 		public void beforeCommit(Resource resource, E bo, R modificationResult) {			
-		}
-		
-		@Override
-		public void afterCommit(Resource resource) {			
 		}
 	}
 }
