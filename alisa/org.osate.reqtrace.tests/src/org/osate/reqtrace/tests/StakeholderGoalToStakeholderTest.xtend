@@ -1,7 +1,7 @@
 package org.osate.reqtrace.tests
 
-import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.xtext.junit4.InjectWith
+import com.itemis.xtext.testing.XtextRunner2
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -11,10 +11,11 @@ import org.osate.alisa.workbench.AlisaUiInjectorProvider
 import org.osate.reqtrace.ReqTraceConfigDialog
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
+import org.osate.core.test.BIRTTest
 
 @RunWith(XtextRunner2)
 @InjectWith(AlisaUiInjectorProvider)
-class StakeholderGoalToStakeholderTest extends ReqtraceTest {
+class StakeholderGoalToStakeholderTest extends BIRTTest {
 	val static REQTRACE_RPTDESIGN_URL = "platform:/plugin/org.osate.reqtrace/reqtrace.rptdesign"
 	
 	override getProjectName() {
