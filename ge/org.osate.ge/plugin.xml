@@ -116,11 +116,6 @@
            labelProvider="org.osate.ge.internal.ui.navigator.LabelProvider"
            name="AADL Diagrams"
            priority="highest">
-           
-		<actionProvider
-			class="org.osate.ge.internal.ui.navigator.ActionProvider">
-		</actionProvider>
-		
         <enablement>
            <or>
               <instanceof
