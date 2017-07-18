@@ -196,7 +196,7 @@
 			</command>
          </menuContribution>
          <menuContribution
-              locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+              locationURI="popup:org.osate.ui.navigator.AadlNavigator?before=org.osate.ui.setAadlProjectProperties">
                <command
                      commandId="org.osate.reqspec.ui.commands.spotlightCommand"
                      label="Spotlight">
