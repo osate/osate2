@@ -193,11 +193,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 				return result;
 			}
-
-			@Override
-			public void beforeCommit(final Resource resource, final EObject element, final R modificationResult) {
-				modifier.beforeCommit(resource, clonedUserObject, modificationResult);
-			}
 		}, false);
 	}
 	
@@ -346,11 +341,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 			// Flush and dispose of the editing domain
 			domain.getCommandStack().flush();			
-			
-			if(modificationSuccessful) {
-				// Call the after modification callback
-				modifier.beforeCommit(resource, element, result);
-			}
 		}
 		
 		return new ModifySafelyResults<R>(modificationSuccessful, result);
