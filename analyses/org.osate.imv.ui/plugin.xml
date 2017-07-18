@@ -103,37 +103,33 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.eclipse.ui.popup.any?after=additions">
-         <menu
-               id="org.osate.ui.popupMenu.Aadl"
-               label="OSATE">
-            <command
-                  commandId="org.osate.imv.ui.openImvEditor">
-               <visibleWhen
-                     checkEnabled="false">
-                  <with
-                        variable="selection">
-                     <iterate
-                           operator="and"
-                           ifEmpty="false">
-                        <adapt
-                              type="org.eclipse.core.resources.IFile">
-                           <or>
-                              <test
-                                    property="org.eclipse.core.resources.extension"
-                                    value="aaxl2">
-                              </test>
-                              <test
-                                    property="org.eclipse.core.resources.extension"
-                                    value="aadl">
-                              </test>
-                           </or>
-                        </adapt>
-                     </iterate>
-                  </with>
-               </visibleWhen>
-            </command>
-         </menu>
+            locationURI="popup:org.osate.ui.osatePopupMenu?after=org.osate.reporter.reporter">
+         <command
+               commandId="org.osate.imv.ui.openImvEditor">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        operator="and"
+                        ifEmpty="false">
+                     <adapt
+                           type="org.eclipse.core.resources.IFile">
+                        <or>
+                           <test
+                                 property="org.eclipse.core.resources.extension"
+                                 value="aaxl2">
+                           </test>
+                           <test
+                                 property="org.eclipse.core.resources.extension"
+                                 value="aadl">
+                           </test>
+                        </or>
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
       </menuContribution>
    </extension>
 </plugin>
