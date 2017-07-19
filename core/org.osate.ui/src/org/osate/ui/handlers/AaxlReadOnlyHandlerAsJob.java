@@ -1,10 +1,9 @@
-/*
- *
+/**
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright 2016 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
- * at http://www.eclipse.org/legal/cpl-v10.html.
+ * at http://www.eclipse.org/legal/epl-v10.html.
  *
  * NO WARRANTY
  *
@@ -26,18 +25,13 @@
  * product liability, personal injury, death, damage to property, or violation of any laws or regulations.
  *
  * Carnegie Mellon University Software Engineering Institute authored documents are sponsored by the U.S. Department
- * of Defense under Contract F19628-00-C-0003. Carnegie Mellon University retains copyrights in all material produced
+ * of Defense under Contract FA8721-05-C-0003. Carnegie Mellon University retains copyrights in all material produced
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
- *
  * </copyright>
- *
- *
- * %W%
- * @version %I% %H%
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
 import org.eclipse.core.resources.WorkspaceJob;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -45,7 +39,6 @@ import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
 import org.eclipse.core.runtime.jobs.Job;
 import org.osate.aadl2.Element;
-import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
 
 /**
  * Abstract class for actions button/menu and context menu menu actions that
@@ -79,7 +72,7 @@ import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
  *
  * <p>
  * The body of the action,
- * {@link org.osate.ui.actions.AbstractAaxlAction#doAaxlAction(IProgressMonitor, Element)}
+ * {@link org.osate.ui.actions.AbstractAaxlHandler#doAaxlAction(IProgressMonitor, Element)}
  * is passed the Eclipse progress monitor and the currently selected Element in
  * the workspace. It is the responsibility of the subclass to initialize and use
  * the progress monitor. That is, at the minimum, the subclass is expected to
@@ -106,17 +99,8 @@ import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
  * {@link org.eclipse.core.runtime.OperationCanceledException}.
  *
  * @author aarong
- * 
- * @deprecated Usage of this class should be replaced with
- * {@link org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob}.
  */
-@Deprecated
-public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {
-	public AaxlReadOnlyActionAsJob() {
-		super();
-		PropertiesActivator act = org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator.getInstance();
-	}
-
+public abstract class AaxlReadOnlyHandlerAsJob extends AbstractAaxlHandler {
 	@Override
 	protected Job createJob(final Element root) {
 		String name = getActionName();
@@ -125,7 +109,7 @@ public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {
 		}
 		return new ActionAsJob(getActionName(), root);
 	}
-
+	
 	private final class ActionAsJob extends WorkspaceJob {
 		private final Element root;
 

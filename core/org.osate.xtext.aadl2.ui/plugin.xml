@@ -305,7 +305,7 @@
 	</menuContribution>
     <!-- in navigator -->
        <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.ui.setAadlProjectProperties">
          <command
 		commandId="org.osate.xtext.aadl2.ui.instantiate"
                label="Reinstantiate selected instance"
@@ -408,15 +408,12 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.xtext.aadl2.ui.instantiate">
          <command
                commandId="org.osate.xtext.aadl2.ui.updatepredeclaredproperties"
                label="Update unmodified Predeclared and Annex Properties"
                style="push">
          </command>
-      </menuContribution>
-      <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
          <command
                commandId="org.osate.xtext.aadl2.ui.resetpredeclaredproperties"
                label="Reset/create all Predeclared and Annex Properties"

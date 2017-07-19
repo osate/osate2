@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2005 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -31,51 +31,13 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.perspective;
+package org.osate.ui.handlers;
 
-import org.eclipse.ui.IFolderLayout;
-import org.eclipse.ui.IPageLayout;
-import org.eclipse.ui.IPerspectiveFactory;
+import org.osate.ui.wizards.NewModelWizard;
 
-public class AadlPerspectiveFactory implements IPerspectiveFactory {
-	public AadlPerspectiveFactory() {
-		super();
-	}
-
+public class NewPropertySetWizardHandler extends NewModelWizardLauncherHandler {
 	@Override
-	public void createInitialLayout(IPageLayout layout) {
-
-		String editorArea = layout.getEditorArea();
-
-		IFolderLayout left = layout.createFolder("left", IPageLayout.LEFT, (float) 0.25, editorArea);
-		left.addView("org.osate.ui.navigator.AadlNavigator");
-		left.addPlaceholder(IPageLayout.ID_RES_NAV);
-
-		IFolderLayout bottom = layout.createFolder("bottom", IPageLayout.BOTTOM, (float) 0.75, editorArea);
-		bottom.addView(IPageLayout.ID_PROBLEM_VIEW);
-		bottom.addView(IPageLayout.ID_PROP_SHEET);
-		bottom.addView("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
-
-		layout.addView(IPageLayout.ID_OUTLINE, IPageLayout.RIGHT, (float) 0.75, editorArea);
-
-		layout.addActionSet(IPageLayout.ID_NAVIGATE_ACTION_SET);
-
-//		layout.addShowViewShortcut(IPageLayout.ID_RES_NAV);
-		layout.addShowViewShortcut(IPageLayout.ID_OUTLINE);
-		layout.addShowViewShortcut(IPageLayout.ID_PROBLEM_VIEW);
-		layout.addShowViewShortcut(IPageLayout.ID_PROP_SHEET);
-
-		layout.addShowViewShortcut("org.osate.xtext.aadl2.ui.propertyview.AadlPropertyView");
-		layout.addShowViewShortcut("org.osate.ui.navigator.AadlNavigator");
-
-		layout.addNewWizardShortcut("org.osate.ui.wizards.AadlProjectWizard");
-		layout.addNewWizardShortcut("org.osate.ui.wizards.NewModelWizardID");
-		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.folder");
-		layout.addNewWizardShortcut("org.eclipse.ui.wizards.new.file");
-		layout.addNewWizardShortcut("org.eclipse.ui.editors.wizards.UntitledTextFileWizard");
-
-		layout.addPerspectiveShortcut("org.eclipse.ui.resourcePerspective");
-		layout.addPerspectiveShortcut("org.eclipse.team.cvs.ui.cvsPerspective");
-		layout.addPerspectiveShortcut("org.eclipse.team.ui.TeamSynchronizingPerspective");
+	protected void setInitialObjectType(NewModelWizard wizard) {
+		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PROPERTY_SET);
 	}
 }

@@ -1,74 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-     <extension
-         point="org.eclipse.ui.actionSets">
-         
-      <actionSet
-      		id="org.osate.wizards.actionSet"
-      		label="OSATE Wizards"
-      		visible="false">
-         
-         <action
-               id="org.osate.wizards.AadlProjectWizard.action"
-               label="New AADL Project"
-               tooltip="New AADL Project"
-               icon="icons/new_aadl_project.gif"
-               class="org.osate.ui.actions.WizardLauncherAction"
-               toolbarPath="OSATE-newWizards.toolbar/project.grp">
-         </action>
-
-         
-         <action
-               id="org.osate.wizards.PackageWizard.action"
-               label="New AADL Package"
-               tooltip="New AADL Package"
-               icon="icons/new_package.gif"
-               class="org.osate.ui.actions.NewPackageWizardAction"
-               toolbarPath="OSATE-newWizards.toolbar/model.grp">
-         </action>
-         
-         <action
-               id="org.osate.wizards.PropertySetWizard.action"
-               label="New AADL Property Set"
-               tooltip="New AADL Property Set"
-               icon="icons/new_ps.gif"
-               class="org.osate.ui.actions.NewPropertySetWizardAction"
-               toolbarPath="OSATE-newWizards.toolbar/model.grp">
-         </action>
-      </actionSet>
-   </extension>
-   
-   <extension point="org.eclipse.ui.commands">
+   <extension
+         point="org.eclipse.ui.commands">
       <category
-            name="OSATE Commands"
-            description="Commands for the OSATE plug-ins"
-            id="org.osate.wizards.category.osate"/>
-            
+            id="org.osate.wizards.category"
+            name="OSATE Wizards">
+      </category>
       <command
-            name="New AADL Specification"
-            description="Creates a new AADL specification"
-            categoryId="org.osate.wizards.category.osate"
-            id="org.osate.wizards.commands.newAADLSpec">
+            categoryId="org.osate.wizards.category"
+            id="org.osate.wizards.aadlProjectWizard"
+            name="New AADL Project">
+      </command>
+      <command
+            categoryId="org.osate.wizards.category"
+            id="org.osate.wizards.packageWizard"
+            name="New AADL Package">
+      </command>
+      <command
+            categoryId="org.osate.wizards.category"
+            id="org.osate.wizards.propertySetWizard"
+            name="New AADL Property Set">
       </command>
    </extension>
-
-<!--   <extension point="org.eclipse.ui.bindings">
-      <key
-            sequence="M1+F12"
-            commandId="org.osate.wizards.commands.newAADLSpec"
-            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
-   </extension>
-   -->
-      
    <extension
-   	   point="org.eclipse.ui.perspectiveExtensions">
-   	   <perspectiveExtension
-   		   targetID="org.osate.ui.perspective.AadlPerspective">
-   		   <actionSet
-   		 	   id="org.osate.wizards.actionSet"/>
-   	   </perspectiveExtension>
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.ui.handlers.WizardLauncherHandler"
+            commandId="org.osate.wizards.aadlProjectWizard">
+      </handler>
+      <handler
+            class="org.osate.ui.handlers.NewPackageWizardHandler"
+            commandId="org.osate.wizards.packageWizard">
+      </handler>
+      <handler
+            class="org.osate.ui.handlers.NewPropertySetWizardHandler"
+            commandId="org.osate.wizards.propertySetWizard">
+      </handler>
    </extension>
-   
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.resetMarkers">
+         <command
+               commandId="org.osate.wizards.aadlProjectWizard"
+               icon="icons/new_aadl_project.gif">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <separator
+               name="org.osate.wizards.separator1">
+         </separator>
+         <command
+               commandId="org.osate.wizards.propertySetWizard"
+               icon="icons/new_ps.gif">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.wizards.packageWizard"
+               icon="icons/new_package.gif">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
 </plugin>

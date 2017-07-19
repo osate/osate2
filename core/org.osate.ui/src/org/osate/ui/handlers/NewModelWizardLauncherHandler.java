@@ -1,6 +1,6 @@
-/**
+/*
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -30,82 +30,64 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
- *
- * @version $Id: ConversionAction.java,v 1.5 2007-06-28 22:02:52 jseibel Exp $
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
+import java.util.ArrayList;
+
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.runtime.Assert;
-import org.eclipse.core.runtime.IAdaptable;
-import org.eclipse.jface.action.IAction;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
-import org.osate.core.AadlNature;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
+import org.osate.ui.wizards.NewModelWizard;
 
 /**
- * ConversionAction implements workbench action delegate.
- * The action proxy will be created by the workbench and
- * shown in the UI. When the user tries to use the action,
- * this delegate will be created and execution will be
- * delegated to it.
- * <p>
- * ConversionAction en- and disables the Aadl Nature.
- * @see org.eclipse.ui.IWorkbenchWindowActionDelegate
+ * Launches a "new Aadl model wizard" when the user clicks on
+ * one of the two "new Aadl model" buttons on the toolbar.
+ *
+ * @author jseibel
  */
-public class ConversionAction implements IObjectActionDelegate {
-
-	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
-
-	private IProject project;
-
-	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
+public abstract class NewModelWizardLauncherHandler extends AbstractHandler {
 	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		// do nothing
-	}
-
-	/**
-	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(IAction, ISelection)
-	 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection) {
-			boolean enabled = false;
-			Object obj = (((IStructuredSelection) selection).getFirstElement());
-			if (obj == null) {
-				project = null;
-			} else {
-				if (obj instanceof IProject) {
-					project = (IProject) obj;
-				} else {
-
-					// In plugin.xml is configured to allow IResource instances
-					// which are adaptable to IProject
-					project = (IProject) ((IAdaptable) obj).getAdapter(IProject.class);
-				}
-				if (project != null && project.isOpen()) {
-					enabled = true;
-				}
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+		ArrayList<IProject> openProjects = new ArrayList<IProject>();
+		for (int i = 0; i < projects.length; i++) {
+			if (projects[i].isOpen()
+					&& !projects[i].getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
+				openProjects.add(projects[i]);
 			}
-			action.setEnabled(enabled);
 		}
-	}
-
-	/**
-	 * @see org.eclipse.ui.IActionDelegate#run(IAction)
-	 */
-	@Override
-	public void run(IAction action) {
-		Assert.isNotNull(project);
-		if (AadlNature.hasNature(project)) {
-			AadlNature.removeNature(project, null);
+		if (openProjects.size() == 0) {
+			MessageDialog.openWarning(null, "Cannot Create New Spec",
+					"There are no open projects to create a new spec in.");
 		} else {
-			AadlNature.addNature(project, null);
+			NewModelWizard wizard = new NewModelWizard();
+			IWorkbench workbench = HandlerUtil.getActiveWorkbenchWindow(event).getWorkbench();
+			wizard.init(workbench, getSelection(event));
+			setInitialObjectType(wizard);
+			WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
+			dialog.open();
+		}
+		return null;
+	}
+	
+	protected abstract void setInitialObjectType(NewModelWizard wizard);
+	
+	private IStructuredSelection getSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			return (IStructuredSelection) selection;
+		} else {
+			return null;
 		}
 	}
 }
