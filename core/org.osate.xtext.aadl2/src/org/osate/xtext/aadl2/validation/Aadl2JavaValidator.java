@@ -1202,29 +1202,30 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(specFeature) || Aadl2Util.isNull(implFeature)) {
 			return;
 		}
-		
+
 		boolean match;
 		if (specContext == null) {
 			if (implContext == null) {
-				match = specFeature == implFeature;
+				match = specFeature.getName().equalsIgnoreCase(implFeature.getName());
 			} else {
-				match = specFeature == implContext;
+				match = specFeature.getName().equalsIgnoreCase(implContext.getName());
 			}
 		} else {
 			if (implContext == null) {
 				match = false;
 			} else {
-				match = specContext == implContext && specFeature == implFeature;
+				match = specContext.getName().equalsIgnoreCase(implContext.getName())
+						&& specFeature.getName().equalsIgnoreCase(implFeature.getName());
 			}
 		}
-		
+
 		if (!match) {
 			String specName = (specContext == null ? "" : specContext.getName() + ".") + specFeature.getName();
 			String implName = (implContext == null ? "" : implContext.getName() + ".") + implFeature.getName();
 			ICompositeNode outEndNode = NodeModelUtils.getNode(implOutEnd);
 			error('\'' + implName + "' does not match the out flow feature identifier '" + specName
 					+ "' in the flow specification.", flow, null, OUT_FLOW_FEATURE_IDENTIFIER_NOT_SPEC, implName,
-					specName, "" + outEndNode.getLastChild().getOffset(),"" + outEndNode.getOffset());
+					specName, "" + outEndNode.getLastChild().getOffset(), "" + outEndNode.getOffset());
 		}
 	}
 
@@ -1257,7 +1258,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		if (Aadl2Util.isNull(specFeature) || Aadl2Util.isNull(implFeature)) {
 			return;
 		}
-		
+
 		boolean match;
 		if (specContext == null) {
 			if (implContext == null) {
@@ -1272,7 +1273,7 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				match = specContext == implContext && specFeature == implFeature;
 			}
 		}
-		
+
 		if (!match) {
 			String specName = (specContext == null ? "" : specContext.getName() + ".") + specFeature.getName();
 			String implName = (implContext == null ? "" : implContext.getName() + ".") + implFeature.getName();
@@ -1603,15 +1604,16 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				return;
 			}
 		}
-		
+
 		FlowEnd specOutEnd = flow.getSpecification().getOutEnd();
 		FlowEnd implOutEnd = flow.getOutEnd();
 		if (specOutEnd != null && implOutEnd != null) {
-			if (specOutEnd.getContext() != implOutEnd.getContext() || specOutEnd.getFeature() != implOutEnd.getFeature()) {
+			if (specOutEnd.getContext() != implOutEnd.getContext()
+					|| specOutEnd.getFeature() != implOutEnd.getFeature()) {
 				return;
 			}
 		}
-		
+
 		if (flow.getOwnedFlowSegments().isEmpty()) {
 			warning("Flow implementation is empty and does not add value to the model", flow,
 					Aadl2Package.eINSTANCE.getFlowImplementation_Specification());
@@ -1633,12 +1635,15 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 				if (chain.get(0) instanceof RefinableElement && chain.get(1) instanceof RefinableElement) {
 					RefinableElement connContext = (RefinableElement) chain.get(0);
 					RefinableElement connFeature = (RefinableElement) chain.get(1);
-					return (AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext) || AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext))
-							&& (AadlUtil.isSameOrRefines(fsFeature, connFeature) || AadlUtil.isSameOrRefines(connFeature, fsFeature));
+					return (AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext)
+							|| AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext))
+							&& (AadlUtil.isSameOrRefines(fsFeature, connFeature)
+									|| AadlUtil.isSameOrRefines(connFeature, fsFeature));
 				}
 			} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
 				RefinableElement connContext = (RefinableElement) chain.get(0);
-				return AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext) || AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext);
+				return AadlUtil.isSameOrRefines((RefinableElement) fsContext, connContext)
+						|| AadlUtil.isSameOrRefines(connContext, (RefinableElement) fsContext);
 			}
 		} else if (!chain.isEmpty() && chain.get(0) instanceof RefinableElement) {
 			RefinableElement connFeature = (RefinableElement) chain.get(0);

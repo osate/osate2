@@ -1,12 +1,10 @@
 package org.osate.core.tests.issues
 
+import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
-import org.osate.aadl2.SystemImplementation
-import org.osate.aadl2.instantiation.InstantiateModel
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
@@ -14,14 +12,14 @@ import static org.junit.Assert.*
 
 @RunWith(typeof(XtextRunner2))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
-class Issue227Test extends OsateTest {
+class Issue277Test extends OsateTest {
 	override getProjectName() {
-		"issue227"
+		"issue277"
 	}
 
 	@Test
-	def void issue227() {
-		val aadlFile = "issue227.aadl"
+	def void issue277() {
+		val aadlFile = "issue277.aadl"
 		createFiles(aadlFile -> aadlText)
 		suppressSerialization
 		val result = testFile(aadlFile)
@@ -42,7 +40,7 @@ class Issue227Test extends OsateTest {
 	}
 
 	val aadlText = '''
-		package issue227
+		package issue277
 		public
 			system TestSys
 				features
@@ -82,6 +80,6 @@ class Issue227Test extends OsateTest {
 			feature group TestInvExtendedFeatureGroup extends TestInvFeatureGroup
 				inverse of TestExtendedFeatureGroup
 			end TestInvExtendedFeatureGroup;
-		end issue227;
+		end issue277;
 	'''
 }

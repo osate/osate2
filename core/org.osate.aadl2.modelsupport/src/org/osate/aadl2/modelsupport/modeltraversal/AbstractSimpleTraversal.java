@@ -84,7 +84,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
-					ResourceSet rs = OsateResourceUtil.createResourceSet();
+					ResourceSet rs = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
 					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
 					Element target = (Element) res.getContents().get(0);
 
@@ -125,7 +125,7 @@ abstract class AbstractSimpleTraversal extends AbstractTraversal {
 			domain.getCommandStack().execute(new RecordingCommand(domain) {
 				@Override
 				protected void doExecute() {
-					ResourceSet rs = OsateResourceUtil.createResourceSet();
+					ResourceSet rs = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
 					Resource res = rs.getResource(OsateResourceUtil.getResourceURI(file), true);
 					Element target = (Element) res.getContents().get(0);
 

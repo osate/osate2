@@ -1,9 +1,9 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.core.test.Aadl2UiInjectorProvider

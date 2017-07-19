@@ -38,14 +38,10 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.eclipse.core.runtime.Platform;
-import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.xtext.linking.impl.IllegalNodeException;
-import org.eclipse.xtext.linking.lazy.LazyLinkingResource;
 import org.eclipse.xtext.nodemodel.INode;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AccessType;
@@ -90,8 +86,6 @@ import org.osate.aadl2.SubprogramGroupSubcomponent;
 import org.osate.aadl2.SubprogramGroupSubcomponentType;
 import org.osate.aadl2.SubprogramType;
 import org.osate.aadl2.TriggerPort;
-import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.aadl2.util.Aadl2Util;
 import org.osate.annexsupport.AnnexLinkingService;
@@ -205,7 +199,7 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 			if (context.eContainer() instanceof ConnectedElement) {
 				ConnectedElement contextParent = (ConnectedElement) context.eContainer();
 				if (contextParent.getConnectionEnd() instanceof FeatureGroup) {
-					ce = findElementInContext(contextParent, (FeatureGroup)contextParent.getConnectionEnd(), name,
+					ce = findElementInContext(contextParent, (FeatureGroup) contextParent.getConnectionEnd(), name,
 							ConnectionEnd.class);
 				}
 			} else {
@@ -510,24 +504,6 @@ public class Aadl2LinkingService extends PropertiesLinkingService {
 
 			List<EObject> res = super.getLinkedObjects(context, reference, node);
 			return res;
-//			Activator.logErrorMessage("Unhandled reference in Aadl2LinkingService: "+reference.getName()+" to "+requiredType.getName());
 		}
-
-//		return Collections.emptyList();
-	}
-
-	private static Aadl2LinkingService eInstance = null;
-
-	@Deprecated
-	public static Aadl2LinkingService getAadl2LinkingService() {
-		if (eInstance == null) {
-			if (Platform.isRunning()) {
-				PredeclaredProperties.initPluginContributedAadl();
-			}
-			Resource rsrc = OsateResourceUtil.getResource(URI.createPlatformResourceURI(
-					PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME + "/AADL_Project.aadl"));
-			eInstance = (Aadl2LinkingService) ((LazyLinkingResource) rsrc).getLinkingService();
-		}
-		return eInstance;
 	}
 }

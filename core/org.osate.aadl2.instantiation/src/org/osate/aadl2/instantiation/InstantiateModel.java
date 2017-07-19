@@ -61,6 +61,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.common.util.UniqueEList;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
+import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.RollbackException;
@@ -228,18 +229,13 @@ public class InstantiateModel {
 			throws Exception {
 		// add it to a resource; otherwise we cannot attach error messages to
 		// the instance file
-		ComponentImplementation ici = ci;
-		EObject eobj = OsateResourceUtil.loadElementIntoResourceSet(ci);
-		if (eobj instanceof ComponentImplementation) {
-			ici = (ComponentImplementation) eobj;
-		}
-		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ici);
+		URI instanceURI = OsateResourceUtil.getInstanceModelURI(ci);
 		Resource aadlResource = OsateResourceUtil.getEmptyAaxl2Resource(instanceURI);// ,si);
 
 		// now instantiate the rest of the model
 		final InstantiateModel instantiateModel = new InstantiateModel(monitor, new AnalysisErrorReporterManager(
 				new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
-		SystemInstance root = instantiateModel.createSystemInstance(ici, aadlResource);
+		SystemInstance root = instantiateModel.createSystemInstance(ci, aadlResource);
 		if (root == null) {
 			errorMessage = InstantiateModel.getErrorMessage();
 		}
@@ -262,15 +258,15 @@ public class InstantiateModel {
 	 */
 	public static SystemInstance rebuildInstanceModelFile(final IResource ires) throws Exception {
 		ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-		Resource res = OsateResourceUtil.getResource(ires);
+		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
+		Resource res = OsateResourceUtil.getResource(ires, rset);
 		SystemInstance target = (SystemInstance) res.getContents().get(0);
 		ComponentImplementation ci = target.getComponentImplementation();
 		URI uri = EcoreUtil.getURI(ci);
 		res.getContents().clear();
 		res.save(null);
 		res.unload();
-		OsateResourceUtil.refreshResourceSet();
-		ci = (ComponentImplementation) OsateResourceUtil.getResourceSet().getEObject(uri, true);
+		ci = (ComponentImplementation) rset.getEObject(uri, true);
 		final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 				new AnalysisErrorReporterManager(
 						new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
@@ -282,14 +278,15 @@ public class InstantiateModel {
 	/*
 	 * This method will regenerate all instance models in the workspace
 	 */
-	public static void rebuildAllInstanceModelFiles() throws Exception {
+	public static void rebuildAllInstanceModelFiles(final IProgressMonitor monitor) throws Exception {
 		HashSet<IFile> files = TraverseWorkspace.getInstanceModelFilesInWorkspace();
 		List<URI> instanceRoots = new ArrayList<URI>();
 		List<IResource> instanceIResources = new ArrayList<IResource>();
+		ResourceSet rset = OsateResourceUtil.createResourceSet();// new XtextResourceSet();
 		for (IFile iFile : files) {
 			IResource ires = iFile;
 			ires.deleteMarkers(null, true, IResource.DEPTH_INFINITE);
-			Resource res = OsateResourceUtil.getResource(ires);
+			Resource res = OsateResourceUtil.getResource(ires, rset);
 			SystemInstance target = (SystemInstance) res.getContents().get(0);
 			ComponentImplementation ci = target.getComponentImplementation();
 			URI uri = EcoreUtil.getURI(ci);
@@ -299,10 +296,10 @@ public class InstantiateModel {
 			res.save(null);
 			res.unload();
 		}
-		OsateResourceUtil.refreshResourceSet();
 		for (int i = 0; i < instanceRoots.size(); i++) {
 			ComponentImplementation ci = (ComponentImplementation) OsateResourceUtil.getResourceSet()
 					.getEObject(instanceRoots.get(i), true);
+			monitor.subTask("Reinstantiating " + ci.getName());
 			final InstantiateModel instantiateModel = new InstantiateModel(new NullProgressMonitor(),
 					new AnalysisErrorReporterManager(
 							new MarkerAnalysisErrorReporter.Factory(AadlConstants.INSTANTIATION_OBJECT_MARKER)));
@@ -365,7 +362,6 @@ public class InstantiateModel {
 			setErrorMessage(e.getMessage());
 			return null;
 		}
-
 		resultList = (List<SystemInstance>) cmd.getResult();
 		result = resultList.get(0);
 
