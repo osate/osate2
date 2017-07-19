@@ -1,96 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-     <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.osate.analysis.flows.actionSet"
-            label="%actionSet.label"
-            visible="false">
-
-         <menu
-               id="menu.osate"
-               label="%menu.osate.label"
-               path="project">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-         </menu>
-
-         <menu
-               id="menu.analyses"
-               label="%menu.analyses.label"
-               path="menu.osate">
-            <groupMarker name="top.grp"/>
-            <groupMarker name="bottom.grp"/>
-         </menu>
-         
-         <action
-               id="org.osate.analysis.flows.actions.CheckFlowLatency.action"
-               label="%CheckFlowLatency.label"
-               tooltip="%CheckFlowLatency.toolTip"
-               icon="%CheckFlowLatency.icon"
-               class="org.osate.analysis.flows.actions.CheckFlowLatency"
-               menubarPath="menu.analyses/top.grp"
-               toolbarPath="org.aadl.architecture.actionSet/arch.toolbar"
-               enablesFor="1">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass name="org.eclipse.core.resources.IFile"/>
-                     <objectState name="extension" value="aaxl2"/>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-      </actionSet>
-   </extension>
-   
-   <extension
-   	   point="org.eclipse.ui.perspectiveExtensions">
-   	   <perspectiveExtension
-   		   targetID="org.osate.ui.perspective.AadlPerspective">
-   		   <actionSet
-   		 	   id="org.osate.analysis.flows.actionSet"/>
-   	   </perspectiveExtension>
-   </extension>
-   
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="org.osate.analysis.flows.oc1"
-            objectClass="java.lang.Object">
-         <visibility>
-            <or>
-               <and>
-                  <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl2"/>
-               </and>
-               <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-            </or>
-         </visibility>
-
-         <menu
-               id="org.osate.ui.popupMenu.Analyses"
-               label="%popupMenu.analyses.label"
-               path="additions">
-            <groupMarker name="anal.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-
-         <action
-               id="org.osate.analysis.flows.actions.CheckFlowLatency.popupAction"
-               label="%CheckFlowLatency.label"
-               tooltip="%CheckFlowLatency.toolTip"
-               icon="%CheckFlowLatency.icon"
-               class="org.osate.analysis.flows.actions.CheckFlowLatency"
-               menubarPath="org.osate.ui.popupMenu.Analyses/anal.grp"
-               enablesFor="1"/>
-      </objectContribution>
-   </extension>
-   
    <extension
          id="FlowLatencyObjectMarker"
          name="Flow Latency Analysis Marker"
@@ -115,5 +25,123 @@
             id="org.osate.analysis.flows.PreferencePage"
             name="Flow Analysis">
       </page>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.flows.category"
+            name="%actionSet.label">
+      </category>
+      <command
+            categoryId="org.osate.analysis.flows.category"
+            id="org.osate.analysis.flows.checkFlowLatency"
+            name="%CheckFlowLatency.label">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.analysis.flows.handlers.CheckFlowLatency"
+            commandId="org.osate.analysis.flows.checkFlowLatency">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.analysis.flows.checkFlowLatency"
+            icon="icons/checkFlowLatency.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.osate.ui.analysesMenu?after=org.osate.analysis.architecture.semanticChecksMenu">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.analysisToolbarSection2">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency"
+               tooltip="%CheckFlowLatency.toolTip">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu">
+         <command
+               commandId="org.osate.analysis.flows.checkFlowLatency">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        operator="and"
+                        ifEmpty="false">
+                     <or>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                        <adapt
+                              type="org.eclipse.core.resources.IFile">
+                           <test
+                                 property="org.eclipse.core.resources.contentTypeId"
+                                 value="org.osate.core.instanceModelFile">
+                           </test>
+                        </adapt>
+                     </or>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
    </extension>
 </plugin>

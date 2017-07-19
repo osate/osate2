@@ -8,11 +8,6 @@ Bundle-Vendor: CMU-SEI
 Bundle-Localization: plugin
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .
-Export-Package: org.osate.importer.scade.actions;
-  uses:="org.eclipse.jface.action,
-   org.eclipse.ui,
-   org.eclipse.jface.viewers,
-   org.osgi.framework"
 Require-Bundle: org.eclipse.ui, 
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore;bundle-version="2.7.0",

@@ -49,7 +49,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 /**
@@ -60,23 +60,23 @@ import org.osate.xtext.aadl2.properties.util.GetProperties;
  */
 public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress {
 
-	private AbstractAaxlAction action;
+	private AbstractAaxlHandler handler;
 
-	public PortConnectionConsistency(final IProgressMonitor pm, AbstractAaxlAction action) {
+	public PortConnectionConsistency(final IProgressMonitor pm, AbstractAaxlHandler handler) {
 		super(pm, PROCESS_PRE_ORDER_ALL);
-		this.action = action;
+		this.handler = handler;
 	}
 
 	@Override
 	public final void initSwitches() {
 
 		/* here we are creating the connection checking switches */
-		instanceSwitch = new InstanceSwitch() {
+		instanceSwitch = new InstanceSwitch<String>() {
 			/**
 			 * check port properties for connection end points
 			 */
 			@Override
-			public Object caseConnectionInstance(ConnectionInstance conni) {
+			public String caseConnectionInstance(ConnectionInstance conni) {
 //				monitorUpdate(conni.getName());
 				ConnectionInstanceEnd srcFI = conni.getSource();
 				ConnectionInstanceEnd dstFI = conni.getDestination();
@@ -202,10 +202,10 @@ public class PortConnectionConsistency extends AadlProcessingSwitchWithProgress 
 		super.error(el, s);
 		if (previousNE == null || previousNE != el) {
 			if (previousNE != null)
-				action.logInfo("");
-			action.logInfo(el.getName() + "," + s);
+				handler.logInfo("");
+			handler.logInfo(el.getName() + "," + s);
 		} else {
-			action.logInfo("," + s);
+			handler.logInfo("," + s);
 		}
 		previousNE = el;
 	}

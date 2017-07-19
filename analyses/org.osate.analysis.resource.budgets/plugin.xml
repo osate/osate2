@@ -1,142 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.0"?>
 <plugin>
-
-     <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            label="%actionSet.label"
-            visible="false"
-            id="org.osate.analysis.resource.budgets.actionSet">
-         <menu
-               id="menu.osate"
-               label="%menu.osate.label"
-               path="project">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-         </menu>
-
-         <menu
-               id="menu.analyses"
-               label="%menu.analyses.label"
-               path="menu.osate">
-            <groupMarker name="top.grp"/>
-            <groupMarker name="bottom.grp"/>
-         </menu>
-
-         <menu
-               id="menu.semantic"
-               label="%menu.semantic.label"
-               path="menu.analyses/top.grp">
-            <groupMarker name="stuff.grp"/>
-         </menu>
-
-         <menu
-               id="menu.arch"
-               label="%menu.arch.label"
-               path="menu.analyses/top.grp">
-            <groupMarker name="stuff.grp"/>
-         </menu>
-         <action
-               id="org.osate.analysis.resource.budgets.actions.DoResourceBudget"
-               class="org.osate.analysis.resource.budgets.actions.DoResourceBudget"
-               enablesFor="1"
-               icon="icons/budget.gif"
-               label="&amp;Analyze Resource Budgets (not bound)"
-               menubarPath="menu.analyses/menu.arch/stuff.grp"
-               toolbarPath="arch.toolbar"
-               tooltip="Analyze Resource Budget Totals for Processors and Memories">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass
-                           name="org.eclipse.core.resources.IFile">
-                     </objectClass>
-                     <objectState
-                           name="extension"
-                           value="aaxl2">
-                     </objectState>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-         <action
-               id="org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis"
-               class="org.osate.analysis.resource.budgets.actions.DoBoundResourceAnalysis"
-               enablesFor="1"
-               icon="icons/budgetB.gif"
-               label="&amp;Analyze Resource Allocations (bound)"
-               menubarPath="menu.analyses/menu.arch/stuff.grp"
-               toolbarPath="arch.toolbar"
-               tooltip="Analyze Resource Allocations for Processors and Memories">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass
-                           name="org.eclipse.core.resources.IFile">
-                     </objectClass>
-                     <objectState
-                           name="extension"
-                           value="aaxl2">
-                     </objectState>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-         <action
-               id="org.osate.analysis.resource.budgets.actions.DoPowerAnalysis"
-               class="org.osate.analysis.resource.budgets.actions.DoPowerAnalysis"
-               enablesFor="1"
-               icon="icons/power.gif"
-               label="&amp;Analyze Power Requirements"
-               menubarPath="menu.analyses/menu.arch/stuff.grp"
-               toolbarPath="arch.toolbar"
-               tooltip="Make sure the system has enough power to operate">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass
-                           name="org.eclipse.core.resources.IFile">
-                     </objectClass>
-                     <objectState
-                           name="extension"
-                           value="aaxl2">
-                     </objectState>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-         <action
-               id="org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis"
-               class="org.osate.analysis.resource.budgets.actions.DoBoundSwitchBandWidthAnalysis"
-               enablesFor="1"
-               icon="icons/switchB.gif"
-               label="&amp;Analyze Bus Load (bound connections)"
-               menubarPath="menu.analyses/menu.arch/stuff.grp"
-               toolbarPath="arch.toolbar"
-               tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
-            <enablement>
-               <or>
-                  <and>
-                     <objectClass
-                           name="org.eclipse.core.resources.IFile">
-                     </objectClass>
-                     <objectState
-                           name="extension"
-                           value="aaxl2">
-                     </objectState>
-                  </and>
-                  <objectClass name="org.osate.aadl2.instance.SystemInstance"/>
-               </or>
-            </enablement>
-         </action>
-      </actionSet>
-   </extension>
-
    <extension
          id="ResourceAnalysisMarker"
          name="Resource Analysis Marker"
@@ -171,38 +35,297 @@
    </extension>
    
    <extension
-         point="org.eclipse.ui.perspectiveExtensions">
-      <perspectiveExtension targetID="org.osate.ui.perspective.AadlPerspective">
-         <actionSet id="org.osate.analysis.resource.budgets.actionSet"/>
-      </perspectiveExtension>
+         point="org.eclipse.ui.commands">
+      <category
+            id="org.osate.analysis.resource.budgets.category"
+            name="%actionSet.label">
+      </category>
+      <command
+            categoryId="org.osate.analysis.resource.budgets.category"
+            id="org.osate.analysis.resource.budgets.doResourceBudget"
+            name="&amp;Analyze Resource Budgets (not bound)">
+      </command>
+      <command
+            categoryId="org.osate.analysis.resource.budgets.category"
+            id="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
+            name="&amp;Analyze Resource Allocations (bound)">
+      </command>
+      <command
+            categoryId="org.osate.analysis.resource.budgets.category"
+            id="org.osate.analysis.resource.budgets.doPowerAnalysis"
+            name="&amp;Analyze Power Requirements">
+      </command>
+      <command
+            categoryId="org.osate.analysis.resource.budgets.category"
+            id="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
+            name="&amp;Analyze Bus Load (bound connections)">
+      </command>
    </extension>
-   <!--extension
-         point="org.osate.ui.analysis">
-      <analysis
-            class="org.osate.analysis.resource.budgets.autoanalyses.DoResourceBudgetAutoAnalysis"
-            id="org.osate.analysis.resource.budgets.resourcebudget.analysis"
-            name="Analyze Resource Budgets">
-         <instanceModel selectRootObject="true"/>
-      </analysis>
-      <analysis
-            class="org.osate.analysis.resource.budgets.autoanalyses.DoPowerAutoAnalysis"
-            id="org.osate.analysis.resource.budgets.poweranalysis.analysis"
-            name="Analyze Power Requirements">
-         <instanceModel selectRootObject="true"/>
-      </analysis>
-      <analysis
-            class="org.osate.analysis.resource.budgets.autoanalyses.DoBoundResourceAutoAnalysis"
-            id="org.osate.analysis.resource.budgets.boundresource.analysis"
-            name="Analyze Resource Allocations of Bound Application Components">
-         <instanceModel selectRootObject="true"/>
-      </analysis>
-
-      <analysis
-            class="org.osate.analysis.resource.budgets.autoanalyses.DoBoundSwitchBandWidthAutoAnalysis"
-            id="org.osate.analysis.resource.budgets.boundswitchbandwidth.analysis"
-            name="Analyze Load on Switch for Bound Cross-Processor Connections and Loopback">
-         <instanceModel selectRootObject="true"/>
-      </analysis>
-   </extension-->
-
+   <extension
+         point="org.eclipse.ui.handlers">
+      <handler
+            class="org.osate.analysis.resource.budgets.handlers.DoResourceBudget"
+            commandId="org.osate.analysis.resource.budgets.doResourceBudget">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.analysis.resource.budgets.handlers.DoBoundResourceAnalysis"
+            commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.analysis.resource.budgets.handlers.DoPowerAnalysis"
+            commandId="org.osate.analysis.resource.budgets.doPowerAnalysis">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+      <handler
+            class="org.osate.analysis.resource.budgets.handlers.DoBoundSwitchBandWidthAnalysis"
+            commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.SystemInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
+      </handler>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.analysis.resource.budgets.doResourceBudget"
+            icon="icons/budget.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
+            icon="icons/budgetB.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
+            icon="icons/power.gif">
+      </image>
+      <image
+            commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
+            icon="icons/switchB.gif">
+      </image>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            locationURI="menu:org.osate.analysis.architecture.architectureMenu?after=org.osate.analysis.architecture.portConnectionConsistency">
+         <command
+               commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doPowerAnalysis">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doResourceBudget">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.analysis.flows.checkFlowLatency">
+         <command
+               commandId="org.osate.analysis.resource.budgets.doBoundSwitchBandWidthAnalysis"
+               tooltip="Analyze Bandwidth Load for Bound according to their bound connections">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doPowerAnalysis"
+               tooltip="Make sure the system has enough power to operate">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doBoundResourceAnalysis"
+               tooltip="Analyze Resource Allocations for Processors and Memories">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+         <command
+               commandId="org.osate.analysis.resource.budgets.doResourceBudget"
+               tooltip="Analyze Resource Budget Totals for Processors and Memories">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <or>
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                     <equals
+                           value="org.osate.imv.ui.perspective.ImvPerspective">
+                     </equals>
+                  </or>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
 </plugin>

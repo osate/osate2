@@ -46,7 +46,7 @@ import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.modelsupport.modeltraversal.ForAllElement;
 import org.osate.aadl2.util.Aadl2Util;
-import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
 public class DoResourceBudgetLogic {
@@ -59,15 +59,15 @@ public class DoResourceBudgetLogic {
 	private int budgetedComponents = 0;
 	private int resources = 0;
 	private int capacityResources = 0;
-	protected AbstractAaxlAction errManager;
+	protected AbstractAaxlHandler errManager;
 	private boolean doDetailedLog = true;
 	String prefixSymbol = "  ";
 
-	public DoResourceBudgetLogic(AbstractAaxlAction action) {
-		this.errManager = action;
+	public DoResourceBudgetLogic(AbstractAaxlHandler handler) {
+		this.errManager = handler;
 	}
 
-	protected AbstractAaxlAction getErrManager() {
+	protected AbstractAaxlHandler getErrManager() {
 		return this.errManager;
 	}
 
@@ -75,12 +75,16 @@ public class DoResourceBudgetLogic {
 		init();
 		UnitLiteral kbliteral = GetProperties.getKBUnitLiteral(si);
 		UnitLiteral mipsliteral = GetProperties.getMIPSUnitLiteral(si);
-		EList proclist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
+		@SuppressWarnings("unchecked")
+		EList<ComponentInstance> proclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+				.processPreOrderComponentInstance(si, ComponentCategory.PROCESSOR);
 		logHeader("\n\nDetailed Processor MIPS Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
 		logHeader("Component,Capacity");
 		capacity = sumCapacity(proclist, ResourceKind.MIPS, "processor", mipsliteral);
 		detailedLogTotal1(null, capacity, mipsliteral);
-		EList vproclist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
+		@SuppressWarnings("unchecked")
+		EList<ComponentInstance> vproclist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+				.processPreOrderComponentInstance(si, ComponentCategory.VIRTUAL_PROCESSOR);
 		if (!vproclist.isEmpty()) {
 			logHeader(
 					"\n\nDetailed Virtual Processor MIPS Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
@@ -98,7 +102,9 @@ public class DoResourceBudgetLogic {
 		}
 
 		init();
-		EList memlist = new ForAllElement().processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
+		@SuppressWarnings("unchecked")
+		EList<ComponentInstance> memlist = (EList<ComponentInstance>) (EList<?>) new ForAllElement()
+				.processPreOrderComponentInstance(si, ComponentCategory.MEMORY);
 		capacity = capacityTotal(memlist, ResourceKind.Memory, "Memory", kbliteral);
 		if (capacity > 0) {
 			logHeader("\n\nDetailed Memory Capacity Report " + Aadl2Util.getPrintableSOMName(som) + "\n");
@@ -191,10 +197,10 @@ public class DoResourceBudgetLogic {
 		return 0.0;
 	}
 
-	private double sumVPMIPSBudget(EList ilist, UnitLiteral unit) {
+	private double sumVPMIPSBudget(EList<ComponentInstance> ilist, UnitLiteral unit) {
 		double total = 0.0;
-		for (Iterator it = ilist.iterator(); it.hasNext();) {
-			ComponentInstance io = (ComponentInstance) it.next();
+		for (Iterator<ComponentInstance> it = ilist.iterator(); it.hasNext();) {
+			ComponentInstance io = it.next();
 			double budget = GetProperties.getMIPSBudgetInMIPS(io);
 			total += budget;
 			detailedLogTotal2(io, budget, unit);
@@ -246,7 +252,7 @@ public class DoResourceBudgetLogic {
 			return 0.0;
 		}
 		double subtotal = 0.0;
-		EList subcis = ci.getComponentInstances();
+		EList<ComponentInstance> subcis = ci.getComponentInstances();
 		boolean HWOnly = false;
 		boolean isSystemInstance = ci instanceof SystemInstance;
 		int subbudgetcount = 0;
@@ -259,8 +265,8 @@ public class DoResourceBudgetLogic {
 			// track HWonly if subcomponents
 			HWOnly = true;
 		}
-		for (Iterator it = subcis.iterator(); it.hasNext();) {
-			ComponentInstance subci = (ComponentInstance) it.next();
+		for (Iterator<ComponentInstance> it = subcis.iterator(); it.hasNext();) {
+			ComponentInstance subci = it.next();
 			double subresult = sumBudgets(subci, rk, unit, som, isSystemInstance ? "" : prefix + prefixSymbol);
 			if (subresult >= 0) {
 				HWOnly = false;
@@ -331,9 +337,9 @@ public class DoResourceBudgetLogic {
 				|| cat == ComponentCategory.VIRTUAL_PROCESSOR || cat == ComponentCategory.MEMORY)
 			return true;
 		if (cat == ComponentCategory.SYSTEM || cat == ComponentCategory.DEVICE) {
-			EList el = ci.getFeatureInstances();
-			for (Iterator it = el.iterator(); it.hasNext();) {
-				FeatureInstance fi = (FeatureInstance) it.next();
+			EList<FeatureInstance> el = ci.getFeatureInstances();
+			for (Iterator<FeatureInstance> it = el.iterator(); it.hasNext();) {
+				FeatureInstance fi = it.next();
 				if (fi.getCategory() != FeatureCategory.BUS_ACCESS) {
 					return false;
 				}

@@ -47,7 +47,7 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.util.InstanceSwitch;
 import org.osate.aadl2.modelsupport.modeltraversal.AadlProcessingSwitchWithProgress;
-import org.osate.ui.actions.AbstractAaxlAction;
+import org.osate.ui.handlers.AbstractAaxlHandler;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 import org.osate.xtext.aadl2.properties.util.PropertyUtils;
 
@@ -58,20 +58,20 @@ import org.osate.xtext.aadl2.properties.util.PropertyUtils;
  *
  */
 public class ARINC429ConnectionConsistency extends AadlProcessingSwitchWithProgress {
-	AbstractAaxlAction action;
+	AbstractAaxlHandler handler;
 
-	public ARINC429ConnectionConsistency(final IProgressMonitor pm, AbstractAaxlAction action) {
+	public ARINC429ConnectionConsistency(final IProgressMonitor pm, AbstractAaxlHandler handler) {
 		super(pm, PROCESS_PRE_ORDER_ALL);
-		this.action = action;
+		this.handler = handler;
 	}
 
 	public final void initSwitches() {
 		/* here we are creating the connection checking switches */
-		instanceSwitch = new InstanceSwitch() {
+		instanceSwitch = new InstanceSwitch<String>() {
 			/**
 			 * check port properties for connection end points
 			 */
-			public Object caseConnectionInstance(ConnectionInstance conni) {
+			public String caseConnectionInstance(ConnectionInstance conni) {
 				ConnectionInstanceEnd srcFI = conni.getSource();
 				ConnectionInstanceEnd dstFI = conni.getDestination();
 				if (srcFI == null || dstFI == null) {
@@ -121,24 +121,16 @@ public class ARINC429ConnectionConsistency extends AadlProcessingSwitchWithProgr
 		}
 	}
 
-	private void csvlog(String s) {
-		action.logInfoNoNewLine(s);
-	}
-
-	private void csvlogNewline(String s) {
-		action.logInfo(s);
-	}
-
 	private static NamedElement previousNE = null;
 
 	private void error(NamedElement el, String s) {
 		super.error(el, s);
 		if (previousNE == null || previousNE != el) {
 			if (previousNE != null)
-				action.logInfo("");
-			action.logInfo(el.getName() + "," + s);
+				handler.logInfo("");
+			handler.logInfo(el.getName() + "," + s);
 		} else {
-			action.logInfo("," + s);
+			handler.logInfo("," + s);
 		}
 		previousNE = el;
 	}

@@ -35,17 +35,16 @@
    <extension
          point="org.eclipse.ui.menus">
       <menuContribution
-            locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+            locationURI="menu:org.eclipse.ui.main.menu?after=org.osate.ui.osateMenu">
          <menu
-               label="Code Generation"
-               mnemonic="M"
-               id="org.osate.codegen.checker.menus.codegenerationMenu">
+               id="org.osate.codegen.checker.codeGenerationMenu"
+               label="Code Generation">
             <command
                   commandId="org.osate.codegen.checker.commands.check"
                   mnemonic="S"
                   label="Check Semantics for POK"
                   id="org.osate.codegen.checker.menus.check">
-                  <parameter name="org.osate.codegen.checker.kind" value="pok"/>
+               <parameter name="org.osate.codegen.checker.kind" value="pok"/>
             </command>
             <command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for DeOS">
 				<parameter name="org.osate.codegen.checker.kind" value="deos"/>
@@ -55,21 +54,6 @@
 			</command>
          </menu>
       </menuContribution>
-      <!--menuContribution
-            locationURI="toolbar:org.eclipse.ui.main.toolbar?after=additions">
-         <toolbar
-               id="org.osate.codegen.checker.toolbars.codegenToolbar">
-            <command
-                  commandId="org.osate.codegen.checker.commands.check"
-                  icon="icons/sample.gif"
-                  tooltip="Check the Model for Code Generation"
-                  label="Check Semantics for POK"
-                  id="org.osate.codegen.checker.toolbars.check">
-                  
-            	<parameter name="org.osate.codegen.checker.kind" value="pok"/>
-            </command>
-         </toolbar>
-      </menuContribution-->
 	<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 		<menu id="org.osate.codegen.checker.toolbars.codegenOutline" label="Code Generation">
 			<command commandId="org.osate.codegen.checker.commands.check" style="push" label="Check Semantics for POK">

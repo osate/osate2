@@ -56,14 +56,12 @@ public class DoPowerAnalysisLogic {
 	private double capacity = 0;
 	private double budgetTotal = 0;
 	private double supplyTotal = 0;
-	private int hasPower = 0;
 
 	public DoPowerAnalysisLogic(AnalysisErrorReporterManager errManager) {
 		this.errManager = errManager;
 	}
 
 	public void analyzePowerBudget(SystemInstance si, Report powerReport, SystemOperationMode som) {
-		hasPower = 0;
 		final String somName = Aadl2Util.getPrintableSOMName(som);
 		String systemName = si.getComponentClassifier().getName();
 
@@ -207,7 +205,6 @@ public class DoPowerAnalysisLogic {
 		powerComponentInfo(section, "Budget: " + toString(budget), budgetDetail);
 		String modelExceeds = "";
 		String modelStats = "";
-		hasPower++;
 		if (capacity > 0.0 && budget > 0.0) {
 			if (budget > capacity) {
 				modelExceeds = "** " + resourceName + " budget total " + toString(budget) + " exceeds capacity "
