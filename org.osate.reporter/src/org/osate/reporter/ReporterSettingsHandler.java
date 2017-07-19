@@ -1,6 +1,6 @@
-/*
+/**
  * <copyright>
- * Copyright  2009 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -31,76 +31,31 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.reporter;
 
-import java.util.ArrayList;
-
-import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
-import org.osate.ui.wizards.NewModelWizard;
+import org.eclipse.ui.handlers.HandlerUtil;
 
-/**
- * Launches a "new Aadl model wizard" when the user clicks on
- * one of the two "new Aadl model" buttons on the toolbar.
- * This class is based on edu.cmu.sei.aadl.model.core.presentation.WizardLauncherAction from OSATE 1.
- *
- * @author jseibel
- */
-public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowActionDelegate {
-	// workbench and selection required for instantiating the wizard.
-	private IWorkbench workbench = null;
-	private IStructuredSelection selection = null;
-
-//	@Override
+public class ReporterSettingsHandler extends AbstractHandler {
 	@Override
-	public void dispose() {
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		new ReporterSettingsDialog(HandlerUtil.getActiveShell(event), getCurrentSelection(event).getProject()).open();
+		return null;
 	}
-
-//	@Override
-	@Override
-	public void init(IWorkbenchWindow window) {
-		workbench = window.getWorkbench();
-	}
-
-//	@Override
-	@Override
-	public void run(IAction action) {
-		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		ArrayList<IProject> openProjects = new ArrayList<IProject>();
-		for (int i = 0; i < projects.length; i++) {
-			if (projects[i].isOpen()
-					&& !projects[i].getName().equals(PredeclaredProperties.PLUGIN_RESOURCES_PROJECT_NAME)) {
-				openProjects.add(projects[i]);
+	
+	private IResource getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			Object object = ((IStructuredSelection) selection).getFirstElement();
+			if (object != null && object instanceof IResource) {
+				return (IResource) object;
 			}
 		}
-		if (openProjects.size() == 0) {
-			MessageDialog.openWarning(null, "Cannot Create New Spec",
-					"There are no open projects to create a new spec in.");
-		} else {
-			NewModelWizard wizard = new NewModelWizard();
-			wizard.init(workbench, selection);
-			setInitialObjectType(wizard);
-			WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
-			dialog.open();
-		}
-	}
-
-	protected abstract void setInitialObjectType(NewModelWizard wizard);
-
-//	@Override
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			this.selection = (IStructuredSelection) selection;
-		}
+		return null;
 	}
 }

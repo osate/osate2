@@ -30,90 +30,52 @@
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
  * </copyright>
+ *
+ * @version $Id: ConversionAction.java,v 1.5 2007-06-28 22:02:52 jseibel Exp $
  */
-package org.osate.reporter;
+package org.osate.ui.handlers;
 
-import org.eclipse.core.resources.IResource;
-import org.eclipse.jface.action.IAction;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.runtime.Assert;
+import org.eclipse.core.runtime.IAdaptable;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.ui.IObjectActionDelegate;
-import org.eclipse.ui.IWorkbenchPart;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.core.AadlNature;
 
 /**
- * @author phf
- *
- * TODO To change the template for this generated type comment go to
- * Window - Preferences - Java - Code Style - Code Templates
+ * ConversionAction en- and disables the Aadl Nature.
  */
-public class ReporterSettingsAction implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
-	/** the current selection in the AADL model
-	 *
-	 */
-	private IResource currentSelection = null;
-	private IWorkbenchWindow workbenchWindow = null;
-
-	/**
-	 * The constructor.
-	 */
-	public ReporterSettingsAction() {
-	}
-
-	/**
-	 * The action has been activated. The argument of the
-	 * method represents the 'real' action sitting
-	 * in the workbench UI.
-	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
-	 */
+public class ConversionHandler extends AbstractHandler {
+	public static final String copyright = "Copyright 2004 by Carnegie Mellon University, all rights reserved";
+	
 	@Override
-	public void run(IAction action) {
-		new ReporterSettingsDialog((workbenchWindow == null) ? null : workbenchWindow.getShell(),
-				currentSelection.getProject()).open();
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IProject project = getProject(event);
+		Assert.isNotNull(project);
+		if (AadlNature.hasNature(project)) {
+			AadlNature.removeNature(project, null);
+		} else {
+			AadlNature.addNature(project, null);
+		}
+		return null;
 	}
-
-	/**
-		 * Selection in the workbench has been changed. We
-		 * can change the state of the 'real' action here
-		 * if we want, but this can only happen after
-		 * the delegate has been created.
-		 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
-		 */
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			Object object = ((IStructuredSelection) selection).getFirstElement();
-			if (object != null && object instanceof IResource) {
-				currentSelection = (IResource) object;
+	
+	private IProject getProject(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection) {
+			Object obj = ((IStructuredSelection) selection).getFirstElement();
+			if (obj instanceof IProject) {
+				return (IProject) obj;
+			} else {
+				// In plugin.xml is configured to allow IResource instances
+				// which are adaptable to IProject
+				return ((IAdaptable) obj).getAdapter(IProject.class);
 			}
 		}
-	}
-
-	/**
-	 * We can use this method to dispose of any system
-	 * resources we previously allocated.
-	 * @see IWorkbenchWindowActionDelegate#dispose
-	 */
-	@Override
-	public void dispose() {
-	}
-
-	/**
-	 * We will cache window object in order to
-	 * be able to provide parent shell for the message dialog.
-	 * @see IWorkbenchWindowActionDelegate#init
-	 */
-	@Override
-	public void init(IWorkbenchWindow window) {
-		workbenchWindow = window;
-	}
-
-	/**
-	 * @see IObjectActionDelegate#setActivePart(IAction, IWorkbenchPart)
-	 */
-	@Override
-	public void setActivePart(IAction action, IWorkbenchPart targetPart) {
-		workbenchWindow = targetPart.getSite().getWorkbenchWindow();
+		return null;
 	}
 }

@@ -31,16 +31,13 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
 import org.osate.ui.wizards.NewModelWizard;
 
-/**
- * This class is based on edu.cmu.sei.aadl.model.core.presentation.NewPropertysetWizardAction from OSATE 1.
- */
-public class NewPropertySetWizardAction extends NewModelWizardLauncherAction {
+public class NewPackageWizardHandler extends NewModelWizardLauncherHandler {
 	@Override
 	protected void setInitialObjectType(NewModelWizard wizard) {
-		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PROPERTY_SET);
+		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PACKAGE);
 	}
 }

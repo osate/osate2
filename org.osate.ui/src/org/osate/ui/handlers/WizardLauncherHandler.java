@@ -1,6 +1,6 @@
-/*
+/**
  * <copyright>
- * Copyright  2009 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -29,18 +29,44 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
+ *
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
-import org.osate.ui.wizards.NewModelWizard;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.wizards.AadlProjectWizard;
 
 /**
- * This class is based on edu.cmu.sei.aadl.model.core.presentation.NewPackageWizardAction from OSATE 1.
+ * Launches a "new Aadl project wizard" when the user clicks on the
+ * "new Aadl project" button on the toolbar.
+ *
+ * @author jseibel
  */
-public class NewPackageWizardAction extends NewModelWizardLauncherAction {
+public class WizardLauncherHandler extends AbstractHandler {
 	@Override
-	protected void setInitialObjectType(NewModelWizard wizard) {
-		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PACKAGE);
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		AadlProjectWizard wizard = new AadlProjectWizard();
+		IWorkbench workbench = HandlerUtil.getActiveWorkbenchWindow(event).getWorkbench();
+		wizard.init(workbench, getSelection(event));
+		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
+		dialog.open();
+		return null;
+	}
+	
+	private IStructuredSelection getSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			return (IStructuredSelection) selection;
+		} else {
+			return null;
+		}
 	}
 }
