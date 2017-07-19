@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import org.osate.aadl2.errormodel.analysis.actions.PRISMAction;
+import org.osate.aadl2.errormodel.analysis.handlers.PRISMHandler;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionReference;
@@ -239,7 +239,7 @@ public class Util {
 						 * Have to find out why the reportWarning does not work right now.
 						 */
 						OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance);
-						PRISMAction.reportWarning(instance,
+						PRISMHandler.reportWarning(instance,
 								"Distribution occurence should be set to fixed for DTMC generation");
 					}
 
@@ -251,7 +251,7 @@ public class Util {
 						 */
 						OsateDebug.osateDebug("[Util] WRONG TYPE on " + ee + " component " + instance + " found="
 								+ EMV2Properties.getOccurrenceType(PA));
-						PRISMAction.reportWarning(instance,
+						PRISMHandler.reportWarning(instance,
 								"Distribution occurence should be set to poisson for CTMC generation");
 					}
 					res = EMV2Properties.getProbability(instance, ee, null);

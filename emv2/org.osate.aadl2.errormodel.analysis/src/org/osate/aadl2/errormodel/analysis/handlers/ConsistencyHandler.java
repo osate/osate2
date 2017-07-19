@@ -31,14 +31,8 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
-/**
- * Also, this class implement the following consistency rule from
- * the official documentation:
- * C1, C5, C7, C11, C12
- *
- */
 import java.util.Collection;
 
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -60,7 +54,7 @@ import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.FeatureInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.CompositeState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorEvent;
@@ -82,7 +76,13 @@ import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
-public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
+/**
+ * Also, this class implement the following consistency rule from
+ * the official documentation:
+ * C1, C5, C7, C11, C12
+ *
+ */
+public final class ConsistencyHandler extends AaxlReadOnlyHandlerAsJob {
 	AnalysisModel model;
 
 	@Override
@@ -822,7 +822,7 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 					for (ConnectionReference cr : ci.getConnectionReferences()) {
 						Connection conn = cr.getConnection();
 						// OsateDebug.osateDebug("conn dest=" + conn.getDestination());
-						if ((conn.getDestination() != null) && (conn.getDestination() instanceof ConnectedElement)) {
+						if (conn.getDestination() != null) {
 							ConnectedElement connected = conn.getDestination();
 							// OsateDebug.osateDebug("connected dest=" + connected.getConnectionEnd());
 							for (FeatureInstance fi2 : componentInstance.getFeatureInstances()) {
@@ -993,5 +993,4 @@ public final class ConsistencyAction extends AaxlReadOnlyActionAsJob {
 		}
 
 	}
-
 }

@@ -1,6 +1,6 @@
 /*
  * <copyright>
- * Copyright  2012-2013 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2012 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/org/documents/epl-v10.html.
@@ -31,86 +31,77 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
-import java.util.Collection;
+import java.util.List;
 
-/**
- * Also, this class implement the following consistency rule from
- * the official documentation:
- * C1, C5, C7, C11, C12
- *
- */
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
-import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.PropertyExpression;
+import org.osate.aadl2.errormodel.analysis.cma.CMAReport;
+import org.osate.aadl2.errormodel.analysis.cma.CMAUtils;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
+import org.osate.aadl2.modelsupport.WriteToFile;
+import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
+import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
+import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
-import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
-public class UnhandledFaultsAction extends AaxlReadOnlyActionAsJob {
-	AnalysisModel model;
-
+public final class CMAHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
-		return "org.osate.aadl2.errormodel.analysis.UnhandledFaultsMarker";
+		return "org.osate.analysis.errormodel.FaultImpactMarker";
 	}
 
 	@Override
 	protected String getActionName() {
-		return "UnhandledFaults";
+		return "CMA";
 	}
 
 	@Override
 	public void doAaxlAction(IProgressMonitor monitor, Element obj) {
-		monitor.beginTask("UnhandledFaults", IProgressMonitor.UNKNOWN);
 
-		// Get the system instance (if any)
 		SystemInstance si;
+
 		if (obj instanceof InstanceObject) {
 			si = ((InstanceObject) obj).getSystemInstance();
 		} else {
+			Dialog.showInfo("Common Mode Assessment", "Please choose an instance system");
 			return;
 		}
 
-		setCSVLog("UnhandledFaults", si);
-		model = new AnalysisModel(si);
-		Collection<PropagationPathRecord> pathlist = model.getPropagationPaths();
-		for (PropagationPathRecord path : pathlist) {
-			checkPropagationPathErrorTypes(path);
+		monitor.beginTask("Common Mode Assessment", IProgressMonitor.UNKNOWN);
+
+		AnalysisModel analysisModel = new AnalysisModel(si.getComponentInstance());
+
+		CMAReport report = new CMAReport();
+
+		/**
+		 * We try to see what is the severity for each state. Then, if a state
+		 * is classified at least as the selected severity, we add all its common
+		 * cause of failures reported by the processState method.
+		 */
+		for (ErrorBehaviorState state : EMV2Util.getAllErrorBehaviorStates(si)) {
+
+			List<EMV2PropertyAssociation> severityPAList = EMV2Properties.getSeverityProperty(si, state,
+					state.getTypeSet());
+			EMV2PropertyAssociation severityPA = severityPAList.isEmpty() ? null : severityPAList.get(0);
+			PropertyExpression severityValue = EMV2Properties.getPropertyValue(severityPA);
+			String sev = EMV2Properties.getEnumerationOrIntegerPropertyConstantPropertyValue(severityValue);
+			CMAUtils.setCurrentSeverity(sev);
+			report.addEntries(CMAUtils.processState(analysisModel, analysisModel.getRoot().getComponentInstance(),
+					state, state.getTypeSet()));
+
 		}
+
+		WriteToFile csvReport = new WriteToFile("CMA", si);
+		report.write(csvReport);
+		csvReport.saveToFile();
 
 		monitor.done();
 	}
-
-	protected void checkConnectionErrorTypes(ConnectionInstance connectionInstance, ErrorPropagation srcprop,
-			ErrorPropagation srccontain, ErrorPropagation dstprop, ErrorPropagation dstcontain) {
-
-	}
-
-	protected void checkPropagationPathErrorTypes(PropagationPathRecord path) {
-		ErrorPropagation srcprop = path.getPathSrc().getErrorPropagation();
-		ErrorPropagation dstprop = path.getPathDst().getErrorPropagation();
-		if (srcprop != null && dstprop != null) {
-			if (!EM2TypeSetUtil.contains(dstprop.getTypeSet(), srcprop.getTypeSet())) {
-				error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
-						"Outgoing propagation  " + EMV2Util.getPrintName(srcprop)
-								+ EMV2Util.getPrintName(srcprop.getTypeSet())
-								+ " has error types not handled by incoming propagation "
-								+ EMV2Util.getPrintName(dstprop) + EMV2Util.getPrintName(dstprop.getTypeSet()));
-			}
-		}
-		if (dstprop == null && srcprop != null) {
-			// has an EMV2 subclause but no propagation specification for the feature
-			error(path.getConnectionInstance() != null ? path.getConnectionInstance() : path.getSrcCI(),
-					"Connection target has no error propagation/containment but source does: "
-							+ EMV2Util.getPrintName(srcprop));
-		}
-	}
-
 }

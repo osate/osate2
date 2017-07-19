@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
@@ -39,10 +39,9 @@ import org.osate.aadl2.errormodel.analysis.fha.FHAReport;
 import org.osate.aadl2.errormodel.analysis.fha.FHAReport.HazardFormat;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 
-public final class ARP4761FHAAction extends AaxlReadOnlyActionAsJob {
-
+public final class ARP4761FHAHandler extends AaxlReadOnlyHandlerAsJob {
 	@Override
 	protected String getMarkerType() {
 		return "org.osate.analysis.errormodel.FunctionalHazardMarker";
@@ -68,5 +67,4 @@ public final class ARP4761FHAAction extends AaxlReadOnlyActionAsJob {
 		report.doFHAReport(si);
 		monitor.done();
 	}
-
 }

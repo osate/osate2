@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.aadl2.errormodel.analysis.actions;
+package org.osate.aadl2.errormodel.analysis.handlers;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.osate.aadl2.Element;
@@ -40,12 +40,11 @@ import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.errorreporting.AnalysisErrorReporterManager;
 import org.osate.aadl2.util.OsateDebug;
-import org.osate.ui.actions.AaxlReadOnlyActionAsJob;
 import org.osate.ui.dialogs.Dialog;
+import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate2.aadl2.errormodel.analysis.prism.Model;
 
-public final class PRISMAction extends AaxlReadOnlyActionAsJob {
-
+public final class PRISMHandler extends AaxlReadOnlyHandlerAsJob {
 	private static AnalysisErrorReporterManager errorManager;
 
 	@Override
@@ -102,5 +101,4 @@ public final class PRISMAction extends AaxlReadOnlyActionAsJob {
 
 		monitor.done();
 	}
-
 }
