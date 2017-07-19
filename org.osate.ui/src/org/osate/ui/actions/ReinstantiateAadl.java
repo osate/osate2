@@ -134,7 +134,7 @@ public class ReinstantiateAadl implements IWorkbenchWindowActionDelegate, IObjec
 						}
 					}
 				} else {
-					InstantiateModel.rebuildAllInstanceModelFiles();
+					InstantiateModel.rebuildAllInstanceModelFiles(monitor);
 				}
 			} catch (Exception e) {
 				System.err.println("Model Instantiate: Error while re-instantiating the model: " + e.getMessage());

@@ -45,10 +45,8 @@ import org.eclipse.core.runtime.Path;
 import org.eclipse.core.runtime.Platform;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
-import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.xtext.resource.SaveOptions;
 import org.eclipse.xtext.resource.XtextResourceSet;
 import org.eclipse.xtext.ui.resource.IResourceSetProvider;
@@ -154,8 +152,8 @@ public class OsateResourceUtil {
 	 * unload all aadl resources so they get reloaded for instantiation
 	 * @param rs Resource Set containing the instance model
 	 */
-	public static void refreshResourceSet() {
-		EList<Resource> rlist = getResourceSet().getResources();
+	public static void refreshResourceSet(ResourceSet rset) {
+		EList<Resource> rlist = rset.getResources();
 		for (Resource resource : rlist) {
 			URI uri = resource.getURI();
 			if (uri.fileExtension() == null) {
@@ -268,42 +266,6 @@ public class OsateResourceUtil {
 			throw new IllegalArgumentException("Cannot decode URI protocol: " + resourceURI.scheme());
 		}
 	}
-
-//	/**
-//	 * Find the resource for given URI, but do not demand load
-//	 *
-//	 * @param uri
-//	 *            URI
-//	 * @return Resource, null if it is not in the resource set.
-//	 */
-//	public static Resource findResource(URI uri, Element context) {
-//		return context.eResource().getResourceSet().getResource(uri, false);
-//	}
-//
-//	/**
-//	 * creates a Resource for file name with path within Eclipse If it exists,
-//	 * it will delete the file before creating the resource.
-//	 *
-//	 * @param uri Assumed to be an aadl or aaxl extension
-//	 * @return Resource Xtext resource for aadl and Aadl2ResourceImpl for aaxl
-//	 */
-//	public static Resource getEmptyAadl2Resource(URI uri) {
-//		Resource res = null;
-//		if (uri != null) {
-//			IResource iResource =  getOsateIFile(uri);
-//			if (iResource != null && iResource.exists()) {
-//				try {
-//					iResource.delete(true, null);
-//				} catch (CoreException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//				}
-//		}
-//
-//		res = getResourceSet().createResource(uri);
-//		return res;
-//	}
 
 	/**
 	 * creates a Resource for file name with path within Eclipse If it exists,
@@ -427,6 +389,11 @@ public class OsateResourceUtil {
 		return getResource(URI.createPlatformResourceURI(path.toString(), false));
 	}
 
+	public static Resource getResource(IResource ires, ResourceSet rset) {
+		IPath path = ires.getFullPath();
+		return getResource(URI.createPlatformResourceURI(path.toString(), false), rset);
+	}
+
 	/**
 	 * gets Resource for given IResource. Will create the resource if it does
 	 * not exist
@@ -462,6 +429,25 @@ public class OsateResourceUtil {
 			// if the retrieval fails create the resource
 			if (res == null) {
 				res = getResourceSet().createResource(uri);
+			}
+		}
+		return res;
+	}
+
+	public static Resource getResource(URI uri, ResourceSet rset) {
+		Resource res = null;
+		try {
+			res = rset.getResource(uri, true);
+		} catch (RuntimeException e) {
+			// the resource may have been created but load failed
+			// let's retrieve the resource without loading
+			// NOTE: since demandload is false it will not even be created if it
+			// does not already
+			// exist
+			res = rset.getResource(uri, false);
+			// if the retrieval fails create the resource
+			if (res == null) {
+				res = rset.createResource(uri);
 			}
 		}
 		return res;
@@ -514,25 +500,6 @@ public class OsateResourceUtil {
 			reportURI = reportURI.appendFileExtension(extension);
 		}
 		return reportURI;
-	}
-
-	/**
-	 * Make sure the EObject is available in the Osate Resource Set
-	 * The EObject may currently be in the resource set of an XText editor, not the shared resource set
-	 * We also make sure that the Osate resource set will pick up any changed resources by unloading all declarative models in it
-	 * @param eobj
-	 * @return
-	 */
-	public static EObject loadElementIntoResourceSet(EObject eobj) {
-		ResourceSet rs = OsateResourceUtil.getResourceSet();
-		ResourceSet sirs = eobj.eResource().getResourceSet();
-		if (rs != sirs) {
-			// we unload all to make sure all changes make it into this resource set
-			URI uri = EcoreUtil.getURI(eobj);
-			OsateResourceUtil.refreshResourceSet();
-			eobj = rs.getEObject(uri, true);
-		}
-		return eobj;
 	}
 
 }

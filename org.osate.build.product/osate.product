@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?pde version="3.5"?>
 
-<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.2.2.qualifier" useFeatures="true" includeLaunchers="true">
+<product name="OSATE2" uid="osate2" id="org.osate.branding.osate2" application="org.eclipse.ui.ide.workbench" version="2.2.3.qualifier" useFeatures="true" includeLaunchers="true">
 
    <aboutInfo>
       <image path="icons/osateAbout_hc90.jpg"/>
@@ -74,7 +74,7 @@
    </configurations>
 
    <repositories>
-      <repository location="http://aadl.info/aadl/osate/stable/2.2.1/update-site/" enabled="true" />
+      <repository location="http://aadl.info/aadl/osate/stable/2.2.2/update-site/" enabled="true" />
       <repository location="http://www.eclipse.org/modeling/amalgam/downloads/package/modeling/mars/" enabled="true" />
       <repository location="http://download.eclipse.org/eclipse/updates/4.5" enabled="true" />
       <repository location="http://download.eclipse.org/releases/mars" enabled="true" />

@@ -458,21 +458,27 @@ public class InstanceUtil {
 	}
 
 	/**
-	 * find connection instance in component instance whose connection
-	 * between subcomponents is of name "name"
+	 * find connection instance with connection of name "name" in component instance
 	 * @param ci
 	 * @param name
 	 * @return
 	 */
-	public static ConnectionInstance findConnectionInstance(ComponentInstance ci, String name) {
+	public static ConnectionInstance findConnectionInstance(ComponentInstance ci, Connection conn) { // String name) {
 		for (ConnectionInstance ei : ci.getConnectionInstances()) {
 			for (ConnectionReference connref : ei.getConnectionReferences()) {
-				Connection conn = connref.getConnection();
-				if (conn.getSource().getContext() instanceof Subcomponent
-						&& conn.getDestination().getContext() instanceof Subcomponent
-						&& name.equalsIgnoreCase(conn.getName()))
+//				Connection conn = connref.getConnection();
+				if (conn == connref.getConnection())// name.equalsIgnoreCase(conn.getName()))
 					return ei;
 			}
+		}
+		return null;
+	}
+
+	public static ComponentInstance findConnectionContext(ConnectionInstance conni, Connection conn) {
+		for (ConnectionReference connref : conni.getConnectionReferences()) {
+//			Connection conn = connref.getConnection();
+			if (conn == connref.getConnection())// name.equalsIgnoreCase(conn.getName()))
+				return connref.getContext();
 		}
 		return null;
 	}
