@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.osate.aadl2.errormodel.propagationgraph/src"
+    modelPluginID="org.osate.aadl2.errormodel.propagationgraph" modelName="PropagationGraph"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" importerID="org.eclipse.emf.importer.ecore"
+    complianceLevel="8.0" copyrightFields="false" usedGenPackages="../../org.osate.aadl2/model/aadl2.genmodel#//aadl2 ../../org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore ../../org.osate.xtext.aadl2.errormodel/model/generated/ErrorModel.genmodel#//errorModel ../../org.osate.aadl2/model/instance.genmodel#//instance"
+    operationReflection="true" importOrganizing="true">
+  <foreignModel>PropagationGraph.ecore</foreignModel>
+  <genPackages prefix="PropagationGraph" basePackage="org.osate.aadl2.errormodel"
+      disposableProviderFactory="true" ecorePackage="PropagationGraph.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="PropagationGraph.ecore#//PropagationType">
+      <genEnumLiterals ecoreEnumLiteral="PropagationGraph.ecore#//PropagationType/connection"/>
+      <genEnumLiterals ecoreEnumLiteral="PropagationGraph.ecore#//PropagationType/binding"/>
+      <genEnumLiterals ecoreEnumLiteral="PropagationGraph.ecore#//PropagationType/userDefined"/>
+    </genEnums>
+    <genClasses ecoreClass="PropagationGraph.ecore#//PropagationGraph">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationGraph/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationGraph/description"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationGraph/components"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationGraph/propagationPaths"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationGraph/nodes"/>
+    </genClasses>
+    <genClasses ecoreClass="PropagationGraph.ecore#//PropagationPath">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationPath/name"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationPath/pathSrc"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationPath/pathDst"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationPath/highlight"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationPath/type"/>
+    </genClasses>
+    <genClasses ecoreClass="PropagationGraph.ecore#//PropagationNode">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationNode/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute PropagationGraph.ecore#//PropagationNode/highlight"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationNode/componentInstance"/>
+    </genClasses>
+    <genClasses ecoreClass="PropagationGraph.ecore#//PropagationPathEnd">
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationPathEnd/instanceObject"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationPathEnd/errorPropagation"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference PropagationGraph.ecore#//PropagationPathEnd/componentInstance"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

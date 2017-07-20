@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <!-- @generated FaultTree -->
+      <category
+            id="org.eclipse.emf.ecore.Wizard.category.ID"
+            name="%_UI_Wizard_category"/>
+      <wizard
+            id="org.osate.aadl2.errormodel.FaultTree.presentation.FaultTreeModelWizardID"
+            name="%_UI_FaultTreeModelWizard_label"
+            class="org.osate.aadl2.errormodel.FaultTree.presentation.FaultTreeModelWizard"
+            category="org.eclipse.emf.ecore.Wizard.category.ID"
+            icon="icons/full/obj16/FaultTreeModelFile.gif">
+         <description>%_UI_FaultTreeModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+
+   <extension point="org.eclipse.ui.editors">
+      <!-- @generated FaultTree -->
+      <editor
+            id="org.osate.aadl2.errormodel.FaultTree.presentation.FaultTreeEditorID"
+            name="%_UI_FaultTreeEditor_label"
+            icon="icons/full/obj16/FaultTreeModelFile.gif"
+            extensions="faulttree"
+            class="org.osate.aadl2.errormodel.FaultTree.presentation.FaultTreeEditor"
+            contributorClass="org.osate.aadl2.errormodel.FaultTree.presentation.FaultTreeActionBarContributor">
+      </editor>
+   </extension>
+
+</plugin>
