@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="10.1.0.201507271600">
+  <ownedViewpoints name="FaultTree" modelFileExtension="faulttree">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="GraphicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
+      <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
+      <layout xsi:type="description_1:OrderedTreeLayout" childrenExpression="service:getEvents()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']"/>
+      <diagramInitialisation>
+        <firstModelOperations xsi:type="tool:ChangeContext"/>
+      </diagramInitialisation>
+      <defaultLayer name="Default">
+        <nodeMappings name="EventNode" domainClass="FaultTree.Event">
+          <style xsi:type="style:SquareDescription" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW">
+            <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+          </style>
+        </nodeMappings>
+        <edgeMappings name="SubeventLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']" targetFinderExpression="aql:self.subEvents">
+          <style sizeComputationExpression="2">
+            <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
+            <centerLabelStyleDescription>
+              <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+            </centerLabelStyleDescription>
+          </style>
+        </edgeMappings>
+        <decorationDescriptionsSet>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="OrLogicDecoration" position="SOUTH" decoratorPath="/org.osate.aadl2.errormodel.faulttree.design/images/or5mm.svg" preconditionExpression="aql:self.subEventLogic = FaultTree::LogicOperation::Or" mappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']"/>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="BasicEventDecoration" position="SOUTH" decoratorPath="/org.osate.aadl2.errormodel.faulttree.design/images/Circle.ico" preconditionExpression="aql:self.type = FaultTree::EventType::Basic" mappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']"/>
+          <decorationDescriptions xsi:type="description_1:MappingBasedDecoration" name="AndLogicDecoration" position="SOUTH" decoratorPath="/org.osate.aadl2.errormodel.faulttree.design/images/and5mm.svg" preconditionExpression="aql:self.subEventLogic = FaultTree::LogicOperation::And" mappings="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']"/>
+        </decorationDescriptionsSet>
+      </defaultLayer>
+    </ownedRepresentations>
+    <ownedJavaExtensions qualifiedClassName="org.osate.aadl2.errormodel.faulttree.design.Services"/>
+  </ownedViewpoints>
+</description:Group>
