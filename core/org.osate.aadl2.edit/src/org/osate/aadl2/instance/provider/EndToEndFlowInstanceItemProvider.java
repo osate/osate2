@@ -202,16 +202,20 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 				.collect(Collectors.toList());
 	}
 	
-	private static class EndToEndFlowInstanceFlowElementItemProvider extends ItemProviderAdapter
+	public static class EndToEndFlowInstanceFlowElementItemProvider extends ItemProviderAdapter
 			implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
 			IItemLabelProvider, IItemPropertySource {
 		private final FlowElementInstance flowElement;
 		
-		public EndToEndFlowInstanceFlowElementItemProvider(AdapterFactory adapterFactory, EndToEndFlowInstance etef,
+		private EndToEndFlowInstanceFlowElementItemProvider(AdapterFactory adapterFactory, EndToEndFlowInstance etef,
 				FlowElementInstance flowElement) {
 			super(adapterFactory);
 			this.flowElement = flowElement;
 			etef.eAdapters().add(this);
+		}
+		
+		public FlowElementInstance getFlowElement() {
+			return flowElement;
 		}
 		
 		@Override
