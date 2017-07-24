@@ -43,6 +43,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
 import org.eclipse.emf.edit.provider.IItemLabelProvider;
@@ -215,6 +216,16 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 		
 		@Override
 		public Collection<?> getChildren(Object object) {
+			return Collections.emptyList();
+		}
+		
+		@Override
+		public Object getParent(Object object) {
+			return target;
+		}
+		
+		@Override
+		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
 			return Collections.emptyList();
 		}
 		
