@@ -58,6 +58,7 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.ActionFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
+import org.osate.aadl2.instance.provider.EndToEndFlowInstanceItemProvider.EndToEndFlowInstanceFlowElementItemProvider;
 import org.osate.ui.UiUtil;
 
 /**
@@ -127,6 +128,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 			}
 		}
 	};
+	
 	protected IAction gotoSrcTextAction = new Action(Aadl2EditorPlugin.INSTANCE.getString("_UI_GotoSource_menu_item")) {
 		@Override
 		public void run() {
@@ -143,6 +145,12 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 					}
 					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
 							(PropertyAssociationInstance) currentSelection);
+				} else if (currentSelection instanceof EndToEndFlowInstanceFlowElementItemProvider) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+							((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
 				}
 			}
 		}
@@ -322,7 +330,7 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 	 * that can be added to the selected object and updating the menus accordingly.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @generated NOT
 	 */
 	@Override
 	public void selectionChanged(SelectionChangedEvent event) {
@@ -345,7 +353,8 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
 			Object object = ((IStructuredSelection) selection).getFirstElement();
-			if (object instanceof InstanceObject || object instanceof PropertyAssociationInstance) {
+			if (object instanceof InstanceObject || object instanceof PropertyAssociationInstance
+					|| object instanceof EndToEndFlowInstanceFlowElementItemProvider) {
 				currentSelection = object;
 			} else {
 				currentSelection = null;
