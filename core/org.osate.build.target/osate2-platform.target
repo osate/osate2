@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="osate2-platform" sequenceNumber="11">
+<?pde version="3.8"?><target includeMode="feature" name="osate2-platform" sequenceNumber="12">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.birt.feature.group" version="4.5.0.v201506092134"/>
@@ -32,17 +32,17 @@
 <repository location="http://download.eclipse.org/releases/mars/201602261000"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="org.eclipse.xtext.redist.feature.group" version="2.11.0.v20170201-0242"/>
-<unit id="org.eclipse.xtext.junit4" version="2.11.0.v20170130-0818"/>
-<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.11.0/"/>
+<unit id="org.eclipse.xtext.redist.feature.group" version="2.12.0.v20170519-1412"/>
+<unit id="org.eclipse.xtext.junit4" version="2.12.0.v20170519-0809"/>
+<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.12.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="2.9.0.v201605261103"/>
 <repository location="http://download.eclipse.org/modeling/emft/mwe/updates/releases/2.9.0/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
-<unit id="it.xsemantics.runtime.feature.feature.group" version="1.11.2.v20170512-1819"/>
-<repository location="https://dl.bintray.com/lorenzobettini/xsemantics/releases/1.11.2.v20170512-1819/"/>
+<unit id="it.xsemantics.runtime.feature.feature.group" version="1.12.1.v20170704-1334"/>
+<repository location="https://dl.bintray.com/lorenzobettini/xsemantics/releases/1.12.1.v20170704-1334/"/>
 </location>
 <!-- certware and dependencies -->
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
