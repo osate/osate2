@@ -5,7 +5,7 @@
     editorDirectory="/org.osate.results.editor/src" modelPluginID="org.osate.results"
     forceOverwrite="true" modelName="Results" updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" editPluginID="org.osate.results.edit"
-    editorPluginID="org.osate.results.editor" runtimeVersion="2.11" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common">
+    editorPluginID="org.osate.results.editor" runtimeVersion="2.11" usedGenPackages="platform:/plugin/org.eclipse.emf.ecore/model/Ecore.genmodel#//ecore platform:/resource/org.osate.aadl2/model/aadl2.genmodel#//aadl2 platform:/resource/org.osate.alisa.common/model/generated/Common.genmodel#//common">
   <genPackages prefix="Results" basePackage="org.osate.results" disposableProviderFactory="true"
       fileExtensions="results" ecorePackage="Results.ecore#/">
     <genClasses ecoreClass="Results.ecore#//ResultReport">
@@ -32,8 +32,7 @@
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//ResultData">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/name"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/value"/>
-      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Results.ecore#//ResultData/integerValue"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Results.ecore#//ResultData/value"/>
     </genClasses>
     <genClasses ecoreClass="Results.ecore#//IssuesReport"/>
   </genPackages>

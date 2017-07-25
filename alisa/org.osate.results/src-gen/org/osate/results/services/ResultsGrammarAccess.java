@@ -382,20 +382,17 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
 		private final RuleCall cNameIDTerminalRuleCall_0_0 = (RuleCall)cNameAssignment_0.eContents().get(0);
 		private final Keyword cEqualsSignKeyword_1 = (Keyword)cGroup.eContents().get(1);
-		private final Alternatives cAlternatives_2 = (Alternatives)cGroup.eContents().get(2);
-		private final Assignment cValueAssignment_2_0 = (Assignment)cAlternatives_2.eContents().get(0);
-		private final RuleCall cValueSTRINGTerminalRuleCall_2_0_0 = (RuleCall)cValueAssignment_2_0.eContents().get(0);
-		private final Assignment cIntegerValueAssignment_2_1 = (Assignment)cAlternatives_2.eContents().get(1);
-		private final RuleCall cIntegerValueINTTerminalRuleCall_2_1_0 = (RuleCall)cIntegerValueAssignment_2_1.eContents().get(0);
+		private final Assignment cValueAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cValueRLiteralParserRuleCall_2_0 = (RuleCall)cValueAssignment_2.eContents().get(0);
 		
 		//// default implementation of result data
 		//// a set of name value pairs with the values expressed as strings
 		//// user can create a subclass of this to provide a specialized representation
 		//ResultData:
-		//	name=ID '=' (value=STRING | integerValue=INT);
+		//	name=ID '=' value=RLiteral;
 		@Override public ParserRule getRule() { return rule; }
 
-		//name=ID '=' (value=STRING | integerValue=INT)
+		//name=ID '=' value=RLiteral
 		public Group getGroup() { return cGroup; }
 
 		//name=ID
@@ -407,20 +404,11 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//'='
 		public Keyword getEqualsSignKeyword_1() { return cEqualsSignKeyword_1; }
 
-		//value=STRING | integerValue=INT
-		public Alternatives getAlternatives_2() { return cAlternatives_2; }
+		//value=RLiteral
+		public Assignment getValueAssignment_2() { return cValueAssignment_2; }
 
-		//value=STRING
-		public Assignment getValueAssignment_2_0() { return cValueAssignment_2_0; }
-
-		//STRING
-		public RuleCall getValueSTRINGTerminalRuleCall_2_0_0() { return cValueSTRINGTerminalRuleCall_2_0_0; }
-
-		//integerValue=INT
-		public Assignment getIntegerValueAssignment_2_1() { return cIntegerValueAssignment_2_1; }
-
-		//INT
-		public RuleCall getIntegerValueINTTerminalRuleCall_2_1_0() { return cIntegerValueINTTerminalRuleCall_2_1_0; }
+		//RLiteral
+		public RuleCall getValueRLiteralParserRuleCall_2_0() { return cValueRLiteralParserRuleCall_2_0; }
 	}
 
 	public class IssuesReportElements extends AbstractParserRuleElementFinder {
@@ -504,6 +492,215 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		//']'
 		public Keyword getRightSquareBracketKeyword_3_3() { return cRightSquareBracketKeyword_3_3; }
 	}
+
+	public class RLiteralElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RLiteral");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cRBooleanLiteralParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cRRealTermParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cRIntegerTermParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cRStringTermParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		
+		//RLiteral aadl2::PropertyExpression:
+		//	RBooleanLiteral | RRealTerm | RIntegerTerm | RStringTerm;
+		@Override public ParserRule getRule() { return rule; }
+
+		//RBooleanLiteral | RRealTerm | RIntegerTerm | RStringTerm
+		public Alternatives getAlternatives() { return cAlternatives; }
+
+		//RBooleanLiteral
+		public RuleCall getRBooleanLiteralParserRuleCall_0() { return cRBooleanLiteralParserRuleCall_0; }
+
+		//RRealTerm
+		public RuleCall getRRealTermParserRuleCall_1() { return cRRealTermParserRuleCall_1; }
+
+		//RIntegerTerm
+		public RuleCall getRIntegerTermParserRuleCall_2() { return cRIntegerTermParserRuleCall_2; }
+
+		//RStringTerm
+		public RuleCall getRStringTermParserRuleCall_3() { return cRStringTermParserRuleCall_3; }
+	}
+
+	public class RIntegerTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RIntegerTerm");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cValueRSignedIntParserRuleCall_0_0 = (RuleCall)cValueAssignment_0.eContents().get(0);
+		private final Assignment cUnitAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cUnitUnitLiteralCrossReference_1_0 = (CrossReference)cUnitAssignment_1.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_0.eContents().get(1);
+		
+		//RIntegerTerm aadl2::IntegerLiteral:
+		//	value=RSignedInt unit=[aadl2::UnitLiteral]?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//value=RSignedInt unit=[aadl2::UnitLiteral]?
+		public Group getGroup() { return cGroup; }
+
+		//value=RSignedInt
+		public Assignment getValueAssignment_0() { return cValueAssignment_0; }
+
+		//RSignedInt
+		public RuleCall getValueRSignedIntParserRuleCall_0_0() { return cValueRSignedIntParserRuleCall_0_0; }
+
+		//unit=[aadl2::UnitLiteral]?
+		public Assignment getUnitAssignment_1() { return cUnitAssignment_1; }
+
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_1_0() { return cUnitUnitLiteralCrossReference_1_0; }
+
+		//ID
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_0_1; }
+	}
+
+	public class RSignedIntElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RSignedInt");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Keyword cPlusSignKeyword_0_0 = (Keyword)cAlternatives_0.eContents().get(0);
+		private final Keyword cHyphenMinusKeyword_0_1 = (Keyword)cAlternatives_0.eContents().get(1);
+		private final RuleCall cINTTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		
+		//RSignedInt aadl2::Integer:
+		//	('+' | '-')? INT;
+		@Override public ParserRule getRule() { return rule; }
+
+		//('+' | '-')? INT
+		public Group getGroup() { return cGroup; }
+
+		//('+' | '-')?
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//'+'
+		public Keyword getPlusSignKeyword_0_0() { return cPlusSignKeyword_0_0; }
+
+		//'-'
+		public Keyword getHyphenMinusKeyword_0_1() { return cHyphenMinusKeyword_0_1; }
+
+		//INT
+		public RuleCall getINTTerminalRuleCall_1() { return cINTTerminalRuleCall_1; }
+	}
+
+	public class RRealTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RRealTerm");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cValueAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cValueRSignedRealParserRuleCall_0_0 = (RuleCall)cValueAssignment_0.eContents().get(0);
+		private final Assignment cUnitAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final CrossReference cUnitUnitLiteralCrossReference_1_0 = (CrossReference)cUnitAssignment_1.eContents().get(0);
+		private final RuleCall cUnitUnitLiteralIDTerminalRuleCall_1_0_1 = (RuleCall)cUnitUnitLiteralCrossReference_1_0.eContents().get(1);
+		
+		//RRealTerm aadl2::RealLiteral:
+		//	value=RSignedReal unit=[aadl2::UnitLiteral]?;
+		@Override public ParserRule getRule() { return rule; }
+
+		//value=RSignedReal unit=[aadl2::UnitLiteral]?
+		public Group getGroup() { return cGroup; }
+
+		//value=RSignedReal
+		public Assignment getValueAssignment_0() { return cValueAssignment_0; }
+
+		//RSignedReal
+		public RuleCall getValueRSignedRealParserRuleCall_0_0() { return cValueRSignedRealParserRuleCall_0_0; }
+
+		//unit=[aadl2::UnitLiteral]?
+		public Assignment getUnitAssignment_1() { return cUnitAssignment_1; }
+
+		//[aadl2::UnitLiteral]
+		public CrossReference getUnitUnitLiteralCrossReference_1_0() { return cUnitUnitLiteralCrossReference_1_0; }
+
+		//ID
+		public RuleCall getUnitUnitLiteralIDTerminalRuleCall_1_0_1() { return cUnitUnitLiteralIDTerminalRuleCall_1_0_1; }
+	}
+
+	public class RSignedRealElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RSignedReal");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final Keyword cPlusSignKeyword_0_0 = (Keyword)cAlternatives_0.eContents().get(0);
+		private final Keyword cHyphenMinusKeyword_0_1 = (Keyword)cAlternatives_0.eContents().get(1);
+		private final RuleCall cREAL_LITTerminalRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		
+		//RSignedReal aadl2::Real:
+		//	('+' | '-')? REAL_LIT;
+		@Override public ParserRule getRule() { return rule; }
+
+		//('+' | '-')? REAL_LIT
+		public Group getGroup() { return cGroup; }
+
+		//('+' | '-')?
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+
+		//'+'
+		public Keyword getPlusSignKeyword_0_0() { return cPlusSignKeyword_0_0; }
+
+		//'-'
+		public Keyword getHyphenMinusKeyword_0_1() { return cHyphenMinusKeyword_0_1; }
+
+		//REAL_LIT
+		public RuleCall getREAL_LITTerminalRuleCall_1() { return cREAL_LITTerminalRuleCall_1; }
+	}
+
+	public class RBooleanLiteralElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RBooleanLiteral");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Action cBooleanLiteralAction_0 = (Action)cGroup.eContents().get(0);
+		private final Alternatives cAlternatives_1 = (Alternatives)cGroup.eContents().get(1);
+		private final Assignment cValueAssignment_1_0 = (Assignment)cAlternatives_1.eContents().get(0);
+		private final Keyword cValueTrueKeyword_1_0_0 = (Keyword)cValueAssignment_1_0.eContents().get(0);
+		private final Keyword cFalseKeyword_1_1 = (Keyword)cAlternatives_1.eContents().get(1);
+		
+		//RBooleanLiteral aadl2::PropertyExpression:
+		//	{aadl2::BooleanLiteral} (value?='true' | 'false');
+		@Override public ParserRule getRule() { return rule; }
+
+		//{aadl2::BooleanLiteral} (value?='true' | 'false')
+		public Group getGroup() { return cGroup; }
+
+		//{aadl2::BooleanLiteral}
+		public Action getBooleanLiteralAction_0() { return cBooleanLiteralAction_0; }
+
+		//value?='true' | 'false'
+		public Alternatives getAlternatives_1() { return cAlternatives_1; }
+
+		//value?='true'
+		public Assignment getValueAssignment_1_0() { return cValueAssignment_1_0; }
+
+		//'true'
+		public Keyword getValueTrueKeyword_1_0_0() { return cValueTrueKeyword_1_0_0; }
+
+		//'false'
+		public Keyword getFalseKeyword_1_1() { return cFalseKeyword_1_1; }
+	}
+
+	public class RStringTermElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.RStringTerm");
+		private final Assignment cValueAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cValueNoQuoteStringParserRuleCall_0 = (RuleCall)cValueAssignment.eContents().get(0);
+		
+		//RStringTerm aadl2::StringLiteral:
+		//	value=NoQuoteString;
+		@Override public ParserRule getRule() { return rule; }
+
+		//value=NoQuoteString
+		public Assignment getValueAssignment() { return cValueAssignment; }
+
+		//NoQuoteString
+		public RuleCall getValueNoQuoteStringParserRuleCall_0() { return cValueNoQuoteStringParserRuleCall_0; }
+	}
+
+	public class NoQuoteStringElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.osate.results.Results.NoQuoteString");
+		private final RuleCall cSTRINGTerminalRuleCall = (RuleCall)rule.eContents().get(1);
+		
+		//NoQuoteString:
+		//	STRING;
+		@Override public ParserRule getRule() { return rule; }
+
+		//// remove quotes from string in ValueConverter
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall() { return cSTRINGTerminalRuleCall; }
+	}
 	
 	
 	private final ResultReportElements pResultReport;
@@ -512,6 +709,14 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	private final ResultContributorElements pResultContributor;
 	private final ResultDataElements pResultData;
 	private final IssuesReportElements pIssuesReport;
+	private final RLiteralElements pRLiteral;
+	private final RIntegerTermElements pRIntegerTerm;
+	private final RSignedIntElements pRSignedInt;
+	private final RRealTermElements pRRealTerm;
+	private final RSignedRealElements pRSignedReal;
+	private final RBooleanLiteralElements pRBooleanLiteral;
+	private final RStringTermElements pRStringTerm;
+	private final NoQuoteStringElements pNoQuoteString;
 	
 	private final Grammar grammar;
 
@@ -532,6 +737,14 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 		this.pResultContributor = new ResultContributorElements();
 		this.pResultData = new ResultDataElements();
 		this.pIssuesReport = new IssuesReportElements();
+		this.pRLiteral = new RLiteralElements();
+		this.pRIntegerTerm = new RIntegerTermElements();
+		this.pRSignedInt = new RSignedIntElements();
+		this.pRRealTerm = new RRealTermElements();
+		this.pRSignedReal = new RSignedRealElements();
+		this.pRBooleanLiteral = new RBooleanLiteralElements();
+		this.pRStringTerm = new RStringTermElements();
+		this.pNoQuoteString = new NoQuoteStringElements();
 	}
 	
 	protected Grammar internalFindGrammar(GrammarProvider grammarProvider) {
@@ -631,7 +844,7 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// a set of name value pairs with the values expressed as strings
 	//// user can create a subclass of this to provide a specialized representation
 	//ResultData:
-	//	name=ID '=' (value=STRING | integerValue=INT);
+	//	name=ID '=' value=RLiteral;
 	public ResultDataElements getResultDataAccess() {
 		return pResultData;
 	}
@@ -649,6 +862,86 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getIssuesReportRule() {
 		return getIssuesReportAccess().getRule();
+	}
+
+	//RLiteral aadl2::PropertyExpression:
+	//	RBooleanLiteral | RRealTerm | RIntegerTerm | RStringTerm;
+	public RLiteralElements getRLiteralAccess() {
+		return pRLiteral;
+	}
+	
+	public ParserRule getRLiteralRule() {
+		return getRLiteralAccess().getRule();
+	}
+
+	//RIntegerTerm aadl2::IntegerLiteral:
+	//	value=RSignedInt unit=[aadl2::UnitLiteral]?;
+	public RIntegerTermElements getRIntegerTermAccess() {
+		return pRIntegerTerm;
+	}
+	
+	public ParserRule getRIntegerTermRule() {
+		return getRIntegerTermAccess().getRule();
+	}
+
+	//RSignedInt aadl2::Integer:
+	//	('+' | '-')? INT;
+	public RSignedIntElements getRSignedIntAccess() {
+		return pRSignedInt;
+	}
+	
+	public ParserRule getRSignedIntRule() {
+		return getRSignedIntAccess().getRule();
+	}
+
+	//RRealTerm aadl2::RealLiteral:
+	//	value=RSignedReal unit=[aadl2::UnitLiteral]?;
+	public RRealTermElements getRRealTermAccess() {
+		return pRRealTerm;
+	}
+	
+	public ParserRule getRRealTermRule() {
+		return getRRealTermAccess().getRule();
+	}
+
+	//RSignedReal aadl2::Real:
+	//	('+' | '-')? REAL_LIT;
+	public RSignedRealElements getRSignedRealAccess() {
+		return pRSignedReal;
+	}
+	
+	public ParserRule getRSignedRealRule() {
+		return getRSignedRealAccess().getRule();
+	}
+
+	//RBooleanLiteral aadl2::PropertyExpression:
+	//	{aadl2::BooleanLiteral} (value?='true' | 'false');
+	public RBooleanLiteralElements getRBooleanLiteralAccess() {
+		return pRBooleanLiteral;
+	}
+	
+	public ParserRule getRBooleanLiteralRule() {
+		return getRBooleanLiteralAccess().getRule();
+	}
+
+	//RStringTerm aadl2::StringLiteral:
+	//	value=NoQuoteString;
+	public RStringTermElements getRStringTermAccess() {
+		return pRStringTerm;
+	}
+	
+	public ParserRule getRStringTermRule() {
+		return getRStringTermAccess().getRule();
+	}
+
+	//NoQuoteString:
+	//	STRING;
+	public NoQuoteStringElements getNoQuoteStringAccess() {
+		return pNoQuoteString;
+	}
+	
+	public ParserRule getNoQuoteStringRule() {
+		return getNoQuoteStringAccess().getRule();
 	}
 
 	//Description:
@@ -698,8 +991,8 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	//// This is similar to diagnostics
 	//ResultIssue:
 	//	issueType=ResultIssueType
-	//	message=STRING ('target' target=[ecore::EObject|NoQuoteString])? ('exception' exceptionType=STRING)? ('diagnosticId'
-	//	diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
+	//	message=STRING ('target' target=[ecore::EObject|super::NoQuoteString])? ('exception' exceptionType=STRING)?
+	//	('diagnosticId' diagnosticId=STRING)? ('[' issues+=ResultIssue* ']')?;
 	public CommonGrammarAccess.ResultIssueElements getResultIssueAccess() {
 		return gaCommon.getResultIssueAccess();
 	}
@@ -1139,23 +1432,13 @@ public class ResultsGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	//StringTerm aadl2::StringLiteral:
-	//	value=NoQuoteString;
+	//	value=super::NoQuoteString;
 	public CommonGrammarAccess.StringTermElements getStringTermAccess() {
 		return gaCommon.getStringTermAccess();
 	}
 	
 	public ParserRule getStringTermRule() {
 		return getStringTermAccess().getRule();
-	}
-
-	//NoQuoteString:
-	//	STRING;
-	public CommonGrammarAccess.NoQuoteStringElements getNoQuoteStringAccess() {
-		return gaCommon.getNoQuoteStringAccess();
-	}
-	
-	public ParserRule getNoQuoteStringRule() {
-		return getNoQuoteStringAccess().getRule();
 	}
 
 	//AParenthesizedExpression aadl2::PropertyExpression:

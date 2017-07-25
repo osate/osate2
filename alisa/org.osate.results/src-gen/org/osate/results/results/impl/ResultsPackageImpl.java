@@ -23,6 +23,8 @@ import org.eclipse.emf.ecore.EcorePackage;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.osate.aadl2.Aadl2Package;
+
 import org.osate.alisa.common.common.CommonPackage;
 
 import org.osate.results.results.IssuesReport;
@@ -355,19 +357,9 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
    * <!-- end-user-doc -->
    * @generated
    */
-  public EAttribute getResultData_Value()
+  public EReference getResultData_Value()
   {
-    return (EAttribute)resultDataEClass.getEStructuralFeatures().get(1);
-  }
-
-  /**
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @generated
-   */
-  public EAttribute getResultData_IntegerValue()
-  {
-    return (EAttribute)resultDataEClass.getEStructuralFeatures().get(2);
+    return (EReference)resultDataEClass.getEStructuralFeatures().get(1);
   }
 
   /**
@@ -434,8 +426,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
 
     resultDataEClass = createEClass(RESULT_DATA);
     createEAttribute(resultDataEClass, RESULT_DATA__NAME);
-    createEAttribute(resultDataEClass, RESULT_DATA__VALUE);
-    createEAttribute(resultDataEClass, RESULT_DATA__INTEGER_VALUE);
+    createEReference(resultDataEClass, RESULT_DATA__VALUE);
 
     issuesReportEClass = createEClass(ISSUES_REPORT);
   }
@@ -467,6 +458,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
     // Obtain other dependent packages
     EcorePackage theEcorePackage = (EcorePackage)EPackage.Registry.INSTANCE.getEPackage(EcorePackage.eNS_URI);
     CommonPackage theCommonPackage = (CommonPackage)EPackage.Registry.INSTANCE.getEPackage(CommonPackage.eNS_URI);
+    Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
 
     // Create type parameters
 
@@ -502,8 +494,7 @@ public class ResultsPackageImpl extends EPackageImpl implements ResultsPackage
 
     initEClass(resultDataEClass, ResultData.class, "ResultData", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getResultData_Name(), theEcorePackage.getEString(), "name", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultData_Value(), theEcorePackage.getEString(), "value", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-    initEAttribute(getResultData_IntegerValue(), theEcorePackage.getEInt(), "integerValue", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getResultData_Value(), theAadl2Package.getPropertyExpression(), null, "value", null, 0, 1, ResultData.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(issuesReportEClass, IssuesReport.class, "IssuesReport", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 

@@ -28,19 +28,6 @@ import org.osate.alisa.common.common.CommonFactory
 import org.eclipse.emf.common.util.EList
 
 class ResultsUtilExtension {
-	def static String getResultValue(ResultDataReport report, String resultName){
-		for (pair : report.resultData){
-			if (pair.name == resultName) return pair.value
-		}
-		""
-	} 
-	def static int getResultInteger(ResultDataReport report, String resultName){
-		for (pair : report.resultData){
-			if (pair.name == resultName) return pair.integerValue
-		}
-		0
-	} 
-	
 	// addition as subissue to an issue
 	def static void addError(ResultIssue holder, String msg, EObject target, String diagnosticId){
 		holder.addIssue(msg, target,  ResultIssueType.ERROR, diagnosticId)
@@ -132,19 +119,5 @@ class ResultsUtilExtension {
 		val res = ResultsFactory.eINSTANCE.createResultContributor => [ it.target = target]
 		report.content += res
 		res
-	}
-	
-	def static void addResultValue(ResultDataReport report, String myname, String myvalue){
-			val resData = ResultsFactory.eINSTANCE.createResultData
-				=> [ name = myname
-					value = myvalue]
-		report.resultData += resData
-	}
-	
-	def static void addResultInteger(ResultDataReport report, String myname, int myvalue){
-			val resData = ResultsFactory.eINSTANCE.createResultData
-				=> [ name = myname
-					integerValue = myvalue]
-		report.resultData += resData
 	}
 }
