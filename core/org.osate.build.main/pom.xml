@@ -11,8 +11,8 @@
 	<properties>
 		<tycho.version>1.0.0</tycho.version>
 		<tycho-extras.version>1.0.0</tycho-extras.version>
-		<xtext.version>2.11.0</xtext.version>
-		<xsemantics.version>1.11.0</xsemantics.version>
+		<xtext.version>2.12.0</xtext.version>
+		<xsemantics.version>1.12.1</xsemantics.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<osate.version>2.2.3-SNAPSHOT</osate.version>
 
