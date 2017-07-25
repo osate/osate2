@@ -50,7 +50,10 @@ public class ResultsParser extends AbstractContentAssistParser {
 				private static final long serialVersionUID = 1L;
 				{
 					put(grammarAccess.getResultReportAccess().getAlternatives(), "rule__ResultReport__Alternatives");
-					put(grammarAccess.getResultDataAccess().getAlternatives_2(), "rule__ResultData__Alternatives_2");
+					put(grammarAccess.getRLiteralAccess().getAlternatives(), "rule__RLiteral__Alternatives");
+					put(grammarAccess.getRSignedIntAccess().getAlternatives_0(), "rule__RSignedInt__Alternatives_0");
+					put(grammarAccess.getRSignedRealAccess().getAlternatives_0(), "rule__RSignedReal__Alternatives_0");
+					put(grammarAccess.getRBooleanLiteralAccess().getAlternatives_1(), "rule__RBooleanLiteral__Alternatives_1");
 					put(grammarAccess.getDescriptionElementAccess().getAlternatives(), "rule__DescriptionElement__Alternatives");
 					put(grammarAccess.getTypeRefAccess().getAlternatives(), "rule__TypeRef__Alternatives");
 					put(grammarAccess.getValDeclarationAccess().getAlternatives_3_1(), "rule__ValDeclaration__Alternatives_3_1");
@@ -89,6 +92,11 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getIssuesReportAccess().getGroup_2(), "rule__IssuesReport__Group_2__0");
 					put(grammarAccess.getIssuesReportAccess().getGroup_3(), "rule__IssuesReport__Group_3__0");
 					put(grammarAccess.getIssuesReportAccess().getGroup_3_1(), "rule__IssuesReport__Group_3_1__0");
+					put(grammarAccess.getRIntegerTermAccess().getGroup(), "rule__RIntegerTerm__Group__0");
+					put(grammarAccess.getRSignedIntAccess().getGroup(), "rule__RSignedInt__Group__0");
+					put(grammarAccess.getRRealTermAccess().getGroup(), "rule__RRealTerm__Group__0");
+					put(grammarAccess.getRSignedRealAccess().getGroup(), "rule__RSignedReal__Group__0");
+					put(grammarAccess.getRBooleanLiteralAccess().getGroup(), "rule__RBooleanLiteral__Group__0");
 					put(grammarAccess.getDescriptionAccess().getGroup(), "rule__Description__Group__0");
 					put(grammarAccess.getRationaleAccess().getGroup(), "rule__Rationale__Group__0");
 					put(grammarAccess.getUncertaintyAccess().getGroup(), "rule__Uncertainty__Group__0");
@@ -197,12 +205,17 @@ public class ResultsParser extends AbstractContentAssistParser {
 					put(grammarAccess.getResultContributorAccess().getIssuesAssignment_4(), "rule__ResultContributor__IssuesAssignment_4");
 					put(grammarAccess.getResultContributorAccess().getSubcontributorAssignment_5(), "rule__ResultContributor__SubcontributorAssignment_5");
 					put(grammarAccess.getResultDataAccess().getNameAssignment_0(), "rule__ResultData__NameAssignment_0");
-					put(grammarAccess.getResultDataAccess().getValueAssignment_2_0(), "rule__ResultData__ValueAssignment_2_0");
-					put(grammarAccess.getResultDataAccess().getIntegerValueAssignment_2_1(), "rule__ResultData__IntegerValueAssignment_2_1");
+					put(grammarAccess.getResultDataAccess().getValueAssignment_2(), "rule__ResultData__ValueAssignment_2");
 					put(grammarAccess.getIssuesReportAccess().getNameAssignment_1(), "rule__IssuesReport__NameAssignment_1");
 					put(grammarAccess.getIssuesReportAccess().getTargetAssignment_2_1(), "rule__IssuesReport__TargetAssignment_2_1");
 					put(grammarAccess.getIssuesReportAccess().getDescriptionAssignment_3_1_1(), "rule__IssuesReport__DescriptionAssignment_3_1_1");
 					put(grammarAccess.getIssuesReportAccess().getIssuesAssignment_3_2(), "rule__IssuesReport__IssuesAssignment_3_2");
+					put(grammarAccess.getRIntegerTermAccess().getValueAssignment_0(), "rule__RIntegerTerm__ValueAssignment_0");
+					put(grammarAccess.getRIntegerTermAccess().getUnitAssignment_1(), "rule__RIntegerTerm__UnitAssignment_1");
+					put(grammarAccess.getRRealTermAccess().getValueAssignment_0(), "rule__RRealTerm__ValueAssignment_0");
+					put(grammarAccess.getRRealTermAccess().getUnitAssignment_1(), "rule__RRealTerm__UnitAssignment_1");
+					put(grammarAccess.getRBooleanLiteralAccess().getValueAssignment_1_0(), "rule__RBooleanLiteral__ValueAssignment_1_0");
+					put(grammarAccess.getRStringTermAccess().getValueAssignment(), "rule__RStringTerm__ValueAssignment");
 					put(grammarAccess.getDescriptionAccess().getDescriptionAssignment_1(), "rule__Description__DescriptionAssignment_1");
 					put(grammarAccess.getDescriptionElementAccess().getTextAssignment_0(), "rule__DescriptionElement__TextAssignment_0");
 					put(grammarAccess.getDescriptionElementAccess().getThisTargetAssignment_1(), "rule__DescriptionElement__ThisTargetAssignment_1");

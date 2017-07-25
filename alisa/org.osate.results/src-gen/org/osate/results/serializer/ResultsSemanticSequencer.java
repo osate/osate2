@@ -23,6 +23,8 @@ import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Parameter;
 import org.eclipse.xtext.ParserRule;
 import org.eclipse.xtext.serializer.ISerializationContext;
+import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
+import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.AadlBoolean;
 import org.osate.aadl2.AadlInteger;
@@ -89,17 +91,125 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 				sequence_TypeRef(context, (AadlString) semanticObject); 
 				return; 
 			case Aadl2Package.BOOLEAN_LITERAL:
-				sequence_ABooleanLiteral(context, (BooleanLiteral) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getALiteralRule()
+						|| rule == grammarAccess.getABooleanLiteralRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_ABooleanLiteral(context, (BooleanLiteral) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getRLiteralRule()
+						|| rule == grammarAccess.getRBooleanLiteralRule()) {
+					sequence_RBooleanLiteral(context, (BooleanLiteral) semanticObject); 
+					return; 
+				}
+				else break;
 			case Aadl2Package.INTEGER_LITERAL:
-				sequence_AIntegerTerm(context, (IntegerLiteral) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getALiteralRule()
+						|| rule == grammarAccess.getAIntegerTermRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_AIntegerTerm(context, (IntegerLiteral) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getRLiteralRule()
+						|| rule == grammarAccess.getRIntegerTermRule()) {
+					sequence_RIntegerTerm(context, (IntegerLiteral) semanticObject); 
+					return; 
+				}
+				else break;
 			case Aadl2Package.REAL_LITERAL:
-				sequence_ARealTerm(context, (RealLiteral) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getALiteralRule()
+						|| rule == grammarAccess.getARealTermRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_ARealTerm(context, (RealLiteral) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getRLiteralRule()
+						|| rule == grammarAccess.getRRealTermRule()) {
+					sequence_RRealTerm(context, (RealLiteral) semanticObject); 
+					return; 
+				}
+				else break;
 			case Aadl2Package.STRING_LITERAL:
-				sequence_StringTerm(context, (StringLiteral) semanticObject); 
-				return; 
+				if (rule == grammarAccess.getRLiteralRule()
+						|| rule == grammarAccess.getRStringTermRule()) {
+					sequence_RStringTerm(context, (StringLiteral) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getAExpressionRule()
+						|| rule == grammarAccess.getAOrExpressionRule()
+						|| action == grammarAccess.getAOrExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAndExpressionRule()
+						|| action == grammarAccess.getAAndExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAEqualityExpressionRule()
+						|| action == grammarAccess.getAEqualityExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getARelationalExpressionRule()
+						|| action == grammarAccess.getARelationalExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAAdditiveExpressionRule()
+						|| action == grammarAccess.getAAdditiveExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAMultiplicativeExpressionRule()
+						|| action == grammarAccess.getAMultiplicativeExpressionAccess().getABinaryOperationLeftAction_1_0_0_0()
+						|| rule == grammarAccess.getAUnaryOperationRule()
+						|| rule == grammarAccess.getAUnitExpressionRule()
+						|| action == grammarAccess.getAUnitExpressionAccess().getAUnitExpressionExpressionAction_1_0()
+						|| rule == grammarAccess.getAPrimaryExpressionRule()
+						|| rule == grammarAccess.getALiteralRule()
+						|| rule == grammarAccess.getStringTermRule()
+						|| rule == grammarAccess.getAParenthesizedExpressionRule()) {
+					sequence_StringTerm(context, (StringLiteral) semanticObject); 
+					return; 
+				}
+				else break;
 			}
 		else if (epackage == CommonPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
@@ -250,6 +360,64 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     RLiteral returns BooleanLiteral
+	 *     RBooleanLiteral returns BooleanLiteral
+	 *
+	 * Constraint:
+	 *     value?='true'?
+	 */
+	protected void sequence_RBooleanLiteral(ISerializationContext context, BooleanLiteral semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     RLiteral returns IntegerLiteral
+	 *     RIntegerTerm returns IntegerLiteral
+	 *
+	 * Constraint:
+	 *     (value=RSignedInt unit=[UnitLiteral|ID]?)
+	 */
+	protected void sequence_RIntegerTerm(ISerializationContext context, IntegerLiteral semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     RLiteral returns RealLiteral
+	 *     RRealTerm returns RealLiteral
+	 *
+	 * Constraint:
+	 *     (value=RSignedReal unit=[UnitLiteral|ID]?)
+	 */
+	protected void sequence_RRealTerm(ISerializationContext context, RealLiteral semanticObject) {
+		genericSequencer.createSequence(context, (EObject) semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     RLiteral returns StringLiteral
+	 *     RStringTerm returns StringLiteral
+	 *
+	 * Constraint:
+	 *     value=NoQuoteString
+	 */
+	protected void sequence_RStringTerm(ISerializationContext context, StringLiteral semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient((EObject) semanticObject, Aadl2Package.eINSTANCE.getStringLiteral_Value()) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing((EObject) semanticObject, Aadl2Package.eINSTANCE.getStringLiteral_Value()));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, (EObject) semanticObject);
+		feeder.accept(grammarAccess.getRStringTermAccess().getValueNoQuoteStringParserRuleCall_0(), semanticObject.getValue());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     ResultContributor returns ResultContributor
 	 *
 	 * Constraint:
@@ -286,10 +454,19 @@ public class ResultsSemanticSequencer extends CommonSemanticSequencer {
 	 *     ResultData returns ResultData
 	 *
 	 * Constraint:
-	 *     (name=ID (value=STRING | integerValue=INT))
+	 *     (name=ID value=RLiteral)
 	 */
 	protected void sequence_ResultData(ISerializationContext context, ResultData semanticObject) {
-		genericSequencer.createSequence(context, semanticObject);
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.RESULT_DATA__NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.RESULT_DATA__NAME));
+			if (transientValues.isValueTransient(semanticObject, ResultsPackage.Literals.RESULT_DATA__VALUE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, ResultsPackage.Literals.RESULT_DATA__VALUE));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getResultDataAccess().getNameIDTerminalRuleCall_0_0(), semanticObject.getName());
+		feeder.accept(grammarAccess.getResultDataAccess().getValueRLiteralParserRuleCall_2_0(), semanticObject.getValue());
+		feeder.finish();
 	}
 	
 	

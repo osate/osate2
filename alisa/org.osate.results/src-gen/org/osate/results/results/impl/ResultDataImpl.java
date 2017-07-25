@@ -16,11 +16,15 @@
 package org.osate.results.results.impl;
 
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.common.notify.NotificationChain;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
+
+import org.osate.aadl2.PropertyExpression;
 
 import org.osate.results.results.ResultData;
 import org.osate.results.results.ResultsPackage;
@@ -35,7 +39,6 @@ import org.osate.results.results.ResultsPackage;
  * <ul>
  *   <li>{@link org.osate.results.results.impl.ResultDataImpl#getName <em>Name</em>}</li>
  *   <li>{@link org.osate.results.results.impl.ResultDataImpl#getValue <em>Value</em>}</li>
- *   <li>{@link org.osate.results.results.impl.ResultDataImpl#getIntegerValue <em>Integer Value</em>}</li>
  * </ul>
  *
  * @generated
@@ -63,44 +66,14 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
   protected String name = NAME_EDEFAULT;
 
   /**
-   * The default value of the '{@link #getValue() <em>Value</em>}' attribute.
+   * The cached value of the '{@link #getValue() <em>Value</em>}' containment reference.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
    * @see #getValue()
    * @generated
    * @ordered
    */
-  protected static final String VALUE_EDEFAULT = null;
-
-  /**
-   * The cached value of the '{@link #getValue() <em>Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getValue()
-   * @generated
-   * @ordered
-   */
-  protected String value = VALUE_EDEFAULT;
-
-  /**
-   * The default value of the '{@link #getIntegerValue() <em>Integer Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIntegerValue()
-   * @generated
-   * @ordered
-   */
-  protected static final int INTEGER_VALUE_EDEFAULT = 0;
-
-  /**
-   * The cached value of the '{@link #getIntegerValue() <em>Integer Value</em>}' attribute.
-   * <!-- begin-user-doc -->
-   * <!-- end-user-doc -->
-   * @see #getIntegerValue()
-   * @generated
-   * @ordered
-   */
-  protected int integerValue = INTEGER_VALUE_EDEFAULT;
+  protected PropertyExpression value;
 
   /**
    * <!-- begin-user-doc -->
@@ -151,7 +124,7 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public String getValue()
+  public PropertyExpression getValue()
   {
     return value;
   }
@@ -161,12 +134,16 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setValue(String newValue)
+  public NotificationChain basicSetValue(PropertyExpression newValue, NotificationChain msgs)
   {
-    String oldValue = value;
+    PropertyExpression oldValue = value;
     value = newValue;
     if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA__VALUE, oldValue, value));
+    {
+      ENotificationImpl notification = new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA__VALUE, oldValue, newValue);
+      if (msgs == null) msgs = notification; else msgs.add(notification);
+    }
+    return msgs;
   }
 
   /**
@@ -174,9 +151,20 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public int getIntegerValue()
+  public void setValue(PropertyExpression newValue)
   {
-    return integerValue;
+    if (newValue != value)
+    {
+      NotificationChain msgs = null;
+      if (value != null)
+        msgs = ((InternalEObject)value).eInverseRemove(this, EOPPOSITE_FEATURE_BASE - ResultsPackage.RESULT_DATA__VALUE, null, msgs);
+      if (newValue != null)
+        msgs = ((InternalEObject)newValue).eInverseAdd(this, EOPPOSITE_FEATURE_BASE - ResultsPackage.RESULT_DATA__VALUE, null, msgs);
+      msgs = basicSetValue(newValue, msgs);
+      if (msgs != null) msgs.dispatch();
+    }
+    else if (eNotificationRequired())
+      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA__VALUE, newValue, newValue));
   }
 
   /**
@@ -184,12 +172,15 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
    * <!-- end-user-doc -->
    * @generated
    */
-  public void setIntegerValue(int newIntegerValue)
+  @Override
+  public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs)
   {
-    int oldIntegerValue = integerValue;
-    integerValue = newIntegerValue;
-    if (eNotificationRequired())
-      eNotify(new ENotificationImpl(this, Notification.SET, ResultsPackage.RESULT_DATA__INTEGER_VALUE, oldIntegerValue, integerValue));
+    switch (featureID)
+    {
+      case ResultsPackage.RESULT_DATA__VALUE:
+        return basicSetValue(null, msgs);
+    }
+    return super.eInverseRemove(otherEnd, featureID, msgs);
   }
 
   /**
@@ -206,8 +197,6 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
         return getName();
       case ResultsPackage.RESULT_DATA__VALUE:
         return getValue();
-      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
-        return getIntegerValue();
     }
     return super.eGet(featureID, resolve, coreType);
   }
@@ -226,10 +215,7 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
         setName((String)newValue);
         return;
       case ResultsPackage.RESULT_DATA__VALUE:
-        setValue((String)newValue);
-        return;
-      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
-        setIntegerValue((Integer)newValue);
+        setValue((PropertyExpression)newValue);
         return;
     }
     super.eSet(featureID, newValue);
@@ -249,10 +235,7 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
         setName(NAME_EDEFAULT);
         return;
       case ResultsPackage.RESULT_DATA__VALUE:
-        setValue(VALUE_EDEFAULT);
-        return;
-      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
-        setIntegerValue(INTEGER_VALUE_EDEFAULT);
+        setValue((PropertyExpression)null);
         return;
     }
     super.eUnset(featureID);
@@ -271,9 +254,7 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
       case ResultsPackage.RESULT_DATA__NAME:
         return NAME_EDEFAULT == null ? name != null : !NAME_EDEFAULT.equals(name);
       case ResultsPackage.RESULT_DATA__VALUE:
-        return VALUE_EDEFAULT == null ? value != null : !VALUE_EDEFAULT.equals(value);
-      case ResultsPackage.RESULT_DATA__INTEGER_VALUE:
-        return integerValue != INTEGER_VALUE_EDEFAULT;
+        return value != null;
     }
     return super.eIsSet(featureID);
   }
@@ -291,10 +272,6 @@ public class ResultDataImpl extends MinimalEObjectImpl.Container implements Resu
     StringBuffer result = new StringBuffer(super.toString());
     result.append(" (name: ");
     result.append(name);
-    result.append(", value: ");
-    result.append(value);
-    result.append(", integerValue: ");
-    result.append(integerValue);
     result.append(')');
     return result.toString();
   }
