@@ -41,7 +41,9 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		addRetargetAction(new MatchSizeRetargetAction(MatchSizeAction.MATCH_SIZE));
 		addRetargetAction(new DistributeHorizontallyRetargetAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
 		addRetargetAction(new DistributeVerticallyRetargetAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
-
+		addRetargetAction(new RadialLayoutRetargetAction(RadialLayoutAction.RADIAL_LAYOUT));
+		addRetargetAction(new GridLayoutRetargetAction(GridLayoutAction.GRID_LAYOUT));
+		
 		// Create retarget actions of each tool
 		for(final Object tool : getExtensionRegistryService().getTools()) {
 			addRetargetAction(new ActivateToolRetargetAction(tool));
@@ -55,6 +57,10 @@ public class AgeDiagramEditorActionBarContributor extends org.eclipse.graphiti.u
 		tbm.insertAfter(GEFActionConstants.ALIGN_BOTTOM, new Separator());
 		tbm.insertBefore(GEFActionConstants.MATCH_WIDTH, getAction(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY));
 		tbm.insertAfter(DistributeHorizontallyAction.DISTRIBUTE_HORIZONTALLY, getAction(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY));
+		tbm.insertAfter(DistributeVerticallyAction.DISTRIBUTE_VERTICALLY, getAction(RadialLayoutAction.RADIAL_LAYOUT));
+		tbm.insertBefore(RadialLayoutAction.RADIAL_LAYOUT, new Separator());
+		tbm.insertAfter(RadialLayoutAction.RADIAL_LAYOUT, getAction(GridLayoutAction.GRID_LAYOUT));
+		tbm.insertAfter(GridLayoutAction.GRID_LAYOUT, new Separator());
 		
 		tbm.add(selectedModeItem);
 		tbm.add(new Separator());

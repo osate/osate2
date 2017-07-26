@@ -155,6 +155,12 @@
          <topic href="user_guide_output/eam_annexes.html#creating-annex-libraries-and-annex-subclauses" label="Creating Annex Libraries and Annex Subclauses">
          </topic>
       </topic>
+      <topic href="user_guide_output/eam_layouts.html" label="Layouts">
+         <topic href="user_guide_output/eam_layouts.html#grid-layout" label="Grid Layout">
+         </topic>
+         <topic href="user_guide_output/eam_layouts.html#radial-layout" label="Radial Layout">
+         </topic>
+      </topic>
    </topic>
    <topic href="user_guide_output/ts.html" label="Troubleshooting">
    </topic>
