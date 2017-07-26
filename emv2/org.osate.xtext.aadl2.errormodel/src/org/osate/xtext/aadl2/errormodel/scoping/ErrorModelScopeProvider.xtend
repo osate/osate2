@@ -727,7 +727,8 @@ class ErrorModelScopeProvider extends PropertiesScopeProvider {
 		val IScope librariesScope = scope_ErrorModelLibrary(context, ErrorModelPackage.Literals.ERROR_MODEL_LIBRARY__USE_TYPES)
 		val Iterable<ErrorModelLibrary> allLibraries = librariesScope.allElements.map[EObjectOrProxy.resolve(context) as ErrorModelLibrary]
 		val Iterable<IEObjectDescription> qualifiedDescriptions = allLibraries.map[library |
-			elementGetter.apply(library).map[errorTypes |
+			val Iterable<? extends ErrorTypes> x = elementGetter.apply(library)
+			x.map[errorTypes |
 				EObjectDescription.create(QualifiedName.create(library.libraryName, errorTypes.name), errorTypes)
 			]
 		].flatten
