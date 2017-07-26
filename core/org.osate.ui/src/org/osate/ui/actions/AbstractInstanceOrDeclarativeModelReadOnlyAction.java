@@ -51,6 +51,11 @@ import org.osate.aadl2.util.Aadl2Util;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.dialogs.SOMChooserDialog;
 
+/**
+ * @deprecated Usage of this class should be replaced with
+ * {@link org.osate.ui.handlers.AbstractInstanceOrDeclarativeModelReadOnlyHandler}.
+ */
+@Deprecated
 public abstract class AbstractInstanceOrDeclarativeModelReadOnlyAction extends AaxlReadOnlyActionAsJob {
 	private static final String INITIAL_MODE_LABEL = "Initial Mode";
 	private static final String CHOOSE_MODE_LABEL = "Choose Mode...";

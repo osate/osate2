@@ -1,6 +1,6 @@
-/*
+/**
  * <copyright>
- * Copyright  2009 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -31,16 +31,31 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.reporter;
 
-import org.osate.ui.wizards.NewModelWizard;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.ui.handlers.HandlerUtil;
 
-/**
- * This class is based on edu.cmu.sei.aadl.model.core.presentation.NewPropertysetWizardAction from OSATE 1.
- */
-public class NewPropertySetWizardAction extends NewModelWizardLauncherAction {
+public class ReporterSettingsHandler extends AbstractHandler {
 	@Override
-	protected void setInitialObjectType(NewModelWizard wizard) {
-		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PROPERTY_SET);
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		new ReporterSettingsDialog(HandlerUtil.getActiveShell(event), getCurrentSelection(event).getProject()).open();
+		return null;
+	}
+	
+	private IResource getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			Object object = ((IStructuredSelection) selection).getFirstElement();
+			if (object != null && object instanceof IResource) {
+				return (IResource) object;
+			}
+		}
+		return null;
 	}
 }

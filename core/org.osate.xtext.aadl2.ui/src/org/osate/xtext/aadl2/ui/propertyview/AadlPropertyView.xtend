@@ -82,7 +82,6 @@ import org.eclipse.ui.IWorkbenchActionConstants
 import org.eclipse.ui.IWorkbenchPart
 import org.eclipse.ui.dialogs.FilteredTree
 import org.eclipse.ui.dialogs.PatternFilter
-import org.eclipse.ui.internal.views.ViewsPlugin
 import org.eclipse.ui.part.PageBook
 import org.eclipse.ui.part.ViewPart
 import org.eclipse.xtext.resource.EObjectAtOffsetHelper
@@ -519,7 +518,7 @@ class AadlPropertyView extends ViewPart {
 			}		
 		} => [
 				enabled = false
-				imageDescriptor = ViewsPlugin.getViewImageDescriptor("elcl16/filter_ps.png")
+				imageDescriptor = MyAadl2Activator.getImageDescriptor("icons/propertyview/filter_ps.png")
 				toolTipText = SHOW_ONLY_IMPORTED_PROPERTIES
 				viewSite.actionBars.toolBarManager.add(it)
 		]

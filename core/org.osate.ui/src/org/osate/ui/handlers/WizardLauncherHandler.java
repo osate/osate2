@@ -1,5 +1,4 @@
-/*
- *
+/**
  * <copyright>
  * Copyright  2004 by Carnegie Mellon University, all rights reserved.
  *
@@ -32,41 +31,42 @@
  * under the contract clause at 252.227.7013.
  *
  * </copyright>
- *
- *
- * %W%
- * @version %I% %H%
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
-/*
- * XXX: Commented out entire class to remove error markers.  Not currently used in Aadl 2 beta.
- * Need to check if this should be used after implementing the Xtext parser.
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.jface.viewers.ISelection;
+import org.eclipse.jface.viewers.IStructuredSelection;
+import org.eclipse.jface.wizard.WizardDialog;
+import org.eclipse.ui.IWorkbench;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.wizards.AadlProjectWizard;
+
+/**
+ * Launches a "new Aadl project wizard" when the user clicks on the
+ * "new Aadl project" button on the toolbar.
+ *
+ * @author jseibel
  */
-public final class CheckModelSanity /* extends AaxlReadOnlyActionAsJob */ {
-//	protected Bundle getBundle() {
-//		return OsateUiPlugin.getDefault().getBundle();
-//	}
-//
-//	protected String getMarkerType() {
-//		return "org.osate.aadl2.parser.ModelError";
-//	}
-//
-//	protected String getActionName() {
-//		return "Check model sanity";
-//	}
-//
-//	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-//		final Element root = obj.getAObjectRoot();
-//		if (root != null) {
-//			monitor.beginTask(getActionName(), AadlUtil.countElementsBySubclass(root, Classifier.class));
-//			final AadlModelSanityChecker sanityChecker =
-//				new AadlModelSanityChecker(monitor, getErrorManager());
-//			sanityChecker.defaultTraversal(root);
-//			if (sanityChecker.cancelled()) {
-//				throw new OperationCanceledException();
-//			}
-//			monitor.done();
-//		}
-//	}
+public class WizardLauncherHandler extends AbstractHandler {
+	@Override
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		AadlProjectWizard wizard = new AadlProjectWizard();
+		IWorkbench workbench = HandlerUtil.getActiveWorkbenchWindow(event).getWorkbench();
+		wizard.init(workbench, getSelection(event));
+		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
+		dialog.open();
+		return null;
+	}
+	
+	private IStructuredSelection getSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			return (IStructuredSelection) selection;
+		} else {
+			return null;
+		}
+	}
 }

@@ -1,9 +1,9 @@
 package org.osate.core.tests.formatter
 
 import com.google.inject.Inject
+import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.xtext.junit4.InjectWith
 import org.eclipse.xtext.junit4.formatter.FormatterTester
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.core.test.Aadl2UiInjectorProvider

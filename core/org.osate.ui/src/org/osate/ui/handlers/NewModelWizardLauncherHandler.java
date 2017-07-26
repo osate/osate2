@@ -31,49 +31,33 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
 import java.util.ArrayList;
 
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
-import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
 import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
+import org.eclipse.ui.handlers.HandlerUtil;
 import org.osate.aadl2.modelsupport.resources.PredeclaredProperties;
 import org.osate.ui.wizards.NewModelWizard;
 
 /**
  * Launches a "new Aadl model wizard" when the user clicks on
  * one of the two "new Aadl model" buttons on the toolbar.
- * This class is based on edu.cmu.sei.aadl.model.core.presentation.WizardLauncherAction from OSATE 1.
  *
  * @author jseibel
  */
-public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowActionDelegate {
-	// workbench and selection required for instantiating the wizard.
-	private IWorkbench workbench = null;
-	private IStructuredSelection selection = null;
-
-//	@Override
+public abstract class NewModelWizardLauncherHandler extends AbstractHandler {
 	@Override
-	public void dispose() {
-	}
-
-//	@Override
-	@Override
-	public void init(IWorkbenchWindow window) {
-		workbench = window.getWorkbench();
-	}
-
-//	@Override
-	@Override
-	public void run(IAction action) {
+	public Object execute(ExecutionEvent event) throws ExecutionException {
 		IProject[] projects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
 		ArrayList<IProject> openProjects = new ArrayList<IProject>();
 		for (int i = 0; i < projects.length; i++) {
@@ -87,20 +71,23 @@ public abstract class NewModelWizardLauncherAction implements IWorkbenchWindowAc
 					"There are no open projects to create a new spec in.");
 		} else {
 			NewModelWizard wizard = new NewModelWizard();
-			wizard.init(workbench, selection);
+			IWorkbench workbench = HandlerUtil.getActiveWorkbenchWindow(event).getWorkbench();
+			wizard.init(workbench, getSelection(event));
 			setInitialObjectType(wizard);
 			WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
 			dialog.open();
 		}
+		return null;
 	}
-
+	
 	protected abstract void setInitialObjectType(NewModelWizard wizard);
-
-//	@Override
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
+	
+	private IStructuredSelection getSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			this.selection = (IStructuredSelection) selection;
+			return (IStructuredSelection) selection;
+		} else {
+			return null;
 		}
 	}
 }

@@ -419,6 +419,69 @@ public class GetProperties {
 		return components;
 	}
 
+	public static List<ComponentInstance> getAllowedConnectionBinding(final InstanceObject io) {
+		ArrayList<ComponentInstance> components = new ArrayList<ComponentInstance>();
+		Property allowedConnectionBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_CONNECTION_BINDING);
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedConnectionBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+
+	public static List<Classifier> getAllowedConnectionBindingClass(final InstanceObject io) {
+		Property allowedConnectionBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_CONNECTION_BINDING_CLASS);
+		ArrayList<Classifier> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedConnectionBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
+
+	public static List<EnumerationLiteral> getProvidedConnectionQualityOfService(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property providedConnQos = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.PROVIDED_CONNECTION_QUALITY_OF_SERVICE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(providedConnQos);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+
+	public static List<EnumerationLiteral> getRequiredConnectionQualityOfService(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property requiredConnQos = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.REQUIRED_CONNECTION_QUALITY_OF_SERVICE);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(requiredConnQos);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+
 	public static List<ComponentInstance> getAllowedProcessorBinding(final ComponentInstance io) {
 		Property allowedProcessorBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING);
@@ -436,10 +499,10 @@ public class GetProperties {
 		return components;
 	}
 
-	public static List<ComponentClassifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
+	public static List<Classifier> getAllowedProcessorBindingClass(final ComponentInstance io) {
 		Property allowedProcessorBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
 				DeploymentProperties.ALLOWED_PROCESSOR_BINDING_CLASS);
-		ArrayList<ComponentClassifier> components = new ArrayList<ComponentClassifier>();
+		ArrayList<Classifier> components = new ArrayList<Classifier>();
 		List<? extends PropertyExpression> propertyValues;
 		try {
 			propertyValues = io.getPropertyValueList(allowedProcessorBindingClass);
@@ -447,8 +510,7 @@ public class GetProperties {
 			return components;
 		}
 		for (PropertyExpression propertyExpression : propertyValues) {
-			components.add(
-					(ComponentClassifier) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
 	}
@@ -466,6 +528,39 @@ public class GetProperties {
 		for (PropertyExpression propertyExpression : propertyValues) {
 			components.add(
 					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+
+	public static List<ComponentInstance> getAllowedMemoryBinding(final InstanceObject io) {
+		Property allowedMemoryBinding = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_MEMORY_BINDING);
+		ArrayList<ComponentInstance> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedMemoryBinding);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(
+					(ComponentInstance) ((InstanceReferenceValue) propertyExpression).getReferencedInstanceObject());
+		}
+		return components;
+	}
+
+	public static List<Classifier> getAllowedMemoryBindingClass(final InstanceObject io) {
+		Property allowedMemoryBindingClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.ALLOWED_MEMORY_BINDING_CLASS);
+		ArrayList<Classifier> components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(allowedMemoryBindingClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add(((ClassifierValue) propertyExpression).getClassifier());
 		}
 		return components;
 	}
@@ -1279,6 +1374,21 @@ public class GetProperties {
 		}
 	}
 
+	public static List<EnumerationLiteral> getAllowedDispatchProtocol(NamedElement ne) {
+		try {
+			List<EnumerationLiteral> res = new ArrayList<>();
+			Property allowedDispatchProtocol = lookupPropertyDefinition(ne, DeploymentProperties._NAME,
+					DeploymentProperties.ALLOWED_DISPATCH_PROTOCOL);
+			List<? extends PropertyExpression> propertyValues = ne.getPropertyValueList(allowedDispatchProtocol);
+			for (PropertyExpression propertyExpression : propertyValues) {
+				res.add((EnumerationLiteral) ((NamedValue) propertyExpression).getNamedValue());
+			}
+			return res;
+		} catch (PropertyLookupException e) {
+			return Collections.emptyList();
+		}
+	}
+
 	public static EnumerationLiteral getOverflowHandlingProtocol(final NamedElement ne) {
 		try {
 			Property overflowHandlingProtocol = lookupPropertyDefinition(ne, CommunicationProperties._NAME,
@@ -1817,6 +1927,25 @@ public class GetProperties {
 		return res;
 	}
 
+	public static List<ComponentClassifier> getProvidedVirtualBusClass(final NamedElement io) {
+		Property providedVirtualBusClass;
+		ArrayList<ComponentClassifier> components;
+
+		providedVirtualBusClass = lookupPropertyDefinition(io, DeploymentProperties._NAME,
+				DeploymentProperties.PROVIDED_VIRTUAL_BUS_CLASS);
+		components = new ArrayList<>();
+		List<? extends PropertyExpression> propertyValues;
+		try {
+			propertyValues = io.getPropertyValueList(providedVirtualBusClass);
+		} catch (Exception e) {
+			return components;
+		}
+		for (PropertyExpression propertyExpression : propertyValues) {
+			components.add((ComponentClassifier) ((ClassifierValue) propertyExpression).getClassifier());
+		}
+		return components;
+	}
+
 	/**
 	 * Get the virtual bus required for a connection, virtual bus, port, etc.
 	 *
@@ -1976,6 +2105,10 @@ public class GetProperties {
 		Property memorySize = lookupPropertyDefinition(ne, MemoryProperties._NAME, MemoryProperties.MEMORY_SIZE);
 		UnitLiteral KBytes = findUnitLiteral(memorySize, AadlProject.KB_LITERAL);
 		return PropertyUtils.getScaledNumberValue(ne, memorySize, KBytes, 0.0);
+	}
+
+	public static double getPrice(final NamedElement ne, final double defaultValue) {
+		return PropertyUtils.getRealValue(ne, lookupPropertyDefinition(ne, SEI._NAME, SEI.PRICE), defaultValue);
 	}
 
 }

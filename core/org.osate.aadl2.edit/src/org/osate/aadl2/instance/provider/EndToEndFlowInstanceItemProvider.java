@@ -36,13 +36,24 @@
  */
 package org.osate.aadl2.instance.provider;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.osate.aadl2.instance.EndToEndFlowInstance;
+import org.osate.aadl2.instance.FlowElementInstance;
 import org.osate.aadl2.instance.InstancePackage;
 
 /**
@@ -179,5 +190,59 @@ public class EndToEndFlowInstanceItemProvider extends FlowElementInstanceItemPro
 		updateChildren(notification);
 		super.notifyChanged(notification);
 	}
-
+	
+	/**
+	 * Manually added to show the flow elements in an EndToEndFlowInstance.
+	 */
+	@Override
+	public Collection<?> getChildren(Object object) {
+		EndToEndFlowInstance etef = (EndToEndFlowInstance) object;
+		return etef.getFlowElements().stream()
+				.map(flowElement -> new EndToEndFlowInstanceFlowElementItemProvider(adapterFactory, etef, flowElement))
+				.collect(Collectors.toList());
+	}
+	
+	public static class EndToEndFlowInstanceFlowElementItemProvider extends ItemProviderAdapter
+			implements IEditingDomainItemProvider, IStructuredItemContentProvider, ITreeItemContentProvider,
+			IItemLabelProvider, IItemPropertySource {
+		private final FlowElementInstance flowElement;
+		
+		private EndToEndFlowInstanceFlowElementItemProvider(AdapterFactory adapterFactory, EndToEndFlowInstance etef,
+				FlowElementInstance flowElement) {
+			super(adapterFactory);
+			this.flowElement = flowElement;
+			etef.eAdapters().add(this);
+		}
+		
+		public FlowElementInstance getFlowElement() {
+			return flowElement;
+		}
+		
+		@Override
+		public Collection<?> getChildren(Object object) {
+			return Collections.emptyList();
+		}
+		
+		@Override
+		public Object getParent(Object object) {
+			return target;
+		}
+		
+		@Override
+		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
+			return Collections.emptyList();
+		}
+		
+		@Override
+		public String getText(Object object) {
+			return ((IItemLabelProvider) adapterFactory.adapt(flowElement, IItemLabelProvider.class))
+					.getText(flowElement);
+		}
+		
+		@Override
+		public Object getImage(Object object) {
+			return ((IItemLabelProvider) adapterFactory.adapt(flowElement, IItemLabelProvider.class))
+					.getImage(flowElement);
+		}
+	}
 }

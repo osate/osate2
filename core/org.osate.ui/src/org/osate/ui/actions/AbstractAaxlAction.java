@@ -96,7 +96,11 @@ import org.osgi.framework.Bundle;
  * {@link org.osate.ui.actions.AaxlReadOnlyActionAsJob}.
  *
  * @author aarong
+ * 
+ * @deprecated Usage of this class should be replaced with
+ * {@link org.osate.ui.handlers.AbstractAaxlHandler}.
  */
+@Deprecated
 public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelegate, IObjectActionDelegate {
 	private static final String ERROR_SEPARATOR = ", ";
 	private static final String ERROR_MESSAGE = "Unable to find ";
@@ -681,7 +685,7 @@ public abstract class AbstractAaxlAction implements IWorkbenchWindowActionDelega
 	 * @param msg The error message
 	 */
 
-	public final void error(final Element obj, final String msg) {
+	public void error(final Element obj, final String msg) {
 		errManager.error(obj, msg);
 		logError(obj, msg);
 	}
