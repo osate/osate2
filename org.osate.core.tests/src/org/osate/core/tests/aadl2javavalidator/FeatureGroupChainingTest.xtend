@@ -1,8 +1,8 @@
 package org.osate.core.tests.aadl2javavalidator
 
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -283,7 +283,7 @@ class FeatureGroupChainingTest extends OsateTest {
 					"conn5".assertEquals(name)
 					assertError(testFileResult.issues, issueCollection,
 							"The feature groups 'fg18' and 'fg20' are not inverses of each other.",
-							"Feature p5 in the referenced feature group sub2.fg20 must not be out due to the direction of the connection")
+							"Feature sub2.fg19.fg20.p5 must not be out due to the direction of the connection")
 				]
 				ownedFeatureGroupConnections.get(9) => [
 					"conn10".assertEquals(name)

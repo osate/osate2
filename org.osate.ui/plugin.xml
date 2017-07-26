@@ -2,207 +2,6 @@
 <?eclipse version="3.0"?>
 <plugin>
    <extension-point id="analysis" name="Analysis" schema="schema/analysis.exsd"/>
-
-   <extension
-         point="org.eclipse.ui.popupMenus">
-      <objectContribution
-            id="org.osate.ui.oc1"
-            objectClass="java.lang.Object">
-         <visibility>
-            <or>
-               <and>
-                  <objectClass name="org.eclipse.core.resources.IFile"/>
-                  <objectState name="extension" value="aaxl"/>
-               </and>
-               <objectClass name="org.osate.aadl2.ModelUnit"/>
-            </or>
-         </visibility>
-
-         <menu
-               id="org.osate.ui.popupMenu.Analyses"
-               label="%popupMenu.analyses.label"
-               path="additions">
-            <groupMarker name="anal.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-
-         <menu
-               id="org.aadl.architecture.popupMenu.Semantic"
-               label="%popupMenu.Semantic.label"
-               path="org.osate.ui.popupMenu.Analyses/subMenus.grp">
-            <groupMarker name="anal.grp"/>
-         </menu>
-         
-      </objectContribution>
-
-      <objectContribution
-            id="org.osate.ui.oc2"
-            objectClass="org.eclipse.core.resources.IFile">
-         <visibility>
-            <or>
-               <objectState name="extension" value="*"/>
-               <objectState name="extension" value="aaxl2"/>
-            </or>
-         </visibility>
-         <menu
-               id="org.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <action
-               id="org.osate.ui.actions.ResetMarkers.popupAction"
-               label="%ResetMarkers.label"
-               tooltip="%ResetMarkers.toolTip"
-               icon="%ResetMarkers.icon"
-               class="org.osate.ui.actions.ResetMarkers"
-               menubarPath="org.osate.ui.popupMenu.Aadl/general.grp"
-               enablesFor="*"/>
-     </objectContribution>         
-               
-               
-
-      
-      <objectContribution
-            id="org.osate.ui.oc6"
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true">
-         <visibility>
-            <objectState
-                  name="nature"
-                  value="org.osate.core.aadlnature"/>
-         </visibility>
-         <menu
-               id="org.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <action
-               class="org.osate.ui.actions.ConversionAction"
-               enablesFor="1"
-               id="org.osate.ui.actions.RemoveAADLNature.popupAction"
-               label="%RemoveAADLNature.label"
-               menubarPath="org.eclipse.ui.projectConfigure/additions"
-               tooltip="%RemoveAADLNature.toolTip"/>
-      </objectContribution>
-      <objectContribution
-            id="org.osate.ui.oc7"
-            objectClass="org.eclipse.core.resources.IProject"
-            adaptable="true">
-         <visibility>
-            <not>
-               <objectState
-                     name="nature"
-                     value="org.osate.core.aadlnature"/>
-            </not>
-         </visibility>
-         <menu
-               id="org.osate.ui.popupMenu.Aadl"
-               label="%popupMenu.aadl.label"
-               path="additions">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-            <groupMarker name="subMenus.grp"/>
-         </menu>
-         <action
-               class="org.osate.ui.actions.ConversionAction"
-               enablesFor="1"
-               id="org.osate.ui.actions.EnableAADLNature.popupAction"
-               label="%EnableAADLNature.label"
-               menubarPath="org.eclipse.ui.projectConfigure/additions"
-               tooltip="%EnableAADLNature.toolTip"/>
-      </objectContribution>
-   </extension>
-
-   <extension
-         point="org.eclipse.ui.actionSets">
-      <actionSet
-            id="org.osate.ui.actionSet"
-            label="%actionSet.label"
-            visible="false">
-
-         <menu
-               id="menu.osate"
-               label="%menu.osate.label"
-               path="project">
-            <groupMarker name="file.grp"/>
-            <separator name="instance.grp"/>
-            <separator name="general.grp"/>
-         </menu>
-
-         <menu
-               id="menu.analyses"
-               label="%menu.analyses.label"
-               path="menu.osate">
-            <groupMarker name="top.grp"/>
-            <groupMarker name="bottom.grp"/>
-         </menu>
-
-         <menu
-               id="menu.semantic"
-               label="%menu.semantic.label"
-               path="menu.analyses/top.grp">
-            <groupMarker name="stuff.grp"/>
-         </menu>
-
-
-         
-          
-         <action
-               id="org.osate.ui.actions.ReinstantiateAllAadl.action"
-               label="%ReinstantiateAllModelsAction.label"
-               tooltip="%ReinstantiateAllModelsAction.toolTip"
-               icon="%ReinstantiateAllModelsAction.icon"
-               class="org.osate.ui.actions.ReinstantiateAadl"
-               menubarPath="menu.osate/instance.grp"
-               toolbarPath="OSATE.toolbar/instance.grp"
-               enablesFor="*"/>
-         
-         
-        <action
-               id="org.osate.ui.actions.ClearHistory.action"
-               label="%ClearHistory.label"
-               tooltip="%ClearHistory.toolTip"
-               icon="%ClearHistory.icon"
-               class="org.osate.ui.actions.ClearHistory"
-               menubarPath="menu.osate/general.grp"
-               toolbarPath="OSATE.toolbar/selfDebug.grp"
-               enablesFor="1">
-         </action> 
-         <action
-               id="org.osate.ui.actions.ResetMarkers.action"
-               label="%ResetMarkers.label"
-               tooltip="%ResetMarkers.toolTip"
-               icon="%ResetMarkers.icon"
-               class="org.osate.ui.actions.ResetMarkers"
-               menubarPath="menu.osate/general.grp"
-               toolbarPath="OSATE.toolbar/general.grp"
-               enablesFor="*">
-            <enablement>
-               <and>
-                  <objectClass
-                        name="org.eclipse.core.resources.IFile">
-                  </objectClass>
-                  <objectState
-                        name="extension"
-                        value="*">
-                  </objectState>
-               </and>
-            </enablement>
-         </action>
-      </actionSet>
-   </extension>
-   
-
-   
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
@@ -245,7 +44,7 @@
             icon="icons/aadl.gif"
             category="org.osate.Wizard.category.ID"
             class="org.osate.ui.wizards.NewModelWizard"
-                   preferredPerspeves="org.osate.ui.perspective.AadlPerspective"
+                   preferredPerspectives="org.osate.ui.perspective.AadlPerspective"
             finalPerspective="org.osate.ui.perspective.AadlPerspective"
             >
          <description>
@@ -472,8 +271,19 @@
     <extension
           point="org.eclipse.ui.menus">
        <menuContribution
-             allPopups="false"
-             locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+             locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
+          <menu
+                id="org.osate.ui.osatePopupMenu"
+                label="OSATE">
+             <command
+                   commandId="org.osate.ui.resetMarkers"
+                   style="push">
+             </command>
+          </menu>
+          <menu
+                id="org.osate.ui.aadlAnalysesPopupMenu"
+                label="AADL Analyses">
+          </menu>
           <command
                 commandId="org.osate.ui.setAadlProjectProperties"
                 label="Set as AADL_Project property set"
@@ -481,12 +291,195 @@
              <visibleWhen>
                 <with variable="selection">
                    <iterate
-                         ifEmtpy="false">
+                         ifEmpty="false">
                       <reference definitionId="org.osate.is_aadl_project_propertyset"/>
                    </iterate>
                 </with>
              </visibleWhen>
           </command>
+       </menuContribution>
+       <menuContribution
+             allPopups="false"
+             locationURI="popup:org.eclipse.ui.projectConfigure?after=additions">
+          <command
+                commandId="org.osate.ui.conversion"
+                label="%RemoveAADLNature.label"
+                tooltip="%RemoveAADLNature.toolTip"
+                style="push">
+             <visibleWhen>
+                <with
+                      variable="selection">
+                   <and>
+                      <count
+                            value="1">
+                      </count>
+                      <iterate>
+                         <and>
+                            <instanceof
+                                  value="org.eclipse.core.resources.IProject">
+                            </instanceof>
+                            <test
+                                  property="org.eclipse.core.resources.open">
+                            </test>
+                            <test
+                                  property="org.eclipse.core.resources.projectNature"
+                                  value="org.osate.core.aadlnature">
+                            </test>
+                         </and>
+                      </iterate>
+                   </and>
+                </with>
+             </visibleWhen>
+          </command>
+          <command
+                commandId="org.osate.ui.conversion"
+                label="%EnableAADLNature.label"
+                tooltip="%EnableAADLNature.toolTip">
+             <visibleWhen>
+                <with
+                      variable="selection">
+                   <and>
+                      <count
+                            value="1">
+                      </count>
+                      <iterate>
+                         <and>
+                            <instanceof
+                                  value="org.eclipse.core.resources.IProject">
+                            </instanceof>
+                            <test
+                                  property="org.eclipse.core.resources.open">
+                            </test>
+                            <not>
+                               <test
+                                     property="org.eclipse.core.resources.projectNature"
+                                     value="org.osate.core.aadlnature">
+                               </test>
+                            </not>
+                         </and>
+                      </iterate>
+                   </and>
+                </with>
+             </visibleWhen>
+          </command>
+       </menuContribution>
+       <menuContribution
+             locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+          <menu
+                id="org.osate.ui.analysesMenu"
+                label="Analyses">
+          </menu>
+          <menu
+                id="org.osate.ui.osateMenu"
+                label="OSATE">
+             <command
+                   commandId="org.osate.ui.reinstantiateAllAadl"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ui.separator1"
+                   visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ui.resetMarkers"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+             <command
+                   commandId="org.osate.ui.clearHistory"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+          </menu>
+       </menuContribution>
+       <menuContribution
+             locationURI="toolbar:org.eclipse.ui.main.toolbar">
+          <toolbar
+                id="org.osate.ui.toolbar"
+                label="OSATE">
+             <separator
+                   name="org.osate.ui.analysisToolbarSection1">
+             </separator>
+             <separator
+                   name="org.osate.ui.annexToolbarSection">
+             </separator>
+             <separator
+                   name="org.osate.ui.analysisToolbarSection2">
+             </separator>
+             <command
+                   commandId="org.osate.ui.reinstantiateAllAadl">
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ui.separator2"
+                   visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ui.clearHistory"
+                   tooltip="%ClearHistory.toolTip"
+                   style="push">
+                 <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+             <separator
+                   name="org.osate.ui.separator3"
+                   visible="true">
+             </separator>
+             <command
+                   commandId="org.osate.ui.resetMarkers"
+                   tooltip="%ResetMarkers.toolTip"
+                   style="push">
+                <visibleWhen
+                      checkEnabled="false">
+                   <with
+                         variable="activeWorkbenchWindow.activePerspective">
+                      <equals
+                            value="org.osate.ui.perspective.AadlPerspective">
+                      </equals>
+                   </with>
+                </visibleWhen>
+             </command>
+          </toolbar>
        </menuContribution>
     </extension>
     <extension
@@ -495,6 +488,22 @@
              id="org.osate.ui.setAadlProjectProperties"
              name="Set as AADL_Project property set">
        </command>
+       <command
+             id="org.osate.ui.reinstantiateAllAadl"
+             name="%ReinstantiateAllModelsAction.label">
+       </command>
+       <command
+             id="org.osate.ui.clearHistory"
+             name="%ClearHistory.label">
+       </command>
+       <command
+             id="org.osate.ui.resetMarkers"
+             name="%ResetMarkers.label">
+       </command>
+       <command
+             id="org.osate.ui.conversion"
+             name="Add/Remove AADL Nature">
+       </command>
     </extension>
     <extension
           point="org.eclipse.ui.handlers">
@@ -502,6 +511,55 @@
              class="org.osate.ui.handlers.SetAadlProjectPropertiesHandler"
              commandId="org.osate.ui.setAadlProjectProperties">
        </handler>
+       <handler
+             class="org.osate.ui.handlers.ReinstantiateAadl"
+             commandId="org.osate.ui.reinstantiateAllAadl">
+       </handler>
+       <handler
+             class="org.osate.ui.handlers.ClearHistory"
+             commandId="org.osate.ui.clearHistory">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <count
+                      value="1">
+                </count>
+             </with>
+          </enabledWhen>
+       </handler>
+       <handler
+             class="org.osate.ui.handlers.ResetMarkers"
+             commandId="org.osate.ui.resetMarkers">
+          <enabledWhen>
+             <with
+                   variable="selection">
+                <iterate
+                      ifEmpty="false">
+                   <instanceof
+                         value="org.eclipse.core.resources.IFile">
+                   </instanceof>
+                </iterate>
+             </with>
+          </enabledWhen>
+       </handler>
+       <handler
+             class="org.osate.ui.handlers.ConversionHandler"
+             commandId="org.osate.ui.conversion">
+       </handler>
     </extension>
-
+    <extension
+          point="org.eclipse.ui.commandImages">
+       <image
+             commandId="org.osate.ui.reinstantiateAllAadl"
+             icon="icons/reinstantiate.gif">
+       </image>
+       <image
+             commandId="org.osate.ui.clearHistory"
+             icon="icons/smiley.gif">
+       </image>
+       <image
+             commandId="org.osate.ui.resetMarkers"
+             icon="icons/none.gif">
+       </image>
+    </extension>
 </plugin>

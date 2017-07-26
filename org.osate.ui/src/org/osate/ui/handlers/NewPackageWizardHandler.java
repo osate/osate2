@@ -1,7 +1,6 @@
 /*
- *
  * <copyright>
- * Copyright  2004 by Carnegie Mellon University, all rights reserved.
+ * Copyright  2009 by Carnegie Mellon University, all rights reserved.
  *
  * Use of the Open Source AADL Tool Environment (OSATE) is subject to the terms of the license set forth
  * at http://www.eclipse.org/legal/cpl-v10.html.
@@ -30,43 +29,15 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
- *
  * </copyright>
- *
- *
- * %W%
- * @version %I% %H%
  */
-package org.osate.ui.actions;
+package org.osate.ui.handlers;
 
-/*
- * XXX: Commented out entire class to remove error markers.  Not currently used in Aadl 2 beta.
- * Need to check if this should be used after implementing the Xtext parser.
- */
-public final class CheckModelSemantics /* extends AaxlReadOnlyActionAsJob */ {
-//	protected Bundle getBundle() {
-//		return OsateUiPlugin.getDefault().getBundle();
-//	}
-//
-//	protected String getMarkerType() {
-//		return "org.osate.aadl2.parser.SemanticErrorMarker";
-//	}
-//
-//	protected String getActionName() {
-//		return "Check model semantics";
-//	}
-//
-//	public void doAaxlAction(final IProgressMonitor monitor, final Element obj) {
-//		final Element root = obj.getAObjectRoot();
-//		if (root != null) {
-//			monitor.beginTask(getActionName(), AadlUtil.countElementsBySubclass(root, Classifier.class));
-//			final AadlSemanticCheckSwitch semanticChecker =
-//				new AadlSemanticCheckSwitch(monitor, getErrorManager());
-//			semanticChecker.defaultTraversal(root);
-//			if (semanticChecker.cancelled()) {
-//				throw new OperationCanceledException();
-//			}
-//			monitor.done();
-//		}
-//	}
+import org.osate.ui.wizards.NewModelWizard;
+
+public class NewPackageWizardHandler extends NewModelWizardLauncherHandler {
+	@Override
+	protected void setInitialObjectType(NewModelWizard wizard) {
+		wizard.setInitialObjectType(NewModelWizard.ObjectType.AADL_PACKAGE);
+	}
 }

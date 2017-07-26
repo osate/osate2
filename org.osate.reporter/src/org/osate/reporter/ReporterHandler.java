@@ -29,52 +29,45 @@
  * under this contract. The U.S. Government retains a non-exclusive, royalty-free license to publish or reproduce these
  * documents, or allow others to do so, for U.S. Government purposes only pursuant to the copyright license
  * under the contract clause at 252.227.7013.
- *
  * </copyright>
  */
-package org.osate.ui.actions;
+package org.osate.reporter;
 
-import org.eclipse.jface.action.IAction;
+import org.eclipse.core.commands.AbstractHandler;
+import org.eclipse.core.commands.ExecutionEvent;
+import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.runtime.CoreException;
+import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.IStructuredSelection;
-import org.eclipse.jface.wizard.WizardDialog;
-import org.eclipse.ui.IWorkbench;
-import org.eclipse.ui.IWorkbenchWindow;
-import org.eclipse.ui.IWorkbenchWindowActionDelegate;
-import org.osate.ui.wizards.AadlProjectWizard;
+import org.eclipse.ui.handlers.HandlerUtil;
+import org.osate.ui.OsateUiPlugin;
 
-/**
- * Launches a "new Aadl project wizard" when the user clicks on the
- * "new Aadl project" button on the toolbar.
- *
- * @author jseibel
- */
-public class WizardLauncherAction implements IWorkbenchWindowActionDelegate {
-	// workbench and selection required for instanciating the wizard.
-	private IWorkbench workbench = null;
-	private IStructuredSelection selection = null;
-
+public class ReporterHandler extends AbstractHandler {
 	@Override
-	public void dispose() {
-	}
-
-	@Override
-	public void init(IWorkbenchWindow window) {
-		workbench = window.getWorkbench();
-	}
-
-	@Override
-	public void run(IAction action) {
-		AadlProjectWizard wizard = new AadlProjectWizard();
-		wizard.init(workbench, selection);
-		WizardDialog dialog = new WizardDialog(workbench.getActiveWorkbenchWindow().getShell(), wizard);
-		dialog.open();
-	}
-
-	@Override
-	public void selectionChanged(IAction action, ISelection selection) {
-		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			this.selection = (IStructuredSelection) selection;
+	public Object execute(ExecutionEvent event) throws ExecutionException {
+		IResource currentSelection = getCurrentSelection(event);
+		if (currentSelection == null) {
+			MessageDialog.openError(null, "Reporter Errror", "No resource selected.");
+			return null;
 		}
+		try {
+			Reporter.report(currentSelection, HandlerUtil.getActiveWorkbenchWindow(event));
+		} catch (CoreException e1) {
+			OsateUiPlugin.log(e1);
+		}
+		return null;
+	}
+	
+	private IResource getCurrentSelection(ExecutionEvent event) {
+		ISelection selection = HandlerUtil.getCurrentSelection(event);
+		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
+			Object object = ((IStructuredSelection) selection).getFirstElement();
+			if (object != null && object instanceof IResource) {
+				return (IResource) object;
+			}
+		}
+		return null;
 	}
 }

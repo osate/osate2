@@ -12,7 +12,7 @@
                point="org.eclipse.ui.menus">
             <menuContribution
                   allPopups="false"
-                  locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
+                  locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.ui.aadlAnalysesPopupMenu">
                <command
                      commandId="org.osate.aadl2.instance.ui.generateTextualInstance"
                      style="push">

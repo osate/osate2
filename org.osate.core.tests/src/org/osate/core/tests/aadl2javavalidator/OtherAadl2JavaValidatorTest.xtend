@@ -34,9 +34,9 @@
  */
 package org.osate.core.tests.aadl2javavalidator
 
+import com.itemis.xtext.testing.FluentIssueCollection
+import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.xtext.junit4.InjectWith
-import org.eclipselabs.xtext.utils.unittesting.FluentIssueCollection
-import org.eclipselabs.xtext.utils.unittesting.XtextRunner2
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -1219,8 +1219,8 @@ class OtherAadl2JavaValidatorTest extends OsateTest {
 				ownedConnections.get(1) => [
 					"c2".assertEquals(name)
 						assertError(testFileResult.issues, issueCollection, 
-										"Feature o1 in the referenced feature group inner.fg1 must not be in due to the direction of the connection"
-										, "Feature o1 in the referenced feature group fg1 must not be in due to the direction of the connection")
+										"Feature inner.fg1.o1 must not be in due to the direction of the connection"
+										, "Feature i.fg1.o1 must not be in due to the direction of the connection")
 				]
 			]
 		]

@@ -106,7 +106,11 @@ import org.osate.xtext.aadl2.properties.ui.internal.PropertiesActivator;
  * {@link org.eclipse.core.runtime.OperationCanceledException}.
  *
  * @author aarong
+ * 
+ * @deprecated Usage of this class should be replaced with
+ * {@link org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob}.
  */
+@Deprecated
 public abstract class AaxlReadOnlyActionAsJob extends AbstractAaxlAction {
 	public AaxlReadOnlyActionAsJob() {
 		super();

@@ -36,6 +36,7 @@
 package org.osate.aadl2.impl;
 
 import org.eclipse.emf.ecore.EClass;
+import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.properties.EvaluatedProperty;
@@ -70,7 +71,7 @@ public abstract class PropertyExpressionImpl extends ElementImpl implements Prop
 
 	@Override
 	public EvaluatedProperty evaluate(EvaluationContext ctx, int depth) {
-		return new EvaluatedProperty(this);
+		return new EvaluatedProperty(EcoreUtil.copy(this));
 	}
 
 	/*
