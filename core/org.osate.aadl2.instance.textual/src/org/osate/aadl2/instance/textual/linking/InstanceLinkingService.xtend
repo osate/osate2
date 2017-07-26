@@ -87,153 +87,100 @@ class InstanceLinkingService extends DefaultLinkingService {
 	override getLinkedObjects(EObject context, EReference ref, INode node) throws IllegalNodeException {
 		val crossRefString = node.crossRefNodeAsString.replaceAll("\\s", "")
 		val result = if (!crossRefString.nullOrEmpty) {
-				val qName = qualifiedNameConverter.toQualifiedName(crossRefString)
-				switch ref {
-					case systemInstance_ComponentImplementation:
-						context.getExportedObject(componentImplementation, qName.firstSegment)
-					case featureInstance_Feature:
-						context.getClassifierFeature(classifier, qName, [
-							switch it {
-								ComponentType: ownedFeatures
-								FeatureGroupType: ownedFeatures
-								default: emptyList
-							}
-						])
-					case componentInstance_InMode:
-						context.eContainer.getContainerOfType(ComponentInstance)?.modeInstances?.findFirst [
-							name == qName.firstSegment
-						]
-					case componentInstance_Classifier:
-						context.getExportedObject(classifier, qName.firstSegment)
-					case componentInstance_Subcomponent:
-						context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [
-							ownedSubcomponents
-						])
-					case connectionInstance_Source,
-					case connectionInstance_Destination,
-					case connectionReference_Source,
-					case connectionReference_Destination,
-					case flowSpecificationInstance_Source,
-					case flowSpecificationInstance_Destination,
-					case endToEndFlowInstance_FlowElement,
-					case systemOperationMode_CurrentMode:
-						context.getInstanceObject(qName, ref)
-					case connectionInstance_InSystemOperationMode,
-					case endToEndFlowInstance_InSystemOperationMode,
-					case modalElement_InMode:
-						context.getContainerOfType(SystemInstance).systemOperationModes.guardedGet(
-							qName.firstSegment.toIndex)
-					case connectionInstance_InModeTransition,
-					case flowSpecificationInstance_InModeTransition:
-						context.getContainerOfType(ComponentInstance).modeTransitionInstances.guardedGet(
-							qName.firstSegment.toIndex)
-					case connectionReference_Connection:
-						context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [
-							ownedConnections
-						])
-					case connectionReference_Context:
-						if (qName.firstSegment == "parent") {
-							context.getContainerOfType(ComponentInstance)
-						} else {
-							context.getInstanceObject(qName, ref)
-						}
-					case flowSpecificationInstance_InMode,
-					case modeTransitionInstance_Source,
-					case modeTransitionInstance_Destination:
-						context.getContainerOfType(ComponentInstance).modeInstances.findFirst [
-							name == qName.firstSegment
-						]
-					case flowSpecificationInstance_FlowSpecification:
-						context.<ComponentType>getClassifierFeature(componentType, qName, [ownedFlowSpecifications])
-					case endToEndFlowInstance_EndToEndFlow:
-						context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [
-							ownedEndToEndFlows
-						])
-					case modeInstance_Parent:
-						context.getContainerOfType(ComponentInstance).eContainer.getContainerOfType(ComponentInstance)?.
-							modeInstances?.findFirst[name == qName.firstSegment]
-					case modeInstance_Mode:
-						context.<ComponentClassifier>getClassifierFeature(componentClassifier, qName, [ownedModes])
-					case modeTransitionInstance_ModeTransition:
-						switch segments : qName.firstSegment.splitDeclarative {
-							case segments.length == 2: {
-								val classifier = context.getExportedObject(componentClassifier, segments.head)?.resolve(
-									context) as ComponentClassifier
-								if (classifier !== null) {
-									if (segments.last.startsWith("transition#")) {
-										classifier.getUnnamedTransition(qName.lastSegment)
-									} else {
-										classifier.ownedModeTransitions.findFirst[name == segments.last]
-									}
-								}
-							}
-						}
-					case propertyAssociation_Property:
-						context.getExportedObject(property, qName.firstSegment)
-					case propertyAssociationInstance_PropertyAssociation:
-						switch segments : qName.firstSegment.splitDeclarative {
-							case segments.length == 2: {
-								val classifier = context.getExportedObject(classifier, segments.head)?.resolve(
-									context) as Classifier
-								classifier?.ownedPropertyAssociations?.guardedGet(segments.last.toIndex)
-							}
-							case segments.length == 3: {
-								val element = switch classifier : context.getExportedObject(classifier, segments.head)?.resolve(context) {
-									FeatureGroupType:
-										classifier.ownedFeatures.findFirst[name == segments.get(1)]
-									ComponentClassifier case segments.get(1).startsWith("transition#"):
-										classifier.getUnnamedTransition(segments.get(1))
-									ComponentType:
-										(classifier.ownedFeatures + classifier.ownedFlowSpecifications +
-											classifier.ownedModes + classifier.ownedModeTransitions
-							).findFirst[name == segments.get(1)]
-									ComponentImplementation:
-										(classifier.ownedModes + classifier.ownedSubcomponents +
-											classifier.ownedConnections + classifier.ownedEndToEndFlows + classifier.ownedModeTransitions
-							).findFirst[name == segments.get(1)]
-								}
-								element?.ownedPropertyAssociations?.guardedGet(segments.last.toIndex)
-							}
-						}
-					case containmentPathElement_NamedElement:
-						context.getClassifierFeature(classifier, qName, [
-							switch it {
-								FeatureGroupType:
-									ownedPrototypes + ownedFeatureGroups
-								ComponentType:
-									componentClassifierReferenceElements + ownedFeatureGroups
-								BehavioredImplementation:
-									implReferenceElements + ownedSubprogramCallSequences + subprogramCalls()
-								ComponentImplementation:
-									implReferenceElements
-							}
-						])
-					case instanceReferenceValue_ReferencedInstanceObject:
-						context.getContainerOfType(SystemInstance).getInstanceObject(qName, ref)
-					case classifierValue_Classifier:
-						context.getExportedObject(classifier, qName.firstSegment)
-					case namedValue_NamedValue:
-						if (qName.firstSegment.contains("::")) {
-							context.getExportedObject(property, qName.firstSegment) ?:
-								context.getExportedObject(propertyConstant, qName.firstSegment)
-						} else {
-							switch type : context.property?.propertyType?.basePropertyType {
-								EnumerationType: type.ownedLiterals.findFirst[name == qName.firstSegment]
-							}
-						}
-					case numberValue_Unit:
-						switch type : context.property?.propertyType?.basePropertyType {
-							NumberType: type.unitsType
-							RangeType: type.numberType.unitsType
-						}?.ownedLiterals?.findFirst[name == qName.firstSegment]
-					case basicPropertyAssociation_Property:
-						switch type : context.getContainerOfType(RecordValue).property?.propertyType?.basePropertyType {
-							RecordType: type.ownedFields.findFirst[name == qName.firstSegment]
-						}
-					default:
-						super.getLinkedObjects(context, ref, node).head
+			val qName = qualifiedNameConverter.toQualifiedName(crossRefString)
+			switch ref {
+				case systemInstance_ComponentImplementation: context.getExportedObject(componentImplementation, qName.firstSegment)
+				case featureInstance_Feature: context.getClassifierFeature(classifier, qName, [switch it {
+					ComponentType: ownedFeatures
+					FeatureGroupType: ownedFeatures
+					default: emptyList
+				}])
+				case componentInstance_InMode: context.eContainer.getContainerOfType(ComponentInstance)?.modeInstances?.findFirst[name == qName.firstSegment]
+				case componentInstance_Classifier: context.getExportedObject(classifier, qName.firstSegment)
+				case componentInstance_Subcomponent: context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedSubcomponents])
+				case connectionInstance_Source,
+				case connectionInstance_Destination,
+				case connectionReference_Source,
+				case connectionReference_Destination,
+				case flowSpecificationInstance_Source,
+				case flowSpecificationInstance_Destination,
+				case endToEndFlowInstance_FlowElement,
+				case systemOperationMode_CurrentMode: context.getInstanceObject(qName, ref)
+				case connectionInstance_InSystemOperationMode,
+				case endToEndFlowInstance_InSystemOperationMode,
+				case modalElement_InMode: context.getContainerOfType(SystemInstance).systemOperationModes.findFirst[name == qName.firstSegment]
+				case connectionInstance_InModeTransition,
+				case flowSpecificationInstance_InModeTransition: context.getContainerOfType(ComponentInstance).modeTransitionInstances.guardedGet(qName.firstSegment.toIndex)
+				case connectionReference_Connection: context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedConnections])
+				case connectionReference_Context: if (qName.firstSegment == "parent") {
+					context.getContainerOfType(ComponentInstance)
+				} else {
+					context.getInstanceObject(qName, ref)
 				}
+				case flowSpecificationInstance_InMode,
+				case modeTransitionInstance_Source,
+				case modeTransitionInstance_Destination: context.getContainerOfType(ComponentInstance).modeInstances.findFirst[name == qName.firstSegment]
+				case flowSpecificationInstance_FlowSpecification: context.<ComponentType>getClassifierFeature(componentType, qName, [ownedFlowSpecifications])
+				case endToEndFlowInstance_EndToEndFlow: context.<ComponentImplementation>getClassifierFeature(componentImplementation, qName, [ownedEndToEndFlows])
+				case modeInstance_Parent: context.getContainerOfType(ComponentInstance).eContainer.getContainerOfType(ComponentInstance)?.modeInstances?.findFirst[name == qName.firstSegment]
+				case modeInstance_Mode: context.<ComponentClassifier>getClassifierFeature(componentClassifier, qName, [ownedModes])
+				case modeTransitionInstance_ModeTransition: switch segments : qName.firstSegment.splitDeclarative {
+					case segments.length == 2: {
+						val classifier = context.getExportedObject(componentClassifier, segments.head)?.resolve(context) as ComponentClassifier
+						if (classifier !== null) {
+							if (segments.last.startsWith("transition#")) {
+								classifier.getUnnamedTransition(qName.lastSegment)
+							} else {
+								classifier.ownedModeTransitions.findFirst[name == segments.last]
+							}
+						}
+					}
+				}
+				case propertyAssociation_Property: context.getExportedObject(property, qName.firstSegment)
+				case propertyAssociationInstance_PropertyAssociation: switch segments : qName.firstSegment.splitDeclarative {
+					case segments.length == 2: {
+						val classifier = context.getExportedObject(classifier, segments.head)?.resolve(context) as Classifier
+						classifier?.ownedPropertyAssociations?.guardedGet(segments.last.toIndex)
+					}
+					case segments.length == 3: {
+						val element = switch classifier : context.getExportedObject(classifier, segments.head)?.resolve(context) {
+							FeatureGroupType: classifier.ownedFeatures.findFirst[name == segments.get(1)]
+							ComponentClassifier case segments.get(1).startsWith("transition#"): classifier.getUnnamedTransition(segments.get(1))
+							ComponentType: (classifier.ownedFeatures + classifier.ownedFlowSpecifications + classifier.ownedModes +
+								classifier.ownedModeTransitions
+							).findFirst[name == segments.get(1)]
+							ComponentImplementation: (classifier.ownedModes + classifier.ownedSubcomponents + classifier.ownedConnections +
+								classifier.ownedEndToEndFlows + classifier.ownedModeTransitions
+							).findFirst[name == segments.get(1)]
+						}
+						element?.ownedPropertyAssociations?.guardedGet(segments.last.toIndex)
+					}
+				}
+				case containmentPathElement_NamedElement: context.getClassifierFeature(classifier, qName, [switch it {
+					FeatureGroupType: ownedPrototypes + ownedFeatureGroups
+					ComponentType: componentClassifierReferenceElements + ownedFeatureGroups
+					BehavioredImplementation: implReferenceElements + ownedSubprogramCallSequences + subprogramCalls()
+					ComponentImplementation: implReferenceElements
+				}])
+				case instanceReferenceValue_ReferencedInstanceObject: context.getContainerOfType(SystemInstance).getInstanceObject(qName, ref)
+				case classifierValue_Classifier: context.getExportedObject(classifier, qName.firstSegment)
+				case namedValue_NamedValue: if (qName.firstSegment.contains("::")) {
+					context.getExportedObject(property, qName.firstSegment) ?: context.getExportedObject(propertyConstant, qName.firstSegment)
+				} else {
+					switch type : context.property?.propertyType?.basePropertyType {
+						EnumerationType: type.ownedLiterals.findFirst[name == qName.firstSegment]
+					}
+				}
+				case numberValue_Unit: switch type : context.property?.propertyType?.basePropertyType {
+					NumberType: type.unitsType
+					RangeType: type.numberType.unitsType
+				}?.ownedLiterals?.findFirst[name == qName.firstSegment]
+				case basicPropertyAssociation_Property: switch type : context.getContainerOfType(RecordValue).property?.propertyType?.basePropertyType {
+					RecordType: type.ownedFields.findFirst[name == qName.firstSegment]
+				}
+				default: super.getLinkedObjects(context, ref, node).head
 			}
+		}
 		result?.singletonList ?: emptyList
 	}
 
