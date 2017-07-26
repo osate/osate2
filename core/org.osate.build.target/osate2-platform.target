@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="osate2-platform" sequenceNumber="12">
+<?pde version="3.8"?><target includeMode="feature" name="osate2-platform" sequenceNumber="13">
 <locations>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.birt.feature.group" version="4.5.0.v201506092134"/>
@@ -24,12 +24,15 @@
 <unit id="org.eclipse.platform.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.rcp.feature.group" version="4.5.2.v20160212-1500"/>
 <unit id="org.eclipse.sdk.feature.group" version="4.5.2.v20160212-1500"/>
-<unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="3.1.4.201602091241"/>
-<unit id="org.eclipse.sirius.runtime.ide.xtext.feature.group" version="3.1.4.201602091241"/>
-<unit id="org.eclipse.sirius.specifier.feature.group" version="3.1.4.201602091241"/>
 <unit id="org.eclipse.uml2.feature.group" version="5.1.2.v20160201-0816"/>
 <unit id="org.eclipse.zest.feature.group" version="1.6.1.201508170204"/>
 <repository location="http://download.eclipse.org/releases/mars/201602261000"/>
+</location>
+<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
+<unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="4.1.5.201705040741"/>
+<unit id="org.eclipse.sirius.runtime.ide.xtext.feature.group" version="4.1.5.201705040741"/>
+<unit id="org.eclipse.sirius.specifier.feature.group" version="4.1.5.201705040741"/>
+<repository location="http://download.eclipse.org/sirius/updates/releases/4.1.5/mars/"/>
 </location>
 <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="false" type="InstallableUnit">
 <unit id="org.eclipse.xtext.redist.feature.group" version="2.12.0.v20170519-1412"/>
