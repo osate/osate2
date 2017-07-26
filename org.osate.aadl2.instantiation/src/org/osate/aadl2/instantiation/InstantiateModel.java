@@ -146,6 +146,7 @@ import org.osate.workspace.WorkspacePlugin;
 public class InstantiateModel {
 	/* The name for the single mode of a non-modal system */
 	public static final String NORMAL_SOM_NAME = "No Modes";
+	protected static final int SOM_LIMIT = 1000;
 	protected final AnalysisErrorReporterManager errManager;
 	protected final IProgressMonitor monitor;
 
@@ -2089,9 +2090,13 @@ public class InstantiateModel {
 		final EList<ModeInstance> modes = instances[0].getModeInstances();
 
 		if (!modes.isEmpty()) {
+			int somIndex = 0;
 			for (ModeInstance mi : modes) {
 				if (monitor.isCanceled()) {
 					throw new InterruptedException();
+				}
+				if (somIndex == -1) {
+					break;
 				}
 				if (!mi.isDerived()) {
 					List<ModeInstance> nextModes = new ArrayList<ModeInstance>(currentModes);
@@ -2107,11 +2112,14 @@ public class InstantiateModel {
 							}
 						}
 					}
-					enumerateSystemOperationModes(root, instances, 1, skipped, nextModes);
+					somIndex = enumerateSystemOperationModes(root, instances, 1, skipped, nextModes, somIndex);
 				}
 			}
+			if (somIndex == -1) {
+				errManager.error(root, "List of System Operation Modes is incomplete.");
+			}
 		} else {
-			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes);
+			enumerateSystemOperationModes(root, instances, 1, skipped, currentModes, 0);
 		}
 	}
 
@@ -2133,15 +2141,19 @@ public class InstantiateModel {
 	 * of <code>instances</code>, this list holds the modal instances that
 	 * should be turned into a System Operation Mode object.
 	 */
-	protected void enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
-			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState)
+	protected int enumerateSystemOperationModes(SystemInstance root, ComponentInstance[] instances,
+			int currentInstance, LinkedList<ComponentInstance> skipped, List<ModeInstance> modeState, int somIndex)
 			throws InterruptedException {
 		if (monitor.isCanceled()) {
 			throw new InterruptedException();
 		}
+		if (somIndex >= SOM_LIMIT) {
+			return -1;
+		}
 		if (currentInstance == instances.length) {
 			// Completed an SOM
-			root.getSystemOperationModes().add(createSOM(modeState));
+			root.getSystemOperationModes().add(createSOM(modeState, somIndex));
+			somIndex++;
 		} else {
 			/*
 			 * First test if the current component exists given the currently
@@ -2160,6 +2172,9 @@ public class InstantiateModel {
 						if (monitor.isCanceled()) {
 							throw new InterruptedException();
 						}
+						if (somIndex == -1) {
+							break;
+						}
 						List<ModeInstance> nextModes = new ArrayList<ModeInstance>(modeState);
 
 						nextModes.add(mi);
@@ -2173,20 +2188,21 @@ public class InstantiateModel {
 								}
 							}
 						}
-						enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, nextModes);
+						somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, nextModes, somIndex);
 					}
 				} else {
 					// non-modal component
-					enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState);
+					somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState, somIndex);
 				}
 			} else {
 				// Skip the current component, it doesn't exist under the
 				// modeState
 				skipped.addLast(ci);
-				enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState);
+				somIndex = enumerateSystemOperationModes(root, instances, currentInstance + 1, skipped, modeState, somIndex);
 				skipped.removeLast();
 			}
 		}
+		return somIndex;
 	}
 
 	private boolean existsGiven(final List<ModeInstance> modeState, final List<ModeInstance> inModes)
@@ -2209,7 +2225,7 @@ public class InstantiateModel {
 	/*
 	 * Create a SystemOperationMode given a list of mode instances.
 	 */
-	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances) throws InterruptedException {
+	private SystemOperationMode createSOM(final List<ModeInstance> modeInstances, int somIndex) throws InterruptedException {
 		final SystemOperationMode som;
 
 		som = InstanceFactory.eINSTANCE.createSystemOperationMode();
@@ -2225,7 +2241,7 @@ public class InstantiateModel {
 			soms.add(som);
 			som.getCurrentModes().add(mi);
 		}
-		som.setName(som.toString());
+		som.setName("som_" + somIndex);
 		return som;
 	}
 
