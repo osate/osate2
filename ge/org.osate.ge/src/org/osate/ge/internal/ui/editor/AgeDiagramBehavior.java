@@ -224,6 +224,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			action = new DistributeVerticallyAction(editor);
 			actionRegistry.registerAction(action);
 			selectionActions.add(action.getId());
+			action = new RadialLayoutAction(editor);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			action = new GridLayoutAction(editor);
+			actionRegistry.registerAction(action);
+			selectionActions.add(action.getId());
+			
 			
 	 		final ExtensionService extService = (ExtensionService)getAdapter(ExtensionService.class);
 
