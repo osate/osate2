@@ -215,8 +215,10 @@ class LayoutUtil {
 		updateLayoutMetricsForLabelPositions(lm, nameHorizontalPosition, nameVerticalPosition, totalLabelsWidth + labelPadding, totalLabelsHeight + actualLabelPaddingY);
 		
 		// Adjust inner width and height based on padding and current size
-		lm.innerWidth = Math.max(lm.innerWidth, shapeGa.getWidth() - lm.leftOuterPadding - lm.rightOuterPadding);
-		lm.innerHeight = Math.max(lm.innerHeight, shapeGa.getHeight() - lm.topOuterPadding - lm.bottomOuterPadding);
+		if(!(element.getGraphic() instanceof Label)) { // Ignore labels because labels should shrink to their minimum size.
+			lm.innerWidth = Math.max(lm.innerWidth, shapeGa.getWidth() - lm.leftOuterPadding - lm.rightOuterPadding);
+			lm.innerHeight = Math.max(lm.innerHeight, shapeGa.getHeight() - lm.topOuterPadding - lm.bottomOuterPadding);
+		}
 		
 		// Prevent children from being positioned outside of the inner area
 		for(final Shape childShape : shape.getChildren()) {
