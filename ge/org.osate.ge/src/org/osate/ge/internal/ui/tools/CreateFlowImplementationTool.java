@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.inject.Named;
 import org.eclipse.emf.ecore.resource.Resource;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -55,7 +54,6 @@ import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.UiService;
@@ -87,8 +85,7 @@ public class CreateFlowImplementationTool {
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc,
 			final AadlModificationService aadlModService,
 			final UiService uiService,
-			final ColoringService coloringService,
-			final GraphitiService graphiti) {		
+			final ColoringService coloringService) {		
 		try {
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
@@ -96,8 +93,8 @@ public class CreateFlowImplementationTool {
 				this.coloring = coloringService.adjustColors();
 				
 				canActivate = false;
-				ToolUtil.clearSelection(graphiti.getDiagramTypeProvider());
-				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, graphiti.getDiagramTypeProvider());
+				uiService.clearSelection();
+				dlg = new CreateFlowImplementationDialog(Display.getCurrent().getActiveShell(), coloring, uiService);
 				if (dlg.open() == Dialog.CANCEL) {
 					return;
 				}
@@ -138,8 +135,7 @@ public class CreateFlowImplementationTool {
 	}
 
 	@SelectionChanged
-	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements,
-			final GraphitiService graphiti) {		
+	public void onSelectionChanged(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENTS) final DiagramElement[] selectedDiagramElements) {		
 		if (dlg != null && dlg.getShell() != null && dlg.getShell().isVisible()) {
 			// If the selection is a valid addition to the flow implementation, add it		
 			if(selectedDiagramElements.length > 1) {
@@ -160,7 +156,7 @@ public class CreateFlowImplementationTool {
 	 */	
 	private static class CreateFlowImplementationDialog extends TitleAreaDialog {
 		private final ColoringService.Coloring coloring;
-		private final IDiagramTypeProvider dtp;
+		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		private Composite flowComposite;
 		private StyledText flowLabel;
@@ -170,10 +166,10 @@ public class CreateFlowImplementationTool {
 		
 		CreateFlowImplementationDialog(final Shell parentShell, 
 				final ColoringService.Coloring coloring,
-				final IDiagramTypeProvider dtp) {
+				final UiService uiService) {
 			super(parentShell);
 			this.coloring = Objects.requireNonNull(coloring, "coloring must not be null");
-			this.dtp = Objects.requireNonNull(dtp, "dtp must not be null");
+			this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
 			this.setHelpAvailable(false);
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
@@ -500,7 +496,7 @@ public class CreateFlowImplementationTool {
 					if(userSelections.size() > 0) {
 						userSelections.remove(userSelections.size()-1);
 						update();
-						ToolUtil.clearSelection(dtp);
+						uiService.clearSelection();
 					}
 				}
 			});

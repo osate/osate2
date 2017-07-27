@@ -35,6 +35,7 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.osate.aadl2.Aadl2Factory;
@@ -58,6 +59,7 @@ import org.osate.ge.BusinessObjectContext;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.CanActivate;
 import org.osate.ge.internal.Activator;
+import org.osate.ge.internal.AgeDiagramProvider;
 import org.osate.ge.internal.di.Deactivate;
 import org.osate.ge.internal.di.Description;
 import org.osate.ge.internal.di.Icon;
@@ -67,11 +69,9 @@ import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramConfigurationBuilder;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.UiService;
 import org.osate.ge.internal.services.AadlModificationService.AbstractModifier;
-import org.osate.ge.internal.ui.editor.AgeDiagramEditor;
 import org.osate.xtext.aadl2.properties.util.DeploymentProperties;
 import org.osate.xtext.aadl2.properties.util.GetProperties;
 
@@ -98,19 +98,18 @@ public class SetBindingTool {
 	
 	@Activate
 	public void activate(@Named(InternalNames.SELECTED_DIAGRAM_ELEMENT) final BusinessObjectContext selectedBoc, 
-			final GraphitiService graphiti,
+			final AgeDiagramProvider diagramProvider,
 			final AadlModificationService aadlModService,
 			final UiService uiService) {
 		try {
-			final AgeDiagramEditor editor = (AgeDiagramEditor)graphiti.getDiagramTypeProvider().getDiagramBehavior().getDiagramContainer();
 			final BusinessObjectContext componentImplementationBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);		
 			
 			// Open Dialog
 			if(currentWindow == null && componentImplementationBoc != null) {
-				currentWindow = new SetBindingWindow(editor.getSite().getShell(), componentImplementationBoc, selectedBoc);
+				currentWindow = new SetBindingWindow(Display.getCurrent().getActiveShell(), componentImplementationBoc, selectedBoc);
 				if(currentWindow.open() == Dialog.OK) {					
 					// Ensure the diagram is configured to show the specified binding property
-					final AgeDiagram diagram = graphiti.getAgeDiagram();
+					final AgeDiagram diagram = diagramProvider.getAgeDiagram();
 					diagram.setDiagramConfiguration(new DiagramConfigurationBuilder(diagram.getConfiguration()).
 							addAadlProperty(currentWindow.getSelectedProperty().getQualifiedName()).
 							build());
@@ -134,7 +133,7 @@ public class SetBindingTool {
 	}
 	
 	@Deactivate
-	public void deactivate(final GraphitiService graphiti, final UiService uiService) {
+	public void deactivate(final UiService uiService) {
 		if(currentWindow != null) {
 			currentWindow.cancel();
 			currentWindow = null;

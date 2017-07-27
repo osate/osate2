@@ -1,7 +1,5 @@
 package org.osate.ge.internal.ui.tools;
 
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.osate.aadl2.ComponentImplementation;
 import org.osate.aadl2.Context;
 import org.osate.aadl2.NamedElement;
@@ -46,9 +44,4 @@ class ToolUtil {
 		final BusinessObjectContext contextBoc = findContextAncestorBoc(boc);
 		return contextBoc == null ? null : (Context)contextBoc.getBusinessObject();
 	}
-	
-	public static void clearSelection(final IDiagramTypeProvider dtp) {
-		dtp.getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[0]);
-	}
-	
 }
