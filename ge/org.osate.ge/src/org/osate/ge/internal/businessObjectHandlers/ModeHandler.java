@@ -1,16 +1,13 @@
 package org.osate.ge.internal.businessObjectHandlers;
 
-
 import javax.inject.Named;
 
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.Aadl2Factory;
 import org.osate.aadl2.AadlPackage;
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentClassifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Mode;
 import org.osate.ge.Categories;
 import org.osate.ge.GraphicalConfiguration;
@@ -91,13 +88,10 @@ public class ModeHandler {
 		// Check if modes have been created in extended type
 		if(classifier instanceof ComponentImplementation) {
 			final ComponentImplementation ci = (ComponentImplementation)classifier;
-			for(final Classifier c : ci.getType().getSelfPlusAllExtended()) {
-				if(c instanceof ComponentType) {
-					final ComponentType compImpl = (ComponentType)c;
-					if(!compImpl.getAllModes().isEmpty()) {
-						MessageDialog.openWarning(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unable to create mode.", "Cannot create mode in component implementation when modes exist in component type.");
-						return null;
-					}
+			if(ci.getType() != null) {
+				if(!ci.getType().getAllModes().isEmpty()) {
+					MessageDialog.openWarning(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), "Unable to Create Mode.", "Cannot create mode. Implementation cannot contain modes because modes are inherited from type.");
+					return null;
 				}
 			}
 		}
