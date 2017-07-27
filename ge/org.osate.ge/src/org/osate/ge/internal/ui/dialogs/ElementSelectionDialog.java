@@ -10,11 +10,16 @@ package org.osate.ge.internal.ui.dialogs;
 
 import java.lang.reflect.Array;
 import java.util.List;
+import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Shell;
+import org.eclipse.ui.dialogs.FilteredList;
 import org.eclipse.xtext.resource.IEObjectDescription;
 
 /**
@@ -27,7 +32,7 @@ public class ElementSelectionDialog {
 	private final org.eclipse.ui.dialogs.ElementListSelectionDialog dlg;
 	
 	public ElementSelectionDialog(final Shell parentShell, final String dlgTitle, final String prompt, final List<?> elementDescriptions) {
-		dlg = new ElementListSelectionDialogs(parentShell, new ElementLabelProvider(nullObject));		
+		dlg = new AgeElementListSelectionDialog(parentShell, new ElementLabelProvider(nullObject));		
 		dlg.setTitle(dlgTitle);
 		dlg.setMessage(prompt);
 		
@@ -118,10 +123,12 @@ public class ElementSelectionDialog {
 		dlg.setInitialSelections(convertToNullObject(elements));
 	}
 	
-	private class ElementListSelectionDialogs extends org.eclipse.ui.dialogs.ElementListSelectionDialog {
-
-		public ElementListSelectionDialogs(final Shell parentShell, ILabelProvider renderer) {
-			super(parentShell, renderer);
+	private static class AgeElementListSelectionDialog extends org.eclipse.ui.dialogs.ElementListSelectionDialog {
+		private final ILabelProvider labelProvider;
+		
+		public AgeElementListSelectionDialog(final Shell parentShell, final ILabelProvider labelProvider) {
+			super(parentShell, labelProvider);
+			this.labelProvider = Objects.requireNonNull(labelProvider, "labelProvider must not be null");
 			setShellStyle(getShellStyle() | SWT.RESIZE);
 		}
 		
@@ -131,6 +138,55 @@ public class ElementSelectionDialog {
 			shell.setMinimumSize(275, 250);
 		}
 		
+		@Override
+		protected FilteredList createFilteredList(final Composite parent) { 
+			final FilteredList fl = super.createFilteredList(parent);
+			fl.setFilterMatcher(new AgeFilterMatcher(labelProvider));
+			
+			return fl;
+		}
+		
+	}
+	
+	private static class AgeFilterMatcher implements FilteredList.FilterMatcher {
+		private final ILabelProvider labelProvider;
+		private Pattern regex;
+		
+		public AgeFilterMatcher(final ILabelProvider labelProvider) {
+			this.labelProvider = Objects.requireNonNull(labelProvider, "labelProvider must not be null");
+		}
+		
+		@Override
+		public void setFilter(final String pattern, final boolean ignoreCase, final boolean ignoreWildCards) {
+			int flags = 0;
+			if(ignoreCase) {
+				flags |= Pattern.CASE_INSENSITIVE;
+			}
+			
+			// Build a regular expression based on the pattern. The expression should add wildcards to each end and optionally process wildcards in the pattern
+			String regexPattern = pattern.replaceAll("\\\\E", Matcher.quoteReplacement("\\E\\\\E\\Q"));			
+			if(!ignoreWildCards) {
+				regexPattern = regexPattern.replaceAll("\\*", Matcher.quoteReplacement("\\E.*\\Q"));
+				regexPattern = regexPattern.replaceAll("\\?", Matcher.quoteReplacement("\\E.?\\Q"));
+			}
+			
+			regexPattern = ".*\\Q" + regexPattern + "\\E.*"; // Add quotes and wildcards
+			regex = Pattern.compile(regexPattern, flags);
+		}
+
+		@Override
+		public boolean match(final Object element) {
+			final String txt = labelProvider.getText(element);
+	    	if(txt == null) {
+				return false;
+			}
+	    	
+	    	if(regex == null) {
+	    		return true;
+	    	}
+	    	
+	    	return regex.matcher(txt).matches();
+		}
 	}
 	
 }
