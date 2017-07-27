@@ -6,82 +6,93 @@
   </description>
 
   <!-- Define base properties -->
-  <property name="user_guide.dir" value="user_guide" />
-  <property name="dev_guide_output.dir" value="dev_guide_output" />
-  <property name="user_guide_output.dir" value="user_guide_output" />
+  <property name="docs_output.dir" value="docs-gen" />
 
-  <!-- Making saxon available -->
-  <path id="saxon.class.path">
-<pathelement location="lib/saxon.jar" />
-  </path>
-
-  <!-- - target: usage -->
+	<!-- - target: usage -->
   <target name="usage" description="Prints help">
 <echo message="Use -projecthelp to get a list of the available targets." />
   </target>
 
   <!-- - target: clean -->
   <target name="clean" description="Cleans up generated files.">
-  <delete dir="${dev_guide_output.dir}" />
-  <delete dir="${user_guide_output.dir}" />
+  <delete dir="${docs_output.dir}" />
+  	<delete dir="api" />
   </target>
 
-  <target name="build-help" depends="clean, build_dev_guide, build_user_guide"
-description="Generates eclipse help files">
-<echo message="Building output" />
-
-<!-- Copy the images to the same directory as the HTML files -->
-<copy todir="${user_guide.dir}\images">
-  <fileset dir="${user_guide_output.dir}\images">
-<include name="*" />
-  </fileset>
-</copy>
-  	
-<!-- Transfer to eclipse help format -->
+  <target name="build-help" depends="clean, build_docs_eclipse, build_api_docs">
   </target>
-	
-   <target name="build_dev_guide" description="Build the developer guide">
-	<mkdir dir="${dev_guide_output.dir}" />
-	<mkdir dir="${dev_guide_output.dir}/images" />
-   	
-   	<apply executable="pandoc" dest="./dev_guide_output/" parallel="false">
-        <srcfile/>
-    	<arg value="-s"/>
-   		<arg value="-f"/>
-   	    <arg value="markdown"/>
-   		<arg value="-t"/>
-   		<arg value="html5"/>
-   		<arg value="-o"/>
-   		<targetfile/>	
-        <fileset dir="./dev_guide" includes="*.md"/>
-   		<mapper type="glob" from="*.md" to="*.html"/>
-    </apply>
-   </target>
-	
-	<target name="build_user_guide" description="Build the user guide">
-		<mkdir dir="${user_guide_output.dir}" />
-		<mkdir dir="${user_guide_output.dir}/images" />
 		
-		<!-- Copy the images to the same directory as the HTML files -->
-		<copy todir="${user_guide_output.dir}\images">
-		  <fileset dir="${user_guide.dir}\images">
-		<include name="*" />
-		  </fileset>
-		</copy>
-		
-		<apply executable="pandoc" dest="./user_guide_output/" parallel="false">
-			 <srcfile/>
+	<target name="build_docs_eclipse" description="Build Eclipse Help Documentation">
+		<mkdir dir="${docs_output.dir}" />
+
+		<!-- User Guide -->
+		<exec executable="pandoc" dir="./docs/">
+			<arg value="user_guide.md"/>
+			<arg value="--toc"/>
+			<arg value="--number-sections"/>
 	    	<arg value="-s"/>
+			<arg value="--filter"/>
+			<arg value="pandoc-crossref"/>
 	   		<arg value="-f"/>
 	   	    <arg value="markdown"/>
 	   		<arg value="-t"/>
 	   		<arg value="html5"/>
+			<arg value="--css=../css/pandoc.css"/>
 	   		<arg value="-o"/>
-	   		<targetfile/>	
-	        <fileset dir="./user_guide" includes="*.md"/>
-	   		<mapper type="glob" from="*.md" to="*.html"/>
-		</apply>
+			<arg value="../docs-gen/user_guide.html"/>
+		</exec>
+		
+		<exec executable="pandoc" dir="./docs/">
+			<env key="HTML_FILEPATH" value="docs-gen/user_guide.html"/>
+			<arg value="user_guide.md"/>
+	    	<arg value="-t"/>
+	   		<arg value="../create_toc.lua"/>
+	   		<arg value="-o"/>
+			<arg value="../docs-gen/user_guide_toc.xml"/>
+		</exec>
+		
+		<!-- Developer Guide -->
+		<exec executable="pandoc" dir="./docs/">
+			<arg value="dev_guide.md"/>
+			<arg value="--toc"/>
+			<arg value="--number-sections"/>
+	    	<arg value="-s"/>
+			<arg value="--filter"/>
+			<arg value="pandoc-crossref"/>
+	   		<arg value="-f"/>
+	   	    <arg value="markdown"/>
+	   		<arg value="-t"/>
+	   		<arg value="html5"/>
+			<arg value="--css=../css/pandoc.css"/>
+	   		<arg value="-o"/>
+			<arg value="../docs-gen/dev_guide.html"/>
+		</exec>
+		
+		<exec executable="pandoc" dir="./docs/">
+			<env key="HTML_FILEPATH" value="docs-gen/dev_guide.html"/>
+			<arg value="dev_guide.md"/>
+	    	<arg value="-t"/>
+	   		<arg value="../create_toc.lua"/>
+	   		<arg value="-o"/>
+			<arg value="../docs-gen/dev_guide_toc.xml"/>
+		</exec>
 	</target>
-
-
+	
+    <target name="build_api_docs">
+        <javadoc access="public" additionalparam="-tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:' -tag 'category:a:Category:'" author="true" 
+        	destdir="api" 
+        	doctitle="OSATE Graphical Editor API Reference" 
+        	nodeprecated="false" 
+        	nodeprecatedlist="false" 
+        	noindex="false" 
+        	nonavbar="false" 
+        	notree="false" 
+        	packagenames="org.osate.ge,org.osate.ge.query,org.osate.ge.services,org.osate.ge.graphics,org.osate.ge.di" 
+        	source="1.8"         	 
+        	sourcepath="..\org.osate.ge\src;..\org.osate.ge.diagram\src" 
+        	splitindex="true" 
+        	use="true" 
+        	version="true"
+        	stylesheetfile="css/api.css"/>
+    </target>
 </project> 
