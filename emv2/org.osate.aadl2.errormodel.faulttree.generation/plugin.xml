@@ -6,101 +6,127 @@
 -->
 
 <plugin>
-
-
-       
-   
    
      <extension
          point="org.eclipse.ui.commands">
-     <category
-            id="org.osate.fta.category.commands"
-            name="Commands related to FTA">
-     </category>
+      <category
+            id="org.osate.aadl2.errormodel.analysis.category"
+            name="OSATE Fault Analyses">
+      </category>
 
-     <command categoryId="org.osate.fta.category.commands"
-            id="org.osate.fta.commands.FTA"
+     <command 
+            categoryId="org.osate.aadl2.errormodel.analysis.category"
+            id="org.osate.aadl2.errormodel.analysis.fta"
             description="View FTA graphically or as minimal cutset table"
-            name="View myFTA">
+            name="Fault Tree Analysis">
      </command>     
-
     </extension>
     
     
    	<extension point="org.eclipse.ui.handlers">
-
         <handler
             class="org.osate.aadl2.errormodel.faulttree.handler.FTAHandler" 
-            commandId="org.osate.fta.commands.FTA">
+            commandId="org.osate.aadl2.errormodel.analysis.fta">
+         <enabledWhen>
+            <or>
+               <reference
+                     definitionId="org.osate.core.isInstanceFileSelected">
+               </reference>
+               <with
+                     variable="selection">
+                  <and>
+                     <count
+                           value="1">
+                     </count>
+                     <iterate>
+                        <instanceof
+                              value="org.osate.aadl2.instance.ComponentInstance">
+                        </instanceof>
+                     </iterate>
+                  </and>
+               </with>
+            </or>
+         </enabledWhen>
       </handler>
+     </extension>  
+ 
+    <extension
+         point="org.eclipse.ui.commandImages">
+      <image
+            commandId="org.osate.aadl2.errormodel.analysis.fta"
+            icon="icons/fta.png">
+      </image>
      </extension>  
      
          
     <extension point="org.eclipse.ui.menus">
-         <menuContribution locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=additions">
+       <menuContribution
+            locationURI="menu:org.osate.ui.analysesMenu?before=org.osate.analysis.flows.checkFlowLatency">
          <menu
-               id="org.osate.ui.popupMenu.Analyses"
-               label="%popupMenu.analyses.label"
-               >
-        <menu
-               id="org.osate.analysis.architecture.popupMenu.Fault"
-               label="%popupMenu.Fault.label"
-               >
-			<command commandId="org.osate.fta.commands.FTA" 
-              icon="icons/fta.png"
-				style="push" tooltip="View myFTA">
-          <visibleWhen>
-            <reference definitionId="org.osate.emfta.compatibleElementSelected">
-            </reference>
-         </visibleWhen>
-			</command>
-
+               id="org.osate.aadl2.errormodel.analysis.faultAnalysesMenu"
+               label="Fault Analyses">
+            <command
+                  commandId="org.osate.aadl2.errormodel.analysis.fta">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="activeWorkbenchWindow.activePerspective">
+                     <equals
+                           value="org.osate.ui.perspective.AadlPerspective">
+                     </equals>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
- 
+      </menuContribution>
+      <menuContribution
+            locationURI="toolbar:org.osate.ui.toolbar?after=org.osate.ui.annexToolbarSection">
+         <command
+               commandId="org.osate.aadl2.errormodel.analysis.fta"
+               tooltip="Generate and View Fault Tree or Minimal Cut Set">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="activeWorkbenchWindow.activePerspective">
+                  <equals
+                        value="org.osate.ui.perspective.AadlPerspective">
+                  </equals>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+      <menuContribution
+            locationURI="popup:org.osate.ui.aadlAnalysesPopupMenu?before=org.osate.analysis.flows.checkFlowLatency">
+         <menu
+               id="org.osate.aadl2.errormodel.analysis.faultAnalysesPopupMenu"
+               label="Fault Analyses">
+            <command
+                  commandId="org.osate.aadl2.errormodel.analysis.fta">
+               <visibleWhen
+                     checkEnabled="false">
+                  <with
+                        variable="selection">
+                     <iterate
+                           operator="and"
+                           ifEmpty="false">
+                        <or>
+                           <instanceof
+                                 value="org.osate.aadl2.instance.SystemInstance">
+                           </instanceof>
+                           <adapt
+                                 type="org.eclipse.core.resources.IFile">
+                              <test
+                                    property="org.eclipse.core.resources.contentTypeId"
+                                    value="org.osate.core.instanceModelFile">
+                              </test>
+                           </adapt>
+                        </or>
+                     </iterate>
+                  </with>
+               </visibleWhen>
+            </command>
          </menu>
-
-          </menuContribution>
+      </menuContribution>
  	</extension>
-     
-     
-     <extension
-          point="org.eclipse.core.expressions.definitions">
-       <definition id="org.osate.emfta.compatibleElementSelected">
-       	<and>
-            <reference
-                  definitionId="oneElementSelected">
-            </reference>
-	        <with variable="selection">
-	           <iterate ifEmpty="false" operator="and">
-	              <or>
-	                <adapt type="org.eclipse.core.resources.IFile">
-                       <or>
-                          <test
-                                args="extension"
-                                property="org.eclipse.core.resources.extension"
-                                value="aaxl2">
-                          </test>
-                       </or>
-	                </adapt>
-	              </or>
-	           </iterate>
-	        </with>
-        </and>    
-       </definition>
-    </extension>
-  <extension
-       point="org.eclipse.core.expressions.definitions">
-    <definition
-          id="oneElementSelected">
-       <with
-             variable="selection">
-            <count
-                  value="1">
-            </count>
-             
-       </with>
-    </definition>
- </extension>
-   
 
 </plugin>
