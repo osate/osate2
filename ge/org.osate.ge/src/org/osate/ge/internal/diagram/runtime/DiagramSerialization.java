@@ -14,7 +14,7 @@ import org.osate.ge.diagram.Diagram;
 import org.osate.ge.internal.DockArea;
 
 /**
- * Class to help read and write the native JSON diagram format used by the editor.
+ * Class to help read and write the native diagram format used by the editor.
  *
  */
 public class DiagramSerialization {
