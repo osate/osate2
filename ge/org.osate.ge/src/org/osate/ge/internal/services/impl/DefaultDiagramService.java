@@ -415,13 +415,14 @@ public class DefaultDiagramService implements DiagramService {
 		private final Map<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> sourceToCanonicalReferenceToReferencesMap = new HashMap<>();
 		
 		@Override
-		public void update(final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap) {
-			for(final Entry<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> asourceToCanonicalReferenceToReferencesEntry : sourceToCanonicalReferenceToReferencesMap.entrySet()) {
-				final Object key = asourceToCanonicalReferenceToReferencesEntry.getKey();
-				final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> originalCanonicalRefToReferenceMap = asourceToCanonicalReferenceToReferencesEntry.getValue();
+		public void update(final UpdatedReferenceValueProvider updatedReferenceValues) {
+			for(final Entry<Object, Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>>> sourceToCanonicalReferenceToReferencesEntry : sourceToCanonicalReferenceToReferencesMap.entrySet()) {
+				final Object key = sourceToCanonicalReferenceToReferencesEntry.getKey();
+				final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> originalCanonicalRefToReferenceMap = sourceToCanonicalReferenceToReferencesEntry.getValue();
 
 				if(key instanceof AgeDiagramEditor) {
 					final AgeDiagramEditor editor = (AgeDiagramEditor)key;
+					
 					final AgeDiagramProvider diagramProvider = (AgeDiagramProvider)editor.getAdapter(AgeDiagramProvider.class);
 					if(diagramProvider == null) {
 						continue;
@@ -439,11 +440,14 @@ public class DefaultDiagramService implements DiagramService {
 							diagram.modify(new DiagramModifier() {					
 								@Override
 								public void modify(final DiagramModification m) {
-									updateReferences(originalCanonicalReferenceToNewObjectMap, originalCanonicalRefToReferenceMap, null, m);
+									updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap, null, m);
 								}
 							});
 						}
 					});
+					
+					// Ensure that the editor is updated on the next model change
+					editor.forceDiagramUpdateOnNextModelChange();
 				} else if(key instanceof IFile) {
 					final IFile diagramFile = (IFile)key;
 					
@@ -454,7 +458,7 @@ public class DefaultDiagramService implements DiagramService {
 					try {
 						diagramResource.load(Collections.emptyMap());
 						if(diagramResource.getContents().size() == 1 && diagramResource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram) {
-							updateReferences(originalCanonicalReferenceToNewObjectMap, originalCanonicalRefToReferenceMap, diagramResource, null);
+							updateReferences(updatedReferenceValues, originalCanonicalRefToReferenceMap, diagramResource, null);
 						}
 					} catch (IOException e) {
 						// Ignore. Continue with next file
@@ -476,7 +480,7 @@ public class DefaultDiagramService implements DiagramService {
 			}		
 		}
 		
-		private void updateReferences(final Map<CanonicalBusinessObjectReference, Object> originalCanonicalReferenceToNewObjectMap,
+		private void updateReferences(final UpdatedReferenceValueProvider newBoReferences,
 				final Map<CanonicalBusinessObjectReference, Collection<UpdateableReference>> originalCanonicalRefToReferenceMap,
 				final Resource diagramResource,
 				final DiagramModification diagramModification) {
@@ -485,10 +489,11 @@ public class DefaultDiagramService implements DiagramService {
 				referenceUpdateModification = diagramModification;
 				for(final Entry<CanonicalBusinessObjectReference, Collection<UpdateableReference>> originalCanonicalRefToReferencesToUpdateEntry : originalCanonicalRefToReferenceMap.entrySet()) {
 					final CanonicalBusinessObjectReference originalCanonicalReference = originalCanonicalRefToReferencesToUpdateEntry.getKey();
-					final Object newBo = originalCanonicalReferenceToNewObjectMap.get(originalCanonicalReference);
-					if(newBo != null) {
+					final CanonicalBusinessObjectReference newCanonicalReference = newBoReferences.getNewCanonicalReference(originalCanonicalReference);
+					final RelativeBusinessObjectReference newRelativeReference = newBoReferences.getNewRelativeReference(originalCanonicalReference);
+					if(newCanonicalReference != null && newRelativeReference != null) {
 						for(final UpdateableReference referenceToUpdate : originalCanonicalRefToReferencesToUpdateEntry.getValue()) {
-							referenceToUpdate.update(newBo);
+							referenceToUpdate.update(newCanonicalReference, newRelativeReference);
 						}
 					}
 				}
@@ -537,7 +542,7 @@ public class DefaultDiagramService implements DiagramService {
 	private DiagramModification referenceUpdateModification;
 	
 	interface UpdateableReference {
-		void update(Object newBo);
+		void update(CanonicalBusinessObjectReference newCanonicalReference, RelativeBusinessObjectReference newRelativeReference);
 	}
 
 	//
@@ -553,11 +558,8 @@ public class DefaultDiagramService implements DiagramService {
 		}
 		
 		@Override
-		public void update(final Object newBo) {
-			final CanonicalBusinessObjectReference newContextRef = referenceService.getCanonicalReference(newBo);
-			if(newContextRef != null) {
-				diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newContextRef).build());
-			}
+		public void update(CanonicalBusinessObjectReference newCanonicalReference, RelativeBusinessObjectReference newRelativeReference) {
+			diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(newCanonicalReference).build());
 		}		
 	}
 	
@@ -570,27 +572,23 @@ public class DefaultDiagramService implements DiagramService {
 		}
 		
 		@Override
-		public void update(final Object newBo) {
-			final RelativeBusinessObjectReference newRelRef = referenceService.getRelativeReference(newBo);
-			if(newRelRef != null) {
-				referenceUpdateModification.updateBusinessObject(diagramElement, newBo, newRelRef);
-			}
+		public void update(final CanonicalBusinessObjectReference newCanonicalReference, final RelativeBusinessObjectReference newRelativeReference) {
+			// The diagram element's business object is not updated because it is not available at this point. 
+			// In the case of a rename refactoring, the object would be available during the rename but not during undo.  
+			referenceUpdateModification.updateBusinessObject(diagramElement, diagramElement.getBusinessObject(), newRelativeReference);
 		}		
 	}
 
 	// Reference to the context field in an saved diagram configuration
 	class SavedDiagramContextReference implements UpdateableReference {
 		@Override
-		public void update(final Object newBo) {
-			final CanonicalBusinessObjectReference newCanonicalRef = referenceService.getCanonicalReference(newBo);
-			if(newCanonicalRef != null) {
-				final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)referenceUpdateResource.getContents().get(0);
+		public void update(final CanonicalBusinessObjectReference newCanonicalReference, final RelativeBusinessObjectReference newRelativeReference) {
+			final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)referenceUpdateResource.getContents().get(0);
 
-				// Get the Context Business Object
-				final org.osate.ge.diagram.DiagramConfiguration config = mmDiagram.getConfig();
-				if(config != null) {
-					config.setContext(newCanonicalRef.toMetamodel());
-				}
+			// Get the Context Business Object
+			final org.osate.ge.diagram.DiagramConfiguration config = mmDiagram.getConfig();
+			if(config != null) {
+				config.setContext(newCanonicalReference.toMetamodel());
 			}
 		}		
 	}
@@ -604,22 +602,19 @@ public class DefaultDiagramService implements DiagramService {
 		}
 		
 		@Override
-		public void update(final Object newBo) {
-			final RelativeBusinessObjectReference newRelRef = referenceService.getRelativeReference(newBo);
-			if(newRelRef != null) {
-				final org.osate.ge.diagram.RelativeBusinessObjectReference mmRelRef = newRelRef.toMetamodel();
-				if(mmRelRef != null) {
-					final org.osate.ge.diagram.DiagramElement diagramElement = (org.osate.ge.diagram.DiagramElement)referenceUpdateResource.getEObject(diagramElementUri.fragment());
-					 if(diagramElement == null) {
-						 throw new RuntimeException("Unable to retrieve diagram element");
-					 }
-					 
-					 if(diagramElement.eIsProxy()) {
-					 	 throw new RuntimeException("Retrieved diagram element is proxy"); 
-					 } 
-					 
-					 diagramElement.setBo(mmRelRef);					 
+		public void update(final CanonicalBusinessObjectReference newCanonicalReference, final RelativeBusinessObjectReference newRelativeReference) {
+			final org.osate.ge.diagram.RelativeBusinessObjectReference mmRelRef = newRelativeReference.toMetamodel();
+			if(mmRelRef != null) {
+				final org.osate.ge.diagram.DiagramElement diagramElement = (org.osate.ge.diagram.DiagramElement)referenceUpdateResource.getEObject(diagramElementUri.fragment());
+				if(diagramElement == null) {
+					throw new RuntimeException("Unable to retrieve diagram element");
 				}
+				 
+				if(diagramElement.eIsProxy()) {
+					throw new RuntimeException("Retrieved diagram element is proxy"); 
+				} 
+				 
+				diagramElement.setBo(mmRelRef);					 
 			}
 		}		
 	}
@@ -640,7 +635,10 @@ public class DefaultDiagramService implements DiagramService {
 				if(diagram == null) {
 					continue;
 				}
-
+				
+				// Update the diagram immediately. This is intended to ensure the diagram doesn't have any proxies
+				editor.updateNowIfModelHasChanged();
+				
 				final CanonicalBusinessObjectReference diagramContextRef = diagram.getConfiguration().getContextBoReference();
 				if(diagramContextRef != null) {
 					if(originalCanonicalReferences.contains(diagramContextRef)) {
@@ -683,7 +681,6 @@ public class DefaultDiagramService implements DiagramService {
 			final InternalReferencesToUpdate references) {
 		for(final DiagramElement child : node.getDiagramElements()) {
 			final Object currentBo = child.getBusinessObject();
-									
 			final CanonicalBusinessObjectReference currentCanonicalRef = currentBo == null ? null : referenceService.getCanonicalReference(currentBo);
 			if(currentCanonicalRef != null) {
 				if(originalCanonicalReferences.contains(currentCanonicalRef)) {

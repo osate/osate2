@@ -69,7 +69,7 @@ public class DiagramUpdater {
 	// As part of the update process the auto content filter settings may be cleared for non-manual nodes.
 	public void updateDiagram(final AgeDiagram diagram) {
 		// Create an updated business object tree based on the current state of the diagram and pending elements
-		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementPositionMap);
+		final BusinessObjectNode tree = DiagramToBusinessObjectTreeConverter.createBusinessObjectNode(diagram, futureElementPositionMap, containerToRelativeReferenceToGhostMap);
 		updateDiagram(diagram, tree);
 	}
 	
@@ -96,7 +96,7 @@ public class DiagramUpdater {
 		});
 
 		// Remove all entries from the future elements map regardless of whether they were created or not. This ensures that unused positions aren't retained indefinitely
-		futureElementPositionMap.clear();		
+		futureElementPositionMap.clear();
 	}
 	
 	/**
@@ -115,8 +115,8 @@ public class DiagramUpdater {
 			// Create the element if it does not exist
 			if(element == null) {
 				final DiagramElement removedGhost = removeGhost(container, n.getRelativeReference());
+				final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
 				if(removedGhost == null) {
-					final Point initialPosition = futureElementPositions == null ? null : futureElementPositions.get(n.getRelativeReference());
 					final Object boh = infoProvider.getApplicableBusinessObjectHandler(n.getBusinessObject());
 					if(boh == null) {
 						// TODO: Proper way of handling?
@@ -131,6 +131,11 @@ public class DiagramUpdater {
 				} else {
 					element = removedGhost;
 					m.updateBusinessObjectWithSameRelativeReference(element, n.getBusinessObject());
+					
+					// There may be a ghosted element with the same name as a new element. In that case, set the unghosted element's position to the one specified by future elmeent positions
+					if(initialPosition != null) {
+						m.setPosition(element, initialPosition);
+					}
 				}
 				
 				m.addElement(element);

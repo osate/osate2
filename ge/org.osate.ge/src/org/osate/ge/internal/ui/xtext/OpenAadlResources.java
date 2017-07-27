@@ -79,7 +79,7 @@ public class OpenAadlResources {
 		return null;
 	}
 	
-	public IXtextDocument getDocument(final String qualifiedName, final Resource resource) {
+	public IXtextDocument getDocument(String qualifiedName, final Resource resource) {
 		if(qualifiedName == null || resource == null) {
 			return null;
 		}
@@ -89,6 +89,7 @@ public class OpenAadlResources {
 			return null;
 		}
 		
+		qualifiedName = qualifiedName.toLowerCase();
 		final List<OpenAadlResource> openAadlResources = qualifiedNameToOpenResourcesMap.get(qualifiedName);
 		if(openAadlResources != null) {
 			for(final OpenAadlResource openAadlResource : openAadlResources) {

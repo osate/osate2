@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Map.Entry;
 
 import org.eclipse.emf.ecore.EClass;
@@ -24,6 +25,7 @@ import org.eclipse.jface.dialogs.TitleAreaDialog;
 import org.eclipse.jface.layout.GridDataFactory;
 import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
+import org.eclipse.jface.viewers.IElementComparer;
 import org.eclipse.jface.viewers.ISelectionChangedListener;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.jface.viewers.ListViewer;
@@ -95,6 +97,40 @@ public class EditFlowsDialog extends TitleAreaDialog {
     		return getSegmentName(fsi.context, fsi.flowElement);
     	}
     };
+    
+	private final LabelProvider flowEndLabelProvider = new LabelProvider() {
+    	@Override
+    	public String getText(final Object element) {
+    		final FlowEnd fe = (FlowEnd)element;
+    		if(fe == null) {
+    			return "";
+    		}
+    		
+    		return getSegmentName(fe.getContext(), fe.getFeature());
+    	}
+    };
+    
+    private IElementComparer flowEndComparer = new IElementComparer() {
+		
+		@Override
+		public int hashCode(final Object element) {
+			final FlowEnd fe = (FlowEnd)element;
+			return Objects.hash(fe.getContext(), fe.getFeature());
+		}
+		
+		@Override
+		public boolean equals(final Object e1, final Object e2) {
+			final FlowEnd fe1 = (FlowEnd)e1;
+			final FlowEnd fe2 = (FlowEnd)e2;
+			
+			if(!Objects.equals(fe1.getContext(), fe2.getContext())) {
+				return false;
+			}
+
+			return Objects.equals(fe1.getFeature(), fe2.getFeature());
+		}
+	};
+	
     private Flow currentFlow = null;
     private org.eclipse.swt.widgets.List flowList;
     private Button addImplFlowBtn;
@@ -103,7 +139,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
     private Button deleteFlowBtn;    
     private Composite flowDetailsPane;
     private final List<Flow> flows = new ArrayList<Flow>();
-    		
+
 	public EditFlowsDialog(final Shell parentShell, final NamingService namingService, final ComponentImplementation ci) {
 		super(parentShell);
 		this.ci = ci;
@@ -264,12 +300,14 @@ public class EditFlowsDialog extends TitleAreaDialog {
     			final FlowImplementation copiedFlowImplementation = (FlowImplementation)flowClass.getEPackage().getEFactoryInstance().create(flowClass);
     			copiedFlowImplementation.setName(fi.getName());
     			copiedFlowImplementation.setKind(fi.getKind());
+    			copiedFlowImplementation.setInEnd(EcoreUtil.copy(fi.getOutEnd()));
+    			copiedFlowImplementation.setOutEnd(EcoreUtil.copy(fi.getInEnd()));
     			copiedFlowImplementation.setSpecification(fi.getSpecification());
     			copiedFlowImplementation.getInModeOrTransitions().addAll(EcoreUtil.copyAll(fi.getInModeOrTransitions()));
     			copiedFlowImplementation.getOwnedComments().addAll(EcoreUtil.copyAll(fi.getOwnedComments()));
     			copiedFlowImplementation.getOwnedElements().addAll(EcoreUtil.copyAll(fi.getOwnedElements()));
     			copiedFlowImplementation.getOwnedFlowSegments().addAll(EcoreUtil.copyAll(fi.getOwnedFlowSegments()));
-    			copiedFlowImplementation.getOwnedPropertyAssociations().addAll(EcoreUtil.copyAll(fi.getOwnedPropertyAssociations()));	    			
+    			copiedFlowImplementation.getOwnedPropertyAssociations().addAll(EcoreUtil.copyAll(fi.getOwnedPropertyAssociations()));
     			flows.add(copiedFlowImplementation);
     		}
 	    }
@@ -316,6 +354,8 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					
 					newFlow.setSpecification(flowSpec);
 					newFlow.setKind(flowSpec.getKind());
+					newFlow.setInEnd(EcoreUtil.copy(flowSpec.getAllInEnd()));
+					newFlow.setOutEnd(EcoreUtil.copy(flowSpec.getAllOutEnd()));
 					
 					// Add the flow to the list and refresh the flow list viewer
 					flows.add(newFlow);
@@ -475,6 +515,10 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		} else if(flow instanceof FlowImplementation) {
 			final FlowImplementation fi = (FlowImplementation)flow;
 			if(fi.getKind() == FlowKind.SOURCE) {
+				if(fi.getOutEnd() == null) {
+					return false;
+				}
+
 				//{ subcomponent_flow_identifier -> connection_identifier -> }*
 				FlowSegment prevSegment = null;				
 				if((fi.getOwnedFlowSegments().size() % 2) != 0) {
@@ -497,7 +541,12 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					
 					prevSegment = seg;
 				}
+
 			} else if(fi.getKind() == FlowKind.SINK) {
+				if(fi.getInEnd() == null) {
+					return false;
+				}
+				
 				//{ -> connection_identifier -> subcomponent_flow_identifier }*
 				FlowSegment prevSegment = null;				
 				if((fi.getOwnedFlowSegments().size() % 2) != 0) {
@@ -521,6 +570,9 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					prevSegment = seg;
 				}
 			} else if(fi.getKind() == FlowKind.PATH) {
+				if(fi.getInEnd() == null || fi.getOutEnd() == null) {
+					return false;
+				}
 				//	[ { -> connection_identifier -> subcomponent_flow_identifier }+
 				//  -> connection_identifier ]
 				FlowSegment prevSegment = null;				
@@ -588,7 +640,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 						for(final FlowSegment fs : f.getOwnedFlowSegments()) {
 							addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
 						}
-						addReadOnlyDetailsRow(outEnd.getContext(), outEnd.getFeature(), false, insertIndex++);		
+						addEditableFlowEnd(outEnd, f.getOutEnd(), false, insertIndex++);		
 					}
 					break;
 				}
@@ -596,7 +648,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 				case SINK: {
 					final FlowEnd inEnd = flowSpec.getInEnd();
 					if(inEnd != null) {
-						addReadOnlyDetailsRow(inEnd.getContext(), inEnd.getFeature(), true, insertIndex++);	
+						addEditableFlowEnd(inEnd, f.getInEnd(), true, insertIndex++);	
 					
 						for(final FlowSegment fs : f.getOwnedFlowSegments()) {
 							addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
@@ -609,11 +661,11 @@ public class EditFlowsDialog extends TitleAreaDialog {
 					final FlowEnd inEnd = flowSpec.getInEnd();
 					final FlowEnd outEnd = flowSpec.getOutEnd();
 					if(inEnd != null & outEnd != null) {
-						addReadOnlyDetailsRow(inEnd.getContext(), inEnd.getFeature(), true, insertIndex++);
+						addEditableFlowEnd(inEnd, f.getInEnd(), true, insertIndex++);
 						for(final FlowSegment fs : f.getOwnedFlowSegments()) {
 							addEditableFlowSegment(fs, new FlowSegmentInfo(fs.getContext(), fs.getFlowElement()), insertIndex++);
 						}						
-						addReadOnlyDetailsRow(outEnd.getContext(), outEnd.getFeature(), false, insertIndex++);
+						addEditableFlowEnd(outEnd, f.getOutEnd(), false, insertIndex++);
 					}
 						
 					break;
@@ -744,23 +796,71 @@ public class EditFlowsDialog extends TitleAreaDialog {
 		}		
 	};	
 	
-	private void addReadOnlyDetailsRow(final Context ctx, final NamedElement flowElement, boolean showInsertButton, final int insertIndex) {
+	private List<FlowEnd> getPotentialFlowEnds(final FlowEnd flowSpecFlowEnd) {
+		final List<FlowEnd> flowEnds = new ArrayList<>();
+		flowEnds.add(flowSpecFlowEnd);
+		// TODO: Create others
+		
+		// TODO: Consider getting the feature group...
+		if(flowSpecFlowEnd.getContext() == null && flowSpecFlowEnd.getFeature() instanceof FeatureGroup) {
+			final FeatureGroup fg = (FeatureGroup)flowSpecFlowEnd.getFeature();
+			final FeatureGroupType fgt = fg.getAllFeatureGroupType();
+			if(fgt != null) {
+				final Aadl2Factory factory = Aadl2Factory.eINSTANCE.getAadl2Package().getAadl2Factory();
+				for(final Feature tmpFeature : fgt.getAllFeatures()) {
+					final FlowEnd flowEnd = factory.createFlowEnd();
+					flowEnd.setContext(fg);;
+					flowEnd.setFeature(tmpFeature);
+					flowEnds.add(flowEnd);
+				}
+			}
+		}
+		
+		return flowEnds;
+	}
+	
+	private void addEditableFlowEnd(final FlowEnd flowSpecFlowEnd, final FlowEnd selectedFlowEnd, boolean showInsertButton, final int insertIndex) {
+		//final Context ctx, final NamedElement flowElement
+			//final Element flowSegment, final FlowSegmentInfo selectedSegment, final int insertIndex) {
+		//final Context ctx = flowEnd.getContext();
+		//final Feature feature = flowEnd.getFeature();
+		
 		new Label(flowDetailsPane, SWT.NONE).setLayoutData(GridDataFactory.fillDefaults().hint(deleteWidth, SWT.DEFAULT).create());
 
+		/*
 		final Label segmentLbl = new Label(flowDetailsPane, SWT.NONE);
-		final String lblTxt = getSegmentName(ctx, flowElement);
+		final String lblTxt = getSegmentName(ctx, feature);
 		segmentLbl.setLayoutData(createSegmentGridData());
 		segmentLbl.setText(lblTxt);
-
+*/
+		
+	    final ComboViewer cmb = new ComboViewer(flowDetailsPane, SWT.DROP_DOWN | SWT.READ_ONLY);
+    	cmb.getCombo().setLayoutData(createSegmentGridData());
+    	cmb.addSelectionChangedListener(new ISelectionChangedListener() {
+			@Override
+			public void selectionChanged(final SelectionChangedEvent event) {
+				final StructuredSelection selection = (StructuredSelection)event.getSelection();
+				final FlowEnd newFlowEnd = (FlowEnd)selection.getFirstElement();
+				selectedFlowEnd.setContext(newFlowEnd.getContext());
+				selectedFlowEnd.setFeature(newFlowEnd.getFeature());
+				refreshWidgetEnabledStates();
+			}	    	
+	    });
+    	cmb.setContentProvider(new ArrayContentProvider());
+	    cmb.setLabelProvider(flowEndLabelProvider);    
+    	cmb.setInput(getPotentialFlowEnds(flowSpecFlowEnd));
+    	cmb.setComparer(flowEndComparer);
+    	cmb.setSelection(new StructuredSelection(selectedFlowEnd));
+    	
 		if(showInsertButton) {
 			addInsertButton(insertIndex);
 		} else {
 			new Label(flowDetailsPane, SWT.NONE);
 		}
 	}
-		
+
 	private void refreshWidgetEnabledStates() {
-		setNavigationButtonsEnabled(currentFlow == null ? true : isValid(currentFlow));
+		setNavigationButtonsEnabled(isValid(currentFlow));
         configureInModesBtn.setEnabled(currentFlow != null);
 	    deleteFlowBtn.setEnabled(currentFlow != null); 
 	}
