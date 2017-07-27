@@ -2,9 +2,7 @@ package org.osate.ge.internal.commands;
 
 import javax.inject.Named;
 
-import org.osate.aadl2.Classifier;
 import org.osate.aadl2.ComponentImplementation;
-import org.osate.aadl2.NamedElement;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
@@ -18,15 +16,13 @@ public class ComponentImplementationToTypeCommand {
 	}
 
 	@IsAvailable
-	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final NamedElement namedElement) {
-		return namedElement instanceof ComponentImplementation && ((ComponentImplementation)namedElement).getType() != null;
+	public boolean isAvailable(@Named(Names.BUSINESS_OBJECT) final ComponentImplementation componentImpl) {
+		return componentImpl.getType() != null;
 	}
 
 	@Activate
-	public boolean activate(@Named(Names.BUSINESS_OBJECT) final NamedElement namedElement,
+	public boolean activate(@Named(Names.BUSINESS_OBJECT) final ComponentImplementation componentImpl,
 			final DiagramService diagramService) {
-		final Classifier componentType = ((ComponentImplementation)namedElement).getType();
-		diagramService.openOrCreateDiagramForBusinessObject(componentType);
-		return true;
+		return diagramService.openOrCreateDiagramForBusinessObject(componentImpl.getType()) != null;
 	}
 }

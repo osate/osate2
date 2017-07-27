@@ -17,6 +17,7 @@ import java.lang.annotation.Target;
 /**
  * <p>
  * This annotation must not be applied to more than one method per class.
+ * Functions annotated with HandleDoubleClick must not make changes to the diagram or model.
  * </p>
  * <h1>Usages</h1>
  * <table summary="Annotation Usages">

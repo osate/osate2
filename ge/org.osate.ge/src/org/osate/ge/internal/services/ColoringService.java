@@ -28,6 +28,8 @@ public interface ColoringService {
 		 * @param color setting color to null returns the element to its default color.
 		 */
 		void setForeground(DiagramElement de, Color color);
+		
+		void clear();
 	}
 	
 	/**

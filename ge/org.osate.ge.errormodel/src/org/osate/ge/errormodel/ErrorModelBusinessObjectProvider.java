@@ -19,7 +19,7 @@ public class ErrorModelBusinessObjectProvider {
 		final Object bo = boc.getBusinessObject();
 		if(bo instanceof ErrorModelLibrary) {
 			final ErrorModelLibrary lib = (ErrorModelLibrary)bo;
-			return lib.getTypes().stream();
+			return Stream.concat(lib.getTypes().stream(), lib.getBehaviors().stream());
 		} else if(bo instanceof ErrorBehaviorStateMachine) {
 			final ErrorBehaviorStateMachine stateMachine = (ErrorBehaviorStateMachine)bo;
 			return Stream.concat(Stream.concat(stateMachine.getEvents().stream(), 

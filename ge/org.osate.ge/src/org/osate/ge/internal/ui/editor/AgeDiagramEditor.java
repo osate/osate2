@@ -50,11 +50,20 @@ public class AgeDiagramEditor extends DiagramEditor implements GraphicalEditor {
 		return new AgeDiagramBehavior(this);
 	}
 	
+	// Update the diagram. This call is synchronous and will switch to display thread as necessary.
+	public void updateNowIfModelHasChanged() {
+		((AgeDiagramBehavior)getDiagramBehavior()).updateNowIfModelHasChanged();
+	}
+	
 	/*
 	 * Calls the Update feature to update the diagram from the model if the editor is visible. If it is not, it will do so the next time the editor is made visible.
 	 */
 	public void updateDiagramWhenVisible() {
 		((AgeDiagramBehavior)getDiagramBehavior()).updateDiagramWhenVisible();
+	}
+	
+	public void forceDiagramUpdateOnNextModelChange() {
+		((AgeDiagramBehavior)getDiagramBehavior()).forceDiagramUpdateOnNextModelChange();
 	}
 	
 	@Override

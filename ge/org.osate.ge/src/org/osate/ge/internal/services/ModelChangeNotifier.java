@@ -2,6 +2,10 @@ package org.osate.ge.internal.services;
 
 import org.eclipse.core.resources.IResourceChangeListener;
 
+/**
+ * Notifies listeners of model changes after the resource has been built. 
+ *
+ */
 public interface ModelChangeNotifier {
 	static interface ChangeListener {
 		default void modelChanged() {} // Called to notify listeners that change has occurred.

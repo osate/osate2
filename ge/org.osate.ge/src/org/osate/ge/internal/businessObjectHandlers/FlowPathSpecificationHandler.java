@@ -132,6 +132,6 @@ public class FlowPathSpecificationHandler extends FlowSpecificationHandler {
 		
 		ct.setNoFlows(false);
 			
-		return null;
+		return fs;
 	}
 }

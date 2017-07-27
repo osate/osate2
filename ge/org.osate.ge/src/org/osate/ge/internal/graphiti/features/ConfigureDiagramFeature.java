@@ -94,7 +94,7 @@ public class ConfigureDiagramFeature extends AbstractCustomFeature implements IC
 			final DiagramConfigurationDialog.Result result = DiagramConfigurationDialog.show(null, model, diagram.getConfiguration(), boTree, initialSelectionBoPath);
 			if(result != null) {
 				diagram.setDiagramConfiguration(result.getDiagramConfiguration());
-				diagramUpdater.updateDiagram(diagram,result.getBusinessObjectTree());
+				diagramUpdater.updateDiagram(diagram, result.getBusinessObjectTree());
 	
 				// Perform the layout as a separate operation because the sizes for the shapes are assigned by the Graphiti modification listener.
 				diagram.modify(new DiagramModifier() {

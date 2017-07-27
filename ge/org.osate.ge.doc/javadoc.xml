@@ -11,7 +11,7 @@
         	notree="false" 
         	packagenames="org.osate.ge,org.osate.ge.query,org.osate.ge.services,org.osate.ge.graphics,org.osate.ge.di" 
         	source="1.8"         	 
-        	sourcepath="..\org.osate.ge\src" 
+        	sourcepath="..\org.osate.ge\src;..\org.osate.ge.diagram\src" 
         	splitindex="true" 
         	use="true" 
         	version="true"

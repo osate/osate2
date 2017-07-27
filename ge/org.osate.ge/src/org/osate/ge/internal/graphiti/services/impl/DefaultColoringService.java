@@ -9,6 +9,7 @@
 package org.osate.ge.internal.graphiti.services.impl;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -66,6 +67,14 @@ public class DefaultColoringService implements ColoringService {
 			
 			// Refresh Coloring
 			refreshColoring(Collections.singleton(de));
+		}
+
+		@Override
+		public void clear() {
+			final List<DiagramElement> elements = new ArrayList<>(foregroundColors.keySet());
+			for(final DiagramElement de : elements) {
+				setForeground(de, null);
+			}
 		}
 		
 		public java.awt.Color getForegroundColor(final DiagramElement de) {

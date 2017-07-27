@@ -31,7 +31,7 @@ public class SelectAncestorFeature extends AbstractCustomFeature {
     public String getDescription() {
         return "Selects a diagram element's container.";
     }
- 
+    
     @Override
 	public boolean isAvailable(final IContext context) {
 		return getAncestor(context) != null;
@@ -47,6 +47,11 @@ public class SelectAncestorFeature extends AbstractCustomFeature {
 		getDiagramBehavior().getDiagramContainer().selectPictogramElements(new PictogramElement[]{getAncestor(context)});			
 	}
 	
+    @Override
+	public boolean hasDoneChanges() {
+		return false;
+	}
+ 
 	private PictogramElement getAncestor(final IContext context) {
 		final ICustomContext customCtx = (ICustomContext)context;
 		PictogramElement[] pes = customCtx.getPictogramElements();		

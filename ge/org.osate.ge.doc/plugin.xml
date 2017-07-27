@@ -2,7 +2,6 @@
 <plugin>
    <extension point="org.eclipse.help.toc">
       <toc file="top_toc.xml" primary="true"/>
-      <toc file="toc.xml"/>
       <toc file="dev_guide_toc.xml"/>
       <toc file="user_guide_toc.xml"/>
       <toc file="api.xml"/>

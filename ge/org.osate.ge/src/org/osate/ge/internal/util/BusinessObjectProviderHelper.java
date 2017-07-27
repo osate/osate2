@@ -51,7 +51,8 @@ public class BusinessObjectProviderHelper implements AutoCloseable {
 				}
 			};			
 		
-			return allChildren.distinct().collect(Collectors.toList());
+			final Collection<Object> results = allChildren.distinct().collect(Collectors.toList());
+			return results;
 		} finally {
 			clearContextArguments();
 		} 
