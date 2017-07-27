@@ -104,12 +104,12 @@ public class GridLayoutAction extends SelectionAction {
 		final ContainerShape container = shapes[0].getContainer();
 		final int padding = 25;
 		
-		int numOfRows = (int)Math.sqrt(shapes.length);
-		int numOfCols = (int)Math.ceil(shapes.length/(double)numOfRows);
+		final int numOfCols = (int)Math.ceil(Math.sqrt(shapes.length));
+		final int numOfRows = (int)Math.ceil(shapes.length/(double)numOfCols);
 
-		final Integer[] colSizes = initializeArray(numOfCols-1);
-		final Integer[] rowSizes = initializeArray(numOfRows-1);
-		
+		final int[] colSizes = new int[numOfCols-1];
+		final int[] rowSizes = new int[numOfRows-1];
+
 		// Assign column and row width for grid
 		for(int i = 0 ; i < shapes.length ; i++) {
 			final GraphicsAlgorithm shapeGA = shapes[i].getGraphicsAlgorithm();
@@ -117,15 +117,11 @@ public class GridLayoutAction extends SelectionAction {
 			int row = i / numOfCols;
 			
 			if(col < colSizes.length) {
-				if(colSizes[col] < shapeGA.getWidth() + padding) {
-					colSizes[col] = shapeGA.getWidth() + padding;
-				}
+				colSizes[col] = Math.max(colSizes[col], shapeGA.getWidth() + padding);
 			}
 
 			if(row < rowSizes.length) {
-				if(rowSizes[row] < shapeGA.getHeight() + padding) {
-					rowSizes[row] = shapeGA.getHeight() + padding;
-				}
+				rowSizes[row] = Math.max(rowSizes[row], shapeGA.getHeight() + padding);
 			}
 		}
 
@@ -138,7 +134,7 @@ public class GridLayoutAction extends SelectionAction {
 
 		// Place the rest of the shapes
 		for(int i = 1 ; i < shapes.length ; i++) {
-			if(i % (numOfCols) == 0) {
+			if(i % numOfCols == 0) {
 				x = gridPosition.x;
 				if(rowSizes.length != 0) {
 					y += rowSizes[i / numOfCols - 1];
@@ -176,15 +172,5 @@ public class GridLayoutAction extends SelectionAction {
 		}
 
 		return new Point(xMin, yMin);
-	}
-
-	private static Integer[] initializeArray(final int size) {
-		final Integer[] initArray = new Integer[size];
-
-		for(int i = 0 ; i < size ; i++) {
-			initArray[i] = 0;
-		}
-		
-		return initArray;
 	}
 }
