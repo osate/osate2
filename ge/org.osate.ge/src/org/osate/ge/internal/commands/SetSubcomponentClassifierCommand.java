@@ -89,8 +89,8 @@ public class SetSubcomponentClassifierCommand {
 		SubcomponentType selectedSubcomponentType = (SubcomponentType)dlg.getFirstSelectedElement();
 		if(selectedSubcomponentType != null) {
 			// Resolve the reference
-			selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, selectedSubcomponentType.eResource());
-
+			selectedSubcomponentType = (SubcomponentType)EcoreUtil.resolve(selectedSubcomponentType, sc); 
+			
 			// Import its package if necessary
 			final AadlPackage pkg = (AadlPackage)sc.getElementRoot();
 			if(selectedSubcomponentType instanceof ComponentClassifier && selectedSubcomponentType.getNamespace() != null && pkg != null) {
