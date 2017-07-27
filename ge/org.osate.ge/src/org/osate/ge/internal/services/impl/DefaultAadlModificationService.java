@@ -27,8 +27,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.SaveOptions;
@@ -50,11 +48,9 @@ import org.osate.ge.internal.util.Log;
 
 public class DefaultAadlModificationService implements AadlModificationService {
 	final SavedAadlResourceService savedAadlResourceService;
-	private final IFeatureProvider fp;
 	
-	public DefaultAadlModificationService(final SavedAadlResourceService savedAadlResourceService, final IFeatureProvider fp) {
+	public DefaultAadlModificationService(final SavedAadlResourceService savedAadlResourceService) {
 		this.savedAadlResourceService = savedAadlResourceService;
-		this.fp = fp;
 	}
 	
 	@Override
@@ -91,17 +87,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						} finally {
 							savedAadlResourceService.setSaveInProgress(res, false);
 						}
-						
-						// Update the diagram
-						Display.getDefault().syncExec(new Runnable() {
-							public void run() {			
-								// Update the entire diagram
-								fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
-							}
-						});
-						
-						// Call the after modification callback
-						modifier.afterCommit(res);
 					}
 				} else {
 					// Determine what the root actual/parsed annex element is if the element is in an annex
@@ -136,7 +121,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						doc.readOnly(new IUnitOfWork<Object, XtextResource>() {
 							@Override
 							public Object exec(final XtextResource res) throws Exception {
-								modifier.afterCommit(res);
 								return null;
 							}
 						});
@@ -208,16 +192,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				}
 
 				return result;
-			}
-
-			@Override
-			public void beforeCommit(final Resource resource, final EObject element, final R modificationResult) {
-				modifier.beforeCommit(resource, clonedUserObject, modificationResult);
-			}
-
-			@Override
-			public void afterCommit(final Resource resource) {
-				modifier.afterCommit(resource);
 			}
 		}, false);
 	}
@@ -367,11 +341,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 			// Flush and dispose of the editing domain
 			domain.getCommandStack().flush();			
-			
-			if(modificationSuccessful) {
-				// Call the after modification callback
-				modifier.beforeCommit(resource, element, result);
-			}
 		}
 		
 		return new ModifySafelyResults<R>(modificationSuccessful, result);

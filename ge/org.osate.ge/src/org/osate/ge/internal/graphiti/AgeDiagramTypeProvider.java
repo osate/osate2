@@ -67,7 +67,7 @@ public class AgeDiagramTypeProvider extends AbstractDiagramTypeProvider {
 		final UiService uiService = new DefaultUiService(this);
 		final DefaultNamingService namingService = new DefaultNamingService();
 		final DefaultUserInputService userInputService = new DefaultUserInputService(fp);
-		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService, fp);
+		final DefaultAadlModificationService modificationService = new DefaultAadlModificationService(savedAadlResourceService);
 		final ExtensionService extensionService = new DefaultExtensionService(Objects.requireNonNull(context.get(ExtensionRegistryService.class), "Unable to retrieve ExtensionRegistryService"), context);
 		
 		final DefaultGraphitiService graphitiService = new DefaultGraphitiService(this, fp);

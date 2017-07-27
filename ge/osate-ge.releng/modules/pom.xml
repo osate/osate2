@@ -17,6 +17,7 @@
 	<modules>
 		<module>..</module>
 		<module>../../org.osate.ge</module>
+		<module>../../org.osate.ge.diagram</module>
 		<module>../../org.osate.ge.doc</module>
 		<module>../../org.osate.ge.feature</module>
 	</modules>

@@ -115,7 +115,6 @@ import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ModelChangeNotifier;
 import org.osate.ge.internal.services.ModelChangeNotifier.ChangeListener;
 import org.osate.ge.internal.util.DiagramUtil;
-import org.osate.ge.internal.util.Log;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
@@ -141,7 +140,11 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private IProject project = null;
 	private boolean updateInProgress = false;
 	private boolean updateWhenVisible = false;
+	private boolean updateQueued = false; // Only access by ui thread
+	private boolean updateQueuedRequireVisible = false;
 	private boolean forceNotDirty = false;
+	private volatile boolean dirtyModel = false;
+	private volatile boolean forceUpdateOnNextModelChange = false;
 	private boolean updatingFeatureWhileForcingNotDirty = false;
 	private ToolHandler toolHandler;
 	private IResourceChangeListener resourceChangeListener;
@@ -150,7 +153,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		@Override
 		public void paintControl(PaintEvent e) {
 			if(updateWhenVisible) {
-				update();
+				updateDiagram(true);
 				updateWhenVisible = false;
 			}
 		}			
@@ -159,7 +162,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private ChangeListener modelChangeListener = new ChangeListener() {		
 		@Override
 		public void afterModelChangeNotification() {
-			updateDiagramWhenVisible();
+			final boolean requireVisible = !forceUpdateOnNextModelChange;
+			forceUpdateOnNextModelChange = false; // Reset flag
+			dirtyModel = true;
+			updateDiagram(requireVisible);
 		}
 	};	
 	
@@ -468,56 +474,93 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 		}
 	}
 	
-	public void updateDiagramWhenVisible() {
-		update();
+	private final Runnable updateNowIfModelHasChangedRunnable = new Runnable() {
+		@Override
+		public void run() {
+			updateDiagram(false);
+		}		
+	};
+	
+	public void updateNowIfModelHasChanged() {
+		if(dirtyModel) {
+			final Display display = Display.getDefault();
+			if(display == null || display.getThread() == Thread.currentThread()) {
+				updateNowIfModelHasChangedRunnable.run();
+			} else {
+				display.syncExec(updateNowIfModelHasChangedRunnable);
+			}			
+		}
 	}
 	
-	private void update() {
-		final Runnable updateDiagramRunnable = new Runnable() {
-			private boolean updateQueued = false;
-			
-			public void run() {
-				// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
-				// Don't update if update is already in progress
-				if(!updateInProgress) {
-					updateQueued = false;
-					updateInProgress = true;
-					
-					try {
-						// Don't update unless the diagram is visible
-						if(getContentEditPart().getViewer().getControl().isVisible()) {
-							// Update the entire diagram
-							getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });									
-						} else {
-							// Queue the update for when the control becomes visible
-							updateWhenVisible = true;
-						}
-						
-					} finally {
-						updateInProgress = false;
-					}
-					
-					// Check if an update has been queued
-					if(updateQueued) {
-						update();
-					}
-				
-				} else {
-					// Queue the update
-					updateQueued = true;
-				}								
-			}
-		};
+	public void updateDiagramWhenVisible() {
+		updateDiagram(true);
+	}
+	
+	final Runnable updateDiagramRequireVisibleRunnable = new Runnable() {
+		public void run() {
+			doUpdate(true);
+		}
+	};
+	
+	final Runnable updateDiagramNoRequireVisibleRunnable = new Runnable() {
+		public void run() {
+			doUpdate(false);
+		}
+	};
+	
+	public void forceDiagramUpdateOnNextModelChange() {
+		this.forceUpdateOnNextModelChange = true;
+	}
+	
+	// Updates the diagram in the current thread if it is the display thread or asynchronous if it isn't
+	private void updateDiagram(final boolean requireVisible) {
+		final Runnable updateDiagramRunnable = requireVisible ? updateDiagramRequireVisibleRunnable : updateDiagramNoRequireVisibleRunnable; 
 		
 		if(Display.getDefault().getThread() == Thread.currentThread()) {
-			Log.info("Updating diagram synchronously - current thread is the display thread");
 			updateDiagramRunnable.run();
 		} else {
-			Log.info("Updating diagram asynchronously - current thread is not the display thread");
 			Display.getDefault().asyncExec(updateDiagramRunnable);	
 		}
 	}
-
+	
+	private void doUpdate(final boolean requireVisible) {
+		if(Display.getDefault().getThread() != Thread.currentThread()) {
+			throw new RuntimeException("doUpdate() must be called from the UI thread");
+		}
+		
+		// A mutex is not needed because this runnable and other code that access variables used by this runnable are ran in the display thread
+		// Don't update if update is already in progress
+		if(!updateInProgress) {
+			updateQueued = false;
+			updateInProgress = true;
+			
+			try {
+				// Don't update unless the diagram is visible
+				if(!requireVisible || getContentEditPart().getViewer().getControl().isVisible()) {
+					// Update the entire diagram
+					updateWhenVisible = false;
+					dirtyModel = false;
+					getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { getDiagramTypeProvider().getDiagram() });									
+				} else {
+					// Queue the update for when the control becomes visible
+					updateWhenVisible = true;
+				}
+				
+			} finally {
+				updateInProgress = false;
+			}
+			
+			// Check if an update has been queued
+			if(updateQueued) {
+				updateDiagram(updateQueuedRequireVisible);
+			}		
+		} else {
+			// Queue the update
+			updateQueued = true;
+			updateQueuedRequireVisible = updateQueuedRequireVisible && requireVisible;
+		}								
+	}
+	
 	@Override
 	protected DefaultUpdateBehavior createUpdateBehavior() {
 		return new AgeUpdateBehavior(this);
@@ -575,12 +618,15 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	protected void unregisterBusinessObjectsListener() {
 		// Do not call super method
 		
-		// Remove listener
-		getModelChangeNotifier().removeChangeListener(modelChangeListener);
+		// Remove listener. Notifier may be null if there was a problem during initialization.
+		final ModelChangeNotifier modelChangeNotifier = getModelChangeNotifier();
+		if(modelChangeNotifier != null) {
+			getModelChangeNotifier().removeChangeListener(modelChangeListener);
+		}
 	}
 	
 	private ModelChangeNotifier getModelChangeNotifier() {
-		return Objects.requireNonNull((ModelChangeNotifier)getAdapter(ModelChangeNotifier.class), "unable to retrieve model change notifier");
+		return (ModelChangeNotifier)getAdapter(ModelChangeNotifier.class);
 	}
 	
 	@Override

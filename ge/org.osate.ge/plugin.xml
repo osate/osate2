@@ -31,7 +31,7 @@
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
 		</menuContribution>
        <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.aadl2.instance.ui.generateTextualInstance">
          <command
              commandId="org.osate.ge.commands.open.diagram.from.navigator"
              label="Open Diagram"
@@ -116,11 +116,6 @@
            labelProvider="org.osate.ge.internal.ui.navigator.LabelProvider"
            name="AADL Diagrams"
            priority="highest">
-           
-		<actionProvider
-			class="org.osate.ge.internal.ui.navigator.ActionProvider">
-		</actionProvider>
-		
         <enablement>
            <or>
               <instanceof
@@ -846,6 +841,9 @@
        </commandContributor>
        <command
              class="org.osate.ge.internal.commands.ComponentImplementationToTypeCommand">
+       </command>
+       <command
+       		 class="org.osate.ge.internal.commands.SubcomponentToTypeCommand">
        </command>
        <command
              class="org.osate.ge.internal.commands.GoToPackageDiagramCommand">
