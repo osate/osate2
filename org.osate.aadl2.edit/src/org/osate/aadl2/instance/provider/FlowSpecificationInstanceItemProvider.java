@@ -42,6 +42,7 @@ import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.xtext.xbase.lib.StringExtensions;
 import org.osate.aadl2.FlowSpecification;
 import org.osate.aadl2.instance.FlowSpecificationInstance;
 import org.osate.aadl2.instance.InstancePackage;
@@ -188,7 +189,7 @@ public class FlowSpecificationInstanceItemProvider extends FlowElementInstanceIt
 		FlowSpecification declarativeFlow = flowInstance.getFlowSpecification();
 		if (declarativeFlow != null && !declarativeFlow.eIsProxy()) {
 			result.append(' ');
-			result.append(declarativeFlow.getKind().getName());
+			result.append(StringExtensions.toFirstUpper(declarativeFlow.getKind().getName()));
 		}
 		
 		String flowName = flowInstance.getName();
