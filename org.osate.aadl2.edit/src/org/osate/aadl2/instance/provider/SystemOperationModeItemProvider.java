@@ -36,14 +36,25 @@
  */
 package org.osate.aadl2.instance.provider;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.eclipse.emf.common.notify.AdapterFactory;
 import org.eclipse.emf.common.notify.Notification;
 import org.eclipse.emf.common.util.ResourceLocator;
+import org.eclipse.emf.edit.domain.EditingDomain;
 import org.eclipse.emf.edit.provider.ComposeableAdapterFactory;
+import org.eclipse.emf.edit.provider.IEditingDomainItemProvider;
+import org.eclipse.emf.edit.provider.IItemLabelProvider;
 import org.eclipse.emf.edit.provider.IItemPropertyDescriptor;
+import org.eclipse.emf.edit.provider.IItemPropertySource;
+import org.eclipse.emf.edit.provider.IStructuredItemContentProvider;
+import org.eclipse.emf.edit.provider.ITreeItemContentProvider;
+import org.eclipse.emf.edit.provider.ItemProviderAdapter;
 import org.osate.aadl2.instance.InstancePackage;
+import org.osate.aadl2.instance.ModeInstance;
 import org.osate.aadl2.instance.SystemOperationMode;
 import org.osate.aadl2.provider.Aadl2EditPlugin;
 import org.osate.aadl2.provider.ModeItemProvider;
@@ -143,5 +154,55 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 	public ResourceLocator getResourceLocator() {
 		return Aadl2EditPlugin.INSTANCE;
 	}
+	
+	/**
+	 * Manually added to show the individual modes of a SystemOperationMode.
+	 */
+	@Override
+	public Collection<?> getChildren(Object object) {
+		SystemOperationMode som = (SystemOperationMode) object;
+		return som.getCurrentModes().stream()
+				.map(subMode -> new SubModeItemProvider(adapterFactory, som, subMode))
+				.collect(Collectors.toList());
+	}
 
+	public static class SubModeItemProvider extends ItemProviderAdapter implements IEditingDomainItemProvider,
+			IStructuredItemContentProvider, ITreeItemContentProvider, IItemLabelProvider, IItemPropertySource {
+		private final ModeInstance subMode;
+		
+		private SubModeItemProvider(AdapterFactory adapterFactory, SystemOperationMode som, ModeInstance subMode) {
+			super(adapterFactory);
+			this.subMode = subMode;
+			som.eAdapters().add(this);
+		}
+		
+		public ModeInstance getSubMode() {
+			return subMode;
+		}
+		
+		@Override
+		public Collection<?> getChildren(Object object) {
+			return Collections.emptyList();
+		}
+		
+		@Override
+		public Object getParent(Object object) {
+			return target;
+		}
+		
+		@Override
+		public Collection<?> getNewChildDescriptors(Object object, EditingDomain editingDomain, Object sibling) {
+			return Collections.emptyList();
+		}
+		
+		@Override
+		public String getText(Object object) {
+			return ((IItemLabelProvider) adapterFactory.adapt(subMode, IItemLabelProvider.class)).getText(subMode);
+		}
+		
+		@Override
+		public Object getImage(Object object) {
+			return ((IItemLabelProvider) adapterFactory.adapt(subMode, IItemLabelProvider.class)).getImage(subMode);
+		}
+	}
 }
