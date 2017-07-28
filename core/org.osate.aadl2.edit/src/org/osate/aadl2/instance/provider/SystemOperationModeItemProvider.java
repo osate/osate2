@@ -197,7 +197,8 @@ public class SystemOperationModeItemProvider extends ModeItemProvider {
 		
 		@Override
 		public String getText(Object object) {
-			return ((IItemLabelProvider) adapterFactory.adapt(subMode, IItemLabelProvider.class)).getText(subMode);
+			String label = subMode.getComponentInstancePath();
+			return label == null || label.length() == 0 ? "Mode" : "Mode " + label;
 		}
 		
 		@Override
