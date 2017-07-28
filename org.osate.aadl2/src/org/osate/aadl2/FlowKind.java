@@ -63,7 +63,7 @@ public enum FlowKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SOURCE(0, "source", "source"),
+	SOURCE(0, "Source", "source"),
 
 	/**
 	 * The '<em><b>Path</b></em>' literal object.
@@ -73,7 +73,7 @@ public enum FlowKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	PATH(1, "path", "path"),
+	PATH(1, "Path", "path"),
 
 	/**
 	 * The '<em><b>Sink</b></em>' literal object.
@@ -83,7 +83,7 @@ public enum FlowKind implements Enumerator {
 	 * @generated
 	 * @ordered
 	 */
-	SINK(2, "sink", "sink");
+	SINK(2, "Sink", "sink");
 
 	/**
 	 * The '<em><b>Source</b></em>' literal value.
