@@ -60,7 +60,7 @@ public enum FlowKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SOURCE_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
 	SOURCE(0, "Source", "source"),
@@ -70,7 +70,7 @@ public enum FlowKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PATH_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
 	PATH(1, "Path", "path"),
@@ -80,7 +80,7 @@ public enum FlowKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SINK_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
 	SINK(2, "Sink", "sink");
