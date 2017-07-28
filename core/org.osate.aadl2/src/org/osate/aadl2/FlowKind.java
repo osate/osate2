@@ -60,30 +60,30 @@ public enum FlowKind implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SOURCE_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	SOURCE(0, "Source", "source"),
+	SOURCE(0, "source", "source"),
 
 	/**
 	 * The '<em><b>Path</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PATH_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	PATH(1, "Path", "path"),
+	PATH(1, "path", "path"),
 
 	/**
 	 * The '<em><b>Sink</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SINK_VALUE
-	 * @generated NOT
+	 * @generated
 	 * @ordered
 	 */
-	SINK(2, "Sink", "sink");
+	SINK(2, "sink", "sink");
 
 	/**
 	 * The '<em><b>Source</b></em>' literal value.
