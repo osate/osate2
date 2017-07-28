@@ -59,80 +59,80 @@ public enum ComponentCategory implements Enumerator {
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #ABSTRACT_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	ABSTRACT(0, "abstract", "abstract"),
+	ABSTRACT(0, "Abstract", "abstract"),
 
 	/**
 	 * The '<em><b>Bus</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #BUS_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	BUS(1, "bus", "bus"),
+	BUS(1, "Bus", "bus"),
 
 	/**
 	 * The '<em><b>Data</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #DATA_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	DATA(2, "data", "data"),
+	DATA(2, "Data", "data"),
 
 	/**
 	 * The '<em><b>Device</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #DEVICE_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	DEVICE(3, "device", "device"),
+	DEVICE(3, "Device", "device"),
 
 	/**
 	 * The '<em><b>Memory</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #MEMORY_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	MEMORY(4, "memory", "memory"),
+	MEMORY(4, "Memory", "memory"),
 
 	/**
 	 * The '<em><b>Process</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PROCESS_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	PROCESS(5, "process", "process"),
+	PROCESS(5, "Process", "process"),
 
 	/**
 	 * The '<em><b>Processor</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #PROCESSOR_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	PROCESSOR(6, "processor", "processor"),
+	PROCESSOR(6, "Processor", "processor"),
 
 	/**
 	 * The '<em><b>Subprogram</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SUBPROGRAM_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	SUBPROGRAM(7, "subprogram", "subprogram"),
+	SUBPROGRAM(7, "Subprogram", "subprogram"),
 
 	/**
 	 * The '<em><b>Subprogram Group</b></em>' literal object.
@@ -142,27 +142,27 @@ public enum ComponentCategory implements Enumerator {
 	 * @generated NOT
 	 * @ordered
 	 */
-	SUBPROGRAM_GROUP(8, "subprogram group", "subprogram group"),
+	SUBPROGRAM_GROUP(8, "Subprogram Group", "subprogram group"),
 
 	/**
 	 * The '<em><b>System</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #SYSTEM_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	SYSTEM(9, "system", "system"),
+	SYSTEM(9, "System", "system"),
 
 	/**
 	 * The '<em><b>Thread</b></em>' literal object.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @see #THREAD_VALUE
-	 * @generated
+	 * @generated NOT
 	 * @ordered
 	 */
-	THREAD(10, "thread", "thread"),
+	THREAD(10, "Thread", "thread"),
 
 	/**
 	 * The '<em><b>Thread Group</b></em>' literal object.
@@ -172,7 +172,7 @@ public enum ComponentCategory implements Enumerator {
 	 * @generated NOT
 	 * @ordered
 	 */
-	THREAD_GROUP(11, "thread group", "thread group"),
+	THREAD_GROUP(11, "Thread Group", "thread group"),
 
 	/**
 	 * The '<em><b>Virtual Bus</b></em>' literal object.
@@ -182,7 +182,7 @@ public enum ComponentCategory implements Enumerator {
 	 * @generated NOT
 	 * @ordered
 	 */
-	VIRTUAL_BUS(12, "virtual bus", "virtual bus"),
+	VIRTUAL_BUS(12, "Virtual Bus", "virtual bus"),
 
 	/**
 	 * The '<em><b>Virtual Processor</b></em>' literal object.
@@ -192,7 +192,7 @@ public enum ComponentCategory implements Enumerator {
 	 * @generated NOT
 	 * @ordered
 	 */
-	VIRTUAL_PROCESSOR(13, "virtual processor", "virtual processor");
+	VIRTUAL_PROCESSOR(13, "Virtual Processor", "virtual processor");
 
 	/**
 	 * The '<em><b>Abstract</b></em>' literal value.
