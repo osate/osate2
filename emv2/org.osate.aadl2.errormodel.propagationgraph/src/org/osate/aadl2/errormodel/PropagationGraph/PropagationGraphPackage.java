@@ -104,13 +104,22 @@ public interface PropagationGraphPackage extends EPackage {
 	int PROPAGATION_GRAPH__PROPAGATION_PATHS = 3;
 
 	/**
-	 * The feature id for the '<em><b>Nodes</b></em>' containment reference list.
+	 * The feature id for the '<em><b>Connections</b></em>' reference list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPAGATION_GRAPH__NODES = 4;
+	int PROPAGATION_GRAPH__CONNECTIONS = 4;
+
+	/**
+	 * The feature id for the '<em><b>Root</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_GRAPH__ROOT = 5;
 
 	/**
 	 * The number of structural features of the '<em>Propagation Graph</em>' class.
@@ -119,7 +128,7 @@ public interface PropagationGraphPackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int PROPAGATION_GRAPH_FEATURE_COUNT = 5;
+	int PROPAGATION_GRAPH_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Propagation Graph</em>' class.
@@ -186,13 +195,22 @@ public interface PropagationGraphPackage extends EPackage {
 	int PROPAGATION_PATH__TYPE = 4;
 
 	/**
+	 * The feature id for the '<em><b>Connection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH__CONNECTION = 5;
+
+	/**
 	 * The number of structural features of the '<em>Propagation Path</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPAGATION_PATH_FEATURE_COUNT = 5;
+	int PROPAGATION_PATH_FEATURE_COUNT = 6;
 
 	/**
 	 * The number of operations of the '<em>Propagation Path</em>' class.
@@ -204,61 +222,6 @@ public interface PropagationGraphPackage extends EPackage {
 	int PROPAGATION_PATH_OPERATION_COUNT = 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationNodeImpl <em>Propagation Node</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationNodeImpl
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPackageImpl#getPropagationNode()
-	 * @generated
-	 */
-	int PROPAGATION_NODE = 2;
-
-	/**
-	 * The feature id for the '<em><b>Name</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_NODE__NAME = 0;
-
-	/**
-	 * The feature id for the '<em><b>Highlight</b></em>' attribute.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_NODE__HIGHLIGHT = 1;
-
-	/**
-	 * The feature id for the '<em><b>Component Instance</b></em>' reference.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_NODE__COMPONENT_INSTANCE = 2;
-
-	/**
-	 * The number of structural features of the '<em>Propagation Node</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_NODE_FEATURE_COUNT = 3;
-
-	/**
-	 * The number of operations of the '<em>Propagation Node</em>' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 * @ordered
-	 */
-	int PROPAGATION_NODE_OPERATION_COUNT = 0;
-
-	/**
 	 * The meta object id for the '{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl <em>Propagation Path End</em>}' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -266,16 +229,16 @@ public interface PropagationGraphPackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPackageImpl#getPropagationPathEnd()
 	 * @generated
 	 */
-	int PROPAGATION_PATH_END = 3;
+	int PROPAGATION_PATH_END = 2;
 
 	/**
-	 * The feature id for the '<em><b>Instance Object</b></em>' reference.
+	 * The feature id for the '<em><b>Connection Instance</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPAGATION_PATH_END__INSTANCE_OBJECT = 0;
+	int PROPAGATION_PATH_END__CONNECTION_INSTANCE = 0;
 
 	/**
 	 * The feature id for the '<em><b>Error Propagation</b></em>' reference.
@@ -296,13 +259,22 @@ public interface PropagationGraphPackage extends EPackage {
 	int PROPAGATION_PATH_END__COMPONENT_INSTANCE = 2;
 
 	/**
+	 * The feature id for the '<em><b>Highlight</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int PROPAGATION_PATH_END__HIGHLIGHT = 3;
+
+	/**
 	 * The number of structural features of the '<em>Propagation Path End</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int PROPAGATION_PATH_END_FEATURE_COUNT = 3;
+	int PROPAGATION_PATH_END_FEATURE_COUNT = 4;
 
 	/**
 	 * The number of operations of the '<em>Propagation Path End</em>' class.
@@ -321,7 +293,7 @@ public interface PropagationGraphPackage extends EPackage {
 	 * @see org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPackageImpl#getPropagationType()
 	 * @generated
 	 */
-	int PROPAGATION_TYPE = 4;
+	int PROPAGATION_TYPE = 3;
 
 
 	/**
@@ -379,15 +351,26 @@ public interface PropagationGraphPackage extends EPackage {
 	EReference getPropagationGraph_PropagationPaths();
 
 	/**
-	 * Returns the meta object for the containment reference list '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getNodes <em>Nodes</em>}'.
+	 * Returns the meta object for the reference list '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getConnections <em>Connections</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the containment reference list '<em>Nodes</em>'.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getNodes()
+	 * @return the meta object for the reference list '<em>Connections</em>'.
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getConnections()
 	 * @see #getPropagationGraph()
 	 * @generated
 	 */
-	EReference getPropagationGraph_Nodes();
+	EReference getPropagationGraph_Connections();
+
+	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getRoot <em>Root</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Root</em>'.
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph#getRoot()
+	 * @see #getPropagationGraph()
+	 * @generated
+	 */
+	EReference getPropagationGraph_Root();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath <em>Propagation Path</em>}'.
@@ -455,47 +438,15 @@ public interface PropagationGraphPackage extends EPackage {
 	EAttribute getPropagationPath_Type();
 
 	/**
-	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationNode <em>Propagation Node</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getConnection <em>Connection</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for class '<em>Propagation Node</em>'.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationNode
+	 * @return the meta object for the reference '<em>Connection</em>'.
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getConnection()
+	 * @see #getPropagationPath()
 	 * @generated
 	 */
-	EClass getPropagationNode();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationNode#getName <em>Name</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Name</em>'.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationNode#getName()
-	 * @see #getPropagationNode()
-	 * @generated
-	 */
-	EAttribute getPropagationNode_Name();
-
-	/**
-	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationNode#isHighlight <em>Highlight</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the attribute '<em>Highlight</em>'.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationNode#isHighlight()
-	 * @see #getPropagationNode()
-	 * @generated
-	 */
-	EAttribute getPropagationNode_Highlight();
-
-	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationNode#getComponentInstance <em>Component Instance</em>}'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Component Instance</em>'.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationNode#getComponentInstance()
-	 * @see #getPropagationNode()
-	 * @generated
-	 */
-	EReference getPropagationNode_ComponentInstance();
+	EReference getPropagationPath_Connection();
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd <em>Propagation Path End</em>}'.
@@ -508,15 +459,15 @@ public interface PropagationGraphPackage extends EPackage {
 	EClass getPropagationPathEnd();
 
 	/**
-	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#getInstanceObject <em>Instance Object</em>}'.
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#getConnectionInstance <em>Connection Instance</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @return the meta object for the reference '<em>Instance Object</em>'.
-	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#getInstanceObject()
+	 * @return the meta object for the reference '<em>Connection Instance</em>'.
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#getConnectionInstance()
 	 * @see #getPropagationPathEnd()
 	 * @generated
 	 */
-	EReference getPropagationPathEnd_InstanceObject();
+	EReference getPropagationPathEnd_ConnectionInstance();
 
 	/**
 	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#getErrorPropagation <em>Error Propagation</em>}'.
@@ -539,6 +490,17 @@ public interface PropagationGraphPackage extends EPackage {
 	 * @generated
 	 */
 	EReference getPropagationPathEnd_ComponentInstance();
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#isHighlight <em>Highlight</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Highlight</em>'.
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd#isHighlight()
+	 * @see #getPropagationPathEnd()
+	 * @generated
+	 */
+	EAttribute getPropagationPathEnd_Highlight();
 
 	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationType <em>Propagation Type</em>}'.
@@ -616,12 +578,20 @@ public interface PropagationGraphPackage extends EPackage {
 		EReference PROPAGATION_GRAPH__PROPAGATION_PATHS = eINSTANCE.getPropagationGraph_PropagationPaths();
 
 		/**
-		 * The meta object literal for the '<em><b>Nodes</b></em>' containment reference list feature.
+		 * The meta object literal for the '<em><b>Connections</b></em>' reference list feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PROPAGATION_GRAPH__NODES = eINSTANCE.getPropagationGraph_Nodes();
+		EReference PROPAGATION_GRAPH__CONNECTIONS = eINSTANCE.getPropagationGraph_Connections();
+
+		/**
+		 * The meta object literal for the '<em><b>Root</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference PROPAGATION_GRAPH__ROOT = eINSTANCE.getPropagationGraph_Root();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl <em>Propagation Path</em>}' class.
@@ -674,38 +644,12 @@ public interface PropagationGraphPackage extends EPackage {
 		EAttribute PROPAGATION_PATH__TYPE = eINSTANCE.getPropagationPath_Type();
 
 		/**
-		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationNodeImpl <em>Propagation Node</em>}' class.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @see org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationNodeImpl
-		 * @see org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationGraphPackageImpl#getPropagationNode()
-		 * @generated
-		 */
-		EClass PROPAGATION_NODE = eINSTANCE.getPropagationNode();
-
-		/**
-		 * The meta object literal for the '<em><b>Name</b></em>' attribute feature.
+		 * The meta object literal for the '<em><b>Connection</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EAttribute PROPAGATION_NODE__NAME = eINSTANCE.getPropagationNode_Name();
-
-		/**
-		 * The meta object literal for the '<em><b>Highlight</b></em>' attribute feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EAttribute PROPAGATION_NODE__HIGHLIGHT = eINSTANCE.getPropagationNode_Highlight();
-
-		/**
-		 * The meta object literal for the '<em><b>Component Instance</b></em>' reference feature.
-		 * <!-- begin-user-doc -->
-		 * <!-- end-user-doc -->
-		 * @generated
-		 */
-		EReference PROPAGATION_NODE__COMPONENT_INSTANCE = eINSTANCE.getPropagationNode_ComponentInstance();
+		EReference PROPAGATION_PATH__CONNECTION = eINSTANCE.getPropagationPath_Connection();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl <em>Propagation Path End</em>}' class.
@@ -718,12 +662,12 @@ public interface PropagationGraphPackage extends EPackage {
 		EClass PROPAGATION_PATH_END = eINSTANCE.getPropagationPathEnd();
 
 		/**
-		 * The meta object literal for the '<em><b>Instance Object</b></em>' reference feature.
+		 * The meta object literal for the '<em><b>Connection Instance</b></em>' reference feature.
 		 * <!-- begin-user-doc -->
 		 * <!-- end-user-doc -->
 		 * @generated
 		 */
-		EReference PROPAGATION_PATH_END__INSTANCE_OBJECT = eINSTANCE.getPropagationPathEnd_InstanceObject();
+		EReference PROPAGATION_PATH_END__CONNECTION_INSTANCE = eINSTANCE.getPropagationPathEnd_ConnectionInstance();
 
 		/**
 		 * The meta object literal for the '<em><b>Error Propagation</b></em>' reference feature.
@@ -740,6 +684,14 @@ public interface PropagationGraphPackage extends EPackage {
 		 * @generated
 		 */
 		EReference PROPAGATION_PATH_END__COMPONENT_INSTANCE = eINSTANCE.getPropagationPathEnd_ComponentInstance();
+
+		/**
+		 * The meta object literal for the '<em><b>Highlight</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EAttribute PROPAGATION_PATH_END__HIGHLIGHT = eINSTANCE.getPropagationPathEnd_Highlight();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationType <em>Propagation Type</em>}' enum.

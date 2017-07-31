@@ -59,7 +59,6 @@ public class PropagationGraphFactoryImpl extends EFactoryImpl implements Propaga
 		switch (eClass.getClassifierID()) {
 			case PropagationGraphPackage.PROPAGATION_GRAPH: return createPropagationGraph();
 			case PropagationGraphPackage.PROPAGATION_PATH: return createPropagationPath();
-			case PropagationGraphPackage.PROPAGATION_NODE: return createPropagationNode();
 			case PropagationGraphPackage.PROPAGATION_PATH_END: return createPropagationPathEnd();
 			default:
 				throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
@@ -114,16 +113,6 @@ public class PropagationGraphFactoryImpl extends EFactoryImpl implements Propaga
 	public PropagationPath createPropagationPath() {
 		PropagationPathImpl propagationPath = new PropagationPathImpl();
 		return propagationPath;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public PropagationNode createPropagationNode() {
-		PropagationNodeImpl propagationNode = new PropagationNodeImpl();
-		return propagationNode;
 	}
 
 	/**

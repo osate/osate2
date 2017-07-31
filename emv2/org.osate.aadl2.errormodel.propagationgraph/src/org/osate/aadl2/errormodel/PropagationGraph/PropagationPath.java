@@ -3,6 +3,7 @@
 package org.osate.aadl2.errormodel.PropagationGraph;
 
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -18,6 +19,7 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getPathDst <em>Path Dst</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#isHighlight <em>Highlight</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getConnection <em>Connection</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath()
@@ -157,5 +159,31 @@ public interface PropagationPath extends EObject {
 	 * @generated
 	 */
 	void setType(PropagationType value);
+
+	/**
+	 * Returns the value of the '<em><b>Connection</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Connection</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Connection</em>' reference.
+	 * @see #setConnection(ConnectionInstance)
+	 * @see org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage#getPropagationPath_Connection()
+	 * @model
+	 * @generated
+	 */
+	ConnectionInstance getConnection();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.PropagationGraph.PropagationPath#getConnection <em>Connection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Connection</em>' reference.
+	 * @see #getConnection()
+	 * @generated
+	 */
+	void setConnection(ConnectionInstance value);
 
 } // PropagationPath

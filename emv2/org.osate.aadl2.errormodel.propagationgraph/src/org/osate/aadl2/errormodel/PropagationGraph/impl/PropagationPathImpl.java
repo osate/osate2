@@ -15,6 +15,7 @@ import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationType;
+import org.osate.aadl2.instance.ConnectionInstance;
 
 /**
  * <!-- begin-user-doc -->
@@ -29,6 +30,7 @@ import org.osate.aadl2.errormodel.PropagationGraph.PropagationType;
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getPathDst <em>Path Dst</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#isHighlight <em>Highlight</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getType <em>Type</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathImpl#getConnection <em>Connection</em>}</li>
  * </ul>
  *
  * @generated
@@ -113,6 +115,16 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	 * @ordered
 	 */
 	protected PropagationType type = TYPE_EDEFAULT;
+
+	/**
+	 * The cached value of the '{@link #getConnection() <em>Connection</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getConnection()
+	 * @generated
+	 * @ordered
+	 */
+	protected ConnectionInstance connection;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -287,6 +299,44 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public ConnectionInstance getConnection() {
+		if (connection != null && connection.eIsProxy()) {
+			InternalEObject oldConnection = (InternalEObject)connection;
+			connection = (ConnectionInstance)eResolveProxy(oldConnection);
+			if (connection != oldConnection) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropagationGraphPackage.PROPAGATION_PATH__CONNECTION, oldConnection, connection));
+			}
+		}
+		return connection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public ConnectionInstance basicGetConnection() {
+		return connection;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setConnection(ConnectionInstance newConnection) {
+		ConnectionInstance oldConnection = connection;
+		connection = newConnection;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH__CONNECTION, oldConnection, connection));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public NotificationChain eInverseRemove(InternalEObject otherEnd, int featureID, NotificationChain msgs) {
 		switch (featureID) {
@@ -316,6 +366,9 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 				return isHighlight();
 			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
 				return getType();
+			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+				if (resolve) return getConnection();
+				return basicGetConnection();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -342,6 +395,9 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 				return;
 			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
 				setType((PropagationType)newValue);
+				return;
+			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+				setConnection((ConnectionInstance)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -370,6 +426,9 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
 				setType(TYPE_EDEFAULT);
 				return;
+			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+				setConnection((ConnectionInstance)null);
+				return;
 		}
 		super.eUnset(featureID);
 	}
@@ -392,6 +451,8 @@ public class PropagationPathImpl extends MinimalEObjectImpl.Container implements
 				return highlight != HIGHLIGHT_EDEFAULT;
 			case PropagationGraphPackage.PROPAGATION_PATH__TYPE:
 				return type != TYPE_EDEFAULT;
+			case PropagationGraphPackage.PROPAGATION_PATH__CONNECTION:
+				return connection != null;
 		}
 		return super.eIsSet(featureID);
 	}

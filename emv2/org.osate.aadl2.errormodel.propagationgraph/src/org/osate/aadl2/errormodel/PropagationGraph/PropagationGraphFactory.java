@@ -40,15 +40,6 @@ public interface PropagationGraphFactory extends EFactory {
 	PropagationPath createPropagationPath();
 
 	/**
-	 * Returns a new object of class '<em>Propagation Node</em>'.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @return a new object of class '<em>Propagation Node</em>'.
-	 * @generated
-	 */
-	PropagationNode createPropagationNode();
-
-	/**
 	 * Returns a new object of class '<em>Propagation Path End</em>'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
