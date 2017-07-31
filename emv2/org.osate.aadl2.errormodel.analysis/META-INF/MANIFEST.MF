@@ -13,7 +13,8 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2;bundle-version="1.0.0",
  org.osate.ui;bundle-version="1.0.0",
  org.osate.xtext.aadl2.errormodel;bundle-version="1.0.0",
- org.osate.xtext.aadl2.properties;bundle-version="1.0.0"
+ org.osate.xtext.aadl2.properties;bundle-version="1.0.0",
+ org.osate.aadl2.errormodel.propagationgraph
 Bundle-ActivationPolicy: lazy
 Import-Package: org.osate.xtext.aadl2.properties
 Export-Package: org.osate.aadl2.errormodel.analysis,

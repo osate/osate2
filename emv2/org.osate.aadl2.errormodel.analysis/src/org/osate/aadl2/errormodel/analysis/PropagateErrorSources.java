@@ -45,6 +45,9 @@ import org.eclipse.emf.common.util.BasicEList;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Feature;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.ConnectionInstanceEnd;
@@ -70,14 +73,12 @@ import org.osate.xtext.aadl2.errormodel.errorModel.TypeMappingSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeTransformationSet;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
 import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 /**
  * This class initiates a fault impact analysis starting with error sources.
@@ -86,14 +87,14 @@ import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
  */
 public class PropagateErrorSources {
 	protected WriteToFile report;
-	protected AnalysisModel faultModel;
+	protected PropagationGraph faultModel;
 	protected Collection<EObject> visited;
 	protected int maxLevel = 7;
 	private Map<ComponentInstance, List<String>> alreadyTreated;
 
 	public PropagateErrorSources(String reportType, ComponentInstance root) {
 		report = new WriteToFile(reportType, root);
-		faultModel = new AnalysisModel(root, false);
+		faultModel = Util.generatePropagationGraph(root, false);
 		visited = new HashSet<EObject>();
 		alreadyTreated = new HashMap<ComponentInstance, List<String>>();
 
@@ -109,7 +110,7 @@ public class PropagateErrorSources {
 	}
 
 	public Collection<ComponentInstance> getSubcomponents() {
-		return faultModel.getSubcomponents();
+		return faultModel.getComponents();
 	}
 
 	public void addText(String text) {
@@ -316,7 +317,7 @@ public class PropagateErrorSources {
 			// find connection instances that this connection is part of
 			String connName = ces.getConnection().getName();
 			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root, ces.getConnection());
-			EList<PropagationPathEnd> ends = faultModel.getAllPropagationDestinationEnds(conni);
+			EList<PropagationPathEnd> ends = getAllPropagationDestinationEnds(faultModel, conni);
 			if (ends.size() == 0) {
 				return;
 			}
@@ -509,7 +510,7 @@ public class PropagateErrorSources {
 		} else {
 			st.setVisitToken(tt);
 		}
-		EList<PropagationPathRecord> paths = faultModel.getAllPropagationPaths(ci, ep);
+		EList<PropagationPath> paths = Util.getAllPropagationPaths(faultModel, ci, ep);
 		String effectText = "," + generateTypeTokenErrorPropText(ep, tt);
 		if (paths.isEmpty()) {
 			if (fi != null) {
@@ -526,8 +527,8 @@ public class PropagateErrorSources {
 				reportEntry(entryText + effectText + " -> [No Outgoing Conn],,", depth);
 			}
 		} else {
-			for (PropagationPathRecord path : paths) {
-				ConnectionInstance pathConni = path.getConnectionInstance();
+			for (PropagationPath path : paths) {
+				ConnectionInstance pathConni = path.getConnection();
 				TypeMappingSet typeEquivalence = EMV2Util
 						.getAllTypeEquivalenceMapping(ci.getContainingComponentInstance());
 				TypeToken mappedtt = tt;

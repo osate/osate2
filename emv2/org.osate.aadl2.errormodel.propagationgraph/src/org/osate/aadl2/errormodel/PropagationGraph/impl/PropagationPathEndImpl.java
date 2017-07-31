@@ -14,8 +14,7 @@ import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.InstanceObject;
-
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
 
 /**
@@ -26,23 +25,24 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
  * The following features are implemented:
  * </p>
  * <ul>
- *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl#getInstanceObject <em>Instance Object</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl#getConnectionInstance <em>Connection Instance</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl#getErrorPropagation <em>Error Propagation</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl#getComponentInstance <em>Component Instance</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.PropagationGraph.impl.PropagationPathEndImpl#isHighlight <em>Highlight</em>}</li>
  * </ul>
  *
  * @generated
  */
 public class PropagationPathEndImpl extends MinimalEObjectImpl.Container implements PropagationPathEnd {
 	/**
-	 * The cached value of the '{@link #getInstanceObject() <em>Instance Object</em>}' reference.
+	 * The cached value of the '{@link #getConnectionInstance() <em>Connection Instance</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @see #getInstanceObject()
+	 * @see #getConnectionInstance()
 	 * @generated
 	 * @ordered
 	 */
-	protected InstanceObject instanceObject;
+	protected ConnectionInstance connectionInstance;
 
 	/**
 	 * The cached value of the '{@link #getErrorPropagation() <em>Error Propagation</em>}' reference.
@@ -63,6 +63,26 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	 * @ordered
 	 */
 	protected ComponentInstance componentInstance;
+
+	/**
+	 * The default value of the '{@link #isHighlight() <em>Highlight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHighlight()
+	 * @generated
+	 * @ordered
+	 */
+	protected static final boolean HIGHLIGHT_EDEFAULT = false;
+
+	/**
+	 * The cached value of the '{@link #isHighlight() <em>Highlight</em>}' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #isHighlight()
+	 * @generated
+	 * @ordered
+	 */
+	protected boolean highlight = HIGHLIGHT_EDEFAULT;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -88,16 +108,16 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstanceObject getInstanceObject() {
-		if (instanceObject != null && instanceObject.eIsProxy()) {
-			InternalEObject oldInstanceObject = (InternalEObject)instanceObject;
-			instanceObject = (InstanceObject)eResolveProxy(oldInstanceObject);
-			if (instanceObject != oldInstanceObject) {
+	public ConnectionInstance getConnectionInstance() {
+		if (connectionInstance != null && connectionInstance.eIsProxy()) {
+			InternalEObject oldConnectionInstance = (InternalEObject)connectionInstance;
+			connectionInstance = (ConnectionInstance)eResolveProxy(oldConnectionInstance);
+			if (connectionInstance != oldConnectionInstance) {
 				if (eNotificationRequired())
-					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropagationGraphPackage.PROPAGATION_PATH_END__INSTANCE_OBJECT, oldInstanceObject, instanceObject));
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, PropagationGraphPackage.PROPAGATION_PATH_END__CONNECTION_INSTANCE, oldConnectionInstance, connectionInstance));
 			}
 		}
-		return instanceObject;
+		return connectionInstance;
 	}
 
 	/**
@@ -105,8 +125,8 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstanceObject basicGetInstanceObject() {
-		return instanceObject;
+	public ConnectionInstance basicGetConnectionInstance() {
+		return connectionInstance;
 	}
 
 	/**
@@ -114,11 +134,11 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setInstanceObject(InstanceObject newInstanceObject) {
-		InstanceObject oldInstanceObject = instanceObject;
-		instanceObject = newInstanceObject;
+	public void setConnectionInstance(ConnectionInstance newConnectionInstance) {
+		ConnectionInstance oldConnectionInstance = connectionInstance;
+		connectionInstance = newConnectionInstance;
 		if (eNotificationRequired())
-			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH_END__INSTANCE_OBJECT, oldInstanceObject, instanceObject));
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH_END__CONNECTION_INSTANCE, oldConnectionInstance, connectionInstance));
 	}
 
 	/**
@@ -202,18 +222,41 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public boolean isHighlight() {
+		return highlight;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setHighlight(boolean newHighlight) {
+		boolean oldHighlight = highlight;
+		highlight = newHighlight;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, PropagationGraphPackage.PROPAGATION_PATH_END__HIGHLIGHT, oldHighlight, highlight));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	@Override
 	public Object eGet(int featureID, boolean resolve, boolean coreType) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH_END__INSTANCE_OBJECT:
-				if (resolve) return getInstanceObject();
-				return basicGetInstanceObject();
+			case PropagationGraphPackage.PROPAGATION_PATH_END__CONNECTION_INSTANCE:
+				if (resolve) return getConnectionInstance();
+				return basicGetConnectionInstance();
 			case PropagationGraphPackage.PROPAGATION_PATH_END__ERROR_PROPAGATION:
 				if (resolve) return getErrorPropagation();
 				return basicGetErrorPropagation();
 			case PropagationGraphPackage.PROPAGATION_PATH_END__COMPONENT_INSTANCE:
 				if (resolve) return getComponentInstance();
 				return basicGetComponentInstance();
+			case PropagationGraphPackage.PROPAGATION_PATH_END__HIGHLIGHT:
+				return isHighlight();
 		}
 		return super.eGet(featureID, resolve, coreType);
 	}
@@ -226,14 +269,17 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public void eSet(int featureID, Object newValue) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH_END__INSTANCE_OBJECT:
-				setInstanceObject((InstanceObject)newValue);
+			case PropagationGraphPackage.PROPAGATION_PATH_END__CONNECTION_INSTANCE:
+				setConnectionInstance((ConnectionInstance)newValue);
 				return;
 			case PropagationGraphPackage.PROPAGATION_PATH_END__ERROR_PROPAGATION:
 				setErrorPropagation((ErrorPropagation)newValue);
 				return;
 			case PropagationGraphPackage.PROPAGATION_PATH_END__COMPONENT_INSTANCE:
 				setComponentInstance((ComponentInstance)newValue);
+				return;
+			case PropagationGraphPackage.PROPAGATION_PATH_END__HIGHLIGHT:
+				setHighlight((Boolean)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -247,14 +293,17 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public void eUnset(int featureID) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH_END__INSTANCE_OBJECT:
-				setInstanceObject((InstanceObject)null);
+			case PropagationGraphPackage.PROPAGATION_PATH_END__CONNECTION_INSTANCE:
+				setConnectionInstance((ConnectionInstance)null);
 				return;
 			case PropagationGraphPackage.PROPAGATION_PATH_END__ERROR_PROPAGATION:
 				setErrorPropagation((ErrorPropagation)null);
 				return;
 			case PropagationGraphPackage.PROPAGATION_PATH_END__COMPONENT_INSTANCE:
 				setComponentInstance((ComponentInstance)null);
+				return;
+			case PropagationGraphPackage.PROPAGATION_PATH_END__HIGHLIGHT:
+				setHighlight(HIGHLIGHT_EDEFAULT);
 				return;
 		}
 		super.eUnset(featureID);
@@ -268,14 +317,32 @@ public class PropagationPathEndImpl extends MinimalEObjectImpl.Container impleme
 	@Override
 	public boolean eIsSet(int featureID) {
 		switch (featureID) {
-			case PropagationGraphPackage.PROPAGATION_PATH_END__INSTANCE_OBJECT:
-				return instanceObject != null;
+			case PropagationGraphPackage.PROPAGATION_PATH_END__CONNECTION_INSTANCE:
+				return connectionInstance != null;
 			case PropagationGraphPackage.PROPAGATION_PATH_END__ERROR_PROPAGATION:
 				return errorPropagation != null;
 			case PropagationGraphPackage.PROPAGATION_PATH_END__COMPONENT_INSTANCE:
 				return componentInstance != null;
+			case PropagationGraphPackage.PROPAGATION_PATH_END__HIGHLIGHT:
+				return highlight != HIGHLIGHT_EDEFAULT;
 		}
 		return super.eIsSet(featureID);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	@Override
+	public String toString() {
+		if (eIsProxy()) return super.toString();
+
+		StringBuffer result = new StringBuffer(super.toString());
+		result.append(" (highlight: ");
+		result.append(highlight);
+		result.append(')');
+		return result.toString();
 	}
 
 } //PropagationPathEndImpl

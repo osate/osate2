@@ -13,7 +13,6 @@ import org.eclipse.emf.ecore.impl.EPackageImpl;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphFactory;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraphPackage;
-import org.osate.aadl2.errormodel.PropagationGraph.PropagationNode;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationType;
@@ -42,13 +41,6 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * @generated
 	 */
 	private EClass propagationPathEClass = null;
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	private EClass propagationNodeEClass = null;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -179,8 +171,17 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropagationGraph_Nodes() {
+	public EReference getPropagationGraph_Connections() {
 		return (EReference)propagationGraphEClass.getEStructuralFeatures().get(4);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getPropagationGraph_Root() {
+		return (EReference)propagationGraphEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -242,35 +243,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EClass getPropagationNode() {
-		return propagationNodeEClass;
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPropagationNode_Name() {
-		return (EAttribute)propagationNodeEClass.getEStructuralFeatures().get(0);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getPropagationNode_Highlight() {
-		return (EAttribute)propagationNodeEClass.getEStructuralFeatures().get(1);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EReference getPropagationNode_ComponentInstance() {
-		return (EReference)propagationNodeEClass.getEStructuralFeatures().get(2);
+	public EReference getPropagationPath_Connection() {
+		return (EReference)propagationPathEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -287,7 +261,7 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EReference getPropagationPathEnd_InstanceObject() {
+	public EReference getPropagationPathEnd_ConnectionInstance() {
 		return (EReference)propagationPathEndEClass.getEStructuralFeatures().get(0);
 	}
 
@@ -307,6 +281,15 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 	 */
 	public EReference getPropagationPathEnd_ComponentInstance() {
 		return (EReference)propagationPathEndEClass.getEStructuralFeatures().get(2);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EAttribute getPropagationPathEnd_Highlight() {
+		return (EAttribute)propagationPathEndEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -351,7 +334,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		createEAttribute(propagationGraphEClass, PROPAGATION_GRAPH__DESCRIPTION);
 		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__COMPONENTS);
 		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__PROPAGATION_PATHS);
-		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__NODES);
+		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__CONNECTIONS);
+		createEReference(propagationGraphEClass, PROPAGATION_GRAPH__ROOT);
 
 		propagationPathEClass = createEClass(PROPAGATION_PATH);
 		createEAttribute(propagationPathEClass, PROPAGATION_PATH__NAME);
@@ -359,16 +343,13 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		createEReference(propagationPathEClass, PROPAGATION_PATH__PATH_DST);
 		createEAttribute(propagationPathEClass, PROPAGATION_PATH__HIGHLIGHT);
 		createEAttribute(propagationPathEClass, PROPAGATION_PATH__TYPE);
-
-		propagationNodeEClass = createEClass(PROPAGATION_NODE);
-		createEAttribute(propagationNodeEClass, PROPAGATION_NODE__NAME);
-		createEAttribute(propagationNodeEClass, PROPAGATION_NODE__HIGHLIGHT);
-		createEReference(propagationNodeEClass, PROPAGATION_NODE__COMPONENT_INSTANCE);
+		createEReference(propagationPathEClass, PROPAGATION_PATH__CONNECTION);
 
 		propagationPathEndEClass = createEClass(PROPAGATION_PATH_END);
-		createEReference(propagationPathEndEClass, PROPAGATION_PATH_END__INSTANCE_OBJECT);
+		createEReference(propagationPathEndEClass, PROPAGATION_PATH_END__CONNECTION_INSTANCE);
 		createEReference(propagationPathEndEClass, PROPAGATION_PATH_END__ERROR_PROPAGATION);
 		createEReference(propagationPathEndEClass, PROPAGATION_PATH_END__COMPONENT_INSTANCE);
+		createEAttribute(propagationPathEndEClass, PROPAGATION_PATH_END__HIGHLIGHT);
 
 		// Create enums
 		propagationTypeEEnum = createEEnum(PROPAGATION_TYPE);
@@ -413,7 +394,8 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		initEAttribute(getPropagationGraph_Description(), ecorePackage.getEString(), "description", null, 0, 1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationGraph_Components(), theInstancePackage.getComponentInstance(), null, "components", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationGraph_PropagationPaths(), this.getPropagationPath(), null, "propagationPaths", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationGraph_Nodes(), this.getPropagationNode(), null, "nodes", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationGraph_Connections(), theInstancePackage.getConnectionInstance(), null, "connections", null, 0, -1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationGraph_Root(), theInstancePackage.getComponentInstance(), null, "root", null, 0, 1, PropagationGraph.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propagationPathEClass, PropagationPath.class, "PropagationPath", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEAttribute(getPropagationPath_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -421,16 +403,13 @@ public class PropagationGraphPackageImpl extends EPackageImpl implements Propaga
 		initEReference(getPropagationPath_PathDst(), this.getPropagationPathEnd(), null, "pathDst", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropagationPath_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getPropagationPath_Type(), this.getPropagationType(), "type", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-
-		initEClass(propagationNodeEClass, PropagationNode.class, "PropagationNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEAttribute(getPropagationNode_Name(), ecorePackage.getEString(), "name", null, 0, 1, PropagationNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEAttribute(getPropagationNode_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getPropagationNode_ComponentInstance(), theInstancePackage.getComponentInstance(), null, "componentInstance", null, 0, 1, PropagationNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationPath_Connection(), theInstancePackage.getConnectionInstance(), null, "connection", null, 0, 1, PropagationPath.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(propagationPathEndEClass, PropagationPathEnd.class, "PropagationPathEnd", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
-		initEReference(getPropagationPathEnd_InstanceObject(), theInstancePackage.getInstanceObject(), null, "instanceObject", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getPropagationPathEnd_ConnectionInstance(), theInstancePackage.getConnectionInstance(), null, "connectionInstance", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPathEnd_ErrorPropagation(), theErrorModelPackage.getErrorPropagation(), null, "errorPropagation", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getPropagationPathEnd_ComponentInstance(), theInstancePackage.getComponentInstance(), null, "componentInstance", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getPropagationPathEnd_Highlight(), ecorePackage.getEBoolean(), "highlight", null, 0, 1, PropagationPathEnd.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(propagationTypeEEnum, PropagationType.class, "PropagationType");
