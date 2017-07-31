@@ -1,57 +1,40 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<?pde version="3.8"?><target includeMode="feature" name="osate2-development" sequenceNumber="8">
-<locations>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.e4.rcp.feature.group" version="1.3.101.v20150204-1353"/>
-<unit id="org.eclipse.egit.feature.group" version="3.4.2.201412180340-r"/>
-<unit id="org.eclipse.emf.sdk.feature.group" version="2.10.2.v20150123-0452"/>
-<unit id="org.eclipse.emf.transaction.feature.group" version="1.8.0.201405281451"/>
-<unit id="org.eclipse.emf.transaction.sdk.feature.group" version="1.8.0.201405281451"/>
-<unit id="org.eclipse.equinox.executable.feature.group" version="3.6.102.v20150204-1316"/>
-<unit id="org.eclipse.equinox.p2.core.feature.feature.group" version="1.3.0.v20140523-0116"/>
-<unit id="org.eclipse.equinox.p2.extras.feature.feature.group" version="1.2.0.v20150129-0838"/>
-<unit id="org.eclipse.equinox.p2.rcp.feature.feature.group" version="1.2.0.v20140523-0116"/>
-<unit id="org.eclipse.equinox.p2.user.ui.feature.group" version="2.2.0.v20150129-0838"/>
-<unit id="org.eclipse.gmf.sdk.feature.group" version="3.2.1.201502182128"/>
-<unit id="org.eclipse.gmf.runtime.sdk.feature.group" version="1.8.1.201408201453"/>
-<unit id="org.eclipse.graphiti.feature.feature.group" version="0.11.2.v20150204-0954"/>
-<unit id="org.eclipse.graphiti.feature.tools.feature.group" version="0.11.2.v20150204-0954"/>
-<unit id="org.eclipse.graphiti.sdk.feature.feature.group" version="0.11.2.v20150204-0954"/>
-<unit id="org.eclipse.help.feature.group" version="2.0.103.v20150204-1700"/>
-<unit id="org.eclipse.m2e.logback.feature.feature.group" version="1.5.1.20150109-1820"/>
-<unit id="org.eclipse.m2m.atl.feature.group" version="3.5.0.v201405260755"/>
-<unit id="org.eclipse.m2m.atl.sdk.feature.group" version="3.5.0.v201405260755"/>
-<unit id="org.eclipse.ocl.all.feature.group" version="5.0.2.v20140725-2242"/>
-<unit id="org.eclipse.ocl.all.sdk.feature.group" version="5.0.2.v20141027-1335"/>
-<unit id="org.eclipse.ocl.feature.group" version="3.4.2.v20140725-2242"/>
-<unit id="org.eclipse.platform.feature.group" version="4.4.2.v20150204-1700"/>
-<unit id="org.eclipse.rcp.feature.group" version="4.4.2.v20150204-1700"/>
-<unit id="org.eclipse.sdk.feature.group" version="4.4.2.v20150204-1700"/>
-<unit id="org.eclipse.uml2.feature.group" version="5.0.2.v20150202-0947"/>
-<unit id="org.eclipse.zest.feature.group" version="1.5.101.201408150207"/>
-<repository location="http://download.eclipse.org/releases/luna/201502271000"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="net.certware.feature.sacm.feature.group" version="1.1.0.201504241042"/>
-<repository location="http://updatesite.certware.net"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.epsilon.evl.emf.validation.feature.feature.group" version="1.2.0.201408251031"/>
-<repository location="http://download.eclipse.org/epsilon/updates"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.xtext.sdk.feature.group" version="2.8.4.v201508050135"/>
-<repository location="http://download.eclipse.org/modeling/tmf/xtext/updates/releases/2.8.4/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipselabs.xtext.utils.unittesting.feature.feature.group" version="0.9.3.201204261440"/>
-<repository location="http://xtext-utils.eclipselabs.org.codespot.com/git.distribution/releases/unittesting-0.9.x/"/>
-</location>
-<location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-<unit id="org.eclipse.sirius.runtime.feature.group" version="2.0.4.201502061354"/>
-<unit id="org.eclipse.sirius.runtime.ide.xtext.feature.group" version="2.0.4.201502061354"/>
-<unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="2.0.4.201502061354"/>
-<repository location="http://download.eclipse.org/sirius/updates/releases/2.0.4/luna"/>
-</location>
-</locations>
+<?pde version="3.8"?>
+<target name="Generated from SMACCM" sequenceNumber="11">
+  <locations>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="org.eclipse.birt.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.egit.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.emf.mwe2.launcher.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.equinox.executable.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.graphiti.export.feature.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.graphiti.pattern" version="0.0.0"/>
+      <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.sdk" version="0.0.0"/>
+      <unit id="org.eclipse.sirius.runtime.ide.ui.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.sirius.runtime.ide.xtext.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.sirius.specifier.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.swtbot.eclipse.finder" version="0.0.0"/>
+      <unit id="org.eclipse.uml2" version="0.0.0"/>
+      <unit id="org.eclipse.uml2.codegen.ecore" version="0.0.0"/>
+      <unit id="org.eclipse.uml2.uml.edit" version="0.0.0"/>
+      <unit id="org.eclipse.xtext.ui.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.xtext.xbase.feature.group" version="0.0.0"/>
+      <unit id="org.eclipse.xtext.xbase.junit" version="0.0.0"/>
+      <unit id="org.eclipse.zest.layouts" version="0.0.0"/>
+      <repository location="http://download.eclipse.org/releases/oxygen"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="com.itemis.xtext.testing" version="0.0.0"/>
+      <repository location="http://dl.bintray.com/itemis/generic/xtext-testing/updates/"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="net.dependableos.dcase.feature.feature.group" version="0.0.0"/>
+      <repository location="http://www.dimensions-japan.org/dcase/eclipse"/>
+    </location>
+    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
+      <unit id="it.xsemantics.sdk.feature.group" version="0.0.0"/>
+      <repository location="https://dl.bintray.com/lorenzobettini/xsemantics/updates/1.12"/>
+    </location>
+  </locations>
 </target>
