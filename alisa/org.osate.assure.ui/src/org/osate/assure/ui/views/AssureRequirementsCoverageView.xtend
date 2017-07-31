@@ -81,10 +81,9 @@ class AssureRequirementsCoverageView extends ViewPart {
 	val IAssureConstructor assureConstructor
 	val String settingsFileName
 	val IDialogSettings dialogSettings
-	
+
 	@Inject
-	 IAssureRequirementMetricsProcessor assureRequirementMetricsProcessor
-	
+	IAssureRequirementMetricsProcessor assureRequirementMetricsProcessor
 
 	// Map is from AssuranceCase to CategoryFilter
 	val selectedFilters = <URI, URI>newHashMap
@@ -93,40 +92,7 @@ class AssureRequirementsCoverageView extends ViewPart {
 	TreeViewer alisaViewer
 	TreeViewer assureCoverageViewer
 
-	val IResourceChangeListener resourceChangeListener = [
-		val alisaFileChanged = new AtomicBoolean(false)
-		val assureFileChanged = new AtomicBoolean(false)
-		delta.accept [
-			if (resource.fileExtension == ALISA_EXTENSION) {
-				alisaFileChanged.set(true)
-			} else if (resource.fileExtension == ASSURE_EXTENSION) {
-				assureFileChanged.set(true)
-			}
-			true
-		]
-		resourceSetForUI.resources.forEach[unload]
-		if (alisaFileChanged.get) {
-			viewSite.workbenchWindow.workbench.display.asyncExec [
-				val toRemove = selectedFilters.filter [ assuranceCase, filter |
-					resourceSetForUI.getEObject(assuranceCase, true) === null ||
-						resourceSetForUI.getEObject(filter, true) === null
-				].keySet
-				toRemove.forEach[selectedFilters.remove(it)]
-
-				val expandedElements = alisaViewer.expandedElements
-				alisaViewer.input = assuranceCaseURIsInWorkspace
-				alisaViewer.expandedElements = expandedElements
-
-				displayedCaseAndFilter = null -> null
-				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, true)
-			]
-		} else if (assureFileChanged.get) {
-			viewSite.workbenchWindow.workbench.display.asyncExec [
-				displayedCaseAndFilter = null -> null
-				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, false)
-			]
-		}
-	]
+	val IResourceChangeListener resourceChangeListener
 
 	@Inject
 	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener,
@@ -156,6 +122,40 @@ class AssureRequirementsCoverageView extends ViewPart {
 		} catch (IOException e) {
 			// Ignore exception
 		}
+		resourceChangeListener = [
+			val alisaFileChanged = new AtomicBoolean(false)
+			val assureFileChanged = new AtomicBoolean(false)
+			delta.accept [
+				if (resource.fileExtension == ALISA_EXTENSION) {
+					alisaFileChanged.set(true)
+				} else if (resource.fileExtension == ASSURE_EXTENSION) {
+					assureFileChanged.set(true)
+				}
+				true
+			]
+			resourceSetForUI.resources.forEach[unload]
+			if (alisaFileChanged.get) {
+				viewSite.workbenchWindow.workbench.display.asyncExec [
+					val toRemove = selectedFilters.filter [ assuranceCase, filter |
+						resourceSetForUI.getEObject(assuranceCase, true) === null ||
+							resourceSetForUI.getEObject(filter, true) === null
+					].keySet
+					toRemove.forEach[selectedFilters.remove(it)]
+
+					val expandedElements = alisaViewer.expandedElements
+					alisaViewer.input = assuranceCaseURIsInWorkspace
+					alisaViewer.expandedElements = expandedElements
+
+					displayedCaseAndFilter = null -> null
+					updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, true)
+				]
+			} else if (assureFileChanged.get) {
+				viewSite.workbenchWindow.workbench.display.asyncExec [
+					displayedCaseAndFilter = null -> null
+					updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, false)
+				]
+			}
+		]
 	}
 
 	override createPartControl(Composite parent) {
@@ -322,47 +322,47 @@ class AssureRequirementsCoverageView extends ViewPart {
 //					}
 //				]
 //				treeViewer.control.menu = manager.createContextMenu(treeViewer.tree)
-
 				treeViewer.input = assuranceCaseURIsInWorkspace
 			]
 	}
 
 	def private createAssureCoverageViewer(Composite parent, TreeColumnLayout columnLayout) {
 		new TreeViewer(parent, SWT.BORDER.bitwiseOr(SWT.H_SCROLL).bitwiseOr(SWT.V_SCROLL)) => [
-				site.selectionProvider = it
-				addFilter[viewer, parentElement, element |
-					switch resourceSetForUI.getEObject(element as URI, true) {
-						Metrics,
-						QualifiedClaimReference,
-						QualifiedVAReference,
-						ClaimResult: false
-						default: true
-					}
-				]
-				new TreeViewerColumn(it, SWT.LEFT) => [
-					column.alignment = SWT.LEFT
-					column.text = ""
-					columnLayout.setColumnData(column, new ColumnPixelData(300))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: "Assurance case " + eObject.name
-								ModelResult: "Assurance plan " + eObject.name
-								SubsystemResult: "Subsystem verification " + eObject.name
-								ClaimResult: "Claim " + eObject.name
-								VerificationActivityResult: "Evidence " + eObject.name
-								ValidationResult: "Validation " + eObject.name
-								PreconditionResult: "Precondition " + eObject.name
-								ResultIssue: "Issue " + (eObject.target?.constructLabel ?: eObject.constructMessage)
-								ElseResult: "else"
-								ThenResult: "then"
-								default: "?"
-							}
+			site.selectionProvider = it
+			addFilter[ viewer, parentElement, element |
+				switch resourceSetForUI.getEObject(element as URI, true) {
+					Metrics,
+					QualifiedClaimReference,
+					QualifiedVAReference,
+					ClaimResult: false
+					default: true
+				}
+			]
+			new TreeViewerColumn(it, SWT.LEFT) => [
+				column.alignment = SWT.LEFT
+				column.text = ""
+				columnLayout.setColumnData(column, new ColumnPixelData(300))
+				labelProvider = new ColumnLabelProvider {
+					override getText(Object element) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+							AssuranceCaseResult: "Assurance case " + eObject.name
+							ModelResult: "Assurance plan " + eObject.name
+							SubsystemResult: "Subsystem verification " + eObject.name
+							ClaimResult: "Claim " + eObject.name
+							VerificationActivityResult: "Evidence " + eObject.name
+							ValidationResult: "Validation " + eObject.name
+							PreconditionResult: "Precondition " + eObject.name
+							ResultIssue: "Issue " + (eObject.target?.constructLabel ?: eObject.constructMessage)
+							ElseResult: "else"
+							ThenResult: "then"
+							default: "?"
 						}
-						
-						override getImage(Object element) {
-							val fileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								ResultIssue: switch eObject.issueType {
+					}
+
+					override getImage(Object element) {
+						val fileName = switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+							ResultIssue:
+								switch eObject.issueType {
 									case ERROR: "error.png"
 									case SUCCESS: "valid.png"
 									case WARNING: "warning.png"
@@ -370,343 +370,384 @@ class AssureRequirementsCoverageView extends ViewPart {
 									case FAIL: "invalid.png"
 									case TBD: "questionmark.png"
 								}
-								AssuranceCaseResult: "assure.png"
-								ClaimResult: "claim.png"
-								VerificationActivityResult: "evidence.png"
-								ValidationResult : "validation.png"
-								PreconditionResult : "precondition.png"
-								ModelResult: "precondition.png"
-								SubsystemResult: "claims.png"
-								PredicateResult: "precondition.png"
-								default: "info.png"
-							}
-							ImageDescriptor.createFromFile(class, "/icons/" + fileName).createImage
+							AssuranceCaseResult:
+								"assure.png"
+							ClaimResult:
+								"claim.png"
+							VerificationActivityResult:
+								"evidence.png"
+							ValidationResult:
+								"validation.png"
+							PreconditionResult:
+								"precondition.png"
+							ModelResult:
+								"precondition.png"
+							SubsystemResult:
+								"claims.png"
+							PredicateResult:
+								"precondition.png"
+							default:
+								"info.png"
 						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "Reqs w/no plan claim"
-					columnLayout.setColumnData(column, new ColumnPixelData(160))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: eObject.cumulativeRequirementsWithoutPlanClaimCount + " of " + eObject.cumulativeRequirementsCount
-								ModelResult,
-								SubsystemResult: {
-									val noPlan = eObject.metrics.requirementsWithoutPlanClaimCount
-									val reqs = eObject.metrics.requirementsCount
-									val cumulativeNoPlan = eObject.cumulativeRequirementsWithoutPlanClaimCount
-									'''«noPlan» of «reqs» | Cume: «cumulativeNoPlan» of «eObject.cumulativeRequirementsCount»'''
-								}
-								ResultIssue: eObject.target?.constructLabel ?: eObject.constructMessage
-								ElseResult: "else"
-								ThenResult: "then"
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeRequirementsWithoutPlanClaimCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.requirementsWithoutPlanClaimCount + results.fold(0, [sum, res |
-								sum + res.cumulativeRequirementsWithoutPlanClaimCount
-							])
-						}
-						
-						def int getCumulativeRequirementsCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.requirementsCount + results.fold(0, [sum, res |
-								sum + res.cumulativeRequirementsCount
-							])
-						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "Quality Categories Cvrg"
-					columnLayout.setColumnData(column, new ColumnPixelData(180))
-					labelProvider = new ColumnLabelProvider {
-						val format = NumberFormat.percentInstance => [minimumFractionDigits = 2]
-						
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: format.format(eObject.cumulativeQualityCategoryRequirementsCount as double / eObject.cumulativeTotalQualityCategorysCount)
-								ModelResult,
-								SubsystemResult: {
-									val qualityReqs = eObject.metrics.qualityCategoryRequirementsCount
-									val totalQuality = eObject.metrics.totalQualityCategoryCount
-									val percent = format.format(eObject.cumulativeQualityCategoryRequirementsCount as double / eObject.cumulativeTotalQualityCategorysCount)
-									'''«qualityReqs» of «totalQuality» | Cume: «percent»'''
-								}
-								ResultIssue: eObject.target?.constructLabel ?: eObject.constructMessage
-								ElseResult: "else"
-								ThenResult: "then"
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeQualityCategoryRequirementsCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.qualityCategoryRequirementsCount + results.fold(0, [sum, res |
-								sum + res.cumulativeQualityCategoryRequirementsCount
-							])
-						}
-						
-						def int getCumulativeTotalQualityCategorysCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.totalQualityCategoryCount + results.fold(0, [sum, res |
-								sum + res.cumulativeTotalQualityCategorysCount
-							])
-						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "Requirement for Features"
-					columnLayout.setColumnData(column, new ColumnPixelData(180))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: eObject.cumulativeFeaturesRequirementsCount + " for "  + eObject.cumulativeFeaturesCount
-								ModelResult,
-								SubsystemResult: {
-									val featuresReqs = eObject.metrics.featuresRequirementsCount
-									val features = eObject.metrics.featuresCount
-									val cumulativeFeaturesReqs = eObject.cumulativeFeaturesRequirementsCount
-									val cumulativeFeatures = eObject.cumulativeFeaturesCount
-									'''«featuresReqs» for «features» | Cume: «cumulativeFeaturesReqs» for «cumulativeFeatures»'''
-								}
-								ResultIssue: eObject.target?.constructLabel ?: eObject.constructMessage
-								ElseResult: "else"
-								ThenResult: "then"
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeFeaturesRequirementsCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.featuresRequirementsCount + results.fold(0, [sum, res |
-								sum + res.cumulativeFeaturesRequirementsCount
-							])
-						}
-						
-						def int getCumulativeFeaturesCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.featuresCount + results.fold(0, [sum, res | sum + res.cumulativeFeaturesCount])
-						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "No Verify Plans"
-					columnLayout.setColumnData(column, new ColumnPixelData(120))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: eObject.cumulativeNoVerificationPlansCount.toString
-								ModelResult,
-								SubsystemResult: eObject.metrics.noVerificationPlansCount + " | Cume: " + eObject.cumulativeNoVerificationPlansCount
-								ResultIssue: eObject.target?.constructLabel ?: eObject.constructMessage
-								ElseResult: "else"
-								ThenResult: "then"
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeNoVerificationPlansCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.noVerificationPlansCount + results.fold(0, [sum, res |
-								sum + res.cumulativeNoVerificationPlansCount
-							])
-						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "Reqs w/Exception"
-					columnLayout.setColumnData(column, new ColumnPixelData(150))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: eObject.cumulativeExceptionsCount + " of " + eObject.cumulativeRequirementsCount
-								ModelResult,
-								SubsystemResult: {
-									val exceptions = eObject.metrics.exceptionsCount
-									val reqs = eObject.metrics.requirementsCount
-									val cumulativeExceptions = eObject.cumulativeExceptionsCount
-									val cumulativeReqs = eObject.cumulativeRequirementsCount
-									'''«exceptions» of «reqs» | Cume: «cumulativeExceptions» of «cumulativeReqs»'''
-								}
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeExceptionsCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.exceptionsCount + results.fold(0, [sum, res |
-								sum + res.cumulativeExceptionsCount
-							])
-						}
-						
-						def int getCumulativeRequirementsCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.requirementsCount + results.fold(0, [sum, res |
-								sum + res.cumulativeRequirementsCount
-							])
-						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "Req Target w/EMV2"
-					columnLayout.setColumnData(column, new ColumnPixelData(150))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: eObject.cumulativeReqTargetHasEMV2SubclauseCount + " of " + eObject.cumulativeRequirementsCount
-								ModelResult,
-								SubsystemResult: {
-									val cumulativeSubclauses = eObject.cumulativeReqTargetHasEMV2SubclauseCount
-									val reqs = eObject.metrics.requirementsCount
-									val cumulativeReqs = eObject.cumulativeRequirementsCount
-									'''«cumulativeSubclauses» of «reqs» | Cume: «cumulativeSubclauses» of «cumulativeReqs»'''
-								}
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeReqTargetHasEMV2SubclauseCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.reqTargetHasEMV2SubclauseCount + results.fold(0, [sum, res |
-								sum + res.cumulativeReqTargetHasEMV2SubclauseCount
-							])
-						}
-						
-						def int getCumulativeRequirementsCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.requirementsCount + results.fold(0, [sum, res |
-								sum + res.cumulativeRequirementsCount
-							])
-						}
-					}
-				]
-				new TreeViewerColumn(it, SWT.RIGHT) => [
-					column.alignment = SWT.LEFT
-					column.text = "Classifiers for Features Requiring"
-					columnLayout.setColumnData(column, new ColumnPixelData(150))
-					labelProvider = new ColumnLabelProvider {
-						override getText(Object element) {
-							switch eObject : resourceSetForUI.getEObject(element as URI, true) {
-								AssuranceCaseResult: {
-									val cumulativeFeaturesWith = eObject.cumulativeFeaturesWithRequiredClassifierCount
-									val cumulativeFeaturesRequiring = eObject.cumulativeFeaturesRequiringClassifierCount
-									cumulativeFeaturesWith + " of " + cumulativeFeaturesRequiring
-								}
-								ModelResult,
-								SubsystemResult: {
-									val featuresWith = eObject.metrics.featuresWithRequiredClassifierCount
-									val featuresRequiring = eObject.metrics.featuresRequiringClassifierCount
-									val cumulativeFeaturesWith = eObject.cumulativeFeaturesWithRequiredClassifierCount
-									val cumulativeFeaturesRequiring = eObject.cumulativeFeaturesRequiringClassifierCount
-									'''«featuresWith» of «featuresRequiring» | Cume: «cumulativeFeaturesWith» of «cumulativeFeaturesRequiring»'''
-								}
-								default: "?"
-							}
-						}
-						
-						def int getCumulativeFeaturesWithRequiredClassifierCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.featuresWithRequiredClassifierCount + results.fold(0, [sum, res |
-								sum + res.cumulativeFeaturesWithRequiredClassifierCount
-							])
-						}
-						
-						def int getCumulativeFeaturesRequiringClassifierCount(AssureResult ele) {
-							val results = switch ele {
-								AssuranceCaseResult: ele.modelResult
-								ModelResult: ele.subsystemResult
-								SubsystemResult: ele.subsystemResult
-							}
-							ele.metrics.featuresRequiringClassifierCount + results.fold(0, [sum, res |
-								sum + res.cumulativeFeaturesRequiringClassifierCount
-							])
-						}
-					}
-				]
-				contentProvider = new ITreeContentProvider {
-					override dispose() {
-					}
-					
-					override getChildren(Object parentElement) {
-						resourceSetForUI.getEObject(parentElement as URI, true).eContents.map[URI]
-					}
-					
-					override getElements(Object inputElement) {
-						inputElement as List<URI>
-					}
-					
-					override getParent(Object element) {
-						resourceSetForUI.getEObject(element as URI, true).eContainer?.URI ?: it.input
-					}
-					
-					override hasChildren(Object element) {
-						!resourceSetForUI.getEObject(element as URI, true).eContents.empty
-					}
-					
-					override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+						ImageDescriptor.createFromFile(class, "/icons/" + fileName).createImage
 					}
 				}
-				tree.headerVisible = true
-				tree.linesVisible = true
 			]
+			new TreeViewerColumn(it, SWT.RIGHT) => [
+				column.alignment = SWT.LEFT
+				column.text = "Reqs w/no plan claim"
+				columnLayout.setColumnData(column, new ColumnPixelData(160))
+				labelProvider = new ColumnLabelProvider {
+					override getText(Object element) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+							AssuranceCaseResult:
+								eObject.cumulativeRequirementsWithoutPlanClaimCount + " of " +
+									eObject.cumulativeRequirementsCount
+							ModelResult,
+							SubsystemResult: {
+								val noPlan = eObject.metrics.requirementsWithoutPlanClaimCount
+								val reqs = eObject.metrics.requirementsCount
+								val cumulativeNoPlan = eObject.cumulativeRequirementsWithoutPlanClaimCount
+								'''«noPlan» of «reqs» | Cume: «cumulativeNoPlan» of «eObject.cumulativeRequirementsCount»'''
+							}
+							ResultIssue:
+								eObject.target?.constructLabel ?: eObject.constructMessage
+							ElseResult:
+								"else"
+							ThenResult:
+								"then"
+							default:
+								"?"
+						}
+					}
+
+					def int getCumulativeRequirementsWithoutPlanClaimCount(AssureResult ele) {
+						val results = switch ele {
+							AssuranceCaseResult: ele.modelResult
+							ModelResult: ele.subsystemResult
+							SubsystemResult: ele.subsystemResult
+						}
+						ele.metrics.requirementsWithoutPlanClaimCount + results.fold(0, [ sum, res |
+							sum + res.cumulativeRequirementsWithoutPlanClaimCount
+						])
+					}
+
+					def int getCumulativeRequirementsCount(AssureResult ele) {
+						val results = switch ele {
+							AssuranceCaseResult: ele.modelResult
+							ModelResult: ele.subsystemResult
+							SubsystemResult: ele.subsystemResult
+						}
+						ele.metrics.requirementsCount + results.fold(0, [ sum, res |
+							sum + res.cumulativeRequirementsCount
+						])
+					}
+				}
+			]
+			new TreeViewerColumn(it, SWT.RIGHT) => [
+				column.alignment = SWT.LEFT
+				column.text = "Quality Categories Cvrg"
+				columnLayout.setColumnData(column, new ColumnPixelData(180))
+				labelProvider = new ColumnLabelProvider {
+					val format = NumberFormat.percentInstance => [minimumFractionDigits = 2]
+
+					override getText(Object element) {
+						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+							AssuranceCaseResult:
+								format.format(eObject.cumulativeQualityCategoryRequirementsCount as double /
+									eObject.cumulativeTotalQualityCategorysCount)
+							ModelResult,
+							SubsystemResult: {
+								val qualityReqs = eObject.metrics.qualityCategoryRequirementsCount
+								val totalQuality = eObject.metrics.totalQualityCategoryCount
+								val percent = format.format(
+									eObject.cumulativeQualityCategoryRequirementsCount as double /
+										eObject.cumulativeTotalQualityCategorysCount)
+										'''«qualityReqs» of «totalQuality» | Cume: «percent»'''
+									}
+									ResultIssue:
+										eObject.target?.constructLabel ?: eObject.constructMessage
+									ElseResult:
+										"else"
+									ThenResult:
+										"then"
+									default:
+										"?"
+								}
+							}
+
+							def int getCumulativeQualityCategoryRequirementsCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.qualityCategoryRequirementsCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeQualityCategoryRequirementsCount
+								])
+							}
+
+							def int getCumulativeTotalQualityCategorysCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.totalQualityCategoryCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeTotalQualityCategorysCount
+								])
+							}
+						}
+					]
+					new TreeViewerColumn(it, SWT.RIGHT) => [
+						column.alignment = SWT.LEFT
+						column.text = "Requirement for Features"
+						columnLayout.setColumnData(column, new ColumnPixelData(180))
+						labelProvider = new ColumnLabelProvider {
+							override getText(Object element) {
+								switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+									AssuranceCaseResult:
+										eObject.cumulativeFeaturesRequirementsCount + " for " +
+											eObject.cumulativeFeaturesCount
+									ModelResult,
+									SubsystemResult: {
+										val featuresReqs = eObject.metrics.featuresRequirementsCount
+										val features = eObject.metrics.featuresCount
+										val cumulativeFeaturesReqs = eObject.cumulativeFeaturesRequirementsCount
+										val cumulativeFeatures = eObject.cumulativeFeaturesCount
+										'''«featuresReqs» for «features» | Cume: «cumulativeFeaturesReqs» for «cumulativeFeatures»'''
+									}
+									ResultIssue:
+										eObject.target?.constructLabel ?: eObject.constructMessage
+									ElseResult:
+										"else"
+									ThenResult:
+										"then"
+									default:
+										"?"
+								}
+							}
+
+							def int getCumulativeFeaturesRequirementsCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.featuresRequirementsCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeFeaturesRequirementsCount
+								])
+							}
+
+							def int getCumulativeFeaturesCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.featuresCount +
+									results.fold(0, [sum, res|sum + res.cumulativeFeaturesCount])
+							}
+						}
+					]
+					new TreeViewerColumn(it, SWT.RIGHT) => [
+						column.alignment = SWT.LEFT
+						column.text = "No Verify Plans"
+						columnLayout.setColumnData(column, new ColumnPixelData(120))
+						labelProvider = new ColumnLabelProvider {
+							override getText(Object element) {
+								switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+									AssuranceCaseResult: eObject.cumulativeNoVerificationPlansCount.toString
+									ModelResult,
+									SubsystemResult: eObject.metrics.noVerificationPlansCount + " | Cume: " +
+										eObject.cumulativeNoVerificationPlansCount
+									ResultIssue: eObject.target?.constructLabel ?: eObject.constructMessage
+									ElseResult: "else"
+									ThenResult: "then"
+									default: "?"
+								}
+							}
+
+							def int getCumulativeNoVerificationPlansCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.noVerificationPlansCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeNoVerificationPlansCount
+								])
+							}
+						}
+					]
+					new TreeViewerColumn(it, SWT.RIGHT) => [
+						column.alignment = SWT.LEFT
+						column.text = "Reqs w/Exception"
+						columnLayout.setColumnData(column, new ColumnPixelData(150))
+						labelProvider = new ColumnLabelProvider {
+							override getText(Object element) {
+								switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+									AssuranceCaseResult:
+										eObject.cumulativeExceptionsCount + " of " + eObject.cumulativeRequirementsCount
+									ModelResult,
+									SubsystemResult: {
+										val exceptions = eObject.metrics.exceptionsCount
+										val reqs = eObject.metrics.requirementsCount
+										val cumulativeExceptions = eObject.cumulativeExceptionsCount
+										val cumulativeReqs = eObject.cumulativeRequirementsCount
+										'''«exceptions» of «reqs» | Cume: «cumulativeExceptions» of «cumulativeReqs»'''
+									}
+									default:
+										"?"
+								}
+							}
+
+							def int getCumulativeExceptionsCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.exceptionsCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeExceptionsCount
+								])
+							}
+
+							def int getCumulativeRequirementsCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.requirementsCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeRequirementsCount
+								])
+							}
+						}
+					]
+					new TreeViewerColumn(it, SWT.RIGHT) => [
+						column.alignment = SWT.LEFT
+						column.text = "Req Target w/EMV2"
+						columnLayout.setColumnData(column, new ColumnPixelData(150))
+						labelProvider = new ColumnLabelProvider {
+							override getText(Object element) {
+								switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+									AssuranceCaseResult:
+										eObject.cumulativeReqTargetHasEMV2SubclauseCount + " of " +
+											eObject.cumulativeRequirementsCount
+									ModelResult,
+									SubsystemResult: {
+										val cumulativeSubclauses = eObject.cumulativeReqTargetHasEMV2SubclauseCount
+										val reqs = eObject.metrics.requirementsCount
+										val cumulativeReqs = eObject.cumulativeRequirementsCount
+										'''«cumulativeSubclauses» of «reqs» | Cume: «cumulativeSubclauses» of «cumulativeReqs»'''
+									}
+									default:
+										"?"
+								}
+							}
+
+							def int getCumulativeReqTargetHasEMV2SubclauseCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.reqTargetHasEMV2SubclauseCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeReqTargetHasEMV2SubclauseCount
+								])
+							}
+
+							def int getCumulativeRequirementsCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.requirementsCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeRequirementsCount
+								])
+							}
+						}
+					]
+					new TreeViewerColumn(it, SWT.RIGHT) => [
+						column.alignment = SWT.LEFT
+						column.text = "Classifiers for Features Requiring"
+						columnLayout.setColumnData(column, new ColumnPixelData(150))
+						labelProvider = new ColumnLabelProvider {
+							override getText(Object element) {
+								switch eObject : resourceSetForUI.getEObject(element as URI, true) {
+									AssuranceCaseResult: {
+										val cumulativeFeaturesWith = eObject.
+											cumulativeFeaturesWithRequiredClassifierCount
+										val cumulativeFeaturesRequiring = eObject.
+											cumulativeFeaturesRequiringClassifierCount
+										cumulativeFeaturesWith + " of " + cumulativeFeaturesRequiring
+									}
+									ModelResult,
+									SubsystemResult: {
+										val featuresWith = eObject.metrics.featuresWithRequiredClassifierCount
+										val featuresRequiring = eObject.metrics.featuresRequiringClassifierCount
+										val cumulativeFeaturesWith = eObject.
+											cumulativeFeaturesWithRequiredClassifierCount
+										val cumulativeFeaturesRequiring = eObject.
+											cumulativeFeaturesRequiringClassifierCount
+										'''«featuresWith» of «featuresRequiring» | Cume: «cumulativeFeaturesWith» of «cumulativeFeaturesRequiring»'''
+									}
+									default:
+										"?"
+								}
+							}
+
+							def int getCumulativeFeaturesWithRequiredClassifierCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.featuresWithRequiredClassifierCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeFeaturesWithRequiredClassifierCount
+								])
+							}
+
+							def int getCumulativeFeaturesRequiringClassifierCount(AssureResult ele) {
+								val results = switch ele {
+									AssuranceCaseResult: ele.modelResult
+									ModelResult: ele.subsystemResult
+									SubsystemResult: ele.subsystemResult
+								}
+								ele.metrics.featuresRequiringClassifierCount + results.fold(0, [ sum, res |
+									sum + res.cumulativeFeaturesRequiringClassifierCount
+								])
+							}
+						}
+					]
+					contentProvider = new ITreeContentProvider {
+						override dispose() {
+						}
+
+						override getChildren(Object parentElement) {
+							resourceSetForUI.getEObject(parentElement as URI, true).eContents.map[URI]
+						}
+
+						override getElements(Object inputElement) {
+							inputElement as List<URI>
+						}
+
+						override getParent(Object element) {
+							resourceSetForUI.getEObject(element as URI, true).eContainer?.URI ?: it.input
+						}
+
+						override hasChildren(Object element) {
+							!resourceSetForUI.getEObject(element as URI, true).eContents.empty
+						}
+
+						override inputChanged(Viewer viewer, Object oldInput, Object newInput) {
+						}
+					}
+					tree.headerVisible = true
+					tree.linesVisible = true
+				]
 
 //			val manager = new MenuManager
 //			manager.removeAllWhenShown = true
@@ -731,94 +772,96 @@ class AssureRequirementsCoverageView extends ViewPart {
 //				}
 //			]
 //			treeViewer.control.menu = manager.createContextMenu(treeViewer.tree)
-	}
+			}
 
-	def private getAssuranceCaseURIsInWorkspace() {
-		rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE).map[EObjectURI].toList
-	}
+			def private getAssuranceCaseURIsInWorkspace() {
+				rds.getExportedObjectsByType(AlisaPackage.Literals.ASSURANCE_CASE).map[EObjectURI].toList
+			}
 
-	def private updateAssureViewer(URI assuranceCaseURI, boolean updateRequirementsCoverageView) {
-		val newURIs = assuranceCaseURI -> selectedFilters.get(assuranceCaseURI)
-		if (displayedCaseAndFilter != newURIs) {
-			displayedCaseAndFilter = newURIs
+			def private updateAssureViewer(URI assuranceCaseURI, boolean updateRequirementsCoverageView) {
+				val newURIs = assuranceCaseURI -> selectedFilters.get(assuranceCaseURI)
+				if (displayedCaseAndFilter != newURIs) {
+					displayedCaseAndFilter = newURIs
 
-			val selectedAlisaObject = resourceSetForUI.getEObject(assuranceCaseURI, true) 
-			var result = if (assuranceCaseURI !== null) {
-					if (selectedAlisaObject instanceof AssuranceCase) {
-						val resultDescriptions = rds.getExportedObjectsByType(
-							AssurePackage.Literals.ASSURANCE_CASE_RESULT)
-						val results = resultDescriptions.map [
-							resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult
-						]
-						results.findFirst[name == selectedAlisaObject.name]
+					val selectedAlisaObject = resourceSetForUI.getEObject(assuranceCaseURI, true)
+					var result = if (assuranceCaseURI !== null) {
+							if (selectedAlisaObject instanceof AssuranceCase) {
+								val resultDescriptions = rds.getExportedObjectsByType(
+									AssurePackage.Literals.ASSURANCE_CASE_RESULT)
+								val results = resultDescriptions.map [
+									resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult
+								]
+								results.findFirst[name == selectedAlisaObject.name]
+							}
+						}
+					val filter = if (result !== null && displayedCaseAndFilter.value !== null) {
+							resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
+						}
+					if (result === null) {
+						if (selectedAlisaObject instanceof AssuranceCase) {
+							result = computeCoverage(selectedAlisaObject, assuranceCaseURI, filter)
+						}
 					}
-				}
-			val filter = if (result !== null && displayedCaseAndFilter.value !== null) {
-					resourceSetForUI.getEObject(displayedCaseAndFilter.value, true) as CategoryFilter
-				}
-			if (result === null){
-				if (selectedAlisaObject instanceof AssuranceCase){
-				result = computeCoverage(selectedAlisaObject ,assuranceCaseURI,filter)
+
+					setAssuranceCaseResult(result, filter)
 				}
 			}
 
-			setAssuranceCaseResult(result, filter)
-		}
-	}
-
-	def private createAndComputeCoverage(AssuranceCase assuranceCase, URI assuranceCaseURI,
-		(ResourceSet)=>Pair<IProject, AssuranceCaseResult> getProjectAndResult, CategoryFilter filter) {
-		val dirtyEditors = viewSite.page.dirtyEditors
-		if (!dirtyEditors.empty ) {
-			val monitor = new NullProgressMonitor
-			dirtyEditors.forEach[doSave(monitor)]
-		}
-		val resourceSetForProcessing = resourceSetProvider.get(null)
-		val assureProjectAndResult = getProjectAndResult.apply(resourceSetForProcessing)
-		val assuranceCaseResult = assureProjectAndResult.value
-		assureRequirementMetricsProcessor.processCase(assuranceCaseResult, filter, null)
-		assuranceCaseResult
-	}
-
-	def private computeCoverage(AssuranceCase assuranceCase, URI assuranceCaseURI, CategoryFilter filter) {
-		createAndComputeCoverage(assuranceCase, assuranceCaseURI, [ resourceSetForProcessing |
-			createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
-		], filter)
-	}
-
-	def private createCaseResult(AssuranceCase assuranceCase, URI assuranceCaseURI,
-		ResourceSet resourceSetForProcessing) {
-		val assureProject = ResourcesPlugin.workspace.root.getFile(new Path(assuranceCaseURI.toPlatformString(true))).
-			project
-		val assureURI = URI.createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».assure''',
-			false)
-		val assuranceCaseResultHolder = new AtomicReference
-		val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain("org.osate.aadl2.ModelEditingDomain")
-		domain.commandStack.execute(new RecordingCommand(domain) {
-			override protected doExecute() {
-				val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
-				assuranceCaseResult.resetToTBD(null)
-				assuranceCaseResult.recomputeAllCounts(null)
-				val resource = resourceSetForProcessing.getResource(assureURI, false) ?:
-					resourceSetForProcessing.createResource(assureURI)
-				resource.contents.clear
-				resource.contents += assuranceCaseResult
-				try {
-					resource.save(null)
-				} catch (IOException e) {
-					// Do nothing.
+			def private createAndComputeCoverage(AssuranceCase assuranceCase, URI assuranceCaseURI,
+				(ResourceSet)=>Pair<IProject, AssuranceCaseResult> getProjectAndResult, CategoryFilter filter) {
+				val dirtyEditors = viewSite.page.dirtyEditors
+				if (!dirtyEditors.empty) {
+					val monitor = new NullProgressMonitor
+					dirtyEditors.forEach[doSave(monitor)]
 				}
-				assuranceCaseResultHolder.set(assuranceCaseResult)
+				val resourceSetForProcessing = resourceSetProvider.get(null)
+				val assureProjectAndResult = getProjectAndResult.apply(resourceSetForProcessing)
+				val assuranceCaseResult = assureProjectAndResult.value
+				assureRequirementMetricsProcessor.processCase(assuranceCaseResult, filter, null)
+				assuranceCaseResult
 			}
-		})
-		assureProject -> assuranceCaseResultHolder.get
-	}
-	
-	def package void setAssuranceCaseResult(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter) {
-		val expandedElements = assureCoverageViewer.expandedElements
-		assureRequirementMetricsProcessor.processCase(assuranceCaseResult, filter, null)
-		assureCoverageViewer.input = #[assuranceCaseResult.URI]
-		assureCoverageViewer.expandedElements = expandedElements
-	}
-	
-}
+
+			def private computeCoverage(AssuranceCase assuranceCase, URI assuranceCaseURI, CategoryFilter filter) {
+				createAndComputeCoverage(assuranceCase, assuranceCaseURI, [ resourceSetForProcessing |
+					createCaseResult(assuranceCase, assuranceCaseURI, resourceSetForProcessing)
+				], filter)
+			}
+
+			def private createCaseResult(AssuranceCase assuranceCase, URI assuranceCaseURI,
+				ResourceSet resourceSetForProcessing) {
+				val assureProject = ResourcesPlugin.workspace.root.getFile(
+					new Path(assuranceCaseURI.toPlatformString(true))).project
+				val assureURI = URI.
+					createPlatformResourceURI('''«assureProject.fullPath»/assure/«assuranceCase.name».assure''', false)
+				val assuranceCaseResultHolder = new AtomicReference
+				val domain = TransactionalEditingDomain.Registry.INSTANCE.getEditingDomain(
+					"org.osate.aadl2.ModelEditingDomain")
+				domain.commandStack.execute(new RecordingCommand(domain) {
+					override protected doExecute() {
+						val assuranceCaseResult = assureConstructor.generateFullAssuranceCase(assuranceCase)
+						assuranceCaseResult.resetToTBD(null)
+						assuranceCaseResult.recomputeAllCounts(null)
+						val resource = resourceSetForProcessing.getResource(assureURI, false) ?:
+							resourceSetForProcessing.createResource(assureURI)
+						resource.contents.clear
+						resource.contents += assuranceCaseResult
+						try {
+							resource.save(null)
+						} catch (IOException e) {
+							// Do nothing.
+						}
+						assuranceCaseResultHolder.set(assuranceCaseResult)
+					}
+				})
+				assureProject -> assuranceCaseResultHolder.get
+			}
+
+			def package void setAssuranceCaseResult(AssuranceCaseResult assuranceCaseResult, CategoryFilter filter) {
+				val expandedElements = assureCoverageViewer.expandedElements
+				assureRequirementMetricsProcessor.processCase(assuranceCaseResult, filter, null)
+				assureCoverageViewer.input = #[assuranceCaseResult.URI]
+				assureCoverageViewer.expandedElements = expandedElements
+			}
+
+		}
+		

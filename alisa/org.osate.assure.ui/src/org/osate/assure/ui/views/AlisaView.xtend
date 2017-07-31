@@ -111,40 +111,7 @@ class AlisaView extends ViewPart {
 	Color blueColor
 	Color redColor
 
-	val IResourceChangeListener resourceChangeListener = [
-		val alisaFileChanged = new AtomicBoolean(false)
-		val assureFileChanged = new AtomicBoolean(false)
-		delta.accept [
-			if (resource.fileExtension == ALISA_EXTENSION) {
-				alisaFileChanged.set(true)
-			} else if (resource.fileExtension == ASSURE_EXTENSION) {
-				assureFileChanged.set(true)
-			}
-			true
-		]
-		resourceSetForUI.resources.forEach[unload]
-		if (alisaFileChanged.get) {
-			viewSite.workbenchWindow.workbench.display.asyncExec [
-				val toRemove = selectedFilters.filter [ assuranceCase, filter |
-					resourceSetForUI.getEObject(assuranceCase, true) === null ||
-						resourceSetForUI.getEObject(filter, true) === null
-				].keySet
-				toRemove.forEach[selectedFilters.remove(it)]
-
-				val expandedElements = alisaViewer.expandedElements
-				alisaViewer.input = assuranceCaseURIsInWorkspace
-				alisaViewer.expandedElements = expandedElements
-
-				displayedCaseAndFilter = null -> null
-				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, true)
-			]
-		} else if (assureFileChanged.get) {
-			viewSite.workbenchWindow.workbench.display.asyncExec [
-				displayedCaseAndFilter = null -> null
-				updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, false)
-			]
-		}
-	]
+	val IResourceChangeListener resourceChangeListener
 
 	@Inject
 	new(IResourceSetProvider resourceSetProvider, IResourceDescriptions rds, GlobalURIEditorOpener editorOpener,
@@ -175,6 +142,41 @@ class AlisaView extends ViewPart {
 		} catch (IOException e) {
 			// Ignore exception
 		}
+		resourceChangeListener = [
+			val alisaFileChanged = new AtomicBoolean(false)
+			val assureFileChanged = new AtomicBoolean(false)
+			delta.accept [
+				if (resource.fileExtension == ALISA_EXTENSION) {
+					alisaFileChanged.set(true)
+				} else if (resource.fileExtension == ASSURE_EXTENSION) {
+					assureFileChanged.set(true)
+				}
+				true
+			]
+			resourceSetForUI.resources.forEach[unload]
+			if (alisaFileChanged.get) {
+				viewSite.workbenchWindow.workbench.display.asyncExec [
+					val toRemove = selectedFilters.filter [ assuranceCase, filter |
+						resourceSetForUI.getEObject(assuranceCase, true) === null ||
+							resourceSetForUI.getEObject(filter, true) === null
+					].keySet
+					toRemove.forEach[selectedFilters.remove(it)]
+
+					val expandedElements = alisaViewer.expandedElements
+					alisaViewer.input = assuranceCaseURIsInWorkspace
+					alisaViewer.expandedElements = expandedElements
+
+					displayedCaseAndFilter = null -> null
+					updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, true)
+				]
+			} else if (assureFileChanged.get) {
+				viewSite.workbenchWindow.workbench.display.asyncExec [
+					displayedCaseAndFilter = null -> null
+					updateAssureViewer(alisaViewer.structuredSelection.firstElement as URI, false)
+				]
+			}
+		]
+
 	}
 
 	override createPartControl(Composite parent) {
@@ -399,7 +401,7 @@ class AlisaView extends ViewPart {
 				columnLayout.setColumnData(column, new ColumnWeightData(6))
 				labelProvider = new ColumnLabelProvider {
 					override getText(Object element) {
-						if (!(element instanceof URI)) return "??"
+						if(!(element instanceof URI)) return "??"
 						switch eObject : resourceSetForUI.getEObject(element as URI, true) {
 							AssuranceCaseResult:
 								"Case " + eObject.name
@@ -591,7 +593,7 @@ class AlisaView extends ViewPart {
 						val results = resultDescriptions.map [
 							resourceSetForUI.getEObject(EObjectURI, true) as AssuranceCaseResult
 						]
-						results.findFirst[ac| ac !== null && ac.name == selectedAlisaObject.name]
+						results.findFirst[ac|ac !== null && ac.name == selectedAlisaObject.name]
 					}
 				}
 
@@ -662,7 +664,7 @@ class AlisaView extends ViewPart {
 				}
 			}
 		}
-		job.rule = null 
+		job.rule = null
 		job.schedule
 	}
 
