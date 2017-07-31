@@ -59,6 +59,7 @@ import org.eclipse.ui.actions.ActionFactory;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.PropertyAssociationInstance;
 import org.osate.aadl2.instance.provider.EndToEndFlowInstanceItemProvider.EndToEndFlowInstanceFlowElementItemProvider;
+import org.osate.aadl2.instance.provider.SystemOperationModeItemProvider.SubModeItemProvider;
 import org.osate.ui.UiUtil;
 
 /**
@@ -151,6 +152,12 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 					}
 					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
 							((EndToEndFlowInstanceFlowElementItemProvider) currentSelection).getFlowElement());
+				} else if (currentSelection instanceof SubModeItemProvider) {
+					if (((Aadl2ModelEditor) activeEditorPart).isDirty()) {
+						((Aadl2ModelEditor) activeEditorPart).doSave(null);
+					}
+					UiUtil.gotoInstanceObjectSource(activeEditorPart.getSite().getPage(),
+							((SubModeItemProvider) currentSelection).getSubMode());
 				}
 			}
 		}
@@ -352,17 +359,11 @@ public class Aadl2ActionBarContributor extends EditingDomainActionBarContributor
 
 		ISelection selection = event.getSelection();
 		if (selection instanceof IStructuredSelection && ((IStructuredSelection) selection).size() == 1) {
-			Object object = ((IStructuredSelection) selection).getFirstElement();
-			if (object instanceof InstanceObject || object instanceof PropertyAssociationInstance
-					|| object instanceof EndToEndFlowInstanceFlowElementItemProvider) {
-				currentSelection = object;
-			} else {
-				currentSelection = null;
-			}
+			currentSelection = ((IStructuredSelection) selection).getFirstElement();
 			EditingDomain domain = ((IEditingDomainProvider) activeEditorPart).getEditingDomain();
 
-			newChildDescriptors = domain.getNewChildDescriptors(object, null);
-			newSiblingDescriptors = domain.getNewChildDescriptors(null, object);
+			newChildDescriptors = domain.getNewChildDescriptors(currentSelection, null);
+			newSiblingDescriptors = domain.getNewChildDescriptors(null, currentSelection);
 		}
 
 		// Generate actions for selection; populate and redraw the menus.
