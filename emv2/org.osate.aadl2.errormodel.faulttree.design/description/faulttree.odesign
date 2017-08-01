@@ -1,35 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="10.1.0.201507271600">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="11.1.1.201610211630">
   <ownedViewpoints name="FaultTree" modelFileExtension="faulttree">
-    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="GraphicFaultTree" domainClass="FaultTree.FaultTree" rootExpression="aql:self" enablePopupBars="true">
+    <ownedRepresentations xsi:type="description_1:DiagramDescription" name="GraphicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
-      <layout xsi:type="description_1:OrderedTreeLayout" childrenExpression="service:getEvents()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode'] //@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']/@borderedNodeMappings[name='GateBNode']"/>
+      <layout xsi:type="description_1:OrderedTreeLayout" childrenExpression="service:getChildren()" nodeMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']"/>
       <diagramInitialisation>
         <firstModelOperations xsi:type="tool:ChangeContext"/>
       </diagramInitialisation>
       <defaultLayer name="Default">
-        <nodeMappings name="EventNode" domainClass="FaultTree.Event">
+        <nodeMappings name="EventNode" semanticCandidatesExpression="feature:events" domainClass="FaultTree.Event">
           <borderedNodeMappings name="GateBNode" semanticCandidatesExpression="aql:self" domainClass="FaultTree.Event">
             <style xsi:type="style:DotDescription" labelPosition="node" resizeKind="NSEW">
               <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+              <forbiddenSides>WEST</forbiddenSides>
+              <forbiddenSides>EAST</forbiddenSides>
+              <forbiddenSides>NORTH</forbiddenSides>
               <backgroundColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='gray']"/>
             </style>
             <conditionnalStyles predicateExpression="aql:self.type = FaultTree::EventType::Basic">
               <style xsi:type="style:EllipseNodeDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" horizontalDiameterComputationExpression="" verticalDiameterComputationExpression="">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <forbiddenSides>WEST</forbiddenSides>
+                <forbiddenSides>EAST</forbiddenSides>
+                <forbiddenSides>NORTH</forbiddenSides>
                 <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </style>
             </conditionnalStyles>
             <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::Or">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/or5mm.svg">
+              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="4" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/or5mm.svg">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <forbiddenSides>WEST</forbiddenSides>
+                <forbiddenSides>EAST</forbiddenSides>
+                <forbiddenSides>NORTH</forbiddenSides>
               </style>
             </conditionnalStyles>
             <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::And">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/and5mm.svg">
+              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="4" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/and5mm.svg">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
               </style>
@@ -38,25 +47,37 @@
               <style xsi:type="style:LozengeNodeDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <forbiddenSides>WEST</forbiddenSides>
+                <forbiddenSides>EAST</forbiddenSides>
+                <forbiddenSides>NORTH</forbiddenSides>
                 <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='white']"/>
               </style>
             </conditionnalStyles>
             <conditionnalStyles predicateExpression="aql:self.type = FaultTree::EventType::External">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/House.ico">
+              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/House.ico">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <forbiddenSides>WEST</forbiddenSides>
+                <forbiddenSides>EAST</forbiddenSides>
+                <forbiddenSides>NORTH</forbiddenSides>
               </style>
             </conditionnalStyles>
             <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::Xor">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/xor5mm.svg">
+              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/xor5mm.svg">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <forbiddenSides>WEST</forbiddenSides>
+                <forbiddenSides>EAST</forbiddenSides>
+                <forbiddenSides>NORTH</forbiddenSides>
               </style>
             </conditionnalStyles>
             <conditionnalStyles predicateExpression="aql:self.subEventLogic = FaultTree::LogicOperation::PriorityAnd">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/priority-and5mm.svg">
+              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/priority-and5mm.svg">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
+                <forbiddenSides>WEST</forbiddenSides>
+                <forbiddenSides>EAST</forbiddenSides>
+                <forbiddenSides>NORTH</forbiddenSides>
               </style>
             </conditionnalStyles>
           </borderedNodeMappings>

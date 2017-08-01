@@ -444,18 +444,18 @@ public class Util {
 	public static EList<PropagationPath> getAllPropagationPaths(PropagationGraph pg, ComponentInstance ci,
 			ErrorPropagation outEP) {
 		EList<PropagationPath> result = new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
-			PropagationPathEnd src = propagationPathRecord.getPathSrc();
+		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+			PropagationPathEnd src = propagationPath.getPathSrc();
 			if (src.getComponentInstance() == ci) {
 				if (src.getErrorPropagation() == outEP) {
-					result.add(propagationPathRecord);
+					result.add(propagationPath);
 				} else {
 					// check if one EP is in an ancestor feature instance
 					FeatureInstance outepfi = EMV2Util.findFeatureInstance(outEP, ci);
 					FeatureInstance srcfi = EMV2Util.findFeatureInstance(src.getErrorPropagation(), ci);
 					if (Aadl2InstanceUtil.containedIn(outepfi, srcfi)
 							|| Aadl2InstanceUtil.containedIn(srcfi, outepfi)) {
-						result.add(propagationPathRecord);
+						result.add(propagationPath);
 					}
 				}
 			}
@@ -465,10 +465,33 @@ public class Util {
 
 	public static EList<PropagationPath> getAllPropagationPaths(PropagationGraph pg, ConnectionInstance ci) {
 		EList<PropagationPath> result = new BasicEList<PropagationPath>();
-		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
-			PropagationPathEnd src = propagationPathRecord.getPathSrc();
+		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+			PropagationPathEnd src = propagationPath.getPathSrc();
 			if (src.getConnectionInstance() == ci) {
-				result.add(propagationPathRecord);
+				result.add(propagationPath);
+			}
+		}
+		return result;
+	}
+
+	public static EList<PropagationPath> getAllReversePropagationPaths(PropagationGraph pg, ComponentInstance ci,
+			ErrorPropagation inEP) {
+		EList<PropagationPath> result = new BasicEList<PropagationPath>();
+		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+			PropagationPathEnd src = propagationPath.getPathDst();
+			if (src.getComponentInstance() == ci && src.getErrorPropagation() == inEP) {
+				result.add(propagationPath);
+			}
+		}
+		return result;
+	}
+
+	public static EList<PropagationPath> getAllReversePropagationPaths(PropagationGraph pg, ConnectionInstance ci) {
+		EList<PropagationPath> result = new BasicEList<PropagationPath>();
+		for (PropagationPath propagationPath : pg.getPropagationPaths()) {
+			PropagationPathEnd src = propagationPath.getPathDst();
+			if (src.getConnectionInstance() == ci) {
+				result.add(propagationPath);
 			}
 		}
 		return result;
@@ -498,7 +521,7 @@ public class Util {
 		return result;
 	}
 
-	public EList<PropagationPathEnd> getAllPropagationSourceEnds(PropagationGraph pg, ComponentInstance ci,
+	public static EList<PropagationPathEnd> getAllPropagationSourceEnds(PropagationGraph pg, ComponentInstance ci,
 			ErrorPropagation inEP) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
 		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
@@ -510,7 +533,7 @@ public class Util {
 		return result;
 	}
 
-	public EList<PropagationPathEnd> getAllPropagationSourceEnds(PropagationGraph pg, ConnectionInstance ci) {
+	public static EList<PropagationPathEnd> getAllPropagationSourceEnds(PropagationGraph pg, ConnectionInstance ci) {
 		EList<PropagationPathEnd> result = new BasicEList<PropagationPathEnd>();
 		for (PropagationPath propagationPathRecord : pg.getPropagationPaths()) {
 			PropagationPathEnd dst = propagationPathRecord.getPathDst();
