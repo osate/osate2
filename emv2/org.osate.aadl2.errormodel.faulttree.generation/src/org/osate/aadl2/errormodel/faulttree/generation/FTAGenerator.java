@@ -19,6 +19,8 @@ import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeFactory;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
 import org.osate.aadl2.errormodel.FaultTree.util.FaultTreeUtils;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
+import org.osate.aadl2.errormodel.PropagationGraph.util.PropagationGraphBackwardTraversal;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.aadl2.instance.SystemInstance;
@@ -31,9 +33,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorTypes;
 import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationGraphBackwardTraversal;
 
 public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	private FaultTree ftaModel;
@@ -44,12 +44,12 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 
 	public Map<String, Event> cache;
 
-	public FTAGenerator(AnalysisModel am, ComponentInstance root, ErrorBehaviorState errorState,
+	public FTAGenerator(PropagationGraph am, ComponentInstance ftaRoot, ErrorBehaviorState errorState,
 			ErrorTypes errorTypes) {
 		super(am);
 		ftaModel = null;
 		cache = new HashMap<String, Event>();
-		rootComponent = root;
+		rootComponent = ftaRoot;
 		rootComponentTypes = errorTypes;
 		rootComponentState = errorState;
 		rootComponentPropagation = null;
@@ -59,7 +59,7 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		return rootComponent;
 	}
 
-	public FTAGenerator(AnalysisModel am, ComponentInstance root, ErrorPropagation errorPropagation,
+	public FTAGenerator(PropagationGraph am, ComponentInstance root, ErrorPropagation errorPropagation,
 			ErrorTypes errorTypes) {
 		// TOFIX
 		super(am);

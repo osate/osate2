@@ -47,6 +47,7 @@ import org.eclipse.emf.ecore.EObject;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
+import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;
@@ -78,7 +79,6 @@ import org.osate.xtext.aadl2.errormodel.util.EMSUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelState;
 import org.osate.xtext.aadl2.errormodel.util.ErrorModelStateAdapterFactory;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathEnd;
 
 /**
  * This class initiates a fault impact analysis starting with error sources.
@@ -317,7 +317,7 @@ public class PropagateErrorSources {
 			// find connection instances that this connection is part of
 			String connName = ces.getConnection().getName();
 			ConnectionInstance conni = InstanceUtil.findConnectionInstance(root, ces.getConnection());
-			EList<PropagationPathEnd> ends = getAllPropagationDestinationEnds(faultModel, conni);
+			EList<PropagationPathEnd> ends = Util.getAllPropagationDestinationEnds(faultModel, conni);
 			if (ends.size() == 0) {
 				return;
 			}
@@ -556,11 +556,11 @@ public class PropagateErrorSources {
 					}
 				}
 				EList<PropagationPathEnd> dstEnds;
-				ConnectionInstance dstConni = path.getDstConni();
+				ConnectionInstance dstConni = path.getPathDst().getConnectionInstance();
 				String connSymbol = " -> ";
 				if (dstConni != null) {
 					// we have a connection binding path with a connection instance as target
-					dstEnds = faultModel.getAllPropagationDestinationEnds(dstConni);
+					dstEnds = Util.getAllPropagationDestinationEnds(faultModel, dstConni);
 					connSymbol = " -Conn-> ";
 					// find the connection transformation rules
 					ComponentInstance contextCI = dstConni.getComponentInstance();

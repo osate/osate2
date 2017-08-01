@@ -131,8 +131,7 @@ public final class FTAHandler extends AbstractHandler {
 		});
 
 		if (ERROR_STATE_NAME != null) {
-			CreateFTAModel doModel = new CreateFTAModel(si);
-			URI newURI = doModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET);
+			URI newURI = CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET);
 			if (newURI != null) {
 				if (MINCUTSET) {
 					SiriusViewUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
