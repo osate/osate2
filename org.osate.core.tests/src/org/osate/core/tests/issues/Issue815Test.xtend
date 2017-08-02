@@ -1,15 +1,15 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.core.test.Aadl2UiInjectorProvider
 import org.osate.core.test.OsateTest
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class Issue815Test extends OsateTest {
 	@Inject extension ValidationTestHelper

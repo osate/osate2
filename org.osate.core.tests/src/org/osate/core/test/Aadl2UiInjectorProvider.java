@@ -3,15 +3,14 @@
 */
 package org.osate.core.test;
 
-import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.testing.IInjectorProvider;
 
 import com.google.inject.Injector;
 
 public class Aadl2UiInjectorProvider implements IInjectorProvider {
-
+	@Override
 	public Injector getInjector() {
 		return org.osate.xtext.aadl2.ui.internal.Aadl2Activator.getInstance()
 				.getInjector("org.osate.xtext.aadl2.Aadl2");
 	}
-
 }
