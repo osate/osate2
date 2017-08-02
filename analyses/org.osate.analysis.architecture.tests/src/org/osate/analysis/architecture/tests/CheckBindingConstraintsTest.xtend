@@ -33,9 +33,9 @@
  */
 package org.osate.analysis.architecture.tests
 
-import com.itemis.xtext.testing.XtextRunner2
 import org.eclipse.core.runtime.NullProgressMonitor
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -47,7 +47,7 @@ import org.osate.core.test.OsateTest
 import static extension org.junit.Assert.assertEquals
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class CheckBindingConstraintsTest extends OsateTest {
 	override getProjectName() {
