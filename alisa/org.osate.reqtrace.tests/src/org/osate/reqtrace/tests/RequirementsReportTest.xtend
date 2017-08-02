@@ -13,10 +13,6 @@ import org.osate.core.test.BIRTTest
 class RequirementsReportTest extends BIRTTest {
 	val static REQUIREMENTS_RPTDESIGN_URL = "platform:/plugin/org.osate.reqtrace/requirements.rptdesign"
 	
-	override getProjectName() {
-		"Requirements_Report"
-	}
-	
 	@Test
 	def void testRequirementsReport() {
 		val pkg1FileName = "pkg1.aadl"
@@ -243,7 +239,7 @@ class RequirementsReportTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Requirements_Report</div>
+											<div class="style_5">RequirementsReportTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -385,7 +381,7 @@ class RequirementsReportTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Requirements_Report</div>
+											<div class="style_5">RequirementsReportTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">

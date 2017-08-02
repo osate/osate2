@@ -18,10 +18,6 @@ import org.osate.core.test.BIRTTest
 class SystemRequirementToStakeholderGoalTest extends BIRTTest {
 	val static REQTRACE_RPTDESIGN_URL = "platform:/plugin/org.osate.reqtrace/reqtrace.rptdesign"
 	
-	override getProjectName() {
-		"System_Requirement_To_Stakeholder_Goal_Test"
-	}
-	
 	@Test
 	def void testSystemRequirementToStakeholderGoal() {
 		val org1FileName = "org1.org"
@@ -175,7 +171,7 @@ class SystemRequirementToStakeholderGoalTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">System_Requirement_To_Stakeholder_Goal_Test</div>
+											<div class="style_5">SystemRequirementToStakeholderGoalTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -371,7 +367,7 @@ class SystemRequirementToStakeholderGoalTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">System_Requirement_To_Stakeholder_Goal_Test</div>
+											<div class="style_5">SystemRequirementToStakeholderGoalTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -567,7 +563,7 @@ class SystemRequirementToStakeholderGoalTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">System_Requirement_To_Stakeholder_Goal_Test</div>
+											<div class="style_5">SystemRequirementToStakeholderGoalTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -763,7 +759,7 @@ class SystemRequirementToStakeholderGoalTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">System_Requirement_To_Stakeholder_Goal_Test</div>
+											<div class="style_5">SystemRequirementToStakeholderGoalTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">

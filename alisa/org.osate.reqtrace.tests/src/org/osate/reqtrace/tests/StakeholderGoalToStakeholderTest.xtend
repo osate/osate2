@@ -18,10 +18,6 @@ import org.osate.core.test.BIRTTest
 class StakeholderGoalToStakeholderTest extends BIRTTest {
 	val static REQTRACE_RPTDESIGN_URL = "platform:/plugin/org.osate.reqtrace/reqtrace.rptdesign"
 	
-	override getProjectName() {
-		"Stakeholder_Goal_To_Stakeholder_Test"
-	}
-	
 	@Test
 	def void testStakeholderGoalToStakeholder() {
 		val org1FileName = "org1.org"
@@ -180,7 +176,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -367,7 +363,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -554,7 +550,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -745,7 +741,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
