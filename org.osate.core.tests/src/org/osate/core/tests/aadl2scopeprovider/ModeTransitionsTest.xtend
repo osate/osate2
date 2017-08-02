@@ -51,10 +51,6 @@ import static extension org.junit.Assert.assertNull
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class ModeTransitionsTest extends OsateTest {
-	override getProjectName() {
-		"Mode_Transitions_Test"
-	}
-	
 	//Tests scope_ModeTransition_source, scope_ModeTransition_destination, scope_ModeTransitionTrigger_context, and scope_ModeTransitionTrigger_triggerPort
 	@Test
 	def void testModeTransitions() {

@@ -19,10 +19,6 @@ class ParserTest extends OsateTest {
 
 	@Inject extension ParseHelper<ModelUnit>
 
-	override getProjectName() {
-		"test"
-	}
-
 	@Test
 	def void testParsing() {
 		val model = '''

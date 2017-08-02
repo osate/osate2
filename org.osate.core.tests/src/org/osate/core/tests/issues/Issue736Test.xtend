@@ -19,10 +19,6 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class Issue736Test extends OsateTest {
-	override getProjectName() {
-		"issue736"
-	}
-	
 	@Test
 	def void issue736() {
 		val fileName = "issue736.aadl"

@@ -52,10 +52,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class ConnectedElementsAndFlowEndsTest extends OsateTest {
-	override getProjectName() {
-		"Connected_Elements_And_Flow_Ends_Test"
-	}
-	
 	//Tests scope_ConnectedElement_context, scope_ConnectedElement_connectionEnd, scope_FlowEnd_context, and scope_FlowEnd_feature
 	@Test
 	def void testConnectedElementsAndFlowEnds() {

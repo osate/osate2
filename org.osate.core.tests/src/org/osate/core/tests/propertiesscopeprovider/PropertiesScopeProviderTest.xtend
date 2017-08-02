@@ -53,10 +53,6 @@ import static extension org.junit.Assert.assertNull
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class PropertiesScopeProviderTest extends OsateTest {
-	override getProjectName() {
-		"Properties_Scope_Provider_Test"
-	}
-	
 	//Tests scope_ContainmentPathElement_namedElement
 	@Test
 	def void testContainmentPathElements() {

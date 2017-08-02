@@ -15,10 +15,6 @@ class FormatterTest extends OsateTest {
 	@Inject
 	extension FormatterTestHelper
 	
-	override getProjectName() {
-		"Formatter_Test"
-	}
-	
 	@Test
 	def void testPropertySet() {
 		//Empty property set

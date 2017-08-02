@@ -52,10 +52,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class ConnectionAndFlowTypesTest extends OsateTest {
-	override getProjectName() {
-		"Connection_And_Flow_Types_Test"
-	}
-	
 	/*
 	 * Tests typeCheckAccessConnectionEnd, typeCheckFeatureConnectionEnd, typeCheckFeatureGroupConnectionEnd, typeCheckParameterConnectionEnd,
 	 * typeCheckPortConnectionEnd, and checkFlowFeatureType

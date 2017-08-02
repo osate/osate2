@@ -19,10 +19,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class Issue794Test extends OsateTest {
-	override getProjectName() {
-		"issue794"
-	}
-	
 	@Test
 	def void issue794_1() {
 		val pkg1FileName = "pkg1.aadl"

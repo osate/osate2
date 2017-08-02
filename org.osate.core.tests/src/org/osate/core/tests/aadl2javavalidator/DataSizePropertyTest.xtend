@@ -14,10 +14,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class DataSizePropertyTest extends OsateTest {
-	override getProjectName() {
-		"Data_Size_Property_Test"
-	}
-	
 	//Tests checkDataSizeProperty
 	@Test
 	def void testDataSizeProperty() {

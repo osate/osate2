@@ -50,10 +50,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class EndToEndFlowSegmentTypesTest extends OsateTest {
-	override getProjectName() {
-		"End_To_End_Flow_Segment_Types_Test"
-	}
-	
 	//Tests typeCheckEndToEndFlowSegments
 	@Test
 	def void testEndToEndFlowSegmentTypes() {

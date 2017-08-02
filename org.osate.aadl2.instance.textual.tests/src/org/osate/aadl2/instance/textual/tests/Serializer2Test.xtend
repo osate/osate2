@@ -43,10 +43,6 @@ import org.osate.aadl2.instance.textual.InstanceUiInjectorProvider
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
 class Serializer2Test extends AbstractSerializerTest {
-	override getProjectName() {
-		"SerializerTest2"
-	}
-	
 	@Test
 	def void testEndToEndFlows() {
 		val pkg1FileName = "pkg1.aadl"

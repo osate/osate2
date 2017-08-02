@@ -54,10 +54,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class PropertiesJavaValidatorTest extends OsateTest {
-	override getProjectName() {
-		"Propertiesr_Java_Validator_Test"
-	}
-	
 	//Tests typeCheckEndToEndFlowSegments
 	@Test
 	def void testMismatchedPropertyTypeMissingUnits() {

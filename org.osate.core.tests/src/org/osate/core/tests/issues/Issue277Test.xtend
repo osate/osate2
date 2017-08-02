@@ -13,10 +13,6 @@ import static org.junit.Assert.*
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class Issue277Test extends OsateTest {
-	override getProjectName() {
-		"issue277"
-	}
-
 	@Test
 	def void issue277() {
 		val aadlFile = "issue277.aadl"
