@@ -45,10 +45,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
 class Serializer1Test extends AbstractSerializerTest {
-	override getProjectName() {
-		"SerializerTest1"
-	}
-	
 	@Test
 	def void testEmptyInstance() {
 		val pkg1FileName = "pkg1.aadl"

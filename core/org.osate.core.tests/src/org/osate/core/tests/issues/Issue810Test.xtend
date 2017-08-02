@@ -14,10 +14,6 @@ import org.osate.core.test.OsateTest
 class Issue810Test extends OsateTest {
 	@Inject extension ValidationTestHelper
 	
-	override getProjectName() {
-		"issue810"
-	}
-	
 	@Test
 	def void issue810() {
 		val pkg1FileName = "pkg1.aadl"

@@ -59,10 +59,6 @@ class RefinedElementsTest extends OsateTest {
 	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper
 	
-	override getProjectName() {
-		"Refined_Elements_Test"
-	}
-	
 	/*
 	 * Tests scope_Prototype_refined, scope_Subcomponent_refined, scope_Feature_refined, scope_Connection_refined, scope_FlowSpecification_refined, and
 	 * scope_EndToEndFlow_refined

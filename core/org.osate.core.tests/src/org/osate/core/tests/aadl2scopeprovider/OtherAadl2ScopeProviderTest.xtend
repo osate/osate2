@@ -64,10 +64,6 @@ class OtherAadl2ScopeProviderTest extends OsateTest {
 	@Inject extension ParseHelper<ModelUnit>
 	@Inject extension ValidationTestHelper
 
-	override getProjectName() {
-		"Other_Aadl2_Scope_Provider_Test"
-	}
-	
 	/*
 	 * Tests scope_ComponentPrototype_constrainingClassifier, scope_FeaturePrototype_constrainingClassifier, scope_FeatureGroupPrototypeActual_featureType,
 	 * scope_PortSpecification_classifier, scope_AccessSpecification_classifier, scope_ComponentPrototypeActual_subcomponentType,

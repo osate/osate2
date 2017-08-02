@@ -15,10 +15,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class FeatureGroupChainingTest extends OsateTest {
-	override getProjectName() {
-		"Feature_Group_Chaining_Test"
-	}
-	
 	@Test
 	def void testFeatureGroupChaining() {
 		val pkg1FileName = "pkg1.aadl"

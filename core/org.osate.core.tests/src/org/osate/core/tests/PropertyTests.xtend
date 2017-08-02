@@ -14,10 +14,6 @@ import org.osate.core.test.OsateTest
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class PropertyTests extends OsateTest {
-	override getProjectName() {
-		"test"
-	}
-
 	@Test
 	def void scope_A() {
 

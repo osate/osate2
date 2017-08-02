@@ -52,10 +52,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class FeaturesAndSubcomponentsTest extends OsateTest {
-	override getProjectName() {
-		"Features_And_Subcomponents_Test"
-	}
-	
 	/*
 	 * Tests scope_AbstractSubcomponent_abstractSubcomponentType, scope_SystemSubcomponent_systemSubcomponentType,
 	 * scope_ProcessSubcomponent_processSubcomponentType, scope_ThreadGroupSubcomponent_threadGroupSubcomponentType,

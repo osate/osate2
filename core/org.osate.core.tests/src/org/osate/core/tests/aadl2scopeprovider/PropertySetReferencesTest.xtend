@@ -55,10 +55,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class PropertySetReferencesTest extends OsateTest {
-	override getProjectName() {
-		"Property_Set_References_Test"
-	}
-	
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
 	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.

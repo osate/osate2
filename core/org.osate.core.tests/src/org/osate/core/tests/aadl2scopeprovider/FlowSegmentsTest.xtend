@@ -52,10 +52,6 @@ import static extension org.junit.Assert.assertNull
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class FlowSegmentsTest extends OsateTest {
-	override getProjectName() {
-		"Flow_Segments_Test"
-	}
-	
 	//Tests scope_FlowSegment_context, scope_FlowSegment_flowElement, scope_EndToEndFlowSegment_context, and scope_EndToEndFlowSegment_flowElement
 	@Test
 	def void testFlowSegments() {

@@ -57,10 +57,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class OtherAadl2JavaValidatorTest extends OsateTest {
-	override getProjectName() {
-		"Other_Aadl2_Java_Validator_Test"
-	}
-	
 	//Tests checkFlowConnectionOrder
 	@Test
 	def void testFlowSegmentTypes() {
