@@ -1,6 +1,6 @@
 package org.osate.aadl2.errormodel.tests
 
-import org.eclipse.xtext.junit4.IInjectorProvider
+import org.eclipse.xtext.testing.IInjectorProvider
 import org.osate.xtext.aadl2.errormodel.ui.MyErrorModelActivator
 
 class ErrorModelUiInjectorProvider implements IInjectorProvider {

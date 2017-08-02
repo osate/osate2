@@ -1,8 +1,8 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
 import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -17,7 +17,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelSubclause
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class PropertyReferenceTest extends OsateTest {
 	override getProjectName() {

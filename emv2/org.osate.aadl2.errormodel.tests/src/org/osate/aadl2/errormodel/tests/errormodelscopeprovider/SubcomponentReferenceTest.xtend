@@ -1,7 +1,7 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -15,7 +15,7 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class SubcomponentReferenceTest extends OsateTest {
 	override getProjectName() {
