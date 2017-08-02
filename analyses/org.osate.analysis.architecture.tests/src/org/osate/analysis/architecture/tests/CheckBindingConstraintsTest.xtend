@@ -50,10 +50,6 @@ import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInst
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class CheckBindingConstraintsTest extends OsateTest {
-	override getProjectName() {
-		"Check_Binding_Constraints_Test"
-	}
-	
 	@Test
 	def void testCheckBindingConstraints() {
 		val pkg1FileName = "pkg1.aadl"

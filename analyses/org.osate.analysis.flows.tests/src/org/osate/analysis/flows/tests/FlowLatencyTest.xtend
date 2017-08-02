@@ -21,10 +21,6 @@ import static org.junit.Assert.*
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(Aadl2UiInjectorProvider))
 class FlowLatencyTest extends OsateTest {
-	override getProjectName() {
-		"test"
-	}
-
 	@Test
 	def void flows_pullprotocols() {
 		val pullprotocolsFile = "pullprotocols.aadl"
