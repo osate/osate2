@@ -25,10 +25,6 @@ import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropag
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class EMV2PathElementTest extends OsateTest {
-	override getProjectName() {
-		"EMV2_Path_Element_Test"
-	}
-	
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine ->
 	 * 		ErrorBehaviorTransition -> ConditionExpression -> ... -> QualifiedErrorEventOrPropagation ->

@@ -18,10 +18,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class EventInitiatorTest extends OsateTest {
-	override getProjectName() {
-		"Event_Initiator_Test"
-	}
-	
 	/*
 	 * Tests scope_RepairEvent_eventInitiator(Classifier, EReference),
 	 * scope_RepairEvent_eventInitiator(ErrorBehaviorStateMachine, EReference),

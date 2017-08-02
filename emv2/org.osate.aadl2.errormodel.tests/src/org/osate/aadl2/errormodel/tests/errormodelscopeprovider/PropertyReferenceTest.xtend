@@ -20,10 +20,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class PropertyReferenceTest extends OsateTest {
-	override getProjectName() {
-		"Property_Reference_Test"
-	}
-	
 	//Tests BranchValue's symbolicLabel reference
 	@Test
 	def void testBranchValue() {

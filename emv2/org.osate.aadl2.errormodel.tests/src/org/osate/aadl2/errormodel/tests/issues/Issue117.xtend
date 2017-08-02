@@ -16,10 +16,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class Issue117 extends OsateTest {
-	override getProjectName() {
-		"issue117"
-	}
-	
 	@Test
 	def void issue117() {
 		val fileName = "issue117.aadl"

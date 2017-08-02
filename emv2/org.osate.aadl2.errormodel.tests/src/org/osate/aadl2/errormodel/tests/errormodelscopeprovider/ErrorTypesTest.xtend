@@ -22,10 +22,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class ErrorTypesTest extends OsateTest {
-	override getProjectName() {
-		"Error_Types_Test"
-	}
-	
 	/*
 	 * Tests scope_ErrorType, scope_TypeSet_aliasedType, scope_TypeToken_type(ErrorModelLibrary, EReference),
 	 * scope_TypeToken_type(ErrorBehaviorStateMachine, EReference), scope_TypeToken_type(TypeMappingSet, EReference),

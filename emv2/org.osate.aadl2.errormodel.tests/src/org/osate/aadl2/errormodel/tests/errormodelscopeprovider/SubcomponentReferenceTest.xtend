@@ -18,10 +18,6 @@ import static extension org.junit.Assert.assertNull
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class SubcomponentReferenceTest extends OsateTest {
-	override getProjectName() {
-		"Subcomponent_Reference_Test"
-	}
-	
 	/*
 	 * Tests scope_SubcomponentElement_subcomponent(ComponentImplementation, EReference),
 	 * scope_SubcomponentElement_subcomponent(QualifiedErrorBehaviorState, EReference), and

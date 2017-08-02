@@ -28,10 +28,6 @@ import static extension org.junit.Assert.assertNull
 @RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class OtherErrorModelScopeProviderTest extends OsateTest {
-	override getProjectName() {
-		"Other_Error_Model_Scope_Provider_Test"
-	}
-	
 	/*
 	 * Tests scope_ErrorModelLibrary, scope_TypeMappingSet, scope_ErrorModelSubclause_useBehavior, and
 	 * scope_TypeTransformationSet
