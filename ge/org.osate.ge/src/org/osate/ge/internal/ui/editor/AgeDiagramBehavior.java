@@ -1027,4 +1027,8 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	private static Path getPath(final URI uri) {
 		return new Path(uri.toPlatformString(true));
 	}
+	
+	public void clearSelection() {
+		selectPictogramElements(new PictogramElement[0]);
+	}	
 }

@@ -12,12 +12,12 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Named;
 
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.graphiti.dt.IDiagramTypeProvider;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
 import org.eclipse.jface.dialogs.TitleAreaDialog;
@@ -65,7 +65,6 @@ import org.osate.ge.internal.di.Id;
 import org.osate.ge.internal.di.InternalNames;
 import org.osate.ge.internal.di.SelectionChanged;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
-import org.osate.ge.internal.graphiti.services.GraphitiService;
 import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ColoringService;
 import org.osate.ge.internal.services.NamingService;
@@ -78,7 +77,6 @@ public class CreateEndToEndFlowSpecificationTool {
 	private CreateFlowsToolsDialog dlg;
 	private BusinessObjectContext ciBoc;
 	private ComponentImplementation ci;
-	private IDiagramTypeProvider dtp;
 	private boolean canActivate = true;
 	private final List<DiagramElement> previouslySelectedDiagramElements = new ArrayList<>();
 
@@ -101,19 +99,17 @@ public class CreateEndToEndFlowSpecificationTool {
 			final AadlModificationService aadlModService,
 			final UiService uiService,
 			final ColoringService coloringService,
-			final GraphitiService graphiti, 
 			final NamingService namingService) {
 		try {	
 			ciBoc = ToolUtil.findComponentImplementationBoc(selectedBoc);
 			if (ciBoc != null) {
 				this.ci = (ComponentImplementation)ciBoc.getBusinessObject();
-				this.dtp = graphiti.getDiagramTypeProvider();
 				coloring = coloringService.adjustColors(); // Create a coloring object that will allow adjustment of pictogram
 				
 				canActivate = false;
-				ToolUtil.clearSelection(dtp);
+				uiService.clearSelection();
 				final Display display = Display.getCurrent();
-				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService);
+				dlg = new CreateFlowsToolsDialog(display.getActiveShell(), namingService, uiService);
 				if (dlg.open() == Dialog.CANCEL) {
 					return;
 				}
@@ -149,7 +145,6 @@ public class CreateEndToEndFlowSpecificationTool {
 			dlg = null;
 		}
 		
-		this.dtp = null;
 		this.ciBoc = null;
 		this.ci = null;
 		this.previouslySelectedDiagramElements.clear();
@@ -232,16 +227,20 @@ public class CreateEndToEndFlowSpecificationTool {
 		private Composite flowSegmentComposite;
 		private StyledText flowSegmentLabel;
 		private Text newETEFlowName;
-		private NamingService namingService;
+		private final NamingService namingService;
+		private final UiService uiService;
 		private final Aadl2Package pkg = Aadl2Factory.eINSTANCE.getAadl2Package();
 		final List<String> segmentList = new ArrayList<String>();
 		final List<String> modeList = new ArrayList<String>();
 		private final EndToEndFlow eTEFlow = (EndToEndFlow) pkg.getEFactoryInstance().create(pkg.getEndToEndFlow());
 		
-		public CreateFlowsToolsDialog(final Shell parentShell, final NamingService namingService) {
+		public CreateFlowsToolsDialog(final Shell parentShell, 
+				final NamingService namingService,
+				final UiService uiService) {
 			super(parentShell);
 			this.setHelpAvailable(false);
-			this.namingService = namingService;
+			this.namingService = Objects.requireNonNull(namingService, "namingService must not be null");
+			this.uiService = Objects.requireNonNull(uiService, "uiService must not be null");
 			setShellStyle(SWT.CLOSE | SWT.MODELESS | SWT.BORDER | SWT.TITLE | SWT.RESIZE);
 		}
 
@@ -595,7 +594,7 @@ public class CreateEndToEndFlowSpecificationTool {
 							addFlowSegmentOrModeFeature(m);
 						}
 
-						ToolUtil.clearSelection(dtp);
+						uiService.clearSelection();
 						updateWidgets();
 					}
 				}
