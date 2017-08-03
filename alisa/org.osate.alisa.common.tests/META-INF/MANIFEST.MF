@@ -15,7 +15,8 @@ Require-Bundle: org.osate.alisa.common,
  org.eclipse.xtend.lib,
  org.eclipse.xtend.lib.macro,
  com.google.guava,
- org.eclipse.xtext.xbase.lib
+ org.eclipse.xtext.xbase.lib,
+ org.eclipse.xtext.testing
 Import-Package: org.apache.log4j,
  org.junit.runner;version="4.5.0",
  org.junit.runner.manipulation;version="4.5.0",
