@@ -33,7 +33,7 @@ under the contract clause at 252.227.7013.
  */
 package org.osate.aadl2.instance.textual;
 
-import org.eclipse.xtext.junit4.IInjectorProvider;
+import org.eclipse.xtext.testing.IInjectorProvider;
 
 import com.google.inject.Injector;
 
