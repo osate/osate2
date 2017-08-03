@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>OSATE Graphical Editor User Guide</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../css/pandoc.css">
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header>
+<h1 class="title">OSATE Graphical Editor User Guide</h1>
+</header>
+<nav id="TOC">
+<ul>
+<li><a href="#getting-started"><span class="toc-section-number">1</span> Getting Started</a><ul>
+<li><a href="#creating-a-new-aadl-package"><span class="toc-section-number">1.1</span> Creating a new AADL Package</a></li>
+<li><a href="#opening-an-existing-aadl-model"><span class="toc-section-number">1.2</span> Opening an Existing AADL Model</a></li>
+</ul></li>
+<li><a href="#navigating-between-diagrams"><span class="toc-section-number">2</span> Navigating Between Diagrams</a><ul>
+<li><a href="#opening-an-associated-diagram"><span class="toc-section-number">2.1</span> Opening an Associated Diagram</a></li>
+<li><a href="#opening-an-elements-package-diagram"><span class="toc-section-number">2.2</span> Opening an Element's Package Diagram</a></li>
+<li><a href="#opening-the-type-diagram-for-a-component-implementation"><span class="toc-section-number">2.3</span> Opening the Type Diagram for a Component Implementation</a></li>
+<li><a href="#opening-an-aadl-instance-model"><span class="toc-section-number">2.4</span> Opening an AADL Instance Model</a></li>
+</ul></li>
+<li><a href="#editing-aadl-models"><span class="toc-section-number">3</span> Editing AADL Models</a><ul>
+<li><a href="#basics"><span class="toc-section-number">3.1</span> Basics</a><ul>
+<li><a href="#deleting"><span class="toc-section-number">3.1.1</span> Deleting</a></li>
+<li><a href="#renaming"><span class="toc-section-number">3.1.2</span> Renaming</a></li>
+<li><a href="#refining"><span class="toc-section-number">3.1.3</span> Refining</a></li>
+<li><a href="#instantiating"><span class="toc-section-number">3.1.4</span> Instantiating</a></li>
+<li><a href="#editing-property-associations"><span class="toc-section-number">3.1.5</span> Editing Property Associations</a></li>
+<li><a href="#moving-shapes-using-arrow-keys"><span class="toc-section-number">3.1.6</span> Moving Shapes Using Arrow Keys</a></li>
+<li><a href="#selecting-a-diagram-elements-container"><span class="toc-section-number">3.1.7</span> Selecting a Diagram Element's Container</a></li>
+<li><a href="#performing-diagram-layout"><span class="toc-section-number">3.1.8</span> Performing Diagram Layout</a></li>
+</ul></li>
+<li><a href="#connections"><span class="toc-section-number">3.2</span> Connections</a><ul>
+<li><a href="#creating-connections"><span class="toc-section-number">3.2.1</span> Creating Connections</a></li>
+<li><a href="#editing-connections"><span class="toc-section-number">3.2.2</span> Editing Connections</a></li>
+<li><a href="#connection_pattern-property-visualization"><span class="toc-section-number">3.2.3</span> Connection_Pattern Property Visualization</a></li>
+</ul></li>
+<li><a href="#classifiers"><span class="toc-section-number">3.3</span> Classifiers</a><ul>
+<li><a href="#creating"><span class="toc-section-number">3.3.1</span> Creating</a></li>
+<li><a href="#extending"><span class="toc-section-number">3.3.2</span> Extending</a></li>
+</ul></li>
+<li><a href="#features"><span class="toc-section-number">3.4</span> Features</a><ul>
+<li><a href="#creating-1"><span class="toc-section-number">3.4.1</span> Creating</a></li>
+<li><a href="#setting-the-feature-classifier"><span class="toc-section-number">3.4.2</span> Setting the Feature Classifier</a></li>
+<li><a href="#setting-the-feature-direction-directional-features-only"><span class="toc-section-number">3.4.3</span> Setting the Feature Direction (Directional Features Only)</a></li>
+<li><a href="#setting-access-kind-access-features-only"><span class="toc-section-number">3.4.4</span> Setting Access Kind (Access Features Only)</a></li>
+<li><a href="#setting-a-feature-group-as-inverse"><span class="toc-section-number">3.4.5</span> Setting a Feature Group as Inverse</a></li>
+</ul></li>
+<li><a href="#subcomponents"><span class="toc-section-number">3.5</span> Subcomponents</a><ul>
+<li><a href="#creating-2"><span class="toc-section-number">3.5.1</span> Creating</a></li>
+<li><a href="#setting-the-classifier"><span class="toc-section-number">3.5.2</span> Setting the Classifier</a></li>
+<li><a href="#opening-the-type-diagram-for-a-subcomponent"><span class="toc-section-number">3.5.3</span> Opening the Type Diagram for a Subcomponent</a></li>
+<li><a href="#setting-modes"><span class="toc-section-number">3.5.4</span> Setting Modes</a></li>
+</ul></li>
+<li><a href="#flows"><span class="toc-section-number">3.6</span> Flows</a><ul>
+<li><a href="#creating-flow-specifications"><span class="toc-section-number">3.6.1</span> Creating Flow Specifications</a></li>
+<li><a href="#creating-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">3.6.2</span> Creating Flow Implementations and End-To-End Flow Specifications</a></li>
+<li><a href="#editing-flow-implementations-and-end-to-end-flows"><span class="toc-section-number">3.6.3</span> Editing Flow Implementations and End-to-End Flows</a></li>
+<li><a href="#highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="toc-section-number">3.6.4</span> Highlighting Flow Implementations and End-to-End Flow Specifications</a></li>
+</ul></li>
+<li><a href="#modes"><span class="toc-section-number">3.7</span> Modes</a><ul>
+<li><a href="#creating-modes"><span class="toc-section-number">3.7.1</span> Creating Modes</a></li>
+<li><a href="#setting-the-initial-mode"><span class="toc-section-number">3.7.2</span> Setting the Initial Mode</a></li>
+<li><a href="#creating-mode-transitions"><span class="toc-section-number">3.7.3</span> Creating Mode Transitions</a></li>
+<li><a href="#setting-mode-transition-triggers"><span class="toc-section-number">3.7.4</span> Setting Mode Transition Triggers</a></li>
+<li><a href="#switching-between-derived-and-non-derived-modes"><span class="toc-section-number">3.7.5</span> Switching Between Derived and Non-derived Modes</a></li>
+<li><a href="#highlighting"><span class="toc-section-number">3.7.6</span> Highlighting</a></li>
+<li><a href="#sec:selective_active_components"><span class="toc-section-number">3.7.7</span> Selecting Active Components</a></li>
+</ul></li>
+<li><a href="#bindings"><span class="toc-section-number">3.8</span> Bindings</a><ul>
+<li><a href="#creating-bindings"><span class="toc-section-number">3.8.1</span> Creating Bindings</a></li>
+<li><a href="#setting-bindings"><span class="toc-section-number">3.8.2</span> Setting Bindings</a></li>
+</ul></li>
+<li><a href="#sec:arrays"><span class="toc-section-number">3.9</span> Arrays</a><ul>
+<li><a href="#creating-arrays"><span class="toc-section-number">3.9.1</span> Creating Arrays</a></li>
+<li><a href="#editing-arrays"><span class="toc-section-number">3.9.2</span> Editing Arrays</a></li>
+</ul></li>
+<li><a href="#subprogram-call-sequences"><span class="toc-section-number">3.10</span> Subprogram Call Sequences</a><ul>
+<li><a href="#creating-subprogram-call-sequences"><span class="toc-section-number">3.10.1</span> Creating Subprogram Call Sequences</a></li>
+<li><a href="#editing-subprogram-call-sequences"><span class="toc-section-number">3.10.2</span> Editing Subprogram Call Sequences</a></li>
+</ul></li>
+<li><a href="#annexes"><span class="toc-section-number">3.11</span> Annexes</a><ul>
+<li><a href="#creating-annex-libraries-and-annex-subclauses"><span class="toc-section-number">3.11.1</span> Creating Annex Libraries and Annex Subclauses</a></li>
+</ul></li>
+<li><a href="#layouts"><span class="toc-section-number">3.12</span> Layouts</a><ul>
+<li><a href="#grid-layout"><span class="toc-section-number">3.12.1</span> Grid Layout</a></li>
+<li><a href="#radial-layout"><span class="toc-section-number">3.12.2</span> Radial Layout</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#troubleshooting"><span class="toc-section-number">4</span> Troubleshooting</a><ul>
+<li><a href="#build-automatically"><span class="toc-section-number">4.1</span> Build Automatically</a></li>
+<li><a href="#inconsistent-font-sizes-across-machines"><span class="toc-section-number">4.2</span> Inconsistent Font Sizes Across Machines</a></li>
+<li><a href="#out-of-handles-exception"><span class="toc-section-number">4.3</span> Out of Handles Exception</a></li>
+<li><a href="#unable-to-set-properties-unless-text-model-is-open"><span class="toc-section-number">4.4</span> Unable to Set Properties Unless Text Model is Open</a></li>
+<li><a href="#updating-the-diagram"><span class="toc-section-number">4.5</span> Updating the Diagram</a></li>
+<li><a href="#reporting-bugs"><span class="toc-section-number">4.6</span> Reporting Bugs</a></li>
+</ul></li>
+<li><a href="#notices"><span class="toc-section-number">5</span> Notices</a></li>
+</ul>
+</nav>
+<h1 id="getting-started"><span class="header-section-number">1</span> Getting Started</h1>
+<p>The OSATE Graphical Editor allows viewing and manipulating AADL declarative models in a graphical way.</p>
+<h2 id="creating-a-new-aadl-package"><span class="header-section-number">1.1</span> Creating a new AADL Package</h2>
+<p>A new AADL package and an associated diagram can be created by using a wizard.</p>
+<ol type="1">
+<li><p>Open the new file dialog by selecting <em>File-&gt;New-&gt;Other</em>...</p></li>
+<li><p>Select <em>Aadl Package(Graphical)</em> and select <em>Next</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/AadlPackage(Graphical).png" />
+</figure>
+<ol start="3" type="1">
+<li>Enter a name for the new package.</li>
+</ol>
+<figure>
+<img src="../images/AadlPackageName.png" />
+</figure>
+<ol start="4" type="1">
+<li><p>Select the AADL Project to create the package inside.</p></li>
+<li><p>Select <em>Finish</em>.</p></li>
+</ol>
+<p>The new package will appear in the graphical editor.</p>
+<h2 id="opening-an-existing-aadl-model"><span class="header-section-number">1.2</span> Opening an Existing AADL Model</h2>
+<p>An existing AADL model can be opened in the graphical editor. Changes made to either the AADL source or the diagram will be reflected in the other.</p>
+<ol type="1">
+<li><p>Open an existing AADL source file.</p></li>
+<li><p>Right-click the AADL package or component in the <em>Outline</em> view.</p></li>
+<li><p>Select <em>Open Diagram</em> to open the diagram for the selected classifier. If a classifier is not selected, <em>Open Diagram</em> opens the package diagram for the selected package. The diagram will be created if one does not already exist. The appropriate diagram will appear in the graphical editor.</p></li>
+<li><p>You can also use the keyboard shortcut <strong><em>Ctrl+Shift+V</em></strong> to switch between the selected element in the diagram and the selected element in the source file.</p></li>
+</ol>
+<h1 id="navigating-between-diagrams"><span class="header-section-number">2</span> Navigating Between Diagrams</h1>
+<p>The graphical editor supports navigating between related diagrams in several ways.</p>
+<h2 id="opening-an-associated-diagram"><span class="header-section-number">2.1</span> Opening an Associated Diagram</h2>
+<p>Diagrams associated with a particular element can be opened by double-clicking on the model element. For example, double-clicking a classifier inside a package diagram will open that classifier's diagram. Alternatively, the associated diagram can be open by right-clicking on the element and selecting <em>Open Associated Diagram</em> from the context menu.</p>
+<figure>
+<img src="../images/OpenAssociatedDiagram.png" />
+</figure>
+<h2 id="opening-an-elements-package-diagram"><span class="header-section-number">2.2</span> Opening an Element's Package Diagram</h2>
+<p>When viewing a diagram, the package diagram associated with an element can be opened by right-clicking inside the diagram or element and selecting <em>Go to Package Diagram</em> from the context menu.</p>
+<figure>
+<img src="../images/GoToPackageDiagram.png" />
+</figure>
+<h2 id="opening-the-type-diagram-for-a-component-implementation"><span class="header-section-number">2.3</span> Opening the Type Diagram for a Component Implementation</h2>
+<p>When viewing a component implementation diagram, the diagram for the component implementation's type can be opened by right-clicking inside the diagram and selecting <em>Go to Type Diagram</em> from the context menu.</p>
+<figure>
+<img src="../images/GoToTypeDiagram.png" />
+</figure>
+<h2 id="opening-an-aadl-instance-model"><span class="header-section-number">2.4</span> Opening an AADL Instance Model</h2>
+<p>An AADL instance model can be viewed in the graphical editor. The instance model may not be modified using the graphical editor.</p>
+<ol type="1">
+<li><p>Right-click on the AADL instance model in the <em>AADL Navigator</em> view.</p></li>
+<li><p>Select <em>Open Diagram</em> to open the diagram for the selected component instance. The diagram will be created if one does not already exist.</p></li>
+</ol>
+<h1 id="editing-aadl-models"><span class="header-section-number">3</span> Editing AADL Models</h1>
+<p>The graphical editor allows editing AADL models graphically. As changes are made to the diagram, the AADL model is updated automatically. Additionally, as the textual AADL model is editing using OSATE, the diagram is updated to reflect changes.</p>
+<p>Contents</p>
+<h2 id="basics"><span class="header-section-number">3.1</span> Basics</h2>
+<p>Many of the operations in the graphical editor apply to multiple types of elements.</p>
+<h3 id="deleting"><span class="header-section-number">3.1.1</span> Deleting</h3>
+<p>An element can be deleted from the AADL model by selecting it and pressing the <strong><em>Delete</em></strong> key. An element can also be deleted by right-clicking on it and selecting <em>Delete</em> from the context menu.</p>
+<figure>
+<img src="../images/Delete.png" />
+</figure>
+<p>Elements can only be deleted when viewing the element which contains it. For example, a feature defined in a system type cannot be deleted while editing the diagram of a system implementation.</p>
+<h3 id="renaming"><span class="header-section-number">3.1.2</span> Renaming</h3>
+<p>An element can be renamed using the graphical editor.</p>
+<ol type="1">
+<li><p>Select the item to be renamed.</p></li>
+<li><p>Click the name label. An editable field will appear.</p></li>
+</ol>
+<figure>
+<img src="../images/renaming.png" />
+</figure>
+<ol start="3" type="1">
+<li><p>Adjust the name as desired.</p></li>
+<li><p>Press the <strong><em>Enter</em></strong> key.</p></li>
+</ol>
+<p>Elements can only be renamed when viewing the element which contains it. For example, a feature defined in a system type cannot be renamed while editing the diagram of a system implementation.</p>
+<h3 id="refining"><span class="header-section-number">3.1.3</span> Refining</h3>
+<p>Appropriate elements can be refined by right-clicking on them and selecting <em>Refine</em> from the context menu. Once an element is refined. Deleting a refined element will only delete the refinement.</p>
+<h3 id="instantiating"><span class="header-section-number">3.1.4</span> Instantiating</h3>
+<p>When viewing a package diagram, component implementations can be instantiated by right-clicking on them and selecting <em>Instantiate</em> from the context menu. The instance model will be created in that projects <em>instances</em> folder in the AADL Navigator.</p>
+<figure>
+<img src="../images/Instantiate.png" />
+</figure>
+<h3 id="editing-property-associations"><span class="header-section-number">3.1.5</span> Editing Property Associations</h3>
+<p>Property associations can be edited using OSATE's <em>AADL Property Values</em> view. Selecting an element in the diagram updates the view to show property values for that element.</p>
+<h3 id="moving-shapes-using-arrow-keys"><span class="header-section-number">3.1.6</span> Moving Shapes Using Arrow Keys</h3>
+<ol type="1">
+<li><p>Select the item to be moved.</p></li>
+<li><p>Press the <strong><em>.</em></strong> key.</p></li>
+<li><p>Using the <strong><em>Arrow</em></strong> keys, move the item to desired location.</p></li>
+<li><p>Press the <strong><em>Enter</em></strong> key.</p></li>
+</ol>
+<h3 id="selecting-a-diagram-elements-container"><span class="header-section-number">3.1.7</span> Selecting a Diagram Element's Container</h3>
+<p>Under some circumstances, it is difficult to select the desired diagram element due to the location of child diagram elements. The desired shape can be selected using the following steps.</p>
+<ol type="1">
+<li><p>Right-click on the child of the diagram element to be selected.</p></li>
+<li><p>Select <em>Select Container</em> from the context menu.</p></li>
+</ol>
+<h3 id="performing-diagram-layout"><span class="header-section-number">3.1.8</span> Performing Diagram Layout</h3>
+<p>When creating a new diagram from an AADL model, the editor lays out the diagram automatically. The layout of the diagram can be redone by right-clicking inside the diagram and select <em>Layout Diagram</em>. Doing so will adjust the positions of all the shapes in the diagram.</p>
+<figure>
+<img src="../images/LayoutDiagram.png" />
+</figure>
+<h2 id="connections"><span class="header-section-number">3.2</span> Connections</h2>
+<p>The graphical editor allows editing AADL connections such as access, feature, feature group, parameter, and port.</p>
+<h3 id="creating-connections"><span class="header-section-number">3.2.1</span> Creating Connections</h3>
+<p>When viewing an implementation diagram, connections can be created by using the palette.</p>
+<ol type="1">
+<li><p>Select the appropriate connection type from the palette.</p></li>
+<li><p>Select an appropriate feature as the start of the connection.</p></li>
+<li><p>Select an appropriate feature as the end of the connection. The new connection will appear.</p></li>
+</ol>
+<h3 id="editing-connections"><span class="header-section-number">3.2.2</span> Editing Connections</h3>
+<p>The graphical editor supports refining, binding, configuring in modes, switching direction, and changing between unidirectional and bidirectional for appropriate AADL connections.</p>
+<h4 id="using-the-context-menu-to-edit-connections"><span class="header-section-number">3.2.2.1</span> Using the Context Menu to Edit Connections</h4>
+<p>Right click on a connection and all appropriate editing options will appear on the context menu.</p>
+<h3 id="connection_pattern-property-visualization"><span class="header-section-number">3.2.3</span> Connection_Pattern Property Visualization</h3>
+<p>When working with arrays, the graphical editor supports visualization of the connection_pattern property. See section <a href="#sec:arrays">3.9</a>.</p>
+<figure>
+<img src="../images/ConnectionPattern.png" />
+</figure>
+<h2 id="classifiers"><span class="header-section-number">3.3</span> Classifiers</h2>
+<p>The graphical editor allows editing AADL classifiers such as component types, component implementations, and feature groups.</p>
+<h3 id="creating"><span class="header-section-number">3.3.1</span> Creating</h3>
+<p>When viewing a package diagram, classifiers can be created by using the palette.</p>
+<ol type="1">
+<li><p>Open a package diagram.</p></li>
+<li><p>Drag the appropriate classifier type from the palette onto the diagram.</p></li>
+</ol>
+<figure>
+<img src="../images/Palette.png" />
+</figure>
+<ol start="3" type="1">
+<li>If a component implementation was dropped onto the diagram, select the classifier for the implementation to implement or extend.</li>
+</ol>
+<h3 id="extending"><span class="header-section-number">3.3.2</span> Extending</h3>
+<p>The editor allows classifier extensions to be specified in the package view. That is, the editor allows the specification of type extensions and implementation relationships.</p>
+<h4 id="using-the-palette-to-extend-a-classifier"><span class="header-section-number">3.3.2.1</span> Using the Palette to Extend a Classifier</h4>
+<ol type="1">
+<li><p>While editing a package diagram, select <em>Extension</em> from the Palette.</p></li>
+<li><p>Select on the classifier which will be the extension.</p></li>
+<li><p>Select the classifier that is being extended. An arrow will now appear. The type of arrow is determined whether the extension is an implementation or type extension.</p></li>
+</ol>
+<h4 id="using-the-context-menu-to-set-extended-classifier"><span class="header-section-number">3.3.2.2</span> Using the Context Menu to Set Extended Classifier</h4>
+<p>Specifying an extension using the context menu allows extending classifiers in other packages.</p>
+<ol type="1">
+<li><p>Right-click on the classifier which will be the extension and select <em>Set Extended Classifier...</em> from the context menu.</p></li>
+<li><p>Select the classifier to extend.</p></li>
+</ol>
+<figure>
+<img src="../images/SetExtendedClassifier.png" />
+</figure>
+<ol start="3" type="1">
+<li>Select <em>OK</em>. The appropriate arrow indicating the extension will appear.</li>
+</ol>
+<h2 id="features"><span class="header-section-number">3.4</span> Features</h2>
+<p>The editor allows editing AADL features. Features may be displayed on the left or the right of their container.</p>
+<h3 id="creating-1"><span class="header-section-number">3.4.1</span> Creating</h3>
+<p>Features can be created by using the palette.</p>
+<h3 id="setting-the-feature-classifier"><span class="header-section-number">3.4.2</span> Setting the Feature Classifier</h3>
+<p>The classifier can be set on features such as feature groups, data ports, and access features. Set the classifier by right-clicking on the feature and selecting <em>Set Classifier...</em> from the context menu.</p>
+<figure>
+<img src="../images/SetClassifier.png" />
+</figure>
+<h3 id="setting-the-feature-direction-directional-features-only"><span class="header-section-number">3.4.3</span> Setting the Feature Direction (Directional Features Only)</h3>
+<p>To set the direction of a directional feature, right-click on the feature and select <em>Set Direction to In</em>, <em>Set Direction to Out</em>, or <em>Set Direction to In and Out</em> from the context menu after setting the feature group's classifier.</p>
+<h3 id="setting-access-kind-access-features-only"><span class="header-section-number">3.4.4</span> Setting Access Kind (Access Features Only)</h3>
+<p>To set the direction of an access feature, right-click on the feature and select <em>Set Kind to Provides</em> or <em>Set Kind to Requires</em> from the context menu.</p>
+<h3 id="setting-a-feature-group-as-inverse"><span class="header-section-number">3.4.5</span> Setting a Feature Group as Inverse</h3>
+<p>To set a feature group as either the inverse of or not the inverse of the selected feature group type, right-click on the feature group and select <em>Set to Inverse</em> or <em>Set to Not Inverse</em> from the context menu.</p>
+<h2 id="subcomponents"><span class="header-section-number">3.5</span> Subcomponents</h2>
+<p>The graphical editor allows editing subcomponents when viewing a component implementation diagram.</p>
+<h3 id="creating-2"><span class="header-section-number">3.5.1</span> Creating</h3>
+<p>When viewing a component implementation diagram, a subcomponent can be creating by using the palette. Drag the appropriate subcomponent type from the palette to the desired location. A new subcomponent will appear.</p>
+<h3 id="setting-the-classifier"><span class="header-section-number">3.5.2</span> Setting the Classifier</h3>
+<p>Select the subcomponent classifier by right-clicking on the subcomponent and selecting <em>Set Classifier...</em> from the context menu. After selecting the classifier, the subcomponent will be updated to show the appropriate features.</p>
+<figure>
+<img src="../images/SetClassifierSubComponent.png" />
+</figure>
+<h3 id="opening-the-type-diagram-for-a-subcomponent"><span class="header-section-number">3.5.3</span> Opening the Type Diagram for a Subcomponent</h3>
+<p>When viewing a component implementation diagram, the diagram for a subcomponent's type can be opened by right-clicking the appropriate subcomponent and selecting <em>Go to Type Diagram</em> from the context menu.</p>
+<h3 id="setting-modes"><span class="header-section-number">3.5.4</span> Setting Modes</h3>
+<p>To set the modes in which subcomponents are active, see section <a href="#sec:selective_active_components">3.7.7</a>.</p>
+<h2 id="flows"><span class="header-section-number">3.6</span> Flows</h2>
+<p>The graphical editor supports creating and editing flow specifications, flow implementations, and end-to-end flows.</p>
+<h3 id="creating-flow-specifications"><span class="header-section-number">3.6.1</span> Creating Flow Specifications</h3>
+<p>Flow paths, flow sinks, and flow sources can be created using the palette when editing a component type.</p>
+<figure>
+<img src="../images/FlowSpecificationPalette.png" />
+</figure>
+<h4 id="creating-flow-paths"><span class="header-section-number">3.6.1.1</span> Creating Flow Paths</h4>
+<ol type="1">
+<li>Select <em>Flow Path</em> from the palette.</li>
+<li>Select the feature to use as the start of the flow path.</li>
+<li>Select the feature to use as the end of the path. The new flow path will appear.</li>
+</ol>
+<h4 id="creating-flow-sinks"><span class="header-section-number">3.6.1.2</span> Creating Flow Sinks</h4>
+<ol type="1">
+<li>Select <em>Flow Sink</em> from the palette.</li>
+<li>Select the feature to use as the sink. The new flow sink will appear.</li>
+</ol>
+<h4 id="creating-flow-sources"><span class="header-section-number">3.6.1.3</span> Creating Flow Sources</h4>
+<ol type="1">
+<li>Select <em>Flow Source</em> from the palette.</li>
+<li>Select the feature to use as the source. The new flow source will appear.</li>
+</ol>
+<h3 id="creating-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">3.6.2</span> Creating Flow Implementations and End-To-End Flow Specifications</h3>
+<p>When editing a component implementation, flow implementations and end-to-end flow specifications can be created graphically by selecting the <em>Create Flow Implementation</em> and <em>Create End-To-End Flow Specification</em> tools from the toolbar and following the prompts to select a series of elements from the diagram. The dialog and colors of elements in the diagram will update as valid selections are made. The starting flow specification will be highlighted dark orange and flow elements will be highlighted purple. The <em>Undo</em> button will remove the elements in the order they were selected.</p>
+<h4 id="creating-flow-implementations"><span class="header-section-number">3.6.2.1</span> Creating Flow Implementations</h4>
+<p>Select <em>Create Flow Implementation</em> from the toolbar, the dialog will appear.</p>
+<figure>
+<img src="../images/CreateFlowImplementationToolbar.png" />
+</figure>
+<h4 id="creating-source-flow-implementations"><span class="header-section-number">3.6.2.2</span> Creating Source Flow Implementations</h4>
+<ol type="1">
+<li>Select a valid source flow specification in the top-level component implementation.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplSourceStep1.png" />
+</figure>
+<ol start="2" type="1">
+<li>Select a valid subcomponent flow specification, subcomponent, or data access.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplSourceStep2.png" />
+</figure>
+<ol start="3" type="1">
+<li>Select valid flow segments leading to the source flow specification. Optionally, select modes or mode transitions.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplSourceStep3.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select <em>OK</em> when done.</li>
+</ol>
+<h4 id="creating-sink-flow-implementations"><span class="header-section-number">3.6.2.3</span> Creating Sink Flow Implementations</h4>
+<ol type="1">
+<li>Select a valid sink flow specification in the top-level component implementation.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplSinkStep1.png" />
+</figure>
+<ol start="2" type="1">
+<li>Select a valid connection.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplSinkStep2.png" />
+</figure>
+<ol start="3" type="1">
+<li>Select valid flow segments leading to the end subcomponent flow. Optionally, select modes or mode transitions.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplSinkStep3.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select <em>OK</em> when done.</li>
+</ol>
+<h4 id="creating-path-flow-implementations"><span class="header-section-number">3.6.2.4</span> Creating Path Flow Implementations</h4>
+<ol type="1">
+<li>Select a valid path flow specification in the top-level component implementation.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplPathStep1.png" />
+</figure>
+<ol start="2" type="1">
+<li>Select a valid connection.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplPathStep2.png" />
+</figure>
+<ol start="3" type="1">
+<li>Select valid flow segments leading to the path flow specification's out flow end. Optionally, select modes or mode transitions.</li>
+</ol>
+<figure>
+<img src="../images/FlowImplPathStep3.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select <em>OK</em> when done.</li>
+</ol>
+<h4 id="creating-end-to-end-flow-specifications"><span class="header-section-number">3.6.2.5</span> Creating End-To-End Flow Specifications</h4>
+<p>Select <em>Create End-To-End Flow Specification</em> from the toolbar, the dialog will appear.</p>
+<figure>
+<img src="../images/CreateEndToEndFlowSpecificationToolbar.png" />
+</figure>
+<ol type="1">
+<li>Select a valid subcomponent source flow specification.</li>
+</ol>
+<figure>
+<img src="../images/EndToEndFlowStep1.png" />
+</figure>
+<ol start="2" type="1">
+<li>Select a valid connection.</li>
+</ol>
+<figure>
+<img src="../images/EndToEndFlowStep2.png" />
+</figure>
+<ol start="3" type="1">
+<li>Select valid flow segments. Optionally, select modes or mode transitions.</li>
+</ol>
+<figure>
+<img src="../images/EndToEndFlowStep3.png" />
+</figure>
+<ol start="4" type="1">
+<li>Specify a name for the End-To-End Flow Specification and select <em>OK</em> when done.</li>
+</ol>
+<h3 id="editing-flow-implementations-and-end-to-end-flows"><span class="header-section-number">3.6.3</span> Editing Flow Implementations and End-to-End Flows</h3>
+<p>When editing a component implementation, flow implementations and end-to-end flow can be edited using the flow editor. It can be accessed by right-clicking in the diagram and selecting <em>Edit Flows...</em> from the context menu.</p>
+<figure>
+<img src="../images/EditFlows.png" />
+</figure>
+<h3 id="highlighting-flow-implementations-and-end-to-end-flow-specifications"><span class="header-section-number">3.6.4</span> Highlighting Flow Implementations and End-to-End Flow Specifications</h3>
+<p>Selecting a flow implementation or end-to-end flow specification from the flow drop-down in the toolbar will highlight the flow.</p>
+<h2 id="modes"><span class="header-section-number">3.7</span> Modes</h2>
+<p>The graphical editor allows editing the modes and mode transitions defined in the AADL model.</p>
+<h3 id="creating-modes"><span class="header-section-number">3.7.1</span> Creating Modes</h3>
+<p>When editing a component type, modes can be created by selecting <em>Mode</em> from the palette.</p>
+<h3 id="setting-the-initial-mode"><span class="header-section-number">3.7.2</span> Setting the Initial Mode</h3>
+<p>A mode can be designated as the initial mode by right-clicking on it and selecting <em>Change to Initial Mode</em> from the context menu.</p>
+<h3 id="creating-mode-transitions"><span class="header-section-number">3.7.3</span> Creating Mode Transitions</h3>
+<p>Mode transitions can be created using the palette.</p>
+<ol type="1">
+<li>Select <em>Mode Transition</em> from the palette.</li>
+<li>Select the starting mode.</li>
+<li>Select the destination mode. The <em>Select Trigger Ports</em> dialog will appear.</li>
+</ol>
+<figure>
+<img src="../images/PortTriggerDialog.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select the ports to use as the triggers for the transition. Multiple ports can be selected by holding down <em>Ctrl</em>.</li>
+<li>Select <em>OK</em>. The new mode transition will appear.</li>
+</ol>
+<h3 id="setting-mode-transition-triggers"><span class="header-section-number">3.7.4</span> Setting Mode Transition Triggers</h3>
+<p>A mode transition's trigger ports can be modified by right-clicking on the mode transition and selecting <em>Set Mode Transition Triggers...</em> from the context menu.</p>
+<h3 id="switching-between-derived-and-non-derived-modes"><span class="header-section-number">3.7.5</span> Switching Between Derived and Non-derived Modes</h3>
+<p>The editor allows specifying whether modes declared inside the component type are derived from its containing component. The usage of derived modes corresponds to a component type with a <em>requires modes</em> declaration while non-derived modes correspond to a component type with a <em>modes</em> declaration.</p>
+<p>The component type can be swapped between using derived and non-derived modes by right-clicking inside the component type and selecting <em>Change to Derived Modes</em> or <em>Change to Non-derived Modes</em> from the context menu.</p>
+<h3 id="highlighting"><span class="header-section-number">3.7.6</span> Highlighting</h3>
+<p>Selecting a mode from the mode drop-down in the toolbar will highlight elements applicable to the mode.</p>
+<h3 id="sec:selective_active_components"><span class="header-section-number">3.7.7</span> Selecting Active Components</h3>
+<p>The editor allows specifying the modes in which a modal element, such as a subcomponent, is active as well as the mapping between modes in the case of derived modes. The modes can be specified by right-clicking on the element and selecting <em>Configure In Modes...</em> from the context menu.</p>
+<h2 id="bindings"><span class="header-section-number">3.8</span> Bindings</h2>
+<h3 id="creating-bindings"><span class="header-section-number">3.8.1</span> Creating Bindings</h3>
+<p>When viewing a component implementation diagram, a binding property associations can be created.</p>
+<h3 id="setting-bindings"><span class="header-section-number">3.8.2</span> Setting Bindings</h3>
+<h4 id="using-the-toolbar-to-set-bindings"><span class="header-section-number">3.8.2.1</span> Using the Toolbar to Set Bindings</h4>
+<ol type="1">
+<li>Select the diagram element for which to set the binding.</li>
+<li>Select the <em>Bind...</em> button from the toolbar.</li>
+</ol>
+<figure>
+<img src="../images/BindToolbar.png" />
+</figure>
+<ol start="3" type="1">
+<li>From the Bind dialog, select a binding property from the drop-down menu.</li>
+</ol>
+<figure>
+<img src="../images/Bindings.png" />
+</figure>
+<ol start="4" type="1">
+<li>Select one or more elements from the diagram to bind to the initially selected element.</li>
+<li>Select <em>OK</em>.</li>
+</ol>
+<h4 id="using-the-context-menu-to-set-bindings"><span class="header-section-number">3.8.2.2</span> Using the Context Menu to Set Bindings</h4>
+<ol type="1">
+<li>Right-click on the diagram element for which to set the binding.</li>
+<li>Select <em>Bind...</em> from the context menu.</li>
+</ol>
+<figure>
+<img src="../images/BindContextMenu.png" />
+</figure>
+<ol start="3" type="1">
+<li>From the Bind dialog, select a binding property from the drop-down menu.</li>
+<li>Select one or more elements from the diagram to bind to the initially selected element.</li>
+<li>Select <em>OK</em>.</li>
+</ol>
+<h2 id="sec:arrays"><span class="header-section-number">3.9</span> Arrays</h2>
+<p>The graphical editor supports creating arrays for appropriate features and subcomponents.</p>
+<h3 id="creating-arrays"><span class="header-section-number">3.9.1</span> Creating Arrays</h3>
+<p>When viewing a component type diagram or component implementation diagram, a feature or subcomponent array can be created, respectively.</p>
+<ol type="1">
+<li>Right-click on the appropriate element.</li>
+<li>Select <em>Modify Dimensions...</em> from the context menu.</li>
+<li>From the Modify Dimensions dialog, select <em>Add</em>, then <em>Modify</em>.</li>
+</ol>
+<figure>
+<img src="../images/ModifyDimensions.png" />
+</figure>
+<ol start="4" type="1">
+<li>From the Modify Dimension dialog, select desired type and value.</li>
+</ol>
+<figure>
+<img src="../images/ModifyDimension.png" />
+</figure>
+<ol start="5" type="1">
+<li>Select <em>OK</em>. The array dimensions will appear on the element.</li>
+</ol>
+<h3 id="editing-arrays"><span class="header-section-number">3.9.2</span> Editing Arrays</h3>
+<p>To edit an array, right-click on a feature or subcomponent array and select <em>Modify Dimensions...</em> from the context menu.</p>
+<h4 id="add-dimension"><span class="header-section-number">3.9.2.1</span> Add Dimension</h4>
+<ol type="1">
+<li><p>From the <em>Modify Dimensions</em> dialog, select <em>Add</em>, then <em>Modify</em>.</p></li>
+<li><p>From the <em>Modify Dimension</em> dialog, select desired type and value.</p></li>
+<li><p>Select <em>OK</em>. The new array dimension will appear.</p></li>
+</ol>
+<h4 id="change-dimension-order"><span class="header-section-number">3.9.2.2</span> Change Dimension Order</h4>
+<p>From the <em>Modify Dimensions</em> dialog, select the desired dimension and select <em>Up</em> or <em>Down</em>.</p>
+<h4 id="delete-dimension"><span class="header-section-number">3.9.2.3</span> Delete Dimension</h4>
+<p>From the <em>Modify Dimensions</em> dialog, select the desired dimension and select <em>Delete</em>.</p>
+<h2 id="subprogram-call-sequences"><span class="header-section-number">3.10</span> Subprogram Call Sequences</h2>
+<p>The graphical editor supports creating and editing subprogram call sequences.</p>
+<h3 id="creating-subprogram-call-sequences"><span class="header-section-number">3.10.1</span> Creating Subprogram Call Sequences</h3>
+<p>When viewing a thread implementation diagram, subprogram call sequences can be created.</p>
+<ol type="1">
+<li>Select <em>Subprogram Call Sequence</em> from the palette and select inside the thread implementation diagram.</li>
+<li>In the <em>Select Subprogram</em> dialog, select desired type and subprogram component.</li>
+</ol>
+<figure>
+<img src="../images/SubprogramCallSequence.png" />
+</figure>
+<ol start="3" type="1">
+<li>Select <em>OK</em>. The new call sequence will appear.</li>
+</ol>
+<h4 id="adding-subprogram-calls"><span class="header-section-number">3.10.1.1</span> Adding Subprogram Calls</h4>
+<p>When viewing a thread implementation diagram that contains a subprogram call sequence, a subprogram call can be added to the sequence.</p>
+<ol type="1">
+<li>Select <em>Subprogram Call</em> from the palette and select inside the subprogram call sequence diagram.</li>
+<li>In the <em>Select Subprogram</em> dialog, select desired type and subprogram component.</li>
+<li>Select <em>OK</em>. The new subprogram call will appear.</li>
+</ol>
+<figure>
+<img src="../images/SubprogramCallSequenceDiagram.png" />
+</figure>
+<h3 id="editing-subprogram-call-sequences"><span class="header-section-number">3.10.2</span> Editing Subprogram Call Sequences</h3>
+<p>To change a subprogram call's place in the order of a subprogram call sequence, right-click on the desired subprogram call and select <em>Move Up</em> or <em>Move Down</em>.</p>
+<h2 id="annexes"><span class="header-section-number">3.11</span> Annexes</h2>
+<p>The graphical editor supports creating Annex Libraries and Annex Subclauses in appropriate AADL packages and classifiers, respectively.</p>
+<h3 id="creating-annex-libraries-and-annex-subclauses"><span class="header-section-number">3.11.1</span> Creating Annex Libraries and Annex Subclauses</h3>
+<p>Annex Libraries and Annex Libraries can be created by using the palette.</p>
+<ol type="1">
+<li><p>Drag the appropriate annex type from the palette onto the diagram, a dialog will appear.</p></li>
+<li><p>Type in a valid name for the new annex and select <em>OK</em>.</p></li>
+</ol>
+<figure>
+<img src="../images/AnnexDialog.png" />
+</figure>
+<h2 id="layouts"><span class="header-section-number">3.12</span> Layouts</h2>
+<p>The graphical editor allows for the layout of appropriate elements to be set to radial or grid.</p>
+<h3 id="grid-layout"><span class="header-section-number">3.12.1</span> Grid Layout</h3>
+<ol type="1">
+<li>Select the elements for which to set the layout.</li>
+<li>Select the <em>Grid Layout</em> button from the toolbar.</li>
+</ol>
+<figure>
+<img src="../images/GridLayout.png" />
+</figure>
+<h3 id="radial-layout"><span class="header-section-number">3.12.2</span> Radial Layout</h3>
+<ol type="1">
+<li>Select the elements for which to set the layout.</li>
+<li>Select the <em>Radial Layout</em> button from the toolbar.</li>
+</ol>
+<figure>
+<img src="../images/RadialLayout.png" />
+</figure>
+<h1 id="troubleshooting"><span class="header-section-number">4</span> Troubleshooting</h1>
+<p>The following section contains solutions to known issues as well as instructions for reporting problems with the graphical editor.</p>
+<h2 id="build-automatically"><span class="header-section-number">4.1</span> Build Automatically</h2>
+<p><em>Project-&gt;Build Automattically</em> must be enabled. If it is not enabled, the graphical editor will not function properly.</p>
+<figure>
+<img src="../images/BuildAutomatically.png" />
+</figure>
+<h2 id="inconsistent-font-sizes-across-machines"><span class="header-section-number">4.2</span> Inconsistent Font Sizes Across Machines</h2>
+<p>To ensure diagrams have a consistent appearance across machines, the graphical editor attempts to produce consistent text sizes regardless of system settings. However, due to limitations in the underlying libraries on which the graphical editor relies, this is not always possible. On windows systems, the graphical editor produces consistent font sizes at 100%, 125%, and 200% system text scaling levels.</p>
+<h2 id="out-of-handles-exception"><span class="header-section-number">4.3</span> Out of Handles Exception</h2>
+<p>When working with extremely large models, the graphical editor may run out of graphics handles. To work around this issue, reduce the number of graphics handles used by splitting the model into smaller packages.</p>
+<h2 id="unable-to-set-properties-unless-text-model-is-open"><span class="header-section-number">4.4</span> Unable to Set Properties Unless Text Model is Open</h2>
+<p>The AADL Property Values view does not support editing property associations unless the textual AADL model is open. To work around this issue, open the textual AADL file before attempting to create property assignments with the AADL Properties Values view.</p>
+<h2 id="updating-the-diagram"><span class="header-section-number">4.5</span> Updating the Diagram</h2>
+<p>In most cases the graphical editor will automatically update diagrams to reflect changes to the AADL Model. If a diagram has not been updated for any reason, it can be updated manually by right-clicking inside an empty area of the diagram and selecting <em>Update</em> from the context menu.</p>
+<h2 id="reporting-bugs"><span class="header-section-number">4.6</span> Reporting Bugs</h2>
+<p>Bugs should be reported to the issue tracker on the graphical editor's <a href="https://github.com/osate/osate-ge">GitHub Site</a>.</p>
+<h1 id="notices"><span class="header-section-number">5</span> Notices</h1>
+<p>Development of portions of the OSATE Graphical Editor was sponsored by the Government of the United States under Contract Number FA8702-15-D-0002.</p>
+<p>The view, opinions, and/or filings contained in this material are those of the author(s) and should not be construed as an official position, policy, or decision of the Government of the United States or Carnegie Mellon University or the Software Engineering Institute, unless designated by other documentation.</p>
+</body>
+</html>
