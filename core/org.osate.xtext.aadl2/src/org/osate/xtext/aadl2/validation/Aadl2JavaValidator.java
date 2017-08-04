@@ -915,6 +915,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		List<PropertyAssociation> propertyAssociations = ne.getOwnedPropertyAssociations();
 		List<Holder> holderList = new ArrayList<Holder>();
 		for (PropertyAssociation propertyAssoc : propertyAssociations) {
+			if (!propertyAssoc.getInBindings().isEmpty()) {
+				continue;
+			}
 			Property property = propertyAssoc.getProperty();
 			List<ContainedNamedElement> appliesTos = propertyAssoc.getAppliesTos();
 			if (null == appliesTos || appliesTos.isEmpty()) {
