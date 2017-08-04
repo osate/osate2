@@ -16,8 +16,8 @@
 		<xtext.stable.version>2.8.4</xtext.stable.version>
 		<emft.stable.version>2.8.1</emft.stable.version>
 		<xsemantics.stable.version>1.8.1</xsemantics.stable.version>
-		<xtext.testing.version>2.11.0</xtext.testing.version>
-		<emft.testing.version>2.8.1</emft.testing.version>
+		<xtext.testing.version>2.12.0</xtext.testing.version>
+		<emft.testing.version>2.9.0</emft.testing.version>
 		<xsemantics.version>1.11.0</xsemantics.version>
 
 		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
