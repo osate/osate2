@@ -1,9 +1,9 @@
 package org.osate.core.tests.issues
 
 import com.google.inject.Inject
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.core.test.Aadl2UiInjectorProvider
@@ -11,12 +11,8 @@ import org.osate.core.test.OsateTest
 
 @RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
-class Issue833 extends OsateTest {
+class Issue833Test extends OsateTest {
 	@Inject extension ValidationTestHelper
-	
-	override getProjectName() {
-		"Issue833"
-	}
 	
 	@Test
 	def void issue833() {
