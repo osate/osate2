@@ -33,8 +33,8 @@ under the contract clause at 252.227.7013.
  */
 package org.osate.aadl2.instance.textual.tests
 
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -45,10 +45,6 @@ import static extension org.junit.Assert.assertEquals
 @RunWith(XtextRunner)
 @InjectWith(InstanceUiInjectorProvider)
 class Serializer1Test extends AbstractSerializerTest {
-	override getProjectName() {
-		"SerializerTest1"
-	}
-	
 	@Test
 	def void testEmptyInstance() {
 		val pkg1FileName = "pkg1.aadl"
