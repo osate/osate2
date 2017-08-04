@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="11.1.1.201610211630">
+<description:Group xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:description="http://www.eclipse.org/sirius/description/1.1.0" xmlns:description_1="http://www.eclipse.org/sirius/diagram/description/1.1.0" xmlns:description_2="http://www.eclipse.org/sirius/table/description/1.1.0" xmlns:style="http://www.eclipse.org/sirius/diagram/description/style/1.1.0" xmlns:tool="http://www.eclipse.org/sirius/description/tool/1.1.0" name="faulttree" version="12.0.0.2017041100">
   <ownedViewpoints name="FaultTree" modelFileExtension="faulttree">
     <ownedRepresentations xsi:type="description_1:DiagramDescription" name="GraphicFaultTree" domainClass="FaultTree.FaultTree" enablePopupBars="true">
       <metamodel href="../../org.osate.aadl2.errormodel.faulttree/model/FaultTree.ecore#/"/>
@@ -54,7 +54,7 @@
               </style>
             </conditionnalStyles>
             <conditionnalStyles predicateExpression="aql:self.type = FaultTree::EventType::External">
-              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/House.ico">
+              <style xsi:type="style:WorkspaceImageDescription" showIcon="false" labelExpression="" labelPosition="node" resizeKind="NSEW" workspacePath="/org.osate.aadl2.errormodel.faulttree.design/images/ExternalSymbol.svg">
                 <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
                 <forbiddenSides>WEST</forbiddenSides>
@@ -81,14 +81,14 @@
               </style>
             </conditionnalStyles>
           </borderedNodeMappings>
-          <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="service:ProbabilityToString()" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="20" height="10">
+          <style xsi:type="style:SquareDescription" showIcon="false" labelExpression="service:ProbabilityToString()" sizeComputationExpression="-1" labelPosition="node" resizeKind="NSEW" width="15" height="4">
             <borderColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <color xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='light_blue']"/>
           </style>
         </nodeMappings>
         <edgeMappings name="SubeventLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']/@borderedNodeMappings[name='GateBNode']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='GraphicFaultTree']/@defaultLayer/@nodeMappings[name='EventNode']" targetFinderExpression="feature:subEvents">
-          <style sizeComputationExpression="2">
+          <style sizeComputationExpression="2" routingStyle="tree">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
