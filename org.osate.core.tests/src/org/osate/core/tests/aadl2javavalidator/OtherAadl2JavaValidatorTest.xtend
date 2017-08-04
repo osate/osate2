@@ -35,8 +35,8 @@
 package org.osate.core.tests.aadl2javavalidator
 
 import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -54,13 +54,9 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class OtherAadl2JavaValidatorTest extends OsateTest {
-	override getProjectName() {
-		"Other_Aadl2_Java_Validator_Test"
-	}
-	
 	//Tests checkFlowConnectionOrder
 	@Test
 	def void testFlowSegmentTypes() {

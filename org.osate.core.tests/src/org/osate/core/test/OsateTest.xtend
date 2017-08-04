@@ -69,7 +69,9 @@ abstract class OsateTest extends XtextTest {
 		deleteProject(projectName)
 	}
 	
-	def String getProjectName()
+	def String getProjectName() {
+		class.simpleName
+	}
 
 	/**
       * Create a project with subdirectories in the current workspace.

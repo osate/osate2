@@ -34,8 +34,8 @@
  */
 package org.osate.core.tests.aadl2scopeprovider
 
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -52,13 +52,9 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class PropertySetReferencesTest extends OsateTest {
-	override getProjectName() {
-		"Property_Set_References_Test"
-	}
-	
 	/*
 	 * Tests the reference ArraySize_SizeProperty used in the parser rule ArraySize.
 	 * Tests the reference PropertySet_ImportedUnit used in the parser rule PropertySet.

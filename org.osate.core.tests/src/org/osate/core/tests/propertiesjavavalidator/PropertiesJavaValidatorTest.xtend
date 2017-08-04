@@ -35,8 +35,8 @@
 package org.osate.core.tests.propertiesjavavalidator
 
 import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -51,13 +51,9 @@ import org.osate.core.test.OsateTest
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(Aadl2UiInjectorProvider)
 class PropertiesJavaValidatorTest extends OsateTest {
-	override getProjectName() {
-		"Propertiesr_Java_Validator_Test"
-	}
-	
 	//Tests typeCheckEndToEndFlowSegments
 	@Test
 	def void testMismatchedPropertyTypeMissingUnits() {
