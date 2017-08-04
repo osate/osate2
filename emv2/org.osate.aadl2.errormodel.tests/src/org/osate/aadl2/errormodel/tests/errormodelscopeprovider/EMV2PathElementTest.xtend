@@ -1,7 +1,7 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -22,13 +22,9 @@ import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 import static extension org.osate.xtext.aadl2.errormodel.util.EMV2Util.getPropagationName
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class EMV2PathElementTest extends OsateTest {
-	override getProjectName() {
-		"EMV2_Path_Element_Test"
-	}
-	
 	/*
 	 * Tests scope_EMV2PathElement_namedElement for grammar path: ErrorModelLibrary -> ErrorBehaviorStateMachine ->
 	 * 		ErrorBehaviorTransition -> ConditionExpression -> ... -> QualifiedErrorEventOrPropagation ->

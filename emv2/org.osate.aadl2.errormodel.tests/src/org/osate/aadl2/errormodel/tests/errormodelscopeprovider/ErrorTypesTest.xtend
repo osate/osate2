@@ -1,7 +1,7 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
@@ -19,13 +19,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource
 
 import static extension org.junit.Assert.assertEquals
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class ErrorTypesTest extends OsateTest {
-	override getProjectName() {
-		"Error_Types_Test"
-	}
-	
 	/*
 	 * Tests scope_ErrorType, scope_TypeSet_aliasedType, scope_TypeToken_type(ErrorModelLibrary, EReference),
 	 * scope_TypeToken_type(ErrorBehaviorStateMachine, EReference), scope_TypeToken_type(TypeMappingSet, EReference),

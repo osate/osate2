@@ -1,8 +1,8 @@
 package org.osate.aadl2.errormodel.tests.errormodelscopeprovider
 
 import com.itemis.xtext.testing.FluentIssueCollection
-import com.itemis.xtext.testing.XtextRunner2
-import org.eclipse.xtext.junit4.InjectWith
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.Aadl2Package
@@ -25,13 +25,9 @@ import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement
 import static extension org.junit.Assert.assertEquals
 import static extension org.junit.Assert.assertNull
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(ErrorModelUiInjectorProvider)
 class OtherErrorModelScopeProviderTest extends OsateTest {
-	override getProjectName() {
-		"Other_Error_Model_Scope_Provider_Test"
-	}
-	
 	/*
 	 * Tests scope_ErrorModelLibrary, scope_TypeMappingSet, scope_ErrorModelSubclause_useBehavior, and
 	 * scope_TypeTransformationSet
