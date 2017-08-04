@@ -1,26 +1,22 @@
 package org.osate.reqtrace.tests
 
-import org.eclipse.xtext.junit4.InjectWith
-import com.itemis.xtext.testing.XtextRunner2
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.osate.aadl2.AadlPackage
 import org.osate.aadl2.ComponentImplementation
 import org.osate.alisa.workbench.AlisaUiInjectorProvider
+import org.osate.core.test.BIRTTest
 import org.osate.reqtrace.ReqTraceConfigDialog
 
 import static extension org.osate.aadl2.instantiation.InstantiateModel.buildInstanceModelFile
-import org.osate.core.test.BIRTTest
 
-@RunWith(XtextRunner2)
+@RunWith(XtextRunner)
 @InjectWith(AlisaUiInjectorProvider)
 class StakeholderGoalToStakeholderTest extends BIRTTest {
 	val static REQTRACE_RPTDESIGN_URL = "platform:/plugin/org.osate.reqtrace/reqtrace.rptdesign"
-	
-	override getProjectName() {
-		"Stakeholder_Goal_To_Stakeholder_Test"
-	}
 	
 	@Test
 	def void testStakeholderGoalToStakeholder() {
@@ -180,7 +176,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -367,7 +363,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -554,7 +550,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">
@@ -745,7 +741,7 @@ class StakeholderGoalToStakeholderTest extends BIRTTest {
 											<div class="style_4" id="">Project:</div>
 										</td>
 										<td style=" overflow:hidden;">
-											<div class="style_5">Stakeholder_Goal_To_Stakeholder_Test</div>
+											<div class="style_5">StakeholderGoalToStakeholderTest</div>
 										</td>
 									</tr>
 									<tr valign="top" align="left">

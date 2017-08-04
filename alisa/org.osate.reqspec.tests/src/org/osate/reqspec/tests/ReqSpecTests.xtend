@@ -17,17 +17,15 @@
 package org.osate.reqspec.tests
 
 import com.google.inject.Inject
-import org.eclipse.xtext.junit4.InjectWith
-import org.eclipse.xtext.junit4.XtextRunner
-import org.eclipse.xtext.junit4.util.ParseHelper
-import org.eclipse.xtext.junit4.validation.ValidationTestHelper
-import org.osate.reqspec.reqSpec.ReqSpec
+import org.eclipse.xtext.testing.InjectWith
+import org.eclipse.xtext.testing.XtextRunner
+import org.eclipse.xtext.testing.util.ParseHelper
+import org.eclipse.xtext.testing.validation.ValidationTestHelper
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-//import org.example.entities.entities.EntityType
-//import org.example.entities.entities.BasicType
 import org.osate.reqspec.ReqSpecInjectorProvider
+import org.osate.reqspec.reqSpec.ReqSpec
 
 @RunWith(typeof(XtextRunner))
 @InjectWith(typeof(ReqSpecInjectorProvider))
