@@ -411,11 +411,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFeatureGroupChaining(connection);
 		if (connection.getAllLastSource() instanceof FeatureGroupConnectionEnd
 				&& connection.getAllLastDestination() instanceof FeatureGroupConnectionEnd) {
-			typeCheckFeatureGroupConnectionEnd(connection.getSource());
-			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
-			checkFeatureGroupConnectionDirection(connection);
+			if (connection.getRefined() == null) {
+				typeCheckFeatureGroupConnectionEnd(connection.getSource());
+				typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+				checkFeatureGroupConnectionDirection(connection);
+			}
 			checkFeatureGroupConnectionClassifiers(connection);
-		} else {
+		} else if (connection.getRefined() == null) {
 			typeCheckFeatureConnectionEnd(connection.getSource());
 			typeCheckFeatureConnectionEnd(connection.getDestination());
 			checkConnectionDirection(connection);
