@@ -396,12 +396,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseAccessConnection(AccessConnection connection) {
-		typeCheckAccessConnectionEnd(connection.getSource());
-		typeCheckAccessConnectionEnd(connection.getDestination());
+		if (connection.getRefined() == null) {
+			typeCheckAccessConnectionEnd(connection.getSource());
+			typeCheckAccessConnectionEnd(connection.getDestination());
+			checkAccessConnectionProvidesRequires(connection);
+			checkThroughConnection(connection);
+		}
 		checkAccessConnectionCategory(connection);
-		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
-		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
