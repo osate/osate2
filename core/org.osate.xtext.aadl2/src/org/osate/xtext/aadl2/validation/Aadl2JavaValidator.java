@@ -365,10 +365,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseConnection(Connection connection) {
-		checkDefiningID(connection);
-		checkReferencesToInternalFeatures(connection);
+		if (connection.getRefined() == null) {
+			checkDefiningID(connection);
+			checkReferencesToInternalFeatures(connection);
+		}
 		checkDirectionOfFeatureGroupMembers(connection);
-
 	}
 
 	@Check(CheckType.FAST)
