@@ -386,10 +386,12 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseParameterConnection(ParameterConnection connection) {
-		typeCheckParameterConnectionEnd(connection.getSource());
-		typeCheckParameterConnectionEnd(connection.getDestination());
+		if (connection.getRefined() == null) {
+			typeCheckParameterConnectionEnd(connection.getSource());
+			typeCheckParameterConnectionEnd(connection.getDestination());
+			checkThroughConnection(connection);
+		}
 		checkParameterConnectionClassifiers(connection);
-		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
