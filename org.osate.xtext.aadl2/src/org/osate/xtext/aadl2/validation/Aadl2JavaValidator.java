@@ -374,12 +374,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void casePortConnection(PortConnection connection) {
-		typeCheckPortConnectionEnd(connection.getSource());
-		typeCheckPortConnectionEnd(connection.getDestination());
+		if (connection.getRefined() == null) {
+			typeCheckPortConnectionEnd(connection.getSource());
+			typeCheckPortConnectionEnd(connection.getDestination());
+			checkConnectionDirection(connection);
+			checkPortConnectionEnds(connection);
+			checkAggregateDataPort(connection);
+		}
 		checkPortConnectionClassifiers(connection);
-		checkConnectionDirection(connection);
-		checkPortConnectionEnds(connection);
-		checkAggregateDataPort(connection);
 	}
 
 	@Check(CheckType.FAST)
