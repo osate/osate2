@@ -467,12 +467,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseEndToEndFlow(EndToEndFlow flow) {
-		typeCheckEndToEndFlowSegments(flow);
-		checkEndToEndFlowSegments(flow);
-		checkFlowConnectionEnds(flow);
-		checkNestedEndToEndFlows(flow);
+		if (flow.getRefined() == null) {
+			typeCheckEndToEndFlowSegments(flow);
+			checkEndToEndFlowSegments(flow);
+			checkFlowConnectionEnds(flow);
+			checkNestedEndToEndFlows(flow);
+			checkSubcomponentFlows(flow);
+		}
 		checkEndToEndFlowModes(flow);
-		checkSubcomponentFlows(flow);
 	}
 
 	@Check(CheckType.FAST)
