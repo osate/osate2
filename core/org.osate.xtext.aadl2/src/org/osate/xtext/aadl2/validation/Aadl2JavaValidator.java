@@ -428,9 +428,11 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupConnection(FeatureGroupConnection connection) {
 		checkFeatureGroupChaining(connection);
-		typeCheckFeatureGroupConnectionEnd(connection.getSource());
-		typeCheckFeatureGroupConnectionEnd(connection.getDestination());
-		checkFeatureGroupConnectionDirection(connection);
+		if (connection.getRefined() == null) {
+			typeCheckFeatureGroupConnectionEnd(connection.getSource());
+			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+			checkFeatureGroupConnectionDirection(connection);
+		}
 		checkFeatureGroupConnectionClassifiers(connection);
 	}
 
