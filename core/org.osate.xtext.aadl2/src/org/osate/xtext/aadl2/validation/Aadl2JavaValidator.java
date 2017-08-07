@@ -438,7 +438,9 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseFlowSpecification(FlowSpecification flow) {
-		checkFlowFeatureDirection(flow);
+		if (flow.getRefined() == null) {
+			checkFlowFeatureDirection(flow);
+		}
 	}
 
 	@Check(CheckType.FAST)
