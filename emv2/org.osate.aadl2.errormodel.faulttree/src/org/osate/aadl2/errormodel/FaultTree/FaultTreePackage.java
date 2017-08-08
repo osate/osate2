@@ -186,13 +186,22 @@ public interface FaultTreePackage extends EPackage {
 	int EVENT__RELATED_INSTANCE_OBJECT = 5;
 
 	/**
+	 * The feature id for the '<em><b>Related Error Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	int EVENT__RELATED_ERROR_TYPE = 6;
+
+	/**
 	 * The feature id for the '<em><b>Reference Count</b></em>' attribute.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__REFERENCE_COUNT = 6;
+	int EVENT__REFERENCE_COUNT = 7;
 
 	/**
 	 * The feature id for the '<em><b>Type</b></em>' attribute.
@@ -201,7 +210,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__TYPE = 7;
+	int EVENT__TYPE = 8;
 
 	/**
 	 * The feature id for the '<em><b>Sub Event Logic</b></em>' attribute.
@@ -210,7 +219,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__SUB_EVENT_LOGIC = 8;
+	int EVENT__SUB_EVENT_LOGIC = 9;
 
 	/**
 	 * The feature id for the '<em><b>Related EMV2 Object</b></em>' reference.
@@ -219,7 +228,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT__RELATED_EMV2_OBJECT = 9;
+	int EVENT__RELATED_EMV2_OBJECT = 10;
 
 	/**
 	 * The number of structural features of the '<em>Event</em>' class.
@@ -228,7 +237,7 @@ public interface FaultTreePackage extends EPackage {
 	 * @generated
 	 * @ordered
 	 */
-	int EVENT_FEATURE_COUNT = 10;
+	int EVENT_FEATURE_COUNT = 11;
 
 	/**
 	 * The number of operations of the '<em>Event</em>' class.
@@ -435,6 +444,17 @@ public interface FaultTreePackage extends EPackage {
 	EReference getEvent_RelatedEMV2Object();
 
 	/**
+	 * Returns the meta object for the reference '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedErrorType <em>Related Error Type</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the reference '<em>Related Error Type</em>'.
+	 * @see org.osate.aadl2.errormodel.FaultTree.Event#getRelatedErrorType()
+	 * @see #getEvent()
+	 * @generated
+	 */
+	EReference getEvent_RelatedErrorType();
+
+	/**
 	 * Returns the meta object for enum '{@link org.osate.aadl2.errormodel.FaultTree.EventType <em>Event Type</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -608,6 +628,14 @@ public interface FaultTreePackage extends EPackage {
 		 * @generated
 		 */
 		EReference EVENT__RELATED_EMV2_OBJECT = eINSTANCE.getEvent_RelatedEMV2Object();
+
+		/**
+		 * The meta object literal for the '<em><b>Related Error Type</b></em>' reference feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		EReference EVENT__RELATED_ERROR_TYPE = eINSTANCE.getEvent_RelatedErrorType();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.aadl2.errormodel.FaultTree.EventType <em>Event Type</em>}' enum.
