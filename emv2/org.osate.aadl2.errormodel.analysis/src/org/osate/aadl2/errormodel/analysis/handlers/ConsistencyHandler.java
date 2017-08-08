@@ -71,10 +71,10 @@ import org.osate.xtext.aadl2.errormodel.errorModel.OutgoingPropagationCondition;
 import org.osate.xtext.aadl2.errormodel.errorModel.SConditionElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.SubcomponentElement;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
+import org.osate.xtext.aadl2.errormodel.legacy.AnalysisModel;
+import org.osate.xtext.aadl2.errormodel.legacy.PropagationPathRecord;
 import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
-import org.osate.xtext.aadl2.errormodel.util.PropagationPathRecord;
 
 /**
  * Also, this class implement the following consistency rule from

@@ -1,4 +1,4 @@
-package org.osate.xtext.aadl2.errormodel.util;
+package org.osate.xtext.aadl2.errormodel.legacy;
 
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.ConnectionInstance;

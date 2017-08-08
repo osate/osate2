@@ -31,7 +31,7 @@
  * under the contract clause at 252.227.7013.
  * </copyright>
  */
-package org.osate.xtext.aadl2.errormodel.util;
+package org.osate.xtext.aadl2.errormodel.legacy;
 
 import java.util.Collection;
 
@@ -50,6 +50,8 @@ import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSink;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeSet;
 import org.osate.xtext.aadl2.errormodel.errorModel.TypeToken;
+import org.osate.xtext.aadl2.errormodel.util.EM2TypeSetUtil;
+import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
 /**
  * @author phf
