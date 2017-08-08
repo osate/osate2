@@ -3,8 +3,9 @@
 package org.osate.aadl2.errormodel.FaultTree;
 
 import org.eclipse.emf.common.util.EList;
-
 import org.eclipse.emf.ecore.EObject;
+import org.osate.aadl2.NamedElement;
+import org.osate.aadl2.instance.InstanceObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -20,10 +21,11 @@ import org.eclipse.emf.ecore.EObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEvents <em>Sub Events</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getK <em>K</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability <em>Probability</em>}</li>
- *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedObject <em>Related Object</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedInstanceObject <em>Related Instance Object</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getReferenceCount <em>Reference Count</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEventLogic <em>Sub Event Logic</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedEMV2Object <em>Related EMV2 Object</em>}</li>
  * </ul>
  *
  * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent()
@@ -153,30 +155,30 @@ public interface Event extends EObject {
 	void setProbability(double value);
 
 	/**
-	 * Returns the value of the '<em><b>Related Object</b></em>' reference.
+	 * Returns the value of the '<em><b>Related Instance Object</b></em>' reference.
 	 * <!-- begin-user-doc -->
 	 * <p>
-	 * If the meaning of the '<em>Related Object</em>' reference isn't clear,
+	 * If the meaning of the '<em>Related Instance Object</em>' reference isn't clear,
 	 * there really should be more of a description here...
 	 * </p>
 	 * <!-- end-user-doc -->
-	 * @return the value of the '<em>Related Object</em>' reference.
-	 * @see #setRelatedObject(EObject)
-	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_RelatedObject()
+	 * @return the value of the '<em>Related Instance Object</em>' reference.
+	 * @see #setRelatedInstanceObject(InstanceObject)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_RelatedInstanceObject()
 	 * @model
 	 * @generated
 	 */
-	EObject getRelatedObject();
+	InstanceObject getRelatedInstanceObject();
 
 	/**
-	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedObject <em>Related Object</em>}' reference.
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedInstanceObject <em>Related Instance Object</em>}' reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @param value the new value of the '<em>Related Object</em>' reference.
-	 * @see #getRelatedObject()
+	 * @param value the new value of the '<em>Related Instance Object</em>' reference.
+	 * @see #getRelatedInstanceObject()
 	 * @generated
 	 */
-	void setRelatedObject(EObject value);
+	void setRelatedInstanceObject(InstanceObject value);
 
 	/**
 	 * Returns the value of the '<em><b>Reference Count</b></em>' attribute.
@@ -262,5 +264,31 @@ public interface Event extends EObject {
 	 * @generated
 	 */
 	void setSubEventLogic(LogicOperation value);
+
+	/**
+	 * Returns the value of the '<em><b>Related EMV2 Object</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Related EMV2 Object</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Related EMV2 Object</em>' reference.
+	 * @see #setRelatedEMV2Object(NamedElement)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_RelatedEMV2Object()
+	 * @model
+	 * @generated
+	 */
+	NamedElement getRelatedEMV2Object();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedEMV2Object <em>Related EMV2 Object</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Related EMV2 Object</em>' reference.
+	 * @see #getRelatedEMV2Object()
+	 * @generated
+	 */
+	void setRelatedEMV2Object(NamedElement value);
 
 } // Event

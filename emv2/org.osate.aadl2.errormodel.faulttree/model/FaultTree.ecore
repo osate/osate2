@@ -16,11 +16,13 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="k" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="1"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="probability" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedObject" eType="ecore:EClass http://www.eclipse.org/emf/2002/Ecore#//EObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedInstanceObject"
+        eType="ecore:EClass ../../org.osate.aadl2/model/instance.ecore#//InstanceObject"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceCount" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
         defaultValueLiteral="0"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//EventType"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="subEventLogic" eType="#//LogicOperation"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relatedEMV2Object" eType="ecore:EClass ../../org.osate.aadl2/model/aadl2.ecore#//NamedElement"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="EventType">
     <eLiterals name="Basic"/>
