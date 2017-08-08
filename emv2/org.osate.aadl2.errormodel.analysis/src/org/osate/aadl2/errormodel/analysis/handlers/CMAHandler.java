@@ -47,7 +47,7 @@ import org.osate.ui.dialogs.Dialog;
 import org.osate.ui.handlers.AaxlReadOnlyHandlerAsJob;
 import org.osate.xtext.aadl2.errormodel.errorModel.EMV2PropertyAssociation;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
-import org.osate.xtext.aadl2.errormodel.util.AnalysisModel;
+import org.osate.xtext.aadl2.errormodel.legacy.AnalysisModel;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Properties;
 import org.osate.xtext.aadl2.errormodel.util.EMV2Util;
 
