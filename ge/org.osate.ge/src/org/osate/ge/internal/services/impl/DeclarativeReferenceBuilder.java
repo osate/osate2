@@ -10,11 +10,17 @@ package org.osate.ge.internal.services.impl;
 
 import java.util.List;
 import javax.inject.Named;
+
+import org.eclipse.emf.common.util.EList;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.Classifier;
+import org.osate.aadl2.ComponentImplementation;
+import org.osate.aadl2.ComponentType;
 import org.osate.aadl2.Connection;
+import org.osate.aadl2.DefaultAnnexLibrary;
+import org.osate.aadl2.DefaultAnnexSubclause;
 import org.osate.aadl2.Element;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.FlowSpecification;
@@ -35,6 +41,9 @@ import org.osate.annexsupport.AnnexUtil;
 import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.model.SubprogramCallOrder;
 import org.osate.ge.services.ReferenceBuilderService;
+
+import com.google.common.collect.Lists;
+
 import org.osate.ge.di.Names;
 import org.osate.ge.di.BuildCanonicalReference;
 import org.osate.ge.di.BuildRelativeReference;
@@ -276,7 +285,17 @@ public class DeclarativeReferenceBuilder {
 	 * @param annexLibrary
 	 * @return
 	 */
-	private int getAnnexLibraryIndex(final AnnexLibrary annexLibrary) {
+	private int getAnnexLibraryIndex(AnnexLibrary annexLibrary) {
+		// Get the default annex library if a parsed annex library was specified. This is needed for the comparison later in the function.
+		if(!(annexLibrary instanceof DefaultAnnexLibrary)) {
+			if(annexLibrary.eContainer() instanceof DefaultAnnexLibrary) {
+				annexLibrary = (AnnexLibrary)annexLibrary.eContainer();
+			}
+			else {
+				return -1;
+			}
+		}
+		
 		final String annexName = annexLibrary.getName();
 		if(annexName == null) {
 			return -1;
@@ -304,27 +323,49 @@ public class DeclarativeReferenceBuilder {
 	
 	/**
 	 * Returns a 0 based index for referencing an annex subclause in a list that contains only annex subclauses with the same type and owner
-	 * @param annexLibrary
 	 * @return
 	 */
-	private int getAnnexSubclauseIndex(final AnnexSubclause annexSubclause) {
+	private int getAnnexSubclauseIndex(AnnexSubclause annexSubclause) {
+		// Get the default annex library if a parsed annex subclause was specified. This is needed for the comparison later in the function.
+		if(!(annexSubclause instanceof DefaultAnnexSubclause)) {
+			if(annexSubclause.eContainer() instanceof DefaultAnnexSubclause) {
+				annexSubclause = (AnnexSubclause)annexSubclause.eContainer();
+			}
+			else {
+				return -1;
+			}
+		}
+		
 		final String annexName = annexSubclause.getName();
 		if(annexName == null) {
 			return -1;
 		}
 		
-		// Get the Classifier
-		final Classifier classifier = annexSubclause.getContainingClassifier();
-				
+		System.err.println(annexSubclause.eContainer());
+		
+		// Get all related classifiers
+		final Classifier cl = annexSubclause.getContainingClassifier();
+		final EList<Classifier> classifiers = cl.getSelfPlusAllExtended();
+		if (cl instanceof ComponentImplementation) {
+			ComponentType ct = ((ComponentImplementation) cl).getType();
+			final EList<Classifier> tclassifiers = ct.getSelfPlusAllExtended();
+			classifiers.addAll(tclassifiers);
+		}
+		
 		int index = 0;
-		for(final AnnexSubclause tmpSubclause : classifier.getOwnedAnnexSubclauses()) {
-			if(tmpSubclause == annexSubclause) {
-				return index;
-			} else if(annexName.equalsIgnoreCase(tmpSubclause.getName())) {
-				index++;
+		
+		// Use reversed view of list so that base classifiers will be first. This is needed to ensure subclauses have unique indices
+		for (final Classifier tmpClassifier : Lists.reverse(classifiers)) { 
+			for(final AnnexSubclause tmpSubclause : tmpClassifier.getOwnedAnnexSubclauses()) {
+				//System.err.println(tmpSubclause + " : " + annexSubclause);
+				if(tmpSubclause == annexSubclause) {
+					return index;
+				} else if(annexName.equalsIgnoreCase(tmpSubclause.getName())) {
+					index++;
+				}
 			}
 		}
-
+		
 		return -1;
 	}
 }
