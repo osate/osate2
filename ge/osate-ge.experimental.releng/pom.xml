@@ -9,16 +9,16 @@
 	<version>0.0.1-SNAPSHOT</version>
 	
 	<properties>
-		<tycho.version>0.24.0</tycho.version>
-		<tycho-extras.version>0.24.0</tycho-extras.version>
+		<tycho.version>1.0.0</tycho.version>
+		<tycho-extras.version>1.0.0</tycho-extras.version>
 
 		<osate.stable.version>2.2.1</osate.stable.version>
 		<xtext.stable.version>2.8.4</xtext.stable.version>
 		<emft.stable.version>2.8.1</emft.stable.version>
 		<xsemantics.stable.version>1.8.1</xsemantics.stable.version>
-		<xtext.testing.version>2.11.0</xtext.testing.version>
-		<emft.testing.version>2.8.1</emft.testing.version>
-		<xsemantics.version>1.11.0</xsemantics.version>
+		<xtext.testing.version>2.12.0</xtext.testing.version>
+		<emft.testing.version>2.9.0</emft.testing.version>
+		<xsemantics.version>1.12.1</xsemantics.version>
 
 		<osate.stable.url>http://www.aadl.info/aadl/osate/stable/${osate.stable.version}/update-site/</osate.stable.url>
 		<eclipse.stable.url>http://download.eclipse.org/releases/mars/201602261000</eclipse.stable.url>
