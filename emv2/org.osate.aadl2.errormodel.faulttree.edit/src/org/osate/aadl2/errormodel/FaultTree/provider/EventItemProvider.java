@@ -57,10 +57,11 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 			addSubEventsPropertyDescriptor(object);
 			addKPropertyDescriptor(object);
 			addProbabilityPropertyDescriptor(object);
-			addRelatedObjectPropertyDescriptor(object);
+			addRelatedInstanceObjectPropertyDescriptor(object);
 			addReferenceCountPropertyDescriptor(object);
 			addTypePropertyDescriptor(object);
 			addSubEventLogicPropertyDescriptor(object);
+			addRelatedEMV2ObjectPropertyDescriptor(object);
 		}
 		return itemPropertyDescriptors;
 	}
@@ -72,12 +73,19 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addNamePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_name_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_name_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__NAME, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_name_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_name_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__NAME,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -87,13 +95,19 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addDescriptionPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_description_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_description_feature",
-								"_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__DESCRIPTION, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_description_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_description_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__DESCRIPTION,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -103,12 +117,19 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addSubEventsPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_subEvents_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_subEvents_feature",
-								"_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__SUB_EVENTS, true, false, true, null, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_subEvents_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_subEvents_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__SUB_EVENTS,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -118,12 +139,19 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addKPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_k_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_k_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__K, true, false, false,
-						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_k_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_k_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__K,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -133,28 +161,41 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addProbabilityPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_probability_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_probability_feature",
-								"_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__PROBABILITY, true, false, false,
-						ItemPropertyDescriptor.REAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_probability_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_probability_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__PROBABILITY,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.REAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
-	 * This adds a property descriptor for the Related Object feature.
+	 * This adds a property descriptor for the Related Instance Object feature.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	protected void addRelatedObjectPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_relatedObject_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedObject_feature",
-								"_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__RELATED_OBJECT, true, false, true, null, null, null));
+	protected void addRelatedInstanceObjectPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_relatedInstanceObject_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedInstanceObject_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__RELATED_INSTANCE_OBJECT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
@@ -164,13 +205,19 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addReferenceCountPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_referenceCount_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_referenceCount_feature",
-								"_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__REFERENCE_COUNT, true, false, false,
-						ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_referenceCount_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_referenceCount_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__REFERENCE_COUNT,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.INTEGRAL_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -180,12 +227,19 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addTypePropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_type_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_type_feature", "_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__TYPE, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_type_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_type_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__TYPE,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
 	}
 
 	/**
@@ -195,20 +249,48 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 * @generated
 	 */
 	protected void addSubEventLogicPropertyDescriptor(Object object) {
-		itemPropertyDescriptors
-				.add(createItemPropertyDescriptor(((ComposeableAdapterFactory) adapterFactory).getRootAdapterFactory(),
-						getResourceLocator(), getString("_UI_Event_subEventLogic_feature"),
-						getString("_UI_PropertyDescriptor_description", "_UI_Event_subEventLogic_feature",
-								"_UI_Event_type"),
-						FaultTreePackage.Literals.EVENT__SUB_EVENT_LOGIC, true, false, false,
-						ItemPropertyDescriptor.GENERIC_VALUE_IMAGE, null, null));
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_subEventLogic_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_subEventLogic_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__SUB_EVENT_LOGIC,
+				 true,
+				 false,
+				 false,
+				 ItemPropertyDescriptor.GENERIC_VALUE_IMAGE,
+				 null,
+				 null));
+	}
+
+	/**
+	 * This adds a property descriptor for the Related EMV2 Object feature.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	protected void addRelatedEMV2ObjectPropertyDescriptor(Object object) {
+		itemPropertyDescriptors.add
+			(createItemPropertyDescriptor
+				(((ComposeableAdapterFactory)adapterFactory).getRootAdapterFactory(),
+				 getResourceLocator(),
+				 getString("_UI_Event_relatedEMV2Object_feature"),
+				 getString("_UI_PropertyDescriptor_description", "_UI_Event_relatedEMV2Object_feature", "_UI_Event_type"),
+				 FaultTreePackage.Literals.EVENT__RELATED_EMV2_OBJECT,
+				 true,
+				 false,
+				 true,
+				 null,
+				 null,
+				 null));
 	}
 
 	/**
 	 * This returns Event.gif.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
-	 * @generated
+	 * @NOTgenerated
 	 */
 	@Override
 	public Object getImage(Object object) {
@@ -242,9 +324,10 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 	 */
 	@Override
 	public String getText(Object object) {
-		String label = ((Event) object).getName();
-		return label == null || label.length() == 0 ? getString("_UI_Event_type")
-				: getString("_UI_Event_type") + " " + label;
+		String label = ((Event)object).getName();
+		return label == null || label.length() == 0 ?
+			getString("_UI_Event_type") :
+			getString("_UI_Event_type") + " " + label;
 	}
 
 	/**
@@ -259,15 +342,15 @@ public class EventItemProvider extends ItemProviderAdapter implements IEditingDo
 		updateChildren(notification);
 
 		switch (notification.getFeatureID(Event.class)) {
-		case FaultTreePackage.EVENT__NAME:
-		case FaultTreePackage.EVENT__DESCRIPTION:
-		case FaultTreePackage.EVENT__K:
-		case FaultTreePackage.EVENT__PROBABILITY:
-		case FaultTreePackage.EVENT__REFERENCE_COUNT:
-		case FaultTreePackage.EVENT__TYPE:
-		case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
-			fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
-			return;
+			case FaultTreePackage.EVENT__NAME:
+			case FaultTreePackage.EVENT__DESCRIPTION:
+			case FaultTreePackage.EVENT__K:
+			case FaultTreePackage.EVENT__PROBABILITY:
+			case FaultTreePackage.EVENT__REFERENCE_COUNT:
+			case FaultTreePackage.EVENT__TYPE:
+			case FaultTreePackage.EVENT__SUB_EVENT_LOGIC:
+				fireNotifyChanged(new ViewerNotification(notification, notification.getNotifier(), false, true));
+				return;
 		}
 		super.notifyChanged(notification);
 	}
