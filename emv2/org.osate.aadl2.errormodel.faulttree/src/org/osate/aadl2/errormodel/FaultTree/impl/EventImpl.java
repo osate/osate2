@@ -12,12 +12,10 @@ import org.eclipse.emf.ecore.InternalEObject;
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
 import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 import org.eclipse.emf.ecore.util.EObjectResolvingEList;
-import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreePackage;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
-import org.osate.aadl2.instance.InstanceObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -33,6 +31,7 @@ import org.osate.aadl2.instance.InstanceObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getK <em>K</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getProbability <em>Probability</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedInstanceObject <em>Related Instance Object</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getRelatedErrorType <em>Related Error Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getReferenceCount <em>Reference Count</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.impl.EventImpl#getSubEventLogic <em>Sub Event Logic</em>}</li>
@@ -140,7 +139,17 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected InstanceObject relatedInstanceObject;
+	protected EObject relatedInstanceObject;
+
+	/**
+	 * The cached value of the '{@link #getRelatedErrorType() <em>Related Error Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see #getRelatedErrorType()
+	 * @generated
+	 * @ordered
+	 */
+	protected EObject relatedErrorType;
 
 	/**
 	 * The default value of the '{@link #getReferenceCount() <em>Reference Count</em>}' attribute.
@@ -210,7 +219,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * @generated
 	 * @ordered
 	 */
-	protected NamedElement relatedEMV2Object;
+	protected EObject relatedEMV2Object;
 
 	/**
 	 * <!-- begin-user-doc -->
@@ -332,10 +341,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstanceObject getRelatedInstanceObject() {
+	public EObject getRelatedInstanceObject() {
 		if (relatedInstanceObject != null && relatedInstanceObject.eIsProxy()) {
 			InternalEObject oldRelatedInstanceObject = (InternalEObject)relatedInstanceObject;
-			relatedInstanceObject = (InstanceObject)eResolveProxy(oldRelatedInstanceObject);
+			relatedInstanceObject = eResolveProxy(oldRelatedInstanceObject);
 			if (relatedInstanceObject != oldRelatedInstanceObject) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT, oldRelatedInstanceObject, relatedInstanceObject));
@@ -349,7 +358,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public InstanceObject basicGetRelatedInstanceObject() {
+	public EObject basicGetRelatedInstanceObject() {
 		return relatedInstanceObject;
 	}
 
@@ -358,8 +367,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRelatedInstanceObject(InstanceObject newRelatedInstanceObject) {
-		InstanceObject oldRelatedInstanceObject = relatedInstanceObject;
+	public void setRelatedInstanceObject(EObject newRelatedInstanceObject) {
+		EObject oldRelatedInstanceObject = relatedInstanceObject;
 		relatedInstanceObject = newRelatedInstanceObject;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT, oldRelatedInstanceObject, relatedInstanceObject));
@@ -433,10 +442,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement getRelatedEMV2Object() {
-		if (relatedEMV2Object != null && ((EObject)relatedEMV2Object).eIsProxy()) {
+	public EObject getRelatedEMV2Object() {
+		if (relatedEMV2Object != null && relatedEMV2Object.eIsProxy()) {
 			InternalEObject oldRelatedEMV2Object = (InternalEObject)relatedEMV2Object;
-			relatedEMV2Object = (NamedElement)eResolveProxy(oldRelatedEMV2Object);
+			relatedEMV2Object = eResolveProxy(oldRelatedEMV2Object);
 			if (relatedEMV2Object != oldRelatedEMV2Object) {
 				if (eNotificationRequired())
 					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_EMV2_OBJECT, oldRelatedEMV2Object, relatedEMV2Object));
@@ -450,7 +459,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public NamedElement basicGetRelatedEMV2Object() {
+	public EObject basicGetRelatedEMV2Object() {
 		return relatedEMV2Object;
 	}
 
@@ -459,11 +468,49 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public void setRelatedEMV2Object(NamedElement newRelatedEMV2Object) {
-		NamedElement oldRelatedEMV2Object = relatedEMV2Object;
+	public void setRelatedEMV2Object(EObject newRelatedEMV2Object) {
+		EObject oldRelatedEMV2Object = relatedEMV2Object;
 		relatedEMV2Object = newRelatedEMV2Object;
 		if (eNotificationRequired())
 			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_EMV2_OBJECT, oldRelatedEMV2Object, relatedEMV2Object));
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EObject getRelatedErrorType() {
+		if (relatedErrorType != null && relatedErrorType.eIsProxy()) {
+			InternalEObject oldRelatedErrorType = (InternalEObject)relatedErrorType;
+			relatedErrorType = eResolveProxy(oldRelatedErrorType);
+			if (relatedErrorType != oldRelatedErrorType) {
+				if (eNotificationRequired())
+					eNotify(new ENotificationImpl(this, Notification.RESOLVE, FaultTreePackage.EVENT__RELATED_ERROR_TYPE, oldRelatedErrorType, relatedErrorType));
+			}
+		}
+		return relatedErrorType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EObject basicGetRelatedErrorType() {
+		return relatedErrorType;
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public void setRelatedErrorType(EObject newRelatedErrorType) {
+		EObject oldRelatedErrorType = relatedErrorType;
+		relatedErrorType = newRelatedErrorType;
+		if (eNotificationRequired())
+			eNotify(new ENotificationImpl(this, Notification.SET, FaultTreePackage.EVENT__RELATED_ERROR_TYPE, oldRelatedErrorType, relatedErrorType));
 	}
 
 	/**
@@ -487,6 +534,9 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				if (resolve) return getRelatedInstanceObject();
 				return basicGetRelatedInstanceObject();
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				if (resolve) return getRelatedErrorType();
+				return basicGetRelatedErrorType();
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 				return getReferenceCount();
 			case FaultTreePackage.EVENT__TYPE:
@@ -526,7 +576,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				setProbability((Double)newValue);
 				return;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-				setRelatedInstanceObject((InstanceObject)newValue);
+				setRelatedInstanceObject((EObject)newValue);
+				return;
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				setRelatedErrorType((EObject)newValue);
 				return;
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 				setReferenceCount((Integer)newValue);
@@ -538,7 +591,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				setSubEventLogic((LogicOperation)newValue);
 				return;
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-				setRelatedEMV2Object((NamedElement)newValue);
+				setRelatedEMV2Object((EObject)newValue);
 				return;
 		}
 		super.eSet(featureID, newValue);
@@ -568,7 +621,10 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				setProbability(PROBABILITY_EDEFAULT);
 				return;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
-				setRelatedInstanceObject((InstanceObject)null);
+				setRelatedInstanceObject((EObject)null);
+				return;
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				setRelatedErrorType((EObject)null);
 				return;
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 				setReferenceCount(REFERENCE_COUNT_EDEFAULT);
@@ -580,7 +636,7 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				setSubEventLogic(SUB_EVENT_LOGIC_EDEFAULT);
 				return;
 			case FaultTreePackage.EVENT__RELATED_EMV2_OBJECT:
-				setRelatedEMV2Object((NamedElement)null);
+				setRelatedEMV2Object((EObject)null);
 				return;
 		}
 		super.eUnset(featureID);
@@ -606,6 +662,8 @@ public class EventImpl extends MinimalEObjectImpl.Container implements Event {
 				return probability != PROBABILITY_EDEFAULT;
 			case FaultTreePackage.EVENT__RELATED_INSTANCE_OBJECT:
 				return relatedInstanceObject != null;
+			case FaultTreePackage.EVENT__RELATED_ERROR_TYPE:
+				return relatedErrorType != null;
 			case FaultTreePackage.EVENT__REFERENCE_COUNT:
 				return referenceCount != REFERENCE_COUNT_EDEFAULT;
 			case FaultTreePackage.EVENT__TYPE:

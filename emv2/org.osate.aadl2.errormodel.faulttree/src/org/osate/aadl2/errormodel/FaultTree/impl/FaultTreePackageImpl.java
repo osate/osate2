@@ -7,17 +7,13 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.EEnum;
 import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.EReference;
-import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.impl.EPackageImpl;
-import org.osate.aadl2.Aadl2Package;
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.errormodel.FaultTree.EventType;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreeFactory;
 import org.osate.aadl2.errormodel.FaultTree.FaultTreePackage;
 import org.osate.aadl2.errormodel.FaultTree.LogicOperation;
-import org.osate.aadl2.instance.InstancePackage;
-import org.osate.xtext.aadl2.errormodel.errorModel.ErrorModelPackage;
 
 /**
  * <!-- begin-user-doc -->
@@ -99,12 +95,6 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		FaultTreePackageImpl theFaultTreePackage = (FaultTreePackageImpl)(EPackage.Registry.INSTANCE.get(eNS_URI) instanceof FaultTreePackageImpl ? EPackage.Registry.INSTANCE.get(eNS_URI) : new FaultTreePackageImpl());
 
 		isInited = true;
-
-		// Initialize simple dependencies
-		Aadl2Package.eINSTANCE.eClass();
-		EcorePackage.eINSTANCE.eClass();
-		ErrorModelPackage.eINSTANCE.eClass();
-		InstancePackage.eINSTANCE.eClass();
 
 		// Create package meta-data objects
 		theFaultTreePackage.createPackageContents();
@@ -235,15 +225,6 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * @generated
 	 */
 	public EAttribute getEvent_ReferenceCount() {
-		return (EAttribute)eventEClass.getEStructuralFeatures().get(6);
-	}
-
-	/**
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @generated
-	 */
-	public EAttribute getEvent_Type() {
 		return (EAttribute)eventEClass.getEStructuralFeatures().get(7);
 	}
 
@@ -252,7 +233,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
-	public EAttribute getEvent_SubEventLogic() {
+	public EAttribute getEvent_Type() {
 		return (EAttribute)eventEClass.getEStructuralFeatures().get(8);
 	}
 
@@ -261,8 +242,26 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 	 * <!-- end-user-doc -->
 	 * @generated
 	 */
+	public EAttribute getEvent_SubEventLogic() {
+		return (EAttribute)eventEClass.getEStructuralFeatures().get(9);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
 	public EReference getEvent_RelatedEMV2Object() {
-		return (EReference)eventEClass.getEStructuralFeatures().get(9);
+		return (EReference)eventEClass.getEStructuralFeatures().get(10);
+	}
+
+	/**
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 */
+	public EReference getEvent_RelatedErrorType() {
+		return (EReference)eventEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -324,6 +323,7 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		createEAttribute(eventEClass, EVENT__K);
 		createEAttribute(eventEClass, EVENT__PROBABILITY);
 		createEReference(eventEClass, EVENT__RELATED_INSTANCE_OBJECT);
+		createEReference(eventEClass, EVENT__RELATED_ERROR_TYPE);
 		createEAttribute(eventEClass, EVENT__REFERENCE_COUNT);
 		createEAttribute(eventEClass, EVENT__TYPE);
 		createEAttribute(eventEClass, EVENT__SUB_EVENT_LOGIC);
@@ -357,10 +357,6 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		setNsPrefix(eNS_PREFIX);
 		setNsURI(eNS_URI);
 
-		// Obtain other dependent packages
-		InstancePackage theInstancePackage = (InstancePackage)EPackage.Registry.INSTANCE.getEPackage(InstancePackage.eNS_URI);
-		Aadl2Package theAadl2Package = (Aadl2Package)EPackage.Registry.INSTANCE.getEPackage(Aadl2Package.eNS_URI);
-
 		// Create type parameters
 
 		// Set bounds for type parameters
@@ -380,11 +376,12 @@ public class FaultTreePackageImpl extends EPackageImpl implements FaultTreePacka
 		initEReference(getEvent_SubEvents(), this.getEvent(), null, "subEvents", null, 0, -1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_K(), ecorePackage.getEInt(), "k", "1", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Probability(), ecorePackage.getEDouble(), "probability", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEvent_RelatedInstanceObject(), theInstancePackage.getInstanceObject(), null, "relatedInstanceObject", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvent_RelatedInstanceObject(), ecorePackage.getEObject(), null, "relatedInstanceObject", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvent_RelatedErrorType(), ecorePackage.getEObject(), null, "relatedErrorType", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_ReferenceCount(), ecorePackage.getEInt(), "referenceCount", "0", 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_Type(), this.getEventType(), "type", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getEvent_SubEventLogic(), this.getLogicOperation(), "subEventLogic", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
-		initEReference(getEvent_RelatedEMV2Object(), theAadl2Package.getNamedElement(), null, "relatedEMV2Object", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEReference(getEvent_RelatedEMV2Object(), ecorePackage.getEObject(), null, "relatedEMV2Object", null, 0, 1, Event.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_COMPOSITE, IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		// Initialize enums and add enum literals
 		initEEnum(eventTypeEEnum, EventType.class, "EventType");

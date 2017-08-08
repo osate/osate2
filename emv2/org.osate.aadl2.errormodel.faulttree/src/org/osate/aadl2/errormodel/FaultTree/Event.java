@@ -4,8 +4,6 @@ package org.osate.aadl2.errormodel.FaultTree;
 
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.EObject;
-import org.osate.aadl2.NamedElement;
-import org.osate.aadl2.instance.InstanceObject;
 
 /**
  * <!-- begin-user-doc -->
@@ -22,6 +20,7 @@ import org.osate.aadl2.instance.InstanceObject;
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getK <em>K</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getProbability <em>Probability</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedInstanceObject <em>Related Instance Object</em>}</li>
+ *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedErrorType <em>Related Error Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getReferenceCount <em>Reference Count</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getType <em>Type</em>}</li>
  *   <li>{@link org.osate.aadl2.errormodel.FaultTree.Event#getSubEventLogic <em>Sub Event Logic</em>}</li>
@@ -163,12 +162,12 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Related Instance Object</em>' reference.
-	 * @see #setRelatedInstanceObject(InstanceObject)
+	 * @see #setRelatedInstanceObject(EObject)
 	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_RelatedInstanceObject()
 	 * @model
 	 * @generated
 	 */
-	InstanceObject getRelatedInstanceObject();
+	EObject getRelatedInstanceObject();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedInstanceObject <em>Related Instance Object</em>}' reference.
@@ -178,7 +177,7 @@ public interface Event extends EObject {
 	 * @see #getRelatedInstanceObject()
 	 * @generated
 	 */
-	void setRelatedInstanceObject(InstanceObject value);
+	void setRelatedInstanceObject(EObject value);
 
 	/**
 	 * Returns the value of the '<em><b>Reference Count</b></em>' attribute.
@@ -274,12 +273,12 @@ public interface Event extends EObject {
 	 * </p>
 	 * <!-- end-user-doc -->
 	 * @return the value of the '<em>Related EMV2 Object</em>' reference.
-	 * @see #setRelatedEMV2Object(NamedElement)
+	 * @see #setRelatedEMV2Object(EObject)
 	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_RelatedEMV2Object()
 	 * @model
 	 * @generated
 	 */
-	NamedElement getRelatedEMV2Object();
+	EObject getRelatedEMV2Object();
 
 	/**
 	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedEMV2Object <em>Related EMV2 Object</em>}' reference.
@@ -289,6 +288,32 @@ public interface Event extends EObject {
 	 * @see #getRelatedEMV2Object()
 	 * @generated
 	 */
-	void setRelatedEMV2Object(NamedElement value);
+	void setRelatedEMV2Object(EObject value);
+
+	/**
+	 * Returns the value of the '<em><b>Related Error Type</b></em>' reference.
+	 * <!-- begin-user-doc -->
+	 * <p>
+	 * If the meaning of the '<em>Related Error Type</em>' reference isn't clear,
+	 * there really should be more of a description here...
+	 * </p>
+	 * <!-- end-user-doc -->
+	 * @return the value of the '<em>Related Error Type</em>' reference.
+	 * @see #setRelatedErrorType(EObject)
+	 * @see org.osate.aadl2.errormodel.FaultTree.FaultTreePackage#getEvent_RelatedErrorType()
+	 * @model
+	 * @generated
+	 */
+	EObject getRelatedErrorType();
+
+	/**
+	 * Sets the value of the '{@link org.osate.aadl2.errormodel.FaultTree.Event#getRelatedErrorType <em>Related Error Type</em>}' reference.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @param value the new value of the '<em>Related Error Type</em>' reference.
+	 * @see #getRelatedErrorType()
+	 * @generated
+	 */
+	void setRelatedErrorType(EObject value);
 
 } // Event
