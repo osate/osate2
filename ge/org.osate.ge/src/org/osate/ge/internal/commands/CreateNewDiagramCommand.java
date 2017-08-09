@@ -14,7 +14,7 @@ import org.osate.ge.internal.ui.util.EditorUtil;
 public class CreateNewDiagramCommand {
 	@GetLabel
 	public String getLabel() {
-		return "Create New Diagram";
+		return "Create New Diagram...";
 	}
 
 	@IsAvailable
