@@ -350,6 +350,9 @@ public class DiagramConfigurationDialog {
 		    // Set the input for the tree
 		    treeViewer.setInput(businessObjectTree);
 		    
+		    // Expand the root element
+		    treeViewer.expandToLevel(2);
+		    
 		    // Set the initial selection
 		    if(initialSelectionBoPath != null) {
 		    	setSelection(initialSelectionBoPath);

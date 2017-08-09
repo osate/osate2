@@ -243,7 +243,7 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	}
 
 	public final boolean isDecoration() {
-		return graphicalConfig.isDecoration;
+		return graphicalConfig != null && graphicalConfig.isDecoration;
 	}
 	
 	public final DockArea getDockArea() {

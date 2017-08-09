@@ -253,8 +253,21 @@ public class DefaultDiagramService implements DiagramService {
 		final AgeDiagram diagram = new AgeDiagram();
 		
 		// Build diagram configuration
-		final CanonicalBusinessObjectReference contextBoRef = Objects.requireNonNull(referenceService.getCanonicalReference(contextBo), "Unable to build canonical reference for business object: " + contextBo);
-		diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(contextBoRef).build());			
+		final CanonicalBusinessObjectReference contextBoCanonicalRef = Objects.requireNonNull(referenceService.getCanonicalReference(contextBo), "Unable to build canonical reference for business object: " + contextBo);
+		diagram.setDiagramConfiguration(new DiagramConfigurationBuilder().setContextBoReference(contextBoCanonicalRef).build());			
+
+		// Create a root diagram element for the context which will be set to manual.
+		// This has the benefit that the root element will be checked when the user configures the diagram.
+		final RelativeBusinessObjectReference contextBoRelRef = Objects.requireNonNull(referenceService.getRelativeReference(contextBo), "Unable to build relative reference for business object: " + contextBo);
+		diagram.modify(new DiagramModifier() {			
+			@Override
+			public void modify(final DiagramModification m) {
+				final DiagramElement contextElement = new DiagramElement(diagram, contextBo, null, contextBoRelRef, null);
+				m.setManual(contextElement, true);
+				m.addElement(contextElement);
+			}
+		});
+		
 		
 		final IProject project = Objects.requireNonNull(getProject(contextBo), "Unable to get project for business object: " + contextBo);
 		
