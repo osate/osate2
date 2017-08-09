@@ -1,12 +1,16 @@
 package org.osate.ge.internal.graphiti.features;
 
 import org.eclipse.jface.dialogs.Dialog;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Objects;
 import javax.inject.Inject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.e4.core.contexts.ContextInjectionFactory;
 import org.eclipse.e4.core.contexts.IEclipseContext;
 import org.eclipse.emf.common.util.URI;
@@ -23,9 +27,15 @@ import org.eclipse.ltk.core.refactoring.participants.ProcessorBasedRefactoring;
 import org.eclipse.ltk.core.refactoring.participants.RefactoringProcessor;
 import org.eclipse.ltk.ui.refactoring.RefactoringUI;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.ui.IEditorPart;
+import org.eclipse.ui.IEditorReference;
+import org.eclipse.ui.IWorkbenchPage;
+import org.eclipse.ui.IWorkbenchWindow;
+import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.actions.WorkspaceModifyOperation;
 import org.eclipse.xtext.resource.IResourceServiceProvider;
 import org.eclipse.xtext.resource.XtextResource;
+import org.eclipse.xtext.ui.editor.XtextEditor;
 import org.eclipse.xtext.ui.refactoring.IRenameRefactoringProvider;
 import org.eclipse.xtext.ui.refactoring.impl.AbstractRenameProcessor;
 import org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext;
@@ -154,7 +164,37 @@ public class BoHandlerDirectEditFeature extends AbstractDirectEditingFeature imp
 	public void setValue(final String value, final IDirectEditingContext context) {
 		final DiagramElement de = graphitiService.getGraphitiAgeDiagram().getClosestDiagramElement(context.getPictogramElement());		
     	final Object bo = de.getBusinessObject();
-    	
+
+    	// TODO: Remove when issue regarding Xtext Dirty State has been resolved.
+    	// https://github.com/osate/osate-ge/issues/210
+    	// This works around the issue by saving the resource before trying to refactor.
+    	if(bo instanceof EObject) {
+    		final EObject eObj = (EObject)bo;
+    		if(eObj.eResource() != null) {
+    			// Get the IResource for the current BO
+    			final IResource boRes = ResourcesPlugin.getWorkspace().getRoot().getFile(new Path(eObj.eResource().getURI().toPlatformString(true)));
+    			
+    			// Find and save the edit part
+    			if(boRes != null && PlatformUI.getWorkbench() != null) {
+    				for(final IWorkbenchWindow window : PlatformUI.getWorkbench().getWorkbenchWindows()) {
+	    		    	for(final IWorkbenchPage page : window.getPages()) {
+	    		    		for(final IEditorReference editorRef : page.getEditorReferences()) {
+	    		    			if(editorRef.isDirty()) {
+	    		    				final IEditorPart editorPart = editorRef.getEditor(false);
+	    		    				if(editorPart instanceof XtextEditor) {
+	    		    					final IResource editorRes = ((XtextEditor) editorPart).getResource();
+	    		    					if(boRes.equals(editorRes)) {
+	    		    						page.saveEditor(editorPart, false);
+	    		    					}
+	    		    				}
+	    		    			}
+	    		    		}
+	    		    	}
+    				}
+    			}
+    		}
+    	}
+
     	// Rename the element using LTK
 		final ProcessorBasedRefactoring renameRefactoring = getRenameRefactoring(bo);
 		final RefactoringStatus refactoringStatus = prepareAndCheck(renameRefactoring, value);
