@@ -45,6 +45,8 @@ import org.osate.aadl2.ThreadSubcomponent;
 import org.osate.aadl2.ThreadSubcomponentType;
 import org.osate.aadl2.VirtualBusSubcomponent;
 import org.osate.aadl2.VirtualBusSubcomponentType;
+import org.osate.aadl2.VirtualProcessorSubcomponent;
+import org.osate.aadl2.VirtualProcessorSubcomponentType;
 import org.osate.ge.di.Activate;
 import org.osate.ge.di.GetLabel;
 import org.osate.ge.di.IsAvailable;
@@ -121,6 +123,8 @@ public class SetSubcomponentClassifierCommand {
 			((AbstractSubcomponent)sc).setAbstractSubcomponentType((AbstractSubcomponentType)selectedSubcomponentType);
 		} else if(sc instanceof VirtualBusSubcomponent) {
 			((VirtualBusSubcomponent)sc).setVirtualBusSubcomponentType((VirtualBusSubcomponentType)selectedSubcomponentType);
+		} else if(sc instanceof VirtualProcessorSubcomponent) {
+			((VirtualProcessorSubcomponent)sc).setVirtualProcessorSubcomponentType((VirtualProcessorSubcomponentType)selectedSubcomponentType);
 		} else if(sc instanceof BusSubcomponent) {
 			((BusSubcomponent)sc).setBusSubcomponentType((BusSubcomponentType)selectedSubcomponentType);
 		} else if(sc instanceof ProcessSubcomponent) {
