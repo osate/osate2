@@ -365,38 +365,45 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseConnection(Connection connection) {
-		checkDefiningID(connection);
-		checkReferencesToInternalFeatures(connection);
+		if (connection.getRefined() == null) {
+			checkDefiningID(connection);
+			checkReferencesToInternalFeatures(connection);
+		}
 		checkDirectionOfFeatureGroupMembers(connection);
-
 	}
 
 	@Check(CheckType.FAST)
 	public void casePortConnection(PortConnection connection) {
-		typeCheckPortConnectionEnd(connection.getSource());
-		typeCheckPortConnectionEnd(connection.getDestination());
+		if (connection.getRefined() == null) {
+			typeCheckPortConnectionEnd(connection.getSource());
+			typeCheckPortConnectionEnd(connection.getDestination());
+			checkConnectionDirection(connection);
+			checkPortConnectionEnds(connection);
+			checkAggregateDataPort(connection);
+		}
 		checkPortConnectionClassifiers(connection);
-		checkConnectionDirection(connection);
-		checkPortConnectionEnds(connection);
-		checkAggregateDataPort(connection);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseParameterConnection(ParameterConnection connection) {
-		typeCheckParameterConnectionEnd(connection.getSource());
-		typeCheckParameterConnectionEnd(connection.getDestination());
+		if (connection.getRefined() == null) {
+			typeCheckParameterConnectionEnd(connection.getSource());
+			typeCheckParameterConnectionEnd(connection.getDestination());
+			checkThroughConnection(connection);
+		}
 		checkParameterConnectionClassifiers(connection);
-		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseAccessConnection(AccessConnection connection) {
-		typeCheckAccessConnectionEnd(connection.getSource());
-		typeCheckAccessConnectionEnd(connection.getDestination());
+		if (connection.getRefined() == null) {
+			typeCheckAccessConnectionEnd(connection.getSource());
+			typeCheckAccessConnectionEnd(connection.getDestination());
+			checkAccessConnectionProvidesRequires(connection);
+			checkThroughConnection(connection);
+		}
 		checkAccessConnectionCategory(connection);
-		checkAccessConnectionProvidesRequires(connection);
 		checkAccessConnectionClassifiers(connection);
-		checkThroughConnection(connection);
 	}
 
 	@Check(CheckType.FAST)
@@ -404,11 +411,13 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 		checkFeatureGroupChaining(connection);
 		if (connection.getAllLastSource() instanceof FeatureGroupConnectionEnd
 				&& connection.getAllLastDestination() instanceof FeatureGroupConnectionEnd) {
-			typeCheckFeatureGroupConnectionEnd(connection.getSource());
-			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
-			checkFeatureGroupConnectionDirection(connection);
+			if (connection.getRefined() == null) {
+				typeCheckFeatureGroupConnectionEnd(connection.getSource());
+				typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+				checkFeatureGroupConnectionDirection(connection);
+			}
 			checkFeatureGroupConnectionClassifiers(connection);
-		} else {
+		} else if (connection.getRefined() == null) {
 			typeCheckFeatureConnectionEnd(connection.getSource());
 			typeCheckFeatureConnectionEnd(connection.getDestination());
 			checkConnectionDirection(connection);
@@ -419,15 +428,19 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 	@Check(CheckType.FAST)
 	public void caseFeatureGroupConnection(FeatureGroupConnection connection) {
 		checkFeatureGroupChaining(connection);
-		typeCheckFeatureGroupConnectionEnd(connection.getSource());
-		typeCheckFeatureGroupConnectionEnd(connection.getDestination());
-		checkFeatureGroupConnectionDirection(connection);
+		if (connection.getRefined() == null) {
+			typeCheckFeatureGroupConnectionEnd(connection.getSource());
+			typeCheckFeatureGroupConnectionEnd(connection.getDestination());
+			checkFeatureGroupConnectionDirection(connection);
+		}
 		checkFeatureGroupConnectionClassifiers(connection);
 	}
 
 	@Check(CheckType.FAST)
 	public void caseFlowSpecification(FlowSpecification flow) {
-		checkFlowFeatureDirection(flow);
+		if (flow.getRefined() == null) {
+			checkFlowFeatureDirection(flow);
+		}
 	}
 
 	@Check(CheckType.FAST)
@@ -454,12 +467,14 @@ public class Aadl2JavaValidator extends AbstractAadl2JavaValidator {
 
 	@Check(CheckType.FAST)
 	public void caseEndToEndFlow(EndToEndFlow flow) {
-		typeCheckEndToEndFlowSegments(flow);
-		checkEndToEndFlowSegments(flow);
-		checkFlowConnectionEnds(flow);
-		checkNestedEndToEndFlows(flow);
+		if (flow.getRefined() == null) {
+			typeCheckEndToEndFlowSegments(flow);
+			checkEndToEndFlowSegments(flow);
+			checkFlowConnectionEnds(flow);
+			checkNestedEndToEndFlows(flow);
+			checkSubcomponentFlows(flow);
+		}
 		checkEndToEndFlowModes(flow);
-		checkSubcomponentFlows(flow);
 	}
 
 	@Check(CheckType.FAST)
