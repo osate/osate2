@@ -55,6 +55,8 @@ import org.osate.aadl2.instance.ConnectionInstanceEnd;
 import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstancePackage;
 import org.osate.aadl2.instance.SystemOperationMode;
+import org.osate.aadl2.properties.InvalidModelException;
+import org.osate.aadl2.properties.PropertyAcc;
 
 /**
  * <!-- begin-user-doc -->
@@ -544,6 +546,12 @@ public class ConnectionReferenceImpl extends InstanceObjectImpl implements Conne
 	@Override
 	public List<? extends NamedElement> getInstantiatedObjects() {
 		return Collections.singletonList(getConnection());
+	}
+	
+	@Override
+	public final void getPropertyValueInternal(Property property, PropertyAcc pas, boolean fromInstanceSlaveCall)
+			throws InvalidModelException {
+		//Do nothing because there should be no properties looked up on a ConnectionReference.
 	}
 
 } // ConnectionReferenceImpl
