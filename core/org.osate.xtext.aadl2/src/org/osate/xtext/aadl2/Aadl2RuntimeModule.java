@@ -36,6 +36,7 @@ package org.osate.xtext.aadl2;
 
 import org.eclipse.xtext.builder.EclipseResourceFileSystemAccess2;
 import org.eclipse.xtext.conversion.IValueConverterService;
+import org.eclipse.xtext.documentation.IEObjectDocumentationProvider;
 import org.eclipse.xtext.generator.AbstractFileSystemAccess2;
 import org.eclipse.xtext.generator.IOutputConfigurationProvider;
 import org.eclipse.xtext.linking.lazy.LazyURIEncoder;
@@ -47,15 +48,16 @@ import org.eclipse.xtext.scoping.IScopeProvider;
 import org.eclipse.xtext.scoping.impl.AbstractDeclarativeScopeProvider;
 import org.eclipse.xtext.serializer.ISerializer;
 import org.eclipse.xtext.validation.IConcreteSyntaxValidator;
+import org.osate.xtext.aadl2.documentation.Aadl2DocumentationProvider;
 import org.osate.xtext.aadl2.findReferences.Aadl2ReferenceFinder;
 import org.osate.xtext.aadl2.generator.Aadl2OutputConfigurationProvider;
 import org.osate.xtext.aadl2.parsing.AnnexParserAgent;
 import org.osate.xtext.aadl2.resource.Aadl2DerivedStateComputer;
 import org.osate.xtext.aadl2.resource.persistence.Aadl2ResourceStorageFacade;
+import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.scoping.Aadl2ScopeProvider;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializer;
 import org.osate.xtext.aadl2.serializer.InstanceEnabledSerializerBinding;
-import org.osate.xtext.aadl2.scoping.Aadl2ImportedNamespaceAwareLocalScopeProvider;
 import org.osate.xtext.aadl2.util.Aadl2QualifiedNameFragmentProvider;
 import org.osate.xtext.aadl2.validation.Aadl2ConcreteSyntaxValidator;
 import org.osate.xtext.aadl2.validation.Aadl2NamesAreUniqueValidationHelper;
@@ -170,13 +172,11 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 				.toInstance(Boolean.FALSE);
 	}
 
-	@SuppressWarnings("restriction")
 	@Override
 	public Class<? extends XtextResource> bindXtextResource() {
 		return org.eclipse.xtext.resource.DerivedStateAwareResource.class;
 	}
 
-	@SuppressWarnings("restriction")
 	public Class<? extends IResourceDescription.Manager> bindIResourceDescriptionManager() {
 		return org.eclipse.xtext.resource.DerivedStateAwareResourceDescriptionManager.class;
 	}
@@ -209,5 +209,9 @@ public class Aadl2RuntimeModule extends org.osate.xtext.aadl2.AbstractAadl2Runti
 		super.configure(binder);
 		binder.bind(ISerializer.class).annotatedWith(InstanceEnabledSerializerBinding.class)
 				.to(InstanceEnabledSerializer.class);
+	}
+	
+	public Class<? extends IEObjectDocumentationProvider> bindIEObjectDocumentationProvider() {
+		return Aadl2DocumentationProvider.class;
 	}
 }
