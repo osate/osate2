@@ -61,7 +61,6 @@ public class DefaultGraphitiService implements GraphitiService {
 
 	@Override
 	public AgeDiagram getAgeDiagram() {
-		final GraphitiAgeDiagram graphitiAgeDiagram = getGraphitiAgeDiagram();
-		return graphitiAgeDiagram == null ? null : graphitiAgeDiagram.getAgeDiagram();
+		return ((AgeDiagramBehavior)dtp.getDiagramBehavior()).getAgeDiagram();
 	}
 }

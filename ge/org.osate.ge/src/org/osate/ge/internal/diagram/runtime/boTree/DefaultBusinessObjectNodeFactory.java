@@ -14,6 +14,7 @@ public class DefaultBusinessObjectNodeFactory {
 	}
 	
 	public BusinessObjectNode create(final BusinessObjectNode parent, 
+			final Long id,
 			final Object bo,
 			final boolean manual,
 			final ContentsFilter autoContentsFilter,
@@ -30,9 +31,10 @@ public class DefaultBusinessObjectNodeFactory {
 				throw new RuntimeException("Root nodes must have a null business object");
 			}
 		} else {
+			Objects.requireNonNull(id, "id must not be null");
 			Objects.requireNonNull(bo, "bo must not be null");
 		}
 		
-		return new BusinessObjectNode(parent, relativeReference, bo, manual, autoContentsFilter, completeness);
+		return new BusinessObjectNode(parent, id, relativeReference, bo, manual, autoContentsFilter, completeness);
 	}
 }

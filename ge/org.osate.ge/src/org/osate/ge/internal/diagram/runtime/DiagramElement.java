@@ -12,12 +12,14 @@ import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
+import org.osate.ge.internal.graphics.AgeShape;
 import org.osate.ge.internal.labels.AgeLabelConfiguration;
 import org.osate.ge.internal.query.Queryable;
 
-public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {	
+public class DiagramElement implements DiagramNode, ModifiableDiagramElementContainer, BusinessObjectContext {
 	private final DiagramNode container;
 
+	private Long id;
 	private Object bo;
 	private Object boHandler;
 	private RelativeBusinessObjectReference boRelReference;
@@ -84,6 +86,22 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	@Override
 	public final DiagramElement getByRelativeReference(final RelativeBusinessObjectReference ref) {
 		return children.getByRelativeReference(ref);
+	}
+	
+	public final boolean hasId() {
+		return id != null;
+	}
+	
+	public final Long getId() {
+		return id;
+	}
+	
+	/**
+	 * Intended for use by diagram class and during diagram deserialization.
+	 * @param value
+	 */
+	public final void setId(final long value) {
+		this.id = value;
 	}
 	
 	public final Object getBusinessObject() {
@@ -182,6 +200,15 @@ public class DiagramElement implements DiagramNode, ModifiableDiagramElementCont
 	 */
 	public final void setPositionInternal(final int x, final int y) {
 		this.position = new Point(x, y);
+	}
+	
+	
+	public final boolean isSizeable() {
+		if(graphicalConfig.graphic instanceof AgeShape) {
+			return ((AgeShape)graphicalConfig.graphic).isResizeable();
+		}
+		
+		return false;
 	}
 		
 	public boolean hasSize() {

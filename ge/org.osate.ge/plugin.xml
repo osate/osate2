@@ -816,7 +816,7 @@
              class="org.osate.ge.internal.businessObjectHandlers.TagHandler">
        </handler>
        <handler
-             class="org.osate.ge.internal.businessObjectHandlers.PropertyResultValueHandler">
+             class="org.osate.ge.internal.businessObjectHandlers.PropertyValueGroupHandler">
        </handler>
        <handler
              class="org.osate.ge.internal.businessObjectHandlers.TimingPropertyValueHandler"

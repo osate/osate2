@@ -899,8 +899,7 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			@Override
 			public Diagram loadDiagram(final URI uri) {
 				updateProjectByUri(uri);
-				ageDiagram = new AgeDiagram();
-				DiagramSerialization.read(ageDiagram, uri);
+				ageDiagram = DiagramSerialization.read(uri);
 				
 				// Create an empty Graphiti diagram. It will be updated after in initDiagramTypeProvider() after the diagram type provider is initialized and 
 				// the required services are available.
@@ -1012,6 +1011,10 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 	 */
 	public GraphitiAgeDiagram getGraphitiAgeDiagram() {
 		return graphitiAgeDiagram;
+	}
+	
+	public AgeDiagram getAgeDiagram() {
+		return ageDiagram;
 	}
 
 	private final AgeDiagramEditor getDiagramEditor() {

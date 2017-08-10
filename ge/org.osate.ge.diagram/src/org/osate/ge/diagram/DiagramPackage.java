@@ -163,13 +163,22 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM_ELEMENT__ELEMENT = DiagramPackage.DIAGRAM_NODE__ELEMENT;
 
 	/**
+	 * The feature id for the '<em><b>Id</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM_ELEMENT__ID = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 0;
+
+	/**
 	 * The feature id for the '<em><b>Bo</b></em>' containment reference.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__BO = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 0;
+	public static final int DIAGRAM_ELEMENT__BO = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 1;
 
 	/**
 	 * The feature id for the '<em><b>Manual</b></em>' attribute.
@@ -178,7 +187,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__MANUAL = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 1;
+	public static final int DIAGRAM_ELEMENT__MANUAL = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The feature id for the '<em><b>Auto Contents Filter</b></em>' attribute.
@@ -187,7 +196,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 2;
+	public static final int DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 3;
 
 	/**
 	 * The feature id for the '<em><b>Position</b></em>' containment reference.
@@ -196,7 +205,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 3;
+	public static final int DIAGRAM_ELEMENT__POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 4;
 
 	/**
 	 * The feature id for the '<em><b>Size</b></em>' containment reference.
@@ -205,7 +214,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__SIZE = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 4;
+	public static final int DIAGRAM_ELEMENT__SIZE = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 5;
 
 	/**
 	 * The feature id for the '<em><b>Dock Area</b></em>' attribute.
@@ -214,7 +223,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__DOCK_AREA = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 5;
+	public static final int DIAGRAM_ELEMENT__DOCK_AREA = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 6;
 
 	/**
 	 * The feature id for the '<em><b>Bendpoints</b></em>' containment reference.
@@ -223,7 +232,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__BENDPOINTS = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 6;
+	public static final int DIAGRAM_ELEMENT__BENDPOINTS = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 7;
 
 	/**
 	 * The feature id for the '<em><b>Primary Label Position</b></em>' containment reference.
@@ -232,7 +241,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 7;
+	public static final int DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 8;
 
 	/**
 	 * The number of structural features of the '<em>Element</em>' class.
@@ -241,7 +250,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 8;
+	public static final int DIAGRAM_ELEMENT_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 9;
 
 	/**
 	 * The number of operations of the '<em>Element</em>' class.
@@ -439,6 +448,26 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE = 7;
 
 	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
+	 * @see org.osate.ge.diagram.DiagramPackage#getRelativeBusinessObjectReference()
+	 * @generated
+	 */
+	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE = 8;
+
+	/**
+	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}' class.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @see org.osate.ge.diagram.DiagramConfiguration
+	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
+	 * @generated
+	 */
+	public static final int DIAGRAM_CONFIGURATION = 9;
+
+	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -466,16 +495,6 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int CANONICAL_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = DiagramPackage.REFERENCE_OPERATION_COUNT + 0;
 
 	/**
-	 * The meta object id for the '{@link org.osate.ge.diagram.RelativeBusinessObjectReference <em>Relative Business Object Reference</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.diagram.RelativeBusinessObjectReference
-	 * @see org.osate.ge.diagram.DiagramPackage#getRelativeBusinessObjectReference()
-	 * @generated
-	 */
-	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE = 8;
-
-	/**
 	 * The feature id for the '<em><b>Seg</b></em>' attribute list.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -501,16 +520,6 @@ public class DiagramPackage extends EPackageImpl {
 	 * @ordered
 	 */
 	public static final int RELATIVE_BUSINESS_OBJECT_REFERENCE_OPERATION_COUNT = DiagramPackage.REFERENCE_OPERATION_COUNT + 0;
-
-	/**
-	 * The meta object id for the '{@link org.osate.ge.diagram.DiagramConfiguration <em>Configuration</em>}' class.
-	 * <!-- begin-user-doc -->
-	 * <!-- end-user-doc -->
-	 * @see org.osate.ge.diagram.DiagramConfiguration
-	 * @see org.osate.ge.diagram.DiagramPackage#getDiagramConfiguration()
-	 * @generated
-	 */
-	public static final int DIAGRAM_CONFIGURATION = 9;
 
 	/**
 	 * The feature id for the '<em><b>Enabled Aadl Properties</b></em>' containment reference.
@@ -794,7 +803,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramElement_Bo() {
-		return (EReference)diagramElementEClass.getEStructuralFeatures().get(0);
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(1);
 	}
 
 	/**
@@ -807,7 +816,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getDiagramElement_Manual() {
-		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(1);
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(2);
 	}
 
 	/**
@@ -820,7 +829,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getDiagramElement_AutoContentsFilter() {
-		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(2);
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(3);
 	}
 
 	/**
@@ -833,7 +842,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramElement_Position() {
-		return (EReference)diagramElementEClass.getEStructuralFeatures().get(3);
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(4);
 	}
 
 	/**
@@ -846,7 +855,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramElement_Size() {
-		return (EReference)diagramElementEClass.getEStructuralFeatures().get(4);
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(5);
 	}
 
 	/**
@@ -859,7 +868,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EAttribute getDiagramElement_DockArea() {
-		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(5);
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(6);
 	}
 
 	/**
@@ -872,7 +881,7 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramElement_Bendpoints() {
-		return (EReference)diagramElementEClass.getEStructuralFeatures().get(6);
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(7);
 	}
 
 	/**
@@ -885,8 +894,22 @@ public class DiagramPackage extends EPackageImpl {
 	 * @generated
 	 */
 	public EReference getDiagramElement_PrimaryLabelPosition() {
-		return (EReference)diagramElementEClass.getEStructuralFeatures().get(7);
+		return (EReference)diagramElementEClass.getEStructuralFeatures().get(8);
 	}
+
+	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.DiagramElement#getId <em>Id</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Id</em>'.
+	 * @see org.osate.ge.diagram.DiagramElement#getId()
+	 * @see #getDiagramElement()
+	 * @generated
+	 */
+	public EAttribute getDiagramElement_Id() {
+		return (EAttribute)diagramElementEClass.getEStructuralFeatures().get(0);
+	}
+
 
 	/**
 	 * Returns the meta object for class '{@link org.osate.ge.diagram.Point <em>Point</em>}'.
@@ -1138,6 +1161,7 @@ public class DiagramPackage extends EPackageImpl {
 		createEReference(diagramNodeEClass, DIAGRAM_NODE__ELEMENT);
 
 		diagramElementEClass = createEClass(DIAGRAM_ELEMENT);
+		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__ID);
 		createEReference(diagramElementEClass, DIAGRAM_ELEMENT__BO);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__MANUAL);
 		createEAttribute(diagramElementEClass, DIAGRAM_ELEMENT__AUTO_CONTENTS_FILTER);
@@ -1218,6 +1242,7 @@ public class DiagramPackage extends EPackageImpl {
 		initEReference(getDiagramNode_Element(), theDiagramPackage_1.getDiagramElement(), null, "element", null, 0, -1, DiagramNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagramElementEClass, DiagramElement.class, "DiagramElement", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+		initEAttribute(getDiagramElement_Id(), theXMLTypePackage.getLongObject(), "id", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEReference(getDiagramElement_Bo(), theDiagramPackage_1.getRelativeBusinessObjectReference(), null, "bo", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_Manual(), theXMLTypePackage.getBoolean(), "manual", "false", 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 		initEAttribute(getDiagramElement_AutoContentsFilter(), theXMLTypePackage.getString(), "autoContentsFilter", null, 0, 1, DiagramElement.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1376,6 +1401,14 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference DIAGRAM_ELEMENT__PRIMARY_LABEL_POSITION = eINSTANCE.getDiagramElement_PrimaryLabelPosition();
+
+		/**
+		 * The meta object literal for the '<em><b>Id</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM_ELEMENT__ID = eINSTANCE.getDiagramElement_Id();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ge.diagram.Point <em>Point</em>}' class.

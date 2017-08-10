@@ -82,8 +82,8 @@ import org.osate.ge.internal.diagram.runtime.CanonicalBusinessObjectReference;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
 import org.osate.ge.internal.diagram.runtime.boTree.DefaultBusinessObjectNodeFactory;
-import org.osate.ge.internal.diagram.runtime.boTree.DefaultTreeExpander;
-import org.osate.ge.internal.diagram.runtime.boTree.TreeExpander;
+import org.osate.ge.internal.diagram.runtime.boTree.DefaultTreeUpdater;
+import org.osate.ge.internal.diagram.runtime.boTree.TreeUpdater;
 import org.osate.ge.internal.diagram.runtime.updating.DefaultDiagramElementGraphicalConfigurationProvider;
 import org.osate.ge.internal.diagram.runtime.updating.DiagramUpdater;
 import org.osate.ge.internal.graphiti.diagram.NodePictogramBiMap;
@@ -107,6 +107,7 @@ import org.osate.ge.internal.services.AadlModificationService;
 import org.osate.ge.internal.services.ExtensionService;
 import org.osate.ge.internal.services.ProjectReferenceService;
 import org.osate.ge.internal.services.ReferenceService;
+import org.osate.ge.services.QueryService;
 
 public class AgeFeatureProvider extends DefaultFeatureProvider {	
 	private IEclipseContext eclipseContext;
@@ -153,7 +154,8 @@ public class AgeFeatureProvider extends DefaultFeatureProvider {
 		
 		// Create the refresh diagram feature
 		final DefaultBusinessObjectNodeFactory nodeFactory = new DefaultBusinessObjectNodeFactory(referenceResolver);
-		final TreeExpander boTreeExpander = new DefaultTreeExpander(graphitiService, extService, referenceResolver, nodeFactory);
+		final QueryService queryService = Objects.requireNonNull(eclipseContext.get(QueryService.class), "unable to retrieve query service");
+		final TreeUpdater boTreeExpander = new DefaultTreeUpdater(graphitiService, extService, referenceResolver, queryService, nodeFactory);
 		deInfoProvider = new DefaultDiagramElementGraphicalConfigurationProvider(referenceResolver, extService);
 		diagramUpdater = new DiagramUpdater(boTreeExpander, deInfoProvider);
 		this.updateDiagramFeature = new UpdateDiagramFeature(this, graphitiService, diagramUpdater);

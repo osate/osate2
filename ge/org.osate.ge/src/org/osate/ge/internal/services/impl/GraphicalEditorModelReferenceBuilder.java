@@ -7,7 +7,7 @@ import javax.inject.Named;
 
 import org.osate.ge.di.BuildRelativeReference;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.model.PropertyResultValue;
+import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.model.Tag;
 
 /**
@@ -16,28 +16,29 @@ import org.osate.ge.internal.model.Tag;
  */
 public class GraphicalEditorModelReferenceBuilder {
 	public final static String TYPE_TAG = "tag";
-	public final static String TYPE_PROPERTY_VALUE = "property_value";
+	public final static String TYPE_PROPERTY_VALUE_GROUP = "pvg";
 	
 	@BuildRelativeReference 
 	public String[] getRelativeReference(final @Named(Names.BUSINESS_OBJECT) Object bo) {	
 		if(bo instanceof Tag) {
 			final Tag uv = (Tag)bo;	
 			return new String[] {TYPE_TAG, uv.key};
-		} else if(bo instanceof PropertyResultValue) {
-			final PropertyResultValue value = (PropertyResultValue)bo;
-			final String propertyName = value.getProperty().getQualifiedName();
+		} else if(bo instanceof PropertyValueGroup) {
+			final PropertyValueGroup pvg = (PropertyValueGroup)bo;
+			final String propertyName = pvg.getProperty().getQualifiedName();
 			if(propertyName == null) {
 				return null;
 			}
 			
 			// Build reference segments
-			final List<String> segments = new ArrayList<>(2 + value.getArrayIndices().size());
-			segments.add(TYPE_PROPERTY_VALUE);
+			final List<String> segments = new ArrayList<>(3);
+			segments.add(TYPE_PROPERTY_VALUE_GROUP);
 			segments.add(propertyName.toLowerCase());
-			for(final Integer idx : value.getArrayIndices()) {
-				segments.add(idx.toString());
-			}
 			
+			if(pvg.getReferenceId() != null) {
+				segments.add(pvg.getReferenceId().toString());				
+			}
+
 			return segments.toArray(new String[segments.size()]);
 		} else {
 			return null;

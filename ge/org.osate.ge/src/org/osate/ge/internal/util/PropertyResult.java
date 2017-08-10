@@ -1,9 +1,14 @@
 package org.osate.ge.internal.util;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
-
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.osate.aadl2.ListValue;
 import org.osate.aadl2.ModalPropertyValue;
 import org.osate.aadl2.NamedElement;
@@ -11,12 +16,15 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.PropertyExpression;
 import org.osate.aadl2.ReferenceValue;
-import org.osate.aadl2.instance.InstanceObject;
 import org.osate.ge.internal.query.Queryable;
 import org.osate.ge.internal.util.AadlPropertyResolver.ProcessedPropertyAssociation;
+import org.osate.ge.services.QueryService;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 
 /**
- * Contains the result of retrieving the value of a property.
+ * Contains the result of retrieving the value of a property for a specified model element.
  *
  */
 public class PropertyResult {
@@ -26,28 +34,7 @@ public class PropertyResult {
 		BINDING_SPECIFIC,
 		UNDEFINED
 	}
-	
-	/**
-	 * Contains the reference value and information regarding the start of the path relative to the Queryable with which it is association. 
-	 *
-	 */
-	public static class ReferenceValueWithContext {
-		public final ReferenceValue referenceValue;
 		
-		/**
-		 * The property association belongs to an ancestor this many levels up from the element the Queryable is associated.
-		 * For example, a value of 1 indicates that the path begins at the parent of the Queryable.
-		 * The first element in the reference value's path will be a sibling of the queryable.
-		 */
-		public final int ownerAncestorLevel;
-		
-		public ReferenceValueWithContext(final ReferenceValue referenceValue, 
-				final int ownerAncestorLevel) {
-			this.referenceValue = referenceValue;
-			this.ownerAncestorLevel = ownerAncestorLevel;
-		}
-	}
-	
 	// An object of this class will either have a non-null value or a reason why the value is null.
 	
 	/**
@@ -67,12 +54,8 @@ public class PropertyResult {
 		this.nullReason = null;
 	}
 			
-	public static PropertyResult getPropertyValue(AadlPropertyResolver qr, final Queryable q, final Property p, final boolean allowDefaultValue, final boolean allowInheritedValue) {
-		return getPropertyValue(qr, q, p, 0, allowDefaultValue, allowInheritedValue);
-	}
-			
 	/**
-	 * 
+	 * Does not include inherited or default values
 	 * @param qr
 	 * @param q
 	 * @param p
@@ -80,13 +63,10 @@ public class PropertyResult {
 	 * is called recursively for inherited properties)
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	private static PropertyResult getPropertyValue(final AadlPropertyResolver qr, 
+	public static PropertyResult getProcessedPropertyValue(final AadlPropertyResolver qr,
+			final QueryService queryService,
 			final Queryable q, 
-			final Property p, 
-			final int ancestorLevelOffset,
-			final boolean allowDefaultValue, 
-			final boolean allowInheritedValue) {
+			final Property p) {
 		// Return null if the business object isn't a named element.
 		final Object bo = q.getBusinessObject();
 		if(!(bo instanceof NamedElement)) {
@@ -98,74 +78,116 @@ public class PropertyResult {
 		if(!namedElement.acceptsProperty(p)) {
 			return null;
 		}
-				
+		
+		// Only look at property associations that are applied to the queryable
+		final Stream<ProcessedPropertyAssociation> completelyProcessedPpas = qr.getProcessedPropertyAssociations(q, p).stream().filter(ppa -> ppa.isCompletelyProcessed());
+		return createPropertyResult((Iterable<ProcessedPropertyAssociation>)completelyProcessedPpas::iterator, q, queryService);
+	}
+
+	public static <T, K, V> Collector<T, ?, ImmutableMap<K,V>> toImmutableMap(
+            Function<? super T, ? extends K> keyMapper,
+            Function<? super T, ? extends V> valueMapper) {
+    return Collector.of(
+               ImmutableMap.Builder<K, V>::new,
+               (b, e) -> b.put(keyMapper.apply(e), valueMapper.apply(e)),
+               (b1, b2) -> b1.putAll(b2.build()),
+               ImmutableMap.Builder::build);
+	}
+
+	/**
+	 * Returns incompletely processed reference property values. Such property values apply to children of the specified queryable.
+	 * @param pr
+	 * @param queryService
+	 * @param q is the queryable for which incompletely processed property values should be retrieved.
+	 * @param p
+	 * @return a mapping whose key describes the child model element to which the property result applies and whose value is the property result.
+	 */
+	public static Map<String, PropertyResult> getIncompletelyProcessedReferencePropertyValues(final AadlPropertyResolver pr, 
+			final QueryService queryService,
+			final Queryable q, 
+			final Property p) {
+		// Return an empty map if the business object isn't a named element.
+		final Object bo = q.getBusinessObject();
+		if(!(bo instanceof NamedElement)) {
+			return Collections.emptyMap();
+		}
+		
+		final Multimap<String, ProcessedPropertyAssociation> elementPathToIncompletelyProcessedPropertyAssociations = 
+				Multimaps.index(pr.getProcessedPropertyAssociations(q, p).stream().filter(ppa -> !ppa.isCompletelyProcessed()).iterator(), 
+				ppa -> ppa.getUnprocessedPathElements().stream().map(pe -> getNonNullName(pe.getNamedElement())).collect(Collectors.joining(".")).toLowerCase());
+		
+		return elementPathToIncompletelyProcessedPropertyAssociations.asMap().entrySet().stream().collect(toImmutableMap(Map.Entry::getKey, 
+				e -> createPropertyResult(e.getValue(), q, queryService)));
+	}
+	
+	private static String getNonNullName(final NamedElement ne) {
+		if(ne == null) {
+			return "";
+		}
+		
+		final String name = ne.getName();
+		if(name == null) {
+			return "";
+		}
+		
+		return name;
+	}
+	
+	/**
+	 * Create a PropertyResult from a collection of processed property associations. 
+	 * @param ppas is the collection of process property associations. All processed property associations must apply to the same model element.
+	 * @param q
+	 * @param queryService
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	private static PropertyResult createPropertyResult(final Iterable<ProcessedPropertyAssociation> ppas,
+			final Queryable q,
+			final QueryService queryService) {
 		// Find the value which isn't tied to a specific array element, mode, or binding
 		Object value = null;
-		for(final ProcessedPropertyAssociation ppa : qr.getProcessedPropertyAssociations(q, p)) {
-			// Only look at property associations that are applied to the queryable
-			if(ppa.isCompletelyProcessed()) {
-				// Check for cases which result in not being able to return the property value
-				if(ppa.hasArrayIndices()) {
-					return new PropertyResult(NullReason.ARRAY_ELEMENT_SPECIFIC);
-				}
-
-				if(ppa.isModal()) {
-					return new PropertyResult(NullReason.MODAL);
-				}
 				
-				if(ppa.isBindingSpecific()) {
-					return new PropertyResult(NullReason.BINDING_SPECIFIC);
-				}
-
-				final PropertyAssociation pa = ppa.propertyAssociation;			
-				for(final ModalPropertyValue mpv : pa.getOwnedValues()) {
-					final Object newValue = convertValue(mpv.getOwnedValue(), ppa.processedAppliedToPathElements+ancestorLevelOffset);
-					if(value != null && newValue instanceof LinkedList) {
-						final LinkedList<Object> valueList = ((LinkedList<Object>)value);
-						
-						// Iterate backwards so we can prepend bindings properly.
-						final List<Object> newList = (List<Object>)newValue;
-						for(int i = newList.size() - 1; i >= 0; i--) {
-							final Object newListElement = newList.get(i);
-							valueList.addFirst(newListElement);
-						}
-					} else {
-						value = newValue;
-					}
-				}
-
-				// Stop determining the value unless appending to a list.
-				if(!pa.isAppend()) {
-					break;
-				}
+		for(ProcessedPropertyAssociation ppa : (Iterable<ProcessedPropertyAssociation>)ppas::iterator) {
+			// Check for cases which result in not being able to return the property value
+			if(ppa.hasArrayIndices()) {
+				return new PropertyResult(NullReason.ARRAY_ELEMENT_SPECIFIC);
 			}
-		}
 
-		if(value == null) {
-			// Handle inherited properties if requested
-			// Don't process inherit for instance objects. The instance model already contains the property associations
-			if(allowInheritedValue && 
-					p.isInherit() && 
-					!(q.getBusinessObject() instanceof InstanceObject)) {
-				final Queryable parent = q.getParent();
-				if(parent != null) {
-					final PropertyResult result = getPropertyValue(qr, parent, p, ancestorLevelOffset+1, allowDefaultValue, allowInheritedValue);
-					if(result != null && result.nullReason != NullReason.UNDEFINED) {
-						return result;
-					}
-				}
+			if(ppa.isModal()) {
+				return new PropertyResult(NullReason.MODAL);
 			}
 			
-			// Use the default value
-			if(allowDefaultValue) {
-				value = convertValue(p.getDefaultValue(), 0);
+			if(ppa.isBindingSpecific()) {
+				return new PropertyResult(NullReason.BINDING_SPECIFIC);
+			}
+
+			final PropertyAssociation pa = ppa.propertyAssociation;			
+			for(final ModalPropertyValue mpv : pa.getOwnedValues()) {
+				final Object newValue = convertValue(queryService, q, mpv.getOwnedValue(), ppa.processedAppliedToPathElements);
+				if(value != null && newValue instanceof LinkedList) {
+					final LinkedList<Object> valueList = ((LinkedList<Object>)value);
+					
+					// Iterate backwards so we can prepend bindings properly.
+					final List<Object> newList = (List<Object>)newValue;
+					for(int i = newList.size() - 1; i >= 0; i--) {
+						final Object newListElement = newList.get(i);
+						valueList.addFirst(newListElement);
+					}
+				} else {
+					value = newValue;
+				}
+			}
+
+			// Stop determining the value unless appending to a list.
+			if(!pa.isAppend()) {
+				break;
 			}
 		}
-
+		
 		return value == null ? new PropertyResult(NullReason.UNDEFINED) : new PropertyResult(value);
 	}
 	
-	private static Object convertValue(final PropertyExpression propertyExpression, final int processedAppliedToPathElements) {
+	private static Object convertValue(final QueryService queryService, final Queryable q, final PropertyExpression propertyExpression, final int processedAppliedToPathElements) {
 		if(propertyExpression == null) {
 			return null;
 		}
@@ -175,14 +197,14 @@ public class PropertyResult {
 			final ListValue lv = (ListValue)propertyExpression;
 			final List<Object> convertedList = new LinkedList<>();
 			for(final PropertyExpression innerExpression : lv.getOwnedListElements()) {
-				final Object innerValue = convertValue(innerExpression, processedAppliedToPathElements);
+				final Object innerValue = convertValue(queryService, q, innerExpression, processedAppliedToPathElements);
 				if(innerValue != null) {
 					convertedList.add(innerValue);
 				}
 			}
 			
 			return convertedList;
-		} else if(propertyExpression instanceof ReferenceValue) {
+		} else if(propertyExpression instanceof ReferenceValue) {			
 			return new ReferenceValueWithContext((ReferenceValue)propertyExpression, processedAppliedToPathElements);
 		} else {
 			return propertyExpression;

@@ -58,6 +58,10 @@ public class AadlPropertyResolver {
 			return appliedToPathElements.size() == processedAppliedToPathElements;
 		}
 		
+		public List<ContainmentPathElement> getUnprocessedPathElements() {
+			return appliedToPathElements.subList(processedAppliedToPathElements, appliedToPathElements.size());
+		}
+		
 		public boolean hasArrayIndices() {
 			for(final ContainmentPathElement e: appliedToPathElements) {
 				if(e.getArrayRanges() != null && e.getArrayRanges().size() > 0) {

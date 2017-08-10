@@ -1,9 +1,10 @@
 package org.osate.ge.internal.util;
 
+import java.util.Comparator;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
@@ -25,11 +26,38 @@ import org.osate.aadl2.StringLiteral;
 import org.osate.aadl2.instance.InstanceReferenceValue;
 import org.osate.aadl2.modelsupport.util.AadlUtil;
 import org.osate.ge.di.Names;
-import org.osate.ge.internal.model.PropertyResultValue;
+import org.osate.ge.internal.model.AgePropertyValue;
+import org.osate.ge.internal.model.PropertyValueGroup;
 import org.osate.ge.internal.query.Queryable;
-import org.osate.ge.internal.util.PropertyResult.ReferenceValueWithContext;
+
+import com.google.common.collect.Ordering;
 
 public class PropertyValueFormatter {
+	private final static Comparator<AgePropertyValue> arrayIndicesComparator = new Comparator<AgePropertyValue>() {
+		@Override
+		public int compare(final AgePropertyValue pv1, final AgePropertyValue pv2) {
+			return compare(pv1.getArrayIndices(), pv2.getArrayIndices(), 0);
+		}
+		
+		private int compare(final List<Integer> list1, final List<Integer> list2, final int index) {
+			if(list1.size() < index) {
+				return -1;
+			}
+			
+			if(list2.size() < index) {
+				return 1;
+			}
+			
+			int result = Integer.compare(list1.get(index), list2.get(index));
+			return result == 0 ? compare(list1, list2, index+1) : result;
+		}		
+	};
+	
+	private static final Comparator<String> caseInsensitiveNullFirstComparator = Ordering.from(String.CASE_INSENSITIVE_ORDER).nullsFirst();
+	private static final Comparator<AgePropertyValue> appliesToComparator = Comparator.comparing((AgePropertyValue pv) -> pv.getAppliesToRef(), caseInsensitiveNullFirstComparator);
+	private static final Comparator<AgePropertyValue> propertyValueComparator = Ordering.from(appliesToComparator).compound(arrayIndicesComparator);
+
+	
 	/**
 	 * 
 	 * @param propertyValueQueryable
@@ -37,29 +65,86 @@ public class PropertyValueFormatter {
 	 * @param expandComplexValues if true values inside of lists and groups will be contained in the result.
 	 * @return
 	 */
-	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) Queryable propertyValueQueryable, 
-			final PropertyResultValue prv, 
+	public static String getUserString(final @Named(Names.BUSINESS_OBJECT_CONTEXT) Queryable pvgQueryable, 
+			final boolean singleLine,
+			final boolean includeOnlyValuesBasedOnCompletelyProcessedAssociations,
+			final boolean includeValues,
+			final boolean includeAppliesTo,
 			final boolean expandComplexValues) {
-		if(propertyValueQueryable == null) {
+		if(pvgQueryable == null || pvgQueryable.getParent() == null) {
 			return "";
 		}
 		
-		final StringBuilder sb = new StringBuilder();
-		sb.append(AadlUtil.getPropertySetElementName(prv.getProperty()));
+		if(!(pvgQueryable.getBusinessObject() instanceof PropertyValueGroup)) {
+			throw new RuntimeException("Queryable business object must be a PropertyValueGroup");
+		}
+		final PropertyValueGroup pvg = (PropertyValueGroup)pvgQueryable.getBusinessObject();
 		
+		final StringBuilder sb = new StringBuilder();
+
+		Stream<AgePropertyValue> propertyValuesStream = pvg.getPropertyValues().stream();
+		if(includeOnlyValuesBasedOnCompletelyProcessedAssociations) {
+			propertyValuesStream = propertyValuesStream.filter(pv -> pv.isBasedOnCompletelyProcessedAssociation());
+		}
+		
+		final List<AgePropertyValue> sortedPropertyValues = propertyValuesStream.
+				sorted(propertyValueComparator).
+				collect(Collectors.toList());
+		
+		if(singleLine && sortedPropertyValues.size() > 1) {
+			sb.append(AadlUtil.getPropertySetElementName(pvg.getProperty()));
+			
+			if(includeValues) {
+				sb.append(": <multiple>");
+			}
+		} else {		
+			final Queryable pvgParentQueryable = pvgQueryable.getParent();
+			for(final AgePropertyValue pv : sortedPropertyValues) {
+				if(sb.length() != 0) {
+					sb.append('\n');
+				}
+				
+				sb.append(AadlUtil.getPropertySetElementName(pvg.getProperty()));
+				appendArrayIndices(sb, pv);
+				
+				if(includeValues) {
+					sb.append(": ");
+					appendPropertyResultValue(sb, pv.getPropertyResult(), pv.getValue(), pvgParentQueryable, expandComplexValues);
+				}
+	
+				// Add applies to
+				if(includeAppliesTo) {
+					if(pv.getAppliesToRef() != null) {
+						sb.append(" applies to ");
+						sb.append(pv.getAppliesToRef());
+					}
+				}
+			}
+		}
+		
+		return sb.toString();
+	}
+	
+	private static void appendArrayIndices(final StringBuilder sb, 
+			final AgePropertyValue pv) {
 		// Append Indices
-		for(final Integer idx : prv.getArrayIndices()) {
+		for(final Integer idx : pv.getArrayIndices()) {
 			sb.append('[');
 			sb.append(idx.intValue()+1);
 			sb.append(']');
 		}
-		sb.append(": ");
-		
-		if(prv.getValue() == null) {
+	}
+	
+	private static void appendPropertyResultValue(final StringBuilder sb, 
+			final PropertyResult pr, 
+			final Object valueToDisplay,
+			final Queryable pvgParentQueryable,
+			final boolean expandComplexValues) {		
+		if(valueToDisplay == null) {
 			// Append explanation for null value
-			if(prv.getPropertyResult().nullReason != null) {
+			if(pr.nullReason != null) {
 				final String nullReasonStr;
-				switch(prv.getPropertyResult().nullReason) {
+				switch(pr.nullReason) {
 				case ARRAY_ELEMENT_SPECIFIC:
 					nullReasonStr = "<array element specific>";
 					break;
@@ -80,10 +165,8 @@ public class PropertyValueFormatter {
 				sb.append(nullReasonStr);
 			}
 		} else {
-			appendPropertyValue(propertyValueQueryable, prv.getValue(), expandComplexValues, sb);
+			appendPropertyValue(pvgParentQueryable, valueToDisplay, expandComplexValues, sb);
 		}
-		
-		return sb.toString();
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -173,7 +256,7 @@ public class PropertyValueFormatter {
 				final ReferenceValueWithContext rv = (ReferenceValueWithContext)value;
 				
 				Queryable tmp = q;
-				for(int i = 0; i < rv.ownerAncestorLevel; i++) {
+				for(int i = 0; i < rv.propertyAssociationOwnerAncestorLevel; i++) {
 					tmp = tmp.getParent();
 					if(tmp == null) {
 						return;

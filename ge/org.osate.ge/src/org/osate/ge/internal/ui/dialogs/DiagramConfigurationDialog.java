@@ -72,6 +72,7 @@ public class DiagramConfigurationDialog {
 		Map<String, Collection<String>> getAadlProperties();
 		Object getBusinessObject(CanonicalBusinessObjectReference ref);
 		Image getImage(Object bo);
+		long getNewNodeId();
 		
 		/**
 		 * 
@@ -502,7 +503,7 @@ public class DiagramConfigurationDialog {
 					final RelativeBusinessObjectReference childRef = model.getRelativeBusinessObjectReference(childBo);
 					// Create a child node if it doesn't exist
 					if(node.getChild(childRef) == null) {
-						new BusinessObjectNode(node, childRef, childBo, false, model.getDefaultContentsFilter(childBo), Completeness.UNKNOWN);
+						new BusinessObjectNode(node, model.getNewNodeId(), childRef, childBo, false, model.getDefaultContentsFilter(childBo), Completeness.UNKNOWN);
 					}
 				}
 				populatedNodes.add(node);
@@ -665,6 +666,11 @@ public class DiagramConfigurationDialog {
 				return !bo.equals("C3");
 			}
 			
+			@Override
+			public long getNewNodeId() {
+				return -1;
+			}
+			
 			@Override 
 			public Image getImage(final Object bo) {
 				return null;
@@ -678,11 +684,11 @@ public class DiagramConfigurationDialog {
 				build();
 
 		// Create a test business object tree
-	    final BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, false, null, Completeness.UNKNOWN);
-	    new BusinessObjectNode(rootNode, new RelativeBusinessObjectReference("A"), "A", false, null, Completeness.UNKNOWN);
-	    new BusinessObjectNode(rootNode, new RelativeBusinessObjectReference("B"), "B", true, null, Completeness.UNKNOWN);
-	    new BusinessObjectNode(rootNode, new RelativeBusinessObjectReference("C"), "C", true, null, Completeness.UNKNOWN);
-	    new BusinessObjectNode(rootNode, new RelativeBusinessObjectReference("D"), "D", true, null, Completeness.UNKNOWN);	    
+	    final BusinessObjectNode rootNode = new BusinessObjectNode(null, null, null, null, false, null, Completeness.UNKNOWN);
+	    new BusinessObjectNode(rootNode, 0L, new RelativeBusinessObjectReference("A"), "A", false, null, Completeness.UNKNOWN);
+	    new BusinessObjectNode(rootNode, 1L, new RelativeBusinessObjectReference("B"), "B", true, null, Completeness.UNKNOWN);
+	    new BusinessObjectNode(rootNode, 2L, new RelativeBusinessObjectReference("C"), "C", true, null, Completeness.UNKNOWN);
+	    new BusinessObjectNode(rootNode, 3L, new RelativeBusinessObjectReference("D"), "D", true, null, Completeness.UNKNOWN);	    
 		
 	    // Show the dialog
 		final Result result = DiagramConfigurationDialog.show(null, model, diagramConfig, rootNode, new Object[] { "A", "C1", "C2", "C4"});

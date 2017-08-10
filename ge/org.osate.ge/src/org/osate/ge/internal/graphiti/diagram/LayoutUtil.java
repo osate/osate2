@@ -296,7 +296,9 @@ class LayoutUtil {
 		final int innerBottom = lm.getInnerBottom();
 		shapeGa.setWidth(innerRight + lm.rightOuterPadding);
 		shapeGa.setHeight(innerBottom + lm.bottomOuterPadding);
-		element.setSizeInternal(shapeGa.getWidth(), shapeGa.getHeight()); // The element should be updated with the size, but notifications should not be sent.
+		if(element.isSizeable()) {
+			element.setSizeInternal(shapeGa.getWidth(), shapeGa.getHeight()); // The element should be updated with the size, but notifications should not be sent.
+		}
 
 		// Position docked shapes
 		for(final Entry<DockArea, List<Shape>> dockAreaToShapesEntry : dockAreaToShapesMap.entrySet()) {

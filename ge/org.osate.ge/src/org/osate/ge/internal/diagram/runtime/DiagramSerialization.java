@@ -26,8 +26,7 @@ public class DiagramSerialization {
 		}
 	};
 	
-	public static void read(final AgeDiagram ageDiagram,
-			final URI uri) {
+	public static AgeDiagram read(final URI uri) {
 		Objects.requireNonNull(uri, "uri must not be null");
 		
 		// Load the resource
@@ -40,6 +39,9 @@ public class DiagramSerialization {
 			}
 			
 			final org.osate.ge.diagram.Diagram mmDiagram = (org.osate.ge.diagram.Diagram)resource.getContents().get(0);
+			
+			// Set the id which should be used for new diagram elements.
+			final AgeDiagram ageDiagram = new AgeDiagram(getMaxIdForChildren(mmDiagram)+1);
 			
 			// Read the diagram configuration
 			final DiagramConfigurationBuilder configBuilder = new DiagramConfigurationBuilder(ageDiagram.getConfiguration());
@@ -70,6 +72,8 @@ public class DiagramSerialization {
 					readElements(m, ageDiagram, mmDiagram);
 				}
 			});
+				
+			return ageDiagram;
 		} catch (final IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -88,6 +92,28 @@ public class DiagramSerialization {
 	private static String[] toReferenceSegments(final org.osate.ge.diagram.Reference ref) {
 		return ref == null || ref.getSeg().size() == 0 ? null : ref.getSeg().toArray(new String[ref.getSeg().size()]);
 	}
+	
+	private static long getMaxIdForChildren(final org.osate.ge.diagram.DiagramNode dn) {
+		long max = -1;
+
+		// Check children
+		for(final org.osate.ge.diagram.DiagramElement child : dn.getElement()) {
+			max = Math.max(getMaxId(child), max);
+		}
+		
+		return max;
+	}	
+
+	private static long getMaxId(final org.osate.ge.diagram.DiagramElement de) {
+		long max = -1;
+		if(de.getId() != null) {
+			max = Math.max(max, de.getId());
+		}
+		
+		max = Math.max(max, getMaxIdForChildren(de));
+		
+		return max;
+	}	
 	
 	private static void readElements(final DiagramModification m, 
 			final DiagramNode container, 
@@ -108,6 +134,12 @@ public class DiagramSerialization {
 		
 		final RelativeBusinessObjectReference relReference = new RelativeBusinessObjectReference(refSegs);
 		final DiagramElement newElement = new DiagramElement(container, null, null, relReference, null);
+		
+		// Set the ID
+		if(mmChild.getId() != null) {
+			newElement.setId(mmChild.getId().intValue());
+		}
+		
 		final String autoContentsFilterId = mmChild.getAutoContentsFilter();
 		if(autoContentsFilterId != null) {
 			final BuiltinContentsFilter autoContentsFilter = BuiltinContentsFilter.getById(autoContentsFilterId);
@@ -197,9 +229,8 @@ public class DiagramSerialization {
 	 * @param elements
 	 */
 	private static void convertElementsToMetamodel(final org.osate.ge.diagram.DiagramNode mmContainer, Collection<DiagramElement> elements) {
-		// Filter out decorations which don't have applicable fields set. For example non-moveable decorators.
 		// Sort elements to ensure a consistent ordering after serialization
-		elements = elements.stream().filter(e -> !e.isDecoration() || e.hasPosition()).sorted(elementComparator).collect(Collectors.toList());
+		elements = elements.stream().sorted(elementComparator).collect(Collectors.toList());
 
 		if(elements.size() > 0) {
 			for(final DiagramElement e : elements) {
@@ -213,11 +244,17 @@ public class DiagramSerialization {
 		final org.osate.ge.diagram.DiagramElement newElement = new org.osate.ge.diagram.DiagramElement();
 		mmContainer.getElement().add(newElement);
 		
+		// Set ID
+		if(e.hasId()) {
+			newElement.setId(e.getId());
+		}
+		
 		newElement.setBo(e.getRelativeReference() == null ? null : e.getRelativeReference().toMetamodel());
 		if(e.getAutoContentsFilter() != null) {
 			newElement.setAutoContentsFilter(e.getAutoContentsFilter().id());
 		}
 		
+		//if(e.isDecoration()) {
 		if(e.isManual()) {
 			newElement.setManual(true);
 		}
