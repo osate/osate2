@@ -899,7 +899,13 @@ public class AgeDiagramBehavior extends DiagramBehavior implements GraphitiAgeDi
 			@Override
 			public Diagram loadDiagram(final URI uri) {
 				updateProjectByUri(uri);
-				ageDiagram = DiagramSerialization.read(uri);
+				final org.osate.ge.diagram.Diagram mmDiagram = DiagramSerialization.readMetaModelDiagram(uri);				
+				ageDiagram = DiagramSerialization.createAgeDiagram(mmDiagram);
+				
+				// Display warning if the diagram is stored with a newer version of the diagram file format.
+				if(mmDiagram.getFormatVersion() > DiagramSerialization.FORMAT_VERSION) {
+					MessageDialog.openWarning(Display.getCurrent().getActiveShell(), "Diagram Created with Newer Version of OSATE", "The diagram '" + uri.lastSegment() + "' was created with a newer version of the OSATE. Saving the diagram with the running version of OSATE may result in the loss of diagram information.");
+				}
 				
 				// Create an empty Graphiti diagram. It will be updated after in initDiagramTypeProvider() after the diagram type provider is initialized and 
 				// the required services are available.

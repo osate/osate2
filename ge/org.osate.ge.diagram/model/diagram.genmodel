@@ -12,6 +12,7 @@
     <genClasses ecoreClass="diagram.ecore#//Diagram">
       <genFeatures property="None" children="true" createChild="true" propertyCategory=""
           propertyDescription="" ecoreFeature="ecore:EReference diagram.ecore#//Diagram/config"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Diagram/formatVersion"/>
     </genClasses>
     <genClasses ecoreClass="diagram.ecore#//DiagramNode">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramNode/element"/>
@@ -56,6 +57,7 @@
       <genClasses ecoreClass="diagram.ecore#//Diagram">
         <genFeatures property="None" children="true" createChild="true" propertyCategory=""
             propertyDescription="" ecoreFeature="ecore:EReference diagram.ecore#//Diagram/config"/>
+        <genFeatures createChild="false" ecoreFeature="ecore:EAttribute diagram.ecore#//Diagram/formatVersion"/>
       </genClasses>
       <genClasses ecoreClass="diagram.ecore#//DiagramNode">
         <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference diagram.ecore#//DiagramNode/element"/>

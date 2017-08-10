@@ -99,13 +99,22 @@ public class DiagramPackage extends EPackageImpl {
 	public static final int DIAGRAM__CONFIG = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 0;
 
 	/**
+	 * The feature id for the '<em><b>Format Version</b></em>' attribute.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @generated
+	 * @ordered
+	 */
+	public static final int DIAGRAM__FORMAT_VERSION = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 1;
+
+	/**
 	 * The number of structural features of the '<em>Diagram</em>' class.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
 	 * @generated
 	 * @ordered
 	 */
-	public static final int DIAGRAM_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 1;
+	public static final int DIAGRAM_FEATURE_COUNT = DiagramPackage.DIAGRAM_NODE_FEATURE_COUNT + 2;
 
 	/**
 	 * The number of operations of the '<em>Diagram</em>' class.
@@ -757,6 +766,20 @@ public class DiagramPackage extends EPackageImpl {
 	}
 
 	/**
+	 * Returns the meta object for the attribute '{@link org.osate.ge.diagram.Diagram#getFormatVersion <em>Format Version</em>}'.
+	 * <!-- begin-user-doc -->
+	 * <!-- end-user-doc -->
+	 * @return the meta object for the attribute '<em>Format Version</em>'.
+	 * @see org.osate.ge.diagram.Diagram#getFormatVersion()
+	 * @see #getDiagram()
+	 * @generated
+	 */
+	public EAttribute getDiagram_FormatVersion() {
+		return (EAttribute)diagramEClass.getEStructuralFeatures().get(1);
+	}
+
+
+	/**
 	 * Returns the meta object for class '{@link org.osate.ge.diagram.DiagramNode <em>Node</em>}'.
 	 * <!-- begin-user-doc -->
 	 * <!-- end-user-doc -->
@@ -1156,6 +1179,7 @@ public class DiagramPackage extends EPackageImpl {
 		// Create classes and their features
 		diagramEClass = createEClass(DIAGRAM);
 		createEReference(diagramEClass, DIAGRAM__CONFIG);
+		createEAttribute(diagramEClass, DIAGRAM__FORMAT_VERSION);
 
 		diagramNodeEClass = createEClass(DIAGRAM_NODE);
 		createEReference(diagramNodeEClass, DIAGRAM_NODE__ELEMENT);
@@ -1237,6 +1261,7 @@ public class DiagramPackage extends EPackageImpl {
 		// Initialize classes, features, and operations; add parameters
 		initEClass(diagramEClass, Diagram.class, "Diagram", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDiagram_Config(), theDiagramPackage_1.getDiagramConfiguration(), null, "config", null, 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+		initEAttribute(getDiagram_FormatVersion(), theXMLTypePackage.getInt(), "formatVersion", "0", 0, 1, Diagram.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
 		initEClass(diagramNodeEClass, DiagramNode.class, "DiagramNode", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
 		initEReference(getDiagramNode_Element(), theDiagramPackage_1.getDiagramElement(), null, "element", null, 0, -1, DiagramNode.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1309,6 +1334,14 @@ public class DiagramPackage extends EPackageImpl {
 		 * @generated
 		 */
 		public static final EReference DIAGRAM__CONFIG = eINSTANCE.getDiagram_Config();
+
+		/**
+		 * The meta object literal for the '<em><b>Format Version</b></em>' attribute feature.
+		 * <!-- begin-user-doc -->
+		 * <!-- end-user-doc -->
+		 * @generated
+		 */
+		public static final EAttribute DIAGRAM__FORMAT_VERSION = eINSTANCE.getDiagram_FormatVersion();
 
 		/**
 		 * The meta object literal for the '{@link org.osate.ge.diagram.DiagramNode <em>Node</em>}' class.
