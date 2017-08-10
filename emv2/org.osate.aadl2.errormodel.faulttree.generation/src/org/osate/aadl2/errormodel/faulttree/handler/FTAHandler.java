@@ -41,11 +41,11 @@ import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.Feature;
 import org.osate.aadl2.errormodel.faulttree.generation.CreateFTAModel;
+import org.osate.aadl2.errormodel.faulttree.util.SiriusUtil;
 import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
-import org.osate.sirius.SiriusViewUtil;
 import org.osate.ui.dialogs.Dialog;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorPropagation;
@@ -134,14 +134,12 @@ public final class FTAHandler extends AbstractHandler {
 			URI newURI = CreateFTAModel.createModel(target, ERROR_STATE_NAME, TRANSFORM, GRAPH, MINCUTSET);
 			if (newURI != null) {
 				if (MINCUTSET) {
-					SiriusViewUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
-							"Minimal Cutset");
+					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
+							"FaultTree", "MinimalCutSetTable", "Minimal Cutset");
 					return Status.OK_STATUS;
 				} else {
-					SiriusViewUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "GraphicFaultTree",
-							"Fault Tree");
+					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
+							"FaultTree", "GraphicFaultTree", "Fault Tree");
 					return Status.OK_STATUS;
 				}
 			}

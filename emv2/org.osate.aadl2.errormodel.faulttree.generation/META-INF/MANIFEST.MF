@@ -11,7 +11,9 @@ Require-Bundle: org.eclipse.ui,
  org.osate.aadl2.modelsupport,
  org.osate.ui;bundle-version="1.0.0",
  org.eclipse.sirius,
- org.osate.sirius,
- org.osate.aadl2.errormodel.propagationgraph
+ org.osate.aadl2.errormodel.propagationgraph,
+ org.eclipse.sirius.ui,
+ org.eclipse.emf.transaction;bundle-version="1.9.0",
+ org.eclipse.sirius.ext.base;bundle-version="5.0.1"
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Bundle-ActivationPolicy: lazy
