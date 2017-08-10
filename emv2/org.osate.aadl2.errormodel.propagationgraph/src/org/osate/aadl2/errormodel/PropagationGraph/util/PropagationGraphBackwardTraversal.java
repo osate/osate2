@@ -13,7 +13,7 @@ import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPath;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationPathEnd;
 import org.osate.aadl2.instance.ComponentInstance;
-import org.osate.aadl2.instance.util.InstanceUtil;
+import org.osate.aadl2.instance.ConnectionInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.AllExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.AndExpression;
 import org.osate.xtext.aadl2.errormodel.errorModel.BranchValue;
@@ -495,8 +495,7 @@ public class PropagationGraphBackwardTraversal {
 			if (ppr.getConnection() != null) {
 				ConnectionErrorSource ces = EMV2Util.findConnectionErrorSourceForConnection(ppr.getConnection());
 				if (ces != null && EM2TypeSetUtil.contains(ces.getTypeTokenConstraint(), type)) {
-					EObject result = processConnectionErrorSource(
-							InstanceUtil.findConnectionContext(ppr.getConnection(), ces.getConnection()), ces, type);
+					EObject result = processConnectionErrorSource(ppr.getConnection(), ces, type);
 					if (result != null) {
 						subResults.add(result);
 					}
@@ -622,7 +621,7 @@ public class PropagationGraphBackwardTraversal {
 	 * @param typeTokenConstraint
 	 * @return EObject (can be null)
 	 */
-	protected EObject processConnectionErrorSource(ComponentInstance component, ConnectionErrorSource errorSource,
+	protected EObject processConnectionErrorSource(ConnectionInstance component, ConnectionErrorSource errorSource,
 			ErrorTypes typeTokenConstraint) {
 //		OsateDebug.osateDebug("processErrorSource " + component.getName() + " error source " + errorSource.getName());
 		return null;
