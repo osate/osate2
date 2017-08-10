@@ -41,8 +41,11 @@ public class Services {
 	public String ProbabilityToString(EObject context) {
 		if (context instanceof Event) {
 			double val = ((Event) context).getProbability();
-			String name = ((Event) context).getName();
-			return String.format("%1$s\n(%2$.3E)", name, val);
+			String labeltext = ((Event) context).getDescription();
+			if (labeltext == null || labeltext.isEmpty()) {
+				labeltext = ((Event) context).getName();
+			}
+			return String.format("%1$s\n(%2$.3E)", labeltext, val);
 		}
 		return "";
 	}

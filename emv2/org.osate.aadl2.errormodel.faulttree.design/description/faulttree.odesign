@@ -122,7 +122,7 @@
           </style>
         </nodeMappings>
         <edgeMappings name="SubBoxtLink" sourceMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@nodeMappings[name='EventBox']" targetMapping="//@ownedViewpoints[name='FaultTree']/@ownedRepresentations[name='IconicFaultTree']/@defaultLayer/@nodeMappings[name='EventBox']" targetFinderExpression="feature:subEvents">
-          <style sizeComputationExpression="2" routingStyle="tree" endsCentering="Both">
+          <style sizeComputationExpression="2" routingStyle="tree">
             <strokeColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>
             <centerLabelStyleDescription>
               <labelColor xsi:type="description:SystemColor" href="environment:/viewpoint#//@systemColors/@entries[name='black']"/>

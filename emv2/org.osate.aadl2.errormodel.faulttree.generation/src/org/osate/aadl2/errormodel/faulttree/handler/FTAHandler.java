@@ -135,11 +135,13 @@ public final class FTAHandler extends AbstractHandler {
 			if (newURI != null) {
 				if (MINCUTSET) {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"FaultTree", "MinimalCutSetTable", "Minimal Cutset");
+							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "MinimalCutSetTable",
+							"Minimal Cutset");
 					return Status.OK_STATUS;
 				} else {
 					SiriusUtil.INSTANCE.autoOpenModel(newURI, ResourceUtil.getFile(si.eResource()).getProject(),
-							"FaultTree", "GraphicFaultTree", "Fault Tree");
+							"viewpoint:/org.osate.aadl2.errormodel.faulttree.design/FaultTree", "IconicFaultTree",
+							"Fault Tree");
 					return Status.OK_STATUS;
 				}
 			}
