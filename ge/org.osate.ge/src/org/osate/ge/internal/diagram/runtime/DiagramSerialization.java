@@ -10,6 +10,7 @@ import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.osate.ge.diagram.Diagram;
 import org.osate.ge.internal.DockArea;
 
@@ -33,7 +34,7 @@ public class DiagramSerialization {
 		final ResourceSet rs = new ResourceSetImpl();
 		final Resource resource = rs.createResource(uri);
 		try {
-			resource.load(Collections.emptyMap());
+			resource.load(Collections.singletonMap(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, true));
 			if(resource.getContents().size() == 0 || !(resource.getContents().get(0) instanceof org.osate.ge.diagram.Diagram)) {
 				throw new RuntimeException("Unable to load diagram.");
 			}
