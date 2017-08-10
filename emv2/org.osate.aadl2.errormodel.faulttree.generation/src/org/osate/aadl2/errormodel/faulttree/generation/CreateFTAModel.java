@@ -1,6 +1,5 @@
 package org.osate.aadl2.errormodel.faulttree.generation;
 
-import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
@@ -8,7 +7,6 @@ import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.xtext.ui.util.ResourceUtil;
 import org.osate.aadl2.errormodel.FaultTree.FaultTree;
 import org.osate.aadl2.errormodel.PropagationGraph.PropagationGraph;
 import org.osate.aadl2.errormodel.PropagationGraph.util.Util;
@@ -86,15 +84,14 @@ public class CreateFTAModel {
 			URI newURI = EcoreUtil.getURI(selection).trimFragment().trimSegments(1).appendSegment("reports")
 					.appendSegment("fta").appendSegment(rootname + ".faulttree");
 			AadlUtil.makeSureFoldersExist(new Path(newURI.toPlatformString(true)));
-			URI ftauri = serializeEmftaModel(ftamodel, newURI,
-					ResourceUtil.getFile(selection.eResource()).getProject());
+			URI ftauri = serializeEmftaModel(ftamodel, newURI);
 			return ftauri;
 		} else {
 			return null;
 		}
 	}
 
-	private static URI serializeEmftaModel(FaultTree emftaModel, final URI newURI, final IProject activeProject) {
+	private static URI serializeEmftaModel(FaultTree emftaModel, final URI newURI) {
 
 		try {
 			ResourceSet set = new ResourceSetImpl();

@@ -3,6 +3,8 @@ package org.osate.aadl2.errormodel.FaultTree.util;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.errormodel.FaultTree.Event;
 import org.osate.aadl2.instance.ComponentInstance;
+import org.osate.aadl2.instance.ConnectionInstance;
+import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.instance.SystemInstance;
 import org.osate.xtext.aadl2.errormodel.errorModel.ConnectionErrorSource;
 import org.osate.xtext.aadl2.errormodel.errorModel.ErrorBehaviorState;
@@ -24,18 +26,19 @@ public class FaultTreeUtils {
 	 * @param errorModelArtifact    - the EMV2 artifact (error event, error propagation, etc)
 	 * @param type               - the type set (null if none)
 	 */
-	public static void fillProperties(Event event, ComponentInstance component, NamedElement errorModelArtifact,
-			ErrorTypes type, double scale) {
-		String propertyDescription;
-		propertyDescription = EMV2Properties.getDescription(errorModelArtifact, component);
 
-		if (propertyDescription == null) {
-			event.setDescription(getDescription(component, errorModelArtifact, type));
+	public static void fillProperties(Event event, InstanceObject io, NamedElement ne, ErrorTypes type, double scale) {
+		String propertyDescription;
+		propertyDescription = EMV2Properties.getDescription(ne, io);
+
+		if (propertyDescription == null && io instanceof ComponentInstance) {
+			event.setDescription(getDescription((ComponentInstance) io, ne, type));
 		} else {
-			event.setDescription(propertyDescription + "(component " + component.getName() + ")");
+			event.setDescription(propertyDescription + "(connection "
+					+ ((ConnectionErrorSource) ne).getConnection().getName() + ")");
 		}
 
-		event.setProbability(EMV2Properties.getProbability(component, errorModelArtifact, type) * scale);
+		event.setProbability(EMV2Properties.getProbability(io, ne, type) * scale);
 	}
 
 	public static void fillProperties(Event event, ComponentInstance component, NamedElement errorModelArtifact,
@@ -44,22 +47,12 @@ public class FaultTreeUtils {
 	}
 
 	public static void fillProperties(Event event, ComponentInstance component, ConnectionErrorSource ces,
-			ErrorTypes type, double scale) {
-		String propertyDescription;
-		propertyDescription = EMV2Properties.getDescription(ces, component);
-
-		if (propertyDescription == null) {
-			event.setDescription(getDescription(component, ces, type));
-		} else {
-			event.setDescription(propertyDescription + "(connection " + ces.getConnection().getName() + ")");
-		}
-
-		event.setProbability(EMV2Properties.getProbability(component, ces, type) * scale);
-	}
-
-	public static void fillProperties(Event event, ComponentInstance component, ConnectionErrorSource ces,
 			ErrorTypes type) {
 		fillProperties(event, component, ces, type, 1);
+	}
+
+	public static void fillProperties(Event event, ConnectionInstance conni, NamedElement ces, ErrorTypes type) {
+		fillProperties(event, conni, ces, type, 1);
 	}
 
 	public static String getDescription(ComponentInstance component, NamedElement errorModelArtifact, ErrorTypes type) {

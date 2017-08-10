@@ -226,6 +226,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		ftaModel.getEvents().add(newEvent);
 		newEvent.setName(name);
 		newEvent.setType(EventType.BASIC);
+		newEvent.setRelatedInstanceObject(component);
+		newEvent.setRelatedEMV2Object(namedElement);
+		newEvent.setRelatedErrorType(type);
+		FaultTreeUtils.fillProperties(newEvent, component, namedElement, type);
 		return newEvent;
 	}
 
@@ -238,6 +242,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		ftaModel.getEvents().add(newEvent);
 		newEvent.setName(name);
 		newEvent.setType(EventType.BASIC);
+		newEvent.setRelatedInstanceObject(conni);
+		newEvent.setRelatedEMV2Object(namedElement);
+		newEvent.setRelatedErrorType(type);
+		FaultTreeUtils.fillProperties(newEvent, conni, namedElement, type);
 		return newEvent;
 	}
 
@@ -257,6 +265,10 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		ftaModel.getEvents().add(newEvent);
 		newEvent.setName(name);
 		newEvent.setType(EventType.INTERMEDIATE);
+		newEvent.setRelatedInstanceObject(component);
+		newEvent.setRelatedEMV2Object(namedElement);
+		newEvent.setRelatedErrorType(type);
+		FaultTreeUtils.fillProperties(newEvent, component, namedElement, type);
 		return newEvent;
 	}
 
@@ -1080,10 +1092,11 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 	}
 
 	@Override
-	protected EObject processConnectionErrorSource(ComponentInstance component, ConnectionErrorSource errorSource,
+	protected EObject processConnectionErrorSource(ConnectionInstance conni, ConnectionErrorSource errorSource,
 			ErrorTypes typeTokenConstraint) {
-		Event newEvent = this.createBasicEvent(component, errorSource, typeTokenConstraint);
-		FaultTreeUtils.fillProperties(newEvent, component, errorSource, typeTokenConstraint);
+		// InstanceUtil.findConnectionContext(ppr.getConnection(), ces.getConnection())
+		Event newEvent = this.createBasicEvent(conni, errorSource, typeTokenConstraint);
+		FaultTreeUtils.fillProperties(newEvent, conni, errorSource, typeTokenConstraint);
 		return newEvent;
 	}
 
@@ -1096,7 +1109,6 @@ public class FTAGenerator extends PropagationGraphBackwardTraversal {
 		} else {
 			res.setType(EventType.UNDEVELOPED);
 		}
-		res.setDescription(FaultTreeUtils.getDescription(component, incoming, type));
 		FaultTreeUtils.fillProperties(res, component, incoming, type);
 		return res;
 	}
