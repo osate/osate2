@@ -79,7 +79,7 @@
 	</target>
 	
     <target name="build_api_docs">
-        <javadoc access="public" additionalparam="-tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:' -tag 'category:a:Category:'" author="true" 
+        <javadoc access="public" additionalparam="-notimestamp -tag 'noimplement:a:No Implement:' -tag 'noextend:a:No Extend:' -tag 'noreference:a:No Reference:' -tag 'noinstantiate:a:No Instantiate:' -tag 'nooverride:a:No Override:' -tag 'category:a:Category:'" author="true" 
         	destdir="api" 
         	doctitle="OSATE Graphical Editor API Reference" 
         	nodeprecated="false" 

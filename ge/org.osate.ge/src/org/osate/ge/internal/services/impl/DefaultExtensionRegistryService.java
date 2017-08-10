@@ -215,7 +215,7 @@ public class DefaultExtensionRegistryService implements ExtensionRegistryService
 		return extensions;
 	}
 	
-	// Extensions with a lower priority vlaues are sorted so that they are earlier in the resulting collection
+	// Extensions with a lower priority values are sorted so that they are earlier in the resulting collection
 	private static Collection<Object> instantiatePrioritizedExtensions(final IExtensionRegistry registry, 
 			final String extensionPointId, 
 			final String elementName) {

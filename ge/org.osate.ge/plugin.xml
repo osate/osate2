@@ -11,6 +11,7 @@
    <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
+	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
 	   <command 
 	   		id="org.osate.ge.commands.open.diagram.from.navigator"
 			name="Open Diagram" 
@@ -18,7 +19,7 @@
 		</command>
 			   <command 
 	   		id="org.osate.ge.commands.create.diagram.from.navigator"
-			name="Create Diagram" 
+			name="Create Diagram..." 
 			description="Create Diagram">
 		</command>
    </extension>
@@ -26,10 +27,13 @@
    <extension point="org.eclipse.ui.menus">
 		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
+			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
 		</menuContribution>
 		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
+			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
 		</menuContribution>
+		
        <menuContribution
             locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.aadl2.instance.ui.generateTextualInstance">
          <command
@@ -46,7 +50,7 @@
          
          <command
              commandId="org.osate.ge.commands.create.diagram.from.navigator"
-             label="Create Diagram"
+             label="Create Diagram..."
              tooltip="Create Diagram" 
              style="push">
           <visibleWhen>

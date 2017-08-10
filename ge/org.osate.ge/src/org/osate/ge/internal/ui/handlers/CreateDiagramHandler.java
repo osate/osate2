@@ -11,6 +11,7 @@ package org.osate.ge.internal.ui.handlers;
 import org.eclipse.core.commands.AbstractHandler;
 import org.eclipse.core.commands.ExecutionEvent;
 import org.eclipse.core.commands.ExecutionException;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.ui.PlatformUI;
@@ -19,14 +20,15 @@ import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.services.DiagramService;
+import org.osate.ge.internal.ui.util.EditorUtil;
 import org.osate.ge.internal.ui.util.SelectionHelper;
 import org.osate.ge.internal.util.Log;
 
 /**
- * Handler for the open diagram menu commands
+ * Handler for create diagram menu commands
  *
  */
-public class OpenDiagramHandler extends AbstractHandler {
+public class CreateDiagramHandler extends AbstractHandler {
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		try {
@@ -34,19 +36,27 @@ public class OpenDiagramHandler extends AbstractHandler {
 
 			// Determine the classifier
 			final Classifier classifier = getSelectedClassifier();
+			IFile diagramFile = null;
 			if(classifier == null) {
 				//Open top level even when element is not selected
 				final AadlPackage pkg = getSelectedPackage();
-				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-				diagramService.openOrCreateDiagramForBusinessObject(pkg);
+				if(pkg != null) {
+					final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
+					diagramFile = diagramService.createDiagram(pkg);
+				}
 			} else {
 				final DiagramService diagramService = (DiagramService)PlatformUI.getWorkbench().getActiveWorkbenchWindow().getService(DiagramService.class);
-				diagramService.openOrCreateDiagramForBusinessObject(classifier);
+				diagramFile = diagramService.createDiagram(classifier);
 			}
+			
+			if(diagramFile != null) {
+				EditorUtil.openEditor(diagramFile, true);
+			}
+			
 			Log.ok(getClass().getSimpleName() + " Finished");
 		} catch(RuntimeException e) {
-			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Error opening diagram: " + e.getMessage());
-			Log.error("Error opening diagram", e);
+			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(), Activator.PLUGIN_ID, "Error creating diagram: " + e.getMessage());
+			Log.error("Error creating diagram", e);
 			throw e;
 		}
 		

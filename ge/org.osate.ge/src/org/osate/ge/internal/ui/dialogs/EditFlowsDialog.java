@@ -799,9 +799,7 @@ public class EditFlowsDialog extends TitleAreaDialog {
 	private List<FlowEnd> getPotentialFlowEnds(final FlowEnd flowSpecFlowEnd) {
 		final List<FlowEnd> flowEnds = new ArrayList<>();
 		flowEnds.add(flowSpecFlowEnd);
-		// TODO: Create others
-		
-		// TODO: Consider getting the feature group...
+
 		if(flowSpecFlowEnd.getContext() == null && flowSpecFlowEnd.getFeature() instanceof FeatureGroup) {
 			final FeatureGroup fg = (FeatureGroup)flowSpecFlowEnd.getFeature();
 			final FeatureGroupType fgt = fg.getAllFeatureGroupType();

@@ -68,7 +68,7 @@ public class PropertyResult {
 			final Queryable q, 
 			final Property p) {
 		// Return null if the business object isn't a named element.
-		final Object bo = q.getBusinessObject();
+		Object bo = q.getBusinessObject();
 		if(!(bo instanceof NamedElement)) {
 			return null;
 		}

@@ -18,6 +18,7 @@ import org.osate.aadl2.Property;
 import org.osate.aadl2.PropertyAssociation;
 import org.osate.aadl2.RefinableElement;
 import org.osate.aadl2.Subcomponent;
+import org.osate.aadl2.instance.ConnectionReference;
 import org.osate.aadl2.instance.InstanceObject;
 import org.osate.aadl2.properties.PropertyAcc;
 import org.osate.ge.internal.query.Queryable;
@@ -167,7 +168,8 @@ public class AadlPropertyResolver {
 		
 		// Add local property associations to the collection if it does not include them already.
 		if(!ppas.includesLocalProperties) {
-			final Object bo = q.getBusinessObject();
+			Object bo = q.getBusinessObject();
+			bo = bo instanceof ConnectionReference ? ((ConnectionReference)bo).eContainer() : bo; // Use the connection instance instead of the connection reference.
 			if(bo instanceof NamedElement) {
 				final NamedElement ne = (NamedElement)bo;
 				final PropertyAcc pas = new PropertyAcc(property);

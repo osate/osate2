@@ -48,6 +48,15 @@ public class FlowIndicatorBuilder {
 	}
 	
 	/**
+	 * Configures the connection builder to create a dotted connection.
+	 * @return this builder to allow method chaining.
+	 */
+	public FlowIndicatorBuilder dotted() {
+		this.lineStyle = LineStyle.DOTTED;
+		return this;
+	}
+	
+	/**
 	 * Creates a flow indicator based on the current state of the builder.
 	 * @return the newly created graphic
 	 */

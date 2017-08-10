@@ -1,11 +1,10 @@
 package org.osate.ge.internal.tooltips;
 
 import javax.inject.Named;
-
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.Label;
 import org.eclipse.xtext.nodemodel.INode;
 import org.eclipse.xtext.nodemodel.util.NodeModelUtils;
 import org.osate.aadl2.Connection;
@@ -43,7 +42,7 @@ public class AadlSourceTooltipContributor {
 			return;
 		}
 		
-		final Text text = new Text(parent, SWT.NONE);
-		text.setText(txt);
+		final Label lbl = new Label(parent, SWT.NONE);
+		lbl.setText(txt);
 	}
 }
