@@ -7,6 +7,8 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.eclipse.swt.widgets.Display;
 import org.osate.ge.internal.AgeGraphicalConfiguration;
 import org.osate.ge.internal.DockArea;
 import org.osate.ge.internal.diagram.runtime.boTree.Completeness;
@@ -21,6 +23,7 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 	private final List<DiagramModificationListener> modificationListeners = new CopyOnWriteArrayList<>();
 	private DiagramConfiguration diagramConfiguration;
 	private final DiagramElementCollection elements = new DiagramElementCollection();
+	private DiagramTransactionHandler transactionHandler;
 	
 	public AgeDiagram() {
 		this.diagramConfiguration = new DiagramConfiguration(null, Collections.emptySet());
@@ -70,10 +73,29 @@ public class AgeDiagram implements DiagramNode, ModifiableDiagramElementContaine
 		this.modificationListeners.remove(Objects.requireNonNull(listener, "listener must not be null"));
 	}
 	
+	public void setTransactionHandler(final DiagramTransactionHandler value) {
+		if(transactionHandler != null && value != null) {
+			throw new RuntimeException("Transaction handler already set");
+		}
+		this.transactionHandler = value;
+	}
+	
 	public void modify(final DiagramModifier modifier) {
-		final AgeDiagramModification m = new AgeDiagramModification();
-		modifier.modify(m);
-		m.completeModification();
+		final Runnable runnable = new Runnable() {			
+			@Override
+			public void run() {
+				final AgeDiagramModification m = new AgeDiagramModification();
+				modifier.modify(m);
+				m.completeModification();
+			}
+		};
+
+		if(transactionHandler != null) {
+			transactionHandler.modify("TODO", runnable);
+		} else {
+			runnable.run();
+		}
+		
 	}
 	
 	@Override

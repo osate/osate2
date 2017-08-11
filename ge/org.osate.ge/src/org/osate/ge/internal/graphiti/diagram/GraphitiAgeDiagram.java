@@ -39,9 +39,11 @@ import org.eclipse.graphiti.util.IColorConstant;
 import org.osate.ge.graphics.Graphic;
 import org.osate.ge.internal.diagram.runtime.AgeDiagram;
 import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.diagram.runtime.DiagramModification;
 import org.osate.ge.internal.diagram.runtime.DiagramModificationListener;
 import org.osate.ge.internal.diagram.runtime.DiagramModifier;
 import org.osate.ge.internal.diagram.runtime.DiagramNode;
+import org.osate.ge.internal.diagram.runtime.DiagramTransactionHandler;
 import org.osate.ge.internal.diagram.runtime.ElementAddedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementRemovedEvent;
 import org.osate.ge.internal.diagram.runtime.ElementUpdatedEvent;
@@ -133,6 +135,39 @@ public class GraphitiAgeDiagram implements NodePictogramBiMap, AutoCloseable {
 		});
 		
 		ageDiagram.addModificationListener(modificationListener); // Listen for updates
+		ageDiagram.setTransactionHandler(new DiagramTransactionHandler() {			
+			@Override
+			public void modify(final String label, final Runnable modifier) {
+				//editingDomain.isReadOnly(resource)
+				// TODO: Don't create a transaction if already in one.				
+				
+				editingDomain.getCommandStack().execute(new AbstractCommand(label) {
+					@Override
+					protected boolean prepare() {
+						return true;
+					}					
+
+					@Override
+					public void execute() {
+						modifier.run();
+					}
+
+					@Override
+					public boolean canUndo() {
+						return false;
+					}
+					
+					@Override
+					public void undo() {
+						
+					}
+					
+					@Override
+					public void redo() {
+					}						
+				});
+			}
+		});
 	}
 	
 	/**

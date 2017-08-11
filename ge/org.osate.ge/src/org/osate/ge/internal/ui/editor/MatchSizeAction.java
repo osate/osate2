@@ -11,6 +11,7 @@ package org.osate.ge.internal.ui.editor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import org.eclipse.emf.transaction.RecordingCommand;
@@ -19,6 +20,7 @@ import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.IWorkbenchPart;
+import org.osate.ge.diagram.DiagramElement;
 import org.osate.ge.internal.Activator;
 import org.eclipse.graphiti.features.IFeatureProvider;
 import org.eclipse.graphiti.features.IResizeShapeFeature;
@@ -41,9 +43,17 @@ public class MatchSizeAction extends SelectionAction {
 	//Matches the height and width of every shape selected with the final shape selected.   
 	@Override 
 	public void run(){
+		for(final Object selectedObject : getSelectedObjects()) {
+			System.err.println("SELECTED OBJECT: " + selectedObject);
+		}
+		
+		// TODO: Should use diagram modification here...
+		
+		/*
 		editor.getEditingDomain().getCommandStack().execute(new RecordingCommand(editor.getEditingDomain(), "Match Height and Width") {
 			@Override
 			protected void doExecute() {
+			*/
 				final Collection<ResizeShapeContext> ctxs = getResizeContextsFromEditorSelection();
 				if(ctxs != null) {
 					final IFeatureProvider fp = editor.getDiagramTypeProvider().getFeatureProvider();
@@ -52,8 +62,13 @@ public class MatchSizeAction extends SelectionAction {
 						feature.execute(ctx);
 					}
 				}
-			}
+			/*}
 		});
+		*/
+	}
+	
+	private DiagramElement[] getDiagramElements(final List<?> object) {
+		
 	}
 
 	//Updates action being available based on how many pictograms are selected
