@@ -50,9 +50,9 @@ public class InstanceReferenceBuilder {
 			if(bo instanceof SystemInstance) {
 				return new String[] {ID, SYSTEM_INSTANCE_KEY, systemInstanceKey};
 			} else if(bo instanceof ComponentInstance) {
-				return new String[] {ID, COMPONENT_INSTANCE_KEY, io.getName()};
+				return new String[] {ID, COMPONENT_INSTANCE_KEY, io.getFullName()};
 			} else if(bo instanceof FeatureInstance) {
-				return new String[] {ID,FEATURE_INSTANCE_KEY, io.getName()};
+				return new String[] {ID,FEATURE_INSTANCE_KEY, io.getFullName()};
 			} else if(bo instanceof ConnectionReference) {
 				return new String[] {ID,CONNECTION_REFERENCE_KEY, buildConnectionReferenceId((ConnectionReference)bo)};
 			}			
@@ -85,6 +85,6 @@ public class InstanceReferenceBuilder {
 	}	
 	
 	static String buildConnectionReferenceId(final ConnectionReference cr) {
-		return cr.getSource().getInstanceObjectPath().toLowerCase() + " -> " + cr.getDestination().getInstanceObjectPath().toLowerCase();
+		return cr.getConnection().getFullName() + " : " + cr.getSource().getInstanceObjectPath().toLowerCase() + " -> " + cr.getDestination().getInstanceObjectPath().toLowerCase();
 	}
 }
