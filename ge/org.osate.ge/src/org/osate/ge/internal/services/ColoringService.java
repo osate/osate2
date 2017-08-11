@@ -8,18 +8,28 @@
  *******************************************************************************/
 package org.osate.ge.internal.services;
 
-import java.awt.Color;
+import org.osate.aadl2.NamedElement;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
 
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
+import java.awt.Color;
 
 /**
  * Contains methods to handle highlighting objects based on editor state
  *
  */
 public interface ColoringService {
+	// TODO: Should have a way to batch these changes before making API. Implementation currently creates a Graphiti command for each update.
 	interface Coloring {
 		void dispose();
-		void setForeground(PictogramElement pe, Color color);
+		
+		/**
+		 * 
+		 * @param de
+		 * @param color setting color to null returns the element to its default color.
+		 */
+		void setForeground(DiagramElement de, Color color);
+		
+		void clear();
 	}
 	
 	/**
@@ -30,9 +40,13 @@ public interface ColoringService {
 	Coloring adjustColors();
 	
 	/**
-	 * Applies custom colors to a pictogram element based on the current state of the coloring service
-	 * Coloring can be customized with the is coloring container and is coloring child properties.
-	 * @param pe the pictogram to color. If it is a shape it should be the root shape for a business object. 
+	 * Returns the override foreground color for the element. 
+	 * @param de
+	 * @return the overridden color or null if the default color should be used.
 	 */
-	void applyColoring(PictogramElement pe);
+	Color getForegroundColor(DiagramElement de);
+	
+	// TODO: Rework. Should be split out from the service.
+	void setHighlightedMode(NamedElement ne);
+	void setHighlightedFlow(NamedElement ne);
 }

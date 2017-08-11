@@ -27,8 +27,6 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.transaction.RecordingCommand;
 import org.eclipse.emf.transaction.TransactionalEditingDomain;
-import org.eclipse.graphiti.features.IFeatureProvider;
-import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.ui.statushandlers.StatusManager;
 import org.eclipse.xtext.resource.SaveOptions;
@@ -39,7 +37,6 @@ import org.osate.aadl2.AnnexLibrary;
 import org.osate.aadl2.AnnexSubclause;
 import org.osate.aadl2.DefaultAnnexLibrary;
 import org.osate.aadl2.DefaultAnnexSubclause;
-import org.osate.aadl2.Element;
 import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.modelsupport.Activator;
 import org.osate.annexsupport.AnnexRegistry;
@@ -51,16 +48,14 @@ import org.osate.ge.internal.util.Log;
 
 public class DefaultAadlModificationService implements AadlModificationService {
 	final SavedAadlResourceService savedAadlResourceService;
-	private final IFeatureProvider fp;
 	
-	public DefaultAadlModificationService(final SavedAadlResourceService savedAadlResourceService, final IFeatureProvider fp) {
+	public DefaultAadlModificationService(final SavedAadlResourceService savedAadlResourceService) {
 		this.savedAadlResourceService = savedAadlResourceService;
-		this.fp = fp;
 	}
 	
 	@Override
-	public <E extends Element, R> R modify(final E element, final Modifier<E, R> modifier) {
-		if(element == null) {
+	public <E extends EObject, R> R modify(final E bo, final Modifier<E, R> modifier) {
+		if(bo == null) {
 			return null;
 		}
 
@@ -70,16 +65,16 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			@Override
 			public void run() {
 				final R modifierResult;
-				if(!(element.eResource() instanceof XtextResource)) {
+				if(!(bo.eResource() instanceof XtextResource)) {
 					throw new RuntimeException("Unexpected case. Resource is not an XtextResource");
 				}
 
 				// Try to get the Xtext document	
-				final NamedElement root = element.getElementRoot();
-				final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(root);
+				final Object root = bo.eResource() == null ? null : bo.eResource().getContents().get(0);
+				final IXtextDocument doc = AgeXtextUtil.getDocumentByRootElement(root instanceof NamedElement ? (NamedElement)root : null);
 				if(doc == null) {
-					final XtextResource res = (XtextResource)element.eResource();
-					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, element, modifier, false);
+					final XtextResource res = (XtextResource)bo.eResource();
+					final ModifySafelyResults<R> modifySafelyResult = modifySafely(res, bo, modifier, true);
 					modifierResult = modifySafelyResult.modifierResult;
 					
 					if(modifySafelyResult.modificationSuccessful) {
@@ -87,44 +82,33 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						try {
 							savedAadlResourceService.setSaveInProgress(res, true);
 							res.save(SaveOptions.defaultOptions().toOptionsMap());
-						} catch (IOException e) {
+						} catch (final IOException e) {
 							throw new RuntimeException(e);
 						} finally {
 							savedAadlResourceService.setSaveInProgress(res, false);
-						};
-						
-						// Update the diagram
-						Display.getDefault().syncExec(new Runnable() {
-							public void run() {			
-								// Update the entire diagram
-								fp.getDiagramTypeProvider().getNotificationService().updatePictogramElements(new PictogramElement[] { fp.getDiagramTypeProvider().getDiagram() });					
-							}
-						});
-						
-						// Call the after modification callback
-						modifier.afterCommit(res);
+						}
 					}
 				} else {
 					// Determine what the root actual/parsed annex element is if the element is in an annex
-					final EObject parsedAnnexRoot = getParsedAnnexRoot(element);
+					final EObject parsedAnnexRoot = getParsedAnnexRoot(bo);
 					
 					// If the element which needs to be edited is in an annex, modify the default annex element. This is needed because objects inside of annexes 
 					// may not have unique URI's
-					final EObject elementToModify = parsedAnnexRoot == null ? element : parsedAnnexRoot.eContainer();
-					final URI modificationElementUri = EcoreUtil.getURI(elementToModify);
+					final EObject objectToModify = parsedAnnexRoot == null ? bo : parsedAnnexRoot.eContainer();
+					final URI modificationObjectUri = EcoreUtil.getURI(objectToModify);
 					final ModifySafelyResults<R> modifySafelyResult = doc.modify(new IUnitOfWork<ModifySafelyResults<R>, XtextResource>() {
 						@SuppressWarnings("unchecked")
 						@Override
 						public ModifySafelyResults<R> exec(final XtextResource res) throws Exception {
-							final EObject elementToModify = res.getResourceSet().getEObject(modificationElementUri, true);
-							if(elementToModify == null) {
+							final EObject objectToModify = res.getResourceSet().getEObject(modificationObjectUri, true);
+							if(objectToModify == null) {
 								return null;
 							}
 							
-							if(parsedAnnexRoot != null && (elementToModify instanceof DefaultAnnexLibrary || elementToModify instanceof DefaultAnnexSubclause)) {
-								return modifyAnnexInXtextDocument(res, elementToModify, element, modifier);
+							if(parsedAnnexRoot != null && (objectToModify instanceof DefaultAnnexLibrary || objectToModify instanceof DefaultAnnexSubclause)) {
+								return modifyAnnexInXtextDocument(res, objectToModify, bo, modifier);
 							} else {
-								return modifySafely(res, (E)elementToModify, modifier, false);
+								return modifySafely(res, (E)objectToModify, modifier, false);
 							}
 						}
 					});
@@ -137,10 +121,9 @@ public class DefaultAadlModificationService implements AadlModificationService {
 						doc.readOnly(new IUnitOfWork<Object, XtextResource>() {
 							@Override
 							public Object exec(final XtextResource res) throws Exception {
-								modifier.afterCommit(res);
 								return null;
 							}
-						});	
+						});
 					}
 				}
 
@@ -191,7 +174,7 @@ public class DefaultAadlModificationService implements AadlModificationService {
 			@Override
 			public R modify(final Resource resource, final EObject defaultAnnexElement) {
 				// Modify the cloned object
-				final R result = modifier.modify(resource, clonedUserObject);
+				final R result = modifier.modify(clonedUserObject.eResource(), clonedUserObject);
 				
 				// Unparse the annex text of the cloned object and update the Xtext document
 				if(parsedAnnexRootClone instanceof AnnexLibrary) {
@@ -209,16 +192,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 				}
 
 				return result;
-			}
-
-			@Override
-			public void beforeCommit(final Resource resource, final EObject element, final R modificationResult) {
-				modifier.beforeCommit(resource, clonedUserObject, modificationResult);
-			}
-
-			@Override
-			public void afterCommit(final Resource resource) {
-				modifier.afterCommit(resource);
 			}
 		}, false);
 	}
@@ -368,11 +341,6 @@ public class DefaultAadlModificationService implements AadlModificationService {
 
 			// Flush and dispose of the editing domain
 			domain.getCommandStack().flush();			
-			
-			if(modificationSuccessful) {
-				// Call the after modification callback
-				modifier.beforeCommit(resource, element, result);
-			}
 		}
 		
 		return new ModifySafelyResults<R>(modificationSuccessful, result);

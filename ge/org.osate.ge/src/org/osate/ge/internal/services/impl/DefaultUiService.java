@@ -30,6 +30,11 @@ public class DefaultUiService implements UiService {
 		getAgeDiagramBehavior().deactivateActiveTool();
 	}
 	
+	@Override
+	public void clearSelection() {
+		getAgeDiagramBehavior().clearSelection();
+	}
+	
 	private AgeDiagramBehavior getAgeDiagramBehavior() {
 		if(!(dtp.getDiagramBehavior() instanceof AgeDiagramBehavior)) {
 			throw new RuntimeException("Diagram behavior is not of type AgeDiagramBehavior");
@@ -38,5 +43,5 @@ public class DefaultUiService implements UiService {
 		final AgeDiagramBehavior diagramBehavior = (AgeDiagramBehavior)dtp.getDiagramBehavior();
 		return diagramBehavior;
 	}
-
+	
 }

@@ -1,3 +1,24 @@
+// Based on OSATE Graphical Editor. Modifications are: 
+/*
+Copyright (c) 2016, Rockwell Collins.
+Developed with the sponsorship of Defense Advanced Research Projects Agency (DARPA).
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this data, 
+including any software or models in source or binary form, as well as any drawings, specifications, 
+and documentation (collectively "the Data"), to deal in the Data without restriction, including
+without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+and/or sell copies of the Data, and to permit persons to whom the Data is furnished to do so, 
+subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or 
+substantial portions of the Data.
+
+THE DATA IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT 
+LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. 
+IN NO EVENT SHALL THE AUTHORS, SPONSORS, DEVELOPERS, CONTRIBUTORS, OR COPYRIGHT HOLDERS BE LIABLE 
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE DATA OR THE USE OR OTHER DEALINGS IN THE DATA.
+*/
 /*******************************************************************************
  * Copyright (C) 2016 University of Alabama in Huntsville (UAH)
  * All rights reserved. This program and the accompanying materials
@@ -27,34 +48,30 @@ import org.eclipse.ui.PlatformUI;
 import org.osate.aadl2.AadlPackage;
 import org.osate.aadl2.Classifier;
 import org.osate.aadl2.Element;
+import org.osate.aadl2.NamedElement;
 import org.osate.aadl2.PackageSection;
+import org.osate.aadl2.instance.ComponentInstance;
 import org.osate.aadl2.modelsupport.resources.OsateResourceUtil;
 import org.osate.ge.internal.Activator;
 import org.osate.ge.internal.services.DiagramService;
 import org.osate.ui.navigator.AadlNavigator;
+import org.osate.workspace.WorkspacePlugin;
 
 public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
-	private static final Object AADL_EXT = "aadl";
+	private static final String AADL_EXT = "aadl";
 
 	@Override
 	public Object execute(final ExecutionEvent event) throws ExecutionException {
 		try {
 			// Determine the classifier
-			Element element = getSelectedElement();
+			final Element element = getSelectedElement();
 			if (element != null) {
-				if (element instanceof Classifier) {
-					final Classifier classifier = (Classifier) element;
+				if (element instanceof Classifier || element instanceof AadlPackage || element instanceof ComponentInstance) {
+					final NamedElement ne = (NamedElement)element;
 					final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
 							.getActiveWorkbenchWindow().getService(DiagramService.class);
-					diagramService.openOrCreateDiagramForRootBusinessObject(classifier);
-
-				} else if (element instanceof AadlPackage) {
-					final AadlPackage pkg = (AadlPackage) element;
-					final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
-							.getActiveWorkbenchWindow().getService(DiagramService.class);
-					diagramService.openOrCreateDiagramForRootBusinessObject(pkg);
-
-				}
+					diagramService.openOrCreateDiagramForBusinessObject(ne);
+				} 
 			}
 		} catch (RuntimeException e) {
 			MessageDialog.openError(PlatformUI.getWorkbench().getActiveWorkbenchWindow().getShell(),
@@ -65,8 +82,8 @@ public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
 		return null;
 	}
 
-	private AadlPackage getSelectedPackage(Element element) {
-		Element root = element.getElementRoot();
+	private AadlPackage getSelectedPackage(final Element element) {
+		final Element root = element.getElementRoot();
 		if (root instanceof AadlPackage) {
 			return (AadlPackage) root;
 		}
@@ -84,27 +101,29 @@ public class OpenDiagramFromNavigatorHandler extends AbstractHandler {
 	}
 
 	private Element getSelectedElement() {
-		IWorkbench wb = PlatformUI.getWorkbench();
-		IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
-		IWorkbenchPage page = win.getActivePage();
-		IWorkbenchPart part = page.getActivePart();
+		final IWorkbench wb = PlatformUI.getWorkbench();
+		final IWorkbenchWindow win = wb.getActiveWorkbenchWindow();
+		final IWorkbenchPage page = win.getActivePage();
+		final IWorkbenchPart part = page.getActivePart();
 
-		Object selectedObj = null;
 		if (part instanceof AadlNavigator) {
-			ISelection selection = ((AadlNavigator) part).getCommonViewer().getSelection();
+			final ISelection selection = ((AadlNavigator) part).getCommonViewer().getSelection();
 			if (selection instanceof TreeSelection) {
-				selectedObj = ((TreeSelection) selection).getFirstElement();
+				final Object selectedObj = ((TreeSelection) selection).getFirstElement();
 				if (selectedObj instanceof IFolder) {
 					return null;
 				} else if (selectedObj instanceof IProject) {
 					return null;
 				} else if (selectedObj instanceof IFile) {
-					if (AADL_EXT.equals(((IFile) selectedObj).getFileExtension())) {
-						EList<EObject> contents = OsateResourceUtil.getResource((IFile) selectedObj).getContents();
+					final String ext = ((IFile) selectedObj).getFileExtension();
+					if (AADL_EXT.equalsIgnoreCase(ext) || WorkspacePlugin.INSTANCE_FILE_EXT.equalsIgnoreCase(ext)) {
+						final EList<EObject> contents = OsateResourceUtil.getResource((IFile) selectedObj).getContents();
 						if (null != contents && !contents.isEmpty()) {
-							EObject root = contents.get(0);
+							final EObject root = contents.get(0);
 							if (root instanceof AadlPackage) {
 								return (AadlPackage) root;
+							} else if(root instanceof ComponentInstance) {
+								return (ComponentInstance)root;
 							} else {
 								return null;
 							}

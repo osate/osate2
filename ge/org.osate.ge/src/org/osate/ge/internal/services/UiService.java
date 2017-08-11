@@ -24,4 +24,6 @@ public interface UiService {
 	IAction getActivateToolAction(final String toolId);
 	
 	void deactivateActiveTool();
+	
+	void clearSelection();
 }

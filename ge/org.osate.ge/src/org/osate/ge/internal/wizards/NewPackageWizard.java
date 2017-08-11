@@ -181,15 +181,16 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 					generator.generateContainer(new SubProgressMonitor(monitor, 1000));
 					newFile.create(initialContents, false, monitor);
 					IResourceUtility.setGenerated(newFile, false);
-					if (monitor.isCanceled())
-						throw new OperationCanceledException();
+					if (monitor.isCanceled()) { 
+						throw new OperationCanceledException(); 
+					}
 				} finally {
 					monitor.done();
 				}
 			}
 		};
 		try {
-			getContainer().run(true, true, operation);
+			getContainer().run(false, true, operation);
 
 			// Build the project so that the index will be updated
 			if (project != null) {
@@ -215,7 +216,7 @@ public class NewPackageWizard extends Wizard implements INewWizard {
 				final DiagramService diagramService = (DiagramService) PlatformUI.getWorkbench()
 						.getActiveWorkbenchWindow().getService(DiagramService.class);
 				diagramService
-						.openOrCreateDiagramForRootBusinessObject((NamedElement) pkgResource.getContents().get(0));
+						.openOrCreateDiagramForBusinessObject((NamedElement) pkgResource.getContents().get(0), false, false);
 			} else {
 				final Status status = new Status(IStatus.ERROR, Activator.getPluginId(),
 						"Unable to retrieve package from resource.", null);

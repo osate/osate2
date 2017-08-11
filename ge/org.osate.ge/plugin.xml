@@ -1,28 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
+   <extension-point id="org.osate.ge.tooltips" name="Tooltips" schema="schema/org.osate.ge.tooltips.exsd"/>
+   <extension-point id="org.osate.ge.commands" name="Tools" schema="schema/org.osate.ge.commands.exsd"/>
    <extension-point id="org.osate.ge.tools" name="Tools" schema="schema/org.osate.ge.tools.exsd"/>
    <extension-point id="org.osate.ge.categories" name="Categories" schema="schema/org.osate.ge.categories.exsd"/>
    <extension-point id="org.osate.ge.images" name="Images" schema="schema/org.osate.ge.images.exsd"/>
    <extension-point id="org.osate.ge.references" name="Reference Handling" schema="schema/org.osate.ge.references.exsd"/>
+   <extension-point id="org.osate.ge.businessObjectHandlers" name="Business Object Handlers" schema="schema/org.osate.ge.businessObjectHandlers.exsd"/>
+   <extension-point id="org.osate.ge.businessObjectProviders" name="Business Object Providers" schema="schema/org.osate.ge.businessObjectProviders.exsd"/>
 	<extension point="org.eclipse.ui.commands">
 	   <command id="org.osate.ge.commands.opendiagram" name="Open Diagram" defaultHandler="org.osate.ge.internal.ui.handlers.OpenDiagramHandler"></command>
+	   <command id="org.osate.ge.commands.creatediagram" name="Create Diagram..." defaultHandler="org.osate.ge.internal.ui.handlers.CreateDiagramHandler"></command>
 	   <command 
 	   		id="org.osate.ge.commands.open.diagram.from.navigator"
 			name="Open Diagram" 
 			description="Open Diagram">
+		</command>
+			   <command 
+	   		id="org.osate.ge.commands.create.diagram.from.navigator"
+			name="Create Diagram..." 
+			description="Create Diagram">
 		</command>
    </extension>
        
    <extension point="org.eclipse.ui.menus">
 		<menuContribution allPopups="false" locationURI="popup:#TextEditorContext?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
+			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
 		</menuContribution>
 		<menuContribution allPopups="false" locationURI="popup:org.osate.xtext.aadl2.ui.outline?after=additions">
 			<command commandId="org.osate.ge.commands.opendiagram" style="push"/>
+			<command commandId="org.osate.ge.commands.creatediagram" style="push"/>
 		</menuContribution>
+		
        <menuContribution
-            locationURI="popup:org.osate.ui.navigator.AadlNavigator">
+            locationURI="popup:org.osate.ui.navigator.AadlNavigator?after=org.osate.aadl2.instance.ui.generateTextualInstance">
          <command
              commandId="org.osate.ge.commands.open.diagram.from.navigator"
              label="Open Diagram"
@@ -30,25 +43,19 @@
              style="push"
              mnemonic="O">
           <visibleWhen>
-			<and>
-	            <reference
-	                  definitionId="oneElementSelected">
-	            </reference>
-		        <with variable="selection">
-		           <iterate ifEmpty="false" operator="and">
-		              <or>
-		                <adapt type="org.eclipse.core.resources.IFile">
-                           <test
-                             property="org.osate.ge.isAadlPackage">
-                          </test>
-		                </adapt>
-		                <adapt type="org.osate.aadl2.Classifier"/>
-		                <adapt type="org.osate.aadl2.PackageSection"/>
-		                <adapt type="org.osate.aadl2.AadlPackage"/>
-		              </or>
-		           </iterate>
-		        </with>
-	        </and>    
+            <reference definitionId="org.osate.ge.compatibleElementSelected">
+            </reference>
+         </visibleWhen>
+         </command>
+         
+         <command
+             commandId="org.osate.ge.commands.create.diagram.from.navigator"
+             label="Create Diagram..."
+             tooltip="Create Diagram" 
+             style="push">
+          <visibleWhen>
+            <reference definitionId="org.osate.ge.compatibleElementSelected">
+            </reference>
          </visibleWhen>
          </command>
       </menuContribution>
@@ -65,7 +72,7 @@
    <extension point="org.eclipse.graphiti.ui.diagramTypeProviders">     
       <diagramTypeProvider
             name="AADL Component Implementation Diagram Type Provider"
-            class="org.osate.ge.internal.AgeDiagramTypeProvider"
+            class="org.osate.ge.internal.graphiti.AgeDiagramTypeProvider"
             id="org.osate.ge.aadlDiagramTypeProvider">
          <diagramType
                id="org.osate.ge.aadlDiagramType">
@@ -113,11 +120,6 @@
            labelProvider="org.osate.ge.internal.ui.navigator.LabelProvider"
            name="AADL Diagrams"
            priority="highest">
-           
-		<actionProvider
-			class="org.osate.ge.internal.ui.navigator.ActionProvider">
-		</actionProvider>
-		
         <enablement>
            <or>
               <instanceof
@@ -208,7 +210,7 @@
  <extension
       point="org.eclipse.graphiti.ui.imageProviders">
    <imageProvider
-         class="org.osate.ge.internal.AgeImageProvider"
+         class="org.osate.ge.internal.graphiti.AgeImageProvider"
          id="org.osate.ge.image_provider">
    </imageProvider>
 </extension>
@@ -253,35 +255,6 @@
 </extension>
        
  <extension
-      point="org.eclipse.ui.views.properties.tabbed.propertyTabs">
-    <propertyTabs contributorId="org.osate.ge.editor.AgeDiagramEditor">       
-		<propertyTab category="org.osate.ge" id="org.osate.ge.bindings" label="Bindings">
-    </propertyTab>
-    	<propertyTab category="org.osate.ge" id="org.osate.ge.connections" label="Connections">
-    </propertyTab>
-   </propertyTabs>
-</extension>
-     
- <extension
-      point="org.eclipse.ui.views.properties.tabbed.propertySections">
-    <propertySections
-          contributorId="org.osate.ge.editor.AgeDiagramEditor">
-        <propertySection
-              class="org.osate.ge.internal.ui.properties.BindingsSection"
-              filter="org.osate.ge.internal.ui.properties.BindingsFilter"
-              id="graphiti.main.tab.emfclass"
-              tab="org.osate.ge.bindings">
-        </propertySection>
-        <propertySection
-              class="org.osate.ge.internal.ui.properties.ConnectionsSection"
-              filter="org.osate.ge.internal.ui.properties.ConnectionsFilter"
-              id="graphiti.main.tab.emfclass"
-              tab="org.osate.ge.connections">
-        </propertySection>
-    </propertySections>
- </extension>
-
- <extension
        point="org.eclipse.core.expressions.definitions">
     <definition
           id="oneElementSelected">
@@ -300,50 +273,88 @@
             class="org.osate.ge.internal.ui.handlers.OpenDiagramFromNavigatorHandler"
             commandId="org.osate.ge.commands.open.diagram.from.navigator">
          <enabledWhen>
-			<and>
-	            <reference
-	                  definitionId="oneElementSelected">
-	            </reference>
-		        <with variable="selection">
-		           <iterate ifEmpty="false" operator="and">
-		              <or>
-		                <adapt type="org.eclipse.core.resources.IFile">
-                           <test
-                             property="org.osate.ge.isAadlPackage">
-                          </test>
-		                </adapt>
-		                <adapt type="org.osate.aadl2.Classifier"/>
-		                <adapt type="org.osate.aadl2.PackageSection"/>
-		                <adapt type="org.osate.aadl2.AadlPackage"/>
-		              </or>
-		           </iterate>
-		        </with>
-	        </and>    
+            <reference
+                  definitionId="org.osate.ge.compatibleElementSelected">
+            </reference>
+         </enabledWhen>
+      </handler>
+      
+      <handler
+            class="org.osate.ge.internal.ui.handlers.CreateDiagramFromNavigatorHandler"
+            commandId="org.osate.ge.commands.create.diagram.from.navigator">
+         <enabledWhen>
+            <reference
+                  definitionId="org.osate.ge.compatibleElementSelected">
+            </reference>
          </enabledWhen>
       </handler>
    </extension>
+    <extension
+          point="org.eclipse.core.expressions.definitions">
+       <definition id="org.osate.ge.compatibleElementSelected">
+       	<and>
+            <reference
+                  definitionId="oneElementSelected">
+            </reference>
+	        <with variable="selection">
+	           <iterate ifEmpty="false" operator="and">
+	              <or>
+	                <adapt type="org.eclipse.core.resources.IFile">
+                       <or>
+                          <test
+                                property="org.osate.ge.isAadlPackage">
+                          </test>
+                          <test
+                                args="extension"
+                                property="org.eclipse.core.resources.extension"
+                                value="aaxl2">
+                          </test>
+                       </or>
+	                </adapt>
+	                <adapt type="org.osate.aadl2.Classifier"/>
+	                <adapt type="org.osate.aadl2.PackageSection"/>
+	                <adapt type="org.osate.aadl2.AadlPackage"/>
+	              </or>
+	           </iterate>
+	        </with>
+        </and>    
+       </definition>
+    </extension>
+    
     <extension
           point="org.osate.ge.tools">
        <tool class="org.osate.ge.internal.ui.tools.CreateEndToEndFlowSpecificationTool"/>
        <tool class="org.osate.ge.internal.ui.tools.CreateFlowImplementationTool"/>
        <tool class="org.osate.ge.internal.ui.tools.SetBindingTool"/>
     </extension>
+    
+    <extension
+          point="org.osate.ge.tooltips">
+       <tooltipContributor 
+       		class="org.osate.ge.internal.tooltips.FeatureInstanceTooltipContributor"
+       		priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.internal.tooltips.AadlSourceTooltipContributor"
+             priority="1">
+       </tooltipContributor>
+       <tooltipContributor
+             class="org.osate.ge.internal.tooltips.PropertyValueTooltipContributor"
+             priority="1">
+       </tooltipContributor>
+    </extension>
+
     <extension
           point="org.osate.ge.categories">
-          <category
-             id="org.osate.ge.categories.connections"
-             name="Connections"
-             order="20">
-       </category>
        <category
              id="org.osate.ge.categories.classifiers"
              name="Classifiers"
              order="10">
        </category>
        <category
-             id="org.osate.ge.categories.flows"
-             name="Flows"
-             order="40">
+             id="org.osate.ge.categories.connections"
+             name="Connections"
+             order="20">
        </category>
        <category
              id="org.osate.ge.categories.features"
@@ -351,24 +362,24 @@
              order="30">
        </category>
        <category
-             id="org.osate.ge.categories.modes"
-             name="Modes"
+             id="org.osate.ge.categories.subcomponents"
+             name="Subcomponents"
+             order="40">
+       </category>
+       <category
+             id="org.osate.ge.categories.flows"
+             name="Flows"
              order="50">
        </category>
        <category
-             id="org.osate.ge.categories.subcomponents"
-             name="Subcomponents"
-             order="70">
+             id="org.osate.ge.categories.modes"
+             name="Modes"
+             order="60">
        </category>
        <category
              id="org.osate.ge.categories.subprogram_calls"
              name="Subprogram Calls"
              order="80">
-       </category>
-        <category
-             id="org.osate.ge.categories.relationships"
-             name="Relationships"
-             order="60">
        </category>
     </extension>
     <extension
@@ -739,7 +750,194 @@
        <referenceBuilder
              class="org.osate.ge.internal.services.impl.DeclarativeReferenceBuilder">
        </referenceBuilder>
+		<referenceBuilder
+             class="org.osate.ge.internal.services.impl.InstanceReferenceBuilder">
+       </referenceBuilder>
        <referenceResolver
-             class="org.osate.ge.internal.services.impl.DeclarativeReferenceResolver"></referenceResolver>
+             class="org.osate.ge.internal.services.impl.InstanceReferenceResolver">
+       </referenceResolver>
+       <referenceBuilder
+             class="org.osate.ge.internal.services.impl.GraphicalEditorModelReferenceBuilder">
+       </referenceBuilder>
+    </extension>
+    <extension
+          point="org.osate.ge.businessObjectHandlers">
+		<handler
+             class="org.osate.ge.internal.businessObjectHandlers.ClassifierHandler">
+		</handler>
+		<handler
+             class="org.osate.ge.internal.businessObjectHandlers.GeneralizatonHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.PackageHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ConnectionReferenceHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.AnnexHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ComponentInstanceHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FeatureInstanceHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FeatureHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ModeHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ModeTransitionTriggerHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallSequenceHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubprogramCallOrderHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.SubcomponentHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.ConnectionHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.TagHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.PropertyValueGroupHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.TimingPropertyValueHandler"
+             priority="1">
+       </handler>
+       <!--
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FlowSourceSinkSpecificationHandler">
+       </handler>
+       <handler
+             class="org.osate.ge.internal.businessObjectHandlers.FlowPathSpecificationHandler">
+       </handler>-->
+    </extension>
+    <extension
+          point="org.osate.ge.commands">
+       <command
+             class="org.osate.ge.internal.commands.OpenAssociatedDiagramCommand"></command>
+       <command
+             class="org.osate.ge.internal.commands.CreateNewDiagramCommand"></command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetInitialModeCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.ComponentImplementationToTypeCommand">
+       </command>
+       <command
+       		 class="org.osate.ge.internal.commands.SubcomponentToTypeCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.GoToPackageDiagramCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.GraphicalToTextualCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SetFeatureClassifierCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.InstantiateComponentImplementationCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SwitchDirectionOfConnectionCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.ConfigureInModesCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SetDimensionsCommand">
+       </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetDerivedModesCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.SetModeTransitionTriggersCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.EditFlowsCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.SetSubcomponentClassifierCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.RefineSubcomponentCommand">
+       </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetConnectionBidirectionalityCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.MoveSubprogramCallUpCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.MoveSubprogramCallDownCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.PackageSetExtendedClassifierCommand">
+       </command>
+       <commandContributor
+             class="org.osate.ge.internal.commands.ChangeFeatureTypeCommandContributor">
+       </commandContributor>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetFeatureGroupInverseCommandContributor">
+       </commandContributor>
+        <commandContributor
+             class="org.osate.ge.internal.commands.SetFeatureKindCommandContributor">
+       </commandContributor>
+       <commandContributor
+             class="org.osate.ge.internal.commands.SetFeatureDirectionCommandContributor">
+       </commandContributor>
+       <commandContributor
+             class="org.osate.ge.internal.commands.ChangeSubcomponentTypeCommandContributor">
+       </commandContributor>
+       <command
+             class="org.osate.ge.internal.commands.RefineFeatureCommand">
+       </command>
+       <command
+             class="org.osate.ge.internal.commands.RefineFlowSpecificationCommand">
+       </command>
+    </extension>
+    <extension
+          point="org.osate.ge.businessObjectProviders">
+       <provider
+             class="org.osate.ge.internal.AadlBusinessObjectProvider">
+       </provider>
+    </extension>
+    <extension
+          point="org.eclipse.ltk.core.refactoring.renameParticipants">
+       <renameParticipant
+             class="org.osate.ge.internal.refactoring.AgeRenameParticipant"
+             id="org.osate.ge.ltk.ageRenameParticipant"
+             name="OSATE Graphical Editor Rename Participant">
+          <enablement>
+             <with
+                   variable="element">
+                <instanceof
+                      value="org.eclipse.xtext.ui.refactoring.ui.IRenameElementContext">
+                </instanceof>
+             </with></enablement>
+       </renameParticipant>
     </extension>
 </plugin>

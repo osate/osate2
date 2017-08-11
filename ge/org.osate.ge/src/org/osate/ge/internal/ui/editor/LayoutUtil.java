@@ -12,13 +12,58 @@ import org.eclipse.graphiti.features.context.impl.MoveShapeContext;
 import org.eclipse.graphiti.mm.pictograms.ContainerShape;
 import org.eclipse.graphiti.mm.pictograms.PictogramElement;
 import org.eclipse.graphiti.mm.pictograms.Shape;
+import org.osate.ge.internal.diagram.runtime.DiagramElement;
+import org.osate.ge.internal.graphics.GraphicUtil;
+import org.osate.ge.internal.graphiti.diagram.GraphitiAgeDiagram;
 
 class LayoutUtil {
-	public static boolean areAllShapes(final PictogramElement[] pes) {
+	public static boolean areAllUndockedMoveableShapes(final PictogramElement[] pes, final GraphitiAgeDiagram graphitiAgeDiagram) {
+		if(graphitiAgeDiagram == null) {
+			return false;
+		}
+		
 		for(final PictogramElement pe : pes) {
 			if(!(pe instanceof Shape)) {
 				return false;
 			}
+			
+			final DiagramElement de = graphitiAgeDiagram.getDiagramElement(pe);
+			if(de == null) {
+				return false;
+			}
+			
+			if(de.getDockArea() != null) {
+				return false;
+			}
+			
+			if(!GraphicUtil.isMoveableShape(de.getGraphic())) {
+				return false;
+			}
+			
+		}
+		
+		return true;
+	}
+	
+	public static boolean areAllResizableShapes(final PictogramElement[] pes, final GraphitiAgeDiagram graphitiAgeDiagram) {
+		if(graphitiAgeDiagram == null) {
+			return false;
+		}
+		
+		for(final PictogramElement pe : pes) {
+			if(!(pe instanceof Shape)) {
+				return false;
+			}
+			
+			final DiagramElement de = graphitiAgeDiagram.getDiagramElement(pe);
+			if(de == null) {
+				return false;
+			}
+			
+			if(!GraphicUtil.isResizableShape(de.getGraphic())) {
+				return false;
+			}
+			
 		}
 		
 		return true;

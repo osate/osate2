@@ -65,7 +65,7 @@
 
    <element name="referenceResolver">
       <complexType>
-         <attribute name="class" type="string">
+         <attribute name="class" type="string" use="required">
             <annotation>
                <documentation>
                   
