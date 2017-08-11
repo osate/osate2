@@ -72,7 +72,7 @@ public class AgeDiagramTests {
 	
 	@Before 
 	public void beforeTest() {
-		diagram = new AgeDiagram();
+		diagram = new AgeDiagram(0);
 		diagram.addModificationListener(ml);
 	}
 	
@@ -80,7 +80,7 @@ public class AgeDiagramTests {
 	@Test
 	public void testElementAddedEvent() {
 		// Test an add event
-		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh, new RelativeBusinessObjectReference("1"), null);
+		final DiagramElement newElement = new DiagramElement(diagram, 1, dummyBoh, new RelativeBusinessObjectReference("1"));
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {
@@ -151,7 +151,7 @@ public class AgeDiagramTests {
 	}
 	
 	private DiagramElement addRootElementAndResetCounter(final int id) {
-		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)), null);
+		final DiagramElement newElement = new DiagramElement(diagram, id, dummyBoh, new RelativeBusinessObjectReference(Integer.toString(id)));
 		diagram.modify(new DiagramModifier() {			
 			@Override
 			public void modify(final DiagramModification m) {

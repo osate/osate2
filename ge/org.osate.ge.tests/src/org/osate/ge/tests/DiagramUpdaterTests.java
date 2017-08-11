@@ -43,7 +43,7 @@ public class DiagramUpdaterTests {
 			)
 		);
 		
-		diagram = new AgeDiagram();
+		diagram = new AgeDiagram(0);
 		diagramUpdater = new DiagramUpdater(testModel, testModel);
 	}
 
